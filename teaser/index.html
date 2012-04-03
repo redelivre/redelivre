@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Campanha Completa</title>
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+        <link rel="stylesheet" type="text/css" media="all" href="style.css" />
+        <script src="jquery-1.7.2.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+        
+            $(document).ready(function() {
+                
+                $('#sendemail').click(function() {
+                    
+                    var email = $('#emailinput').val();
+                    console.log(email);
+                    if (email) {
+                        $('#feedback').html('Enviando...');
+                        $.post(
+                            'http://localhost/campanha-teaser/save-email.php', 
+                            {email: email}, 
+                            function() { 
+                                $('#feedback').html('Muito obrigado!'); 
+                                $('#feedbackpequeno').html('Você será informado assim que o Campanha Completa entrar no ar!');
+                                $('#emailinput').val('digite seu email');
+                            }
+                        );
+                    } else {
+                        //alert('Entre com seu e-mail');
+                        $('#email').focus();
+                    }
+                    return false;
+                });
+                
+            });
+        
+        </script>
+        <!--[if lt IE 8]>
+        <style>
+			table { margin: 0 10px 66px; border-collapse: collapse; }
+			.clearfix { height: 1%; }
+			form#mailing input#email { font-family: arial, verdana, sans-serif; }
+		</style>
+        <![endif]-->
+        <!--[if lt IE 9]>
+        <script src="iepp.1-6-2.js" type="text/javascript"></script>
+        <![endif]-->
+    </head>
+    <body>
+		<div class="wrap">
+			<header id="main-header" class="clearfix">
+					<h1 class="col-4">Campanha Completa</h1>
+					<p class="em-breve">em breve!</p>
+					<h2 class="col-7">Todo candidato tem direito a uma campanha profissional</h2>
+			</header>
+			<!-- #main-header -->
+			<hr class="col-12" />
+			<section id="features" class="clearfix">
+				<h3 id="sites" class="col-3 textcenter">Site ou Blog</h3>
+				<h3 id="redes" class="col-3 textcenter">Redes Sociais</h3>
+				<h3 id="email" class="col-3 textcenter">E-mail e SMS</h3>
+				<h3 id="material" class="col-3 textcenter">Material Gráfico</h3>				
+			</section>
+			<hr class="col-12" />
+			<h2 class="col-12 conheca">Conheça nossos planos</h2>
+			<table>
+				<thead>
+					<th class="cel-4"></th>
+					<th class="cel-2">1</th>
+					<th class="cel-2">2</th>
+					<th class="cel-2">3</th>
+					<th class="cel-2">4</th>
+				</thead>
+				<tr>
+					<th class="feature">Site ou Blog</th>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+				</tr>
+				<tr>
+					<th class="feature">Mobilização nas redes sociais</th>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+				</tr>
+				<tr>
+					<th class="feature">Envio de email e SMS</th>
+					<td>5<span> mil envios</span></td>
+					<td>10<span> mil envios</span></td>
+					<td>20<span> mil envios</span></td>
+					<td>50<span> mil envios</span></td>
+				</tr>
+				<tr>
+					<th class="feature">Upload de arquivos</th>
+					<td>1G</td>
+					<td>2G</td>
+					<td>3G</td>
+					<td>ilimitado</td>
+				</tr>
+				<tr>
+					<th class="feature">Geração de material gráfico</th>
+					<td class="nao">não</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+				</tr>
+				<tr>
+					<th class="feature">Gerenciamento de contatos</th>
+					<td class="nao">não</td>
+					<td class="nao">não</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+				</tr>
+				<tr>
+					<th class="feature">Suporte via fórum</th>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+				</tr>
+				<tr>
+					<th class="feature">Suporte por e-mail</th>
+					<td class="nao">não</td>
+					<td class="nao">não</td>
+					<td class="sim">sim</td>
+					<td class="sim">sim</td>
+				</tr>
+				<tr class="last">
+					<th class="feature">Valor anual</th>
+					<td class="valor">R$1.300,00</td>
+					<td class="valor">R$1.800,00</td>
+					<td class="valor">R$2.500,00</td>
+					<td class="valor">R$3.500,00</td>
+				</tr>
+			</table>
+			<form id="mailing" class="col-12" method="get" action="">
+				<div class="clearfix">
+					<p class="alignleft">
+						<span id="feedback">Cadastre-se e fique informado sobre o lançamento.</span><br />
+						<span id="feedbackpequeno">Seu email não será compartilhado.</span>
+					</p>
+					<input id="emailinput" class="alignleft" type="email" name="email" value="digite seu email" onfocus="if (this.value == 'digite seu email') this.value = '';" onblur="if (this.value == '') {this.value = 'digite seu email';}" />
+					<input class="alignleft" type="image" id="sendemail" src="img/ok.png" />
+				</div>
+			</form>
+			
+			<footer id="main-footer" class="clearfix textcenter">
+				<p>
+					Você também pode ligar para<br />
+					<span>41 3077 4163</span><br />
+					ou mandar um email para<br />
+					<span>contato@campanhacompleta.com.br</span>
+				</p>
+			</footer>
+			<!-- #main-footer -->
+		</div>
+</body>
+</html>
