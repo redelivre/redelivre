@@ -212,18 +212,18 @@ a { color: #ffce33; text-decoration: none; outline: none; }
 .erro { color: #f00; font-size: 12px; }
 .sucesso { color: #242424; font-weight: bold; }
 
-#main-header { height: 440px; }
+#main-header { height: 440px; margin: 0 10px; border-bottom: 1px solid #042244;  }
 #main-header h1 { height: 132px; margin: 88px 0px 44px 170px; text-indent: -9999px; }
 #main-header p { float: left; margin-top: 88px; margin-left: -5px; font-size: 30px; font-style: italic; color: #ffce33; }
 #main-header h2 { margin-left: 410px; font-weight: 900; font-size: 40px; line-height: 44px; text-align: right; }
 
-#features { margin-bottom: 22px; }
+#features { margin-bottom: 0; padding: 20px 0; border-bottom: 1px solid #042244; border-top: 1px solid #7c9dc6; }
 #features h3 { font-weight: normal; padding-top: 88px; }
 #features h3#sites { background: transparent url(img/sites.png) no-repeat center 22px; }
 #features h3#redes { background: transparent url(img/redes.png) no-repeat center 22px; }
 #features h3#email { background: transparent url(img/email.png) no-repeat center 22px; }
 #features h3#material { background: transparent url(img/material.png) no-repeat center 22px; }
-h2.conheca { padding: 44px 0 22px; text-align: center; color: #ffce33; font-style: italic; }
+h2.conheca { padding: 44px 0 22px; text-align: center; color: #ffce33; font-style: italic; border-top: 1px solid #7c9dc6; }
 
 table { margin: 0 10px 66px; border-collapse: separate; }
 th, td { padding: 21px 10px; text-align: center; border-bottom: 1px solid #042244; border-top: 1px solid #7c9dc6; }
