@@ -13,7 +13,7 @@
 <!--<![endif]-->
     <head>
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="initial-scale=1.0,width=device-width" />
         <title><?php
             /* Print the <title> tag based on what is being viewed. */
             global $page, $paged;
