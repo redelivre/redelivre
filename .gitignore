@@ -5,3 +5,4 @@ wp-config.php
 .DS*Store
 Thumbs.db
 base_bkp_last_reset.sql
+.project
