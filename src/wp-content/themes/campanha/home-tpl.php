@@ -57,20 +57,13 @@ Template Name: Home
 		</div>
 	</form>-->
 	<div id="cadastre-se">
-		<h2>Cadastre-se gratuitamente e faça um teste.</h2>
-		<p>Você só paga na hora de escolher um plano e publicar seu site ou blog.</p>
-		<form id="form-cadastre-se" class="clearfix" method="get" action="">
-			<div class="fields clearfix">
-				<label for="emailinput">email</label>
-				<input id="emailinput" class="alignleft" type="email" name="email" value="" />
-			</div>
-			<div class="fields clearfix">
-				<label for="password">senha</label>
-				<input id="password" class="alignleft" type="password" name="password" />
-			</div>
-			<input id="register-submit" class="alignleft" type="submit" name="" value="criar conta gratuita" />
-		</form>
+	    <?php if (!is_user_logged_in()): ?>
+    		<h2>Cadastre-se gratuitamente e faça um teste.</h2>
+    		<p>Você só paga na hora de escolher um plano e publicar seu site ou blog.</p>
+    		<?php require(TEMPLATEPATH . '/cadastro_form.php'); ?>
+		<?php endif; ?>
 	</div>
+
 	<section id="destaques" class="clearfix">
 		<div id="destaque-passo">
 			<h3>Passo a Passo</h3>

@@ -52,6 +52,64 @@ function campanha_setup() {
     add_custom_background();
 }
 
+// REDIRECIONAMENTOS
+add_filter('rewrite_rules_array', 'custom_url_rewrites', 10, 1);
+function custom_url_rewrites($rules) {
+    $new_rules = array(
+        "cadastro/?$" => "index.php?tpl=cadastro",
+    );
+    
+    return $new_rules + $rules;
+}
+
+add_action('template_redirect', 'template_redirect_intercept');
+function template_redirect_intercept() {
+    global $wp_query;
+
+    switch ($wp_query->get('tpl')) {
+        case 'cadastro':
+            require(TEMPLATEPATH . '/cadastro.php');
+            die;
+        default:
+            break;
+    }
+}
+
+function cadastro_url() {
+    return home_url() . '/cadastro';
+}
+
+add_filter('query_vars', 'custom_query_vars');
+function custom_query_vars($public_query_vars) {
+    $public_query_vars[] = "tpl";
+
+    return $public_query_vars;
+}
+
+function print_msgs($msg, $extra_class='', $id='') {
+    if (!is_array($msg)) {
+        return false;
+    }
+
+    foreach ($msg as $type => $msgs) {
+        if (!$msgs) {
+            continue;
+        }
+        
+        echo "<div class='$type $extra_class' id='$id'><ul>";
+        
+        if (!is_array($msgs)) {
+            echo "<li>$msgs</li>";
+        } else {
+            foreach ($msgs as $m) {
+                echo "<li>$m</li>";
+            }
+        }
+        
+        echo "</ul></div>";
+    }
+}
+
 // admin_bar removal
 //wp_deregister_script('admin-bar');
 //wp_deregister_style('admin-bar');

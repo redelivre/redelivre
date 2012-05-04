@@ -50,8 +50,12 @@
 			<header id="main-header" class="clearfix">
 				<h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php html::image('logo.png', 'Campanha Completa') ?></a></h1>	
 				<nav id="main-nav" class="clearfix">
-					<a class="login" href="#">login</a>
-					<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-menu', 'menu_class' => 'clearfix', 'fallback_cb' =>'', 'depth' => '1') ); ?>					
+				    <?php if (is_user_logged_in()): ?>
+					    <a class="login" href="<?php echo admin_url(); ?>">admin</a>
+					<?php else: ?>
+					    <a class="login" href="<?php echo wp_login_url(); ?>">login</a>
+					<?php endif; ?>
+					<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-menu', 'menu_class' => 'clearfix', 'fallback_cb' =>'', 'depth' => '1') ); ?>
 				</nav>
 				<!-- #main-nav -->
 			</header>
