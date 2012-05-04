@@ -1,4 +1,4 @@
-<form id="form-cadastre-se" class="clearfix" method="post">
+<form id="form-cadastre-se" class="clearfix" method="post" action="<?php echo cadastro_url(); ?>">
     <input type="hidden" name="action" value="register" />
     <div class="fields">
         <label for="emailinput">email</label>

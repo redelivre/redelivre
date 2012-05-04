@@ -55,7 +55,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
         $user = wp_signon(array('user_login' => $user_login, 'user_password' => $user_pass), $secure_cookie);
 
         if (!is_wp_error($user) && !$reauth) {
-            wp_safe_redirect(get_author_posts_url($user_id));
+            wp_safe_redirect(admin_url());
             exit();
         }
     } else {
