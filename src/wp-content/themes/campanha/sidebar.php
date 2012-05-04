@@ -1,4 +1,4 @@
-<aside id="main-sidebar" class="col-4 clearfix">
+<aside id="main-sidebar" class="clearfix">
 	<?php dynamic_sidebar('Sidebar'); ?>
 </aside>
 <!-- #main-sidebar -->

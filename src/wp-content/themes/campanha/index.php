@@ -1,8 +1,6 @@
 <?php get_header(); ?>
-
-<div class="wrap clearfix">
     <?php get_sidebar(); ?>
-    <section id="main-section" class="col-8">
+    <section id="main-section">
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
             <?php html::part('loop'); ?>
             <?php endwhile; ?>
@@ -17,10 +15,5 @@
             <p><?php _e('No results found.', 'campanha'); ?></p>              
         <?php endif; ?>
     </section>
-    <!-- #main-section -->	          
-</div>
-
-
-<!-- .wrap --> 
-
+    <!-- #main-section -->
 <?php get_footer(); ?>
