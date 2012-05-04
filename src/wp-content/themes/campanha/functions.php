@@ -86,23 +86,6 @@ function custom_query_vars($public_query_vars) {
     return $public_query_vars;
 }
 
-/**
- * Authenticate user using e-mail address instead of username.
- */
-function campanha_email_login_authenticate($user, $username, $password) {
-    if (!empty($username)) {
-        $user = get_user_by('email', $username);
-    }
-
-    if (isset($user->user_login, $user)) {
-        $username = $user->user_login;
-    }
-    
-    return wp_authenticate_username_password(null, $username, $password);
-}
-remove_filter('authenticate', 'wp_authenticate_username_password', 20, 3);
-add_filter('authenticate', 'campanha_email_login_authenticate', 20, 3);
-
 function print_msgs($msg, $extra_class='', $id='') {
     if (!is_array($msg)) {
         return false;

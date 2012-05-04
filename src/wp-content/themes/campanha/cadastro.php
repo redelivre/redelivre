@@ -6,12 +6,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
         $user->{$n} = $v;
     }
 
-    // email is used for login instead of user name.
-    // so the value for this field doesn't matter.
-    $user_login = md5($_POST['user_email']);
+    $user_login = $_POST['user_login']; 
     $user_email = $_POST['user_email'];
     $user_pass = $_POST['user_pass'];
     $errors = array();
+
+    if (username_exists($user_login)) {
+        $errors['user'] =  __('Já existe um usário com este nome no nosso sistema. Por favor, escolha outro nome.', 'campanha');
+    }
 
     if (email_exists($user_email)) {
         $errors['email'] =  __('Este e-mail já está registrado em nosso sistema. Por favor, cadastre-se com outro e-mail.', 'campanha');
@@ -19,6 +21,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
     
     if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] =  __('O e-mail informado é inválido.', 'campanha');
+    }
+
+    if (strlen($user_login) == 0) {
+        $errors['user'] =  __('O nome de usuário é obrigatório para o cadastro no site.', 'campanha');
+    }
+
+    if (strlen($user_login) > 0 && strlen($user_login) < 3) {
+        $errors['user'] =  __('Nome de usuário muito curto. Escolha um com 3 letras ou mais.', 'campanha');
+    }
+
+    if (!preg_match('/^([a-z0-9-]+)$/', $user_login)) {
+        $errors['user'] =  __('O nome de usuário escolhido é inválido. Por favor, escolha outro nome de usuário.', 'campanha');
     }
 
     if (strlen($user_email) == 0) {
@@ -43,8 +57,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
             }
         }
 
-        $msgs['success'] = 'Cadastro efetuado com sucesso';
-        
         // depois de fazer o registro, faz login
         if (is_ssl() && force_ssl_login() && !force_ssl_admin() && (0 !== strpos($redirect_to, 'https')) && (0 === strpos($redirect_to, 'http'))) {
             $secure_cookie = false;
