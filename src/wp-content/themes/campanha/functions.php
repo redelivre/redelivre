@@ -25,32 +25,8 @@ function campanha_setup() {
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
 
-    // CUSTOM IMAGE HEADER
-    define('HEADER_TEXTCOLOR', '000000');
-    define('HEADER_IMAGE_WIDTH', 980); 
-    define('HEADER_IMAGE_HEIGHT', 176);
-
-    add_custom_image_header( 'campanha_custom_header', 'campanha_admin_custom_header' );
-
-    register_default_headers( array(
-        'Mundo' => array(
-            'url' => '%s/img/headers/image001.jpg',
-            'thumbnail_url' => '%s/img/headers/image001-thumbnail.jpg',
-        ),
-        'Árvores' => array(
-            'url' => '%s/img/headers/image002.jpg',
-            'thumbnail_url' => '%s/img/headers/image002-thumbnail.jpg',
-            'description' => 'barco'
-        ),
-        'Caminho' => array(
-            'url' => '%s/img/headers/image003.jpg',
-            'thumbnail_url' => '%s/img/headers/image003-thumbnail.jpg',
-        ),
-    ) );
-
-    // CUSTOM BACKGROUND
-    add_custom_background();
 }
+
 
 // REDIRECIONAMENTOS
 add_filter('rewrite_rules_array', 'custom_url_rewrites', 10, 1);
@@ -167,69 +143,6 @@ function campanha_auto_excerpt_more( $more ) {
     return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'campanha') . '</a>';
 }
 
-// SETUP
-if (!function_exists('campanha_custom_header')) :
-
-    function campanha_custom_header() {
-        ?><style type="text/css">
-            #branding {
-                background: url(<?php header_image(); ?>);
-            }
-                
-            #branding, #branding a, #branding a:hover {
-                color: #<?php header_textcolor(); ?> !important;
-            }
-            #branding a:hover {
-                text-decoration: none; 
-            }
-            #description { 
-                filter: alpha(opacity=60);
-                opacity: 0.6;
-            }
-        
-        </style><?php
-
-    }
-
-endif;
-
-if (!function_exists('campanha_admin_custom_header')) :
-
-    function campanha_admin_custom_header() {
-        ?><style type="text/css">
-        
-           #headimg {
-                padding:55px 10px;
-                width: 960px !important;
-                height: 66px !important;
-                min-height: 66px !important;
-            }
-        
-            #headimg h1 {
-                font-size:36px;
-                line-height:44px;
-                font-weight:normal !important;
-                margin: 0px;
-                margin: 0 10px;            
-            }
-        
-            #headimg h1 a {
-                text-decoration: none !important;
-            }
-        
-            #headimg #desc { 
-                font-style: italic; 
-                font-size: 16px; 
-                margin: 0 10px;
-                filter: alpha(opacity=60);
-                opacity: 0.6;
-            }
-
-        </style><?php
-    }
-
-endif;
-
 // COMMENTS
 if (!function_exists('campanha_comment')):
 
@@ -253,3 +166,37 @@ if (!function_exists('campanha_comment')):
     }
 
 endif; 
+
+// custom admin login logo
+function custom_login_logo() {
+	echo '
+		<link rel="stylesheet" type="text/css" media="all" href=" '.get_bloginfo( 'stylesheet_url' ).'" />
+        <style type="text/css">
+			
+	        .login h1 a { height: 180px; background-image: url('. html::getImageUrl('logo.png') .'); }
+	        .login form { padding: 26px 24px 62px; margin: 0; background: #042244; border: none; border-radius: 4px; box-shadow: 0px 0px 30px rgba(0,0,0, .3) inset, 1px 1px 0 rgba(250,250,250, .3); }
+	        .login input.button-primary { padding: 0 10px; border: none; border-radius: 4px !important; font-size: 1.125em !important; font-weight: normal; }
+	        .login input.button-primary:hover { color: #ffce33; }
+	        .login form .input { height: 36px; margin-bottom: 24px; background: #7c9dc6; border: none; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 6px; font: 1em "Delicious", "Trebuchet", sans-serif; box-shadow: 0px 0px 30px rgba(0,0,0, .3) inset; color: #1b3c64; }	        
+	        .login label { color: #ffce33; }
+	        .login #nav, .login #backtoblog { text-shadow: 0 -1px 0 #000; }
+	        .login #nav a, .login #backtoblog a { color: #ffce33 !important; }
+	        .login #nav a:hover, .login #backtoblog a:hover { color: #149648 !important; }
+	        #login { padding-top: 48px; width: 280px; }
+	        div.updated, .login .message { background: none; border: 1px solid #c5dcfa; }
+	        div.error, .login #login_error { background: none; margin-left: 0; }
+	        @media screen and (max-width: 320px) { .login h1 { display: none; } #login { padding-top: 24px;} }
+        </style>';
+}
+add_action('login_head', 'custom_login_logo');
+
+function new_headertitle($url){
+    return get_bloginfo('sitetitle');
+}
+add_filter('login_headertitle','new_headertitle');
+
+function custom_login_headerurl($url) {
+    return get_bloginfo('siteurl');
+
+}
+add_filter ('login_headerurl', 'custom_login_headerurl');

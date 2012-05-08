@@ -81,8 +81,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
 
 <?php get_header(); ?>
 
-<section id="signup" class="grid_16 clearfix box-shadow text-center">
-    <div id="cadastre-se" class="col-12">
+<section id="signup">
+    <div id="cadastre-se">
         <h2>Cadastre-se gratuitamente e faça um teste.</h2>
         <p>Você só paga na hora de escolher um plano e publicar seu site ou blog.</p>
         <?php
