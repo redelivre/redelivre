@@ -48,16 +48,16 @@
     <body <?php body_class(); ?>>
 		<div class="wrap clearfix">
 			<header id="main-header" class="clearfix">
-				<h1 class="col-3"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>	
-				<nav id="main-nav" class="col-9">
+				<h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php html::image('logo.png', 'Campanha Completa') ?></a></h1>	
+				<nav id="main-nav" class="clearfix">
 				    <?php if (is_user_logged_in()): ?>
 					    <a class="login" href="<?php echo admin_url(); ?>">admin</a>
 					<?php else: ?>
 					    <a class="login" href="<?php echo wp_login_url(); ?>">login</a>
 					<?php endif; ?>
 					<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-menu', 'menu_class' => 'clearfix', 'fallback_cb' =>'', 'depth' => '1') ); ?>
-					
 				</nav>
 				<!-- #main-nav -->
 			</header>
 			<!-- #main-header -->
+			
