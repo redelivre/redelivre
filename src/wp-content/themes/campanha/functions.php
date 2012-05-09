@@ -8,7 +8,9 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php';
 
-require(TEMPLATEPATH . '/custom_admin.php');
+if (is_admin()) {
+    require(TEMPLATEPATH . '/custom_admin.php');
+}
 
 add_action( 'after_setup_theme', 'campanha_setup' );
 function campanha_setup() {
