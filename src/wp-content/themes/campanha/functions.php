@@ -8,6 +8,9 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php';
 
+if (is_admin()) {
+    require(TEMPLATEPATH . '/custom_admin.php');
+}
 
 add_action( 'after_setup_theme', 'campanha_setup' );
 function campanha_setup() {
@@ -44,7 +47,7 @@ function template_redirect_intercept() {
 
     switch ($wp_query->get('tpl')) {
         case 'cadastro':
-            require(TEMPLATEPATH . '/cadastro.php');
+            require(TEMPLATEPATH . '/register.php');
             die;
         default:
             break;

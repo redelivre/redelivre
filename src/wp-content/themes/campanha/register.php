@@ -92,7 +92,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
             if (isset($msgs)) {
                 print_msgs($msgs);
             }
-            require(TEMPLATEPATH . '/cadastro_form.php');
+            require(TEMPLATEPATH . '/register_form.php');
         }
         ?>
     </div>
