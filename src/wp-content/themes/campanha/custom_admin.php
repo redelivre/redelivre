@@ -7,6 +7,10 @@ if (current_user_can('subscriber')) {
         // disable help boxes in the admin pages
         remove_action('admin_enqueue_scripts', array('WP_Internal_Pointers', 'enqueue_scripts'));
         
+        // disable wp and my sites menus from admin bar
+        remove_action('admin_bar_menu', 'wp_admin_bar_wp_menu');
+        remove_action('admin_bar_menu', 'wp_admin_bar_my_sites_menu', 20);
+        
         // disable screen options tab
         add_filter('screen_options_show_screen', function() {
             return false;
