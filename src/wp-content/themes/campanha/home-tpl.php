@@ -60,7 +60,7 @@ Template Name: Home
 	    <?php if (!is_user_logged_in()): ?>
     		<h2>Cadastre-se gratuitamente e faça um teste.</h2>
     		<p>Você só paga na hora de escolher um plano e publicar seu site ou blog.</p>
-    		<?php require(TEMPLATEPATH . '/cadastro_form.php'); ?>
+    		<?php require(TEMPLATEPATH . '/register_form.php'); ?>
 		<?php endif; ?>
 	</div>
 

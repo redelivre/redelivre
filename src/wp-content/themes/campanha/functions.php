@@ -71,7 +71,7 @@ function template_redirect_intercept() {
 
     switch ($wp_query->get('tpl')) {
         case 'cadastro':
-            require(TEMPLATEPATH . '/cadastro.php');
+            require(TEMPLATEPATH . '/register.php');
             die;
         default:
             break;
