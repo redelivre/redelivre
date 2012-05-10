@@ -83,7 +83,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
 
 <section id="signup">
     <div id="cadastre-se">
-        <h2>Cadastre-se gratuitamente e faça um teste.</h2>
+        <h1>Cadastre-se gratuitamente e faça um teste.</h1>
         <p>Você só paga na hora de escolher um plano e publicar seu site ou blog.</p>
         <?php
         if (is_user_logged_in()) {
