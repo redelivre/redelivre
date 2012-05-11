@@ -324,10 +324,10 @@ tr:first-child th, tr:first-child td { border-top: none; }
 #precos { width: 97.9166666% /*620px*/; margin: 0 1.0416666%; }
 #precos table { table-layout: fixed; }
 #precos table td { font-size: 1.875em; }
-#precos td span { font-size: .6em; }
+#precos td span { font-size: .6em; line-height: 1; }
 .cel-2 { width: 14.5833333% /*140px*/; background: transparent url(img/circle.png) no-repeat center 18px; font-size: 1.875em; color: #1b3c64; text-shadow: 0 1px 0 rgba(250, 250, 250, 0.8), 0 -1px 0 #000; }
 .cel-4 { width: 31.25% /*300px*/; }
-tr.last td { font-weight: 900; }
+tr.last td { font-weight: 900; line-height: 1; }
 td.sim, td.nao { text-indent: -99999px; }
 td.sim { background: transparent url(img/sim.png) no-repeat center; }
 td.nao { background: transparent url(img/nao.png) no-repeat center; }
@@ -447,7 +447,7 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 @media screen and (max-width: 480px) {
 	#main-header h1 { position: absolute; width: 40%; }
 	#main-nav { width: 100%; margin: 0; }
-	#main-nav a.login { margin-bottom: 48px; }
+	#main-nav a.login { margin-bottom: 60px; }
 	#main-menu { position: relative; z-index: 2; float: none; width: 65%; margin: 0 auto; clear: both; text-align: center; }
 	#main-menu li { float: none; margin-bottom: 1px; }
 	#main-menu li:first-child a { border-radius: 4px 4px 0 0; }
@@ -465,7 +465,16 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 	#destaques div, #main-footer section { float: none; width: 97.9166666%; }
 	#main-sidebar { display: none; }
 	#main-section { width: 97.9166666%; }
-	
+	#precos table { width: 90%; }
+	#precos table thead { display: block; float: left; width: 20%; }
+	#precos table thead th { width: 22px; }
+	#precos table tbody { display: block; overflow-x: auto; position: relative; white-space: nowrap; width: 80%; }	
+	#precos table tbody tr { display: inline-block; }
+	#precos td, #precos th { display: block; }
+	.cel-2 { width: auto; background: transparent url(img/small-circle.png) no-repeat center 8px; }
+	.cel-4 { width: auto; height: 24px; }
+	#precos table tbody tr:first-child th, #precos table tbody tr:first-child td { border-top: 1px solid #7C9DC6; }
+	#precos table tbody tr.last th, #precos table tbody tr.last td { border-bottom: 1px solid #042244; }
 }
 
 
