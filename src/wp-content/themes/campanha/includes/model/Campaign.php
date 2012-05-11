@@ -47,6 +47,8 @@ class Campaign {
         $this->state = $data['state'];
         $this->city = $data['city'];
         
+        $this->campaignOwner = wp_get_current_user();
+        
         $this->errors = new WP_Error;
     }
     
@@ -92,17 +94,37 @@ class Campaign {
     public function save() {
         global $wpdb;
      
-        $currentUser = wp_get_current_user();
-        
         // temporary format to store state id and city id in the same field 
         $location = $this->state . ":" . $this->city;
+
+        $blogId = $this->createNewBlog();
         
         $data = array(
-            'user_id' => $currentUser->ID, 'plan_id' => $this->plan, 'blog_id' => 0,
+            'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan, 'blog_id' => $blogId,
             'election_id' => $this->election_id, 'domain' => $this->domain,
             'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location 
         );
         
         $wpdb->insert('campaigns', $data);
+    }
+    
+    /**
+     * Create a new blog associated with the
+     * new campaign
+     * 
+     * @return int created blog id
+     */
+    protected function createNewBlog() {
+        // set here only to avoid a warning in wpmu_create_blog()
+        $meta['public'] = false;
+        
+        $blogId = wpmu_create_blog($this->domain, '/', $this->domain, $this->campaignOwner->ID, $meta);
+        
+        if (is_wp_error($blogId)) {
+            //TODO: improve error handling
+            echo 'Não foi possível criar o blog!'; die;
+        }
+        
+        return $blogId;
     }
 }

@@ -34,7 +34,7 @@ if (!empty($_POST)) {
             <?php foreach ($campaigns as $campaign): ?>
                 <tr>
                     <td><?php echo $campaign->domain ?></td>
-                    <td><?php echo $campaign->plan_id ?></td>
+                    <td><?php echo Plan::getName($campaign->plan_id) ?></td>
                     <td><?php echo $campaign->status ?></td>
                     <td><?php echo $campaign->creation_date ?></td>
                 </tr>
