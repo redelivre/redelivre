@@ -444,7 +444,7 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 	body.home #main-nav { width: 97.91666%; }
 	
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
 	#main-header h1 { position: absolute; width: 40%; }
 	#main-nav { width: 100%; margin: 0; }
 	#main-nav a.login { margin-bottom: 48px; }
