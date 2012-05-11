@@ -58,6 +58,11 @@ function cadastro_url() {
     return home_url() . '/cadastro';
 }
 
+add_action('wp_ajax_campanha_get_cities_options', function() {
+    $state_id = filter_input(INPUT_GET, 'uf', FILTER_SANITIZE_NUMBER_INT);
+    City::printCitiesSelectBox($state_id);
+});
+
 add_filter('query_vars', 'custom_query_vars');
 function custom_query_vars($public_query_vars) {
     $public_query_vars[] = "tpl";
@@ -105,7 +110,6 @@ function campanha_addJS() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('congelado', get_stylesheet_directory_uri().'/js/congelado.js', 'jquery');
     wp_enqueue_script('campanha', get_stylesheet_directory_uri().'/js/campanha.js', 'jquery');
-    
 }
 
 // CUSTOM MENU

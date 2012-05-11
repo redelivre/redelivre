@@ -23,7 +23,8 @@ $autoinclude_folders = array(
     'post-types/',
     'taxonomies/',
     'theme-options/',
-    'widgets/'
+    'widgets/',
+    'model/',
 );
 foreach ($autoinclude_folders as $folder) {
     if (file_exists($autoinclude_base_dir . $folder)) {

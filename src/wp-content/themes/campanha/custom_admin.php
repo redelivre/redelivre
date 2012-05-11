@@ -25,9 +25,13 @@ if (!empty($user->roles) && is_array($user->roles) && in_array('subscriber', $us
 
         // remove default menu options        
         remove_menu_page('index.php');
-        remove_menu_page('profile.php');
-        
-        add_menu_page('Administrar campanhas', 'Administrar campanhas', 'read', 'campaigns.php', function() {
+        remove_menu_page('profile.php'); 
+    });
+    
+    add_action('init', function() {
+        // couldn't make the call to add_menu_page() work without first including the file below
+        require( ABSPATH . '/wp-admin/includes/plugin.php' );
+        add_menu_page('Administrar campanhas', 'Administrar campanhas', 'read', 'campaigns', function() {
             require(TEMPLATEPATH . '/campaigns.php');
         });
     });

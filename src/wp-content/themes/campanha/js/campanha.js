@@ -14,43 +14,20 @@
                 $(this).addClass('hasvalue');
             }
         });
+
+        // update cities field when creating a new campaign        
+        $('#state').change(function() {
+            if ($('#state').val() != '')
+                $('#city').html('<option value="">Carregando...</option>');
+                
+            $.ajax({
+                url: ajaxurl,
+                type: 'get',
+                data: {action: 'campanha_get_cities_options', uf: $('#state').val()},
+                success: function(data) {
+                    $('#city').html(data);
+                } 
+            });
+        });
     });
 })(jQuery);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
