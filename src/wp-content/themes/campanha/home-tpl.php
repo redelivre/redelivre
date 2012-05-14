@@ -6,34 +6,34 @@ Template Name: Home
 <?php get_header(); ?>
     <section id="home-main-section" class="clearfix">
 		<div id="logo"><?php html::image('logao.png','Campanha Completa') ?></div>
-		<div id="prev"><a href="#">Anterior</a></div>
+		<nav id="prev"><a>Anterior</a></nav>
 		<div id="janela">
-			<div id="frase-1" class="frase">
+			<article id="frase-1" class="frase">
 				<h2>Monte seu site ou blog personalizado em minutos.</h2>
 				<p>São várias opções de layout para sua escolha.</p>
-			</div>
-			<div id="frase-2" class="frase">
+			</article>
+			<article id="frase-2" class="frase">
 				<h2>Gerencie sua presença nas redes sociais em um único lugar.</h2>
 				<p>Publique ao mesmo tempo em seu site e nas redes.</p>
-			</div>
-			<div id="frase-3" class="frase">
+			</article>
+			<article id="frase-3" class="frase">
 				<h2>Organize e compartilhe contatos entre sua equipe com segurança.</h2>
 				<p>Todos contatos em um só lugar com níveis de acesso.</p>
-			</div>
-			<div id="frase-4" class="frase">
+			</article>
+			<article id="frase-4" class="frase">
 				<h2>Envie sua campanha por email e sms em massa.</h2>
 				<p>Visualize relatórios e meça os resultados da campanha.</p>
-			</div>
-			<div id="frase-5" class="frase">
+			</article>
+			<article id="frase-5" class="frase">
 				<h2>Mapeie sua campanha com mapas do Google ou OpenStreet.</h2>
 				<p>Explores as posibilidades dos mapas interativos.</p>
-			</div>
-			<div id="frase-6" class="frase">
+			</article>
+			<article id="frase-6" class="frase">
 				<h2>Monte você mesmo seus  próprios materiais gráficos.</h2>
 				<p>Gerador de santinhos, colinhas e flyers.</p>
-			</div>
+			</article>
 		</div>
-		<div id="next"><a href="#">Próximo</a></div>       
+		<nav id="next"><a>Próximo</a></nav>       
     </section>
     <!-- #main-section -->
     <hr />

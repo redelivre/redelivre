@@ -169,7 +169,10 @@
     
         /**
          * MODO DE USAR:
-         * <section class='hl-carrousel' <!-- data-scroll-num="2"--> >
+         * <section class='hl-carrousel'  data-scroll-num="2" >
+         *      <nav>
+         *          <element class='hl-nav-left' />  <!-- qualquer elemento com a classe hl-nav-left -->
+         *      </nav
          *      <div class='hl-wrapper'>
          *          <article></article>
          *          <article></article>
@@ -178,7 +181,6 @@
          *          .
          *      </div>
          *      <nav>
-         *          <element class='hl-nav-left' />  <!-- qualquer elemento com a classe hl-nav-left -->
          *          <element class='hl-nav-right' />  <!-- qualquer elemento com a classe hl-nav-right -->
          *      </nav>
          * </section>
@@ -205,7 +207,7 @@
                     
                     var inc = $this.data('scroll-num') ? $this.data('scroll-num') : 1;
                     
-                    $wrapper.css({overflow: 'hidden', position: 'relative', width: '100%'});
+                    $wrapper.css({overflow: 'hidden', position: 'relative'});
                     $wrapped.css({position: 'absolute', left: 0});
                     
                     $articles.each(function(){
@@ -215,7 +217,7 @@
                          * wrapper igual à altura do maior dos articles
                          */
                         if($wrapper.innerHeight() < $(this).outerHeight(true))
-                            $wrapper.css('height',$(this).outerHeight(true));
+                            $wrapper.css('min-height',$(this).outerHeight(true));
                            
                            
                         aleft.push(wrapped_width);
@@ -224,6 +226,9 @@
                         $wrapped.css('width',wrapped_width);
                     });
                     
+
+					if($(this).data('wrapped-width'))
+						$wrapped.css('width',$(this).data('wrapped-width'));
                     
                     // achando o ultimo indece de scroll
                     var last_index = $articles.length;
@@ -234,16 +239,16 @@
                             last_index = i;
                     }
                     
-                    
                     $right.click(function(){
-                        if(cindex + inc >= last_index && cindex + 1 < last_index)
+						if(cindex + inc >= last_index && cindex + 1 < last_index)
                             cindex = last_index-1;
                         else
                             cindex += inc;
-                        
-                        if(cindex >= last_index)
+
+						if(cindex > last_index)
                             cindex = 0;
-                        
+
+                        console.log(cindex);
                         $wrapped.animate({left: -aleft[cindex]});
                         
                     });
@@ -255,8 +260,9 @@
                             cindex -= inc;
                         
                         if(cindex < 0)
-                            cindex = last_index-1;
-                        
+                            cindex = last_index;
+
+                        console.log(cindex);
                         $wrapped.animate({left: -aleft[cindex]});
                         
                     });
