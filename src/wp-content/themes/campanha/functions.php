@@ -6,7 +6,7 @@
 
 include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
-include dirname(__FILE__).'/includes/utils.class.php';
+include dirname(__FILE__).'/includes/utils.class.php'; 
 
 if (is_admin()) {
     require(TEMPLATEPATH . '/custom_admin.php');
@@ -206,3 +206,21 @@ function custom_login_headerurl($url) {
     return get_bloginfo('url');
 }
 add_filter('login_headerurl', 'custom_login_headerurl');
+
+/**
+ * After login, redirect the user to the page to administer campaigns.
+ * 
+ * @param string $redirect_to
+ * @param string $request the url the user is coming from
+ * @param Wp_Error|Wp_User $user
+ */
+function campanha_login_redirect($redirect_to, $request, $user) {
+    if (!is_wp_error($user) && is_array($user->roles)) {
+        if (in_array("subscriber", $user->roles)) {
+            return admin_url('admin.php?page=campaigns');
+        }
+    }
+
+    return $redirect_to;
+}
+add_filter('login_redirect', 'campanha_login_redirect', 10, 3);
