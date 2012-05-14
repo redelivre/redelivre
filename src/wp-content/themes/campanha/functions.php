@@ -8,6 +8,8 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php'; 
 
+define('CAMPAIGN_ADMIN_URL', 'admin.php?page=campaigns');
+
 if (is_admin()) {
     require(TEMPLATEPATH . '/custom_admin.php');
 }
@@ -215,12 +217,28 @@ add_filter('login_headerurl', 'custom_login_headerurl');
  * @param Wp_Error|Wp_User $user
  */
 function campanha_login_redirect($redirect_to, $request, $user) {
-    if (!is_wp_error($user) && is_array($user->roles)) {
-        if (in_array("subscriber", $user->roles)) {
-            return admin_url('admin.php?page=campaigns');
-        }
+    if (!is_wp_error($user) && is_array($user->roles)
+        && in_array("subscriber", $user->roles))
+    {
+        return admin_url(CAMPAIGN_ADMIN_URL);
     }
 
     return $redirect_to;
 }
 add_filter('login_redirect', 'campanha_login_redirect', 10, 3);
+
+/**
+ * Subscribers never see the admin home page. Instead they
+ * are redirected to the campaigns admin page.
+ */
+function campanha_change_admin_home() {
+    global $user;
+    
+    if (is_array($user->roles) && in_array("subscriber", $user->roles)
+        && preg_match('#wp-admin/?(index.php)?$#', $_SERVER['REQUEST_URI']))
+    {
+        wp_redirect(admin_url(CAMPAIGN_ADMIN_URL));
+    }
+}
+add_action('admin_init', 'campanha_change_admin_home');
+
