@@ -1,7 +1,5 @@
 <?php
 
-$campaigns = Campaign::getAll();
-
 if (!empty($_POST)) {
     $domain = filter_input(INPUT_POST, 'domain', FILTER_SANITIZE_URL);
     $plan = filter_input(INPUT_POST, 'plan', FILTER_SANITIZE_NUMBER_INT);
@@ -16,6 +14,8 @@ if (!empty($_POST)) {
         echo 'tratar erros!'; die;
     }
 }
+
+$campaigns = Campaign::getAll();
 
 ?>
 
