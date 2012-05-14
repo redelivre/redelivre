@@ -57,8 +57,16 @@ class Campaign {
      * campaign.
      */
     public function validate() {
+        if (empty($this->domain)) {
+            $this->errors->add('domain_empty', 'O campo domínio não pode estar vazio.');
+        }
+        
         if ($this->domainExist()) {
             $this->errors->add('domain_exist', 'Esse domínio já está cadastrado.');
+        }
+        
+        if (filter_var($this->domain, FILTER_VALIDATE_URL) === false) {
+            $this->errors->add('domain_exist', 'O domínio digitado é inválido.');
         }
         
         if (!empty($this->errors->errors)) {

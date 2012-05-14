@@ -1,5 +1,7 @@
 <?php
 
+$errors = array();
+
 if (!empty($_POST)) {
     $domain = filter_input(INPUT_POST, 'domain', FILTER_SANITIZE_URL);
     $plan = filter_input(INPUT_POST, 'plan', FILTER_SANITIZE_NUMBER_INT);
@@ -11,7 +13,7 @@ if (!empty($_POST)) {
     if ($campaign->validate()) {
         $campaign->save();
     } else {
-        echo 'tratar erros!'; die;
+        $errors = $campaign->errors->errors;
     }
 }
 
@@ -44,6 +46,14 @@ $campaigns = Campaign::getAll();
 </div>
 
 <h2 id="form_title">Nova campanha</h2>
+
+<?php
+if (!empty($errors)) {
+    foreach ($errors as $error) {
+        print_r($error);
+    }
+}
+?>
 
 <form action="<?php echo site_url() . '/wp-admin/admin.php?page=campaigns'; ?>" method="post" enctype="multipart/form-data">
     <table class="form-table">
