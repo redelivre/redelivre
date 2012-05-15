@@ -17,7 +17,7 @@ if (!empty($_POST)) {
     if ($campaign->validate()) {
         $campaign->create();
     } else {
-        $errors = $campaign->errors->errors;
+        $errors = $campaign->errorHandler->errors;
     }
 }
 
@@ -55,9 +55,7 @@ $campaigns = Campaign::getAll();
 
 <?php
 if (!empty($errors)) {
-    foreach ($errors as $error) {
-        print_r($error);
-    }
+    print_msgs($errors);
 }
 ?>
 

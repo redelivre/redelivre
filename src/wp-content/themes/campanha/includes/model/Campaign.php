@@ -25,7 +25,7 @@ class Campaign {
      */
     public $city;
     
-    public $errors;
+    public $errorHandler;
     
     /**
      * Return all available campaigns.
@@ -71,7 +71,7 @@ class Campaign {
         
         $this->campaignOwner = wp_get_current_user();
         
-        $this->errors = new WP_Error;
+        $this->errorHandler = new WP_Error;
     }
     
     /**
@@ -80,11 +80,11 @@ class Campaign {
      */
     public function validate() {
         if (empty($this->domain)) {
-            $this->errors->add('domain_empty', 'O campo domínio não pode estar vazio.');
+            $this->errorHandler->add('error', 'O campo domínio não pode estar vazio.');
         }
         
         if ($this->domainExist()) {
-            $this->errors->add('domain_exist', 'Esse domínio já está cadastrado.');
+            $this->errorHandler->add('error', 'Esse domínio já está cadastrado.');
         }
 
         // adding 'http://' in case the use haven't because FILTER_VALIDATE_URL requires it
@@ -93,30 +93,30 @@ class Campaign {
         }        
 
         if (filter_var($this->domain, FILTER_VALIDATE_URL) === false) {
-            $this->errors->add('domain_exist', 'O domínio digitado é inválido.');
+            $this->errorHandler->add('error', 'O domínio digitado é inválido.');
         }
         
         if ($this->candidateExist()) {
-            $this->errors->add('candidate_exist', 'Uma campanha para este candidato já foi criada no sistema.');
+            $this->errorHandler->add('error', 'Uma campanha para este candidato já foi criada no sistema.');
         }
         
         if (empty($this->plan_id)) {
-            $this->errors->add('plan_id_empty', 'Você precisa selecionar um plano.');
+            $this->errorHandler->add('error', 'Você precisa selecionar um plano.');
         }
         
         if (!in_array($this->plan_id, Plan::getAllIds())) {
-            $this->errors->add('plan_id_invalid', 'O plano escolhido é inválido.');
+            $this->errorHandler->add('error', 'O plano escolhido é inválido.');
         }
         
         if (empty($this->state)) {
-            $this->errors->add('state_empty', 'Você precisa selecionar um estado.');
+            $this->errorHandler->add('error', 'Você precisa selecionar um estado.');
         }
         
         if (empty($this->city)) {
-            $this->errors->add('city_empty', 'Você precisa selecionar uma cidade.');
+            $this->errorHandler->add('error', 'Você precisa selecionar uma cidade.');
         }
         
-        if (!empty($this->errors->errors)) {
+        if (!empty($this->errorHandler->errors)) {
             return false;
         }
         
