@@ -126,7 +126,9 @@ class Campaign {
         // set here only to avoid a warning in wpmu_create_blog()
         $meta['public'] = false;
         
-        $blogId = wpmu_create_blog($this->domain, '/', $this->domain, $this->campaignOwner->ID, $meta);
+        $domain = str_replace('http://', '', $this->domain);
+        
+        $blogId = wpmu_create_blog($domain, '/', $domain, $this->campaignOwner->ID, $meta);
         
         if (is_wp_error($blogId)) {
             //TODO: improve error handling
