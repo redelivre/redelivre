@@ -5,25 +5,25 @@ class Campaign {
      * Campaign domain
      * @var string
      */
-    protected $domain;
+    public $domain;
     
     /**
      * Plan id of the campaign
      * @var int
      */
-    protected $plan;
+    public $plan_id;
     
     /**
      * State id
      * @var int
      */
-    protected $state;
+    public $state;
     
     /**
      * City id
      * @var int
      */
-    protected $city;
+    public $city;
     
     public $errors;
     
@@ -31,11 +31,18 @@ class Campaign {
      * Return all available campaigns.
      * 
      * @param int $user_id
-     * @return array
+     * @return array array of Campaign objects
      */
     public static function getAll($user_id = null) {
         global $wpdb;
-        return $wpdb->get_results("SELECT * FROM `campaigns` ORDER BY `domain` asc");
+        $results = $wpdb->get_results("SELECT * FROM `campaigns` ORDER BY `domain` asc", ARRAY_A);
+        $campaigns = array();
+        
+        foreach ($results as $result) {
+            $campaigns[] = new Campaign($result);
+        }
+        
+        return $campaigns;
     }
     
     public function __construct(array $data) {
@@ -43,9 +50,23 @@ class Campaign {
         $this->election_id = 1;
         
         $this->domain = $data['domain'];
-        $this->plan = $data['plan'];
-        $this->state = $data['state'];
-        $this->city = $data['city'];
+        $this->plan_id = $data['plan_id'];
+        
+        if (isset($data['state_id'])) {
+            $this->state_id = $data['state_id'];
+        }
+        
+        if (isset($data['city'])) {
+            $this->city = $data['city'];
+        }
+  
+        if (isset($data['creation_date'])) {
+            $this->creation_date = $data['creation_date'];
+        }
+        
+        if (isset($data['status'])) {
+            $this->status = $data['status'];
+        }
         
         $this->campaignOwner = wp_get_current_user();
         
@@ -99,7 +120,7 @@ class Campaign {
      * 
      * @return null
      */
-    public function save() {
+    public function create() {
         global $wpdb;
      
         // temporary format to store state id and city id in the same field 
@@ -108,7 +129,7 @@ class Campaign {
         $blogId = $this->createNewBlog();
         
         $data = array(
-            'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan, 'blog_id' => $blogId,
+            'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $blogId,
             'election_id' => $this->election_id, 'domain' => $this->domain,
             'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location 
         );
@@ -136,5 +157,22 @@ class Campaign {
         }
         
         return $blogId;
+    }
+    
+    /**
+     * Convert between the int in the database and
+     * the string to be displayed to the user.
+     * 
+     * @return string
+     */
+    public function getStatus() {
+        switch ($this->status) {
+            case 0:
+                return 'Pagamento pendente';
+            case 1:
+                return 'Ativo';
+            default:
+                throw new Exception('Campo status não definido ou com valor inválido');
+        }
     }
 }

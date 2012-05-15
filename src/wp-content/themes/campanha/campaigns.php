@@ -4,14 +4,14 @@ $errors = array();
 
 if (!empty($_POST)) {
     $domain = filter_input(INPUT_POST, 'domain', FILTER_SANITIZE_URL);
-    $plan = filter_input(INPUT_POST, 'plan', FILTER_SANITIZE_NUMBER_INT);
-    $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
+    $plan_id = filter_input(INPUT_POST, 'plan_id', FILTER_SANITIZE_NUMBER_INT);
+    $state_id = filter_input(INPUT_POST, 'state_id', FILTER_SANITIZE_NUMBER_INT);
     $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_NUMBER_INT);
     
-    $campaign = new Campaign(array('domain' => $domain, 'plan' => $plan, 'state' => $state, 'city' => $city));
+    $campaign = new Campaign(array('domain' => $domain, 'plan_id' => $plan_id, 'state_id' => $state_id, 'city' => $city));
     
     if ($campaign->validate()) {
-        $campaign->save();
+        $campaign->create();
     } else {
         $errors = $campaign->errors->errors;
     }
@@ -35,10 +35,10 @@ $campaigns = Campaign::getAll();
         <tbody>
             <?php foreach ($campaigns as $campaign): ?>
                 <tr>
-                    <td><?php echo $campaign->domain ?></td>
-                    <td><?php echo Plan::getName($campaign->plan_id) ?></td>
-                    <td><?php echo $campaign->status ?></td>
-                    <td><?php echo $campaign->creation_date ?></td>
+                    <td><a href="<?php echo $campaign->domain; ?>" target="_blank"><?php echo $campaign->domain ?></a></td>
+                    <td><?php echo Plan::getName($campaign->plan_id); ?></td>
+                    <td><?php echo $campaign->getStatus(); ?></td>
+                    <td><?php echo date('d/m/Y', strtotime($campaign->creation_date)); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -66,10 +66,10 @@ if (!empty($errors)) {
                 </td>
             </tr>
             <tr class="form-field">
-                <th scope="row"><label for="plan">Selecione um plano</label></th>
+                <th scope="row"><label for="plan_id">Selecione um plano</label></th>
                 <td>
                     <?php foreach (Plan::getAll() as $plan): ?>
-                        <input type="radio" name="plan" value="<?php echo $plan->id; ?>"><?php echo $plan->name; ?><br>
+                        <input type="radio" name="plan_id" value="<?php echo $plan->id; ?>"><?php echo $plan->name; ?><br>
                     <?php endforeach; ?>
                 </td>
             </tr>
