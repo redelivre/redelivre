@@ -53,8 +53,8 @@ class Campaign {
         $this->plan_id = $data['plan_id'];
         $this->candidate_number = $data['candidate_number'];
         
-        if (isset($data['state_id'])) {
-            $this->state_id = $data['state_id'];
+        if (isset($data['state'])) {
+            $this->state = $data['state'];
         }
         
         if (isset($data['city'])) {
@@ -86,9 +86,34 @@ class Campaign {
         if ($this->domainExist()) {
             $this->errors->add('domain_exist', 'Esse domínio já está cadastrado.');
         }
-        
+
+        // adding 'http://' in case the use haven't because FILTER_VALIDATE_URL requires it
+        if (strpos($this->domain, 'http://') === false) {
+            $this->domain = 'http://' . $this->domain;
+        }        
+
         if (filter_var($this->domain, FILTER_VALIDATE_URL) === false) {
             $this->errors->add('domain_exist', 'O domínio digitado é inválido.');
+        }
+        
+        if ($this->candidateExist()) {
+            $this->errors->add('candidate_exist', 'Uma campanha para este candidato já foi criada no sistema.');
+        }
+        
+        if (empty($this->plan_id)) {
+            $this->errors->add('plan_id_empty', 'Você precisa selecionar um plano.');
+        }
+        
+        if (!in_array($this->plan_id, Plan::getAllIds())) {
+            $this->errors->add('plan_id_invalid', 'O plano escolhido é inválido.');
+        }
+        
+        if (empty($this->state)) {
+            $this->errors->add('state_empty', 'Você precisa selecionar um estado.');
+        }
+        
+        if (empty($this->city)) {
+            $this->errors->add('city_empty', 'Você precisa selecionar uma cidade.');
         }
         
         if (!empty($this->errors->errors)) {
@@ -99,11 +124,30 @@ class Campaign {
     }
     
     /**
-     * Check whether the domain exist already.
+     * Check whether the candidate number
+     * already exist.
      * 
      * @return bool
      */
-    public function domainExist() {
+    protected function candidateExist() {
+        global $wpdb;
+        
+        $candidate_number = $wpdb->get_var(
+            $wpdb->prepare("SELECT `candidate_number` FROM `campaigns` WHERE `candidate_number` = %d", $this->candidate_number));
+            
+        if (!is_null($candidate_number)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Check whether the domain already exist.
+     * 
+     * @return bool
+     */
+    protected function domainExist() {
         global $wpdb;
         
         $domain = $wpdb->get_var(

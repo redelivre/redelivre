@@ -27,7 +27,9 @@ class City {
         
         if (is_array($cities) && !empty($cities)) {
             foreach ($cities as $city) {
-                $output .= "<option value='{$city->id}'>{$city->name}</option>";
+                $output .= "<option value='{$city->id}' ";
+                $output .= (isset($_POST['city']) && $_POST['city'] == $city->id) ? ' selected="selected" ' : '';
+                $output .= ">{$city->name}</option>";
             }
         }
         

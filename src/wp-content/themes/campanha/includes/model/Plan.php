@@ -12,6 +12,16 @@ class Plan {
     }
     
     /**
+     * Return all available plan's ids
+     * 
+     * @return array
+     */
+    public static function getAllIds() {
+        global $wpdb;
+        return $wpdb->get_col("SELECT id FROM `plans`");
+    }
+    
+    /**
      * Return plan name
      * @param int $planId
      * @return string
