@@ -4,11 +4,15 @@ $errors = array();
 
 if (!empty($_POST)) {
     $domain = filter_input(INPUT_POST, 'domain', FILTER_SANITIZE_URL);
+    $candidate_number = filter_input(INPUT_POST, 'candidate_number', FILTER_SANITIZE_NUMBER_INT);
     $plan_id = filter_input(INPUT_POST, 'plan_id', FILTER_SANITIZE_NUMBER_INT);
     $state_id = filter_input(INPUT_POST, 'state_id', FILTER_SANITIZE_NUMBER_INT);
     $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_NUMBER_INT);
     
-    $campaign = new Campaign(array('domain' => $domain, 'plan_id' => $plan_id, 'state_id' => $state_id, 'city' => $city));
+    $campaign = new Campaign(
+        array('domain' => $domain, 'plan_id' => $plan_id, 'state_id' => $state_id,
+            'candidate_number' => $candidate_number, 'city' => $city)
+    );
     
     if ($campaign->validate()) {
         $campaign->create();
@@ -27,6 +31,7 @@ $campaigns = Campaign::getAll();
         <thead>
             <tr class="thead">
                 <th>Domínio</th>
+                <th>Número do candidato</th>
                 <th>Plano</th>
                 <th>Status</th>
                 <th>Data de criação</th>
@@ -36,6 +41,7 @@ $campaigns = Campaign::getAll();
             <?php foreach ($campaigns as $campaign): ?>
                 <tr>
                     <td><a href="<?php echo $campaign->domain; ?>" target="_blank"><?php echo $campaign->domain ?></a></td>
+                    <td><?php echo $campaign->candidate_number; ?></td>
                     <td><?php echo Plan::getName($campaign->plan_id); ?></td>
                     <td><?php echo $campaign->getStatus(); ?></td>
                     <td><?php echo date('d/m/Y', strtotime($campaign->creation_date)); ?></td>
@@ -63,6 +69,12 @@ if (!empty($errors)) {
                 <td>
                     <input type="text" value="" name="domain">
                     <small>Endereço para acessar o site da campanha</small>
+                </td>
+            </tr>
+            <tr class="form-field">
+                <th scope="row"><label for="candidate_number">Número do candidato</label></th>
+                <td>
+                    <input type="text" value="" name="candidate_number">
                 </td>
             </tr>
             <tr class="form-field">

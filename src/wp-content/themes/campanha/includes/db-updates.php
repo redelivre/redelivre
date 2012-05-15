@@ -80,3 +80,11 @@ if (!get_option('db-update-3')) {
     $wpdb->query("INSERT INTO `plans` VALUES (4, 1, 'Completo', 2500)");
     $wpdb->query("INSERT INTO `plans` VALUES (5, 1, 'Premium', 3500)");
 }
+
+// remove test plan and add field with candidate number
+if (!get_option('db-update-4')) {
+    update_option('db-update-4', 1);
+    
+    $wpdb->query("DELETE FROM `plans` WHERE id = 1");
+    $wpdb->query("ALTER TABLE `campaigns` ADD `candidate_number` int(11) NOT NULL AFTER `domain`");
+}

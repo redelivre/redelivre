@@ -51,6 +51,7 @@ class Campaign {
         
         $this->domain = $data['domain'];
         $this->plan_id = $data['plan_id'];
+        $this->candidate_number = $data['candidate_number'];
         
         if (isset($data['state_id'])) {
             $this->state_id = $data['state_id'];
@@ -130,7 +131,7 @@ class Campaign {
         
         $data = array(
             'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $blogId,
-            'election_id' => $this->election_id, 'domain' => $this->domain,
+            'election_id' => $this->election_id, 'domain' => $this->domain, 'candidate_number' => $this->candidate_number,
             'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location 
         );
         
