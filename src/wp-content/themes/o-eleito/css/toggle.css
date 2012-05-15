@@ -1,0 +1,16 @@
+/* Skeleton WP (http://demos.simplethemes.com/skeleton/) */
+.toggle_container { background-color:#fff; margin-bottom:1px; padding:10px; }
+
+p.trigger { cursor:pointer; display:block; font-weight:bold; font-size:1.25em; line-height:175%; margin:0; padding: 8px 8px 8px 16px; }
+
+/* Up Toggle State */
+p.trigger { background:#f8f8f8 url(images/icons/16_expand.png) no-repeat 10px center; border-top:1px solid #e5e5e5; padding-left:34px; }
+p.trigger a {color:#2774ae; text-decoration:none; text-shadow:#fff 1px -1px 0; }
+
+/* Hover Toggle State */
+p.trigger:hover {background:#fff url(images/icons/16_expand.png) no-repeat 10px center; }
+p.trigger a:hover,p.trigger.active a:hover { color:#2774ae; text-shadow:#fff -1px 1px 0; }
+
+/* Active Toggle State */
+p.trigger.active { background:#fff url(images/icons/16_collapse.png) no-repeat 10px center; border-top:1px solid #ebebeb; }
+p.trigger.active a { color:#000; text-shadow:#fff 1px 1px 0; }
