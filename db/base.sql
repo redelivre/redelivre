@@ -723,7 +723,7 @@ CREATE TABLE `wp_users` (
 
 LOCK TABLES `wp_users` WRITE;
 /*!40000 ALTER TABLE `wp_users` DISABLE KEYS */;
-INSERT INTO `wp_users` VALUES (1,'hacklab','$P$BBoUB917/Vka2fuh9sGqiykMh8rkjN0','hacklab','web@hacklab.com.br','','2012-04-23 12:32:43','',0,'hacklab',0,0),(2,'cais','$P$Bl58undSQwSYz0aJgnSUnOyzhgzw6e.','cais','','','2012-04-27 14:36:51','',0,'cais',0,0),(3,'chip bennett','$P$BcFJHQ9xX.CcmgVbtihPhEj./boym31','chip-bennett','','','2012-04-27 14:36:51','',0,'chip bennett',0,0),(4,'ian stewart','$P$Bxoe9ASwp9ImWzGiJhsqX8W/0GyTPr1','ian-stewart','','','2012-04-27 14:36:51','',0,'ian stewart',0,0),(5,'lance willett','$P$BuggmPvcD6Ae9BfFXcW56u.IzxtA2p1','lance-willett','','','2012-04-27 14:36:51','',0,'lance willett',0,0);
+INSERT INTO `wp_users` VALUES (1,'hacklab','$P$BBoUB917/Vka2fuh9sGqiykMh8rkjN0','hacklab','devnull@hacklab.com.br','','2012-04-23 12:32:43','',0,'hacklab',0,0),(2,'cais','$P$Bl58undSQwSYz0aJgnSUnOyzhgzw6e.','cais','','','2012-04-27 14:36:51','',0,'cais',0,0),(3,'chip bennett','$P$BcFJHQ9xX.CcmgVbtihPhEj./boym31','chip-bennett','','','2012-04-27 14:36:51','',0,'chip bennett',0,0),(4,'ian stewart','$P$Bxoe9ASwp9ImWzGiJhsqX8W/0GyTPr1','ian-stewart','','','2012-04-27 14:36:51','',0,'ian stewart',0,0),(5,'lance willett','$P$BuggmPvcD6Ae9BfFXcW56u.IzxtA2p1','lance-willett','','','2012-04-27 14:36:51','',0,'lance willett',0,0);
 /*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -736,4 +736,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-15 12:30:38
+-- Dump completed on 2012-05-15 14:26:06
