@@ -6,12 +6,12 @@ if (!empty($_POST)) {
     $domain = filter_input(INPUT_POST, 'domain', FILTER_SANITIZE_URL);
     $candidate_number = filter_input(INPUT_POST, 'candidate_number', FILTER_SANITIZE_NUMBER_INT);
     $plan_id = filter_input(INPUT_POST, 'plan_id', FILTER_SANITIZE_NUMBER_INT);
-    $state_id = filter_input(INPUT_POST, 'state_id', FILTER_SANITIZE_NUMBER_INT);
+    $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
     $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_NUMBER_INT);
     
     $campaign = new Campaign(
-        array('domain' => $domain, 'plan_id' => $plan_id, 'state_id' => $state_id,
-            'candidate_number' => $candidate_number, 'city' => $city)
+        array('domain' => $domain, 'plan_id' => $plan_id, 'candidate_number' => $candidate_number,
+            'state' => $state, 'city' => $city)
     );
     
     if ($campaign->validate()) {
@@ -67,21 +67,21 @@ if (!empty($errors)) {
             <tr class="form-field">
                 <th scope="row"><label for="domain">Domínio</label></th>
                 <td>
-                    <input type="text" value="" name="domain">
+                    <input type="text" value="<?php if (isset($_POST['domain'])) echo $_POST['domain']; ?>" name="domain">
                     <small>Endereço para acessar o site da campanha</small>
                 </td>
             </tr>
             <tr class="form-field">
                 <th scope="row"><label for="candidate_number">Número do candidato</label></th>
                 <td>
-                    <input type="text" value="" name="candidate_number">
+                    <input type="text" value="<?php if (isset($_POST['candidate_number'])) echo $_POST['candidate_number']; ?>" name="candidate_number">
                 </td>
             </tr>
             <tr class="form-field">
                 <th scope="row"><label for="plan_id">Selecione um plano</label></th>
                 <td>
                     <?php foreach (Plan::getAll() as $plan): ?>
-                        <input type="radio" name="plan_id" value="<?php echo $plan->id; ?>"><?php echo $plan->name; ?><br>
+                        <input type="radio" name="plan_id" value="<?php echo $plan->id; ?>" <?php if (isset($_POST['plan_id']) && $_POST['plan_id'] == $plan->id) echo ' checked '; ?>><?php echo $plan->name; ?><br>
                     <?php endforeach; ?>
                 </td>
             </tr>
@@ -92,7 +92,7 @@ if (!empty($errors)) {
                     <select name="state" id="state">
                         <option value="">Selecione</option>
                         <?php foreach (State::getAll() as $state): ?>
-                            <option value="<?php echo $state->id; ?>">
+                            <option value="<?php echo $state->id; ?>" <?php if (isset($_POST['state']) && $_POST['state'] == $state->id) echo ' selected="selected" '; ?>>
                                 <?php echo $state->name; ?>
                             </option>
                         <?php endforeach; ?>
@@ -100,7 +100,13 @@ if (!empty($errors)) {
                     
                     <label for="city">Cidade</label>
                     <select name="city" id="city">
-                        <option value="">Selecione um estado...</option>
+                        <?php
+                        if (isset($_POST['state'])) {
+                            City::printCitiesSelectBox($_POST['state']);
+                        } else {
+                            echo '<option value="">Selecione um estado...</option>';
+                        }
+                        ?>
                     </select>
                 </td>
             </tr>
