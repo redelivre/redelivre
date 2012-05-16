@@ -8,9 +8,6 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php';
 
-//TODO: check if there is a better way to include code from other theme
-require_once(__DIR__ . '/../campanha/includes/model/Campaign.php');
-
 $campaign = Campaign::getByBlogId($blog_id);
 
 add_action('template_redirect', 'oeleito_check_payment_status');
