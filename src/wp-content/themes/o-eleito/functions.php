@@ -211,7 +211,7 @@ function new_headertitle($url){
 add_filter('login_headertitle','new_headertitle');
 
 function custom_login_headerurl($url) {
-    return get_bloginfo('siteurl');
+    return get_bloginfo('url');
 
 }
 add_filter ('login_headerurl', 'custom_login_headerurl');
