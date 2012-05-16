@@ -52,6 +52,23 @@ class Campaign {
         return $campaigns;
     }
     
+    /**
+     * Get a campaign by blog_id
+     * 
+     * @param int $blog_id
+     * @return Campaign
+     */
+    public static function getByBlogId($blog_id) {
+        global $wpdb;
+        
+        $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
+        
+        return new Campaign($result);
+    }
+
+    //TODO: this function is being used when creating a new campaign and when getting
+    //      an existing one. This two different behaviors should be splited into two
+    //      different methods.    
     public function __construct(array $data) {
         //TODO: create interface for more than one election
         $this->election_id = 1;
@@ -76,7 +93,11 @@ class Campaign {
             $this->status = $data['status'];
         }
         
-        $this->campaignOwner = wp_get_current_user();
+        if (isset($data['user_id'])) {
+            $this->campaignOwner = get_userdata($data['user_id']);
+        } else {
+            $this->campaignOwner = wp_get_current_user();
+        }
         
         $this->errorHandler = new WP_Error;
     }
@@ -223,6 +244,23 @@ class Campaign {
                 return 'Pagamento pendente';
             case 1:
                 return 'Ativo';
+            default:
+                throw new Exception('Campo status não definido ou com valor inválido');
+        }
+    }
+    
+    /**
+     * Check whether the campaign has been paid or
+     * not.
+     * 
+     * @return bool
+     */
+    public function isPaid() {
+        switch ($this->status) {
+            case 0:
+                return false;
+            case 1:
+                return true;
             default:
                 throw new Exception('Campo status não definido ou com valor inválido');
         }

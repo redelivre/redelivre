@@ -8,6 +8,57 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php';
 
+//TODO: check if there is a better way to include code from other theme
+require_once(__DIR__ . '/../campanha/includes/model/Campaign.php');
+
+$campaign = Campaign::getByBlogId($blog_id);
+
+add_action('template_redirect', 'oeleito_check_payment_status');
+/**
+ * Check the payment status and mark the blog
+ * as private in case payment is pending.
+ */
+function oeleito_check_payment_status() {
+    global $campaign;
+    
+    $user_id = get_current_user_id();
+
+    if (!$campaign->isPaid() && $campaign->campaignOwner->ID !== $user_id) {
+        wp_redirect(wp_login_url());
+    }
+}
+
+add_filter('login_message', 'oeleito_login_payment_message');
+/**
+ * Display a message in the login page about the
+ * payment.
+ * 
+ * @param string $message
+ * @return string
+ */
+function oeleito_login_payment_message($message) {
+    global $campaign;
+    
+    if (!$campaign->isPaid()) {
+        $message .= '<p class="message">Está campanha está visível somente para o criador pois o pagamento está pendente.</p>';
+    }
+    
+    return $message;
+}
+
+add_action('admin_notices', 'oeleito_admin_payment_message');
+/**
+ * Display a message in the admin panel about
+ * the payment.
+ */
+function oeleito_admin_payment_message() {
+    global $campaign;
+    
+    if (!$campaign->isPaid()) {
+        $link = '/wp-admin/admin.php?page=payments';
+        echo "<div class='error'><p>Está campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
+    }
+}
 
 add_action( 'after_setup_theme', 'SLUG_setup' );
 function SLUG_setup() {
