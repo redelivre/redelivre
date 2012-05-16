@@ -35,7 +35,14 @@ class Campaign {
      */
     public static function getAll($user_id = null) {
         global $wpdb;
-        $results = $wpdb->get_results("SELECT * FROM `campaigns` ORDER BY `domain` asc", ARRAY_A);
+        
+        if ($user_id) {
+            $query = $wpdb->prepare('SELECT * FROM `campaigns` WHERE user_id = %d ORDER BY `domain` asc', $user_id);
+        } else {
+            $query = 'SELECT * FROM `campaigns` ORDER BY `domain` asc';
+        }
+        
+        $results = $wpdb->get_results($query, ARRAY_A);
         $campaigns = array();
         
         foreach ($results as $result) {

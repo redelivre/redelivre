@@ -21,7 +21,8 @@ if (!empty($_POST)) {
     }
 }
 
-$campaigns = Campaign::getAll();
+global $user;
+$campaigns = Campaign::getAll($user->ID);
 
 ?>
 
