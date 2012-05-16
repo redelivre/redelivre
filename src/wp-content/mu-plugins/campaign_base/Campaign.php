@@ -224,12 +224,25 @@ class Campaign {
         
         $blogId = wpmu_create_blog($domain, '/', $domain, $this->campaignOwner->ID, $meta);
         
+        $this->setBlogOptions($blogId);
+        
         if (is_wp_error($blogId)) {
             //TODO: improve error handling
             echo 'Não foi possível criar o blog!'; die;
         }
         
         return $blogId;
+    }
+    
+    /**
+     * Set options for a new blog created when a new
+     * campaign is created.
+     * 
+     * @param int $blogId
+     * @return null
+     */
+    protected function setBlogOptions($blogId) {
+        update_blog_option($blogId, 'blog_public', 1);
     }
     
     /**
