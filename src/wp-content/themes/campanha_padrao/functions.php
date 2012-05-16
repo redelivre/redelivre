@@ -20,7 +20,9 @@ function oeleito_check_payment_status() {
     
     $user_id = get_current_user_id();
 
-    if (!$campaign->isPaid() && $campaign->campaignOwner->ID !== $user_id) {
+    if (!$campaign->isPaid() && $campaign->campaignOwner->ID !== $user_id
+        && !is_super_admin())
+    {
         wp_redirect(wp_login_url());
     }
 }
