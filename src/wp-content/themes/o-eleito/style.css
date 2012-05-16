@@ -1,5 +1,5 @@
 /*
-Theme Name: SLUG
+Theme Name: O ELEITO (MUDAR ESSE NOME)
 Theme URI: http://slug.com.br
 Description: Tema do SLUG
 Author: Hacklab
@@ -47,7 +47,6 @@ h6 { font-size: 18px; }
 
 /* =Global Elements
 -------------------------------------------------------------- */
-body { background: #fff /*url(img/grid.png)*/; }
 body, input, textarea { color: #666; }
 hr { background-color: #ccc; border: 1px solid #fff; clear: both; height: 1px; margin-bottom: 22px; }
 
@@ -84,10 +83,11 @@ a:active, a:hover {	text-decoration: underline; }
 
 /* =Header
 -------------------------------------------------------------- */
-#main-header { background: #fff; padding: 11px 0 1px; margin-bottom: 10px; }
-#branding { padding: 55px 10px; }
-#branding h1 a, #branding h1 a:hover  { color: #000; text-decoration: none; }
-#description { font-style: italic; font-size: 16px; }
+header#branding { margin:0 auto; min-width:1000px; width:100%; }
+header#branding hgroup { margin:0 auto; max-width:1000px; min-width:1000px; }
+header#branding #branding-image { margin:0 auto; max-width:1000px; min-width:1000px; }
+header#branding #branding-image img { height:auto; margin:0 auto; max-width:1000px; width:100%; }
+header#branding a { display:block; width:100%; }
 
 /* =Menu
 -------------------------------------------------------------- */

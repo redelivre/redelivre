@@ -13,7 +13,7 @@
 <!--<![endif]-->
     <head>
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <title><?php
             /* Print the <title> tag based on what is being viewed. */
             global $page, $paged;
@@ -47,19 +47,32 @@
 
     <body <?php body_class(); ?>>
 
-        <header id="main-header">
-            <div id="branding" class="wrap clearfix">
-                <h1 class="col-12"><span><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></span></h1>
-                <p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
+        <header id="branding" role="banner">
+            <hgroup>
+                <h1 id="site-title"><span><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></span></h1>
+                <h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
+            </hgroup>
+
+            <?php
+                // Check to see if the header image has been removed
+                $header_image = get_header_image();
+                if ( ! empty( $header_image ) ) :
+            ?>
+            <div id="branding-image">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <?php
+                        // The header image
+                        // Check if this is a post or page, if it has a thumbnail, and if it's a big one
+                        if ( is_singular() &&
+                                has_post_thumbnail( $post->ID ) &&
+                                ( /* $src, $width, $height */ $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), array( HEADER_IMAGE_WIDTH, HEADER_IMAGE_WIDTH ) ) ) &&
+                                $image[1] >= HEADER_IMAGE_WIDTH ) :
+                            // Houston, we have a new header image!
+                            echo get_the_post_thumbnail( $post->ID, 'post-thumbnail' );
+                        else : ?>
+                        <img src="<?php header_image(); ?>" width="<?php echo HEADER_IMAGE_WIDTH; ?>" height="<?php echo HEADER_IMAGE_HEIGHT; ?>" alt="" />
+                    <?php endif; // end check for featured image or standard header ?>
+                </a>
             </div>
-            <!-- .wrap -->
-            <nav id="main-nav">
-                <div class="wrap clearfix">
-                    <?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-menu', 'menu_class' => 'clearfix', 'fallback_cb' =>'') ); ?>
-                    <div><a href="<?php bloginfo('rss_url'); ?>" title="RSS Feed">rss</a></div>
-                </div>
-            <!-- .wrap -->
-            </nav>
-            <!-- #main-nav -->
-        </header>
-        <!-- #main-header -->
+            <?php endif; // end check for removed header image ?>       
+        </header><!-- #branding -->
