@@ -242,9 +242,14 @@ class Campaign {
      * @return null
      */
     protected function setBlogOptions($blogId) {
+        // allow search engine robots to index the campaign site
         update_blog_option($blogId, 'blog_public', 1);
+        
+        // set defaut campaign theme
         update_blog_option($blogId, 'allowedthemes', array('campanha_padrao' => true));
         update_blog_option($blogId, 'current_theme', 'Campanha Padrão');
+        update_blog_option($blogId, 'stylesheet', 'campanha_padrao');
+        update_blog_option($blogId, 'template', 'campanha_padrao');
     }
     
     /**
