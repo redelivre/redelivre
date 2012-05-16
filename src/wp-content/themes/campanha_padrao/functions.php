@@ -10,14 +10,14 @@ include dirname(__FILE__).'/includes/utils.class.php';
 
 $campaign = Campaign::getByBlogId($blog_id);
 
-add_action('template_redirect', 'oeleito_check_payment_status');
+add_action('template_redirect', 'campanha_check_payment_status');
 /**
  * Check the payment status and mark the blog
  * as private in case payment is pending.
  */
-function oeleito_check_payment_status() {
+function campanha_check_payment_status() {
     global $campaign;
-    
+
     $user_id = get_current_user_id();
 
     if (!$campaign->isPaid() && $campaign->campaignOwner->ID !== $user_id
@@ -27,7 +27,7 @@ function oeleito_check_payment_status() {
     }
 }
 
-add_filter('login_message', 'oeleito_login_payment_message');
+add_filter('login_message', 'campanha_login_payment_message');
 /**
  * Display a message in the login page about the
  * payment.
@@ -35,7 +35,7 @@ add_filter('login_message', 'oeleito_login_payment_message');
  * @param string $message
  * @return string
  */
-function oeleito_login_payment_message($message) {
+function campanha_login_payment_message($message) {
     global $campaign;
     
     if (!$campaign->isPaid()) {
@@ -45,12 +45,12 @@ function oeleito_login_payment_message($message) {
     return $message;
 }
 
-add_action('admin_notices', 'oeleito_admin_payment_message');
+add_action('admin_notices', 'campanha_admin_payment_message');
 /**
  * Display a message in the admin panel about
  * the payment.
  */
-function oeleito_admin_payment_message() {
+function campanha_admin_payment_message() {
     global $campaign;
     
     if (!$campaign->isPaid()) {

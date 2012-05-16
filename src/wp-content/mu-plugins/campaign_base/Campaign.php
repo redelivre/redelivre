@@ -243,6 +243,8 @@ class Campaign {
      */
     protected function setBlogOptions($blogId) {
         update_blog_option($blogId, 'blog_public', 1);
+        update_blog_option($blogId, 'allowedthemes', array('campanha_padrao' => true));
+        update_blog_option($blogId, 'current_theme', 'Campanha Padrão');
     }
     
     /**
