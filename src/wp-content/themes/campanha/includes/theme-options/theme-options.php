@@ -87,10 +87,7 @@ function theme_options_page_callback_function() {
         </form>
     </div>
 
-<?php } ?>
-
-
-<?php
+<?php } 
 
 function get_theme_option($option_name) {
     $option = wp_parse_args(
