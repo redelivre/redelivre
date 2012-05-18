@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+.form-table small {
+    display: block;
+}
+
+.form-table select {
+    width: 95%;
+}
+
+.hasMany {
+    border: 1px solid #DFDFDF;
+    background-color: #FFFFFF;
+    padding: 4px;
+    height: 150px;
+    overflow-y: scroll;
+    width: 94%;
+}
+
+/* checkboxes */
+.hasMany input {
+    width: auto;
+}
+
+.nicEdit-main {
+    height: 195px;
+}
+

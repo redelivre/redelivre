@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<requisicao-autorizacao-portador id="7" versao="1.1.0">
+	<tid></tid>
+	<dados-ec>
+		<numero></numero>
+		<chave></chave>
+	</dados-ec>
+	<dados-cartao>
+		<numero></numero>
+		<validade></validade>
+		<indicador>1</indicador>
+		<codigo-seguranca></codigo-seguranca>
+	</dados-cartao>
+	<dados-pedido>
+		<numero></numero>
+		<valor></valor>
+		<moeda>986</moeda>
+		<data-hora></data-hora>
+		<idioma>PT</idioma>
+	</dados-pedido>
+	<forma-pagamento>
+		<bandeira></bandeira>
+		<produto>1</produto>
+		<parcelas>1</parcelas>
+	</forma-pagamento>
+	<capturar-automaticamente>false</capturar-automaticamente>
+</requisicao-autorizacao-portador>

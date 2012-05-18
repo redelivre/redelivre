@@ -1,0 +1,22 @@
+ui-sortable-helper {
+    width: 100%;
+}
+
+tr.dragAtivo {
+    width: 100%;
+}
+td.drag {
+    cursor: move;
+}
+
+td.drag input {
+	float:left;
+	font-size:7pt;
+	height:23px;
+	width:27px;
+	display: none;
+}
+
+td.drag img {
+    float: left;
+}

@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Hacklab Crud\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-07-17 11:00-0300\n"
+"PO-Revision-Date: 2009-12-09 18:51-0300\n"
+"Last-Translator: Leo Germani <leogermani@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /home/leo/devel/hacklab-crud/trunk\n"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:315
+msgid "Select"
+msgstr "Selecione"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:357
+msgid "Remove Selected"
+msgstr "Remover Selecionados"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:365
+msgid "Items per page:"
+msgstr "Itens por página:"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:368
+msgid "All"
+msgstr "Todos"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:381
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:382
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:390
+#, php-format
+msgid "Displaying %s&#8211;%s of %s"
+msgstr "Exibindo %s&#8211;%s of %s"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:467
+msgid "Order"
+msgstr "Ordem"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:472
+msgid "Drag & drop to order"
+msgstr "Arraste e solte para ordenar"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud.php:477
+msgid "Save Order"
+msgstr "Salvar Ordenação"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-modifydb.php:5
+msgid "<b>Alert:</b> Your model is different from your database. In order to continue you have to allow the changes to be made automatically. You can also change either your model or your database manually if you prefer."
+msgstr "<b>Atenção:</b> Seu modelo está diferente de sua base de dados. Para continuar você precisa autorizar que as mudanças sejam feitas automaticamente. Você pode também editar seu modelo ou seu banco de dados manualmente se preferir."
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-modifydb.php:7
+msgid "Changes that have to be made to the database:"
+msgstr "Mudanças que devem ser feitas na base de dados:"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-modifydb.php:9
+msgid "Add fields:"
+msgstr "Adicionar campos:"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-modifydb.php:18
+msgid "Remove fields:"
+msgstr "Remover campos:"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-modifydb.php:24
+msgid "<b>WARNING: If you remove this fields you will loose any data on them.</b>"
+msgstr "<b>ATENÇÃO: Se você remover esses campos estará apagando as informações salvas neles.</b>"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-modifydb.php:26
+msgid "Tip: If you want to disable a field, but you dont want to delete it from the database table, set it to either \"hiddenInt\" or \"hiddenText\" on your model."
+msgstr "Dica: Se você não quer mais utilizar um campo, mas não quer removê-lo do banco de dados, mude o tipo do campo para 'hiddenInt' ou 'hiddenText' no seu modelo."
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-modifydb.php:32
+msgid "Confirm changes to the database"
+msgstr "Confirmar alterações no banco de dados"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:16
+msgid "Item Updated"
+msgstr "Item Atualizado"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:25
+msgid "Item Created"
+msgstr "Item Criado"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:37
+msgid "Items Removed"
+msgstr "Itens removidos"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:45
+msgid "Edit Item"
+msgstr "Editar Item"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:52
+msgid "Item Removed"
+msgstr "Item Removido"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:59
+msgid "File Deleted"
+msgstr "Arquivo apagado"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:67
+msgid "Manage"
+msgstr "Gerenciar"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:68
+msgid "New Item"
+msgstr "Novo Item"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:123
+msgid "Edit"
+msgstr "Editar"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:124
+msgid "Are you sure you want to remove this item?"
+msgstr "Tem certeza que deseja remover este item?"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:124
+msgid "Remove"
+msgstr "Remover"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:176
+msgid "No file uploaded yet. Choose one using the field bellow."
+msgstr "Nenhum arquivo inserido ainda. Escolha um no campo abaixo."
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:190
+msgid "Delete File"
+msgstr "Apagar aquivo"
+
+#: /home/leo/devel/hacklab-crud/trunk/hacklab-crud-admin.php:221
+msgid "Save"
+msgstr "Salvar"
+

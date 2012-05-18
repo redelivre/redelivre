@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<requisicao-tid id="6" versao="1.1.0">
+<dados-ec>
+	<numero></numero>
+	<chave></chave>
+</dados-ec>
+<forma-pagamento>
+	<bandeira></bandeira>
+	<produto></produto>
+	<parcelas></parcelas>
+</forma-pagamento>
+</requisicao-tid>
