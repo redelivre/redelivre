@@ -88,3 +88,11 @@ if (!get_option('db-update-4')) {
     $wpdb->query("DELETE FROM `plans` WHERE id = 1");
     $wpdb->query("ALTER TABLE `campaigns` ADD `candidate_number` int(11) NOT NULL AFTER `domain`");
 }
+
+// remove tabela transaction log - vamos usar o wp-easy-data em mu-plugins/transaction_log
+if (!get_option('db-update-5')) {
+    update_option('db-update-5', 1);
+    
+    $wpdb->query("DROP TABLE transaction_log");
+    
+}
