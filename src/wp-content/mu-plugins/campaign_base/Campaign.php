@@ -2,10 +2,16 @@
 
 class Campaign {
     /**
-     * Campaign domain
+     * Campaign sub domain inside the system.
      * @var string
      */
     public $domain;
+
+    /**
+     * Own domain
+     * @var string
+     */
+    public $own_domain;
     
     /**
      * Plan id of the campaign
@@ -25,6 +31,9 @@ class Campaign {
      */
     public $city;
     
+    /**
+     * @var WP_Error
+     */
     public $errorHandler;
     
     /**
@@ -74,6 +83,7 @@ class Campaign {
         $this->election_id = 1;
         
         $this->domain = $data['domain'];
+        $this->own_domain = $data['own_domain'];
         $this->plan_id = $data['plan_id'];
         $this->candidate_number = $data['candidate_number'];
         
@@ -111,20 +121,32 @@ class Campaign {
             $this->errorHandler->add('error', 'O campo domínio não pode estar vazio.');
         }
         
-        if ($this->domainExist()) {
-            $this->errorHandler->add('error', 'Esse domínio já está cadastrado.');
+        // build sub-domain name
+        $mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
+        $this->domain = 'http://' . $this->domain . '.' . $mainSiteDomain;
+        
+        if ($this->valueExist('domain')) {
+            $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
         }
-
-        // adding 'http://' in case the use haven't because FILTER_VALIDATE_URL requires it
-        if (strpos($this->domain, 'http://') === false) {
-            $this->domain = 'http://' . $this->domain;
-        }        
 
         if (filter_var($this->domain, FILTER_VALIDATE_URL) === false) {
-            $this->errorHandler->add('error', 'O domínio digitado é inválido.');
+            $this->errorHandler->add('error', 'O sub-domínio digitado é inválido.');
+        }
+
+        // adding 'http://' in case the user haven't because FILTER_VALIDATE_URL requires it
+        if (!empty($this->own_domain) && !preg_match('|https?://|', $this->own_domain)) {
+            $this->own_domain = 'http://' . $this->own_domain;
+        }        
+
+        if ($this->valueExist('own_domain')) {
+            $this->errorHandler->add('error', 'Este domínio próprio já está cadastrado.');
+        }
+
+        if (!empty($this->own_domain) && filter_var($this->own_domain, FILTER_VALIDATE_URL) === false) {
+            $this->errorHandler->add('error', 'O domínio próprio digitado é inválido.');
         }
         
-        if ($this->candidateExist()) {
+        if ($this->valueExist('candidate_number')) {
             $this->errorHandler->add('error', 'Uma campanha para este candidato já foi criada no sistema.');
         }
         
@@ -152,36 +174,24 @@ class Campaign {
     }
     
     /**
-     * Check whether the candidate number
-     * already exist.
+     * Check whether a particular value for a
+     * specified filed already exist in the database.
      * 
+     * @param string which field to check
      * @return bool
      */
-    protected function candidateExist() {
+    protected function valueExist($field) {
         global $wpdb;
         
-        $candidate_number = $wpdb->get_var(
-            $wpdb->prepare("SELECT `candidate_number` FROM `campaigns` WHERE `candidate_number` = %d", $this->candidate_number));
-            
-        if (!is_null($candidate_number)) {
-            return true;
+        // some fields are optional and can be blank
+        if (empty($this->{$field})) {
+            return false;
         }
         
-        return false;
-    }
-    
-    /**
-     * Check whether the domain already exist.
-     * 
-     * @return bool
-     */
-    protected function domainExist() {
-        global $wpdb;
-        
-        $domain = $wpdb->get_var(
-            $wpdb->prepare("SELECT `domain` FROM `campaigns` WHERE `domain` = %s", $this->domain));
-        
-        if (!is_null($domain)) {
+        $value = $wpdb->get_var(
+            $wpdb->prepare("SELECT `$field` FROM `campaigns` WHERE `$field` = %s", $this->{$field}));
+
+        if (!is_null($value)) {
             return true;
         }
         
@@ -203,11 +213,34 @@ class Campaign {
         
         $data = array(
             'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $blogId,
-            'election_id' => $this->election_id, 'domain' => $this->domain, 'candidate_number' => $this->candidate_number,
-            'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location 
+            'election_id' => $this->election_id, 'domain' => $this->domain, 'own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number,
+            'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location
         );
         
         $wpdb->insert('campaigns', $data);
+        
+        if (!empty($this->own_domain)) {
+            $this->alertStaff();
+        }
+    }
+    
+    /**
+     * Send an e-mail to the site staff when a new
+     * campaign is created with its own domain so that
+     * they can configure manually configure the server
+     * to respond to it.
+     * 
+     * @return null
+     */
+    protected function alertStaff() {
+        $userName = $this->campaignOwner->data->user_login;
+        
+        $to = get_bloginfo('admin_email');
+        $subject = "Uma nova campanha foi criada com o domínio próprio {$this->own_domain}";
+        $message = "O usuário $userName criou uma nova campanha com o sub-domínio <a href='{$this->domain}'>{$this->domain}</a> e o domínio próprio <a href='{$this->own_domain}'>{$this->own_domain}</a>.";
+        $headers = "content-type: text/html \r\n";
+            
+        wp_mail($to, $subject, $message, $headers);
     }
     
     /**
@@ -250,6 +283,10 @@ class Campaign {
         update_blog_option($blogId, 'current_theme', 'Campanha Padrão');
         update_blog_option($blogId, 'stylesheet', 'campanha_padrao');
         update_blog_option($blogId, 'template', 'campanha_padrao');
+        
+        // set upload limit
+        $capabilities = Capability::getByPlanId($this->plan_id);
+        update_blog_option($blogId, 'blog_upload_space', $capabilities->upload_limit->access);
     }
     
     /**
