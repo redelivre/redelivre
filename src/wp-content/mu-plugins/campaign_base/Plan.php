@@ -19,7 +19,7 @@ class Plan {
      * Plan name
      * @var string
      */
-    public $state;
+    public $name;
     
     /**
      * Plan price
