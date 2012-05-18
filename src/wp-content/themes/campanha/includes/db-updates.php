@@ -95,3 +95,40 @@ if (!get_option('db-update-5')) {
     
     $wpdb->query("ALTER TABLE `campaigns` ADD `own_domain` varchar(255) NOT NULL AFTER `domain`");
 }
+
+// add campaign capabilities
+if (!get_option('db-update-6')) {
+    update_option('db-update-6', 1);
+    
+    // basic plan
+    $wpdb->query("INSERT INTO `capabilities` VALUES (1, 2, 'Enviar e-mails e SMS', 'send_messages', 5)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (2, 2, 'Limite para upload de arquivos', 'upload_limit', 1000)"); // values in megabytes
+    $wpdb->query("INSERT INTO `capabilities` VALUES (3, 2, 'Geração de material gráfico', 'graphic_material', 0)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (4, 2, 'Gerenciamneto de contatos', 'contact_manager', 0)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (5, 2, 'Suporte via fórum', 'forum_support', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (6, 2, 'Suporte por e-mail', 'email_support', 0)");
+    
+    // intermediate plan
+    $wpdb->query("INSERT INTO `capabilities` VALUES (7, 3, 'Enviar e-mails e SMS', 'send_messages', 10)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (8, 3, 'Limite para upload de arquivos', 'upload_limit', 2000)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (9, 3, 'Geração de material gráfico', 'graphic_material', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (10, 3, 'Gerenciamneto de contatos', 'contact_manager', 0)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (11, 3, 'Suporte via fórum', 'forum_support', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (12, 3, 'Suporte por e-mail', 'email_support', 0)");
+    
+    // full plan
+    $wpdb->query("INSERT INTO `capabilities` VALUES (13, 4, 'Enviar e-mails e SMS', 'send_messages', 20)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (14, 4, 'Limite para upload de arquivos', 'upload_limit', 3000)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (15, 4, 'Geração de material gráfico', 'graphic_material', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (16, 4, 'Gerenciamneto de contatos', 'contact_manager', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (17, 4, 'Suporte via fórum', 'forum_support', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (18, 4, 'Suporte por e-mail', 'email_support', 1)");
+    
+    // premiun plan
+    $wpdb->query("INSERT INTO `capabilities` VALUES (19, 5, 'Enviar e-mails e SMS', 'send_messages', 50)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (20, 5, 'Limite para upload de arquivos', 'upload_limit', -1)"); // -1 for unlimited
+    $wpdb->query("INSERT INTO `capabilities` VALUES (21, 5, 'Geração de material gráfico', 'graphic_material', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (22, 5, 'Gerenciamneto de contatos', 'contact_manager', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (23, 5, 'Suporte via fórum', 'forum_support', 1)");
+    $wpdb->query("INSERT INTO `capabilities` VALUES (24, 5, 'Suporte por e-mail', 'email_support', 1)");
+}

@@ -31,6 +31,9 @@ class Campaign {
      */
     public $city;
     
+    /**
+     * @var WP_Error
+     */
     public $errorHandler;
     
     /**
@@ -280,6 +283,10 @@ class Campaign {
         update_blog_option($blogId, 'current_theme', 'Campanha Padrão');
         update_blog_option($blogId, 'stylesheet', 'campanha_padrao');
         update_blog_option($blogId, 'template', 'campanha_padrao');
+        
+        // set upload limit
+        $capabilities = Capability::getByPlanId($this->plan_id);
+        update_blog_option($blogId, 'blog_upload_space', $capabilities->upload_limit->access);
     }
     
     /**

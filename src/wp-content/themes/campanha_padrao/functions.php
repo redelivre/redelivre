@@ -10,6 +10,10 @@ include dirname(__FILE__).'/includes/utils.class.php';
 
 $campaign = Campaign::getByBlogId($blog_id);
 
+if (is_admin()) {
+    require_once(dirname(__FILE__) . '/load_menu_options.php');
+}
+
 add_action('template_redirect', 'campanha_check_payment_status');
 /**
  * Check the payment status and mark the blog
