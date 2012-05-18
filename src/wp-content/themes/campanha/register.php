@@ -56,7 +56,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
                 echo $errmsg;
             }
         }
-
+        
+        //Modifica este metadado para não exibir o painel de Boas vindas
+        update_user_meta($user_id, 'show_welcome_panel', 0);
+        
         // depois de fazer o registro, faz login
         if (is_ssl() && force_ssl_login() && !force_ssl_admin() && (0 !== strpos($redirect_to, 'https')) && (0 === strpos($redirect_to, 'http'))) {
             $secure_cookie = false;
