@@ -23,8 +23,12 @@ if (!empty($_POST)) {
     }
 }
 
-global $user;
-$campaigns = Campaign::getAll($user->ID);
+if (is_super_admin()) {
+    $campaigns = Campaign::getAll();
+} else {
+    $user = wp_get_current_user();
+    $campaigns = Campaign::getAll($user->ID);
+}
 
 ?>
 
@@ -35,6 +39,7 @@ $campaigns = Campaign::getAll($user->ID);
             <tr class="thead">
                 <th>Sub-domínio</th>
                 <th>Domínio próprio</th>
+                <?php if (is_super_admin()) echo '<th>Usuário</th>'; ?>
                 <th>Número do candidato</th>
                 <th>Plano</th>
                 <th>Status</th>
@@ -46,6 +51,7 @@ $campaigns = Campaign::getAll($user->ID);
                 <tr>
                     <td><a href="<?php echo $campaign->domain; ?>" target="_blank"><?php echo $campaign->domain ?></a></td>
                     <td><a href="<?php echo $campaign->own_domain; ?>" target="_blank"><?php echo $campaign->own_domain ?></a></td>
+                    <?php if (is_super_admin()) echo "<td>{$campaign->campaignOwner->data->user_login}</td>"; ?>
                     <td><?php echo $campaign->candidate_number; ?></td>
                     <td><?php echo Plan::getName($campaign->plan_id); ?></td>
                     <td><?php echo $campaign->getStatus(); ?></td>

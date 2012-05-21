@@ -232,7 +232,7 @@ add_filter('login_redirect', 'campanha_login_redirect', 10, 3);
  * are redirected to the campaigns admin page.
  */
 function campanha_change_admin_home() {
-    global $user;
+    $user = wp_get_current_user();
     
     if (is_array($user->roles) && in_array("subscriber", $user->roles)
         && preg_match('#wp-admin/?(index.php)?$#', $_SERVER['REQUEST_URI']))
