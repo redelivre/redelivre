@@ -43,7 +43,7 @@ CREATE TABLE `campaigns` (
 
 LOCK TABLES `campaigns` WRITE;
 /*!40000 ALTER TABLE `campaigns` DISABLE KEYS */;
-INSERT INTO `campaigns` VALUES (1,7,0,2,1,'http://andersonorui.campanha.mu',0,0,'2012-05-15 19:12:04',':');
+INSERT INTO `campaigns` VALUES (1,7,2,2,1,'http://andersonorui.campanha.mu',0,0,'2012-05-15 19:12:04',':');
 /*!40000 ALTER TABLE `campaigns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1035,4 +1035,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-16 16:04:21
+-- Dump completed on 2012-05-21 14:41:04
