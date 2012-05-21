@@ -17,7 +17,7 @@ if (!empty($_POST)) {
     
     if ($campaign->validate()) {
         $campaign->create();
-        wp_redirect(get_bloginfo('url') . '/wp-admin/admin.php?page=campaigns');
+        wp_redirect(admin_url(CAMPAIGN_ADMIN_URL));
     } else {
         $errors = $campaign->errorHandler->errors;
     }
@@ -64,7 +64,7 @@ if (!empty($errors)) {
 }
 ?>
 
-<form action="<?php echo site_url() . '/wp-admin/admin.php?page=campaigns'; ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo admin_url(CAMPAIGN_ADMIN_URL); ?>" method="post" enctype="multipart/form-data">
     <table class="form-table">
         <tbody>
             <tr class="form-field">

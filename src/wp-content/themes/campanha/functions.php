@@ -8,7 +8,6 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php'; 
 
-//TODO: check if there is a better way to get an admin url
 define('CAMPAIGN_ADMIN_URL', 'admin.php?page=campaigns');
 
 if (is_admin()) {

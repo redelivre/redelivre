@@ -56,7 +56,7 @@ function campanha_admin_payment_message() {
     global $campaign;
     
     if (!$campaign->isPaid()) {
-        $link = '/wp-admin/admin.php?page=payments';
+        $link = admin_url('admin.php?page=payments');
         echo "<div class='error'><p>Está campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
     }
 }
