@@ -8,7 +8,7 @@ class Cielo {
     public $affiliation_key = '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3';
     public $test_mode = true;
     /*
-     *  Cartão: 4551 8700 0000 0183 (visa), 5453 0100 0006 6167 (mastercard)
+     *  Cartão: 4551870000000183 (visa), 5453010000066167 (mastercard)
      *  Data de validade: qualquer posterior ao corrente
      *  Código de segurança: qualquer
      * 
@@ -43,17 +43,22 @@ class Cielo {
             'dados-pedido' => array(
                 'numero' => '',
                 'valor' => '',
-                'data-hora' = date("Y-m-d\TH:i:s"),
+                'data-hora' => date("Y-m-d\TH:i:s"),
                 'descricao' => ''
-            )
+            ),
+            'tid' => ''
             
         );
         
         // merge da estrutura base com o que veio como parametro
-        $request = wp_parse_args($request, $request_structure);
+        $request['dados-ec'] = wp_parse_args($request['dados-ec'], $request_structure['dados-ec']);
+        $request['forma-pagamento'] = wp_parse_args($request['forma-pagamento'], $request_structure['forma-pagamento']);
+        $request['dados-cartao'] = wp_parse_args($request['dados-cartao'], $request_structure['dados-cartao']);
+        $request['dados-pedido'] = wp_parse_args($request['dados-pedido'], $request_structure['dados-pedido']);
+        $request['tid'] = isset($request['tid']) ? $request['tid'] : $request_structure['tid'];
         
         // load xml modelo
-        $this->requisicaoCielo = new SimpleXMLElement(file_get_contents("cielo_skeleton.xml"));
+        $this->requisicaoCielo = new SimpleXMLElement( file_get_contents(dirname(__FILE__) . "/cielo_skeleton.xml") );
         
         // popula xml modelo
         $this->requisicaoCielo->{'dados-ec'}->numero = $request['dados-ec']['numero'];
@@ -64,13 +69,19 @@ class Cielo {
         $this->requisicaoCielo->{'dados-cartao'}->{'codigo-seguranca'} = $request['dados-cartao']['codigo-seguranca'];
         $this->requisicaoCielo->{'dados-cartao'}->{'nome-portador'} = $request['dados-cartao']['nome-portador'];
         
-        $this->requisicaoCielo->{'dados-pedido'}->valor = str_replace(".","",str_replace(",","",sprintf("%0.2f",$request['dados-pedido']['valor'];)));
+        $this->requisicaoCielo->{'dados-pedido'}->valor = str_replace(".","",str_replace(",","",sprintf("%0.2f",$request['dados-pedido']['valor'])));
         $this->requisicaoCielo->{'dados-pedido'}->{'data-hora'} = $request['dados-pedido']['data-hora'];
-        $this->requisicaoCielo->{'dados-pedido'}->descricao = $request['dados-pedido']['descricao'];
+        $this->requisicaoCielo->{'dados-pedido'}->numero = $request['dados-pedido']['numero'];
+        
+        // Se habilitar a descrica, dá pau...
+        //$this->requisicaoCielo->{'dados-pedido'}->descricao = $request['dados-pedido']['descricao'];
         
         $this->requisicaoCielo->{'forma-pagamento'}->bandeira = $request['forma-pagamento']['bandeira'];
         $this->requisicaoCielo->{'forma-pagamento'}->produto = $request['forma-pagamento']['produto'];
         $this->requisicaoCielo->{'forma-pagamento'}->parcelas = $request['forma-pagamento']['parcelas'];
+        
+        $this->requisicaoCielo->tid = $request['tid'];
+        
         
         //TODO parcelas??
     
@@ -80,19 +91,7 @@ class Cielo {
         
         global $wpdb;
         
-        //geramos uma entrada na TransactionLog para termos um ID dessa transação
-        global $transaction_log;
-        $log = $transaction_log->get_item();
-        $log->save();
-        $log->info->numero_pedido = $log->ID;
-        $log->info->id_transacao = uniqid();
-        
-        //dados pedido numero
-        $this->requisicaoCielo->{'dados-pedido'}->numero = $log->info->numero_pedido;
-        
-        //tid
-        $this->requisicaoCielo->tid = $log->info->id_transacao;
-        
+        //TODO: Validar campos?
         
         $connection = curl_init();
             
@@ -103,7 +102,7 @@ class Cielo {
             curl_setopt($connection,CURLOPT_URL,"https://ecommerce.cbmp.com.br/servicos/ecommwsec.do"); // Live
         }
 
-        $requisicaoCieloTID = new SimpleXMLElement("/cielo_skeleton_tid.xml"));
+        $requisicaoCieloTID = new SimpleXMLElement( file_get_contents(dirname(__FILE__) . "/cielo_skeleton_tid.xml") );
         
         $requisicaoCieloTID->{'dados-ec'}->numero = $this->requisicaoCielo->{'dados-ec'}->numero;
         $requisicaoCieloTID->{'dados-ec'}->chave = $this->requisicaoCielo->{'dados-ec'}->chave;
@@ -111,6 +110,7 @@ class Cielo {
         $requisicaoCieloTID->{'forma-pagamento'}->bandeira = $this->requisicaoCielo->{'forma-pagamento'}->bandeira;
         $requisicaoCieloTID->{'forma-pagamento'}->produto = $this->requisicaoCielo->{'forma-pagamento'}->produto;
         $requisicaoCieloTID->{'forma-pagamento'}->parcelas = $this->requisicaoCielo->{'forma-pagamento'}->parcelas;
+                
                 
         $useragent = 'Campanha Completa';
         curl_setopt($connection, CURLOPT_SSL_VERIFYPEER, 0); 
@@ -164,23 +164,31 @@ class Cielo {
         
         $response = new SimpleXMLElement($autorizacaoCartao);
         
-        $log->info->response = serialize($response);
+        
+        
+        $return = array(
+            'numero_pedido' => $log->info->numero_pedido,
+            'sucesso' => false,
+            'resposta' => $autorizacaoCartao
+        );
+        
         
         if($response->autorizacao->codigo == '4'){
 		
-            // insert into log
-            $log->info->aprovada = true;
+            $return['sucesso'] = true;
             
             //send email
 
             
         }else{
             
-            //echo 'error';
+            // TODO:
+            // Fazer alguma coisa aqui?
             
         }
-
-        $log->save();
+        
+        return $return;
+        
     }
 
 

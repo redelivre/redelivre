@@ -1,6 +1,13 @@
 <?php
 
 class Campaign {
+    
+    /**
+     * id of the campaign
+     * @var int
+     */
+    public $id;
+    
     /**
      * Campaign sub domain inside the system.
      * @var string
@@ -82,6 +89,7 @@ class Campaign {
         //TODO: create interface for more than one election
         $this->election_id = 1;
         
+        $this->id = $data['id'];
         $this->domain = $data['domain'];
         $this->own_domain = $data['own_domain'];
         $this->plan_id = $data['plan_id'];
@@ -304,6 +312,26 @@ class Campaign {
             default:
                 throw new Exception('Campo status não definido ou com valor inválido');
         }
+    }
+    
+    /**
+     * Convert between the int in the database and
+     * the string to be displayed to the user.
+     * @param int $newStatus
+     * 
+     * @return bool
+     */
+    public function setStatus($newStatus) {
+        
+        if ( is_numeric($newStatus) && ( intval($newStatus) == 0 || intval($newStatus) == 1 ) && $newStatus != $this->status ) {
+            global $wpdb;
+            
+            $wpdb->update('campaigns', array('status' => $newStatus), array('id' => $this->id) );
+            
+        } else {
+            return false;
+        }
+        
     }
     
     /**

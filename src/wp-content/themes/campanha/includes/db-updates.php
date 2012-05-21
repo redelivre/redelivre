@@ -142,3 +142,22 @@ if (!get_option('db-update-7')) {
     $wpdb->query("DROP TABLE transaction_log");
     
 }
+
+if (!get_option('db-update-8')) {
+    update_option('db-update-8', 1);
+    
+    $wpdb->query("DROP TABLE wp_transaction_log");
+    $wpdb->query("DROP TABLE wp_2_transaction_log");
+    
+    $wpdb->query('CREATE TABLE `transaction_log` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `date` datetime DEFAULT NULL,
+      `valor` varchar(255) DEFAULT NULL,
+      `user_id` int(11) DEFAULT NULL,
+      `campaign_id` int(11) DEFAULT NULL,
+      `id_transacao` int(11) DEFAULT NULL,
+      `numero_pedido` int(11) DEFAULT NULL,
+      `response` TEXT DEFAULT NULL,
+      `aprovada` tinyint(1) DEFAULT 0,
+      PRIMARY KEY (`id`))');
+}
