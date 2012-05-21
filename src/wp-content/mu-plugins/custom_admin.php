@@ -1,32 +1,30 @@
 <?php
 
 add_action('admin_init', function() {
+    if (!is_super_admin()) {
+        add_action('wp_dashboard_setup', 'campanha_remove_dashboard_widgets');
     
-    add_action('wp_dashboard_setup', 'campanha_remove_dashboard_widgets');
-
-    // disable help boxes in the admin pages
-    remove_action('admin_enqueue_scripts', array('WP_Internal_Pointers', 'enqueue_scripts'));
+        // disable help boxes in the admin pages
+        remove_action('admin_enqueue_scripts', array('WP_Internal_Pointers', 'enqueue_scripts'));
+        
+        // disable wp and my sites menus from admin bar
+        remove_action('admin_bar_menu', 'wp_admin_bar_wp_menu');
+        remove_action('admin_bar_menu', 'wp_admin_bar_my_sites_menu', 20);
+        
+        // disable screen options tab
+        add_filter('screen_options_show_screen', function() {
+            return false;
+        });
+        
+        // remove help tab
+        add_filter('contextual_help_list', function() {
+            get_current_screen()->remove_help_tabs();
+        });
     
-    // disable wp and my sites menus from admin bar
-    remove_action('admin_bar_menu', 'wp_admin_bar_wp_menu');
-    remove_action('admin_bar_menu', 'wp_admin_bar_my_sites_menu', 20);
-    
-    // disable screen options tab
-    add_filter('screen_options_show_screen', function() {
-        return false;
-    });
-    
-    // remove help tab
-    add_filter('contextual_help_list', function() {
-        get_current_screen()->remove_help_tabs();
-    });
-
-    // remove default menu options        
-    remove_menu_page('index.php');
-    remove_menu_page('profile.php'); 
-    
-    
-    
+        // remove default menu options        
+        remove_menu_page('index.php');
+        remove_menu_page('profile.php'); 
+    }
 });
     
 
