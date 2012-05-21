@@ -61,6 +61,26 @@ function campanha_admin_payment_message() {
     }
 }
 
+/**
+ * Hack to remove upload limit for premium campaings.
+ * 
+ * By default in Wordpress or you disable upload limit 
+ * or you set a limit for all sites. This functions is a
+ * workaround to allow some sites with upload limit and 
+ * others without.
+ * 
+ * @param bool $value the value for the site option 'upload_space_check_disabled'
+ * @return bool
+ */
+function campanha_unlimited_upload($value) {
+    if (get_option('blog_upload_space') == -1) {
+        $value = true;
+    }
+
+    return $value;
+}
+add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
+
 add_action( 'after_setup_theme', 'SLUG_setup' );
 function SLUG_setup() {
 
