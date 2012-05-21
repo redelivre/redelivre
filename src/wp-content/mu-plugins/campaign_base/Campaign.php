@@ -294,7 +294,7 @@ class Campaign {
         
         // set upload limit
         $capabilities = Capability::getByPlanId($this->plan_id);
-        update_blog_option($blogId, 'blog_upload_space', $capabilities->upload_limit->access);
+        update_blog_option($blogId, 'blog_upload_space', $capabilities->upload_limit->value);
     }
     
     /**

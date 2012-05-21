@@ -26,10 +26,10 @@ class Capability {
     public $slug;
     
     /**
-     * True, false or the value of the capability.
+     * The value of the capability (most of the time is true or false).
      * @var mixed
      */
-    public $access;
+    public $value;
     
     /**
      * Return all available capabilities for
@@ -69,8 +69,8 @@ class Capability {
             $this->slug = $data['slug'];
         }
   
-        if (isset($data['access'])) {
-            $this->access = $data['access'];
+        if (isset($data['value'])) {
+            $this->value = $data['value'];
         }
     }
 }

@@ -161,3 +161,10 @@ if (!get_option('db-update-8')) {
       `aprovada` tinyint(1) DEFAULT 0,
       PRIMARY KEY (`id`))');
 }
+
+// rename field in capabilities table
+if (!get_option('db-update-9')) {
+    update_option('db-update-9', 1);
+    
+    $wpdb->query("ALTER TABLE `capabilities` CHANGE `access` `value` int(4)");
+}
