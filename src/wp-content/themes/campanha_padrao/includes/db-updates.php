@@ -1,9 +1,3 @@
 <?php
-/*
-if(!get_option('db-update-1')){
-    update_option('db-update-1', 1);
-    
-    
-}
- */
-?>
+
+// Probably you shouldn't use this file. Use src/wp-content/themes/campanha/includes/db-updates.php instead.
