@@ -27,14 +27,16 @@ echo 'SVG alterado em função da escolha do usuário:' . $foreground->asXML();
 
 echo '<br><br>E então o sistema junta os dois:';
 
-$image = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
-$image->setWidth(266);
-$image->setHeight(354);
+$finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
+$finalImage->setWidth(266);
+$finalImage->setHeight(354);
 
-$image->addShape(SVGImage::getInstance(0, 0, 'myImage', TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg'));
-$image->addShape($path);
+$candidateImage = SVGImage::getInstance(0, 0, 'myImage', TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg');
 
-echo $image->asXML();
+$finalImage->addShape($candidateImage);
+$finalImage->addShape($path);
+
+echo $finalImage->asXML();
 
 echo '<br><br>E por fim adiciona texto:';
 
@@ -42,10 +44,12 @@ $style = new SVGStyle(array('font-size' => '30px'));
 $style->setFill('red');
 $style->setStroke('red');
 $style->setStrokeWidth(1);
-$image->addShape(SVGText::getInstance(15, 290, 'candidateName', 'Mahatma Gandhi', $style));
+$finalImage->addShape(SVGText::getInstance(15, 290, 'candidateName', 'Mahatma Gandhi', $style));
 
 $style = new SVGStyle(array('font-size' => '20px', 'align' => 'right'));
 $style->setFill('red');
-$image->addShape(SVGText::getInstance(15, 320, 'candidateNumber', 'Vereador 50501', $style));
+$finalImage->addShape(SVGText::getInstance(15, 320, 'candidateNumber', 'Vereador 50501', $style));
 
-echo $image->asXML();
+echo $finalImage->asXML();
+
+$finalImage->export('/tmp/gandhi.png');
