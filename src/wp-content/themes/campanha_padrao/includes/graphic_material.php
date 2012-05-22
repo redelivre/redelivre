@@ -4,6 +4,7 @@ echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver 
 
 require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
 require_once(TEMPLATEPATH . '/includes/CampanhaSVGDocument.php');
+require_once(TEMPLATEPATH . '/includes/wideimage/WideImage.php');
 
 echo '<br><br><br>Usuário sobe a foto:<br>';
 
@@ -31,7 +32,9 @@ $finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
 $finalImage->setWidth(266);
 $finalImage->setHeight(354);
 
-$candidateImage = SVGImage::getInstance(0, 0, 'myImage', TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg');
+$tmpImage = WideImage::load(TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg');
+$tmpImage->resize(266, 240, 'outside')->saveToFile('/tmp/output.jpg');
+$candidateImage = SVGImage::getInstance(0, 0, 'myImage', '/tmp/output.jpg');
 
 $finalImage->addShape($candidateImage);
 $finalImage->addShape($path);
