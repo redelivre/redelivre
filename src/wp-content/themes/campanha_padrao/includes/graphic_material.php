@@ -3,6 +3,7 @@
 echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver pago :-)';
 
 require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
+require_once(TEMPLATEPATH . '/includes/CampanhaSVGDocument.php');
 
 echo '<br><br><br>Usuário sobe a foto:<br>';
 
@@ -26,7 +27,7 @@ echo 'SVG alterado em função da escolha do usuário:' . $foreground->asXML();
 
 echo '<br><br>E então o sistema junta os dois:';
 
-$image = SVGDocument::getInstance();
+$image = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
 $image->setWidth(266);
 $image->setHeight(354);
 
