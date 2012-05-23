@@ -1,7 +1,7 @@
 <?php
 
 add_action('admin_init', function() {
-    if (!is_super_admin()) {
+    if (!is_super_admin() && !defined('DOING_AJAX')) {
         add_action('wp_dashboard_setup', 'campanha_remove_dashboard_widgets');
     
         // disable help boxes in the admin pages
