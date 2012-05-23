@@ -3,12 +3,40 @@
 echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver pago :-)';
 
 require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
-require_once(TEMPLATEPATH . '/includes/CampanhaSVGDocument.php');
 require_once(TEMPLATEPATH . '/includes/wideimage/WideImage.php');
+require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');
+require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
 
 echo '<br><br><br>Usuário sobe a foto:<br>';
 
 echo '<img src="../wp-content/themes/campanha_padrao/img/delme/mahatma-gandhi.jpg"><br><br>';
+
+
+?>
+
+<form id="graphic_material_form">
+    <input type='hidden' name='action' value='campanha_preview_flyer'>
+    <div>
+        <p>Escolha uma forma:</p>
+        <?php
+        $shapes = SmallFlyer::getShapes();
+        
+        foreach ($shapes as $shape) {
+            $image = SVGDocument::getInstance($shape->path, 'CampanhaSVGDocument');
+            $image->setWidth(70);
+            $image->setHeight(70);
+            echo "<input type='radio' name='shapeName' value='{$shape->name}'>" . $image->asXML(null, false);
+        }
+        ?>
+        
+        <p>Escolha uma cor para a forma:</p>
+        
+    </div>
+    <div id="image_preview"></div>
+</form>
+<?php
+
+/*
 
 echo '<br><br><br>Escolhe o formato e define num input a cor:<br>';
 
@@ -56,3 +84,4 @@ $finalImage->addShape(SVGText::getInstance(15, 320, 'candidateNumber', 'Vereador
 echo $finalImage->asXML();
 
 $finalImage->export('/tmp/gandhi.png');
+*/

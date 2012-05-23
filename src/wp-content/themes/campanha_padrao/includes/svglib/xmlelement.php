@@ -426,7 +426,7 @@ class XmlElement extends SimpleXMLElement
         return $formatted; // pretty format
     }
     
-    public function asXML( $filename = null )
+    public function asXML( $filename = null, $format = true )
     {
         if ( $filename )
         {
@@ -434,7 +434,11 @@ class XmlElement extends SimpleXMLElement
         }
         else
         {
-            return $this->prettyXML( parent::asXML() );
+            if ($format) {
+                return $this->prettyXML( parent::asXML() );
+            } else {
+                return parent::asXML();
+            }
         }
     }
 
