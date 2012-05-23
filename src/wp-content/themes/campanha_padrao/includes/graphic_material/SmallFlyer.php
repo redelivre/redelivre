@@ -8,6 +8,12 @@ require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php'
  * to the candidates.
  */
 class SmallFlyer {
+    /**
+     * The final SVG flyer
+     * @var CampanhaSVGDocument
+     */
+    protected $finalImage;
+    
     /*
      * Return all available shapes for the image.
      * @return array a list of shapes
@@ -36,14 +42,31 @@ class SmallFlyer {
         $candidateImage = TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg';
         $shapeName = filter_input(INPUT_GET, 'shapeName', FILTER_SANITIZE_STRING);
         $shapeColor = filter_input(INPUT_GET, 'shapeColor', FILTER_SANITIZE_STRING);
+        $candidateName = filter_input(INPUT_GET, 'candidateName', FILTER_SANITIZE_STRING);
+        $candidateSize = filter_input(INPUT_GET, 'candidateSize', FILTER_SANITIZE_NUMBER_INT);
+        $candidateColor = filter_input(INPUT_GET, 'candidateColor', FILTER_SANITIZE_STRING);
         
-        $finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
-        $finalImage->setWidth(266);
-        $finalImage->setHeight(354);
+        $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
+        $this->finalImage->setWidth(266);
+        $this->finalImage->setHeight(354);
         
         $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
-        $finalImage->addShape($candidateImage);
+        $this->finalImage->addShape($candidateImage);
  
+        $this->formatShape($shapeName, $shapeColor);
+ 
+        $this->formatText($candidateName, $candidateColor, $candidateSize);
+        
+        die($this->finalImage->asXML(null, false));
+    }
+
+    /**
+     * Format a SVG shape image to be include in the flyer
+     * 
+     * @param $shapeName string name of the file that should be used
+     * @param $shapeColor string
+     */
+    protected function formatShape($shapeName, $shapeColor) {
         $shapePath = TEMPLATEPATH . "/img/graphic_material/$shapeName.svg";
         
         if (file_exists($shapePath)) {
@@ -58,9 +81,46 @@ class SmallFlyer {
                 $shape->setStyle($style);
             }
             
-            $finalImage->addShape($shape);
+            $this->finalImage->addShape($shape);
+        } else {
+            throw new Exception('Não foi possível encontrar o arquivo correspondente a esta forma.');
+        }
+    }
+    
+    /**
+     * Create a SVGText object with the texts that
+     * should be include in the final SVG of the flyer
+     * 
+     * @param string $candidateName
+     * @param string $candidateColor
+     * @param int $candidateSize
+     */
+    protected function formatText($candidateName, $candidateColor, $candidateSize) {
+        global $campaign;
+                
+        if (empty($candidateColor)) {
+            $candidateColor = 'red';
         }
         
-        die($finalImage->asXML(null, false));
+        if (empty($candidateSize)) {
+            $candidateSize = '30';
+        }
+
+        $style = new SVGStyle(array('font-size' => "{$candidateSize}px"));
+        $style->setFill($candidateColor);
+        $style->setStroke($candidateColor);
+        $style->setStrokeWidth(1);
+        
+        $this->finalImage->addShape(SVGText::getInstance(15, 290, 'candidateName', $candidateName, $style));
+        
+        $string = $campaign->candidate_number;
+        
+        if (strlen($string) == 2) {
+            $string = 'Prefeito ' . $string;
+        } else {
+            $string = 'Vereador ' . $string;
+        }
+        
+        $this->finalImage->addShape(SVGText::getInstance(15, 320, 'candidateNumber', $string, $style));
     }
 }

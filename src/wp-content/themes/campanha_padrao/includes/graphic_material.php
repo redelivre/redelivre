@@ -29,59 +29,9 @@ echo '<img src="../wp-content/themes/campanha_padrao/img/delme/mahatma-gandhi.jp
         }
         ?>
         
-        <p>Escolha uma cor para a forma:</p>
-        <input type="color" name="shapeColor" value="#ff0667" data-text="hidden" style="height:20px;width:20px;" />
+        <p>Escolha uma cor para a forma: <input type="color" name="shapeColor" value="#ff0000" data-text="hidden" style="height:20px;width:20px;" /></p>
+        
+        <p>Digite o seu nome como quer que apareço no santinho: <input type="text" name="candidateName" value="" /> <input type="color" name="candidateColor" value="#000000" data-text="hidden" style="height:20px;width:20px;" /> Tamanho da fonte (em pixels): <input type="text" name="candidateSize" value="" /></p>
     </div>
     <div id="image_preview"></div>
 </form>
-<?php
-
-/*
-
-echo '<br><br><br>Escolhe o formato e define num input a cor:<br>';
-
-$foreground = SVGDocument::getInstance(TEMPLATEPATH . '/img/delme/foreground.svg');
-
-echo 'Imagem original:' . $foreground->asXML();
-
-$element = $foreground->getElementByAttribute('fill-rule', 'evenodd');
-$path = new SVGPath($element->asXML());
-
-$style = new SVGStyle;
-$style->setFill('orange');
-$path->setStyle($style);
-
-$foreground->addShape($path);
-echo 'SVG alterado em função da escolha do usuário:' . $foreground->asXML();
-
-echo '<br><br>E então o sistema junta os dois:';
-
-$finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
-$finalImage->setWidth(266);
-$finalImage->setHeight(354);
-
-$tmpImage = WideImage::load(TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg');
-$tmpImage->resize(266, 240, 'outside')->saveToFile('/tmp/output.jpg');
-$candidateImage = SVGImage::getInstance(0, 0, 'myImage', '/tmp/output.jpg');
-
-$finalImage->addShape($candidateImage);
-$finalImage->addShape($path);
-
-echo $finalImage->asXML();
-
-echo '<br><br>E por fim adiciona texto:';
-
-$style = new SVGStyle(array('font-size' => '30px'));
-$style->setFill('red');
-$style->setStroke('red');
-$style->setStrokeWidth(1);
-$finalImage->addShape(SVGText::getInstance(15, 290, 'candidateName', 'Mahatma Gandhi', $style));
-
-$style = new SVGStyle(array('font-size' => '20px', 'align' => 'right'));
-$style->setFill('red');
-$finalImage->addShape(SVGText::getInstance(15, 320, 'candidateNumber', 'Vereador 50501', $style));
-
-echo $finalImage->asXML();
-
-$finalImage->export('/tmp/gandhi.png');
-*/
