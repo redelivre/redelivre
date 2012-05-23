@@ -30,7 +30,7 @@ echo '<img src="../wp-content/themes/campanha_padrao/img/delme/mahatma-gandhi.jp
         ?>
         
         <p>Escolha uma cor para a forma:</p>
-        
+        <input type="color" name="shapeColor" value="#ff0667" data-text="hidden" style="height:20px;width:20px;" />
     </div>
     <div id="image_preview"></div>
 </form>

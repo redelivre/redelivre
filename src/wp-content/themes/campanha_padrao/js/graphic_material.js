@@ -1,10 +1,14 @@
 (function($){
     $(document).ready(function() {
         // update image preview whenever a value is changed
-        $('#graphic_material_form :input').each(function() {
+        $('#graphic_material_form :input[type=radio]').each(function() {
             $(this).change(function() {
                 updatePreview();
             });
+        });
+        
+        $('#color_0').bind('colorpicked', function () {
+            updatePreview();
         });
     });
     
