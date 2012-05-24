@@ -101,7 +101,7 @@ class SmallFlyer {
         $uploadDir = wp_upload_dir();
         $url = $uploadDir['baseurl'] . '/graphic_material/' . $fileName;
         
-        die($url);
+        wp_redirect($url);
     }
     
     /**

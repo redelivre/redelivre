@@ -18,18 +18,6 @@
             $('#graphic_material_content').hide();
             $('#svg_not_supported').show();
         }
-        
-        $('#graphic_material_form :input[name=export]').click(function() {
-            $('#graphic_material_form :input[name=action]').val('campanha_export_flyer')
-            $.ajax({
-                url: ajaxurl,
-                type: 'get',
-                data: $('#graphic_material_form').serialize(),
-                success: function(data) {
-                    window.location.replace(data);
-                } 
-            });
-        });
     });
     
     function updatePreview() {

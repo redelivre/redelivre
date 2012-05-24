@@ -115,7 +115,13 @@ function campanha_svg_not_supported_message() {
 require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
 $smallFlyer = new SmallFlyer;
 add_action('wp_ajax_campanha_preview_flyer', array($smallFlyer, 'preview'));
-add_action('wp_ajax_campanha_export_flyer', array($smallFlyer, 'export'));
+
+if (is_admin() && (isset($_REQUEST['page']) && $_REQUEST['page'] == 'graphic_material')
+    && isset($_REQUEST['export']))
+{
+    check_admin_referer('graphic_material');
+    $smallFlyer->export();
+}
 
 add_action( 'after_setup_theme', 'SLUG_setup' );
 function SLUG_setup() {

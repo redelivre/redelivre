@@ -8,15 +8,13 @@ require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
 
 $smallFlyer = new SmallFlyer;
 
-if (isset($_POST['save']) || isset($_POST['export'])) {
+if (isset($_POST['save'])) {
     check_admin_referer('graphic_material');
     
-    if (isset($_POST['save'])) {
-        try {
-            $smallFlyer->save();
-        } catch (Exception $e) {
-            echo "<div class='error'><p>{$e->getMessage()}</p></div>";
-        }
+    try {
+        $smallFlyer->save();
+    } catch (Exception $e) {
+        echo "<div class='error'><p>{$e->getMessage()}</p></div>";
     }
 }
 
@@ -53,7 +51,7 @@ campanha_svg_not_supported_message();
         </div>
         
         <input type="submit" name="save" value="Salvar">
-        <input type="submit" name="export" value="Exportar" onClick="return false;">
+        <input type="submit" name="export" value="Exportar">
     </form>
     
     <div id="graphic_material_preview"></div>
