@@ -14,6 +14,25 @@ class SmallFlyer {
      */
     protected $finalImage;
     
+    /**
+     * Path to the directory where
+     * flyers should be stored.
+     * @var string
+     */
+    protected $dir;
+    
+    /**
+     * Small flyer file name
+     * @var string
+     */
+    protected $fileName;
+    
+    /**
+     * Path to flyer file
+     * @var string
+     */
+    protected $filePath;
+    
     /*
      * Return all available shapes for the image.
      * @return array a list of shapes
@@ -34,17 +53,79 @@ class SmallFlyer {
         return $shapes;
     }
 
+    public function __construct() {
+        $dir = wp_upload_dir();
+        $dir = $dir['basedir'] . '/graphic_material/';
+        
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
+        
+        $this->dir = $dir;
+        $this->fileName = 'smallflyer.svg';
+        $this->filePath = $this->dir . $this->fileName;
+    }
+
     /**
      * Build a candidate flyer based on the information
-     * provided via AJAX request.
+     * provided via AJAX request and print it to the browser.
+     * 
+     * @return null
      */    
+    public function previewImage() {
+        $this->processImage();
+        die($this->finalImage->asXML(null, false));
+    }
+    
+    /**
+     * Save the SVG flyer to the hard disk for future use.
+     * 
+     * @return null
+     */
+    public function saveImage() {
+        $this->processImage();
+        $this->finalImage->asXML($this->filePath);
+    }
+    
+    /**
+     * Check whether a flyer has been created
+     * already.
+     * 
+     * @return bool
+     */
+    public function hasImage() {
+        return file_exists($this->filePath);
+    }
+    
+    /**
+     * Get SVG image from hard disk.
+     * 
+     * @return string SVG image
+     */
     public function getImage() {
+        if (file_exists($this->filePath)) {
+            $svg = SVGDocument::getInstance($this->filePath, 'CampanhaSVGDocument');
+            return $svg->asXML(null, false);
+        }
+    }
+    
+    /**
+     * Do the actual processing to generate the SVG
+     * image based on the user input. Used both when 
+     * displaying the image to the browser and when
+     * saving the image to the disk.
+     * 
+     * @return null
+     */
+    protected function processImage() {
         $candidateImage = TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg';
-        $shapeName = filter_input(INPUT_GET, 'shapeName', FILTER_SANITIZE_STRING);
-        $shapeColor = filter_input(INPUT_GET, 'shapeColor', FILTER_SANITIZE_STRING);
-        $candidateName = filter_input(INPUT_GET, 'candidateName', FILTER_SANITIZE_STRING);
-        $candidateSize = filter_input(INPUT_GET, 'candidateSize', FILTER_SANITIZE_NUMBER_INT);
-        $candidateColor = filter_input(INPUT_GET, 'candidateColor', FILTER_SANITIZE_STRING);
+        
+        // using filter_var instead of filter_input because INPUT_REQUEST is not implemented yet
+        $shapeName = filter_var($_REQUEST['shapeName'], FILTER_SANITIZE_STRING);
+        $shapeColor = filter_var($_REQUEST['shapeColor'], FILTER_SANITIZE_STRING);
+        $candidateName = filter_var($_REQUEST['candidateName'], FILTER_SANITIZE_STRING);
+        $candidateSize = filter_var($_REQUEST['candidateSize'], FILTER_SANITIZE_NUMBER_INT);
+        $candidateColor = filter_var($_REQUEST['candidateColor'], FILTER_SANITIZE_STRING);
         
         $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
         $this->finalImage->setWidth(266);
@@ -56,10 +137,8 @@ class SmallFlyer {
         $this->formatShape($shapeName, $shapeColor);
  
         $this->formatText($candidateName, $candidateColor, $candidateSize);
-        
-        die($this->finalImage->asXML(null, false));
     }
-
+    
     /**
      * Format a SVG shape image to be include in the flyer
      * 
@@ -83,7 +162,7 @@ class SmallFlyer {
             
             $this->finalImage->addShape($shape);
         } else {
-            throw new Exception('Não foi possível encontrar o arquivo correspondente a esta forma.');
+            throw new Exception('Você precisa selecionar uma forma.');
         }
     }
     

@@ -114,7 +114,7 @@ function campanha_svg_not_supported_message() {
 //TODO: centralize all ajax actions?
 require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
 $smallFlyer = new SmallFlyer;
-add_action('wp_ajax_campanha_preview_flyer', array($smallFlyer, 'getImage'));
+add_action('wp_ajax_campanha_preview_flyer', array($smallFlyer, 'previewImage'));
 
 add_action( 'after_setup_theme', 'SLUG_setup' );
 function SLUG_setup() {

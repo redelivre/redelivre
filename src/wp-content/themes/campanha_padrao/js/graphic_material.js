@@ -7,9 +7,11 @@
             });
         });
         
-        $('#color_0').bind('colorpicked', function () {
-            updatePreview();
-        });
+        $('#graphic_material_form :input.mColorPicker').each(function() {
+            $(this).bind('colorpicked', function () {
+                updatePreview();
+            });
+        })
         
         // check if browser support SVG
         if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Shape", "1.0")) {
@@ -25,7 +27,7 @@
             type: 'get',
             data: $('#graphic_material_form').serialize(),
             success: function(data) {
-                $('#image_preview').html(data);
+                $('#graphic_material_preview').html('<h2>Pré-visualização</h2>' + data);
                 $("body").css("cursor", "auto");
             } 
         });
