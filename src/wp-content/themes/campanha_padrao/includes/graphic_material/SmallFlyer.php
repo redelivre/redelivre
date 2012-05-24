@@ -72,7 +72,7 @@ class SmallFlyer {
      * 
      * @return null
      */    
-    public function previewImage() {
+    public function preview() {
         $this->processImage();
         die($this->finalImage->asXML(null, false));
     }
@@ -82,9 +82,26 @@ class SmallFlyer {
      * 
      * @return null
      */
-    public function saveImage() {
+    public function save() {
         $this->processImage();
         $this->finalImage->asXML($this->filePath);
+    }
+    
+    /**
+     * Export SVG flyer to PDF and send the URL to the browser
+     * 
+     * @return null
+     */
+    public function export() {
+        $this->processImage();
+        
+        $fileName = 'smallflyer.pdf';
+        $this->finalImage->export($this->dir . $fileName);
+
+        $uploadDir = wp_upload_dir();
+        $url = $uploadDir['baseurl'] . '/graphic_material/' . $fileName;
+        
+        die($url);
     }
     
     /**
@@ -121,11 +138,11 @@ class SmallFlyer {
         $candidateImage = TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg';
         
         // using filter_var instead of filter_input because INPUT_REQUEST is not implemented yet
-        $shapeName = filter_var($_REQUEST['shapeName'], FILTER_SANITIZE_STRING);
-        $shapeColor = filter_var($_REQUEST['shapeColor'], FILTER_SANITIZE_STRING);
-        $candidateName = filter_var($_REQUEST['candidateName'], FILTER_SANITIZE_STRING);
-        $candidateSize = filter_var($_REQUEST['candidateSize'], FILTER_SANITIZE_NUMBER_INT);
-        $candidateColor = filter_var($_REQUEST['candidateColor'], FILTER_SANITIZE_STRING);
+        $shapeName = isset($_REQUEST['shapeName']) ? filter_var($_REQUEST['shapeName'], FILTER_SANITIZE_STRING) : null;
+        $shapeColor = isset($_REQUEST['shapeColor']) ? filter_var($_REQUEST['shapeColor'], FILTER_SANITIZE_STRING) : null;
+        $candidateName = isset($_REQUEST['candidateName']) ? filter_var($_REQUEST['candidateName'], FILTER_SANITIZE_STRING) : null;
+        $candidateSize = isset($_REQUEST['candidateSize']) ? filter_var($_REQUEST['candidateSize'], FILTER_SANITIZE_NUMBER_INT) : null;
+        $candidateColor = isset($_REQUEST['candidateColor']) ? filter_var($_REQUEST['candidateColor'], FILTER_SANITIZE_STRING) : null;
         
         $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
         $this->finalImage->setWidth(266);
@@ -161,8 +178,6 @@ class SmallFlyer {
             }
             
             $this->finalImage->addShape($shape);
-        } else {
-            throw new Exception('Você precisa selecionar uma forma.');
         }
     }
     

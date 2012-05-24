@@ -1,13 +1,10 @@
 <?php
 
-echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver pago :-)';
 
 require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
 require_once(TEMPLATEPATH . '/includes/wideimage/WideImage.php');
 require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');
 require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
-
-campanha_svg_not_supported_message();
 
 $smallFlyer = new SmallFlyer;
 
@@ -16,12 +13,16 @@ if (isset($_POST['save']) || isset($_POST['export'])) {
     
     if (isset($_POST['save'])) {
         try {
-            $smallFlyer->saveImage();
+            $smallFlyer->save();
         } catch (Exception $e) {
             echo "<div class='error'><p>{$e->getMessage()}</p></div>";
         }
     }
 }
+
+echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver pago :-)';
+
+campanha_svg_not_supported_message();
 
 ?>
 
@@ -52,10 +53,12 @@ if (isset($_POST['save']) || isset($_POST['export'])) {
         </div>
         
         <input type="submit" name="save" value="Salvar">
-        <input type="submit" name="export" value="Exportar">
+        <input type="submit" name="export" value="Exportar" onClick="return false;">
     </form>
     
-    <div id="graphic_material_preview">
+    <div id="graphic_material_preview"></div>
+    
+    <div id="graphic_material_saved">
         <?php
         if ($smallFlyer->hasImage()) {
             echo '<h2>Imagem salva</h2>';
