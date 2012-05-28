@@ -333,7 +333,8 @@ function campanha_addJS() {
 add_action( 'init', 'SLUG_custom_menus' );
 function SLUG_custom_menus() {
     register_nav_menus( array(
-        'main' => __('Menu name', 'SLUG'),
+        'menu_1' => __('Menu 1', 'SLUG'),
+        'menu_2' => __('Menu 2', 'SLUG'),
     ) );
 }
 

@@ -47,7 +47,24 @@
 
     <body <?php body_class(); ?>>
 
-        <header id="branding" role="banner">
+        <header id="branding" class="container cleafix" role="banner">
+
+            <div id="main-menu-search-social-bookmarks" class="container clearfix">
+                <?php wp_nav_menu(array("theme_location" => "menu_1", "container" => "nav", "container_class" => "main_menu_1 span-17", "depth" => 3)) ?>
+
+                <div id="search-and-social-bookmarks" class="span-7 last">
+                    <div id="social-bookmarks" class="alignright">
+                        <?php html::image("facebook_25x25.png", "Facebook") ?>
+                        <?php html::image("twitter_25x25.png", "Twiiter") ?>
+                        <?php html::image("youtube_25x25.png", "YouTube") ?>
+                    </div>
+                    <form method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="alignright">
+                        <input type="text" name="s" id="s" placeholder="<?php esc_attr_e( 'Buscar no site', 'memoriasdoesporte' ); ?>" />
+                        <input type="image" src="<?php echo html::getImageUrl("search.png"); ?>" />
+                    </form>
+                </div>
+            </div>
+
             <hgroup>
                 <h1 id="site-title"><span><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></span></h1>
                 <h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
