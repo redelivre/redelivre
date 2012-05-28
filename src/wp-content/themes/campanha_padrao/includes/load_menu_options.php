@@ -10,6 +10,11 @@ add_action('admin_menu', function() {
         add_menu_page('Material gráfico', 'Material gráfico', 'read', 'graphic_material', function() {
             require(TEMPLATEPATH . '/includes/graphic_material.php');
         });
+        
+        wp_enqueue_script('jquery-ui-draggable');
+        add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photos', function(){
+            require(TEMPLATEPATH . '/includes/graphic_material_photos.php');
+        });
     }
     
     if ($capabilities->contact_manager->value) {
