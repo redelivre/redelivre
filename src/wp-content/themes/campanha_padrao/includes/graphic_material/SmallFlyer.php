@@ -39,7 +39,7 @@ class SmallFlyer {
      */
     public static function getShapes() {
         $shapes = array();
-        $files = glob(TEMPLATEPATH . '/img/graphic_material/shape*');
+        $files = glob(TEMPLATEPATH . '/img/graphic_material/shape*.svg');
         
         foreach ($files as $file) {
             $shape = new stdClass;

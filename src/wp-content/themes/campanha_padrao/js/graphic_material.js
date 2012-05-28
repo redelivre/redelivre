@@ -12,12 +12,6 @@
                 updatePreview();
             });
         })
-        
-        // check if browser support SVG
-        if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Shape", "1.0")) {
-            $('#graphic_material_content').hide();
-            $('#svg_not_supported').show();
-        }
     });
     
     function updatePreview() {

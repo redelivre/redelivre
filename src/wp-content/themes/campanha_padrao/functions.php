@@ -81,36 +81,6 @@ function campanha_unlimited_upload($value) {
 }
 add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
 
-/**
- * Display a message warning the user that SVG
- * is no supported by the browser.
- */
-function campanha_svg_not_supported_message() {
-    require_once(ABSPATH . 'wp-admin/includes/dashboard.php');
-    
-    $notice = '<div id="svg_not_supported" class="error" style="display: none;">';
-    $response = wp_check_browser_version();
-
-    if ( $response ) {
-        $msg = sprintf("Você está utilizando uma versão do <a href='%s'>%s</a> que não tem suporte a SVG. Para que essa página funcione corretamente você precisa atualizar o seu navegador ou utilizar algum outro que suporte SVG.", esc_attr($response['update_url']), esc_html($response['name']));
-
-        $browser_nag_class = '';
-        if (!empty( $response['img_src'])) {
-            $img_src = (is_ssl() && !empty($response['img_src_ssl'])) ? $response['img_src_ssl'] : $response['img_src'];
-
-            $notice .= '<div class="alignright browser-icon"><a href="' . esc_attr($response['update_url']) . '"><img src="' . esc_attr($img_src) . '" alt="" /></a></div>';
-            $browser_nag_class = ' has-browser-icon';
-        }
-        $notice .= "<p class='browser-update-nag{$browser_nag_class}'>{$msg}</p>";
-        $notice .= '<p>' . sprintf('<a href="%1$s" class="update-browser-link">Atualize o %2$s</a>', esc_attr($response['update_url']), esc_html($response['name'])) . '</p>';
-        $notice .= '<div class="clear"></div>';
-    }
-    
-    $notice .= '</div>';
-    
-    echo $notice;
-}
-
 //TODO: centralize all ajax actions?
 require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
 $smallFlyer = new SmallFlyer;

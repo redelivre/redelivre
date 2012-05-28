@@ -20,8 +20,6 @@ if (isset($_POST['save'])) {
 
 echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver pago :-)';
 
-campanha_svg_not_supported_message();
-
 ?>
 
 <div id="graphic_material_content">
