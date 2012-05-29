@@ -15,9 +15,17 @@ Version:1.0
 -------------------------------------------------------------- */
 @import url(css/blueprint-css/screen.css);
 
+/* =Menus
+-------------------------------------------------------------- */
 @import url(css/tabs.css);
 @import url(css/toggle.css);
 
+/* =Menus
+-------------------------------------------------------------- */
+@import url(css/main_menu_1a.css);
+/*@import url(css/main_menu_1b.css);*/
+/*@import url(css/main_menu_1c.css);*/
+@import url(css/main_menu_2a.css);
 
 /* =Fonts
 -------------------------------------------------------------- */
@@ -69,24 +77,11 @@ a:active, a:hover {	text-decoration:underline; }
 /* =Header
 -------------------------------------------------------------- */
 header#branding { margin:1em auto; }
-header#branding #branding-image { margin:0 auto; max-width:1000px; min-width:1000px; }
-header#branding #branding-image img { height:auto; margin:0 auto; max-width:1000px; width:100%; }
+header#branding #branding-image { margin:0 auto; max-width:950px; min-width:950px; }
+header#branding #branding-image img { height:auto; margin:0 auto; max-width:950px; width:100%; }
 header#branding a { display:block; width:100%; }
 
-/* =Menus
--------------------------------------------------------------- */
-nav.main_menu_1 ul { list-style:none; margin:0; padding:0; background:white; }
-nav.main_menu_1 ul li { border-style:solid; border-width:0 1px 0 0; display:block; float:left; margin:0; padding:0 1em; position:relative; }
-nav.main_menu_1 ul li:first-child { padding-left:0; }
-nav.main_menu_1 ul li:last-child { border:none; padding-right:0; }
-nav.main_menu_1 ul.sub-menu { display:none; position:absolute; margin:0; padding:0; width:8em; }
-nav.main_menu_1 ul.sub-menu li { border:none; float:none; margin:0; padding:0; position:relative; }
-nav.main_menu_1 ul.sub-menu ul.sub-menu { display:none; float:left; left:8em; position:absolute; top:0; }
-nav.main_menu_1 ul li:hover ul.sub-menu { display:block; }
-nav.main_menu_1 ul li:hover ul.sub-menu ul.sub-menu { display:none; }
-nav.main_menu_1 ul li ul.sub-menu li:hover ul.sub-menu { display:block; }
 
-nav.main_menu_1 a { font-size:.9em; }
 
 
 
@@ -104,10 +99,7 @@ form#searchform input[type="image"] { position:absolute; right:.4em; top:.4em; }
 
 /* =Colors
 -------------------------------------------------------------- */
-a { color:red; }
-a:visited { color:red; }
 
-nav.main_menu_1 ul li { border-color:red; }
 
 
 

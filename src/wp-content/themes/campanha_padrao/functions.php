@@ -144,8 +144,8 @@ function SLUG_setup() {
 
     // The height and width of your custom header.
     // Add a filter to twentyeleven_header_image_width and twentyeleven_header_image_height to change these values.
-    define( 'HEADER_IMAGE_WIDTH', apply_filters( 'twentyeleven_header_image_width', 1000 ) );
-    define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'twentyeleven_header_image_height', 288 ) );
+    define( 'HEADER_IMAGE_WIDTH', apply_filters( 'twentyeleven_header_image_width', 950 ) );
+    define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'twentyeleven_header_image_height', 200 ) );
 
     // We'll be using post thumbnails for custom header images on posts and pages.
     // We want them to be the size of the header image that we just defined

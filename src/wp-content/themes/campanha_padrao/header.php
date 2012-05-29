@@ -50,7 +50,7 @@
         <header id="branding" class="container cleafix" role="banner">
 
             <div id="main-menu-search-social-bookmarks" class="container clearfix">
-                <?php wp_nav_menu(array("theme_location" => "menu_1", "container" => "nav", "container_class" => "main_menu_1 span-17", "depth" => 3)) ?>
+                <?php wp_nav_menu(array("theme_location" => "menu_1", "container" => "nav", "container_class" => "main_menu_1 span-17", "depth" => 1)) ?>
 
                 <div id="search-and-social-bookmarks" class="span-7 last">
                     <div id="social-bookmarks" class="alignright">
@@ -92,4 +92,6 @@
                 </a>
             </div>
             <?php endif; // end check for removed header image ?>       
+
+            <?php wp_nav_menu(array("theme_location" => "menu_2", "container" => "nav", "container_class" => "main_menu_2 span-24", "depth" => 3)) ?>
         </header><!-- #branding -->
