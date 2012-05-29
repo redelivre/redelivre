@@ -3,7 +3,7 @@
 <div class="container clearfix">
     <?php get_sidebar('left') ?>
 
-    <div class="span-16">
+    <div class="span-12 colborder">
         conteudo
     </div>
     

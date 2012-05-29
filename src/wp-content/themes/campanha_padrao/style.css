@@ -6,19 +6,16 @@ Author:Hacklab
 Version:1.0
 */
 
-/* =Reset
--------------------------------------------------------------- */
-
-/*@import url(css/reset.css);
-
-/* =Grids:BLUEPRINT-CSS;
+/* =Grid
 -------------------------------------------------------------- */
 @import url(css/blueprint-css/screen.css);
 
-/* =Menus
+
+/* =General
 -------------------------------------------------------------- */
 @import url(css/tabs.css);
 @import url(css/toggle.css);
+
 
 /* =Menus
 -------------------------------------------------------------- */
@@ -26,17 +23,23 @@ Version:1.0
 @import url(css/main_menu_1a.css);
 
 /* Main Menu 2 */
-/*@import url(css/main_menu_2a.css);*/
-/*@import url(css/main_menu_2b.css);*/
-/*@import url(css/main_menu_2c.css);*/
+/* @import url(css/main_menu_2a.css); */
+/* @import url(css/main_menu_2b.css); */
+/* @import url(css/main_menu_2c.css); */
 @import url(css/main_menu_2d.css);
+
 
 /* =Social Bookmarks
 -------------------------------------------------------------- */
-/*@import url(css/social_bookmarks_glyphicons.css);*/
+/* @import url(css/social_bookmarks_glyphicons.css); */
 @import url(css/social_bookmarks_gosocial.css);
-/*@import url(css/social_bookmarks_arbeting.css);*/
-/*@import url(css/social_bookmarks_ribbon.css);*/
+/* @import url(css/social_bookmarks_arbeting.css); */
+/* @import url(css/social_bookmarks_ribbon.css); */
+
+
+/* =Sidebar and Widgets
+-------------------------------------------------------------- */
+@import url(css/widget_1.css);
 
 
 /* =Fonts
@@ -226,36 +229,6 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 #form-comentario #comentar, #cancel-comment-reply-link { font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#000; background:#e6e6e6; border:1px solid #ccc; }
 #cancel-comment-reply-link { display:block; text-align:center; float:left; margin:0 0 22px 10px; padding:2px 10px; }
 #respond { padding-bottom:22px; }
-
-/* =Aside
--------------------------------------------------------------- */
-#main-sidebar { font-family:Arial, Helvetica, sans-serif; font-size:12px; }
-
-/* =Widgets
--------------------------------------------------------------- */
-.widget { margin-bottom:21px; border-bottom:1px solid #fff; }
-.widget-content { padding-bottom:21px; border-bottom:1px solid #ccc; }
-.widget ul { margin-bottom:0; }
-/*recentcomments*/
-.widget li.recentcomments { font-style:italic; }
-.widget li.recentcomments a { font-style:normal; }
-.widget li.recentcomments a.url { font-style:italic; }
-/*rss*/
-.widget_rss ul { list-style:none; margin:0; }
-.widget_rss li { margin-bottom:22px; }
-.rss-date { display:block; font-style:italic; }
-.widget_rss .widget-title img {	width:11px; height:11px; }
-
-#wp_tag_cloud div {	line-height:1.6em; }
-
-#wp-calendar { width:100%; font-family:Arial, Helvetica, sans-serif; }
-#wp-calendar caption { color:#000;	font-size:14px; }
-#wp-calendar thead th { color:#000; }
-#wp-calendar tbody td {	background:#fff; border:1px solid #f1f1f1; text-align:center; }
-#wp-calendar tbody td a { background:#d4d4d4; display:block; }
-#wp-calendar tbody .pad { background:none; }
-#wp-calendar tfoot #next { text-align:right; }
-
 
 /* =General classes
 -------------------------------------------------------------- */

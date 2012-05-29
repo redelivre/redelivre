@@ -317,8 +317,8 @@ if(function_exists('register_sidebar')) {
         'description' => __('Sidebar 1', 'SLUG'),
         'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
         'after_widget' => '</div></div>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>',
+        'before_title' => '<h1>',
+        'after_title' => '</h1>',
     ) );
 
     register_sidebar( array(
@@ -327,8 +327,8 @@ if(function_exists('register_sidebar')) {
         'description' => __('Sidebar 2', 'SLUG'),
         'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
         'after_widget' => '</div></div>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>',
+        'before_title' => '<h1>',
+        'after_title' => '</h1>',
     ) );
 }
 
