@@ -312,8 +312,19 @@ function SLUG_custom_menus() {
 if(function_exists('register_sidebar')) {
     // sidebar 
     register_sidebar( array(
-        'name' =>  'Sidebar',
-        'description' => __('Sidebar', 'SLUG'),
+        'id' => 'left',
+        'name' =>  'Sidebar 1',
+        'description' => __('Sidebar 1', 'SLUG'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
+        'after_widget' => '</div></div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    ) );
+
+    register_sidebar( array(
+        'id' => 'right',
+        'name' =>  'Sidebar 2',
+        'description' => __('Sidebar 2', 'SLUG'),
         'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
         'after_widget' => '</div></div>',
         'before_title' => '<h3>',

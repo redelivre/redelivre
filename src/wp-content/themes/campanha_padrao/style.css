@@ -22,10 +22,22 @@ Version:1.0
 
 /* =Menus
 -------------------------------------------------------------- */
+/* Main Menu 1 */
 @import url(css/main_menu_1a.css);
+
+/* Main Menu 2 */
 /*@import url(css/main_menu_2a.css);*/
 /*@import url(css/main_menu_2b.css);*/
-@import url(css/main_menu_2c.css);
+/*@import url(css/main_menu_2c.css);*/
+@import url(css/main_menu_2d.css);
+
+/* =Social Bookmarks
+-------------------------------------------------------------- */
+/*@import url(css/social_bookmarks_glyphicons.css);*/
+@import url(css/social_bookmarks_gosocial.css);
+/*@import url(css/social_bookmarks_arbeting.css);*/
+/*@import url(css/social_bookmarks_ribbon.css);*/
+
 
 /* =Fonts
 -------------------------------------------------------------- */
@@ -76,13 +88,11 @@ a:active, a:hover {	text-decoration:underline; }
 
 /* =Header
 -------------------------------------------------------------- */
-header#branding { margin:1em auto; }
+header#branding { margin:0 auto 1em; padding-top:1em; }
 header#branding #branding-image { margin:0 auto; max-width:950px; min-width:950px; }
 header#branding #branding-image img { height:auto; margin:0 auto; max-width:950px; width:100%; }
 header#branding #branding-image a { display:block; height:200px; width:100%; }
-
-
-
+header#branding { background:#d40000 url(img/bg-teste.png) repeat-x bottom; }
 
 
 /* =Forms
