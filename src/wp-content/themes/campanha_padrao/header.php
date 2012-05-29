@@ -50,13 +50,14 @@
         <header id="branding" class="container cleafix" role="banner">
 
             <div id="main-menu-search-social-bookmarks" class="container clearfix">
-                <?php wp_nav_menu(array("theme_location" => "menu_1", "container" => "nav", "container_class" => "main_menu_1 span-17", "depth" => 1)) ?>
+                <?php wp_nav_menu(array("theme_location" => "menu_1", "container" => "nav", "container_class" => "main_menu_1 span-15 clearfix", "depth" => 1)) ?>
 
-                <div id="search-and-social-bookmarks" class="span-7 last">
+                <div id="search-and-social-bookmarks" class="span-9 last">
                     <div id="social-bookmarks" class="alignright">
-                        <?php html::image("facebook_25x25.png", "Facebook") ?>
-                        <?php html::image("twitter_25x25.png", "Twiiter") ?>
-                        <?php html::image("youtube_25x25.png", "YouTube") ?>
+                        <?php html::image("icons/arbeting/facebook.png", "Facebook") ?>
+                        <?php html::image("icons/arbeting/twitter.png", "Twiiter") ?>
+                        <?php html::image("icons/arbeting/youtube.png", "YouTube") ?>
+                        <?php html::image("icons/arbeting/feed.png", "Feed") ?>
                     </div>
                     <form method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="alignright">
                         <input type="text" name="s" id="s" placeholder="<?php esc_attr_e( 'Buscar no site', 'memoriasdoesporte' ); ?>" />
@@ -93,5 +94,5 @@
             </div>
             <?php endif; // end check for removed header image ?>       
 
-            <?php wp_nav_menu(array("theme_location" => "menu_2", "container" => "nav", "container_class" => "main_menu_2 span-24", "depth" => 3)) ?>
+            <?php wp_nav_menu(array("theme_location" => "menu_2", "container" => "nav", "container_class" => "main_menu_2 span-24 clearfix", "depth" => 3)) ?>
         </header><!-- #branding -->

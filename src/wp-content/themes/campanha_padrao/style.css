@@ -23,9 +23,9 @@ Version:1.0
 /* =Menus
 -------------------------------------------------------------- */
 @import url(css/main_menu_1a.css);
-/*@import url(css/main_menu_1b.css);*/
-/*@import url(css/main_menu_1c.css);*/
-@import url(css/main_menu_2a.css);
+/*@import url(css/main_menu_2a.css);*/
+/*@import url(css/main_menu_2b.css);*/
+@import url(css/main_menu_2c.css);
 
 /* =Fonts
 -------------------------------------------------------------- */
@@ -79,7 +79,7 @@ a:active, a:hover {	text-decoration:underline; }
 header#branding { margin:1em auto; }
 header#branding #branding-image { margin:0 auto; max-width:950px; min-width:950px; }
 header#branding #branding-image img { height:auto; margin:0 auto; max-width:950px; width:100%; }
-header#branding a { display:block; width:100%; }
+header#branding #branding-image a { display:block; height:200px; width:100%; }
 
 
 
