@@ -17,8 +17,6 @@ if (isset($_POST['save'])) {
     }
 }
 
-echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver pago :-)';
-
 ?>
 
 <div id="graphic_material_content">
@@ -35,10 +33,7 @@ echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver 
             $shapes = SmallFlyer::getShapes();
             
             foreach ($shapes as $shape) {
-                $image = SVGDocument::getInstance($shape->path, 'CampanhaSVGDocument');
-                $image->setWidth(70);
-                $image->setHeight(70);
-                echo "<input type='radio' name='shapeName' value='{$shape->name}'>" . $image->asXML(null, false);
+                echo "<input type='radio' name='shapeName' value='{$shape->name}'><img src='{$shape->url}'>";
             }
             ?>
             
@@ -57,7 +52,9 @@ echo 'Tem que impedir o cara de gerar material gráfico se ele ainda não tiver 
         <?php
         if ($smallFlyer->hasImage()) {
             echo '<h2>Imagem salva</h2>';
-            echo $smallFlyer->getImage();
+            // add random number as parameter to skip browser cache
+            $rand = rand();
+            echo "<img src='{$smallFlyer->getImage('png')}?rand=$rand'>";
         }
         ?>
     </div>

@@ -22,6 +22,13 @@ class SmallFlyer {
     protected $dir;
     
     /**
+     * Url to the directory where
+     * flyers should be stored.
+     * @var string
+     */
+    protected $baseUrl;
+    
+    /**
      * Small flyer file name
      * @var string
      */
@@ -35,17 +42,24 @@ class SmallFlyer {
     
     /*
      * Return all available shapes for the image.
+     * 
      * @return array a list of shapes
      */
     public static function getShapes() {
         $shapes = array();
-        $files = glob(TEMPLATEPATH . '/img/graphic_material/shape*.svg');
+        $basePath = TEMPLATEPATH . '/img/graphic_material/';
+        $files = glob($basePath . 'shape*.svg');
         
         foreach ($files as $file) {
             $shape = new stdClass;
             $shape->name = basename($file, '.svg');
-            $shape->uri = get_template_directory_uri() . '/img/graphic_material/' . basename($file);
-            $shape->path = $file;
+            
+            $image = SVGDocument::getInstance($file, 'CampanhaSVGDocument');
+            $image->setWidth(70);
+            $image->setHeight(70);
+            $image->export($basePath . $shape->name . '.png');
+            
+            $shape->url = get_template_directory_uri() . '/img/graphic_material/' . $shape->name . '.png';
             
             $shapes[] = $shape;
         }
@@ -54,27 +68,34 @@ class SmallFlyer {
     }
 
     public function __construct() {
-        $dir = wp_upload_dir();
-        $dir = $dir['basedir'] . '/graphic_material/';
+        $info = wp_upload_dir();
+        $this->dir = $info['basedir'] . '/graphic_material/';
+        $this->baseUrl = $info['baseurl'] . '/graphic_material/';
         
-        if (!file_exists($dir)) {
-            mkdir($dir);
+        if (!file_exists($this->dir)) {
+            mkdir($this->dir);
         }
         
-        $this->dir = $dir;
         $this->fileName = 'smallflyer.svg';
         $this->filePath = $this->dir . $this->fileName;
     }
 
     /**
      * Build a candidate flyer based on the information
-     * provided via AJAX request and print it to the browser.
+     * provided via AJAX request and print its url to the browser.
      * 
      * @return null
      */    
     public function preview() {
+        $path = preg_replace('/\.svg$/', '.png', $this->filePath);
+        $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
+        
         $this->processImage();
-        die($this->finalImage->asXML(null, false));
+        $this->finalImage->export($path);
+        
+        // add random number as parameter to skip browser cache
+        $rand = rand();
+        die("<img src='$url?rand=$rand'>");
     }
     
     /**
@@ -117,12 +138,22 @@ class SmallFlyer {
     /**
      * Get SVG image from hard disk.
      * 
-     * @return string SVG image
+     * @param string $format
+     * @return string SVG image or URL to PNG image
      */
-    public function getImage() {
+    public function getImage($format = 'svg') {
         if (file_exists($this->filePath)) {
             $svg = SVGDocument::getInstance($this->filePath, 'CampanhaSVGDocument');
-            return $svg->asXML(null, false);
+            
+            if ($format == 'svg') {
+                return $svg->asXML(null, false);
+            } else {
+                $filePath = preg_replace('/\.svg$/', '.png', $this->filePath);
+                $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
+                $svg->export($filePath);
+                
+                return $url;
+            }
         }
     }
     
