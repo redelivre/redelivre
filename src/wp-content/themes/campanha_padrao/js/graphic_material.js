@@ -21,7 +21,7 @@
             type: 'get',
             data: $('#graphic_material_form').serialize(),
             success: function(data) {
-                $('#graphic_material_preview').html('<h2>Pré-visualização</h2>' + data);
+                $('#graphic_material_preview').html('<h3>Pré-visualização</h3>' + data);
                 $("body").css("cursor", "auto");
             } 
         });

@@ -171,9 +171,6 @@ class SmallFlyer {
         // using filter_var instead of filter_input because INPUT_REQUEST is not implemented yet
         $shapeName = isset($_REQUEST['shapeName']) ? filter_var($_REQUEST['shapeName'], FILTER_SANITIZE_STRING) : null;
         $shapeColor = isset($_REQUEST['shapeColor']) ? filter_var($_REQUEST['shapeColor'], FILTER_SANITIZE_STRING) : null;
-        $candidateName = isset($_REQUEST['candidateName']) ? filter_var($_REQUEST['candidateName'], FILTER_SANITIZE_STRING) : null;
-        $candidateSize = isset($_REQUEST['candidateSize']) ? filter_var($_REQUEST['candidateSize'], FILTER_SANITIZE_NUMBER_INT) : null;
-        $candidateColor = isset($_REQUEST['candidateColor']) ? filter_var($_REQUEST['candidateColor'], FILTER_SANITIZE_STRING) : null;
         
         $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
         $this->finalImage->setWidth(266);
@@ -184,7 +181,7 @@ class SmallFlyer {
  
         $this->formatShape($shapeName, $shapeColor);
  
-        $this->formatText($candidateName, $candidateColor, $candidateSize);
+        $this->formatText();
     }
     
     /**
@@ -216,27 +213,24 @@ class SmallFlyer {
      * Create a SVGText object with the texts that
      * should be include in the final SVG of the flyer
      * 
-     * @param string $candidateName
-     * @param string $candidateColor
-     * @param int $candidateSize
+     * @return null
      */
-    protected function formatText($candidateName, $candidateColor, $candidateSize) {
+    protected function formatText() {
         global $campaign;
-                
-        if (empty($candidateColor)) {
-            $candidateColor = 'red';
-        }
-        
-        if (empty($candidateSize)) {
-            $candidateSize = '30';
-        }
 
-        $style = new SVGStyle(array('font-size' => "{$candidateSize}px"));
-        $style->setFill($candidateColor);
-        $style->setStroke($candidateColor);
-        $style->setStrokeWidth(1);
+        $candidateName = isset($_REQUEST['candidateName']) ? filter_var($_REQUEST['candidateName'], FILTER_SANITIZE_STRING) : null;
+        $candidateSize = (isset($_REQUEST['candidateSize']) && !empty($_REQUEST['candidateSize'])) ? filter_var($_REQUEST['candidateSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $candidateColor = isset($_REQUEST['candidateColor']) ? filter_var($_REQUEST['candidateColor'], FILTER_SANITIZE_STRING) : 'black';
         
-        $this->finalImage->addShape(SVGText::getInstance(15, 290, 'candidateName', $candidateName, $style));
+        $candidateStyle = $this->createStyle($candidateSize, $candidateColor);
+        $this->finalImage->addShape(SVGText::getInstance(15, 270, 'candidateName', $candidateName, $candidateStyle));
+
+        $slogan = isset($_REQUEST['slogan']) ? filter_var($_REQUEST['slogan'], FILTER_SANITIZE_STRING) : null;
+        $sloganSize = (isset($_REQUEST['sloganSize']) && !empty($_REQUEST['sloganSize'])) ? filter_var($_REQUEST['sloganSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $sloganColor = isset($_REQUEST['sloganColor']) ? filter_var($_REQUEST['sloganColor'], FILTER_SANITIZE_STRING) : 'black';
+        
+        $sloganStyle = $this->createStyle($sloganSize, $sloganColor);
+        $this->finalImage->addShape(SVGText::getInstance(15, 330, 'slogan', $slogan, $sloganStyle));
         
         $string = $campaign->candidate_number;
         
@@ -246,6 +240,23 @@ class SmallFlyer {
             $string = 'Vereador ' . $string;
         }
         
-        $this->finalImage->addShape(SVGText::getInstance(15, 320, 'candidateNumber', $string, $style));
+        $this->finalImage->addShape(SVGText::getInstance(15, 300, 'candidateNumber', $string, $candidateStyle));
+    }
+
+    /**
+     * Return a SVGText object with the specified font
+     * size and color
+     * 
+     * @param int $fontSize
+     * @param string $fontColor
+     * @return SVGText
+     */
+    protected function createStyle($fontSize, $fontColor) {
+        $style = new SVGStyle(array('font-size' => "{$fontSize}px"));
+        $style->setFill($fontColor);
+        $style->setStroke($fontColor);
+        $style->setStrokeWidth(1);
+        
+        return $style;
     }
 }
