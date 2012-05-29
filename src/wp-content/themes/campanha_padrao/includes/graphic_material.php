@@ -1,6 +1,5 @@
 <?php
 
-
 require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
 require_once(TEMPLATEPATH . '/includes/wideimage/WideImage.php');
 require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');

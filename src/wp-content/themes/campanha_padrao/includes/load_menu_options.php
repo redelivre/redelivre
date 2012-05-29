@@ -8,7 +8,13 @@ add_action('admin_menu', function() {
     
     if ($capabilities->graphic_material->value) {
         add_menu_page('Material gráfico', 'Material gráfico', 'read', 'graphic_material', function() {
-            require(TEMPLATEPATH . '/includes/graphic_material.php');
+            global $campaign;
+
+            if ($campaign->isPaid()) {
+                require(TEMPLATEPATH . '/includes/graphic_material.php');
+            } else {
+                print_msgs(array('error' => 'A geração de material gráfico é um recurso que está disponível somente para campanhas que já foram pagas.'));
+            }
         });
         
         wp_enqueue_script('jquery-ui-draggable');
