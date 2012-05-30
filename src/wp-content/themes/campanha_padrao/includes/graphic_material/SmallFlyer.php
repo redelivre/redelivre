@@ -59,6 +59,8 @@ class SmallFlyer extends GraphicMaterial {
         
         $this->fileName = 'santinho.svg';
         $this->filePath = $this->dir . $this->fileName;
+        
+        $this->data = $this->getData();
     }
 
     /**
@@ -89,9 +91,16 @@ class SmallFlyer extends GraphicMaterial {
         $this->processImage();
         $this->finalImage->asXML($this->filePath);
         
+        // generate a PDF copy of the SVG file
         $this->export();
         
+        // if necessary change the publicity of the page that list
+        // the links to all graphic materials        
         $this->maybeChangePublicity();
+        
+        // store SVG file information in the database to be able
+        // to regenerate it
+        $this->saveData();
     }
     
     /**
@@ -163,11 +172,11 @@ class SmallFlyer extends GraphicMaterial {
      * Format a SVG shape image to be include in the flyer
      */
     protected function formatShape() {
-        $shapeName = isset($_REQUEST['shapeName']) ? filter_var($_REQUEST['shapeName'], FILTER_SANITIZE_STRING) : null;
-        $shapeColor1 = isset($_REQUEST['shapeColor1']) ? filter_var($_REQUEST['shapeColor1'], FILTER_SANITIZE_STRING) : null;
-        $shapeColor2 = isset($_REQUEST['shapeColor2']) ? filter_var($_REQUEST['shapeColor2'], FILTER_SANITIZE_STRING) : null;
+        $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
+        $this->data->shapeColor1 = isset($_REQUEST['data']['shapeColor1']) ? filter_var($_REQUEST['data']['shapeColor1'], FILTER_SANITIZE_STRING) : null;
+        $this->data->shapeColor2 = isset($_REQUEST['data']['shapeColor2']) ? filter_var($_REQUEST['data']['shapeColor2'], FILTER_SANITIZE_STRING) : null;
 
-        $shapePath = TEMPLATEPATH . "/img/graphic_material/$shapeName.svg";
+        $shapePath = TEMPLATEPATH . "/img/graphic_material/{$this->data->shapeName}.svg";
         
         if (file_exists($shapePath)) {
             // TODO: check if there is a better way to change element style
@@ -179,15 +188,15 @@ class SmallFlyer extends GraphicMaterial {
             $element2 = $svg->getElementById('cor2');
             $shape2 = new SVGPath($element2->asXML());
             
-            if ($shapeColor1) {
+            if ($this->data->shapeColor1) {
                 $style = new SVGStyle;
-                $style->setFill($shapeColor1);
+                $style->setFill($this->data->shapeColor1);
                 $shape1->setStyle($style);
             }
             
-            if ($shapeColor2) {
+            if ($this->data->shapeColor2) {
                 $style = new SVGStyle;
-                $style->setFill($shapeColor2);
+                $style->setFill($this->data->shapeColor2);
                 $shape2->setStyle($style);
             }
             
@@ -205,29 +214,29 @@ class SmallFlyer extends GraphicMaterial {
     protected function formatText() {
         global $campaign;
 
-        $candidateName = isset($_REQUEST['candidateName']) ? filter_var($_REQUEST['candidateName'], FILTER_SANITIZE_STRING) : null;
-        $candidateSize = (isset($_REQUEST['candidateSize']) && !empty($_REQUEST['candidateSize'])) ? filter_var($_REQUEST['candidateSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
-        $candidateColor = isset($_REQUEST['candidateColor']) ? filter_var($_REQUEST['candidateColor'], FILTER_SANITIZE_STRING) : 'black';
+        $this->data->candidateName = isset($_REQUEST['data']['candidateName']) ? filter_var($_REQUEST['data']['candidateName'], FILTER_SANITIZE_STRING) : null;
+        $this->data->candidateSize = (isset($_REQUEST['data']['candidateSize']) && !empty($_REQUEST['data']['candidateSize'])) ? filter_var($_REQUEST['data']['candidateSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $this->data->candidateColor = isset($_REQUEST['data']['candidateColor']) ? filter_var($_REQUEST['data']['candidateColor'], FILTER_SANITIZE_STRING) : 'black';
         
-        $candidateStyle = $this->createStyle($candidateSize, $candidateColor);
-        $this->finalImage->addShape(SVGText::getInstance(15, 270, 'candidateName', $candidateName, $candidateStyle));
+        $candidateStyle = $this->createStyle($this->data->candidateSize, $this->data->candidateColor);
+        $this->finalImage->addShape(SVGText::getInstance(15, 270, 'candidateName', $this->data->candidateName, $candidateStyle));
 
-        $slogan = isset($_REQUEST['slogan']) ? filter_var($_REQUEST['slogan'], FILTER_SANITIZE_STRING) : null;
-        $sloganSize = (isset($_REQUEST['sloganSize']) && !empty($_REQUEST['sloganSize'])) ? filter_var($_REQUEST['sloganSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
-        $sloganColor = isset($_REQUEST['sloganColor']) ? filter_var($_REQUEST['sloganColor'], FILTER_SANITIZE_STRING) : 'black';
+        $this->data->slogan = isset($_REQUEST['data']['slogan']) ? filter_var($_REQUEST['data']['slogan'], FILTER_SANITIZE_STRING) : null;
+        $this->data->sloganSize = (isset($_REQUEST['data']['sloganSize']) && !empty($_REQUEST['data']['sloganSize'])) ? filter_var($_REQUEST['data']['sloganSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $this->data->sloganColor = isset($_REQUEST['data']['sloganColor']) ? filter_var($_REQUEST['data']['sloganColor'], FILTER_SANITIZE_STRING) : 'black';
         
-        $sloganStyle = $this->createStyle($sloganSize, $sloganColor);
-        $this->finalImage->addShape(SVGText::getInstance(15, 330, 'slogan', $slogan, $sloganStyle));
+        $sloganStyle = $this->createStyle($this->data->sloganSize, $this->data->sloganColor);
+        $this->finalImage->addShape(SVGText::getInstance(15, 330, 'slogan', $this->data->slogan, $sloganStyle));
         
-        $string = $campaign->candidate_number;
+        $this->data->candidateNumber = $campaign->candidate_number;
         
-        if (strlen($string) == 2) {
-            $string = 'Prefeito ' . $string;
+        if (strlen($this->data->candidateNumber) == 2) {
+            $this->data->candidateNumber = 'Prefeito ' . $this->data->candidateNumber;
         } else {
-            $string = 'Vereador ' . $string;
+            $this->data->candidateNumber = 'Vereador ' . $this->data->candidateNumber;
         }
         
-        $this->finalImage->addShape(SVGText::getInstance(15, 300, 'candidateNumber', $string, $candidateStyle));
+        $this->finalImage->addShape(SVGText::getInstance(15, 300, 'candidateNumber', $this->data->candidateNumber, $candidateStyle));
     }
 
     /**

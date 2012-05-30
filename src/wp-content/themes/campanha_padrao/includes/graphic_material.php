@@ -36,36 +36,39 @@ if (isset($_POST['save'])) {
                 $shapes = SmallFlyer::getShapes();
                 
                 foreach ($shapes as $shape) {
-                    echo "<input type='radio' name='shapeName' value='{$shape->name}'><img src='{$shape->url}'>";
+                    $checked = (isset($smallFlyer->data->shapeName) && $shape->name == $smallFlyer->data->shapeName) ? ' checked ' : '';
+                    echo "<input type='radio' name='data[shapeName]' value='{$shape->name}' $checked><img src='{$shape->url}'>";
                 }
                 ?>
                 
-                <p>Cor 1: <input type="color" name="shapeColor1" value="#ff0000" data-text="hidden" style="height:20px;width:20px;" /></p>
-                <p>Cor 2: <input type="color" name="shapeColor2" value="#00ff00" data-text="hidden" style="height:20px;width:20px;" /></p>
+                <p>Cor 1: <input type="color" name="data[shapeColor1]" value="<?php echo (isset($smallFlyer->data->shapeColor1) && !empty($smallFlyer->data->shapeColor1)) ? $smallFlyer->data->shapeColor1 : '#ff0000'; ?>" data-text="hidden" style="height:20px;width:20px;" /></p>
+                <p>Cor 2: <input type="color" name="data[shapeColor2]" value="<?php echo (isset($smallFlyer->data->shapeColor2) && !empty($smallFlyer->data->shapeColor2)) ? $smallFlyer->data->shapeColor2 : '#00ff00'; ?>" data-text="hidden" style="height:20px;width:20px;" /></p>
                 <br>
                 
                 <h3>3. Textos:</h3>
-                <label for="candidateName">Nome:</label> <input type="text" name="candidateName" value="" /><br>
-                <label for="candidateColor">Cor:</label> <input type="color" name="candidateColor" value="#000000" data-text="hidden" style="height:20px;width:20px;" /><br>
-                <label for="candidateSize">Tamanho:</label>
-                <select name="candidateSize">
-                    <option value=""></option>
+                Nome: <input type="text" name="data[candidateName]" value="<?php echo (isset($smallFlyer->data->shapeName)) ? $smallFlyer->data->shapeName : ''; ?>" /><br>
+                Cor: <input type="color" name="data[candidateColor]" value="<?php echo (isset($smallFlyer->data->candidateColor) && !empty($smallFlyer->data->candidateColor)) ? $smallFlyer->data->candidateColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
+                Tamanho:
+                <select name="data[candidateSize]">
+                    <option value="" selected="selected"></option>
                     <?php
                     foreach (range(8, 30) as $number) {
-                        echo "<option value='$number'>$number</option>";
+                        $selected = (isset($smallFlyer->data->candidateSize) && $smallFlyer->data->candidateSize == $number) ? ' selected="selected" ' : '';
+                        echo "<option value='$number' $selected>$number</option>";
                     }
                     ?>
                 </select>
                 <br><br>
                 
-                <label for="slogan">Slogan:</label> <input type="text" name="slogan" value="" /><br>
-                <label for="sloganColor">Cor:</label> <input type="color" name="sloganColor" value="#000000" data-text="hidden" style="height:20px;width:20px;" /><br>
-                <label for="sloganSize">Tamanho:</label>
-                <select name="sloganSize">
-                    <option value=""></option>
+                Slogan: <input type="text" name="data[slogan]" value="<?php echo (isset($smallFlyer->data->slogan)) ? $smallFlyer->data->slogan : ''; ?>" /><br>
+                Cor: <input type="color" name="data[sloganColor]" value="<?php echo (isset($smallFlyer->data->sloganColor) && !empty($smallFlyer->data->sloganColor)) ? $smallFlyer->data->sloganColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
+                Tamanho:
+                <select name="data[sloganSize]">
+                    <option value="" selected="selected"></option>
                     <?php
                     foreach (range(8, 30) as $number) {
-                        echo "<option value='$number'>$number</option>";
+                        $selected = (isset($smallFlyer->data->sloganSize) && $smallFlyer->data->sloganSize == $number) ? ' selected="selected" ' : '';
+                        echo "<option value='$number' $selected>$number</option>";
                     }
                     ?>
                 </select>
