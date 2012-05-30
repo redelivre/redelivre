@@ -57,7 +57,7 @@ class SmallFlyer extends GraphicMaterial {
     public function __construct() {
         parent::__construct();
         
-        $this->fileName = 'smallflyer.svg';
+        $this->fileName = 'santinho.svg';
         $this->filePath = $this->dir . $this->fileName;
     }
 
@@ -90,6 +90,8 @@ class SmallFlyer extends GraphicMaterial {
         $this->finalImage->asXML($this->filePath);
         
         $this->export();
+        
+        $this->maybeChangePublicity();
     }
     
     /**

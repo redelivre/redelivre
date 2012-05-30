@@ -6,6 +6,7 @@ require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php'
 require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
 
 $smallFlyer = new SmallFlyer;
+$url = site_url() . '/materialgrafico';
 
 if (isset($_POST['save'])) {
     check_admin_referer('graphic_material');
@@ -70,8 +71,8 @@ if (isset($_POST['save'])) {
                 </select>
                 
                 <h3>4. Envie o link para a gráfica:</h3>
-                <p>Utilize o link para compartilhar o material gráfico gerado. O checkbox abaixo precisa estar selecionado.</p>
-                <input type='checkbox' name='graphic_material_public' value='<?php //echo $smallFlyer->publicLink; ?>'> Link público?
+                <p>Utilize o link <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a> para compartilhar o material gráfico gerado. O checkbox abaixo precisa estar selecionado para que o conteúdo do link seja público.</p>
+                <input type='checkbox' name='graphic_material_public' <?php if ($smallFlyer->isPublic()) echo ' checked="checked" '; ?>> Link público?
             </div>
             
             <input type="submit" name="save" value="Salvar">

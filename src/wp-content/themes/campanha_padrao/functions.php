@@ -29,6 +29,37 @@ function campanha_check_payment_status() {
     }
 }
 
+add_filter('query_vars', 'custom_query_vars');
+function custom_query_vars($public_query_vars) {
+    $public_query_vars[] = "tpl";
+
+    return $public_query_vars;
+}
+
+// REDIRECIONAMENTOS
+add_filter('rewrite_rules_array', 'custom_url_rewrites', 10, 1);
+function custom_url_rewrites($rules) {
+    $new_rules = array(
+        "materialgrafico/?$" => "index.php?tpl=materialgrafico",
+    );
+
+    return $new_rules + $rules;
+}
+
+add_action('template_redirect', 'template_redirect_intercept');
+function template_redirect_intercept() {
+    global $wp_query;
+
+    switch ($wp_query->get('tpl')) {
+        case 'materialgrafico':
+            require(TEMPLATEPATH . '/includes/graphic_material_list_links.php');
+            die;
+        default:
+            break;
+    }
+}
+
+
 add_filter('login_message', 'campanha_login_payment_message');
 /**
  * Display a message in the login page about the
@@ -85,13 +116,6 @@ add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload
 require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
 $smallFlyer = new SmallFlyer;
 add_action('wp_ajax_campanha_preview_flyer', array($smallFlyer, 'preview'));
-
-if (is_admin() && (isset($_REQUEST['page']) && $_REQUEST['page'] == 'graphic_material')
-    && isset($_REQUEST['export']))
-{
-    check_admin_referer('graphic_material');
-    $smallFlyer->export();
-}
 
 add_action( 'after_setup_theme', 'SLUG_setup' );
 function SLUG_setup() {
