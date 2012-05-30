@@ -22,7 +22,7 @@ if (isset($_POST['save'])) {
 <div>
     <h1>Geração de material gráfico</h1>
     <div id="graphic_material_content" style="width: 60%; float: left;">
-        <h3>1. Envie sua foto:</h3>
+        <h3>1. Selecione uma foto ou envie uma nova:</h3>
         <?php echo '<img src="../wp-content/themes/campanha_padrao/img/delme/mahatma-gandhi.jpg"><br><br>'; ?>
         
         <form id="graphic_material_form" method="post">
@@ -39,7 +39,8 @@ if (isset($_POST['save'])) {
                 }
                 ?>
                 
-                <p>Escolha uma cor para a forma: <input type="color" name="shapeColor" value="#ff0000" data-text="hidden" style="height:20px;width:20px;" /></p>
+                <p>Cor 1: <input type="color" name="shapeColor1" value="#ff0000" data-text="hidden" style="height:20px;width:20px;" /></p>
+                <p>Cor 2: <input type="color" name="shapeColor2" value="#00ff00" data-text="hidden" style="height:20px;width:20px;" /></p>
                 <br>
                 
                 <h3>3. Textos:</h3>
@@ -67,10 +68,13 @@ if (isset($_POST['save'])) {
                     }
                     ?>
                 </select>
+                
+                <h3>4. Envie o link para a gráfica:</h3>
+                <p>Utilize o link para compartilhar o material gráfico gerado. O checkbox abaixo precisa estar selecionado.</p>
+                <input type='checkbox' name='graphic_material_public' value='<?php //echo $smallFlyer->publicLink; ?>'> Link público?
             </div>
             
             <input type="submit" name="save" value="Salvar">
-            <input type="submit" name="export" value="Exportar">
         </form>
     </div>
     

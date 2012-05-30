@@ -1,32 +1,19 @@
 <?php
 
 require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
+require_once(TEMPLATEPATH . '/includes/graphic_material/GraphicMaterial.php');
 require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');
 
 /**
  * Class to generate different graphic material
  * to the candidates.
  */
-class SmallFlyer {
+class SmallFlyer extends GraphicMaterial {
     /**
      * The final SVG flyer
      * @var CampanhaSVGDocument
      */
     protected $finalImage;
-    
-    /**
-     * Path to the directory where
-     * flyers should be stored.
-     * @var string
-     */
-    protected $dir;
-    
-    /**
-     * Url to the directory where
-     * flyers should be stored.
-     * @var string
-     */
-    protected $baseUrl;
     
     /**
      * Small flyer file name
@@ -68,13 +55,7 @@ class SmallFlyer {
     }
 
     public function __construct() {
-        $info = wp_upload_dir();
-        $this->dir = $info['basedir'] . '/graphic_material/';
-        $this->baseUrl = $info['baseurl'] . '/graphic_material/';
-        
-        if (!file_exists($this->dir)) {
-            mkdir($this->dir);
-        }
+        parent::__construct();
         
         $this->fileName = 'smallflyer.svg';
         $this->filePath = $this->dir . $this->fileName;
@@ -99,30 +80,26 @@ class SmallFlyer {
     }
     
     /**
-     * Save the SVG flyer to the hard disk for future use.
+     * Save the SVG flyer to the hard disk for future use
+     * and export it to PDF.
      * 
      * @return null
      */
     public function save() {
         $this->processImage();
         $this->finalImage->asXML($this->filePath);
+        
+        $this->export();
     }
     
     /**
-     * Export SVG flyer to PDF and send the URL to the browser
+     * Export SVG flyer to PDF
      * 
      * @return null
      */
-    public function export() {
-        $this->processImage();
-        
-        $fileName = 'smallflyer.pdf';
-        $this->finalImage->export($this->dir . $fileName);
-
-        $uploadDir = wp_upload_dir();
-        $url = $uploadDir['baseurl'] . '/graphic_material/' . $fileName;
-        
-        wp_redirect($url);
+    protected function export() {
+        $path = preg_replace('/\.svg$/', '.pdf', $this->filePath);
+        $this->finalImage->export($path);
     }
     
     /**
@@ -168,10 +145,6 @@ class SmallFlyer {
     protected function processImage() {
         $candidateImage = TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg';
         
-        // using filter_var instead of filter_input because INPUT_REQUEST is not implemented yet
-        $shapeName = isset($_REQUEST['shapeName']) ? filter_var($_REQUEST['shapeName'], FILTER_SANITIZE_STRING) : null;
-        $shapeColor = isset($_REQUEST['shapeColor']) ? filter_var($_REQUEST['shapeColor'], FILTER_SANITIZE_STRING) : null;
-        
         $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
         $this->finalImage->setWidth(266);
         $this->finalImage->setHeight(354);
@@ -179,33 +152,45 @@ class SmallFlyer {
         $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
         $this->finalImage->addShape($candidateImage);
  
-        $this->formatShape($shapeName, $shapeColor);
+        $this->formatShape();
  
         $this->formatText();
     }
     
     /**
      * Format a SVG shape image to be include in the flyer
-     * 
-     * @param $shapeName string name of the file that should be used
-     * @param $shapeColor string
      */
-    protected function formatShape($shapeName, $shapeColor) {
+    protected function formatShape() {
+        $shapeName = isset($_REQUEST['shapeName']) ? filter_var($_REQUEST['shapeName'], FILTER_SANITIZE_STRING) : null;
+        $shapeColor1 = isset($_REQUEST['shapeColor1']) ? filter_var($_REQUEST['shapeColor1'], FILTER_SANITIZE_STRING) : null;
+        $shapeColor2 = isset($_REQUEST['shapeColor2']) ? filter_var($_REQUEST['shapeColor2'], FILTER_SANITIZE_STRING) : null;
+
         $shapePath = TEMPLATEPATH . "/img/graphic_material/$shapeName.svg";
         
         if (file_exists($shapePath)) {
             // TODO: check if there is a better way to change element style
             $svg = SVGDocument::getInstance($shapePath);
-            $element = $svg->getElementByAttribute('fill-rule', 'evenodd');
-            $shape = new SVGPath($element->asXML());
             
-            if ($shapeColor) {
+            $element1 = $svg->getElementById('cor1');
+            $shape1 = new SVGPath($element1->asXML());
+            
+            $element2 = $svg->getElementById('cor2');
+            $shape2 = new SVGPath($element2->asXML());
+            
+            if ($shapeColor1) {
                 $style = new SVGStyle;
-                $style->setFill($shapeColor);
-                $shape->setStyle($style);
+                $style->setFill($shapeColor1);
+                $shape1->setStyle($style);
             }
             
-            $this->finalImage->addShape($shape);
+            if ($shapeColor2) {
+                $style = new SVGStyle;
+                $style->setFill($shapeColor2);
+                $shape2->setStyle($style);
+            }
+            
+            $this->finalImage->addShape($shape1);
+            $this->finalImage->addShape($shape2);
         }
     }
     
