@@ -1,0 +1,9 @@
+a#facebook { background:url(../img/icons/arbenting_32x32.png) no-repeat  00px 0px; display:inline-block; height:32px; margin-top:-3px; width:30px; }
+a#twitter  { background:url(../img/icons/arbenting_32x32.png) no-repeat -33px 0px; display:inline-block; height:32px; margin-top:-3px; width:30px; }
+a#youtube  { background:url(../img/icons/arbenting_32x32.png) no-repeat -66px 0px; display:inline-block; height:32px; margin-top:-3px; width:30px; }
+a#rss      { background:url(../img/icons/arbenting_32x32.png) no-repeat -99px 0px; display:inline-block; height:32px; margin-top:-3px; width:30px; }
+
+a:hover#facebook { background-position: 00px bottom; }
+a:hover#twitter  { background-position:-33px bottom; }
+a:hover#youtube  { background-position:-66px bottom; }
+a:hover#rss      { background-position:-99px bottom; }

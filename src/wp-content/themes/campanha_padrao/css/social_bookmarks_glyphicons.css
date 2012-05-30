@@ -1,0 +1,9 @@
+a#facebook { background:url(../img/icons/glyphicons_24x24.png) no-repeat  00px top; display:inline-block; height:24px; width:24px; }
+a#twitter  { background:url(../img/icons/glyphicons_24x24.png) no-repeat -25px top; display:inline-block; height:24px; width:24px; }
+a#youtube  { background:url(../img/icons/glyphicons_24x24.png) no-repeat -50px top; display:inline-block; height:24px; width:24px; }
+a#rss      { background:url(../img/icons/glyphicons_24x24.png) no-repeat -75px top; display:inline-block; height:24px; width:24px; }
+
+a:hover#facebook { background-position: 00px bottom; }
+a:hover#twitter  { background-position:-25px bottom; }
+a:hover#youtube  { background-position:-50px bottom; }
+a:hover#rss      { background-position:-75px bottom; }
