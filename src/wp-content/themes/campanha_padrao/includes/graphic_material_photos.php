@@ -16,6 +16,8 @@ if (isset($_POST["graphic_material_upload_photo"]) && wp_verify_nonce($_POST['gr
         
         move_uploaded_file($_FILES['photo']['tmp_name'], $fname);
         
+        update_option('photo-position-'.$FILE_NAME, array('left' => 0, 'top' => 0, 'width' => 'auto'));
+        
     }else if(!$_FILES['photo']['error'] && !in_array($_FILES['photo']['type'], $MIME_TYPES)){
         $error = "Tipo de arquivo inválido, o arquivo deve ser dos tipos .png ou .jpg";
     }else{
@@ -23,14 +25,35 @@ if (isset($_POST["graphic_material_upload_photo"]) && wp_verify_nonce($_POST['gr
     }
     
 }
+
+$position = get_option('photo-position-'.$FILE_NAME);
+
+if(!$position){
+    $position = array('left' => 0, 'top' => 0, 'width' => 'auto');
+    update_option('photo-position-'.$FILE_NAME, $position);
+}
+
 ?>
 <script>
 (function($){
     $(document).ready(function(){
+        $('#save-position').click(function(){
+            var left = $('#photo-wrapper img').css('left');
+            var top = $('#photo-wrapper img').css('top');
+            var width = $('#photo-wrapper img').css('width');
+            $.post('<?php bloginfo('url') ?>/wp-admin/admin-ajax.php',{action: 'savePhotoPosition', filename: '<?php echo $FILE_NAME; ?>', left: left, top: top, width: width},function(result){
+                $("#save-response").show().delay(1000).fadeOut(2000);
+            });
+        });
+        
         $("#photo-wrapper").css({
             width:200,
             height:300,
             overflow: 'hidden'
+        }).mouseover(function(){
+            $('#zoom-plus, #zoom-minus').show();
+        }).mouseout(function(){
+            $('#zoom-plus, #zoom-minus').hide();
         });
         
         $("#photo-wrapper img").css({
@@ -59,14 +82,18 @@ if (isset($_POST["graphic_material_upload_photo"]) && wp_verify_nonce($_POST['gr
                 $('#photo-wrapper img').css('width', w);
             },20);
         }).disableSelection();
+        
+        
     });
 })(jQuery);
 </script>
 <style>
-    #zoom-plus, #zoom-minus { background:white; border:1px solid black; cursor:pointer; font-weight:bold; height:15px; margin:2px; position:absolute; text-align:center; width:15px; z-index:2; }
+    #zoom-plus, #zoom-minus { background:white; border:1px solid black; cursor:pointer; display:none; font-weight:bold; height:15px; margin:2px; position:absolute; text-align:center; width:15px; z-index:2; }
     #zoom-plus { left:19px; }
-    #photo-wrapper { border: 1px solid transparent; }
+    #photo-wrapper { border: 1px solid transparent; position:relative; }
     #photo-wrapper:hover { border: 1px dashed #999; }
+    #photo-wrapper img { position:absolute; }
+    #save-response { display:none; }
 </style>
 <div class="wrapper">
     <h2>FOTO</h2>
@@ -84,8 +111,10 @@ if (isset($_POST["graphic_material_upload_photo"]) && wp_verify_nonce($_POST['gr
         <div id="photo-wrapper">
             <div id="zoom-plus">+</div>
             <div id="zoom-minus">-</div>
-            <img src="<?php echo $BASE_URL.$FILE_NAME; ?>" />
+            <img src="<?php echo $BASE_URL.$FILE_NAME; ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>; width: <?php echo $position['width']; ?>;"/>
         </div>
+        <button id="save-position">salvar posição</button>
+        <span id="save-response">a posição da imagem foi salva</span>
     <?php else: ?>
         você ainda não enviou a imagem
     <?php endif; ?>

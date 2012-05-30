@@ -6,7 +6,7 @@
  */
 
 class EasyAjax {
-    static $admin = array('teste1');
+    static $admin = array('savePhotoPosition');
     
     static function init(){
         $methods = get_class_methods(__CLASS__);
@@ -22,8 +22,8 @@ class EasyAjax {
         }
     }
     
-    static function teste1(){
-        
+    static function savePhotoPosition(){
+        update_option('photo-position-'.$_POST['filename'], array('left' => $_POST['left'], 'top' => $_POST['top'], 'width' => $_POST['width']));
     }
 }
 
