@@ -16,6 +16,13 @@ class GraphicMaterial
      */
     protected $dir;
     
+    /**
+     * Data used to generate the 
+     * SVG file.
+     * @var array
+     */
+    public $data;
+    
     public function __construct()
     {
         $info = wp_upload_dir();
@@ -25,6 +32,37 @@ class GraphicMaterial
         if (!file_exists($this->dir)) {
             mkdir($this->dir);
         }
+        
+        $this->optionName = strtolower(get_called_class());
+    }
+    
+    /**
+     * Get from the database data used to
+     * generated the SVG file.
+     * 
+     * @return stdClass data to generate SVG file
+     */
+    public function getData()
+    {
+        // the option is stored using the name of one of this class childs
+        $data = get_option($this->optionName);
+        
+        if ($data) {
+            return $data;
+        } else {
+            return new stdClass;
+        }
+    }
+    
+    /**
+     * Store the data used to generate the SVG
+     * file in the database.
+     * 
+     * @return null
+     */
+    public function saveData()
+    {
+        update_option($this->optionName, $this->data);
     }
     
     /**
