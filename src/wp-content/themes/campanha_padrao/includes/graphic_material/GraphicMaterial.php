@@ -26,6 +26,11 @@ class GraphicMaterial
     public function __construct()
     {
         $info = wp_upload_dir();
+        
+        if ($info['error']) {
+            throw new Exception($info['error']);
+        }
+        
         $this->dir = $info['basedir'] . '/graphic_material/';
         $this->baseUrl = $info['baseurl'] . '/graphic_material/';
         
