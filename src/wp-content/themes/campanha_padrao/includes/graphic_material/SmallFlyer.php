@@ -34,8 +34,11 @@ class SmallFlyer extends GraphicMaterial {
      */
     public static function getShapes() {
         $shapes = array();
-        $basePath = TEMPLATEPATH . '/img/graphic_material/';
-        $files = glob($basePath . 'shape*.svg');
+        $files = glob(TEMPLATEPATH . '/img/graphic_material/' . 'shape*.svg');
+        
+        $uploadInfo = wp_upload_dir();
+        $baseUrl = $uploadInfo['baseurl'] . '/graphic_material/';
+        $basePath = $uploadInfo['basedir'] . '/graphic_material/';
         
         foreach ($files as $file) {
             $shape = new stdClass;
@@ -46,7 +49,7 @@ class SmallFlyer extends GraphicMaterial {
             $image->setHeight(70);
             $image->export($basePath . $shape->name . '.png');
             
-            $shape->url = get_template_directory_uri() . '/img/graphic_material/' . $shape->name . '.png';
+            $shape->url = $baseUrl . $shape->name . '.png';
             
             $shapes[] = $shape;
         }
