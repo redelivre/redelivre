@@ -4,9 +4,10 @@
             var left = $('#photo-wrapper img').css('left');
             var top = $('#photo-wrapper img').css('top');
             var width = $('#photo-wrapper img').css('width');
+            var filename = $('input[name=graphic_material_filename]').val();
             $.post(
                 ajaxurl,
-                {action: 'savePhotoPosition', filename: 'foto1', left: left, top: top, width: width},
+                {action: 'savePhotoPosition', filename: filename, left: left, top: top, width: width},
                 function(result) {
                     $("#save-response").show().delay(1000).fadeOut(2000);
                 }

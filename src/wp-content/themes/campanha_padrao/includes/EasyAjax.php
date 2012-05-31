@@ -26,7 +26,9 @@ class EasyAjax {
     }
     
     static function savePhotoPosition(){
-        $candidatePhoto = new CandidatePhoto;
+        $fileName = filter_input(INPUT_POST, 'filename', FILTER_SANITIZE_STRING);
+        
+        $candidatePhoto = new CandidatePhoto($fileName);
         $candidatePhoto->crop();
     }
     
