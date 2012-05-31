@@ -11,10 +11,25 @@ Version:1.0
 @import url(css/blueprint-css/screen.css);
 
 
-/* =General
+/* =Fonts
 -------------------------------------------------------------- */
-@import url(css/tabs.css);
-@import url(css/toggle.css);
+/*
+body { font:14px/22px Arial, Helvetica, sans-serif; }
+pre { font-family:Verdana, sans-serif; font-size:12px; } 
+code { font-family:"Courier New", monospace; font-size:13px; }
+h1,h2,h3,h4,h5,h6 { margin-bottom:22px; color:#000; clear:both; }
+h1 { font-size:36px; line-height:44px; }
+h2 { font-size:30px; line-height:44px; }
+h3 { font-size:24px; }
+h4 { font-size:22px; }
+h5 { font-size:20px; }
+h6 { font-size:18px; }
+*/
+
+@import url(css/font_times.css);
+/*@import url(css/font_impact.css);*/
+/*@import url(css/font_helvetica_arial_verdana_sans_serif.css);*/
+/*@import url(fonts/delicious/stylesheet.css);*/
 
 
 /* =Menus
@@ -42,18 +57,11 @@ Version:1.0
 @import url(css/widget_1.css);
 
 
-/* =Fonts
+/* =Elements
 -------------------------------------------------------------- */
-body { font:14px/22px Arial, Helvetica, sans-serif; }
-pre { font-family:Verdana, sans-serif; font-size:12px; } 
-code { font-family:"Courier New", monospace; font-size:13px; }
-h1,h2,h3,h4,h5,h6 { margin-bottom:22px; color:#000; clear:both; }
-h1 { font-size:36px; line-height:44px; }
-h2 { font-size:30px; line-height:44px; }
-h3 { font-size:24px; }
-h4 { font-size:22px; }
-h5 { font-size:20px; }
-h6 { font-size:18px; }
+@import url(css/tabs.css);
+@import url(css/toggle.css);
+
 
 /* =Global Elements
 -------------------------------------------------------------- */
