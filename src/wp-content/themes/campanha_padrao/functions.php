@@ -112,11 +112,6 @@ function campanha_unlimited_upload($value) {
 }
 add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
 
-//TODO: centralize all ajax actions?
-require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
-$smallFlyer = new SmallFlyer;
-add_action('wp_ajax_campanha_preview_flyer', array($smallFlyer, 'preview'));
-
 add_action( 'after_setup_theme', 'SLUG_setup' );
 function SLUG_setup() {
 
