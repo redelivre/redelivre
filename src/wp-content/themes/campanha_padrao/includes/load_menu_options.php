@@ -19,10 +19,10 @@ add_action('admin_menu', function() {
         require_once(TEMPLATEPATH . '/includes/graphic_material/GraphicMaterial.php');
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
         
-        wp_enqueue_script('jquery-ui-draggable');
-        add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photos', function(){
+        $page = add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photos', function(){
             require(TEMPLATEPATH . '/includes/graphic_material_photos.php');
         });
+        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
     }
     
     if ($capabilities->contact_manager->value) {

@@ -7,6 +7,7 @@ include dirname(__FILE__).'/includes/utils.class.php';
 include dirname(__FILE__).'/includes/payment.php';
 
 $campaign = Campaign::getByBlogId($blog_id);
+GraphicMaterial::setUp();
 
 if (is_admin()) {
     require_once(dirname(__FILE__) . '/includes/load_menu_options.php');

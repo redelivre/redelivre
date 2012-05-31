@@ -29,10 +29,34 @@ class GraphicMaterial
      */
     public static function scriptsAndStyles()
     {
+        wp_enqueue_script('jquery-ui-draggable');
+        wp_enqueue_script('crop_photo', get_stylesheet_directory_uri() . '/js/crop_photo.js', array('jquery-ui-draggable'));
         wp_enqueue_script('graphic_material', get_stylesheet_directory_uri() . '/js/graphic_material.js', array('jquery', 'mColorPicker'));
         wp_enqueue_script('mColorPicker', get_stylesheet_directory_uri() . '/js/mColorPicker.min.js', array('jquery'));
         //TODO: updates to mColorPicker plugin will break it. Is there a way to change the images_dir without changing the plugin code?        
         wp_localize_script('mColorPicker', 'mCP', array('images_dir' => get_stylesheet_directory_uri() . '/img/mColorPicker/'));
+        
+        wp_enqueue_style('graphic_material', get_stylesheet_directory_uri() . '/css/graphic_material.css');
+    }
+    
+    /**
+     * Setup a few constants used by the
+     * system.
+     */
+    public static function setUp()
+    {
+        $info = wp_upload_dir();
+        
+        if ($info['error']) {
+            throw new Exception($info['error']);
+        }
+        
+        define('GRAPHIC_MATERIAL_DIR', $info['basedir'] . '/graphic_material/');
+        define('GRAPHIC_MATERIAL_URL', $info['baseurl'] . '/graphic_material/');
+        
+        if (!file_exists(GRAPHIC_MATERIAL_DIR)) {
+            mkdir(GRAPHIC_MATERIAL_DIR);
+        }
     }
     
     public function __construct()
