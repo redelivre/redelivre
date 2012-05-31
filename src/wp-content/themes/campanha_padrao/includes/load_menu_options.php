@@ -19,8 +19,8 @@ add_action('admin_menu', function() {
         require_once(TEMPLATEPATH . '/includes/graphic_material/GraphicMaterial.php');
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
         
-        $page = add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photos', function(){
-            require(TEMPLATEPATH . '/includes/graphic_material_photos.php');
+        $page = add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photo', function() {
+            require(TEMPLATEPATH . '/includes/graphic_material_photo.php');
         });
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
     }
