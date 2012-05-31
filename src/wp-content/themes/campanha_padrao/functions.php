@@ -309,13 +309,6 @@ function campanha_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); 
     wp_enqueue_script('jquery');
     wp_enqueue_script('congelado', get_stylesheet_directory_uri().'/js/congelado.js', 'jquery');
-    
-    //TODO: check if there is a better way to include javascript only in a particular admin page
-    if (is_admin() && (isset($_REQUEST['page']) && $_REQUEST['page'] == 'graphic_material')) {
-        wp_enqueue_script('graphic_material', get_stylesheet_directory_uri() . '/js/graphic_material.js', array('jquery', 'mColorPicker'));
-        wp_enqueue_script('mColorPicker', get_stylesheet_directory_uri() . '/js/mColorPicker.min.js', array('jquery'));
-        wp_localize_script('mColorPicker', 'mCP', array('images_dir' => get_stylesheet_directory_uri() . '/img/mColorPicker/'));
-    }
 }
 
 // CUSTOM MENU

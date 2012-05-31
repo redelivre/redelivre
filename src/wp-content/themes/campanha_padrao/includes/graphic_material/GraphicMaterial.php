@@ -23,6 +23,18 @@ class GraphicMaterial
      */
     public $data;
     
+    /**
+     * Enqueue scripts and styles used for
+     * generating graphic materials.
+     */
+    public static function scriptsAndStyles()
+    {
+        wp_enqueue_script('graphic_material', get_stylesheet_directory_uri() . '/js/graphic_material.js', array('jquery', 'mColorPicker'));
+        wp_enqueue_script('mColorPicker', get_stylesheet_directory_uri() . '/js/mColorPicker.min.js', array('jquery'));
+        //TODO: updates to mColorPicker plugin will break it. Is there a way to change the images_dir without changing the plugin code?        
+        wp_localize_script('mColorPicker', 'mCP', array('images_dir' => get_stylesheet_directory_uri() . '/img/mColorPicker/'));
+    }
+    
     public function __construct()
     {
         $info = wp_upload_dir();
