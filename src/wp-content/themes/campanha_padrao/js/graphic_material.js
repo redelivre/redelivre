@@ -12,6 +12,10 @@
                 updatePreview();
             });
         })
+        
+        $('#save-position').click(function() {
+            updatePreview();
+        });
     });
     
     function updatePreview() {
