@@ -1,12 +1,15 @@
 <?php
+
+require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
+require_once(TEMPLATEPATH . '/includes/graphic_material/CandidatePhoto.php');
+
 /**
  * Description of EasyAjax
  *
  * @author rafael
  */
-
 class EasyAjax {
-    static $admin = array('savePhotoPosition');
+    static $admin = array('savePhotoPosition', 'campanhaPreviewFlyer');
     
     static function init(){
         $methods = get_class_methods(__CLASS__);
@@ -23,7 +26,15 @@ class EasyAjax {
     }
     
     static function savePhotoPosition(){
-        update_option('photo-position-'.$_POST['filename'], array('left' => $_POST['left'], 'top' => $_POST['top'], 'width' => $_POST['width']));
+        $fileName = filter_input(INPUT_POST, 'filename', FILTER_SANITIZE_STRING);
+        
+        $candidatePhoto = new CandidatePhoto($fileName);
+        $candidatePhoto->crop();
+    }
+    
+    static function campanhaPreviewFlyer() {
+        $smallFlyer = new SmallFlyer;
+        $smallFlyer->preview();
     }
 }
 

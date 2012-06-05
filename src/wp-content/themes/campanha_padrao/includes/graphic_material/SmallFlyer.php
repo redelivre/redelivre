@@ -157,7 +157,7 @@ class SmallFlyer extends GraphicMaterial {
      * @return null
      */
     protected function processImage() {
-        $candidateImage = TEMPLATEPATH . '/img/delme/mahatma-gandhi.jpg';
+        $candidateImage = GRAPHIC_MATERIAL_DIR . '/smallflyer_candidate_croped.png';
         
         $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
         $this->finalImage->setWidth(266);

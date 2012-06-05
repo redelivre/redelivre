@@ -7,7 +7,7 @@ add_action('admin_menu', function() {
     global $capabilities;
     
     if ($capabilities->graphic_material->value) {
-        add_menu_page('Material gráfico', 'Material gráfico', 'read', 'graphic_material', function() {
+        $page = add_menu_page('Material gráfico', 'Material gráfico', 'read', 'graphic_material', function() {
             global $campaign;
 
             if ($campaign->isPaid()) {
@@ -16,11 +16,13 @@ add_action('admin_menu', function() {
                 print_msgs(array('error' => 'A geração de material gráfico é um recurso que está disponível somente para campanhas que já foram pagas.'));
             }
         });
+        require_once(TEMPLATEPATH . '/includes/graphic_material/GraphicMaterial.php');
+        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
         
-        wp_enqueue_script('jquery-ui-draggable');
-        add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photos', function(){
-            require(TEMPLATEPATH . '/includes/graphic_material_photos.php');
+        $page = add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photo', function() {
+            require(TEMPLATEPATH . '/includes/graphic_material_photo.php');
         });
+        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
     }
     
     if ($capabilities->contact_manager->value) {

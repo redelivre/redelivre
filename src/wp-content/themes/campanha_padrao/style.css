@@ -26,8 +26,8 @@ h5 { font-size:20px; }
 h6 { font-size:18px; }
 */
 
-@import url(css/font_times.css);
-/*@import url(css/font_impact.css);*/
+/*@import url(css/font_times.css);*/
+@import url(css/font_impact.css);
 /*@import url(css/font_helvetica_arial_verdana_sans_serif.css);*/
 /*@import url(fonts/delicious/stylesheet.css);*/
 
@@ -39,9 +39,9 @@ h6 { font-size:18px; }
 
 /* Main Menu 2 */
 /* @import url(css/main_menu_2a.css); */
-/* @import url(css/main_menu_2b.css); */
-/* @import url(css/main_menu_2c.css); */
-@import url(css/main_menu_2d.css);
+/*@import url(css/main_menu_2b.css); */
+@import url(css/main_menu_2c.css); 
+/*@import url(css/main_menu_2d.css);*/
 
 
 /* =Social Bookmarks
@@ -99,11 +99,16 @@ a:active, a:hover {	text-decoration:underline; }
 
 /* =Header
 -------------------------------------------------------------- */
-header#branding { margin:0 auto 1em; padding-top:1em; }
+header#branding { margin:0 auto 4em; position:relative; }
+header#branding hgroup { margin-bottom:1em; padding:1.5em; position:absolute; }
+header#branding hgroup h1 { font-size:5em; }
+header#branding hgroup h2 { font-size:2em; }
+header#branding hgroup h3 { font-size:5em; color:#fff; }
+header#branding a { text-decoration:none; }
 header#branding #branding-image { margin:0 auto; max-width:950px; min-width:950px; }
 header#branding #branding-image img { height:auto; margin:0 auto; max-width:950px; width:100%; }
 header#branding #branding-image a { display:block; height:200px; width:100%; }
-header#branding { background:#d40000 url(img/bg-teste.png) repeat-x bottom; }
+/*header#branding { background:#d40000 url(img/bg-teste.png) repeat-x bottom; }*/
 
 
 /* =Forms
@@ -160,19 +165,9 @@ form#searchform input[type="image"] { position:absolute; right:.4em; top:.4em; }
 
 /* =Post
 -------------------------------------------------------------- */
-#main-section article { margin-bottom:44px; padding:0 10px; }
-#main-section article header p, #main-section article footer p { margin-bottom:0; font-size:12px; color:#999; }
+#main-section article { margin-bottom:3em; }
+#main-section article header { margin-bottom:1em; }
 #main-section article footer { border-top:1px solid #ccc; padding-top:21px; }
-.post-content { margin-bottom:22px; }
-.post-content fieldset { border:1px solid #ccc; margin:0 0 22px 0; padding:22px; }
-.post-content fieldset legend {	background:#fff; color:#000; font-weight:bold; padding:0 22px; }
-.post-content input { margin:0 0 22px 0; }
-.post-content input.file, .post-content input.button { margin-right:22px; }
-.post-content label { color:#000; }
-.post-content select { margin:0 0 22px 0; }
-.post-content sup, .post-content sub { font-size:11px; }
-.post-content blockquote.left { float:left; margin-left:0; margin-right:22px; text-align:right;	width:33%; }
-.post-content blockquote.right { float:right; margin-left:22px; margin-right:0; text-align:left; width:33%; }
 
 .comments-number { width:27px; height:28px; margin-top:5px; font-size:12px; font-family:Arial, Helvetica, sans-serif; background:transparent url(img/comments-number.png) no-repeat; text-align:center; }
 #author-info img.avatar { float:left; margin-right:10px; }

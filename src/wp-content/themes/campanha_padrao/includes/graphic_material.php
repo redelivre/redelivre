@@ -4,8 +4,10 @@ require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
 require_once(TEMPLATEPATH . '/includes/wideimage/WideImage.php');
 require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');
 require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
+require_once(TEMPLATEPATH . '/includes/graphic_material/CandidatePhoto.php');
 
 $smallFlyer = new SmallFlyer;
+$candidatePhoto = new CandidatePhoto('smallflyer_candidate.png');
 $url = site_url() . '/materialgrafico';
 
 if (isset($_POST['save'])) {
@@ -24,11 +26,11 @@ if (isset($_POST['save'])) {
     <h1>Geração de material gráfico</h1>
     <div id="graphic_material_content" style="width: 60%; float: left;">
         <h3>1. Selecione uma foto ou envie uma nova:</h3>
-        <?php echo '<img src="../wp-content/themes/campanha_padrao/img/delme/mahatma-gandhi.jpg"><br><br>'; ?>
+        <?php $candidatePhoto->printHtml(); ?>
         
         <form id="graphic_material_form" method="post">
             <?php wp_nonce_field('graphic_material'); ?>
-            <input type='hidden' name='action' value='campanha_preview_flyer'>
+            <input type='hidden' name='action' value='campanhaPreviewFlyer'>
             <input type='hidden' name='page' value='graphic_material'>
             <div id="graphic_material_wizard">
                 <h3>2. Escolha uma forma:</h3>

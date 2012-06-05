@@ -1,8 +1,8 @@
 <?php get_header(); ?>
 	
-    <div class="wrap clearfix">
-		<?php get_sidebar(); ?>
-		<section id="main-section" class="col-8">			
+    <div class="container clearfix">
+		<?php get_sidebar('left'); ?>
+		<section id="main-section" class="span-12 colborder">
 			<?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
 			
 				<?php html::part('loop', 'single'); ?>
@@ -20,6 +20,7 @@
 			<?php endif; ?>
 		</section>
 		<!-- #main-section -->	          
+		<?php get_sidebar('right'); ?>
     </div>
     <!-- .wrap --> 
     
