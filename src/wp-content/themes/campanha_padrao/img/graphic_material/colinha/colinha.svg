@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY st0 "font-size:230.6416px;">
+	<!ENTITY st1 "fill-rule:evenodd;clip-rule:evenodd;fill:#808285;">
+	<!ENTITY st2 "fill-rule:evenodd;clip-rule:evenodd;fill:#39B54A;stroke:#000000;stroke-width:2;stroke-miterlimit:10;">
+	<!ENTITY st3 "fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;">
+	<!ENTITY st4 "font-size:150px;">
+	<!ENTITY st5 "fill:none;stroke:#000000;stroke-miterlimit:10;">
+	<!ENTITY st6 "font-family:'Bebas Neue';">
+	<!ENTITY st7 "font-size:75px;">
+	<!ENTITY st8 "font-size:75px;">
+]>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="992px"
+	 height="1358px" viewBox="0 0 992 1358" style="enable-background:new 0 0 992 1358;" xml:space="preserve">
+
+
+	<rect id="fundo" y="2" style="&st1;" width="991.99" height="1356"/>
+
+	<text id="colinha" transform="matrix(1 0 0 1 399.5947 173.3652)" style="&st6; &st8;">Colinha</text>
+	<text id="vereador" transform="matrix(1 0 0 1 123.3867 294.2598)" style="&st6; &st8;">Vereador</text>
+	<text id="nome-do-vereador" transform="matrix(1 0 0 1 123.3867 361.9072)" style="&st6; &st7;">Nome do Vereador</text>
+	<text id="prefeito" transform="matrix(1 0 0 1 123.3867 770.5723)" style="&st6; &st8;">Prefeito</text>
+	<text id="nome-do-prefeito" transform="matrix(1 0 0 1 123.3867 838.7197)" style="&st6; &st7;">Nome do prefeito</text>
+
+<g id="fixo">
+	<rect x="743.656" y="397.956" style="&st3;" width="125" height="125"/>
+	<rect x="588.589" y="397.956" style="&st3;" width="125" height="125"/>
+	<rect x="433.508" y="397.956" style="&st3;" width="125" height="125"/>
+	<rect x="278.454" y="397.956" style="&st3;" width="125" height="125"/>
+	<rect x="123.387" y="397.956" style="&st3;" width="125" height="125"/>
+	<rect x="676.442" y="865.591" style="&st3;" width="192.201" height="192.2"/>
+	<rect x="438.009" y="865.591" style="&st3;" width="192.201" height="192.2"/>
+	<path style="&st2;" d="M611.82,685.385c0,6.627,5.373,12,12,12h232.836c6.627,0,12-5.373,12-12V562.51c0-6.627-5.373-12-12-12
+		H623.82c-6.627,0-12,5.373-12,12V685.385z"/>
+	<text transform="matrix(1 0 0 1 627.7324 623.0098)" style="&st6; &st8;">Confirma</text>
+	<path style="&st2;" d="M611.82,1228.01c0,6.627,5.373,12,12,12h232.836c6.627,0,12-5.373,12-12v-122.875c0-6.627-5.373-12-12-12
+		H623.82c-6.627,0-12,5.373-12,12V1228.01z"/>
+	<text transform="matrix(1 0 0 1 627.7324 1165.6348)" style="&st6; &st8;">Confirma</text>
+</g>
+
+	<text id="vereador-1" transform="matrix(1 0 0 1 156.187 513.1904)" style="&st6; &st4;">0</text>
+
+	<text id="vereador-2" transform="matrix(1 0 0 1 311.2544 513.1904)" style="&st6; &st4;">0</text>
+
+	<text id="vereador-3" transform="matrix(1 0 0 1 466.3086 513.1904)" style="&st6; &st4;">0</text>
+
+	<text id="vereador-4" transform="matrix(1 0 0 1 621.3887 513.1904)" style="&st6; &st4;">0</text>
+
+	<text id="vereador-5" transform="matrix(1 0 0 1 776.457 513.1904)" style="&st6; &st4;">0</text>
+
+	<text id="prefeito-1" transform="matrix(1 0 0 1 488.4438 1042.7764)" style="&st6; &st0;">0</text>
+
+	<text id="prefeito-2" transform="matrix(1 0 0 1 726.876 1042.7764)" style="&st6; &st0;">0</text>
+
+	<g id="corte">
+		<line style="&st5;" x1="61.183" y1="2" x2="61.183" y2="44.664"/>
+		<line style="&st5;" x1="1.514" y1="60.558" x2="44.18" y2="60.558"/>
+		<line style="&st5;" x1="1.514" y1="1298.334" x2="44.175" y2="1298.334"/>
+		<line style="&st5;" x1="60.071" y1="1358" x2="60.071" y2="1315.33"/>
+		<line style="&st5;" x1="932.329" y1="1358" x2="932.329" y2="1315.338"/>
+		<line style="&st5;" x1="992" y1="1299.442" x2="949.33" y2="1299.442"/>
+		<line style="&st5;" x1="991.99" y1="61.666" x2="949.333" y2="61.666"/>
+		<line style="&st5;" x1="933.438" y1="2" x2="933.438" y2="44.67"/>
+	</g>
+</svg>
