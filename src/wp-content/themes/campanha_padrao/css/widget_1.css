@@ -1,6 +1,4 @@
-.widget { clear:both; margin-bottom:1em; }
-.widget h1 { font-size:1.5em; font-weight:bold; margin-bottom:0; }
-.widget h1 { color:#d40000; }
+.widget h1 { color:#d40000; background: # }
 
 .widget ul { margin:0; padding:0 0 0 1em; }
 

@@ -13,24 +13,10 @@ Version:1.0
 
 /* =Fonts
 -------------------------------------------------------------- */
-/*
-body { font:14px/22px Arial, Helvetica, sans-serif; }
-pre { font-family:Verdana, sans-serif; font-size:12px; } 
-code { font-family:"Courier New", monospace; font-size:13px; }
-h1,h2,h3,h4,h5,h6 { margin-bottom:22px; color:#000; clear:both; }
-h1 { font-size:36px; line-height:44px; }
-h2 { font-size:30px; line-height:44px; }
-h3 { font-size:24px; }
-h4 { font-size:22px; }
-h5 { font-size:20px; }
-h6 { font-size:18px; }
-*/
-
 /*@import url(css/font_times.css);*/
-@import url(css/font_impact.css);
-/*@import url(css/font_helvetica_arial_verdana_sans_serif.css);*/
+/*@import url(css/font_impact.css);*/
 /*@import url(fonts/delicious/stylesheet.css);*/
-
+@import url(fonts/bebaneue/stylesheet.css);
 
 /* =Menus
 -------------------------------------------------------------- */
@@ -38,10 +24,10 @@ h6 { font-size:18px; }
 @import url(css/main_menu_1a.css);
 
 /* Main Menu 2 */
-/* @import url(css/main_menu_2a.css); */
+/*@import url(css/main_menu_2a.css); */
 /*@import url(css/main_menu_2b.css); */
-@import url(css/main_menu_2c.css); 
-/*@import url(css/main_menu_2d.css);*/
+/*@import url(css/main_menu_2c.css);*/
+@import url(css/main_menu_2d.css);
 
 
 /* =Social Bookmarks
@@ -61,6 +47,15 @@ h6 { font-size:18px; }
 -------------------------------------------------------------- */
 @import url(css/tabs.css);
 @import url(css/toggle.css);
+
+body { font-family: Helvetica, Arial, Verdana, sans-serif; font-size:87.5%; line-height: 1.5em; }
+h1, h2, h3, h4, h5, h6 { margin-bottom: 1.5em; line-height:1; }
+h1 { font-size:3em; }
+h2 { font-size:2.5em; }
+h3 { font-size:2em; }
+h4 { font-size:1.7em; }
+h5 { font-size:1.5em; }
+h6 { font-size:1.5em; margin-bottom:0; }
 
 
 /* =Global Elements
@@ -94,8 +89,11 @@ a { color:#36c; text-decoration:none; outline:none; }
 a:visited { color:#69c; text-decoration:none; }
 a:active, a:hover {	text-decoration:underline; }
 
-/* Text meant only for screen readers */
-.screen-reader-text { position:absolute; left:-9000px; }
+/* =Forms
+-------------------------------------------------------------- */
+input, textarea { background:#fff; border:1px solid #ccc; padding:6px; }
+
+.screen-reader-text { display: none; }
 
 /* =Header
 -------------------------------------------------------------- */
@@ -110,44 +108,52 @@ header#branding #branding-image img { height:auto; margin:0 auto; max-width:950p
 header#branding #branding-image a { display:block; height:200px; width:100%; }
 /*header#branding { background:#d40000 url(img/bg-teste.png) repeat-x bottom; }*/
 
-
-/* =Forms
--------------------------------------------------------------- */
-/* =General Styles */
-input[type="text"], input[type="password"], input[type="email"], textarea { background:#fff; border:1px solid #ccc; padding:6px; }
-
-/* =Search Form */
-form#searchform { margin-right:1em; position:relative; }
-form#searchform input { margin:0; padding:0; }
-form#searchform input[type="text"] { padding:.5em 2em .5em .5em; }
-form#searchform input[type="image"] { position:absolute; right:.4em; top:.4em; }
-
-
-/* =Colors
--------------------------------------------------------------- */
-
-
-
-
-
-
 /* =Menu
 -------------------------------------------------------------- */
-#main-nav { margin-top:11px; border-bottom:1px solid #ccc; }
-#main-nav .wrap { margin-bottom:-2px; }
-#main-menu { float:left; margin:0; list-style-type:none; }
-#main-menu li { position:relative; display:block; float:left; height:43px; border-right:1px solid #fff; border-bottom:1px solid #fff; background:#d4d4d4; }
-#main-menu ul { display:none; position:absolute; top:44px; left:-1px; margin:0; width:150px; float:left; z-index:9999; }
-#main-menu li:hover>ul { display:block; }
-#main-menu ul ul { left:100%; top:0; }
-#main-menu ul li { float:none; height:auto; min-width:150px; }
-#main-menu li:first-child a { border-left:1px solid #fff; }
-#main-menu a { display:block; padding:0 10px; border-right:1px solid #bdbdbd; border-bottom:1px solid #bdbdbd; color:#000; font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:42px; }
-#main-menu a:hover, #main-menu li.current-menu-item>a, #main-menu li.current-menu-ancestor>a, #main-menu li.current-menu-parent>a, #main-menu li.current_page_item>a { background:#e6e6e6; text-decoration:none; }
-#main-menu ul a { padding:5px 10px; width:128px; height:auto; border-left:1px solid #fff; font-size:14px; line-height:22px; }
-#feed-link { float:right; margin:0 0 -2px 10px; height:43px; border-left:1px solid #bdbdbd; }
-#feed-link a { display:block; border-right:1px solid #fff; border-left:1px solid #fff; border-bottom:1px solid #fff; }
-#feed-link img { padding:9px 10px; vertical-align:middle; border-right:1px solid #bdbdbd; border-bottom:1px solid #bdbdbd; }
+nav#main-nav ul { list-style:none; }
+nav#main-nav ul li { display:block; float:left; position:relative; }
+nav#main-nav ul li:first-child { margin-left:0; }
+nav#main-nav ul li:last-child { margin-right:0; }
+nav#main-nav ul.sub-menu { display:none; left:0; position:absolute; z-index: 20; }
+nav#main-nav ul.sub-menu li { float:none; position:relative; }
+nav#main-nav ul.sub-menu ul.sub-menu { float:left; }
+nav#main-nav ul li a { font-weight:bold; text-align:left; text-decoration:none; }
+nav#main-nav ul li:hover ul.sub-menu { display:block; }
+nav#main-nav ul li:hover ul.sub-menu ul.sub-menu { display:none; }
+nav#main-nav ul li ul.sub-menu li:hover ul.sub-menu { display:block; }
+
+/* =Widgets
+-------------------------------------------------------------- */
+.widget { clear:both; margin-bottom:1em; }
+
+.widget ul { margin:0; padding:0 0 0 1em; }
+
+/* =Search Form */
+form#searchform input[type="text"] { width: 50%; padding:.5em; }
+
+/* recentcomments */
+.widget li.recentcomments { font-style:italic; }
+.widget li.recentcomments a { font-style:normal; }
+.widget li.recentcomments a.url { font-style:italic; }
+
+/* rss */
+.widget_rss ul { list-style:none; margin:0; }
+.widget_rss li { margin-bottom:22px; }
+.rss-date { display:block; font-style:italic; }
+.widget_rss .widget-title img {	width:11px; height:11px; }
+
+/* tag cloud */
+#wp_tag_cloud div {	line-height:1.6em; }
+
+/* wp calendar */
+#wp-calendar { width:100%; font-family:Arial, Helvetica, sans-serif; }
+#wp-calendar caption { color:#000;	font-size:14px; }
+#wp-calendar thead th { color:#000; }
+#wp-calendar tbody td {	background:#fff; border:1px solid #f1f1f1; text-align:center; }
+#wp-calendar tbody td a { background:#d4d4d4; display:block; }
+#wp-calendar tbody .pad { background:none; }
+#wp-calendar tfoot #next { text-align:right; }
+
 
 /* =Footer
 -------------------------------------------------------------- */

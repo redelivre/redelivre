@@ -57,10 +57,6 @@
                     <a id="youtube" href="" title="YouTube"></a>
                     <a id="rss" href="" title="RSS"></a>
                 </div>
-                <form method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="alignright">
-                    <input type="text" name="s" id="s" placeholder="<?php esc_attr_e( 'Buscar no site', 'memoriasdoesporte' ); ?>" />
-                    <input type="image" src="<?php echo html::getImageUrl("search.png"); ?>" />
-                </form>
             </div>
         </div>
         
@@ -94,5 +90,5 @@
             </div>
             <?php endif; // end check for removed header image ?>       
 
-            <?php wp_nav_menu(array("theme_location" => "menu_2", "container" => "nav", "container_class" => "main_menu_2 container clearfix", "depth" => 3)) ?>
+            <?php wp_nav_menu(array("theme_location" => "menu_2", "container" => "nav", "container_id" => "main-nav", "container_class" => "main_menu_2 container clearfix", "depth" => 3)) ?>
         </header><!-- #branding -->
