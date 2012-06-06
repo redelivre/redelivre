@@ -5,11 +5,13 @@
             var top = $('#photo-wrapper img').css('top');
             var width = $('#photo-wrapper img').css('width');
             var filename = $('input[name=graphic_material_filename]').val();
+            $("body").css("cursor", "wait");
             $.post(
                 ajaxurl,
                 {action: 'savePhotoPosition', filename: filename, left: left, top: top, width: width},
                 function(result) {
                     $("#save-response").show().delay(1000).fadeOut(2000);
+                    $("body").css("cursor", "auto");
                 }
             );
         });
