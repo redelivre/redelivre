@@ -16,7 +16,7 @@ function theme_options_menu() {
     // Por padrão criamos uma página exclusiva para as opções desse site
     // Mas se quiser você pode colocar ela embaixo de aparencia, opções, ou o q vc quiser. O modelo para todos os casos estão comentados abaixo
 
-    $topLevelMenuLabel = 'SLUG';
+    $topLevelMenuLabel = 'Opções do tema';
     $page_title = 'Opções';
     $menu_title = 'Opções';
 
