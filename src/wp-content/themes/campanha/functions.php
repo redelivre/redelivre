@@ -88,10 +88,7 @@ function campanha_addJS() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('congelado', get_stylesheet_directory_uri().'/js/congelado.js', 'jquery');
     wp_enqueue_script('campanha', get_stylesheet_directory_uri().'/js/campanha.js', 'jquery');
-    
-    if (!is_admin()) {
-        wp_enqueue_script('uservoice', get_stylesheet_directory_uri().'/js/uservoice.js', 'jquery');
-    }
+    wp_enqueue_script('uservoice', get_stylesheet_directory_uri().'/js/uservoice.js', 'jquery');
 }
 
 // CUSTOM MENU
