@@ -23,6 +23,35 @@ class GraphicMaterial
      */
     public $data;
     
+    /*
+     * Return all available shapes for a graphic material type.
+     * 
+     * @param string $type
+     * @return array a list of shapes
+     */
+    public static function getShapes() {
+        $shapes = array();
+        $files = glob(TEMPLATEPATH . "/img/graphic_material/shape*.svg");
+        
+        foreach ($files as $file) {
+            $shape = new stdClass;
+            $shape->name = basename($file, '.svg');
+            
+            $image = SVGDocument::getInstance($file, 'CampanhaSVGDocument');
+            $image->setWidth(70);
+            $image->setHeight(70);
+            $image->export(GRAPHIC_MATERIAL_DIR . $shape->name . '.png');
+            
+            $shape->url = GRAPHIC_MATERIAL_URL . $shape->name . '.png';
+            
+            $shapes[] = $shape;
+        }
+        
+        return $shapes;
+    }
+
+    
+    
     /**
      * Enqueue scripts and styles used for
      * generating graphic materials.
