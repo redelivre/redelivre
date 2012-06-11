@@ -24,3 +24,12 @@ function print_msgs($msg, $extra_class='', $id='') {
     }
 }
 
+add_action('wp_print_scripts', 'campanha_add_common_js');
+/**
+ * Add JS files shared by all themes.
+ */
+function campanha_add_common_js() {
+    if (is_user_logged_in()) {
+        wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery');
+    }
+}
