@@ -27,36 +27,6 @@ class SmallFlyer extends GraphicMaterial {
      */
     protected $filePath;
     
-    /*
-     * Return all available shapes for the image.
-     * 
-     * @return array a list of shapes
-     */
-    public static function getShapes() {
-        $shapes = array();
-        $files = glob(TEMPLATEPATH . '/img/graphic_material/' . 'shape*.svg');
-        
-        $uploadInfo = wp_upload_dir();
-        $baseUrl = $uploadInfo['baseurl'] . '/graphic_material/';
-        $basePath = $uploadInfo['basedir'] . '/graphic_material/';
-        
-        foreach ($files as $file) {
-            $shape = new stdClass;
-            $shape->name = basename($file, '.svg');
-            
-            $image = SVGDocument::getInstance($file, 'CampanhaSVGDocument');
-            $image->setWidth(70);
-            $image->setHeight(70);
-            $image->export($basePath . $shape->name . '.png');
-            
-            $shape->url = $baseUrl . $shape->name . '.png';
-            
-            $shapes[] = $shape;
-        }
-        
-        return $shapes;
-    }
-
     public function __construct() {
         parent::__construct();
         
