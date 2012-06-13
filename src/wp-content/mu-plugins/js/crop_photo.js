@@ -13,6 +13,7 @@
                 {action: 'savePhotoPosition', filename: filename, minWidth: minWidth, minHeight: minHeight, left: left, top: top, width: width},
                 function(result) {
                     $("#save-response").show().delay(1000).fadeOut(2000);
+                    updatePreview();
                     $("body").css("cursor", "auto");
                 }
             );

@@ -59,8 +59,8 @@ class GraphicMaterial
     public static function scriptsAndStyles()
     {
         wp_enqueue_script('jquery-ui-draggable');
-        wp_enqueue_script('crop_photo', WPMU_PLUGIN_URL . '/js/crop_photo.js', array('jquery-ui-draggable'));
         wp_enqueue_script('graphic_material', WPMU_PLUGIN_URL . '/js/graphic_material.js', array('jquery', 'mColorPicker'));
+        wp_enqueue_script('crop_photo', WPMU_PLUGIN_URL . '/js/crop_photo.js', array('jquery-ui-draggable', 'graphic_material'));
         wp_enqueue_script('mColorPicker', WPMU_PLUGIN_URL . '/js/mColorPicker.min.js', array('jquery'));
         //TODO: updates to mColorPicker plugin will break it. Is there a way to change the images_dir without changing the plugin code?        
         wp_localize_script('mColorPicker', 'mCP', array('images_dir' => WPMU_PLUGIN_URL . '/img/mColorPicker/'));
