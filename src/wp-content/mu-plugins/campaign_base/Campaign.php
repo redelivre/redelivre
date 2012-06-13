@@ -79,6 +79,10 @@ class Campaign {
         
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
         
+        if (!$result) {
+            throw new Exception('Não existe uma campanha associada a este blog. Verifique se você não selecionou um tema de campanha para o site principal.');
+        }
+        
         return new Campaign($result);
     }
 
