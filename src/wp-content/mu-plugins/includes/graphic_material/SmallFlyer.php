@@ -1,8 +1,8 @@
 <?php
 
-require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/GraphicMaterial.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/svglib/svglib.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterial.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CampanhaSVGDocument.php');
 
 /**
  * Class to generate different graphic material
@@ -27,6 +27,18 @@ class SmallFlyer extends GraphicMaterial {
      */
     protected $filePath;
     
+    /**
+     * Small flyer width
+     * @var int
+     */
+    public $width = 992;
+    
+    /**
+     * Small flyer height
+     * @var int
+     */
+    public $height = 1358;
+    
     public function __construct() {
         parent::__construct();
         
@@ -48,6 +60,10 @@ class SmallFlyer extends GraphicMaterial {
         
         $this->processImage();
         $this->finalImage->export($path);
+        
+        // resize image to browser size (75dpi)
+        $img = WideImage::load($path);
+        $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($path);
         
         // add random number as parameter to skip browser cache
         $rand = rand();
@@ -113,6 +129,10 @@ class SmallFlyer extends GraphicMaterial {
                 $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
                 $svg->export($filePath);
                 
+                // resize image to browser size (75dpi)
+                $img = WideImage::load($filePath);
+                $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($filePath);
+                        
                 return $url;
             }
         }
@@ -130,8 +150,8 @@ class SmallFlyer extends GraphicMaterial {
         $candidateImage = GRAPHIC_MATERIAL_DIR . '/smallflyer_candidate_croped.png';
         
         $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
-        $this->finalImage->setWidth(266);
-        $this->finalImage->setHeight(354);
+        $this->finalImage->setWidth($this->width);
+        $this->finalImage->setHeight($this->height);
         
         $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
         $this->finalImage->addShape($candidateImage);
@@ -149,7 +169,7 @@ class SmallFlyer extends GraphicMaterial {
         $this->data->shapeColor1 = isset($_REQUEST['data']['shapeColor1']) ? filter_var($_REQUEST['data']['shapeColor1'], FILTER_SANITIZE_STRING) : null;
         $this->data->shapeColor2 = isset($_REQUEST['data']['shapeColor2']) ? filter_var($_REQUEST['data']['shapeColor2'], FILTER_SANITIZE_STRING) : null;
 
-        $shapePath = TEMPLATEPATH . "/img/graphic_material/{$this->data->shapeName}.svg";
+        $shapePath = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
         
         if (file_exists($shapePath)) {
             // TODO: check if there is a better way to change element style

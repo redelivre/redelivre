@@ -1,12 +1,10 @@
 <?php
 
 add_action('admin_print_scripts', function() {
-
     global $plugin_page;
     if (isset($plugin_page) && $plugin_page == 'payments') {
-        
-        wp_enqueue_script('jquery_validate', get_bloginfo('stylesheet_directory') . '/js/jquery.validate.min.js', array('jquery'));
-        wp_enqueue_script('payment', get_bloginfo('stylesheet_directory') . '/js/payment.js', array('jquery', 'jquery_validate'));
+        wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
+        wp_enqueue_script('payment', WPMU_PLUGIN_URL . '/js/payment.js', array('jquery', 'jquery_validate'));
         
         wp_localize_script('payment', 'payment', array( 
             'ajaxurl' => admin_url('admin-ajax.php'),
@@ -19,14 +17,11 @@ add_action('admin_print_scripts', function() {
             'car_code_length' => 'Insira um número de 3 digítos',
             'car_code_length' => 'Insira um número de 3 digítos',
             'car_code_required' => 'Insira um número de 3 digítos'
-            ));
-    
+        ));
     }
-
 });
 
 function payment_menu() {
-    
     // Por padrão criamos uma página exclusiva para as opções desse site
     // Mas se quiser você pode colocar ela embaixo de aparencia, opções, ou o q vc quiser. O modelo para todos os casos estão comentados abaixo
     
@@ -37,7 +32,6 @@ function payment_menu() {
     /* Top level menu */
     add_submenu_page('payments', $page_title, $menu_title, 'manage_options', 'payments', 'payment_page_callback_function');
     add_menu_page($topLevelMenuLabel, $topLevelMenuLabel, 'manage_options', 'payments', 'payment_page_callback_function');
-    
 }
 
 function payment_page_callback_function() {
@@ -48,13 +42,13 @@ function payment_page_callback_function() {
     global $campaign;
     
     $curryear = date('Y');
+    $years = '';
 
     //generate year options
 	for($i=0; $i < 10; $i++){
 		$years .= "<option value='".$curryear."'>".$curryear."</option>\r\n";
 		$curryear++;
 	}
-    
     
 ?>
     <div class="wrap span-20">

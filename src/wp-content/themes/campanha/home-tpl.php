@@ -8,7 +8,7 @@ Template Name: Home
 		<div id="logo"><?php html::image('logao.png','Campanha Completa') ?></div>
 		<nav id="prev"><a>Anterior</a></nav>
 		<div id="janela">
-			<article id="frase-1" class="frase">
+			<article id="frase-1" class="frase current">
 				<h2>Monte seu site ou blog personalizado em minutos.</h2>
 				<p>São várias opções de layout para sua escolha.</p>
 			</article>
@@ -38,12 +38,12 @@ Template Name: Home
     <!-- #main-section -->
     <hr />
     <section id="features" class="clearfix">
-		<h3 class="sites textcenter">Site ou Blog</h3>
-		<h3 class="redes textcenter">Redes Sociais</h3>
-		<h3 class="contatos textcenter">Contatos</h3>
-		<h3 class="email textcenter">E-mail e SMS</h3>
-		<h3 class="mapas textcenter">Mapas</h3>
-		<h3 class="material textcenter">Material Gráfico</h3>				
+		<h3 class="sites textcenter frase-1 active" data-frase="frase-1">Site ou Blog</h3>
+		<h3 class="redes textcenter frase-2" data-frase="frase-2">Redes Sociais</h3>
+		<h3 class="contatos textcenter frase-3" data-frase="frase-3">Contatos</h3>
+		<h3 class="email textcenter frase-4" data-frase="frase-4">E-mail e SMS</h3>
+		<h3 class="mapas textcenter frase-5" data-frase="frase-5">Mapas</h3>
+		<h3 class="material textcenter frase-6" data-frase="frase-6">Material Gráfico</h3>				
 	</section>
 	<hr />
 	<!--<form id="mailing" class="col-12" method="get" action="">
