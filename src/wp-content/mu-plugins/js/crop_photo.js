@@ -16,11 +16,7 @@
             );
         });
         
-        $("#photo-wrapper").css({
-            width:200,
-            height:300,
-            overflow: 'hidden'
-        }).mouseover(function() {
+        $("#photo-wrapper").mouseover(function() {
             $('#zoom-plus, #zoom-minus').show();
         }).mouseout(function() {
             $('#zoom-plus, #zoom-minus').hide();
