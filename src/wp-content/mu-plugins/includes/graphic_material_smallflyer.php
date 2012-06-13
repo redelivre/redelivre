@@ -7,7 +7,7 @@ require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/SmallFlyer.php');
 require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CandidatePhoto.php');
 
 $smallFlyer = new SmallFlyer;
-$candidatePhoto = new CandidatePhoto('smallflyer_candidate.png', 992, 1358);
+$candidatePhoto = new CandidatePhoto('smallflyer_candidate.png', $smallFlyer->width, $smallFlyer->height);
 $url = site_url() . '/materialgrafico';
 
 if (isset($_POST['save'])) {
