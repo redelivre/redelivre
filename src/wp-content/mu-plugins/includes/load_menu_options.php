@@ -27,7 +27,6 @@ add_action('admin_menu', function() {
         });
     }
     
-    //TODO: check why the last menu entry is not being displayed
     if ($capabilities->forum_support->value || $capabilities->email_support->value) {
         add_menu_page('Suporte', 'Suporte', 'read', 'campaign_support', function() {
             require(WPMU_PLUGIN_DIR . '/includes/campaign_support.php');
