@@ -33,9 +33,12 @@
         
         // carrocel da home
         if($('#home-main-section').length){
-            
+            var locked = false;
             // BOTAO PREVIOUS
             $('#home-main-section #prev').click(function(){
+                if(locked) return;
+                locked = true;
+                
                 var $current = $('#janela article.current'), $prev;
                 
                 // se a frase que está aberta é a primeira frase, a frase anterior será a ultima frase
@@ -46,7 +49,7 @@
                     $prev = $current.prev();
                 }
                 
-                $prev.addClass('current').slideDown();
+                $prev.addClass('current').slideDown(function(){ locked = false; });
                 $current.removeClass('current').slideUp();
                 
                 $("#features h3").removeClass('active');
@@ -55,6 +58,9 @@
             
             // BOTAO NEXT
             $('#home-main-section #next').click(function(){
+                if(locked) return;
+                locked = true;
+                
                 var $current = $('#janela article.current'), $next;
                 
                 // se a frase que está aberta é a ultima frase, a frase anterior será a primeira frase
@@ -64,7 +70,7 @@
                     $next = $current.next();
                 }
                 
-                $next.addClass('current').slideDown();
+                $next.addClass('current').slideDown(function(){ locked = false; });
                 $current.removeClass('current').slideUp();
                 
                 $("#features h3").removeClass('active');
