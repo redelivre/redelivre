@@ -58,7 +58,7 @@ class CandidatePhoto {
      */
     protected $image;
     
-    public function __construct($fileName, $minWidth = 0, $minHeight = 0)
+    public function __construct($fileName, $minWidth, $minHeight)
     {
         $this->fileName = $fileName;
         $this->screenFileName = basename($this->fileName, '.png') . '_resized.png';
@@ -146,13 +146,17 @@ class CandidatePhoto {
      */
     public function crop()
     {
+        $baseName = basename($this->fileName, '.png');
+        $cropedFile = GRAPHIC_MATERIAL_DIR . $baseName . '_croped.png';
+        
         update_option('photo-position-' . $this->fileName, array('left' => $_POST['left'], 'top' => $_POST['top'], 'width' => $_POST['width']));
         
         list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($_POST['left'], $_POST['top']));
         
         $croped = $this->image->crop($left, $top, $this->minWidth, $this->minHeight);
-        $baseName = basename($this->fileName, '.png');
-        $croped->saveToFile(GRAPHIC_MATERIAL_DIR . $baseName . '_croped.png');
+        
+        unlink($cropedFile);
+        $croped->saveToFile($cropedFile);
     }
     
     /**
@@ -181,6 +185,8 @@ class CandidatePhoto {
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="graphic_material_upload_photo" value="1" />
                 <input type="hidden" name="graphic_material_filename" value="<?php echo $this->fileName ?>" />
+                <input type="hidden" name="minWidth" value="<?php echo $this->minWidth ?>" />
+                <input type="hidden" name="minHeight" value="<?php echo $this->minHeight ?>" />
                 <?php wp_nonce_field('graphic_material_upload_photo', 'graphic_material_upload_photo_nonce'); ?>
                 <input type="file" name="photo" />
                 <input type="submit" value="subir foto" />
