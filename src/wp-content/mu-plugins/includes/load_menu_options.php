@@ -19,11 +19,6 @@ add_action('admin_menu', function() {
         });
         require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterial.php');
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
-        
-        $page = add_submenu_page('graphic_material', 'Fotos', 'Fotos', 'read', 'graphic_material_photo', function() {
-            require(WPMU_PLUGIN_DIR . '/includes/graphic_material_photo.php');
-        });
-        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
     }
     
     if ($capabilities->contact_manager->value) {
