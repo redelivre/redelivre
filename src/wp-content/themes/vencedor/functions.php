@@ -2,10 +2,12 @@
 
 // JS
 function temavencedor_addJS() {
-    if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); 
+    if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); 
 }
 add_action('wp_print_scripts', 'temavencedor_addJS');
 
+// THEME OPTIONS
+require_once ( get_template_directory() . '/theme-options.php' );
 
 // CUSTOM MENU
 add_action( 'init', 'temavencedor_custom_menus' );
