@@ -1,105 +1,106 @@
 <?php
 
-function get_theme_default_options() {
+add_action( 'admin_init', 'theme_options_init' );
+add_action( 'admin_menu', 'theme_options_add_page' );
 
-    // Coloquei aqui o nome e o valor padrão de cada opção que você criar
-
-    return array(
-        'sidebar_position' => 'Benvindo!',
-    );
+/**
+ * Init plugin options to white list our options
+ */
+function theme_options_init(){
+	register_setting( 'vencedor_options', 'vencedor_theme_options', 'theme_options_validate' );
 }
 
-function theme_options_menu() {
-
-    // Por padrão criamos uma página exclusiva para as opções desse site
-    // Mas se quiser você pode colocar ela embaixo de aparencia, opções, ou o q vc quiser. O modelo para todos os casos estão comentados abaixo
-
-    $topLevelMenuLabel = 'SLUG';
-    $page_title = 'Opções';
-    $menu_title = 'Opções';
-
-    /* Top level menu */
-    add_submenu_page('theme_options', $page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    add_menu_page($topLevelMenuLabel, $topLevelMenuLabel, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-
-    /* Menu embaixo de um menu existente */
-    //add_dashboard_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_posts_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_plugin_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_media_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_links_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_pages_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_comments_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_plugins_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_users_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_management_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_options_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    //add_theme_page($page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
+/**
+ * Load up the menu page
+ */
+function theme_options_add_page() {
+	add_theme_page( 'Opções do Tema', 'Opções do Tema', 'edit_theme_options', 'theme_options', 'theme_options_do_page' );
 }
 
-function theme_options_validate_callback_function($input) {
+/**
+ * Create arrays for our select and radio options
+ */
 
-    // Se necessário, faça aqui alguma validação ao salvar seu formulário
-    return $input;
+$radio_options = array(
+	'direita' => array(
+		'value' => 'direita',
+		'label' => 'À direita'
+	),
+	'esquerda' => array(
+		'value' => 'esquerda',
+		'label' => 'À esquerda'
+	),
+);
+
+/**
+ * Create the options page
+ */
+function theme_options_do_page() {
+	global $select_options, $radio_options;
+
+	if ( ! isset( $_REQUEST['settings-updated'] ) )
+		$_REQUEST['settings-updated'] = false;
+
+	?>
+	<div class="wrap">
+		<h2>Opções do Tema</h2>
+
+		<?php if ( false !== $_REQUEST['settings-updated'] ) : ?>
+		<div class="updated fade"><p><strong>Opções salvas</strong></p></div>
+		<?php endif; ?>
+
+		<form method="post" action="options.php">
+			<?php settings_fields( 'vencedor_options' ); ?>
+			<?php $options = get_option( 'vencedor_theme_options' ); ?>
+
+			<table class="form-table">
+				<tr valign="top"><th scope="row">Posição da Barra Lateral</th>
+					<td>
+						<fieldset>
+						<?php
+							if ( ! isset( $checked ) )
+								$checked = '';
+							foreach ( $radio_options as $option ) {
+								$radio_setting = $options['sidebar_position'];
+
+								if ( '' != $radio_setting ) {
+									if ( $options['sidebar_position'] == $option['value'] ) {
+										$checked = "checked=\"checked\"";
+									} else {
+										$checked = '';
+									}
+								}
+								?>
+								<label class="description"><input type="radio" name="vencedor_theme_options[sidebar_position]" value="<?php esc_attr_e( $option['value'] ); ?>" <?php echo $checked; ?> /> <?php echo $option['label']; ?></label><br />
+								<?php
+							}
+						?>
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+
+			<p class="submit">
+				<input type="submit" class="button-primary" value="Salvar opções" />
+			</p>
+		</form>
+	</div>
+	<?php
 }
 
-function theme_options_page_callback_function() {
+/**
+ * Sanitize and validate input. Accepts an array, return a sanitized array.
+ */
+function theme_options_validate( $input ) {
+	global $select_options, $radio_options;
 
-    // Crie o formulário. Abaixo você vai ver exemplos de campos de texto, textarea e checkbox. Crie quantos você quiser
-    ?>
-    <div class="wrap span-20">
-        <h2><?php echo __('Theme Options', 'SLUG'); ?></h2>
+	// Our radio option must actually be in our array of radio options
+	if ( ! isset( $input['radioinput'] ) )
+		$input['radioinput'] = null;
+	if ( ! array_key_exists( $input['radioinput'], $radio_options ) )
+		$input['radioinput'] = null;
 
-        <form action="options.php" method="post" class="clear prepend-top">
-    <?php settings_fields('theme_options_options'); ?>
-    <?php $options = wp_parse_args(get_option('theme_options'), get_theme_default_options()); ?>
-
-            <div class="span-20 ">
-
-    <?php //////////// Edite a partir daqui //////////  ?>
-
-                <h3><?php _e("Social Networks", 'SLUG'); ?></h3>
-
-                <div class="span-6 last">
-
-
-                    <label for="wellcome_title"><strong><?php _e("Facebook", "SLUG"); ?></strong></label><br/>
-                    <input type="text" id="wellcome_title" class="text" name="theme_options[social_networks][facebook]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
-                    <br/><br/>
-                    <label for="wellcome_title"><strong><?php _e("Twitter", "SLUG"); ?></strong></label><br/>
-                    <input type="text" id="wellcome_title" class="text" name="theme_options[social_networks][twitter]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
-                    <br/><br/>
-                    <label for="wellcome_title"><strong><?php _e("RSS", "SLUG"); ?></strong></label><br/>
-                    <input type="text" id="wellcome_title" class="text" name="theme_options[rss]" value="<?php echo htmlspecialchars($options['rss']); ?>" style="width: 80%"/>
-                    <br/><br/>
-
-    <?php ///// Edite daqui pra cima ////  ?>
-
-
-                </div>
-            </div>
-
-            <p class="textright clear prepend-top">
-                <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'SLUG'); ?>" />
-            </p>
-        </form>
-    </div>
-
-<?php } ?>
-
-
-<?php
-
-function get_theme_option($option_name) {
-    $option = wp_parse_args(
-            get_option('theme_options'), get_theme_default_options()
-    );
-    return isset($option[$option_name]) ? $option[$option_name] : false;
+	return $input;
 }
 
-add_action('admin_init', 'theme_options_init');
-add_action('admin_menu', 'theme_options_menu');
-
-function theme_options_init() {
-    register_setting('theme_options_options', 'theme_options', 'theme_options_validate_callback_function');
-}
+// adapted from http://planetozh.com/blog/2009/05/handling-plugins-options-in-wordpress-28-with-register_setting/
