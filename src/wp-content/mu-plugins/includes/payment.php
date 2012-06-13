@@ -3,8 +3,8 @@
 add_action('admin_print_scripts', function() {
     global $plugin_page;
     if (isset($plugin_page) && $plugin_page == 'payments') {
-        wp_enqueue_script('jquery_validate', get_muplugins_url() . '/js/jquery.validate.min.js', array('jquery'));
-        wp_enqueue_script('payment', get_muplugins_url() . '/js/payment.js', array('jquery', 'jquery_validate'));
+        wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
+        wp_enqueue_script('payment', WPMU_PLUGIN_URL . '/js/payment.js', array('jquery', 'jquery_validate'));
         
         wp_localize_script('payment', 'payment', array( 
             'ajaxurl' => admin_url('admin-ajax.php'),

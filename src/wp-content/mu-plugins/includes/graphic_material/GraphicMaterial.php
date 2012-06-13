@@ -31,7 +31,7 @@ class GraphicMaterial
      */
     public static function getShapes() {
         $shapes = array();
-        $files = glob(TEMPLATEPATH . "/img/graphic_material/shape*.svg");
+        $files = glob(WPMU_PLUGIN_DIR . "/img/graphic_material/shape*.svg");
         
         foreach ($files as $file) {
             $shape = new stdClass;
@@ -59,13 +59,13 @@ class GraphicMaterial
     public static function scriptsAndStyles()
     {
         wp_enqueue_script('jquery-ui-draggable');
-        wp_enqueue_script('crop_photo', get_stylesheet_directory_uri() . '/js/crop_photo.js', array('jquery-ui-draggable'));
-        wp_enqueue_script('graphic_material', get_stylesheet_directory_uri() . '/js/graphic_material.js', array('jquery', 'mColorPicker'));
-        wp_enqueue_script('mColorPicker', get_stylesheet_directory_uri() . '/js/mColorPicker.min.js', array('jquery'));
+        wp_enqueue_script('crop_photo', WPMU_PLUGIN_URL . '/js/crop_photo.js', array('jquery-ui-draggable'));
+        wp_enqueue_script('graphic_material', WPMU_PLUGIN_URL . '/js/graphic_material.js', array('jquery', 'mColorPicker'));
+        wp_enqueue_script('mColorPicker', WPMU_PLUGIN_URL . '/js/mColorPicker.min.js', array('jquery'));
         //TODO: updates to mColorPicker plugin will break it. Is there a way to change the images_dir without changing the plugin code?        
-        wp_localize_script('mColorPicker', 'mCP', array('images_dir' => get_stylesheet_directory_uri() . '/img/mColorPicker/'));
+        wp_localize_script('mColorPicker', 'mCP', array('images_dir' => WPMU_PLUGIN_URL . '/img/mColorPicker/'));
         
-        wp_enqueue_style('graphic_material', get_stylesheet_directory_uri() . '/css/graphic_material.css');
+        wp_enqueue_style('graphic_material', WPMU_PLUGIN_URL . '/css/graphic_material.css');
     }
     
     /**

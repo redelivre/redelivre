@@ -1,10 +1,10 @@
 <?php
 
-require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
-require_once(TEMPLATEPATH . '/includes/wideimage/WideImage.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/CandidatePhoto.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/svglib/svglib.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/wideimage/WideImage.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CampanhaSVGDocument.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/SmallFlyer.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CandidatePhoto.php');
 
 $smallFlyer = new SmallFlyer;
 $candidatePhoto = new CandidatePhoto('smallflyer_candidate.png');

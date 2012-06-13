@@ -1,7 +1,7 @@
 <?php
 
-require_once(TEMPLATEPATH . '/includes/graphic_material/SmallFlyer.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/CandidatePhoto.php');
+require_once(__DIR__ . '/graphic_material/SmallFlyer.php');
+require_once(__DIR__ . '/graphic_material/CandidatePhoto.php');
 
 /**
  * Description of EasyAjax

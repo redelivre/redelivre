@@ -1,6 +1,6 @@
 <?php
 
-require_once(TEMPLATEPATH . '/includes/graphic_material/CandidatePhoto.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CandidatePhoto.php');
 
 $candidatePhoto = new CandidatePhoto('photo.png');
 

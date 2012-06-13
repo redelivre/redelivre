@@ -1,6 +1,6 @@
 <?php
 
-require_once(TEMPLATEPATH . '/includes/wideimage/WideImage.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/wideimage/WideImage.php');
 
 /**
  * Methods to deal with the candidate

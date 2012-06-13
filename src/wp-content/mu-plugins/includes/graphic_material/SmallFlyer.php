@@ -1,8 +1,8 @@
 <?php
 
-require_once(TEMPLATEPATH . '/includes/svglib/svglib.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/GraphicMaterial.php');
-require_once(TEMPLATEPATH . '/includes/graphic_material/CampanhaSVGDocument.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/svglib/svglib.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterial.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CampanhaSVGDocument.php');
 
 /**
  * Class to generate different graphic material
@@ -149,7 +149,7 @@ class SmallFlyer extends GraphicMaterial {
         $this->data->shapeColor1 = isset($_REQUEST['data']['shapeColor1']) ? filter_var($_REQUEST['data']['shapeColor1'], FILTER_SANITIZE_STRING) : null;
         $this->data->shapeColor2 = isset($_REQUEST['data']['shapeColor2']) ? filter_var($_REQUEST['data']['shapeColor2'], FILTER_SANITIZE_STRING) : null;
 
-        $shapePath = TEMPLATEPATH . "/img/graphic_material/{$this->data->shapeName}.svg";
+        $shapePath = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
         
         if (file_exists($shapePath)) {
             // TODO: check if there is a better way to change element style
