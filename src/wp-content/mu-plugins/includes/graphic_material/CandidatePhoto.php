@@ -99,19 +99,22 @@ class CandidatePhoto {
             && isset($_FILES['photo']))
         {
             if (!$_FILES['photo']['error'] && in_array($_FILES['photo']['type'], $mimeTypes)) {
-                $fname = GRAPHIC_MATERIAL_DIR . $this->fileName;
-                move_uploaded_file($_FILES['photo']['tmp_name'], $fname);
-                delete_option('photo-position-' . $this->fileName);
+                $img = WideImage::loadFromUpload('photo');
                 
-                $img = WideImage::load($fname);
-                
-                // override uploaded image with resized version with dimensions close to minWidth and minHeight (300 dpi)
-                $img = $img->resize($this->minWidth, $this->minHeight, 'outside');
-                $img->saveToFile($fname);
-                
-                // generate low resolution image to send to the browser (75 dpi)
-                $lowRes = $img->resize($this->screenWidth, $this->screenHeight, 'outside');
-                $lowRes->saveToFile(GRAPHIC_MATERIAL_DIR . $this->screenFileName);
+                if ($img->getWidth() < $this->minWidth || $img->getHeight() < $this->minHeight) {
+                    $this->error = "Atenção: a imagem deve ter no mínimo {$this->minWidth}x{$this->minHeight} pixels para garantir a qualidade da impressão. A imagem enviada possui {$img->getWidth()}x{$img->getHeight()} pixels. Por favor envie outra imagem maior.";
+                } else {
+                    delete_option('photo-position-' . $this->fileName);
+                    $filePath = GRAPHIC_MATERIAL_DIR . $this->fileName;
+                    
+                    // override uploaded image with resized version with dimensions close to minWidth and minHeight (300 dpi)
+                    $img = $img->resize($this->minWidth, $this->minHeight, 'outside');
+                    $img->saveToFile($filePath);
+                    
+                    // generate low resolution image to send to the browser (75 dpi)
+                    $lowRes = $img->resize($this->screenWidth, $this->screenHeight, 'outside');
+                    $lowRes->saveToFile(GRAPHIC_MATERIAL_DIR . $this->screenFileName);
+                }
             } else if (!$_FILES['photo']['error'] && !in_array($_FILES['photo']['type'], $mimeTypes)) {
                 $this->error = "Tipo de arquivo inválido, o arquivo deve ser dos tipos .png ou .jpg";
             } else {
@@ -187,10 +190,6 @@ class CandidatePhoto {
             <?php endif; ?>
                 
             <?php if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)): ?>
-                <?php if ($this->image->getWidth() < $this->minWidth || $this->image->getHeight() < $this->minHeight) : ?>
-                    <div class="error"><p>Atenção: a imagem deveria ter no mínimo <?php echo "{$this->minWidth}x{$this->minHeight}"; ?> pixels mas ela tem <?php echo "{$this->image->getWidth()}x{$this->image->getHeight()}"; ?> pixels. É possível que o material impresso fique com a qualidade ruim por conta disso.</p></div>
-                <?php endif; ?>
-                
                 <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden;">
                     <div id="zoom-plus">+</div>
                     <div id="zoom-minus">-</div>
