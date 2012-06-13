@@ -193,7 +193,7 @@ class CandidatePhoto {
                 <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden;">
                     <div id="zoom-plus">+</div>
                     <div id="zoom-minus">-</div>
-                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName; ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>; width: <?php echo $position['width']; ?>;"/>
+                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>; width: <?php echo $position['width']; ?>;"/>
                 </div>
                 <button id="save-position">salvar posição</button>
                 <span id="save-response">a posição da imagem foi salva</span>
