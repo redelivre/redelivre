@@ -4,7 +4,6 @@
 include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php';
-include dirname(__FILE__).'/includes/payment.php';
 
 $campaign = Campaign::getByBlogId($blog_id);
 GraphicMaterial::setUp();
