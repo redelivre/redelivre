@@ -14,14 +14,75 @@ class CandidatePhoto {
     protected $fileName;
     
     /**
+     * Image minimum width
+     * @var int
+     */
+    protected $minWidth;
+    
+    /**
+     * Image minimum height
+     * @var int
+     */
+    protected $minHeight;
+
+    /**
+     * Name of the resized file used to be 
+     * dispĺayed in the browser.
+     * @var string
+     */
+    protected $screenFileName;
+    
+    /**
+     * Width used to display the image to the 
+     * browser.
+     * @var int
+     */
+    protected $screenWidth;
+    
+    /**
+     * Height used to display the image to the 
+     * browser.
+     * @var int
+     */
+    protected $screenHeight;
+    
+    /**
      * Upload error string
      * @var string
      */
     protected $error = '';
     
-    public function __construct($fileName)
+    /**
+     * Image object
+     * @var WideImage
+     */
+    protected $image;
+    
+    public function __construct($fileName, $minWidth, $minHeight)
     {
         $this->fileName = $fileName;
+        $this->screenFileName = basename($this->fileName, '.png') . '_resized.png';
+        $this->minWidth = $minWidth;
+        $this->minHeight = $minHeight;
+        
+        if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)) {
+            $this->image = WideImage::load(GRAPHIC_MATERIAL_DIR . $this->fileName);
+            
+            $this->screenWidth = $this->convertTo75Dpi($this->minWidth);
+            $this->screenHeight = $this->convertTo75Dpi($this->minHeight);
+        }
+    }
+    
+    /**
+     * Receives a value in pixels assuming it is 300 dpi and convert it
+     * to the corresponding pixel value in 75 dpi.
+     * 
+     * @param int $value
+     * @return int
+     */
+    protected function convertTo75Dpi($value)
+    {
+        return $value / 4;
     }
     
     /**
@@ -38,16 +99,44 @@ class CandidatePhoto {
             && isset($_FILES['photo']))
         {
             if (!$_FILES['photo']['error'] && in_array($_FILES['photo']['type'], $mimeTypes)) {
-                $fname = GRAPHIC_MATERIAL_DIR . $this->fileName;
-                move_uploaded_file($_FILES['photo']['tmp_name'], $fname);
-                delete_option('photo-position-' . $this->fileName);
+                $img = WideImage::loadFromUpload('photo');
+                
+                if ($img->getWidth() < $this->minWidth || $img->getHeight() < $this->minHeight) {
+                    $this->error = "Atenção: a imagem deve ter no mínimo {$this->minWidth}x{$this->minHeight} pixels para garantir a qualidade da impressão. A imagem enviada possui {$img->getWidth()}x{$img->getHeight()} pixels. Por favor envie outra imagem maior.";
+                } else {
+                    delete_option('photo-position-' . $this->fileName);
+                    $filePath = GRAPHIC_MATERIAL_DIR . $this->fileName;
+                    
+                    // override uploaded image with resized version with dimensions close to minWidth and minHeight (300 dpi)
+                    $img = $img->resize($this->minWidth, $this->minHeight, 'outside');
+                    $img->saveToFile($filePath);
+                    
+                    // generate low resolution image to send to the browser (75 dpi)
+                    $lowRes = $img->resize($this->screenWidth, $this->screenHeight, 'outside');
+                    $lowRes->saveToFile(GRAPHIC_MATERIAL_DIR . $this->screenFileName);
+                }
             } else if (!$_FILES['photo']['error'] && !in_array($_FILES['photo']['type'], $mimeTypes)) {
                 $this->error = "Tipo de arquivo inválido, o arquivo deve ser dos tipos .png ou .jpg";
             } else {
-                $this->error = "Algum erro inesperado aconteceu."; 
+                $this->error = $this->handleUploadError($_FILES['photo']['error']);
             }
         }
     }
+
+    protected function handleUploadError($error)
+    {
+        $uploadErrorStrings = array(false,
+            __("The uploaded file exceeds the <code>upload_max_filesize</code> directive in <code>php.ini</code>."),
+            __("The uploaded file exceeds the <em>MAX_FILE_SIZE</em> directive that was specified in the HTML form."),
+            __("The uploaded file was only partially uploaded."),
+            __("No file was uploaded."),
+            '',
+            __("Missing a temporary folder."),
+            __("Failed to write file to disk."),
+            __("File upload stopped by extension."));
+            
+        return $uploadErrorStrings[$error];
+    } 
     
     /**
      * Crop candidate image based on user selecion
@@ -57,14 +146,17 @@ class CandidatePhoto {
      */
     public function crop()
     {
+        $baseName = basename($this->fileName, '.png');
+        $cropedFile = GRAPHIC_MATERIAL_DIR . $baseName . '_croped.png';
+        
         update_option('photo-position-' . $this->fileName, array('left' => $_POST['left'], 'top' => $_POST['top'], 'width' => $_POST['width']));
         
         list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($_POST['left'], $_POST['top']));
         
-        $image = WideImage::load(GRAPHIC_MATERIAL_DIR . $this->fileName);
-        $croped = $image->crop($left, $top, 200, 300);
-        $baseName = basename($this->fileName, '.png');
-        $croped->saveToFile(GRAPHIC_MATERIAL_DIR . $baseName . '_croped.png');
+        $croped = $this->image->crop($left, $top, $this->minWidth, $this->minHeight);
+        
+        unlink($cropedFile);
+        $croped->saveToFile($cropedFile);
     }
     
     /**
@@ -88,26 +180,31 @@ class CandidatePhoto {
         ?>
         <div class="wrapper">
             <?php if ($this->error): ?>
-                <div class="error"><?php echo $this->error; ?></div><br/>
+                <div class="error"><p><?php echo $this->error; ?></p></div><br/>
             <?php endif; ?>
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="graphic_material_upload_photo" value="1" />
                 <input type="hidden" name="graphic_material_filename" value="<?php echo $this->fileName ?>" />
+                <input type="hidden" name="minWidth" value="<?php echo $this->minWidth ?>" />
+                <input type="hidden" name="minHeight" value="<?php echo $this->minHeight ?>" />
                 <?php wp_nonce_field('graphic_material_upload_photo', 'graphic_material_upload_photo_nonce'); ?>
                 <input type="file" name="photo" />
                 <input type="submit" value="subir foto" />
             </form>
+            <?php if ($this->minWidth && $this->minHeight): ?>
+                <div class="warning"><p>Para garantir a qualidade da impressão a imagem enviada deve ter pelo menos <?php echo "{$this->minWidth}x{$this->minHeight}"; ?> pixels.</p></div>
+            <?php endif; ?>
                 
             <?php if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)): ?>
-                <div id="photo-wrapper">
+                <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden;">
                     <div id="zoom-plus">+</div>
                     <div id="zoom-minus">-</div>
-                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->fileName; ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>; width: <?php echo $position['width']; ?>;"/>
+                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>; width: <?php echo $position['width']; ?>;"/>
                 </div>
                 <button id="save-position">salvar posição</button>
                 <span id="save-response">a posição da imagem foi salva</span>
             <?php else: ?>
-                você ainda não enviou a imagem
+                Você ainda não enviou uma imagem.
             <?php endif; ?>
         </div>
         <?php

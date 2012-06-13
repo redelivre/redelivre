@@ -12,22 +12,18 @@
                 updatePreview();
             });
         })
-        
-        $('#save-position').click(function() {
-            updatePreview();
-        });
     });
-    
-    function updatePreview() {
-        $("body").css("cursor", "wait");
-        $.ajax({
-            url: ajaxurl,
-            type: 'get',
-            data: $('#graphic_material_form').serialize(),
-            success: function(data) {
-                $('#graphic_material_preview').html('<h3>Pré-visualização</h3>' + data);
-                $("body").css("cursor", "auto");
-            } 
-        });
-    }
 })(jQuery);
+
+function updatePreview() {
+    jQuery("body").css("cursor", "wait");
+    jQuery.ajax({
+        url: ajaxurl,
+        type: 'get',
+        data: jQuery('#graphic_material_form').serialize(),
+        success: function(data) {
+            jQuery('#graphic_material_preview').html('<h3>Pré-visualização</h3>' + data);
+            jQuery("body").css("cursor", "auto");
+        } 
+    });
+}

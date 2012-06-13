@@ -27,8 +27,10 @@ class EasyAjax {
     
     static function savePhotoPosition(){
         $fileName = filter_input(INPUT_POST, 'filename', FILTER_SANITIZE_STRING);
+        $minWidth = filter_input(INPUT_POST, 'minWidth', FILTER_SANITIZE_NUMBER_INT);
+        $minHeight = filter_input(INPUT_POST, 'minHeight', FILTER_SANITIZE_NUMBER_INT);
         
-        $candidatePhoto = new CandidatePhoto($fileName);
+        $candidatePhoto = new CandidatePhoto($fileName, $minWidth, $minHeight);
         $candidatePhoto->crop();
     }
     

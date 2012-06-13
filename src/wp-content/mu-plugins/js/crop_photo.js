@@ -5,22 +5,21 @@
             var top = $('#photo-wrapper img').css('top');
             var width = $('#photo-wrapper img').css('width');
             var filename = $('input[name=graphic_material_filename]').val();
+            var minWidth = $('input[name=minWidth]').val();
+            var minHeight = $('input[name=minHeight]').val();
             $("body").css("cursor", "wait");
             $.post(
                 ajaxurl,
-                {action: 'savePhotoPosition', filename: filename, left: left, top: top, width: width},
+                {action: 'savePhotoPosition', filename: filename, minWidth: minWidth, minHeight: minHeight, left: left, top: top, width: width},
                 function(result) {
                     $("#save-response").show().delay(1000).fadeOut(2000);
+                    updatePreview();
                     $("body").css("cursor", "auto");
                 }
             );
         });
         
-        $("#photo-wrapper").css({
-            width:200,
-            height:300,
-            overflow: 'hidden'
-        }).mouseover(function() {
+        $("#photo-wrapper").mouseover(function() {
             $('#zoom-plus, #zoom-minus').show();
         }).mouseout(function() {
             $('#zoom-plus, #zoom-minus').hide();
