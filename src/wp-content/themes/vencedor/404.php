@@ -1,21 +1,21 @@
 <?php get_header(); ?>
-    <div id="section" class="wrap clearfix">
+    <section id="main-section" class="wrap clearfix">
 	    <div id="content" class="col-8">		
 	        
             <h3 class="pagetitle">
-            <?php _e( 'Page not found', 'temauolhost' ); ?>
+            <?php _e( 'Page not found', 'temavencedor' ); ?>
             </h3>
-            <div class="post">
-                <p><?php _e( 'Apologies, but the page you requested could not be found. Perhaps searching will help.', 'temauolhost' ); ?></p>            
+            <article class="post">
+                <p><?php _e( 'Apologies, but the page you requested could not be found. Perhaps searching will help.', 'temavencedor' ); ?></p>            
                 <?php get_search_form(); ?>
-            </div>
+            </article>
             <!-- .post -->
 	    </div>
 	    <!-- #content -->
-	    <div id="aside" class="col-4 clearfix">
+	    <aside id="sidebar" class="col-4 clearfix">
 		<?php get_sidebar(); ?>
-	    </div>
-	    <!-- #aside -->       
-    </div>
-    <!-- #section -->
+	    </aside>
+	    <!-- #sidebar -->       
+    </section>
+    <!-- #main-section -->
 <?php get_footer(); ?>

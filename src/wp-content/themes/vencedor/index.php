@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-    <div id="section" class="wrap clearfix">
+    <section id="main-section" class="wrap clearfix">
 	    <div id="content" class="col-8">		
 	    
             <?php if ( have_posts()) : ?>
@@ -12,10 +12,10 @@
         
 	    </div>
 	    <!-- #content -->
-	    <div id="aside" class="col-4 clearfix">
-		<?php get_sidebar(); ?>
-	    </div>
-	    <!-- #aside -->       
-    </div>
-    <!-- #section -->
+	    <aside id="sidebar" class="col-4 clearfix">
+			<?php get_sidebar(); ?>
+	    </aside>
+	    <!-- #sidebar -->       
+    </section>
+    <!-- #main-section -->
 <?php get_footer(); ?>

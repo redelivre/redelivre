@@ -37,7 +37,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="header">
+<header id="main-header">
 	<div id="branding" class="wrap clearfix">
 		<h1 class="col-12"><span><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></span></h1>
 		<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
@@ -46,11 +46,11 @@
 	<div id="menubar">
 		<div class="wrap clearfix">
 			<?php wp_nav_menu( array( 'theme_location' => 'principal', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
-			<div id="feed-link"><a href="<?php bloginfo('rss_url'); ?>" title="RSS Feed"><img src="<?php bloginfo('stylesheet_directory'); ?>/img/feed-icon-24x24.png" /></a></div>
+			<div id="feed-link"><a href="<?php bloginfo('rss_url'); ?>" title="RSS Feed"><img src="<?php bloginfo('template_url'); ?>/img/feed-icon-24x24.png" /></a></div>
 		</div>
 		<!-- .wrap -->
 	</div>
 	<!-- #menubar -->
-</div>
-<!-- #header -->
+</header>
+<!-- #main-header -->
 
