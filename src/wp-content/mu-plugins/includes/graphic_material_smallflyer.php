@@ -23,7 +23,7 @@ if (isset($_POST['save'])) {
 ?>
 
 <div>
-    <h1>Geração de material gráfico</h1>
+    <h1>Santinho e colinha</h1>
     <div id="graphic_material_content" style="width: 60%; float: left;">
         <h3>1. Selecione uma foto ou envie uma nova:</h3>
         <?php $candidatePhoto->printHtml(); ?>
