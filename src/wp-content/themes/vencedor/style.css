@@ -75,6 +75,9 @@ a img {
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 .clear { clear: both; }
 
+/* HTML5 */
+section, article, header, footer, nav, aside, hgroup { display: block; }
+
 
 body { font: 15px/22px Georgia, "Times New Roman", Times, serif; }
 pre { font-family: Verdana, sans-serif; font-size: 12px; } 
@@ -127,7 +130,7 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 /* =Header
 -------------------------------------------------------------- */
 
-#header { padding: 22px 0 0; }
+#main-header { padding: 22px 0 0; }
 #branding { padding: 55px 0; height: 66px; }
 #branding h1 a, #branding h1 a:hover  { color: #000; text-decoration: none; }
 #description { font-style: italic; font-size: 16px; }
@@ -154,14 +157,14 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 
 /* =Footer
 -------------------------------------------------------------- */
-#footer { margin: 0 auto; padding-bottom: 11px; padding-top: 11px; background: #f1f1f1; font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; }
+#main-footer { margin: 0 auto; padding-bottom: 11px; padding-top: 11px; font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; }
 #footer-nav li { float: left; margin: 0 10px; }
 #footer-nav li:first-child { list-style: none; margin: 0 10px 0 0; }
 .creditos img { vertical-align: middle; }
 
 /* =Section
 -------------------------------------------------------------- */
-#section { padding-top: 21px; background: #fff; }
+#main-section { padding-top: 21px; background: #fff; }
 
 
 /* =Content
@@ -187,7 +190,7 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 .post-meta a:hover { text-decoration: none; border-bottom: 1px solid #600; }
 .post-meta abbr, .post-footer abbr { border: none; }
 .post-meta abbr:hover, .post-footer abbr:hover { border-bottom: 1px dotted #666; }
-.post-footer { border-top: 1px solid #ccc; min-height: 65px; }
+.post-footer { border-top: 1px solid #ccc; margin-bottom: 21px; min-height: 65px; }
 .post-footer p { margin-bottom: 0; }
 .post-footer .post-meta { width: 550px; }
 .comments-number { width: 27px; height: 28px; margin-top: 5px; font-size: 12px; font-family: "Trebuchet MS", Arial, sans-serif; background: transparent url(img/comments-number.png) no-repeat; text-align: center; }
@@ -202,7 +205,6 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 /* =Navigation
 -------------------------------------------------------------- */
 .navigation { margin: 22px 10px; font-style: italic; border-top: 1px solid #ccc; }
-.navigation a:hover, .navigation a:visited { color: #36c; }
 
 /* =Images
 -------------------------------------------------------------- */
@@ -259,7 +261,7 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 /* =Aside
 -------------------------------------------------------------- */
 
-#aside { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; }
+#sidebar { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; }
 
 /* =Widgets
 -------------------------------------------------------------- */

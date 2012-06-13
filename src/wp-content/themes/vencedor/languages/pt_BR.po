@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: UOL Host\n"
+"Project-Id-Version: Vencedor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-09 18:01-0300\n"
+"POT-Creation-Date: 2012-06-12 11:20-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Cátia Kitahara <catia@hacklab.com.br>\n"
 "Language-Team: \n"
@@ -13,171 +13,172 @@ msgstr ""
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-Country: BRAZIL\n"
 "X-Poedit-KeywordsList: __;_e;_x\n"
-"X-Poedit-Basepath: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost\n"
+"X-Poedit-Basepath: /home/catia/devel/campanha/src/wp-content/themes/vencedor\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost\n"
+"X-Poedit-SearchPath-0: /home/catia/devel/campanha/src/wp-content/themes/vencedor\n"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:12
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/archive.php:19
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/loop.php:10
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:12
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:19
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/loop.php:10
 #, php-format
 msgid "Posts by %s"
 msgstr "Posts de  \"%s\""
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:15
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/loop.php:13
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/functions.php:154
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:15
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/loop.php:13
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:155
 #, php-format
 msgid "By %s on %s at %s."
 msgstr "Por %s em %s às %s."
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:19
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/page.php:9
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:19
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/page.php:9
 msgid "Pages:"
 msgstr "Páginas"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:23
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/loop.php:28
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:23
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/loop.php:28
 msgid "Categories:"
 msgstr "Categorias:"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:27
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:27
 msgid "&laquo; Go back to "
 msgstr "&laquo; Voltar para"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:34
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:34
 msgid "&laquo; Previous post"
 msgstr "&laquo; Post anterior"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:35
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:35
 msgid "Next post &raquo;"
 msgstr "Próximo post &raquo;"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/single.php:39
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/index.php:10
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/archive.php:28
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/page.php:17
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/single.php:39
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/index.php:10
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:28
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/page.php:17
 msgid "No results found."
 msgstr "Nnenhum post encontrado"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/search.php:8
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/search.php:15
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/search.php:8
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/search.php:15
 #, php-format
 msgid "Search Results for: %s"
 msgstr "Resultados da busca por  \"%s\""
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/search.php:18
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/search.php:18
 msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
 msgstr "Desculpe, a busca não retornou nenhum resultado. Por favor tente buscar novamente."
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/archive.php:9
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:9
 #, php-format
 msgid "Daily Archives: <span>%s</span>"
 msgstr "Arquivos diários: <span>%s</span>"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/archive.php:11
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:11
 #, php-format
 msgid "Monthly Archives: <span>%s</span>"
 msgstr "Arquivos Mensais: <span>%s</span>"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/archive.php:13
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:13
 #, php-format
 msgid "Yearly Archives: <span>%s</span>"
 msgstr "Arquivos Anuais: <span>%s</span>"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/archive.php:16
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:16
 #, php-format
 msgid "Archives for \"%s\" "
 msgstr "Arquivos de \"%s\""
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/archive.php:21
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:21
 msgid "Blog Archives"
 msgstr "Arquivos do Blog"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/header.php:23
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/header.php:23
 #, php-format
 msgid "Page %s"
 msgstr "Página %s"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/loop.php:22
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/functions.php:35
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/loop.php:22
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:44
 msgid "Continue reading &raquo;"
 msgstr "Continue lendo &raquo;"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/loop.php:38
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/loop.php:38
 msgid "&laquo; Previous posts"
 msgstr "&laquo; Posts anteriores"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/loop.php:39
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/loop.php:39
 msgid "Next posts &raquo;"
 msgstr "Próximos posts &raquo;"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/functions.php:14
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:14
 msgid "Top Menu"
 msgstr "Menu do topo"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/functions.php:15
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:15
 msgid "Footer Menu"
 msgstr "Menu do rodapé"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/functions.php:24
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:24
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:33
 msgid "Sidebar"
 msgstr "Barra lateral"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/functions.php:151
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:152
 msgid "Edit"
 msgstr "Editar"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/functions.php:155
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/functions.php:156
 msgid "Your comment is awaiting moderation."
 msgstr "Seu comentário está aguradando moderação"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:22
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:22
 msgid "Comments"
 msgstr "Comentários"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:24
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:24
 msgid "No comments"
 msgstr "Nenhum comentário"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:24
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:24
 msgid "1 comment"
 msgstr "1 Comentário"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:24
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:24
 #, php-format
 msgid "%s comments"
 msgstr "%s comentários"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:24
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:24
 msgid "Leave a comment &raquo;"
 msgstr "Deixe um comentário &raquo;"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:30
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:30
 msgid "&laquo; Older Comments"
 msgstr "&laquo; Comentários antigos"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:31
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:31
 msgid "Newer Comments &raquo;"
 msgstr "Comentários novos &raquo;"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:40
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:40
 msgid "Leave a comment"
 msgstr "Deixe um comentário"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:54
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:54
 msgid "comment"
 msgstr "comentário"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/comments.php:56
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:56
 msgid "All comments need to be approved"
 msgstr "Todos os comentários precisam ser aprovados"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/404.php:6
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/404.php:6
 msgid "Page not found"
 msgstr "Página não encontrada"
 
-#: /home/catia/devel/tema_uol/src/wp-content/themes/uolhost/404.php:9
+#: /home/catia/devel/campanha/src/wp-content/themes/vencedor/404.php:9
 msgid "Apologies, but the page you requested could not be found. Perhaps searching will help."
 msgstr "Desculpe, a página que você acessou não foi encontrada. Talvez fazer uma busca possa ajudar."
 

@@ -1,0 +1,29 @@
+/*
+Theme Name: Vencedor Vermelho e Amarelo
+Theme URI: http://campanhacompleta.com.br
+Description: Tema para candidatos que gostam do formato Blog, com opção de sidebar diferente na home e nas páginas internas.
+Author: Campanha Completa
+Template: vencedor
+Version: 1.0
+*/
+
+@import url(../vencedor/style.css);
+
+a:active, a:hover {	color: #c00; background: #fc0; }
+
+.creditos a:active, .creditos a:hover  { background: none; }
+
+/* =Menu
+-------------------------------------------------------------- */
+#main-nav a { color: #fc0; }
+#feed-link a:hover { background: none; }
+
+/* =Post
+-------------------------------------------------------------- */
+.post-meta a { color: #f90; border-bottom: 1px dotted #f90; }
+.post-meta a:hover { color: #f90; border-bottom: 1px solid #f90; background: none; }
+
+
+/* =Comments
+-------------------------------------------------------------- */
+#form-comentario #comentar, #cancel-comment-reply-link { color: #fc0; }

@@ -1,0 +1,40 @@
+/*
+Theme Name: Vencedor Verde
+Theme URI: http://campanhacompleta.com.br
+Description: Tema para candidatos que gostam do formato Blog, com opção de sidebar diferente na home e nas páginas internas.
+Author: Campanha Completa
+Template: vencedor
+Version: 1.0
+*/
+
+@import url(../vencedor/style.css);
+
+a { color: #693; text-decoration: none; }
+a:active, a:hover {	color: #360; }
+
+
+
+/* =Menu
+-------------------------------------------------------------- */
+#menubar { background: #693; border-bottom: 1px solid #360; }
+#main-nav li { border-right: 1px solid #9c6; background: #693; }
+#main-nav .sub-menu li { border-bottom: 1px solid #9c6; }
+#main-nav li:first-child a { border-left: 1px solid #9c6; }
+#main-nav a { border-right: 1px solid #360; border-bottom: 1px solid #360; }
+#main-nav a:hover, #main-nav li.current-menu-item>a, #main-nav li.current-menu-ancestor>a, #main-nav li.current-menu-parent>a, #main-nav li.current_page_item>a { background: #360; }
+#main-nav ul a { border-left: 1px solid #9c6; }
+#feed-link { border-left: 1px solid #360; }
+#feed-link a { border-right: 1px solid #9c6; border-left: 1px solid #9c6; }
+#feed-link img { border-right: 1px solid #360; border-bottom: 1px solid #360; }
+
+
+/* =Post
+-------------------------------------------------------------- */
+.post-meta a { border-bottom: 1px dotted #693; }
+.post-meta a:hover { border-bottom: 1px solid #360; }
+
+
+/* =Comments
+-------------------------------------------------------------- */
+#form-comentario #comentar, #cancel-comment-reply-link { background: #693; border: 1px solid #9c6; border-bottom: 1px solid #360; border-right: 1px solid #360; }
+#form-comentario #comentar:hover, #cancel-comment-reply-link:hover { background: #360; }

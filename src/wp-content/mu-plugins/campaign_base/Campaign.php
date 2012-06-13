@@ -78,6 +78,9 @@ class Campaign {
         global $wpdb;
         
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
+
+		if (!is_array($result) || empty($result))
+			return false;
         
         return new Campaign($result);
     }
