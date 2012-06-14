@@ -150,7 +150,7 @@ class Campaign {
             $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
         }
 
-        if (filter_var($this->domain, FILTER_VALIDATE_URL) === false) {
+        if (  !preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain ) ) {
             $this->errorHandler->add('error', 'O sub-domínio digitado é inválido.');
         }
 
