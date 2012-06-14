@@ -138,9 +138,6 @@ class Campaign {
      * campaign.
      */
     public function validate() {
-        if (empty($this->domain)) {
-            $this->errorHandler->add('error', 'O campo domínio não pode estar vazio.');
-        }
         
         // build sub-domain name
         $mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
@@ -150,8 +147,8 @@ class Campaign {
             $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
         }
 
-        if (  preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain === 0) ) {
-            $this->errorHandler->add('error', 'O sub-domínio digitado é inválido.');
+        if ( empty($this->domain) || preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain) === 0 ) {
+            $this->errorHandler->add('error', 'O sub-domínio digitado está vazio ou inválido.');
         }
 
         // adding 'http://' in case the user haven't because FILTER_VALIDATE_URL requires it
@@ -167,17 +164,25 @@ class Campaign {
             $this->errorHandler->add('error', 'O domínio próprio digitado é inválido.');
         }
         
+        if (  preg_match( '|^(\d){2,5}$|', $this->candidate_number ) === 0 ) {
+            $this->errorHandler->add('error', 'Número de candidato inválido.');
+        }
+        
         if ($this->valueExist('candidate_number')) {
             $this->errorHandler->add('error', 'Uma campanha para este candidato já foi criada no sistema.');
         }
         
-        if (empty($this->plan_id)) {
-            $this->errorHandler->add('error', 'Você precisa selecionar um plano.');
+        if (empty($this->plan_id) || !in_array($this->plan_id, Plan::getAllIds())) {
+            $this->errorHandler->add('error', 'Selecione o plano desejado.');
         }
         
+        /*
         if (!in_array($this->plan_id, Plan::getAllIds())) {
             $this->errorHandler->add('error', 'O plano escolhido é inválido.');
         }
+        * Tirei isso pq me parece que é pouco provável q acontela e gera um erro extra caso a pessoa deixe em branco
+        * acrescentei a mesma checagem na condição acima (Leo)
+        */
         
         if (empty($this->state)) {
             $this->errorHandler->add('error', 'Você precisa selecionar um estado.');
