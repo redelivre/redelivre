@@ -13,7 +13,6 @@
 				<section>
 					<h1>Contato</h1>
 					<address class="vcard adr">
-						<span class="tel">41 3077 4163</span><br />
 						<span class="email">contato@campanhacompleta.com.br</span>
 					</address>
 				</section>

@@ -9,7 +9,6 @@ add_action('admin_init', function() {
         
         // disable wp and my sites menus from admin bar
         remove_action('admin_bar_menu', 'wp_admin_bar_wp_menu');
-        remove_action('admin_bar_menu', 'wp_admin_bar_my_sites_menu', 20);
         
         // disable screen options tab
         add_filter('screen_options_show_screen', function() {

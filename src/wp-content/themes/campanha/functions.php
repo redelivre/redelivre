@@ -8,7 +8,8 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php'; 
 
-define('CAMPAIGN_ADMIN_URL', 'admin.php?page=campaigns');
+define('CAMPAIGN_LIST_URL', 'admin.php?page=campaigns_list');
+define('CAMPAIGN_NEW_URL', 'admin.php?page=campaigns_new');
 
 if (is_admin()) {
     require(TEMPLATEPATH . '/custom_admin.php');
@@ -196,7 +197,7 @@ function campanha_login_redirect($redirect_to, $request, $user) {
     if (!is_wp_error($user) && is_array($user->roles)
         && in_array("subscriber", $user->roles))
     {
-        return admin_url(CAMPAIGN_ADMIN_URL);
+        return campanha_redirect_to_campaign_home();
     }
 
     return $redirect_to;
@@ -213,8 +214,24 @@ function campanha_change_admin_home() {
     if (is_array($user->roles) && in_array("subscriber", $user->roles)
         && preg_match('#wp-admin/?(index.php)?$#', $_SERVER['REQUEST_URI']))
     {
-        wp_redirect(admin_url(CAMPAIGN_ADMIN_URL));
+        wp_redirect(campanha_redirect_to_campaign_home());
     }
 }
 add_action('admin_init', 'campanha_change_admin_home');
 
+/**
+ * Return the link to the campaign admin home page for the user
+ * depending whether he has campaigns or not.
+ * 
+ * @return string url to list campaigns page or create new campaign page
+ */
+function campanha_redirect_to_campaign_home() {
+    $user = wp_get_current_user();
+    $campaigns = Campaign::getAll($user->ID);
+    
+    if ($campaigns) {
+        return admin_url(CAMPAIGN_LIST_URL);
+    } else {
+        return admin_url(CAMPAIGN_NEW_URL);
+    }
+}
