@@ -82,6 +82,14 @@ function remove_admin_bar(){
 }
 add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
+
+add_action('admin_print_styles', 'campanha_addAdminCSS');
+function campanha_addAdminCSS() {
+    
+    wp_enqueue_style('campanhaAdmin', get_stylesheet_directory_uri().'/css/admin.css');
+}
+
+
 // JS
 add_action('wp_print_scripts', 'campanha_addJS');
 function campanha_addJS() {

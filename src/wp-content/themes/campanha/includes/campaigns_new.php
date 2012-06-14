@@ -68,7 +68,7 @@ if (isset($_GET['noheader'])) {
                     <th scope="row"><label for="plan_id">Selecione um plano</label></th>
                     <td>
                         <?php foreach (Plan::getAll() as $plan): ?>
-                            <input type="radio" name="plan_id" value="<?php echo $plan->id; ?>" <?php if (isset($_POST['plan_id']) && $_POST['plan_id'] == $plan->id) echo ' checked '; ?>><?php echo $plan->name; ?><br>
+                            <input type="radio" name="plan_id" class="radio" value="<?php echo $plan->id; ?>" <?php if (isset($_POST['plan_id']) && $_POST['plan_id'] == $plan->id) echo ' checked '; ?>><?php echo $plan->name; ?><br>
                         <?php endforeach; ?>
                     </td>
                 </tr>
