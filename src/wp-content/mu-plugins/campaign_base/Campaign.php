@@ -103,8 +103,8 @@ class Campaign {
             $this->id = $data['id'];
         }
         
-        $this->domain = $data['domain'];
-        $this->own_domain = $data['own_domain'];
+        $this->domain = trim($data['domain']);
+        $this->own_domain = trim($data['own_domain']);
         $this->plan_id = $data['plan_id'];
         $this->candidate_number = $data['candidate_number'];
         
@@ -150,7 +150,7 @@ class Campaign {
             $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
         }
 
-        if (  !preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain ) ) {
+        if (  preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain === 0) ) {
             $this->errorHandler->add('error', 'O sub-domínio digitado é inválido.');
         }
 
