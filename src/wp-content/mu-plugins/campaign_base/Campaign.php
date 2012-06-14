@@ -96,7 +96,10 @@ class Campaign {
         //TODO: create interface for more than one election
         $this->election_id = 1;
         
-        $this->id = $data['id'];
+        if (isset($data['id'])) {
+            $this->id = $data['id'];
+        }
+        
         $this->domain = $data['domain'];
         $this->own_domain = $data['own_domain'];
         $this->plan_id = $data['plan_id'];
