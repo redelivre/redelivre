@@ -17,7 +17,7 @@ function brizola_setup() {
 
     // POST THUMBNAILS
     add_theme_support('post-thumbnails');
-    //set_post_thumbnail_size( 200, 150, true );
+    set_post_thumbnail_size( 200, 150, true );
 
     //REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
     //add_image_size('nome',X,Y);
@@ -27,7 +27,7 @@ function brizola_setup() {
     add_theme_support('automatic-feed-links');
 
     // CUSTOM IMAGE HEADER
-    define('HEADER_TEXTCOLOR', '000000');
+    define('HEADER_TEXTCOLOR', '0033CC');
     define('HEADER_IMAGE_WIDTH', 940); 
     define('HEADER_IMAGE_HEIGHT', 198);
 
@@ -111,7 +111,7 @@ if (!function_exists('brizola_custom_header')) :
 			<?php if ( 'blank' == get_header_textcolor() ) : ?>
 				#branding h1, #branding p { display: none; }        
 			<?php else: ?>       
-				#branding, #branding a, #branding a:hover { color: #<?php header_textcolor(); ?> !important; }
+				#branding, #branding a, #branding a:hover { color: #<?php header_textcolor(); ?>; }
 				#branding a:hover { text-decoration: none; }
 				#description { filter: alpha(opacity=60); opacity: 0.6; }
 			<?php endif; ?>        
@@ -127,18 +127,16 @@ if (!function_exists('brizola_admin_custom_header')) :
         ?><style type="text/css">
         
            #headimg {
-                padding:55px 10px;
-                width: 960px !important;
-                height: 66px !important;
-                min-height: 66px !important;
+                padding:55px 0;
+                width: 940px !important;
+                height: 88px !important;
+                min-height: 88px !important;
             }
         
             #headimg h1 {
-                font-size:36px;
-                line-height:44px;
-                font-weight:normal !important;
-                margin: 0px;
-                margin: 0 10px;            
+                font-size:42px;
+                line-height:66px;
+                margin-bottom: 0px;          
             }
         
             #headimg h1 a {
@@ -146,7 +144,6 @@ if (!function_exists('brizola_admin_custom_header')) :
             }
         
             #headimg #desc { 
-                font-style: italic; 
                 font-size: 16px; 
                 margin: 0 10px;
                 filter: alpha(opacity=60);

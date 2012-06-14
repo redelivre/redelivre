@@ -319,7 +319,7 @@ var hl;
                     
                     var inc = $this.data('scroll-num') ? $this.data('scroll-num') : 1;
                     
-                    $wrapper.css({overflow: 'hidden', position: 'relative', width: '100%'});
+                    $wrapper.css({overflow: 'hidden', position: 'relative'});
                     $wrapped.css({position: 'absolute', left: 0});
                     
                     $articles.each(function(){
