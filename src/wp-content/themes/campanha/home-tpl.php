@@ -9,27 +9,27 @@ Template Name: Home
 		<nav id="prev"><a>Anterior</a></nav>
 		<div id="janela">
 			<article id="frase-1" class="frase current">
-				<h2>Monte seu site ou blog personalizado em minutos.</h2>
+				<h2><a href="<?php echo get_page_link(2); ?>#blogousite">Monte seu site ou blog personalizado em minutos.</a></h2>
 				<p>São várias opções de layout para sua escolha.</p>
 			</article>
 			<article id="frase-2" class="frase">
-				<h2>Gerencie sua presença nas redes sociais em um único lugar.</h2>
+				<h2><a href="<?php echo get_page_link(2); ?>#mobilize">Gerencie sua presença nas redes sociais em um único lugar.</a></h2>
 				<p>Publique ao mesmo tempo em seu site e nas redes.</p>
 			</article>
 			<article id="frase-3" class="frase">
-				<h2>Organize e compartilhe contatos entre sua equipe com segurança.</h2>
+				<h2><a href="<?php echo get_page_link(2); ?>#contatos">Organize e compartilhe contatos entre sua equipe com segurança.</a></h2>
 				<p>Todos contatos em um só lugar com níveis de acesso.</p>
 			</article>
 			<article id="frase-4" class="frase">
-				<h2>Envie sua campanha por email e sms em massa.</h2>
+				<h2><a href="<?php echo get_page_link(2); ?>#jaiminho">Envie sua campanha por email e sms em massa.</a></h2>
 				<p>Visualize relatórios e meça os resultados da campanha.</p>
 			</article>
 			<article id="frase-5" class="frase">
-				<h2>Mapeie sua campanha com mapas do Google ou OpenStreet.</h2>
+				<h2><a href="<?php echo get_page_link(2); ?>#georeferenciamento">Mapeie sua campanha com mapas do Google ou OpenStreet.</a></h2>
 				<p>Explores as posibilidades dos mapas interativos.</p>
 			</article>
 			<article id="frase-6" class="frase">
-				<h2>Monte você mesmo seus  próprios materiais gráficos.</h2>
+				<h2><a href="<?php echo get_page_link(2); ?>#materialgrafico">Monte você mesmo seus  próprios materiais gráficos.</a></h2>
 				<p>Gerador de santinhos, colinhas e flyers.</p>
 			</article>
 		</div>
@@ -59,7 +59,7 @@ Template Name: Home
 	<div id="cadastre-se">
 	    <?php if (!is_user_logged_in()): ?>
     		<h2>Cadastre-se gratuitamente e faça um teste.</h2>
-    		<p>Você só paga na hora de escolher um plano e publicar seu site ou blog.</p>
+    		<p>Você só paga na hora de publicar seu site ou blog.</p>
     		<?php require(TEMPLATEPATH . '/register_form.php'); ?>
 		<?php endif; ?>
 	</div>

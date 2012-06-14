@@ -52,9 +52,12 @@ class Campaign {
     public static function getAll($user_id = null) {
         global $wpdb;
         
+        $query = '';
+        
         if ($user_id) {
             $query = $wpdb->prepare('SELECT * FROM `campaigns` WHERE user_id = %d ORDER BY `domain` asc', $user_id);
-        } else {
+        } else if (is_super_admin()) {
+            // only super admins should be able to see all campaigns
             $query = 'SELECT * FROM `campaigns` ORDER BY `domain` asc';
         }
         
@@ -96,7 +99,10 @@ class Campaign {
         //TODO: create interface for more than one election
         $this->election_id = 1;
         
-        $this->id = $data['id'];
+        if (isset($data['id'])) {
+            $this->id = $data['id'];
+        }
+        
         $this->domain = $data['domain'];
         $this->own_domain = $data['own_domain'];
         $this->plan_id = $data['plan_id'];

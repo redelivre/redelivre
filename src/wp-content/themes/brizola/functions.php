@@ -28,26 +28,10 @@ function brizola_setup() {
 
     // CUSTOM IMAGE HEADER
     define('HEADER_TEXTCOLOR', '000000');
-    define('HEADER_IMAGE_WIDTH', 980); 
-    define('HEADER_IMAGE_HEIGHT', 176);
+    define('HEADER_IMAGE_WIDTH', 940); 
+    define('HEADER_IMAGE_HEIGHT', 198);
 
     add_custom_image_header( 'brizola_custom_header', 'brizola_admin_custom_header' );
-
-    register_default_headers( array(
-        'Mundo' => array(
-            'url' => '%s/img/headers/image001.jpg',
-            'thumbnail_url' => '%s/img/headers/image001-thumbnail.jpg',
-        ),
-        'Árvores' => array(
-            'url' => '%s/img/headers/image002.jpg',
-            'thumbnail_url' => '%s/img/headers/image002-thumbnail.jpg',
-            'description' => 'barco'
-        ),
-        'Caminho' => array(
-            'url' => '%s/img/headers/image003.jpg',
-            'thumbnail_url' => '%s/img/headers/image003-thumbnail.jpg',
-        ),
-    ) );
 
     // CUSTOM BACKGROUND
     add_custom_background();
@@ -121,24 +105,18 @@ function brizola_auto_excerpt_more( $more ) {
 if (!function_exists('brizola_custom_header')) :
 
     function brizola_custom_header() {
-        ?><style type="text/css">
-            #branding {
-                background: url(<?php header_image(); ?>);
-            }
-                
-            #branding, #branding a, #branding a:hover {
-                color: #<?php header_textcolor(); ?> !important;
-            }
-            #branding a:hover {
-                text-decoration: none; 
-            }
-            #description { 
-                filter: alpha(opacity=60);
-                opacity: 0.6;
-            }
-        
-        </style><?php
-
+        ?>
+        <style type="text/css">
+            #branding { background: url(<?php header_image(); ?>); }
+			<?php if ( 'blank' == get_header_textcolor() ) : ?>
+				#branding h1, #branding p { display: none; }        
+			<?php else: ?>       
+				#branding, #branding a, #branding a:hover { color: #<?php header_textcolor(); ?> !important; }
+				#branding a:hover { text-decoration: none; }
+				#description { filter: alpha(opacity=60); opacity: 0.6; }
+			<?php endif; ?>        
+        </style>
+        <?php
     }
 
 endif;

@@ -48,25 +48,21 @@
     <body <?php body_class(); ?>>
 		<div class="wrap clearfix">
         <header id="main-header" class="clearfix">
-			<div class="clearfix">
+			<div class="col-12 clearfix">
 				<?php wp_nav_menu( array( 'theme_location' => 'quick-links', 'container' => '', 'menu_id' => 'quick-links', 'menu_class' => 'clearfix alignleft', 'depth' => 1, 'fallback_cb' =>'') ); ?>
-
-				<div id="social-bookmarks" class="alignright">
+				<div id="social-bookmarks" class="clearfix alignright">
 					<a id="facebook" href="" title="Facebook"></a>
 					<a id="twitter" href="" title="Twitter"></a>
 					<a id="youtube" href="" title="YouTube"></a>
 					<a id="rss" href="" title="RSS"></a>
 				</div>
-			</div>
-        
-            <div id="branding" class="clearfix">
-                <h1 class="col-12"><span><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></span></h1>
-                <p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
+			</div>        
+            <div id="branding" class="col-12 clearfix">
+                <h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
+                <p id="description"><?php bloginfo( 'description' ); ?></p>                		
             </div>
-            <!-- .wrap -->
-            
-			<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
-         
+            <!-- .wrap -->            
+			<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>         
         </header>
         <!-- #main-header -->
 		
