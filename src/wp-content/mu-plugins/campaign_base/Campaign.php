@@ -52,9 +52,12 @@ class Campaign {
     public static function getAll($user_id = null) {
         global $wpdb;
         
+        $query = '';
+        
         if ($user_id) {
             $query = $wpdb->prepare('SELECT * FROM `campaigns` WHERE user_id = %d ORDER BY `domain` asc', $user_id);
-        } else {
+        } else if (is_super_admin()) {
+            // only super admins should be able to see all campaigns
             $query = 'SELECT * FROM `campaigns` ORDER BY `domain` asc';
         }
         
