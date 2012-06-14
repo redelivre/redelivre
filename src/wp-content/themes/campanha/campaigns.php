@@ -49,7 +49,7 @@ if (is_super_admin()) {
         <tbody>
             <?php foreach ($campaigns as $campaign): ?>
                 <tr>
-                    <td><a href="<?php echo $campaign->domain; ?>" target="_blank"><?php echo $campaign->domain ?></a></td>
+                    <td><a href="<?php echo $campaign->domain; ?>" target="_blank"><?php echo $campaign->domain ?></a> (<a href="<?php echo $campaign->domain; ?>/wp-admin" target="_blank">admin</a>)</td>
                     <td><a href="<?php echo $campaign->own_domain; ?>" target="_blank"><?php echo $campaign->own_domain ?></a></td>
                     <?php if (is_super_admin()) echo "<td>{$campaign->campaignOwner->data->user_login}</td>"; ?>
                     <td><?php echo $campaign->candidate_number; ?></td>
