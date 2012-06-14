@@ -8,7 +8,8 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php'; 
 
-define('CAMPAIGN_ADMIN_URL', 'admin.php?page=campaigns');
+define('CAMPAIGN_LIST_URL', 'admin.php?page=campaigns_list');
+define('CAMPAIGN_NEW_URL', 'admin.php?page=campaigns_new');
 
 if (is_admin()) {
     require(TEMPLATEPATH . '/custom_admin.php');
@@ -196,7 +197,7 @@ function campanha_login_redirect($redirect_to, $request, $user) {
     if (!is_wp_error($user) && is_array($user->roles)
         && in_array("subscriber", $user->roles))
     {
-        return admin_url(CAMPAIGN_ADMIN_URL);
+        return admin_url(CAMPAIGN_LIST_URL);
     }
 
     return $redirect_to;
@@ -213,7 +214,7 @@ function campanha_change_admin_home() {
     if (is_array($user->roles) && in_array("subscriber", $user->roles)
         && preg_match('#wp-admin/?(index.php)?$#', $_SERVER['REQUEST_URI']))
     {
-        wp_redirect(admin_url(CAMPAIGN_ADMIN_URL));
+        wp_redirect(admin_url(CAMPAIGN_LIST_URL));
     }
 }
 add_action('admin_init', 'campanha_change_admin_home');
