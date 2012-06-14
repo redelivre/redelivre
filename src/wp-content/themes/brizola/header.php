@@ -58,7 +58,7 @@
 				</div>
 			</div>        
             <div id="branding" class="col-12 clearfix">
-                <h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php echo $campaign->candidate_number; ?></a></h1>
+                <h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
                 <p id="description"><?php bloginfo( 'description' ); ?></p>                		
             </div>
             <!-- .wrap -->            
