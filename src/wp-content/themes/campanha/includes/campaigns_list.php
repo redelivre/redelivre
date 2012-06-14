@@ -11,6 +11,11 @@ if (is_super_admin()) {
 
 <div class="wrap">
     <h2>Suas campanhas</h2>
+    
+    <?php if (isset($_GET['success'])) : ?>
+        <div class="updated"><p>Campanha criada com sucesso.</p></div>
+    <?php endif; ?>        
+    
     <table class="widefat fixed">
         <thead>
             <tr class="thead">

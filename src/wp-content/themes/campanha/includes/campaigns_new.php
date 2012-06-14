@@ -17,7 +17,7 @@ if (!empty($_POST)) {
     
     if ($campaign->validate()) {
         $campaign->create();
-        wp_redirect(admin_url(CAMPAIGN_LIST_URL));
+        wp_redirect(admin_url(CAMPAIGN_LIST_URL) . '&success');
     } else {
         $errors = $campaign->errorHandler->errors;
     }
