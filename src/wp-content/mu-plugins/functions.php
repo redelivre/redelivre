@@ -1,5 +1,4 @@
 <?php
-
 // load campaign base files
 foreach (glob(WPMU_PLUGIN_DIR . '/campaign_base/*.php') as $file) {
     require_once($file);
@@ -59,6 +58,7 @@ function campaign_base_custom_query_vars($public_query_vars) {
 function campaign_base_custom_url_rewrites($rules) {
     $new_rules = array(
         "materialgrafico/?$" => "index.php?tpl=materialgrafico",
+        "mobilizacao/?$" => "index.php?tpl=mobilizacao"
     );
 
     return $new_rules + $rules;
@@ -66,10 +66,13 @@ function campaign_base_custom_url_rewrites($rules) {
 
 function campaign_base_template_redirect_intercept() {
     global $wp_query;
-
+    
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
             require(WPMU_PLUGIN_DIR . '/includes/graphic_material_list_links.php');
+            die;
+        case 'mobilizacao':
+            require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
             die;
         default:
             break;
