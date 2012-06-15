@@ -1,9 +1,0 @@
-a#facebook { background:url(../img/icons/gosocial_32x32.png) no-repeat  000px top; display:inline-block; height:32px; margin-top:-4px; width:33px; }
-a#twitter  { background:url(../img/icons/gosocial_32x32.png) no-repeat -035px top; display:inline-block; height:32px; margin-top:-4px; width:33px; }
-a#youtube  { background:url(../img/icons/gosocial_32x32.png) no-repeat -070px top; display:inline-block; height:32px; margin-top:-4px; width:33px; }
-a#rss      { background:url(../img/icons/gosocial_32x32.png) no-repeat -105px top; display:inline-block; height:32px; margin-top:-4px; width:33px; }
-
-a:hover#facebook { background-position: 000px bottom; }
-a:hover#twitter  { background-position:-035px bottom; }
-a:hover#youtube  { background-position:-070px bottom; }
-a:hover#rss      { background-position:-105px bottom; }
