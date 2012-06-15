@@ -68,17 +68,17 @@ Template Name: Home
 		<div id="destaque-passo">
 			<h3>Passo a Passo</h3>
 			<p>Comece sua Campanha Completa antes de seus concorrentes.</p>
-			<a href="#">Veja como é rápido »</a>
+			<a href="<?php echo get_page_link(772); ?>">Veja como é rápido »</a>
 		</div>
 		<div id="destaque-planos">
 			<h3>Planos e Preços</h3>
 			<p>Tenha sua Campanha Completa pagando a partir de <strong>R$1.300,00</strong>.</p>
-			<a href="#">Compare nossos planos »</a>
+			<a href="<?php echo get_page_link(501); ?>">Compare nossos planos »</a>
 		</div>
 		<div id="destaque-representante">
 			<h3>Seja um representante</h3>
 			<p>Represente o Campanha Completa e ganhe <strong>10%</strong> das vendas.</p>
-			<a href="#">Saiba como »</a>
+			<a href="<?php echo get_page_link(156); ?>">Saiba como »</a>
 		</div>
 	</section>
 	
