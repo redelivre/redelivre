@@ -64,8 +64,10 @@ class Campaign {
         $results = $wpdb->get_results($query, ARRAY_A);
         $campaigns = array();
         
-        foreach ($results as $result) {
-            $campaigns[] = new Campaign($result);
+        if ($results) {
+            foreach ($results as $result) {
+                $campaigns[] = new Campaign($result);
+            }
         }
         
         return $campaigns;
