@@ -44,12 +44,6 @@ add_action('admin_menu', function() {
         });
     }
     
-    if ($capabilities->forum_support->value || $capabilities->email_support->value) {
-        add_menu_page('Suporte', 'Suporte', 'read', 'campaign_support', function() {
-            require(WPMU_PLUGIN_DIR . '/includes/campaign_support.php');
-        });
-    }
-    
     // TODO: implementar capability mobilize
     if (true || $capabilities->mobilize->value || $capabilities->mobilize->value) {
         add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
