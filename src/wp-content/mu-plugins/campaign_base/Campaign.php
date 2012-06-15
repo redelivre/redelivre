@@ -282,12 +282,14 @@ class Campaign {
         
         $blogId = wpmu_create_blog($domain, '/', $domain, $this->campaignOwner->ID, $meta);
         
-        $this->setBlogOptions($blogId);
-        
         if (is_wp_error($blogId)) {
             //TODO: improve error handling
             echo 'Não foi possível criar o blog!'; die;
         }
+
+        $this->setBlogOptions($blogId);
+        
+        $this->createDefaultPagesAndMenu($blogId);
         
         return $blogId;
     }
@@ -311,6 +313,43 @@ class Campaign {
         // set upload limit
         $capabilities = Capability::getByPlanId($this->plan_id);
         update_blog_option($blogId, 'blog_upload_space', $capabilities->upload_limit->value);
+    }
+    
+    /**
+     * Create default pages and corresponding menu entries
+     * for the new blog.
+     * 
+     * @param int $blogId
+     * @return null
+     */
+    protected function createDefaultPagesAndMenu($blogId) {
+        if (switch_to_blog($blogId)) {
+            $this->createPost('page', 'Biografia', 'Edite essa página para colocar sua biografia. Se não quiser utilizar esta página você precisará removê-la do menu também.');
+            $this->createPost('page', 'Propostas', 'Edite essa página para colocar suas propostas. Se não quiser utilizar esta página você precisará removê-la do menu também.');
+            
+            // remove default page
+            wp_delete_post(2, true);
+            
+            restore_current_blog();
+        }
+    }
+    
+    /**
+     * Helper function to create a post or page.
+     * 
+     * @param string $title
+     * @param string $content
+     * @return null
+     */
+    protected function createPost($type, $title, $content) {
+        $post = array(
+            'post_author' => $this->campaignOwner->ID,
+            'post_content' => $content,
+            'post_title' => $title,
+            'post_type' => $type,
+            'post_status' => 'publish',
+        );
+        wp_insert_post($post);
     }
     
     /**
