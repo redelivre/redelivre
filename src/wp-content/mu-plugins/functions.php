@@ -179,4 +179,8 @@ function campanha_add_common_js() {
     if (is_user_logged_in()) {
         wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery');
     }
+    
+    if (is_admin()) {
+        wp_enqueue_script('campaign_common', site_url() . '/wp-content/mu-plugins/js/campaign_common.js', 'jquery');
+    }
 }
