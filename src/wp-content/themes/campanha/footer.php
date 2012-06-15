@@ -18,7 +18,7 @@
 				</section>
 				<section>
 					<h1>Redes Sociais</h1>
-					<a id="facebook" href="#">Facebook</a>
+					<a id="facebook" href="https://www.facebook.com/CampanhaCompleta" target="_blank">Facebook</a>
 					<a id="twitter" href="#">Twitter</a>
 				</section>
 			</div>

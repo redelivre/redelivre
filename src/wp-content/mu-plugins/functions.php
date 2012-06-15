@@ -29,8 +29,26 @@ if (!is_main_site()) {
         add_filter('login_message', 'campanha_login_payment_message');
         add_action('admin_notices', 'campanha_admin_payment_message');
         add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
+        add_action('admin_init', 'campanha_remove_menu_pages');
+        add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
     });
 }
+
+/**
+ * Remove menu page to exlude site.
+ */
+function campanha_remove_menu_pages() {
+    remove_submenu_page('tools.php', 'ms-delete-site.php');   
+}
+
+/**
+ * Make sure the user can't see the content of the exlude 
+ * site page.
+ */
+function campanha_remove_exclude_site_page_content() {
+    die;
+}
+
 
 /**
  * Check the payment status and mark the blog
@@ -161,5 +179,11 @@ function campanha_add_common_js() {
     if (is_user_logged_in()) {
         wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery');
     }
+
     wp_enqueue_script('jquery');
+    
+    if (is_admin()) {
+        wp_enqueue_script('campaign_common', site_url() . '/wp-content/mu-plugins/js/campaign_common.js', 'jquery');
+    }
+
 }
