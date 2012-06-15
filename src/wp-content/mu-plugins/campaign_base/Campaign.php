@@ -139,9 +139,6 @@ class Campaign {
      */
     public function validate() {
         
-        // build sub-domain name
-        $mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
-        $this->domain = 'http://' . $this->domain . '.' . $mainSiteDomain;
         
         if ($this->valueExist('domain')) {
             $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
