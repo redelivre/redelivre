@@ -42,6 +42,11 @@ $option = Mobilize::getOption();
 
     <form method="post" enctype="multipart/form-data">
         <?php Mobilize::printSettingsNonce() ?>
+        <div id="mobiliza-geral" class="section">
+            <h3>Configurações gerais</h3>
+            <p><label><input type="checkbox" name="mobilize[geral][active]" <?php echo Mobilize::isActive('geral') ? 'checked="checked"' : ''; ?> data-section="mobilize-geral" /> Habilitar a página de mobilização</label></p>
+            <p><label><input type="checkbox" name="mobilize[geral][menuItem]" <?php echo (isset($option['geral']) && isset($option['geral']['menuItem']) && $option['geral']['menuItem']) ? 'checked="checked"' : ''; ?> data-section="mobilize-geral" /> Exibir link para a página de mobilização no menu</label></p>
+        </div>
         <div id="mobilize-banners" class="section">
             <h3><label><input type="checkbox" name="mobilize[banners][active]" <?php if(Mobilize::isActive('banners'))  echo 'checked="checked"' ?> data-section="mobilize-banners" value="1"/> Banners</label></h3>
             <p class="description">Texto descritivo desta seção. Explicar tamanho e formato da imagem?</p>
