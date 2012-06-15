@@ -148,7 +148,8 @@ function payment_page_callback_function() {
 <?php } 
 
 
-add_action('admin_menu', 'payment_menu');
+// temporarily disabled until we finish implementing this feature
+//add_action('admin_menu', 'payment_menu');
 
 add_action('wp_ajax_process_payment_cielo', 'ajax_process_payment_cielo');
 add_action('wp_ajax_nopriv_process_payment_cielo', 'ajax_process_payment_cielo');
