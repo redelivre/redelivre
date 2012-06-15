@@ -16,7 +16,13 @@ if (!empty($_POST)) {
     );
     
     if ($campaign->validate()) {
+        
+        $mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
+        
+        $campaign->domain = 'http://' . $campaign->domain . '.' . $mainSiteDomain;
+            
         $campaign->create();
+        
         wp_redirect(admin_url(CAMPAIGN_LIST_URL) . '&success');
     } else {
         $errors = $campaign->errorHandler->errors;
