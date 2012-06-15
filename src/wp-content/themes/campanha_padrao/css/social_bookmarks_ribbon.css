@@ -1,9 +1,0 @@
-a#facebook { background:url(../img/icons/ribbon_40x60.png) no-repeat  000px top; display:inline-block; height:60px; margin-top:-1em; width:40px; }
-a#twitter  { background:url(../img/icons/ribbon_40x60.png) no-repeat -040px top; display:inline-block; height:60px; margin-top:-1em; width:40px; }
-a#youtube  { background:url(../img/icons/ribbon_40x60.png) no-repeat -080px top; display:inline-block; height:60px; margin-top:-1em; width:40px; }
-a#rss      { background:url(../img/icons/ribbon_40x60.png) no-repeat -120px top; display:inline-block; height:60px; margin-top:-1em; width:40px; }
-
-a:hover#facebook { background-position: 000px bottom; }
-a:hover#twitter  { background-position:-040px bottom; }
-a:hover#youtube  { background-position:-080px bottom; }
-a:hover#rss      { background-position:-120px bottom; }

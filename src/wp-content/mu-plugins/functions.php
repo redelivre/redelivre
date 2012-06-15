@@ -124,7 +124,9 @@ function campanha_admin_payment_message() {
     
     if (!$campaign->isPaid()) {
         $link = admin_url('admin.php?page=payments');
-        echo "<div class='error'><p>Está campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
+        //echo "<div class='error'><p>Está campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
+        // temporarily remove link to payment page while it is not finished
+        echo "<div class='error'><p>Está campanha está visível somente para o criador pois o pagamento está pendente.</p></div>";
     }
 }
 
@@ -176,8 +178,8 @@ add_action('wp_print_scripts', 'campanha_add_common_js');
  * Add JS files shared by all themes.
  */
 function campanha_add_common_js() {
-    if (is_user_logged_in()) {
-        wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery');
+    if (is_user_logged_in() && !is_super_admin()) {
+        wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery', false, true);
     }
 
     wp_enqueue_script('jquery');
