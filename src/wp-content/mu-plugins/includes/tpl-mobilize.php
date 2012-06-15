@@ -1,80 +1,116 @@
 <?php
 $options = get_option('mobilize');
-
+wp_enqueue_style('mobilize', WPMU_PLUGIN_URL . '/css/mobilize.css');
 get_header();
 ?>
-<div class="container clearfix">
-    <?php get_sidebar('left'); ?>
-    <section id="main-section" class="span-12 colborder">
+<section id="main-section" class="wrap clearfix">
+    
+    <div id="content" class="col-8">
         
         <?php if (Mobilize::isActive('banners')): ?>
-            <article id="mobilize-banners">
-                <h3>Banners</h3>
+            
+            <section class="banners clearfix">
+                <h6 class="col-12">Banners</h6>
                 <?php for($i=0; $i < Mobilize::getNumBanners(); $i++): ?>
-                <img src="<?php echo Mobilize::getBannerURL($i) ?>" style="max-width:480px"/>
-                <?php echo htmlentities('<img src="'.Mobilize::getBannerURL($i).'" />')?>
+                <div class="col-4">
+                    <!-- banner de 250x250 -->
+                    <div class="banner"><img src="<?php echo Mobilize::getBannerURL($i) ?>" style="max-width:480px"/></div>
+                    <textarea class="code"><?php echo htmlentities('<a href="'.get_bloginfo('siteurl').'"><img src="'.Mobilize::getBannerURL($i).'" /></a>')?></textarea>
+                </div>
                 <?php endfor; ?>
-            </article>
+            </section>
+
+            <script type="text/javascript">
+
+            jQuery('.code').click( function() { jQuery(this).select(); } );
+
+            </script>
+
         <?php endif; ?>
         
         
         <?php if (Mobilize::isActive('adesive')): ?>
-            <article id="mobilize-adesive">
-                <h3>Adesive sua foto</h3>
-                <form method="post" enctype="multipart/form-data">
-                    <?php Mobilize::printAdesiveNonce() ?>
-                    sua foto: <input type="file" name="photo" />
-                    <input type="submit" value="adesivar foto" />
-                </form>
-            </article>
+        
+        
+            <section class="sticker clearfix">
+                <h6 class="col-12">Adesive sua foto!</h6>
+                <div class="col-1 sticked-avatar"><img class="sticker" src="<?php echo Mobilize::getAdesiveURL(); ?>" alt="" /><img src="<?php echo WPMU_PLUGIN_URL; ?>/img/mistery_man.jpg" /></div>
+                <p class="col-8">Faça upload de uma foto sua e adicione o adesivo ao lado para ajudar na divulgação da minha candidatura!</p>
+                <div class="col-3">
+                    <form method="post" enctype="multipart/form-data" target="_blank">
+                        <?php Mobilize::printAdesiveNonce() ?>
+                        sua foto: <input type="file" name="photo" />
+                        <input type="submit" value="adesivar foto" />
+                    </form>
+                </div>
+            </section>
+        
         <?php endif; ?>
         
         
         <?php if (Mobilize::isActive('redes')): ?>
-            <article id="mobilize-redes">
+            <section id="mobilize-redes">
+                <?php $redes = Mobilize::getOption('redes'); ?>
                 <h3>Redes sociais</h3>
-                <?php _pr(Mobilize::getOption('redes')) ?>
-            </article>
+                
+                <?php if (isset($redes['facebook']) && !empty($redes['facebook'])): ?>
+                    <a href="<?php echo $redes['facebook']; ?>">Facebook</a>
+                <?php endif; ?>
+                
+                <?php if (isset($redes['twitter']) && !empty($redes['twitter'])): ?>
+                    <a href="<?php echo $redes['twitter']; ?>">twitter</a>
+                <?php endif; ?>
+                
+                <?php if (isset($redes['google']) && !empty($redes['google'])): ?>
+                    <a href="<?php echo $redes['google']; ?>">Google +</a>
+                <?php endif; ?>
+                
+            </section>
         <?php endif; ?>
         
             
         <?php if (Mobilize::isActive('envie')): ?>
-            <article id="mobilize-envie">
-                <h3>Envie para um amigo</h3>
-                <div id="mobilize-envie-message">
-                    Esta é a mensagem que será enviada:</br>
-                    <p>
-                    <?php echo nl2br(htmlentities(utf8_decode($options['envie']['message']))) ?>
-                    </p>
+        
+            <?php $success = Mobilize::enviarEmails(); ?>
+        
+            <section class="send-to clearfix">
+                <a  name="send-to"></a>
+                <h6 class="col-12">Envie para um amigo!</h6>
+                <div id="standard-message">
+                    <p><?php echo nl2br(htmlentities(utf8_decode($options['envie']['message']))) ?></p>
                 </div>
-                <form method="post">
-                    <?php Mobilize::printEnvieNonce() ?>
-                    <label>
-                        Seu nome:
-                        <input type="text" name="nome" />
-                    </label><br/>
-                    
-                    <label>
-                        Seu e-mail:
-                        <input type="text" name="email" />
-                    </label><br/>
-                    
-                    <label>
-                        Enviar para:
-                        <input type="text" name="destinos" />
-                    </label><br/>
-                    
-                    <label>
-                        Envie uma mensagem extra:<br/>
-                        <textarea name="message"></textarea>
-                    </label><br/>
-                    <input type="submit" name="enviar" value="enviar emails" />
-                </form>
-            </article>
+                <!-- #standard-message -->
+                <div class="col-5">
+                    <?php if (true === $success): ?>
+                        <div class="success">Mensagem Enviada!</div>
+                    <?php elseif (false === $success): ?>
+                        <div class="error">Houve um erro ao enviar sua mensagem, tente novamente!</div>
+                    <?php endif; ?>
+                    <p><?php echo nl2br($send_options['text']); ?></p>
+                    <form method="post" action="#send-to">
+                        
+                        <?php Mobilize::printEnvieNonce() ?>
+                        
+                        <input id="sender-name" type="text" value="<?php echo $_POST['sender-name'] ? $_POST['sender-name'] : __('name', 'intervozes'); ?>" name="sender-name" onfocus="if (this.value == '<?php _e('name', 'intervozes'); ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php _e('name', 'intervozes'); ?>';}" /><br />
+                        <input id="sender-email" type="email" value="<?php echo $_POST['sender-email'] ? $_POST['sender-email'] : 'email'; ?>" name="sender-email" onfocus="if (this.value == 'email') this.value = '';" onblur="if (this.value == '') {this.value = 'email';}" /><br />
+                        
+                        <input id="recipient-email" type="text" value="<?php echo $_POST['recipient-email'] ? $_POST['recipient-email'] :'Adicione até 10 endereços de email separados por vírugla'; ?>" name="recipient-email" onfocus="if (this.value == 'Adicione até 10 endereços de email separados por vírugla') this.value = '';" onblur="if (this.value == '') {this.value = 'Adicione até 10 endereços de email separados por vírugla';}" /><br />
+                        
+                        
+                        <textarea id="sender-message" name="sender-message" onfocus="if (this.value == 'Adicione sua própria mensagem ou deixe em branco') this.value = '';" onblur="if (this.value == '') {this.value = 'Adicione sua própria mensagem ou deixe em branco';}"><?php echo $_POST['sender-message'] ? $_POST['sender-message'] : 'Adicione sua própria mensagem ou deixe em branco'; ?></textarea><br />
+       
+                        <input id="submit" class="button" type="submit" value="Enviar" name="submit" />
+                    </form>
+                </div>
+            </section>
+
+
         <?php endif; ?>
 
-    </section>
-    <?php get_sidebar('right'); ?>
-</div>
+    </div>
+    <aside id="sidebar" class="col-4 clearfix">
+        <?php get_sidebar(); ?>
+    </aside>
+</section>
 
 <?php get_footer(); ?>

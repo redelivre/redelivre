@@ -67,7 +67,7 @@ class Mobilize {
         update_option(self::OPTION_NAME, $option);
     }
 
-    static function deleteBunner($index = 0) {
+    static function deleteBanner($index = 0) {
         $option = self::getOption('banners');
 
         $filename = self::getBannerFilename($index);
@@ -144,7 +144,7 @@ class Mobilize {
             
             foreach ($_FILES['banner']['tmp_name'] as $index => $tmp_name) {
                 if (self::validateBanner($index)) {
-                    self::deleteBunner($index);
+                    self::deleteBanner($index);
                     
                     $fname = $_FILES['banner']['name'][$index];
                     
@@ -173,14 +173,34 @@ class Mobilize {
                     
                     // adciona o arquivo no array do _POST para ser salvo posteriormente no update_option
                     $_POST['mobilize']['adesive']['files'][$index] = $fname;
+                    
+                    //resize if image is too big
+                    $adesivo = WideImage::load($path . $fname);
+                    $w = $adesivo->getWidth();
+                    
+                    $maxSize = 80;
+                    
+                    if ($w > $maxSize)
+                        $adesivo = $adesivo->resize($maxSize, null);
+                        
+                    $h = $adesivo->getHeight();
+                    
+                    if ($h > $maxSize)
+                        $adesivo = $adesivo->resize(null, $maxSize);
+                    
+                    $adesivo->saveToFile($path . $fname);
+                    
+                    
                 }
             }
         }
     }
 
-    static function validateBanner($index) {
-        //TODO: inplementar esta função pelo mime type e o que mais for preciso
+    static function validateBanner($index = 0) {
         $ok = $_FILES['banner']['error'][$index] == UPLOAD_ERR_OK;
+        
+        $ok = self::validadeImageUpload('banner', $index);
+        
         if(!$ok)
             self::addError('banners', "O upload do banner falhou.");
         
@@ -188,14 +208,27 @@ class Mobilize {
             
     }
 
-    static function validateAdesive($index) {
-        //TODO: inplementar esta função pelo mime type e o que mais for preciso
+    static function validateAdesive($index = 0) {
         $ok = $_FILES['adesive']['error'][$index] == UPLOAD_ERR_OK;
-        if(!$ok)
+        
+        $ok = self::validadeImageUpload('adesive', $index);
+        
+        if(!$ok) 
             self::addError('adesive', "O upload do adesive falhou.");
         
         return $ok;
             
+    }
+    
+    static function validadeImageUpload($image, $index = 0) {
+        
+        if (empty($image) || is_null($image) || !isset($_FILES[$image]))
+            return false;
+        
+        $acceptedFormats = array('image/gif', 'image/png', 'image/jpeg', 'image/pjpeg', 'image/x-png');
+        
+        return in_array($_FILES[$image]['type'][$index], $acceptedFormats);
+    
     }
     
     
@@ -215,8 +248,8 @@ class Mobilize {
                 $adesivo = WideImage::load($adesive_filename);
                 $uploaded = WideImage::loadFromUpload('photo');
                 
-                $resized = $adesivo->resize($uploaded->getWidth());
-                $new = $uploaded->merge($resized, 'center','bottom-0');
+                
+                $new = $uploaded->merge($adesivo, 'right','bottom');
                 $new->output('jpg',100);
                 die;
             }
@@ -229,18 +262,40 @@ class Mobilize {
         wp_nonce_field(self::ENVIE_NONCE, self::ENVIE_NONCE);
     }
 
-    static function enviar(){
+    static function enviarEmails(){
         if ($_POST && isset($_POST[self::ENVIE_NONCE]) && wp_verify_nonce($_POST[self::ENVIE_NONCE], self::ENVIE_NONCE)) {
             $option = self::getOption('envie');
             
             // TODO: ENVIAR EMAIL
-            _pr($_POST);
+            
+            $success = null;
+            
+            if ($_POST['sender-name'] && $_POST['sender-email']) {
+
+                $recipients = explode(',', $_POST['recipient-email']);
+                
+                $msg = $_POST['sender-message'] ? $_POST['sender-message'] . "\n\n" . $option['message'] : $option['message'];
+                
+                $success = false;
+                
+                if (is_array($recipients) && sizeof($recipients) > 0) {
+                    
+                    foreach ($recipients as $r) {
+                        
+                         if ( $x = wp_mail( $r, $send_options['subject'], $msg, "From: 'Carteiro Campanha Completa' <noreply@campanhacompleta.com.br>" ) ) $success = true;
+                        
+                    }
+                    
+                }
+
+            }
+            
+            return $success;
         }
     }
 }
 
 function do_mobilize_action(){
-    Mobilize::enviar();
     Mobilize::adesivar();
 }
 
