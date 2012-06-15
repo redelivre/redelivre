@@ -30,6 +30,7 @@ if (!is_main_site()) {
         add_action('admin_notices', 'campanha_admin_payment_message');
         add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
         add_action('admin_init', 'campanha_remove_menu_pages');
+        add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
     });
 }
 
@@ -38,6 +39,14 @@ if (!is_main_site()) {
  */
 function campanha_remove_menu_pages() {
     remove_submenu_page('tools.php', 'ms-delete-site.php');   
+}
+
+/**
+ * Make sure the user can't see the content of the exlude 
+ * site page.
+ */
+function campanha_remove_exclude_site_page_content() {
+    die;
 }
 
 
