@@ -29,8 +29,17 @@ if (!is_main_site()) {
         add_filter('login_message', 'campanha_login_payment_message');
         add_action('admin_notices', 'campanha_admin_payment_message');
         add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
+        add_action('admin_init', 'campanha_remove_menu_pages');
     });
 }
+
+/**
+ * Remove menu page to exlude site.
+ */
+function campanha_remove_menu_pages() {
+    remove_submenu_page('tools.php', 'ms-delete-site.php');   
+}
+
 
 /**
  * Check the payment status and mark the blog
