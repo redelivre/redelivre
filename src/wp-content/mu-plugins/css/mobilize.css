@@ -1,1 +1,13 @@
+section.banners { margin:18px 10px; }
+section.banners { max-width:600px !important; width:100%; }
+section.banners img { height:auto; max-width:600px !important; width:100%; }
+section.banners textarea.code { height:60px; padding:6px; width:586px; }
+
+section.sticker { margin:18px 10px; }
+section.sticker .sticked-avatar { float:left; height:128px; margin-right:10px; margin-top:5px; position:relative; width:128px; }
+section.sticker img.sticker { bottom:0; position:absolute; right:0; }
+section.sticker p { float:left; width:462px; }
+section.sticker form { width:588px; }
+
+section#mobilize-redes { margin:18px 10px; }
 

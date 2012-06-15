@@ -10,13 +10,15 @@ get_header();
         <?php if (Mobilize::isActive('banners')): ?>
             
             <section class="banners clearfix">
-                <h6 class="col-12">Banners</h6>
+                <h6>Banners</h6>
                 <?php for($i=0; $i < Mobilize::getNumBanners(); $i++): ?>
-                <div class="col-4">
-                    <!-- banner de 250x250 -->
-                    <div class="banner"><img src="<?php echo Mobilize::getBannerURL($i) ?>" style="max-width:480px"/></div>
-                    <textarea class="code"><?php echo htmlentities('<a href="'.get_bloginfo('siteurl').'"><img src="'.Mobilize::getBannerURL($i).'" /></a>')?></textarea>
-                </div>
+                    <p class="bottom">
+                        <small><a href="<?php echo Mobilize::getBannerURL($i); ?>" target="_blank" title="Visualizar tamanho real">Visualizar tamanho real</a></small>
+                        <br/>
+                        <img src="<?php echo Mobilize::getBannerURL($i) ?>"/>
+                        <br/>
+                        <textarea class="code"><?php echo htmlentities('<a href="'.get_bloginfo('siteurl').'"><img src="'.Mobilize::getBannerURL($i).'" /></a>')?></textarea>
+                    </p>
                 <?php endfor; ?>
             </section>
 
@@ -31,18 +33,14 @@ get_header();
         
         <?php if (Mobilize::isActive('adesive')): ?>
         
-        
             <section class="sticker clearfix">
-                <h6 class="col-12">Adesive sua foto!</h6>
-                <div class="col-1 sticked-avatar"><img class="sticker" src="<?php echo Mobilize::getAdesiveURL(); ?>" alt="" /><img src="<?php echo WPMU_PLUGIN_URL; ?>/img/mistery_man.jpg" /></div>
-                <p class="col-8">Faça upload de uma foto sua e adicione o adesivo ao lado para ajudar na divulgação da minha candidatura!</p>
-                <div class="col-3">
-                    <form method="post" enctype="multipart/form-data" target="_blank">
-                        <?php Mobilize::printAdesiveNonce() ?>
-                        sua foto: <input type="file" name="photo" />
-                        <input type="submit" value="adesivar foto" />
-                    </form>
-                </div>
+                <h6>Adesive sua foto!</h6>
+                <div class="sticked-avatar"><img class="sticker" src="<?php echo Mobilize::getAdesiveURL(); ?>" alt="" /><img src="<?php echo WPMU_PLUGIN_URL; ?>/img/mistery_man.jpg" /></div>
+                <p>Faça upload de uma foto sua e adicione o adesivo ao lado para ajudar na divulgação da minha candidatura!</p>
+                <form method="post" enctype="multipart/form-data" target="_blank">
+                    <?php Mobilize::printAdesiveNonce() ?>
+                    Envie sua foto: <input type="file" name="photo" /> <input type="submit" value="adesivar foto" />
+                </form>
             </section>
         
         <?php endif; ?>
@@ -51,7 +49,7 @@ get_header();
         <?php if (Mobilize::isActive('redes')): ?>
             <section id="mobilize-redes">
                 <?php $redes = Mobilize::getOption('redes'); ?>
-                <h3>Redes sociais</h3>
+                <h6>Redes sociais</h6>
                 
                 <?php if (isset($redes['facebook']) && !empty($redes['facebook'])): ?>
                     <a href="<?php echo $redes['facebook']; ?>">Facebook</a>
