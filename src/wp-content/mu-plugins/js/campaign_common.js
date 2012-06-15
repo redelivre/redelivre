@@ -4,6 +4,7 @@
         a = $('#wp-admin-bar-my-sites a').first();
         if (a.text() == 'Meus sites') {
             a.text('Minhas campanhas');
+            a.removeAttr('href');
         }      
         
         li = $('#wp-admin-bar-blog-1');
