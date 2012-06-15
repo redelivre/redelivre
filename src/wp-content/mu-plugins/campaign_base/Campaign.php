@@ -304,10 +304,9 @@ class Campaign {
         update_blog_option($blogId, 'blog_public', 1);
         
         // set defaut campaign theme
-        update_blog_option($blogId, 'allowedthemes', array('campanha_padrao' => true));
-        update_blog_option($blogId, 'current_theme', 'Campanha Padrão');
-        update_blog_option($blogId, 'stylesheet', 'campanha_padrao');
-        update_blog_option($blogId, 'template', 'campanha_padrao');
+        update_blog_option($blogId, 'current_theme', 'Vencedor');
+        update_blog_option($blogId, 'stylesheet', 'vencedor');
+        update_blog_option($blogId, 'template', 'vencedor');
         
         // set upload limit
         $capabilities = Capability::getByPlanId($this->plan_id);
