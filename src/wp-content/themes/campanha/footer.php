@@ -19,7 +19,7 @@
 				<section>
 					<h1>Redes Sociais</h1>
 					<a id="facebook" href="https://www.facebook.com/CampanhaCompleta" target="_blank">Facebook</a>
-					<a id="twitter" href="#">Twitter</a>
+					<a id="twitter" href="https://twitter.com/#!/campanhacomplet" target="_blank">Twitter</a>
 				</section>
 			</div>
 			<!-- .wrap -->
