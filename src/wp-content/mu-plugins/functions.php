@@ -43,8 +43,8 @@ function campanha_remove_menu_pages() {
 }
 
 /**
- * Make sure the user can't see the content of the exlude 
- * site page.
+ * Make sure the user can't see the content of the page
+ * to exclude the site.
  */
 function campanha_remove_exclude_site_page_content() {
     die;
