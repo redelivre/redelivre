@@ -62,7 +62,7 @@
                 <p id="description"><?php bloginfo( 'description' ); ?></p>                		
             </div>
             <!-- .wrap -->            
-			<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
+			<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
         </header>
         <!-- #main-header -->
 		

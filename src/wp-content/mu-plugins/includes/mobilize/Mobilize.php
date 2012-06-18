@@ -27,6 +27,15 @@ class Mobilize {
         else
             return self::$errors;
     }
+    
+    static function printErrors($section){
+        $errors = self::getErrors($section);
+        if($errors){
+            $msg = implode('<br/>', $errors);
+            echo "<div class='error'>$msg</div>";
+        }
+
+    }
 
     static function addError($section, $error){
         self::$errors[$section][] = $error;
@@ -47,9 +56,33 @@ class Mobilize {
             
             self::handleBannerUploads();
             self::handleAdesiveUploads();
-            
+            self::toggleMenuItem();
 
             self::updateOption($_POST['mobilize']);
+        }
+    }
+
+    static function toggleMenuItem() {
+        $menu = wp_get_nav_menu_object('main');
+        $items = wp_get_nav_menu_items('main');
+        $menuItem = null;
+        
+        if ($menu) {
+            foreach ($items as $item) {
+                if ($item->post_title == 'Mobilização') {
+                    $menuItem = $item;
+                }
+            }
+        
+            if (isset($_POST['mobilize']['general']['menuItem']) && !$menuItem) {
+                wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
+                    'menu-item-title' => 'Mobilização',
+                    'menu-item-url' => home_url('/mobilizacao'), 
+                    'menu-item-status' => 'publish')
+                );
+            } else if (!isset($_POST['mobilize']['general']['menuItem']) && $menuItem) {
+                wp_delete_post($menuItem->ID, true);
+            }
         }
     }
 
@@ -70,10 +103,18 @@ class Mobilize {
     static function deleteBanner($index = 0) {
         $option = self::getOption('banners');
 
-        $filename = self::getBannerFilename($index);
-
-        if ($filename && file_exists($filename))
-            unlink($filename);
+        $filename250 = self::getBannerFilename(250, $index);
+        $filename200 = self::getBannerFilename(200, $index);
+        $filename125 = self::getBannerFilename(125, $index);
+        
+        if ($filename250 && file_exists($filename250))
+            unlink($filename250);
+        
+        if ($filename200 && file_exists($filename200))
+            unlink($filename200);
+        
+        if ($filename125 && file_exists($filename125))
+            unlink($filename125);
     }
 
      static function deleteAdesive($index = 0) {
@@ -91,11 +132,10 @@ class Mobilize {
         return count($option['files']);
     }
     
-    static function getBannerURL($index = 0) {
+    static function getBannerURL($size, $index = 0) {
         $option = self::getOption('banners');
-
-        if (isset($option['files'][$index]))
-            return GRAPHIC_MATERIAL_URL . 'banners/' . $option['files'][$index];
+        if (isset($option['files'][$index]) && is_numeric($size))
+            return GRAPHIC_MATERIAL_URL . 'banners/' . preg_replace("/^(.*)(\.[a-zA-Z]{3,4})$/", "$1-{$size}$2", $option['files'][$index]);
         else
             return '';
     }
@@ -118,11 +158,11 @@ class Mobilize {
     }
 
 
-    static function getBannerFilename($index = 0) {
+    static function getBannerFilename($size, $index = 0) {
         $option = self::getOption('banners');
         $path = self::getBannersPath();
-        if (isset($option['files'][$index]))
-            return $path . $option['files'][$index];
+        if (isset($option['files'][$index]) && is_numeric($size))
+            return $path . preg_replace("/^(.*)(\.[a-zA-Z]{3,4})$/", "$1-{$size}$2", $option['files'][$index]);
         else
             return '';
     }
@@ -146,12 +186,19 @@ class Mobilize {
                 if (self::validateBanner($index)) {
                     self::deleteBanner($index);
                     
-                    $fname = $_FILES['banner']['name'][$index];
+                    $fname250 = preg_replace("/^(.*)(\.[a-zA-Z]{3,4})$/", "$1-250$2", $_FILES['banner']['name'][$index]);
+                    $fname200 = preg_replace("/^(.*)(\.[a-zA-Z]{3,4})$/", "$1-200$2", $_FILES['banner']['name'][$index]);
+                    $fname125 = preg_replace("/^(.*)(\.[a-zA-Z]{3,4})$/", "$1-125$2", $_FILES['banner']['name'][$index]);
                     
-                    move_uploaded_file($tmp_name, $path . $fname);
+                    $tmp = WideImage::load($tmp_name);
+                    $tmp->resize(250)->saveToFile($path . $fname250);
+                    $tmp->resize(200)->saveToFile($path . $fname200);
+                    $tmp->resize(125)->saveToFile($path . $fname125);
+                    
+                    
                     
                     // adciona o arquivo no array do _POST para ser salvo posteriormente no update_option
-                    $_POST['mobilize']['banners']['files'][$index] = $fname;
+                    $_POST['mobilize']['banners']['files'][$index] = $_FILES['banner']['name'][$index];
                 }
             }
         }
@@ -178,7 +225,7 @@ class Mobilize {
                     $adesivo = WideImage::load($path . $fname);
                     $w = $adesivo->getWidth();
                     
-                    $maxSize = 80;
+                    $maxSize = 160;
                     
                     if ($w > $maxSize)
                         $adesivo = $adesivo->resize($maxSize, null);
@@ -197,22 +244,44 @@ class Mobilize {
     }
 
     static function validateBanner($index = 0) {
-        $ok = $_FILES['banner']['error'][$index] == UPLOAD_ERR_OK;
+        if(!$_FILES['banner']['name'][$index])
+            return;
         
-        $ok = self::validadeImageUpload('banner', $index);
-        
-        if(!$ok)
+        if($_FILES['banner']['error'][$index] != UPLOAD_ERR_OK){
             self::addError('banners', "O upload do banner falhou.");
+            return false;
+        }
         
-        return $ok;
+        if(!self::validadeImageUpload('banner', $index)){
+            self::addError('banners', "O formato do arquivo é inválido.");
+            return false;
+        }
+        
+        $file = WideImage::load($_FILES['banner']['tmp_name'][$index]);
+        
+        if($file->getWidth() != $file->getHeight() && ($file->getWidth() < 250 || $file->getHeight() < 250)){
+            self::addError('banners', "O banner deve ser quadrado e ter no mínimo 250x250 pixels.");
+            return false;
+        }elseif($file->getWidth() != $file->getHeight()){
+            self::addError('banners', "O banner deve ser quadrado.");
+            return false;
+        }elseif($file->getWidth() < 250){
+            self::addError('banners', "O banner deve ter no mínimo 250x250 pixels.");
+            return false;
+        }
+        
+        
+        return true;
             
     }
 
     static function validateAdesive($index = 0) {
+        if(!$_FILES['adesive']['name'][$index])
+            return;
+        
         $ok = $_FILES['adesive']['error'][$index] == UPLOAD_ERR_OK;
         
         $ok = self::validadeImageUpload('adesive', $index);
-        
         if(!$ok) 
             self::addError('adesive', "O upload do adesivo falhou.");
         
