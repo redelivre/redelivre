@@ -13,15 +13,15 @@ get_header();
                 <h6>Redes sociais</h6>
                 <p>Texto explicativo sobre os botões de compartilhamento nas redes.</p>
                 <?php if (isset($redes['facebook']) && !empty($redes['facebook'])): ?>
-                    <a href="<?php echo $redes['facebook']; ?>">Facebook</a>
+                    <a class="mobilize-button mobilize-facebook" href="<?php echo $redes['facebook']; ?>">Facebook</a>
                 <?php endif; ?>
                 
                 <?php if (isset($redes['twitter']) && !empty($redes['twitter'])): ?>
-                    <a href="<?php echo $redes['twitter']; ?>">Twitter</a>
+                    <a class="mobilize-button mobilize-twitter" href="<?php echo $redes['twitter']; ?>">Twitter</a>
                 <?php endif; ?>
                 
                 <?php if (isset($redes['google']) && !empty($redes['google'])): ?>
-                    <a href="<?php echo $redes['google']; ?>">Google +</a>
+                    <a class="mobilize-button mobilize-google" href="<?php echo $redes['google']; ?>">Google +</a>
                 <?php endif; ?>
                 
             </section>
@@ -68,7 +68,7 @@ get_header();
                 <p>Faça upload de uma foto sua e adicione o adesivo ao lado para ajudar na divulgação da minha candidatura!</p>                
                 <form method="post" enctype="multipart/form-data" target="_blank">
                     <?php Mobilize::printAdesiveNonce() ?>
-                    <p>Envie sua foto: <input type="file" name="photo" /> <input type="submit" value="adesivar foto" /></p>
+                    <p>Envie sua foto: <input type="file" name="photo" /> <input class="mobilize-button" type="submit" value="Adesivar foto" /></p>
                 </form>
             </section>
         
@@ -86,7 +86,7 @@ get_header();
                 <a name="send-to"></a>
                 <h6>Envie para um amigo!</h6>
                 <div id="standard-message">
-                    <p><?php echo nl2br(htmlentities(utf8_decode($options['envie']['message']))) ?></p>
+                    <div><p><?php echo nl2br(htmlentities(utf8_decode($options['envie']['message']))) ?></p></div>
                 </div>
                 <!-- #standard-message -->
                 <div id="mobilize-sendto-form">
@@ -101,9 +101,9 @@ get_header();
                         <?php Mobilize::printEnvieNonce() ?>
                         
                         <input id="sender-name" type="text" value="<?php echo isset($_POST['sender-name']) ? $_POST['sender-name'] : __('name', 'intervozes'); ?>" name="sender-name" onfocus="if (this.value == '<?php _e('name', 'intervozes'); ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php _e('name', 'intervozes'); ?>';}" /><br />
-                        <input id="sender-email" type="email" value="<?php echo isset($_POST['sender-email']) ? $_POST['sender-email'] : 'email'; ?>" name="sender-email" onfocus="if (this.value == 'email') this.value = '';" onblur="if (this.value == '') {this.value = 'email';}" /><br />
+                        <input id="sender-email" type="text" value="<?php echo isset($_POST['sender-email']) ? $_POST['sender-email'] : 'email'; ?>" name="sender-email" onfocus="if (this.value == 'email') this.value = '';" onblur="if (this.value == '') {this.value = 'email';}" /><br />
                         
-                        <input id="recipient-email" type="text" value="<?php echo isset($_POST['recipient-email']) ? $_POST['recipient-email'] :'Adicione até 10 endereços de email separados por vírugla'; ?>" name="recipient-email" onfocus="if (this.value == 'Adicione até 10 endereços de email separados por vírugla') this.value = '';" onblur="if (this.value == '') {this.value = 'Adicione até 10 endereços de email separados por vírugla';}" /><br />
+                        <input id="recipient-email" type="text" value="<?php echo isset($_POST['recipient-email']) ? $_POST['recipient-email'] :'Adicione até 10 endereços de email separados por vírgula'; ?>" name="recipient-email" onfocus="if (this.value == 'Adicione até 10 endereços de email separados por vírugla') this.value = '';" onblur="if (this.value == '') {this.value = 'Adicione até 10 endereços de email separados por vírugla';}" /><br />
                         
                         
                         <textarea id="sender-message" name="sender-message" onfocus="if (this.value == 'Adicione sua própria mensagem ou deixe em branco') this.value = '';" onblur="if (this.value == '') {this.value = 'Adicione sua própria mensagem ou deixe em branco';}"><?php echo isset($_POST['sender-message']) ? $_POST['sender-message'] : 'Adicione sua própria mensagem ou deixe em branco'; ?></textarea><br />

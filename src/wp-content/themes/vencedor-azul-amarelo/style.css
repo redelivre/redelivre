@@ -36,3 +36,11 @@ a:active, a:hover {	color: #006; }
 -------------------------------------------------------------- */
 #form-comentario #comentar, #cancel-comment-reply-link { color: #fc0; background: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
 #form-comentario #comentar:hover, #cancel-comment-reply-link:hover { background: #006; }
+
+/* =Mobilize
+-------------------------------------------------------------- */
+.mobilize-button { color: #fc0; background-color: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
+.mobilize-button:hover, a.mobilize-button:hover { color: #fc0; background-color: #006; }
+a.mobilize-facebook { background-image: url(img/facebook.png); background-repeat: no-repeat; background-position: 10px center; }
+a.mobilize-twitter { background-image: url(img/twitter.png); background-repeat: no-repeat; background-position: 10px center; }
+a.mobilize-google { background-image: url(img/google.png); background-repeat: no-repeat; background-position: 10px center; }
