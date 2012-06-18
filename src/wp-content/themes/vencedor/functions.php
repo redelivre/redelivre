@@ -14,7 +14,7 @@ add_action( 'init', 'temavencedor_custom_menus' );
 function temavencedor_custom_menus() {
 	register_nav_menus( array(
 		'main' => __('Top Menu', 'temavencedor'),
-		'rodape' => __('Footer Menu', 'temavencedor'),            
+		'footer' => __('Footer Menu', 'temavencedor'),
 	) );
 }
 
