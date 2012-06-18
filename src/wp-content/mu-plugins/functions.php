@@ -14,6 +14,7 @@ if (!is_main_site()) {
         
         require_once(__DIR__ . '/includes/payment.php');
         require_once(__DIR__ . '/includes/EasyAjax.php');
+        require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
         
         $campaign = Campaign::getByBlogId($blog_id);
         GraphicMaterial::setUp();
