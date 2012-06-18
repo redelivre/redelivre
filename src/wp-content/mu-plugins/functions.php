@@ -117,7 +117,7 @@ function campanha_login_payment_message($message) {
     global $campaign;
     
     if (!$campaign->isPaid()) {
-        $message .= '<p class="message">Está campanha está visível somente para o criador pois o pagamento está pendente.</p>';
+        $message .= '<p class="message">Esta campanha está visível somente para o criador pois o pagamento está pendente.</p>';
     }
     
     return $message;
@@ -133,9 +133,9 @@ function campanha_admin_payment_message() {
     
     if (!$campaign->isPaid()) {
         $link = admin_url('admin.php?page=payments');
-        //echo "<div class='error'><p>Está campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
+        //echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
         // temporarily remove link to payment page while it is not finished
-        echo "<div class='error'><p>Está campanha está visível somente para o criador pois o pagamento está pendente.</p></div>";
+        echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente.</p></div>";
     }
 }
 
