@@ -5,20 +5,49 @@ get_header();
 ?>
 <section id="main-section" class="wrap clearfix">
     
-    <div id="content" class="col-8">
+    <div id="mobilize-content">
+		<h1>Apoie esta campanha</h1>
+		 <?php if (Mobilize::isActive('redes')): ?>
+            <section id="mobilize-redes" class="mobilize-widget clearfix">
+                <?php $redes = Mobilize::getOption('redes'); ?>
+                <h6>Redes sociais</h6>
+                <p>Texto explicativo sobre os botões de compartilhamento nas redes.</p>
+                <?php if (isset($redes['facebook']) && !empty($redes['facebook'])): ?>
+                    <a href="<?php echo $redes['facebook']; ?>">Facebook</a>
+                <?php endif; ?>
+                
+                <?php if (isset($redes['twitter']) && !empty($redes['twitter'])): ?>
+                    <a href="<?php echo $redes['twitter']; ?>">Twitter</a>
+                <?php endif; ?>
+                
+                <?php if (isset($redes['google']) && !empty($redes['google'])): ?>
+                    <a href="<?php echo $redes['google']; ?>">Google +</a>
+                <?php endif; ?>
+                
+            </section>
+        <?php endif; ?>
         
         <?php if (Mobilize::isActive('banners')): ?>
             
-            <section class="banners clearfix">
+            <section id="mobilize-banners" class="mobilize-widget clearfix">
                 <h6>Banners</h6>
+                <p>Texto explicativo sobre os banners.</p>
                 <?php for($i=0; $i < Mobilize::getNumBanners(); $i++): ?>
-                    <p class="bottom">
-                        <small><a href="<?php echo Mobilize::getBannerURL($i); ?>" target="_blank" title="Visualizar tamanho real">Visualizar tamanho real</a></small>
-                        <br/>
-                        <img src="<?php echo Mobilize::getBannerURL($i) ?>"/>
-                        <br/>
-                        <textarea class="code"><?php echo htmlentities('<a href="'.get_bloginfo('url').'"><img src="'.Mobilize::getBannerURL($i).'" /></a>')?></textarea>
-                    </p>
+					<div class="mobilize-banners">
+						<!-- banner de 250x250 -->
+						<div class="banner-250"><img width="250" height="250" src="<?php echo Mobilize::getBannerURL($i) ?>" alt="" /></div>
+						<textarea class="code"><?php echo htmlentities('<a href="'.get_bloginfo('url').'"><img src="'.Mobilize::getBannerURL($i).'" /></a>')?></textarea>					
+					</div>
+					<div class="mobilize-banners">
+						<!-- banner de 200x200 -->
+						<div class="banner-200"><img width="200" height="200" src="<?php echo Mobilize::getBannerURL($i) ?>" alt="" /></div>
+						<textarea class="code"><?php echo htmlentities('<a href="'.get_bloginfo('url').'"><img src="'.Mobilize::getBannerURL($i).'" /></a>')?></textarea>					
+					</div>
+					<div class="mobilize-banners">
+						<!-- banner de 125x125 -->
+						<div class="banner-125"><img width="125" height="125" src="<?php echo Mobilize::getBannerURL($i) ?>" alt="" /></div>
+						<textarea class="code"><?php echo htmlentities('<a href="'.get_bloginfo('url').'"><img src="'.Mobilize::getBannerURL($i).'" /></a>')?></textarea>	
+					</div>
                 <?php endfor; ?>
             </section>
 
@@ -33,58 +62,40 @@ get_header();
         
         <?php if (Mobilize::isActive('adesive')): ?>
         
-            <section class="sticker clearfix">
+            <section id="mobilize-sticker" class="mobilize-widget clearfix">
                 <h6>Adesive sua foto!</h6>
-                <div class="sticked-avatar"><img class="sticker" src="<?php echo Mobilize::getAdesiveURL(); ?>" alt="" /><img src="<?php echo WPMU_PLUGIN_URL; ?>/img/mistery_man.jpg" /></div>
-                <p>Faça upload de uma foto sua e adicione o adesivo ao lado para ajudar na divulgação da minha candidatura!</p>
+                <div class="sticked-avatar"><img class="sticker"src="<?php echo Mobilize::getAdesiveURL(); ?>" alt="" /><img width="80" height="80" src="<?php echo WPMU_PLUGIN_URL; ?>/img/mistery_man.jpg" /></div>
+                <p>Faça upload de uma foto sua e adicione o adesivo ao lado para ajudar na divulgação da minha candidatura!</p>                
                 <form method="post" enctype="multipart/form-data" target="_blank">
                     <?php Mobilize::printAdesiveNonce() ?>
-                    Envie sua foto: <input type="file" name="photo" /> <input type="submit" value="adesivar foto" />
+                    <p>Envie sua foto: <input type="file" name="photo" /> <input type="submit" value="adesivar foto" /></p>
                 </form>
             </section>
         
         <?php endif; ?>
         
         
-        <?php if (Mobilize::isActive('redes')): ?>
-            <section id="mobilize-redes">
-                <?php $redes = Mobilize::getOption('redes'); ?>
-                <h6>Redes sociais</h6>
-                
-                <?php if (isset($redes['facebook']) && !empty($redes['facebook'])): ?>
-                    <a href="<?php echo $redes['facebook']; ?>">Facebook</a>
-                <?php endif; ?>
-                
-                <?php if (isset($redes['twitter']) && !empty($redes['twitter'])): ?>
-                    <a href="<?php echo $redes['twitter']; ?>">twitter</a>
-                <?php endif; ?>
-                
-                <?php if (isset($redes['google']) && !empty($redes['google'])): ?>
-                    <a href="<?php echo $redes['google']; ?>">Google +</a>
-                <?php endif; ?>
-                
-            </section>
-        <?php endif; ?>
+       
         
             
         <?php if (Mobilize::isActive('envie')): ?>
         
             <?php $success = Mobilize::enviarEmails(); ?>
         
-            <section class="send-to clearfix">
-                <a  name="send-to"></a>
-                <h6 class="col-12">Envie para um amigo!</h6>
+            <section id="mobilize-sendto" class="mobilize-widget clearfix">
+                <a name="send-to"></a>
+                <h6>Envie para um amigo!</h6>
                 <div id="standard-message">
                     <p><?php echo nl2br(htmlentities(utf8_decode($options['envie']['message']))) ?></p>
                 </div>
                 <!-- #standard-message -->
-                <div class="col-5">
+                <div id="mobilize-sendto-form">
                     <?php if (true === $success): ?>
-                        <div class="success">Mensagem Enviada!</div>
+                        <p class="success">Mensagem Enviada!</p>
                     <?php elseif (false === $success): ?>
-                        <div class="error">Houve um erro ao enviar sua mensagem, tente novamente!</div>
+                        <p class="error">Houve um erro ao enviar sua mensagem, tente novamente!</p>
                     <?php endif; ?>
-                    <p><?php echo isset($send_options['text']) ? nl2br($send_options['text']) : ''; ?></p>
+						<p>Texto explicativo sobre o envie para um amigo.</p>
                     <form method="post" action="#send-to">
                         
                         <?php Mobilize::printEnvieNonce() ?>
@@ -97,7 +108,7 @@ get_header();
                         
                         <textarea id="sender-message" name="sender-message" onfocus="if (this.value == 'Adicione sua própria mensagem ou deixe em branco') this.value = '';" onblur="if (this.value == '') {this.value = 'Adicione sua própria mensagem ou deixe em branco';}"><?php echo isset($_POST['sender-message']) ? $_POST['sender-message'] : 'Adicione sua própria mensagem ou deixe em branco'; ?></textarea><br />
        
-                        <input id="submit" class="button" type="submit" value="Enviar" name="submit" />
+                        <input id="submit" class="mobilize-button" type="submit" value="Enviar" name="submit" />
                     </form>
                 </div>
             </section>
@@ -106,9 +117,6 @@ get_header();
         <?php endif; ?>
 
     </div>
-    <aside id="sidebar" class="col-4 clearfix">
-        <?php get_sidebar(); ?>
-    </aside>
 </section>
 
 <?php get_footer(); ?>

@@ -56,7 +56,7 @@ $sidebar = get_option('vencedor_theme_options');
 	<!-- .wrap -->
 	<div id="menubar">
 		<div class="wrap clearfix">
-			<?php wp_nav_menu( array( 'theme_location' => 'principal', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
+			<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
 			<div id="feed-link"><a href="<?php bloginfo('rss_url'); ?>" title="RSS Feed"><img src="<?php bloginfo('template_url'); ?>/img/feed-icon-24x24.png" /></a></div>
 		</div>
 		<!-- .wrap -->

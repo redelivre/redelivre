@@ -214,7 +214,7 @@ class Mobilize {
         $ok = self::validadeImageUpload('adesive', $index);
         
         if(!$ok) 
-            self::addError('adesive', "O upload do adesive falhou.");
+            self::addError('adesive', "O upload do adesivo falhou.");
         
         return $ok;
             

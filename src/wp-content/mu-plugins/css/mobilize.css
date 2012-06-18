@@ -1,13 +1,18 @@
-section.banners { margin:18px 10px; }
-section.banners { max-width:600px !important; width:100%; }
-section.banners img { height:auto; max-width:600px !important; width:100%; }
-section.banners textarea.code { height:60px; padding:6px; width:586px; }
-
-section.sticker { margin:18px 10px; }
-section.sticker .sticked-avatar { float:left; height:128px; margin-right:10px; margin-top:5px; position:relative; width:128px; }
-section.sticker img.sticker { bottom:0; position:absolute; right:0; }
-section.sticker p { float:left; width:462px; }
-section.sticker form { width:588px; }
-
-section#mobilize-redes { margin:18px 10px; }
-
+/* =Mobilize
+-------------------------------------------------------------- */
+#mobilize-content { margin: 0 20px; }
+.mobilize-widget { margin-bottom: 22px; padding-bottom: 21px; border-bottom: 1px solid #ccc; }
+#mobilize-banners img { display: block; }
+.mobilize-banners { float: left; width: 33.3333%; text-align: center; }
+.banner-250 img { margin: 0 auto 22px !important; }
+.banner-200 img { margin: 25px auto 47px !important; }
+.banner-125 img { margin: 63px auto 84px !important; }
+.code { height: 66px; padding: 10px; background: #f1f1f1; border: 1px solid #ccc; font-family: "Courier New", monospace; font-size: 12px; color: #666; width: 88%; word-break: break-all; }
+#mobilize-sticker p { float: left; }
+.sticked-avatar { position: relative; float: left; height: 80px; width: 80px; margin: 0 10px; }
+img.sticker { position: absolute; right: 0; bottom: 0; max-width: 80px; max-height: 80px; }
+#mobilize-sendto-form input[type="text"], #mobilize-sendto-form input[type="email"], #mobilize-sendto-form textarea { width: 366px; margin: 0 0 10px; }
+#mobilize-sendto-form textarea { height: 206px; }
+#standard-message { float: left; width: 50%; }
+#standard-message p { overflow-y: scroll; margin: 0 9px; padding: 10px; background: #f1f1f1; border: 1px solid #ccc; font-size: 12px; color: #666; }
+#mobilize-sendto-form { float: left; width: 50%; }
