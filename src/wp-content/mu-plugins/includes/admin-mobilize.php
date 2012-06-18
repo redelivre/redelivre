@@ -11,7 +11,6 @@ $option = Mobilize::getOption();
     #mobilize-enviar .section-content input { width:400px; }
     #mobilize-enviar .section-content textarea { width:400px; height:300px; }
 </style>
-
 <script type="text/javascript">
     (function($){
         var $doc = $(document);
@@ -42,20 +41,21 @@ $option = Mobilize::getOption();
 
     <form method="post" enctype="multipart/form-data">
         <?php Mobilize::printSettingsNonce() ?>
-        <div id="mobiliza-geral" class="section">
+        <div id="mobiliza-general" class="section">
             <h3>Configurações gerais</h3>
-            <p><label><input type="checkbox" name="mobilize[geral][active]" <?php echo Mobilize::isActive('geral') ? 'checked="checked"' : ''; ?> data-section="mobilize-geral" /> Habilitar a página de mobilização</label></p>
-            <p><label><input type="checkbox" name="mobilize[geral][menuItem]" <?php echo (isset($option['geral']) && isset($option['geral']['menuItem']) && $option['geral']['menuItem']) ? 'checked="checked"' : ''; ?> data-section="mobilize-geral" /> Exibir link para a página de mobilização no menu</label></p>
+            <p><label><input type="checkbox" name="mobilize[general][active]" <?php echo Mobilize::isActive('general') ? 'checked="checked"' : ''; ?> data-section="mobilize-general" /> Habilitar a página de mobilização</label></p>
+            <p><label><input type="checkbox" name="mobilize[general][menuItem]" <?php echo (isset($option['general']) && isset($option['general']['menuItem']) && $option['general']['menuItem']) ? 'checked="checked"' : ''; ?> data-section="mobilize-general" /> Exibir link para a página de mobilização no menu</label></p>
         </div>
         <div id="mobilize-banners" class="section">
             <h3><label><input type="checkbox" name="mobilize[banners][active]" <?php if(Mobilize::isActive('banners'))  echo 'checked="checked"' ?> data-section="mobilize-banners" value="1"/> Banners</label></h3>
             <p class="description">Texto descritivo desta seção. Explicar tamanho e formato da imagem?</p>
             <div class="section-content">
+                <?php Mobilize::printErrors('banners'); ?>
                 <label>
                     Subir banner:
                     <input type="file" name="banner[]" />
                 </label><br/>
-                <?php if($banner_url = Mobilize::getBannerURL()):?>
+                <?php if($banner_url = Mobilize::getBannerURL(125)):?>
                     <img src="<?php echo $banner_url; ?>" style="max-width:780px;"/>
                 <?php endif; ?>
             </div>
@@ -66,6 +66,7 @@ $option = Mobilize::getOption();
             <p class="description">Texto descritivo desta seção. Explicar sobre ser uma máscara etc.</p>
 
             <div class="section-content">
+                <?php Mobilize::printErrors('adesive'); ?>
                 <label>
                     Subir máscara:
                     <input type="file" name="adesive[]" />
@@ -81,6 +82,7 @@ $option = Mobilize::getOption();
             <p class="description">Texto descritivo desta seção.</p>
 
             <div class="section-content">
+                <?php Mobilize::printErrors('redes'); ?>
                 <small>Entre com os endereços do seu perfil nas redes sociais.</small><br/>
                 
                 <label for="rede-1">Facebook:</label> <input id="rede-1" type="text" name="mobilize[redes][facebook]" value="<?php echo @htmlentities($option['redes']['facebook']) ?>"/><br/>
@@ -97,7 +99,7 @@ $option = Mobilize::getOption();
             <p class="description">Texto descritivo desta seção.</p>
 
             <div class="section-content">
-
+                <?php Mobilize::printErrors('enviar'); ?>
                 <p>
                     <label>Título da mensagem que será enviada por e-mail:<br/>
                         <input type="text" name="mobilize[envie][subject]" value="<?php echo @htmlentities(utf8_decode($option['envie']['subject'])); ?>"/>

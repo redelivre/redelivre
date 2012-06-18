@@ -14,6 +14,7 @@ if (!is_main_site()) {
         
         require_once(__DIR__ . '/includes/payment.php');
         require_once(__DIR__ . '/includes/EasyAjax.php');
+        require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
         
         $campaign = Campaign::getByBlogId($blog_id);
         GraphicMaterial::setUp();
@@ -31,6 +32,14 @@ if (!is_main_site()) {
         add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
         add_action('admin_init', 'campanha_remove_menu_pages');
         add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
+        
+        // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
+        if (is_admin() && !get_option('campanha_flush_rules')) {
+            update_option('campanha_flush_rules', 1);
+            
+            global $wp_rewrite;
+            $wp_rewrite->flush_rules();
+        }
     });
 }
 
@@ -42,8 +51,8 @@ function campanha_remove_menu_pages() {
 }
 
 /**
- * Make sure the user can't see the content of the exlude 
- * site page.
+ * Make sure the user can't see the content of the page
+ * to exclude the site.
  */
 function campanha_remove_exclude_site_page_content() {
     die;
@@ -87,7 +96,7 @@ function campaign_base_template_redirect_intercept() {
     
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
-            require(WPMU_PLUGIN_DIR . '/includes/graphic_material_list_links.php');
+            require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
             die;
         case 'mobilizacao':
             require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
@@ -183,9 +192,5 @@ function campanha_add_common_js() {
     }
 
     wp_enqueue_script('jquery');
-    
-    if (is_admin()) {
-        wp_enqueue_script('campaign_common', site_url() . '/wp-content/mu-plugins/js/campaign_common.js', 'jquery');
-    }
-
+    wp_enqueue_script('campaign_common', site_url() . '/wp-content/mu-plugins/js/campaign_common.js', 'jquery');
 }

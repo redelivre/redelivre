@@ -327,6 +327,38 @@ class Campaign {
             $this->createPost('page', 'Biografia', 'Edite essa página para colocar sua biografia. Se não quiser utilizar esta página você precisará removê-la do menu também.');
             $this->createPost('page', 'Propostas', 'Edite essa página para colocar suas propostas. Se não quiser utilizar esta página você precisará removê-la do menu também.');
             
+            if (!is_nav_menu('main')) {
+                $menu_id = wp_create_nav_menu('main');
+                
+                wp_update_nav_menu_item($menu_id, 0, array(
+                    'menu-item-title' => 'Biografia',
+                    'menu-item-url' => home_url('/biografia'), 
+                    'menu-item-status' => 'publish')
+                );
+                
+                wp_update_nav_menu_item($menu_id, 0, array(
+                    'menu-item-title' => 'Propostas',
+                    'menu-item-url' => home_url('/propostas'), 
+                    'menu-item-status' => 'publish')
+                );
+                
+                //TODO: couldn't make it work with as post_type so using custom menu items for now
+                /*
+                wp_update_nav_menu_item($menu_id, 0, array('menu-item-title' => 'Biografia',
+                    'menu-item-object' => 'page',
+                    'menu-item-object-id' => get_page_by_path('biografia')->ID,
+                    'menu-item-type' => 'post_type',
+                    'menu-item-status' => 'publish')
+                );
+                
+                wp_update_nav_menu_item($menu_id, 0, array('menu-item-title' => 'Propostas',
+                    'menu-item-object' => 'page',
+                    'menu-item-object-id' => get_page_by_path('propostas')->ID,
+                    'menu-item-type' => 'post_type',
+                    'menu-item-status' => 'publish')
+                );*/
+            }
+            
             // remove default page
             wp_delete_post(2, true);
             
