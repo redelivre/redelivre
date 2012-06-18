@@ -88,7 +88,7 @@ function campaign_base_template_redirect_intercept() {
     
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
-            require(WPMU_PLUGIN_DIR . '/includes/graphic_material_list_links.php');
+            require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
             die;
         case 'mobilizacao':
             require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
