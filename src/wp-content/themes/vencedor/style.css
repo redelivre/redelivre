@@ -74,6 +74,8 @@ a img {
 .col-12 { width: 940px; }
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 .clear { clear: both; }
+.first { margin-left:0; padding-left:0; }
+.last { margin-right:0; padding-right:0; }
 
 /* HTML5 */
 section, article, header, footer, nav, aside, hgroup { display: block; }
