@@ -56,9 +56,33 @@ class Mobilize {
             
             self::handleBannerUploads();
             self::handleAdesiveUploads();
-            
+            self::toggleMenuItem();
 
             self::updateOption($_POST['mobilize']);
+        }
+    }
+
+    static function toggleMenuItem() {
+        $menu = wp_get_nav_menu_object('main');
+        $items = wp_get_nav_menu_items('main');
+        $menuItem = null;
+        
+        if ($menu) {
+            foreach ($items as $item) {
+                if ($item->post_title == 'Mobilização') {
+                    $menuItem = $item;
+                }
+            }
+        
+            if (isset($_POST['mobilize']['general']['menuItem']) && !$menuItem) {
+                wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
+                    'menu-item-title' => 'Mobilização',
+                    'menu-item-url' => home_url('/mobilizacao'), 
+                    'menu-item-status' => 'publish')
+                );
+            } else if (!isset($_POST['mobilize']['general']['menuItem']) && $menuItem) {
+                wp_delete_post($menuItem->ID, true);
+            }
         }
     }
 
