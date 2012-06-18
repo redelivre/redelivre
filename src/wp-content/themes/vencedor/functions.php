@@ -13,8 +13,8 @@ require_once ( get_template_directory() . '/theme-options.php' );
 add_action( 'init', 'temavencedor_custom_menus' );
 function temavencedor_custom_menus() {
 	register_nav_menus( array(
-		'principal' => __('Top Menu', 'temavencedor'),
-		'rodape' => __('Footer Menu', 'temavencedor'),            
+		'main' => __('Top Menu', 'temavencedor'),
+		'footer' => __('Footer Menu', 'temavencedor'),            
 	) );
 }
 
