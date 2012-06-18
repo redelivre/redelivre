@@ -32,6 +32,14 @@ if (!is_main_site()) {
         add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
         add_action('admin_init', 'campanha_remove_menu_pages');
         add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
+        
+        // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
+        if (is_admin() && !get_option('campanha_flush_rules')) {
+            update_option('campanha_flush_rules', 1);
+            
+            global $wp_rewrite;
+            $wp_rewrite->flush_rules();
+        }
     });
 }
 
