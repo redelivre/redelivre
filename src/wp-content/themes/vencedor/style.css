@@ -161,6 +161,7 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 #main-footer { margin: 0 auto; padding-bottom: 11px; padding-top: 11px; font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; }
 #footer-nav li { float: left; margin: 0 10px; }
 #footer-nav li:first-child { list-style: none; margin: 0 10px 0 0; }
+.creditos { margin: 0 10px; }
 .creditos img { vertical-align: middle; }
 #main-footer a { color: #666666; }
 
@@ -191,9 +192,10 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 .post-meta a:hover { text-decoration: none; border-bottom: 1px solid #600; }
 .post-meta abbr, .post-footer abbr { border: none; }
 .post-meta abbr:hover, .post-footer abbr:hover { border-bottom: 1px dotted #666; }
-.post-footer { border-top: 1px solid #ccc; margin-bottom: 21px; min-height: 65px; }
+.post-footer { border-top: 1px solid #ccc; margin-bottom: 43px; min-height: 65px; }
 .post-footer p { margin-bottom: 0; }
 .post-footer .post-meta { width: 550px; }
+.interaction { margin-top: 11px; border-bottom: 1px solid #ccc; padding-bottom: 9px; }
 .comments-number { width: 27px; height: 28px; margin-top: 5px; font-size: 12px; font-family: "Trebuchet MS", Arial, sans-serif; background: transparent url(img/comments-number.png) no-repeat; text-align: center; }
 .home .sticky {	background: #f1f1f1; border: 1px solid #ccc; margin: 0 10px 22px; }
 .page-link { clear: both; margin: 0 0 22px 0; font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; font-style: italic; color: #999; word-spacing: 0.5em; }

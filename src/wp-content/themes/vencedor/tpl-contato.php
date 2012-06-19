@@ -7,7 +7,9 @@
 				    <?php if (function_exists('campanha_the_contact_form')) campanha_the_contact_form(); ?>
 				</div>
 				<!-- .post-content -->
-				
+				<footer class="post-footer clearfix">
+					<?php get_template_part('interaction'); ?>
+				</footer>
 			</article>
 			<!-- .post -->
 		</div>

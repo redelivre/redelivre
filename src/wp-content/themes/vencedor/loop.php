@@ -26,7 +26,7 @@
                 
             </div>
             <!-- .post-content -->
-            <footer class="post-footer clearfix">
+            <footer class="post-footer clearfix">				
 				<p class="post-meta alignleft"><?php _e('Categories:', 'temavencedor'); ?> <?php the_category(', '); ?><br /><?php the_tags(); ?></p>
 				<p class="comments-number alignright"><a href="<?php comments_link(); ?>"><?php comments_number('0','1','%'); ?></a></p>
             </footer>		        

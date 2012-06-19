@@ -9,6 +9,9 @@
 				    <?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'temavencedor' ), 'after' => '</div>' ) ); ?>			
 				</div>
 				<!-- .post-content -->
+				<footer class="post-footer clearfix">
+					<?php get_template_part('interaction'); ?>
+				</footer>
 				<?php comments_template(); ?>
 				<!-- comentários -->
 			</article>
