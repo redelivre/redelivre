@@ -10,7 +10,6 @@ Version: 1.0
 
 /* =Reset default browser CSS. Based on work by Eric Meyer: http://meyerweb.com/eric/tools/css/reset/index.html
 -------------------------------------------------------------- */
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -57,7 +56,6 @@ a img {
 
 /* =Layout
 -------------------------------------------------------------- */
-
 .wrap { width: 960px; margin: 0 auto; clear: both; }
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { float: left; margin: 0 10px; display: inline; }
 .col-1 { width: 60px; }
@@ -131,12 +129,10 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 
 /* =Header
 -------------------------------------------------------------- */
-
 #main-header { padding: 22px 0 0; }
 #branding { padding: 55px 0; height: 66px; }
 #branding h1 a, #branding h1 a:hover  { color: #000; text-decoration: none; }
 #description { font-style: italic; font-size: 16px; }
-
 
 /* =Menu
 -------------------------------------------------------------- */
@@ -156,7 +152,6 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 #feed-link a { display: block; border-right: 1px solid #fcc; border-left: 1px solid #fcc; border-bottom: 1px solid #fff; }
 #feed-link img { padding: 9px 10px; vertical-align: middle; border-right: 1px solid #600; border-bottom: 1px solid #600; }
 
-
 /* =Footer
 -------------------------------------------------------------- */
 #main-footer { margin: 0 auto; padding-bottom: 11px; padding-top: 11px; font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; }
@@ -167,7 +162,6 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 /* =Section
 -------------------------------------------------------------- */
 #main-section { padding-top: 21px; background: #fff; }
-
 
 /* =Content
 -------------------------------------------------------------- */
@@ -210,7 +204,6 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 
 /* =Images
 -------------------------------------------------------------- */
-
 #content img { margin: 0; height: auto;	max-width: 590px; }
 #content .attachment img { max-width: 940px; display: block; margin: 0 auto; }
 #content img.alignleft { display: inline; float: left;	margin-right: 20px;	margin-top: 4px; }
@@ -259,10 +252,8 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 #cancel-comment-reply-link { display: block; text-align: center; float: left; margin: 0 0 22px 10px; padding: 2px 10px; }
 #respond { padding-bottom: 22px; }
 
-
 /* =Aside
 -------------------------------------------------------------- */
-
 #sidebar { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 12px; }
 
 /* =Widgets
@@ -294,6 +285,17 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 -------------------------------------------------------------- */
 #searchform #s { float: left; width: 65%; margin: 8px 0; padding-right: 30px; background: #fff url(img/busca.png) no-repeat center right; }
 #searchform label { float: left; margin-right: 10px; font: 24px/44px "Trebuchet MS", Arial, sans-serif; color: #000; }
+
+/* =Mobilize
+-------------------------------------------------------------- */
+.mobilize-button { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 16px; color: #fff; background-color: #c00; border: 1px solid #fcc; border-bottom: 1px solid #600; border-right: 1px solid #600; }
+.mobilize-button:hover { background-color: #900; }
+a.mobilize-button { display: block; text-align: center; float: left; height: 24px; margin: 0 10px 22px 0; padding: 6px 10px 6px 45px; }
+a.mobilize-button:hover { color: #fff; text-decoration: none; }
+a.mobilize-facebook { background-image: url(img/facebook.png); background-repeat: no-repeat; background-position: 10px center; }
+a.mobilize-twitter { background-image: url(img/twitter.png); background-repeat: no-repeat; background-position: 10px center; }
+a.mobilize-google { background-image: url(img/google.png); background-repeat: no-repeat; background-position: 10px center; }
+
 
 /* =General classes
 -------------------------------------------------------------- */
