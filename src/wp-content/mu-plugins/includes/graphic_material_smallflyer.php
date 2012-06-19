@@ -1,14 +1,10 @@
 <?php
 
-require_once(WPMU_PLUGIN_DIR . '/includes/svglib/svglib.php');
-require_once(WPMU_PLUGIN_DIR . '/includes/wideimage/WideImage.php');
-require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CampanhaSVGDocument.php');
 require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/SmallFlyer.php');
 require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CandidatePhoto.php');
 
 $smallFlyer = new SmallFlyer;
 $candidatePhoto = new CandidatePhoto('smallflyer_candidate.png', $smallFlyer->width, $smallFlyer->height);
-$url = site_url() . '/materialgrafico';
 
 if (isset($_POST['save'])) {
     check_admin_referer('graphic_material');
@@ -74,10 +70,6 @@ if (isset($_POST['save'])) {
                     }
                     ?>
                 </select>
-                
-                <h3>4. Envie o link para a gráfica:</h3>
-                <p>Utilize o link <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a> para compartilhar o material gráfico gerado. O checkbox abaixo precisa estar selecionado para que o conteúdo do link seja público.</p>
-                <input type='checkbox' name='graphic_material_public' <?php if ($smallFlyer->isPublic()) echo ' checked="checked" '; ?>> Link público?
             </div>
             
             <input type="submit" name="save" value="Salvar">

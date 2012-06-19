@@ -1,5 +1,7 @@
 <?php
 
+define('GRAPHIC_MATERIAL_PUBLIC_URL', site_url() . '/materialgrafico');
+
 class GraphicMaterial
 {
     /**

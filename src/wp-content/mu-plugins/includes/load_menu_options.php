@@ -7,14 +7,14 @@ $capabilities = Capability::getByPlanId($campaign->plan_id);
 add_action('admin_menu', function() {
     global $capabilities;
     
-    // temporarily disabled until we finish implementing those features
-    /*if ($capabilities->graphic_material->value) {
+    if ($capabilities->graphic_material->value) {
         $page = add_menu_page('Material gráfico', 'Material gráfico', 'read', 'graphic_material', function() {
-            
+            require(WPMU_PLUGIN_DIR . '/includes/graphic_material.php');
         });
         
         require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterial.php');
         
+        //TODO: refactor to remove the copy and paste code below to create the menu entries for graphic material
         $page = add_submenu_page('graphic_material', 'Santinho e colinha', 'Santinho e colinha', 'read', 'graphic_material_smallflyer', function() {
             global $campaign;
 
@@ -36,10 +36,16 @@ add_action('admin_menu', function() {
             }
         });
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
+
+        $page = add_submenu_page('graphic_material', 'Header do site', 'Header do site', 'read', 'graphic_material_header', function() {
+            require(WPMU_PLUGIN_DIR . '/includes/graphic_material_header.php');
+        });
+        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
+
         
     }
     
-    if ($capabilities->contact_manager->value) {
+    /*if ($capabilities->contact_manager->value) {
         add_menu_page('Gerenciador de contatos', 'Gerenciador de contatos', 'read', 'contact_manager', function() {
             require(WPMU_PLUGIN_DIR . '/includes/contact_manager.php');
         });

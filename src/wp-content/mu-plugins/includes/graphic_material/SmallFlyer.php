@@ -83,10 +83,6 @@ class SmallFlyer extends GraphicMaterial {
         // generate a PDF copy of the SVG file
         $this->export();
         
-        // if necessary change the publicity of the page that list
-        // the links to all graphic materials        
-        $this->maybeChangePublicity();
-        
         // store SVG file information in the database to be able
         // to regenerate it
         $this->saveData();
