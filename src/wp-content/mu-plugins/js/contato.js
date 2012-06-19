@@ -6,6 +6,10 @@
         
         jQuery('#formcontato').validate({
 
+			errorElement: 'p',
+			errorPlacement: function(error, element) {
+			    error.appendTo( element.parents('#formcontato').find('#error-for-' + element.attr('name')) );
+		    },
             submitHandler: function(form) {
                 jQuery('#contato-loader').show();
                 jQuery('#formcontato .feedback').hide();

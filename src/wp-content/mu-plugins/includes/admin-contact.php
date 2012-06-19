@@ -132,31 +132,35 @@ function campanha_the_contact_form() {
         <input type='hidden' name='action' value='form-contato' />
         <div class="clearfix">
             <label for="nome">Nome</label>
+            <div id="error-for-nome"></div>
             <input type="text" name="nome" value="" id="nome">
         </div>
         <div class="clearfix">
             <label for="email">E-mail</label>
+            <div id="error-for-email"></div>
             <input type="text" name="email" value="" id="email">
         </div>
         <div class="clearfix">
             <label for="telefone">Telefone</label>
+            <div id="error-for-telefone"></div>
             <input type="text" name="telefone" value="" id="telefone">
         </div>
         <div class="clearfix">
             <label for="mensagem">Mensagem</label>
+            <div id="error-for-mensagem"></div>
             <textarea id="mensagem" name="mensagem"></textarea>
         </div>
         
-        <label class='success feedback' id='contato-success' style='display:none;'>Formulário enviado com sucesso!</label>
-        <label class='error feedback' id='contato-error' style='display:none;'>Erro ao enviar o formulário. Tente novamente.</label>
+        <p class='success feedback' id='contato-success' style='display:none;'>Formulário enviado com sucesso!</p>
+        <p class='error feedback' id='contato-error' style='display:none;'>Erro ao enviar o formulário. Tente novamente.</p>
         
         
-        <div class="clearfix">
-            <p class="textright">
-                <img src="<?php echo WPMU_PLUGIN_URL; ?>/img/ajax-loader.gif" id="contato-loader" style="display:none;" />
-                <input type="submit" name="" value="Enviar"/>
-            </p>
-        </div>
+   
+		<p>
+			<img src="<?php echo WPMU_PLUGIN_URL; ?>/img/ajax-loader.gif" id="contato-loader" style="display:none;" />
+			<input id="contact-submit" type="submit" name="" value="Enviar"/>
+		</p>
+
         
         
     </form>

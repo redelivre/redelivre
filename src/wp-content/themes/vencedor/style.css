@@ -301,10 +301,17 @@ a.mobilize-facebook { background-image: url(img/facebook.png); background-repeat
 a.mobilize-twitter { background-image: url(img/twitter.png); background-repeat: no-repeat; background-position: 10px center; }
 a.mobilize-google { background-image: url(img/google.png); background-repeat: no-repeat; background-position: 10px center; }
 
+/* =Contato
+-------------------------------------------------------------- */
+#formcontato { margin-left: 20px; }
+#formcontato label { display: block; }
+#formcontato #nome, #formcontato #email, #formcontato #telefone, #formcontato textarea { width: 80%; }
+#formcontato textarea { height: 200px; margin-bottom: 22px; }
+#contact-submit { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 16px; color: #fff; background: #c00; border: 1px solid #fcc; border-bottom: 1px solid #600; border-right: 1px solid #600; }
+#contact-submit:hover { background: #900; }
 
 /* =General classes
 -------------------------------------------------------------- */
-.clear { clear: both; }
 .bottom { margin-bottom:0 !important; padding-bottom:0; }
 .aligncenter { display: block; margin-right: auto; margin-left: auto; clear: both; }
 .alignleft { float: left; }
@@ -312,3 +319,4 @@ a.mobilize-google { background-image: url(img/google.png); background-repeat: no
 .textcenter { text-align: center; }
 .textleft { text-align: left; }
 .textright { text-align: right; }
+.error { color: red; }

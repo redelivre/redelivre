@@ -40,5 +40,5 @@ a:active, a:hover {	color: #006; }
 
 /* =Mobilize
 -------------------------------------------------------------- */
-.mobilize-button { background-color: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
-.mobilize-button:hover { background-color: #006; }
+.mobilize-button, #contact-submit { background-color: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
+.mobilize-button:hover, #contact-submit:hover { background-color: #006; }
