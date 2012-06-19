@@ -134,7 +134,7 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 /* =Header
 -------------------------------------------------------------- */
 #main-header { padding: 22px 0 0; }
-#branding { padding: 55px 0; height: 66px; }
+#branding { padding: 55px 0; height: 88px; }
 #branding h1 a, #branding h1 a:hover  { color: #000; text-decoration: none; }
 #description { font-style: italic; font-size: 16px; }
 

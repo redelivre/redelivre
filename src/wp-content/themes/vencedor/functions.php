@@ -12,6 +12,11 @@ require_once ( get_template_directory() . '/theme-options.php' );
 // EDITOR STYLE
 add_editor_style('editor-style.css');
 
+// LARGURA DA COLUNA DE POSTS PARA OS EMBEDS DE VÍDEOS
+global $content_width;
+if ( !isset( $content_width ) )
+$content_width = 600;
+
 // CUSTOM MENU
 add_action( 'init', 'temavencedor_custom_menus' );
 function temavencedor_custom_menus() {
@@ -70,8 +75,8 @@ function temavencedor_setup() {
 
     // CUSTOM IMAGE HEADER
     define('HEADER_TEXTCOLOR', '000000');
-    define('HEADER_IMAGE_WIDTH', 980); 
-    define('HEADER_IMAGE_HEIGHT', 176);
+    define('HEADER_IMAGE_WIDTH', 960); 
+    define('HEADER_IMAGE_HEIGHT', 198);
         
     add_custom_image_header( 'temavencedor_custom_header', 'temavencedor_admin_custom_header' );
 
@@ -107,10 +112,10 @@ function temavencedor_admin_custom_header() {
     ?><style type="text/css">
         
         #headimg {
-            padding:55px 10px;
+            padding:55px 0;
             width: 960px !important;
-            height: 66px !important;
-            min-height: 66px !important;
+            height: 88px !important;
+            min-height: 88px !important;
             font: 15px/22px Georgia,"Times New Roman",Times,serif;
             
             

@@ -2,7 +2,7 @@
 		<?php wp_nav_menu( array( 'theme_location' => 'rodape', 'container' => false, 'menu_id' => 'footer-nav', 'menu_class' =>'col-8 clearfix', 'fallback_cb' => '', 'depth' =>'1' ) ); ?>
 		<p class="creditos textright col-4">
 		    <?php if (is_user_logged_in()): ?>
-                <a class="login" href="<?php echo admin_url(); ?>">Administração</a> &bull;
+                <a class="login" href="<?php echo admin_url(); ?>">Painel de Administração</a> &bull;
             <?php else: ?>
                 <a class="login" href="<?php echo wp_login_url(); ?>">Login</a> &bull;
             <?php endif; ?>
