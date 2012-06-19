@@ -15,6 +15,7 @@ if (!is_main_site()) {
         require_once(__DIR__ . '/includes/payment.php');
         require_once(__DIR__ . '/includes/EasyAjax.php');
         require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
+        require_once(__DIR__ . '/includes/admin-contact.php');
         
         $campaign = Campaign::getByBlogId($blog_id);
         GraphicMaterial::setUp();
@@ -85,7 +86,8 @@ function campaign_base_custom_query_vars($public_query_vars) {
 function campaign_base_custom_url_rewrites($rules) {
     $new_rules = array(
         "materialgrafico/?$" => "index.php?tpl=materialgrafico",
-        "mobilizacao/?$" => "index.php?tpl=mobilizacao"
+        "mobilizacao/?$" => "index.php?tpl=mobilizacao",
+        "contato/?$" => "index.php?tpl=contato",
     );
 
     return $new_rules + $rules;
@@ -100,6 +102,9 @@ function campaign_base_template_redirect_intercept() {
             die;
         case 'mobilizacao':
             require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
+            die;
+        case 'contato':
+            require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
             die;
         default:
             break;
