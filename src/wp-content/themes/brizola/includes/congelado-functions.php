@@ -12,7 +12,7 @@ $autoinclude_folders = array(
     'metaboxes/',
     'post-types/',
     'taxonomies/',
-    'theme-options/',
+    //'theme-options/',
     'widgets/',
     'shortcodes/'
 );
