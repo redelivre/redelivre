@@ -115,7 +115,7 @@ get_header();
             </div>
         <?php endif; ?>
     <?php else: ?>
-        <p>O recurso está desabilitado.</p>       
+        <p>O recurso está desabilitado.</p>
     <?php endif; ?>
 </section>
 
