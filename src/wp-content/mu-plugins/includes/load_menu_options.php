@@ -45,10 +45,7 @@ add_action('admin_menu', function() {
         });
     }*/
     
-    // TODO: implementar capability mobilize
-    if (true || $capabilities->mobilize->value || $capabilities->mobilize->value) {
-        add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
-            require(WPMU_PLUGIN_DIR . '/includes/admin-mobilize.php');
-        });
-    }
+    add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
+        require(WPMU_PLUGIN_DIR . '/includes/admin-mobilize.php');
+    });
 });
