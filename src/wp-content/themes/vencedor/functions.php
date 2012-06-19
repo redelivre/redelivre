@@ -9,6 +9,9 @@ add_action('wp_print_scripts', 'temavencedor_addJS');
 // THEME OPTIONS
 require_once ( get_template_directory() . '/theme-options.php' );
 
+// EDITOR STYLE
+add_editor_style('editor-style.css');
+
 // CUSTOM MENU
 add_action( 'init', 'temavencedor_custom_menus' );
 function temavencedor_custom_menus() {
@@ -55,7 +58,7 @@ if (!function_exists('temavencedor_setup')) :
 
 function temavencedor_setup() {
 
-    load_theme_textdomain('temavencedor', TEMPLATEPATH . '/languages' );
+    load_theme_textdomain('temavencedor', get_template_directory() . '/languages' );
     
     // POST THUMBNAILS
     add_theme_support('post-thumbnails');

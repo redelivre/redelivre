@@ -3,7 +3,11 @@ Theme Name: Vencedor
 Theme URI: http://campanhacompleta.com.br
 Description: Tema para candidatos que gostam do formato Blog, com opção de sidebar diferente na home e nas páginas internas.
 Author: Campanha Completa
+Author URI: http://campanhacompleta.com.br
 Version: 1.0
+License: GNU General Public License
+License URI: license.txt
+
 */
 
 
@@ -158,6 +162,7 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 #footer-nav li { float: left; margin: 0 10px; }
 #footer-nav li:first-child { list-style: none; margin: 0 10px 0 0; }
 .creditos img { vertical-align: middle; }
+#main-footer a { color: #666666; }
 
 /* =Section
 -------------------------------------------------------------- */
