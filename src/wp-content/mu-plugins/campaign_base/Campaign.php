@@ -84,11 +84,26 @@ class Campaign {
         
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
 
-		if (!is_array($result) || empty($result))
-			return false;
-        
         if (!$result) {
             throw new Exception('Não existe uma campanha associada a este blog. Verifique se você não selecionou um tema de campanha para o site principal.');
+        }
+        
+        return new Campaign($result);
+    }
+
+    /**
+     * Get a campaign by id
+     * 
+     * @param int $id
+     * @return Campaign
+     */
+    public static function getById($id) {
+        global $wpdb;
+        
+        $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE id = %d", $id), ARRAY_A);
+
+        if (!$result) {
+            throw new Exception('Não foi possível encontrar a campanha.');
         }
         
         return new Campaign($result);
@@ -103,6 +118,10 @@ class Campaign {
         
         if (isset($data['id'])) {
             $this->id = $data['id'];
+        }
+        
+        if (isset($data['blog_id'])) {
+            $this->blog_id = $data['blog_id'];
         }
         
         $this->domain = trim($data['domain']);
@@ -273,6 +292,25 @@ class Campaign {
         }
         
         do_action('Campaign-created', $data);
+    }
+    
+    /**
+     * Delete a campaign from the database and
+     * remove its associated blog.
+     * 
+     * @return null
+     */
+    public function delete() {
+        global $wpdb;
+        
+        // only the owner or super admin can delete a campaign
+        if (wp_get_current_user()->ID != $this->campaignOwner->ID && !is_super_admin()) {
+            throw new Exception('Você não tem permissão para remover está campanha.');
+        }
+        
+        $wpdb->query($wpdb->prepare("DELETE FROM `campaigns` WHERE `id` = %d", $this->id));
+        
+        wpmu_delete_blog($this->blog_id, true);
     }
     
     /**
