@@ -57,9 +57,9 @@
 					<a id="rss" href="" title="RSS"></a>
 				</div>
 			</div>        
-            <div id="branding" class="col-12 clearfix">
-                <h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
-                <p id="description"><?php bloginfo( 'description' ); ?></p>                		
+            <div id="branding" class="clear clearfix">
+                <h1 class="col-12"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
+                <p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>                		
             </div>
             <!-- .wrap -->            
 			<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>

@@ -8,6 +8,8 @@ add_action('update_option_campanha_contact_menu_entry', 'campanha_toggle_contact
  * Init plugin options to white list our options
  */
 function campanha_contact_init(){
+    
+    
     register_setting('campanha_contact', 'campanha_contact_enabled', 'campanha_contact_validate' );
     register_setting('campanha_contact', 'campanha_contact_menu_entry', 'campanha_contact_validate' );
 }
@@ -16,6 +18,11 @@ function campanha_contact_init(){
  * Load up the menu page
  */
 function campanha_contact_add_page() {
+    
+    //Se o tema ativo não suportar, não damos essa opção:
+    if ( !file_exists(STYLESHEETPATH . '/tpl-contato.php') && !file_exists(TEMPLATEPATH . '/tpl-contato.php'))
+        return;
+    
     add_menu_page('Contato', 'Contato', 'read', 'campaign_contact', 'campanha_contact_do_page');
 }
 
@@ -84,3 +91,82 @@ function campanha_contact_validate($input) {
 }
 
 // adapted from http://planetozh.com/blog/2009/05/handling-plugins-options-in-wordpress-28-with-register_setting/
+
+
+
+/*** Handle Ajax ***/
+
+add_action('wp_ajax_form-contato', 'campanha_handle_form_contato');
+add_action('wp_ajax_nopriv_form-contato', 'campanha_handle_form_contato');
+
+function campanha_handle_form_contato() {
+
+    $msg = '';
+    
+    foreach($_POST as $campo => $valor) {
+    
+        $msg .= "$campo: $valor \n";
+    
+    }
+    
+    $email = get_option('admin_email');
+    
+    // generate the response
+    $response = json_encode(array('success' => wp_mail( $email, 'Novo contato no site', $msg, "From: 'Carteiro Campanha Completa' <noreply@campanhacompleta.com.br>" ) ));
+ 
+    // response output
+    header( "Content-Type: application/json" );
+    echo $response;
+    
+    die;
+
+
+}
+
+function campanha_the_contact_form() {
+
+
+    ?>
+    
+    <form method='post' id="formcontato">
+        <input type='hidden' name='action' value='form-contato' />
+        <div class="clearfix">
+            <label for="nome">Nome</label>
+            <div id="error-for-nome"></div>
+            <input type="text" name="nome" value="" id="nome">
+        </div>
+        <div class="clearfix">
+            <label for="email">E-mail</label>
+            <div id="error-for-email"></div>
+            <input type="text" name="email" value="" id="email">
+        </div>
+        <div class="clearfix">
+            <label for="telefone">Telefone</label>
+            <div id="error-for-telefone"></div>
+            <input type="text" name="telefone" value="" id="telefone">
+        </div>
+        <div class="clearfix">
+            <label for="mensagem">Mensagem</label>
+            <div id="error-for-mensagem"></div>
+            <textarea id="mensagem" name="mensagem"></textarea>
+        </div>
+        
+        <p class='success feedback' id='contato-success' style='display:none;'>Formulário enviado com sucesso!</p>
+        <p class='error feedback' id='contato-error' style='display:none;'>Erro ao enviar o formulário. Tente novamente.</p>
+        
+        
+   
+		<p>
+			<img src="<?php echo WPMU_PLUGIN_URL; ?>/img/ajax-loader.gif" id="contato-loader" style="display:none;" />
+			<input id="contact-submit" type="submit" name="" value="Enviar"/>
+		</p>
+
+        
+        
+    </form>
+    
+    
+    <?php
+
+
+}

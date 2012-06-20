@@ -104,7 +104,23 @@ function campaign_base_template_redirect_intercept() {
             require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
             die;
         case 'contato':
-            require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
+            
+            add_action('wp_print_scripts', function() {
+                wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
+                wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/contato.js', array('jquery_validate'));
+                wp_localize_script('contato', 'vars', array('ajaxurl' => admin_url('admin-ajax.php')));
+            } );
+            
+            // template específico dentro do tema
+            if (file_exists(STYLESHEETPATH . '/tpl-contato.php')) { // tema filho
+                require(STYLESHEETPATH . '/tpl-contato.php');
+            } elseif (file_exists(TEMPLATEPATH . '/tpl-contato.php')) { // tema pai
+                require(TEMPLATEPATH . '/tpl-contato.php');
+            } 
+            //else { template generico ?
+            //    require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
+            //}
+            
             die;
         default:
             break;

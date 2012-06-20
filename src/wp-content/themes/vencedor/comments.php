@@ -58,6 +58,7 @@ add_filter('comment_class','comment_add_microid');
             <?php do_action('comment_form', $post->ID); ?>
         </form>
         <?php endif; ?>
+        
     </div>
     <?php endif; ?>
 </div>

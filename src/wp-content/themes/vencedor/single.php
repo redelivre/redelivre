@@ -22,12 +22,13 @@
 		    </div>
 		    <!-- .post-content -->
 		    <footer class="post-footer clearfix">
+				<?php get_template_part('interaction'); ?>
 				<p class="post-meta alignleft"><?php _e('Categories:', 'temavencedor'); ?> <?php the_category(', '); ?><br /><?php the_tags(); ?></p>
 				<p class="comments-number alignright"><a href="<?php comments_link(); ?>"><?php comments_number('0','1','%'); ?></a></p>
 				<?php if (is_attachment()):?>
 					<p class="clear"><a class="voltar" href="<?php echo get_permalink( $post->post_parent ); ?>"><?php _e('&laquo; Go back to ', 'temavencedor'); ?>"<?php echo get_the_title( $post->post_parent ); ?>"</a>.</p>
 				<?php endif; ?>
-		    </footer>	    
+		    </footer>    
 		    <?php comments_template(); ?>
 		    <!-- comentários -->
 		</article>
