@@ -104,7 +104,6 @@ function campaign_base_template_redirect_intercept() {
             require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
             die;
         case 'contato':
-            
             add_action('wp_print_scripts', function() {
                 wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
                 wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/contato.js', array('jquery_validate'));

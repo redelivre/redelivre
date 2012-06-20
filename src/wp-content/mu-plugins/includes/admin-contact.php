@@ -8,8 +8,6 @@ add_action('update_option_campanha_contact_menu_entry', 'campanha_toggle_contact
  * Init plugin options to white list our options
  */
 function campanha_contact_init(){
-    
-    
     register_setting('campanha_contact', 'campanha_contact_enabled', 'campanha_contact_validate' );
     register_setting('campanha_contact', 'campanha_contact_menu_entry', 'campanha_contact_validate' );
 }
