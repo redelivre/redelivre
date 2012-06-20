@@ -95,6 +95,7 @@ if (isset($_GET['noheader'])) {
                         </select>
                     </td>
                 </tr>
+                <?php echo do_action('campaigns-new-custom-fields'/*, array('domain' => $domain, 'own_domain' => $own_domain, 'candidate_number' => $candidate_number, 'plan_id' => $plan_id )*/) ;?>
                 <tr class="form-field">
                     <th scope="row"><label for="plan_id">Selecione um plano</label></th>
                     <td>

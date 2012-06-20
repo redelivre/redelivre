@@ -191,6 +191,8 @@ class Campaign {
             $this->errorHandler->add('error', 'Você precisa selecionar uma cidade.');
         }
         
+        do_action('Campaign-validate', $this->errorHandler);
+        
         if (!empty($this->errorHandler->errors)) {
             return false;
         }
@@ -247,6 +249,8 @@ class Campaign {
         if (!empty($this->own_domain)) {
             $this->alertStaff();
         }
+        
+        do_action('Campaign-created', $data);
     }
     
     /**
@@ -361,6 +365,8 @@ class Campaign {
             
             // remove default page
             wp_delete_post(2, true);
+            //remove default blog post
+            wp_delete_post(1, true);
             
             restore_current_blog();
         }
