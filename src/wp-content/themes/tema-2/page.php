@@ -5,18 +5,18 @@
 				<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>	  
 					<header>                       
 						<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>
-						<p><?php edit_post_link( __( 'Edit', 'brizola' ), '', '' ); ?></p>				
+						<p><?php edit_post_link( __( 'Edit', 'tema2' ), '', '' ); ?></p>				
 					</header>
 					<div class="post-content clearfix">
 						<?php the_content(); ?>
-						<?php wp_link_pages( array( 'before' => '<nav class="page-link">' . __( 'Pages:', 'brizola' ), 'after' => '</nav>' ) ); ?>	
+						<?php wp_link_pages( array( 'before' => '<nav class="page-link">' . __( 'Pages:', 'tema2' ), 'after' => '</nav>' ) ); ?>	
 					</div>
 					<!-- .post-content -->
 				</article>
 				<!-- .page -->
 			<?php endwhile; ?>				
 			<?php else : ?>
-			   <p><?php _e('No results found.', 'brizola'); ?></p>              
+			   <p><?php _e('No results found.', 'tema2'); ?></p>              
 			<?php endif; ?>
 		</section>
 		<!-- #main-section -->   

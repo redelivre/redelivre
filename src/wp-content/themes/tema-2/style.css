@@ -1,5 +1,5 @@
 /*
-Theme Name: Brizola
+Theme Name: tema2
 Theme URI: http://www.campanhacompleta.com.br/
 Description: Tema para candidatos que desejam um portal de notícias
 Author: Campanha Completa
@@ -180,8 +180,12 @@ ul#menu-rodape li:last-child:after {content:"";}
 /* =Home Features
 -------------------------------------------------------------- */
 .hl-wrapper { float: left; width: 780px; margin: 0 9px 44px; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
-.hl-nav-left, .hl-nav-right { display: block; }
-.hl-wrapped>article { float: left; width: 740px; padding: 20px; }
+.hl-nav-left, .hl-nav-right { display: block; width: 60px; height: 60px; margin-top: 100px; text-indent: -99999px; }
+.hl-nav-left { background: #0033CC url(img/seta-esq.png) no-repeat; }
+.hl-nav-right { background: #0033CC url(img/seta-dir.png) no-repeat; }
+.hl-wrapped article { float: left; width: 740px; padding: 20px; }
+.hl-wrapped article.sticky { border: none; }
+.hl-wrapped .attachment-post-thumbnail { float: left; margin-right: 20px; }
 
 /* =Post
 -------------------------------------------------------------- */
@@ -207,8 +211,7 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post-content sup, .post-content sub { font-size: 11px; }
 
 /*sticky post*/
-.blog .sticky, .destaque-principal { margin-bottom: 44px; padding: 20px; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
-.destaque-principal h1 { font-size: 24px; }
+.blog .sticky  { margin-bottom: 44px; padding: 20px; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
 
 /*destaque*/
 .destaque { font-size: 12px; }
@@ -253,8 +256,8 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post-content .gallery .gallery-caption { color: #999; font: 12px/22px Georgia,Cambria,"Times New Roman",Times,serif; font-style: italic; margin: 0 0 12px; }
 .post-content .gallery dl { margin: 0; }
 
-.post-content .attachment-post-thumbnail, .post-content .destaque-principal-thumbnail { float: left; margin: 0 10px 22px 0; display: block; }
-.post-content .destaque-thumbnail { margin-bottom: 22px; display: block; }
+.post-content .attachment-post-thumbnail { float: left; margin: 0 10px 22px 0; display: block; }
+
 
 .post-content table { border: 1px solid #ccc; margin: 0 -1px 22px 0; text-align: left; width: 100%; }
 .post-content tr th, .post-content thead th {	padding: 10px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; font-size: 18px; color: #fff; background: #0033CC; }
