@@ -145,6 +145,10 @@ class Campaign {
             $this->status = $data['status'];
         }
         
+        if (isset($data['observations'])) {
+            $this->observations = $data['observations'];
+        }
+        
         if (isset($data['user_id'])) {
             $this->campaignOwner = get_userdata($data['user_id']);
         } else {
@@ -282,7 +286,7 @@ class Campaign {
         $data = array(
             'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $blogId,
             'election_id' => $this->election_id, 'domain' => $this->domain, 'own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number,
-            'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location
+            'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location, 'observations' => $this->observations,
         );
         
         $wpdb->insert('campaigns', $data);

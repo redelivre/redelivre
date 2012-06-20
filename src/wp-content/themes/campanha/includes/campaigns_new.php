@@ -9,10 +9,11 @@ if (!empty($_POST)) {
     $plan_id = filter_input(INPUT_POST, 'plan_id', FILTER_SANITIZE_NUMBER_INT);
     $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
     $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_NUMBER_INT);
+    $observations = filter_input(INPUT_POST, 'observations', FILTER_SANITIZE_STRING);
     
     $campaign = new Campaign(
         array('domain' => $domain, 'own_domain' => $own_domain, 'plan_id' => $plan_id, 'candidate_number' => $candidate_number,
-            'state' => $state, 'city' => $city)
+            'state' => $state, 'city' => $city, 'observations' => $observations)
     );
     
     if ($campaign->validate()) {
@@ -95,6 +96,12 @@ if (isset($_GET['noheader'])) {
                         </select>
                     </td>
                 </tr>
+                <?php if (is_super_admin()) : ?>
+                    <tr class="form-field">
+                        <th scope="row"><label for="observations">Observações</label></th>
+                        <td><input type="text" value="<?php if (isset($_POST['observations'])) echo $_POST['observations']; ?>" name="observations"></td>
+                    </tr>
+                <?php endif; ?>
                 <?php echo do_action('campaigns-new-custom-fields'/*, array('domain' => $domain, 'own_domain' => $own_domain, 'candidate_number' => $candidate_number, 'plan_id' => $plan_id )*/) ;?>
                 <tr class="form-field">
                     <th scope="row"><label for="plan_id">Selecione um plano</label></th>
