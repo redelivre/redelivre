@@ -140,8 +140,6 @@ class Campaign {
      * campaign.
      */
     public function validate() {
-        
-        
         if ($this->valueExist('domain')) {
             $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
         }
@@ -167,7 +165,7 @@ class Campaign {
             $this->errorHandler->add('error', 'Número de candidato inválido.');
         }
         
-        if ($this->valueExist('candidate_number')) {
+        if ($this->candidateExist()) {
             $this->errorHandler->add('error', 'Uma campanha para este candidato já foi criada no sistema.');
         }
         
@@ -196,6 +194,30 @@ class Campaign {
         }
         
         return true;
+    }
+    
+    /**
+     * Check whether a campaign for this candidate
+     * has already been created in the system by checking
+     * the candidate number, city and state.
+     */
+    protected function candidateExist() {
+        global $wpdb;
+        
+        if (empty($this->candidate_number) || empty($this->city) || empty($this->state)) {
+            // all three fields above must be set to check if the candidate exist
+            return false;
+        }
+        
+        $campaign = $wpdb->get_row(
+            $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s",
+                $this->candidate_number, "$this->state:$this->city"));
+                
+        if (!is_null($campaign)) {
+            return true;
+        }
+        
+        return false;
     }
     
     /**
