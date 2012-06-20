@@ -49,6 +49,14 @@ $sidebar = get_option('vencedor_theme_options');
 
 <body <?php body_class(); ?>>
 <header id="main-header">
+	<div id="search-and-social-bookmarks" class="wrap">
+		<div id="social-bookmarks" class="alignright">
+			<a id="facebook" href="" title="Facebook"></a>
+			<a id="twitter" href="" title="Twitter"></a>
+			<a id="youtube" href="" title="YouTube"></a>
+			<a id="rss" href="" title="RSS"></a>
+		</div>
+	</div>
 	<div id="branding" class="wrap clearfix">
 		<h1 class="col-12"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
 		<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
@@ -57,7 +65,6 @@ $sidebar = get_option('vencedor_theme_options');
 	<div id="menubar">
 		<div class="wrap clearfix">
 			<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
-			<div id="feed-link"><a href="<?php bloginfo('rss_url'); ?>" title="RSS Feed"><img src="<?php echo get_template_directory_uri(); ?>/img/feed-icon-24x24.png" /></a></div>
 		</div>
 		<!-- .wrap -->
 	</div>
