@@ -69,6 +69,7 @@ function campanha_contact_do_page() {
             <?php settings_fields('campanha_contact'); ?>
             <p><label><input type="checkbox" name="campanha_contact_enabled" <?php if (get_option('campanha_contact_enabled')) echo ' checked="checked" '; ?>> Habilitar página de contato</label></p>
             <p><label><input type="checkbox" name="campanha_contact_menu_entry" <?php if (get_option('campanha_contact_menu_entry')) echo ' checked="checked" '; ?>> Habilitar link para a página de contato no menu principal</label></p>
+            <p>Para acessar a página de contato: <a href="<?php echo home_url() . '/contato'; ?>" target="_blank"><?php echo home_url() . '/contato'; ?></a></p>
             <p class="submit">
                 <input type="submit" class="button-primary" value="Salvar opções" />
             </p>
