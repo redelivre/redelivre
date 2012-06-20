@@ -191,6 +191,8 @@ class Campaign {
             $this->errorHandler->add('error', 'Você precisa selecionar uma cidade.');
         }
         
+        do_action('Campaign-validate', $this->errorHandler);
+        
         if (!empty($this->errorHandler->errors)) {
             return false;
         }
@@ -247,6 +249,8 @@ class Campaign {
         if (!empty($this->own_domain)) {
             $this->alertStaff();
         }
+        
+        do_action('Campaign-created', $data);
     }
     
     /**
