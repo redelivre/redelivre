@@ -397,6 +397,12 @@ class Campaign {
             
             if (!is_nav_menu('main')) {
                 $menu_id = wp_create_nav_menu('main');
+
+                wp_update_nav_menu_item($menu_id, 0, array(
+                    'menu-item-title' => 'Capa',
+                    'menu-item-url' => home_url('/'),
+                    'menu-item-status' => 'publish')
+                );
                 
                 wp_update_nav_menu_item($menu_id, 0, array(
                     'menu-item-title' => 'Biografia',
