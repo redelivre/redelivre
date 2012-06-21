@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SLUG\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-24 14:46-0300\n"
+"POT-Creation-Date: 2012-06-20 10:16-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Cátia Kitahara <catia@hacklab.com.br>\n"
 "Language-Team: \n"
@@ -13,317 +13,342 @@ msgstr ""
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-Country: BRAZIL\n"
 "X-Poedit-KeywordsList: __;_e;_x\n"
-"X-Poedit-Basepath: /home/leo/devel/congelado/src/wp-content/themes/congelado\n"
+"X-Poedit-Basepath: /home/catia/devel/campanha/src/wp-content/themes/tema-2\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: /home/leo/devel/congelado/src/wp-content/themes/congelado\n"
+"X-Poedit-SearchPath-0: /home/catia/devel/campanha/src/wp-content/themes/tema-2\n"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/footer.php:3
-msgid "Developed by"
-msgstr "Desenvolvido por"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/single.php:8
+msgid "&laquo; Previous post"
+msgstr "&laquo; Posts anteriores"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/footer.php:3
-msgid "with"
-msgstr "com"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/single.php:9
+msgid "Next post &raquo;"
+msgstr "Próximos posts &raquo;"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/single.php:16
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/page.php:25
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/index.php:16
-msgid "&laquo; Previous posts"
-msgstr "&laquo; Artigos anteriores"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/single.php:17
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/page.php:26
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/index.php:17
-msgid "Next posts &raquo;"
-msgstr "Próximos artigos &raquo;"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/single.php:22
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/page.php:31
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/index.php:22
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/single.php:14
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/index.php:15
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/page.php:19
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/front-page.php:18
 msgid "No results found."
 msgstr "Nenhum post encontrado"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:22
-msgid "Comments"
-msgstr "Comentários"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/index.php:9
+msgid "&laquo; Previous posts"
+msgstr "&laquo; Artigos anteriores"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:24
-msgid "No comments"
-msgstr "Nenhum Comentário"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/index.php:10
+msgid "Next posts &raquo;"
+msgstr "Próximos artigos &raquo;"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:24
-msgid "1 comment"
-msgstr "1 comentário"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:24
-#, php-format
-msgid "%s comments"
-msgstr "%s comentários"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:24
-msgid "Leave a comment &raquo;"
-msgstr "Deixe um comentário &raquo;"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:30
-msgid "&laquo; Older Comments"
-msgstr "&laquo; Comentários anteriores"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:31
-msgid "Newer Comments &raquo;"
-msgstr "Comentários recentes &raquo;"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:40
-msgid "Leave a comment"
-msgstr "Deixe um comentário"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:44
-#, php-format
-msgid "You must be %sloggedin%s to post a comment."
-msgstr "Você precisa estar %slogado%s para publicar um comentário."
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:50
-msgid "Write your comment here."
-msgstr "Insira seu comentário aqui."
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:52
-msgid "Logged in as"
-msgstr "Conectado como "
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:54
-msgid "name"
-msgstr "nome"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:58
-msgid "cancel"
-msgstr "cancelar"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:58
-msgid "Comment"
-msgstr "Comentar"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/comments.php:60
-msgid "All comments need to be approved"
-msgstr "Todos os comentários precisam ser aprovados"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/header.php:23
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/header.php:33
 #, php-format
 msgid "Page %s"
 msgstr "Página %s"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/functions.php:78
-msgid "Menu name"
-msgstr "Nome do menu"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/functions.php:87
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/functions.php:82
 msgid "Sidebar"
 msgstr "Barra lateral"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/functions.php:98
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/functions.php:94
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/functions.php:101
 msgid "Continue reading &raquo;"
 msgstr "Continue lendo &raquo;"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/functions.php:178
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/page.php:13
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/functions.php:166
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/page.php:8
 msgid "Edit"
 msgstr "Editar"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/functions.php:181
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/functions.php:169
 #, php-format
 msgid "By %s on %s at %s."
 msgstr "Por %s em %s as %s."
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/functions.php:182
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/functions.php:170
 msgid "Your comment is awaiting moderation."
 msgstr "Seu comentário está aguardando moderação"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/page.php:17
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/page.php:12
 msgid "Pages:"
 msgstr "Páginas:"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:39
-msgid "_POSTTYPE_"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/footer.php:2
+msgid "Developed by"
+msgstr "Desenvolvido por"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/footer.php:2
+msgid "with"
+msgstr "com"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:22
+msgid "Comments"
+msgstr "Comentários"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:24
+msgid "No comments"
+msgstr "Nenhum Comentário"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:24
+msgid "1 comment"
+msgstr "1 comentário"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:24
+#, php-format
+msgid "%s comments"
+msgstr "%s comentários"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:24
+msgid "Leave a comment &raquo;"
+msgstr "Deixe um comentário &raquo;"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:30
+msgid "&laquo; Older Comments"
+msgstr "&laquo; Comentários anteriores"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:31
+msgid "Newer Comments &raquo;"
+msgstr "Comentários recentes &raquo;"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:40
+msgid "Leave a comment"
+msgstr "Deixe um comentário"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:44
+#, php-format
+msgid "You must be %sloggedin%s to post a comment."
+msgstr "Você precisa estar %slogado%s para publicar um comentário."
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:50
+msgid "Write your comment here."
+msgstr "Insira seu comentário aqui."
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:52
+msgid "Logged in as"
+msgstr "Conectado como "
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:54
+msgid "name"
+msgstr "nome"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:58
+msgid "cancel"
+msgstr "cancelar"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:58
+msgid "Comment"
+msgstr "Comentar"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/comments.php:60
+msgid "All comments need to be approved"
+msgstr "Todos os comentários precisam ser aprovados"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/includes/template-widgets/WidgetTemplate.php:108
+msgid "save"
+msgstr "salvar"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/includes/theme-options/theme-options.php:53
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/theme-options.php:60
+msgid "Theme Options"
+msgstr "Opções do Tema"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/includes/theme-options/theme-options.php:63
+msgid "Social Networks"
+msgstr "Redes Sociais"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/includes/theme-options/theme-options.php:68
+msgid "Facebook"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:40
-msgid "Adicionar Novo"
-msgstr "Adicionar Novo"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:41
-#, fuzzy
-msgid "Adicionar novo _POSTTYPE_"
-msgstr "Adicionar Novo PSM"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:42
-#, fuzzy
-msgid "Editar _POSTTYPE_"
-msgstr "Editar PSM"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:43
-#, fuzzy
-msgid "Novo _POSTTYPE_"
-msgstr "Novo PSM"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:44
-msgid "Ver _POSTTYPE_"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/includes/theme-options/theme-options.php:71
+msgid "Twitter"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:45
-#, fuzzy
-msgid "Search _POSTTYPE_s"
-msgstr "Search PSMs"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:46
-#, fuzzy
-msgid "Nenhum _POSTTYPE_ Encontrado"
-msgstr "Nenhum PSM Encontrado"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:47
-#, fuzzy
-msgid "Nenhum _POSTTYPE_ na Lixeira"
-msgstr "Nenhum PSM na Lixeira"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:73
-msgid "Taxonomias"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/includes/theme-options/theme-options.php:74
+msgid "RSS"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:74
-msgid "Taxonomia"
-msgstr ""
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/includes/theme-options/theme-options.php:85
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/theme-options.php:99
+msgid "Save Changes"
+msgstr "Salvar modificações"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:75
-#, fuzzy
-msgid "Search Taxonomias"
-msgstr "Search artistas"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:76
-msgid "All Taxonomias"
-msgstr ""
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:77
-msgid "Parent Taxonomia"
-msgstr ""
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:78
-msgid "Parent Taxonomia:"
-msgstr ""
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:79
-msgid "Edit Taxonomia"
-msgstr ""
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:80
-msgid "Update Taxonomia"
-msgstr ""
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:81
-#, fuzzy
-msgid "Add New Taxonomia"
-msgstr "Adicionar Nova Imagem"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/post_type.php:82
-msgid "New Taxonomia Name"
-msgstr ""
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:29
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:29
 msgid "_TAXONOMY_s"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:30
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:30
 msgid "_TAXONOMY_"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:31
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:31
 #, fuzzy
 msgid "Search _TAXONOMY_s"
 msgstr "Search PSMs"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:32
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:32
 msgid "All _TAXONOMY_s"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:33
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:33
 msgid "Parent _TAXONOMY_"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:34
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:34
 msgid "Parent _TAXONOMY_:"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:35
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:35
 msgid "Edit _TAXONOMY_"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:36
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:36
 msgid "Update _TAXONOMY_"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:37
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:37
 msgid "Add New _TAXONOMY_"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/taxonomy.php:38
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/taxonomy.php:38
 msgid "New _TAXONOMY_ Name"
 msgstr ""
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/theme-options.php:60
-msgid "Theme Options"
-msgstr "Opções de Tema"
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:83
+#, fuzzy
+msgid "_POST_TYPE_"
+msgstr "Novo PSM"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/theme-options.php:70
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:84
+msgid "Adicionar Novo"
+msgstr "Adicionar Novo"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:85
+#, fuzzy
+msgid "Adicionar novo _POST_TYPE_"
+msgstr "Adicionar Novo PSM"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:86
+#, fuzzy
+msgid "Editar _POST_TYPE_"
+msgstr "Editar PSM"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:87
+#, fuzzy
+msgid "Novo _POST_TYPE_"
+msgstr "Novo PSM"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:88
+#, fuzzy
+msgid "Ver _POST_TYPE_"
+msgstr "Search PSMs"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:89
+#, fuzzy
+msgid "Search _POST_TYPE_s"
+msgstr "Search PSMs"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:90
+#, fuzzy
+msgid "Nenhum _POST_TYPE_ Encontrado"
+msgstr "Nenhum PSM Encontrado"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:91
+#, fuzzy
+msgid "Nenhum _POST_TYPE_ na Lixeira"
+msgstr "Nenhum PSM na Lixeira"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:115
+msgid "Taxonomias"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:116
+msgid "Taxonomia"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:117
+#, fuzzy
+msgid "Search Taxonomias"
+msgstr "Search artistas"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:118
+msgid "All Taxonomias"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:119
+msgid "Parent Taxonomia"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:120
+msgid "Parent Taxonomia:"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:121
+msgid "Edit Taxonomia"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:122
+msgid "Update Taxonomia"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:123
+#, fuzzy
+msgid "Add New Taxonomia"
+msgstr "Adicionar Nova Imagem"
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/post_type.php:124
+msgid "New Taxonomia Name"
+msgstr ""
+
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/theme-options.php:70
 msgid "Some Title"
 msgstr "Algum título"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/theme-options.php:75
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/theme-options.php:75
 msgid "Sample Text"
-msgstr ""
+msgstr "Texto de exemplo"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/theme-options.php:81
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/theme-options.php:81
 msgid "Sample Textarea"
-msgstr ""
+msgstr "Área de texto de exemplo"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/theme-options.php:88
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/theme-options.php:88
 msgid "Sample Checkbox"
-msgstr ""
+msgstr "Caixa de seleção de exemplo"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/theme-options.php:99
-msgid "Save Changes"
-msgstr "Salvar modificações"
-
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/widgets/widget-banner.php:53
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/widgets/widget-banner.php:53
 msgid "Title:"
 msgstr "Título:"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/widgets/widget-banner.php:59
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/widgets/widget-banner.php:59
 msgid "URL to the image or swf:"
-msgstr "URL to the image or swf:"
+msgstr "URL da imagem ou do swf:"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/widgets/widget-banner.php:65
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/widgets/widget-banner.php:65
 msgid "Dimensions (needed for swf)"
-msgstr "Dimensões (necessário para swf)"
+msgstr "Dimensões (necessárias para swf)"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/widgets/widget-banner.php:73
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/widgets/widget-banner.php:73
 msgid "Link:"
 msgstr "Link:"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/_MODELOS/widgets/widget-banner.php:79
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/_MODELOS/widgets/widget-banner.php:79
 msgid "Abrir em nova Janela?"
 msgstr "Abrir em nova Janela?"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/parts/loop-single.php:6
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/parts/loop.php:6
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/parts/loop-single.php:6
 msgid "By"
 msgstr "Por"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/parts/loop-single.php:6
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/parts/loop.php:6
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/parts/loop-single.php:6
 msgid "on"
 msgstr "em"
 
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/parts/loop-single.php:25
-#: /home/leo/devel/congelado/src/wp-content/themes/congelado/parts/loop.php:21
+#: /home/catia/devel/campanha/src/wp-content/themes/tema-2/parts/loop-single.php:19
 msgid "Categories"
 msgstr "Categorias"
 
+#~ msgid "Menu name"
+#~ msgstr "Nome do menu"
 #~ msgid "Sergio Motta Institute"
 #~ msgstr "Instituto Sergio Motta"
 #~ msgid "Tv. Dorothy Poli Zioni, 07 • 1º andar"
@@ -856,8 +881,6 @@ msgstr "Categorias"
 #~ msgstr "Filtros de Busca"
 #~ msgid "Refine your search"
 #~ msgstr "Refine a sua busca"
-#~ msgid "Network"
-#~ msgstr "Rede"
 #~ msgid "Sort by"
 #~ msgstr "Classificar por"
 #~ msgid "Alphabetical order"

@@ -20,8 +20,12 @@ add_action('admin_init', function() {
             get_current_screen()->remove_help_tabs();
         });
     
-        // remove default menu options        
-        remove_menu_page('index.php');
+        // remove default menu options
+        if (!is_main_site()) {        
+            remove_submenu_page('index.php', 'my-sites.php');
+        } else {
+            remove_menu_page('index.php');
+        }
         remove_menu_page('profile.php'); 
     }
 });

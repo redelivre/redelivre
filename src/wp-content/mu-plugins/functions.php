@@ -33,6 +33,7 @@ if (!is_main_site()) {
         add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
         add_action('admin_init', 'campanha_remove_menu_pages');
         add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
+        add_action('wp_dashboard_setup', 'campannha_dashboard_widget');
         
         // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
         if (is_admin() && !get_option('campanha_flush_rules')) {
@@ -217,4 +218,22 @@ function campanha_add_common_js() {
 
     wp_enqueue_script('jquery');
     wp_enqueue_script('campaign_common', site_url() . '/wp-content/mu-plugins/js/campaign_common.js', 'jquery');
+}
+
+add_action('user_register', 'campanha_disable_welcome_panel');
+/**
+ * Whenever a user is created set a metadata so
+ * that they don't see the default WP welcome panel
+ * in the dashboard.
+ */
+function campanha_disable_welcome_panel($userId) {
+    update_user_meta($userId, 'show_welcome_panel', 0);
+}
+
+function campannha_dashboard_widget() {
+    global $wp_meta_boxes;
+    
+    wp_add_dashboard_widget('campanha_dashboard_widget', 'Bem-vindo!', function() {
+        require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
+    });
 }

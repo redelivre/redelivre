@@ -1,7 +1,7 @@
 <?php 
 /*
  * IMPORTANTE
- * substituir todos os brizola pelo slug do projeto
+ * substituir todos os tema2 pelo slug do projeto
  */
 
 include dirname(__FILE__).'/includes/congelado-functions.php';
@@ -10,10 +10,10 @@ include dirname(__FILE__).'/includes/utils.class.php';
 //include dirname(__FILE__).'/includes/form.class.php';
 
 
-add_action( 'after_setup_theme', 'brizola_setup' );
-function brizola_setup() {
+add_action( 'after_setup_theme', 'tema2_setup' );
+function tema2_setup() {
 
-    load_theme_textdomain('brizola', TEMPLATEPATH . '/languages' );
+    load_theme_textdomain('tema2', TEMPLATEPATH . '/languages' );
 
     // POST THUMBNAILS
     add_theme_support('post-thumbnails');
@@ -31,7 +31,7 @@ function brizola_setup() {
     define('HEADER_IMAGE_WIDTH', 940); 
     define('HEADER_IMAGE_HEIGHT', 198);
 
-    add_custom_image_header( 'brizola_custom_header', 'brizola_admin_custom_header' );
+    add_custom_image_header( 'tema2_custom_header', 'tema2_admin_custom_header' );
 
     // CUSTOM BACKGROUND
     add_custom_background();
@@ -48,8 +48,8 @@ function remove_admin_bar(){
 add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
 // JS
-add_action('wp_print_scripts', 'brizola_addJS');
-function brizola_addJS() {
+add_action('wp_print_scripts', 'tema2_addJS');
+function tema2_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); 
     wp_enqueue_script('jquery');
     wp_enqueue_script('jquery-ui-core');
@@ -66,8 +66,8 @@ function brizola_addJS() {
 }
 
 // CUSTOM MENU
-add_action( 'init', 'brizola_custom_menus' );
-function brizola_custom_menus() {
+add_action( 'init', 'tema2_custom_menus' );
+function tema2_custom_menus() {
     register_nav_menus( array(
         'main' => 'Principal',
         'quick-links' => 'Acesso Rápido',
@@ -79,7 +79,7 @@ if(function_exists('register_sidebar')) {
     // sidebar 
     register_sidebar( array(
         'name' =>  'Sidebar',
-        'description' => __('Sidebar', 'brizola'),
+        'description' => __('Sidebar', 'tema2'),
         'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
         'after_widget' => '</div></div>',
         'before_title' => '<h3>',
@@ -89,22 +89,22 @@ if(function_exists('register_sidebar')) {
 
 // EXCERPT MORE
 
-add_filter('utils_excerpt_more_link', 'brizola_utils_excerpt_more',10,2);
-function brizola_utils_excerpt_more($more_link, $post){
-    return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'brizola') . '</a>';
+add_filter('utils_excerpt_more_link', 'tema2_utils_excerpt_more',10,2);
+function tema2_utils_excerpt_more($more_link, $post){
+    return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'tema2') . '</a>';
 }
 
 
-add_filter( 'excerpt_more', 'brizola_auto_excerpt_more' );
-function brizola_auto_excerpt_more( $more ) {
+add_filter( 'excerpt_more', 'tema2_auto_excerpt_more' );
+function tema2_auto_excerpt_more( $more ) {
     global $post;
-    return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'brizola') . '</a>';
+    return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'tema2') . '</a>';
 }
 
 // SETUP
-if (!function_exists('brizola_custom_header')) :
+if (!function_exists('tema2_custom_header')) :
 
-    function brizola_custom_header() {
+    function tema2_custom_header() {
         ?>
         <style type="text/css">
             #branding { background: url(<?php header_image(); ?>); }
@@ -121,9 +121,9 @@ if (!function_exists('brizola_custom_header')) :
 
 endif;
 
-if (!function_exists('brizola_admin_custom_header')) :
+if (!function_exists('tema2_admin_custom_header')) :
 
-    function brizola_admin_custom_header() {
+    function tema2_admin_custom_header() {
         ?><style type="text/css">
         
            #headimg {
@@ -156,18 +156,18 @@ if (!function_exists('brizola_admin_custom_header')) :
 endif;
 
 // COMMENTS
-if (!function_exists('brizola_comment')):
+if (!function_exists('tema2_comment')):
 
-    function brizola_comment($comment, $args, $depth) {
+    function tema2_comment($comment, $args, $depth) {
         $GLOBALS['comment'] = $comment;
         ?>
         <li <?php comment_class("clearfix"); ?> id="comment-<?php comment_ID(); ?>">
             <p class="comment-meta alignright bottom">
-                <?php comment_reply_link(array('depth' => $depth, 'max_depth' => $args['max_depth'])) ?> <?php edit_comment_link( __('Edit', 'brizola'), '| ', ''); ?>          
+                <?php comment_reply_link(array('depth' => $depth, 'max_depth' => $args['max_depth'])) ?> <?php edit_comment_link( __('Edit', 'tema2'), '| ', ''); ?>          
             </p>    
             <p class="comment-meta bottom">
-                <?php printf( __('By %s on %s at %s.', 'brizola'), get_comment_author_link(), get_comment_date(), get_comment_time()); ?>
-                <?php if($comment->comment_approved == '0') : ?><br/><em><?php _e('Your comment is awaiting moderation.', 'brizola'); ?></em><?php endif; ?>
+                <?php printf( __('By %s on %s at %s.', 'tema2'), get_comment_author_link(), get_comment_date(), get_comment_time()); ?>
+                <?php if($comment->comment_approved == '0') : ?><br/><em><?php _e('Your comment is awaiting moderation.', 'tema2'); ?></em><?php endif; ?>
             </p>
             <?php echo get_avatar($comment, 66); ?>
             <div class="content">

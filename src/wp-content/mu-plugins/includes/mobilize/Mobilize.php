@@ -14,10 +14,10 @@ class Mobilize {
     const ENVIE_NONCE = 'envienonce';
     const OPTION_NAME = 'mobilize';
     const TEXTO_DESCRITIVO_PADRAO_PAGINA = 'Ajude-nos em nossa campanha.';
-    const TEXTO_DESCRITIVO_PADRAO_REDES = 'Compartilhe nossa campanha em suas redes sociais.';
-    const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Coloque um de nossos banners em seu website.';
-    const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Faça upload de uma foto sua e adicione o adesivo ao lado para ajudar na divulgação da minha candidatura!';
-    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Envie e-mails para seus amigos e conhecidos.';
+    const TEXTO_DESCRITIVO_PADRAO_REDES = 'Acompanhe a campanha nas redes sociais abaixo.';
+    const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Copie o código abaixo e insira no seu blog ou site os banners da campanha.';
+    const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Selecione uma foto do seu computador e adesive! Depois é só salvar e colocar nas suas redes sociais!';
+    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar!.';
 
     static $errors = array('banners' => array(), 'adesive' => array(), 'redes' => array(), 'envie' => array());
 

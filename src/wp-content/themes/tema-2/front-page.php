@@ -15,7 +15,7 @@
 					<?php html::part('loop','feature'); ?>
 				<?php endwhile; ?>
 				<?php else : ?>
-					<p><?php _e('No results found.', 'brizola'); ?></p>              
+					<p><?php _e('No results found.', 'tema2'); ?></p>              
 				<?php endif; ?>
 			</div>
 			<nav class="col-1">
