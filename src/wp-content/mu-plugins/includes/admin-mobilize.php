@@ -37,7 +37,6 @@ $option = Mobilize::getOption();
 <div class="wrap">
     <div id="icon-options-general" class="icon32"><br/></div>
     <h2>Configurações da Página de Mobilização</h2>
-    <p class="description">Texto descritivo deste menu. <b>MELHORAR TODOS OS TEXTOS</b></p>
 
     <form method="post" enctype="multipart/form-data">
         <?php Mobilize::printSettingsNonce() ?>
@@ -49,7 +48,7 @@ $option = Mobilize::getOption();
         
         <div id="mobilize-redes" class="section">
             <h3><label><input type="checkbox" name="mobilize[redes][active]" <?php if(Mobilize::isActive('redes'))  echo 'checked="checked"' ?> data-section="mobilize-redes" value="1"/> Redes Sociais</label></h3>
-            <p class="description">Texto descritivo desta seção.</p>
+            <p class="description">Insira o link das suas redes sociais para divulgar o seu perfil.</p>
 
             <div class="section-content">
                 <?php Mobilize::printErrors('redes'); ?>
@@ -66,7 +65,7 @@ $option = Mobilize::getOption();
         
         <div id="mobilize-banners" class="section">
             <h3><label><input type="checkbox" name="mobilize[banners][active]" <?php if(Mobilize::isActive('banners'))  echo 'checked="checked"' ?> data-section="mobilize-banners" value="1"/> Banners</label></h3>
-            <p class="description">Texto descritivo desta seção. Explicar tamanho e formato da imagem?</p>
+            <p class="description">Carregue aqui um banner quadrado de 250x250 pixels que o sistema vai preparar automaticamente 3 tamanhos que seus apoiadores poderão colocar em sites, blogs ou mesmo nas redes sociais.</p>
             <div class="section-content">
                 <?php Mobilize::printErrors('banners'); ?>
                 <label>
@@ -81,7 +80,7 @@ $option = Mobilize::getOption();
 
         <div id="mobilize-adesive" class="section">
             <h3><label><input type="checkbox" name="mobilize[adesive][active]" <?php if(Mobilize::isActive('adesive')) echo 'checked="checked"' ?> data-section="mobilize-adesive" value="1"/> Adesive sua Foto</label></h3>
-            <p class="description">Texto descritivo desta seção. Explicar sobre ser uma máscara etc.</p>
+            <p class="description">Carregue uma imagem pequena com seu nome e número, com isto seus apoiadores poderão adesivar suas fotos para colocar nas redes sociais.</p>
 
             <div class="section-content">
                 <?php Mobilize::printErrors('adesive'); ?>
@@ -97,7 +96,7 @@ $option = Mobilize::getOption();
 
         <div id="mobilize-enviar" class="section">
             <h3><label><input type="checkbox" name="mobilize[envie][active]" <?php if(Mobilize::isActive('envie')) echo 'checked="checked"' ?> data-section="mobilize-enviar" value="1"/> Enviar para um amigo</label></h3>
-            <p class="description">Texto descritivo desta seção.</p>
+            <p class="description">Esta é uma mensagem padrão que seus apoiadores poderão enviar para várias pessoas. Insira o assunto da mensagem (ex: Eu apoio “Candidato X”) e um texto para a mensagem. Seja sucinto mas passe sua mensagem.</p>
 
             <div class="section-content">
                 <?php Mobilize::printErrors('enviar'); ?>
