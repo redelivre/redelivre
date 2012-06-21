@@ -134,11 +134,11 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 /* =Header
 -------------------------------------------------------------- */
 #main-header { padding: 11px 0 0; }
-
-a#facebook { background:url(img/glyphicons_24x24.png) no-repeat  00px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; margin-bottom: 11px; }
-a#twitter  { background:url(img/glyphicons_24x24.png) no-repeat -25px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; margin-bottom: 11px; }
-a#youtube  { background:url(img/glyphicons_24x24.png) no-repeat -50px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; margin-bottom: 11px; }
-a#rss      { background:url(img/glyphicons_24x24.png) no-repeat -75px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; margin-bottom: 11px; }
+#social-bookmarks { margin-bottom: 11px; }
+a#facebook { background:url(img/glyphicons_24x24.png) no-repeat  00px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
+a#twitter  { background:url(img/glyphicons_24x24.png) no-repeat -25px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
+a#youtube  { background:url(img/glyphicons_24x24.png) no-repeat -50px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
+a#rss      { background:url(img/glyphicons_24x24.png) no-repeat -75px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
 
 a:hover#facebook { background-position: 00px bottom; }
 a:hover#twitter  { background-position:-25px bottom; }
@@ -155,7 +155,7 @@ a:hover#rss      { background-position:-75px bottom; }
 #main-nav { float: left; margin: 0; list-style-type: none; }
 #main-nav li { position: relative; display: block; float: left; height: 42px; border-right: 1px solid #fcc; border-bottom: 1px solid #fff; background: #c00; }
 #main-nav .sub-menu li { border-bottom: 1px solid #fcc; }
-#main-nav ul { display: none; position: absolute; top: 44px; left: 0; margin: 0; width: 150px; float: left; z-index: 9999; }
+#main-nav ul { display: none; position: absolute; top: 44px; left: 0; margin: 0 0 0 -1px; width: 150px; float: left; z-index: 9999; }
 #main-nav li:hover>ul { display: block; }
 #main-nav ul ul { left: 100%; top: 0; }
 #main-nav ul li { float: none; height: auto; min-width: 150px; }

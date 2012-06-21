@@ -32,7 +32,7 @@ $sidebar = get_option('vencedor_theme_options');
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo get_template_directory_uri() ?>/ie-hacks.css" />
 <![endif]-->
 <!--[if lt IE 9]>
-	<script src="<?php get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php if ($sidebar): ?>
@@ -49,7 +49,7 @@ $sidebar = get_option('vencedor_theme_options');
 
 <body <?php body_class(); ?>>
 <header id="main-header">
-	<div id="search-and-social-bookmarks" class="wrap">
+	<div class="wrap clearfix">
 		<div id="social-bookmarks" class="alignright">
 			<a id="facebook" href="" title="Facebook"></a>
 			<a id="twitter" href="" title="Twitter"></a>
