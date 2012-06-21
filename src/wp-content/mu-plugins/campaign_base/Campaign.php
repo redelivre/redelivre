@@ -163,12 +163,15 @@ class Campaign {
      * campaign.
      */
     public function validate() {
+        if (empty($this->domain) || preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain) === 0) {
+            $this->errorHandler->add('error', 'O sub-domínio digitado está vazio ou inválido.');
+        }
+        
+        // TODO: we shouldn't change the value of $this->domain on a method that is supposed to do only validation
+        $mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
+        $this->domain = 'http://' . $this->domain . '.' . $mainSiteDomain;
         if ($this->valueExist('domain')) {
             $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
-        }
-
-        if ( empty($this->domain) || preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain) === 0 ) {
-            $this->errorHandler->add('error', 'O sub-domínio digitado está vazio ou inválido.');
         }
 
         // adding 'http://' in case the user haven't because FILTER_VALIDATE_URL requires it
