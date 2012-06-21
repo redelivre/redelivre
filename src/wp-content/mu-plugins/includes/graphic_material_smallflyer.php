@@ -71,8 +71,7 @@ if (isset($_POST['save'])) {
                     ?>
                 </select>
             </div>
-            
-            <input type="submit" name="save" value="Salvar">
+            <p><input type="submit" class="button-primary" name="save" value="Salvar"></p>
         </form>
     </div>
     

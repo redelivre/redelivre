@@ -21,7 +21,7 @@ if (isset($_POST['save'])) {
     <form id="graphic_material_form" method="post">
         <?php wp_nonce_field('graphic_material'); ?>
         <input type='checkbox' name='graphic_material_public' <?php if ($graphicMaterial->isPublic()) echo ' checked="checked" '; ?>> Link público?<br /><br />
-        <input type="submit" name="save" value="Salvar">
+        <p><input type="submit" class="button-primary" name="save" value="Salvar"></p>
     </form>
 </div>
     
