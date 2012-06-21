@@ -168,7 +168,7 @@ msgstr "Deixe um comentário"
 
 #: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:54
 msgid "comment"
-msgstr "comentário"
+msgstr "comentar"
 
 #: /home/catia/devel/campanha/src/wp-content/themes/vencedor/comments.php:56
 msgid "All comments need to be approved"
