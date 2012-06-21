@@ -214,3 +214,13 @@ function campanha_add_common_js() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('campaign_common', site_url() . '/wp-content/mu-plugins/js/campaign_common.js', 'jquery');
 }
+
+add_action('user_register', 'campanha_disable_welcome_panel');
+/**
+ * Whenever a user is created set a metadata so
+ * that they don't see the default WP welcome panel
+ * in the dashboard.
+ */
+function campanha_disable_welcome_panel($userId) {
+    update_user_meta($userId, 'show_welcome_panel', 0);
+}
