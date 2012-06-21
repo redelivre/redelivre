@@ -1,5 +1,20 @@
 <?php
 
+$msg = '';
+$error = '';
+
+if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'delete'
+    && isset($_REQUEST['id']) && is_numeric($_REQUEST['id']))
+{
+    try {
+        $campaign = Campaign::getById($_REQUEST['id']);
+        $campaign->delete();
+        $msg = "Campanha $campaign->domain removida com sucesso.";
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    }
+}
+
 if (is_super_admin()) {
     $campaigns = Campaign::getAll();
 } else {
@@ -14,7 +29,15 @@ if (is_super_admin()) {
     
     <?php if (isset($_GET['success'])) : ?>
         <div class="updated"><p>Campanha criada com sucesso.</p></div>
-    <?php endif; ?>        
+    <?php endif; ?>
+    
+    <?php if (!empty($msg)) : ?>
+        <div class="updated"><p><?php echo $msg; ?></p></div>
+    <?php endif; ?>
+    
+    <?php if (!empty($error)) : ?>
+        <div class="error"><p><?php echo $error; ?></p></div>
+    <?php endif; ?>
     
     <?php if ($campaigns) : ?>
         <table class="widefat fixed">
@@ -26,7 +49,7 @@ if (is_super_admin()) {
                     <th>Número do candidato</th>
                     <th>Plano</th>
                     <th>Status</th>
-                    <th>Data de criação</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +61,7 @@ if (is_super_admin()) {
                         <td><?php echo $campaign->candidate_number; ?></td>
                         <td><?php echo Plan::getName($campaign->plan_id); ?></td>
                         <td><?php echo $campaign->getStatus(); ?></td>
-                        <td><?php echo date('d/m/Y', strtotime($campaign->creation_date)); ?></td>
+                        <td><a href="<?php echo CAMPAIGN_LIST_URL . "&action=delete&id=$campaign->id"; ?>" onclick="if (confirm('Você tem certeza de que deseja remover permanentemente está campanha? Não será possível desfazer essa ação e todos os dados serão perdidos.')) { return true; } return false;">Remover</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

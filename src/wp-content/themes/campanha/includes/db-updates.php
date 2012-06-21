@@ -168,3 +168,10 @@ if (!get_option('db-update-9')) {
     
     $wpdb->query("ALTER TABLE `capabilities` CHANGE `access` `value` int(4)");
 }
+
+// add observations field to campaign table
+if (!get_option('db-update-10')) {
+    update_option('db-update-10', 1);
+    
+    $wpdb->query("ALTER TABLE `campaigns` ADD `observations` varchar(255) AFTER `location`");
+}
