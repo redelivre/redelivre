@@ -46,6 +46,24 @@ $option = Mobilize::getOption();
             <p><label><input type="checkbox" name="mobilize[general][active]" <?php echo Mobilize::isActive('general') ? 'checked="checked"' : ''; ?> data-section="mobilize-general" /> Habilitar a página de mobilização</label></p>
             <p><label><input type="checkbox" name="mobilize[general][menuItem]" <?php echo (isset($option['general']) && isset($option['general']['menuItem']) && $option['general']['menuItem']) ? 'checked="checked"' : ''; ?> data-section="mobilize-general" /> Exibir link para a página de mobilização no menu</label></p>
         </div>
+        
+        <div id="mobilize-redes" class="section">
+            <h3><label><input type="checkbox" name="mobilize[redes][active]" <?php if(Mobilize::isActive('redes'))  echo 'checked="checked"' ?> data-section="mobilize-redes" value="1"/> Redes Sociais</label></h3>
+            <p class="description">Texto descritivo desta seção.</p>
+
+            <div class="section-content">
+                <?php Mobilize::printErrors('redes'); ?>
+                <small>Entre com os endereços do seu perfil nas redes sociais.</small><br/>
+                
+                <label for="rede-1">Facebook:</label> <input id="rede-1" type="text" name="mobilize[redes][facebook]" value="<?php echo @htmlentities($option['redes']['facebook']) ?>"/><br/>
+                
+                <label for="rede-2">Twitter:</label> <input id="rede-2" type="text" name="mobilize[redes][twitter]" value="<?php echo @htmlentities($option['redes']['twitter']) ?>"/><br/>
+                
+                <label for="rede-3">Google+:</label> <input id="rede-3" type="text" name="mobilize[redes][google]" value="<?php echo @htmlentities($option['redes']['google']) ?>"/><br/>
+                
+            </div>
+        </div>
+        
         <div id="mobilize-banners" class="section">
             <h3><label><input type="checkbox" name="mobilize[banners][active]" <?php if(Mobilize::isActive('banners'))  echo 'checked="checked"' ?> data-section="mobilize-banners" value="1"/> Banners</label></h3>
             <p class="description">Texto descritivo desta seção. Explicar tamanho e formato da imagem?</p>
@@ -74,23 +92,6 @@ $option = Mobilize::getOption();
                 <?php if($adesive_url = Mobilize::getAdesiveURL()):?>
                     <img src="<?php echo $adesive_url; ?>" style="max-width:780px;"/>
                 <?php endif; ?>
-            </div>
-        </div>
-
-        <div id="mobilize-redes" class="section">
-            <h3><label><input type="checkbox" name="mobilize[redes][active]" <?php if(Mobilize::isActive('redes'))  echo 'checked="checked"' ?> data-section="mobilize-redes" value="1"/> Redes Sociais</label></h3>
-            <p class="description">Texto descritivo desta seção.</p>
-
-            <div class="section-content">
-                <?php Mobilize::printErrors('redes'); ?>
-                <small>Entre com os endereços do seu perfil nas redes sociais.</small><br/>
-                
-                <label for="rede-1">Facebook:</label> <input id="rede-1" type="text" name="mobilize[redes][facebook]" value="<?php echo @htmlentities($option['redes']['facebook']) ?>"/><br/>
-                
-                <label for="rede-2">Twitter:</label> <input id="rede-2" type="text" name="mobilize[redes][twitter]" value="<?php echo @htmlentities($option['redes']['twitter']) ?>"/><br/>
-                
-                <label for="rede-3">Google+:</label> <input id="rede-3" type="text" name="mobilize[redes][google]" value="<?php echo @htmlentities($option['redes']['google']) ?>"/><br/>
-                
             </div>
         </div>
 
