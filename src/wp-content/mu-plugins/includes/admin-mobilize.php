@@ -115,6 +115,6 @@ $option = Mobilize::getOption();
             </div>
         </div>
 
-        <input type="submit" name="submit" value="salvar configurações" />
+        <input type="submit" name="submit" class="button-primary" value="Salvar configurações" />
     </form>
 </div>
