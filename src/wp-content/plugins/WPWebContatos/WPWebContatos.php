@@ -489,10 +489,16 @@ function webcontatos_GenerateIFrame($params)
 		}
 		$params = $params_keys;
 	}
+	$service = 'page';
+	
+	if(array_key_exists('service', $params))
+	{
+		$service = $params['service'];
+	}
 	
     $opt = webcontatos_get_config();
    	
-	$url = "/index.php?page={$params['page']}&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '');
+	$url = "/index.php?{$service}={$params['page']}&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '');
 	$opt_url = $opt['webcontatos_url'];
 	
 	if($opt_url != false)
