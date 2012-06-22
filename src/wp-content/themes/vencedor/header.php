@@ -1,5 +1,5 @@
 <?php
-$sidebar = get_option('vencedor_theme_options');
+$sidebar = get_option('campanha_theme_options');
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
