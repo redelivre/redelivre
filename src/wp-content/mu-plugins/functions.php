@@ -4,6 +4,11 @@ foreach (glob(WPMU_PLUGIN_DIR . '/campaign_base/*.php') as $file) {
     require_once($file);
 }
 
+// inclui os widgets
+foreach (glob(WPMU_PLUGIN_DIR . '/includes/widgets/*.php') as $file) {
+    require_once($file);
+}
+
 $campaign = null;
 
 // load code used only for campaign sites (exclude main site)
