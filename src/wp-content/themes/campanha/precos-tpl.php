@@ -12,7 +12,6 @@ Template Name: Preços
 					<p><?php edit_post_link( __( 'Edit', 'campanha' ), '', '' ); ?></p>				
 				</header>
 				<div class="post-content clearfix">
-					<?php the_content(); ?>
 					<table class="clearfix">
 						<thead class="clearfix">
 							<th class="cel-4"></th>
@@ -65,16 +64,16 @@ Template Name: Preços
 								<td class="sim">sim</td>
 							</tr>
 							<tr>
-								<th class="feature">Suporte via fórum</th>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-							</tr>
+                                <th class="feature">Georeferenciamento</th>
+                                <td class="nao">não</td>
+                                <td class="nao">não</td>
+                                <td class="nao">não</td>
+                                <td class="sim">sim</td>
+                            </tr>
 							<tr>
-								<th class="feature">Suporte por e-mail</th>
-								<td class="nao">não</td>
-								<td class="nao">não</td>
+								<th class="feature">Suporte técnico</th>
+								<td class="sim">sim</td>
+								<td class="sim">sim</td>
 								<td class="sim">sim</td>
 								<td class="sim">sim</td>
 							</tr>
@@ -87,6 +86,7 @@ Template Name: Preços
 							</tr>
 						</tbody>
 					</table>
+					<?php the_content(); ?>
 				</div>
 				<!-- .post-content -->
 			</article>
