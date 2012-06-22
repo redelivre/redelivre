@@ -49,14 +49,8 @@ $sidebar = get_option('vencedor_theme_options');
 
 <body <?php body_class(); ?>>
 <header id="main-header">
-	<div class="wrap clearfix">
-		<div id="social-bookmarks" class="alignright">
-			<a id="facebook" href="" title="Facebook"></a>
-			<a id="twitter" href="" title="Twitter"></a>
-			<a id="youtube" href="" title="YouTube"></a>
-			<a id="rss" href="" title="RSS"></a>
-		</div>
-	</div>
+	<?php do_action('campanha_body_header'); ?>
+    
 	<div id="branding" class="wrap clearfix">
 		<h1 class="col-12"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
 		<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			

@@ -12,9 +12,9 @@ $blogurl = urlencode(get_bloginfo('url'));
             <div class="section-description">
                 <?php echo $options['general']['description']; ?>
             </div>
-            <?php if (Mobilize::isActive('redes')): ?>
+            <?php if (Mobilize::isActive('redes')): $re?>
                 <section id="mobilize-redes" class="mobilize-widget clearfix">
-                    <?php $redes = Mobilize::getOption('redes'); ?>
+                    <?php $redes = get_option('campanha_social_networks'); ?>
                     <h6>Redes sociais</h6>
                     <div class="section-description">
                         <?php echo $options['redes']['description']; ?>
@@ -31,6 +31,10 @@ $blogurl = urlencode(get_bloginfo('url'));
                         <?php if (isset($redes['google']) && !empty($redes['google'])): ?>
                             <a class="mobilize-button mobilize-google" href="<?php echo $redes['google']; ?>">Google +</a>
                         <?php endif; ?>
+                            
+                        <?php if (isset($redes['youtube']) && !empty($redes['youtube'])): ?>
+                            <a class="mobilize-button mobilize-youtube" href="<?php echo $redes['youtube']; ?>">Youtube</a>
+                        <?php endif; ?>
                     </div>
                     <div>
                         <div class="fb-like" data-href="<?php echo $blogurl ?>" data-send="true" data-width="450" data-show-faces="true"></div><br/>
@@ -38,9 +42,6 @@ $blogurl = urlencode(get_bloginfo('url'));
                         <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $blogurl ?>" data-lang="pt">Tweetar</a>
                     </div>
 
-                </section>
-                <section id="mobilize-redes2" class="mobilize-widget clearfix">
-                    
                 </section>
             <?php endif; ?>
 

@@ -67,14 +67,7 @@ $option = Mobilize::getOption();
                         <textarea name="mobilize[redes][description]"><?php echo @htmlentities(utf8_decode($option['redes']['description'])) ?></textarea>
                     </label>
                 </p>
-                <p>
-                    <small>Entre com os endereços do seu perfil nas redes sociais.</small><br/>
-                    <label for="rede-1">Facebook:</label> <input id="rede-1" type="text" name="mobilize[redes][facebook]" value="<?php echo @htmlentities($option['redes']['facebook']) ?>"/><br/>
-
-                    <label for="rede-2">Twitter:</label> <input id="rede-2" type="text" name="mobilize[redes][twitter]" value="<?php echo @htmlentities($option['redes']['twitter']) ?>"/><br/>
-
-                    <label for="rede-3">Google+:</label> <input id="rede-3" type="text" name="mobilize[redes][google]" value="<?php echo @htmlentities($option['redes']['google']) ?>"/><br/>
-                </p>
+                
             </div>
         </div>
 

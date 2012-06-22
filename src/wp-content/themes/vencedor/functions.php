@@ -7,7 +7,9 @@ function temavencedor_addJS() {
 add_action('wp_print_scripts', 'temavencedor_addJS');
 
 // THEME OPTIONS
-require_once ( get_template_directory() . '/theme-options.php' );
+// para adcionar opções que são específicas de um tema, usar o hook (action) campanha_theme_options 
+// ex: add_action('campanha_theme_option',function (){ echo '<input type="text" name="campanha_theme_options[exemplo]" />' });
+include_campanha_theme_options();
 
 // EDITOR STYLE
 add_editor_style('editor-style.css');
