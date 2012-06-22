@@ -10,46 +10,46 @@ $campaign = null;
 if (!is_main_site()) {
     // must wait for wordpress to finish loading before loading campaign code
     add_action('init', function() {
-        global $blog_id, $campaign;
-        
-        require_once(__DIR__ . '/includes/payment.php');
-        require_once(__DIR__ . '/includes/EasyAjax.php');
-        require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
-        require_once(__DIR__ . '/includes/admin-contact.php');
-        
-        $campaign = Campaign::getByBlogId($blog_id);
-        GraphicMaterial::setUp();
-        
-        if (is_admin()) {
-            require_once(__DIR__ . '/includes/load_menu_options.php');
-        }
-        
-        add_action('template_redirect', 'campanha_check_payment_status');
-        add_filter('query_vars', 'campaign_base_custom_query_vars');
-        add_filter('rewrite_rules_array', 'campaign_base_custom_url_rewrites', 10, 1);
-        add_action('template_redirect', 'campaign_base_template_redirect_intercept');
-        add_filter('login_message', 'campanha_login_payment_message');
-        add_action('admin_notices', 'campanha_admin_payment_message');
-        add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
-        add_action('admin_init', 'campanha_remove_menu_pages');
-        add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
-        add_action('wp_dashboard_setup', 'campannha_dashboard_widget');
-        
-        // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
-        if (is_admin() && !get_option('campanha_flush_rules')) {
-            update_option('campanha_flush_rules', 1);
-            
-            global $wp_rewrite;
-            $wp_rewrite->flush_rules();
-        }
-    });
+                global $blog_id, $campaign;
+
+                require_once(__DIR__ . '/includes/payment.php');
+                require_once(__DIR__ . '/includes/EasyAjax.php');
+                require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
+                require_once(__DIR__ . '/includes/admin-contact.php');
+
+                $campaign = Campaign::getByBlogId($blog_id);
+                GraphicMaterial::setUp();
+
+                if (is_admin()) {
+                    require_once(__DIR__ . '/includes/load_menu_options.php');
+                }
+
+                add_action('template_redirect', 'campanha_check_payment_status');
+                add_filter('query_vars', 'campaign_base_custom_query_vars');
+                add_filter('rewrite_rules_array', 'campaign_base_custom_url_rewrites', 10, 1);
+                add_action('template_redirect', 'campaign_base_template_redirect_intercept');
+                add_filter('login_message', 'campanha_login_payment_message');
+                add_action('admin_notices', 'campanha_admin_payment_message');
+                add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
+                add_action('admin_init', 'campanha_remove_menu_pages');
+                add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
+                add_action('wp_dashboard_setup', 'campannha_dashboard_widget');
+
+                // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
+                if (is_admin() && !get_option('campanha_flush_rules')) {
+                    update_option('campanha_flush_rules', 1);
+
+                    global $wp_rewrite;
+                    $wp_rewrite->flush_rules();
+                }
+            });
 }
 
 /**
  * Remove menu page to exlude site.
  */
 function campanha_remove_menu_pages() {
-    remove_submenu_page('tools.php', 'ms-delete-site.php');   
+    remove_submenu_page('tools.php', 'ms-delete-site.php');
 }
 
 /**
@@ -59,7 +59,6 @@ function campanha_remove_menu_pages() {
 function campanha_remove_exclude_site_page_content() {
     die;
 }
-
 
 /**
  * Check the payment status and mark the blog
@@ -71,8 +70,7 @@ function campanha_check_payment_status() {
     $user_id = get_current_user_id();
 
     if (!$campaign->isPaid() && $campaign->campaignOwner->ID !== $user_id
-        && !is_super_admin())
-    {
+            && !is_super_admin()) {
         wp_redirect(wp_login_url());
     }
 }
@@ -96,35 +94,35 @@ function campaign_base_custom_url_rewrites($rules) {
 
 function campaign_base_template_redirect_intercept() {
     global $wp_query;
-    
+
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
             require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
             die;
         case 'mobilizacao':
             add_action('wp_print_scripts', function() {
-                wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/mobilize.js');
-            });
-            
+                        wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/mobilize.js');
+                    });
+
             require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
             die;
         case 'contato':
             add_action('wp_print_scripts', function() {
-                wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
-                wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/contato.js', array('jquery_validate'));
-                wp_localize_script('contato', 'vars', array('ajaxurl' => admin_url('admin-ajax.php')));
-            } );
-            
+                        wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
+                        wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/contato.js', array('jquery_validate'));
+                        wp_localize_script('contato', 'vars', array('ajaxurl' => admin_url('admin-ajax.php')));
+                    });
+
             // template específico dentro do tema
             if (file_exists(STYLESHEETPATH . '/tpl-contato.php')) { // tema filho
                 require(STYLESHEETPATH . '/tpl-contato.php');
             } elseif (file_exists(TEMPLATEPATH . '/tpl-contato.php')) { // tema pai
                 require(TEMPLATEPATH . '/tpl-contato.php');
-            } 
+            }
             //else { template generico ?
             //    require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
             //}
-            
+
             die;
         default:
             break;
@@ -140,14 +138,13 @@ function campaign_base_template_redirect_intercept() {
  */
 function campanha_login_payment_message($message) {
     global $campaign;
-    
+
     if (!$campaign->isPaid()) {
         $message .= '<p class="message">Esta campanha está visível somente para o criador pois o pagamento está pendente.</p>';
     }
-    
+
     return $message;
 }
-
 
 /**
  * Display a message in the admin panel about
@@ -155,7 +152,7 @@ function campanha_login_payment_message($message) {
  */
 function campanha_admin_payment_message() {
     global $campaign;
-    
+
     if (!$campaign->isPaid()) {
         $link = admin_url('admin.php?page=payments');
         //echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
@@ -183,7 +180,7 @@ function campanha_unlimited_upload($value) {
     return $value;
 }
 
-function print_msgs($msg, $extra_class='', $id='') {
+function print_msgs($msg, $extra_class = '', $id = '') {
     if (!is_array($msg)) {
         return false;
     }
@@ -192,9 +189,9 @@ function print_msgs($msg, $extra_class='', $id='') {
         if (!$msgs) {
             continue;
         }
-        
+
         echo "<div class='$type $extra_class' id='$id'><ul>";
-        
+
         if (!is_array($msgs)) {
             echo "<li>$msgs</li>";
         } else {
@@ -202,12 +199,13 @@ function print_msgs($msg, $extra_class='', $id='') {
                 echo "<li>$m</li>";
             }
         }
-        
+
         echo "</ul></div>";
     }
 }
 
 add_action('wp_print_scripts', 'campanha_add_common_js');
+
 /**
  * Add JS files shared by all themes.
  */
@@ -221,6 +219,7 @@ function campanha_add_common_js() {
 }
 
 add_action('user_register', 'campanha_disable_welcome_panel');
+
 /**
  * Whenever a user is created set a metadata so
  * that they don't see the default WP welcome panel
@@ -232,8 +231,12 @@ function campanha_disable_welcome_panel($userId) {
 
 function campannha_dashboard_widget() {
     global $wp_meta_boxes;
-    
+
     wp_add_dashboard_widget('campanha_dashboard_widget', 'Bem-vindo!', function() {
-        require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
-    });
+                require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
+            });
+}
+
+function include_campanha_theme_options(){
+    require_once(WPMU_PLUGIN_DIR . '/includes/theme-options.php');
 }
