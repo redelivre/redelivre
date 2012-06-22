@@ -284,10 +284,10 @@ class Campaign {
         // temporary format to store state id and city id in the same field 
         $location = $this->state . ":" . $this->city;
 
-        $blogId = $this->createNewBlog();
+        $this->blog_id = $this->createNewBlog();
         
         $data = array(
-            'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $blogId,
+            'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $this->blog_id,
             'election_id' => $this->election_id, 'domain' => $this->domain, 'own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number,
             'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location, 'observations' => $this->observations,
         );

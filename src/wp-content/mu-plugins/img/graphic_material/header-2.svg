@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="960px" height="198px" viewBox="0 0 960 198" enable-background="new 0 0 960 198" xml:space="preserve">
+<rect id="borda" y="127.5" fill="#BCBEC0" width="960.406" height="70.5"/>
+<rect id="fundo"  y="137.5" fill="#808285" width="960.405" height="60.5"/>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 9.8223 184.6221)" fill="#F1F2F2" font-family="Arial" font-weight="bold" font-size="45">Candidato</text>
+<text id="cargo" transform="matrix(1 0 0 1 940 45.999)" fill="#808285" text-anchor="end" font-family="Arial" font-weight="bold" font-size="36">vereador</text>
+<text id="numero" transform="matrix(1 0 0 1 940 108.7852)" fill="#808285" text-anchor="end" font-family="Arial" font-weight="bold" font-size="72">00000</text>
+<text id="slogan" transform="matrix(1 0 0 1 940 177.6221)" fill="#F1F2F2" text-anchor="end" font-family="Arial" font-weight="bold" font-size="27">Lorem ipsum dolor</text>
+</svg>

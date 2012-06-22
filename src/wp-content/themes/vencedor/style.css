@@ -137,13 +137,15 @@ a:active, a:hover {	color: #600; text-decoration: underline; }
 #social-bookmarks { margin-bottom: 11px; }
 a#facebook { background:url(img/glyphicons_24x24.png) no-repeat  00px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
 a#twitter  { background:url(img/glyphicons_24x24.png) no-repeat -25px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
-a#youtube  { background:url(img/glyphicons_24x24.png) no-repeat -50px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
-a#rss      { background:url(img/glyphicons_24x24.png) no-repeat -75px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
+a#google-plus      { background:url(img/glyphicons_24x24.png) no-repeat -50px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
+a#youtube  { background:url(img/glyphicons_24x24.png) no-repeat -75px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
+a#rss      { background:url(img/glyphicons_24x24.png) no-repeat -100px top; display:block; float: left; height:24px; width:24px; margin-left: 5px; }
 
 a:hover#facebook { background-position: 00px bottom; }
 a:hover#twitter  { background-position:-25px bottom; }
-a:hover#youtube  { background-position:-50px bottom; }
-a:hover#rss      { background-position:-75px bottom; }
+a:hover#google-plus  { background-position:-50px bottom; }
+a:hover#youtube  { background-position:-75px bottom; }
+a:hover#rss      { background-position:-100px bottom; }
 
 #branding { padding: 55px 0; height: 88px; }
 #branding h1 a, #branding h1 a:hover  { color: #000; text-decoration: none; }
@@ -153,11 +155,11 @@ a:hover#rss      { background-position:-75px bottom; }
 -------------------------------------------------------------- */
 #menubar { height: 42px; background: #c00; border-top: 1px solid #fff; border-bottom: 1px solid #600; }
 #main-nav { float: left; margin: 0; list-style-type: none; }
-#main-nav li { position: relative; display: block; float: left; height: 42px; border-right: 1px solid #fcc; border-bottom: 1px solid #fff; background: #c00; }
+#main-nav li { position: relative; display: block; float: left; height: 42px; border-right: 1px solid #fcc; border-bottom: 1px solid #fff; }
 #main-nav .sub-menu li { border-bottom: 1px solid #fcc; }
-#main-nav ul { display: none; position: absolute; top: 44px; left: 0; margin: 0 0 0 -1px; width: 150px; float: left; z-index: 9999; }
+#main-nav ul { display: none; position: absolute; top: 43px; left: 0; margin: 0; width: 150px; float: left; z-index: 9999; border-top: 1px solid #fcc; }
 #main-nav li:hover>ul { display: block; }
-#main-nav ul ul { left: 100%; top: 0; }
+#main-nav ul ul { left: 100%; top: -1px; }
 #main-nav ul li { float: none; height: auto; min-width: 150px; }
 #main-nav li:first-child a { border-left: 1px solid #fcc; }
 #main-nav a { display: block; padding: 0 10px; border-right: 1px solid #600; border-bottom: 1px solid #600; color: #fff; font-family: "Trebuchet MS", Arial, sans-serif; font-size: 18px; line-height: 42px; }
@@ -310,6 +312,7 @@ a.mobilize-button:hover { color: #fff; text-decoration: none; }
 a.mobilize-facebook { background-image: url(img/facebook.png); background-repeat: no-repeat; background-position: 10px center; }
 a.mobilize-twitter { background-image: url(img/twitter.png); background-repeat: no-repeat; background-position: 10px center; }
 a.mobilize-google { background-image: url(img/google.png); background-repeat: no-repeat; background-position: 10px center; }
+a.mobilize-youtube { background-image: url(img/youtube.png); background-repeat: no-repeat; background-position: 10px center; }
 
 /* =Contato
 -------------------------------------------------------------- */

@@ -57,8 +57,7 @@ $option = Mobilize::getOption();
 
 
         <div id="mobilize-redes" class="section">
-            <h3><label><input type="checkbox" name="mobilize[redes][active]" <?php if (Mobilize::isActive('redes')) echo 'checked="checked"' ?> data-section="mobilize-redes" value="1"/> Redes Sociais</label></h3>
-            <p class="description">Insira o link das suas redes sociais para divulgar o seu perfil.</p>
+            <h3><label><input type="checkbox" name="mobilize[redes][active]" <?php if (Mobilize::isActive('redes')) echo 'checked="checked"' ?> data-section="mobilize-redes" value="1"/> Redes Sociais</label></h3>          
 
             <div class="section-content">
                 <?php Mobilize::printErrors('redes'); ?>

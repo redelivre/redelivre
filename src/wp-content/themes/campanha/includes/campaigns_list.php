@@ -27,10 +27,6 @@ if (is_super_admin()) {
 <div class="wrap">
     <h2>Suas campanhas</h2>
     
-    <?php if (isset($_GET['success'])) : ?>
-        <div class="updated"><p>Campanha criada com sucesso.</p></div>
-    <?php endif; ?>
-    
     <?php if (!empty($msg)) : ?>
         <div class="updated"><p><?php echo $msg; ?></p></div>
     <?php endif; ?>

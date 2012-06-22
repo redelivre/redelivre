@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="960px" height="198px" viewBox="0 0 960 198" enable-background="new 0 0 960 198" xml:space="preserve">
+<path id="borda" fill="#BCBEC0" d="M960.203-1.125c0,0-166.163,101.977-482.225,101.977c-415.085,0-478.181,27.023-478.181,27.023
+	v71.25h960.405V-1.125z"/>
+<path id="fundo" fill="#808285" d="M960.203,1.125c0,0-166.163,111.727-482.225,111.727c-433.085,0-478.181,40.023-478.181,40.023
+	v46.25h960.405V1.125z"/>
+<text id="numero" transform="matrix(1 0 0 1 940 186.9375)" fill="#F1F2F2" text-anchor="end" font-family="Arial" font-weight="bold" font-size="72">00000</text>
+
+<text id="cargo" transform="matrix(1 0 0 1 940 123.875)" fill="#F1F2F2" text-anchor="end" font-family="Arial" font-weight="bold" font-size="18">prefeito</text>
+
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 32.6201 189.9375)" fill="#F1F2F2" font-family="Arial" font-weight="bold" font-size="54">Candidato</text>
+</svg>
