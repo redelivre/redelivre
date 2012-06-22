@@ -231,10 +231,10 @@ function campanha_disable_welcome_panel($userId) {
 
 function campannha_dashboard_widget() {
     global $wp_meta_boxes;
-
-    wp_add_dashboard_widget('campanha_dashboard_widget', 'Bem-vindo!', function() {
+    
+    add_meta_box('campanha_dashboard_widget', 'Ajuda', function() {
         require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
-    });
+    }, 'dashboard', 'side');
 }
 
 function include_campanha_theme_options() {
