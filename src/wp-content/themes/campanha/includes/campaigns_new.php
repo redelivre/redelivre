@@ -19,7 +19,12 @@ if (!empty($_POST)) {
     if ($campaign->validate()) {
         $campaign->create();
         
-        wp_redirect(admin_url(CAMPAIGN_LIST_URL) . '&success');
+        if (switch_to_blog($campaign->blog_id)) {
+            wp_redirect(admin_url());
+        } else {
+            //TODO: improve error handling for campaign creation
+            $errors = array('error' => 'Não foi possível criar a campanha.');
+        }
     } else {
         $errors = $campaign->errorHandler->errors;
     }
