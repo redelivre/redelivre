@@ -116,71 +116,7 @@ if (isset($_GET['noheader'])) {
                                     <th class="textcenter"><input type="radio" name="plan_id" class="radio" value="<?php echo $plan->id; ?>" <?php if (isset($_POST['plan_id']) && $_POST['plan_id'] == $plan->id) echo ' checked '; ?>> <?php echo $plan->name; ?></th>
                                 <?php endforeach; ?>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th class="feature textleft">Site ou Blog</th>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                </tr>
-                                <tr>
-                                    <th class="feature textleft">Mobilização nas redes sociais</th>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                </tr>
-                                <tr>
-                                    <th class="feature textleft">Envio de email e SMS</th>
-                                    <td class="textcenter">5<span> mil envios</span></td>
-                                    <td class="textcenter">10<span> mil envios</span></td>
-                                    <td class="textcenter">20<span> mil envios</span></td>
-                                    <td class="textcenter">50<span> mil envios</span></td>
-                                </tr>
-                                <tr>
-                                    <th class="feature textleft">Upload de arquivos</th>
-                                    <td class="textcenter">1G</td>
-                                    <td class="textcenter">2G</td>
-                                    <td class="textcenter">3G</td>
-                                    <td class="textcenter">ilimitado</td>
-                                </tr>
-                                <tr>
-                                    <th class="feature textleft">Geração de material gráfico</th>
-                                    <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                </tr>
-                                <tr>
-                                    <th class="feature textleft">Gerenciamento de contatos</th>
-                                    <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-                                    <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                </tr>
-                                <tr>
-                                    <th class="feature textleft">Suporte via fórum</th>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                </tr>
-                                <tr>
-                                    <th class="feature textleft">Suporte por e-mail</th>
-                                    <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-                                    <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                    <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-                                </tr>
-                                <tr class="last">
-                                    <th class="feature textleft">Valor anual</th>
-                                    <td class="valor textcenter">R$1.300,00</td>
-                                    <td class="valor textcenter">R$1.800,00</td>
-                                    <td class="valor textcenter">R$2.500,00</td>
-                                    <td class="valor textcenter">R$3.500,00</td>
-                                </tr>
-                            </tbody>
+                            <?php require_once(TEMPLATEPATH . '/includes/campaigns_prices.php'); ?>
                         </table>
                     </td>
                 </tr>                
