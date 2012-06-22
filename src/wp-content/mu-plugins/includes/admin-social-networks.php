@@ -24,6 +24,8 @@ $option = get_option('campanha_social_networks');
             <label for="rede-2">Twitter:</label> <input id="rede-2" type="text" name="social_networks[twitter]" value="<?php echo @htmlentities($option['twitter']) ?>"/><br/>
 
             <label for="rede-3">Google+:</label> <input id="rede-3" type="text" name="social_networks[google]" value="<?php echo @htmlentities($option['google']) ?>"/><br/>
+            
+            <label for="rede-4">Youtube:</label> <input id="rede-4" type="text" name="social_networks[youtube]" value="<?php echo @htmlentities($option['youtube']) ?>"/><br/>
         </p>
         <input type="submit" name="submit" class="button-primary" value="Salvar configurações" />
 

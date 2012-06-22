@@ -31,6 +31,10 @@ $blogurl = urlencode(get_bloginfo('url'));
                         <?php if (isset($redes['google']) && !empty($redes['google'])): ?>
                             <a class="mobilize-button mobilize-google" href="<?php echo $redes['google']; ?>">Google +</a>
                         <?php endif; ?>
+                            
+                        <?php if (isset($redes['youtube']) && !empty($redes['youtube'])): ?>
+                            <a class="mobilize-button mobilize-youtube" href="<?php echo $redes['youtube']; ?>">Youtube</a>
+                        <?php endif; ?>
                     </div>
                     <div>
                         <div class="fb-like" data-href="<?php echo $blogurl ?>" data-send="true" data-width="450" data-show-faces="true"></div><br/>
