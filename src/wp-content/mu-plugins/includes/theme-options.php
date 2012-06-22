@@ -16,6 +16,7 @@ function theme_options_add_page() {
     add_theme_page('Opções do Tema', 'Opções do Tema', 'edit_theme_options', 'theme_options', 'theme_options_do_page');
 }
 
+global $select_options, $radio_options;
 /**
  * Create arrays for our select and radio options
  */
@@ -76,15 +77,6 @@ function theme_options_do_page() {
                     </td>
                 </tr>
             </table>
-
-
-            <small>Entre com os endereços do seu perfil nas redes sociais.</small><br/>
-            
-            <label for="rede-1">Facebook:</label> <input id="rede-1" type="text" name="campanha_theme_options[socialnetworks][facebook]" value="<?php echo @htmlentities($option['socialnetworks']['facebook']) ?>"/><br/>
-
-            <label for="rede-2">Twitter:</label> <input id="rede-2" type="text" name="campanha_theme_options[socialnetworks][twitter]" value="<?php echo @htmlentities($option['socialnetworks']['twitter']) ?>"/><br/>
-
-            <label for="rede-3">Google+:</label> <input id="rede-3" type="text" name="campanha_theme_options[socialnetworks][google]" value="<?php echo @htmlentities($option['socialnetworks']['google']) ?>"/><br/>
 
             <?php do_action('campanha_theme_options'); ?>
 
