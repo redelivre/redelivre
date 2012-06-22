@@ -20,71 +20,7 @@ Template Name: Preços
 							<th class="cel-2">3</th>
 							<th class="cel-2">4</th>
 						</thead>
-						<tbody>
-							<tr>
-								<th class="feature">Site ou Blog</th>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-							</tr>
-							<tr>
-								<th class="feature">Mobilização nas redes sociais</th>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-							</tr>
-							<tr>
-								<th class="feature">Envio de email e SMS</th>
-								<td>5<span> mil envios</span></td>
-								<td>10<span> mil envios</span></td>
-								<td>20<span> mil envios</span></td>
-								<td>50<span> mil envios</span></td>
-							</tr>
-							<tr>
-								<th class="feature">Upload de arquivos</th>
-								<td>1G</td>
-								<td>2G</td>
-								<td>3G</td>
-								<td>ilimitado</td>
-							</tr>
-							<tr>
-								<th class="feature">Geração de material gráfico</th>
-								<td class="nao">não</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-							</tr>
-							<tr>
-								<th class="feature">Gerenciamento de contatos</th>
-								<td class="nao">não</td>
-								<td class="nao">não</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-							</tr>
-							<tr>
-                                <th class="feature">Georeferenciamento</th>
-                                <td class="nao">não</td>
-                                <td class="nao">não</td>
-                                <td class="nao">não</td>
-                                <td class="sim">sim</td>
-                            </tr>
-							<tr>
-								<th class="feature">Suporte técnico</th>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-								<td class="sim">sim</td>
-							</tr>
-							<tr class="last">
-								<th class="feature">Valor anual</th>
-								<td class="valor">R$1.300,00</td>
-								<td class="valor">R$1.800,00</td>
-								<td class="valor">R$2.500,00</td>
-								<td class="valor">R$3.500,00</td>
-							</tr>
-						</tbody>
+						<?php require_once(TEMPLATEPATH . '/includes/campaigns_prices.php'); ?>
 					</table>
 					<?php the_content(); ?>
 				</div>

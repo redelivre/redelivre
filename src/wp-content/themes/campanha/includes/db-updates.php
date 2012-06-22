@@ -175,3 +175,16 @@ if (!get_option('db-update-10')) {
     
     $wpdb->query("ALTER TABLE `campaigns` ADD `observations` varchar(255) AFTER `location`");
 }
+
+// disable welcome panel in dashboard for already existent users
+if (!get_option('db-update-11')) {
+    update_option('db-update-11', 1);
+    
+    $wpdb->query("DELETE FROM `$wpdb->usermeta` WHERE `meta_key` = 'show_welcome_panel'");
+    
+    $ids = $wpdb->get_col("SELECT `ID` FROM `$wpdb->users`");
+
+    foreach ($ids as $id) {
+        $wpdb->insert($wpdb->usermeta, array('user_id' => $id, 'meta_key' => 'show_welcome_panel', 'meta_value' => 0));
+    }
+}
