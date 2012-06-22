@@ -233,8 +233,8 @@ function campannha_dashboard_widget() {
     global $wp_meta_boxes;
 
     wp_add_dashboard_widget('campanha_dashboard_widget', 'Bem-vindo!', function() {
-                require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
-            });
+        require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
+    });
 }
 
 function include_campanha_theme_options() {
