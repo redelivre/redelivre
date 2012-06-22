@@ -34,6 +34,7 @@ if (!is_main_site()) {
     add_action('admin_init', 'campanha_remove_menu_pages');
     add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
     add_action('wp_dashboard_setup', 'campannha_dashboard_widget');
+    add_action('load-options-general.php', 'campanha_custom_options_strings');
 
     // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
     if (is_admin() && !get_option('campanha_flush_rules')) {
@@ -256,3 +257,11 @@ add_action('campanha_body_header', function() {
     </div>
     <?php
 });
+
+/**
+ * Add javascript file to customize strings
+ * in the options-general.php page.
+ */
+function campanha_custom_options_strings() {
+    wp_enqueue_script('custom_general_options', WPMU_PLUGIN_URL . '/js/custom_general_options.js');
+}
