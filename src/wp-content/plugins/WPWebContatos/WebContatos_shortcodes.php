@@ -26,12 +26,17 @@ function webcontatos_formulario_replace($args)
 	$param = $args;
 	if(!array_key_exists('id', $args))
 	{
-		$param['opcoes'] = '&id=1';
+		$param['opcoes'] .= '&id=1';
 	}
 	else
 	{
-		$param['opcoes'] = '&id='.$param['id'];
+		$param['opcoes'] .= '&id='.$param['id'];
 	}
+	if(array_key_exists('topo', $args))
+	{
+		$param['opcoes'] .= '&topo='.$args['topo'];
+	}
+	
 	$param['page'] = 'Display';
 	$param['service'] = 'form';
 	
