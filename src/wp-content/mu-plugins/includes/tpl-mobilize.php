@@ -5,9 +5,9 @@ get_header();
 
 $blogurl = urlencode(get_bloginfo('url'));
 ?>
-<section id="main-section" class="wrap clearfix">
+
     <?php if (Mobilize::isActive('general')): ?>
-        <div id="mobilize-content">
+        <section id="mobilize-content">
             <h1>Apoie esta campanha</h1>
             <div class="section-description">
                 <?php echo $options['general']['description']; ?>
@@ -138,9 +138,11 @@ $blogurl = urlencode(get_bloginfo('url'));
                 </section>
 
             <?php endif; ?>
+            </section>
         <?php else: ?>
             <p>O recurso está desabilitado.</p>
         <?php endif; ?>
-</section>
+        
+
 
 <?php get_footer(); ?>

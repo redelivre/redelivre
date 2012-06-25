@@ -305,6 +305,7 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 
 /* =Mobilize
 -------------------------------------------------------------- */
+#mobilize-content { width: 920px; clear: both; background: #fff; }
 .mobilize-button { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 16px; color: #fff; background-color: #c00; border: 1px solid #fcc; border-bottom: 1px solid #600; border-right: 1px solid #600; }
 .mobilize-button:hover { background-color: #900; }
 a.mobilize-button { display: block; text-align: center; float: left; height: 24px; margin: 0 10px 22px 0; padding: 6px 10px 6px 45px; }
