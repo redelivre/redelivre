@@ -1,3 +1,6 @@
+<?php
+$sidebar = get_option('campanha_theme_options');
+?>
 <!DOCTYPE html>
 <!--[if IE 6]>
 <html id="ie6" <?php language_attributes(); ?>>
@@ -30,17 +33,25 @@
 
             // Add a page number if necessary:
             if ( $paged >= 2 || $page >= 2 )
-                echo ' | ' . sprintf( __( 'Page %s', 'twentyeleven' ), max( $paged, $page ) );
+                echo ' | Página' . max( $paged, $page );
         ?></title>
 
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-        <link rel="stylesheet" href="<?php bloginfo( 'stylesheet_directory') ?>/css/print.css" type="text/css" media="print">
-        <!--[if lt IE 8]><link rel="stylesheet" href="<?php bloginfo( 'stylesheet_directory') ?>/css/ie.css" type="text/css" media="screen,projection"><![endif]-->
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/print.css" type="text/css" media="print">
+        <!--[if lt IE 8]><link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/ie.css" type="text/css" media="screen,projection"><![endif]-->
         <!--[if lt IE 9]>
         <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
         <![endif]-->
+        <?php if ($sidebar): ?>
+			<?php if ( $sidebar["sidebar_position"] == 'esquerda') : ?>
+				<style>
+					#main-section { float: right; }
+				</style>
+			<?php endif; ?>
+		<?php endif; ?>
+
         <?php wp_head(); ?>
         
     </head>
@@ -50,12 +61,7 @@
         <header id="main-header" class="clearfix">
 			<div class="col-12 clearfix">
 				<?php wp_nav_menu( array( 'theme_location' => 'quick-links', 'container' => '', 'menu_id' => 'quick-links', 'menu_class' => 'clearfix alignleft', 'depth' => 1, 'fallback_cb' =>'') ); ?>
-				<div id="social-bookmarks" class="clearfix alignright">
-					<a id="facebook" href="" title="Facebook"></a>
-					<a id="twitter" href="" title="Twitter"></a>
-					<a id="youtube" href="" title="YouTube"></a>
-					<a id="rss" href="" title="RSS"></a>
-				</div>
+				<?php do_action('campanha_body_header'); ?>
 			</div>        
             <div id="branding" class="clear clearfix">
                 <h1 class="col-12"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
