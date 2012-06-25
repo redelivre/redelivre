@@ -22,6 +22,9 @@ if (is_super_admin()) {
     $campaigns = Campaign::getAll($user->ID);
 }
 
+$campaignTable = new CampaingTable;
+$campaignTable->prepare_items();
+
 ?>
 
 <div class="wrap">
@@ -36,37 +39,7 @@ if (is_super_admin()) {
     <?php endif; ?>
     
     <?php if ($campaigns) : ?>
-        <table class="widefat fixed">
-            <thead>
-                <tr class="thead">
-                    <th>Sub-domínio</th>
-                    <th>Domínio próprio</th>
-                    <?php if (is_super_admin()) echo '<th>Usuário</th>'; ?>
-                    <th>Número do candidato</th>
-                    <th>Plano</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($campaigns as $campaign): ?>
-                    <tr>
-                        <td><a href="<?php echo $campaign->domain; ?>" target="_blank"><?php echo $campaign->domain ?></a> (<a href="<?php echo $campaign->domain; ?>/wp-admin" target="_blank">admin</a>)</td>
-                        <td><a href="<?php echo $campaign->own_domain; ?>" target="_blank"><?php echo $campaign->own_domain ?></a></td>
-                        <?php if (is_super_admin()) echo "<td>{$campaign->campaignOwner->data->user_login}</td>"; ?>
-                        <td><?php echo $campaign->candidate_number; ?></td>
-                        <td><?php echo Plan::getName($campaign->plan_id); ?></td>
-                        <td><?php echo $campaign->getStatus(); ?></td>
-                        <td>
-                            <a href="<?php echo CAMPAIGN_DELETE_URL . "&id=$campaign->id"; ?>" onclick="if (confirm('Você tem certeza de que deseja remover permanentemente está campanha? Não será possível desfazer essa ação e todos os dados serão perdidos.')) { return true; } return false;">Remover</a> 
-                            <?php if (is_super_admin()) : ?>
-                                | <a href="<?php echo CAMPAIGN_EDIT_URL . "&id=$campaign->id"; ?>">Editar</a>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <?php $campaignTable->display(); ?>
     <?php else : ?>
         <p>Você ainda não criou nenhuma campanha. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de campanha</a>.</p>
     <?php endif; ?>
