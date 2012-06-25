@@ -4,45 +4,51 @@ foreach (glob(WPMU_PLUGIN_DIR . '/campaign_base/*.php') as $file) {
     require_once($file);
 }
 
+// inclui os widgets
+foreach (glob(WPMU_PLUGIN_DIR . '/includes/widgets/*.php') as $file) {
+    require_once($file);
+}
+
 $campaign = null;
 
 // load code used only for campaign sites (exclude main site)
 if (!is_main_site()) {
     // must wait for wordpress to finish loading before loading campaign code
     add_action('init', function() {
-                global $blog_id, $campaign;
+    global $blog_id, $campaign;
 
-                require_once(__DIR__ . '/includes/payment.php');
-                require_once(__DIR__ . '/includes/EasyAjax.php');
-                require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
-                require_once(__DIR__ . '/includes/admin-contact.php');
+    require_once(__DIR__ . '/includes/payment.php');
+    require_once(__DIR__ . '/includes/EasyAjax.php');
+    require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
+    require_once(__DIR__ . '/includes/admin-contact.php');
 
-                $campaign = Campaign::getByBlogId($blog_id);
-                GraphicMaterial::setUp();
+    $campaign = Campaign::getByBlogId($blog_id);
+    GraphicMaterial::setUp();
 
-                if (is_admin()) {
-                    require_once(__DIR__ . '/includes/load_menu_options.php');
-                }
+    if (is_admin()) {
+        require_once(__DIR__ . '/includes/load_menu_options.php');
+    }
 
-                add_action('template_redirect', 'campanha_check_payment_status');
-                add_filter('query_vars', 'campaign_base_custom_query_vars');
-                add_filter('rewrite_rules_array', 'campaign_base_custom_url_rewrites', 10, 1);
-                add_action('template_redirect', 'campaign_base_template_redirect_intercept');
-                add_filter('login_message', 'campanha_login_payment_message');
-                add_action('admin_notices', 'campanha_admin_payment_message');
-                add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
-                add_action('admin_init', 'campanha_remove_menu_pages');
-                add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
-                add_action('wp_dashboard_setup', 'campannha_dashboard_widget');
+    add_action('template_redirect', 'campanha_check_payment_status');
+    add_filter('query_vars', 'campaign_base_custom_query_vars');
+    add_filter('rewrite_rules_array', 'campaign_base_custom_url_rewrites', 10, 1);
+    add_action('template_redirect', 'campaign_base_template_redirect_intercept');
+    add_filter('login_message', 'campanha_login_payment_message');
+    add_action('admin_notices', 'campanha_admin_payment_message');
+    add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
+    add_action('admin_init', 'campanha_remove_menu_pages');
+    add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
+    add_action('wp_dashboard_setup', 'campannha_dashboard_widget');
+    add_action('load-options-general.php', 'campanha_custom_options_strings');
 
-                // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
-                if (is_admin() && !get_option('campanha_flush_rules')) {
-                    update_option('campanha_flush_rules', 1);
+    // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
+    if (is_admin() && !get_option('campanha_flush_rules')) {
+        update_option('campanha_flush_rules', 1);
 
-                    global $wp_rewrite;
-                    $wp_rewrite->flush_rules();
-                }
-            });
+        global $wp_rewrite;
+        $wp_rewrite->flush_rules();
+    }
+});
 }
 
 /**
@@ -231,10 +237,10 @@ function campanha_disable_welcome_panel($userId) {
 
 function campannha_dashboard_widget() {
     global $wp_meta_boxes;
-
-    wp_add_dashboard_widget('campanha_dashboard_widget', 'Bem-vindo!', function() {
-                require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
-            });
+    
+    add_meta_box('campanha_dashboard_widget', 'Ajuda', function() {
+        require_once(WPMU_PLUGIN_DIR . '/includes/dashboard_widget_campanha.php');
+    }, 'dashboard', 'side');
 }
 
 function include_campanha_theme_options() {
@@ -256,3 +262,12 @@ add_action('campanha_body_header', function() {
     
     <?php
 });
+
+/**
+ * Add javascript file to customize strings
+ * in the options-general.php page.
+ */
+function campanha_custom_options_strings() {
+    wp_enqueue_script('custom_general_options', WPMU_PLUGIN_URL . '/js/custom_general_options.js');
+}
+
