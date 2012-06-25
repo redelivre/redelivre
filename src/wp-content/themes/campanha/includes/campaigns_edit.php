@@ -14,6 +14,9 @@ if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
         echo $e->getMessage();
         die;
     }
+} else {
+    print_msgs(array('error' => 'Campanha não encontrada'));
+    die;
 }
 
 if (!empty($_POST)) {
