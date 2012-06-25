@@ -270,3 +270,34 @@ add_action('campanha_body_header', function() {
 function campanha_custom_options_strings() {
     wp_enqueue_script('custom_general_options', WPMU_PLUGIN_URL . '/js/custom_general_options.js');
 }
+
+
+
+
+
+
+/*
+ * Função chamada pelo hook phpmailer_init.
+ * Usada para configurar o Wordpress para disparar
+ * e-mails usando o SMTP do Gmail.
+ *
+ * @param object $phpmailer object phpmailer usado pelo wordpress para disparar email
+ */
+function campanha_use_smtp($phpmailer) {
+
+    $email_p = 'ethymos@hacklab';
+    $email = 'noreply@campanhacompleta.com.br';
+
+    $phpmailer->IsSMTP();
+    $phpmailer->SMTPAuth   = true;
+    $phpmailer->Port       = 465;
+    $phpmailer->SMTPSecure = 'ssl';
+    $phpmailer->Host       = 'smtp.gmail.com';
+    $phpmailer->Username   = $email;
+    $phpmailer->Password   = $email_p;
+    $phpmailer->Sender     = $email;
+    //$phpmailer->From       = $email;
+    //$phpmailer->FromName   = 'Campanha Completa'; -- Acho que podemos deixar isso inalterado, e manter o que foi colocado quando a wp_mail() foi chamada
+    
+}
+add_action('phpmailer_init', 'campanha_use_smtp');
