@@ -37,11 +37,11 @@ foreach ($autoinclude_folders as $folder) {
     }
 }
 
-/*
+
 WidgetUniquePost::init();
 WidgetAgendaLista::init();
 WidgetVideoOrGallery::init();
-*/
+
 
 /**
  * Runtime Cache

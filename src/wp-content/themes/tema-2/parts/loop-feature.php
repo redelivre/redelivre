@@ -1,8 +1,10 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('home-feature clearfix');?>>
 	<?php if ( has_post_thumbnail() ) : ?> 
-		<?php the_post_thumbnail(); ?>				 
+		<?php the_post_thumbnail('home-feature'); ?>				 
+		<div class="post-content has-thumbnail">
+	<?php else: ?>
+		<div class="post-content">
 	<?php endif; ?>
-	<div class="post-content">
 		<header>                       
 			<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>					
 			<p>
@@ -12,12 +14,12 @@
 				<?php edit_post_link( __( 'Edit', 'tema2' ), '| ', '' ); ?>
 			</p>
 		</header>						
-		<?php the_excerpt(); ?>					
-		<footer class="clearfix">	
-			<p class="taxonomies">			
-				<span><?php _e('Categories', 'tema2'); ?>:</span> <?php the_category(', ');?><br />
-				<?php the_tags('<span>Tags:</span> ', ', '); ?>
-			</p>		
-		</footer>
+		<?php the_excerpt(); ?>
 	</div>
+	<footer class="clearfix">	
+		<p class="taxonomies">			
+			<span><?php _e('Categories', 'tema2'); ?>:</span> <?php the_category(', ');?><br />
+			<?php the_tags('<span>Tags:</span> ', ', '); ?>
+		</p>		
+	</footer>
 </article>

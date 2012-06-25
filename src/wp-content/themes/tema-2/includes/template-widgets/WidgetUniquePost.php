@@ -45,9 +45,10 @@ class WidgetUniquePost extends WidgetTemplate {
     }
 
     protected function form($config) {
+		$id = uniqid('permalink');
         ?>
-<small>copie a url do post que você deseja e cole no espaço abaixo. </small><br/>
-<input type="text" name="permalink" value="<?php echo $config['permalink']; ?>" style="width: 100%"/>
+<label for="<?php echo $id; ?>">Copie a url do post e cole no campo abaixo.</label><br/>
+<input id="<?php echo $id; ?>" type="text" name="permalink" value="<?php echo $config['permalink']; ?>" />
         <?php
     }
 

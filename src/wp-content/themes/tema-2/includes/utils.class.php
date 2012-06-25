@@ -32,7 +32,7 @@ class utils {
                 $excerpt = $exploded[0];
                 $excerpt = utf8_encode(substr(utf8_decode($excerpt), 0, $max_len)) . $tp;
             } else {
-                if (strlen($content) > 0)
+                if (strlen($content) > $max_len)
                     while ($content[$max_len] != ' ' && $max_len > 0)
                         $max_len--;
                 

@@ -5,9 +5,8 @@ get_header();
 
 $blogurl = urlencode(get_bloginfo('url'));
 ?>
-
-    <?php if (Mobilize::isActive('general')): ?>
-        <section id="mobilize-content">
+	<section id="mobilize-content">
+		<?php if (Mobilize::isActive('general')): ?>
             <h1>Apoie esta campanha</h1>
             <div class="section-description">
                 <?php echo $options['general']['description']; ?>
@@ -43,6 +42,7 @@ $blogurl = urlencode(get_bloginfo('url'));
                     </div>
 
                 </section>
+                <!-- #mobilize-redes -->
             <?php endif; ?>
 
             <?php if (Mobilize::isActive('banners')): ?>
@@ -70,7 +70,7 @@ $blogurl = urlencode(get_bloginfo('url'));
                         </div>
                     <?php endfor; ?>
                 </section>
-
+				<!-- #mobilize-banners -->
                 <script type="text/javascript">
 
                     jQuery('.code').click( function() { jQuery(this).select(); } );
@@ -94,7 +94,7 @@ $blogurl = urlencode(get_bloginfo('url'));
                         <p>Envie sua foto: <input type="file" name="photo" /> <input class="mobilize-button" type="submit" value="Adesivar foto" /></p>
                     </form>
                 </section>
-
+				<!-- #mobilize-sticker -->
             <?php endif; ?>
 
 
@@ -136,13 +136,14 @@ $blogurl = urlencode(get_bloginfo('url'));
                             <input id="submit" class="mobilize-button" type="submit" value="Enviar" name="submit" />
                         </form>
                 </section>
-
+				<!-- #mobilize-sendto -->
             <?php endif; ?>
-            </section>
+            
         <?php else: ?>
             <p>O recurso está desabilitado.</p>
         <?php endif; ?>
-        
+	</section>
+    <!-- #mobilize-content -->        
 
 
 <?php get_footer(); ?>
