@@ -251,15 +251,15 @@ add_action('campanha_body_header', function() {
     $redes = get_option('campanha_social_networks');
     $redes = is_array($redes) ? $redes : array();
     ?>
-    <div class="wrap clearfix">
-        <div id="social-bookmarks" class="alignright">
-            <?php if(@$redes['facebook']): ?><a id="facebook" href="<?php echo $redes['facebook'] ?>" title="Facebook"></a><?php endif; ?>
-            <?php if(@$redes['twitter']): ?><a id="twitter" href="<?php echo $redes['twitter'] ?>" title="Twitter"></a><?php endif; ?>
-            <?php if(@$redes['google']): ?><a id="google-plus" href="<?php echo $redes['google'] ?>" title="Google+"></a><?php endif; ?>
-            <?php if(@$redes['youtube']): ?><a id="youtube" href="<?php echo $redes['youtube'] ?>" title="YouTube"></a><?php endif; ?>
-            <a id="rss" href="<?php echo bloginfo('url') ?>/rss" title="RSS"></a>
-        </div>
-    </div>
+    
+	<div id="social-bookmarks" class="alignright">
+		<?php if(@$redes['facebook']): ?><a id="facebook" href="<?php echo $redes['facebook'] ?>" title="Facebook"></a><?php endif; ?>
+		<?php if(@$redes['twitter']): ?><a id="twitter" href="<?php echo $redes['twitter'] ?>" title="Twitter"></a><?php endif; ?>
+		<?php if(@$redes['google']): ?><a id="google-plus" href="<?php echo $redes['google'] ?>" title="Google+"></a><?php endif; ?>
+		<?php if(@$redes['youtube']): ?><a id="youtube" href="<?php echo $redes['youtube'] ?>" title="YouTube"></a><?php endif; ?>
+		<a id="rss" href="<?php echo bloginfo('url') ?>/rss" title="RSS"></a>
+	</div>
+    
     <?php
 });
 
@@ -270,9 +270,6 @@ add_action('campanha_body_header', function() {
 function campanha_custom_options_strings() {
     wp_enqueue_script('custom_general_options', WPMU_PLUGIN_URL . '/js/custom_general_options.js');
 }
-
-
-
 
 
 
@@ -336,3 +333,4 @@ function custom_login_headerurl($url) {
     return get_bloginfo('url');
 }
 add_filter('login_headerurl', 'custom_login_headerurl');
+

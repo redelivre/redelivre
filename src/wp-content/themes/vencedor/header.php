@@ -49,8 +49,9 @@ $sidebar = get_option('campanha_theme_options');
 
 <body <?php body_class(); ?>>
 <header id="main-header">
-	<?php do_action('campanha_body_header'); ?>
-    
+	<div class="wrap clearfix">
+		<?php do_action('campanha_body_header'); ?>
+    </div>
 	<div id="branding" class="wrap clearfix">
 		<h1 class="col-12"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
 		<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
