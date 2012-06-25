@@ -8,7 +8,9 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php'; 
 
-define('CAMPAIGN_LIST_URL', 'admin.php?page=campaigns_list');
+define('CAMPAIGN_LIST_URL', 'admin.php?page=campaigns&action=list');
+define('CAMPAIGN_DELETE_URL', 'admin.php?page=campaigns&action=delete');
+define('CAMPAIGN_EDIT_URL', 'admin.php?page=campaigns&action=edit');
 define('CAMPAIGN_NEW_URL', 'admin.php?page=campaigns_new');
 
 if (is_admin()) {

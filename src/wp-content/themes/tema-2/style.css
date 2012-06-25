@@ -146,12 +146,14 @@ a:active, a:hover {	text-decoration: underline; }
 #social-bookmarks a { display: block; float: left; height:32px; width:33px; margin-right: 2px; }
 a#facebook { background:url(img/gosocial_32x32.png) no-repeat  000px top; }
 a#twitter { background:url(img/gosocial_32x32.png) no-repeat -035px top; }
-a#youtube { background:url(img/gosocial_32x32.png) no-repeat -070px top; }
-a#rss { background:url(img/gosocial_32x32.png) no-repeat -105px top; }
+a#google-plus { background:url(img/gosocial_32x32.png) no-repeat -070px top; }
+a#youtube { background:url(img/gosocial_32x32.png) no-repeat -105px top; }
+a#rss { background:url(img/gosocial_32x32.png) no-repeat -141px top; }
 a:hover#facebook { background-position: 000px bottom; }
 a:hover#twitter { background-position:-035px bottom; }
-a:hover#youtube { background-position:-070px bottom; }
-a:hover#rss { background-position:-105px bottom; }
+a:hover#google-plus { background-position:-070px bottom; }
+a:hover#youtube { background-position:-105px bottom; }
+a:hover#rss { background-position:-141px bottom; }
 #branding { height: 88px; margin-bottom: 11px; padding: 55px 0; }
 #branding h1 { margin-bottom: 0; font-size: 42px; line-height: 66px; }
 #branding p { margin-bottom: 0; }
@@ -179,13 +181,29 @@ ul#menu-rodape li:last-child:after {content:"";}
 
 /* =Home Features
 -------------------------------------------------------------- */
-.hl-wrapper { float: left; width: 780px; margin: 0 9px 44px; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
-.hl-nav-left, .hl-nav-right { display: block; width: 60px; height: 60px; margin-top: 100px; text-indent: -99999px; }
+#home-features { position: relative; margin-bottom: 44px; }
+#home-features nav { position: absolute; top: 50%; }
+#home-features nav#right { right: 0; }
+.hl-wrapper { float: left; width: 780px; margin: 0 89px 0; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
+.hl-nav-left, .hl-nav-right { display: block; width: 60px; height: 60px; margin: -30px 10px 0; text-indent: -99999px; }
 .hl-nav-left { background: #0033CC url(img/seta-esq.png) no-repeat; }
 .hl-nav-right { background: #0033CC url(img/seta-dir.png) no-repeat; }
-.hl-wrapped article { float: left; width: 740px; padding: 20px; }
+.hl-wrapped article.home-feature { float: left; width: 740px; margin-bottom: 0; padding: 20px; }
 .hl-wrapped article.sticky { border: none; }
-.hl-wrapped .attachment-post-thumbnail { float: left; margin-right: 20px; }
+.hl-wrapped .wp-post-image { float: left; margin: 0 20px 14px 0; }
+.hl-wrapped article.home-feature .has-thumbnail { width: 320px; float: left; }
+
+/* =Home Other Features
+-------------------------------------------------------------- */
+.hl-darkbox { background: #000; }
+.hl-lightbox-dialog { background: whiteSmoke; padding: 20px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.hl-lightbox-dialog h1 { font-weight: normal; color: #333; text-shadow: white 0 1px 0; font-size: 20px; }
+.hl-lightbox-dialog label { font-family: sans-serif; font-weight: bold; color: #333; font-size: 12px; }
+.hl-lightbox-dialog input[type="text"] { width: 80% !important; margin-bottom: 11px; box-shadow: none; background: #fff; border: 1px solid #DFDFDF; border-radius: 3px; color:#333; }
+.hl-lightbox-dialog input[type="submit"] { border: 1px solid #13455B; color: #EAF2FA; background: #21759B; text-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0; font-weight: bold; font-size: 12px; line-height: 13px; padding: 3px 8px; cursor: pointer; border-radius: 11px; font-family: sans-serif; }
+.hl-lightbox { height: 16px; padding: 10px 20px; line-height: 16px; color: #333; background: whiteSmoke; cursor: pointer; text-shadow: white 0 1px 0; font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif; border: 1px solid #DFDFDF; border-radius: 3px; }
+.hl-lightbox:hover { color: #fff; background: gray; text-shadow: #333 0 -1px 0; }
+
 
 /* =Post
 -------------------------------------------------------------- */
@@ -194,7 +212,7 @@ ul#menu-rodape li:last-child:after {content:"";}
 body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post header p, .post footer p { margin-bottom: 0; font-size: 11px; font-family: Verdana, Arial, sans-serif; text-transform: uppercase; color: #999; }
 .post header p a, .post footer p a { color: #6699FF; }
-.post footer { border-top: 1px dotted #ccc; }
+.post footer { border-top: 1px dotted #ccc; clear: both; }
 .taxonomies { padding: 11px 0; }
 
 /*interaction*/

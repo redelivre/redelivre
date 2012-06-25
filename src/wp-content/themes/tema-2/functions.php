@@ -20,7 +20,7 @@ function tema2_setup() {
     set_post_thumbnail_size( 200, 150, true );
 
     //REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
-    //add_image_size('nome',X,Y);
+    add_image_size('home-feature',400,300);
     //add_image_size('nome2',X,Y);
 
     // AUTOMATIC FEED LINKS
@@ -28,7 +28,7 @@ function tema2_setup() {
 
     // CUSTOM IMAGE HEADER
     define('HEADER_TEXTCOLOR', '0033CC');
-    define('HEADER_IMAGE_WIDTH', 940); 
+    define('HEADER_IMAGE_WIDTH', 960); 
     define('HEADER_IMAGE_HEIGHT', 198);
 
     add_custom_image_header( 'tema2_custom_header', 'tema2_admin_custom_header' );
@@ -64,6 +64,14 @@ function tema2_addJS() {
     
     wp_enqueue_style('jquery-autocomplete',get_stylesheet_directory_uri().'/css/jquery-ui-1.8.20.custom.css');
 }
+
+// EDITOR STYLE
+add_editor_style('editor-style.css');
+
+// LARGURA DA COLUNA DE POSTS PARA OS EMBEDS DE VÍDEOS
+global $content_width;
+if ( !isset( $content_width ) )
+$content_width = 600;
 
 // CUSTOM MENU
 add_action( 'init', 'tema2_custom_menus' );
@@ -177,27 +185,4 @@ if (!function_exists('tema2_comment')):
         <?php
     }
 
-endif; 
-
-
-
-
-// custom admin login logo
-function custom_login_logo() {
-	echo '
-        <style type="text/css">
-	        .login h1 a { background-image: url('. html::getImageUrl('logo.png') .'); }
-        </style>';
-}
-add_action('login_head', 'custom_login_logo');
-
-function new_headertitle($url){
-    return get_bloginfo('sitetitle');
-}
-add_filter('login_headertitle','new_headertitle');
-
-function custom_login_headerurl($url) {
-    return get_bloginfo('url');
-
-}
-add_filter ('login_headerurl', 'custom_login_headerurl');
+endif;
