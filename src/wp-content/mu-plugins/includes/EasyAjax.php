@@ -8,7 +8,7 @@ require_once(__DIR__ . '/graphic_material/CandidatePhoto.php');
  *
  * @author rafael
  */
-class EasyAjax {
+class MuEasyAjax {
     static $admin = array('savePhotoPosition', 'campanhaPreviewFlyer');
     
     static function init(){
@@ -40,6 +40,6 @@ class EasyAjax {
     }
 }
 
-EasyAjax::init();
+MuEasyAjax::init();
 
 ?>
