@@ -2,10 +2,10 @@
 
 get_header();
 
-$graphicMaterial = new GraphicMaterial;
+$manager = new GraphicMaterialManager;
 
-if ($graphicMaterial->isPublic() || is_user_logged_in()) {
-    $links = $graphicMaterial->getLinks();
+if ($manager->isPublic() || is_user_logged_in()) {
+    $links = $manager->getLinks();
 }
 
 if (isset($links) && !empty($links)) {

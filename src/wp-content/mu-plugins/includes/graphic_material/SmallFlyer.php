@@ -5,28 +5,10 @@ require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterial.php')
 require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CampanhaSVGDocument.php');
 
 /**
- * Class to generate different graphic material
+ * Class to generate small flyer (santinho e colinha)
  * to the candidates.
  */
 class SmallFlyer extends GraphicMaterial {
-    /**
-     * The final SVG flyer
-     * @var CampanhaSVGDocument
-     */
-    protected $finalImage;
-    
-    /**
-     * Small flyer file name
-     * @var string
-     */
-    protected $fileName;
-    
-    /**
-     * Path to flyer file
-     * @var string
-     */
-    protected $filePath;
-    
     /**
      * Small flyer width
      * @var int
@@ -41,99 +23,8 @@ class SmallFlyer extends GraphicMaterial {
     
     public function __construct() {
         parent::__construct();
-        
-        $this->fileName = 'santinho.svg';
-        $this->filePath = $this->dir . $this->fileName;
-        
-        $this->data = $this->getData();
     }
 
-    /**
-     * Build a candidate flyer based on the information
-     * provided via AJAX request and print its url to the browser.
-     * 
-     * @return null
-     */    
-    public function preview() {
-        $path = preg_replace('/\.svg$/', '.png', $this->filePath);
-        $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
-        
-        $this->processImage();
-        $this->finalImage->export($path);
-        
-        // resize image to browser size (75dpi)
-        $img = WideImage::load($path);
-        $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($path);
-        
-        // add random number as parameter to skip browser cache
-        $rand = rand();
-        die("<img src='$url?rand=$rand'>");
-    }
-    
-    /**
-     * Save the SVG flyer to the hard disk for future use
-     * and export it to PDF.
-     * 
-     * @return null
-     */
-    public function save() {
-        $this->processImage();
-        $this->finalImage->asXML($this->filePath);
-        
-        // generate a PDF copy of the SVG file
-        $this->export();
-        
-        // store SVG file information in the database to be able
-        // to regenerate it
-        $this->saveData();
-    }
-    
-    /**
-     * Export SVG flyer to PDF
-     * 
-     * @return null
-     */
-    protected function export() {
-        $path = preg_replace('/\.svg$/', '.pdf', $this->filePath);
-        $this->finalImage->export($path);
-    }
-    
-    /**
-     * Check whether a flyer has been created
-     * already.
-     * 
-     * @return bool
-     */
-    public function hasImage() {
-        return file_exists($this->filePath);
-    }
-    
-    /**
-     * Get SVG image from hard disk.
-     * 
-     * @param string $format
-     * @return string SVG image or URL to PNG image
-     */
-    public function getImage($format = 'svg') {
-        if (file_exists($this->filePath)) {
-            $svg = SVGDocument::getInstance($this->filePath, 'CampanhaSVGDocument');
-            
-            if ($format == 'svg') {
-                return $svg->asXML(null, false);
-            } else {
-                $filePath = preg_replace('/\.svg$/', '.png', $this->filePath);
-                $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
-                $svg->export($filePath);
-                
-                // resize image to browser size (75dpi)
-                $img = WideImage::load($filePath);
-                $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($filePath);
-                        
-                return $url;
-            }
-        }
-    }
-    
     /**
      * Do the actual processing to generate the SVG
      * image based on the user input. Used both when 

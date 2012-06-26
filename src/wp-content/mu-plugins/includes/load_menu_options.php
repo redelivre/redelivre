@@ -12,8 +12,6 @@ add_action('admin_menu', function() {
             require(WPMU_PLUGIN_DIR . '/includes/graphic_material.php');
         });
         
-        require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterial.php');
-        
         //TODO: refactor to remove the copy and paste code below to create the menu entries for graphic material
         $page = add_submenu_page('graphic_material', 'Santinho e colinha', 'Santinho e colinha', 'read', 'graphic_material_smallflyer', function() {
             global $campaign;
@@ -24,7 +22,7 @@ add_action('admin_menu', function() {
                 print_msgs(array('error' => 'A geração de material gráfico é um recurso que está disponível somente para campanhas que já foram pagas.'));
             }
         });
-        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
+        add_action('admin_print_styles-' . $page, array('GraphicMaterialManager', 'scriptsAndStyles'));
         
         $page = add_submenu_page('graphic_material', 'Flyer', 'Flyer', 'read', 'graphic_material_flyer', function() {
             global $campaign;
@@ -35,12 +33,12 @@ add_action('admin_menu', function() {
                 print_msgs(array('error' => 'A geração de material gráfico é um recurso que está disponível somente para campanhas que já foram pagas.'));
             }
         });
-        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
+        add_action('admin_print_styles-' . $page, array('GraphicMaterialManager', 'scriptsAndStyles'));
 
         $page = add_submenu_page('graphic_material', 'Header do site', 'Header do site', 'read', 'graphic_material_header', function() {
             require(WPMU_PLUGIN_DIR . '/includes/graphic_material_header.php');
         });
-        add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
+        add_action('admin_print_styles-' . $page, array('GraphicMaterialManager', 'scriptsAndStyles'));
     }
     
     add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
