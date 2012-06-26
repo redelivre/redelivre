@@ -1,5 +1,6 @@
 <?php
 $sidebar = get_option('campanha_theme_options');
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -36,7 +37,7 @@ $sidebar = get_option('campanha_theme_options');
 <![endif]-->
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php if ($sidebar): ?>
-	<?php if ( $sidebar["sidebar_position"] == 'esquerda') : ?>
+	<?php if ( $sidebar["sidebar_position"] == 'left') : ?>
 		<style>
 			#content { float: right; }
 		</style>
