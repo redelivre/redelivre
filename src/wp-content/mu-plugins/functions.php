@@ -246,10 +246,6 @@ function campannha_dashboard_widget() {
     }, 'dashboard', 'side');
 }
 
-function include_campanha_theme_options() {
-    require_once(WPMU_PLUGIN_DIR . '/includes/theme-options.php');
-}
-
 add_action('campanha_body_header', function() {
     $redes = get_option('campanha_social_networks');
     $redes = is_array($redes) ? $redes : array();

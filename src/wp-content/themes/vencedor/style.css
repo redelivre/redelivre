@@ -147,7 +147,7 @@ a:hover#google-plus  { background-position:-50px bottom; }
 a:hover#youtube  { background-position:-75px bottom; }
 a:hover#rss      { background-position:-100px bottom; }
 
-#branding { padding: 55px 0; height: 88px; }
+#branding h1 { padding-top: 55px; }
 #branding h1 a, #branding h1 a:hover  { color: #000; text-decoration: none; }
 #description { font-style: italic; font-size: 16px; }
 

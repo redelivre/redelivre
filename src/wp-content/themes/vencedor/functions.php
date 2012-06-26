@@ -1,15 +1,12 @@
 <?php 
 
+include('includes/theme-options.php');
+
 // JS
 function temavencedor_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); 
 }
 add_action('wp_print_scripts', 'temavencedor_addJS');
-
-// THEME OPTIONS
-// para adcionar opções que são específicas de um tema, usar o hook (action) campanha_theme_options 
-// ex: add_action('campanha_theme_option',function (){ echo '<input type="text" name="campanha_theme_options[exemplo]" />' });
-include_campanha_theme_options();
 
 // EDITOR STYLE
 add_editor_style('editor-style.css');
@@ -74,16 +71,28 @@ function temavencedor_setup() {
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
     
+    $args = array(
+        //'default-image'          => get_template_directory_uri() . '/images/bg-default.png',
+        'default-color'          => '#F1F1F1',
+        //'wp-head-callback'       => '',
+        //'admin-head-callback'    => '',
+        //'admin-preview-callback' => ''
+    );
 
-    // CUSTOM IMAGE HEADER
-    define('HEADER_TEXTCOLOR', '000000');
-    define('HEADER_IMAGE_WIDTH', 960); 
-    define('HEADER_IMAGE_HEIGHT', 198);
-        
-    add_custom_image_header( 'temavencedor_custom_header', 'temavencedor_admin_custom_header' );
-
-    // CUSTOM BACKGROUND
-    add_custom_background();
+    add_theme_support( 'custom-background', $args );
+    
+     // Custom Header Image
+    $args = array(
+    'flex-width'    => true,
+    'width'         => 960,
+    'flex-height'    => true,
+    'height'        => 198,
+    //'default-image' => get_template_directory_uri() . '/images/default-header.jpg',
+    'uploads'       => true,
+    'wp-head-callback' => 'temavencedor_custom_header',
+    'default-text-color' => '000000'
+    );
+    add_theme_support( 'custom-header', $args );
 }
 
 endif;
@@ -91,9 +100,14 @@ endif;
 if (!function_exists('temavencedor_custom_header')) :
 
 function temavencedor_custom_header() {
+    
+    $custom_header = get_custom_header();
+    
+    
     ?>
     <style type="text/css">
-        #branding { background: url(<?php header_image(); ?>); }
+                
+        #branding { background: url(<?php header_image(); ?>) no-repeat; height: <?php echo $custom_header->height; ?>px;}
         <?php if ( 'blank' == get_header_textcolor() ) : ?>
 			#branding h1, #branding p { display: none; }        
         <?php else: ?>       
@@ -108,48 +122,6 @@ function temavencedor_custom_header() {
 
 endif;
 
-if (!function_exists('temavencedor_admin_custom_header')) :
-
-function temavencedor_admin_custom_header() {
-    ?><style type="text/css">
-        
-        #headimg {
-            padding:55px 0;
-            width: 960px !important;
-            height: 88px !important;
-            min-height: 88px !important;
-            font: 15px/22px Georgia,"Times New Roman",Times,serif;
-            
-            
-        }
-        
-        #headimg h1 {
-            font-family: "Trebuchet MS",Arial,sans-serif !important;
-            font-size:36px;
-            line-height:44px;
-            font-weight:normal !important;
-            margin: 0px;
-            margin: 0 10px;
-            
-        }
-        
-        #headimg h1 a {
-            text-decoration: none !important;
-        }
-        
-        #headimg #desc { 
-            font-style: italic; 
-            font-size: 16px; 
-            margin: 0 10px;
-            filter: alpha(opacity=60);
-            opacity: 0.6;
-        }
-
-    </style><?php
-
-}
-
-endif;
 
 // COMMENTS
 
