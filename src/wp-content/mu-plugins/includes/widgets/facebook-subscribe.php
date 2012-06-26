@@ -22,7 +22,7 @@ class WidgetFacebookSubscribe extends WP_Widget {
         echo $before_widget;
         ?>
         <h3>Assine</h3>
-        <iframe src="//www.facebook.com/plugins/subscribe.php?href=<?php echo urlencode($options['facebook']) ?>&amp;layout=standard&amp;show_faces=true&amp;colorscheme=light&amp;font=lucida+grande&amp;width=200&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px;" allowTransparency="true"></iframe>
+        <iframe src="//www.facebook.com/plugins/subscribe.php?href=<?php echo urlencode($options['facebook']) ?>&amp;layout=standard&amp;show_faces=true&amp;colorscheme=light&amp;font=lucida+grande&amp;width=292&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px;" allowTransparency="true"></iframe>
         <?php
         echo $after_widget;
     }
@@ -33,7 +33,7 @@ class WidgetFacebookSubscribe extends WP_Widget {
     
     function form($instance) {
         ?>
-        Para este widget funcionar, você deve ter a opção <a href="https://www.facebook.com/settings?tab=subscribers" target="_blank" >permitir assinantes </a> habilitada em seu perfil do Facebook.
+        Este Widget utiliza a configuração de Perfil do Facebook do menu <a href="<?php bloginfo('url') ?>/wp-admin/admin.php?page=campaign_social_networks">Redes Sociais</a> e para funcionar corretamente, você deve ter a opção <a href="https://www.facebook.com/settings?tab=subscribers" target="_blank" >permitir assinantes </a> habilitada em seu perfil do Facebook.
         <?php
     }
  
