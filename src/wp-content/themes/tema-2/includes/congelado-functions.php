@@ -1,20 +1,30 @@
 <?php
 
+function __autoload($class) {
+    $fname = dirname(__FILE__) . '/template-widgets/' . $class . '.php';
+
+    if (file_exists($fname))
+        require_once $fname;
+}
+
 // inclui os arquivos
 $autoinclude_base_dir = dirname(__FILE__) . '/';
+
 
 // inclui o arquivo de sctipts de atualização da base de dados
 include $autoinclude_base_dir . '/db-updates.php';
 
 //include $autoinclude_base_dir . '/EasyAjax.php';
 
+
 $autoinclude_folders = array(
+    'shortcodes/',
     'metaboxes/',
     'post-types/',
     'taxonomies/',
-    //'theme-options/',
+    'theme-options/',
     'widgets/',
-    'shortcodes/'
+    'model/',
 );
 foreach ($autoinclude_folders as $folder) {
     if (file_exists($autoinclude_base_dir . $folder)) {
@@ -26,6 +36,12 @@ foreach ($autoinclude_folders as $folder) {
         }
     }
 }
+
+
+WidgetUniquePost::init();
+WidgetAgendaLista::init();
+WidgetVideoOrGallery::init();
+
 
 /**
  * Runtime Cache
@@ -109,15 +125,14 @@ class RCache {
 class DCache {
 
     protected static function getPath() {
-
         if (defined('DCACHE_PATH') && is_writable(DCACHE_PATH)) {
             return DCACHE_PATH;
         } else {
-            if (is_writable(ABSPATH . '/wp-content/uploads/.disk_cache')) {
-                return ABSPATH . '/wp-content/uploads/.disk_cache';
-            } elseif (is_writable(ABSPATH . '/wp-content/uploads')) {
-                mkdir(ABSPATH . '/wp-content/uploads/.disk_cache');
-                return ABSPATH . '/wp-content/uploads/.disk_cache';
+            if (is_writable(ABSPATH . '/uploads/.disk_cache')) {
+                return ABSPATH . '/uploads/.disk_cache';
+            } elseif (is_writable(is_writable(ABSPATH . '/uploads'))) {
+                mkdir(ABSPATH . '/uploads/.disk_cache');
+                return ABSPATH . '/uploads/.disk_cache';
             } else {
                 $dir = '/tmp/' . md5(__FILE__);
                 if (!file_exists($dir))
@@ -128,9 +143,7 @@ class DCache {
     }
 
     protected static function getFilename($group, $id) {
-        if (!is_dir(self::getPath() . '/' . md5($group)))
-            mkdir(self::getPath() . '/' . md5($group));
-        return self::getPath() . '/' . md5($group) . '/' . md5($id) . '.cache';
+        return self::getPath() . '/' . md5(serialize(array('group' => $group, 'id' => $id))) . '.cache';
     }
 
     /**
@@ -149,24 +162,14 @@ class DCache {
     }
 
     /**
-     * Verifica se o cache existe. Se o cache existe e estiver expirado, deleta e retorna false
+     * Verifica se o cache existe
      * @param string $group
      * @param string $id
-     * @param int $expiration_time número em segundos que o cache expira
      * @example DCache::exists(__METHOD__, $post_id);
      * @return boolean
      */
-    public static function exists($group, $id, $expiration_time = null) {
-        $filename = self::getFilename($group, $id);
-        $exists = file_exists($filename);
-        if ($expiration_time && $exists) {
-            $ftime = filemtime($filename);
-            if (time() > $ftime + intval($expiration_time)) {
-                unlink($filename);
-                return false;
-            }
-        }
-        return $exists;
+    public static function exists($group, $id) {
+        return file_exists(self::getFilename($group, $id));
     }
 
     /**
@@ -189,34 +192,14 @@ class DCache {
     }
 
     /**
-     * Deleta o valor cacheado, se o id for nulo, apaga o grupo todo
+     * Deleta o valor cacheado
      * @param string $group
-     * @param string|null $id
+     * @param string $id
      */
-    public static function delete($group, $id = null) {
-
+    public static function delete($group, $id) {
         $filename = self::getFilename($group, $id);
         if (file_exists($filename) && is_writable($filename))
             unlink($filename);
-
-        if (is_null($id)) {
-
-            $dirname = dirname($filename);
-
-            if (is_dir($dirname)) {
-
-                $handle = scandir($dirname);
-                foreach ($handle as $file) {
-
-                    if ($file == '.' || $file == '..')
-                        continue;
-
-                    unlink($dirname . '/' . $file);
-                }
-
-                rmdir($dirname);
-            }
-        }
     }
 
 }
