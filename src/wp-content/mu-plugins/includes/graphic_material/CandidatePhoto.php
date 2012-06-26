@@ -93,6 +93,18 @@ class CandidatePhoto {
     }
     
     /**
+     * Receives a value in pixels assuming it is 75 dpi and convert it
+     * to the corresponding pixel value in 300 dpi.
+     * 
+     * @param int $value
+     * @return int
+     */
+    protected function convertTo300Dpi($value)
+    {
+        return $value * 4;
+    }
+    
+    /**
      * Handle candidate photo uploads
      * 
      * @throws Exception when an error occurs
@@ -167,7 +179,7 @@ class CandidatePhoto {
         // remove 'px' from the end of the strings
         list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($left, $top));
         
-        $croped = $this->image->crop($left, $top, $this->minWidth, $this->minHeight);
+        $croped = $this->image->crop( $this->convertTo300Dpi($left), $this->convertTo300Dpi($top), $this->minWidth, $this->minHeight);
         
         if (file_exists($cropedFile)) {
             unlink($cropedFile);
