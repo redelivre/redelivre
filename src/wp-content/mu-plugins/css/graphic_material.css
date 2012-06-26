@@ -1,5 +1,3 @@
-#zoom-plus, #zoom-minus { background:white; border:1px solid black; cursor:pointer; display:none; font-weight:bold; height:15px; margin:2px; position:absolute; text-align:center; width:15px; z-index:2; }
-#zoom-plus { left:19px; }
 #photo-wrapper { border: 1px solid transparent; position:relative; }
 #photo-wrapper:hover { border: 1px dashed #999; }
 #photo-wrapper img { position:absolute; }

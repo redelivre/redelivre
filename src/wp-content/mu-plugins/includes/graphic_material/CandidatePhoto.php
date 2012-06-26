@@ -66,11 +66,18 @@ class CandidatePhoto {
         $this->minHeight = $minHeight;
         
         if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)) {
-            $this->image = WideImage::load(GRAPHIC_MATERIAL_DIR . $this->fileName);
-            
-            $this->screenWidth = $this->convertTo75Dpi($this->minWidth);
-            $this->screenHeight = $this->convertTo75Dpi($this->minHeight);
+            $this->loadImage();
         }
+        
+        $this->screenWidth = $this->convertTo75Dpi($this->minWidth);
+        $this->screenHeight = $this->convertTo75Dpi($this->minHeight);
+    }
+    
+    /**
+     * Create a WideImage object with the candidate photo.
+     */
+    protected function loadImage() {
+        $this->image = WideImage::load(GRAPHIC_MATERIAL_DIR . $this->fileName);
     }
     
     /**
@@ -114,6 +121,9 @@ class CandidatePhoto {
                     // generate low resolution image to send to the browser (75 dpi)
                     $lowRes = $img->resize($this->screenWidth, $this->screenHeight, 'outside');
                     $lowRes->saveToFile(GRAPHIC_MATERIAL_DIR . $this->screenFileName);
+                    
+                    $this->loadImage();
+                    $this->crop();
                 }
             } else if (!$_FILES['photo']['error'] && !in_array($_FILES['photo']['type'], $mimeTypes)) {
                 $this->error = "Tipo de arquivo inválido, o arquivo deve ser dos tipos .png ou .jpg";
@@ -149,13 +159,20 @@ class CandidatePhoto {
         $baseName = basename($this->fileName, '.png');
         $cropedFile = GRAPHIC_MATERIAL_DIR . $baseName . '_croped.png';
         
-        update_option('photo-position-' . $this->fileName, array('left' => $_POST['left'], 'top' => $_POST['top'], 'width' => $_POST['width']));
+        $left = isset($_POST['left']) ? $_POST['left'] : 0;
+        $top = isset($_POST['top']) ? $_POST['top'] : 0;
+
+        update_option('photo-position-' . $this->fileName, array('left' => $left, 'top' => $top));
         
-        list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($_POST['left'], $_POST['top']));
+        // remove 'px' from the end of the strings
+        list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($left, $top));
         
         $croped = $this->image->crop($left, $top, $this->minWidth, $this->minHeight);
         
-        unlink($cropedFile);
+        if (file_exists($cropedFile)) {
+            unlink($cropedFile);
+        }
+            
         $croped->saveToFile($cropedFile);
     }
     
@@ -197,9 +214,7 @@ class CandidatePhoto {
                 
             <?php if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)): ?>
                 <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden;">
-                    <div id="zoom-plus">+</div>
-                    <div id="zoom-minus">-</div>
-                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>; width: <?php echo $position['width']; ?>;"/>
+                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>;"/>
                 </div>
                 <button id="save-position">salvar posição</button>
                 <span id="save-response">a posição da imagem foi salva</span>
