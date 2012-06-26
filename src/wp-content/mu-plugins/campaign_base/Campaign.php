@@ -88,7 +88,7 @@ class Campaign {
             throw new Exception('Não existe uma campanha associada a este blog. Verifique se você não selecionou um tema de campanha para o site principal.');
         }
         
-        if ($result['user_id'] != wp_get_current_user()->ID && !is_super_admin()) {
+        if (is_user_logged_in() && $result['user_id'] != wp_get_current_user()->ID && !is_super_admin()) {
             throw new Exception('Você não tem permissão para ver as informações desta campanha.');
         }
         
