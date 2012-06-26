@@ -188,3 +188,11 @@ if (!get_option('db-update-11')) {
         $wpdb->insert($wpdb->usermeta, array('user_id' => $id, 'meta_key' => 'show_welcome_panel', 'meta_value' => 0));
     }
 }
+
+// add georreferenciamento capability
+if (!get_option('db-update-12')) {
+    update_option('db-update-12', 1);
+    
+    $wpdb->query("INSERT INTO capabilities (plan_id, name, slug, value) VALUES(5, 'Georreferenciamento', 'georreferenciamento', 1) ");
+    
+}
