@@ -1,0 +1,187 @@
+input.large-field, select.large-field, textarea.large-field {
+    width: 70%;
+}
+
+input.medium-field, select.medium-field, textarea.medium-field {
+    width: 35%;
+}
+
+label.small { min-width: 5em; display: inline-block }
+
+#mpv_map_fields > label,
+#mapasdevista_metabox label {
+    font-weight: bold;
+}
+
+#mpv_map_fields ul {
+    padding-left: 4em;
+}
+
+#mapasdevista_metabox fieldset input {
+    margin-right: 1em;
+}
+
+div.mpv_canvas {
+    height: 400px;
+    margin: 1em 0 1em 0;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.iconlist {
+    float: left;
+    width: 100%;
+    margin: 1em;
+    clear: both;
+}
+
+.iconlist div.icon  {
+    position: relative;
+    float: left;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #AAA;
+    margin-right: 0.5em;
+    text-align: center;
+}
+
+.iconlist div.icon div.icon-image {
+    display: block;
+    width: 100%;
+    height: 64px;
+    background-color: #FFF;
+}
+
+#image-panel-background {
+    position: relative;
+    border: 1px solid black;
+    background-color: #AAA;
+    margin: 1em 0;
+    text-align: center;
+}
+
+#image-panel {
+    position: relative;
+    margin: 1em auto;
+    background-color: #FFF;
+    border: none;
+}
+
+#image-y-ruler {
+    position: absolute;
+    height: 0px;
+    width: 100%;
+    border-top: 1px dashed black;
+    border-bottom: 1px dashed white;
+    top: 0;
+    background-color: transparent;
+}
+
+#image-x-ruler {
+    position: absolute;
+    height: 100%;
+    width: 0px;
+    border-left: 1px dashed black;
+    border-right: 1px dashed white;
+    left: 0;
+    top: 0;
+    background-color: transparent;
+}
+
+fieldset#mpv_map_fields.image {
+    display: none;
+}
+
+.ui-dialog {
+    border: 1px solid #dfdfdf;
+    border-radius: 6px 6px 0 0;
+}
+
+.ui-dialog .ui-dialog-title {
+    float: left;
+    margin: 0.1em 16px 0.1em 0;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+    padding: 7px 9px;
+    color: #464646;
+    background: url("../../../../wp-admin/images/gray-grad.png") repeat-x scroll left top #DFDFDF;
+    text-shadow: 0 1px 0 #FFFFFF;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    height: 15px;
+    width: 15px;
+    margin: -10px 0 0;
+    padding: 0;
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+    background: url("../../../../wp-includes/js/thickbox/tb-close.png") no-repeat left top;
+    border-radius: 4px 4px 4px 4px;
+    border: 1px solid #DFDFDF;
+    display: block;
+    margin: 0;
+    height: 15px;
+    width: 15px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span:hover {
+    border-color: pink;
+}
+
+#dialog {
+    display: none;
+    background-color: #ffffff;
+}
+
+#dialog .iconlist {
+    height: 100%;
+    width: 90px;
+    margin: 0;
+    padding: 2px;
+}
+
+#dialog div.iconlist div.icon {
+    margin-top: 3px;
+    float: none;
+    clear: both;
+}
+
+#dialog div.iconlist .selected {
+    background-color: #BEDCFF;
+}
+
+#dialog .panel {
+    height: 100%;
+    overflow: auto;
+    position: relative;
+}
+
+#dialog .panel img.pin {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+table.map_config td {
+    vertical-align: top;
+    padding:12px;
+}
+
+table.map_config label {
+    font-weight:bold;
+}
+
+table.map_config ul {
+    padding: 0px !important;
+}

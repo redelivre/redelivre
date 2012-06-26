@@ -1,5 +1,5 @@
 <?php
-$sidebar = get_option('vencedor_theme_options');
+$sidebar = get_option('campanha_theme_options');
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -32,7 +32,7 @@ $sidebar = get_option('vencedor_theme_options');
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo get_template_directory_uri() ?>/ie-hacks.css" />
 <![endif]-->
 <!--[if lt IE 9]>
-	<script src="<?php get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php if ($sidebar): ?>
@@ -49,6 +49,9 @@ $sidebar = get_option('vencedor_theme_options');
 
 <body <?php body_class(); ?>>
 <header id="main-header">
+	<div class="wrap clearfix">
+		<?php do_action('campanha_body_header'); ?>
+    </div>
 	<div id="branding" class="wrap clearfix">
 		<h1 class="col-12"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
 		<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
@@ -57,7 +60,6 @@ $sidebar = get_option('vencedor_theme_options');
 	<div id="menubar">
 		<div class="wrap clearfix">
 			<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
-			<div id="feed-link"><a href="<?php bloginfo('rss_url'); ?>" title="RSS Feed"><img src="<?php echo get_template_directory_uri(); ?>/img/feed-icon-24x24.png" /></a></div>
 		</div>
 		<!-- .wrap -->
 	</div>

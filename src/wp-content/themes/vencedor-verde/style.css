@@ -19,6 +19,7 @@ a:active, a:hover {	color: #360; }
 #menubar { background: #693; border-bottom: 1px solid #360; }
 #main-nav li { border-right: 1px solid #9c6; background: #693; }
 #main-nav .sub-menu li { border-bottom: 1px solid #9c6; }
+#main-nav ul { border-top: 1px solid #9c6; }
 #main-nav li:first-child a { border-left: 1px solid #9c6; }
 #main-nav a { border-right: 1px solid #360; border-bottom: 1px solid #360; }
 #main-nav a:hover, #main-nav li.current-menu-item>a, #main-nav li.current-menu-ancestor>a, #main-nav li.current-menu-parent>a, #main-nav li.current_page_item>a { background: #360; }

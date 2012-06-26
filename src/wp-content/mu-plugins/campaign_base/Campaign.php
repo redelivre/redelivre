@@ -84,25 +84,62 @@ class Campaign {
         
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
 
-		if (!is_array($result) || empty($result))
-			return false;
-        
         if (!$result) {
             throw new Exception('Não existe uma campanha associada a este blog. Verifique se você não selecionou um tema de campanha para o site principal.');
         }
+        
+        if (is_user_logged_in() && $result['user_id'] != wp_get_current_user()->ID && !is_super_admin()) {
+            throw new Exception('Você não tem permissão para ver as informações desta campanha.');
+        }
+        
+        return self::formatData($result);
+    }
+
+    /**
+     * Get a campaign by id
+     * 
+     * @param int $id
+     * @return Campaign
+     */
+    public static function getById($id) {
+        global $wpdb;
+        
+        $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE id = %d", $id), ARRAY_A);
+
+        if (!$result) {
+            throw new Exception('Não foi possível encontrar a campanha.');
+        }
+        
+        return self::formatData($result);
+    }
+    
+    /**
+     * Convert data from the database before creating
+     * Campign object.
+     * 
+     * @param array $result campaign data as fetched from the database
+     * @return Campaign a new campaign object 
+     */
+    protected static function formatData($result) {
+        list($result['state'], $result['city']) = explode(':', $result['location']);
+        unset($result['location']);
         
         return new Campaign($result);
     }
 
     //TODO: this function is being used when creating a new campaign and when getting
     //      an existing one. This two different behaviors should be splited into two
-    //      different methods.    
+    //      different methods.
     public function __construct(array $data) {
         //TODO: create interface for more than one election
         $this->election_id = 1;
         
         if (isset($data['id'])) {
             $this->id = $data['id'];
+        }
+        
+        if (isset($data['blog_id'])) {
+            $this->blog_id = $data['blog_id'];
         }
         
         $this->domain = trim($data['domain']);
@@ -126,6 +163,10 @@ class Campaign {
             $this->status = $data['status'];
         }
         
+        if (isset($data['observations'])) {
+            $this->observations = $data['observations'];
+        }
+        
         if (isset($data['user_id'])) {
             $this->campaignOwner = get_userdata($data['user_id']);
         } else {
@@ -140,20 +181,24 @@ class Campaign {
      * campaign.
      */
     public function validate() {
+        if (!isset($this->id) && (empty($this->domain) || preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain) === 0)) {
+            $this->errorHandler->add('error', 'O sub-domínio digitado está vazio ou inválido.');
+        }
         
+        // TODO: we shouldn't change the value of $this->domain on a method that is supposed to do only validation
+        if (!preg_match('|^https?://|', $this->domain)) {
+            $mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
+            $this->domain = 'http://' . $this->domain . '.' . $mainSiteDomain;
+        }
         
         if ($this->valueExist('domain')) {
             $this->errorHandler->add('error', 'Este sub-domínio já está cadastrado.');
         }
 
-        if ( empty($this->domain) || preg_match( '|^([a-zA-Z0-9-])+$|', $this->domain) === 0 ) {
-            $this->errorHandler->add('error', 'O sub-domínio digitado está vazio ou inválido.');
-        }
-
         // adding 'http://' in case the user haven't because FILTER_VALIDATE_URL requires it
         if (!empty($this->own_domain) && !preg_match('|https?://|', $this->own_domain)) {
             $this->own_domain = 'http://' . $this->own_domain;
-        }        
+        }
 
         if ($this->valueExist('own_domain')) {
             $this->errorHandler->add('error', 'Este domínio próprio já está cadastrado.');
@@ -163,25 +208,17 @@ class Campaign {
             $this->errorHandler->add('error', 'O domínio próprio digitado é inválido.');
         }
         
-        if (  preg_match( '|^(\d){2,5}$|', $this->candidate_number ) === 0 ) {
+        if (preg_match('|^(\d){2,5}$|', $this->candidate_number) === 0) {
             $this->errorHandler->add('error', 'Número de candidato inválido.');
         }
         
-        if ($this->valueExist('candidate_number')) {
+        if ($this->candidateExist()) {
             $this->errorHandler->add('error', 'Uma campanha para este candidato já foi criada no sistema.');
         }
         
         if (empty($this->plan_id) || !in_array($this->plan_id, Plan::getAllIds())) {
             $this->errorHandler->add('error', 'Selecione o plano desejado.');
         }
-        
-        /*
-        if (!in_array($this->plan_id, Plan::getAllIds())) {
-            $this->errorHandler->add('error', 'O plano escolhido é inválido.');
-        }
-        * Tirei isso pq me parece que é pouco provável q acontela e gera um erro extra caso a pessoa deixe em branco
-        * acrescentei a mesma checagem na condição acima (Leo)
-        */
         
         if (empty($this->state)) {
             $this->errorHandler->add('error', 'Você precisa selecionar um estado.');
@@ -191,11 +228,44 @@ class Campaign {
             $this->errorHandler->add('error', 'Você precisa selecionar uma cidade.');
         }
         
+        do_action('Campaign-validate', $this->errorHandler);
+        
         if (!empty($this->errorHandler->errors)) {
             return false;
         }
         
         return true;
+    }
+    
+    /**
+     * Check whether a campaign for this candidate
+     * has already been created in the system by checking
+     * the candidate number, city and state.
+     */
+    protected function candidateExist() {
+        global $wpdb;
+        
+        if (empty($this->candidate_number) || empty($this->city) || empty($this->state)) {
+            // all three fields above must be set to check if the candidate exist
+            return false;
+        }
+        
+        if (isset($this->id)) {
+            $campaign = $wpdb->get_row(
+                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s AND `id` != %d",
+                    $this->candidate_number, "$this->state:$this->city", $this->id));            
+        } else {
+            $campaign = $wpdb->get_row(
+                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s",
+                    $this->candidate_number, "$this->state:$this->city"));
+        }
+        
+                
+        if (!is_null($campaign)) {
+            return true;
+        }
+        
+        return false;
     }
     
     /**
@@ -213,8 +283,13 @@ class Campaign {
             return false;
         }
         
-        $value = $wpdb->get_var(
-            $wpdb->prepare("SELECT `$field` FROM `campaigns` WHERE `$field` = %s", $this->{$field}));
+        if (isset($this->id)) {
+            $value = $wpdb->get_var(
+                $wpdb->prepare("SELECT `$field` FROM `campaigns` WHERE `$field` = %s AND `id` != %d", $this->{$field}, $this->id));
+        } else {
+            $value = $wpdb->get_var(
+                $wpdb->prepare("SELECT `$field` FROM `campaigns` WHERE `$field` = %s", $this->{$field}));
+        }
 
         if (!is_null($value)) {
             return true;
@@ -230,16 +305,15 @@ class Campaign {
      */
     public function create() {
         global $wpdb;
-     
-        // temporary format to store state id and city id in the same field 
-        $location = $this->state . ":" . $this->city;
+         
+        $location = $this->formatLocation($this->state, $this->city);
 
-        $blogId = $this->createNewBlog();
+        $this->blog_id = $this->createNewBlog();
         
         $data = array(
-            'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $blogId,
+            'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $this->blog_id,
             'election_id' => $this->election_id, 'domain' => $this->domain, 'own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number,
-            'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location
+            'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location, 'observations' => $this->observations,
         );
         
         $wpdb->insert('campaigns', $data);
@@ -247,6 +321,56 @@ class Campaign {
         if (!empty($this->own_domain)) {
             $this->alertStaff();
         }
+        
+        do_action('Campaign-created', $data);
+    }
+    
+    /**
+     * Format location string based on $stateId and $cityId
+     * 
+     * @param int $stateId
+     * @param int $cityId
+     * @return string location string
+     */
+    protected function formatLocation($stateId, $cityId) {
+        // temporary format to store state id and city id in the same field
+        return $stateId . ':' . $cityId;
+    }
+    
+    /**
+     * Update campaign information
+     * 
+     * @return bool
+     */
+    public function update() {
+        global $wpdb;
+        
+        $data = array('own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number, 'plan_id' => $this->plan_id, 'state' => $this->state,
+            'city' => $this->city, 'observations' => $this->observations); 
+        
+        $data['location'] = $this->formatLocation($data['state'], $data['city']);
+        unset($data['state'], $data['city']);
+        
+        return $wpdb->update('campaigns', $data, array('id' => $this->id));
+    }
+    
+    /**
+     * Delete a campaign from the database and
+     * remove its associated blog.
+     * 
+     * @return null
+     */
+    public function delete() {
+        global $wpdb;
+        
+        // only the owner or super admin can delete a campaign
+        if (wp_get_current_user()->ID != $this->campaignOwner->ID && !is_super_admin()) {
+            throw new Exception('Você não tem permissão para remover está campanha.');
+        }
+        
+        $wpdb->query($wpdb->prepare("DELETE FROM `campaigns` WHERE `id` = %d", $this->id));
+        
+        wpmu_delete_blog($this->blog_id, true);
     }
     
     /**
@@ -329,6 +453,12 @@ class Campaign {
             
             if (!is_nav_menu('main')) {
                 $menu_id = wp_create_nav_menu('main');
+
+                wp_update_nav_menu_item($menu_id, 0, array(
+                    'menu-item-title' => 'Capa',
+                    'menu-item-url' => home_url('/'),
+                    'menu-item-status' => 'publish')
+                );
                 
                 wp_update_nav_menu_item($menu_id, 0, array(
                     'menu-item-title' => 'Biografia',
@@ -361,6 +491,8 @@ class Campaign {
             
             // remove default page
             wp_delete_post(2, true);
+            //remove default blog post
+            wp_delete_post(1, true);
             
             restore_current_blog();
         }

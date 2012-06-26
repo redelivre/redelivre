@@ -168,3 +168,31 @@ if (!get_option('db-update-9')) {
     
     $wpdb->query("ALTER TABLE `capabilities` CHANGE `access` `value` int(4)");
 }
+
+// add observations field to campaign table
+if (!get_option('db-update-10')) {
+    update_option('db-update-10', 1);
+    
+    $wpdb->query("ALTER TABLE `campaigns` ADD `observations` varchar(255) AFTER `location`");
+}
+
+// disable welcome panel in dashboard for already existent users
+if (!get_option('db-update-11')) {
+    update_option('db-update-11', 1);
+    
+    $wpdb->query("DELETE FROM `$wpdb->usermeta` WHERE `meta_key` = 'show_welcome_panel'");
+    
+    $ids = $wpdb->get_col("SELECT `ID` FROM `$wpdb->users`");
+
+    foreach ($ids as $id) {
+        $wpdb->insert($wpdb->usermeta, array('user_id' => $id, 'meta_key' => 'show_welcome_panel', 'meta_value' => 0));
+    }
+}
+
+// add georreferenciamento capability
+if (!get_option('db-update-12')) {
+    update_option('db-update-12', 1);
+    
+    $wpdb->query("INSERT INTO capabilities (plan_id, name, slug, value) VALUES(5, 'Georreferenciamento', 'georreferenciamento', 1) ");
+    
+}

@@ -1,6 +1,6 @@
 /* =Mobilize
 -------------------------------------------------------------- */
-#mobilize-content { margin: 0 20px 44px; }
+#mobilize-content { margin: 0 auto; padding: 22px 20px 44px; }
 .mobilize-widget { margin-bottom: 22px; padding-bottom: 21px; border-bottom: 1px solid #ccc; }
 #mobilize-banners img { display: block; }
 .mobilize-banners { float: left; width: 33.3333%; text-align: center; }

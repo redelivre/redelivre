@@ -41,17 +41,13 @@ add_action('admin_menu', function() {
             require(WPMU_PLUGIN_DIR . '/includes/graphic_material_header.php');
         });
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
-
-        
     }
-    
-    /*if ($capabilities->contact_manager->value) {
-        add_menu_page('Gerenciador de contatos', 'Gerenciador de contatos', 'read', 'contact_manager', function() {
-            require(WPMU_PLUGIN_DIR . '/includes/contact_manager.php');
-        });
-    }*/
     
     add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
         require(WPMU_PLUGIN_DIR . '/includes/admin-mobilize.php');
+    });
+    
+    add_menu_page('Redes Sociais', 'Redes Sociais', 'read', 'campaign_social_networks', function() {
+        require(WPMU_PLUGIN_DIR . '/includes/admin-social-networks.php');
     });
 });
