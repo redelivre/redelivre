@@ -37,12 +37,6 @@ add_action('admin_menu', function() {
         });
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
         
-    }
-    
-    if ($capabilities->contact_manager->value) {
-        add_menu_page('Gerenciador de contatos', 'Gerenciador de contatos', 'read', 'contact_manager', function() {
-            require(WPMU_PLUGIN_DIR . '/includes/contact_manager.php');
-        });
     }*/
     
     add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
