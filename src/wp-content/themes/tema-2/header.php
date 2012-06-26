@@ -45,9 +45,9 @@ $sidebar = get_option('campanha_theme_options');
         <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
         <![endif]-->
         <?php if ($sidebar): ?>
-			<?php if ( $sidebar["sidebar_position"] == 'esquerda') : ?>
+			<?php if ( $sidebar["sidebar_position"] == 'right') : ?>
 				<style>
-					#main-section { float: right; }
+					#main-sidebar { float: right; }
 				</style>
 			<?php endif; ?>
 		<?php endif; ?>
