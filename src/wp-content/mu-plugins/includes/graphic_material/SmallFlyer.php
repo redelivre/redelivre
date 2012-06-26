@@ -33,14 +33,17 @@ class SmallFlyer extends GraphicMaterial {
         $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
         $path = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
         
-        $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
-        
-        $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
-        $this->finalImage->prependImage($candidateImage);
- 
-        //$this->formatShape();
- 
-        //$this->formatText();
+        if (file_exists($path)) {
+            $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
+            
+            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
+            $this->finalImage->prependImage($candidateImage);
+     
+            $this->formatShape();
+            $this->formatText();
+        } else {
+            throw new Exception('Não foi possível encontrar o arquivo com a forma.');
+        }
     }
     
     /**
@@ -50,33 +53,8 @@ class SmallFlyer extends GraphicMaterial {
         $this->data->shapeColor1 = isset($_REQUEST['data']['shapeColor1']) ? filter_var($_REQUEST['data']['shapeColor1'], FILTER_SANITIZE_STRING) : null;
         $this->data->shapeColor2 = isset($_REQUEST['data']['shapeColor2']) ? filter_var($_REQUEST['data']['shapeColor2'], FILTER_SANITIZE_STRING) : null;
 
-        $shapePath = GRAPHIC_MATERIAL_DIR . "/{$this->data->shapeName}.svg";
-        
-        if (file_exists($shapePath)) {
-            // TODO: check if there is a better way to change element style
-            $svg = SVGDocument::getInstance($shapePath);
-            
-            $element1 = $svg->getElementById('cor1');
-            $shape1 = new SVGPath($element1->asXML());
-            
-            $element2 = $svg->getElementById('cor2');
-            $shape2 = new SVGPath($element2->asXML());
-            
-            if ($this->data->shapeColor1) {
-                $style = new SVGStyle;
-                $style->setFill($this->data->shapeColor1);
-                $shape1->setStyle($style);
-            }
-            
-            if ($this->data->shapeColor2) {
-                $style = new SVGStyle;
-                $style->setFill($this->data->shapeColor2);
-                $shape2->setStyle($style);
-            }
-            
-            $this->finalImage->addShape($shape1);
-            $this->finalImage->addShape($shape2);
-        }
+        $this->finalImage->getElementById('fundo')->setAttribute('fill', $this->data->shapeColor1);
+        $this->finalImage->getElementById('borda')->setAttribute('fill', $this->data->shapeColor2);
     }
     
     /**
@@ -91,6 +69,14 @@ class SmallFlyer extends GraphicMaterial {
         $this->data->candidateName = isset($_REQUEST['data']['candidateName']) ? filter_var($_REQUEST['data']['candidateName'], FILTER_SANITIZE_STRING) : null;
         $this->data->candidateSize = (isset($_REQUEST['data']['candidateSize']) && !empty($_REQUEST['data']['candidateSize'])) ? filter_var($_REQUEST['data']['candidateSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
         $this->data->candidateColor = isset($_REQUEST['data']['candidateColor']) ? filter_var($_REQUEST['data']['candidateColor'], FILTER_SANITIZE_STRING) : 'black';
+        
+        $role = $this->finalImage->getElementById('cargo');
+        
+        if (strlen($campaign->candidate_number) == 2) {
+            $role[0] = 'Prefeito';
+        } else {
+            $role[0] = 'Vereador';
+        }
         
         $candidateStyle = $this->createStyle($this->data->candidateSize, $this->data->candidateColor);
         $this->finalImage->addShape(SVGText::getInstance(15, 270, 'candidateName', $this->data->candidateName, $candidateStyle));
