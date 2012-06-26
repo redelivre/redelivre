@@ -1,6 +1,6 @@
 <?php
 
-class GraphicMaterial
+abstract class GraphicMaterial
 {
     /**
      * The final SVG file
@@ -94,6 +94,16 @@ class GraphicMaterial
         $this->data = $this->getData();
         
     }
+    
+    /**
+     * Do the actual processing to generate the SVG
+     * image based on the user input. Used both when 
+     * displaying the image to the browser and when
+     * saving the image to the disk.
+     * 
+     * @return null
+     */
+    abstract protected function processImage();
     
     /**
      * Get from the database data used to

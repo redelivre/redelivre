@@ -26,37 +26,31 @@ class SmallFlyer extends GraphicMaterial {
     }
 
     /**
-     * Do the actual processing to generate the SVG
-     * image based on the user input. Used both when 
-     * displaying the image to the browser and when
-     * saving the image to the disk.
-     * 
-     * @return null
+     * @see GraphicMaterial::processImage()
      */
     protected function processImage() {
         $candidateImage = GRAPHIC_MATERIAL_DIR . '/smallflyer_candidate_croped.png';
+        $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
+        $path = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
         
-        $this->finalImage = SVGDocument::getInstance(null, 'CampanhaSVGDocument');
-        $this->finalImage->setWidth($this->width);
-        $this->finalImage->setHeight($this->height);
+        $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
         
         $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
-        $this->finalImage->addShape($candidateImage);
+        $this->finalImage->prependImage($candidateImage);
  
-        $this->formatShape();
+        //$this->formatShape();
  
-        $this->formatText();
+        //$this->formatText();
     }
     
     /**
      * Format a SVG shape image to be include in the flyer
      */
     protected function formatShape() {
-        $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
         $this->data->shapeColor1 = isset($_REQUEST['data']['shapeColor1']) ? filter_var($_REQUEST['data']['shapeColor1'], FILTER_SANITIZE_STRING) : null;
         $this->data->shapeColor2 = isset($_REQUEST['data']['shapeColor2']) ? filter_var($_REQUEST['data']['shapeColor2'], FILTER_SANITIZE_STRING) : null;
 
-        $shapePath = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
+        $shapePath = GRAPHIC_MATERIAL_DIR . "/{$this->data->shapeName}.svg";
         
         if (file_exists($shapePath)) {
             // TODO: check if there is a better way to change element style
