@@ -17,7 +17,7 @@ function tema2_setup() {
 
     // POST THUMBNAILS
     add_theme_support('post-thumbnails');
-    set_post_thumbnail_size( 200, 150, true );
+    set_post_thumbnail_size( 220, 154, true );
 
     //REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
     add_image_size('home-feature',400,300);
@@ -88,6 +88,14 @@ if(function_exists('register_sidebar')) {
     register_sidebar( array(
         'name' =>  'Sidebar',
         'description' => __('Sidebar', 'tema2'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
+        'after_widget' => '</div></div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    ) );
+        register_sidebar( array(
+        'name' =>  'Home',
+        'description' => __('Home', 'tema2'),
         'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
         'after_widget' => '</div></div>',
         'before_title' => '<h3>',

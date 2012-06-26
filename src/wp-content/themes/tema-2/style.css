@@ -181,17 +181,17 @@ ul#menu-rodape li:last-child:after {content:"";}
 
 /* =Home Features
 -------------------------------------------------------------- */
-#home-features { position: relative; margin-bottom: 44px; }
-#home-features nav { position: absolute; top: 50%; }
-#home-features nav#right { right: 0; }
-.hl-wrapper { float: left; width: 780px; margin: 0 89px 0; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
-.hl-nav-left, .hl-nav-right { display: block; width: 60px; height: 60px; margin: -30px 10px 0; text-indent: -99999px; }
+#home-features { position: relative; margin-bottom: 22px; }
+#home-features nav { padding: 10px 0 0 900px; }
+#home-features h3 { position: absolute; width: 898px; margin: 9px 20px; font-size: 14px; text-transform: uppercase; }
+.hl-wrapper { width: 938px; margin: 0 10px 0; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
+.hl-nav-left, .hl-nav-right { float: left; display: block; width: 22px; height: 22px; margin-left: 3px; text-indent: -99999px; cursor: pointer; }
 .hl-nav-left { background: #0033CC url(img/seta-esq.png) no-repeat; }
 .hl-nav-right { background: #0033CC url(img/seta-dir.png) no-repeat; }
-.hl-wrapped article.home-feature { float: left; width: 740px; margin-bottom: 0; padding: 20px; }
+.hl-wrapped article.home-feature { float: left; width: 898px; margin-bottom: 0; padding: 40px 20px 20px; }
 .hl-wrapped article.sticky { border: none; }
-.hl-wrapped .wp-post-image { float: left; margin: 0 20px 14px 0; }
-.hl-wrapped article.home-feature .has-thumbnail { width: 320px; float: left; }
+.hl-wrapped .wp-post-image { float: left; margin: 0 20px 0 0; }
+.hl-wrapped article.home-feature .has-thumbnail { width: 478px; float: left; }
 
 /* =Home Other Features
 -------------------------------------------------------------- */
@@ -201,8 +201,15 @@ ul#menu-rodape li:last-child:after {content:"";}
 .hl-lightbox-dialog label { font-family: sans-serif; font-weight: bold; color: #333; font-size: 12px; }
 .hl-lightbox-dialog input[type="text"] { width: 80% !important; margin-bottom: 11px; box-shadow: none; background: #fff; border: 1px solid #DFDFDF; border-radius: 3px; color:#333; }
 .hl-lightbox-dialog input[type="submit"] { border: 1px solid #13455B; color: #EAF2FA; background: #21759B; text-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0; font-weight: bold; font-size: 12px; line-height: 13px; padding: 3px 8px; cursor: pointer; border-radius: 11px; font-family: sans-serif; }
-.hl-lightbox { height: 16px; padding: 10px 20px; line-height: 16px; color: #333; background: whiteSmoke; cursor: pointer; text-shadow: white 0 1px 0; font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif; border: 1px solid #DFDFDF; border-radius: 3px; }
+.hl-lightbox { height: 16px; margin-bottom: 22px; padding: 10px 20px; line-height: 16px; font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif; color: #333; background: whiteSmoke; cursor: pointer; text-shadow: white 0 1px 0; border: 1px solid #DFDFDF; border-radius: 3px; }
 .hl-lightbox:hover { color: #fff; background: gray; text-shadow: #333 0 -1px 0; }
+.empty-feature { margin-bottom: 22px; padding: 20px; color: #333; background: whiteSmoke; text-shadow: white 0 1px 0; border: 1px dashed #DFDFDF; border-radius: 3px; }
+
+#home-other-features h3, #home-sidebar h3 { font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #ccc; }
+#home-other-features .sticky { border: none; padding: 0; }
+.widgetuniquepost { font-size: 12px; }
+.widgetuniquepost h1 { font-size: 16px !important; line-height: 22px; margin-bottom: 0; }
+
 
 
 /* =Post

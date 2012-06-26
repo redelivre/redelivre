@@ -6,7 +6,7 @@ $post = $self->getPostFromPermalink($config);
 
 if ($post):
 			?>
-	<article id="post-<?php the_ID(); ?>" <?php post_class('home-feature clearfix');?>>
+	<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>
 		<?php if ( has_post_thumbnail() ) : ?> 
 			<?php the_post_thumbnail(); ?>
 		<?php else: ?>
@@ -20,7 +20,7 @@ if ($post):
 				</p>
 			</header>
 		<div class="post-content">						
-			<?php echo utils::getPostExcerpt($post, 144); ?>
+			<p><?php echo utils::getPostExcerpt($post, 144); ?></p>
 		</div>
 		<footer class="clearfix">	
 			<p class="taxonomies">			
@@ -29,6 +29,12 @@ if ($post):
 			</p>		
 		</footer>
 	</article>
+
+<?php else: ?>
+
+	<div class="empty-feature">
+		<p>Clique em "editar" acima para colocar um post aqui.</p>
+	</div>
 
 <?php
 endif;
