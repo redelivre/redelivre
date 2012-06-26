@@ -34,7 +34,18 @@
 		</section>
 		<!-- #home-other-features -->
 		<aside id="home-sidebar" class="col-3">
-			<?php dynamic_sidebar('Home'); ?>
+			<?php if (!dynamic_sidebar('Home')): ?>
+
+				<?php if (current_user_can('manage_options')): ?>
+					<h3>Widgets</h3>
+					<div class="empty-feature">
+						<p>Para exibir widgets aqui acesse o <a href="<?php echo admin_url('widgets.php'); ?>">painel de administração</a> e arraste widgets para o box "Home".</p>
+					</div>
+					
+					
+				<?php endif; ?>
+			
+			<?php endif; ?>
 		</aside>
     </section>
     <!-- #main-section -->

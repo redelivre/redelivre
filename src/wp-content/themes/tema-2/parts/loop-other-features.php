@@ -33,7 +33,7 @@ if ($post):
 <?php else: ?>
 
 	<div class="empty-feature">
-		<p>Clique em "editar" acima para colocar um post aqui.</p>
+		<p>Para exibir um post aqui clique acima em "editar".</p>
 	</div>
 
 <?php

@@ -9,15 +9,15 @@ $blogurl = urlencode(get_bloginfo('url'));
 		<?php if (Mobilize::isActive('general')): ?>
             <h1>Apoie esta campanha</h1>
             <div class="section-description">
-                <?php echo $options['general']['description']; ?>
+                <p><?php echo $options['general']['description']; ?></p>
             </div>
             <?php if (Mobilize::isActive('redes')): $re?>
                 <section id="mobilize-redes" class="mobilize-widget clearfix">
                     <?php $redes = get_option('campanha_social_networks'); ?>
                     <h6>Redes sociais</h6>
-                    <div class="section-description">
+                    <p class="section-description">
                         <?php echo $options['redes']['description']; ?>
-                    </div>
+                    </p>
                     <div class='clearfix'>
                         <?php if (isset($redes['facebook']) && !empty($redes['facebook'])): ?>
                             <a class="mobilize-button mobilize-facebook" href="<?php echo $redes['facebook']; ?>">Facebook</a>
@@ -35,9 +35,9 @@ $blogurl = urlencode(get_bloginfo('url'));
                             <a class="mobilize-button mobilize-youtube" href="<?php echo $redes['youtube']; ?>">Youtube</a>
                         <?php endif; ?>
                     </div>
-                    <div>
-                        <div class="fb-like" data-href="<?php echo $blogurl ?>" data-send="true" data-width="450" data-show-faces="true"></div><br/>
-                        <div class="g-plusone" data-size="medium" data-annotation="inline" data-href="<?php echo $blogurl; ?>"></div><br/>
+                    <div class="clearfix">
+                        <div class="fb-like" data-href="<?php echo $blogurl ?>" data-send="true" data-width="450" data-show-faces="true"></div>
+                        <div class="google-mala"><div class="g-plusone" data-size="s" data-annotation="inline" data-href="<?php echo $blogurl; ?>"></div></div>
                         <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $blogurl ?>" data-lang="pt">Tweetar</a>
                     </div>
 
@@ -49,9 +49,9 @@ $blogurl = urlencode(get_bloginfo('url'));
 
                 <section id="mobilize-banners" class="mobilize-widget clearfix">
                     <h6>Banners</h6>
-                    <div class="section-description">
+                    <p class="section-description">
                         <?php echo $options['banners']['description']; ?>
-                    </div>
+                    </p>
                     <?php for ($i = 0; $i < Mobilize::getNumBanners(); $i++): ?>
                         <div class="mobilize-banners">
                             <!-- banner de 250x250 -->
@@ -84,9 +84,9 @@ $blogurl = urlencode(get_bloginfo('url'));
 
                 <section id="mobilize-sticker" class="mobilize-widget clearfix">
                     <h6>Adesive sua foto!</h6>
-                    <div class="section-description">
+                    <p class="section-description">
                         <?php echo $options['adesive']['description']; ?>
-                    </div>
+                    </p>
 
                     <div class="sticked-avatar"><img class="sticker"src="<?php echo Mobilize::getAdesiveURL(); ?>" alt="" /><img width="80" height="80" src="<?php echo WPMU_PLUGIN_URL; ?>/img/mistery_man.jpg" /></div>
                     <form method="post" enctype="multipart/form-data" target="_blank">
@@ -108,9 +108,9 @@ $blogurl = urlencode(get_bloginfo('url'));
                 <section id="mobilize-sendto" class="mobilize-widget clearfix">
                     <a name="send-to"></a>
                     <h6>Envie para um amigo!</h6>
-                    <div class="section-description">
+                    <p class="section-description">
                         <?php echo $options['envie']['description']; ?>
-                    </div>
+                    </p>
                     <div id="standard-message">
                         <div><p><?php echo nl2br(htmlentities(utf8_decode($options['envie']['message']))) ?></p></div>
                     </div>

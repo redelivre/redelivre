@@ -17,3 +17,7 @@ img.sticker { position: absolute; right: 0; bottom: 0; max-width: 80px; max-heig
 #standard-message div { overflow-y: scroll; max-height: 506px; min-height: 383px; margin: 0 9px; padding: 10px; background: #f1f1f1; border: 1px solid #ccc; font-size: 12px; color: #666; }
 #mobilize-sendto-form { float: left; width: 50%; }
 #mobilize-sendto-form p, #mobilize-sendto-form form { margin-left: 10px; margin-right: 10px; }
+.fb-like, .google-mala, .twitter-share-button { float: left; }
+.fb-like { width: 360px !important; }
+.google-mala { width: 180px !important; margin: 0 10px; padding: 0 10px; border-left: 1px dotted #ccc; border-right: 1px dotted #ccc; }
+.twitter-share-button { width: 100px !important; }
