@@ -218,7 +218,7 @@ class CandidatePhoto {
                 <input type="hidden" name="minHeight" value="<?php echo $this->minHeight ?>" />
                 <?php wp_nonce_field('graphic_material_upload_photo', 'graphic_material_upload_photo_nonce'); ?>
                 <input type="file" name="photo" />
-                <input type="submit" value="subir foto" />
+                <input type="submit" class="button-primary" value="subir foto" />
             </form>
             <?php if ($this->minWidth && $this->minHeight): ?>
                 <div class="warning"><p>Para garantir a qualidade da impressão a imagem enviada deve ter pelo menos <?php echo "{$this->minWidth}x{$this->minHeight}"; ?> pixels.</p></div>
@@ -228,7 +228,7 @@ class CandidatePhoto {
                 <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden;">
                     <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>;"/>
                 </div>
-                <button id="save-position">salvar posição</button>
+                <button id="save-position" class="button-primary">salvar posição</button>
                 <span id="save-response">a posição da imagem foi salva</span>
             <?php else: ?>
                 Você ainda não enviou uma imagem.
