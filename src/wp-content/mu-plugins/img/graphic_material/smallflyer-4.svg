@@ -9,7 +9,7 @@
 <text id="nome-do-candidato" transform="matrix(1 0 0 1 121.3906 1157.7451)" font-family="'Arial-BoldMT'" font-size="99.488">Candidato</text>
 <text id="slogan" transform="matrix(1 0 0 1 118.7959 1222.3867)" font-family="'Arial-BoldMT'" font-size="58.2366">Lorem ipsum dolor</text>
 <text id="numero" transform="matrix(1 0 0 1 121.1958 314.1289)" font-family="'Arial-BoldMT'" font-size="271.0534">00000</text>
-<text id="coligação" transform="matrix(1 0 0 1 120.834 1277.0703)" font-family="'ArialMT'" font-size="33.2781">coligação: partido, partido, partido, partido</text>
+<text id="coligação" transform="matrix(1 0 0 1 120.834 1277.0703)" font-family="ArialMT" font-size="33.2781">coligação: partido, partido, partido, partido</text>
 <g id="corte">
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="61.183" y1="2" x2="61.183" y2="44.664"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1.514" y1="60.558" x2="44.18" y2="60.558"/>

@@ -40,7 +40,7 @@
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="991.99" y1="61.666" x2="949.333" y2="61.666"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="933.438" y1="2" x2="933.438" y2="44.67"/>
 </g>
-<text id="grafica" transform="matrix(0 -1 1 0 908.625 1283.4238)" font-family="'ArialMT'" font-size="33.2781">Gráfica</text>
-<text id="tiragem" transform="matrix(0 -1 1 0 908.6318 939.0723)" font-family="'ArialMT'" font-size="33.2781">tiragem</text>
-<text id="cnpj" transform="matrix(0 -1 1 0 908.6318 639.958)" font-family="'ArialMT'" font-size="33.2781">CNPJ: 00.000.000.000/0001 -00</text>
+<text id="grafica" transform="matrix(0 -1 1 0 908.625 1283.4238)" font-family="ArialMT" font-size="33.2781">Gráfica</text>
+<text id="tiragem" transform="matrix(0 -1 1 0 908.6318 939.0723)" font-family="ArialMT" font-size="33.2781">tiragem</text>
+<text id="cnpj" transform="matrix(0 -1 1 0 908.6318 639.958)" font-family="ArialMT" font-size="33.2781">CNPJ: 00.000.000.000/0001 -00</text>
 </svg>
