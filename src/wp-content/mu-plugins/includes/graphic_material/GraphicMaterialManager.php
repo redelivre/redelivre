@@ -52,12 +52,16 @@ class GraphicMaterialManager {
     public function getLinks()
     {
         $links = array();
+        $names = array('smallflyer' => 'Santinho', 'flyer' => 'Flyer');
         
-        foreach (glob($this->dir . '*.pdf') as $file) {
-            $name = ucfirst(basename($file, '.pdf'));
-            $url = GRAPHIC_MATERIAL_PUBLIC_URL . basename($file);
-              
-            $links[$name] = $url;
+        foreach (glob(GRAPHIC_MATERIAL_DIR . '*.pdf') as $file) {
+            $englishName = basename($file, '.pdf');
+            if (array_key_exists($englishName, $names)) {
+                $name = $names[$englishName];
+                $url = GRAPHIC_MATERIAL_URL . basename($file);
+                
+                $links[$name] = $url;
+            }
         }
 
         return $links;
