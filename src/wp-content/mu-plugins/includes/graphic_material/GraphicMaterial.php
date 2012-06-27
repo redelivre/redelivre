@@ -142,7 +142,13 @@ abstract class GraphicMaterial
         
         // add random number as parameter to skip browser cache
         $rand = rand();
-        die("<img src='$url?rand=$rand'>");
+        
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Content-type: application/json');
+        
+        echo json_encode(array('image' => "<img src='$url?rand=$rand'>", 'candidateSize' => intval($this->data->candidateSize)));
+        die;
     }
 
     /**
