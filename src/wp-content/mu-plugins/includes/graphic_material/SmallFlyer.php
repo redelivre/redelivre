@@ -26,28 +26,7 @@ class SmallFlyer extends GraphicMaterial {
     }
 
     /**
-     * @see GraphicMaterial::processImage()
-     */
-    protected function processImage() {
-        $candidateImage = GRAPHIC_MATERIAL_DIR . '/smallflyer_candidate_croped.png';
-        $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
-        $path = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
-        
-        if (file_exists($path)) {
-            $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
-            
-            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
-            $this->finalImage->prependImage($candidateImage);
-     
-            $this->formatShape();
-            $this->formatText();
-        } else {
-            throw new Exception('Não foi possível encontrar o arquivo com a forma.');
-        }
-    }
-    
-    /**
-     * Format a SVG shape image to be include in the flyer
+     * @see GraphicMaterial::formatShape()
      */
     protected function formatShape() {
         $this->data->shapeColor1 = isset($_REQUEST['data']['shapeColor1']) ? filter_var($_REQUEST['data']['shapeColor1'], FILTER_SANITIZE_STRING) : null;
@@ -58,10 +37,7 @@ class SmallFlyer extends GraphicMaterial {
     }
     
     /**
-     * Create a SVGText object with the texts that
-     * should be include in the final SVG of the flyer
-     * 
-     * @return null
+     * @see GraphicMaterial::formatText()
      */
     protected function formatText() {
         global $campaign;

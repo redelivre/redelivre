@@ -35,8 +35,12 @@ class MuEasyAjax {
     }
     
     static function campanhaPreviewFlyer() {
-        $smallFlyer = new SmallFlyer;
-        $smallFlyer->preview();
+        $class = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        
+        if (class_exists($class)) {
+            $graphicMaterial = new $class;
+            $graphicMaterial->preview();
+        }
     }
 }
 

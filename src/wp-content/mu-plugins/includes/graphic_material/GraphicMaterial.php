@@ -103,8 +103,38 @@ abstract class GraphicMaterial
      * 
      * @return null
      */
-    abstract protected function processImage();
+    protected function processImage() {
+        $candidateImage = GRAPHIC_MATERIAL_DIR . '/' . strtolower(get_called_class()). '_candidate_croped.png';
+        $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
+        $path = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
+        
+        if (file_exists($path)) {
+            $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
+            
+            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
+            $this->finalImage->prependImage($candidateImage);
+     
+            $this->formatShape();
+            $this->formatText();
+        } else {
+            throw new Exception('Não foi possível encontrar o arquivo com a forma.');
+        }
+    }
+
+    /**
+     * Change all the texts and its fonts and colors.
+     * 
+     * @return null
+     */
+    abstract protected function formatText();
     
+    /**
+     * Change the color of the parts of shape file.
+     * 
+     * @return null
+     */    
+    abstract protected function formatShape();
+
     /**
      * Get from the database data used to
      * generated the SVG file.

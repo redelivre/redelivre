@@ -27,7 +27,7 @@ if (isset($_POST['save'])) {
         <form id="graphic_material_form" method="post">
             <?php wp_nonce_field('graphic_material'); ?>
             <input type='hidden' name='action' value='campanhaPreviewFlyer'>
-            <input type='hidden' name='page' value='graphic_material'>
+            <input type='hidden' name='type' value='smallflyer'>
             <div id="graphic_material_wizard">
                 <h3>2. Escolha uma forma:</h3>
                 <?php
