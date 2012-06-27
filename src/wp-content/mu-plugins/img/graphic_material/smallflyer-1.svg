@@ -1,42 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="992px"
-	 height="1358px" viewBox="0 0 992 1358" enable-background="new 0 0 992 1358" xml:space="preserve">
-
-	<path id="fundo" fill-rule="evenodd" clip-rule="evenodd" fill="#808285" d="M1.514,821.489c0,0,158.303-142.475,445.715-19.447
-		c310.394,132.861,544.766,19.447,544.766,19.447V1358H1.514V821.489z"/>
-
-	<path id="borda" fill-rule="evenodd" clip-rule="evenodd" fill="#BCBEC0" d="M447.229,802.042C159.816,679.015,1.514,821.489,1.514,821.489
-		v-63.673c0,0,161.839-147.778,449.254,7.068c297.236,160.143,541.227,38.917,541.227,38.917v17.688
-		C991.995,821.489,757.623,934.903,447.229,802.042z"/>
-
-	<text id="cargo" transform="matrix(1 0 0 1 120.832 866.5947)" fill="#F1F2F2" font-family="Arial" font-size="74.8756">vereador</text>
-
-	<text id="nome-do-candidato" transform="matrix(1 0 0 1 116.2256 1011.2217)" fill="#F1F2F2" font-family="Arial" font-size="141.4318">Candidato</text>
-
-	<text id="slogan" transform="matrix(1 0 0 1 120.8354 1096.6836)" fill="#F1F2F2" font-family="Arial" font-size="58.2366">Lorem ipsum dolor</text>
-
-	<text id="numero" transform="matrix(1 0 0 1 496.7534 1239.9209)" fill="#F1F2F2" font-family="Arial" font-size="141.4318">00000</text>
-
-	<text id="coligação" transform="matrix(1 0 0 1 120.834 1277.0703)" fill="#FFFFFF" font-family="Arial" font-size="33.2781">coligação: partido, partido, partido, partido</text>
-
-	<text id="grafica" transform="matrix(0 -1 1 0 102.6245 1239.9131)" font-family="Arial" font-size="33.2781">Gráfica</text>
-
-	<text id="tiragem" transform="matrix(0 -1 1 0 102.6309 895.5625)" font-family="Arial" font-size="33.2781">tiragem</text>
-
-	<text id="cnpj" transform="matrix(0 -1 1 0 102.6309 596.4478)" font-family="Arial" font-size="33.2781">CNPJ: 00.000.000.000/0001 -00</text>
-
-	<g id="corte">
-
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="61.183" y1="2" x2="61.183" y2="44.664"/>
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1.514" y1="60.558" x2="44.18" y2="60.558"/>
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1.514" y1="1298.334" x2="44.175" y2="1298.334"/>
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="60.071" y1="1358" x2="60.071" y2="1315.33"/>
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="932.329" y1="1358" x2="932.329" y2="1315.338"/>
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="992" y1="1299.442" x2="949.33" y2="1299.442"/>
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="991.99" y1="61.666" x2="949.333" y2="61.666"/>
-		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="933.438" y1="2" x2="933.438" y2="44.67"/>
-	</g>
-
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="992px" height="1358px" viewBox="0 0 992 1358" enable-background="new 0 0 992 1358" xml:space="preserve">
+<path id="fundo" fill="#808285" d="M1.514,821.489c0,0,158.303-142.476,445.715-19.447
+	c310.394,132.861,544.766,19.447,544.766,19.447V1358H1.514V821.489z"/>
+<path id="borda" fill="#BCBEC0" d="M447.229,802.042C159.816,679.015,1.514,821.489,1.514,821.489v-63.673
+	c0,0,161.839-147.778,449.253,7.067c297.236,160.144,541.228,38.917,541.228,38.917v17.688
+	C991.995,821.489,757.623,934.903,447.229,802.042z"/>
+<text id="cargo" transform="matrix(1 0 0 1 120.832 866.5947)" fill="#F1F2F2" font-family="'ArialMT'" font-size="74.8756">vereador</text>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 116.2256 1011.2217)" fill="#F1F2F2" font-family="'ArialMT'" font-size="141.4318">Candidato</text>
+<text id="slogan" transform="matrix(1 0 0 1 120.8354 1096.6836)" fill="#F1F2F2" font-family="'ArialMT'" font-size="58.2366">Lorem ipsum dolor</text>
+<text id="numero" transform="matrix(1 0 0 1 496.7539 1239.9209)" fill="#F1F2F2" font-family="'ArialMT'" font-size="141.4318">00000</text>
+<text id="coligação" transform="matrix(1 0 0 1 120.834 1277.0703)" fill="#FFFFFF" font-family="'ArialMT'" font-size="33.2781">coligação: partido, partido, partido, partido</text>
+<g id="corte">
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="61.183" y1="2" x2="61.183" y2="44.664"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1.514" y1="60.558" x2="44.18" y2="60.558"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1.514" y1="1298.334" x2="44.175" y2="1298.334"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="60.071" y1="1358" x2="60.071" y2="1315.33"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="932.329" y1="1358" x2="932.329" y2="1315.338"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="992" y1="1299.442" x2="949.33" y2="1299.442"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="991.99" y1="61.666" x2="949.333" y2="61.666"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="933.438" y1="2" x2="933.438" y2="44.67"/>
+</g>
 </svg>
