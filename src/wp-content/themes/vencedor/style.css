@@ -155,7 +155,7 @@ a:hover#rss      { background-position:-100px bottom; }
 -------------------------------------------------------------- */
 #menubar { height: 42px; background: #c00; border-top: 1px solid #fff; border-bottom: 1px solid #600; }
 #main-nav { float: left; margin: 0; list-style-type: none; }
-#main-nav li { position: relative; display: block; float: left; height: 42px; border-right: 1px solid #fcc; border-bottom: 1px solid #fff; }
+#main-nav li { position: relative; display: block; float: left; height: 42px; background: #c00; border-right: 1px solid #fcc; border-bottom: 1px solid #fff; }
 #main-nav .sub-menu li { border-bottom: 1px solid #fcc; }
 #main-nav ul { display: none; position: absolute; top: 43px; left: 0; margin: 0; width: 150px; float: left; z-index: 9999; border-top: 1px solid #fcc; }
 #main-nav li:hover>ul { display: block; }
