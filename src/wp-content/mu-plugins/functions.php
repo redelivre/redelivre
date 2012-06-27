@@ -105,7 +105,13 @@ function campaign_base_template_redirect_intercept() {
 
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
-            require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
+            if (file_exists(STYLESHEETPATH . '/tpl-graphic_material.php')) { // tema filho
+                require(STYLESHEETPATH . '/tpl-graphic_material.php');
+            } elseif (file_exists(TEMPLATEPATH . '/tpl-graphic_material.php')) { // tema pai
+                require(TEMPLATEPATH . '/tpl-graphic_material.php');
+            } else {
+                require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
+            }
             die;
         case 'mobilizacao':
             add_action('wp_print_scripts', function() {
