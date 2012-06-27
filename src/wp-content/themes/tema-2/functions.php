@@ -26,26 +26,41 @@ function tema2_setup() {
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
 
-    // CUSTOM IMAGE HEADER
-    define('HEADER_TEXTCOLOR', '0033CC');
-    define('HEADER_IMAGE_WIDTH', 960); 
-    define('HEADER_IMAGE_HEIGHT', 198);
+    
+    $args = array(
+        'default-image'          => get_template_directory_uri() . '/img/bg.png',
+        'default-color'          => '#FFFFFF',
+        //'wp-head-callback'       => '',
+        //'admin-head-callback'    => '',
+        //'admin-preview-callback' => ''
+    );
 
-    add_custom_image_header( 'tema2_custom_header', 'tema2_admin_custom_header' );
-
-    // CUSTOM BACKGROUND
-    add_custom_background();
+    add_theme_support( 'custom-background', $args );
+    
+     // Custom Header Image
+    $args = array(
+    'flex-width'    => true,
+    'width'         => 960,
+    'flex-height'    => true,
+    'height'        => 198,
+    //'default-image' => get_template_directory_uri() . '/images/default-header.jpg',
+    'uploads'       => true,
+    'wp-head-callback' => 'tema2_custom_header',
+    'admin-head-callback' => 'tema2_admin_custom_header',
+    'default-text-color' => '0033CC'
+    );
+    add_theme_support( 'custom-header', $args );
 }
 
 
 // admin_bar removal
 //wp_deregister_script('admin-bar');
 //wp_deregister_style('admin-bar');
-remove_action('wp_footer','wp_admin_bar_render',1000);
-function remove_admin_bar(){
-   return false;
-}
-add_filter( 'show_admin_bar' , 'remove_admin_bar');
+//remove_action('wp_footer','wp_admin_bar_render',1000);
+//function remove_admin_bar(){
+//   return false;
+//}
+//add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
 // JS
 add_action('wp_print_scripts', 'tema2_addJS');

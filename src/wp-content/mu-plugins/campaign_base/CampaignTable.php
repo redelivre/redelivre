@@ -90,7 +90,12 @@ class CampaingTable extends WP_List_Table {
         
         $this->_column_headers = array($columns, $hidden, $sortable);
         
-        $data = Campaign::getAll();
+        if (is_super_admin()) {
+            $data = Campaign::getAll();
+        } else {
+            $user = wp_get_current_user();
+            $data = Campaign::getAll($user->ID);
+        }
         
         function usort_reorder($a,$b){
             $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'domain'; //If no sort, default to title
@@ -113,6 +118,8 @@ class CampaingTable extends WP_List_Table {
             'per_page'    => $per_page,                     //WE have to determine how many items to show on a page
             'total_pages' => ceil($total_items/$per_page)   //WE have to calculate the total number of pages
         ) );
+        
+        return $this->items;
     }
     
 }

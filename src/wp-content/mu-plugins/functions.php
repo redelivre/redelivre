@@ -306,7 +306,7 @@ function custom_login_logo() {
 		<link rel="stylesheet" type="text/css" media="all" href=" '.$baseUrl.'style.css" />
         <style type="text/css">
 			
-	        .login h1 a { height: 180px; background-image: url('. $baseUrl .'img/logo.png); }
+	        .login h1 a { height: 180px; background-image: url('. $baseUrl .'img/logo.png); background-size: auto; }
 	        .login form { padding: 26px 24px 62px; margin: 0; background: #042244; border: none; border-radius: 4px; box-shadow: 0px 0px 30px rgba(0,0,0, .3) inset, 1px 1px 0 rgba(250,250,250, .3); }
 	        .login input.button-primary { padding: 0 10px; border: none; border-radius: 4px !important; font-size: 1.125em !important; font-weight: normal; }
 	        .login input.button-primary:hover { color: #ffce33; }
