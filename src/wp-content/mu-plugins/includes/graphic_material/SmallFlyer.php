@@ -36,9 +36,8 @@ class SmallFlyer extends GraphicMaterial {
         if (file_exists($path)) {
             $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
             
-            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage, false);
-            //$this->finalImage->prependImage($candidateImage);
-            //$this->finalImage->append($candidateImage);
+            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
+            $this->finalImage->prependImage($candidateImage);
      
             $this->formatShape();
             $this->formatText();

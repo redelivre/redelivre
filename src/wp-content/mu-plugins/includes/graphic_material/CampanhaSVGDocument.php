@@ -31,6 +31,8 @@ class CampanhaSVGDocument extends SVGDocument {
         $new->setAttribute('x', $prepend->getAttribute('x'));
         $new->setAttribute('y', $prepend->getAttribute('y'));
         $new->setAttribute('id', $prepend->getAttribute('id'));
+        $new->setAttribute('width', $prepend->getWidth());
+        $new->setAttribute('height', $prepend->getHeight());
 
         return simplexml_import_dom($new, get_class($this));
     }
