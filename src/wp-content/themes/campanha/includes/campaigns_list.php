@@ -15,15 +15,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'delete'
     }
 }
 
-if (is_super_admin()) {
-    $campaigns = Campaign::getAll();
-} else {
-    $user = wp_get_current_user();
-    $campaigns = Campaign::getAll($user->ID);
-}
-
 $campaignTable = new CampaingTable;
-$campaignTable->prepare_items();
 
 ?>
 
@@ -38,7 +30,7 @@ $campaignTable->prepare_items();
         <div class="error"><p><?php echo $error; ?></p></div>
     <?php endif; ?>
     
-    <?php if ($campaigns) : ?>
+    <?php if ($campaignTable->prepare_items()) : ?>
         <?php $campaignTable->display(); ?>
     <?php else : ?>
         <p>Você ainda não criou nenhuma campanha. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de campanha</a>.</p>
