@@ -4,11 +4,11 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="992px" height="1358px" viewBox="0 0 992 1358" enable-background="new 0 0 992 1358" xml:space="preserve">
 <rect id="fundo" y="2" fill="#808285" width="991.99" height="1356"/>
-<text transform="matrix(1 0 0 1 399.5947 173.3652)" font-family="'BebasNeue'" font-size="75">Colinha</text>
-<text transform="matrix(1 0 0 1 123.3867 294.2598)" font-family="'BebasNeue'" font-size="75">Vereador</text>
-<text transform="matrix(1 0 0 1 123.3867 361.9072)" font-family="'BebasNeue'" font-size="74.8756">Nome do Vereador</text>
-<text transform="matrix(1 0 0 1 123.3867 770.5723)" font-family="'BebasNeue'" font-size="75">Prefeito</text>
-<text transform="matrix(1 0 0 1 123.3867 838.7197)" font-family="'BebasNeue'" font-size="74.8756">Nome do prefeito</text>
+<text transform="matrix(1 0 0 1 399.5947 173.3652)" font-family="BebasNeue" font-size="75">Colinha</text>
+<text transform="matrix(1 0 0 1 123.3867 294.2598)" font-family="BebasNeue" font-size="75">Vereador</text>
+<text transform="matrix(1 0 0 1 123.3867 361.9072)" font-family="BebasNeue" font-size="74.8756">Nome do Vereador</text>
+<text transform="matrix(1 0 0 1 123.3867 770.5723)" font-family="BebasNeue" font-size="75">Prefeito</text>
+<text transform="matrix(1 0 0 1 123.3867 838.7197)" font-family="BebasNeue" font-size="74.8756">Nome do prefeito</text>
 <rect x="743.656" y="397.956" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="125" height="125"/>
 <rect x="588.589" y="397.956" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="125" height="125"/>
 <rect x="433.508" y="397.956" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="125" height="125"/>
@@ -18,18 +18,18 @@
 <rect x="438.009" y="865.591" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="192.201" height="192.2"/>
 <path id="confirma-vereador" fill="#39B54A" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M611.82,685.385
 	c0,6.627,5.373,12,12,12h232.836c6.627,0,12-5.373,12-12V562.51c0-6.627-5.373-12-12-12H623.82c-6.627,0-12,5.373-12,12V685.385z"/>
-<text transform="matrix(1 0 0 1 627.7324 623.0098)" font-family="'BebasNeue'" font-size="75">Confirma</text>
+<text transform="matrix(1 0 0 1 627.7324 623.0098)" font-family="BebasNeue" font-size="75">Confirma</text>
 <path id="confirma-prefeito" fill="#39B54A" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M611.82,1228.01
 	c0,6.627,5.373,12,12,12h232.836c6.627,0,12-5.373,12-12v-122.875c0-6.627-5.373-12-12-12H623.82c-6.627,0-12,5.373-12,12V1228.01z"
 	/>
-<text transform="matrix(1 0 0 1 627.7324 1165.6348)" font-family="'BebasNeue'" font-size="75">Confirma</text>
-<text id="vereador-1" transform="matrix(1 0 0 1 156.187 513.1904)" font-family="'BebasNeue'" font-size="150">0</text>
-<text id="vereador-2" transform="matrix(1 0 0 1 311.2544 513.1904)" font-family="'BebasNeue'" font-size="150">0</text>
-<text id="vereador-3" transform="matrix(1 0 0 1 466.3086 513.1904)" font-family="'BebasNeue'" font-size="150">0</text>
-<text id="vereador-4" transform="matrix(1 0 0 1 621.3887 513.1904)" font-family="'BebasNeue'" font-size="150">0</text>
-<text id="vereador-5" transform="matrix(1 0 0 1 776.457 513.1904)" font-family="'BebasNeue'" font-size="150">0</text>
-<text id="prefeito-1" transform="matrix(1 0 0 1 488.4438 1042.7764)" font-family="'BebasNeue'" font-size="230.6416">0</text>
-<text id="prefeito-2" transform="matrix(1 0 0 1 726.876 1042.7764)" font-family="'BebasNeue'" font-size="230.6416">0</text>
+<text transform="matrix(1 0 0 1 627.7324 1165.6348)" font-family="BebasNeue" font-size="75">Confirma</text>
+<text id="vereador-1" transform="matrix(1 0 0 1 156.187 513.1904)" font-family="BebasNeue" font-size="150">0</text>
+<text id="vereador-2" transform="matrix(1 0 0 1 311.2544 513.1904)" font-family="BebasNeue" font-size="150">0</text>
+<text id="vereador-3" transform="matrix(1 0 0 1 466.3086 513.1904)" font-family="BebasNeue" font-size="150">0</text>
+<text id="vereador-4" transform="matrix(1 0 0 1 621.3887 513.1904)" font-family="BebasNeue" font-size="150">0</text>
+<text id="vereador-5" transform="matrix(1 0 0 1 776.457 513.1904)" font-family="BebasNeue" font-size="150">0</text>
+<text id="prefeito-1" transform="matrix(1 0 0 1 488.4438 1042.7764)" font-family="BebasNeue" font-size="230.6416">0</text>
+<text id="prefeito-2" transform="matrix(1 0 0 1 726.876 1042.7764)" font-family="BebasNeue" font-size="230.6416">0</text>
 <g id="corte">
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="61.183" y1="2" x2="61.183" y2="44.664"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1.514" y1="60.558" x2="44.18" y2="60.558"/>

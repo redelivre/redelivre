@@ -8,10 +8,10 @@
 <path id="borda" fill="#BCBEC0" d="M561.82,675.419C152.694,763.611,1.514,796.489,1.514,796.489v39
 	c0,0,151.181-32.878,560.307-121.07c376.563-81.173,430.175,121.07,430.175,121.07v-39
 	C991.995,796.489,938.384,594.246,561.82,675.419z"/>
-<text id="cargo" transform="matrix(1 0 0 1 552.832 780.6572)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="74.8756">vereador</text>
-<text id="nome-do-candidato" transform="matrix(1 0 0 1 890.75 903.6328)" style="text-anchor: end;" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="99.488">Candidato</text>
-<text id="slogan" transform="matrix(1 0 0 1 890.75 991.9961)" fill="#FFFFFF" style="text-anchor: end;" font-family="'Arial-BoldMT'" font-size="58.2366">Lorem ipsum dolor</text>
-<text id="numero" transform="matrix(1 0 0 1 120.8335 1215.9824)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="230.0778">00000</text>
+<text id="cargo" transform="matrix(1 0 0 1 552.832 780.6572)" fill="#FFFFFF" font-family="Arial-BoldMT" font-size="74.8756">vereador</text>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 890.75 903.6328)" style="text-anchor: end;" fill="#FFFFFF" font-family="Arial-BoldMT" font-size="99.488">Candidato</text>
+<text id="slogan" transform="matrix(1 0 0 1 890.75 991.9961)" fill="#FFFFFF" style="text-anchor: end;" font-family="Arial-BoldMT" font-size="58.2366">Lorem ipsum dolor</text>
+<text id="numero" transform="matrix(1 0 0 1 120.8335 1215.9824)" fill="#FFFFFF" font-family="Arial-BoldMT" font-size="230.0778">00000</text>
 <text id="coligação" transform="matrix(1 0 0 1 120.834 1277.0703)" fill="#FFFFFF" font-family="ArialMT" font-size="33.2781">coligação: partido, partido, partido, partido</text>
 <g id="corte">
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="61.183" y1="2" x2="61.183" y2="44.664"/>

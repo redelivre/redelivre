@@ -5,10 +5,10 @@
 	 width="992px" height="1358px" viewBox="0 0 992 1358" enable-background="new 0 0 992 1358" xml:space="preserve">
 <rect id="fundo" x="1.513" y="991.865" fill="#808285" width="990.48" height="366.135"/>
 <rect id="borda" fill="#A7A9AC" width="991.994" height="100"/>
-<text id="cargo" transform="matrix(1 0 0 1 121.1958 1059.8867)" font-family="'Arial-BoldMT'" font-size="74.8756">vereador</text>
-<text id="nome-do-candidato" transform="matrix(1 0 0 1 121.3906 1157.7451)" font-family="'Arial-BoldMT'" font-size="99.488">Candidato</text>
-<text id="slogan" transform="matrix(1 0 0 1 118.7959 1222.3867)" font-family="'Arial-BoldMT'" font-size="58.2366">Lorem ipsum dolor</text>
-<text id="numero" transform="matrix(1 0 0 1 121.1958 314.1289)" font-family="'Arial-BoldMT'" font-size="271.0534">00000</text>
+<text id="cargo" transform="matrix(1 0 0 1 121.1958 1059.8867)" font-family="Arial-BoldMT" font-size="74.8756">vereador</text>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 121.3906 1157.7451)" font-family="Arial-BoldMT" font-size="99.488">Candidato</text>
+<text id="slogan" transform="matrix(1 0 0 1 118.7959 1222.3867)" font-family="Arial-BoldMT" font-size="58.2366">Lorem ipsum dolor</text>
+<text id="numero" transform="matrix(1 0 0 1 121.1958 314.1289)" font-family="Arial-BoldMT" font-size="271.0534">00000</text>
 <text id="coligação" transform="matrix(1 0 0 1 120.834 1277.0703)" font-family="ArialMT" font-size="33.2781">coligação: partido, partido, partido, partido</text>
 <g id="corte">
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="61.183" y1="2" x2="61.183" y2="44.664"/>
