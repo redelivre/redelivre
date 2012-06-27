@@ -36,8 +36,9 @@ class SmallFlyer extends GraphicMaterial {
         if (file_exists($path)) {
             $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
             
-            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
-            $this->finalImage->prependImage($candidateImage);
+            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage, false);
+            //$this->finalImage->prependImage($candidateImage);
+            //$this->finalImage->append($candidateImage);
      
             $this->formatShape();
             $this->formatText();
@@ -70,49 +71,46 @@ class SmallFlyer extends GraphicMaterial {
         $this->data->candidateSize = (isset($_REQUEST['data']['candidateSize']) && !empty($_REQUEST['data']['candidateSize'])) ? filter_var($_REQUEST['data']['candidateSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
         $this->data->candidateColor = isset($_REQUEST['data']['candidateColor']) ? filter_var($_REQUEST['data']['candidateColor'], FILTER_SANITIZE_STRING) : 'black';
         
+        $this->data->slogan = isset($_REQUEST['data']['slogan']) ? filter_var($_REQUEST['data']['slogan'], FILTER_SANITIZE_STRING) : null;
+        $this->data->sloganSize = (isset($_REQUEST['data']['sloganSize']) && !empty($_REQUEST['data']['sloganSize'])) ? filter_var($_REQUEST['data']['sloganSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $this->data->sloganColor = isset($_REQUEST['data']['sloganColor']) ? filter_var($_REQUEST['data']['sloganColor'], FILTER_SANITIZE_STRING) : 'black';
+        
+        $this->data->numberSize = (isset($_REQUEST['data']['numberSize']) && !empty($_REQUEST['data']['numberSize'])) ? filter_var($_REQUEST['data']['numberSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $this->data->numberColor = isset($_REQUEST['data']['numberColor']) ? filter_var($_REQUEST['data']['numberColor'], FILTER_SANITIZE_STRING) : 'black';
+        
+        $this->data->coalition = isset($_REQUEST['data']['coalition']) ? filter_var($_REQUEST['data']['coalition'], FILTER_SANITIZE_STRING) : null;
+        $this->data->coalitionSize = (isset($_REQUEST['data']['coalitionSize']) && !empty($_REQUEST['data']['coalitionSize'])) ? filter_var($_REQUEST['data']['coalitionSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $this->data->coalitionColor = isset($_REQUEST['data']['coalitionColor']) ? filter_var($_REQUEST['data']['coalitionColor'], FILTER_SANITIZE_STRING) : 'black';
+        
+        $this->data->candidateNumber = $campaign->candidate_number;
+        
         $role = $this->finalImage->getElementById('cargo');
         
-        if (strlen($campaign->candidate_number) == 2) {
+        if (strlen($this->data->candidateNumber) == 2) {
             $role[0] = 'Prefeito';
         } else {
             $role[0] = 'Vereador';
         }
         
-        $candidateStyle = $this->createStyle($this->data->candidateSize, $this->data->candidateColor);
-        $this->finalImage->addShape(SVGText::getInstance(15, 270, 'candidateName', $this->data->candidateName, $candidateStyle));
+        
+        $candidateName = $this->finalImage->getElementById('nome-do-candidato');
+        $candidateName[0] = $this->data->candidateName;
+        $candidateName->setAttribute('fill', $this->data->candidateColor);
+        $candidateName->setAttribute('font-size', $this->data->candidateSize);
 
-        $this->data->slogan = isset($_REQUEST['data']['slogan']) ? filter_var($_REQUEST['data']['slogan'], FILTER_SANITIZE_STRING) : null;
-        $this->data->sloganSize = (isset($_REQUEST['data']['sloganSize']) && !empty($_REQUEST['data']['sloganSize'])) ? filter_var($_REQUEST['data']['sloganSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
-        $this->data->sloganColor = isset($_REQUEST['data']['sloganColor']) ? filter_var($_REQUEST['data']['sloganColor'], FILTER_SANITIZE_STRING) : 'black';
+        $slogan = $this->finalImage->getElementById('slogan');
+        $slogan[0] = $this->data->slogan;
+        $slogan->setAttribute('fill', $this->data->sloganColor);
+        $slogan->setAttribute('font-size', $this->data->sloganSize);
         
-        $sloganStyle = $this->createStyle($this->data->sloganSize, $this->data->sloganColor);
-        $this->finalImage->addShape(SVGText::getInstance(15, 330, 'slogan', $this->data->slogan, $sloganStyle));
+        $number = $this->finalImage->getElementById('numero');
+        $number[0] = $this->data->candidateNumber;
+        $number->setAttribute('fill', $this->data->numberColor);
+        $number->setAttribute('font-size', $this->data->numberSize);
         
-        $this->data->candidateNumber = $campaign->candidate_number;
-        
-        if (strlen($this->data->candidateNumber) == 2) {
-            $this->data->candidateNumber = 'Prefeito ' . $this->data->candidateNumber;
-        } else {
-            $this->data->candidateNumber = 'Vereador ' . $this->data->candidateNumber;
-        }
-        
-        $this->finalImage->addShape(SVGText::getInstance(15, 300, 'candidateNumber', $this->data->candidateNumber, $candidateStyle));
-    }
-
-    /**
-     * Return a SVGText object with the specified font
-     * size and color
-     * 
-     * @param int $fontSize
-     * @param string $fontColor
-     * @return SVGText
-     */
-    protected function createStyle($fontSize, $fontColor) {
-        $style = new SVGStyle(array('font-size' => "{$fontSize}px"));
-        $style->setFill($fontColor);
-        $style->setStroke($fontColor);
-        $style->setStrokeWidth(1);
-        
-        return $style;
+        $coalition = $this->finalImage->getElementById('coligação');
+        $coalition[0] = $this->data->coalition;
+        $coalition->setAttribute('fill', $this->data->coalitionColor);
+        $coalition->setAttribute('font-size', $this->data->coalitionSize);
     }
 }
