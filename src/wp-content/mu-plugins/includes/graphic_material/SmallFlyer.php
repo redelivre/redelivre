@@ -78,6 +78,9 @@ class SmallFlyer extends GraphicMaterial {
         $this->data->numberSize = (isset($_REQUEST['data']['numberSize']) && !empty($_REQUEST['data']['numberSize'])) ? filter_var($_REQUEST['data']['numberSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
         $this->data->numberColor = isset($_REQUEST['data']['numberColor']) ? filter_var($_REQUEST['data']['numberColor'], FILTER_SANITIZE_STRING) : 'black';
         
+        $this->data->roleSize = (isset($_REQUEST['data']['roleSize']) && !empty($_REQUEST['data']['roleSize'])) ? filter_var($_REQUEST['data']['roleSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
+        $this->data->roleColor = isset($_REQUEST['data']['roleColor']) ? filter_var($_REQUEST['data']['roleColor'], FILTER_SANITIZE_STRING) : 'black';
+        
         $this->data->coalition = isset($_REQUEST['data']['coalition']) ? filter_var($_REQUEST['data']['coalition'], FILTER_SANITIZE_STRING) : null;
         $this->data->coalitionSize = (isset($_REQUEST['data']['coalitionSize']) && !empty($_REQUEST['data']['coalitionSize'])) ? filter_var($_REQUEST['data']['coalitionSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
         $this->data->coalitionColor = isset($_REQUEST['data']['coalitionColor']) ? filter_var($_REQUEST['data']['coalitionColor'], FILTER_SANITIZE_STRING) : 'black';
@@ -92,6 +95,8 @@ class SmallFlyer extends GraphicMaterial {
             $role[0] = 'Vereador';
         }
         
+        $role->setAttribute('fill', $this->data->roleColor);
+        $role->setAttribute('font-size', $this->data->roleSize);
         
         $candidateName = $this->finalImage->getElementById('nome-do-candidato');
         $candidateName[0] = $this->data->candidateName;

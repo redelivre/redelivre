@@ -86,6 +86,20 @@ if (isset($_POST['save'])) {
                 </select>
                 <br><br>
                 
+                Cargo: <br>
+                Cor: <input type="color" name="data[roleColor]" value="<?php echo (isset($smallFlyer->data->roleColor) && !empty($smallFlyer->data->roleColor)) ? $smallFlyer->data->roleColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
+                Tamanho:
+                <select name="data[roleSize]">
+                    <option value="" selected="selected"></option>
+                    <?php
+                    foreach (range(70, 140) as $number) {
+                        $selected = (isset($smallFlyer->data->roleSize) && $smallFlyer->data->roleSize == $number) ? ' selected="selected" ' : '';
+                        echo "<option value='$number' $selected>$number</option>";
+                    }
+                    ?>
+                </select>
+                <br><br>
+                
                 Coligação: <input type="text" name="data[coalition]" value="<?php echo (isset($smallFlyer->data->coalition)) ? $smallFlyer->data->coalition : ''; ?>" /><br>
                 Cor: <input type="color" name="data[coalitionColor]" value="<?php echo (isset($smallFlyer->data->coalitionColor) && !empty($smallFlyer->data->coalitionColor)) ? $smallFlyer->data->coalitionColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
                 Tamanho:
