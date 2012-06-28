@@ -1,0 +1,72 @@
+/*
+Theme Name: tema2 verde
+Theme URI: http://www.campanhacompleta.com.br/
+Description: Tema para candidatos que desejam um portal de notícias
+Author: Campanha Completa
+Template: tema-2
+Version: 1.0
+*/
+
+@import url(../tema-2/style.css);
+
+
+/* =Fonts
+-------------------------------------------------------------- */
+h1,h2,h3,h4,h5,h6 { color: #333; }
+
+
+/* =Global Elements
+-------------------------------------------------------------- */
+
+a { color: #693; }
+
+/* =Menu
+-------------------------------------------------------------- */
+#main-nav a { background: #693; }
+#main-nav a:hover, #main-nav li.current-menu-item>a, #main-nav li.current-menu-ancestor>a, #main-nav li.current-menu-parent>a, #main-nav li.current_page_item>a { background: #360; }
+
+
+/* =Home Features
+-------------------------------------------------------------- */
+.hl-nav-left { background: #693 url(img/seta-esq.png) no-repeat; }
+.hl-nav-right { background: #693 url(img/seta-dir.png) no-repeat; }
+
+
+/* =Post
+-------------------------------------------------------------- */
+.post header p a, .post footer p a { color: #360; }
+
+
+/*post content*/
+.post-content label, .post-content .label { color: #333; }
+
+
+/*paged post/comments navigation*/
+.page-link a:link, .page-link a:visited, .page-link span.current { background: #e6e6e6; }
+.page-link a:hover, .page-link span.current { background: #693; }
+.page-link a.prev:hover, .page-link a.next:hover { color: #693; }
+.post-content tr th, .post-content thead th { background: #693; }
+
+
+/* =Comments
+-------------------------------------------------------------- */
+#form-comentario #comentar, #cancel-comment-reply-link, .button-submit { background: #693; }
+#form-comentario #comentar:hover, #cancel-comment-reply-link:hover, .button-submit:hover { background: #360; }
+.comment-author { color: #693; }
+
+/* =Widgets
+-------------------------------------------------------------- */
+#wp-calendar caption { background: #693; }
+
+/* =Mobilize
+-------------------------------------------------------------- */
+input.mobilize-button { background-color: #693; }
+input.mobilize-button:hover { background-color: #360; }
+
+
+/* =Contato
+-------------------------------------------------------------- */
+#contact-submit {background: #693; }
+#contact-submit:hover { background: #360; }
+
+

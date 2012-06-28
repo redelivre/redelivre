@@ -162,7 +162,7 @@ a:hover#rss { background-position: -32px -128px; }
 -------------------------------------------------------------- */
 #main-nav { margin: 0; list-style-type: none; }
 #main-nav li { position: relative; display: block; float: left; height: 33px; margin-right: 2px; }
-#main-nav ul { display: none; position: absolute; top: 33px; left: 0; margin: 0; width: 150px; float: left; z-index: 9999; }
+#main-nav ul { display: none; position: absolute; top: 33px; left: 0; margin: 0; width: 150px; float: left; }
 #main-nav li:hover>ul { display: block; }
 #main-nav ul ul { left: 100%; top: 0; }
 #main-nav ul li { float: none; height: auto; min-width: 150px; }
@@ -181,10 +181,10 @@ a:hover#rss { background-position: -32px -128px; }
 
 /* =Home Features
 -------------------------------------------------------------- */
-#home-features { position: relative; margin-bottom: 22px; }
+#home-features { margin-bottom: 22px; }
 #home-features nav { padding: 10px 0 0 900px; }
 #home-features h3 { position: absolute; width: 898px; margin: 9px 20px; font-size: 14px; text-transform: uppercase; }
-.hl-wrapper { width: 938px; margin: 0 10px 0; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
+.hl-wrapper { width: 938px; margin: 0 10px 0; border: 1px solid #ccc; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; z-index: 10; }
 .hl-nav-left, .hl-nav-right { float: left; display: block; width: 22px; height: 22px; margin-left: 3px; text-indent: -99999px; cursor: pointer; }
 .hl-nav-left { background: #0033CC url(img/seta-esq.png) no-repeat; }
 .hl-nav-right { background: #0033CC url(img/seta-dir.png) no-repeat; }
@@ -196,7 +196,7 @@ a:hover#rss { background-position: -32px -128px; }
 /* =Home Other Features
 -------------------------------------------------------------- */
 .hl-darkbox { background: #000; }
-.hl-lightbox-dialog { background: whiteSmoke; padding: 20px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.hl-lightbox-dialog { width: 295px; background: whiteSmoke; padding: 20px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 .hl-lightbox-dialog h1 { font-weight: normal; color: #333; text-shadow: white 0 1px 0; font-size: 20px; }
 .hl-lightbox-dialog label { font-family: sans-serif; font-weight: bold; color: #333; font-size: 12px; }
 .hl-lightbox-dialog input[type="text"] { width: 80% !important; margin-bottom: 11px; box-shadow: none; background: #fff; border: 1px solid #DFDFDF; border-radius: 3px; color:#333; }
@@ -254,12 +254,6 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 /*more link*/
 .more-link { font-weight: bold; }
 
-/*tabs */
-.tabs { list-style: none; height: 28px; margin-bottom: 43px; border-bottom: 1px solid #ccc; }
-.tabs li { float: left; height: 21px; margin-left: 6px; padding: 3px 10px; border-radius: 6px 6px 0 0; -moz-border-radius: 6px 6px 0 0; -webkit-border-radius: 6px 6px 0 0; border: 1px solid #ccc; font-weight: bold; font-size: 16px; cursor: pointer; color: #999; }
-.tabs li.current { border-bottom: 1px solid #fff; color: #0033CC; }
-.tabs li:hover { color: #0033CC; }
-
 
 /* =Images
 -------------------------------------------------------------- */
@@ -306,7 +300,8 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 #form-comentario input, #form-comentario textarea { width: 90%; margin-bottom: 22px; }
 #form-comentario textarea { height: 165px; }
 #form-comentario #comentar, .button-submit { width: 80px !important; height: 28px; cursor: pointer; }
-#form-comentario #comentar, #cancel-comment-reply-link, .button-submit { font-family: Helvetica, Arial, sans-serif; font-weight: bold; color: #fff; background: #0033CC; border: none; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; box-shadow: inset -2px -2px 7px rgba(0, 0, 0, .25), 2px 2px 7px rgba(0, 0, 0, .25); -moz-box-shadow: inset -2px -2px 7px rgba(0, 0, 0, .25), 2px 2px 7px rgba(0, 0, 0, .25); -webkit-box-shadow: inset -2px -2px 7px rgba(0, 0, 0, .25), 2px 2px 7px rgba(0, 0, 0, .25); text-shadow: 0 -1px 0 #036; }
+#form-comentario #comentar, #cancel-comment-reply-link, .button-submit { font-family: Helvetica, Arial, sans-serif; font-weight: bold; color: #fff; background: #0033CC; border: none; }
+#form-comentario #comentar:hover, #cancel-comment-reply-link:hover, .button-submit:hover { background: #6699FF; }
 #cancel-comment-reply-link { display: block; text-align: center; float: left; margin: 0 10px 22px 0; padding: 3px 10px; }
 #cancel-comment-reply-link:hover { text-decoration: none; }
 
