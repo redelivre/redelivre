@@ -177,17 +177,21 @@ class CandidatePhoto {
         update_option('photo-position-' . $this->fileName, array('left' => $left, 'top' => $top));
         
         // remove 'px' from the end of the strings
-        list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($left, $top));
+        list($left, $top) = preg_replace('/(-?\d+?)px/', '$1', array($left, $top));
         
+        $baseImage = WideImage::load(WPMU_PLUGIN_DIR . '/includes/graphic_material/transparent-pixel.png');
         
+        $baseImage = $baseImage->resize($this->minWidth, $this->minHeight, 'fill');
         
-        $croped = $this->image->crop( $this->convertTo300Dpi($left), $this->convertTo300Dpi($top), $this->minWidth, $this->minHeight);
-        
+        $croped = $baseImage->merge($this->image, $this->convertTo300Dpi($left) , $this->convertTo300Dpi($top));
         if (file_exists($cropedFile)) {
             unlink($cropedFile);
         }
-            
         $croped->saveToFile($cropedFile);
+        
+        //$croped = $this->image->crop( 'center - ' . $this->minWidth/2, 'center - ' . $this->minHeight/2, $this->minWidth, $this->minHeight);
+        
+        
     }
     
     /**
