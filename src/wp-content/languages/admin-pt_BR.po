@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2012-06-17 12:53:13+0000\n"
+"PO-Revision-Date: 2012-06-28 01:44:37+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,7 +10,7 @@ msgstr ""
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: Administration\n"
 
-#: wp-admin/themes.php:109
+#: wp-admin/themes.php:111
 msgid "Settings saved and theme activated. <a href=\"%s\">Visit site</a>."
 msgstr "As configurações foram salvas e o tema foi ativado. <a href=\"%s\">Visite o site</a>."
 
@@ -58,11 +58,11 @@ msgstr "Para instalar um tema e assim visualizá-lo com seu conteúdo e personal
 msgid "You can see your active theme at the top of the screen. Below are the other themes you have installed that are not currently in use. You can see what your site would look like with one of these themes by clicking the Live Preview link (see \"Previewing and Customizing\" help tab). To change themes, click the Activate link."
 msgstr "Você pode ver seu tema ativo atualmente no topo da tela. Abaixo, estão outros temas que instalou mas que não estão em uso no momento. Veja como seu site ficaria com um desses temas clicando no link Ver ao Vivo (consulte \"Visualizando e Personalizando\" na aba Ajuda). Para trocar de tema, clique no link Ativar."
 
-#: wp-admin/themes.php:71
+#: wp-admin/themes.php:73
 msgid "Click on the \"Live Preview\" link under any theme to preview that theme and change theme options in a separate, full-screen view. Any installed theme can be previewed and customized in this way."
 msgstr "Clique no link \"Ver ao Vivo\" abaixo de um tema para visualizar e mudar suar opções e um tela inteira, em separado. Qualquer tema instalado pode ser visualizado e personalizado deste jeito."
 
-#: wp-admin/themes.php:73
+#: wp-admin/themes.php:75
 msgid "In the left-hand pane you can edit the theme settings. The settings will differ, depending on what theme features the theme being previewed supports. To accept the new settings and activate the theme all in one step, click the \"Save &amp; Activate\" button at the top of the left-hand pane."
 msgstr "No painel à esquerda você pode editar as configurações do tema. As configurações serão diferentes, dependendo dos recursos que o tema suporta ou oferece. Para aplicar as novas configurações e ativar o tema em um só passo, clique no botão \"Salvar &amp; Ativar\" no topo do painel à esquerda."
 
@@ -237,15 +237,15 @@ msgstr "Depois de já ter uma lista de temas, você pode visualizar e instalar q
 msgid "Previewing and Installing"
 msgstr "Visualizando e Instalando"
 
-#: wp-admin/themes.php:72
+#: wp-admin/themes.php:74
 msgid "The theme being previewed is fully interactive &mdash; navigate to different pages to see how the theme handles posts, archives, and other page templates."
 msgstr "O tema visualizado é totalmente interativo - navegue entre páginas diferentes para ver como o tema lida com posts, arquivos e modelos de página."
 
-#: wp-admin/themes.php:74
+#: wp-admin/themes.php:76
 msgid "When previewing on smaller monitors, you can use the \"Collapse\" icon at the bottom of the left-hand pane. This will hide the pane, giving you more room to preview your site in the new theme. To bring the pane back, click on the Collapse icon again."
 msgstr "Se visualizar em monitores pequenos, poderá usar o ícone \"Recolher\" no rodapé do painel à esquerda. Isso vai esconder o painel, deixando mais espaço para que veja seu site com o novo tema. Para mostrar o painel de volta, clique no ícone Recolher novamente."
 
-#: wp-admin/themes.php:78
+#: wp-admin/themes.php:80
 msgid "Previewing and Customizing"
 msgstr "Visualizando e Personalizando"
 
@@ -266,8 +266,8 @@ msgid "The Categories and Tags Converter link on this screen will take you to th
 msgstr "O link Conversor de Categorias e Tags nesta tela irá levá-lo para a tela Importar, onde esse conversor é um dos plugins que poderá instalar. Uma vez que o plugin está instalado, o link Ativar Plugin &amp; Executar irá levá-lo para uma tela onde poderá escolher em converter tags em categorias ou vice-versa."
 
 #: wp-admin/includes/class-wp-themes-list-table.php:143
-#: wp-admin/includes/class-wp-upgrader.php:1514
-#: wp-admin/includes/class-wp-upgrader.php:1580
+#: wp-admin/includes/class-wp-upgrader.php:1512
+#: wp-admin/includes/class-wp-upgrader.php:1578
 msgid "Live Preview"
 msgstr "Ver ao vivo"
 
@@ -337,7 +337,7 @@ msgstr[1] "%s usuários excluídos."
 msgid "New user created. <a href=\"%s\">Edit user</a>"
 msgstr "Novo usuário criado. <a href=\"%s\">Editar usuário</a>"
 
-#: wp-admin/includes/class-wp-upgrader.php:1016
+#: wp-admin/includes/class-wp-upgrader.php:1014
 msgid "Could not copy files. You may have run out of disk space."
 msgstr "Não foi possível copiar arquivos. Você pode estar sem espaço em disco."
 
@@ -373,7 +373,7 @@ msgstr "Definir como fundo"
 msgid "Set as header"
 msgstr "Definir como cabeçalho"
 
-#: wp-admin/includes/class-wp-upgrader.php:1577 wp-admin/themes.php:124
+#: wp-admin/includes/class-wp-upgrader.php:1575 wp-admin/themes.php:126
 msgid "Customize &#8220;%s&#8221;"
 msgstr "Personalizar &#8220;%s&#8221;"
 
@@ -1132,7 +1132,7 @@ msgstr "Há mudanças não-salvas que serão perdidas. 'Ok' para continuar, 'Can
 msgid "In previous versions of WordPress, all importers were built-in. They have been turned into plugins since most people only use them once or infrequently."
 msgstr "Em vesões prévias do WordPress, todos os importadores eram embutidos. Agora eles se tornaram plugins já que são usados só de vez em quando."
 
-#: wp-admin/themes.php:106
+#: wp-admin/themes.php:108
 msgid "The active theme is broken. Reverting to the default theme."
 msgstr "O tema ativo está quebrado. Reverta para o tema padrão."
 
@@ -2068,7 +2068,7 @@ msgstr "Selecionar"
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:343
 #: wp-admin/includes/class-wp-plugins-list-table.php:416
 #: wp-admin/includes/dashboard.php:1255 wp-admin/includes/update.php:86
-#: wp-admin/includes/update.php:109 wp-admin/themes.php:145
+#: wp-admin/includes/update.php:109 wp-admin/themes.php:147
 msgid "Version %s"
 msgstr "Versão %s"
 
@@ -2077,7 +2077,7 @@ msgstr "Versão %s"
 #: wp-admin/includes/class-wp-plugins-list-table.php:421
 #: wp-admin/includes/class-wp-theme-install-list-table.php:233
 #: wp-admin/includes/class-wp-theme-install-list-table.php:336
-#: wp-admin/includes/class-wp-themes-list-table.php:168 wp-admin/themes.php:144
+#: wp-admin/includes/class-wp-themes-list-table.php:168 wp-admin/themes.php:146
 msgid "By %s"
 msgstr "Por %s"
 
@@ -2105,7 +2105,7 @@ msgstr "Super Admin"
 #: wp-admin/includes/class-wp-terms-list-table.php:101
 #: wp-admin/includes/media.php:943 wp-admin/includes/nav-menu.php:166
 #: wp-admin/includes/nav-menu.php:1140 wp-admin/press-this.php:146
-#: wp-admin/press-this.php:642 wp-admin/themes.php:282
+#: wp-admin/press-this.php:642 wp-admin/themes.php:284
 msgid "Description"
 msgstr "Descrição"
 
@@ -2127,7 +2127,7 @@ msgstr "Você não pode remover usuários."
 #: wp-admin/options-reading.php:56 wp-admin/options-writing.php:58
 #: wp-admin/plugin-editor.php:129 wp-admin/plugin-install.php:56
 #: wp-admin/plugins.php:351 wp-admin/theme-editor.php:42
-#: wp-admin/theme-install.php:63 wp-admin/themes.php:86 wp-admin/tools.php:29
+#: wp-admin/theme-install.php:63 wp-admin/themes.php:88 wp-admin/tools.php:29
 #: wp-admin/update-core.php:450 wp-admin/upload.php:171
 #: wp-admin/user-edit.php:54 wp-admin/user-new.php:174 wp-admin/users.php:63
 #: wp-admin/widgets.php:68
@@ -2181,7 +2181,7 @@ msgstr[1] "Todos <span class=\"count\">(%s)</span>"
 #: wp-admin/options-reading.php:54 wp-admin/options-writing.php:56
 #: wp-admin/plugin-editor.php:126 wp-admin/plugin-install.php:54
 #: wp-admin/plugins.php:349 wp-admin/theme-editor.php:37
-#: wp-admin/theme-install.php:61 wp-admin/themes.php:84 wp-admin/tools.php:27
+#: wp-admin/theme-install.php:61 wp-admin/themes.php:86 wp-admin/tools.php:27
 #: wp-admin/update-core.php:448 wp-admin/upload.php:169
 #: wp-admin/user-edit.php:52 wp-admin/user-new.php:172 wp-admin/users.php:60
 #: wp-admin/widgets.php:66
@@ -2393,7 +2393,7 @@ msgstr "Nome"
 msgid "[%s] Your site invite"
 msgstr "[%s] Seu convite"
 
-#: wp-admin/themes.php:281
+#: wp-admin/themes.php:283
 msgctxt "theme name"
 msgid "Name"
 msgstr "Nome"
@@ -2949,11 +2949,11 @@ msgstr "Este é um arquivo em seu tema pai atual."
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:239
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:290
-#: wp-admin/includes/class-wp-upgrader.php:1518
+#: wp-admin/includes/class-wp-upgrader.php:1516
 msgid "Network Enable"
 msgstr "Ativar na Rede"
 
-#: wp-admin/includes/class-wp-upgrader.php:1238
+#: wp-admin/includes/class-wp-upgrader.php:1236
 msgid "An error occurred while updating %1$s: <strong>%2$s</strong>."
 msgstr "Ocorreu um erro ao atualizar %1$s: <strong>%2$s</strong>."
 
@@ -3006,7 +3006,7 @@ msgstr "Nenhuma atualização necessária"
 msgid "Plugin updated successfully."
 msgstr "Plugin atualizado com sucesso."
 
-#: wp-admin/includes/class-wp-upgrader.php:1547 wp-admin/update.php:157
+#: wp-admin/includes/class-wp-upgrader.php:1545 wp-admin/update.php:157
 msgid "Update Theme"
 msgstr "Atualizar Tema"
 
@@ -3026,7 +3026,7 @@ msgstr "Atualização de tema falhou."
 msgid "Theme updated successfully."
 msgstr "Tema atualizado com sucesso."
 
-#: wp-admin/includes/class-wp-upgrader.php:1179 wp-admin/update.php:54
+#: wp-admin/includes/class-wp-upgrader.php:1177 wp-admin/update.php:54
 msgid "Update Plugin"
 msgstr "Atualizar plugin"
 
@@ -3036,7 +3036,7 @@ msgstr "Há uma nova versão de %1$s disponível. <a href=\"%2$s\" class=\"thick
 
 #: wp-admin/includes/class-wp-upgrader.php:374
 #: wp-admin/includes/class-wp-upgrader.php:650
-#: wp-admin/includes/class-wp-upgrader.php:1012
+#: wp-admin/includes/class-wp-upgrader.php:1010
 msgid "Update package not available."
 msgstr "Pacote de atualização não disponível."
 
@@ -3148,11 +3148,11 @@ msgstr "%1$s &lsaquo; %2$s &#8212; WordPress"
 msgid "Add the user without sending them a confirmation email."
 msgstr "Adicionar o Usuário sem enviar um email de confirmação."
 
-#: wp-admin/themes.php:218 wp-admin/themes.php:220
+#: wp-admin/themes.php:220 wp-admin/themes.php:222
 msgid "Search Installed Themes"
 msgstr "Pesquisar temas instalados"
 
-#: wp-admin/includes/class-wp-upgrader.php:1518
+#: wp-admin/includes/class-wp-upgrader.php:1516
 msgid "Enable this theme for all sites in this network"
 msgstr "Habilitar este tema para todos os sites nesta rede"
 
@@ -3183,7 +3183,7 @@ msgstr "Última verificação em %1$s às %2$s."
 msgid "Check Again"
 msgstr "Verifique novamente"
 
-#: wp-admin/includes/class-wp-upgrader.php:1237
+#: wp-admin/includes/class-wp-upgrader.php:1235
 msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
 msgstr "O processo de atualização está começando. Este processo pode demorar um pouco em algumas hospedagens, portanto tenha paciência."
 
@@ -3199,15 +3199,15 @@ msgstr "<a href=\"http://codex.wordpress.org/pt-br:Formatando_Data_e_Hora\">Docu
 msgid "You&rsquo;re using the auto-generated password for your account. Would you like to change it to something easier to remember?"
 msgstr "Você está usando uma senha gerada automaticamente para sua conta. Você gostaria de mudá-la para algo mais fácil de lembrar?"
 
-#: wp-admin/themes.php:227
+#: wp-admin/themes.php:229
 msgid "Theme filters"
 msgstr "Filtros de Tema"
 
-#: wp-admin/themes.php:253
+#: wp-admin/themes.php:255
 msgid "Apply Filters"
 msgstr "Aplicar Filtros"
 
-#: wp-admin/themes.php:255
+#: wp-admin/themes.php:257
 msgid "Close filters"
 msgstr "Fechar Filtros"
 
@@ -3231,7 +3231,7 @@ msgstr "Post na página inicial"
 msgid "Translation Ready"
 msgstr "Pronto para traduções"
 
-#: wp-admin/themes.php:188
+#: wp-admin/themes.php:190
 msgid "Options:"
 msgstr "Opções:"
 
@@ -3340,7 +3340,7 @@ msgstr "Há uma nova versão de %1$s disponível. <a href=\"%2$s\" class=\"thick
 msgid "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">View version %4$s details</a>."
 msgstr "Há uma nova versão de %1$s disponível. <a href=\"%2$s\" class=\"thickbox\" title=\"%3$s\">Ver detalhes da versão %4$s </a>."
 
-#: wp-admin/includes/class-wp-upgrader.php:1386
+#: wp-admin/includes/class-wp-upgrader.php:1384
 msgid "Go to themes page"
 msgstr "Ir para página de temas"
 
@@ -3350,13 +3350,13 @@ msgid_plural "%s items moved to the Trash."
 msgstr[0] "Item movido para a Lixeira."
 msgstr[1] "%s Itens movidos para a Lixeira."
 
-#: wp-admin/includes/class-wp-upgrader.php:1198
-#: wp-admin/includes/class-wp-upgrader.php:1353
+#: wp-admin/includes/class-wp-upgrader.php:1196
+#: wp-admin/includes/class-wp-upgrader.php:1351
 msgid "Go to plugins page"
 msgstr "Ir para página de plugins"
 
-#: wp-admin/includes/class-wp-upgrader.php:1354
-#: wp-admin/includes/class-wp-upgrader.php:1387
+#: wp-admin/includes/class-wp-upgrader.php:1352
+#: wp-admin/includes/class-wp-upgrader.php:1385
 msgid "Go to WordPress Updates page"
 msgstr "Ir para página de atualizações do WordPress"
 
@@ -3443,7 +3443,7 @@ msgstr "<a href=\"http://codex.wordpress.org/pt-br:Tags_de_Modelos\" target=\"_b
 msgid "<a href=\"http://codex.wordpress.org/Editing_Files\" target=\"_blank\">Documentation on Editing Files</a>"
 msgstr "<a href=\"http://codex.wordpress.org//pt-br:Editando_Arquivos\" target=\"_blank\">Documentação sobre edição de arquivos</a>"
 
-#: wp-admin/theme-editor.php:39 wp-admin/themes.php:85
+#: wp-admin/theme-editor.php:39 wp-admin/themes.php:87
 msgid "<a href=\"http://codex.wordpress.org/Using_Themes\" target=\"_blank\">Documentation on Using Themes</a>"
 msgstr "<a href=\"http://codex.wordpress.org/pt-br:Usando_Temas\" target=\"_blank\">Documentação sobre como usar temas</a>"
 
@@ -3475,7 +3475,7 @@ msgstr "Você pode escolher o que será mostrado na página principal de seu sit
 msgid "The Optional fields let you customize the &#8220;category&#8221; and &#8220;tag&#8221; base names that will appear in archive URLs. For example, the page listing all posts in the &#8220;Uncategorized&#8221; category could be <code>/topics/uncategorized</code> instead of <code>/category/uncategorized</code>."
 msgstr "Os campos opcionais permitem que você personalize os nomes base da &#8220;categoria&#8221; e &#8220;tag&#8221; que aparecerão nos URLs dos arquivos. Por exemplo, a página que lista todos os posts na categoria &#8220;Sem categoria&#8221; poderia ser <code>/topicos/sem-categoria</code> ao invés de <code>/categoria/sem-categoria</code>."
 
-#: wp-admin/themes.php:277
+#: wp-admin/themes.php:279
 msgid "The following themes are installed but incomplete. Themes must have a stylesheet and a template."
 msgstr "Os seguintes temas foram instalados mas incompletamente. Os temas devem possuir uma folha de estilos e um modelo."
 
@@ -3702,11 +3702,11 @@ msgstr "Ativar o importador"
 msgid "You can add or edit links on this screen by entering information in each of the boxes. Only the link&#8217;s web address and name (the text you want to display on your site as the link) are required fields."
 msgstr "Você pode adicionar ou editar links nesta tela ao digitar informações em cada caixa. Somente o endereço do link e o nome (o texto que você quer que seja exibido em seu site como o link) são campos obrigatórios."
 
-#: wp-admin/includes/class-wp-upgrader.php:1443
+#: wp-admin/includes/class-wp-upgrader.php:1441
 msgid "Return to Importers"
 msgstr "Retornar aos Importadores"
 
-#: wp-admin/includes/class-wp-upgrader.php:1433
+#: wp-admin/includes/class-wp-upgrader.php:1431
 msgid "Activate Plugin &amp; Run Importer"
 msgstr "Ativar Plugin & Importar"
 
@@ -3811,7 +3811,7 @@ msgstr "<strong>Modelo</strong> - alguns temas possuem modelos personalizados qu
 msgid "<strong>Parent</strong> - You can arrange your pages in hierarchies. For example, you could have an &#8220;About&#8221; page that has &#8220;Life Story&#8221; and &#8220;My Dog&#8221; pages under it. There are no limits to how many levels you can nest pages."
 msgstr "<strong>Mãe</strong> - Você pode organizar suas páginas hierarquicamente. Por exemplo, você pode ter uma página &#8220;Sobre&#8221; que possui as páginas &#8220;Minha vida&#8221; e &#8220;Meu cachorro&#8221; sob ela. Não há limites para quantos níveis de páginas você pode aninhar."
 
-#: wp-admin/includes/class-wp-upgrader.php:1241
+#: wp-admin/includes/class-wp-upgrader.php:1239
 msgid "All updates have been completed."
 msgstr "Todas as atualizações foram concluídas."
 
@@ -3951,8 +3951,8 @@ msgstr "Desculpe, você completou sua cota de armazenamento (%s MB)."
 msgid "The current theme does not natively support menus, but you can use the &#8220;Custom Menu&#8221; widget to add any menus you create here to the theme&#8217;s sidebar."
 msgstr "O tema atual não suporta menus nativamente, mas você pode usar o widget &#8220;Menu personalizado&#8221; para adicionar qualquer menu criado aqui à barra lateral do tema."
 
-#: wp-admin/includes/class-wp-upgrader.php:1354
-#: wp-admin/includes/class-wp-upgrader.php:1387
+#: wp-admin/includes/class-wp-upgrader.php:1352
+#: wp-admin/includes/class-wp-upgrader.php:1385
 msgid "Return to WordPress Updates"
 msgstr "Retornar para as atualizações do WordPress"
 
@@ -4178,7 +4178,7 @@ msgctxt "nav menu home label"
 msgid "Home"
 msgstr "Home"
 
-#: wp-admin/themes.php:111
+#: wp-admin/themes.php:113
 msgid "New theme activated. This theme supports widgets, please visit the <a href=\"%s\">widgets settings</a> screen to configure them."
 msgstr "Novo tema ativado. Este tema suporta widgets, visite a tela de <a href=\"%s\">opções de widgets</a> para configurá-las."
 
@@ -4512,15 +4512,15 @@ msgstr "Sem permissão para remover o usuário atual."
 msgid "Other users have been removed."
 msgstr "Os outros usuários foram removidos."
 
-#: wp-admin/includes/class-wp-upgrader.php:1240
+#: wp-admin/includes/class-wp-upgrader.php:1238
 msgid "%1$s updated successfully."
 msgstr "%1$s atualizado com sucesso."
 
-#: wp-admin/includes/class-wp-upgrader.php:1240
+#: wp-admin/includes/class-wp-upgrader.php:1238
 msgid "Show Details"
 msgstr "Exibir detalhes"
 
-#: wp-admin/includes/class-wp-upgrader.php:1240
+#: wp-admin/includes/class-wp-upgrader.php:1238
 msgid "Hide Details"
 msgstr "Ocultar detalhes"
 
@@ -4754,7 +4754,7 @@ msgstr "O WordPress não irá notificar nenhum <a href=\"http://codex.wordpress.
 msgid "The <a href=\"http://codex.wordpress.org/Glossary#Character_set\">character encoding</a> of your site (UTF-8 is recommended, if you are adventurous there are some <a href=\"http://en.wikipedia.org/wiki/Character_set\">other encodings</a>)"
 msgstr "A <a href=\"http://codex.wordpress.org/pt-br:Glossário#Conjunto_de_Caracteres\">codificação de caracteres</a> de seu site (UTF-8 é a recomendada, se você for corajoso há algumas <a href=\"http://pt.wikipedia.org/wiki/Codificação_de_caracteres\">outras codificações</a>)"
 
-#: wp-admin/includes/plugin.php:1626 wp-admin/includes/plugin.php:1649
+#: wp-admin/includes/plugin.php:1627 wp-admin/includes/plugin.php:1650
 #: wp-admin/includes/template.php:1043 wp-admin/includes/template.php:1083
 msgid "The miscellaneous options group has been removed. Use another settings group."
 msgstr "O grupo de opções diversas foi removido. Use outro grupo de configurações."
@@ -4799,7 +4799,7 @@ msgstr "Uma senha será gerada automaticamente para você se deixar isto em bran
 msgid "Password, twice"
 msgstr "Senha, duas vezes"
 
-#: wp-admin/includes/class-wp-upgrader.php:1372
+#: wp-admin/includes/class-wp-upgrader.php:1370
 msgid "Updating Theme %1$s (%2$d/%3$d)"
 msgstr "Atualizando tema %1$s (%2$d/%3$d)"
 
@@ -4835,11 +4835,11 @@ msgstr "Notas:"
 msgid "Get Shortlink"
 msgstr "Pegar link permanente"
 
-#: wp-admin/includes/class-wp-upgrader.php:1340
+#: wp-admin/includes/class-wp-upgrader.php:1338
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
 msgstr "Atualizando o plugin %1$s (%2$d/%3$d)"
 
-#: wp-admin/includes/class-wp-upgrader.php:1239
+#: wp-admin/includes/class-wp-upgrader.php:1237
 msgid "The update of %1$s failed."
 msgstr "A atualização do %1$s falhou."
 
@@ -4948,7 +4948,7 @@ msgctxt "theme"
 msgid "Manage Themes"
 msgstr "Gerenciar temas"
 
-#: wp-admin/themes.php:99
+#: wp-admin/themes.php:101
 msgctxt "theme"
 msgid "Install Themes"
 msgstr "Instalar temas"
@@ -5109,7 +5109,7 @@ msgstr "Layout da tela"
 msgid "Number of Columns:"
 msgstr "Número de colunas:"
 
-#: wp-admin/includes/theme-install.php:81 wp-admin/themes.php:221
+#: wp-admin/includes/theme-install.php:81 wp-admin/themes.php:223
 msgid "Feature Filter"
 msgstr "Filtro de caracteristicas"
 
@@ -6264,13 +6264,13 @@ msgid "Network Deactivate"
 msgstr "Desativar na rede"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:356
-#: wp-admin/includes/class-wp-upgrader.php:1438
+#: wp-admin/includes/class-wp-upgrader.php:1436
 msgid "Activate this plugin for all sites in this network"
 msgstr "Ativar este plugin para todos os sites nesta rede"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:247
 #: wp-admin/includes/class-wp-plugins-list-table.php:356
-#: wp-admin/includes/class-wp-upgrader.php:1438
+#: wp-admin/includes/class-wp-upgrader.php:1436
 msgid "Network Activate"
 msgstr "Ativar na Rede"
 
@@ -6452,19 +6452,19 @@ msgctxt "Theme Installer"
 msgid "Recently Updated"
 msgstr "Atualizados recentemente"
 
-#: wp-admin/themes.php:113
+#: wp-admin/themes.php:115
 msgid "New theme activated. <a href=\"%s\">Visit site</a>"
 msgstr "Novo tema ativado. <a href=\"%s\">Visite o site</a>"
 
-#: wp-admin/themes.php:116
+#: wp-admin/themes.php:118
 msgid "Theme deleted."
 msgstr "Tema excluído."
 
-#: wp-admin/themes.php:137
+#: wp-admin/themes.php:139
 msgid "Current Theme"
 msgstr "Tema atual:"
 
-#: wp-admin/themes.php:131 wp-admin/themes.php:134
+#: wp-admin/themes.php:133 wp-admin/themes.php:136
 msgid "Current theme preview"
 msgstr "Visualização do tema atual"
 
@@ -6472,7 +6472,7 @@ msgstr "Visualização do tema atual"
 msgid "All of this theme&#8217;s files are located in <code>%2$s</code>."
 msgstr "Todos os arquivos deste tema estão localizados em <code>%2$s</code>."
 
-#: wp-admin/themes.php:213
+#: wp-admin/themes.php:215
 msgid "Available Themes"
 msgstr "Temas Disponíveis"
 
@@ -6484,7 +6484,7 @@ msgstr ""
 "Você está prestes a excluir este tema '%s'\n"
 "  'Cancelar' para interromper, 'OK' para excluir."
 
-#: wp-admin/themes.php:276
+#: wp-admin/themes.php:278
 msgid "Broken Themes"
 msgstr "Temas indisponíveis"
 
@@ -7586,11 +7586,11 @@ msgid "Invalid Data provided."
 msgstr "Dado fornecido inválido."
 
 #: wp-admin/includes/class-wp-upgrader.php:42 wp-admin/includes/file.php:518
-#: wp-admin/includes/plugin.php:709 wp-admin/includes/theme.php:53
+#: wp-admin/includes/plugin.php:710 wp-admin/includes/theme.php:53
 msgid "Could not access filesystem."
 msgstr "Não foi possível acessar o sistema de arquivos."
 
-#: wp-admin/includes/class-wp-upgrader.php:43 wp-admin/includes/plugin.php:712
+#: wp-admin/includes/class-wp-upgrader.php:43 wp-admin/includes/plugin.php:713
 #: wp-admin/includes/theme.php:56
 msgid "Filesystem error."
 msgstr "Erro no sistema de arquivos."
@@ -7603,7 +7603,7 @@ msgstr "Não foi possível localizar o diretório raiz do WordPress."
 msgid "Unable to locate WordPress Content directory (wp-content)."
 msgstr "Não foi possível localizar o diretório de Conteúdo do WordPress (wp-content)."
 
-#: wp-admin/includes/class-wp-upgrader.php:46 wp-admin/includes/plugin.php:717
+#: wp-admin/includes/class-wp-upgrader.php:46 wp-admin/includes/plugin.php:718
 msgid "Unable to locate WordPress Plugin directory."
 msgstr "Não foi possível localizar o dirertório de plugins do WordPress."
 
@@ -7652,13 +7652,13 @@ msgstr "O plugin está na sua versão mais recente."
 
 #: wp-admin/includes/class-wp-upgrader.php:375
 #: wp-admin/includes/class-wp-upgrader.php:651
-#: wp-admin/includes/class-wp-upgrader.php:1013
+#: wp-admin/includes/class-wp-upgrader.php:1011
 msgid "Downloading update from <span class=\"code\">%s</span>&#8230;"
 msgstr "Fazendo download de <span class=\"code\">(%s)</span>&#8230;"
 
 #: wp-admin/includes/class-wp-upgrader.php:376
 #: wp-admin/includes/class-wp-upgrader.php:652
-#: wp-admin/includes/class-wp-upgrader.php:1014
+#: wp-admin/includes/class-wp-upgrader.php:1012
 msgid "Unpacking the update&#8230;"
 msgstr "Descompactando a atualização&#8230;"
 
@@ -7721,37 +7721,37 @@ msgstr "A instalação do tema falhou."
 msgid "Theme installed successfully."
 msgstr "Tema instalado com sucesso."
 
-#: wp-admin/includes/class-wp-upgrader.php:1011
+#: wp-admin/includes/class-wp-upgrader.php:1009
 msgid "WordPress is at the latest version."
 msgstr "O WordPress está na sua versão mais recente."
 
-#: wp-admin/includes/class-wp-upgrader.php:1015
+#: wp-admin/includes/class-wp-upgrader.php:1013
 msgid "Could not copy files."
 msgstr "Não foi possível copiar os arquivos."
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:364
-#: wp-admin/includes/class-wp-upgrader.php:1197
+#: wp-admin/includes/class-wp-upgrader.php:1195
+#: wp-admin/includes/class-wp-upgrader.php:1431
 #: wp-admin/includes/class-wp-upgrader.php:1433
-#: wp-admin/includes/class-wp-upgrader.php:1435
 msgid "Activate this plugin"
 msgstr "Ativar este plugin"
 
-#: wp-admin/includes/class-wp-upgrader.php:1197
-#: wp-admin/includes/class-wp-upgrader.php:1435
+#: wp-admin/includes/class-wp-upgrader.php:1195
+#: wp-admin/includes/class-wp-upgrader.php:1433
 msgid "Activate Plugin"
 msgstr "Ativar plugin"
 
-#: wp-admin/includes/class-wp-upgrader.php:1198
-#: wp-admin/includes/class-wp-upgrader.php:1353
-#: wp-admin/includes/class-wp-upgrader.php:1447
+#: wp-admin/includes/class-wp-upgrader.php:1196
+#: wp-admin/includes/class-wp-upgrader.php:1351
+#: wp-admin/includes/class-wp-upgrader.php:1445
 msgid "Return to Plugins page"
 msgstr "Voltar para página de plugins"
 
-#: wp-admin/includes/class-wp-upgrader.php:1421
+#: wp-admin/includes/class-wp-upgrader.php:1419
 msgid "Successfully installed the plugin <strong>%s %s</strong>."
 msgstr "Plugin <strong>%s %s</strong> instalado com sucesso."
 
-#: wp-admin/includes/class-wp-upgrader.php:1445
+#: wp-admin/includes/class-wp-upgrader.php:1443
 msgid "Return to Plugin Installer"
 msgstr "Voltar para o instalador de plugins"
 
@@ -7762,35 +7762,35 @@ msgstr "Tema <strong>%1$s %2$s</strong> instalado com sucesso."
 #: wp-admin/includes/class-wp-posts-list-table.php:550
 #: wp-admin/includes/class-wp-theme-install-list-table.php:189
 #: wp-admin/includes/class-wp-themes-list-table.php:139
-#: wp-admin/includes/class-wp-upgrader.php:1513
-#: wp-admin/includes/class-wp-upgrader.php:1514
-#: wp-admin/includes/class-wp-upgrader.php:1579
-#: wp-admin/includes/class-wp-upgrader.php:1580
+#: wp-admin/includes/class-wp-upgrader.php:1511
+#: wp-admin/includes/class-wp-upgrader.php:1512
+#: wp-admin/includes/class-wp-upgrader.php:1577
+#: wp-admin/includes/class-wp-upgrader.php:1578
 msgid "Preview &#8220;%s&#8221;"
 msgstr "Visualizar &#8220;%s&#8221;"
 
 #: wp-admin/includes/class-wp-themes-list-table.php:136
-#: wp-admin/includes/class-wp-upgrader.php:1515
-#: wp-admin/includes/class-wp-upgrader.php:1581
+#: wp-admin/includes/class-wp-upgrader.php:1513
+#: wp-admin/includes/class-wp-upgrader.php:1579
 msgid "Activate &#8220;%s&#8221;"
 msgstr "Ativar &#8220;%s&#8221;"
 
-#: wp-admin/includes/class-wp-upgrader.php:1521
+#: wp-admin/includes/class-wp-upgrader.php:1519
 msgid "Return to Theme Installer"
 msgstr "Voltar para o instalador de temas"
 
-#: wp-admin/includes/class-wp-upgrader.php:1523
+#: wp-admin/includes/class-wp-upgrader.php:1521
 msgid "Themes page"
 msgstr "Página de temas"
 
-#: wp-admin/includes/class-wp-upgrader.php:1386
-#: wp-admin/includes/class-wp-upgrader.php:1523
-#: wp-admin/includes/class-wp-upgrader.php:1588
+#: wp-admin/includes/class-wp-upgrader.php:1384
+#: wp-admin/includes/class-wp-upgrader.php:1521
+#: wp-admin/includes/class-wp-upgrader.php:1586
 msgid "Return to Themes page"
 msgstr "Voltar para página de temas"
 
-#: wp-admin/includes/class-wp-upgrader.php:1613
-#: wp-admin/includes/class-wp-upgrader.php:1647
+#: wp-admin/includes/class-wp-upgrader.php:1611
+#: wp-admin/includes/class-wp-upgrader.php:1645
 msgid "Please select a file"
 msgstr "Selecione um arquivo"
 
@@ -8679,7 +8679,7 @@ msgstr "Permitir <a href=\"%s\" target=\"_blank\">trackbacks e  pingbacks</a> ne
 msgid "http://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments"
 msgstr "http://codex.wordpress.org/pt-br:Modera%C3%A7%C3%A3o_de_Coment%C3%A1rios"
 
-#: wp-admin/includes/meta-boxes.php:495
+#: wp-admin/includes/meta-boxes.php:494
 msgid "Show comments"
 msgstr "Mostrar os comentários"
 
@@ -8988,27 +8988,27 @@ msgstr "O cabeçalho do plugin <code>%1$s</code> está obsoleto. Use <code>%2$s<
 msgid "Visit plugin homepage"
 msgstr "Visitar a página de plugins"
 
-#: wp-admin/includes/plugin.php:558
+#: wp-admin/includes/plugin.php:559
 msgid "The plugin generated unexpected output."
 msgstr "O plugin gerou um resultado inesperado."
 
-#: wp-admin/includes/plugin.php:654
+#: wp-admin/includes/plugin.php:655
 msgid "One of the plugins is invalid."
 msgstr "Um dos plugins é inválido."
 
-#: wp-admin/includes/plugin.php:740
+#: wp-admin/includes/plugin.php:741
 msgid "Could not fully remove the plugin(s) %s."
 msgstr "Não foi possível remover completamente o(s) plugin(s) %s."
 
-#: wp-admin/includes/plugin.php:801
+#: wp-admin/includes/plugin.php:802
 msgid "Invalid plugin path."
 msgstr "Caminho do plugin inválido."
 
-#: wp-admin/includes/plugin.php:803
+#: wp-admin/includes/plugin.php:804
 msgid "Plugin file does not exist."
 msgstr "O arquivo do plugin não existe."
 
-#: wp-admin/includes/plugin.php:807
+#: wp-admin/includes/plugin.php:808
 msgid "The plugin does not have a valid header."
 msgstr "O plugin não possui um cabeçalho válido."
 

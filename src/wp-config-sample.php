@@ -16,13 +16,13 @@
 
 // ** Configurações do MySQL - Você pode pegar essas informações com o serviço de hospedagem ** //
 /** O nome do banco de dados do WordPress */
-define('DB_NAME', 'nomedoBD');
+define('DB_NAME', 'database_name_here');
 
 /** Usuário do banco de dados MySQL */
-define('DB_USER', 'usuarioMySQL');
+define('DB_USER', 'username_here');
 
 /** Senha do banco de dados MySQL */
-define('DB_PASSWORD', 'senha');
+define('DB_PASSWORD', 'password_here');
 
 /** nome do host do MySQL */
 define('DB_HOST', 'localhost');
@@ -42,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'coloque sua frase única aqui');
-define('SECURE_AUTH_KEY',  'coloque sua frase única aqui');
-define('LOGGED_IN_KEY',    'coloque sua frase única aqui');
-define('NONCE_KEY',        'coloque sua frase única aqui');
-define('AUTH_SALT',        'coloque sua frase única aqui');
-define('SECURE_AUTH_SALT', 'coloque sua frase única aqui');
-define('LOGGED_IN_SALT',   'coloque sua frase única aqui');
-define('NONCE_SALT',       'coloque sua frase única aqui');
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
 
 /**#@-*/
 
