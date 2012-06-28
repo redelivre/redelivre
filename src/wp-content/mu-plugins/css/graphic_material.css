@@ -1,3 +1,19 @@
 #photo-wrapper { border: 1px dashed #999; position:relative; }
 #photo-wrapper img { position:absolute; }
 #save-response { display:none; }
+
+/** small flyer **/
+#graphic_material_visualization { position:fixed; top: 100px; left: 750px; width: 255px; padding: 10px 20px; background-color: #E4E4E4;}
+
+#graphic_material_preview { min-height: 380px; }
+
+#graphic_material_content { width: 570px; }
+
+#listShapes input { display: none; }
+
+#listShapes img { float: left; border: 10px solid white;}
+
+.shapeItem {float: left; }
+
+#listShapes label.active img { border-color: #13455B; }
+#listShapes label img:hover { border-color: #E4E4E4; }
