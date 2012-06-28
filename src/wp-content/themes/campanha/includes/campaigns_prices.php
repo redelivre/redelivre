@@ -10,7 +10,7 @@
     </tr>
     <tr>
         <th class="feature textleft">Mobilização nas redes sociais</th>
-        <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
+        <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
@@ -57,17 +57,8 @@
             <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         </th>
     </tr>
-    
+     
     <tr>
-        <th class="feature textleft">Domínio Próprio <br/><small>(seunome.br)</small></th>
-        <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-        <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-        <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-        <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-        <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-    </tr>
-    
-     <tr>
         <th class="feature textleft">Subdomínio <small>(seunome.campanhacompleta.com.br)</small></th>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
@@ -75,6 +66,16 @@
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
     </tr>
+    
+    <tr>
+        <th class="feature textleft">Domínio Próprio <br/><small>(seunome.br)</small></th>
+        <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
+        <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
+        <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
+        <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
+        <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
+    </tr>
+    
     <tr>
         <th class="feature textleft">Suporte técnico</th>
         <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
