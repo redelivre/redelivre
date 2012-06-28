@@ -1,14 +1,14 @@
-# Translation of Development (future 3.4) in Portuguese (Brazil)
-# This file is distributed under the same license as the Development (future 3.4) package.
+# Translation of 3.4.x in Portuguese (Brazil)
+# This file is distributed under the same license as the 3.4.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2012-06-17 12:53:11+0000\n"
+"PO-Revision-Date: 2012-06-28 01:44:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: GlotPress/0.1\n"
-"Project-Id-Version: Development (future 3.4)\n"
+"Project-Id-Version: 3.4.x\n"
 
 #: wp-includes/locale.php:184
 msgctxt "text direction"
@@ -675,7 +675,7 @@ msgstr "Inserir a Tag Mais (Alt + Shift + T)"
 msgid "Show/Hide Kitchen Sink (Alt + Shift + Z)"
 msgstr "Mostrar/Esconder Extras (Alt + Shift + Z)"
 
-#: wp-includes/class-wp-editor.php:643
+#: wp-includes/class-wp-editor.php:641
 #: wp-includes/js/tinymce/langs/wp-langs.php:320
 msgid "Blockquote (Alt + Shift + Q)"
 msgstr "Citação (Alt + Shift + Q)"
@@ -723,7 +723,7 @@ msgstr "http://br.forums.wordpress.org/forum/pedidos-e-feedback"
 msgid "%s exceeds the maximum upload size for this site."
 msgstr "%s ultrapassa o limite de tamanho de arquivo para envio deste site."
 
-#: wp-includes/functions.php:2824
+#: wp-includes/functions.php:2729
 msgid "Please see <a href=\"http://codex.wordpress.org/Debugging_in_WordPress\">Debugging in WordPress</a> for more information."
 msgstr "Consulte <a href=\"http://codex.wordpress.org/pt-br:Depuração_no_WordPress\">Depuração no WordPress</a> para mais informações."
 
@@ -953,11 +953,11 @@ msgstr "Fóruns de Suporte"
 msgid "&hellip;"
 msgstr "&hellip;"
 
-#: wp-includes/functions.php:2615
+#: wp-includes/functions.php:2520
 msgid "Database Error"
 msgstr "Erro de Banco de Bados"
 
-#: wp-includes/functions.php:2619
+#: wp-includes/functions.php:2524
 msgid "Error establishing a database connection"
 msgstr "Erro ao estabelecer uma conexão com o Banco de Dados"
 
@@ -1106,7 +1106,7 @@ msgstr "Mais Estreito"
 msgid "Default width"
 msgstr "Largura padrão"
 
-#: wp-includes/class-wp-editor.php:691
+#: wp-includes/class-wp-editor.php:689
 msgid "Word count: %s"
 msgstr "Contagem de palavras: %s"
 
@@ -1118,7 +1118,7 @@ msgstr "Sua conta está ativada. Faça <a href=\"%1$s\">Log in</a> ou volte a <a
 msgid "Your account is now activated. <a href=\"%1$s\">View your site</a> or <a href=\"%2$s\">Log in</a>"
 msgstr "Sua conta já está ativada. <a href=\"%1$s\">Visite seu site</a> ou faça <a href=\"%2$s\">Log in</a>"
 
-#: wp-includes/class-wp-editor.php:649
+#: wp-includes/class-wp-editor.php:647
 #: wp-includes/js/tinymce/langs/wp-langs.php:501
 msgid "Help (Alt + Shift + H)"
 msgstr "Ajuda (Alt + Shift + H)"
@@ -1127,11 +1127,11 @@ msgstr "Ajuda (Alt + Shift + H)"
 msgid "Howdy, %1$s"
 msgstr "Olá, %1$s"
 
-#: wp-includes/class-wp-editor.php:624
+#: wp-includes/class-wp-editor.php:622
 msgid "Exit fullscreen"
 msgstr "Sair do Modo Tela Cheia"
 
-#: wp-includes/class-wp-editor.php:692
+#: wp-includes/class-wp-editor.php:690
 msgid "Just write."
 msgstr "Apenas escreva."
 
@@ -1147,7 +1147,7 @@ msgstr "Todos os Posts"
 msgid "All Pages"
 msgstr "Todas as Páginas"
 
-#: wp-includes/class-wp-editor.php:671
+#: wp-includes/class-wp-editor.php:669
 msgid "Updated."
 msgstr "Atualizado."
 
@@ -1155,37 +1155,37 @@ msgstr "Atualizado."
 msgid "fullscreen"
 msgstr "tela cheia"
 
-#: wp-includes/class-wp-editor.php:637
+#: wp-includes/class-wp-editor.php:635
 #: wp-includes/js/tinymce/langs/wp-langs.php:286
 msgid "Bold (Ctrl + B)"
 msgstr "Negrito (Ctrl + B)"
 
-#: wp-includes/class-wp-editor.php:638
+#: wp-includes/class-wp-editor.php:636
 #: wp-includes/js/tinymce/langs/wp-langs.php:287
 msgid "Italic (Ctrl + I)"
 msgstr "Itálico (Ctrl + I)"
 
-#: wp-includes/class-wp-editor.php:641
+#: wp-includes/class-wp-editor.php:639
 #: wp-includes/js/tinymce/langs/wp-langs.php:295
 msgid "Ordered list (Alt + Shift + O)"
 msgstr "Lista Ordenada (Alt + Shift + S)"
 
-#: wp-includes/class-wp-editor.php:640
+#: wp-includes/class-wp-editor.php:638
 #: wp-includes/js/tinymce/langs/wp-langs.php:294
 msgid "Unordered list (Alt + Shift + U)"
 msgstr "Lista não ordenada (Alt + Shift + U)"
 
-#: wp-includes/class-wp-editor.php:644
+#: wp-includes/class-wp-editor.php:642
 #: wp-includes/js/tinymce/langs/wp-langs.php:302
 msgid "Insert/edit image (Alt + Shift + M)"
 msgstr "Inserir/editar imagem (Alt + Shift + M)"
 
-#: wp-includes/class-wp-editor.php:646
+#: wp-includes/class-wp-editor.php:644
 #: wp-includes/js/tinymce/langs/wp-langs.php:300
 msgid "Insert/edit link (Alt + Shift + A)"
 msgstr "Inserir/editar link (Alt + Shift + A)"
 
-#: wp-includes/class-wp-editor.php:647
+#: wp-includes/class-wp-editor.php:645
 #: wp-includes/js/tinymce/langs/wp-langs.php:301
 msgid "Unlink (Alt + Shift + S)"
 msgstr "Remover Link (Alt + Shift + S)"
@@ -1470,11 +1470,11 @@ msgstr "Não há nada em sua <a href='%1$s'> fila de spam </a> no momento."
 msgid "Cleared by Akismet"
 msgstr "Limpo pelo Akismet"
 
-#: wp-includes/class-wp-editor.php:770
+#: wp-includes/class-wp-editor.php:768
 msgid "Enter the destination URL"
 msgstr "Insira o URL de destino"
 
-#: wp-includes/class-wp-editor.php:782
+#: wp-includes/class-wp-editor.php:780
 msgid "Or link to existing content"
 msgstr "Ou link para o conteúdo existente"
 
@@ -1498,11 +1498,11 @@ msgstr "Tags Condicionais não funcionam antes da consulta rodar. Antes disso, e
 msgid "The user is already active."
 msgstr "O usuário já está ativo."
 
-#: wp-includes/functions.php:2825
+#: wp-includes/functions.php:2730
 msgid "%1$s was called <strong>incorrectly</strong>. %2$s %3$s"
 msgstr "%1$s foi chamada <strong>incorretamente</strong>. %2$s %3$s"
 
-#: wp-includes/functions.php:2823
+#: wp-includes/functions.php:2728
 msgid "(This message was added in version %s.)"
 msgstr "(Esta mensagem foi adicionada na versão %s.)"
 
@@ -1603,10 +1603,6 @@ msgstr "Link Permanente: %s"
 msgid "Error occurred while accessing post metadata for file location."
 msgstr "Ocorreu um erro ao acessar os metadados do post para localização do arquivo."
 
-#: wp-includes/functions.php:1889
-msgid "Your attempt to update this plugin: &#8220;%s&#8221; has failed."
-msgstr "Sua tentativa de atualizar o plugin: &#8220;%s&#8221; falhou."
-
 #: wp-includes/post.php:5114
 msgctxt "Post format"
 msgid "Standard"
@@ -1643,11 +1639,11 @@ msgstr "Formato de post inválido"
 msgid "Whois  : http://whois.arin.net/rest/ip/%s"
 msgstr "Whois  : http://whois.arin.net/rest/ip/%s"
 
-#: wp-includes/class-wp-editor.php:778
+#: wp-includes/class-wp-editor.php:776
 msgid "Open link in a new window/tab"
 msgstr "Abrir link em uma nova janela/aba"
 
-#: wp-includes/class-wp-editor.php:798
+#: wp-includes/class-wp-editor.php:796
 msgid "No search term specified. Showing recent items."
 msgstr "Nenhum termo de busca especificado. Exibindo os mais recentes."
 
@@ -2671,7 +2667,7 @@ msgstr "Ao invés, use <code>get_the_author()</code> se você não quiser que o 
 msgid "If you&#8217;re still stuck with this message, then check that your database contains the following tables:"
 msgstr "Se você ainda está preso com esta mensagem sendo exibida, verifique se seu banco de dados contém as seguintes tabelas:"
 
-#: wp-includes/class-wp-editor.php:682
+#: wp-includes/class-wp-editor.php:680
 msgid "Enter title here"
 msgstr "Digite o título aqui"
 
@@ -2735,17 +2731,17 @@ msgstr ""
 msgid "This is the short link."
 msgstr "Este é o link encurtado."
 
-#: wp-includes/update.php:358
+#: wp-includes/update.php:357
 msgid "%d WordPress Update"
 msgstr "%d Atualização do WordPress"
 
-#: wp-includes/update.php:362
+#: wp-includes/update.php:361
 msgid "%d Theme Update"
 msgid_plural "%d Theme Updates"
 msgstr[0] "%d atualização de temas"
 msgstr[1] "%d atualização de temas"
 
-#: wp-includes/update.php:360
+#: wp-includes/update.php:359
 msgid "%d Plugin Update"
 msgid_plural "%d Plugin Updates"
 msgstr[0] "%d atualização de plugin"
@@ -3380,187 +3376,55 @@ msgstr "Nome de arquivo em branco"
 msgid "Could not write file %s"
 msgstr "Não foi possível gravar o arquivo %s"
 
-#: wp-includes/functions.php:1864
-msgid "Your attempt to edit this attachment: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar este anexo: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1866
-msgid "Your attempt to add this category has failed."
-msgstr "Não foi possível adicionar esta categoria."
-
-#: wp-includes/functions.php:1867
-msgid "Your attempt to delete this category: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível excluir esta categoria: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1868
-msgid "Your attempt to edit this category: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar esta categoria: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1870
-msgid "Your attempt to delete this comment: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível excluir este comentário: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1871
-msgid "Your attempt to unapprove this comment: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível rejeitar este comentário: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1872
-msgid "Your attempt to approve this comment: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível aprovar este comentário: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1873
-msgid "Your attempt to edit this comment: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar este comentário: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1874
-msgid "Your attempt to bulk modify comments has failed."
-msgstr "Não foi possível modificar vários comentários de uma vez."
-
-#: wp-includes/functions.php:1875
-msgid "Your attempt to moderate comments has failed."
-msgstr "Não foi possível moderar comentários."
-
-#: wp-includes/functions.php:1877
-msgid "Your attempt to add this link has failed."
-msgstr "Não foi possível adicionar este link."
-
-#: wp-includes/functions.php:1878
-msgid "Your attempt to delete this link: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível excluir este link: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1879
-msgid "Your attempt to edit this link: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar este link: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1880
-msgid "Your attempt to bulk modify links has failed."
-msgstr "Não foi possível modificar vários links de uma vez."
-
-#: wp-includes/functions.php:1882
-msgid "Your attempt to add this page has failed."
-msgstr "Não foi possível adicionar esta página."
-
-#: wp-includes/functions.php:1883
-msgid "Your attempt to delete this page: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível excluir esta página: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1884
-msgid "Your attempt to edit this page: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar esta página: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1886
-msgid "Your attempt to edit this plugin file: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar o arquivo de plugin: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1887
-msgid "Your attempt to activate this plugin: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível ativar este plugin: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1888
-msgid "Your attempt to deactivate this plugin: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível desativar este plugin: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1891
-msgid "Your attempt to add this post has failed."
-msgstr "Não foi possível adicionar este post."
-
-#: wp-includes/functions.php:1892
-msgid "Your attempt to delete this post: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível excluir este post: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1893
-msgid "Your attempt to edit this post: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar este post: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1895
-msgid "Your attempt to add this user has failed."
-msgstr "Não foi possível adicionar este usuário."
-
-#: wp-includes/functions.php:1896
-msgid "Your attempt to delete users has failed."
-msgstr "Não foi possível excluir usuários. "
-
-#: wp-includes/functions.php:1897
-msgid "Your attempt to bulk modify users has failed."
-msgstr "Não foi possível modificar vários usuários ao mesmo tempo."
-
-#: wp-includes/functions.php:1898
-msgid "Your attempt to edit this user: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar este usuário: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1899
-msgid "Your attempt to modify the profile for: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível modificar o perfil de: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1901
-msgid "Your attempt to edit your settings has failed."
-msgstr "Não foi possível editar as configurações."
-
-#: wp-includes/functions.php:1902
-msgid "Your attempt to change your permalink structure to: %s has failed."
-msgstr "Não foi possível modificar sua estrutura de link permanente para: %s."
-
-#: wp-includes/functions.php:1903
-msgid "Your attempt to edit this file: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar este arquivo: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1904
-msgid "Your attempt to edit this theme file: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível editar este arquivo do tema: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1905
-msgid "Your attempt to switch to this theme: &#8220;%s&#8221; has failed."
-msgstr "Não foi possível mudar para este tema: &#8220;%s&#8221;."
-
-#: wp-includes/functions.php:1907
+#: wp-includes/functions.php:1850
 msgid "You are attempting to log out of %s"
 msgstr "Você está tentando fazer o logout de %s"
 
-#: wp-includes/functions.php:1946
+#: wp-includes/functions.php:1848
 msgid "WordPress Failure Notice"
 msgstr "Notificação de falha do WordPress"
 
-#: wp-includes/functions.php:1949
+#: wp-includes/functions.php:1851
 msgid "Do you really want to <a href='%s'>log out</a>?"
 msgstr "Você quer mesmo <a href='%s'>desconectar</a>?"
 
-#: wp-includes/functions.php:1951
+#: wp-includes/functions.php:1855
 msgid "Please try again."
 msgstr "Por favor, tente novamente."
 
-#: wp-includes/functions.php:2026
+#: wp-includes/functions.php:1931
 msgid "&laquo; Back"
 msgstr "&laquo; Voltar"
 
-#: wp-includes/functions.php:2038 wp-load.php:60
+#: wp-includes/functions.php:1943 wp-load.php:60
 msgid "WordPress &rsaquo; Error"
 msgstr "Erro &rsaquo; WordPress"
 
-#: wp-includes/functions.php:2705 wp-includes/functions.php:2745
+#: wp-includes/functions.php:2610 wp-includes/functions.php:2650
 msgid "%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead."
 msgstr "%1$s está <strong>obsoleto</strong> desde a versão %2$s! Use %3$s em seu lugar."
 
-#: wp-includes/functions.php:2707 wp-includes/functions.php:2747
+#: wp-includes/functions.php:2612 wp-includes/functions.php:2652
 msgid "%1$s is <strong>deprecated</strong> since version %2$s with no alternative available."
 msgstr "%1$s está <strong>obsoleto</strong> desde a versão %2$s sem nenhuma alternativa disponível."
 
-#: wp-includes/functions.php:2789
+#: wp-includes/functions.php:2694
 msgid "%1$s was called with an argument that is <strong>deprecated</strong> since version %2$s! %3$s"
 msgstr "%1$s foi chamado com um argumento que está <strong>obsoleto</strong> desde a versão %2$s! %3$s"
 
-#: wp-includes/functions.php:2791
+#: wp-includes/functions.php:2696
 msgid "%1$s was called with an argument that is <strong>deprecated</strong> since version %2$s with no alternative available."
 msgstr "%1$s foi chamado com um argumento que está <strong>obsoleto</strong> desde a versão %2$s sem nenhuma alternativa disponível."
 
-#: wp-includes/functions.php:3219
+#: wp-includes/functions.php:3124
 msgid "Select a city"
 msgstr "Selecione uma cidade"
 
-#: wp-includes/functions.php:3264 wp-includes/functions.php:3268
+#: wp-includes/functions.php:3169 wp-includes/functions.php:3173
 msgid "UTC"
 msgstr "UTC"
 
-#: wp-includes/functions.php:3272
+#: wp-includes/functions.php:3177
 msgid "Manual Offsets"
 msgstr "Ajustes manuais"
 
@@ -6182,11 +6046,11 @@ msgstr "Plugin"
 msgid "Insert Image"
 msgstr "Inserir imagem"
 
-#: wp-includes/class-wp-editor.php:86 wp-includes/class-wp-editor.php:629
+#: wp-includes/class-wp-editor.php:86 wp-includes/class-wp-editor.php:627
 msgid "HTML"
 msgstr "HTML"
 
-#: wp-includes/class-wp-editor.php:87 wp-includes/class-wp-editor.php:628
+#: wp-includes/class-wp-editor.php:87 wp-includes/class-wp-editor.php:626
 msgid "Visual"
 msgstr "Visual"
 
@@ -6217,7 +6081,7 @@ msgstr "(obrigatório)"
 msgid "Website"
 msgstr "Site"
 
-#: wp-includes/admin-bar.php:592 wp-includes/functions.php:2557
+#: wp-includes/admin-bar.php:592 wp-includes/functions.php:2462
 msgid "Widgets"
 msgstr "Widgets"
 
@@ -6730,7 +6594,7 @@ msgstr "Deixe uma resposta para %s"
 msgid "Author"
 msgstr "Autor"
 
-#: wp-includes/class-wp-editor.php:772
+#: wp-includes/class-wp-editor.php:770
 msgid "URL"
 msgstr "URL"
 
@@ -6739,7 +6603,7 @@ msgctxt "noun"
 msgid "Comment"
 msgstr "Comentário"
 
-#: wp-includes/functions.php:1927 wp-includes/functions.php:1929
+#: wp-includes/deprecated.php:3173 wp-includes/functions.php:1853
 msgid "Are you sure you want to do this?"
 msgstr "Tem certeza que quer fazer isto?"
 
@@ -6807,11 +6671,11 @@ msgstr "Editar categoria de link"
 msgid "Update Category"
 msgstr "Atualizar categoria"
 
-#: wp-includes/class-wp-editor.php:811 wp-includes/script-loader.php:278
+#: wp-includes/class-wp-editor.php:809 wp-includes/script-loader.php:278
 msgid "Add Link"
 msgstr "Adicionar link"
 
-#: wp-includes/class-wp-editor.php:619
+#: wp-includes/class-wp-editor.php:617
 #: wp-includes/js/tinymce/langs/wp-langs.php:118
 msgid "Save"
 msgstr "Salvar"
@@ -6894,7 +6758,7 @@ msgstr "Visualizar"
 msgid "Recent Comments"
 msgstr "Comentários"
 
-#: wp-includes/class-wp-editor.php:808
+#: wp-includes/class-wp-editor.php:806
 #: wp-includes/js/tinymce/langs/wp-langs.php:19
 #: wp-includes/script-loader.php:306 wp-includes/script-loader.php:344
 msgid "Cancel"
@@ -7001,7 +6865,7 @@ msgstr "Adicionar Vídeo"
 msgid "Add Audio"
 msgstr "Adicionar Áudio"
 
-#: wp-includes/class-wp-editor.php:671
+#: wp-includes/class-wp-editor.php:669
 msgid "Saved."
 msgstr "Salvo."
 
@@ -7113,7 +6977,7 @@ msgid "Dismiss"
 msgstr "Dispensar"
 
 #: wp-content/plugins/akismet/legacy.php:176 wp-includes/admin-bar.php:639
-#: wp-includes/class-wp-editor.php:786 wp-includes/default-widgets.php:194
+#: wp-includes/class-wp-editor.php:784 wp-includes/default-widgets.php:194
 #: wp-includes/general-template.php:163
 msgid "Search"
 msgstr "Pesquisar"
@@ -7210,7 +7074,7 @@ msgstr "Revisão pendente"
 msgid "Draft"
 msgstr "Rascunho"
 
-#: wp-includes/class-wp-editor.php:743
+#: wp-includes/class-wp-editor.php:741
 msgid "Y/m/d"
 msgstr "d/m/Y"
 
