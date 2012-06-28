@@ -56,9 +56,12 @@ class Header extends GraphicMaterial {
         $candidateName->setAttribute('font-size', $this->data->candidateSize);
 
         $slogan = $this->finalImage->getElementById('slogan');
-        $slogan[0] = $this->data->slogan;
-        $slogan->setAttribute('fill', $this->data->sloganColor);
-        $slogan->setAttribute('font-size', $this->data->sloganSize);
+        
+        if ($slogan) {
+            $slogan[0] = $this->data->slogan;
+            $slogan->setAttribute('fill', $this->data->sloganColor);
+            $slogan->setAttribute('font-size', $this->data->sloganSize);
+        }
         
         $number = $this->finalImage->getElementById('numero');
         $number[0] = $this->data->candidateNumber;
