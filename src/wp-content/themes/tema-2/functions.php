@@ -210,3 +210,42 @@ if (!function_exists('tema2_comment')):
     }
 
 endif;
+
+add_action('init', 'tema2_init');
+// Hook de ativação do tema
+function tema2_init() {
+    global $pagenow;
+
+    if ( is_admin() && isset($_GET['activated'] ) && $pagenow == 'themes.php' ) {
+        global $wpdb;
+        
+        $createdBefore = $wpdb->get_var("SELECT post_id FROM $wpdb->postmeta WHERE meta_value = '_blog_page_created'");
+        
+        if (!$createdBefore) {
+            
+            // Cria a página Blog
+            $post = array(
+                'post_type' => 'page',
+                'post_status' => 'publish',
+                'post_title' => 'Blog',
+                'post_content' => 'Esta página listará os seus posts em forma de blog. Você pode renomeá-la se quiser. Qualquer conteúdo aqui será ignorado.'
+            );
+            
+            $new = wp_insert_post($post);
+            add_post_meta($new->ID, '_blog_page_created', 1);
+            
+            // Seleciona o template de blog
+            add_post_meta($new->ID, '_wp_page_template', 'blog.php');
+            
+            // Adiciona um item ao menu
+            $menu = wp_get_nav_menu_object('main');
+            wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
+                'menu-item-title' => 'Blog',
+                'menu-item-url' => home_url('/blog'), 
+                'menu-item-status' => 'publish')
+            );
+        
+        }
+        
+    }
+}
