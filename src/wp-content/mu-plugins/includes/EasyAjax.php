@@ -1,7 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/graphic_material/SmallFlyer.php');
-require_once(__DIR__ . '/graphic_material/CandidatePhoto.php');
+require_once(__DIR__ . '/graphic_material/GraphicMaterialFactory.php');
 
 /**
  * Description of EasyAjax
@@ -26,19 +25,17 @@ class MuEasyAjax {
     }
     
     static function savePhotoPosition(){
-        $fileName = filter_input(INPUT_POST, 'filename', FILTER_SANITIZE_STRING);
-        $minWidth = filter_input(INPUT_POST, 'minWidth', FILTER_SANITIZE_NUMBER_INT);
-        $minHeight = filter_input(INPUT_POST, 'minHeight', FILTER_SANITIZE_NUMBER_INT);
+        $class = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
         
-        $candidatePhoto = new CandidatePhoto($fileName, $minWidth, $minHeight);
-        $candidatePhoto->crop();
+        $graphicMaterial = GraphicMaterialFactory::build($class);
+        $graphicMaterial->candidatePhoto->crop();
     }
     
     static function campanhaPreviewFlyer() {
         $class = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
         
         if (class_exists($class)) {
-            $graphicMaterial = new $class;
+            $graphicMaterial = GraphicMaterialFactory::build($class);
             $graphicMaterial->preview();
         }
     }

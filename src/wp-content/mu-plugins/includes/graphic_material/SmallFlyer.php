@@ -13,17 +13,13 @@ class SmallFlyer extends GraphicMaterial {
      * Small flyer width
      * @var int
      */
-    public $width = 992;
+    const width = 992;
     
     /**
      * Small flyer height
      * @var int
      */
-    public $height = 1358;
-    
-    public function __construct() {
-        parent::__construct();
-    }
+    const height = 1358;
 
     /**
      * @see GraphicMaterial::formatShape()

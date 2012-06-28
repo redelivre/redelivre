@@ -33,8 +33,10 @@ function updatePreview() {
         type: 'get',
         data: jQuery('#graphic_material_form').serialize(),
         success: function(data) {
-            jQuery('#graphic_material_preview').html('<h3>Pré-visualização</h3>' + data.image);
-            jQuery('#candidateSize').val(data.candidateSize);
+            if (data) {
+                jQuery('#graphic_material_preview').html('<h3>Pré-visualização</h3>' + data.image);
+                jQuery('#candidateSize').val(data.candidateSize);
+            }
             jQuery("body").css("cursor", "auto");
         },
         dataType: 'json',

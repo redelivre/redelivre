@@ -71,8 +71,11 @@ abstract class GraphicMaterial
         return $shapes;
     }
 
-    public function __construct()
+    public function __construct(CandidatePhoto $candidatePhoto, DpiConverter $converter)
     {
+        $this->converter = $converter;
+        $this->candidatePhoto = $candidatePhoto;
+        
         $info = wp_upload_dir();
         
         if ($info['error']) {
@@ -92,7 +95,6 @@ abstract class GraphicMaterial
         $this->filePath = $this->dir . $this->fileName;
         
         $this->data = $this->getData();
-        
     }
     
     /**
@@ -101,24 +103,30 @@ abstract class GraphicMaterial
      * displaying the image to the browser and when
      * saving the image to the disk.
      * 
-     * @return null
+     * @return bool
      */
     protected function processImage() {
         $candidateImage = GRAPHIC_MATERIAL_DIR . '/' . strtolower(get_called_class()). '_candidate_croped.png';
         $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
         $path = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
         
-        if (file_exists($path)) {
-            $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
-            
-            $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
-            $this->finalImage->prependImage($candidateImage);
-     
-            $this->formatShape();
-            $this->formatText();
-        } else {
-            throw new Exception('Não foi possível encontrar o arquivo com a forma.');
+        if (!empty($this->data->shapeName)) {
+            if (file_exists($path)) {
+                $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
+                
+                $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
+                $this->finalImage->prependImage($candidateImage);
+         
+                $this->formatShape();
+                $this->formatText();
+                
+                return true;
+            } else {
+                throw new Exception('Não foi possível encontrar o arquivo com a forma.');
+            }
         }
+        
+        return false;
     }
 
     /**
@@ -163,21 +171,23 @@ abstract class GraphicMaterial
         $path = preg_replace('/\.svg$/', '.png', $this->filePath);
         $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
         
-        $this->processImage();
-        $this->finalImage->export($path);
+        if ($this->processImage()) {
+            $this->finalImage->export($path);
+            
+            // resize image to browser size (75dpi)
+            $img = WideImage::load($path);
+            $img->resize($this->converter->maybeConvertTo75Dpi(static::width), $this->converter->maybeConvertTo75Dpi(static::height), 'outside')->saveToFile($path);
+            
+            // add random number as parameter to skip browser cache
+            $rand = rand();
+            
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+            header('Content-type: application/json');
+            
+            echo json_encode(array('image' => "<img src='$url?rand=$rand'>", 'candidateSize' => intval($this->data->candidateSize)));
+        }
         
-        // resize image to browser size (75dpi)
-        $img = WideImage::load($path);
-        $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($path);
-        
-        // add random number as parameter to skip browser cache
-        $rand = rand();
-        
-        header('Cache-Control: no-cache, must-revalidate');
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-        header('Content-type: application/json');
-        
-        echo json_encode(array('image' => "<img src='$url?rand=$rand'>", 'candidateSize' => intval($this->data->candidateSize)));
         die;
     }
 
@@ -238,7 +248,7 @@ abstract class GraphicMaterial
                 
                 // resize image to browser size (75dpi)
                 $img = WideImage::load($filePath);
-                $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($filePath);
+                $img->resize($this->converter->maybeConvertTo75Dpi(static::width), $this->converter->maybeConvertTo75Dpi(static::height), 'outside')->saveToFile($filePath);
                         
                 return $url;
             }
