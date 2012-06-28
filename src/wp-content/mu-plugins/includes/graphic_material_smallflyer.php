@@ -1,10 +1,8 @@
 <?php
 
-require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/SmallFlyer.php');
-require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CandidatePhoto.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterialFactory.php');
 
-$smallFlyer = new SmallFlyer;
-$candidatePhoto = new CandidatePhoto('smallflyer_candidate.png', $smallFlyer->width, $smallFlyer->height);
+$smallFlyer = GraphicMaterialFactory::build('SmallFlyer');
 
 if (isset($_POST['save'])) {
     check_admin_referer('graphic_material');
@@ -18,15 +16,11 @@ if (isset($_POST['save'])) {
 
 ?>
 
-
 <div>
     <h1>Santinho e colinha</h1>
-    
-    
-    
     <div id="graphic_material_content">
         <h3>1. Selecione uma foto ou envie uma nova:</h3>
-        <?php $candidatePhoto->printHtml(); ?>
+        <?php $smallFlyer->candidatePhoto->printHtml(); ?>
         
             <form id="graphic_material_form" method="post">
             <?php wp_nonce_field('graphic_material'); ?>

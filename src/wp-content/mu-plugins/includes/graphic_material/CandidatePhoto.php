@@ -58,19 +58,21 @@ class CandidatePhoto {
      */
     protected $image;
     
-    public function __construct($fileName, $minWidth, $minHeight)
+    public function __construct($fileName, $minWidth, $minHeight, DpiConverter $converter)
     {
         $this->fileName = $fileName;
         $this->screenFileName = basename($this->fileName, '.png') . '_resized.png';
         $this->minWidth = $minWidth;
         $this->minHeight = $minHeight;
         
+        $this->converter = $converter;
+        
         if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)) {
             $this->loadImage();
         }
         
-        $this->screenWidth = $this->convertTo75Dpi($this->minWidth);
-        $this->screenHeight = $this->convertTo75Dpi($this->minHeight);
+        $this->screenWidth = $this->converter->maybeConvertTo75Dpi($this->minWidth);
+        $this->screenHeight = $this->converter->maybeConvertTo75Dpi($this->minHeight);
     }
     
     /**
@@ -78,30 +80,6 @@ class CandidatePhoto {
      */
     protected function loadImage() {
         $this->image = WideImage::load(GRAPHIC_MATERIAL_DIR . $this->fileName);
-    }
-    
-    /**
-     * Receives a value in pixels assuming it is 300 dpi and convert it
-     * to the corresponding pixel value in 75 dpi.
-     * 
-     * @param int $value
-     * @return int
-     */
-    protected function convertTo75Dpi($value)
-    {
-        return $value / 4;
-    }
-    
-    /**
-     * Receives a value in pixels assuming it is 75 dpi and convert it
-     * to the corresponding pixel value in 300 dpi.
-     * 
-     * @param int $value
-     * @return int
-     */
-    protected function convertTo300Dpi($value)
-    {
-        return $value * 4;
     }
     
     /**
@@ -183,7 +161,7 @@ class CandidatePhoto {
         
         $baseImage = $baseImage->resize($this->minWidth, $this->minHeight, 'fill');
         
-        $croped = $baseImage->merge($this->image, $this->convertTo300Dpi($left) , $this->convertTo300Dpi($top));
+        $croped = $baseImage->merge($this->image, $this->converter->maybeConvertTo300Dpi($left) , $this->converter->maybeConvertTo300Dpi($top));
         if (file_exists($cropedFile)) {
             unlink($cropedFile);
         }
@@ -255,4 +233,4 @@ class CandidatePhoto {
         </div>
         <?php
     }
-}
+}    

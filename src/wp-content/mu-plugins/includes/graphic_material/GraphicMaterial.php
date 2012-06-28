@@ -71,8 +71,11 @@ abstract class GraphicMaterial
         return $shapes;
     }
 
-    public function __construct()
+    public function __construct(CandidatePhoto $candidatePhoto, DpiConverter $converter)
     {
+        $this->converter = $converter;
+        $this->candidatePhoto = $candidatePhoto;
+        
         $info = wp_upload_dir();
         
         if ($info['error']) {
@@ -92,7 +95,6 @@ abstract class GraphicMaterial
         $this->filePath = $this->dir . $this->fileName;
         
         $this->data = $this->getData();
-        
     }
     
     /**
@@ -168,7 +170,7 @@ abstract class GraphicMaterial
         
         // resize image to browser size (75dpi)
         $img = WideImage::load($path);
-        $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($path);
+        $img->resize($this->converter->maybeConvertTo75Dpi(static::width), $this->converter->maybeConvertTo75Dpi(static::height), 'outside')->saveToFile($path);
         
         // add random number as parameter to skip browser cache
         $rand = rand();
@@ -238,7 +240,7 @@ abstract class GraphicMaterial
                 
                 // resize image to browser size (75dpi)
                 $img = WideImage::load($filePath);
-                $img->resize($this->width / 4, $this->height / 4, 'outside')->saveToFile($filePath);
+                $img->resize($this->converter->maybeConvertTo75Dpi(static::width), $this->converter->maybeConvertTo75Dpi(static::height), 'outside')->saveToFile($filePath);
                         
                 return $url;
             }
