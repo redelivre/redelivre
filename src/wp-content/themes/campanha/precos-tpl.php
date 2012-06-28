@@ -15,11 +15,11 @@ Template Name: Preços
 					<table class="clearfix">
 						<thead class="clearfix">
 							<th class="cel-4"></th>
-							<th class="cel-2">0</th>
 							<th class="cel-2">1</th>
 							<th class="cel-2">2</th>
 							<th class="cel-2">3</th>
 							<th class="cel-2">4</th>
+							<th class="cel-2">5</th>
 						</thead>
 						<?php require_once(TEMPLATEPATH . '/includes/campaigns_prices.php'); ?>
 					</table>
