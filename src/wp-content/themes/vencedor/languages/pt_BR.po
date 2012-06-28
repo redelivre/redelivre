@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-12 11:20-0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Cátia Kitahara <catia@hacklab.com.br>\n"
+"Last-Translator: Leo Germani <leogermani@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "Próximo post &raquo;"
 #: /home/catia/devel/campanha/src/wp-content/themes/vencedor/archive.php:28
 #: /home/catia/devel/campanha/src/wp-content/themes/vencedor/page.php:17
 msgid "No results found."
-msgstr "Nnenhum post encontrado"
+msgstr "Nenhum post encontrado"
 
 #: /home/catia/devel/campanha/src/wp-content/themes/vencedor/search.php:8
 #: /home/catia/devel/campanha/src/wp-content/themes/vencedor/search.php:15
