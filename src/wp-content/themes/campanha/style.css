@@ -324,9 +324,9 @@ tr:first-child th, tr:first-child td { border-top: none; }
 -------------------------------------------------------------- */
 #precos { width: 97.9166666% /*620px*/; margin: 0 1.0416666%; }
 #precos table { table-layout: fixed; }
-#precos table td { font-size: 1.875em; }
-#precos td span { font-size: .6em; line-height: 1; }
-.cel-2 { width: 14.5833333% /*140px*/; background: transparent url(img/circle.png) no-repeat center 18px; font-size: 1.875em; color: #1b3c64; text-shadow: 0 1px 0 rgba(250, 250, 250, 0.8), 0 -1px 0 #000; }
+#precos table td { font-size: 1.5em; }
+#precos td span { font-size: .75em; line-height: 1; }
+.cel-2 { width: 11.666667% /*140px*/; background: transparent url(img/circle.png) no-repeat center 18px; font-size: 1.875em; color: #1b3c64; text-shadow: 0 1px 0 rgba(250, 250, 250, 0.8), 0 -1px 0 #000; }
 .cel-4 { width: 31.25% /*300px*/; }
 tr.last td { font-weight: 900; line-height: 1; }
 td.sim, td.nao { text-indent: -99999px; }
