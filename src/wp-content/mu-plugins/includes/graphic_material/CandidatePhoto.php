@@ -179,6 +179,8 @@ class CandidatePhoto {
         // remove 'px' from the end of the strings
         list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($left, $top));
         
+        
+        
         $croped = $this->image->crop( $this->convertTo300Dpi($left), $this->convertTo300Dpi($top), $this->minWidth, $this->minHeight);
         
         if (file_exists($cropedFile)) {
@@ -211,6 +213,9 @@ class CandidatePhoto {
             <?php if ($this->error): ?>
                 <div class="error"><p><?php echo $this->error; ?></p></div><br/>
             <?php endif; ?>
+            <?php if ($this->minWidth && $this->minHeight): ?>
+                <div class="warning"><p>Para garantir a qualidade da impressão a imagem enviada deve ter pelo menos <?php echo "{$this->minWidth}x{$this->minHeight}"; ?> pixels.</p></div>
+            <?php endif; ?>
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="graphic_material_upload_photo" value="1" />
                 <input type="hidden" name="graphic_material_filename" value="<?php echo $this->fileName ?>" />
@@ -220,16 +225,26 @@ class CandidatePhoto {
                 <input type="file" name="photo" />
                 <input type="submit" class="button-primary" value="subir foto" />
             </form>
-            <?php if ($this->minWidth && $this->minHeight): ?>
-                <div class="warning"><p>Para garantir a qualidade da impressão a imagem enviada deve ter pelo menos <?php echo "{$this->minWidth}x{$this->minHeight}"; ?> pixels.</p></div>
-            <?php endif; ?>
-                
+            
+            <hr />
+            
             <?php if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)): ?>
-                <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden;">
+            
+                <p>
+                
+                Arraste e solte a imagem abaixo para escolher o recorte.
+                
+                </p>
+                
+                <div class="updated" id="save-response"><p>Recorte aplicado!</p></div>
+                
+                <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden; float: left;">
                     <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>;"/>
                 </div>
-                <button id="save-position" class="button-primary">salvar posição</button>
-                <span id="save-response">a posição da imagem foi salva</span>
+                
+                <button id="save-position" class="button-primary">Aplicar recorte</button>
+                
+                <div class="clear"></div>
             <?php else: ?>
                 Você ainda não enviou uma imagem.
             <?php endif; ?>

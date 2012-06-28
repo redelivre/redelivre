@@ -18,35 +18,69 @@ if (isset($_POST['save'])) {
 
 ?>
 
+<style>
+
+#graphic_material_visualization { position:fixed; top: 100px; left: 750px; width: 255px; padding: 10px 20px; background-color: #E4E4E4;}
+
+#graphic_material_preview { min-height: 380px; }
+
+#graphic_material_content { width: 570px; }
+
+#listShapes input { display: none; }
+
+#listShapes img { float: left; border: 10px solid white;}
+
+.shapeItem {float: left; }
+
+#listShapes label.active img { border-color: #13455B; }
+#listShapes label img:hover { border-color: #E4E4E4; }
+
+</style>
+
 <div>
     <h1>Santinho e colinha</h1>
-    <div id="graphic_material_content" style="width: 60%; float: left;">
+    
+    
+    
+    <div id="graphic_material_content">
         <h3>1. Selecione uma foto ou envie uma nova:</h3>
         <?php $candidatePhoto->printHtml(); ?>
         
-        <form id="graphic_material_form" method="post">
+            <form id="graphic_material_form" method="post">
             <?php wp_nonce_field('graphic_material'); ?>
             <input type='hidden' name='action' value='campanhaPreviewFlyer'>
             <input type='hidden' name='type' value='smallflyer'>
             <div id="graphic_material_wizard">
                 <h3>2. Escolha uma forma:</h3>
+                <p>
+                    Cores da forma: 
+                    <input type="color" name="data[shapeColor1]" value="<?php echo (isset($smallFlyer->data->shapeColor1) && !empty($smallFlyer->data->shapeColor1)) ? $smallFlyer->data->shapeColor1 : '#ff0000'; ?>" data-text="hidden" style="height:20px;width:20px;" />
+                    <input type="color" name="data[shapeColor2]" value="<?php echo (isset($smallFlyer->data->shapeColor2) && !empty($smallFlyer->data->shapeColor2)) ? $smallFlyer->data->shapeColor2 : '#00ff00'; ?>" data-text="hidden" style="height:20px;width:20px;" />
+                </p>
+                <div id="listShapes">
                 <?php
                 $shapes = SmallFlyer::getShapes();
                 
                 foreach ($shapes as $shape) {
                     $checked = (isset($smallFlyer->data->shapeName) && $shape->name == $smallFlyer->data->shapeName) ? ' checked ' : '';
-                    echo "<input type='radio' name='data[shapeName]' value='{$shape->name}' $checked><img src='{$shape->url}'>";
+                    $active = $checked ? "class='active'" : "";
+                    echo "<div class='shapeItem'><label for='shapeName-{$shape->name}' $active><input type='radio' name='data[shapeName]' id='shapeName-{$shape->name}' value='{$shape->name}' $checked><img src='{$shape->url}'></label></div>";
                 }
                 ?>
+                </div>
                 
-                <p>Cor 1: <input type="color" name="data[shapeColor1]" value="<?php echo (isset($smallFlyer->data->shapeColor1) && !empty($smallFlyer->data->shapeColor1)) ? $smallFlyer->data->shapeColor1 : '#ff0000'; ?>" data-text="hidden" style="height:20px;width:20px;" /></p>
-                <p>Cor 2: <input type="color" name="data[shapeColor2]" value="<?php echo (isset($smallFlyer->data->shapeColor2) && !empty($smallFlyer->data->shapeColor2)) ? $smallFlyer->data->shapeColor2 : '#00ff00'; ?>" data-text="hidden" style="height:20px;width:20px;" /></p>
-                <br>
+                <div class="clear"></div>
+                
+                
+                
                 
                 <h3>3. Textos:</h3>
-                Nome: <input type="text" name="data[candidateName]" value="<?php echo (isset($smallFlyer->data->candidateName)) ? $smallFlyer->data->candidateName : ''; ?>" /><br>
-                Cor: <input type="color" name="data[candidateColor]" value="<?php echo (isset($smallFlyer->data->candidateColor) && !empty($smallFlyer->data->candidateColor)) ? $smallFlyer->data->candidateColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
-                Tamanho:
+                
+                <h4>Nome do candidato:</h4>
+                <input type="text" name="data[candidateName]" value="<?php echo (isset($smallFlyer->data->candidateName)) ? $smallFlyer->data->candidateName : ''; ?>" />
+                Cor: <input type="color" name="data[candidateColor]" value="<?php echo (isset($smallFlyer->data->candidateColor) && !empty($smallFlyer->data->candidateColor)) ? $smallFlyer->data->candidateColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" />
+                <br><br>
+                Tamanho da fonte:<br/>
                 <select name="data[candidateSize]" id="candidateSize">
                     <option value="" selected="selected">Valor padrão</option>
                     <?php
@@ -58,7 +92,8 @@ if (isset($_POST['save'])) {
                 </select>
                 <br><br>
                 
-                Slogan: <input type="text" name="data[slogan]" value="<?php echo (isset($smallFlyer->data->slogan)) ? $smallFlyer->data->slogan : ''; ?>" /><br>
+                <h4>Slogan:</h4>
+                <input type="text" name="data[slogan]" value="<?php echo (isset($smallFlyer->data->slogan)) ? $smallFlyer->data->slogan : ''; ?>" />
                 Cor: <input type="color" name="data[sloganColor]" value="<?php echo (isset($smallFlyer->data->sloganColor) && !empty($smallFlyer->data->sloganColor)) ? $smallFlyer->data->sloganColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
                 <!--
                 Tamanho:
@@ -74,40 +109,8 @@ if (isset($_POST['save'])) {
                 <br><br>
                 -->
                 
-                Número: <br>
-                Cor: <input type="color" name="data[numberColor]" value="<?php echo (isset($smallFlyer->data->numberColor) && !empty($smallFlyer->data->numberColor)) ? $smallFlyer->data->numberColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
-                <!--
-                Tamanho:
-                <select name="data[numberSize]">
-                    <option value="" selected="selected"></option>
-                    <?php
-                    foreach (range(140, 220) as $number) {
-                        $selected = (isset($smallFlyer->data->numberSize) && $smallFlyer->data->numberSize == $number) ? ' selected="selected" ' : '';
-                        echo "<option value='$number' $selected>$number</option>";
-                    }
-                    ?>
-                </select>
-                <br><br>
-                -->
-                
-                Cargo: <br>
-                Cor: <input type="color" name="data[roleColor]" value="<?php echo (isset($smallFlyer->data->roleColor) && !empty($smallFlyer->data->roleColor)) ? $smallFlyer->data->roleColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
-                
-                <!--
-                Tamanho:
-                <select name="data[roleSize]">
-                    <option value="" selected="selected"></option>
-                    <?php
-                    foreach (range(70, 140) as $number) {
-                        $selected = (isset($smallFlyer->data->roleSize) && $smallFlyer->data->roleSize == $number) ? ' selected="selected" ' : '';
-                        echo "<option value='$number' $selected>$number</option>";
-                    }
-                    ?>
-                </select>
-                <br><br>
-                -->
-                
-                Coligação: <input type="text" name="data[coalition]" value="<?php echo (isset($smallFlyer->data->coalition)) ? $smallFlyer->data->coalition : ''; ?>" /><br>
+                <h4>Coligação:</h4>
+                <input type="text" name="data[coalition]" value="<?php echo (isset($smallFlyer->data->coalition)) ? $smallFlyer->data->coalition : ''; ?>" />
                 Cor: <input type="color" name="data[coalitionColor]" value="<?php echo (isset($smallFlyer->data->coalitionColor) && !empty($smallFlyer->data->coalitionColor)) ? $smallFlyer->data->coalitionColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
                 
                 <!--
@@ -123,23 +126,62 @@ if (isset($_POST['save'])) {
                 </select>
                 <br><br>
                 -->
+                
+                <h4>Cor do número do candidato: </h4>
+                <input type="color" name="data[numberColor]" value="<?php echo (isset($smallFlyer->data->numberColor) && !empty($smallFlyer->data->numberColor)) ? $smallFlyer->data->numberColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
+                <!--
+                Tamanho:
+                <select name="data[numberSize]">
+                    <option value="" selected="selected"></option>
+                    <?php
+                    foreach (range(140, 220) as $number) {
+                        $selected = (isset($smallFlyer->data->numberSize) && $smallFlyer->data->numberSize == $number) ? ' selected="selected" ' : '';
+                        echo "<option value='$number' $selected>$number</option>";
+                    }
+                    ?>
+                </select>
+                <br><br>
+                -->
+                
+                <h4>Cor do cargo:</h4>
+                <input type="color" name="data[roleColor]" value="<?php echo (isset($smallFlyer->data->roleColor) && !empty($smallFlyer->data->roleColor)) ? $smallFlyer->data->roleColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br>
+                
+                <!--
+                Tamanho:
+                <select name="data[roleSize]">
+                    <option value="" selected="selected"></option>
+                    <?php
+                    foreach (range(70, 140) as $number) {
+                        $selected = (isset($smallFlyer->data->roleSize) && $smallFlyer->data->roleSize == $number) ? ' selected="selected" ' : '';
+                        echo "<option value='$number' $selected>$number</option>";
+                    }
+                    ?>
+                </select>
+                <br><br>
+                -->
+                
+                
             </div>
-            <p><input type="submit" class="button-primary" name="save" value="Salvar"></p>
-        </form>
+            
+        
     </div>
     
-    <div id="graphic_material_preview" style="min-height: 400px;">
-        <h3>Pré-visualização</h3>
+    <div id="graphic_material_visualization">
+        
+        <div id="graphic_material_preview" >
+            <h3>Pré-visualização</h3>
+        </div>
+        
+        <div class="updated" id="save-reminder" style="display:none;"><p>Não esqueça de salvar</p></div>
+        
+        <p>
+            <input type="submit" class="button-primary" name="save" value="Salvar e gerar PDF">
+            <input type="button" value="Cancelar Edição" class="button-secondary" onClick="document.location = document.location.toString();" />
+        </p>
+        
     </div>
-    <div id="graphic_material_saved">
-        <?php
-        if ($smallFlyer->hasImage()) {
-            echo '<h3>Imagem salva</h3>';
-            // add random number as parameter to skip browser cache
-            $rand = rand();
-            echo "<img src='{$smallFlyer->getImage('png')}?rand=$rand'>";
-        }
-        ?>
-    </div>
+    
+    </form>
+    
 </div>
     

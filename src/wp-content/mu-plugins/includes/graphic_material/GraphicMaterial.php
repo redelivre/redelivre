@@ -58,8 +58,8 @@ abstract class GraphicMaterial
             
             if (!file_exists(GRAPHIC_MATERIAL_DIR . $shape->name . '.png')) {
                 $image = SVGDocument::getInstance($file, 'CampanhaSVGDocument');
-                $image->setWidth(70);
-                $image->setHeight(70);
+                $image->setWidth(150);
+                $image->setHeight(150);
                 $image->export(GRAPHIC_MATERIAL_DIR . $shape->name . '.png');
             }
             

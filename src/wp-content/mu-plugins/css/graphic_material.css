@@ -1,4 +1,3 @@
-#photo-wrapper { border: 1px solid transparent; position:relative; }
-#photo-wrapper:hover { border: 1px dashed #999; }
+#photo-wrapper { border: 1px dashed #999; position:relative; }
 #photo-wrapper img { position:absolute; }
 #save-response { display:none; }
