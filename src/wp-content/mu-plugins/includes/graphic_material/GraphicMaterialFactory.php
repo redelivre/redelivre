@@ -1,8 +1,9 @@
 <?php
 
 require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/DpiConverter.php');
-require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/SmallFlyer.php');
 require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/CandidatePhoto.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/SmallFlyer.php');
+require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/Header.php');
 
 /**
  * Class to build graphic material related
@@ -18,6 +19,12 @@ class GraphicMaterialFactory {
                 $smallFlyer = new SmallFlyer($candidatePhoto, $dpiConverter);
                 
                 return $smallFlyer;
+            case 'header':
+                $dpiConverter = new DpiConverter(false);
+                $candidatePhoto = new CandidatePhoto('header_candidate.png', Header::width, Header::height, $dpiConverter);
+                $header = new Header($candidatePhoto, $dpiConverter);
+                
+                return $header;
             default:
                 break;
         }
