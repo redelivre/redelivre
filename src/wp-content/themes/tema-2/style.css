@@ -232,7 +232,7 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post-content fieldset legend {	background: #fff; color: #000; font-weight: bold; padding: 0 22px; }
 .post-content input, .post-content textarea { margin: 0 0 11px 0; width: 80%; }
 .post-content input.file, .post-content input.button { margin-right: 22px; }
-.post-content label { color: #FFBB00; font-weight: bold; }
+.post-content label, .post-content .label { color: #FFBB00; font-weight: bold; font-size: 14px; text-transform: uppercase; }
 .post-content select { margin: 0 0 11px 0; }
 .post-content sup, .post-content sub { font-size: 11px; }
 
@@ -312,7 +312,7 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 
 #respond input, #respond textarea { margin: 0 0 11px 0; }
 #respond input { width: 50%; }
-#respond label { color: #FFBB00; font-weight: bold; }
+#respond label { font-weight: bold; }
 #respond select { margin: 0 0 11px 0; }
 
 
@@ -367,9 +367,6 @@ a.mobilize-google { background-image:url(img/gosocial_32x32.png); background-rep
 a.mobilize-youtube { background-image:url(img/gosocial_32x32.png); background-repeat: no-repeat; background-position: -32px -96px; }
 
 
-
-
-
 /* =Contato
 -------------------------------------------------------------- */
 #formcontato { margin-left: 20px; }
@@ -378,6 +375,14 @@ a.mobilize-youtube { background-image:url(img/gosocial_32x32.png); background-re
 #formcontato textarea { height: 200px; margin-bottom: 22px; }
 #contact-submit { width: 80px; padding: 4px 0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #fff; background: #0033CC; border: none; }
 #contact-submit:hover { background: #6699FF; }
+
+/* =Agenda
+-------------------------------------------------------------- */
+.view-events { float: right; font-size: 13px; }
+.event-info { margin: 0 0 22px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; }
+.event-info .label { font-size: 12px; }
+.agenda h1 { clear: none; }
+.agenda .attachment-post-thumbnail { float: left; margin: 0 10px 22px 0; display: block; }
 
 
 /* =General classes
@@ -389,5 +394,6 @@ a.mobilize-youtube { background-image:url(img/gosocial_32x32.png); background-re
 .textcenter { text-align: center; }
 .textleft { text-align: left; }
 .textright { text-align: right; }
+
 
 
