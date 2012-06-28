@@ -72,7 +72,7 @@ Template Name: Home
 		</div>
 		<div id="destaque-planos">
 			<h3>Planos e Preços</h3>
-			<p>Tenha sua Campanha Completa pagando a partir de <strong>R$1.300,00</strong>.</p>
+			<p>Tenha sua Campanha Completa pagando a partir de <strong>R$450,00</strong>.</p>
 			<a href="<?php echo get_page_link(501); ?>">Compare nossos planos »</a>
 		</div>
 		<div id="destaque-representante">
