@@ -9,7 +9,7 @@ $blogurl = urlencode(get_bloginfo('url'));
 		<?php if (Mobilize::isActive('general')): ?>
             <h1>Apoie esta campanha</h1>
             <div class="section-description">
-                <p><?php echo $options['general']['description']; ?></p>
+                <p><?php echo isset($options['general']['description']) ? $options['general']['description'] : ''; ?></p>
             </div>
             <?php if (Mobilize::isActive('redes')): $re?>
                 <section id="mobilize-redes" class="mobilize-widget clearfix">
