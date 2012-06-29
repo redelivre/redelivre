@@ -38,11 +38,12 @@ if (!is_main_site()) {
     }
 
     add_action('template_redirect', 'campanha_check_payment_status');
+    add_action('template_redirect', 'campanha_check_plan_and_theme');
     add_filter('query_vars', 'campaign_base_custom_query_vars');
     add_filter('rewrite_rules_array', 'campaign_base_custom_url_rewrites', 10, 1);
     add_action('template_redirect', 'campaign_base_template_redirect_intercept');
-    add_filter('login_message', 'campanha_login_payment_message');
-    add_action('admin_notices', 'campanha_admin_payment_message');
+    add_filter('login_message', 'campanha_login_messages');
+    add_action('admin_notices', 'campanha_admin_messages');
     add_filter('site_option_upload_space_check_disabled', 'campanha_unlimited_upload');
     add_action('admin_init', 'campanha_remove_menu_pages');
     add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
@@ -86,6 +87,25 @@ function campanha_check_payment_status() {
 
     if (!$campaign->isPaid() && $campaign->campaignOwner->ID !== $user_id
             && !is_super_admin()) {
+        wp_redirect(wp_login_url());
+    }
+}
+
+/**
+ * Check the campaign plan and current theme and mark
+ * the blog as private in case it is using a theme that
+ * is only available to other plans.
+ */
+function campanha_check_plan_and_theme() {
+    global $campaign;
+
+    $user_id = get_current_user_id();
+    $theme = wp_get_theme();
+
+    // if plan is "blog" and theme is not 'blog-01' or one of its child
+    // mark the campaign as private
+    if ($campaign->plan_id == 6 && strpos($theme->get_stylesheet(), 'blog-01') === false
+        && $campaign->campaignOwner->ID !== $user_id && !is_super_admin()) {
         wp_redirect(wp_login_url());
     }
 }
@@ -157,17 +177,32 @@ function campaign_base_template_redirect_intercept() {
 }
 
 /**
- * Display a message in the login page about the
- * payment.
+ * Display messages in the login page when
+ * necessary.
  * 
  * @param string $message
  * @return string
  */
-function campanha_login_payment_message($message) {
+function campanha_login_messages($message) {
     global $campaign;
-
+    
+    $addMessage = false;
+    
+    // display message when campaign is not open to the public due to pending payment
     if (!$campaign->isPaid()) {
         // $message .= '<p class="message">Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p>';
+        $addMessage = true;
+    }
+    
+    // display message when campaign is not open to the public
+    // due to the use of a theme that is not allowed for the current plan
+    // for now only the plan "Blog" has a limited set of themes
+    $theme = wp_get_theme();
+    if ($campaign->plan_id == 6 && strpos($theme->get_stylesheet(), 'blog-01') === false) {
+        $addMessage = true;
+    }
+
+    if ($addMessage) {
         $message .= '<p class="message">Esta campanha ainda não está disponível.</p>';
     }
 
@@ -175,10 +210,9 @@ function campanha_login_payment_message($message) {
 }
 
 /**
- * Display a message in the admin panel about
- * the payment.
+ * Display a messages in the admin panel
  */
-function campanha_admin_payment_message() {
+function campanha_admin_messages() {
     global $campaign;
 
     if (!$campaign->isPaid()) {
@@ -187,6 +221,14 @@ function campanha_admin_payment_message() {
         // temporarily remove link to payment page while it is not finished
         echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente.</p></div>";
     }
+    
+    // display message if using plan "blog" and a theme
+    // other than 'blog-01'
+    $theme = wp_get_theme();
+    if ($campaign->plan_id == 6 && strpos($theme->get_stylesheet(), 'blog-01') === false) {
+        echo "<div class='error'><p>Esta campanha está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.</p></div>";
+    }
+    
 }
 
 /**

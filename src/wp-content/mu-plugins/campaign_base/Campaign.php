@@ -437,6 +437,17 @@ class Campaign {
         // set upload limit
         $capabilities = Capability::getByPlanId($this->plan_id);
         update_blog_option($blogId, 'blog_upload_space', $capabilities->upload_limit->value);
+        
+        // enable contact page
+        update_blog_option($blogId, 'campanha_contact_enabled', 'on');
+        
+        // enable "mobilize" menu entry option
+        if ($capabilities->mobilize->value) {
+            update_blog_option($blogId, 'mobilize', array('general' => array('menuItem' => true)));
+        }
+        
+        // rename category "sem-categoria" to "noticias"
+        wp_update_category(array('cat_ID' => 1, 'cat_name' => 'Notícias', 'category_nicename' => 'noticias'));
     }
     
     /**
@@ -469,6 +480,18 @@ class Campaign {
                 wp_update_nav_menu_item($menu_id, 0, array(
                     'menu-item-title' => 'Propostas',
                     'menu-item-url' => home_url('/propostas'), 
+                    'menu-item-status' => 'publish')
+                );
+                
+                wp_update_nav_menu_item($menu_id, 0, array(
+                    'menu-item-title' => 'Mobilização',
+                    'menu-item-url' => home_url('/mobilizacao'),
+                    'menu-item-status' => 'publish')
+                );
+                
+                wp_update_nav_menu_item($menu_id, 0, array(
+                    'menu-item-title' => 'Contato',
+                    'menu-item-url' => home_url('/contato'), 
                     'menu-item-status' => 'publish')
                 );
                 

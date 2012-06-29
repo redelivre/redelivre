@@ -2,6 +2,7 @@
 $options = Mobilize::getOption();
 wp_enqueue_style('mobilize', WPMU_PLUGIN_URL . '/css/mobilize.css');
 get_header();
+global $user_ID;
 
 $blogurl = urlencode(get_bloginfo('url'));
 ?>
@@ -9,9 +10,9 @@ $blogurl = urlencode(get_bloginfo('url'));
 		<?php if (Mobilize::isActive('general')): ?>
             <h1>Apoie esta campanha</h1>
             <div class="section-description">
-                <p><?php echo $options['general']['description']; ?></p>
+                <p><?php echo isset($options['general']['description']) ? $options['general']['description'] : ''; ?></p>
             </div>
-            <?php if (Mobilize::isActive('redes')): $re?>
+            <?php if (Mobilize::isActive('redes')): ?>
                 <section id="mobilize-redes" class="mobilize-widget clearfix">
                     <?php $redes = get_option('campanha_social_networks'); ?>
                     <h6>Redes sociais</h6>
@@ -97,10 +98,6 @@ $blogurl = urlencode(get_bloginfo('url'));
 				<!-- #mobilize-sticker -->
             <?php endif; ?>
 
-
-
-
-
             <?php if (Mobilize::isActive('envie')): ?>
 
                 <?php $success = Mobilize::enviarEmails(); ?>
@@ -140,7 +137,7 @@ $blogurl = urlencode(get_bloginfo('url'));
             <?php endif; ?>
             
         <?php else: ?>
-            <p>O recurso está desabilitado.</p>
+            <p>O recurso está desabilitado.<?php if ($campaign->campaignOwner->ID == $user_ID) : ?> Vá para a <a href=<?php echo admin_url('admin.php?page=campaign_mobilize'); ?>>página de administração</a> para habilitá-lo.<?php endif; ?></p>
         <?php endif; ?>
 	</section>
     <!-- #mobilize-content -->        
