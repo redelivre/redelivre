@@ -3,11 +3,13 @@ require_once(WPMU_PLUGIN_DIR . '/includes/graphic_material/GraphicMaterialFactor
 
 $header = GraphicMaterialFactory::build('Header');
 
-if (isset($_POST['save'])) {
+if (isset($_POST['save']) || isset($_POST['use-header']) ) {
     check_admin_referer('graphic_material');
 
     try {
-        $header->save();
+        //$header->save();
+        if (isset($_POST['use-header']))
+            $header->setAsWordPressHeader();
     } catch (Exception $e) {
         echo "<div class='error'><p>{$e->getMessage()}</p></div>";
     }
@@ -122,11 +124,14 @@ if (isset($_POST['save'])) {
                     <h3>Pré-visualização</h3>
                 </div>
 
-                <div class="updated" id="save-reminder" style="display:none;"><p>Não esqueça de salvar</p></div>
+                
 
                 <p>
+                    <!--
                     <input type="submit" class="button-primary" name="save" value="Salvar">
                     <input type="button" value="Cancelar Edição" class="button-secondary" onClick="document.location = document.location.toString();" />
+                    -->
+                    <input type="submit" class="button-primary" name="use-header" id="use-header" value="Usar essa imagem para meu cabeçalho!">
                 </p>
 
             </div>        

@@ -77,4 +77,12 @@ class Header extends GraphicMaterial {
         $number->setAttribute('fill', $this->data->numberColor);
         $number->setAttribute('font-size', $this->data->numberSize);
     }
+    
+    
+    function setAsWordPressHeader() {
+        
+        set_theme_mod('header_image', site_url('files/graphic_material/header.png') );
+        set_theme_mod('header_textcolor', 'blank');
+        
+    }
 }
