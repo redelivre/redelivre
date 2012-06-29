@@ -38,7 +38,7 @@ if (isset($_POST['save'])) {
                     foreach ($shapes as $shape) {
                         $checked = (isset($header->data->shapeName) && $shape->name == $header->data->shapeName) ? ' checked ' : '';
                         $active = $checked ? "class='active'" : "";
-                        echo "<label $active><input type='radio' name='data[shapeName]' value='{$shape->name}' $checked><img src='{$shape->url}'></label>";
+                        echo "<div class='shapeItem'><label $active><input type='radio' name='data[shapeName]' value='{$shape->name}' $checked><img src='{$shape->url}'></label></div>";
                     }
                     ?>
                 </div>
