@@ -49,7 +49,7 @@ INSERT INTO `campaigns` VALUES (1,7,2,2,1,'http://andersonorui.campanha.mu','',0
 INSERT INTO `campaigns` VALUES (6,7,2,7,1,'http://basico.campanha.mu','',50501,0,'2012-06-29 17:14:43','12:1200013','');
 INSERT INTO `campaigns` VALUES (7,7,3,8,1,'http://intermediario.campanha.mu','',50502,0,'2012-06-29 17:15:15','29:2900108','');
 INSERT INTO `campaigns` VALUES (8,7,4,9,1,'http://completo.campanha.mu','',50503,0,'2012-06-29 17:16:06','41:4100103','');
-INSERT INTO `campaigns` VALUES (9,7,5,10,1,'http://premium.campanha.mu','',50504,0,'2012-06-29 17:17:05','21:2100055','');
+INSERT INTO `campaigns` VALUES (9,7,5,10,1,'http://premium.campanha.mu','',50504,1,'2012-06-29 17:17:05','21:2100055','');
 /*!40000 ALTER TABLE `campaigns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -8910,7 +8910,7 @@ CREATE TABLE `wp_options` (
   `autoload` varchar(20) NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=617 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=619 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -9061,8 +9061,8 @@ INSERT INTO `wp_options` VALUES (528,'_transient_feed_a5420c83891a9c88ad2a4f0458
 INSERT INTO `wp_options` VALUES (284,'category_children','a:4:{i:4;a:1:{i:0;i:42;}i:33;a:1:{i:0;i:51;}i:51;a:1:{i:0;i:52;}i:24;a:1:{i:0;i:53;}}','yes');
 INSERT INTO `wp_options` VALUES (274,'post_count','23','yes');
 INSERT INTO `wp_options` VALUES (277,'recently_activated','a:0:{}','yes');
-INSERT INTO `wp_options` VALUES (597,'_transient_timeout_dirsize_cache','1340985344','no');
-INSERT INTO `wp_options` VALUES (598,'_transient_dirsize_cache','a:1:{s:63:\"/home/rodrigo/devel3/campanha/src/wp-content/blogs.dir/1/files/\";a:1:{s:4:\"size\";b:0;}}','no');
+INSERT INTO `wp_options` VALUES (617,'_transient_timeout_dirsize_cache','1340994653','no');
+INSERT INTO `wp_options` VALUES (618,'_transient_dirsize_cache','a:1:{s:63:\"/home/rodrigo/devel3/campanha/src/wp-content/blogs.dir/1/files/\";a:1:{s:4:\"size\";b:0;}}','no');
 INSERT INTO `wp_options` VALUES (474,'_transient_timeout_plugin_slugs','1339870310','no');
 INSERT INTO `wp_options` VALUES (475,'_transient_plugin_slugs','a:5:{i:0;s:19:\"akismet/akismet.php\";i:1;s:36:\"contact-form-7/wp-contact-form-7.php\";i:2;s:9:\"hello.php\";i:3;s:41:\"wordpress-importer/wordpress-importer.php\";i:4;s:29:\"wp-easy-data/wp-easy-data.php\";}','no');
 INSERT INTO `wp_options` VALUES (147,'fileupload_url','http://campanha.mu/wp-content/uploads','yes');
@@ -10201,4 +10201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-06-29 14:29:25
+-- Dump completed on 2012-06-29 14:39:08
