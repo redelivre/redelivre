@@ -216,7 +216,7 @@ add_action('init', 'magazine01_init');
 // Hook de ativação do tema
 function magazine01_init() {
     global $pagenow;
-
+    
     if ( is_admin() && isset($_GET['activated'] ) && $pagenow == 'themes.php' ) {
         global $wpdb;
         
@@ -224,11 +224,11 @@ function magazine01_init() {
         
         if (!$createdBefore) {
             
-            // Cria a página Blog
+            // Cria a página Notícias
             $page = array(
                 'post_type' => 'page',
                 'post_status' => 'publish',
-                'post_title' => 'Blog',
+                'post_title' => 'Notícias',
                 'post_content' => 'Esta página listará os seus posts em forma de blog. Você pode renomeá-la se quiser. Qualquer conteúdo aqui será ignorado.'
             );
             
@@ -242,13 +242,11 @@ function magazine01_init() {
             // Adiciona um item ao menu
             $menu = wp_get_nav_menu_object('main');
             wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
-                'menu-item-title' => 'Blog',
-                'menu-item-url' => home_url('/blog'), 
+                'menu-item-title' => 'Notícias',
+                'menu-item-url' => home_url('/noticias'), 
                 'menu-item-status' => 'publish')
             );
-        
         }
-        
     }
 }
 
