@@ -108,6 +108,34 @@ class Agenda {
             echo '</tr>';
             
         echo '</table>';
+        ?>
+        <script>
+        
+        var opts = {
+		closeText: 'Fechar',
+		prevText: '&#x3c;Anterior',
+		nextText: 'Pr&oacute;ximo&#x3e;',
+		currentText: 'Hoje',
+		monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho',
+		'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun',
+		'Jul','Ago','Set','Out','Nov','Dez'],
+		dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','S&aacute;bado'],
+		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b'],
+		dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd/mm/yy',
+		firstDay: 0,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
+        
+        jQuery(document).ready(function() {
+            jQuery('#_data_inicial, #_data_final').datepicker( opts );
+        });
+        
+        </script>
+        <?php
         
     }
 
@@ -178,11 +206,7 @@ class Agenda {
 
 }
 
-$options = get_option('sec_options');
-
-//if (!isset($options['calendar']) || is_null($options['calendar']) || $options['calendar'] == 'post_type') {
-    Agenda::init();
-//}
+Agenda::init();
 
 add_action('pre_get_posts', 'sbc_agenda_query');
 
@@ -222,6 +246,74 @@ function sbc_agenda_query($wp_query) {
             );
         }
     }
+}
+
+
+add_action('admin_init', function() {
+    wp_enqueue_script('jquery-ui-datepicker');
+    wp_enqueue_style('ui-lightness', WPMU_PLUGIN_URL . '/css/ui-lightness/jquery-ui-1.8.21.custom.css');
+});
+
+add_action('admin_menu', function() {
+    add_submenu_page('edit.php?post_type=agenda', 'Inserir no menu', 'Inserir link no menu', 'publish_posts', 'agenda_menu_page', 'agenda_menu_page');
+});
+
+function agenda_menu_page() {
+
+    ?>
+    
+    <?php if( isset($_GET['action']) && $_GET['action'] == 'add_menu_item' ): ?>
+            
+        <?php 
+        
+        $menu = wp_get_nav_menu_object('main');
+        $items = wp_get_nav_menu_items('main');
+        $menuItem = null;
+        
+        if ($menu) {
+            foreach ($items as $item) {
+                if ($item->post_title == 'Agenda') {
+                    $menuItem = $item;
+                }
+            }
+        
+            if (!$menuItem) {
+                wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
+                    'menu-item-title' => 'Agenda',
+                    'menu-item-url' => home_url('/agenda'), 
+                    'menu-item-status' => 'publish')
+                );
+                $msg = 'Entrada no menu inserida com sucesso!';
+            } else {
+                $msg = 'Já existe este item no menu!';
+            }
+        }
+        
+        ?>
+        
+        <div class="updated">
+        <p>
+        <?php echo $msg; ?>
+        </p>
+        </div>
+   
+    <?php endif; ?>
+    
+    <div class="wrap">
+        
+        
+            <p>
+            
+            Sua agenda de eventos pode ser acessada através do endereço <a href="<?php echo site_url('agenda'); ?>"><?php echo site_url('agenda'); ?></a>.
+            
+            <input type="button" name="create_menu_item" value="Inserir item no menu" onClick="document.location = '<?php echo add_query_arg('action', 'add_menu_item'); ?>';" />
+            
+            </p>
+        
+        
+    </div>
+    <?php
+
 }
 
 ?>

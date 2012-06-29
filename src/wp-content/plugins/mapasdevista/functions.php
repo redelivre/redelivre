@@ -69,9 +69,9 @@ function mapasdevista_admin_init() {
     
     
     
-    global $pagenow;
+    global $pagenow, $post_type;
     
-    if($pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps")) {
+    if($post_type == 'mapa' && ( $pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps") ) ) {
         // api do google maps versao 3 direto 
         $googleapikey = get_mapasdevista_theme_option('google_key');
         $googleapikey = $googleapikey ? "&key=$googleapikey" : '';

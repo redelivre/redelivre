@@ -175,7 +175,8 @@ class WP_Dependencies {
 	}
 
 	function enqueue( $handles ) {
-		foreach ( (array) $handles as $handle ) {
+		if ($handles[0] == 'jquery-ui-datepicker') die('aaa');
+        foreach ( (array) $handles as $handle ) {
 			$handle = explode('?', $handle);
 			if ( !in_array($handle[0], $this->queue) && isset($this->registered[$handle[0]]) ) {
 				$this->queue[] = $handle[0];
