@@ -514,8 +514,6 @@ class Campaign {
             
             // remove default page
             wp_delete_post(2, true);
-            //remove default blog post
-            wp_delete_post(1, true);
             
             restore_current_blog();
         }
