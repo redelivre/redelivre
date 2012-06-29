@@ -360,3 +360,13 @@ function custom_login_headerurl($url) {
 }
 add_filter('login_headerurl', 'custom_login_headerurl');
 
+add_action('custom_header_options', function() {
+    ?>
+    
+    <h3>Precisa de ajuda para criar uma imagem para o cabeçalho?</h3>
+    
+    <p>Se quiser, utilize <a href="<?php echo admin_url('themes.php?page=graphic_material_header'); ?>">nosso assistente</a> para criar uma imagem personalizada para você.</p>
+    
+    
+    <?php
+});
