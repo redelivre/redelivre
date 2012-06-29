@@ -1,4 +1,4 @@
-<?php $posts = mapasdevista_get_posts(get_the_ID(), $mapinfo); ?>
+<?php $posts = mapasdevista_get_posts(1, $mapinfo); ?>
 <div id="results" class="clearfix">
     <h1><?php _e('Results', 'mapasdevista'); ?> [<span id="filter_total"><?php echo $posts->post_count; //->found_posts;    ?></span>]</h1>
     <div class="clear"></div>

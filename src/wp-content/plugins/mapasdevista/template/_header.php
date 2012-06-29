@@ -36,7 +36,7 @@
 
         <div id="blog-title">
             <a href="<?php echo get_bloginfo('siteurl'); ?>">
-                <img src="<?php echo get_theme_option('header_image'); ?>" />
+                <img src="<?php echo get_mapasdevista_theme_option('header_image'); ?>" />
             </a>
         </div>
         <?php wp_nav_menu( array( 'container_class' => 'map-menu-top', 'theme_location' => 'mapasdevista_top', 'fallback_cb' => false ) ); ?>
