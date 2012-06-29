@@ -218,3 +218,10 @@ if (!get_option('db-update-13')) {
     $wpdb->query("INSERT INTO `capabilities` (`plan_id`, `name`, `slug`, `value`) VALUES (6, 'Suporte por e-mail', 'email_support', 0)");
 }
 
+// merge forum_support and email_support into one capability
+if (!get_option('db-update-13')) {
+    update_option('db-update-13', 1);
+
+    $wpdb->query("INSERT INTO capabilities (`plan_id`, `name`, `slug`, `value`) (SELECT `plan_id`, 'Suporte', 'support', `value` FROM `capabilities` WHERE slug = 'forum_support')");
+    $wpdb->query("DELETE FROM `capabilities` WHERE `slug` IN ('forum_support', 'email_support')");
+}
