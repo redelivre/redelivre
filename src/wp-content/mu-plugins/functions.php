@@ -108,7 +108,7 @@ function campaign_base_template_redirect_intercept() {
             die;
         case 'mobilizacao':
             add_action('wp_print_scripts', function() {
-                wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/mobilize.js');
+                wp_enqueue_script('mobilize', WPMU_PLUGIN_URL . '/js/mobilize.js');
             });
 
             require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
