@@ -39,8 +39,7 @@ $sidebar = get_option('campanha_theme_options');
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-        <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/print.css" type="text/css" media="print">
-        <!--[if lt IE 8]><link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/ie.css" type="text/css" media="screen,projection"><![endif]-->
+        <!--[if lt IE 8]><link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/ie-hacks.css" type="text/css" media="screen,projection"><![endif]-->
         <!--[if lt IE 9]>
         <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
         <![endif]-->

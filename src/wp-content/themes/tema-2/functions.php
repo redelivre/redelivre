@@ -48,7 +48,7 @@ function tema2_setup() {
     'uploads'       => true,
     'wp-head-callback' => 'tema2_custom_header',
     'admin-head-callback' => 'tema2_admin_custom_header',
-    'default-text-color' => '0033CC'
+    'default-text-color' => apply_filters('default-text-color', '0033CC')
     );
     add_theme_support( 'custom-header', $args );
 }
