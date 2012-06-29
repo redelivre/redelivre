@@ -1,17 +1,16 @@
 /*
-Theme Name: Vencedor Azul
+Theme Name: Blog 01 Azul e Amarelo
 Theme URI: http://campanhacompleta.com.br
 Description: Tema para candidatos que gostam do formato Blog, com opção de sidebar diferente na home e nas páginas internas.
 Author: Campanha Completa
-Template: vencedor
+Template: blog-01
 Version: 1.0
 */
 
-@import url(../vencedor/style.css);
+@import url(../blog-01/style.css);
 
-a { color: #039; text-decoration: none; }
+a { color: #039; }
 a:active, a:hover {	color: #006; }
-
 
 /* =Menu
 -------------------------------------------------------------- */
@@ -20,7 +19,7 @@ a:active, a:hover {	color: #006; }
 #main-nav .sub-menu li { border-bottom: 1px solid #69c; }
 #main-nav ul { border-top: 1px solid #69c; }
 #main-nav li:first-child a { border-left: 1px solid #69c; }
-#main-nav a { border-right: 1px solid #006; border-bottom: 1px solid #006; }
+#main-nav a { color: #fc0; border-right: 1px solid #006; border-bottom: 1px solid #006; }
 #main-nav a:hover, #main-nav li.current-menu-item>a, #main-nav li.current-menu-ancestor>a, #main-nav li.current-menu-parent>a, #main-nav li.current_page_item>a { background: #006; }
 #main-nav ul a { border-left: 1px solid #69c; }
 #feed-link { border-left: 1px solid #006; }
@@ -30,16 +29,19 @@ a:active, a:hover {	color: #006; }
 
 /* =Post
 -------------------------------------------------------------- */
-.post-meta a { border-bottom: 1px dotted #039; }
-.post-meta a:hover { border-bottom: 1px solid #006; }
+.post-meta a { color: #f90; border-bottom: 1px dotted #f90; }
+.post-meta a:hover { color: #f90; border-bottom: 1px solid #f90; background: none; }
 
 
 /* =Comments
 -------------------------------------------------------------- */
-#form-comentario #comentar, #cancel-comment-reply-link { background: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
+#form-comentario #comentar, #cancel-comment-reply-link { color: #fc0; background: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
 #form-comentario #comentar:hover, #cancel-comment-reply-link:hover { background: #006; }
 
 /* =Mobilize
 -------------------------------------------------------------- */
-.mobilize-button, #contact-submit { background-color: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
-.mobilize-button:hover, #contact-submit:hover { background-color: #006; }
+.mobilize-button, #contact-submit { color: #fc0; background-color: #039; border: 1px solid #69c; border-bottom: 1px solid #006; border-right: 1px solid #006; }
+.mobilize-button:hover, a.mobilize-button:hover, #contact-submit:hover { color: #fc0; background-color: #006; }
+a.mobilize-facebook { background-image: url(img/facebook.png); background-repeat: no-repeat; background-position: 10px center; }
+a.mobilize-twitter { background-image: url(img/twitter.png); background-repeat: no-repeat; background-position: 10px center; }
+a.mobilize-google { background-image: url(img/google.png); background-repeat: no-repeat; background-position: 10px center; }

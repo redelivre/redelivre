@@ -23,7 +23,7 @@ $showingPast = ($paged > 0 || $_GET['eventos'] == 'passados');
                 <?php get_template_part('loop', 'agenda'); ?>
 			
             <?php else : ?>
-                    <p class="post"><?php _e('No results found.', 'temavencedor'); ?></p>              
+                    <p class="post"><?php _e('No results found.', 'blog01'); ?></p>              
             <?php endif; ?>
         
 	    </div>

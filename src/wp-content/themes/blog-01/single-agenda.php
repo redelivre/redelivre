@@ -33,7 +33,7 @@
 			<a href="<?php bloginfo('url'); ?>/agenda?eventos">Ver próximos eventos</a> | <a href="<?php bloginfo('url'); ?>/agenda?eventos=passados">Ver eventos passados</a>
 		</nav>				
 		<?php else : ?>		
-		    <p class="post"><?php _e('No results found.', 'temavencedor'); ?></p>
+		    <p class="post"><?php _e('No results found.', 'blog01'); ?></p>
 	    <?php endif; ?>
 	    </div>
 	    <!-- #content -->

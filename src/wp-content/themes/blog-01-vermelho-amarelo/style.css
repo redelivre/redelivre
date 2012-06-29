@@ -1,13 +1,13 @@
 /*
-Theme Name: Vencedor Vermelho e Amarelo
+Theme Name: Blog 01 Vermelho e Amarelo
 Theme URI: http://campanhacompleta.com.br
 Description: Tema para candidatos que gostam do formato Blog, com opção de sidebar diferente na home e nas páginas internas.
 Author: Campanha Completa
-Template: vencedor
+Template: blog-01
 Version: 1.0
 */
 
-@import url(../vencedor/style.css);
+@import url(../blog-01/style.css);
 
 a:active, a:hover {	color: #c00; background: #fc0; }
 

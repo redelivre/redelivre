@@ -19,16 +19,16 @@ add_filter('comment_class','comment_add_microid');
 <div id="comments"> 
     <!--show the comments-->
     <?php if ('open' == $post->comment_status) : ?>
-        <h3><?php _e('Comments', 'temavencedor'); ?></h3>
+        <h3><?php _e('Comments', 'blog01'); ?></h3>
 
-        <h4><?php comments_number(__('No comments', 'temavencedor'), __('1 comment','temavencedor'), __('%s comments','temavencedor') );?> | <a href="#respond" title="Comente"><?php _e('Leave a comment &raquo;', 'temavencedor'); ?></a></h4>
+        <h4><?php comments_number(__('No comments', 'blog01'), __('1 comment','blog01'), __('%s comments','blog01') );?> | <a href="#respond" title="Comente"><?php _e('Leave a comment &raquo;', 'blog01'); ?></a></h4>
         <ul class="commentlist" id="singlecomments">
-            <?php wp_list_comments('callback=temavencedor_comment'); ?>
+            <?php wp_list_comments('callback=blog01_comment'); ?>
         </ul>
         <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
             <div class="navigation">
-                <div class="alignleft"><?php previous_comments_link( __( '&laquo; Older Comments', 'temavencedor' ) ); ?></div>
-                <div class="alignright"><?php next_comments_link( __( 'Newer Comments &raquo;', 'temavencedor' ) ); ?></div>
+                <div class="alignleft"><?php previous_comments_link( __( '&laquo; Older Comments', 'blog01' ) ); ?></div>
+                <div class="alignright"><?php next_comments_link( __( 'Newer Comments &raquo;', 'blog01' ) ); ?></div>
             </div><!-- .navigation -->
         <?php endif; // check for comment navigation ?>
             
@@ -37,7 +37,7 @@ add_filter('comment_class','comment_add_microid');
     <!--show the form-->
     <?php if('open' == $post->comment_status) : ?>
     <div id="respond" class="clearfix">
-        <h5><?php _e('Leave a comment', 'temavencedor'); ?></h5>
+        <h5><?php _e('Leave a comment', 'blog01'); ?></h5>
         <?php if(get_option('comment_registration') && !$user_ID) : ?>
         <p>Você precisa estar <a href="<?php print get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo urlencode(get_permalink()); ?>">logado</a> para publicar um comentário.</p>
         <?php else : ?>
@@ -51,9 +51,9 @@ add_filter('comment_class','comment_add_microid');
 				<input type="text" name="email" id="email" onfocus="if (this.value == 'email') this.value = '';" onblur="if (this.value == '') {this.value = 'email';}" value="email" tabindex="3" />
 				<input type="text" name="url" id="url" value="http://" tabindex="4" />					
 			<?php endif; ?>           
-			<?php cancel_comment_reply_link('cancelar'); ?><input type="submit" name="comentar" id="comentar" value="<?php _e('comment', 'temavencedor'); ?>" />
+			<?php cancel_comment_reply_link('cancelar'); ?><input type="submit" name="comentar" id="comentar" value="<?php _e('comment', 'blog01'); ?>" />
             <?php if(get_option("comment_moderation") == "1") : ?>
-            <?php _e('All comments need to be approved', 'temavencedor'); ?>
+            <?php _e('All comments need to be approved', 'blog01'); ?>
             <?php endif; ?>
             <?php do_action('comment_form', $post->ID); ?>
         </form>

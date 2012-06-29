@@ -3,10 +3,10 @@
 	    <div id="content" class="col-8">		
 	        
             <h3 class="pagetitle">
-            <?php _e( 'Page not found', 'temavencedor' ); ?>
+            <?php _e( 'Page not found', 'blog01' ); ?>
             </h3>
             <article class="post">
-                <p><?php _e( 'Apologies, but the page you requested could not be found. Perhaps searching will help.', 'temavencedor' ); ?></p>            
+                <p><?php _e( 'Apologies, but the page you requested could not be found. Perhaps searching will help.', 'blog01' ); ?></p>            
                 <?php get_search_form(); ?>
             </article>
             <!-- .post -->

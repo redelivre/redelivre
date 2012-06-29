@@ -6,7 +6,7 @@
 				<h2><?php the_title();?></h2>
 				<div class="post-content">										
 				    <?php the_content(); ?>
-				    <?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'temavencedor' ), 'after' => '</div>' ) ); ?>			
+				    <?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'blog01' ), 'after' => '</div>' ) ); ?>			
 				</div>
 				<!-- .post-content -->
 				<footer class="post-footer clearfix">
@@ -17,7 +17,7 @@
 			</article>
 			<!-- .post -->
 			<?php else : ?>
-			<p class="post"><?php _e('No results found.', 'temavencedor'); ?></p>              
+			<p class="post"><?php _e('No results found.', 'blog01'); ?></p>              
 		<?php endif; ?> 
 		</div>
 	    <!-- #content -->

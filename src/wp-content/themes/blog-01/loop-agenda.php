@@ -31,8 +31,8 @@ $meta = get_metadata('post', get_the_ID());
 <?php endwhile; ?>
 <?php if ( $wp_query->max_num_pages > 1 ) : ?>
 	<nav class="navigation">
-		<div class="alignleft"><?php next_posts_link(__('&laquo; Previous posts', 'temavencedor')); ?></div>
-		<div class="alignright"><?php previous_posts_link(__('Next posts &raquo;', 'temavencedor')); ?></div>
+		<div class="alignleft"><?php next_posts_link(__('&laquo; Previous posts', 'blog01')); ?></div>
+		<div class="alignright"><?php previous_posts_link(__('Next posts &raquo;', 'blog01')); ?></div>
 	</nav>
 	<!-- #navigation -->
 <?php endif; ?>	
