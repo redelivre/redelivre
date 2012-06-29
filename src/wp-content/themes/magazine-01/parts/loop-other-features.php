@@ -33,7 +33,6 @@ if ($post):
 			<header>                       
 				<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>					
 				<p>
-					<a class="comments-number" href="<?php comments_link(); ?>"title="comentários"><?php comments_number('0','1','%');?></a>
 					<time class="post-time" datetime="<?php the_time('Y-m-d'); ?>" pubdate><?php the_time( get_option('date_format') ); ?></time>
 					<?php edit_post_link( __( 'Edit', 'magazine01' ), '| ', '' ); ?>
 				</p>
