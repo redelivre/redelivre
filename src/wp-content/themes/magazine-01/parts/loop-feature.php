@@ -10,13 +10,13 @@
 			<p>
 				<a class="comments-number" href="<?php comments_link(); ?>"title="comentários"><?php comments_number('0','1','%');?></a> 
 				<time class="post-time" datetime="<?php the_time('Y-m-d'); ?>" pubdate><?php the_time( get_option('date_format') ); ?></time>
-				<?php edit_post_link( __( 'Edit', 'tema2' ), '| ', '' ); ?>
+				<?php edit_post_link( __( 'Edit', 'magazine01' ), '| ', '' ); ?>
 			</p>
 		</header>						
 		<?php the_excerpt(); ?>
 		<footer class="clearfix">	
 			<p class="taxonomies">			
-				<span><?php _e('Categories', 'tema2'); ?>:</span> <?php the_category(', ');?><br />
+				<span><?php _e('Categories', 'magazine01'); ?>:</span> <?php the_category(', ');?><br />
 				<?php the_tags('<span>Tags:</span> ', ', '); ?>
 			</p>		
 		</footer>

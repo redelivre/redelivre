@@ -19,16 +19,16 @@ add_filter('comment_class','comment_add_microid');
 <div id="comments"> 
     <!--show the comments-->
     <?php if ('open' == $post->comment_status) : ?>
-        <h3><?php _e('Comments', 'tema2'); ?></h3>
+        <h3><?php _e('Comments', 'magazine01'); ?></h3>
 
-        <h4><?php comments_number(__('No comments', 'tema2'), __('1 comment','tema2'), __('%s comments','tema2') );?> | <a href="#respond" title="Comente"><?php _e('Leave a comment &raquo;', 'tema2'); ?></a></h4>
+        <h4><?php comments_number(__('No comments', 'magazine01'), __('1 comment','magazine01'), __('%s comments','magazine01') );?> | <a href="#respond" title="Comente"><?php _e('Leave a comment &raquo;', 'magazine01'); ?></a></h4>
         <ul class="commentlist" id="singlecomments">
-            <?php wp_list_comments('callback=tema2_comment'); ?>
+            <?php wp_list_comments('callback=magazine01_comment'); ?>
         </ul>
         <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
             <nav id="comments-nav">
-                <div class="alignleft"><?php previous_comments_link( __( '&laquo; Older Comments', 'tema2' ) ); ?></div>
-                <div class="alignright"><?php next_comments_link( __( 'Newer Comments &raquo;', 'tema2' ) ); ?></div>
+                <div class="alignleft"><?php previous_comments_link( __( '&laquo; Older Comments', 'magazine01' ) ); ?></div>
+                <div class="alignright"><?php next_comments_link( __( 'Newer Comments &raquo;', 'magazine01' ) ); ?></div>
             </nav><!-- .navigation -->
         <?php endif; // check for comment navigation ?>
             
@@ -37,27 +37,27 @@ add_filter('comment_class','comment_add_microid');
     <!--show the form-->
     <?php if('open' == $post->comment_status) : ?>
     <div id="respond" class="clearfix">
-        <h5><?php _e('Leave a comment', 'tema2'); ?></h5>
+        <h5><?php _e('Leave a comment', 'magazine01'); ?></h5>
         <?php if(get_option('comment_registration') && !$user_ID) : ?>
         
         <p>
-        <?php printf( __( 'You must be %sloggedin%s to post a comment.', 'tema2'), "<a href='" . get_option('siteurl') . "/wp-login.php?redirect_to=" . urlencode(get_permalink()) ."'>", "</a>" ); ?>
+        <?php printf( __( 'You must be %sloggedin%s to post a comment.', 'magazine01'), "<a href='" . get_option('siteurl') . "/wp-login.php?redirect_to=" . urlencode(get_permalink()) ."'>", "</a>" ); ?>
         </p>
         
         <?php else : ?>
         <form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="form-comentario" class="clearfix">
             <?php comment_id_fields(); ?>                      
-			<textarea name="comment" id="comment" tabindex="1" onfocus="if (this.value == '<?php _e('Write your comment here.', 'tema2'); ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php _e('Write your comment here.', 'tema2'); ?>';}"><?php _e('Write your comment here.', 'tema2'); ?></textarea>
+			<textarea name="comment" id="comment" tabindex="1" onfocus="if (this.value == '<?php _e('Write your comment here.', 'magazine01'); ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php _e('Write your comment here.', 'magazine01'); ?>';}"><?php _e('Write your comment here.', 'magazine01'); ?></textarea>
 			<?php if($user_ID) : ?>
-				<p><?php _e('Logged in as', 'tema2'); ?> <a href="<?php print get_option('siteurl'); ?>/wp-admin/profile.php"><?php print $user_identity; ?></a>. <a href="<?php print get_option('siteurl'); ?>/wp-login.php?action=logout" title="Logout">Logout &raquo;</a></p>
+				<p><?php _e('Logged in as', 'magazine01'); ?> <a href="<?php print get_option('siteurl'); ?>/wp-admin/profile.php"><?php print $user_identity; ?></a>. <a href="<?php print get_option('siteurl'); ?>/wp-login.php?action=logout" title="Logout">Logout &raquo;</a></p>
 			<?php else : ?>                
-				<input type="text" name="author" id="author" onfocus="if (this.value == '<?php _e('name', 'tema2'); ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php _e('name', 'tema2'); ?>';}"  value="<?php _e('name', 'tema2'); ?>" tabindex="2" />
+				<input type="text" name="author" id="author" onfocus="if (this.value == '<?php _e('name', 'magazine01'); ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php _e('name', 'magazine01'); ?>';}"  value="<?php _e('name', 'magazine01'); ?>" tabindex="2" />
 				<input type="text" name="email" id="email" onfocus="if (this.value == 'email') this.value = '';" onblur="if (this.value == '') {this.value = 'email';}" value="email" tabindex="3" />
 				<input type="text" name="url" id="url" value="http://" tabindex="4" />					
 			<?php endif; ?>           
-			<?php cancel_comment_reply_link( __('cancel', 'tema2') ); ?><input type="submit" name="comentar" id="comentar" value="<?php _e('Comment', 'tema2'); ?>" />
+			<?php cancel_comment_reply_link( __('cancel', 'magazine01') ); ?><input type="submit" name="comentar" id="comentar" value="<?php _e('Comment', 'magazine01'); ?>" />
             <?php if(get_option("comment_moderation") == "1") : ?>
-            <?php _e('All comments need to be approved', 'tema2'); ?>
+            <?php _e('All comments need to be approved', 'magazine01'); ?>
             <?php endif; ?>
             <?php do_action('comment_form', $post->ID); ?>
         </form>

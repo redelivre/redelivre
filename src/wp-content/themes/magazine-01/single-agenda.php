@@ -32,7 +32,7 @@
 					<a href="<?php bloginfo('url'); ?>/agenda?eventos">Ver próximos eventos</a> | <a href="<?php bloginfo('url'); ?>/agenda?eventos=passados">Ver eventos passados</a>
 				</nav>		
 			<?php else : ?>
-			   <p><?php _e('No results found.', 'tema2'); ?></p>              
+			   <p><?php _e('No results found.', 'magazine01'); ?></p>              
 			<?php endif; ?>
 		</section>
 		<!-- #main-section -->
