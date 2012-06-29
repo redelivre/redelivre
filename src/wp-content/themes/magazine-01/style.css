@@ -390,5 +390,8 @@ a.mobilize-youtube { background-image:url(img/gosocial_32x32.png); background-re
 .textleft { text-align: left; }
 .textright { text-align: right; }
 
-
+/* =Slideshow
+-------------------------------------------------------------- */
+.entry-gallery          { position:relative; height:154px; width:200px; }
+.entry-gallery img   { position:absolute; }
 

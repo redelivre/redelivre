@@ -81,7 +81,7 @@ function mapasdevista_save_postdata($post_id) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
             return;
 
-    if ( !wp_verify_nonce( $_POST['mapasdevista_noncename'], plugin_basename( __FILE__ ) ) )
+    if ( !isset($_POST['mapasdevista_noncename']) || !wp_verify_nonce( $_POST['mapasdevista_noncename'], plugin_basename( __FILE__ ) ) )
             return;
 
     global $wp_post_types;
