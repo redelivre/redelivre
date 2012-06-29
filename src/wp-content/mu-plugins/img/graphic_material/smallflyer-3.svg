@@ -3,18 +3,15 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="992px" height="1358px" viewBox="0 0 992 1358" enable-background="new 0 0 992 1358" xml:space="preserve">
-<path id="fundo" fill="#808285" d="M0.759,318.697c0,0,245.801-95.992,509.5,30.063c263.698,126.056,480.981-30.063,480.981-30.063
+<path id="fundo" fill="#808285" d="M0.759,318.697c0,0,245.801-95.992,509.5,30.063c263.698,126.057,480.981-30.063,480.981-30.063
 	V0H0.759V318.697z"/>
 <path id="borda" fill="#BCBEC0" d="M510.259,348.76c-263.699-126.055-509.5-30.063-509.5-30.063v43c0,0,245.801-95.992,509.5,30.063
-	c263.698,126.056,480.981-30.063,480.981-30.063v-43C991.24,318.697,773.957,474.814,510.259,348.76z"/>
-<text id="cargo" transform="matrix(1 0 0 1 552.5349 344.3232)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="74.8756">vereador</text>
-<text id="nome-do-candidato" transform="matrix(1 0 0 1 121.7512 200.8203)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="99.488">Candidato</text>
-<text id="slogan" transform="matrix(1 0 0 1 120.0916 259.1211)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="58.2366">Lorem ipsum dolor</text>
-<text id="numero" transform="matrix(1 0 0 1 118.9099 1209.4414)" font-family="'Arial-BoldMT'" font-size="271.0534">00000</text>
-<text id="coligação" transform="matrix(1 0 0 1 120.8342 1277.0703)" font-family="'ArialMT'" font-size="33.2781">coligação: partido, partido, partido, partido</text>
-<text id="grafica" transform="matrix(0 -1 1 0 102.6248 1239.9141)" font-family="'ArialMT'" font-size="33.2781">Gráfica</text>
-<text id="tiragem" transform="matrix(0 -1 1 0 102.6316 895.5625)" font-family="'ArialMT'" font-size="33.2781">tiragem</text>
-<text id="cnpj" transform="matrix(0 -1 1 0 102.6316 596.4482)" font-family="'ArialMT'" font-size="33.2781">CNPJ: 00.000.000.000/0001 -00</text>
+	c263.698,126.057,480.981-30.063,480.981-30.063v-43C991.24,318.697,773.957,474.814,510.259,348.76z"/>
+<text id="cargo" transform="matrix(1 0 0 1 552.5352 344.3232)" fill="#FFFFFF" font-family="Arial" font-weight="bold" font-size="74">vereador</text>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 121.751 200.8203)" fill="#FFFFFF" font-family="Arial" font-weight="bold" font-size="99">Candidato</text>
+<text id="slogan" transform="matrix(1 0 0 1 120.0918 259.1211)" fill="#FFFFFF" font-family="Arial" font-weight="bold" font-size="58">Lorem ipsum dolor</text>
+<text id="numero" transform="matrix(1 0 0 1 118.9097 1209.4414)" font-family="Arial" font-weight="bold" font-size="271">00000</text>
+<text id="coligação" transform="matrix(1 0 0 1 496 1277.0703)" style="text-anchor: middle;" font-family="Arial" font-size="33">coligação: partido, partido, partido, partido</text>
 <g id="corte">
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="61.183" y1="2" x2="61.183" y2="44.664"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="1.514" y1="60.558" x2="44.18" y2="60.558"/>

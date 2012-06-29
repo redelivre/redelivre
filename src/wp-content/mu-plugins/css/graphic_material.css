@@ -1,6 +1,31 @@
-#zoom-plus, #zoom-minus { background:white; border:1px solid black; cursor:pointer; display:none; font-weight:bold; height:15px; margin:2px; position:absolute; text-align:center; width:15px; z-index:2; }
-#zoom-plus { left:19px; }
-#photo-wrapper { border: 1px solid transparent; position:relative; }
-#photo-wrapper:hover { border: 1px dashed #999; }
+.clearfix:after, .container:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
+.clearfix, .container {display:block;}
+.clear {clear:both;}
+
+
+#photo-wrapper { border: 1px dashed #999; position:relative; }
 #photo-wrapper img { position:absolute; }
 #save-response { display:none; }
+
+/** header **/
+#graphic-material-header { margin-top:315px; }
+#graphic-material-header #graphic_material_visualization { position:fixed; top:28px; left:145px; min-height:280px; width:100%; padding: 10px 20px; background-color: #E4E4E4; z-index:30;}
+.wp-menu-arrow { z-index:31 !important; }
+
+
+
+/** small flyer **/
+#graphic-material-smallflyer #graphic_material_visualization { position:fixed; top: 100px; left: 750px; width: 255px; padding: 10px 20px; background-color: #E4E4E4;}
+
+#graphic-material-smallflyer #graphic_material_preview { min-height: 380px; }
+
+#graphic-material-smallflyer #graphic_material_content { width: 570px; }
+
+#listShapes input { display: none; }
+
+#listShapes img { float: left; border: 10px solid white;}
+
+.shapeItem {float: left; }
+
+#listShapes label.active img { border-color: #13455B; }
+#listShapes label img:hover { border-color: #E4E4E4; }

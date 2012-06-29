@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="992px" height="1358px" viewBox="0 0 992 1358" enable-background="new 0 0 992 1358" xml:space="preserve">
+<path id="forma-1" fill="#BCBEC0" d="M873.652,840.881c0,4.971-4.029,9-9,9H126.508c-4.971,0-9-4.029-9-9V717.146c0-4.971,4.029-9,9-9
+	h738.144c4.971,0,9,4.029,9,9V840.881z"/>
+<path id="forma-2" fill="#BCBEC0" d="M873.652,1022.615c0,4.971-4.029,9-9,9H126.508c-4.971,0-9-4.029-9-9V898.881
+	c0-4.971,4.029-9,9-9h738.144c4.971,0,9,4.029,9,9V1022.615z"/>
+<path id="forma-3" fill="#BCBEC0" d="M873.652,1204.094c0,4.971-4.029,9-9,9H126.508c-4.971,0-9-4.029-9-9V1080.36
+	c0-4.972,4.029-9,9-9h738.144c4.971,0,9,4.028,9,9V1204.094z"/>
+<path id="borda" fill="#BCBEC0" d="M991.994,328.537c-244.143,265.809-553.172-168.234-991.988,0V26.959h991.988V328.537z"/>
+<path id="fundo" fill="#808285" d="M991.994,305.127c-244.143,265.809-553.172-168.234-991.988,0V3.549h991.988V305.127z"/>
+<text id="numero" transform="matrix(1 0 0 1 542.4355 282.252)" font-family="Arial" font-size="120">00000</text>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 116.3506 174.917)" font-family="Arial" font-size="85.5814">Nome do Candidato</text>
+<text id="cargo" transform="matrix(1 0 0 1 802.5879 317.75)" font-family="Arial" font-size="27">Cargo</text>
+<text id="texto" transform="matrix(1 0 0 1 137.1494 396.3086)" font-family="Arial" font-size="36">
+	<tspan x="0" y="0">Praesent eu </tspan>
+	<tspan x="0" y="45">hendrerit purus. </tspan>
+	<tspan x="0" y="90">Mauris lacus leo, commodo eu congue sit </tspan>
+	<tspan x="0" y="135">amet, gravida et orci. Suspendisse quis </tspan>
+	<tspan x="0" y="180">purus sit amet augue laoreet vehicula. Sed </tspan>
+	<tspan x="0" y="225">fringilla neque vitae nisl adipiscing non </tspan>
+	<tspan x="0" y="270">pretium metus feugiat. Lorem ipsum dolor sit </tspan>
+</text>
+<text id="topico-1" transform="matrix(1 0 0 1 144.3828 753.8145)" font-family="Arial" font-size="27">
+	<tspan x="0" y="0">Suspendisse quis purus sit amet augue laoreet vehicula. </tspan>
+	<tspan x="0" y="32">Sed fringilla neque vitae nisl adipiscing non pretium metus </tspan>
+	<tspan x="0" y="64">feugiat. Lorem ipsum dolor sit amet, consectetur </tspan>
+</text>
+<text id="topico-2" transform="matrix(1 0 0 1 144.4238 937.8301)" font-family="Arial" font-size="27">
+	<tspan x="0" y="0">Aliquam sed libero id leo aliquam interdum sed in risus. </tspan>
+	<tspan x="0" y="32">Cras sit amet dui eget turpis cursus facilisis sit amet et </tspan>
+	<tspan x="0" y="64">quam. Vestibulum eu elit lacus.</tspan>
+</text>
+<text id="topico-3" transform="matrix(1 0 0 1 144.3828 1118.5586)" font-family="Arial" font-size="27">
+	<tspan x="0" y="0">Nam elementum, leo in adipiscing tincidunt, urna tellus </tspan>
+	<tspan x="0" y="32">dignissim magna, vitae sagittis enim nunc id leo. In </tspan>
+	<tspan x="0" y="64">porttitor lacinia sapien at vulputate.</tspan>
+</text>
+<text id="grafica" transform="matrix(0 -1 1 0 910.0059 1287.0488)" font-family="Arial" font-size="18">Gráfica</text>
+<text id="tiragem" transform="matrix(0 -1 1 0 910.0117 942.6992)" font-family="Arial" font-size="18">tiragem</text>
+<text id="cnpj" transform="matrix(0 -1 1 0 910.0117 643.5859)" font-family="Arial" font-size="18">CNPJ: 00.000.000.000/0001 -00</text>
+<g id="corte">
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="60.564" y1="5.627" x2="60.564" y2="48.291"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="0.895" y1="64.185" x2="43.561" y2="64.185"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="0.895" y1="1301.961" x2="43.556" y2="1301.961"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="59.453" y1="1361.627" x2="59.453" y2="1318.957"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="931.709" y1="1361.627" x2="931.709" y2="1318.965"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="991.381" y1="1303.069" x2="948.709" y2="1303.069"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="991.371" y1="65.293" x2="948.713" y2="65.293"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="932.82" y1="5.627" x2="932.82" y2="48.297"/>
+</g>
+</svg>

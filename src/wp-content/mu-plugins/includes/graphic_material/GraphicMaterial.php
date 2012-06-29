@@ -1,7 +1,25 @@
 <?php
 
-class GraphicMaterial
+abstract class GraphicMaterial
 {
+    /**
+     * The final SVG file
+     * @var CampanhaSVGDocument
+     */
+    protected $finalImage;
+    
+    /**
+     * Graphic material file name
+     * @var string
+     */
+    protected $fileName;
+    
+    /**
+     * Path to file
+     * @var string
+     */
+    protected $filePath;
+    
     /**
      * Url to the directory where
      * flyers should be stored.
@@ -31,16 +49,19 @@ class GraphicMaterial
      */
     public static function getShapes() {
         $shapes = array();
-        $files = glob(WPMU_PLUGIN_DIR . "/img/graphic_material/shape*.svg");
-        
+        $type = strtolower(get_called_class());
+        $files = glob(WPMU_PLUGIN_DIR . "/img/graphic_material/$type*.svg");
+
         foreach ($files as $file) {
             $shape = new stdClass;
             $shape->name = basename($file, '.svg');
             
-            $image = SVGDocument::getInstance($file, 'CampanhaSVGDocument');
-            $image->setWidth(70);
-            $image->setHeight(70);
-            $image->export(GRAPHIC_MATERIAL_DIR . $shape->name . '.png');
+            if (!file_exists(GRAPHIC_MATERIAL_DIR . $shape->name . '.png')) {
+                $image = SVGDocument::getInstance($file, 'CampanhaSVGDocument');
+                $image->setWidth(150);
+                $image->setHeight(150);
+                $image->export(GRAPHIC_MATERIAL_DIR . $shape->name . '.png');
+            }
             
             $shape->url = GRAPHIC_MATERIAL_URL . $shape->name . '.png';
             
@@ -50,46 +71,11 @@ class GraphicMaterial
         return $shapes;
     }
 
-    
-    
-    /**
-     * Enqueue scripts and styles used for
-     * generating graphic materials.
-     */
-    public static function scriptsAndStyles()
+    public function __construct(CandidatePhoto $candidatePhoto, DpiConverter $converter)
     {
-        wp_enqueue_script('jquery-ui-draggable');
-        wp_enqueue_script('graphic_material', WPMU_PLUGIN_URL . '/js/graphic_material.js', array('jquery', 'mColorPicker'));
-        wp_enqueue_script('crop_photo', WPMU_PLUGIN_URL . '/js/crop_photo.js', array('jquery-ui-draggable', 'graphic_material'));
-        wp_enqueue_script('mColorPicker', WPMU_PLUGIN_URL . '/js/mColorPicker.min.js', array('jquery'));
-        //TODO: updates to mColorPicker plugin will break it. Is there a way to change the images_dir without changing the plugin code?        
-        wp_localize_script('mColorPicker', 'mCP', array('images_dir' => WPMU_PLUGIN_URL . '/img/mColorPicker/'));
+        $this->converter = $converter;
+        $this->candidatePhoto = $candidatePhoto;
         
-        wp_enqueue_style('graphic_material', WPMU_PLUGIN_URL . '/css/graphic_material.css');
-    }
-    
-    /**
-     * Setup a few constants used by the
-     * system.
-     */
-    public static function setUp()
-    {
-        $info = wp_upload_dir();
-        
-        if ($info['error']) {
-            throw new Exception($info['error']);
-        }
-        
-        define('GRAPHIC_MATERIAL_DIR', $info['basedir'] . '/graphic_material/');
-        define('GRAPHIC_MATERIAL_URL', $info['baseurl'] . '/graphic_material/');
-        
-        if (!file_exists(GRAPHIC_MATERIAL_DIR)) {
-            mkdir(GRAPHIC_MATERIAL_DIR);
-        }
-    }
-    
-    public function __construct()
-    {
         $info = wp_upload_dir();
         
         if ($info['error']) {
@@ -104,8 +90,59 @@ class GraphicMaterial
         }
         
         $this->optionName = strtolower(get_called_class());
+        
+        $this->fileName = strtolower(get_called_class()) . '.svg';
+        $this->filePath = $this->dir . $this->fileName;
+        
+        $this->data = $this->getData();
     }
     
+    /**
+     * Do the actual processing to generate the SVG
+     * image based on the user input. Used both when 
+     * displaying the image to the browser and when
+     * saving the image to the disk.
+     * 
+     * @return bool
+     */
+    protected function processImage() {
+        $candidateImage = GRAPHIC_MATERIAL_DIR . '/' . strtolower(get_called_class()). '_candidate_croped.png';
+        $this->data->shapeName = isset($_REQUEST['data']['shapeName']) ? filter_var($_REQUEST['data']['shapeName'], FILTER_SANITIZE_STRING) : null;
+        $path = WPMU_PLUGIN_DIR . "/img/graphic_material/{$this->data->shapeName}.svg";
+        
+        if (!empty($this->data->shapeName)) {
+            if (file_exists($path)) {
+                $this->finalImage = SVGDocument::getInstance($path, 'CampanhaSVGDocument');
+                
+                $candidateImage = SVGImage::getInstance(0, 0, 'candidateImage', $candidateImage);
+                $this->finalImage->prependImage($candidateImage);
+         
+                $this->formatShape();
+                $this->formatText();
+                
+                return true;
+            } else {
+                throw new Exception('Não foi possível encontrar o arquivo com a forma.');
+            }
+        }
+        
+        return false;
+    }
+
+    /**
+     * Change all the texts and its fonts and colors.
+     * 
+     * @return null
+     */
+    abstract protected function formatText();
+    
+    /**
+     * Change the color of the parts of shape file.
+     * 
+     * @return null
+     */    
+    abstract protected function formatShape();
+
     /**
      * Get from the database data used to
      * generated the SVG file.
@@ -125,6 +162,100 @@ class GraphicMaterial
     }
     
     /**
+     * Build a candidate flyer based on the information
+     * provided via AJAX request and print its url to the browser.
+     * 
+     * @return null
+     */    
+    public function preview() {
+        $path = preg_replace('/\.svg$/', '.png', $this->filePath);
+        $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
+        
+        if ($this->processImage()) {
+            $this->finalImage->export($path);
+            
+            // resize image to browser size (75dpi)
+            $img = WideImage::load($path);
+            $img->resize($this->converter->maybeConvertTo75Dpi(static::width), $this->converter->maybeConvertTo75Dpi(static::height), 'outside')->saveToFile($path);
+            
+            // add random number as parameter to skip browser cache
+            $rand = rand();
+            
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+            header('Content-type: application/json');
+            
+            echo json_encode(array('image' => "<img src='$url?rand=$rand'>", 'candidateSize' => intval($this->data->candidateSize)));
+        }
+        
+        die;
+    }
+
+    /**
+     * Save the SVG flyer to the hard disk for future use
+     * and export it to PDF.
+     * 
+     * @return null
+     */
+    public function save() {
+        $this->processImage();
+        $this->finalImage->asXML($this->filePath);
+        
+        // generate a PDF copy of the SVG file
+        $this->export();
+        
+        // store SVG file information in the database to be able
+        // to regenerate it
+        $this->saveData();
+    }
+    
+    /**
+     * Export SVG flyer to PDF
+     * 
+     * @return null
+     */
+    protected function export() {
+        $path = preg_replace('/\.svg$/', '.pdf', $this->filePath);
+        $this->finalImage->export($path);
+    }
+    
+    /**
+     * Check whether a flyer has been created
+     * already.
+     * 
+     * @return bool
+     */
+    public function hasImage() {
+        return file_exists($this->filePath);
+    }
+    
+    /**
+     * Get SVG image from hard disk.
+     * 
+     * @param string $format
+     * @return string SVG image or URL to PNG image
+     */
+    public function getImage($format = 'svg') {
+        if (file_exists($this->filePath)) {
+            $svg = SVGDocument::getInstance($this->filePath, 'CampanhaSVGDocument');
+            
+            if ($format == 'svg') {
+                return $svg->asXML(null, false);
+            } else {
+                $filePath = preg_replace('/\.svg$/', '.png', $this->filePath);
+                $url =  $this->baseUrl . basename($this->fileName, '.svg') . '.png';
+                $svg->export($filePath);
+                
+                // resize image to browser size (75dpi)
+                $img = WideImage::load($filePath);
+                $img->resize($this->converter->maybeConvertTo75Dpi(static::width), $this->converter->maybeConvertTo75Dpi(static::height), 'outside')->saveToFile($filePath);
+                        
+                return $url;
+            }
+        }
+    }
+
+    /**
      * Store the data used to generate the SVG
      * file in the database.
      * 
@@ -134,56 +265,42 @@ class GraphicMaterial
     {
         update_option($this->optionName, $this->data);
     }
-    
-    /**
-     * Return a list of links to all the graphic
-     * materials created by the user.
-     * 
-     * @return array
-     */
-    public function getLinks()
-    {
-        $links = array();
-        
-        foreach (glob($this->dir . '*.pdf') as $file) {
-            $name = ucfirst(basename($file, '.pdf'));
-            $url = $this->baseUrl . basename($file);
-              
-            $links[$name] = $url;
-        }
+}
 
-        return $links;
-    }
-    
-    /**
-     * Check whether the list of graphic materials
-     * is public or not.
-     * 
-     * @return bool
-     */
-    public function isPublic()
-    {
-        if (get_option('graphic_material_public_links')) {
-            return true;
-        }
-        
-        return false;
-    }
- 
-    /**
-     * Change whether the graphic material 
-     * is public or not.
-     * 
-     * @return null
-     */   
-    public function maybeChangePublicity()
-    {
-        if (isset($_REQUEST['graphic_material_public']) && $_REQUEST['graphic_material_public'] == 'on') {
-            $publicity = 1;
-        } else {
-            $publicity = 0;
-        }
 
-        update_option('graphic_material_public_links', $publicity);
+/**
+ * Template tag to print the graphical material list
+ * 
+ * @return null
+ */
+
+function the_graphic_material() {
+
+    $manager = new GraphicMaterialManager;
+
+    if ($manager->isPublic() || is_user_logged_in()) {
+        $links = $manager->getLinks();
     }
+
+    if (isset($links) && !empty($links)) {
+        ?>
+        <p>Veja abaixo a lista de todos os materiais gráficos disponíveis para download:</p>
+        <ul>
+        <?php
+        foreach ($links as $name => $url):
+            ?>
+            <li><a href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
+            <?php
+        endforeach;
+        echo '</ul>';
+    } else if (isset($links) && empty($links)) {
+        ?>
+        <p>Nenhum material disponível.</p>
+        <?php
+    } else {
+        ?>
+        <p>Você não tem permissão para ver esta página.</p>
+        <?php
+    }
+
 }

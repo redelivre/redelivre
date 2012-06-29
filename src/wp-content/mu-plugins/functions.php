@@ -29,7 +29,9 @@ if (!is_main_site()) {
     require_once(__DIR__ . '/includes/admin-contact.php');
 
     $campaign = Campaign::getByBlogId($blog_id);
-    GraphicMaterial::setUp();
+    
+    require_once(__DIR__ . '/includes/graphic_material/GraphicMaterialManager.php');
+    GraphicMaterialManager::setUp();
 
     if (is_admin()) {
         require_once(__DIR__ . '/includes/load_menu_options.php');
@@ -110,7 +112,13 @@ function campaign_base_template_redirect_intercept() {
 
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
-            require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
+            if (file_exists(STYLESHEETPATH . '/tpl-graphic_material.php')) { // tema filho
+                require(STYLESHEETPATH . '/tpl-graphic_material.php');
+            } elseif (file_exists(TEMPLATEPATH . '/tpl-graphic_material.php')) { // tema pai
+                require(TEMPLATEPATH . '/tpl-graphic_material.php');
+            } else {
+                require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
+            }
             die;
         case 'mobilizacao':
             $capabilities = Capability::getByPlanId($campaign->plan_id);
@@ -159,6 +167,7 @@ function campanha_login_payment_message($message) {
     global $campaign;
 
     if (!$campaign->isPaid()) {
+        // $message .= '<p class="message">Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p>';
         $message .= '<p class="message">Esta campanha ainda não está disponível.</p>';
     }
 
@@ -174,7 +183,7 @@ function campanha_admin_payment_message() {
 
     if (!$campaign->isPaid()) {
         $link = admin_url('admin.php?page=payments');
-        //echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
+        // echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
         // temporarily remove link to payment page while it is not finished
         echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente.</p></div>";
     }
