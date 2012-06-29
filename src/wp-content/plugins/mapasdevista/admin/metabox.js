@@ -1,6 +1,9 @@
 jQuery(document).ready(function() {
     var $ = jQuery;
-
+    
+    if (typeof(google) != 'object')
+        return;
+    
     /**
      *
      * Handle functionalities to GoogleMaps API version 3
@@ -12,8 +15,10 @@ jQuery(document).ready(function() {
         'draggableCursor':'default',
         'center': new google.maps.LatLng(-23.56367, -46.65372),
         'mapTypeId': google.maps.MapTypeId.ROADMAP
-        }
+        };
+
     googlemap = new google.maps.Map(document.getElementById("mpv_canvas"), map_options);
+        
     var googlemarker = null;
 
     function fill_fields(lat, lng) {
