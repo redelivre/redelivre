@@ -298,7 +298,7 @@ function the_first_video() {
         $video = get_first_video($post->post_content);
         
         if ($video)
-            echo $oembed->get_html($video, 'maxwidth=270&width=270');
+            echo $oembed->get_html($video, 'maxwidth=220&width=220');
     
     }
 
