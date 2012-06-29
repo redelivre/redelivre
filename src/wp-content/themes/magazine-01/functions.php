@@ -216,7 +216,7 @@ add_action('init', 'magazine01_init');
 // Hook de ativação do tema
 function magazine01_init() {
     global $pagenow;
-
+    
     if ( is_admin() && isset($_GET['activated'] ) && $pagenow == 'themes.php' ) {
         global $wpdb;
         

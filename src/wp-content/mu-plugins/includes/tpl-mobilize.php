@@ -2,6 +2,7 @@
 $options = Mobilize::getOption();
 wp_enqueue_style('mobilize', WPMU_PLUGIN_URL . '/css/mobilize.css');
 get_header();
+global $user_ID;
 
 $blogurl = urlencode(get_bloginfo('url'));
 ?>
@@ -97,10 +98,6 @@ $blogurl = urlencode(get_bloginfo('url'));
 				<!-- #mobilize-sticker -->
             <?php endif; ?>
 
-
-
-
-
             <?php if (Mobilize::isActive('envie')): ?>
 
                 <?php $success = Mobilize::enviarEmails(); ?>
@@ -140,7 +137,7 @@ $blogurl = urlencode(get_bloginfo('url'));
             <?php endif; ?>
             
         <?php else: ?>
-            <p>O recurso está desabilitado.</p>
+            <p>O recurso está desabilitado.<?php if ($campaign->campaignOwner->ID == $user_ID) : ?> Vá para a <a href=<?php echo admin_url('admin.php?page=campaign_mobilize'); ?>>página de administração</a> para habilitá-lo.<?php endif; ?></p>
         <?php endif; ?>
 	</section>
     <!-- #mobilize-content -->        
