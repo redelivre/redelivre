@@ -7,10 +7,29 @@ $post = $self->getPostFromPermalink($config);
 if ($post):
 			?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>
-		<?php if ( has_post_thumbnail() ) : ?> 
+		<?php if ( get_post_format() != 'gallery' && get_post_format() != 'video' && has_post_thumbnail() ) : ?> 
 			<?php the_post_thumbnail(); ?>
-		<?php else: ?>
+		<?php elseif (get_post_format() == 'gallery'): ?>
+            <?php
+            $images = get_children( array( 
+                'post_parent' => $post->ID,
+                'post_type' => 'attachment',
+                'post_mime_type' => 'image',
+                'orderby' => 'menu_order',
+                'order' => 'ASC',
+                'numberposts' => -1 ) );
+            ?>
+            <section id="entry-gallery-<?php the_ID(); ?>" class="clearfix slideshow entry-gallery">
+            <?php foreach( $images as $image) : ?>
+                <?php echo wp_get_attachment_image($image->ID, 'post-thumbnail'); ?>
+            <?php endforeach; ?>
+            </section>
+        <?php elseif (get_post_format() == 'video'): ?>
+            
+            <?php the_first_video(); ?>
+            
 		<?php endif; ?>
+        
 			<header>                       
 				<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>					
 				<p>
@@ -20,7 +39,16 @@ if ($post):
 				</p>
 			</header>
 		<div class="post-content">						
-			<p><?php echo utils::getPostExcerpt($post, 144); ?></p>
+			
+            <?php if (get_post_format() == 'audio'): ?>
+            
+                <?php the_first_audio(); ?>
+            
+            <?php elseif (get_post_format() != 'video') : ?>
+                <p><?php echo utils::getPostExcerpt($post, 144); ?></p>
+            <?php endif; ?>
+            
+            
 		</div>
 		<footer class="clearfix">	
 			<p class="taxonomies">			

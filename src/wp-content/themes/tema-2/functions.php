@@ -26,8 +26,8 @@ function tema2_setup() {
 
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
+    add_theme_support('post-formats', array('audio', 'video', 'gallery', 'image') );
 
-    
     $args = array(
         'default-image'          => get_template_directory_uri() . '/img/bg.png',
         'default-color'          => '#FFFFFF',
@@ -71,8 +71,9 @@ function tema2_addJS() {
     wp_enqueue_script('jquery-ui-core');
     wp_enqueue_script('jquery-ui-widget');
     
-    //wp_enqueue_script('jquery-autocomplete', get_stylesheet_directory_uri().'/js/jquery-ui-1.8.20-autocomplete.js', array('jquery-ui-widget'));
+    wp_enqueue_script('jquery-autocomplete', get_stylesheet_directory_uri().'/js/jquery-ui-1.8.20-autocomplete.js', array('jquery-ui-widget'));
     wp_enqueue_script('congelado', get_template_directory_uri().'/js/congelado.js', 'jquery-autocomplete');
+    wp_enqueue_script('slideshow', get_template_directory_uri().'/js/slideshow.js');
     
     wp_localize_script('congelado', 'vars', array(
         'ajaxurl' => admin_url('admin-ajax.php')
@@ -249,4 +250,96 @@ function tema2_init() {
         }
         
     }
+}
+
+
+function the_first_audio() {
+
+    global $post;
+    
+    if (is_object($post) && isset($post->post_content)) {
+    
+        $audio = get_first_audio($post->post_content);
+        
+        if ($audio)
+            echo apply_filters('the_content', '[wpaudio url="'.$audio.'" dl="0"]');
+    
+    }
+
+}
+
+function get_first_audio($content) {
+
+    $reg = '|(http://[^ "\']+.mp3)|';
+    
+    $audio = false;
+    
+    $matches = preg_match_all($reg, $content, $m);
+    
+    if (is_array($m) && isset($m[0]) && is_array($m[0]) && isset($m[0][0]) ) {
+        $audio = $m[0][0];
+    }
+    
+    
+    return $audio;
+
+}
+
+function the_first_video() {
+
+    global $post;
+    
+    if (is_object($post) && isset($post->post_content)) {
+    
+        require_once( ABSPATH . WPINC . '/class-oembed.php' );
+
+        $oembed = _wp_oembed_get_object();
+        
+        $video = get_first_video($post->post_content);
+        
+        if ($video)
+            echo $oembed->get_html($video, 'maxwidth=270&width=270');
+    
+    }
+
+}
+
+
+function get_first_video($content) {
+    
+    require_once( ABSPATH . WPINC . '/class-oembed.php' );
+
+    $oembed = _wp_oembed_get_object();
+    
+    // gets the first video in the post
+    preg_match_all('|http://[^"\'\s]+|', $content, $m);
+    
+    $video = false;
+    
+    foreach ($m[0] as $match) {
+        
+        $found = false;
+            
+        foreach ($oembed->providers as $regexp => $data) {
+        
+            list( $providerurl, $is_regex ) = $data;
+            
+            if (!$is_regex)    
+                $regexp = '#' . str_replace( '___wildcard___', '(.+)', preg_quote( str_replace( '*', '___wildcard___', $regexp ), '#' ) ) . '#i';
+        
+            if ( preg_match($regexp, $match) ) {
+                $video = $match;
+                $found = true;
+                break;
+            }   
+        
+        }
+        
+        if ($found)
+            break;
+
+    }
+
+    return $video;
+
 }
