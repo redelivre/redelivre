@@ -147,6 +147,11 @@ class Agenda {
         $link = '_link';
         $onde = '_onde';
         
+        // not agenda post type
+        if (!isset($_POST['agenda_noncename'])) {
+            return;
+        }
+        
         // verify if this is an auto save routine. 
         // If it is our form has not been submitted, so we dont want to do anything
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 

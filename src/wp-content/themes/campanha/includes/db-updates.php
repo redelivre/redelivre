@@ -193,6 +193,35 @@ if (!get_option('db-update-11')) {
 if (!get_option('db-update-12')) {
     update_option('db-update-12', 1);
     
-    $wpdb->query("INSERT INTO capabilities (plan_id, name, slug, value) VALUES(5, 'Georreferenciamento', 'georreferenciamento', 1) ");
+    $wpdb->query("INSERT INTO capabilities (plan_id, name, slug, value) VALUES (5, 'Georreferenciamento', 'georreferenciamento', 1)");
     
+}
+
+// add new plan and column to keep the order to display the plans
+if (!get_option('db-update-13')) {
+    update_option('db-update-13', 1);
+    
+    // new column to keep the order of the plans
+    $wpdb->query("ALTER TABLE `plans` ADD `order` int(11) AFTER `election_id`");
+    $wpdb->query("UPDATE `plans` SET `order` = 2 WHERE `name` = 'Básico'");
+    $wpdb->query("UPDATE `plans` SET `order` = 3 WHERE `name` = 'Intermediário'");
+    $wpdb->query("UPDATE `plans` SET `order` = 4 WHERE `name` = 'Completo'");
+    $wpdb->query("UPDATE `plans` SET `order` = 5 WHERE `name` = 'Premium'");
+    
+    // new plan 'blog'
+    $wpdb->query("INSERT INTO `plans` (`id`, `election_id`, `order`, `name`, `price`) VALUES (6, 1, 1, 'Blog', 450)");
+    $wpdb->query("INSERT INTO `capabilities` (`plan_id`, `name`, `slug`, `value`) VALUES (6, 'Enviar e-mails e SMS', 'send_messages', 0)");
+    $wpdb->query("INSERT INTO `capabilities` (`plan_id`, `name`, `slug`, `value`) VALUES (6, 'Limite para upload de arquivos', 'upload_limit', 500)");
+    $wpdb->query("INSERT INTO `capabilities` (`plan_id`, `name`, `slug`, `value`) VALUES (6, 'Geração de material gráfico', 'graphic_material', 0)");
+    $wpdb->query("INSERT INTO `capabilities` (`plan_id`, `name`, `slug`, `value`) VALUES (6, 'Gerenciamento de contatos', 'contact_manager', 0)");
+    $wpdb->query("INSERT INTO `capabilities` (`plan_id`, `name`, `slug`, `value`) VALUES (6, 'Suporte via fórum', 'forum_support', 0)");
+    $wpdb->query("INSERT INTO `capabilities` (`plan_id`, `name`, `slug`, `value`) VALUES (6, 'Suporte por e-mail', 'email_support', 0)");
+}
+
+// merge forum_support and email_support into one capability
+if (!get_option('db-update-14')) {
+    update_option('db-update-14', 1);
+
+    $wpdb->query("INSERT INTO capabilities (`plan_id`, `name`, `slug`, `value`) (SELECT `plan_id`, 'Suporte', 'support', `value` FROM `capabilities` WHERE slug = 'forum_support')");
+    $wpdb->query("DELETE FROM `capabilities` WHERE `slug` IN ('forum_support', 'email_support')");
 }

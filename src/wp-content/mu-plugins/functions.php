@@ -216,7 +216,15 @@ add_action('wp_print_scripts', 'campanha_add_common_js');
  * Add JS files shared by all themes.
  */
 function campanha_add_common_js() {
-    if (is_user_logged_in() && !is_super_admin()) {
+    global $campaign;
+    
+    if (is_object($campaign)) {
+        $capabilities = Capability::getByPlanId($campaign->plan_id);
+    }
+
+    if (is_user_logged_in() && !is_super_admin()
+        && (is_main_site() || (isset($capabilities) && $capabilities->support->value)))
+    {
         wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery', false, true);
     }
 
