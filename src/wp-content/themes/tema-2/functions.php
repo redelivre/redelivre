@@ -72,7 +72,7 @@ function tema2_addJS() {
     wp_enqueue_script('jquery-ui-widget');
     
     //wp_enqueue_script('jquery-autocomplete', get_stylesheet_directory_uri().'/js/jquery-ui-1.8.20-autocomplete.js', array('jquery-ui-widget'));
-    wp_enqueue_script('congelado', get_stylesheet_directory_uri().'/js/congelado.js', 'jquery-autocomplete');
+    wp_enqueue_script('congelado', get_template_directory_uri().'/js/congelado.js', 'jquery-autocomplete');
     
     wp_localize_script('congelado', 'vars', array(
         'ajaxurl' => admin_url('admin-ajax.php')

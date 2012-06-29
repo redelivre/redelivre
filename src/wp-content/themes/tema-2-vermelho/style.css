@@ -28,8 +28,8 @@ a { color: #c00; }
 
 /* =Home Features
 -------------------------------------------------------------- */
-.hl-nav-left { background: #c00 url(img/seta-esq.png) no-repeat; }
-.hl-nav-right { background: #c00 url(img/seta-dir.png) no-repeat; }
+.hl-nav-left { background-color: #c00; }
+.hl-nav-right { background-color: #c00; }
 
 
 /* =Post
