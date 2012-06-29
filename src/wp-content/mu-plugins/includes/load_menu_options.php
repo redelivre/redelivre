@@ -7,6 +7,7 @@ $capabilities = Capability::getByPlanId($campaign->plan_id);
 add_action('admin_menu', function() {
     global $capabilities;
     
+    /*
     if ($capabilities->graphic_material->value) {
         $page = add_menu_page('Material gráfico', 'Material gráfico', 'read', 'graphic_material', function() {
             require(WPMU_PLUGIN_DIR . '/includes/graphic_material.php');
@@ -36,14 +37,21 @@ add_action('admin_menu', function() {
 
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
         
-    }*/
-
+    }
+    */
+    
     if ($capabilities->mobilize->value) {    
         add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
             require(WPMU_PLUGIN_DIR . '/includes/admin-mobilize.php');
         });
     }
-
+    
+    
+    $page = add_theme_page('Imagem para o cabeçalho', 'Imagem para o cabeçalho', 'manage_options', 'graphic_material_header', function() {
+        require(WPMU_PLUGIN_DIR . '/includes/graphic_material_header.php');
+    });
+    add_action('admin_print_styles-' . $page, array('GraphicMaterialManager', 'scriptsAndStyles'));
+    
     
     add_menu_page('Redes Sociais', 'Redes Sociais', 'read', 'campaign_social_networks', function() {
         require(WPMU_PLUGIN_DIR . '/includes/admin-social-networks.php');
