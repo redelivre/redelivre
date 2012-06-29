@@ -3,39 +3,42 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="1872px" height="2598px" viewBox="0 0 1872 2598" enable-background="new 0 0 1872 2598" xml:space="preserve">
-<polygon id="fundo_2_" fill="#808285" points="0.74,-1.942 1870.716,-1.942 1869.978,2557.991 0,2557.991 "/>
-<rect x="0.74" y="2333.665" fill="#BCBEC0" width="1869.972" height="259.335"/>
-<path fill="#BCBEC0" d="M1870.716,566.556c-460.229,501.069-1042.773-317.133-1869.974,0V-1.942h1869.974V566.556z"/>
-<text id="numero_2_" transform="matrix(1 0 0 1 1023.2598 523.4351)" font-family="'ArialMT'" font-size="226.2091">00000</text>
-<text id="grafica_2_" transform="matrix(1 0 0 1 152.3857 2481.7979)" font-family="'ArialMT'" font-size="33.9314">Gráfica</text>
-<text id="tiragem_2_" transform="matrix(1 0 0 1 1591.4707 2481.7979)" font-family="'ArialMT'" font-size="33.9314">tiragem</text>
-<text id="nome-do-candidato_2_" transform="matrix(1 0 0 1 220.0571 321.1011)" font-family="'ArialMT'" font-size="161.3275">Nome do Candidato</text>
-<text id="cargo_2_" transform="matrix(1 0 0 1 1513.6689 590.3521)" font-family="'ArialMT'" font-size="50.8971">Cargo</text>
-<polygon fill="none" points="1612.245,1199.58 259.264,1199.58 259.264,646.497 895.19,646.497 895.087,790.88 1612.245,790.88 "/>
-<text transform="matrix(1 0 0 1 259.2646 695.0845)" font-family="'ArialMT'" font-size="67.8627">Praesent eu </text>
-<text transform="matrix(1 0 0 1 259.2646 776.52)" font-family="'ArialMT'" font-size="67.8627">hendrerit purus. </text>
-<text transform="matrix(1 0 0 1 259.2646 857.9556)" font-family="'ArialMT'" font-size="67.8627">Mauris lacus leo, commodo eu congue sit </text>
-<text transform="matrix(1 0 0 1 259.2646 939.3901)" font-family="'ArialMT'" font-size="67.8627">amet, gravida et orci. Suspendisse quis </text>
-<text transform="matrix(1 0 0 1 259.2646 1020.8267)" font-family="'ArialMT'" font-size="67.8627">purus sit amet augue laoreet vehicula. Sed </text>
-<text transform="matrix(1 0 0 1 259.2646 1102.2603)" font-family="'ArialMT'" font-size="67.8627">fringilla neque vitae nisl adipiscing non </text>
-<text transform="matrix(1 0 0 1 259.2646 1183.6958)" font-family="'ArialMT'" font-size="67.8627">pretium metus feugiat. Lorem ipsum dolor sit </text>
-<rect x="315.312" y="1378.219" fill="none" width="1310.128" height="159.537"/>
-<text transform="matrix(1 0 0 1 315.3125 1414.6602)" font-family="'ArialMT'" font-size="50.8971">Suspendisse quis purus sit amet augue laoreet vehicula. </text>
-<text transform="matrix(1 0 0 1 315.3125 1475.7373)" font-family="'ArialMT'" font-size="50.8971">Sed fringilla neque vitae nisl adipiscing non pretium metus </text>
-<text transform="matrix(1 0 0 1 315.3125 1536.8145)" font-family="'ArialMT'" font-size="50.8971">feugiat. Lorem ipsum dolor sit amet, consectetur </text>
-<rect x="315.312" y="1719.154" fill="none" width="1308.744" height="159.289"/>
-<text transform="matrix(1 0 0 1 315.3125 1755.5977)" font-family="'ArialMT'" font-size="50.8971">Aliquam sed libero id leo aliquam interdum sed in risus. </text>
-<text transform="matrix(1 0 0 1 315.3125 1816.6699)" font-family="'ArialMT'" font-size="50.8971">Cras sit amet dui eget turpis cursus facilisis sit amet et </text>
-<text transform="matrix(1 0 0 1 315.3125 1877.75)" font-family="'ArialMT'" font-size="50.8971">quam. Vestibulum eu elit lacus.</text>
-<rect x="316.004" y="2059.842" fill="none" width="1308.742" height="162.116"/>
-<text transform="matrix(1 0 0 1 316.0049 2096.2842)" font-family="'ArialMT'" font-size="50.8971">Nam elementum, leo in adipiscing tincidunt, urna tellus </text>
-<text transform="matrix(1 0 0 1 316.0049 2157.3574)" font-family="'ArialMT'" font-size="50.8971">dignissim magna, vitae sagittis enim nunc id leo. In </text>
-<text transform="matrix(1 0 0 1 316.0049 2218.4365)" font-family="'ArialMT'" font-size="50.8971">porttitor lacinia sapien at vulputate.</text>
-<rect x="0.74" y="1275.585" fill="#BCBEC0" width="1869.972" height="23.867"/>
-<rect x="0.74" y="1616.521" fill="#BCBEC0" width="1869.972" height="23.867"/>
-<rect x="0.74" y="1957.208" fill="#BCBEC0" width="1869.972" height="23.867"/>
-<text id="cnpj_2_" transform="matrix(0 -1 1 0 1716.1709 1204.5767)" font-family="'ArialMT'" font-size="33.9314">CNPJ: 00.000.000.000/0001 -00</text>
-<g>
+<polygon id="fundo" fill="#808285" points="0.74,-1.942 1870.716,-1.942 1869.978,2557.991 0,2557.991 "/>
+<path id="borda" fill="#BCBEC0" d="M1870.716,566.556c-460.229,501.069-1042.772-317.133-1869.974,0V-1.942h1869.974V566.556z"/>
+<text id="numero" transform="matrix(1 0 0 1 1023.2598 523.4351)" font-family="Arial" font-size="226.2091">00000</text>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 220.0571 321.1016)" font-family="Arial" font-size="161.3275">Nome do Candidato</text>
+<text id="cargo" transform="matrix(1 0 0 1 1513.6689 590.3521)" font-family="Arial" font-size="50.8971">Cargo</text>
+<text id="texto" transform="matrix(1 0 0 1 259.2646 695.0845)" font-family="Arial" font-size="68">
+	<tspan x="0" y="0">Praesent eu </tspan>
+	<tspan x="0" y="80">hendrerit purus. </tspan>
+	<tspan x="0" y="160">Mauris lacus leo, commodo eu congue sit </tspan>
+	<tspan x="0" y="240">amet, gravida et orci. Suspendisse quis </tspan>
+	<tspan x="0" y="320">purus sit amet augue laoreet vehicula. Sed </tspan>
+	<tspan x="0" y="400">fringilla neque vitae nisl adipiscing non </tspan>
+	<tspan x="0" y="480">pretium metus feugiat. Lorem ipsum dolor sit </tspan>
+</text>
+<text id="topico-1" transform="matrix(1 0 0 1 315.3125 1414.6602)" font-family="Arial" font-size="50">
+	<tspan x="0" y="0">Suspendisse quis purus sit amet augue laoreet vehicula. </tspan>
+	<tspan x="0" y="60">Sed fringilla neque vitae nisl adipiscing non pretium metus </tspan>
+	<tspan x="0" y="120">feugiat. Lorem ipsum dolor sit amet, consectetur </tspan>
+</text>
+<text id="topico-2" transform="matrix(1 0 0 1 315.3125 1755.5977)" font-family="Arial" font-size="50">
+	<tspan x="0" y="0">Aliquam sed libero id leo aliquam interdum sed in risus. </tspan>
+	<tspan x="0" y="60">Cras sit amet dui eget turpis cursus facilisis sit amet et </tspan>
+	<tspan x="0" y="120">quam. Vestibulum eu elit lacus.</tspan>
+</text>
+<text id="topico-3" transform="matrix(1 0 0 1 316.0049 2096.2842)" font-family="Arial" font-size="50">
+	<tspan x="0" y="0">Nam elementum, leo in adipiscing tincidunt, urna tellus </tspan>
+	<tspan x="0" y="60">dignissim magna, vitae sagittis enim nunc id leo. In </tspan>
+	<tspan x="0" y="120">porttitor lacinia sapien at vulputate.</tspan>
+</text>
+<rect id="forma-1" x="0.74" y="1275.585" fill="#BCBEC0" width="1869.972" height="23.867"/>
+<rect id="forma-2" x="0.74" y="1616.521" fill="#BCBEC0" width="1869.972" height="23.866"/>
+<rect id="forma-3" x="0.74" y="1957.208" fill="#BCBEC0" width="1869.972" height="23.867"/>
+<text id="cnpj" transform="matrix(0 -1 1 0 1716.1709 1204.5762)" font-family="Arial" font-size="33.9314">CNPJ: 00.000.000.000/0001 -00</text>
+<text id="grafica" transform="matrix(1 0 0 1 152.3857 2481.7979)" font-family="Arial" font-size="33.9314">Gráfica</text>
+<text id="tiragem" transform="matrix(1 0 0 1 936 2481.7979)" font-family="Arial" font-size="33.9314">tiragem</text>
+<g id="corte">
 	<line fill="none" stroke="#000000" x1="58.5" y1="5" x2="58.5" y2="41"/>
 	<line fill="none" stroke="#000000" x1="5" y1="59.5" x2="41" y2="59.5"/>
 	<line fill="none" stroke="#000000" x1="5" y1="2539.5" x2="41" y2="2539.5"/>
