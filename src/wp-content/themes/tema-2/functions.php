@@ -224,18 +224,19 @@ function tema2_init() {
         if (!$createdBefore) {
             
             // Cria a página Blog
-            $post = array(
+            $page = array(
                 'post_type' => 'page',
                 'post_status' => 'publish',
                 'post_title' => 'Blog',
                 'post_content' => 'Esta página listará os seus posts em forma de blog. Você pode renomeá-la se quiser. Qualquer conteúdo aqui será ignorado.'
             );
             
-            $new = wp_insert_post($post);
-            add_post_meta($new->ID, '_blog_page_created', 1);
+            $id = wp_insert_post($page);
+            
+            add_post_meta($id, '_blog_page_created', 1);
             
             // Seleciona o template de blog
-            add_post_meta($new->ID, '_wp_page_template', 'blog.php');
+            add_post_meta($id, '_wp_page_template', 'blog.php');
             
             // Adiciona um item ao menu
             $menu = wp_get_nav_menu_object('main');
