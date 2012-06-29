@@ -11,7 +11,7 @@ $blogurl = urlencode(get_bloginfo('url'));
             <div class="section-description">
                 <p><?php echo isset($options['general']['description']) ? $options['general']['description'] : ''; ?></p>
             </div>
-            <?php if (Mobilize::isActive('redes')): $re?>
+            <?php if (Mobilize::isActive('redes')): ?>
                 <section id="mobilize-redes" class="mobilize-widget clearfix">
                     <?php $redes = get_option('campanha_social_networks'); ?>
                     <h6>Redes sociais</h6>
