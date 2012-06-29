@@ -58,31 +58,28 @@ class CandidatePhoto {
      */
     protected $image;
     
-    public function __construct($fileName, $minWidth, $minHeight)
+    public function __construct($fileName, $minWidth, $minHeight, DpiConverter $converter)
     {
         $this->fileName = $fileName;
         $this->screenFileName = basename($this->fileName, '.png') . '_resized.png';
         $this->minWidth = $minWidth;
         $this->minHeight = $minHeight;
         
+        $this->converter = $converter;
+        
         if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)) {
-            $this->image = WideImage::load(GRAPHIC_MATERIAL_DIR . $this->fileName);
-            
-            $this->screenWidth = $this->convertTo75Dpi($this->minWidth);
-            $this->screenHeight = $this->convertTo75Dpi($this->minHeight);
+            $this->loadImage();
         }
+        
+        $this->screenWidth = $this->converter->maybeConvertTo75Dpi($this->minWidth);
+        $this->screenHeight = $this->converter->maybeConvertTo75Dpi($this->minHeight);
     }
     
     /**
-     * Receives a value in pixels assuming it is 300 dpi and convert it
-     * to the corresponding pixel value in 75 dpi.
-     * 
-     * @param int $value
-     * @return int
+     * Create a WideImage object with the candidate photo.
      */
-    protected function convertTo75Dpi($value)
-    {
-        return $value / 4;
+    protected function loadImage() {
+        $this->image = WideImage::load(GRAPHIC_MATERIAL_DIR . $this->fileName);
     }
     
     /**
@@ -114,6 +111,9 @@ class CandidatePhoto {
                     // generate low resolution image to send to the browser (75 dpi)
                     $lowRes = $img->resize($this->screenWidth, $this->screenHeight, 'outside');
                     $lowRes->saveToFile(GRAPHIC_MATERIAL_DIR . $this->screenFileName);
+                    
+                    $this->loadImage();
+                    $this->crop();
                 }
             } else if (!$_FILES['photo']['error'] && !in_array($_FILES['photo']['type'], $mimeTypes)) {
                 $this->error = "Tipo de arquivo inválido, o arquivo deve ser dos tipos .png ou .jpg";
@@ -149,14 +149,27 @@ class CandidatePhoto {
         $baseName = basename($this->fileName, '.png');
         $cropedFile = GRAPHIC_MATERIAL_DIR . $baseName . '_croped.png';
         
-        update_option('photo-position-' . $this->fileName, array('left' => $_POST['left'], 'top' => $_POST['top'], 'width' => $_POST['width']));
+        $left = isset($_POST['left']) ? $_POST['left'] : 0;
+        $top = isset($_POST['top']) ? $_POST['top'] : 0;
+
+        update_option('photo-position-' . $this->fileName, array('left' => $left, 'top' => $top));
         
-        list($left, $top) = preg_replace('/-?(\d+?)px/', '$1', array($_POST['left'], $_POST['top']));
+        // remove 'px' from the end of the strings
+        list($left, $top) = preg_replace('/(-?\d+?)px/', '$1', array($left, $top));
         
-        $croped = $this->image->crop($left, $top, $this->minWidth, $this->minHeight);
+        $baseImage = WideImage::load(WPMU_PLUGIN_DIR . '/includes/graphic_material/transparent-pixel.png');
         
-        unlink($cropedFile);
+        $baseImage = $baseImage->resize($this->minWidth, $this->minHeight, 'fill');
+        
+        $croped = $baseImage->merge($this->image, $this->converter->maybeConvertTo300Dpi($left) , $this->converter->maybeConvertTo300Dpi($top));
+        if (file_exists($cropedFile)) {
+            unlink($cropedFile);
+        }
         $croped->saveToFile($cropedFile);
+        
+        //$croped = $this->image->crop( 'center - ' . $this->minWidth/2, 'center - ' . $this->minHeight/2, $this->minWidth, $this->minHeight);
+        
+        
     }
     
     /**
@@ -182,6 +195,9 @@ class CandidatePhoto {
             <?php if ($this->error): ?>
                 <div class="error"><p><?php echo $this->error; ?></p></div><br/>
             <?php endif; ?>
+            <?php if ($this->minWidth && $this->minHeight): ?>
+                <div class="warning"><p>Para garantir a qualidade da impressão a imagem enviada deve ter pelo menos <?php echo "{$this->minWidth}x{$this->minHeight}"; ?> pixels.</p></div>
+            <?php endif; ?>
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="graphic_material_upload_photo" value="1" />
                 <input type="hidden" name="graphic_material_filename" value="<?php echo $this->fileName ?>" />
@@ -189,24 +205,32 @@ class CandidatePhoto {
                 <input type="hidden" name="minHeight" value="<?php echo $this->minHeight ?>" />
                 <?php wp_nonce_field('graphic_material_upload_photo', 'graphic_material_upload_photo_nonce'); ?>
                 <input type="file" name="photo" />
-                <input type="submit" value="subir foto" />
+                <input type="submit" class="button-primary" value="subir foto" />
             </form>
-            <?php if ($this->minWidth && $this->minHeight): ?>
-                <div class="warning"><p>Para garantir a qualidade da impressão a imagem enviada deve ter pelo menos <?php echo "{$this->minWidth}x{$this->minHeight}"; ?> pixels.</p></div>
-            <?php endif; ?>
-                
+            
+            <hr />
+            
             <?php if (file_exists(GRAPHIC_MATERIAL_DIR . $this->fileName)): ?>
-                <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden;">
-                    <div id="zoom-plus">+</div>
-                    <div id="zoom-minus">-</div>
-                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>; width: <?php echo $position['width']; ?>;"/>
+            
+                <p>
+                
+                Arraste e solte a imagem abaixo para escolher o recorte.
+                
+                </p>
+                
+                <div class="updated" id="save-response"><p>Recorte aplicado!</p></div>
+                
+                <div id="photo-wrapper" style="width: <?php echo $this->screenWidth; ?>px; height: <?php echo $this->screenHeight; ?>px; overflow: hidden; float: left;">
+                    <img src="<?php echo GRAPHIC_MATERIAL_URL . $this->screenFileName . '?' . rand(); ?>" style="left: <?php echo $position['left']; ?>; top: <?php echo $position['top']; ?>;"/>
                 </div>
-                <button id="save-position">salvar posição</button>
-                <span id="save-response">a posição da imagem foi salva</span>
+                
+                <button id="save-position" class="button-primary">Aplicar recorte</button>
+                
+                <div class="clear"></div>
             <?php else: ?>
                 Você ainda não enviou uma imagem.
             <?php endif; ?>
         </div>
         <?php
     }
-}
+}    
