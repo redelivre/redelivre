@@ -56,9 +56,9 @@ function mapasdevista_get_posts_ajax() {
         }
         
         if ($_POST['api'] == 'image') {
-            $q = "SELECT COUNT(DISTINCT(post_id)) FROM $wpdb->postmeta JOIN $wpdb->posts ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_type IN ($pt) AND post_status = 'publish' AND meta_key = '_mpv_in_img_map' AND meta_value = '{$_POST['page_id']}' $search_query";
+            $q = "SELECT COUNT(DISTINCT(post_id)) FROM $wpdb->postmeta JOIN $wpdb->posts ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_type IN ($pt) AND post_status = 'publish' AND meta_key = '_mpv_in_img_map' AND meta_value = '1' $search_query";
         } else {
-            $q = "SELECT COUNT(post_id) FROM $wpdb->postmeta JOIN $wpdb->posts ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_type IN ($pt) AND post_status = 'publish' AND meta_key = '_mpv_inmap' AND meta_value = '{$_POST['page_id']}' $search_query";
+            $q = "SELECT COUNT(post_id) FROM $wpdb->postmeta JOIN $wpdb->posts ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_type IN ($pt) AND post_status = 'publish' AND meta_key = '_mpv_inmap' AND meta_value = '1' $search_query";
         }
 
         $total = $wpdb->get_var($q);
@@ -76,7 +76,7 @@ function mapasdevista_get_posts_ajax() {
                 'orderby'         => 'post_date',
                 'order'           => 'DESC',
                 'meta_key'        => '_mpv_in_img_map',
-                'meta_value'      => $_POST['page_id'],
+                'meta_value'      => 1,
                 'post_type'       => $mapinfo['post_types'],
             );
 
@@ -87,7 +87,7 @@ function mapasdevista_get_posts_ajax() {
                 'orderby'         => 'post_date',
                 'order'           => 'DESC',
                 'meta_key'        => '_mpv_inmap',
-                'meta_value'      => $_POST['page_id'],
+                'meta_value'      => 1,
                 'post_type'       => $mapinfo['post_types'],
             );
         }
