@@ -8,8 +8,8 @@
 #save-response { display:none; }
 
 /** header **/
-#graphic-material-header { margin-top:315px; }
-#graphic-material-header #graphic_material_visualization { position:fixed; top:28px; left:145px; min-height:280px; width:100%; padding: 10px 20px; background-color: #E4E4E4; z-index:30;}
+#graphic-material-header { margin-top:365px; }
+#graphic-material-header #graphic_material_visualization { position:fixed; top:28px; left:145px; min-height:280px; min-width:80%; padding: 10px 20px; background-color: #E4E4E4; z-index:30;}
 .wp-menu-arrow { z-index:31 !important; }
 
 
