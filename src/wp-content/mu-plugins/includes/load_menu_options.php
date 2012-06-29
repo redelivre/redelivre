@@ -38,10 +38,12 @@ add_action('admin_menu', function() {
         add_action('admin_print_styles-' . $page, array('GraphicMaterial', 'scriptsAndStyles'));
         
     }*/
-    
-    add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
-        require(WPMU_PLUGIN_DIR . '/includes/admin-mobilize.php');
-    });
+
+    if ($capabilities->mobilize->value) {    
+        add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
+            require(WPMU_PLUGIN_DIR . '/includes/admin-mobilize.php');
+        });
+    }
     
     add_menu_page('Redes Sociais', 'Redes Sociais', 'read', 'campaign_social_networks', function() {
         require(WPMU_PLUGIN_DIR . '/includes/admin-social-networks.php');

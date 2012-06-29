@@ -100,19 +100,25 @@ function campaign_base_custom_url_rewrites($rules) {
 }
 
 function campaign_base_template_redirect_intercept() {
-    global $wp_query;
+    global $wp_query, $campaign;
 
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
             require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
             die;
         case 'mobilizacao':
-            add_action('wp_print_scripts', function() {
-                wp_enqueue_script('mobilize', WPMU_PLUGIN_URL . '/js/mobilize.js');
-            });
-
-            require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
-            die;
+            $capabilities = Capability::getByPlanId($campaign->plan_id);
+            
+            if ($capabilities->mobilize->value) {
+                add_action('wp_print_scripts', function() {
+                    wp_enqueue_script('mobilize', WPMU_PLUGIN_URL . '/js/mobilize.js');
+                });
+    
+                require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
+                die;
+            }
+            
+            break;
         case 'contato':
             add_action('wp_print_scripts', function() {
                 wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));

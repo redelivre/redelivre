@@ -225,3 +225,10 @@ if (!get_option('db-update-14')) {
     $wpdb->query("INSERT INTO capabilities (`plan_id`, `name`, `slug`, `value`) (SELECT `plan_id`, 'Suporte', 'support', `value` FROM `capabilities` WHERE slug = 'forum_support')");
     $wpdb->query("DELETE FROM `capabilities` WHERE `slug` IN ('forum_support', 'email_support')");
 }
+
+// create capability for "mobilize" page
+if (!get_option('db-update-15')) {
+    update_option('db-update-15', 1);
+
+    $wpdb->query("INSERT INTO capabilities (`plan_id`, `name`, `slug`, `value`) (SELECT `plan_id`, 'Página de mobilização', 'mobilize', `value` FROM `capabilities` WHERE slug = 'support')");
+}
