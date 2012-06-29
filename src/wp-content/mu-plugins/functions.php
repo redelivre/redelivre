@@ -40,6 +40,7 @@ if (!is_main_site()) {
     add_action('load-ms-delete-site.php', 'campanha_remove_exclude_site_page_content');
     add_action('wp_dashboard_setup', 'campannha_dashboard_widget');
     add_action('load-options-general.php', 'campanha_custom_options_strings');
+    add_action('wp_print_scripts', 'campanha_uservoice_js');
 
     // flush rewrite rules on first run to make pages like /materialgrafico and /mobilizacao work
     if (is_admin() && !get_option('campanha_flush_rules')) {
@@ -210,24 +211,24 @@ function print_msgs($msg, $extra_class = '', $id = '') {
     }
 }
 
-add_action('wp_print_scripts', 'campanha_add_common_js');
+/**
+ * Add uservoice javascript to campaign sites
+ */
+function campanha_uservoice_js() {
+    global $campaign;
+    
+    $capabilities = Capability::getByPlanId($campaign->plan_id);
 
+    if (is_user_logged_in() && !is_super_admin() && $capabilities->support->value) {
+        wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery', false, true);
+    }
+}
+
+add_action('wp_print_scripts', 'campanha_add_common_js');
 /**
  * Add JS files shared by all themes.
  */
 function campanha_add_common_js() {
-    global $campaign;
-    
-    if (is_object($campaign)) {
-        $capabilities = Capability::getByPlanId($campaign->plan_id);
-    }
-
-    if (is_user_logged_in() && !is_super_admin()
-        && (is_main_site() || (isset($capabilities) && $capabilities->support->value)))
-    {
-        wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery', false, true);
-    }
-
     wp_enqueue_script('jquery');
     wp_enqueue_script('campaign_common', site_url() . '/wp-content/mu-plugins/js/campaign_common.js', 'jquery');
 }
