@@ -48,6 +48,8 @@ class Header extends GraphicMaterial {
         $this->data->numberSize = (isset($_REQUEST['data']['numberSize']) && !empty($_REQUEST['data']['numberSize'])) ? filter_var($_REQUEST['data']['numberSize'], FILTER_SANITIZE_NUMBER_INT) : 30;
         $this->data->numberColor = isset($_REQUEST['data']['numberColor']) ? filter_var($_REQUEST['data']['numberColor'], FILTER_SANITIZE_STRING) : 'black';
         
+        $this->data->roleColor = isset($_REQUEST['data']['roleColor']) ? filter_var($_REQUEST['data']['roleColor'], FILTER_SANITIZE_STRING) : 'black';
+        
         $this->data->candidateNumber = $campaign->candidate_number;
         
         $candidateName = $this->finalImage->getElementById('nome-do-candidato');
@@ -56,6 +58,13 @@ class Header extends GraphicMaterial {
         $candidateName->setAttribute('font-size', $this->data->candidateSize);
 
         $slogan = $this->finalImage->getElementById('slogan');
+        
+        $role = $this->finalImage->getElementById('cargo');
+        
+        if($role){
+            $role->setAttribute('fill', $this->data->roleColor);
+        }
+        
         
         if ($slogan) {
             $slogan[0] = $this->data->slogan;

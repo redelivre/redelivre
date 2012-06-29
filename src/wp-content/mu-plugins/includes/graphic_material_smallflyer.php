@@ -16,7 +16,7 @@ if (isset($_POST['save'])) {
 
 ?>
 
-<div>
+<div id="graphic-material-smallflyer">
     <h1>Santinho e colinha</h1>
     <div id="graphic_material_content">
         <h3>1. Selecione uma foto ou envie uma nova:</h3>
