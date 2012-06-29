@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1872px"
+	 height="2598px" viewBox="0 0 1872 2598" enable-background="new 0 0 1872 2598" xml:space="preserve">
+<g id="Layer_1">
+	<path id="fundo" fill="#818285" d="M1057.311,1384.048C285.28,1550.469,0,1612.51,0,1612.51v985.99h1869.06v-985.99
+		C1869.06,1612.51,1767.895,1230.873,1057.311,1384.048z"/>
+	<path id="borda" fill="#BDBEC0" d="M1057.311,1310.454C285.28,1476.876,0,1538.916,0,1538.916v73.594
+		c0,0,285.282-62.041,1057.312-228.462c710.583-153.175,811.752,228.462,811.752,228.462v-73.594
+		C1869.06,1538.916,1767.895,1157.279,1057.311,1310.454z"/>
+	
+		<text id="cargo" transform="matrix(1 0 0 1 1040.3486 1509.041)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="139.6397">vereador</text>
+	
+		<text id="nome-do-candidato" transform="matrix(1 0 0 1 764.73 1741.0986)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="186.8152">Candidato</text>
+	
+		<text id="slogan" transform="matrix(1 0 0 1 686.8364 1907.8418)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="109.4473">Lorem ipsum dolor</text>
+	
+		<text id="numero" transform="matrix(1 0 0 1 471.1152 2330.5088)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="434.0152">00000</text>
+	
+		<text id="coligação" transform="matrix(1 0 0 1 351.5435 2445.7832)" fill="#FFFFFF" font-family="'ArialMT'" font-size="62.2718">coligação: partido, partido, partido, partido</text>
+	<g>
+		<line fill="none" stroke="#000000" x1="58.5" y1="5" x2="58.5" y2="41"/>
+		<line fill="none" stroke="#000000" x1="5" y1="59.5" x2="41" y2="59.5"/>
+		<line fill="none" stroke="#000000" x1="5" y1="2539.5" x2="41" y2="2539.5"/>
+		<line fill="none" stroke="#000000" x1="58.5" y1="2593" x2="58.5" y2="2557"/>
+		<line fill="none" stroke="#000000" x1="1812.5" y1="5" x2="1812.5" y2="41"/>
+		<line fill="none" stroke="#000000" x1="1867" y1="59.5" x2="1831" y2="59.5"/>
+		<line fill="none" stroke="#000000" x1="1867" y1="2539.5" x2="1831" y2="2539.5"/>
+		<line fill="none" stroke="#000000" x1="1812.5" y1="2593" x2="1812.5" y2="2557"/>
+	</g>
+</g>
+<g id="Layer_2">
+</g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1872px" height="2598px" viewBox="0 0 1872 2598" enable-background="new 0 0 1872 2598" xml:space="preserve">
+<rect id="fundo" y="1871.759" fill="#818285" width="1872" height="726.241"/>
+<rect id="borda" fill="#A8AAAD" width="1872.002" height="188.711"/>
+<text id="cargo" transform="matrix(1 0 0 1 228.71 2000.1211)" fill="#010101" font-family="'Arial-BoldMT'" font-size="139.6461">vereador</text>
+<text id="nome-do-candidato" transform="matrix(1 0 0 1 229.0771 2184.792)" fill="#010101" font-family="'Arial-BoldMT'" font-size="186.8239">Candidato</text>
+<text id="slogan" transform="matrix(1 0 0 1 224.1807 2306.7773)" fill="#010101" font-family="'Arial-BoldMT'" font-size="109.4524">Lorem ipsum dolor</text>
+<text id="numero" transform="matrix(1 0 0 1 228.71 592.7935)" fill="#010101" font-family="'Arial-BoldMT'" font-size="511.4068">00000</text>
+<text id="coligação" transform="matrix(1 0 0 1 354.417 2409.9717)" fill="#010101" font-family="'ArialMT'" font-size="62.2746">coligação: partido, partido, partido, partido</text>
+<g>
+	<line fill="none" stroke="#000000" x1="58.5" y1="5" x2="58.5" y2="41"/>
+	<line fill="none" stroke="#000000" x1="5" y1="59.5" x2="41" y2="59.5"/>
+	<line fill="none" stroke="#000000" x1="5" y1="2539.5" x2="41" y2="2539.5"/>
+	<line fill="none" stroke="#000000" x1="58.5" y1="2593" x2="58.5" y2="2557"/>
+	<line fill="none" stroke="#000000" x1="1812.5" y1="5" x2="1812.5" y2="41"/>
+	<line fill="none" stroke="#000000" x1="1867" y1="59.5" x2="1831" y2="59.5"/>
+	<line fill="none" stroke="#000000" x1="1867" y1="2539.5" x2="1831" y2="2539.5"/>
+	<line fill="none" stroke="#000000" x1="1812.5" y1="2593" x2="1812.5" y2="2557"/>
+</g>
+</svg>
