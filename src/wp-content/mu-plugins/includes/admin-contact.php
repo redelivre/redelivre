@@ -21,7 +21,7 @@ function campanha_contact_add_page() {
     if ( !file_exists(STYLESHEETPATH . '/tpl-contato.php') && !file_exists(TEMPLATEPATH . '/tpl-contato.php'))
         return;
     
-    add_menu_page('Contato', 'Contato', 'read', 'campaign_contact', 'campanha_contact_do_page');
+    add_menu_page('Página de Contato', 'Página de Contato', 'read', 'campaign_contact', 'campanha_contact_do_page');
 }
 
 /**
