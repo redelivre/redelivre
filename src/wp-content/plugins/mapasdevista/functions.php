@@ -71,7 +71,7 @@ function mapasdevista_admin_init() {
     
     global $pagenow, $post_type;
     
-    if($post_type == 'mapa' && ( $pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps") ) ) {
+    if( ($pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps")) && $post_type == 'mapa') {
         // api do google maps versao 3 direto 
         $googleapikey = get_mapasdevista_theme_option('google_key');
         $googleapikey = $googleapikey ? "&key=$googleapikey" : '';
@@ -138,6 +138,8 @@ function mapasdevista_regiser_post_type() {
     );
 
 }
+
+add_post_type_support( 'mapa', 'post-formats' );
 
 function mapasdevista_base_custom_query_vars($public_query_vars) {
     $public_query_vars[] = "mapa-tpl";
