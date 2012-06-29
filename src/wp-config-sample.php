@@ -92,6 +92,12 @@ define('WPLANG', '');
  */
 define('WP_DEBUG', false);
 
+/**
+ * Redirect to page below when user try to access
+ * a subdomain that doesn't exist.
+ */
+define('NOBLOGREDIRECT', 'http://campanha.mu');
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
