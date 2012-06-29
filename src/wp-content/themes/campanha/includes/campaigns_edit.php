@@ -26,6 +26,7 @@ if (!empty($_POST)) {
     $campaign->state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
     $campaign->city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_NUMBER_INT);
     $campaign->observations = filter_input(INPUT_POST, 'observations', FILTER_SANITIZE_STRING);
+    $campaign->status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_NUMBER_INT);
     
     if ($campaign->validate()) {
         $campaign->update();
@@ -105,7 +106,16 @@ if (!empty($_POST)) {
                             <input type="radio" name="plan_id" class="radio" value="<?php echo $plan->id; ?>" <?php if ($campaignPlan == $plan->id) echo ' checked '; ?>> <?php echo $plan->name; ?>
                         <?php endforeach; ?>
                     </td>
-                </tr>                
+                </tr>
+                <?php if (is_super_admin()) : ?>
+                    <tr class="form-field">
+                        <th scope="row"><label for="status">Status</label></th>
+                        <td>
+                            <input type="radio" name="status" class="radio" value="0" <?php if ($campaign->status == 0) echo ' checked '; ?>> Pagamento pendente
+                            <input type="radio" name="status" class="radio" value="1" <?php if ($campaign->status == 1) echo ' checked '; ?>> Ativo
+                        </td>
+                    </tr>
+                <?php endif; ?>      
             </tbody>
         </table>
         <p class="submit">

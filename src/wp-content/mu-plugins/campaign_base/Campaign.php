@@ -346,7 +346,7 @@ class Campaign {
         global $wpdb;
         
         $data = array('own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number, 'plan_id' => $this->plan_id, 'state' => $this->state,
-            'city' => $this->city, 'observations' => $this->observations); 
+            'city' => $this->city, 'observations' => $this->observations, 'status' => $this->status); 
         
         $data['location'] = $this->formatLocation($data['state'], $data['city']);
         unset($data['state'], $data['city']);
