@@ -1,6 +1,5 @@
 var hl;
 (function($){
-    
     $(document).ready(function(){
         hl.lightbox.init();
         hl.tip.init();
@@ -328,14 +327,25 @@ var hl;
                          * como os articles tem posição absoluta é preciso definir a altura 
                          * wrapper igual à altura do maior dos articles
                          */
-                        if($wrapper.innerHeight() < $(this).outerHeight(true))
-                            $wrapper.css('height',$(this).outerHeight(true));
-                           
+                        if($wrapper.innerHeight() < $(this).outerHeight(true)){
+							$wrapper.css('height',$(this).outerHeight(true));
+                        }   
                            
                         aleft.push(wrapped_width);
                         wrapped_width += $(this).outerWidth(true);
                         
                         $wrapped.css('width',wrapped_width);
+                    });
+
+
+                    $articles.each(function(){
+                        /*
+                         * como os articles tem posição absoluta é preciso definir a altura 
+                         * wrapper igual à altura do maior dos articles
+                         */
+                        if($wrapper.innerHeight() < $(this).outerHeight(true)){
+							$wrapper.css('height',$(this).outerHeight(true));
+                        }
                     });
                     
                     
