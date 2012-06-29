@@ -219,7 +219,7 @@ function tema2_init() {
     if ( is_admin() && isset($_GET['activated'] ) && $pagenow == 'themes.php' ) {
         global $wpdb;
         
-        $createdBefore = $wpdb->get_var("SELECT post_id FROM $wpdb->postmeta WHERE meta_value = '_blog_page_created'");
+        $createdBefore = $wpdb->get_var("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_blog_page_created'");
         
         if (!$createdBefore) {
             
