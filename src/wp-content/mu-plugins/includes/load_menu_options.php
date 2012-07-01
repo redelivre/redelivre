@@ -46,12 +46,12 @@ add_action('admin_menu', function() {
         });
     }
     
-    /*
+    
     $page = add_theme_page('Imagem para o cabeçalho', 'Imagem para o cabeçalho', 'manage_options', 'graphic_material_header', function() {
         require(WPMU_PLUGIN_DIR . '/includes/graphic_material_header.php');
     });
     add_action('admin_print_styles-' . $page, array('GraphicMaterialManager', 'scriptsAndStyles'));
-    */
+    
     
     add_menu_page('Redes Sociais', 'Redes Sociais', 'read', 'campaign_social_networks', function() {
         require(WPMU_PLUGIN_DIR . '/includes/admin-social-networks.php');
