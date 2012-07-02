@@ -7,7 +7,7 @@ if (isset($_POST['save']) || isset($_POST['use-header']) ) {
     check_admin_referer('graphic_material');
 
     try {
-        //$header->save();
+        $header->save();
         if (isset($_POST['use-header']))
             $header->setAsWordPressHeader();
     } catch (Exception $e) {
@@ -19,7 +19,8 @@ if (isset($_POST['save']) || isset($_POST['use-header']) ) {
 <div id="graphic-material-header">
     <h1>Imagem do topo do site</h1>
     <div id="graphic_material_content" style="width: 60%; float: left;">
-        <h3>1. Selecione uma foto ou envie uma nova:</h3>
+        <h3>1. Envie uma foto:</h3>
+        <a href="#graphic_material_preview">Pré-visualização</a>
         <?php $header->candidatePhoto->printHtml(); ?>
 
         <form id="graphic_material_form" method="post">
@@ -28,6 +29,7 @@ if (isset($_POST['save']) || isset($_POST['use-header']) ) {
             <input type='hidden' name='type' value='header'>
             <div id="graphic_material_wizard">
                 <h3>2. Escolha uma forma:</h3>
+                <a href="#graphic_material_preview">Pré-visualização</a>
                 <p>
                     Cores da forma: 
                     <input type="color" name="data[shapeColor1]" value="<?php echo (isset($header->data->shapeColor1) && !empty($header->data->shapeColor1)) ? $header->data->shapeColor1 : '#ff0000'; ?>" data-text="hidden" style="height:20px;width:20px;" />
@@ -49,8 +51,9 @@ if (isset($_POST['save']) || isset($_POST['use-header']) ) {
 
 
                 <h3>3. Textos:</h3>
-
+                <a href="#graphic_material_preview">Pré-visualização</a>
                 <h4>Nome do cantidato:</h4>
+                
                 <input type="text" name="data[candidateName]" value="<?php echo (isset($header->data->candidateName)) ? $header->data->candidateName : ''; ?>" />
                 Cor: <input type="color" name="data[candidateColor]" value="<?php echo (isset($header->data->candidateColor) && !empty($header->data->candidateColor)) ? $header->data->candidateColor : '#000000'; ?>" data-text="hidden" style="height:20px;width:20px;" /><br /><br/>
 

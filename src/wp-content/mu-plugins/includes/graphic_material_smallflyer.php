@@ -9,6 +9,7 @@ if (isset($_POST['save'])) {
     
     try {
         $smallFlyer->save();
+        $smallFlyer->export();
     } catch (Exception $e) {
         echo "<div class='error'><p>{$e->getMessage()}</p></div>";
     }
@@ -19,7 +20,7 @@ if (isset($_POST['save'])) {
 <div id="graphic-material-smallflyer">
     <h1>Santinho e colinha</h1>
     <div id="graphic_material_content">
-        <h3>1. Selecione uma foto ou envie uma nova:</h3>
+        <h3>1. Envie uma foto:</h3>
         <?php $smallFlyer->candidatePhoto->printHtml(); ?>
         
             <form id="graphic_material_form" method="post">

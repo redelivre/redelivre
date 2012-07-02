@@ -201,9 +201,6 @@ abstract class GraphicMaterial
         $this->processImage();
         $this->finalImage->asXML($this->filePath);
         
-        // generate a PDF copy of the SVG file
-        $this->export();
-        
         // store SVG file information in the database to be able
         // to regenerate it
         $this->saveData();
