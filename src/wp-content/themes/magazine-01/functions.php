@@ -71,7 +71,7 @@ function magazine01_addJS() {
     wp_enqueue_script('jquery-ui-core');
     wp_enqueue_script('jquery-ui-widget');
     
-    wp_enqueue_script('jquery-autocomplete', get_stylesheet_directory_uri().'/js/jquery-ui-1.8.20-autocomplete.js', array('jquery-ui-widget'));
+    wp_enqueue_script('jquery-autocomplete', get_template_directory_uri().'/js/jquery-ui-1.8.20-autocomplete.js', array('jquery-ui-widget'));
     wp_enqueue_script('congelado', get_template_directory_uri().'/js/congelado.js', 'jquery-autocomplete');
     wp_enqueue_script('slideshow', get_template_directory_uri().'/js/slideshow.js');
     

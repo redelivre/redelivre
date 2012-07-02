@@ -24,8 +24,8 @@ function hacklab_post2home_select($column_name, $id){
 }
 
 function hacklab_post2home_JS() {
-	wp_enqueue_script('hacklab_post2home', get_bloginfo('stylesheet_directory') . '/includes/hacklab_post2home/admin.js', array('jquery'));
-	wp_enqueue_style('hacklab_post2home', get_bloginfo('stylesheet_directory') . '/includes/hacklab_post2home/post2home.css');
+	wp_enqueue_script('hacklab_post2home', get_template_directory_uri() . '/includes/hacklab_post2home/admin.js', array('jquery'));
+	wp_enqueue_style('hacklab_post2home', get_template_directory_uri() . '/includes/hacklab_post2home/post2home.css');
 	wp_localize_script('hacklab_post2home', 'hacklab', array('ajaxurl' => admin_url('admin-ajax.php') ));
 }
 
