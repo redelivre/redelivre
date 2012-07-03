@@ -9,7 +9,7 @@ add_action('load-edit-pages.php', 'hacklab_post2home_JS');
 function hacklab_post2home_add_column($defaults){
     global $post_type;
     if ('post' == $post_type)
-        $defaults['destaques'] = 'Destaque Home';
+        $defaults['destaques'] = 'Destaque';
     return $defaults;
 }
 
