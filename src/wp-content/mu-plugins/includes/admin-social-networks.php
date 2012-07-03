@@ -21,7 +21,7 @@ $option = get_option('campanha_social_networks');
         <p>
             <label for="rede-0">Página do Facebook:</label> <input id="rede-0" type="text" name="social_networks[facebook-page]" value="<?php echo @htmlentities($option['facebook-page']) ?>"/><br/>
 
-            <label for="rede-1">Parfil do Facebook:</label> <input id="rede-1" type="text" name="social_networks[facebook]" value="<?php echo @htmlentities($option['facebook']) ?>"/><br/>
+            <label for="rede-1">Perfil do Facebook:</label> <input id="rede-1" type="text" name="social_networks[facebook]" value="<?php echo @htmlentities($option['facebook']) ?>"/><br/>
 
             <label for="rede-2">Twitter:</label> <input id="rede-2" type="text" name="social_networks[twitter]" value="<?php echo @htmlentities($option['twitter']) ?>"/><br/>
 
