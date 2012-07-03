@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Persian Google analytics multisite\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-05-07 12:20+0100\n"
+"PO-Revision-Date: 2011-06-08 15:31+0330\n"
+"Last-Translator: Sushyant Zavarzadeh <sushyant@zavarzadeh.org>\n"
+"Language-Team: S & S Group    www.zavarzadeh.org <sushyant@zavarzadeh.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_;gettext;gettext_noop\n"
+"X-Poedit-Basepath: C:\\Documents and Settings\\zavarzadeh\\Desktop\\google-analytics-multisite-async\n"
+"X-Poedit-Language: Persian\n"
+"X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
+"X-Poedit-SearchPath-0: C:\\Users\\Dartur\\Desktop\\ga-mu-async\\ga-mu-async\n"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:64
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:111
+msgid "You do not have sufficient permissions to access this page."
+msgstr "شما پروانه­ی دسترسی به این بخش را ندارید."
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:70
+msgid "Analytics ID saved."
+msgstr "شماره­ی آمارگیر نگه­داری شد."
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:74
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:133
+msgid "Google Analytics Statistics"
+msgstr "آمارگیر گوگل"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:78
+msgid "Google Analytics ID"
+msgstr "شماره ی آمارگیر گوگل"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:84
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:146
+msgid "ex. UA-01234567-8"
+msgstr "همانند UA-01234567-8"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:87
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:174
+msgid "Save changes"
+msgstr "نگه داری دگرگونی ها"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:93
+msgid "As this is the main blog it uses the same ID as the network do. Changing this would change the networkwide ID; that is why it is disabled here."
+msgstr "از آن جا که این وبلاگ پایه (اصلی) است از شناسه ی شبکه بهره گیری می کند دگرگون کردن این، آیدی شبکه را هم دگرگون می کند و آمارگیر را از کار خواهد انداخت. "
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:98
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:179
+msgid "Plugin created by"
+msgstr "ساخته شده به دست"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:129
+msgid "Network settings saved."
+msgstr "گزینه های همگانی به روز رسانی شد."
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:140
+msgid "Network Google Analytics ID"
+msgstr "شماره ی شبکه ی آمارگیر گوگل"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:149
+msgid "Network domain"
+msgstr "دامنه ی شبکه"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:155
+msgid "ex. \".mydomain.com\". Obs! start with a dot! This value goes into"
+msgstr "تنها سرپرست همه گیر (سوپر یوزر) همانند:  \".mydomain.com\". با نقطه آغاز می شود!"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:158
+msgid "Site specific accounts"
+msgstr "شناسه های ویژه ی تارنما"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:168
+msgid "Allowed"
+msgstr "روا (مجاز)"
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:169
+msgid "If this is disallowed the Google Analytics settings page will not be visible to site admins."
+msgstr "اگر گزینه به جای این که روا باشد ناروا باشد بخش گزینه های آمارگیر گوگل برای سرپرست ها نمایش داده نمی شود."
+
+#: C:\Users\Dartur\Desktop\ga-mu-async\ga-mu-async/ga-mu-async.php:170
+msgid "That means they will not be able to use their own Google Analytics accounts to track statistics."
+msgstr "این به این معنی است که آن ها نمی توانند از شناسه ی آمارگیر گوگلشان برای پیگیری آمار بهره برداری کنند."
+
+#~ msgid "Superuser ID and domain saved."
+#~ msgstr "شناسه­ی سرپرست همه­گیر (سوپر یوزر) و دامنه نگه­داری شد."
+
+#~ msgid "superuser only. ex. UA-01234567-8"
+#~ msgstr "تنها سرپرست همه­گیر (سوپر یوزر). همانند: UA-01234567-8"
