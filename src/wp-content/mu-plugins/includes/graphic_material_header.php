@@ -17,7 +17,7 @@ if (isset($_POST['save']) || isset($_POST['use-header']) ) {
 ?>
 
 <div id="graphic-material-header">
-    <h1>Imagem do topo do site</h1>
+    <h1>Criar cabeçalho</h1>
     <div id="graphic_material_content" style="width: 60%; float: left;">
         <h3>1. Envie uma foto:</h3>
         <a href="#graphic_material_preview">Pré-visualização</a>
