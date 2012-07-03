@@ -1,7 +1,7 @@
 <?php get_header(); ?>
     <section id="main-section" class="clearfix">
 		
-        <?php $homefeatures = new WP_Query( 'posts_per_page=-1&meta_key=_home&meta_value=1' ); ?>
+        <?php $homefeatures = new WP_Query( 'posts_per_page=-1&meta_key=_home&meta_value=1&ignore_sticky_posts=1' ); ?>
         <section id="home-features" class="hl-carrousel clearfix" data-scroll-num="1">
 			<?php if ($homefeatures->have_posts()) : ?>
 				
