@@ -27,7 +27,7 @@ class CampaingTable extends WP_List_Table {
             $actions['edit'] = "<a href='" . CAMPAIGN_EDIT_URL . "&id={$item->id}'>Editar</a>"; 
         } 
 
-        $actions['admin'] = "<a href='{$item->domain}/wp-admin' target='_blank'>Admin</a>";
+        $actions['admin'] = "<a href='{$item->domain}/wp-admin'>Painel</a>";
         
         //Return the title contents
         return sprintf('%1$s %2$s',
