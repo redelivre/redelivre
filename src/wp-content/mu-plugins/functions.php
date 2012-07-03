@@ -407,8 +407,27 @@ add_action('custom_header_options', function() {
     
     <h3>Precisa de ajuda para criar uma imagem para o cabeçalho?</h3>
     
-    <p>Se quiser, utilize <a href="<?php echo admin_url('themes.php?page=graphic_material_header'); ?>">nosso assistente</a> para criar uma imagem personalizada para você.</p>
+    <p>Se quiser, utilize nosso assistente para <a href="<?php echo admin_url('themes.php?page=graphic_material_header'); ?>">criar uma imagem de cabeçalho</a> personalizada para você.</p>
     
     
     <?php
 });
+
+function custom_menu_order($order) {
+    global $submenu;
+    $menu = $submenu['themes.php'];
+    foreach($menu as $k => $item) {
+
+    if ($item[2] == 'graphic_material_header') {
+        $menuItem = $submenu['themes.php'][$k];
+        unset($submenu['themes.php'][$k]);
+        break;
+    }
+
+    }
+    if ($menuItem)
+        $submenu['themes.php'][] = $menuItem;
+    return $order;
+}
+
+add_filter('menu_order', 'custom_menu_order', 20);
