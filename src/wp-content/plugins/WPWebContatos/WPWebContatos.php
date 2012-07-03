@@ -188,7 +188,7 @@ function webcontatos_postbox($id, $title, $content) {
  */
 function webcontatos_conf_page()
 {
-
+	$mensagem = false;
 	if ($_SERVER['REQUEST_METHOD']=='POST')
 	{
 		
@@ -201,10 +201,6 @@ function webcontatos_conf_page()
 			if (isset($_POST[$option_name]))
 			{
 				$opt[$option_name] = htmlspecialchars($_POST[$option_name]);
-			}
-			else 
-			{
-				$opt[$option_name] = "N";
 			}
 		}
 
@@ -310,6 +306,16 @@ function webcontatos_conf_page()
 						if(is_super_admin())
 						{
 							$rows[] = array(
+									"id" => "webcontatos_user",
+									"label" => __('Usuário','webcontatos'),
+									"content" => '<input type="text" name="webcontatos_user" id="webcontatos_user" value="'.htmlspecialchars_decode($opt['webcontatos_user']).'"/>'
+							);
+							$rows[] = array(
+									"id" => "webcontatos_pass",
+									"label" => __('Senha','webcontatos'),
+									"content" => '<input type="text" name="webcontatos_pass" id="webcontatos_pass" value="'.htmlspecialchars_decode($opt['webcontatos_pass']).'"/>'
+							);
+							$rows[] = array(
 									"id" => "webcontatos_admin_url",
 									"label" => __('Endereço Administrativo','webcontatos'),
 									"content" => '<input type="text" name="webcontatos_admin_url" id="webcontatos_admin_url" value="'.htmlspecialchars_decode($opt['webcontatos_admin_url']).'"/>'
@@ -380,7 +386,7 @@ function webcontatos_campaigns_new_custom_fields ()
 <?php
 }
 
-add_action('campaigns-new-custom-fields', 'webcontatos_campaigns_new_custom_fields');
+//add_action('campaigns-new-custom-fields', 'webcontatos_campaigns_new_custom_fields');
 
 /**
  * Validar campos customizados
@@ -407,7 +413,7 @@ function webcontatos_Campaign_validate($WP_Error)
 	}
 }
 
-add_action('Campaign-validate', 'webcontatos_Campaign_validate');
+//add_action('Campaign-validate', 'webcontatos_Campaign_validate');
 
 function webcontatos_Campaign_created($data)
 {
@@ -417,8 +423,10 @@ function webcontatos_Campaign_created($data)
 	
 	$id = str_replace('.'.$mainSiteDomain, '', $id);
 	
-	$contatoscc_user = filter_input(INPUT_POST, 'contatoscc_user', FILTER_SANITIZE_STRING);
-	$contatoscc_pass = filter_input(INPUT_POST, 'contatoscc_pass', FILTER_SANITIZE_STRING);
+	$current_user = wp_get_current_user();
+	
+	$contatoscc_user = $current_user->user_login;
+	$contatoscc_pass = uniqid();
 	
 	$opt = webcontatos_get_config();
 	
@@ -497,8 +505,12 @@ function webcontatos_GenerateIFrame($params)
 	}
 	
     $opt = webcontatos_get_config();
+    
+    $redirect = "&redirect={$service}__{$params['page']}";
+    
+    $auth = webcontatos_Auth();
    	
-	$url = "/index.php?{$service}={$params['page']}&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '');
+	$url = "/index.php?$auth&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '').$redirect;
 	$opt_url = $opt['webcontatos_url'];
 	
 	if($opt_url != false)
@@ -549,6 +561,35 @@ function webcontatos_GenerateIFrame($params)
 			(int) $opt['webcontatos_border'] . '" scrolling="' . $opt['webcontatos_scrolling'] . '" ' . 
 			$scrollTo2;
 	
+}
+
+function webcontatos_Auth()
+{
+	$opt = webcontatos_get_config();
+
+	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+
+	if(!$auth)
+	{
+		die("Não Logado");
+	}
+	$key = $client->__soapCall('AuthKey', array() , array(), null, $output_headers);
+
+	$url = 'page=AuthByKey&authkey='.$key;
+
+	return $url;
+}
+
+function webcontatos_AutoAuth_iframe()
+{
+	$opt = webcontatos_get_config();
+	
+	$url = $opt['webcontatos_url']."/index.php?".webcontatos_Auth();
+	
+	$iframe = '<iframe src="'.$url.'" style="width:0px;height: 0px" scrolling="no" />';
+	
+	return $iframe;
 }
 
 function webcontatos_GerenciarContato()
