@@ -319,9 +319,9 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 
 /* =Main Sidebar
 -------------------------------------------------------------- */
-#main-sidebar { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }
-#main-sidebar ul { list-style: none; }
-#main-sidebar h3 { font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #ccc; }
+#main-sidebar, #home-sidebar { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }
+#main-sidebar ul, #home-sidebar ul { list-style: none; }
+#main-sidebar h3, #home-sidebar h3 { font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #ccc; }
 
 /* =Widgets
 -------------------------------------------------------------- */

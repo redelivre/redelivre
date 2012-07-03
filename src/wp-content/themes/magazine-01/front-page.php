@@ -2,20 +2,26 @@
     <section id="main-section" class="clearfix">
 		
         <?php $homefeatures = new WP_Query( 'posts_per_page=-1&meta_key=_home&meta_value=1' ); ?>
-        <?php if ($homefeatures->have_posts()) : ?>
-            <section id="home-features" class="hl-carrousel clearfix" data-scroll-num="1">
-                <div class="hl-wrapper">
-                    <h3>Destaques</h3>
-                    <?php while ($homefeatures->have_posts()) : $homefeatures->the_post(); ?>
-                        <?php html::part('loop','feature'); ?>
-                    <?php endwhile; ?>
-                </div>
-                <nav class="clearfix">
-                    <a class="hl-nav-left">Anterior</a>
-                    <a class="hl-nav-right">Próximo</a>  <!-- qualquer elemento com a classe hl-nav-right -->
-                </nav>
-		</section>
-        <?php endif; ?>
+        <section id="home-features" class="hl-carrousel clearfix" data-scroll-num="1">
+			<?php if ($homefeatures->have_posts()) : ?>
+				
+					<div class="hl-wrapper">
+						<h3>Destaques</h3>
+						<?php while ($homefeatures->have_posts()) : $homefeatures->the_post(); ?>
+							<?php html::part('loop','feature'); ?>
+						<?php endwhile; ?>
+					</div>
+				   
+				<?php else :?>
+					<div class="empty-feature">
+						<p>Para exibir posts aqui acesse o <a href="<?php echo admin_url('edit.php'); ?>">painel de administração</a> e marque a caixa de seleção "Destaque". Você pode marcar quantos posts quiser.</p>
+					</div>
+			<?php endif; ?>
+				<nav class="clearfix">
+					<a class="hl-nav-left">Anterior</a>
+					<a class="hl-nav-right">Próximo</a>  <!-- qualquer elemento com a classe hl-nav-right -->
+				</nav>
+		</section>        
 		<!-- #home-features -->
 		<section id="home-other-features" class="clearfix col-9">			
 			<h3>Outras Notícias</h3>
