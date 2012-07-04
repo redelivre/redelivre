@@ -40,7 +40,7 @@ add_action('admin_menu', function() {
     }
     */
     
-    if ($capabilities->mobilize->value) {    
+    if (isset($capabilities->mobilize->value) && $capabilities->mobilize->value) {    
         add_menu_page('Mobilização', 'Mobilização', 'read', 'campaign_mobilize', function() {
             require(WPMU_PLUGIN_DIR . '/includes/admin-mobilize.php');
         });
