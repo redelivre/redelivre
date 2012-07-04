@@ -63,8 +63,8 @@ function jaiminho_get_config()
 	$opt['jaiminho_scrollmethod'] = 1;
 	$opt['jaiminho_url'] = 'http://beta.ethymos.com.br/jaiminho/e';
 	$opt['jaiminho_admin_url'] = 'http://beta.ethymos.com.br/jaiminho/e/admin';
-	$opt['jaiminho_admin_user'] = 'admin';
-	$opt['jaiminho_admin_pass'] = 'admin';
+	$opt['jaiminho_user'] = 'admin';
+	$opt['jaiminho_pass'] = 'admin';
 	$opt['jaiminho_apikey'] = '6C<|d&~(n^b&-Qno_6Buj=cj5Bqf{\B0G<z~}.KZ+a"k *Jim.S!j D}i%{D{s)@o&["v#';
 	$opt['width'] = 960;
 	$opt['height'] = 2500;
@@ -284,13 +284,13 @@ function jaiminho_conf_page()
 									"content" => '<input type="text" name="jaiminho_admin_url" id="jaiminho_admin_url" value="'.htmlspecialchars_decode($opt['jaiminho_admin_url']).'"/>'
 							);			
 							
-							$id = 'jaiminho_admin_user';
+							$id = 'jaiminho_user';
 							$rows[] = array(
 									"id" => $id,
 									"label" => __('Usuário','jaiminho'),
 									"content" => '<input type="text" name="'.$id.'" id="'.$id.'" value="'.htmlspecialchars_decode($opt[$id]).'"/>'
 							);
-							$id = 'jaiminho_admin_pass';
+							$id = 'jaiminho_pass';
 							$rows[] = array(
 									"id" => $id,
 									"label" => __('Senha','jaiminho'),
@@ -320,7 +320,6 @@ function jaiminho_conf_page()
 function jaiminho_campaigncreated($data)
 {
 	$blog_id = $data['blog_id'];
-	switch_to_blog($blog_id);
 	
 	$mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
 	
@@ -330,20 +329,23 @@ function jaiminho_campaigncreated($data)
 	
 	$opt = jaiminho_get_config();
 	
-	$opt_contatos = get_option('webcontatos-config');
+	$opt_contatos = get_blog_option($blog_id,'webcontatos-config');
 	
 	
 	$output_headers = null;	
 	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	$auth = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_option('blogname','Candidato '.$data['candidate_number']), 'username' => $id, 'password' => $opt_contatos['webcontatos_pass'], 'plan' => getByPlanId($data['plan_id'],'send_messages')->value * 1000) , array(), null, $output_headers);
+	$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => Capability::getByPlanId($data['plan_id'],'send_messages')->value * 1000) , array(), null, $output_headers);
 	
-
+	if (is_serialized($id_novoadmin)) {
+		return new WP_Error('Jaiminho', $id_novoadmin);
+	}
+	
 	$jaiminho_options['jaiminho_user'] = $id;
 	$jaiminho_options['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
 
-	
-	update_option('jaiminho-config', $jaiminho_options, false);
-	activate_plugin('WPJaiminho/WPJaiminho.php');	
+	switch_to_blog($blog_id);	
+		update_option('jaiminho-config', $jaiminho_options, false);
+		activate_plugin('WPJaiminho/WPJaiminho.php');	
 	restore_current_blog();
 }
 
@@ -444,7 +446,7 @@ function jaiminho_auth()
 	$output_headers = null;
 
 	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	$auth = $client->__soapCall('auth', array('username' => $opt['jaiminho_admin_user'], 'password' => $opt['jaiminho_admin_pass']) , array(), null, $output_headers);
+	$auth = $client->__soapCall('auth', array('username' => $opt['jaiminho_user'], 'password' => $opt['jaiminho_pass']) , array(), null, $output_headers);
 
 	if(is_serialized($auth))
 	{
