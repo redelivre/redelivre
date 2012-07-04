@@ -331,11 +331,14 @@ function jaiminho_campaigncreated($data)
 	
 	$opt_contatos = get_blog_option($blog_id,'webcontatos-config');
 	
+	$plan_capabilities = Capability::getByPlanId($data['plan_id']);
+	
+	$limite_emails = ((int)$plan_capabilities->send_messages->value * 1000);
 	
 	$output_headers = null;	
 	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => Capability::getByPlanId($data['plan_id'],'send_messages')->value * 1000) , array(), null, $output_headers);
-	
+	$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
+
 	if (is_serialized($id_novoadmin)) {
 		return new WP_Error('Jaiminho', $id_novoadmin);
 	}
@@ -353,6 +356,28 @@ add_action('Campaign-created', 'jaiminho_campaigncreated', 15, 1);
 
 // Fim Página de configuração
 
+function jaiminho_campaignupdated($data)
+{
+	$opt = jaiminho_get_config();
+	
+	$plan_capabilities = Capability::getByPlanId($data['plan_id']);
+	
+	$limite_emails = ((int)$plan_capabilities->send_messages->value * 1000);
+	
+	$output_headers = null;	
+	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
+	$id_novoadmin = $client->__soapCall('changelimits', array('apikeymaster' => $opt['jaiminho_apikey'], 'plan' => $limite_emails, 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);
+
+	if (is_serialized($id_novoadmin)) {
+		return new WP_Error('Jaiminho', $id_novoadmin);
+	} 
+	else {
+		return true;
+	}
+	
+}
+
+add_action('Campaign-updated', 'jaiminho_campaignupdated', 10, 1);
 
 function jaiminho_GenerateIFrame($params)
 {
