@@ -38,12 +38,16 @@ class Capability {
      * @param int $plan_id
      * @return stdClass
      */
-    public static function getByPlanId($plan_id) {
+    public static function getByPlanId($plan_id,$slug = '') {
         global $wpdb;
         
         $capabilites = new stdClass;
+              
+        if ($slug != '')
+        	$where_add = " AND slug = '".$slug."'";
+        
         $result = $wpdb->get_results(
-            $wpdb->prepare("SELECT * FROM `capabilities` WHERE `plan_id` = %d", $plan_id), ARRAY_A);
+            $wpdb->prepare("SELECT * FROM `capabilities` WHERE `plan_id` = %d %s", $plan_id,$where_add), ARRAY_A);
             
         foreach ($result as $entry) {
             $capabilites->{$entry['slug']} = new Capability($entry);
