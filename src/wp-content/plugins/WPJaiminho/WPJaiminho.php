@@ -118,7 +118,6 @@ function jaiminho_config_menu()
 		add_submenu_page($base_page, __('Nova campanha (envio)','jaiminho'), __('Novo disparo de emails','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
 		add_submenu_page($base_page, __('Explorar campanhas','jaiminho'), __('Explorar campanhas','jaiminho'), 'manage_options', 'jaiminho-explorarcampanhas', 'jaiminho_explorarcampanhas' );
 		add_submenu_page($base_page, __('Configurações do Plugin','jaiminho'),__('Configurações do Plugin','jaiminho'), 'manage_options', 'jaiminho-config', 'jaiminho_conf_page');
-		add_submenu_page($base_page, __('Importar lista test','jaiminho'),__('Importar lista test','jaiminho'), 'manage_options', 'jaiminho-importlisttest', 'jaiminho_importlisttest');
 }
 
 /**
@@ -485,21 +484,5 @@ function jaiminho_explorarcampanhas()
 {
 	echo jaiminho_GenerateIFrame('campaign_browse.php');
 }
-
-function jaiminho_importlisttest()
-{
-	
-	$opt = jaiminho_get_config();
-
-	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	
-	$membros = array (	"'marcoamarelo@gmail.com','96953454'",
-						"'jpmehl@ethymos.com.br','96275518'");
-	
-	$returno = $client->__soapCall('listimport', array('keysession' => jaiminho_auth(), 'list_name' => 'Com campo e com membros', 'list_description' => 'Descricao de uma lista webservice com membros',$membros) , array(), null, $output_headers);
-	
-	print_r($returno);
-}
-
 
 ?>
