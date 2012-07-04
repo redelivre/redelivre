@@ -351,7 +351,13 @@ class Campaign {
         $data['location'] = $this->formatLocation($data['state'], $data['city']);
         unset($data['state'], $data['city']);
         
-        return $wpdb->update('campaigns', $data, array('id' => $this->id));
+        $r = $wpdb->update('campaigns', $data, array('id' => $this->id));
+        
+        if (false !== $r)
+            do_action('Campaign-updated', $data, $this->id);
+        
+        return $r;
+        
     }
     
     /**
