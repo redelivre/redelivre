@@ -448,6 +448,7 @@ function webcontatos_Campaign_created($data)
 	
 	$webcontatos_options['webcontatos_user'] = $contatoscc_user;
 	$webcontatos_options['webcontatos_pass'] = md5($contatoscc_pass);
+	//get_user_meta();
 	$webcontatos_options['webcontatos_url'] = $url;
 	$webcontatos_options['webcontatos_admin_url'] = '';
 	$webcontatos_options['webcontatos_admin_user'] = '';
@@ -508,9 +509,16 @@ function webcontatos_GenerateIFrame($params)
     
     $redirect = "&redirect={$service}__{$params['page']}";
     
-    $auth = webcontatos_Auth();
-   	
-	$url = "/index.php?$auth&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '').$redirect;
+    if($service == 'form')
+    {
+    	$url = "/index.php?{$service}={$params['page']}&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '');
+    }
+    else 
+	{
+   		$auth = webcontatos_Auth();
+		$url = "/index.php?$auth&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '').$redirect;
+	}
+	
 	$opt_url = $opt['webcontatos_url'];
 	
 	if($opt_url != false)
