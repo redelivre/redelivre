@@ -44,14 +44,16 @@ class Capability {
         $capabilites = new stdClass;
               
         if ($slug != '') {
-        	$where_add = " AND slug = '".$slug."'";
+        	$where_add = $wpdb->prepare(" AND slug = %s ", $slug);
         } else {
             $where_add = '';
         }
         
-        $result = $wpdb->get_results(
-            $wpdb->prepare("SELECT * FROM `capabilities` WHERE `plan_id` = %d %s", $plan_id, $where_add), ARRAY_A);
-            
+        $query = $wpdb->prepare("SELECT * FROM `capabilities` WHERE `plan_id` = %d", $plan_id);
+        $query .= $where_add;
+        
+        $result = $wpdb->get_results($query, ARRAY_A);
+        
         foreach ($result as $entry) {
             $capabilites->{$entry['slug']} = new Capability($entry);
         }
