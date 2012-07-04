@@ -14,7 +14,9 @@
 				   
 				<?php else :?>
 					<div class="empty-feature">
-						<p>Para exibir posts aqui acesse o <a href="<?php echo admin_url('edit.php'); ?>">painel de administração</a> e marque a caixa de seleção "Destaque". Você pode marcar quantos posts quiser.</p>
+						<?php if (current_user_can('edit_theme_options')): ?>
+                        <p>Para exibir posts aqui acesse o <a href="<?php echo admin_url('edit.php'); ?>">painel de administração</a> e marque a caixa de seleção "Destaque". Você pode marcar quantos posts quiser.</p>
+                        <?php endif; ?>
 					</div>
 			<?php endif; ?>
 				<nav class="clearfix">

@@ -58,11 +58,11 @@ if ($post):
 	</article>
 
 <?php else: ?>
-
+    <?php if (current_user_can('edit_theme_options')): ?>
 	<div class="empty-feature">
 		<p>Para exibir um post aqui clique acima em "editar".</p>
 	</div>
-
+    <?php endif; ?>
 <?php
 endif;
 $post = $old_post;
