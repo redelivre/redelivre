@@ -77,6 +77,7 @@ class Agenda {
         
         $link = get_post_meta($post->ID, '_link', true);
         $onde = get_post_meta($post->ID, '_onde', true);
+        $horario = get_post_meta($post->ID, '_horario', true);
      
         // The actual fields for data entry
         
@@ -92,6 +93,12 @@ class Agenda {
             echo '<tr>';
                 echo '<td><b><label for="_data_inicial">Data Final </label></td>';
                 echo "<td><input type='text' id='_data_final' name='_data_final' value='$data_final' size='25' /></td>";
+            
+            echo '</tr>';
+            
+            echo '<tr>';
+                echo '<td><b><label for="_horario">Horário </label></td>';
+                echo "<td><input type='text' id='_horario' name='_horario' value='$horario' size='25' /></td>";
             
             echo '</tr>';
             
@@ -146,6 +153,7 @@ class Agenda {
         $data_final = '_data_final';
         $link = '_link';
         $onde = '_onde';
+        $horario = '_horario';
         
         // not agenda post type
         if (!isset($_POST['agenda_noncename'])) {
@@ -191,6 +199,7 @@ class Agenda {
         update_post_meta($post_id, $data_final, date('Y-m-d h:i', strtotime($final_date_en)));
         update_post_meta($post_id, $link, trim($_POST[$link]));
         update_post_meta($post_id, $onde, trim($_POST[$onde]));
+        update_post_meta($post_id, $horario, trim($_POST[$horario]));
 
         
     }
