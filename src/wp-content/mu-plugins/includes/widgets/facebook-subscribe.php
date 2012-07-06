@@ -21,7 +21,6 @@ class WidgetFacebookSubscribe extends WP_Widget {
         
         echo $before_widget;
         ?>
-        <h3>Assine</h3>
         <iframe src="//www.facebook.com/plugins/subscribe.php?href=<?php echo urlencode($options['facebook']) ?>&amp;layout=standard&amp;show_faces=true&amp;colorscheme=light&amp;font=lucida+grande&amp;width=292&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px;" allowTransparency="true"></iframe>
         <?php
         echo $after_widget;
