@@ -417,6 +417,8 @@ function webcontatos_Campaign_validate($WP_Error)
 
 function webcontatos_Campaign_created($data)
 {
+	$errors = array();
+	
 	$mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
 	
 	$id = preg_replace('|https?://|', '', $data['domain']);
@@ -430,14 +432,13 @@ function webcontatos_Campaign_created($data)
 	
 	$opt = webcontatos_get_config();
 	
-	$client=new SoapClient($opt['webcontatos_admin_url'].'/index.php?servicos=ServicoContatos.wsdl');
-	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_admin_user'], 'password' => $opt['webcontatos_admin_pass']) , array(), null, $output_headers);
-	
-	if(!$auth)
-	{
-		exit("Não Logado");
+	try {
+		$client=new SoapClient($opt['webcontatos_admin_url'].'/index.php?servicos=ServicoContatos.wsdl', array('exceptions' => true));
+		$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_admin_user'], 'password' => $opt['webcontatos_admin_pass']) , array(), null, $output_headers);
+		$client->__soapCall('CriarSite', array('id'=>$id, 'user' => $contatoscc_user, 'pass' => $contatoscc_pass) , array(), null, $output_headers);
+	} catch (Exception $ex) {
+		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
 	}
-	$client->__soapCall('CriarSite', array('id'=>$id, 'user' => $contatoscc_user, 'pass' => $contatoscc_pass) , array(), null, $output_headers);
 	
 	$webcontatos_options = webcontatos_get_config();
 	$url = $opt['webcontatos_url'];
@@ -454,14 +455,35 @@ function webcontatos_Campaign_created($data)
 	$webcontatos_options['webcontatos_admin_user'] = '';
 	$webcontatos_options['webcontatos_admin_pass'] = '';
 	$webcontatos_options['webcontatos_admin_key'] = '';
+	
 	$blog_id = $data['blog_id'];
+	
 	switch_to_blog($blog_id);
 		update_option('webcontatos-config', $webcontatos_options, false);
 		activate_plugin('WPWebContatos/WPWebContatos.php');	
+		
+		if (count($errors) > 0) {
+			add_option('webcontatos_error_log', $errors);
+		}
 	restore_current_blog();
 }
 
 add_action('Campaign-created', 'webcontatos_Campaign_created', 10, 1);
+
+// Mensagem de dashboard para notificar eventuais falhas de ativação dos plugins
+function webcontatos_displayMessageWidget(){
+	
+	_e('<div class="error">ATENÇÃO! Ocorreu um erro ao ativar o recurso de gerenciamento de contatos.</div> ');
+	_e('Por favor, entre em contato com o suporte do Campanha Completa para resolver o problema no sistema de gerenaciamento de contatos.');
+}
+
+//Setup the widget
+function webcontatos_setupMessageWidget(){
+	if (get_option('webcontatos_error_log',false)) {
+		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'webcontatos_displayMessageWidget');	
+	}
+}
+add_action('wp_dashboard_setup', 'webcontatos_setupMessageWidget' );
 
 function webcontatos_GenerateIFrame($params)
 {

@@ -319,6 +319,8 @@ function jaiminho_conf_page()
 
 function jaiminho_campaigncreated($data)
 {
+	$errors = array();
+	
 	$blog_id = $data['blog_id'];
 	
 	$mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
@@ -336,25 +338,43 @@ function jaiminho_campaigncreated($data)
 	$limite_emails = ((int)$plan_capabilities->send_messages->value * 1000);
 	
 	$output_headers = null;	
-	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
-
-	if (is_serialized($id_novoadmin)) {
-		return new WP_Error('Jaiminho', $id_novoadmin);
+	
+	try {
+		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+		$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
+	} catch (Exception $ex) {
+		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
 	}
 	
 	$jaiminho_options['jaiminho_user'] = $id;
 	$jaiminho_options['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
-
+	
 	switch_to_blog($blog_id);	
 		update_option('jaiminho-config', $jaiminho_options, false);
-		activate_plugin('WPJaiminho/WPJaiminho.php');	
+		activate_plugin('WPJaiminho/WPJaiminho.php');
+		if (count($errors) > 0) 
+			add_option('jaiminho-error-log', $errors);
+		
 	restore_current_blog();
 }
 
 add_action('Campaign-created', 'jaiminho_campaigncreated', 15, 1);
 
 // Fim Página de configuração
+
+// Mensagem de dashboard para notificar eventuais falhas de ativação dos plugins
+function jaiminho_displayMessageWidget(){
+	_e('<div class="error">ATENÇÃO! Ocorreu um erro ao ativar o recurso de envio de emails.</div>');
+	_e('Por favor, entre em contato com o suporte do Campanha Completa para resolver o problema no sistema de envio de emails.');
+}
+
+//Setup the widget
+function jaiminho_setupMessageWidget(){
+	if (get_option('jaiminho-error-log',false)) {
+		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'jaiminho_displayMessageWidget');	
+	}
+}
+add_action('wp_dashboard_setup', 'jaiminho_setupMessageWidget' );
 
 function jaiminho_campaignupdated($data)
 {
