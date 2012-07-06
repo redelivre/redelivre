@@ -417,7 +417,9 @@ function custom_menu_order($order) {
     global $submenu;
     $menu = $submenu['themes.php'];
     foreach($menu as $k => $item) {
-
+    
+    $menuItem = null;
+    
     if ($item[2] == 'graphic_material_header') {
         $menuItem = $submenu['themes.php'][$k];
         unset($submenu['themes.php'][$k]);
@@ -425,6 +427,7 @@ function custom_menu_order($order) {
     }
 
     }
+    
     if ($menuItem)
         $submenu['themes.php'][] = $menuItem;
     return $order;

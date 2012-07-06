@@ -95,7 +95,7 @@ $option = Mobilize::getOption();
 
         <div id="mobilize-adesive" class="section">
             <h3><label><input type="checkbox" name="mobilize[adesive][active]" <?php if(Mobilize::isActive('adesive')) echo 'checked="checked"' ?> data-section="mobilize-adesive" value="1"/> Adesive sua Foto</label></h3>
-            <p class="description">Carregue uma imagem pequena com seu nome e número, com isto seus apoiadores poderão adesivar suas fotos para colocar nas redes sociais.</p>
+            <p class="description">Carregue uma imagem pequena com seu nome e número, com isto seus apoiadores poderão adesivar suas fotos para colocar nas redes sociais. Suba uma imagem horizontal com, no mínimo, 150 pixels.</p>
 
             <div class="section-content">
                 <?php Mobilize::printErrors('adesive'); ?>

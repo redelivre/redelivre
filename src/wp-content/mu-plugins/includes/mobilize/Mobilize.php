@@ -232,16 +232,18 @@ class Mobilize {
                     $adesivo = WideImage::load($path . $fname);
                     $w = $adesivo->getWidth();
 
-                    $maxSize = 160;
+                    $maxWidth = 150;
 
                     if ($w > $maxSize)
-                        $adesivo = $adesivo->resize($maxSize, null);
-
+                        $adesivo = $adesivo->resize($maxWidth, null);
+                    
+                    /*
                     $h = $adesivo->getHeight();
 
                     if ($h > $maxSize)
                         $adesivo = $adesivo->resize(null, $maxSize);
-
+                    */
+                    
                     $adesivo->saveToFile($path . $fname);
                 }
             }
@@ -288,6 +290,13 @@ class Mobilize {
         $ok = self::validadeImageUpload('adesive', $index);
         if (!$ok)
             self::addError('adesive', "O upload do adesivo falhou.");
+            
+        $file = WideImage::load($_FILES['adesive']['tmp_name'][$index]);
+        
+        if ($file->getWidth() < 150) {
+            self::addError('adesive', "O banner deve ter no mínimo 150 pixels de largura.");
+            $ok = false;
+        }
 
         return $ok;
     }
@@ -317,6 +326,8 @@ class Mobilize {
 
                 $adesivo = WideImage::load($adesive_filename);
                 $uploaded = WideImage::loadFromUpload('photo');
+                
+                $uploaded = $uploaded->resize(150, null);
 
 
                 $new = $uploaded->merge($adesivo, 'right', 'bottom');
