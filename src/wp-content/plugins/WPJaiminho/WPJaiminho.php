@@ -118,6 +118,7 @@ function jaiminho_config_menu()
 		add_submenu_page($base_page, __('Nova campanha (envio)','jaiminho'), __('Novo disparo de emails','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
 		add_submenu_page($base_page, __('Explorar campanhas','jaiminho'), __('Explorar campanhas','jaiminho'), 'manage_options', 'jaiminho-explorarcampanhas', 'jaiminho_explorarcampanhas' );
 		add_submenu_page($base_page, __('Configurações do Plugin','jaiminho'),__('Configurações do Plugin','jaiminho'), 'manage_options', 'jaiminho-config', 'jaiminho_conf_page');
+		add_submenu_page($base_page, __('Test','jaiminho'),__('Test','jaiminho'), 'manage_options', 'jaiminho-test', 'jaiminho_test');
 }
 
 /**
@@ -319,6 +320,8 @@ function jaiminho_conf_page()
 
 function jaiminho_campaigncreated($data)
 {
+	$errors = array();
+	
 	$blog_id = $data['blog_id'];
 	
 	$mainSiteDomain = preg_replace('|https?://|', '', get_site_url());
@@ -336,25 +339,43 @@ function jaiminho_campaigncreated($data)
 	$limite_emails = ((int)$plan_capabilities->send_messages->value * 1000);
 	
 	$output_headers = null;	
-	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
-
-	if (is_serialized($id_novoadmin)) {
-		return new WP_Error('Jaiminho', $id_novoadmin);
+	
+	try {
+		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+		$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
+	} catch (Exception $ex) {
+		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
 	}
 	
 	$jaiminho_options['jaiminho_user'] = $id;
 	$jaiminho_options['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
-
+	
 	switch_to_blog($blog_id);	
-		update_option('jaiminho-config', $jaiminho_options, false);
-		activate_plugin('WPJaiminho/WPJaiminho.php');	
+		update_option('jaiminho-config', $jaiminho_options);
+		activate_plugin('WPJaiminho/WPJaiminho.php');
+		if (count($errors) > 0) 
+			update_option('jaiminho-error-log', $errors);
+		
 	restore_current_blog();
 }
 
 add_action('Campaign-created', 'jaiminho_campaigncreated', 15, 1);
 
 // Fim Página de configuração
+
+// Mensagem de dashboard para notificar eventuais falhas de ativação dos plugins
+function jaiminho_displayMessageWidget(){
+	_e('<div class="error">ATENÇÃO! Ocorreu um erro ao ativar o recurso de envio de emails.</div>');
+	_e('Por favor, entre em contato com o suporte do Campanha Completa para resolver o problema no sistema de envio de emails.');
+}
+
+//Setup the widget
+function jaiminho_setupMessageWidget(){
+	if (get_option('jaiminho-error-log',false)) {
+		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'jaiminho_displayMessageWidget');	
+	}
+}
+add_action('wp_dashboard_setup', 'jaiminho_setupMessageWidget' );
 
 function jaiminho_campaignupdated($data)
 {
@@ -364,17 +385,15 @@ function jaiminho_campaignupdated($data)
 	
 	$limite_emails = ((int)$plan_capabilities->send_messages->value * 1000);
 	
-	$output_headers = null;	
-	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	$id_novoadmin = $client->__soapCall('changelimits', array('apikeymaster' => $opt['jaiminho_apikey'], 'plan' => $limite_emails, 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);
-
-	if (is_serialized($id_novoadmin)) {
-		return new WP_Error('Jaiminho', $id_novoadmin);
-	} 
-	else {
-		return true;
+	try {
+		$output_headers = null;	
+		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+		$id_novoadmin = $client->__soapCall('changelimits', array('apikeymaster' => $opt['jaiminho_apikey'], 'plan' => $limite_emails, 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);		
+	} catch (Exception $ex) {
+		wp_die('('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail);
 	}
-	
+
+	return true;
 }
 
 add_action('Campaign-updated', 'jaiminho_campaignupdated', 10, 1);
@@ -482,6 +501,28 @@ function jaiminho_auth()
 	return $auth;
 }
 
+function jaiminho_closesession()
+{
+	echo '<html>' .
+			'<body>';
+		
+	echo jaiminho_GenerateIFrame(array('page' => 'logout.php', 'width' => 0, 'height' => 0 ));
+
+	
+	echo 	'<script type="text/javascript">' .
+			'	window.onload = function ()' .
+			'		{' .
+			'		window.location = "' . ($_SERVER['HTTPS'] ? 'https://' : 'http://') .$_SERVER['HTTP_HOST'].str_replace('?'.$_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI']).'";'.
+			'		} 	' .
+			'</script>' .
+			'</body>' .
+		'</html>';
+	
+	flush();
+}
+
+add_action('wp_logout','jaiminho_closesession');
+
 function jaiminho_criarlista()
 {
 	echo jaiminho_GenerateIFrame('list_add.php');
@@ -510,6 +551,20 @@ function jaiminho_campanha()
 function jaiminho_explorarcampanhas()
 {
 	echo jaiminho_GenerateIFrame('campaign_browse.php');
+}
+
+function jaiminho_test()
+{
+	$opt = jaiminho_get_config();
+	
+	$limite_emails = 10000;
+	
+	$output_headers = null;	
+	
+	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+	$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => 'Candidato toisco', 'username' => 'prometeus','email' => 'teste12421@campanha.com', 'password' =>'321321', 'plan' => $limite_emails) , array(), null, $output_headers);
+	
+	echo $id_novoadmin;
 }
 
 ?>
