@@ -330,4 +330,24 @@ function agenda_menu_page() {
 
 }
 
+function the_event_box() {
+        
+    $meta = get_metadata('post', get_the_ID());
+    
+    if (is_array($meta) && !empty($meta)) {
+        ?>
+        <div class="event-info clear">
+            <h3>Informações do Evento</h3>
+            <?php
+            if ($meta['_data_inicial'][0]) echo '<p class="bottom"><span class="label">Data Inicial:</span> ', date('d/m/Y', strtotime($meta['_data_inicial'][0])), '</p>';
+            if ($meta['_data_final'][0]) echo '<p class="bottom"><span class="label">Data Final:</span> ', date('d/m/Y', strtotime($meta['_data_final'][0])), '</p>';
+            if ($meta['_horario'][0]) echo '<p class="bottom"><span class="label">Horário:</span> ', $meta['_horario'][0], '</p>';
+            if ($meta['_onde'][0]) echo '<p class="bottom"><span class="label">Local:</span> ', $meta['_onde'][0], '</p>';
+            if ($meta['_link'][0]) echo '<p class="bottom"><span class="label">Site:</span> ', $meta['_link'][0], '</p>';
+            ?>
+        </div>
+        <?php
+    }
+}
+
 ?>
