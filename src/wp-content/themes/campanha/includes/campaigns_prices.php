@@ -68,7 +68,7 @@
     </tr>
     
     <tr>
-        <th class="feature textleft">Domínio Próprio <br/><small>(seunome.can.br)</small></th>
+        <th class="feature textleft">Domínio Próprio <br/><small>(seunome.com.br)</small></th>
         <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
         <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
