@@ -501,6 +501,28 @@ function jaiminho_auth()
 	return $auth;
 }
 
+function jaiminho_closesession()
+{
+	echo '<html>' .
+			'<body>';
+		
+	echo jaiminho_GenerateIFrame(array('page' => 'logout.php', 'width' => 0, 'height' => 0 ));
+
+	
+	echo 	'<script type="text/javascript">' .
+			'	window.onload = function ()' .
+			'		{' .
+			'		window.location = "' . ($_SERVER['HTTPS'] ? 'https://' : 'http://') .$_SERVER['HTTP_HOST'].str_replace('?'.$_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI']).'";'.
+			'		} 	' .
+			'</script>' .
+			'</body>' .
+		'</html>';
+	
+	flush();
+}
+
+add_action('wp_logout','jaiminho_closesession');
+
 function jaiminho_criarlista()
 {
 	echo jaiminho_GenerateIFrame('list_add.php');
