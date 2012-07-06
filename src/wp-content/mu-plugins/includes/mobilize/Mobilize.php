@@ -75,7 +75,7 @@ class Mobilize {
 
         if ($menu) {
             foreach ($items as $item) {
-                if ($item->post_title == 'Mobilização') {
+                if ($item->url == home_url('/mobilizacao')) {
                     $menuItem = $item;
                 }
             }

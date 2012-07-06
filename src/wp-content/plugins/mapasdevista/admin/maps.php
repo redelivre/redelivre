@@ -58,7 +58,7 @@ function mapasdevista_maps_page() {
                 
                 if ($menu) {
                     foreach ($items as $item) {
-                        if ($item->post_title == 'Mapa') {
+                        if ($item->url == home_url('/mapa')) {
                             $menuItem = $item;
                         }
                     }

@@ -285,8 +285,9 @@ function agenda_menu_page() {
         $menuItem = null;
         
         if ($menu) {
+            
             foreach ($items as $item) {
-                if ($item->post_title == 'Agenda') {
+                if ($item->url == home_url('/agenda')) {
                     $menuItem = $item;
                 }
             }

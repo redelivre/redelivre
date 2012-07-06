@@ -34,7 +34,7 @@ function campanha_toggle_contact_menu_entry($oldValue, $newValue) {
     
     if ($menu) {
         foreach ($items as $item) {
-            if ($item->post_title == 'Contato') {
+            if ($item->url == home_url('/contato')) {
                 $menuItem = $item;
             }
         }
