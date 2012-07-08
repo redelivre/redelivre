@@ -2,7 +2,13 @@
 global $post;
 $old_post = $post;
 
-$post = $self->getPostFromPermalink($config);
+if ( (isset($config['widget_action']) && $config['widget_action'] == 'cat') || ( empty($config['widget_action']) && isset($config['cat']) && !empty($config['cat']) ) ) {
+        $showing = 'cat';
+        $post = $self->getLastPostFromCat($config);
+    } else {
+        $showing = 'post';
+        $post = $self->getPostFromPermalink($config);
+    }
 
 if ($post):
 			?>
@@ -50,10 +56,15 @@ if ($post):
             
 		</div>
 		<footer class="clearfix">	
-			<p class="taxonomies">			
-				<span><?php _e('Categories', 'magazine01'); ?>:</span> <?php the_category(', ');?><br />
-				<?php the_tags('<span>Tags:</span> ', ', '); ?>
-			</p>		
+			<p class="taxonomies">
+                <?php if ($showing == 'post'): ?>
+                    <span><?php _e('Categories', 'magazine01'); ?>:</span> <?php the_category(', ');?><br />
+                    <?php the_tags('<span>Tags:</span> ', ', '); ?>
+                <?php else: ?>
+                    <?php $curCat = get_category($config['cat']); $curCatLink = get_category_link($config['cat']); ?>
+                    <span>Ver mais <a href="<?php echo $curCatLink; ?>"><?php echo $curCat->name; ?></a></span>
+                <?php endif; ?>
+			</p>
 		</footer>
 	</article>
 

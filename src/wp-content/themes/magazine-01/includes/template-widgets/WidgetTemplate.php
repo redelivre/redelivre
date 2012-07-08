@@ -105,7 +105,7 @@ abstract class WidgetTemplate {
                     <input type="hidden" name="_template_part" value="<?php echo $this->template_part; ?>" />
                     <input type="hidden" name="_widget_id" value="<?php echo $this->id; ?>" />
                         <?php $this->form($this->getConfig()); ?>
-                    <input type="submit" name="save" value="<?php _e('save'); ?>"/>
+                    <input type="submit" name="save" value="Aplicar"/>
                 </form>
             </div>
         </div>

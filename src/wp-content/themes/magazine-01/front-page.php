@@ -32,8 +32,8 @@
 			<div class="col-3 last"><?php echo new WidgetUniquePost('unique-post-3','loop-other-features') ?></div>
 			<div class="clear"></div>
 			<div class="col-3 first"><?php echo new WidgetUniquePost('unique-post-4','loop-other-features') ?></div>
-			<div class="col-3"><?php echo new WidgetUniquePost('unique-post-4','loop-other-features') ?></div>
-			<div class="col-3 last"><?php echo new WidgetUniquePost('unique-post-4','loop-other-features') ?></div>
+			<div class="col-3"><?php echo new WidgetUniquePost('unique-post-5','loop-other-features') ?></div>
+			<div class="col-3 last"><?php echo new WidgetUniquePost('unique-post-6','loop-other-features') ?></div>
 		</section>
 		<!-- #home-other-features -->
 		<aside id="home-sidebar" class="col-3">
