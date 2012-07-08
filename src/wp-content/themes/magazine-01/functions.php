@@ -138,9 +138,11 @@ function magazine01_auto_excerpt_more( $more ) {
 if (!function_exists('magazine01_custom_header')) :
 
     function magazine01_custom_header() {
+        $custom_header = get_custom_header();
+        
         ?>
         <style type="text/css">
-            #branding { background: url(<?php header_image(); ?>); }
+            #branding { background: url(<?php header_image(); ?>) no-repeat; height: <?php echo $custom_header->height - 110; ?>px; }
 			<?php if ( 'blank' == get_header_textcolor() ) : ?>
 				#branding h1, #branding p { display: none; }        
 			<?php else: ?>       
