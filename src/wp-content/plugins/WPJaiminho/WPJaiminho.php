@@ -98,7 +98,7 @@ add_action('init','jaiminho_init');
 
 function jaiminho_scripts()
 {
-	wp_enqueue_script('jaiminho', JAIMINHO_URL.'/js/WPJaiminho.js');
+	wp_enqueue_script('jaiminho', JAIMINHO_URL.'/js/WPJaiminho.js',array('jquery','jquery-form'));
 }
 add_action( 'wp_print_scripts', 'jaiminho_scripts' );
 
@@ -110,12 +110,12 @@ function jaiminho_config_menu()
 {
 	$base_page = 'jaiminho-campanha';
 	if (function_exists('add_menu_page'))
-		add_object_page( __('Jaiminho','Jaiminho'), __('Jaiminho','Jaiminho'), 'manage_options', $base_page, array(), JAIMINHO_URL."/imagens/icon.png");
+		add_object_page( __('Email/SMS','Email/SMS'), __('Email/SMS','Jaiminho'), 'manage_options', $base_page, array(), JAIMINHO_URL."/imagens/icon.png");
 		add_submenu_page($base_page, __('Criar lista','jaiminho'), __('Criar lista','jaiminho'), 'manage_options', 'jaiminho-criarlista', 'jaiminho_criarlista' );
 		add_submenu_page($base_page, __('Explorar listas','jaiminho'), __('Explorar listas','jaiminho'), 'manage_options', 'jaiminho-explorarlistas', 'jaiminho_explorarlistas' );
 		add_submenu_page($base_page, __('Campos personalizados','jaiminho'), __('Campos personalizados','jaiminho'), 'manage_options', 'jaiminho-campospersonalizados', 'jaiminho_campospersonalizados' );
 		add_submenu_page($base_page, __('Importar membros','jaiminho'), __('Importar membros','jaiminho'), 'manage_options', 'jaiminho-importarmembros', 'jaiminho_importarmembros' );
-		add_submenu_page($base_page, __('Nova campanha (envio)','jaiminho'), __('Novo disparo de emails','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
+		add_submenu_page($base_page, __('Nova campanha (envio)','jaiminho'), __('Nova campanha (envio)','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
 		add_submenu_page($base_page, __('Explorar campanhas','jaiminho'), __('Explorar campanhas','jaiminho'), 'manage_options', 'jaiminho-explorarcampanhas', 'jaiminho_explorarcampanhas' );
 		add_submenu_page($base_page, __('Configurações do Plugin','jaiminho'),__('Configurações do Plugin','jaiminho'), 'manage_options', 'jaiminho-config', 'jaiminho_conf_page');
 		add_submenu_page($base_page, __('Test','jaiminho'),__('Test','jaiminho'), 'manage_options', 'jaiminho-test', 'jaiminho_test');
@@ -342,19 +342,32 @@ function jaiminho_campaigncreated($data)
 	
 	try {
 		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
-		$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
+		$defaultmailinglist_id = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => get_blog_option($blog_id,'admin_email'), 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
 	} catch (Exception $ex) {
 		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
 	}
 	
-	$jaiminho_options['jaiminho_user'] = $id;
-	$jaiminho_options['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
+	$opt['jaiminho_user'] = $id;
+	$opt['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
 	
-	switch_to_blog($blog_id);	
-		update_option('jaiminho-config', $jaiminho_options);
+	switch_to_blog($blog_id);
+		
+		update_option('jaiminho-config', $opt);
 		activate_plugin('WPJaiminho/WPJaiminho.php');
 		if (count($errors) > 0) 
 			update_option('jaiminho-error-log', $errors);
+			
+		// TODO: CORRIGIR ESSA FUNÇÃO PARA CADASTRAR O WIDGET DO JAIMINHO POR DEFAULT 
+		wp_register_sidebar_widget(
+		    'jaiminho_widget_1',        // your unique widget id
+		    'Jaiminho Widget',          // widget name
+		    'jaiminho_widget',  // callback function
+		    array(                  // options
+		        'title' => 'Cadastre seu e-mail',
+		        'jaiminho_text' => 'Receba as novidades da campanha',
+		        'jaiminho_id' => $defaultmailinglist_id
+		    )
+		);
 		
 	restore_current_blog();
 }
@@ -522,6 +535,56 @@ function jaiminho_closesession()
 }
 
 add_action('wp_logout','jaiminho_closesession');
+
+
+/**
+ * Cria o formulário do Jaminho
+ *
+ * @param int $jaminho_id O ID da campanha
+ * @param string $mensagem Opcional. A mensagem que será apresentada dentro do input de texto
+ * @param string $origem Opcional. A origem
+ */
+function jaiminho( $jaiminho_id, $mensagem = '' ) { ?>
+
+	<form id="jaiminho-form" method="post" action="<?php echo JAIMINHO_URL; ?>/jaiminho-request.php" >				
+	    <input type="hidden" name="FormValue_MailListIDs[]" value="<?php echo $jaiminho_id; ?>" />					
+		<?php if ( !empty( $mensagem ) ) : ?>
+			<input type="text" class="jaiminho-text" name="FormValue_Email" value="<?php echo $mensagem; ?>" onblur="if (this.value == '') {this.value = '<?php echo $mensagem; ?>'};" onfocus="if(this.value == '<?php echo $mensagem; ?>') {this.value = ''};" />
+		<?php else : ?>
+			<input type="text" class="jaiminho-text" name="FormValue_Email" value="" />
+		<?php endif;?>
+							
+		<?php
+			$opt = get_option('jaiminho-config');
+		?>
+		<input type="hidden" name="request" value="<?php echo base64_encode($opt['jaiminho_url']); ?>"/>
+										
+		<input type="submit" class="jaiminho-submit" name="Subscribe" value="Cadastrar" />	
+	</form>	
+	
+	<div id="jaiminho-output"></div>
+	<?php
+	 	
+}
+
+/*
+ * Inclui o widget após o carregamento dos plugins ativos
+ */
+function jaiminho_widget() {
+	require_once( 'jaiminho-widget.php' );
+}
+
+add_action( 'plugins_loaded', 'jaiminho_widget' );
+
+
+/*
+ * Registra o widget
+ */
+function jaiminho_register_widget() {
+	register_widget( 'Widget_Jaiminho' );
+}
+	
+add_action( 'init', 'jaiminho_register_widget', 1 );
 
 function jaiminho_criarlista()
 {
