@@ -416,6 +416,8 @@ add_action('custom_header_options', function() {
 function custom_menu_order($order) {
     global $submenu;
     $menu = $submenu['themes.php'];
+    if (!is_array($menu))
+        return $order;
     foreach($menu as $k => $item) {
     
     $menuItem = null;
