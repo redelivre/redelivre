@@ -238,8 +238,9 @@ class Mobilize {
 
                     $maxWidth = 150;
 
-                    if ($w > $maxSize)
+                    if ($w > $maxWidth) {
                         $adesivo = $adesivo->resize($maxWidth, null);
+                    }
                     
                     /*
                     $h = $adesivo->getHeight();
