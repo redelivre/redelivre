@@ -1,0 +1,29 @@
+
+td { text-align: center; line-height: 2em;}
+thead td { font-weight: bold; }
+.bar {
+	width: 200px;
+	text-align: left;
+	line-height: 2em;
+	padding: 0px;
+}
+.ind {
+	position: absolute;
+	background-color: #83B4D8;
+	width: 1px;
+	z-index: 9;
+}
+.stat {
+	z-index: 10;
+	position: relative;
+	text-align: center;
+}
+td.submit {
+	margin:0;
+	padding:0;
+}
+
+td {
+	padding-left:10px;
+	padding-right:10px;
+}
