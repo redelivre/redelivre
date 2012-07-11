@@ -416,22 +416,25 @@ add_action('custom_header_options', function() {
 function custom_menu_order($order) {
     global $submenu;
     $menu = $submenu['themes.php'];
-    if (!is_array($menu))
+    
+    if (!is_array($menu)) {
         return $order;
-    foreach($menu as $k => $item) {
-    
-    $menuItem = null;
-    
-    if ($item[2] == 'graphic_material_header') {
-        $menuItem = $submenu['themes.php'][$k];
-        unset($submenu['themes.php'][$k]);
-        break;
-    }
-
     }
     
-    if ($menuItem)
+    foreach ($menu as $k => $item) {
+        $menuItem = null;
+        
+        if ($item[2] == 'graphic_material_header') {
+            $menuItem = $submenu['themes.php'][$k];
+            unset($submenu['themes.php'][$k]);
+            break;
+        }
+    }
+    
+    if ($menuItem) {
         $submenu['themes.php'][] = $menuItem;
+    }
+    
     return $order;
 }
 
