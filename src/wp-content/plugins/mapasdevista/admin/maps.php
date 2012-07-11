@@ -382,9 +382,12 @@ function mapasdevista_maps_page() {
             })(jQuery);
             </script>
             
-            <input type="hidden" name="map[logical_operator]" value="" />
             
             <input type="hidden" name="map[post_types][]" value="mapa" />
+            
+            <input type="hidden" name="map[taxonomies][]" value="categoria-mapa" />
+            
+            <input type="hidden" name="map[logical_operator]" value="OR" />
             
             <?php do_action('mapasdevista_maps_settings_bottom',$map); ?>
             

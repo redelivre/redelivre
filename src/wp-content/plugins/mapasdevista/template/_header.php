@@ -13,6 +13,11 @@
             ?></title>
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+        
+        <?php if (preg_match('|/wp-content/plugins/|', __FILE__)) : ?>
+            <link rel="stylesheet" type="text/css" media="all" href="<?php echo WP_CONTENT_URL; ?>/plugins/mapasdevista/style.css" />
+        <?php endif; ?>
+        
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
         
         <style type="text/css">
