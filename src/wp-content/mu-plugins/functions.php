@@ -415,6 +415,11 @@ add_action('custom_header_options', function() {
 
 function custom_menu_order($order) {
     global $submenu;
+    
+    if (!isset($submenu['themes.php'])) {
+        return $order;
+    }
+    
     $menu = $submenu['themes.php'];
     
     if (!is_array($menu)) {
@@ -431,7 +436,7 @@ function custom_menu_order($order) {
         }
     }
     
-    if ($menuItem) {
+    if (isset($menuItem) && $menuItem) {
         $submenu['themes.php'][] = $menuItem;
     }
     
