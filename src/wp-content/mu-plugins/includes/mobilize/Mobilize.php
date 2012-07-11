@@ -141,7 +141,10 @@ class Mobilize {
 
     static function getNumBanners() {
         $option = self::getOption('banners');
-        return count($option['files']);
+        
+        if (isset($option['files'])) {
+            return count($option['files']);
+        }
     }
 
     static function getBannerURL($size, $index = 0) {
