@@ -13,8 +13,8 @@ Template Name: Home
 				<p>São várias opções de layout para sua escolha.</p>
 			</article>
 			<article id="frase-2" class="frase">
-				<h2><a href="<?php echo get_page_link(2); ?>#mobilize">Gerencie sua presença nas redes sociais em um único lugar.</a></h2>
-				<p>Publique ao mesmo tempo em seu site e nas redes.</p>
+				<h2><a href="<?php echo get_page_link(2); ?>#mobilize">Integre suas redes sociais no seu site de campanha.</a></h2>
+				<p>As melhores ferramentas em um único lugar.</p>
 			</article>
 			<article id="frase-3" class="frase">
 				<h2><a href="<?php echo get_page_link(2); ?>#contatos">Organize e compartilhe contatos entre sua equipe com segurança.</a></h2>
@@ -26,11 +26,11 @@ Template Name: Home
 			</article>
 			<article id="frase-5" class="frase">
 				<h2><a href="<?php echo get_page_link(2); ?>#georeferenciamento">Mapeie sua campanha com mapas do Google ou OpenStreet.</a></h2>
-				<p>Explores as posibilidades dos mapas interativos.</p>
+				<p>Explore as possibilidades dos mapas interativos.</p>
 			</article>
 			<article id="frase-6" class="frase">
 				<h2><a href="<?php echo get_page_link(2); ?>#materialgrafico">Monte você mesmo seus  próprios materiais gráficos.</a></h2>
-				<p>Gerador de santinhos, colinhas e flyers.</p>
+				<p>Gere santinhos, colinhas e flyers.</p>
 			</article>
 		</div>
 		<nav id="next"><a>Próximo</a></nav>       
