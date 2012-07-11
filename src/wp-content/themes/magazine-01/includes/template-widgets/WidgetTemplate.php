@@ -88,7 +88,7 @@ abstract class WidgetTemplate {
     
     protected function _form() {
 
-        if (!current_user_can('manage_option'))
+        if (!current_user_can('publish_posts'))
             return;
 
         $class = get_class($this);
