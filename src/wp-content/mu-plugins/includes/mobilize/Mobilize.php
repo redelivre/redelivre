@@ -335,6 +335,8 @@ class Mobilize {
 
 
                 $new = $uploaded->merge($adesivo, 'right', 'bottom');
+                header('Content-disposition: attachment; filename=foto.jpg');
+                header('Content-type: image/jpeg');
                 $new->output('jpg', 100);
                 die;
             }
