@@ -57,17 +57,20 @@ $blogurl = urlencode(get_bloginfo('url'));
                         <div class="mobilize-banners">
                             <!-- banner de 250x250 -->
                             <div class="banner-250"><img width="250" height="250" src="<?php echo Mobilize::getBannerURL(250, $i) ?>" alt="" /></div>
-                            <textarea class="code"><?php echo htmlentities('<a href="' . get_bloginfo('url') . '"><img src="' . Mobilize::getBannerURL(250, $i) . '" /></a>') ?></textarea>					
+                            <textarea class="code"><?php echo htmlentities('<a href="' . get_bloginfo('url') . '"><img src="' . Mobilize::getBannerURL(250, $i) . '" /></a>') ?></textarea>
+                            <input class="code" type="text" readonly="readonly" value="<?php echo Mobilize::getBannerURL(250, $i); ?>" />					
                         </div>
                         <div class="mobilize-banners">
                             <!-- banner de 200x200 -->
                             <div class="banner-200"><img width="200" height="200" src="<?php echo Mobilize::getBannerURL(200, $i) ?>" alt="" /></div>
-                            <textarea class="code"><?php echo htmlentities('<a href="' . get_bloginfo('url') . '"><img src="' . Mobilize::getBannerURL(200, $i) . '" /></a>') ?></textarea>					
+                            <textarea class="code"><?php echo htmlentities('<a href="' . get_bloginfo('url') . '"><img src="' . Mobilize::getBannerURL(200, $i) . '" /></a>') ?></textarea>
+                            <input class="code" type="text" readonly="readonly" value="<?php echo Mobilize::getBannerURL(200, $i); ?>" />					
                         </div>
                         <div class="mobilize-banners">
                             <!-- banner de 125x125 -->
                             <div class="banner-125"><img width="125" height="125" src="<?php echo Mobilize::getBannerURL(125, $i) ?>" alt="" /></div>
-                            <textarea class="code"><?php echo htmlentities('<a href="' . get_bloginfo('url') . '"><img src="' . Mobilize::getBannerURL(125, $i) . '" /></a>') ?></textarea>	
+                            <textarea class="code"><?php echo htmlentities('<a href="' . get_bloginfo('url') . '"><img src="' . Mobilize::getBannerURL(125, $i) . '" /></a>') ?></textarea>
+                            <input class="code" type="text" readonly="readonly" value="<?php echo Mobilize::getBannerURL(125, $i); ?>" />	
                         </div>
                     <?php endfor; ?>
                 </section>
