@@ -10,6 +10,12 @@
 						<?php html::part('loop','feature'); ?>
 					<?php endwhile; ?>
 				</div>
+				<?php if ($homefeatures->post_count > 1) : ?>
+    				<nav class="clearfix">
+                        <a class="hl-nav-left">Anterior</a>
+                        <a class="hl-nav-right">Próximo</a>  <!-- qualquer elemento com a classe hl-nav-right -->
+                    </nav>
+                <?php endif; ?>
 			<?php else :?>
 				<div class="empty-feature">
 					<?php if (current_user_can('edit_theme_options')): ?>
@@ -17,10 +23,6 @@
                     <?php endif; ?>
 				</div>
 			<?php endif; ?>
-			<nav class="clearfix">
-				<a class="hl-nav-left">Anterior</a>
-				<a class="hl-nav-right">Próximo</a>  <!-- qualquer elemento com a classe hl-nav-right -->
-			</nav>
 		</section>        
 		<!-- #home-features -->
 		<section id="home-other-features" class="clearfix col-9">			
