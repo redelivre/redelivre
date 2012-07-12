@@ -15,8 +15,8 @@ class Mobilize {
     const OPTION_NAME = 'mobilize';
     const TEXTO_DESCRITIVO_PADRAO_PAGINA = 'Ajude-nos em nossa campanha.';
     const TEXTO_DESCRITIVO_PADRAO_REDES = 'Acompanhe a campanha nas redes sociais abaixo.';
-    const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Copie o código abaixo e insira no seu blog ou site os banners da campanha.';
-    const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Coloque sua foto em “Escolher arquivo” e depois clique em “Adesivar foto”, agora é só aguardar!';
+    const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Utilize o código da primeira caixa abaixo para inserir um dos banners da campanha no seu site ou blog ou então utilize o link da segunda caixa para compartilhar um dos banners nas redes sociais.';
+    const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Coloque sua foto em "Escolher arquivo" e depois clique em "Adesivar foto", agora é só aguardar!';
     const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar!.';
 
     static $errors = array('banners' => array(), 'adesive' => array(), 'redes' => array(), 'envie' => array());
@@ -56,12 +56,8 @@ class Mobilize {
 
             // para não perder as imagens quando salvar o post sem enviar outras imagens.
             // se for implementar mais de uma imagem por seção, tem que pensar num modo de deletar imagens
-            if (isset($options['banners']['files'])) {
-                $_POST['mobilize']['banners']['files'] = $option['banners']['files'];
-            }
-            if (isset($options['adesive']['files'])) {
-                $_POST['mobilize']['adesive']['files'] = $option['adesive']['files'];
-            }
+            $_POST['mobilize']['banners']['files'] = $option['banners']['files'];
+            $_POST['mobilize']['adesive']['files'] = $option['adesive']['files'];
 
             self::handleBannerUploads();
             self::handleAdesiveUploads();
@@ -141,7 +137,10 @@ class Mobilize {
 
     static function getNumBanners() {
         $option = self::getOption('banners');
-        return count($option['files']);
+        
+        if (isset($option['files'])) {
+            return count($option['files']);
+        }
     }
 
     static function getBannerURL($size, $index = 0) {
@@ -336,6 +335,8 @@ class Mobilize {
 
 
                 $new = $uploaded->merge($adesivo, 'right', 'bottom');
+                header('Content-disposition: attachment; filename=foto.jpg');
+                header('Content-type: image/jpeg');
                 $new->output('jpg', 100);
                 die;
             }

@@ -14,7 +14,7 @@ Template Name: Home
 			</article>
 			<article id="frase-2" class="frase">
 				<h2><a href="<?php echo get_page_link(2); ?>#mobilize">Integre suas redes sociais no seu site de campanha.</a></h2>
-				<p>As melhores ferramentas em um único lugar.</p>
+				<p>Ferramentas de mobilização reunidas em um só lugar.</p>
 			</article>
 			<article id="frase-3" class="frase">
 				<h2><a href="<?php echo get_page_link(2); ?>#contatos">Organize e compartilhe contatos entre sua equipe com segurança.</a></h2>

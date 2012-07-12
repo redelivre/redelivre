@@ -19,7 +19,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
- 
+
 // Defines
 
 if(!defined('__DIR__')) {
@@ -65,7 +65,7 @@ function jaiminho_get_config()
 	$opt['jaiminho_admin_url'] = 'http://beta.ethymos.com.br/jaiminho/e/admin';
 	$opt['jaiminho_user'] = 'admin';
 	$opt['jaiminho_pass'] = 'admin';
-	$opt['jaiminho_apikey'] = '6C<|d&~(n^b&-Qno_6Buj=cj5Bqf{\B0G<z~}.KZ+a"k *Jim.S!j D}i%{D{s)@o&["v#';
+	$opt['jaiminho_apikey'] = 'AIzaSyDHowXjdVc2WOEx25AnVzF_tsWBUaY6wVA';
 	$opt['width'] = 960;
 	$opt['height'] = 2500;
 	
@@ -622,10 +622,14 @@ function jaiminho_test()
 	
 	$limite_emails = 10000;
 	
-	$output_headers = null;	
+	$output_headers = null;
 	
-	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
-	$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => 'Candidato toisco', 'username' => 'prometeus','email' => 'teste12421@campanha.com', 'password' =>'321321', 'plan' => $limite_emails) , array(), null, $output_headers);
+	try {
+		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+		$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => 'Candidato toisco', 'username' => 'prometeus','email' => 'teste12421@campanha.com', 'password' =>'321321', 'plan' => $limite_emails) , array(), null, $output_headers);	
+	} catch (Exception $ex) {
+		print_r($ex);
+	}
 	
 	echo $id_novoadmin;
 }
