@@ -56,7 +56,8 @@ function mapasdevista_set_default_settings() {
             ),
         'logical_operator' => 'OR',
         'post_types' => array('mapa'),
-        'taxonomies' => array('categoria-mapa')
+        'taxonomies' => array('categoria-mapa'),
+        'visibility' => 'private'
     
     );
     
@@ -229,10 +230,19 @@ function mapasdevista_base_custom_url_rewrites($rules) {
 
 function mapasdevista_page_template_redirect() {
     global $wp_query;
+    
+    $mapinfo = get_option('mapasdevista', true);
 
-    if ($wp_query->get('mapa-tpl')) {
-        mapasdevista_get_template('template/main-template');
-        exit;
+
+    
+    if ($wp_query->get('mapa-tpl')  ) {
+        if ( $mapinfo['visibility'] == 'public' || current_user_can('edit_posts')) {
+            mapasdevista_get_template('template/main-template');
+            exit;
+        }
+        else
+            $wp_query->is_404 = true;
+        
     }
 }
 
