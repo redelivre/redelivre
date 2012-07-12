@@ -22,21 +22,11 @@ function mapasdevista_maps_page() {
     global $wp_post_types, $wp_taxonomies;
     ?>
 
-
+    <form method="POST">
     <div class="wrap">
         <h2>Configuração do Mapa</h2>
         
-            <div class="updated">
-            
-                <p>
-                
-                O mapa pode ser acessado através do endereço <a href="<?php echo site_url('mapa'); ?>"><?php echo site_url('mapa'); ?></a>.
-                
-                Se você ainda não tiver colocado <input type="button" name="create_menu_item" value="Inserir item no menu" onClick="document.location = '<?php echo add_query_arg('action', 'add_menu_item'); ?>';" />
-                
-                </p>
-            
-            </div>
+        
             
             <?php if (isset($_GET['message']) && $_GET['message'] == 'save_success'): ?>
                 
@@ -99,10 +89,27 @@ function mapasdevista_maps_page() {
                 $map['filters'] = array();
 
             ?>
-            <pre>
-            <?php //print_r($map); ?>
-            </pre>
-            <form method="POST">
+            
+            <div class="updated">
+            
+                <p>
+                
+                <h3>Visibilidade do Mapa:</h3>
+
+                <input type="radio" name="map[visibility]" value="private" id="map_visibility_private" <?php if($map['visibility'] == 'private' || !isset($map['visibility'])) echo 'checked'; ?> /> <b><label for="map_visibility_private">Privado</label></b> - Apenas usuários logados, com permissão de edição neste site poderão ver o mapa.
+                <br /><br />
+                <input type="radio" name="map[visibility]" value="public" id="map_visibility_public" <?php if($map['visibility'] == 'public') echo 'checked'; ?> /> <b><label for="map_visibility_public">Público</label></b> - Qualquer visitante do site poderá ver o mapa e as informações publicadas nele.
+                <br /><br />
+                O mapa pode ser acessado através do endereço <a href="<?php echo site_url('mapa'); ?>"><?php echo site_url('mapa'); ?></a>.
+                
+                Se você ainda não tiver colocado <input type="button" name="create_menu_item" value="Inserir item no menu" onClick="document.location = '<?php echo add_query_arg('action', 'add_menu_item'); ?>';" />
+                
+                </p>
+            
+            </div>
+            
+
+            
             <?php do_action('mapasdevista_maps_settings_top',$map); ?>
             
             <input type="hidden" name="original_page_id" value="<?php echo $_GET['page_id']; ?>" />
@@ -165,7 +172,7 @@ function mapasdevista_maps_page() {
                                 <input type="text" class="small-field" name="map[coord][lng]" id="mpv_lng" value="<?php echo $map['coord']['lng'];?>"/>
                             </li>
                             <li>
-                                <label for="mpv_zoom" class="small">Zoom level:</label>
+                                <label for="mpv_zoom" class="small">Nível de zoom:</label>
                                 <input type="text" class="small-field" name="map[zoom]" id="mpv_zoom" value="<?php echo $map['zoom'];?>"/>
                             </li>
                             <li><input type="button" id="mapbutton" value="Center map"/></li>
@@ -205,12 +212,12 @@ function mapasdevista_maps_page() {
                         <p><?php _e('Empty for no limit.', 'mapasdevista'); ?> </p>
                         <ul id="mpv_map_status">
                              <li>
-                                <label for="mpv_min_zoom" class="small">Zoom out level:</label>
+                                <label for="mpv_min_zoom" class="small">mínimo:</label>
                                 <input type="text" class="small-field" name="map[min_zoom]" id="mpv_min_zoom" value="<?php echo $map['min_zoom'];?>"/>
                                 <input type="button" value="<?php _e('Capture current level', 'mapasdevista'); ?>" id="mpv_capture_min_zoom" />
                             </li>
                              <li>
-                                <label for="mpv_max_zoom" class="small">Zoom in level:</label>
+                                <label for="mpv_max_zoom" class="small">máximo:</label>
                                 <input type="text" class="small-field" name="map[max_zoom]" id="mpv_max_zoom" value="<?php echo $map['max_zoom'];?>"/>
                                 <input type="button" value="<?php _e('Capture current level', 'mapasdevista'); ?>" id="mpv_capture_max_zoom" />
                             </li>
@@ -221,17 +228,17 @@ function mapasdevista_maps_page() {
                 </table>
             </fieldset>
 
-            <h3><?php _e("Show controls");?></h3>
+            <h3>Exibir Controles:</h3>
             <ul>
                 <li><?php _e("Zoom");?>:
                         <ul style="padding-left: 30px">
-                            <li><input type="radio" name="map[control][zoom]"<?php if($map['control']['zoom'] == 'large'){ echo ' checked';}?> id="mpv_control_large_zoom" value="large"/> <label for="mpv_control_large_zoom"><?php _e("Large");?></label></li>
-                            <li><input type="radio" name="map[control][zoom]"<?php if($map['control']['zoom'] == 'small'){ echo ' checked';}?> id="mpv_control_small_zoom" value="small"/> <label for="mpv_control_small_zoom"><?php _e("Small");?></label></li>
-                            <li><input type="radio" name="map[control][zoom]"<?php if($map['control']['zoom'] == 'none') { echo ' checked';}?> id="mpv_control_no_zoom" value="none"/> <label for="mpv_control_no_zoom"><?php _e("None");?> </label></li>
+                            <li><input type="radio" name="map[control][zoom]"<?php if($map['control']['zoom'] == 'large'){ echo ' checked';}?> id="mpv_control_large_zoom" value="large"/> <label for="mpv_control_large_zoom">Grande</label></li>
+                            <li><input type="radio" name="map[control][zoom]"<?php if($map['control']['zoom'] == 'small'){ echo ' checked';}?> id="mpv_control_small_zoom" value="small"/> <label for="mpv_control_small_zoom">Pequeno</label></li>
+                            <li><input type="radio" name="map[control][zoom]"<?php if($map['control']['zoom'] == 'none') { echo ' checked';}?> id="mpv_control_no_zoom" value="none"/> <label for="mpv_control_no_zoom">Não mostrar</label></li>
                         </ul>
                 </li>
-                <li><input type="checkbox" id="mpv_control_pan"<?php if(isset($map['control']['pan'])){ echo ' checked';}?> name="map[control][pan]" /> <label for="mpv_control_pan"><?php _e("Pan");?></label></li>
-                <li><input type="checkbox" id="mpv_control_map_type"<?php if(isset($map['control']['map_type'])){ echo ' checked';}?> name="map[control][map_type]" /> <label for="mpv_control_map_type"><?php _e("Map type");?></label></li>
+                <li><input type="checkbox" id="mpv_control_pan"<?php if(isset($map['control']['pan'])){ echo ' checked';}?> name="map[control][pan]" /> <label for="mpv_control_pan">Mover</label></li>
+                <li><input type="checkbox" id="mpv_control_map_type"<?php if(isset($map['control']['map_type'])){ echo ' checked';}?> name="map[control][map_type]" /> <label for="mpv_control_map_type">Tipo de mapa (satélite ou mapa)</label></li>
             </ul>            
 
             <script type="text/javascript">
@@ -393,12 +400,12 @@ function mapasdevista_maps_page() {
             
             <input type="submit" name="submit_map" value="<?php _e('Save Changes', 'mapasdevista'); ?>" />
 
-            </form>
+        
 
 
 
     </div>
-
+    </form>
 
     <?php
 
