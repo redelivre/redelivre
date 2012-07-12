@@ -1,0 +1,213 @@
+.jetpack-message {
+	position: relative;
+	z-index: 100;
+	border: 1px solid #2a8cba !important;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: url( images/cloudybox-back.png ) 100% 100% no-repeat;
+	background-color: #6aafcf !important;
+	-webkit-box-shadow: inset 0 0 15px rgba( 0,0,0,0.04 );
+	-moz-box-shadow: inset 0 0 15px rgba( 0,0,0,0.04 );
+	box-shadow: inset 0 0 15px rgba( 0,0,0,0.04 );
+	padding: 18px 90px 8px 15px !important;
+	overflow: hidden;
+	line-height: 180%;
+}
+
+.jp-connect { padding: 10px 0 5px !important; }
+
+#jetpack-settings > .jetpack-message { margin: 10px 13px 10px 15px }
+
+.jetpack-message .squeezer {
+	margin: 0 0 2px;
+	padding: 0 10px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.jetpack-message h4 {
+	margin: 0;
+	font-size: 18px;
+	font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",Verdana,"Bitstream Vera Sans",sans-serif;
+	font-weight: normal;
+	color: #fff;
+	text-shadow: 0px 1px 1px rgba(0,0,0,0.4);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	display: block;
+	float: left;
+}
+
+.jetpack-message h5 {
+	font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",Verdana,"Bitstream Vera Sans",sans-serif;
+	margin: 0;
+}
+
+.jetpack-message code, .jetpack-err p {
+	background: rgba( 0,0,0,0.2 );
+	font-size: 14px;
+	padding: 3px 5px !important;
+	text-shadow: 0px 1px 1px rgba(0,0,0,0.4);
+	color: #fff;
+}
+
+.jetpack-message p {
+	float: right;
+	margin: -1px 0 0 0 !important;
+	padding: 0;
+	display: block;
+}
+
+.jetpack-message a {
+	color: #fff;
+	text-decoration: underline;
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	-ms-transition-duration: .3s;
+	transition-duration: .3s;
+}
+
+.jetpack-message a:hover {
+	color: #333;
+	text-decoration: none;
+}
+
+.jetpack-message p a.button-primary {
+	font-size: 16px !important;
+	display: inline-block;
+	padding: 8px 15px;
+	color: #fff;
+	text-align: center;
+	font-size: 20px;
+	text-decoration: none;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #8caa46;
+	background: #b4d278;
+	-moz-box-shadow: inset 0 0 2px rgba( 255,255,255,1), 0 1px 1px rgba( 0,0,0,0.1 );
+	-webkit-box-shadow: inset 0 0 2px rgba( 255,255,255,1), 0 1px 1px rgba( 0,0,0,0.1 );
+	box-shadow: inset 0 0 2px rgba( 255,255,255,1), 0 1px 1px rgba( 0,0,0,0.1 );
+	text-shadow: 0px -1px 0px rgba( 0,0,0,0.3);
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	-ms-transition-duration: .3s;
+	transition-duration: .3s;
+	cursor: pointer;
+	font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",Verdana,"Bitstream Vera Sans",sans-serif;
+}
+
+.jetpack-message p a.button-primary:hover, .jetpack-message p a.button-primary:active {
+	background-color: #f0a000;
+	border-color: #c87800;
+	-webkit-transition-duration: .3s;
+	outline: none;
+}
+
+.jetpack-message p a.button-secondary {
+	font-size: 16px !important;
+	display: inline-block;
+	padding: 8px 15px;
+	color: #fff;
+	text-align: center;
+	font-size: 20px;
+	text-decoration: none;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #8caa46;
+	background: #b4d278;
+	-moz-box-shadow: inset 0 0 2px rgba( 255,255,255,1), 0 1px 1px rgba( 0,0,0,0.1 );
+	-webkit-box-shadow: inset 0 0 2px rgba( 255,255,255,1), 0 1px 1px rgba( 0,0,0,0.1 );
+	box-shadow: inset 0 0 2px rgba( 255,255,255,1), 0 1px 1px rgba( 0,0,0,0.1 );
+	text-shadow: 0px -1px 0px rgba( 0,0,0,0.3);
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	-ms-transition-duration: .3s;
+	transition-duration: .3s;
+	cursor: pointer;
+	font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",Verdana,"Bitstream Vera Sans",sans-serif;
+}
+
+.jetpack-message p a.button-secondary:hover, .jetpack-message p a.button-secondary:active {
+	background-color: #f0a000;
+	border-color: #c87800;
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	-ms-transition-duration: .3s;
+	transition-duration: .3s;
+	outline: none;
+}
+
+
+.jetpack-close-button-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.jetpack-close-button {
+	display: block;
+	width: 16px;
+	height: 16px;
+	text-indent: -9999px;
+	background: transparent url( images/jetpack-closebox-icon.png ) no-repeat center center;
+	border: 0 none;
+	-moz-border-radius: 0 0 0 5px;
+	-webkit-border-radius: 0 0 0 5px;
+	-o-border-radius: 0 0 0 5px;
+	-ms-border-radius: 0 0 0 5px;
+	border-radius: 0 0 0 5px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	-ms-transition-duration: .3s;
+	transition-duration: .3s;
+	cursor: pointer;
+}
+
+.jetpack-close-button:hover {
+	background-color: #fff;
+	border: 0 none;
+	outline: none;
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	-ms-transition-duration: .3s;
+	transition-duration: .3s;
+}
+
+.jetpack-close-button:active {
+	background-color: #efefef;
+	border: 0 none;
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	-ms-transition-duration: .3s;
+	transition-duration: .3s;
+}
+
+.jetpack-wrap-container {
+	overflow: hidden;
+	padding: 0 20px 8px 15px;
+}
+
+.jetpack-text-container {
+	float: left;
+	width: 68.421053%; /* 390px / 570px */
+}
+
+.jetpack-install-container {
+	position: absolute;
+	bottom: 5px;
+	right: 15px;
+}

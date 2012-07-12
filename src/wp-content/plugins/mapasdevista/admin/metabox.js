@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     var $ = jQuery;
     
-    if (typeof(google) != 'object')
+    if (typeof(google) != 'object' || jQuery('#mpv_canvas').size() == 0)
         return;
     
     /**

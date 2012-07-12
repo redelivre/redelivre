@@ -459,11 +459,11 @@ function webcontatos_Campaign_created($data)
 	$blog_id = $data['blog_id'];
 	
 	switch_to_blog($blog_id);
-		update_option('webcontatos-config', $webcontatos_options, false);
+		update_option('webcontatos-config', $webcontatos_options);
 		activate_plugin('WPWebContatos/WPWebContatos.php');	
 		
 		if (count($errors) > 0) {
-			add_option('webcontatos_error_log', $errors);
+			update_option('webcontatos_error_log', $errors);
 		}
 	restore_current_blog();
 }

@@ -23,7 +23,49 @@ add_action('init', function() {
         return;
     }
     
+    // activate for each blog:
+    if (!get_option('mapasdevista_activaded')) {
+        update_option('mapasdevista_activaded', true);
+        mapasdevista_set_default_settings();
+        mapasdevista_flush_rules();
+    }
+    
 });
+
+function mapasdevista_set_default_settings() {
+
+    $defaults = array(
+        
+        'name' => 'Mapa',
+        'api' => 'googlev3',
+        'type' => 'road',
+        'coord' => Array
+            (
+                'lat' => '-15.050826166796774',
+                'lng' => '-54.4263372014763'
+            ),
+
+        'zoom' => 4,
+        'control' => Array
+            (
+                'zoom' => 'large',
+                'pan' => 'on',
+                'map_type' => 'on'
+            ),
+        'post_types' => array('mapa')
+    
+    );
+    
+    update_option('mapasdevista', $defaults);
+
+}
+
+function mapasdevista_flush_rules() {
+
+    global $wp_rewrite;
+    $wp_rewrite->flush_rules();
+
+}
 
 load_plugin_textdomain( 'mapasdevista', WP_CONTENT_DIR . '/plugins/mapasdevista/languages/', basename(dirname(__FILE__)) . '/languages/' );
 
@@ -69,9 +111,9 @@ function mapasdevista_admin_init() {
     
     
     
-    global $pagenow, $post_type;
+    global $pagenow;
     
-    if( ($pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps")) && $post_type == 'mapa') {
+    if( ($pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps")) ) {
         // api do google maps versao 3 direto 
         $googleapikey = get_mapasdevista_theme_option('google_key');
         $googleapikey = $googleapikey ? "&key=$googleapikey" : '';

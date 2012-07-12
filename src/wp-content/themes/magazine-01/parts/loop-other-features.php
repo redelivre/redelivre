@@ -2,13 +2,13 @@
 global $post;
 $old_post = $post;
 
-if ( (isset($config['widget_action']) && $config['widget_action'] == 'cat') || ( empty($config['widget_action']) && isset($config['cat']) && !empty($config['cat']) ) ) {
-        $showing = 'cat';
-        $post = $self->getLastPostFromCat($config);
-    } else {
-        $showing = 'post';
-        $post = $self->getPostFromPermalink($config);
-    }
+if ((isset($config['widget_action']) && $config['widget_action'] == 'cat') || (empty($config['widget_action']) && isset($config['cat']) && !empty($config['cat']))) {
+    $showing = 'cat';
+    $post = $self->getLastPostFromCat($config);
+} else {
+    $showing = 'post';
+    $post = $self->getPostFromPermalink($config);
+}
 
 if ($post):
 			?>
