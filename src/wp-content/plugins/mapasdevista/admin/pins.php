@@ -105,12 +105,26 @@ function mapasdevista_pin_edit($pin) { ?>
 
     <form id="editpinform" method="post">
         <input type="hidden" name="submit_pin" value="edit"/>
+        
+        <p>
+        Utilize as setas do teclado ou o mouse* para posicionar o alvo e indicar onde é a âncora deste marcador (onde ele "aponta" no mapa").
+        </p>
+        
+        <div id="image-panel-background">
+            <div id="image-panel">
+                <img id="the-image" src="<?php echo $pin->guid;?>"/>
+            </div>
 
+            <div id="image-x-ruler"></div>
+            <div id="image-y-ruler"></div>
+        </div>
+        <small>* O posicionamento com o mouse pode não funcionar em alguns navegadores</small>
         <ul>
             <li>
-                <label for="pin_anchor" class="small"><?php _e("Pin anchor");?>:</label>
+                <label for="pin_anchor" class="small">Âncora:</label>
                 <input id="pin_anchor" name="pin_anchor" type="text" value="<?php print $pin->anchor['x'].','.$pin->anchor['y'];?>"/>
             </li>
+            <!--
             <li>
                 <span class="small"><?php _e("Clickable pin");?>:</span>
                 <ul>
@@ -124,18 +138,12 @@ function mapasdevista_pin_edit($pin) { ?>
                     </li>
                 </ul>
             </li>
+            -->
         </ul>
 
-        <div id="image-panel-background">
-            <div id="image-panel">
-                <img id="the-image" src="<?php echo $pin->guid;?>"/>
-            </div>
+        
 
-            <div id="image-x-ruler"></div>
-            <div id="image-y-ruler"></div>
-        </div>
-
-        <p><input type="submit" value="Submit"/></p>
+        <p><input type="submit" class="button-primary" value="Salvar"/></p>
     </form>
 </div>
 <?php

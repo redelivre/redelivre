@@ -32,7 +32,8 @@ jQuery(document).ready(function() {
     $(window).load(function() {
         // retrive image wrapper element and fix its dimensions
         $(image_panel_el).css('width', image.width+'px').css('height', image.height+'px');
-
+        if ($("#pin_anchor").size() < 1)
+            return;
         var initial = $("#pin_anchor").focus().val().match(/^([0-9]+),([0-9]+)$/);
         if( initial ) {
             image_anchor.set_x(parseInt(initial[1]));
@@ -75,16 +76,20 @@ jQuery(document).ready(function() {
     var mousepressed = false;
     $("#the-image").mousedown(function(e) {
         mousepressed = true;
-        image_anchor.set_x(e.layerX);
-        image_anchor.set_y(e.layerY);
-        $("#pin_anchor").val(image_anchor.x + "," + image_anchor.y);
+        if (e.offsetX || e.offsetY) {
+            image_anchor.set_x(e.offsetX);
+            image_anchor.set_y(e.offsetY);
+            $("#pin_anchor").val(image_anchor.x + "," + image_anchor.y);
+        }
         return false;
     });
     $("#the-image").mousemove(function(e) {
         if(mousepressed){
-            image_anchor.set_x(e.layerX);
-            image_anchor.set_y(e.layerY);
-            $("#pin_anchor").val(image_anchor.x + "," + image_anchor.y);
+            if (e.offsetX || e.offsetY) {
+                image_anchor.set_x(e.offsetX);
+                image_anchor.set_y(e.offsetY);
+                $("#pin_anchor").val(image_anchor.x + "," + image_anchor.y);
+            }
         }
         return false;
     });
