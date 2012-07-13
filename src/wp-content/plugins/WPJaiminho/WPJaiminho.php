@@ -118,7 +118,7 @@ function jaiminho_config_menu()
 		add_submenu_page($base_page, __('Nova campanha (envio)','jaiminho'), __('Nova campanha (envio)','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
 		add_submenu_page($base_page, __('Explorar campanhas','jaiminho'), __('Explorar campanhas','jaiminho'), 'manage_options', 'jaiminho-explorarcampanhas', 'jaiminho_explorarcampanhas' );
 		add_submenu_page($base_page, __('Configurações do Plugin','jaiminho'),__('Configurações do Plugin','jaiminho'), 'manage_options', 'jaiminho-config', 'jaiminho_conf_page');
-		add_submenu_page($base_page, __('Test','jaiminho'),__('Test','jaiminho'), 'manage_options', 'jaiminho-test', 'jaiminho_test');
+		//add_submenu_page($base_page, __('Test','jaiminho'),__('Test','jaiminho'), 'manage_options', 'jaiminho-test', 'jaiminho_test');
 }
 
 /**
@@ -260,11 +260,6 @@ function jaiminho_conf_page()
 						</td>
 				        </tr>
 				        
-				        <tr valign="top">
-				        <th scope="row">Url Base do serviço jaiminho</th>
-				        <td><input type="text" name="jaiminho_url" style="width: 400px" value="'.$opt['jaiminho_url'].'" /></td>
-				        </tr>	        	        
-				        
 				    </table>';
 						$rows = array();
 						$rows[] = array(
@@ -279,10 +274,18 @@ function jaiminho_conf_page()
 						);
 						if(is_super_admin())
 						{
+							$id = 'jaiminho_url';
 							$rows[] = array(
-									"id" => "jaiminho_admin_url",
-									"label" => __('Endereço Administrativo','jaiminho'),
-									"content" => '<input type="text" name="jaiminho_admin_url" id="jaiminho_admin_url" value="'.htmlspecialchars_decode($opt['jaiminho_admin_url']).'"/>'
+									"id" => $id,
+									"label" => __('Url base do serviço Jaiminho','jaiminho'),
+									"content" => '<input type="text" name="'.$id.'" id="'.$id.'" value="'.htmlspecialchars_decode($opt[$id]).'"/>'
+							);
+						
+							$id = 'jaiminho_admin_url';
+							$rows[] = array(
+									"id" => $id,
+									"label" => __('Url base do serviço Jaiminho','jaiminho'),
+									"content" => '<input type="text" name="'.$id.'" id="'.$id.'" value="'.htmlspecialchars_decode($opt[$id]).'"/>'
 							);			
 							
 							$id = 'jaiminho_user';
@@ -502,12 +505,11 @@ function jaiminho_auth()
 	$opt = jaiminho_get_config();
 	$output_headers = null;
 
-	$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl');
-	$auth = $client->__soapCall('auth', array('username' => $opt['jaiminho_user'], 'password' => $opt['jaiminho_pass']) , array(), null, $output_headers);
-
-	if(is_serialized($auth))
-	{
-		print_r(unserialize($auth));
+	try {
+		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl',array('exceptions' => true));
+		$auth = $client->__soapCall('auth', array('username' => $opt['jaiminho_user'], 'password' => $opt['jaiminho_pass']) , array(), null, $output_headers);	
+	} catch (Exception $ex) {
+		print_r($ex);
 		die('<br/>Erro de login!');
 	}
 
@@ -619,19 +621,7 @@ function jaiminho_explorarcampanhas()
 function jaiminho_test()
 {
 	$opt = jaiminho_get_config();
-	
-	$limite_emails = 10000;
-	
-	$output_headers = null;
-	
-	try {
-		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
-		$id_novoadmin = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => 'Candidato toisco', 'username' => 'prometeus','email' => 'teste12421@campanha.com', 'password' =>'321321', 'plan' => $limite_emails) , array(), null, $output_headers);	
-	} catch (Exception $ex) {
-		print_r($ex);
-	}
-	
-	echo $id_novoadmin;
+	echo jaiminho_auth();
 }
 
 ?>
