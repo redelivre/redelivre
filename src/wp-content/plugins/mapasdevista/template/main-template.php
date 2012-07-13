@@ -12,7 +12,7 @@ include( mapasdevista_get_template('template/_filter-menus', null, false) );
 
         include( mapasdevista_get_template('mapasdevista-loop', 'bubble', false) );
 
-        //include( mapasdevista_get_template('template/_filters', null, false) );
+        include( mapasdevista_get_template('template/_filters', null, false) );
 
     include( mapasdevista_get_template('template/_footer', null, false) );
 
