@@ -512,6 +512,9 @@ class Campaign {
                     'menu-item-type' => 'post_type',
                     'menu-item-status' => 'publish')
                 );*/
+                
+                set_theme_mod( 'nav_menu_locations', array('main' => $menu_id) );
+                
             }
             
             // remove default page

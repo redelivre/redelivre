@@ -26,13 +26,24 @@ add_action('init', function() {
     }
     
     // activate for each blog:
-    if (!get_option('mapasdevista_activaded')) {
-        update_option('mapasdevista_activaded', true);
+    if (get_option('mapasdevista_activaded') != 3) {
+        update_option('mapasdevista_activaded', 3);
         mapasdevista_set_default_settings();
         mapasdevista_flush_rules();
+        mapasdevista_set_default_menu();
     }
     
 });
+
+function mapasdevista_set_default_menu() {
+
+    $menu = get_term_by('slug', 'main', 'nav_menu');
+    if ($menu && is_object($menu) && !is_wp_error($menu)) {
+        $current = get_theme_mod( 'nav_menu_locations' );
+        $current['mapasdevista_top'] = $menu->term_id;
+        set_theme_mod( 'nav_menu_locations', $current );
+    }    
+}
 
 function mapasdevista_set_default_settings() {
 
