@@ -7,7 +7,6 @@ include('admin/theme.php');
 include('admin/metabox.php');
 include('template/ajax.php');
 
-
 add_action('init', function() { 
 
     global $current_blog, $campaign;
@@ -26,13 +25,25 @@ add_action('init', function() {
     }
     
     // activate for each blog:
-    if (!get_option('mapasdevista_activaded')) {
-        update_option('mapasdevista_activaded', true);
+    if (get_option('mapasdevista_activaded') != 4) {
+        update_option('mapasdevista_activaded', 4);
         mapasdevista_set_default_settings();
         mapasdevista_flush_rules();
+        mapasdevista_set_default_menu();
+        include('import-default-pins.php');
     }
     
 });
+
+function mapasdevista_set_default_menu() {
+
+    $menu = get_term_by('slug', 'main', 'nav_menu');
+    if ($menu && is_object($menu) && !is_wp_error($menu)) {
+        $current = get_theme_mod( 'nav_menu_locations' );
+        $current['mapasdevista_top'] = $menu->term_id;
+        set_theme_mod( 'nav_menu_locations', $current );
+    }    
+}
 
 function mapasdevista_set_default_settings() {
 
@@ -80,7 +91,7 @@ if ( ! function_exists( 'mapasdevista_setup' ) ):
     function mapasdevista_setup() {
 
         // Post Format support. You can also use the legacy "gallery" or "asides" (note the plural) categories.
-        add_theme_support( 'post-formats', array( 'gallery', 'image', 'video' /*, 'audio' */ ) );
+        add_theme_support( 'post-formats', array( 'gallery', 'image', 'video' , 'audio'  ) );
 
         // This theme uses post thumbnails
         add_theme_support( 'post-thumbnails' );
@@ -178,7 +189,8 @@ function mapasdevista_regiser_post_type() {
         'supports' => array(
             'title',
             'editor',
-            'post-formats'
+            'post-formats',
+            'thumbnail'
         ),
            
         )
@@ -209,7 +221,7 @@ function mapasdevista_regiser_post_type() {
 
 }
 
-add_post_type_support( 'mapa', 'post-formats' );
+//add_post_type_support( 'mapa', array('post-formats', 'post-thumbnails') );
 
 function mapasdevista_base_custom_query_vars($public_query_vars) {
     $public_query_vars[] = "mapa-tpl";

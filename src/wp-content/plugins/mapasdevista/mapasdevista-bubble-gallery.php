@@ -1,12 +1,16 @@
 <?php // AS IMAGENS ESTÃO COM POSIÇÃO ABSOLUTA PARA FAZER O SLIDESHOW ?>
 
-<?php $images = get_children( array( 
-                        'post_parent' => $post->ID,
-                        'post_type' => 'attachment',
-                        'post_mime_type' => 'image',
-                        'orderby' => 'menu_order',
-                        'order' => 'ASC',
-                        'numberposts' => -1 ) ); ?>
+<?php 
+
+global $post;
+
+$images = get_children( array( 
+        'post_parent' => $post->ID,
+        'post_type' => 'attachment',
+        'post_mime_type' => 'image',
+        'orderby' => 'menu_order',
+        'order' => 'ASC',
+        'numberposts' => -1 ) );?>
 
 <?php if ( $images ) : ?>
     

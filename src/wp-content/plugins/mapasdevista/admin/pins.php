@@ -105,12 +105,26 @@ function mapasdevista_pin_edit($pin) { ?>
 
     <form id="editpinform" method="post">
         <input type="hidden" name="submit_pin" value="edit"/>
+        
+        <p>
+        Utilize as setas do teclado ou o mouse* para posicionar o alvo e indicar onde é a âncora deste marcador (onde ele "aponta" no mapa").
+        </p>
+        
+        <div id="image-panel-background">
+            <div id="image-panel">
+                <img id="the-image" src="<?php echo $pin->guid;?>"/>
+            </div>
 
+            <div id="image-x-ruler"></div>
+            <div id="image-y-ruler"></div>
+        </div>
+        <small>* O posicionamento com o mouse pode não funcionar em alguns navegadores</small>
         <ul>
             <li>
-                <label for="pin_anchor" class="small"><?php _e("Pin anchor");?>:</label>
+                <label for="pin_anchor" class="small">Âncora:</label>
                 <input id="pin_anchor" name="pin_anchor" type="text" value="<?php print $pin->anchor['x'].','.$pin->anchor['y'];?>"/>
             </li>
+            <!--
             <li>
                 <span class="small"><?php _e("Clickable pin");?>:</span>
                 <ul>
@@ -124,18 +138,12 @@ function mapasdevista_pin_edit($pin) { ?>
                     </li>
                 </ul>
             </li>
+            -->
         </ul>
 
-        <div id="image-panel-background">
-            <div id="image-panel">
-                <img id="the-image" src="<?php echo $pin->guid;?>"/>
-            </div>
+        
 
-            <div id="image-x-ruler"></div>
-            <div id="image-y-ruler"></div>
-        </div>
-
-        <p><input type="submit" value="Submit"/></p>
+        <p><input type="submit" class="button-primary" value="Salvar"/></p>
     </form>
 </div>
 <?php
@@ -157,25 +165,12 @@ function mapasdevista_pins_list() {
 ?>
 <div class="wrap pinpage">
 
-<h3><?php _e("Available pins", "mapasdevista");?></h3>
-<div id="pinlist">
-<?php foreach($pins as $pin): ?>
-    <div class="icon">
-        <a href="admin.php?page=mapasdevista_pins_page&action=edit&pin=<?php echo $pin->ID;?>"><?php echo  wp_get_attachment_image($pin->ID, array(64,64));?></a>
-        <div class="icon-info">
-            <span class="icon-name"><?php echo $pin->post_name;?></span>
-        </div>
-        <a href="admin.php?page=mapasdevista_pins_page&action=delete&pin=<?php echo $pin->ID;?>"><?php _e('Apagar');?></a>
-    </div>
-<?php endforeach;?>
-</div>
-<div class="clear"></div>
-
-
 <h3><?php _e("New pin", 'mapasdevista'); ?></h3>
 <form id="newpinform" method="post" enctype="multipart/form-data">
     <input type="hidden" name="submit_pin" value="new"/>
-
+    <p>
+    Para criar um novo marcador, faça upload de uma imagem do seu computador. O ideal é uma imagem pequena, de até 30 pixels, com fundo transparente.
+    </p>
     <ul>
         <li>
             <label for="mpv_pinfile"><?php _e("Upload");?>:</label>
@@ -185,9 +180,30 @@ function mapasdevista_pins_list() {
             <label for="mpv_pinurl">Endereço do Pin:</label>
             <input type="text" name="pin_url" id="mpv_pinurl"/>
         </li>*/?>
-        <li><input type="submit" value="Upload"/></li>
+        <li><input type="submit" class="button-primary" value="Upload"/></li>
     </ul>
 </form>
+
+<h3><?php _e("Available pins", "mapasdevista");?></h3>
+<div id="pinlist">
+<?php foreach($pins as $pin): ?>
+    <div class="icon">
+        <a href="admin.php?page=mapasdevista_pins_page&action=edit&pin=<?php echo $pin->ID;?>"><?php echo  wp_get_attachment_image($pin->ID, array(64,64));?></a>
+        <div class="icon-info">
+            <span class="icon-name"><?php echo $pin->post_name;?></span>
+        </div>
+        <a href="admin.php?page=mapasdevista_pins_page&action=edit&pin=<?php echo $pin->ID;?>">Editar</a>
+        |
+        <a href="admin.php?page=mapasdevista_pins_page&action=delete&pin=<?php echo $pin->ID;?>"><?php _e('Apagar');?></a>
+        
+    </div>
+    <br/>
+<?php endforeach;?>
+</div>
+<div class="clear"></div>
+
+
+
 
 </div>
 <?php
