@@ -7,7 +7,6 @@ include('admin/theme.php');
 include('admin/metabox.php');
 include('template/ajax.php');
 
-
 add_action('init', function() { 
 
     global $current_blog, $campaign;
@@ -26,11 +25,12 @@ add_action('init', function() {
     }
     
     // activate for each blog:
-    if (get_option('mapasdevista_activaded') != 3) {
-        update_option('mapasdevista_activaded', 3);
+    if (get_option('mapasdevista_activaded') != 4) {
+        update_option('mapasdevista_activaded', 4);
         mapasdevista_set_default_settings();
         mapasdevista_flush_rules();
         mapasdevista_set_default_menu();
+        include('import-default-pins.php');
     }
     
 });
