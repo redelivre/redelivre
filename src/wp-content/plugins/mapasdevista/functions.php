@@ -189,7 +189,8 @@ function mapasdevista_regiser_post_type() {
         'supports' => array(
             'title',
             'editor',
-            'post-formats'
+            'post-formats',
+            'thumbnail'
         ),
            
         )
@@ -220,7 +221,7 @@ function mapasdevista_regiser_post_type() {
 
 }
 
-add_post_type_support( 'mapa', 'post-formats' );
+//add_post_type_support( 'mapa', array('post-formats', 'post-thumbnails') );
 
 function mapasdevista_base_custom_query_vars($public_query_vars) {
     $public_query_vars[] = "mapa-tpl";
