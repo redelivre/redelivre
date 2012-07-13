@@ -359,19 +359,18 @@ function jaiminho_campaigncreated($data)
 		activate_plugin('WPJaiminho/WPJaiminho.php');
 		if (count($errors) > 0) 
 			update_option('jaiminho-error-log', $errors);
-			
-		// TODO: CORRIGIR ESSA FUNÇÃO PARA CADASTRAR O WIDGET DO JAIMINHO POR DEFAULT 
-		wp_register_sidebar_widget(
-		    'jaiminho_widget_1',        // your unique widget id
-		    'Jaiminho Widget',          // widget name
-		    'jaiminho_widget',  // callback function
-		    array(                  // options
-		        'title' => 'Cadastre seu e-mail',
-		        'jaiminho_text' => 'Receba as novidades da campanha',
-		        'jaiminho_id' => $defaultmailinglist_id
-		    )
-		);
+
+		add_option( 'widget_jaiminho',
+						array( 	'title' => 'Cadastre seu e-mail',
+								'jaiminho_text' => 'Receba novidades da campanha',
+								'jaiminho_id' => $defaultmailinglist_id));
 		
+		$sidebar_widget = get_option("sidebars_widgets");
+		
+		$sidebar_widget['sidebar-1'] = array_merge(array("jaiminho"),$sidebar_widget['sidebar-1']);
+	
+		update_option("sidebars_widgets",$sidebar_widget); 			
+					
 	restore_current_blog();
 }
 
