@@ -165,25 +165,12 @@ function mapasdevista_pins_list() {
 ?>
 <div class="wrap pinpage">
 
-<h3><?php _e("Available pins", "mapasdevista");?></h3>
-<div id="pinlist">
-<?php foreach($pins as $pin): ?>
-    <div class="icon">
-        <a href="admin.php?page=mapasdevista_pins_page&action=edit&pin=<?php echo $pin->ID;?>"><?php echo  wp_get_attachment_image($pin->ID, array(64,64));?></a>
-        <div class="icon-info">
-            <span class="icon-name"><?php echo $pin->post_name;?></span>
-        </div>
-        <a href="admin.php?page=mapasdevista_pins_page&action=delete&pin=<?php echo $pin->ID;?>"><?php _e('Apagar');?></a>
-    </div>
-<?php endforeach;?>
-</div>
-<div class="clear"></div>
-
-
 <h3><?php _e("New pin", 'mapasdevista'); ?></h3>
 <form id="newpinform" method="post" enctype="multipart/form-data">
     <input type="hidden" name="submit_pin" value="new"/>
-
+    <p>
+    Para criar um novo marcador, faça upload de uma imagem do seu computador. O ideal é uma imagem pequena, de até 30 pixels, com fundo transparente.
+    </p>
     <ul>
         <li>
             <label for="mpv_pinfile"><?php _e("Upload");?>:</label>
@@ -193,9 +180,30 @@ function mapasdevista_pins_list() {
             <label for="mpv_pinurl">Endereço do Pin:</label>
             <input type="text" name="pin_url" id="mpv_pinurl"/>
         </li>*/?>
-        <li><input type="submit" value="Upload"/></li>
+        <li><input type="submit" class="button-primary" value="Upload"/></li>
     </ul>
 </form>
+
+<h3><?php _e("Available pins", "mapasdevista");?></h3>
+<div id="pinlist">
+<?php foreach($pins as $pin): ?>
+    <div class="icon">
+        <a href="admin.php?page=mapasdevista_pins_page&action=edit&pin=<?php echo $pin->ID;?>"><?php echo  wp_get_attachment_image($pin->ID, array(64,64));?></a>
+        <div class="icon-info">
+            <span class="icon-name"><?php echo $pin->post_name;?></span>
+        </div>
+        <a href="admin.php?page=mapasdevista_pins_page&action=edit&pin=<?php echo $pin->ID;?>">Editar</a>
+        |
+        <a href="admin.php?page=mapasdevista_pins_page&action=delete&pin=<?php echo $pin->ID;?>"><?php _e('Apagar');?></a>
+        
+    </div>
+    <br/>
+<?php endforeach;?>
+</div>
+<div class="clear"></div>
+
+
+
 
 </div>
 <?php
