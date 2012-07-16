@@ -394,21 +394,25 @@ add_action('wp_dashboard_setup', 'jaiminho_setupMessageWidget' );
 
 function jaiminho_campaignupdated($data)
 {
-	$opt = jaiminho_get_config();
-	
 	$plan_capabilities = Capability::getByPlanId($data['plan_id']);
+		
+	switch_to_blog($data['blog_id']);
+	
+	$opt = jaiminho_get_config();
 	
 	$limite_emails = ((int)$plan_capabilities->send_messages->value * 1000);
 	
 	try {
 		$output_headers = null;	
 		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
-		$id_novoadmin = $client->__soapCall('changelimits', array('apikeymaster' => $opt['jaiminho_apikey'], 'plan' => $limite_emails, 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);		
+		$resultado = $client->__soapCall('changelimits', array('apikeymaster' => $opt['jaiminho_apikey'], 'plan' => $limite_emails, 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);		
 	} catch (Exception $ex) {
 		wp_die('('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail);
 	}
-
-	return true;
+	
+	restore_current_blog();
+	
+	return $resultado;
 }
 
 add_action('Campaign-updated', 'jaiminho_campaignupdated', 10, 1);
