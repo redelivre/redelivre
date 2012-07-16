@@ -44,16 +44,11 @@ if ($post):
 				</p>
 			</header>
 		<div class="post-content">						
-			
             <?php if (get_post_format() == 'audio'): ?>
-            
                 <?php the_first_audio(); ?>
-            
-            <?php elseif (get_post_format() != 'video') : ?>
+            <?php elseif (get_post_format() != 'video' && get_post_format() != 'gallery') : ?>
                 <p><?php echo utils::getPostExcerpt($post, 144); ?></p>
             <?php endif; ?>
-            
-            
 		</div>
 		<footer class="clearfix">	
 			<p class="taxonomies">
