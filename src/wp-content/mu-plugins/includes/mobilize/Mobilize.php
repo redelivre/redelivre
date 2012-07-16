@@ -17,7 +17,7 @@ class Mobilize {
     const TEXTO_DESCRITIVO_PADRAO_REDES = 'Acompanhe a campanha nas redes sociais abaixo.';
     const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Utilize o código da primeira caixa abaixo para inserir um dos banners da campanha no seu site ou blog ou então utilize o link da segunda caixa para compartilhar um dos banners nas redes sociais.';
     const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Coloque sua foto em "Escolher arquivo" e depois clique em "Adesivar foto", agora é só aguardar!';
-    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar!';
+    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar. As pessoas indicadas por você irão receber a mensagem padrão da campanha junto com a sua mensagem.';
 
     static $errors = array('banners' => array(), 'adesive' => array(), 'redes' => array(), 'envie' => array());
 
@@ -356,19 +356,21 @@ class Mobilize {
             $success = null;
 
             if ($_POST['sender-name'] && $_POST['sender-email']) {
-
+                $sender = filter_input(INPUT_POST, 'sender-name', FILTER_SANITIZE_STRING);
+                $senderEmail = filter_input(INPUT_POST, 'sender-email', FILTER_SANITIZE_EMAIL);
                 $recipients = explode(',', $_POST['recipient-email']);
-
-                $msg = $_POST['sender-message'] ? stripslashes($_POST['sender-message']) . "\n\n" . $option['message'] : $option['message'];
+                $from = "From: '$sender' <noreply@campanhacompleta.com.br>";
+                
+                $msg = "$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";
+                $msg .= $_POST['sender-message'] ? stripslashes($_POST['sender-message']) . "\n\n" . $option['message'] : $option['message'];
 
                 $success = false;
 
                 if (is_array($recipients) && sizeof($recipients) > 0) {
-
                     foreach ($recipients as $r) {
-
-                        if ($x = wp_mail($r, $option['subject'], $msg, "From: 'Carteiro Campanha Completa' <noreply@campanhacompleta.com.br>"))
+                        if ($x = wp_mail($r, $option['subject'], $msg, $from)) {
                             $success = true;
+                        }
                     }
                 }
             }

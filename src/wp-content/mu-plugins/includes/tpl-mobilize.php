@@ -125,8 +125,8 @@ $blogurl = urlencode(get_bloginfo('url'));
 
                             <?php Mobilize::printEnvieNonce() ?>
 
-                            <input id="sender-name" type="text" value="<?php echo isset($_POST['sender-name']) ? $_POST['sender-name'] : 'Nome'; ?>" name="sender-name" onfocus="if (this.value == '<?php echo "Nome" ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php echo "Nome"; ?>';}" /><br />
-                            <input id="sender-email" type="text" value="<?php echo isset($_POST['sender-email']) ? $_POST['sender-email'] : 'E-mail'; ?>" name="sender-email" onfocus="if (this.value == 'E-mail') this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail';}" /><br />
+                            <input id="sender-name" type="text" value="<?php echo isset($_POST['sender-name']) ? $_POST['sender-name'] : 'Seu nome'; ?>" name="sender-name" onfocus="if (this.value == '<?php echo "Seu nome" ?>') this.value = '';" onblur="if (this.value == '') {this.value = '<?php echo "Seu nome"; ?>';}" /><br />
+                            <input id="sender-email" type="text" value="<?php echo isset($_POST['sender-email']) ? $_POST['sender-email'] : 'Seu endereço de e-mail'; ?>" name="sender-email" onfocus="if (this.value == 'Seu endereço de e-mail') this.value = '';" onblur="if (this.value == '') {this.value = 'Seu endereço de e-mail';}" /><br />
 
                             <input id="recipient-email" type="text" value="<?php echo isset($_POST['recipient-email']) ? $_POST['recipient-email'] : 'Adicione até 10 endereços de email separados por vírgula'; ?>" name="recipient-email" onfocus="if (this.value == 'Adicione até 10 endereços de email separados por vírgula') this.value = '';" onblur="if (this.value == '') {this.value = 'Adicione até 10 endereços de email separados por vírgula';}" /><br />
 
