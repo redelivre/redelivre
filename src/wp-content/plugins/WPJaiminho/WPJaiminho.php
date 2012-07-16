@@ -566,7 +566,7 @@ function jaiminho( $jaiminho_id, $mensagem = '' ) { ?>
 										
 		<input type="submit" class="jaiminho-submit" name="Subscribe" value="Cadastrar" />	
 	</form>	
-	
+	<span id="jaiminho-message"></span>
 	<div id="jaiminho-output"></div>
 	<?php
 	 	
