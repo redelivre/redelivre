@@ -17,7 +17,7 @@ class Mobilize {
     const TEXTO_DESCRITIVO_PADRAO_REDES = 'Acompanhe a campanha nas redes sociais abaixo.';
     const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Utilize o código da primeira caixa abaixo para inserir um dos banners da campanha no seu site ou blog ou então utilize o link da segunda caixa para compartilhar um dos banners nas redes sociais.';
     const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Coloque sua foto em "Escolher arquivo" e depois clique em "Adesivar foto", agora é só aguardar!';
-    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar!.';
+    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar!';
 
     static $errors = array('banners' => array(), 'adesive' => array(), 'redes' => array(), 'envie' => array());
 
