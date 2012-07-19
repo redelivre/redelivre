@@ -9,6 +9,12 @@ class Campaign {
     public $id;
     
     /**
+     * Id of the campaign's blog.
+     * @var int
+     */
+    public $blog_id;
+    
+    /**
      * Campaign sub domain inside the system.
      * @var string
      */
