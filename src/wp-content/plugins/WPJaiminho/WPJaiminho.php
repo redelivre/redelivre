@@ -448,6 +448,9 @@ function jaiminho_GenerateIFrame($params)
 				case 5:
 					$params_keys['scrollToY'] = $value; 
 				break;
+				case 6:
+					$params_keys['auth'] = $value; 
+				break;
 			}
 		}
 		$params = $params_keys;
@@ -460,7 +463,13 @@ function jaiminho_GenerateIFrame($params)
 		wp_die('É necessário a url do serviço jaiminho');
 	}
 	
-	$url = $opt['jaiminho_admin_url']."/".$params['page']."?apikeysession=".jaiminho_auth();
+	if ($opt['auth'] === false)
+		$authorize = "";
+	else
+		$authorize = "?apikeysession=".jaiminho_auth();
+		
+	
+	$url = $opt['jaiminho_admin_url']."/".$params['page'].$authorize;
 	
     $width = isset($params['width']) ? $params['width'] : $opt['width'];
     $height = isset($params['height']) ? $params['height'] : $opt['height'];
@@ -524,8 +533,7 @@ function jaiminho_closesession()
 	echo '<html>' .
 			'<body>';
 		
-	echo jaiminho_GenerateIFrame(array('page' => 'logout.php', 'width' => 0, 'height' => 0 ));
-
+	echo jaiminho_GenerateIFrame(array('page' => 'logout.php', 'width' => 0, 'height' => 0, 'auth' => false ));
 	
 	echo 	'<script type="text/javascript">' .
 			'	window.onload = function ()' .
