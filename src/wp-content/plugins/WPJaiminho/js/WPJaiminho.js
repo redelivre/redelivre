@@ -4,8 +4,8 @@ jQuery(document).ready(function(){
 		target: '#jaiminho-output',   // target element(s) to be updated with server response 
  
         // other available options: 
-        beforeSubmit:  function () { jQuery('#jaiminho-output').html("aguarde, enviando...") },  // pre-submit callback 
-        //success:       showResponse  // post-submit callback 
+        beforeSubmit:  function () { jQuery('#jaiminho-message').text("aguarde, enviando...") },  // pre-submit callback 
+        success:       function () { jQuery('#jaiminho-message').text(""); }  // post-submit callback 
         //url:       url         // override for form's 'action' attribute 
         //type:      type        // 'get' or 'post', override for form's 'method' attribute 
         //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 

@@ -9,6 +9,12 @@ class Campaign {
     public $id;
     
     /**
+     * Id of the campaign's blog.
+     * @var int
+     */
+    public $blog_id;
+    
+    /**
      * Campaign sub domain inside the system.
      * @var string
      */
@@ -340,9 +346,9 @@ class Campaign {
      */
     public function update() {
         global $wpdb;
-        
+
         $data = array('own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number, 'plan_id' => $this->plan_id, 'state' => $this->state,
-            'city' => $this->city, 'observations' => $this->observations, 'status' => $this->status); 
+            'city' => $this->city, 'observations' => $this->observations, 'status' => $this->status, 'blog_id' => $this->blog_id); 
         
         $data['location'] = $this->formatLocation($data['state'], $data['city']);
         unset($data['state'], $data['city']);
