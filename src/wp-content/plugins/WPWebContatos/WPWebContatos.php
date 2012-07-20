@@ -181,9 +181,9 @@ function webcontatos_conf_page()
 		if (!current_user_can('manage_options')) wp_die(__('Você não pode editar as configurações do webcontatos.','webcontatos'));
 		check_admin_referer('webcontatos-config');
 		
-		$opt = array();
+		$opt = webcontatos_get_config();
 		
-		foreach ( array_keys(webcontatos_get_config()) as $option_name)
+		foreach ( array_keys($opt) as $option_name)
 		{
 			if (isset($_POST[$option_name]))
 			{
@@ -208,6 +208,11 @@ function webcontatos_conf_page()
 		
 		$opt['webcontatos_data_atualizacao'] = date("Y-m-d H:i:s", time());
 		$opt['webcontatos_user_atualizacao'] = get_current_user_id();
+		
+		if(has_filter('webcontatos-config'))
+		{
+			$opt = apply_filters('webcontatos-config', $opt);
+		}
 		
 		if (update_option('webcontatos-config', $opt) || (isset($_POST["webcontatos_reinstall"]) && $_POST['webcontatos_reinstall'] == 'S'))
 			$mensagem = __('Configurações salvas!','webcontatos');
@@ -415,7 +420,8 @@ function webcontatos_displayMessageWidget(){
 //Setup the widget
 function webcontatos_setupMessageWidget()
 {
-	$webcontatos_error_log = get_option('webcontatos_error_log',false);
+	$opt = webcontatos_get_config();
+	$webcontatos_error_log = $opt['webcontatos_error_log'];
 	if ( $webcontatos_error_log != false ) {
 		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'webcontatos_displayMessageWidget');	
 	}
@@ -475,6 +481,12 @@ function webcontatos_GenerateIFrame($params)
     else 
 	{
    		$auth = webcontatos_Auth();
+   		if($auth == false || $auth == 'false')
+   		{
+   			$error = __('Não foi possível fazer o login automático no sistema WebContatos, favor entrar em contato com o suporte técnico', 'WebContatos');
+   			webcontatos_report_error($error);
+   			return $error;
+   		}
 		$url = "/index.php?$auth&layoutTop=false".(isset($params['opcoes']) ? "&{$params['opcoes']}" : '').$redirect;
 	}
 	
@@ -601,4 +613,14 @@ function webcontatos_ExportarContato()
 {
 	echo webcontatos_GenerateIFrame('Arquivos/ExportarContatos');
 }
+
+function webcontatos_enc_pass($opt)
+{
+	if(array_key_exists('webcontatos_pass', $_POST))
+	{
+		$opt['webcontatos_pass'] = md5($_POST['webcontatos_pass']);
+	}
+	return $opt;
+}
+add_filter('webcontatos-config', 'webcontatos_enc_pass');
 ?>
