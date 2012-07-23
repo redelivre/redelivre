@@ -11,6 +11,9 @@ query_posts('cat=-0&paged='.$paged);
 global $more;
 $more = 0;
 
+global $wp_query;
+$wp_query->is_home = false;
+
 //load index to show blog
 load_template(TEMPLATEPATH . '/index.php');
 ?>
