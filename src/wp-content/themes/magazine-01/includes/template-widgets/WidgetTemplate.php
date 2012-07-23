@@ -24,7 +24,6 @@ abstract class WidgetTemplate {
     
     static function ajaxSave() {
         if (current_user_can('manage_option')) {
-            
             $class = get_called_class();
             if (is_array($_POST) && isset($_POST['_widget_id'])) {
                 $widget_id = $_POST['_widget_id'];
@@ -37,6 +36,8 @@ abstract class WidgetTemplate {
                 echo $wid;
                 die;
             }
+        } else {
+            die('Sem permissão para fazer essa alteração.');
         }
     }
 
