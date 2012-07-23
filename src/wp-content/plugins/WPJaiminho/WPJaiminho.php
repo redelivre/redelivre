@@ -61,10 +61,10 @@ function jaiminho_get_config()
 	$opt['jaiminho_border'] = '';
 	$opt['jaiminho_scrolling'] = 'no';
 	$opt['jaiminho_scrollmethod'] = 1;
-	$opt['jaiminho_url'] = 'http://beta.ethymos.com.br/jaiminho/e';
-	$opt['jaiminho_admin_url'] = 'http://beta.ethymos.com.br/jaiminho/e/admin';
-	$opt['jaiminho_user'] = 'admin';
-	$opt['jaiminho_pass'] = 'admin';
+	$opt['jaiminho_url'] = 'http://campanha.jaiminho.com.br/';
+	$opt['jaiminho_admin_url'] = 'http://campanha.jaiminho.com.br/admin/';
+	$opt['jaiminho_user'] = '';
+	$opt['jaiminho_pass'] = '';
 	$opt['jaiminho_apikey'] = 'AIzaSyDHowXjdVc2WOEx25AnVzF_tsWBUaY6wVA';
 	$opt['width'] = 960;
 	$opt['height'] = 2500;
