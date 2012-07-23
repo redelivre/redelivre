@@ -61,10 +61,10 @@ function jaiminho_get_config()
 	$opt['jaiminho_border'] = '';
 	$opt['jaiminho_scrolling'] = 'no';
 	$opt['jaiminho_scrollmethod'] = 1;
-	$opt['jaiminho_url'] = 'http://beta.ethymos.com.br/jaiminho/e';
-	$opt['jaiminho_admin_url'] = 'http://beta.ethymos.com.br/jaiminho/e/admin';
-	$opt['jaiminho_user'] = 'admin';
-	$opt['jaiminho_pass'] = 'admin';
+	$opt['jaiminho_url'] = 'http://campanha.jaiminho.com.br/';
+	$opt['jaiminho_admin_url'] = 'http://campanha.jaiminho.com.br/admin/';
+	$opt['jaiminho_user'] = '';
+	$opt['jaiminho_pass'] = '';
 	$opt['jaiminho_apikey'] = 'AIzaSyDHowXjdVc2WOEx25AnVzF_tsWBUaY6wVA';
 	$opt['width'] = 960;
 	$opt['height'] = 2500;
@@ -182,10 +182,16 @@ function jaiminho_conf_page()
 			switch_to_blog(1);
 			
 				$opt = jaiminho_get_config();
-			
-			restore_current_blog();	
+						
+			restore_current_blog();
 			
 			$opt_contatos = get_option('webcontatos-config');
+			
+			if (!isset($opt_contatos['webcontatos_pass'])) {
+				$opt_contatos['webcontatos_pass'] = md5(uniqid());
+				
+				update_option('webcontatos-config',$opt_contatos);
+			}	
 			
 			$blog_details = get_blog_details(array('domain'=> $mainSiteDomain));
 			
@@ -208,7 +214,6 @@ function jaiminho_conf_page()
 			$opt['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
 			
 			update_option('jaiminho-config', $opt);
-			activate_plugin('WPJaiminho/WPJaiminho.php');
 			
 			add_option( 'widget_jaiminho',
 							array( 	'title' => 'Cadastre seu e-mail',
@@ -386,17 +391,7 @@ function jaiminho_conf_page()
 							
 							
 							$id = 'jaiminho_recreatecredentials';
-							$opt_contatos = get_option('webcontatos-config',false);
-			
-							if ($opt_contatos) {
-							
-								$content = '<input type="submit" name="'.$id.'" id="'.$id.'" value="Recriar credenciais"/>';
-								
-							}
-							else {
-								$content = 'O plugin de gerencimeamento de contatos deve estar ativo e configurado para executar essa ação';
-							}
-											
+							$content = '<input type="submit" name="'.$id.'" id="'.$id.'" value="Recriar credenciais"/>';
 							$rows[] = array(
 									"id" => $id,
 									"label" => __('Recreate Jaiminho Credentials','jaiminho'),
