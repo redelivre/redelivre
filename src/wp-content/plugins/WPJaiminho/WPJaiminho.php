@@ -182,10 +182,15 @@ function jaiminho_conf_page()
 			switch_to_blog(1);
 			
 				$opt = jaiminho_get_config();
+				$opt_contatos = get_option('webcontatos-config');
+				
+				if (!isset($opt_contatos['webcontatos_pass'])) {
+					$opt_contatos['webcontatos_pass'] = md5(uniqid());
+					
+					update_option('webcontatos-config',$opt_contatos);
+				}
 			
 			restore_current_blog();	
-			
-			$opt_contatos = get_option('webcontatos-config');
 			
 			$blog_details = get_blog_details(array('domain'=> $mainSiteDomain));
 			
