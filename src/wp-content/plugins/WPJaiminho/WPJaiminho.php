@@ -118,7 +118,6 @@ function jaiminho_config_menu()
 		add_submenu_page($base_page, __('Nova campanha (envio)','jaiminho'), __('Nova campanha (envio)','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
 		add_submenu_page($base_page, __('Explorar campanhas','jaiminho'), __('Explorar campanhas','jaiminho'), 'manage_options', 'jaiminho-explorarcampanhas', 'jaiminho_explorarcampanhas' );
 		add_submenu_page($base_page, __('Configurações do Plugin','jaiminho'),__('Configurações do Plugin','jaiminho'), 'manage_options', 'jaiminho-config', 'jaiminho_conf_page');
-		//add_submenu_page($base_page, __('Test','jaiminho'),__('Test','jaiminho'), 'manage_options', 'jaiminho-test', 'jaiminho_test');
 }
 
 /**
@@ -165,6 +164,71 @@ function jaiminho_conf_page()
 	$mensagem = false;
 	if ($_SERVER['REQUEST_METHOD']=='POST')
 	{
+		$opt = jaiminho_get_config();
+		
+		if ($_POST['jaiminho_recreatecredentials']) 
+		{
+			$errors = array();
+			
+			$current_site = get_option('siteurl');
+			
+			$mainSiteDomain = preg_replace('|https?://|', '', $current_site);
+			
+			$id = preg_replace('|https?://|', '', $current_site);
+			
+			$id = str_replace('.'.$mainSiteDomain, '', $id);
+	
+			// Muda para o blog principal para pegar as configurações padrão
+			switch_to_blog(1);
+			
+				$opt = jaiminho_get_config();
+			
+			restore_current_blog();	
+			
+			$opt_contatos = get_option('webcontatos-config');
+			
+			$blog_details = get_blog_details(array('domain'=> $mainSiteDomain));
+			
+			$campaign = Campaign::getByBlogId($blog_details->blog_id);
+			
+			$plan_capabilities = Capability::getByPlanId($campaign->plan_id);
+			
+			$limite_emails = ((int)$plan_capabilities->send_messages->value * 1000);
+			
+			$output_headers = null;
+	
+			try {
+				$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+				$defaultmailinglist_id = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_details->blog_id,'blogname'), 'username' => $id,'email' => 'contato@'.$mainSiteDomain, 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
+			} catch (Exception $ex) {
+				$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
+			}
+			
+			$opt['jaiminho_user'] = $id;
+			$opt['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
+			
+			update_option('jaiminho-config', $opt);
+			activate_plugin('WPJaiminho/WPJaiminho.php');
+			
+			add_option( 'widget_jaiminho',
+							array( 	'title' => 'Cadastre seu e-mail',
+									'jaiminho_text' => 'Receba novidades da campanha',
+									'jaiminho_id' => $defaultmailinglist_id));
+			
+			$sidebar_widget = get_option("sidebars_widgets");
+			
+			$sidebar_widget['sidebar-1'] = array_merge(array("jaiminho"),$sidebar_widget['sidebar-1']);
+		
+			update_option("sidebars_widgets",$sidebar_widget);
+			
+			if (count($errors) > 0) {
+				update_option('jaiminho-error-log', $errors);
+				
+			}
+			else {
+				delete_option('jaiminho-error-log');
+			}
+		}
 		
 		if (!current_user_can('manage_options')) die(__('Você não pode editar as configurações do jaiminho.','jaiminho'));
 		check_admin_referer('jaiminho-config');
@@ -193,10 +257,22 @@ function jaiminho_conf_page()
 			}
 		}
 		
-		if (update_option('jaiminho-config', $opt) || (isset($_POST["jaiminho_reinstall"]) && $_POST['jaiminho_reinstall'] == 'S'))
-			$mensagem = __('Configurações salvas!','jaiminho');
-		else
-			$mensagem = __('Erro ao salvar as configurações. Verifique os valores inseridos e tente novamente!','jaiminho');
+		$opt['jaiminho_data_atualizacao'] = date("Y-m-d H:i:s", time());
+		$opt['jaiminho_user_atualizacao'] = get_current_user_id();
+		
+		
+		if (isset($_POST["jaiminho_recreatecredentials"])) {
+			if (get_option('jaiminho-error-log',false))
+				$mensagem = "Ocorreu um erro ao recriar as credenciais do recurso de envio de emails. Consulte o suporte do Campanha Completa";
+			else
+				$mensagem = "Credenciais recriadas com sucessso!";	
+			
+		} else {
+			if (update_option('jaiminho-config', $opt) || (isset($_POST["jaiminho_reinstall"]) && $_POST['jaiminho_reinstall'] == 'S'))
+				$mensagem = __('Configurações salvas!','jaiminho');
+			else
+				$mensagem = __('Erro ao salvar as configurações. Verifique os valores inseridos e tente novamente!','jaiminho');	
+		}
 	}
 
 	$opt = jaiminho_get_config();
@@ -306,6 +382,25 @@ function jaiminho_conf_page()
 									"id" => $id,
 									"label" => __('APIKey','jaiminho'),
 									"content" => '<input type="text" name="'.$id.'" id="'.$id.'" value="'.htmlspecialchars_decode($opt[$id]).'"/>'
+							);
+							
+							
+							$id = 'jaiminho_recreatecredentials';
+							$opt_contatos = get_option('webcontatos-config',false);
+			
+							if ($opt_contatos) {
+							
+								$content = '<input type="submit" name="'.$id.'" id="'.$id.'" value="Recriar credenciais"/>';
+								
+							}
+							else {
+								$content = 'O plugin de gerencimeamento de contatos deve estar ativo e configurado para executar essa ação';
+							}
+											
+							$rows[] = array(
+									"id" => $id,
+									"label" => __('Recreate Jaiminho Credentials','jaiminho'),
+									"content" => $content
 							);
 						}
 						$table .= jaiminho_form_table($rows);
@@ -629,10 +724,5 @@ function jaiminho_explorarcampanhas()
 	echo jaiminho_GenerateIFrame('campaign_browse.php');
 }
 
-function jaiminho_test()
-{
-	$opt = jaiminho_get_config();
-	echo jaiminho_auth();
-}
 
 ?>

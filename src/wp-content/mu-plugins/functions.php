@@ -132,6 +132,8 @@ function campaign_base_template_redirect_intercept() {
 
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
+            $wp_query->is_home = false;
+            
             if (file_exists(STYLESHEETPATH . '/tpl-graphic_material.php')) { // tema filho
                 require(STYLESHEETPATH . '/tpl-graphic_material.php');
             } elseif (file_exists(TEMPLATEPATH . '/tpl-graphic_material.php')) { // tema pai
@@ -141,6 +143,8 @@ function campaign_base_template_redirect_intercept() {
             }
             die;
         case 'mobilizacao':
+            $wp_query->is_home = false;
+            
             $capabilities = Capability::getByPlanId($campaign->plan_id);
             
             if ($capabilities->mobilize->value) {
@@ -154,6 +158,8 @@ function campaign_base_template_redirect_intercept() {
             
             break;
         case 'contato':
+            $wp_query->is_home = false;
+            
             add_action('wp_print_scripts', function() {
                 wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
                 wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/contato.js', array('jquery_validate'));
