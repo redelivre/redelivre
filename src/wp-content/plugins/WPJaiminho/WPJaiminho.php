@@ -214,7 +214,6 @@ function jaiminho_conf_page()
 			$opt['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
 			
 			update_option('jaiminho-config', $opt);
-			activate_plugin('WPJaiminho/WPJaiminho.php');
 			
 			add_option( 'widget_jaiminho',
 							array( 	'title' => 'Cadastre seu e-mail',
@@ -392,17 +391,7 @@ function jaiminho_conf_page()
 							
 							
 							$id = 'jaiminho_recreatecredentials';
-							$opt_contatos = get_option('webcontatos-config',false);
-			
-							if ($opt_contatos) {
-							
-								$content = '<input type="submit" name="'.$id.'" id="'.$id.'" value="Recriar credenciais"/>';
-								
-							}
-							else {
-								$content = 'O plugin de gerencimeamento de contatos deve estar ativo e configurado para executar essa ação';
-							}
-											
+							$content = '<input type="submit" name="'.$id.'" id="'.$id.'" value="Recriar credenciais"/>';
 							$rows[] = array(
 									"id" => $id,
 									"label" => __('Recreate Jaiminho Credentials','jaiminho'),
