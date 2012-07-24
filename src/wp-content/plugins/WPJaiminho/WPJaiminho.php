@@ -161,6 +161,8 @@ function jaiminho_postbox($id, $title, $content) {
  */
 function jaiminho_conf_page()
 {
+	global $blog_id;
+	
 	$mensagem = false;
 	if ($_SERVER['REQUEST_METHOD']=='POST')
 	{
@@ -170,14 +172,12 @@ function jaiminho_conf_page()
 		{
 			$errors = array();
 			
-			$current_site = get_option('siteurl');
+			$blog_details = get_blog_details($blog_id);
 			
-			$mainSiteDomain = preg_replace('|https?://|', '', $current_site);
+			$id = explode('.',$blog_details->domain);
 			
-			$id = preg_replace('|https?://|', '', $current_site);
+			$id = $id[0];
 			
-			$id = str_replace('.'.$mainSiteDomain, '', $id);
-	
 			// Muda para o blog principal para pegar as configurações padrão
 			switch_to_blog(1);
 			
@@ -192,8 +192,6 @@ function jaiminho_conf_page()
 				
 				update_option('webcontatos-config',$opt_contatos);
 			}	
-			
-			$blog_details = get_blog_details(array('domain'=> $mainSiteDomain));
 			
 			$campaign = Campaign::getByBlogId($blog_details->blog_id);
 			
