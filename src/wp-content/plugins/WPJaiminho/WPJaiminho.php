@@ -203,7 +203,7 @@ function jaiminho_conf_page()
 	
 			try {
 				$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
-				$defaultmailinglist_id = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_details->blog_id,'blogname'), 'username' => $id,'email' => 'contato@'.$mainSiteDomain, 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
+				$defaultmailinglist_id = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_details->blog_id,'blogname'), 'username' => $id,'email' => 'contato@'.$blog_details->domain, 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
 			} catch (Exception $ex) {
 				$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
 			}
