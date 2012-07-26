@@ -154,9 +154,10 @@ a:hover#twitter { background-position: -32px -32px; }
 a:hover#google-plus { background-position: -32px -64px; }
 a:hover#youtube { background-position: -32px -96px; }
 a:hover#rss { background-position: -32px -128px; }
-#branding { height: 88px; margin-bottom: 11px; padding: 55px 0; }
-#branding h1 { margin-bottom: 0; font-size: 42px; line-height: 66px; }
+#branding { height: 198px; margin-bottom: 11px; padding: 0; }
+#branding h1 { margin: 55px 0 0; font-size: 42px; line-height: 66px; }
 #branding p { margin-bottom: 0; }
+#header-image-link { display: block; height: 198px; }
 
 /* =Menu
 -------------------------------------------------------------- */
