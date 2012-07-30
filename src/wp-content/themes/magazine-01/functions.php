@@ -144,7 +144,8 @@ if (!function_exists('magazine01_custom_header')) :
         <style type="text/css">
             #branding { background: url(<?php header_image(); ?>) no-repeat; height: <?php echo $custom_header->height; ?>px; }
 			<?php if ( 'blank' == get_header_textcolor() ) : ?>
-				#branding a { height: <?php echo $custom_header->height; ?>px; }        
+				#branding a { height: <?php echo $custom_header->height; ?>px; }
+				#branding a:hover { background: none !important; }       
 			<?php else: ?>       
 				#branding, #branding a, #branding a:hover { color: #<?php header_textcolor(); ?>; }
 				#branding a:hover { text-decoration: none; }
