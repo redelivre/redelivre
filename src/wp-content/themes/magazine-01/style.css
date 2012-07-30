@@ -164,7 +164,7 @@ a:hover#rss { background-position: -32px -128px; }
 #main-nav { margin: 0; list-style-type: none; }
 #main-nav li { position: relative; display: block; float: left; height: 33px; margin-right: 2px; }
 #main-nav ul { display: none; position: absolute; top: 33px; left: 0; margin: 0; width: 150px; float: left; }
-#main-nav li:hover>ul { display: block; }
+#main-nav li:hover>ul { display: block; z-index: 999999; }
 #main-nav ul ul { left: 100%; top: 0; }
 #main-nav ul li { float: none; height: auto; min-width: 150px; }
 #main-nav a { display: block; padding: 0 10px; color: #fff; font-weight: bold; font-size: 16px; line-height: 33px; background: #0033CC; }
