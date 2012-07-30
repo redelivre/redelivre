@@ -54,8 +54,12 @@ $sidebar = get_option('campanha_theme_options');
 		<?php do_action('campanha_body_header'); ?>
     </div>
 	<div id="branding" class="wrap clearfix">
-		<h1 class="col-12"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
-		<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
+		<?php if ( 'blank' == get_header_textcolor() ) : ?>
+			<a id="header-image-link" href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"></a>
+        <?php else: ?>
+			<h1 class="col-12"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
+			<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>
+		<?php endif; ?>		
 	</div>
 	<!-- .wrap -->
 	<div id="menubar">

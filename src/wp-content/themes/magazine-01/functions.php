@@ -142,9 +142,9 @@ if (!function_exists('magazine01_custom_header')) :
         
         ?>
         <style type="text/css">
-            #branding { background: url(<?php header_image(); ?>) no-repeat; height: <?php echo $custom_header->height - 110; ?>px; }
+            #branding { background: url(<?php header_image(); ?>) no-repeat; height: <?php echo $custom_header->height; ?>px; }
 			<?php if ( 'blank' == get_header_textcolor() ) : ?>
-				#branding h1, #branding p { display: none; }        
+				#branding a { height: <?php echo $custom_header->height; ?>px; }        
 			<?php else: ?>       
 				#branding, #branding a, #branding a:hover { color: #<?php header_textcolor(); ?>; }
 				#branding a:hover { text-decoration: none; }
