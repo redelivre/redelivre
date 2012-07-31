@@ -1,0 +1,55 @@
+
+Guia para montar um tema para o Campanha completa.
+
+. Fazer um tema do WordPress, que siga os padrões e passe pelos testes do Theme Checker
+
+http://wordpress.org/extend/plugins/theme-check/
+
+Além disso, existem algumas coisas específicas do Campanha Completa:
+
+== 1. Links para as Redes Sociais ==
+
+No admin do site, o usuário vai colocar os links para todas as redes socias dele. Isso precisa ser colocado em algum lugar no tema, de preferência no header.php, com o seguinte código:
+
+<?php do_action('campanha_body_header'); ?>
+
+Nesta posição, será impresso o seguinte HTML:
+
+<div id="social-bookmarks" class="alignright">
+    <a id="facebook" href="http://..." title="Facebook"></a>
+    <a id="twitter" href="http://..." title="Twitter"></a>
+    <a id="google-plus" href="http://..." title="Google+"></a>
+    <a id="youtube" href="http://..." title="YouTube"></a>
+    <a id="rss" href="http://..." title="RSS"></a>
+</div>
+
+Nota 1: Só serão impressas as Redes que a pessoa preencheu
+
+Nota 2: É preciso criar as imagens e os estilos no css do tema para que os links apareçam de maneira adequada.
+
+== 2. Posição do menu principal ==
+
+É preciso existir um menu principal chamado "main"
+
+<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>
+
+
+== 3. Imagem de cabeçalho == 
+
+O tema deve suportar a customização de cabeçalho padrão do WP 3.4, que permite que a imgem tenha um tamanho flexível.
+
+O cabeçalho deve ter, no mínimo, 960px de largura e 198px de altura.
+
+
+== 4. Agenda de eventos ==
+
+É preciso criar dois templates para a agenda de eventos. 
+
+Para conseguir testar, é preciso ativar o post type "agenda" (em anexo a esse manual há um arquivo php. Basta incluí-lo no seu tema) (Nota: Ao empacotar, remova esse arquivo!)
+
+Os dois templates necessários são o de listagem e o de single da agenda. Eles estão em anexo a essas instruções para serem usados de modelo.
+
+
+
+
+
