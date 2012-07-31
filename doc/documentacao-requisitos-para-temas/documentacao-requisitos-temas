@@ -50,6 +50,16 @@ Para conseguir testar, é preciso ativar o post type "agenda" (em anexo a esse m
 Os dois templates necessários são o de listagem e o de single da agenda. Eles estão em anexo a essas instruções para serem usados de modelo.
 
 
+== 5. Mobilização ==
 
+Nos sites do Campanha completa existe uma página com algumas ferramentas de mobilização.
+
+Essa página deve ocupar a largura toda do site, ou seja, não conter nenhuma barra lateral.
+
+Crie no seu tema um page template no seu e cole o conteúdo do arquivo "html-mobilizacao.html" fornecido junto com essas instruções. Crie todas as regras de CSS necessárias para que a página fique bem apresentada.
+
+Nota 1: O page template será descartado, apenas as regras css serão utilizadas.
+
+Nota 2: Não altere o conteúdo do HTML fornecido
 
 
