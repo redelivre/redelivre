@@ -28,10 +28,6 @@ Template Name: Home
 				<h2><a href="<?php echo get_page_link(2); ?>#georeferenciamento">Mapeie sua campanha com mapas do Google ou OpenStreet.</a></h2>
 				<p>Explore as possibilidades dos mapas interativos.</p>
 			</article>
-			<article id="frase-6" class="frase">
-				<h2><a href="<?php echo get_page_link(2); ?>#materialgrafico">Monte você mesmo seus  próprios materiais gráficos.</a></h2>
-				<p>Gere santinhos, colinhas e flyers.</p>
-			</article>
 		</div>
 		<nav id="next"><a>Próximo</a></nav>       
     </section>
@@ -43,7 +39,6 @@ Template Name: Home
 		<h3 class="contatos textcenter frase-3" data-frase="frase-3">Contatos</h3>
 		<h3 class="email textcenter frase-4" data-frase="frase-4">E-mail e SMS</h3>
 		<h3 class="mapas textcenter frase-5" data-frase="frase-5">Mapas</h3>
-		<h3 class="material textcenter frase-6" data-frase="frase-6">Material Gráfico</h3>				
 	</section>
 	<hr />
 	<!--<form id="mailing" class="col-12" method="get" action="">
