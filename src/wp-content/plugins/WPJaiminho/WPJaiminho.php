@@ -68,6 +68,7 @@ function jaiminho_get_config()
 	$opt['jaiminho_apikey'] = 'AIzaSyDHowXjdVc2WOEx25AnVzF_tsWBUaY6wVA';
 	$opt['width'] = 960;
 	$opt['height'] = 2500;
+	$opt['jaiminho_sms'] = 'N';
 	
 	$opt_conf = get_option('jaiminho-config');
 	if(!is_array($opt_conf)) $opt_conf = array();
@@ -108,16 +109,27 @@ add_action( 'wp_print_scripts', 'jaiminho_scripts' );
 
 function jaiminho_config_menu()
 {
+	$opt = jaiminho_get_config();
+	
 	$base_page = 'jaiminho-campanha';
-	if (function_exists('add_menu_page'))
+	if (function_exists('add_menu_page')) 
 		add_object_page( __('Email/SMS','Email/SMS'), __('Email/SMS','Jaiminho'), 'manage_options', $base_page, array(), JAIMINHO_URL."/imagens/icon.png");
 		add_submenu_page($base_page, __('Criar lista','jaiminho'), __('Criar lista','jaiminho'), 'manage_options', 'jaiminho-criarlista', 'jaiminho_criarlista' );
 		add_submenu_page($base_page, __('Explorar listas','jaiminho'), __('Explorar listas','jaiminho'), 'manage_options', 'jaiminho-explorarlistas', 'jaiminho_explorarlistas' );
 		add_submenu_page($base_page, __('Campos personalizados','jaiminho'), __('Campos personalizados','jaiminho'), 'manage_options', 'jaiminho-campospersonalizados', 'jaiminho_campospersonalizados' );
 		add_submenu_page($base_page, __('Importar membros','jaiminho'), __('Importar membros','jaiminho'), 'manage_options', 'jaiminho-importarmembros', 'jaiminho_importarmembros' );
-		add_submenu_page($base_page, __('Nova campanha (envio)','jaiminho'), __('Nova campanha (envio)','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
+		add_submenu_page($base_page, __('Enviar emails','jaiminho'), __('Nova campanha (envio)','jaiminho'), 'manage_options', 'jaiminho-campanha', 'jaiminho_campanha' );
+		add_submenu_page($base_page, __('Alterar nome do remetente padrão','jaiminho'), __('Alterar nome do remetente padrão','jaiminho'), 'manage_options', 'jaiminho-remetente', 'jaiminho_remetente' );
 		add_submenu_page($base_page, __('Explorar campanhas','jaiminho'), __('Explorar campanhas','jaiminho'), 'manage_options', 'jaiminho-explorarcampanhas', 'jaiminho_explorarcampanhas' );
+	
+		if ($opt['jaiminho_sms'])
+			add_submenu_page($base_page, __('Mensagens de celular','jaiminho'), __('Mensagens de celular','jaiminho'), 'manage_options', 'jaiminho-sms', 'jaiminho_sms' );
+		
 		add_submenu_page($base_page, __('Configurações do Plugin','jaiminho'),__('Configurações do Plugin','jaiminho'), 'manage_options', 'jaiminho-config', 'jaiminho_conf_page');
+		if (is_super_admin()) {
+			add_submenu_page($base_page, __('Listar usuários do Jaiminho','jaiminho'),__('Listar usuários do Jaiminho','jaiminho'), 'manage_options', 'jaiminho-listarusuarios', 'jaiminho_listarusuarios');
+		}
+	
 }
 
 /**
@@ -164,8 +176,12 @@ function jaiminho_conf_page()
 	global $blog_id;
 	
 	$mensagem = false;
+	
 	if ($_SERVER['REQUEST_METHOD']=='POST')
 	{
+		if (!current_user_can('manage_options')) die(__('Você não pode editar as configurações do jaiminho.','jaiminho'));
+			check_admin_referer('jaiminho-config');
+		
 		$opt = jaiminho_get_config();
 		
 		if ($_POST['jaiminho_recreatecredentials']) 
@@ -233,33 +249,11 @@ function jaiminho_conf_page()
 			}
 		}
 		
-		if (!current_user_can('manage_options')) die(__('Você não pode editar as configurações do jaiminho.','jaiminho'));
-		check_admin_referer('jaiminho-config');
-			
-		foreach ( array_keys(jaiminho_get_config()) as $option_name
-		)
+		foreach ( array_keys(jaiminho_get_config()) as $option_name )
 		{
-			if (isset($_POST[$option_name]))
-			{
-				$opt[$option_name] = htmlspecialchars($_POST[$option_name]);
-			}
+			$opt[$option_name] = htmlspecialchars($_POST[$option_name]);
 		}
-
-		if(
-			isset($_POST["jaiminho_reinstall"]) &&
-			$_POST['jaiminho_reinstall'] == 'S'
-		)
-		{
-			try
-			{
-				include_once __DIR__.DIRECTORY_SEPARATOR.'jaiminho_reinstall.php';
-			}
-			catch (Exception $e)
-			{
-				wp_die($e->getMessage());
-			}
-		}
-		
+					
 		$opt['jaiminho_data_atualizacao'] = date("Y-m-d H:i:s", time());
 		$opt['jaiminho_user_atualizacao'] = get_current_user_id();
 		
@@ -271,7 +265,7 @@ function jaiminho_conf_page()
 				$mensagem = "Credenciais recriadas com sucessso!";	
 			
 		} else {
-			if (update_option('jaiminho-config', $opt) || (isset($_POST["jaiminho_reinstall"]) && $_POST['jaiminho_reinstall'] == 'S'))
+			if (update_option('jaiminho-config', $opt))
 				$mensagem = __('Configurações salvas!','jaiminho');
 			else
 				$mensagem = __('Erro ao salvar as configurações. Verifique os valores inseridos e tente novamente!','jaiminho');	
@@ -353,6 +347,13 @@ function jaiminho_conf_page()
 						);
 						if(is_super_admin())
 						{
+							$id = 'jaiminho_sms';
+							$rows[] = array(
+									"id" => $id,
+									"label" => __('Acessar recursos de SMS','jaiminho'),
+									"content" => '<input type="checkbox" name="'.$id.'" id="'.$id.'" value="S" '.($opt['jaiminho_sms'] ? 'checked': '').'/>'
+							);
+						
 							$id = 'jaiminho_url';
 							$rows[] = array(
 									"id" => $id,
@@ -712,10 +713,85 @@ function jaiminho_campanha()
 	echo jaiminho_GenerateIFrame('campaign_new.php');
 }
 
+function jaiminho_remetente()
+{
+	if ($_SERVER['REQUEST_METHOD']=='POST')
+	{
+		$opt = jaiminho_get_config();
+		
+		try {
+			$output_headers = null;	
+			$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+			$alterado = $client->__soapCall('changename', array('apikeymaster' => $opt['jaiminho_apikey'], 'username' => $opt['jaiminho_user'], 'newname' => $_POST['jaiminho_nomeremetente']) , array(), null, $output_headers);		
+		} catch (Exception $ex) {
+			wp_die('('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail);
+		}
+		
+		if ($alterado) 
+			$mensagem = 'Nome de remetente alterado com sucesso!';
+		else 
+			$mensagem = 'Ocorreu um erro ao alterar o nome de remetente!';
+		
+	}
+
+	$opt = jaiminho_get_config();
+	
+	try {
+		$output_headers = null;	
+		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
+		$nome = $client->__soapCall('getdefaultname', array('apikeymaster' => $opt['jaiminho_apikey'], 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);		
+	} catch (Exception $ex) {
+		wp_die('('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail);
+	}
+	
+	?>
+	<div class="wrap">
+		<h2>Remetente</h2>
+		<div class="postbox-container" style="width:80%;">
+			<div class="metabox-holder">	
+				<div class="meta-box-sortables">
+					<?php if ($mensagem) {?>
+					<div id="message" class="updated">
+					<?php echo $mensagem; ?>
+					</div>
+					<?php }?>
+					<form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" id="jaiminho-remetente" >
+					<?php if (function_exists('wp_nonce_field')) 		
+						wp_nonce_field('jaiminho-config');
+						
+						$rows = array();
+						$id = 'jaiminho_nomeremetente';
+						$rows[] = array(
+								"id" => $id,
+								"label" => __('Nome do remetente padrão','jaiminho'),
+								"content" => '<input type="text" name="'.$id.'" id="'.$id.'" value="'.$nome.'"/>'
+						);
+						
+						$table .= jaiminho_form_table($rows);
+					
+						jaiminho_postbox('jaiminho-remetente',__('Alterar o nome do remetente padrão','jaiminho'), $table.'<div class="submit"><input type="submit" class="button-primary" name="submit" value="'.__('Salvar as configurações','jaiminho').'" /></form></div>');
+					?>
+					</form>
+				</div> <!-- meta-box-sortables -->
+			</div> <!-- meta-box-holder -->
+		</div> <!-- postbox-container -->
+	</div>
+<?php
+}
+
 function jaiminho_explorarcampanhas()
 {
 	echo jaiminho_GenerateIFrame('campaign_browse.php');
 }
 
+function jaiminho_sms()
+{
+	echo jaiminho_GenerateIFrame('plg0007_index.php');
+}
+
+function jaiminho_listarusuarios()
+{
+	echo jaiminho_GenerateIFrame('settings_admins.php');
+}
 
 ?>
