@@ -11,6 +11,6 @@ foreach ($campaigns as $campaign) {
     $uploadLimit = $wpdb->get_var("SELECT option_value FROM wp_{$campaign->blog_id}_options WHERE option_name = 'blog_upload_space'");
     
     if ($plans[$campaign->plan_id] != $uploadLimit) {
-        var_dump("Erro: valor deveria ser {$plans[$campaign->plan_id]} e é '$uploadLimit' para {$campaign->domain}");
+        var_dump("Erro: valor deveria ser {$plans[$campaign->plan_id]} e é '$uploadLimit' para {$campaign->domain} ({$campaign->blog_id})");
     }
 }
