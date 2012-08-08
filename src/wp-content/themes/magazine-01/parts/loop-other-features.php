@@ -50,17 +50,14 @@ if ($post):
                 <p><?php echo utils::getPostExcerpt($post, 144); ?></p>
             <?php endif; ?>
 		</div>
+        <?php if ($showing != 'post'): ?>
 		<footer class="clearfix">	
 			<p class="taxonomies">
-                <?php if ($showing == 'post'): ?>
-                    <span><?php _e('Categories', 'magazine01'); ?>:</span> <?php the_category(', ');?><br />
-                    <?php the_tags('<span>Tags:</span> ', ', '); ?>
-                <?php else: ?>
-                    <?php $curCat = get_category($config['cat']); $curCatLink = get_category_link($config['cat']); ?>
-                    <span>Ver mais <a href="<?php echo $curCatLink; ?>"><?php echo $curCat->name; ?></a></span>
-                <?php endif; ?>
+                <?php $curCat = get_category($config['cat']); $curCatLink = get_category_link($config['cat']); ?>
+                <span>Ver mais <a href="<?php echo $curCatLink; ?>"><?php echo $curCat->name; ?></a></span>
 			</p>
 		</footer>
+        <?php endif; ?>
 	</article>
 
 <?php else: ?>

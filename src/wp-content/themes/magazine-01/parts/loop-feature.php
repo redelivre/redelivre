@@ -13,12 +13,7 @@
 			</p>
 		</header>						
 		<?php the_excerpt(); ?>
-		<footer class="clearfix">	
-			<p class="taxonomies">			
-				<span><?php _e('Categories', 'magazine01'); ?>:</span> <?php the_category(', ');?><br />
-				<?php the_tags('<span>Tags:</span> ', ', '); ?>
-			</p>		
-		</footer>
+		
 	</div>
 	
 </article>
