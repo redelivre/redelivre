@@ -9,8 +9,6 @@ foreach (glob(WPMU_PLUGIN_DIR . '/includes/widgets/*.php') as $file) {
     require_once($file);
 }
 
-//wpaudio plugin tweaks
-include(WPMU_PLUGIN_DIR . '/includes/wpaudio-plugin-tweaks.php');
 
 //db updates -- eventualmente podemos não incluir mais
 include(WPMU_PLUGIN_DIR . '/includes/db-updates.php');

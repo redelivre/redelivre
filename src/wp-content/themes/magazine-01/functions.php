@@ -73,7 +73,7 @@ function magazine01_addJS() {
     
     wp_enqueue_script('jquery-autocomplete', get_template_directory_uri().'/js/jquery-ui-1.8.20-autocomplete.js', array('jquery-ui-widget'));
     wp_enqueue_script('congelado', get_template_directory_uri().'/js/congelado.js', 'jquery-autocomplete');
-    wp_enqueue_script('slideshow', get_template_directory_uri().'/js/slideshow.js');
+    wp_enqueue_script('magazine', get_template_directory_uri().'/js/magazine.js');
     
     wp_localize_script('congelado', 'vars', array(
         'ajaxurl' => admin_url('admin-ajax.php')
@@ -263,10 +263,69 @@ function the_first_audio() {
         $audio = get_first_audio($post->post_content);
         
         if ($audio)
-            echo apply_filters('the_content', '[wpaudio url="'.$audio.'" dl="0"]');
+            print_audio_player($audio, false);
     
     }
 
+}
+
+//replace links to mp3 to player
+add_filter('the_content', 'replace_mp3_links');
+
+function replace_mp3_links($content) {
+    
+    if (!is_feed()) {
+        $pattern = "/<a ([^=]+=['\"][^\"']+['\"] )*href=['\"](([^?\"']+\.mp3))['\"]( [^=]+=['\"][^\"']+['\"])*>([^<]+)<\/a>/i";
+        $content = preg_replace_callback( $pattern, '_replace_mp3_links_do_replace', $content );
+    }
+    
+    return $content;
+    
+}
+
+function _replace_mp3_links_do_replace($matches) {
+
+    $data = preg_split("/[\|]/", $matches[3]);
+			
+    //$files = array();
+    
+    foreach ( explode( ",", trim($data[0]) ) as $afile ) {
+        $afile = trim($afile);
+        //array_push( $files, $afile );
+        
+        return get_audio_player($afile);
+
+    }
+
+}
+
+
+function print_audio_player($fileURL, $dl = true){
+
+    echo get_audio_player($fileURL, $dl = true);
+
+}
+
+function get_audio_player($fileURL, $dl = true){
+    
+	$playerURL = get_template_directory_uri() . '/audio-player/';
+    
+    $player ='<object type="application/x-shockwave-flash"
+        	data="' . $playerURL . '/player.swf" id="audioplayer1"
+        	class="audioplayer" height="24" width="220" style="visibility: visible">
+        	<param name="movie" value="' . $playerURL . '/player.swf">
+        	<param name="FlashVars"
+        		value="playerID=1&amp;soundFile=' . $fileURL . '">
+        	<param name="quality" value="high">
+        	<param name="menu" value="false">
+        	<param name="wmode" value="transparent">
+        </object>';
+    
+    if ($dl)
+    $player .= '<a href="' . get_template_directory_uri() . '/download_audio.php?file_url=' . $fileURL . '">Download</a>';
+    
+    return $player;
+    
 }
 
 function get_first_audio($content) {
