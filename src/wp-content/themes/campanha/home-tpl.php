@@ -8,7 +8,11 @@ Template Name: Home
 		<div id="logo"><?php html::image('logao.png','Campanha Completa') ?></div>
 		<nav id="prev"><a>Anterior</a></nav>
 		<div id="janela">
-			<article id="frase-1" class="frase current">
+			<article id="frase-0" class="frase current">
+				<h2>Organize sua campanha e mobilize o eleitor!</h2>
+				<p>Com a experiência de mais de 200 candidatos atendidos</p>
+			</article>
+            <article id="frase-1" class="frase ">
 				<h2><a href="<?php echo get_page_link(2); ?>#blogousite">Monte seu site ou blog personalizado em minutos.</a></h2>
 				<p>São várias opções de layout para sua escolha.</p>
 			</article>
@@ -34,7 +38,7 @@ Template Name: Home
     <!-- #main-section -->
     <hr />
     <section id="features" class="clearfix">
-		<h3 class="sites textcenter frase-1 active" data-frase="frase-1">Site ou Blog</h3>
+		<h3 class="sites textcenter frase-1 " data-frase="frase-1">Site ou Blog</h3>
 		<h3 class="redes textcenter frase-2" data-frase="frase-2">Redes Sociais</h3>
 		<h3 class="contatos textcenter frase-3" data-frase="frase-3">Contatos</h3>
 		<h3 class="email textcenter frase-4" data-frase="frase-4">E-mail e SMS</h3>
