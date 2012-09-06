@@ -13,7 +13,9 @@ function webcontatos_get_user_campos_form_registro_template()
 		'tipo_painel' => 'Texto', // Opcional: tipo do painel (Texto, DropDown ou CheckBox)
 		'dados' => false, // Opcional: Função para pegar opções ou Array com dados 
 		'dados_param' => false, // Opcional: Parametros para a função e dados array("Valor" => "Label", "Valor2" => "Label2")
-		'funcao_painel' => false // Opcional: Função que gera o html no painel
+		'funcao_painel' => false, // Opcional: Função que gera o html no painel
+		'administracao' => false, // Opcional: Se é necessário ter poderes especiais para alterar esse campo
+		'capability' => '' //Opcional: (se administracao == true) Qual a capability ou false para administradores
 	);
 }
 
@@ -44,7 +46,19 @@ function webcontatos_get_user_campos_form_registro()
 			'nome' => __('Pode usar o WebContatos?', 'webcontatos'),
 			'registro' => false,
 			'tipo_painel' => 'CheckBox',
-			'dados' => array("S" => "S", "N" => "N")
+			'dados' => array("S" => "S", "N" => "N"),
+			'administracao' => true,
+			'capability' => array('create_users' ,'promote_users' )
+		),
+		array(
+			'novo' => true,
+			'id' => 'grupo_webcontatos',
+			'nome' => __('Grupo de permissões?', 'webcontatos'),
+			'registro' => false,
+			'tipo_painel' => 'DropDown',
+			'dados' => 'webcontatos_get_grupos',
+			'administracao' => true,
+			'capability' => array('create_users' ,'promote_users' )
 		),
 	);
 	
@@ -134,7 +148,7 @@ function webcontatos_extra_profile_fields( $user )
 	if($campos > 0)
 	{
 		?>
-			<h3>webcontatos Extra profile informations</h3>
+			<h3><?php _e('Webcontatos', 'webcontatos')?></h3>
 		
 			<table class="webcontatos-user-form-table">
 		<?php
@@ -282,12 +296,74 @@ add_action('profile_update', 'webcontatos_profile_update');
 
 function webcontatos_user_panel_add()
 {
-	if ($_SERVER["REQUEST_URI"] == '/wp-admin/user-new.php')
+	$can = ( current_user_can( 'create_users' ) || current_user_can( 'promote_users' ) );
+	
+	if (strpos($_SERVER["REQUEST_URI"], '/wp-admin/user-new.php') !== false )
 	{
-		
+		$grupos = webcontatos_get_grupos();
+		$options = '';
+		foreach ($grupos as $key => $grupo)
+		{
+			$options .= '<option class="regular-checkbox-value" value="'.$key.'">'.$grupo.'</option>';
+		}
+		$JS = '
+		<script type="text/javascript">
+		 		jQuery(".form-table").each(function () {jQuery("tr:last", this).after(\''.
+		 		'<tr>'.
+		 			'<td>'.
+		 				'<label for="user_webcontatos">Pode usar o WebContatos?</label>'.
+		 			'</td>'.
+		 			'<td>'.
+		 				'<input type="checkbox" '.($can?"":'disabled="disabled"').' class="regular-checkbox" value="S" id="user_webcontatos" name="user_webcontatos"><br>'.
+		 			'</td>'.
+		 		'</tr>'.
+		 		'<tr>'.
+	 				'<td>'.
+	 					'<label for="grupo_webcontatos">Grupo de permissões?</label>'.
+	 				'</td>'.
+	 				'<td>'.
+	 					'<select class="regular-dropdown" id="grupo_webcontatos" name="grupo_webcontatos" '.($can?"":'disabled="disabled"').' >'.
+	 						$options.
+	 					'</select><br>'.
+	 				'</td>'.
+	 			'</tr>'.
+				'\');});
+		</script>
+		';
+		echo $JS;
 	}
 }
-add_action('admin_footer', 'webcontatos_user_panel_add')
+add_action('admin_footer', 'webcontatos_user_panel_add');
 
+function webcontatos_user_panel_post($location, $status)
+{
+	if ($_SERVER["REQUEST_URI"] == '/wp-admin/user-new.php' && current_user_can('promote_users'))
+	{
+		if ($_SERVER['REQUEST_METHOD']=='POST' && (
+			strpos($location, 'update=add') !== false ||
+			strpos($location, 'update=addnoconfirmation') !== false ||
+			strpos($location, 'update=newuserconfimation') !== false
+		))
+		{
+			if ( ! current_user_can( 'create_users' ) && ! current_user_can( 'promote_users' ) )
+				wp_die( __( 'Cheatin&#8217; uh?' ) );
+			check_admin_referer( 'add-user', '_wpnonce_add-user' );
+			
+			$user = get_user_by('email',$_POST['email']);
+			if($user !== false)
+			{
+				update_user_meta($user->ID. 'grupo_webcontatos', $_POST['grupo_webcontatos']);
+				update_user_meta($user->ID. 'user_webcontatos', $_POST['user_webcontatos']);
+				//update_user_meta($user->ID. 'webcontatos_pass', $_POST['webcontatos_pass']); // TODO Campo para Senha
+				$pass = uniqid();
+				update_user_meta($user->ID. 'webcontatos_pass', md5($pass));
+				webcontatos_update_user($user, $pass, $_POST['user_webcontatos'], $_POST['grupo_webcontatos']);
+			}
+		}
+	}
+	return $location;
+}
+
+add_filter('wp_redirect','webcontatos_user_panel_post', 10, 2);
 
 ?>

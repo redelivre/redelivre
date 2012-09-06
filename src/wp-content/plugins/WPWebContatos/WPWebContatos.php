@@ -102,7 +102,11 @@ add_action('admin_init','webcontatos_instalacao');
 
 function WebContatos_init()
 {
-	add_action('admin_menu', 'WebContatos_config_menu');
+	$user = get_current_user_id();
+	if(is_super_admin() || get_user_meta($user, 'user_webcontatos', true) == 'S')
+	{
+		add_action('admin_menu', 'WebContatos_config_menu');
+	}
 }
 add_action('init','WebContatos_init');
 
@@ -112,10 +116,10 @@ function webcontatos_scripts()
 }
 add_action( 'wp_print_scripts', 'webcontatos_scripts' );
 
-/*if(get_current_blog_id() != 1) TODO Painel do usuário
+if(get_current_blog_id() != 1) //TODO Painel do usuário
 {
 	require_once __DIR__.DIRECTORY_SEPARATOR.'WebContatos_user_painel.php';
-}*/
+}
 
 // Fim Inicialização do plugin
 
@@ -232,7 +236,7 @@ function webcontatos_conf_page()
 					<?php echo $mensagem; ?>
 					</div>
 					<?php }?>
-					<form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" id="webcontatos-config" >
+					<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="webcontatos-config" >
 					<?php if (function_exists('wp_nonce_field')) 		
 						wp_nonce_field('webcontatos-config');
 						$table = '
@@ -372,6 +376,16 @@ function webcontatos_Campaign_created($data)
 	
 	$opt = webcontatos_get_config();
 	
+	$blog_id = $data['blog_id'];
+	switch_to_blog($blog_id);
+		$webcontatos_options = get_option('webcontatos-config', $webcontatos_options, false);
+	restore_current_blog();
+	
+	if(array_key_exists('webcontatos_pass', $webcontatos_options) && $webcontatos_options['webcontatos_pass'] != 'admin')
+	{
+		$contatoscc_pass = $webcontatos_options['webcontatos_pass'];
+	}
+	
 	$errors = array();
 	
 	try {
@@ -397,13 +411,18 @@ function webcontatos_Campaign_created($data)
 	$webcontatos_options['webcontatos_admin_user'] = '';
 	$webcontatos_options['webcontatos_admin_pass'] = '';
 	$webcontatos_options['webcontatos_admin_key'] = '';
-	$blog_id = $data['blog_id'];
+
 	switch_to_blog($blog_id);
 		if (count($errors) > 0) {
 			$webcontatos_options['webcontatos_error_log'] = $errors;
 		}
 		update_option('webcontatos-config', $webcontatos_options, false);
-		activate_plugin('WPWebContatos/WPWebContatos.php');	
+		activate_plugin('WPWebContatos/WPWebContatos.php');
+		$user = get_current_user();
+		update_user_meta($user->ID. 'webcontatos_user', $contatoscc_user);
+		update_user_meta($user->ID. 'webcontatos_pass', md5($contatoscc_pass));
+		update_user_meta($user->ID. 'grupo_webcontatos', 6);
+		update_user_meta($user->ID. 'user_webcontatos', 'S');
 	restore_current_blog();
 }
 
@@ -561,7 +580,15 @@ function webcontatos_Auth()
 	$opt = webcontatos_get_config();
 
 	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
-	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+	if(is_super_admin())
+	{
+		$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+	}
+	else
+	{
+		$user = get_current_user();
+		$auth = $client->__soapCall('doLogin', array('nome' => $user->user_login, 'password' => get_user_meta($user->ID, 'webcontatos_pass', true)) , array(), null, $output_headers);
+	}
 
 	if(!$auth)
 	{
@@ -572,26 +599,6 @@ function webcontatos_Auth()
 	$url = 'page=AuthByKey&authkey='.$key;
 
 	return $url;
-}
-
-function webcontatos_AutoAuth_iframe()
-{
-	$opt = webcontatos_get_config();
-	
-	$auth = webcontatos_Auth();
-	
-	if($auth === false)
-	{
-		$error = __('Não foi possível fazer o login automático no sistema WebContatos, favor entrar em contato com o suporte técnico', 'WebContatos');
-		webcontatos_report_error($error);
-		return $error;
-	}
-	
-	$url = $opt['webcontatos_url']."/index.php?".$auth;
-	
-	$iframe = '<iframe src="'.$url.'" style="width:0px;height: 0px" scrolling="no" />';
-	
-	return $iframe;
 }
 
 function webcontatos_GerenciarContato()
@@ -616,11 +623,55 @@ function webcontatos_ExportarContato()
 
 function webcontatos_enc_pass($opt)
 {
-	if(array_key_exists('webcontatos_pass', $_POST))
+	if(array_key_exists('webcontatos_pass', $_POST) && $opt['webcontatos_pass'] != md5($_POST['webcontatos_pass']) && $opt['webcontatos_pass'] != $_POST['webcontatos_pass'])
 	{
 		$opt['webcontatos_pass'] = md5($_POST['webcontatos_pass']);
 	}
 	return $opt;
 }
 add_filter('webcontatos-config', 'webcontatos_enc_pass');
+
+function webcontatos_get_grupos()
+{
+	$opt = webcontatos_get_config();
+	
+	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+	
+	if(!$auth)
+	{
+		return array();
+	}
+	$grupos = $client->__soapCall('getGrupos', array() , array(), null, $output_headers);
+	
+	if(is_array($grupos))
+	{
+		return $grupos;
+	}
+	
+	return array();
+}
+
+/**
+ * Atualiza dados do usuário no WebContatos
+ * @param WP_User $user
+ * @param unknown $permissao
+ * @param unknown $grupo
+ * @return boolean
+ */
+function webcontatos_update_user($user, $pass, $permissao, $grupo)
+{
+	$opt = webcontatos_get_config();
+	
+	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+	
+	if(!$auth)
+	{
+		return false;
+	}
+	
+	$ret = $client->__soapCall('UpdateUsuario', array('nome'=> $user->user_login, 'pass' => $pass, 'grupo' => $grupo, 'permissao' => $permissao, 'nomeCompleto' => ($user->first_name.' '.$user->last_name)) , array(), null, $output_headers);
+	
+}
 ?>
