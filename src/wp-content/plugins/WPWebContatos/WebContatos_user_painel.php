@@ -290,6 +290,7 @@ function webcontatos_profile_update($user_id)
 			break;
 		}
 	}
+	webcontatos_user_panel_update($user_id);
 }
 
 add_action('profile_update', 'webcontatos_profile_update');
@@ -345,25 +346,35 @@ function webcontatos_user_panel_post($location, $status)
 			strpos($location, 'update=newuserconfimation') !== false
 		))
 		{
-			if ( ! current_user_can( 'create_users' ) && ! current_user_can( 'promote_users' ) )
-				wp_die( __( 'Cheatin&#8217; uh?' ) );
 			check_admin_referer( 'add-user', '_wpnonce_add-user' );
 			
 			$user = get_user_by('email',$_POST['email']);
-			if($user !== false)
-			{
-				update_user_meta($user->ID. 'grupo_webcontatos', $_POST['grupo_webcontatos']);
-				update_user_meta($user->ID. 'user_webcontatos', $_POST['user_webcontatos']);
-				//update_user_meta($user->ID. 'webcontatos_pass', $_POST['webcontatos_pass']); // TODO Campo para Senha
-				$pass = uniqid();
-				update_user_meta($user->ID. 'webcontatos_pass', md5($pass));
-				webcontatos_update_user($user, $pass, $_POST['user_webcontatos'], $_POST['grupo_webcontatos']);
-			}
+			webcontatos_user_panel_update($user);
 		}
 	}
 	return $location;
 }
 
 add_filter('wp_redirect','webcontatos_user_panel_post', 10, 2);
+
+function webcontatos_user_panel_update($user)
+{
+	if ( ! current_user_can( 'create_users' ) && ! current_user_can( 'promote_users' ) )
+		return;
+	
+	if(array_key_exists('grupo_webcontatos', $_POST) && array_key_exists('user_webcontatos', $_POST))
+	{
+		if(is_int($user)) $user = get_user_by('id', $user);
+		if($user !== false)
+		{
+			update_user_meta($user->ID. 'grupo_webcontatos', $_POST['grupo_webcontatos']);
+			update_user_meta($user->ID. 'user_webcontatos', $_POST['user_webcontatos']);
+			//update_user_meta($user->ID. 'webcontatos_pass', $_POST['webcontatos_pass']); // TODO Campo para Senha
+			$pass = uniqid();
+			update_user_meta($user->ID. 'webcontatos_pass', md5($pass));
+			webcontatos_update_user($user, $pass, $_POST['user_webcontatos'], $_POST['grupo_webcontatos']);
+		}
+	}
+}
 
 ?>
