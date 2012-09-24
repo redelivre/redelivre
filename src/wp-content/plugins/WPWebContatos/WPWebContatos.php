@@ -418,7 +418,7 @@ function webcontatos_Campaign_created($data)
 		}
 		update_option('webcontatos-config', $webcontatos_options, false);
 		activate_plugin('WPWebContatos/WPWebContatos.php');
-		$user = get_current_user();
+		$user = wp_get_current_user();
 		update_user_meta($user->ID. 'webcontatos_user', $contatoscc_user);
 		update_user_meta($user->ID. 'webcontatos_pass', md5($contatoscc_pass));
 		update_user_meta($user->ID. 'grupo_webcontatos', 6);
@@ -580,13 +580,14 @@ function webcontatos_Auth()
 	$opt = webcontatos_get_config();
 
 	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
-	if(is_super_admin())
+	$user = wp_get_current_user();
+	
+	if(is_super_admin() || $user->user_login == $opt['webcontatos_user'])
 	{
 		$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
 	}
 	else
 	{
-		$user = get_current_user();
 		$auth = $client->__soapCall('doLogin', array('nome' => $user->user_login, 'password' => get_user_meta($user->ID, 'webcontatos_pass', true)) , array(), null, $output_headers);
 	}
 

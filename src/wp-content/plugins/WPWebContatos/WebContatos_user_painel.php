@@ -46,7 +46,7 @@ function webcontatos_get_user_campos_form_registro()
 			'nome' => __('Pode usar o WebContatos?', 'webcontatos'),
 			'registro' => false,
 			'tipo_painel' => 'CheckBox',
-			'dados' => array("S" => "S", "N" => "N"),
+			'dados' => array("A" => "A", "D" => "D"),
 			'administracao' => true,
 			'capability' => array('create_users' ,'promote_users' )
 		),
@@ -251,7 +251,7 @@ add_action('admin-init', 'webcontatos_extra_profile_fields');
 
 function webcontatos_profile_update($user_id)
 {
-	$campos = webcontatos_get_user_campos_form_registro();
+	/*$campos = webcontatos_get_user_campos_form_registro();
 	foreach ($campos as $campo)
 	{
 		switch($campo['tipo_painel'])
@@ -289,7 +289,7 @@ function webcontatos_profile_update($user_id)
 				}
 			break;
 		}
-	}
+	}*/
 	webcontatos_user_panel_update($user_id);
 }
 
@@ -315,7 +315,7 @@ function webcontatos_user_panel_add()
 		 				'<label for="user_webcontatos">Pode usar o WebContatos?</label>'.
 		 			'</td>'.
 		 			'<td>'.
-		 				'<input type="checkbox" '.($can?"":'disabled="disabled"').' class="regular-checkbox" value="S" id="user_webcontatos" name="user_webcontatos"><br>'.
+		 				'<input type="checkbox" '.($can?"":'disabled="disabled"').' class="regular-checkbox" value="A" id="user_webcontatos" name="user_webcontatos"><br>'.
 		 			'</td>'.
 		 		'</tr>'.
 		 		'<tr>'.
@@ -357,22 +357,33 @@ function webcontatos_user_panel_post($location, $status)
 
 add_filter('wp_redirect','webcontatos_user_panel_post', 10, 2);
 
+/**
+ * 
+ * @param WP_User $user
+ */
 function webcontatos_user_panel_update($user)
 {
 	if ( ! current_user_can( 'create_users' ) && ! current_user_can( 'promote_users' ) )
 		return;
+	$opt = webcontatos_get_config();
+	if($user->user_login == $opt['webcontatos_user']) return;
 	
-	if(array_key_exists('grupo_webcontatos', $_POST) && array_key_exists('user_webcontatos', $_POST))
+	$perm = "D";
+	if(array_key_exists('user_webcontatos', $_POST))
 	{
-		if(is_int($user)) $user = get_user_by('id', $user);
+		$perm = $_POST['user_webcontatos'];
+	}
+	if(array_key_exists('grupo_webcontatos', $_POST))
+	{
+		if(!is_object($user)) $user = get_user_by('id', $user);
 		if($user !== false)
 		{
-			update_user_meta($user->ID. 'grupo_webcontatos', $_POST['grupo_webcontatos']);
-			update_user_meta($user->ID. 'user_webcontatos', $_POST['user_webcontatos']);
+			update_user_meta($user->ID, 'grupo_webcontatos', $_POST['grupo_webcontatos']);
+			update_user_meta($user->ID, 'user_webcontatos', $perm);
 			//update_user_meta($user->ID. 'webcontatos_pass', $_POST['webcontatos_pass']); // TODO Campo para Senha
 			$pass = uniqid();
-			update_user_meta($user->ID. 'webcontatos_pass', md5($pass));
-			webcontatos_update_user($user, $pass, $_POST['user_webcontatos'], $_POST['grupo_webcontatos']);
+			update_user_meta($user->ID, 'webcontatos_pass', md5($pass));
+			webcontatos_update_user($user, $pass, $perm, $_POST['grupo_webcontatos']);
 		}
 	}
 }
