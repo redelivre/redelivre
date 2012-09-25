@@ -102,8 +102,9 @@ add_action('admin_init','webcontatos_instalacao');
 
 function WebContatos_init()
 {
-	$user = get_current_user_id();
-	if(is_super_admin() || get_user_meta($user, 'user_webcontatos', true) == 'S')
+	$opt = webcontatos_get_config();
+	$user = wp_get_current_user();
+	if(is_super_admin() || get_user_meta($user->ID, 'user_webcontatos', true) == 'A' || $user->user_login == $opt['webcontatos_user'])
 	{
 		add_action('admin_menu', 'WebContatos_config_menu');
 	}
@@ -422,7 +423,7 @@ function webcontatos_Campaign_created($data)
 		update_user_meta($user->ID. 'webcontatos_user', $contatoscc_user);
 		update_user_meta($user->ID. 'webcontatos_pass', md5($contatoscc_pass));
 		update_user_meta($user->ID. 'grupo_webcontatos', 6);
-		update_user_meta($user->ID. 'user_webcontatos', 'S');
+		update_user_meta($user->ID. 'user_webcontatos', 'A');
 	restore_current_blog();
 }
 
