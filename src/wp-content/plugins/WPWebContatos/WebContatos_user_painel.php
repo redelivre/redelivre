@@ -346,7 +346,7 @@ function webcontatos_user_panel_post($location, $status)
 			strpos($location, 'update=newuserconfimation') !== false
 		))
 		{
-			check_admin_referer( 'add-user', '_wpnonce_add-user' );
+			//check_admin_referer( 'add-user', '_wpnonce_add-user' );
 			
 			$user = get_user_by('email',$_POST['email']);
 			webcontatos_user_panel_update($user);
