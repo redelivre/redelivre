@@ -35,34 +35,36 @@ class WidgetAgenda extends WP_Widget {
 
         $events = $events_query->posts;
         ?>
-        <div class="widget widget-agenda">        
-            <header><h1><?php echo isset($instance['title']) ? $instance['title'] : 'Agenda'; ?></h1></header>
-            <?php
-            foreach ($events as $event):
-                $data_inicial = get_post_meta($event->ID, '_data_inicial', true);
-                if ($data_inicial)
-                    $data_inicial = date(get_option('date_format'), strtotime($data_inicial));
-
-                $data_final = get_post_meta($event->ID, '_data_final', true);
-                if ($data_final)
-                    $data_final = date(get_option('date_format'), strtotime($data_final));
-                ?>
-                <p>
-                    <span class="date">
-                        <?php echo $data_inicial; ?> 
-                        <?php if ($data_inicial != $data_final): ?>
-                            a <?php echo $data_final; ?>
-                        <?php endif; ?>
-                    </span><br/>
-                    <?php echo $event->post_title; ?>
-                    <?php if ( get_post_meta($event->ID, '_link', true) ): ?>
-                        (<a href="<?php echo get_permalink($event->ID); ?>" title="<?php echo esc_attr($event->post_title); ?>">Saiba mais</a>)
-                    <?php endif; ?>
-                </p>
+        <div class="widget widget-agenda">
+            <div class="widget-content clearfix">       
+                <header><h1><?php echo isset($instance['title']) ? $instance['title'] : 'Agenda'; ?></h1></header>
                 <?php
-            endforeach;
-            ?>
-            <p class="textright"><a href="<?php echo get_post_type_archive_link('agenda') ?>" class="all">veja o calendário completo</a></p>
+                foreach ($events as $event):
+                    $data_inicial = get_post_meta($event->ID, '_data_inicial', true);
+                    if ($data_inicial)
+                        $data_inicial = date(get_option('date_format'), strtotime($data_inicial));
+    
+                    $data_final = get_post_meta($event->ID, '_data_final', true);
+                    if ($data_final)
+                        $data_final = date(get_option('date_format'), strtotime($data_final));
+                    ?>
+                    <p>
+                        <span class="date">
+                            <?php echo $data_inicial; ?> 
+                            <?php if ($data_inicial != $data_final): ?>
+                                a <?php echo $data_final; ?>
+                            <?php endif; ?>
+                        </span><br/>
+                        <?php echo $event->post_title; ?>
+                        <?php if ( get_post_meta($event->ID, '_link', true) ): ?>
+                            (<a href="<?php echo get_permalink($event->ID); ?>" title="<?php echo esc_attr($event->post_title); ?>">Saiba mais</a>)
+                        <?php endif; ?>
+                    </p>
+                    <?php
+                endforeach;
+                ?>
+                <p class="textright"><a href="<?php echo get_post_type_archive_link('agenda') ?>" class="all">veja o calendário completo</a></p>
+            </div>
         </div>
         <?php
     }
