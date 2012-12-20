@@ -289,6 +289,8 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 .rss-date { display: block; font-style: italic; }
 .widget_rss .widget-title img {	width: 11px; height: 11px; }
 
+.widget-agenda .widget-content h1 { font-size: 18px; }
+
 #wp_tag_cloud div {	line-height: 1.6em; }
 
 #wp-calendar { width: 100%; font-family: "Trebuchet MS", Arial, sans-serif; }
