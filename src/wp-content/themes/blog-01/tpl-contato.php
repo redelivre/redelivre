@@ -4,6 +4,8 @@
     		<div id="content" class="col-8">
     			<article id="post-<?php the_ID(); ?>" class="clearfix">                
     				<h2>Entre em contato</h2>
+    				<?php $contactText = get_option('campanha_contact_page_text'); ?>
+    				<p><?php echo nl2br($contactText); ?></p>
     				<div class="post-content">										
     				    <?php if (function_exists('campanha_the_contact_form')) campanha_the_contact_form(); ?>
     				</div>
