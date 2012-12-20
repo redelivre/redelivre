@@ -8,8 +8,10 @@ add_action('update_option_campanha_contact_menu_entry', 'campanha_toggle_contact
  * Init plugin options to white list our options
  */
 function campanha_contact_init(){
-    register_setting('campanha_contact', 'campanha_contact_enabled', 'campanha_contact_validate' );
-    register_setting('campanha_contact', 'campanha_contact_menu_entry', 'campanha_contact_validate' );
+    register_setting('campanha_contact', 'campanha_contact_enabled', 'campanha_contact_validate_checkbox');
+    register_setting('campanha_contact', 'campanha_contact_menu_entry', 'campanha_contact_validate_checkbox');
+    register_setting('campanha_contact', 'campanha_contact_page_text', 'campanha_contact_validate_string');
+    register_setting('campanha_contact', 'campanha_contact_footer', 'campanha_contact_validate_string');
 }
 
 /**
@@ -65,10 +67,28 @@ function campanha_contact_do_page() {
             <div class="updated fade"><p><strong>Opções salvas</strong></p></div>
         <?php endif; ?>
 
+        <style>
+            .section-description textarea { height: 50px !important; width:500px; }
+            .section-description label {  width:500px !important; }
+        </style>
+        
         <form method="post" action="options.php">
             <?php settings_fields('campanha_contact'); ?>
             <p><label><input type="checkbox" name="campanha_contact_enabled" <?php if (get_option('campanha_contact_enabled')) echo ' checked="checked" '; ?>> Habilitar página de contato</label></p>
             <p><label><input type="checkbox" name="campanha_contact_menu_entry" <?php if (get_option('campanha_contact_menu_entry')) echo ' checked="checked" '; ?>> Habilitar link para a página de contato no menu principal</label></p>
+            
+            <p class="section-description">
+                <label>Texto exibido antes do formulário de contato:<br/>
+                    <textarea name="campanha_contact_page_text"><?php echo esc_textarea(get_option('campanha_contact_page_text')); ?></textarea>
+                </label>
+            </p>
+            
+            <p class="section-description">
+                <label>Informações de contato exibidas no rodapé de todas as páginas:<br/>
+                    <textarea name="campanha_contact_footer"><?php echo esc_textarea(get_option('campanha_contact_footer')); ?></textarea>
+                </label>
+            </p>
+            
             <p>Para acessar a página de contato: <a href="<?php echo home_url() . '/contato'; ?>" target="_blank"><?php echo home_url() . '/contato'; ?></a></p>
             <p class="submit">
                 <input type="submit" class="button-primary" value="Salvar opções" />
@@ -78,16 +98,18 @@ function campanha_contact_do_page() {
     <?php
 }
 
-/**
- * Sanitize and validate input. Accepts an array, return a sanitized array.
- */
-function campanha_contact_validate($input) {
+function campanha_contact_validate_checkbox($input) {
     if ($input != 'on') {
         $input = false;
     }
 
     return $input;
 }
+
+function campanha_contact_validate_string($input) {
+    return filter_var($input, FILTER_SANITIZE_STRING);
+}
+
 
 // adapted from http://planetozh.com/blog/2009/05/handling-plugins-options-in-wordpress-28-with-register_setting/
 

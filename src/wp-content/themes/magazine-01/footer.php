@@ -1,5 +1,6 @@
 	<footer id="main-footer" class="clear clearfix">
-			<p class="creditos textright alignright">
+		<div class="alignleft textleft creditos"><?php echo nl2br(get_option('campanha_contact_footer')); ?></div>
+		<p class="creditos textright alignright">
 		    <?php if (is_user_logged_in()): ?>
                 <a class="login" href="<?php echo admin_url(); ?>">Painel de Administração</a> &bull;
             <?php else: ?>
