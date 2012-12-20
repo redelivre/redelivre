@@ -37,7 +37,7 @@ class WidgetAgenda extends WP_Widget {
         ?>
         <div class="widget widget-agenda">
             <div class="widget-content clearfix">       
-                <header><h1><?php echo isset($instance['title']) ? $instance['title'] : 'Agenda'; ?></h1></header>
+                <header><h3><?php echo isset($instance['title']) ? $instance['title'] : 'Agenda'; ?></h3></header>
                 <?php
                 foreach ($events as $event):
                     $data_inicial = get_post_meta($event->ID, '_data_inicial', true);
