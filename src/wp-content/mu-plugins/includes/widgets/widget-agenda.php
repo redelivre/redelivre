@@ -55,10 +55,7 @@ class WidgetAgenda extends WP_Widget {
                                 a <?php echo $data_final; ?>
                             <?php endif; ?>
                         </span><br/>
-                        <?php echo $event->post_title; ?>
-                        <?php if ( get_post_meta($event->ID, '_link', true) ): ?>
-                            (<a href="<?php echo get_permalink($event->ID); ?>" title="<?php echo esc_attr($event->post_title); ?>">Saiba mais</a>)
-                        <?php endif; ?>
+                        <a href="<?php echo get_permalink($event->ID); ?>" title="<?php echo esc_attr($event->post_title); ?>"><?php echo $event->post_title; ?></a>
                     </p>
                     <?php
                 endforeach;
