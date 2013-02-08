@@ -40,14 +40,13 @@ class WidgetAgenda extends WP_Widget {
                 <header><h3><?php echo isset($instance['title']) ? $instance['title'] : 'Agenda'; ?></h3></header>
                 <?php
                 foreach ($events as $event):
-                    setlocale(LC_ALL, "pt_BR", "pt_BR.iso-8859-1", "pt_BR.utf-8", "portuguese");
                     $data_inicial = get_post_meta($event->ID, '_data_inicial', true);
                     if ($data_inicial)
-                        $data_inicial = strftime('%d de %B de %G', strtotime($data_inicial));
+                        $data_inicial = strftime('%d/%m/%G', strtotime($data_inicial));
     
                     $data_final = get_post_meta($event->ID, '_data_final', true);
                     if ($data_final)
-                        $data_final = strftime('%d de %B de %G', strtotime($data_final));
+                        $data_final = strftime('%d/%m/%G', strtotime($data_final));
                     ?>
                     <p>
                         <span class="date">
