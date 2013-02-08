@@ -222,23 +222,23 @@ class Agenda {
 
 Agenda::init();
 
-add_action('pre_get_posts', 'sbc_agenda_query');
-
-function sbc_agenda_query($wp_query) {
+add_action('pre_get_posts', 'campanha_agenda_query');
+function campanha_agenda_query($wp_query) {
     
     if (is_admin()) return;
     
     if (isset($wp_query->query_vars['post_type']) && $wp_query->query_vars['post_type'] === 'agenda' && is_post_type_archive('agenda')) {
         
         
-        if (!is_array($wp_query->query_vars['meta_query'])) $wp_query->query_vars['meta_query'] = array();
-        
+        if (!isset($wp_query->query_vars['meta_query']) || !is_array($wp_query->query_vars['meta_query'])) {
+            $wp_query->query_vars['meta_query'] = array();
+        }
         
         $wp_query->query_vars['orderby'] = 'meta_value';
         $wp_query->query_vars['order'] = 'ASC';
         $wp_query->query_vars['meta_key'] = '_data_inicial';
         
-        if ($wp_query->query_vars['paged'] > 0 || $_GET['eventos'] == 'passados') {
+        if ($wp_query->query_vars['paged'] > 0 || (isset($_GET['eventos']) && $_GET['eventos'] == 'passados')) {
             array_push($wp_query->query_vars['meta_query'],
                 array(
                     'key' => '_data_final',

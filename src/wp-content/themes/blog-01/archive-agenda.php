@@ -1,7 +1,7 @@
 <?php
 
 global $paged;
-$showingPast = ($paged > 0 || $_GET['eventos'] == 'passados');
+$showingPast = ($paged > 0 || isset($_GET['eventos']) && $_GET['eventos'] == 'passados');
 ?>
 <?php get_header(); ?>
     <section id="main-section" class="wrap clearfix">
