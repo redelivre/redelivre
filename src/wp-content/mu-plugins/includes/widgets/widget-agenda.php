@@ -42,11 +42,11 @@ class WidgetAgenda extends WP_Widget {
                 foreach ($events as $event):
                     $data_inicial = get_post_meta($event->ID, '_data_inicial', true);
                     if ($data_inicial)
-                        $data_inicial = strftime('%d/%m/%G', strtotime($data_inicial));
+                        $data_inicial = mysql2date(get_option('date_format'), $data_inicial, true);
     
                     $data_final = get_post_meta($event->ID, '_data_final', true);
                     if ($data_final)
-                        $data_final = strftime('%d/%m/%G', strtotime($data_final));
+                        $data_final = mysql2date(get_option('date_format'), $data_inicial, true);
                     ?>
                     <p>
                         <span class="date">
