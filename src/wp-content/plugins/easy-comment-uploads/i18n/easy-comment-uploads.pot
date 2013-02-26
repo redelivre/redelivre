@@ -1,0 +1,33 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/easy-comment-uploads\n"
+"POT-Creation-Date: 2011-06-22 20:04:59+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: main.php:148
+msgid "Upload Files"
+msgstr ""
+
+#: main.php:149
+msgid ""
+"You can include images or files in your comment by selecting them below. "
+"Once you select a file, it will be uploaded and a link to it added to your "
+"comment. You can upload as many images or files as you like and they will "
+"all be added to your comment."
+msgstr ""
+
+#: main.php:150
+msgid "Select File"
+msgstr ""
+
+#: main.php:230
+msgid "Easy Comment Uploads options saved."
+msgstr ""

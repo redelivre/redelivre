@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ECU\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/easy-comment-uploads\n"
+"POT-Creation-Date: 2009-08-21 06:30+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jean-Michel HAROUY <J-Michel.Harouy@ac-nantes.fr>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ..\main.php:57
+msgid "Upload files"
+msgstr "Pièces jointes"
+
+#: ..\main.php:58
+msgid "You can include images or files in your comment by selecting them below. Once you select a file, it will be uploaded and a link to it added to your comment. You can upload as many images or files as you like and they will all be added to your comment."
+msgstr "Vous pouvez ajouter un fichier à votre commentaire. Recherchez et choisissez ce fichier sur votre poste de travail en cliquant sur le bouton [Parcourir...]. Le fichier choisi sera téléversé et un lien sera créé vers lui dans votre commentaire. Vous pouvez téléverser autant de fichiers que vous le souhaitez."
+
+#: ..\main.php:62
+msgid "Select File"
+msgstr "Votre choix de fichier(s)"
+
+#: ..\main.php:100
+msgid "Only allow images to be uploaded."
+msgstr "Autoriser seulement le téléversement d'images."
+
+#: ..\main.php:100
+msgid "Allow all users to upload files with their comments."
+msgstr "Droit de téléversement de fichiers pour : tous les utilisateurs."
+
+#: ..\main.php:100
+msgid "Only allow registered users to upload files."
+msgstr "Droit de téléversement de fichiers pour : utilisateurs abonnés (= inscrits), contributeurs, auteurs, éditeurs, administrateur."
+
+#: ..\main.php:100
+msgid "Require Contributor rights to upload files."
+msgstr "Droit de téléversement de fichiers pour : contributeurs, auteurs, éditeurs, administrateur."
+
+#: ..\main.php:100
+msgid "Require Upload rights to uploads files (e.g. only admin, editors and authors)."
+msgstr "Droit de téléversement de fichiers pour : auteurs, éditeurs, administrateur."
+
+#: ..\main.php:100
+msgid "Hide from comment forms."
+msgstr "Ne pas afficher cette extension dans la partie 'Commentaire'"
+
+#: ..\main.php:100
+msgid "Limit the size of uploaded files:"
+msgstr "Limiter la taille des fichiers à téléverser : "
+
+#: ..\main.php:100
+msgid "(KiB, 0 = unlimited)"
+msgstr "(Kilo-octets, 0 = illimité)"
+
+#: ..\main.php:100
+msgid "Only allow uploads on these pages:"
+msgstr "Limiter le droit de téléversement aux pages suivantes :  "
+
+#: ..\main.php:100
+msgid "page_ids"
+msgstr "Identifiants (Id) des pages"
+
+#: ..\main.php:100
+msgid "seperated with spaces or all to enable globally"
+msgstr "séparés par des espaces, ou 'all' pour toujours autoriser le téléversement."
+
+#: ..\main.php:100
+msgid "Update options"
+msgstr "Mettre à jour les options"
+
+#: ..\main.php:100
+msgid "all"
+msgstr "[Toutes]"
+
+#: ..\main.php:100
+msgid "Easy Comment Uploads options saved."
+msgstr "Les options d'Easy Comment Uploads ont été enregistrées."
+

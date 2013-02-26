@@ -1,0 +1,31 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/easy-comment-uploads\n"
+"POT-Creation-Date: 2009-08-21 06:30+0000\n"
+"PO-Revision-Date: 2011-02-28 09:50+0200\n"
+"Last-Translator: Христо Панджаров <hristo.p@siteground.com>\n"
+"Language-Team: SiteGround\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Bulgarian\n"
+"X-Poedit-Country: BULGARIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: comment-uploads.php:57
+msgid "Upload files"
+msgstr "Качи файловете"
+
+#: comment-uploads.php:58
+msgid "You can include images or files in your comment by selecting them below. Once you select a file, it will be uploaded and a link to it added to your comment. You can upload as many images or files as you like and they will all be added to your comment."
+msgstr "Може да добавите изображения или файлове към коментара си като ги изберете отдолу. След като изберете файл, той ще бъде качен на сървъра и ще бъде добавена връзка към него. Може да качвата колкото изображения желаете. Те също ще бъдат добавени към вашия коментар."
+
+#: comment-uploads.php:62
+msgid "Select File"
+msgstr "Избери файл"
+

@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ECU\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-09 16:05+0900\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Fat Cow <zhr@tut.by>\n"
+"Language-Team: Fat Cow <zhr@tut.by>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: comment-uploads.php:57
+msgid "Upload files"
+msgstr "Загрузить файлы"
+
+#: comment-uploads.php:58
+msgid "You can include images or files in your comment by selecting them below. Once you select a file, it will be uploaded and a link to it added to your comment. You can upload as many images or files as you like and they will all be added to your comment."
+msgstr "Вы можете включить изображения или файлы в свой комментарий, выбрав их ниже. После того, как вы выберите файл, он будет загружен и ссылка на него будет добавлена в комментарий. Вы можете загрузить столько изображений и файлов, сколько вам нужно. После того, как вы выберете файл, он будет загружен и ссылку на него будет добавлена в комментарий. Вы можете загрузить столько изображений и файлов, как вам нужно, и они будут добавлены в Ваш комментарий."
+
+#: comment-uploads.php:62
+msgid "Select File"
+msgstr "Выбрать файл"
+

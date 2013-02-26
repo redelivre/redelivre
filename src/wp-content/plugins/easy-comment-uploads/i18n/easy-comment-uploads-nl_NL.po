@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/easy-comment-uploads\n"
+"POT-Creation-Date: 2009-08-21 06:30+0000\n"
+"PO-Revision-Date: 2009-09-29 HO:MI+ZONE\n"
+"Last-Translator: PASCAL DE VINK <PASCAL.DE.VINK@FINALIST.COM>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: comment-uploads.php:57
+msgid "Bestanden uploaden"
+msgstr ""
+
+#: comment-uploads.php:58
+msgid ""
+"Je kunt afbeeldingen of bestanden aan je kommentaar toevoegen, door ze hieronder te selecteren. "
+"Het geselecteerde bestand wordt direct geupload en een link zal worden toegevoegd "
+"aan je kommentaar. Je kunt zoveel afbeeldingen of bestanden uploaden als je wil."
+msgstr ""
+
+#: comment-uploads.php:62
+msgid "Selecteer Bestand"
+msgstr ""
