@@ -37,6 +37,12 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_shortcodes.php';
 
 // End Parse shorttag
 
+// Parse widgets
+
+require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_widgets.php';
+
+// End Parse widgets
+
 // Inicialização do plugin
 
 require_once __DIR__.'/print/wp-print.php';
@@ -106,6 +112,11 @@ function delibera_slug_under($label)
 	$slug = str_replace(array(' ', '-'), '_', $slug);
 	return strtolower($slug);
 }
+
+function is_pauta($post = false)
+{
+	return get_post_type($post) == 'pauta' ? true : false;
+} 
 
 /**
  * 
@@ -1772,16 +1783,19 @@ add_filter('comment_form_defaults', 'delibera_comment_form');
 
 function delibera_comment_form_action($postID)
 {
-	global $comment_footer;
-	echo $comment_footer;
-	echo "</div>";
-	if(function_exists('ecu_upload_form') && $situacao->slug != 'relatoria' && $situacao->slug != 'discussao')
+	if(is_pauta())
 	{
-		echo '<script type="text/javascript">
-			jQuery(document).ready(function() {
-				jQuery("#ecu_uploadform").replaceWith("");
-			});
-			</script>';
+		global $comment_footer;
+		echo $comment_footer;
+		echo "</div>";
+		if(function_exists('ecu_upload_form') && $situacao->slug != 'relatoria' && $situacao->slug != 'discussao')
+		{
+			echo '<script type="text/javascript">
+				jQuery(document).ready(function() {
+					jQuery("#ecu_uploadform").replaceWith("");
+				});
+				</script>';
+		}
 	}
 }
 
@@ -2163,10 +2177,12 @@ function delibera_conf_page()
 
 function delibera_scripts()
 {
-	//global $_POST;
-	wp_enqueue_script('jquery-expander', WP_CONTENT_URL.'/plugins/delibera/js/jquery.expander.js', array('jquery'));
-	wp_enqueue_script('delibera',WP_CONTENT_URL.'/plugins/delibera/js/scripts.js', array( 'jquery-expander'));
-	
+	if(is_pauta())
+	{
+		//global $_POST;
+		wp_enqueue_script('jquery-expander', WP_CONTENT_URL.'/plugins/delibera/js/jquery.expander.js', array('jquery'));
+		wp_enqueue_script('delibera',WP_CONTENT_URL.'/plugins/delibera/js/scripts.js', array( 'jquery-expander'));
+	}
 }
 add_action( 'wp_print_scripts', 'delibera_scripts' );
 
@@ -2187,10 +2203,12 @@ function delibera_print_styles()
 add_action('admin_print_styles', 'delibera_print_styles');
 
 function delibera_admin_scripts()
-{	
-	wp_enqueue_script('ui-datetimepicker', WP_CONTENT_URL.'/plugins/delibera/js/jquery.ui.datepicker.js', array('jquery'));	
-	wp_enqueue_script('ui-datetimepicker-ptbr', WP_CONTENT_URL.'/plugins/delibera/js/jquery.ui.datepicker-pt-BR.js', array('ui-datetimepicker'));
-	wp_enqueue_script('delibera-admin',WP_CONTENT_URL.'/plugins/delibera/js/admin_scripts.js', array( 'ui-datetimepicker','ui-datetimepicker-ptbr'));
+{
+	if(is_pauta())
+	{
+		wp_enqueue_script('jquery-ui-datepicker-ptbr', WP_CONTENT_URL.'/plugins/delibera/js/jquery.ui.datepicker-pt-BR.js', array('jquery-ui-datepicker'));
+		wp_enqueue_script('delibera-admin',WP_CONTENT_URL.'/plugins/delibera/js/admin_scripts.js', array( 'jquery-ui-datepicker-ptbr'));
+	}
 	if($_REQUEST['page'] == 'delibera-config')
 	{
 		wp_enqueue_script('delibera-admin-notifica',WP_CONTENT_URL.'/plugins/delibera/js/admin_notifica_scripts.js', array('jquery'));

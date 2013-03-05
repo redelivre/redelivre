@@ -269,7 +269,10 @@ function delibera_filtros_get_tax_filtro($dados, $args, $field = "slug")
 
 function delibera_filtros_scripts()
 {
-	wp_enqueue_script('ui-tooltip',WP_CONTENT_URL.'/plugins/delibera/js/jquery.ui.tooltip.js', array( 'jquery'));
+	if(is_pauta())
+	{
+		wp_enqueue_script('ui-tooltip',WP_CONTENT_URL.'/plugins/delibera/js/jquery.ui.tooltip.js', array( 'jquery', 'jquery-ui-widget'));
+	}
 }
 add_action( 'wp_print_scripts', 'delibera_filtros_scripts' );
 
