@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: Widget de Lista da Agenda
+ * Plugin Name: Widget de Lista da Agenda
  */
 
 class WidgetAgenda extends WP_Widget {
@@ -42,11 +42,11 @@ class WidgetAgenda extends WP_Widget {
                 foreach ($events as $event):
                     $data_inicial = get_post_meta($event->ID, '_data_inicial', true);
                     if ($data_inicial)
-                        $data_inicial = date(get_option('date_format'), strtotime($data_inicial));
+                        $data_inicial = mysql2date(get_option('date_format'), $data_inicial, true);
     
                     $data_final = get_post_meta($event->ID, '_data_final', true);
                     if ($data_final)
-                        $data_final = date(get_option('date_format'), strtotime($data_final));
+                        $data_final = mysql2date(get_option('date_format'), $data_inicial, true);
                     ?>
                     <p>
                         <span class="date">
@@ -55,10 +55,7 @@ class WidgetAgenda extends WP_Widget {
                                 a <?php echo $data_final; ?>
                             <?php endif; ?>
                         </span><br/>
-                        <?php echo $event->post_title; ?>
-                        <?php if ( get_post_meta($event->ID, '_link', true) ): ?>
-                            (<a href="<?php echo get_permalink($event->ID); ?>" title="<?php echo esc_attr($event->post_title); ?>">Saiba mais</a>)
-                        <?php endif; ?>
+                        <a href="<?php echo get_permalink($event->ID); ?>" title="<?php echo esc_attr($event->post_title); ?>"><?php echo $event->post_title; ?></a>
                     </p>
                     <?php
                 endforeach;
@@ -99,10 +96,6 @@ class WidgetAgenda extends WP_Widget {
 
 function registerWidgetAgendaLista() {
     register_widget("WidgetAgenda");
-//    _pr('AQUI', true);
 }
 
 add_action('widgets_init', 'registerWidgetAgendaLista');
-
-//
-?>
