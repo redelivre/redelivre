@@ -198,12 +198,17 @@ function delibera_filtros_get_filtros($tax, $value = false, $linha = "<br/>")
 function delibera_filtros_archive_callback()
 {
 	global $wp_query;
-
+	
+	$action = new stdClass();
+	$action->canQuery = true;
+	
 	$args = delibera_filtros_get_tax_filtro($_POST, array('post_type' => 'pauta'));
-
+	
 	$paged = ( array_key_exists('paged', $_POST) && $_POST['paged'] > 0 ) ? $_POST['paged'] : 1;
 	$args['paged'] = $paged;
-
+	
+	$args = apply_filters('delibera_filtros_archive_callback_filter', $args);
+	
 	query_posts($args);
 	?>
 	<div id="lista-de-pautas">
