@@ -4,8 +4,9 @@ function delibera_archive_template( $archive_template )
 {
 	global $post;
 	
-	if(get_post_type($post) == "pauta")
+	if(get_post_type($post) == "pauta" || is_post_type_archive( 'pauta' ))
 	{
+		
 		if(!file_exists(get_stylesheet_directory()."/delibera_style.css"))
 		{
 			wp_enqueue_style('delibera_style', WP_CONTENT_URL.'/plugins/delibera/themes/delibera_style.css');
@@ -30,7 +31,7 @@ add_filter( 'archive_template', 'delibera_archive_template' ) ;
 function delibera_single_template($single_template)
 {
 	global $post;
-	if(get_post_type($post) == "pauta")
+	if(get_post_type($post) == "pauta" || is_post_type_archive( 'pauta' ))
 	{
 		if(!file_exists(get_stylesheet_directory()."/delibera_style.css"))
 		{
