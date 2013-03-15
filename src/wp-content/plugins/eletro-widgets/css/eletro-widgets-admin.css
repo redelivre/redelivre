@@ -1,0 +1,170 @@
+/*=ELETRO WIDGETS CONTROL BAR
+ -----------------------------------------------------*/
+#eletro_widgets_control {
+    background: #f0f0f0;
+    color: black;
+    margin: 0 0 9px 0;
+    padding: 9px;
+    overflow: hidden;
+}
+
+#eletro_widgets_control .eletro_list_widgets {
+    float: left;
+}
+
+#eletro_widgets_control .widget_add_control {
+    display:none;
+    float: right; 
+}
+
+#eletro_widgets_control .eletro_list_widgets {
+    padding: 3px 0;
+}
+
+#eletro_widgets_control .eletro_widgets_buttons {
+    clear: both;
+    padding: 10px 0 0 0;
+}
+
+#eletro_widgets_control .eletro_widgets_buttons a {
+    background: #ccc;
+    color: black;
+    cursor: pointer;
+    display: block;
+    float:left; 
+    margin: 1px; 
+    padding: 3px 9px;
+    text-decoration: none;
+}
+
+#eletro_widgets_control .eletro_widgets_buttons a:hover {
+    background: #333666;
+    color: white;
+}
+
+#eletro_widgets_control .eletro_widgets_buttons a.eletroApply:hover,
+#eletro_widgets_control .eletro_widgets_buttons a.eletroRestore:hover {
+    background: #A60000;
+    color: white;
+}
+
+#eletro_widgets_control .eletro_widgets_buttons .left {
+    float: left;
+}
+
+#eletro_widgets_control .eletro_widgets_buttons .right {
+    float: right;
+}
+
+.eletro_widgets_control {
+    padding: 0 10px 10px 10px;
+}
+
+.eletro_widgets_control table {
+    width: 100%;
+}
+.eletro_widgets_control table tr td {
+
+}
+
+.eletro_widgets_control_row {
+   background: #f1f1f1;
+   margin: 0 0 9px 0;
+   padding: 10px;
+}
+
+.eletro_widgets_control_row h3 {
+    padding: 0 0 18px 0;
+}
+
+.eletro_widgets_control_row p {
+    margin: 0 9px 12px 9px;
+}
+
+.eletro_widgets_control_row label {
+    margin: 0 0 0 9px;
+}
+
+.eletro_widgets_control_row input,
+.eletro_widgets_control_row select {
+    margin: 0 9px;
+}
+
+/*=END Eletro Widgets Control Bar
+ -----------------------------------------------------*/
+
+div.itemDrag {
+	/* border: 1px solid #ccc; */
+    clear: both;
+}
+
+div.itemDrag span.itemDrag {
+	cursor: move;
+}
+
+div.itemDrag span.itemDrag a {
+    cursor: pointer;
+    font-size: 0.7em;
+    position: absolute;
+    top: 6px;
+}
+
+div.eletro_widgets_col {
+    color: black;
+    min-height: 18px;
+}
+
+.eletro_widgets_dashed {
+    border: 1px dashed #dadada;
+}
+
+div.itemDrag span.itemDrag a.edit {
+    right: 28px;
+    background-image: url("../img/application_edit.png");
+    height:16px;
+    width: 16px;
+}
+
+div.itemDrag span.itemDrag a.remove {
+    right: 5px;
+    background-image: url("../img/application_delete.png");
+    height:16px;
+    width: 16px;
+}
+
+div.itemDrag span.itemDrag a:hover {
+    text-decoration: underline;
+}
+
+.dragAjuda {
+    background: #eff4f8;
+    border: 1px dashed #0066cc;
+    height: 18px;
+    margin: 3px;    
+}
+
+
+.eletro_widgets_content {
+    clear: both;
+    margin: 0 0 18px 0;
+    padding: 0 0px;
+}
+
+span.itemDrag {
+	background: #333;
+	color: white;
+	display: block;
+	font-weight: bold;
+	padding: 3px 9px;
+	position: relative;
+    margin: 0 0 18px 0;
+}
+
+
+.save {
+    
+}
+
+.eletro_widgets_add_select {
+    float: left;
+}
