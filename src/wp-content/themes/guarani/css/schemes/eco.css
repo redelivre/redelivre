@@ -1,0 +1,143 @@
+/*
+ * Scheme: Eco
+ * Author: Thalita Sejanes
+ *
+ * Paleta 			http://www.colourlovers.com/palette/2674174/Eco
+ *
+ * Green #1 		#589d8f Links
+ * Green #2 		#699328 Titles
+ * Green #3			#e1ead4 Caixas (Variações: #f9fbf6, #f1f5eb)
+ * Green #4			#567821 Links visitados
+ * Gray #1			#464646
+ */
+
+
+/* =Global
+-------------------------------------------------------------- */
+
+body {
+	background: #e1ead4 url('../../images/schemes/pattern-eco.png') repeat;
+}
+
+.entry-content h1,
+.comment-content h1,
+.entry-content h2,
+.comment-content h2,
+.entry-content h3,
+.comment-content h3,
+.entry-content h4,
+.comment-content h4,
+.entry-content h5,
+.comment-content h5,
+.entry-content h6,
+.comment-content h6 {
+	color: #699328;
+}
+
+/* Links */
+a {
+	color: #589d8f;
+}
+
+a:visited {
+	color: #567821;
+}
+
+a:hover,
+a:focus,
+a:active {
+	color: #567821;
+}
+
+/* Placeholders */
+input::-webkit-input-placeholder {
+	color: #699328;
+}
+
+input:-moz-placeholder {
+	color: #699328;
+}
+
+input::-moz-placeholder {
+	color: #699328;
+}
+
+input:-ms-input-placeholder {
+	color: #699328;
+}
+
+#searchform #s {
+	background: #e1ead4;
+	color: #699328;
+}
+
+/* =Header
+-------------------------------------------------------------- */
+
+.main-navigation li.current_page_item a {
+	border-bottom: 2px solid #589d8f;
+}
+
+
+/* =Content
+-------------------------------------------------------------- */
+
+.entry-title {
+	line-height: 1.4;
+}
+
+.entry-title a {
+	color: #589d8f;
+}
+
+.single .entry-title a,
+.page .entry-title {
+	color: #699328;
+	line-height: 1.4;	
+}
+
+.entry-content a {
+	color: #589d8f;
+}
+
+.more-link {
+	color: #4d99a6;
+}
+
+/* Archives */
+
+.archive-header {
+	background: #f9fbf6;
+	border-color: #f1f5eb;
+}
+
+.archive-title {
+	color: #699328;
+}
+
+/* Extras */
+.wp-tag-cloud li a {
+	background: #f9fbf6;
+	border: 1px solid #f1f5eb;
+}
+
+
+/* =Asides
+-------------------------------------------------------------- */
+
+
+
+/* =Footer
+-------------------------------------------------------------- */
+
+.widget-footer {
+	background: #e1ead4;
+}
+
+/* =Media Screen
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 920px) {
+	
+	
+}
