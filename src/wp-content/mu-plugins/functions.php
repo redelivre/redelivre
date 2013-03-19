@@ -9,8 +9,6 @@ foreach (glob(WPMU_PLUGIN_DIR . '/includes/widgets/*.php') as $file) {
     require_once($file);
 }
 
-//wpaudio plugin tweaks
-include(WPMU_PLUGIN_DIR . '/includes/wpaudio-plugin-tweaks.php');
 
 //db updates -- eventualmente podemos não incluir mais
 include(WPMU_PLUGIN_DIR . '/includes/db-updates.php');
@@ -132,6 +130,8 @@ function campaign_base_template_redirect_intercept() {
 
     switch ($wp_query->get('tpl')) {
         case 'materialgrafico':
+            $wp_query->is_home = false;
+            
             if (file_exists(STYLESHEETPATH . '/tpl-graphic_material.php')) { // tema filho
                 require(STYLESHEETPATH . '/tpl-graphic_material.php');
             } elseif (file_exists(TEMPLATEPATH . '/tpl-graphic_material.php')) { // tema pai
@@ -141,6 +141,8 @@ function campaign_base_template_redirect_intercept() {
             }
             die;
         case 'mobilizacao':
+            $wp_query->is_home = false;
+            
             $capabilities = Capability::getByPlanId($campaign->plan_id);
             
             if ($capabilities->mobilize->value) {
@@ -154,6 +156,8 @@ function campaign_base_template_redirect_intercept() {
             
             break;
         case 'contato':
+            $wp_query->is_home = false;
+            
             add_action('wp_print_scripts', function() {
                 wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
                 wp_enqueue_script('contato', WPMU_PLUGIN_URL . '/js/contato.js', array('jquery_validate'));
@@ -407,8 +411,40 @@ add_action('custom_header_options', function() {
     
     <h3>Precisa de ajuda para criar uma imagem para o cabeçalho?</h3>
     
-    <p>Se quiser, utilize <a href="<?php echo admin_url('themes.php?page=graphic_material_header'); ?>">nosso assistente</a> para criar uma imagem personalizada para você.</p>
+    <p>Se quiser, utilize nosso assistente para <a href="<?php echo admin_url('themes.php?page=graphic_material_header'); ?>">criar uma imagem de cabeçalho</a> personalizada para você.</p>
     
     
     <?php
 });
+
+function custom_menu_order($order) {
+    global $submenu;
+    
+    if (!isset($submenu['themes.php'])) {
+        return $order;
+    }
+    
+    $menu = $submenu['themes.php'];
+    
+    if (!is_array($menu)) {
+        return $order;
+    }
+    
+    foreach ($menu as $k => $item) {
+        $menuItem = null;
+        
+        if ($item[2] == 'graphic_material_header') {
+            $menuItem = $submenu['themes.php'][$k];
+            unset($submenu['themes.php'][$k]);
+            break;
+        }
+    }
+    
+    if (isset($menuItem) && $menuItem) {
+        $submenu['themes.php'][] = $menuItem;
+    }
+    
+    return $order;
+}
+
+add_filter('menu_order', 'custom_menu_order', 20);

@@ -150,6 +150,7 @@ a:hover#rss      { background-position:-100px bottom; }
 #branding h1 { padding-top: 55px; }
 #branding h1 a, #branding h1 a:hover  { color: #000; text-decoration: none; }
 #description { font-style: italic; font-size: 16px; }
+#header-image-link { display: block; height: 198px; }
 
 /* =Menu
 -------------------------------------------------------------- */

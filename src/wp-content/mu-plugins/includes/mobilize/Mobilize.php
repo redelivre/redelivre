@@ -15,9 +15,9 @@ class Mobilize {
     const OPTION_NAME = 'mobilize';
     const TEXTO_DESCRITIVO_PADRAO_PAGINA = 'Ajude-nos em nossa campanha.';
     const TEXTO_DESCRITIVO_PADRAO_REDES = 'Acompanhe a campanha nas redes sociais abaixo.';
-    const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Copie o código abaixo e insira no seu blog ou site os banners da campanha.';
-    const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Selecione uma foto do seu computador e adesive! Depois é só salvar e colocar nas suas redes sociais!';
-    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar!.';
+    const TEXTO_DESCRITIVO_PADRAO_BANNERS = 'Utilize o código da primeira caixa abaixo para inserir um dos banners da campanha no seu site ou blog ou então utilize o link da segunda caixa para compartilhar um dos banners nas redes sociais.';
+    const TEXTO_DESCRITIVO_PADRAO_ADESIVE = 'Coloque sua foto em "Escolher arquivo" e depois clique em "Adesivar foto", agora é só aguardar!';
+    const TEXTO_DESCRITIVO_PADRAO_ENVIE = 'Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar. As pessoas indicadas por você irão receber a mensagem padrão da campanha junto com a sua mensagem.';
 
     static $errors = array('banners' => array(), 'adesive' => array(), 'redes' => array(), 'envie' => array());
 
@@ -75,7 +75,7 @@ class Mobilize {
 
         if ($menu) {
             foreach ($items as $item) {
-                if ($item->post_title == 'Mobilização') {
+                if ($item->url == home_url('/mobilizacao')) {
                     $menuItem = $item;
                 }
             }
@@ -96,7 +96,7 @@ class Mobilize {
         $option = get_option(self::OPTION_NAME);
         $option['redes']['description'] = isset($option['redes']['description']) ? $option['redes']['description'] : self::TEXTO_DESCRITIVO_PADRAO_REDES;
         $option['banners']['description'] = isset($option['banners']['description']) ? $option['banners']['description'] : self::TEXTO_DESCRITIVO_PADRAO_BANNERS;
-        $option['adesive']['description'] = isset($option['adesive']['description']) ? $option['adesive']['description'] : self::TEXTO_DESCRITIVO_PADRAO_ENVIE;
+        $option['adesive']['description'] = isset($option['adesive']['description']) ? $option['adesive']['description'] : self::TEXTO_DESCRITIVO_PADRAO_ADESIVE;
         $option['envie']['description'] = isset($option['envie']['description']) ? $option['envie']['description'] : self::TEXTO_DESCRITIVO_PADRAO_ENVIE;
         if ($index)
             $result = @$option[$index];
@@ -137,7 +137,10 @@ class Mobilize {
 
     static function getNumBanners() {
         $option = self::getOption('banners');
-        return count($option['files']);
+        
+        if (isset($option['files'])) {
+            return count($option['files']);
+        }
     }
 
     static function getBannerURL($size, $index = 0) {
@@ -232,16 +235,19 @@ class Mobilize {
                     $adesivo = WideImage::load($path . $fname);
                     $w = $adesivo->getWidth();
 
-                    $maxSize = 160;
+                    $maxWidth = 250;
 
-                    if ($w > $maxSize)
-                        $adesivo = $adesivo->resize($maxSize, null);
-
+                    if ($w > $maxWidth) {
+                        $adesivo = $adesivo->resize($maxWidth, null);
+                    }
+                    
+                    /*
                     $h = $adesivo->getHeight();
 
                     if ($h > $maxSize)
                         $adesivo = $adesivo->resize(null, $maxSize);
-
+                    */
+                    
                     $adesivo->saveToFile($path . $fname);
                 }
             }
@@ -288,6 +294,13 @@ class Mobilize {
         $ok = self::validadeImageUpload('adesive', $index);
         if (!$ok)
             self::addError('adesive', "O upload do adesivo falhou.");
+            
+        $file = WideImage::load($_FILES['adesive']['tmp_name'][$index]);
+        
+        if ($file->getWidth() < 250) {
+            self::addError('adesive', "O banner deve ter no mínimo 250 pixels de largura.");
+            $ok = false;
+        }
 
         return $ok;
     }
@@ -317,9 +330,13 @@ class Mobilize {
 
                 $adesivo = WideImage::load($adesive_filename);
                 $uploaded = WideImage::loadFromUpload('photo');
+                
+                $uploaded = $uploaded->resize(250, null);
 
 
                 $new = $uploaded->merge($adesivo, 'right', 'bottom');
+                header('Content-disposition: attachment; filename=foto.jpg');
+                header('Content-type: image/jpeg');
                 $new->output('jpg', 100);
                 die;
             }
@@ -339,19 +356,21 @@ class Mobilize {
             $success = null;
 
             if ($_POST['sender-name'] && $_POST['sender-email']) {
-
+                $sender = filter_input(INPUT_POST, 'sender-name', FILTER_SANITIZE_STRING);
+                $senderEmail = filter_input(INPUT_POST, 'sender-email', FILTER_SANITIZE_EMAIL);
                 $recipients = explode(',', $_POST['recipient-email']);
-
-                $msg = $_POST['sender-message'] ? stripslashes($_POST['sender-message']) . "\n\n" . $option['message'] : $option['message'];
+                $from = "From: '$sender' <noreply@campanhacompleta.com.br>";
+                
+                $msg = "$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";
+                $msg .= $_POST['sender-message'] ? stripslashes($_POST['sender-message']) . "\n\n" . $option['message'] : $option['message'];
 
                 $success = false;
 
                 if (is_array($recipients) && sizeof($recipients) > 0) {
-
                     foreach ($recipients as $r) {
-
-                        if ($x = wp_mail($r, $option['subject'], $msg, "From: 'Carteiro Campanha Completa' <noreply@campanhacompleta.com.br>"))
+                        if ($x = wp_mail($r, $option['subject'], $msg, $from)) {
                             $success = true;
+                        }
                     }
                 }
             }

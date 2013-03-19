@@ -43,7 +43,12 @@ p.delibera-login {
 
 p.delibera-participacao a{
     border-radius:10px;
+<<<<<<< HEAD
     padding: 20px !important;
+=======
+    padding-top:20px;
+    padding-bottom:20px;
+>>>>>>> d9a5d41d0cf8b4a2f3503e218182fe2e563de33e
     display: block;
     float: right;
     width: 225px;
@@ -717,7 +722,10 @@ a.comment-reply-link:hover {
     font-size: 12px;
     height:25px;
     padding-right: 10px;
+<<<<<<< HEAD
     padding-left: 20px;
+=======
+>>>>>>> d9a5d41d0cf8b4a2f3503e218182fe2e563de33e
     text-align: right;
     text-transform: uppercase;
     width:250px;
@@ -1549,4 +1557,8 @@ h1.author {
 
 #entry-author-info {
     min-height:250px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d9a5d41d0cf8b4a2f3503e218182fe2e563de33e

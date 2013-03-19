@@ -21,7 +21,6 @@ class WidgetFacebookLikeBox extends WP_Widget {
         
         echo $before_widget;
         ?>
-        <h3>Curta</h3>
         <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width=292&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;border_color=white&amp;stream=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:290px;" allowTransparency="true"></iframe>
         <?php
         echo $after_widget;

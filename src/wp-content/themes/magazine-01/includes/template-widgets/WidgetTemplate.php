@@ -23,8 +23,7 @@ abstract class WidgetTemplate {
 
     
     static function ajaxSave() {
-        if (current_user_can('manage_option')) {
-            
+        if (current_user_can('manage_options')) {
             $class = get_called_class();
             if (is_array($_POST) && isset($_POST['_widget_id'])) {
                 $widget_id = $_POST['_widget_id'];
@@ -37,6 +36,8 @@ abstract class WidgetTemplate {
                 echo $wid;
                 die;
             }
+        } else {
+            die('Sem permissão para fazer essa alteração.');
         }
     }
 
@@ -88,7 +89,7 @@ abstract class WidgetTemplate {
     
     protected function _form() {
 
-        if (!current_user_can('manage_option'))
+        if (!current_user_can('publish_posts'))
             return;
 
         $class = get_class($this);
@@ -105,7 +106,7 @@ abstract class WidgetTemplate {
                     <input type="hidden" name="_template_part" value="<?php echo $this->template_part; ?>" />
                     <input type="hidden" name="_widget_id" value="<?php echo $this->id; ?>" />
                         <?php $this->form($this->getConfig()); ?>
-                    <input type="submit" name="save" value="<?php _e('save'); ?>"/>
+                    <input type="submit" name="save" value="Aplicar"/>
                 </form>
             </div>
         </div>

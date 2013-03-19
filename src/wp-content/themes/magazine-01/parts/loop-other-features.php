@@ -2,7 +2,13 @@
 global $post;
 $old_post = $post;
 
-$post = $self->getPostFromPermalink($config);
+if ((isset($config['widget_action']) && $config['widget_action'] == 'cat') || (empty($config['widget_action']) && isset($config['cat']) && !empty($config['cat']))) {
+    $showing = 'cat';
+    $post = $self->getLastPostFromCat($config);
+} else {
+    $showing = 'post';
+    $post = $self->getPostFromPermalink($config);
+}
 
 if ($post):
 			?>
@@ -38,31 +44,28 @@ if ($post):
 				</p>
 			</header>
 		<div class="post-content">						
-			
             <?php if (get_post_format() == 'audio'): ?>
-            
                 <?php the_first_audio(); ?>
-            
-            <?php elseif (get_post_format() != 'video') : ?>
+            <?php elseif (get_post_format() != 'video' && get_post_format() != 'gallery') : ?>
                 <p><?php echo utils::getPostExcerpt($post, 144); ?></p>
             <?php endif; ?>
-            
-            
 		</div>
+        <?php if ($showing != 'post'): ?>
 		<footer class="clearfix">	
-			<p class="taxonomies">			
-				<span><?php _e('Categories', 'magazine01'); ?>:</span> <?php the_category(', ');?><br />
-				<?php the_tags('<span>Tags:</span> ', ', '); ?>
-			</p>		
+			<p class="taxonomies">
+                <?php $curCat = get_category($config['cat']); $curCatLink = get_category_link($config['cat']); ?>
+                <span>Ver mais <a href="<?php echo $curCatLink; ?>"><?php echo $curCat->name; ?></a></span>
+			</p>
 		</footer>
+        <?php endif; ?>
 	</article>
 
 <?php else: ?>
-
+    <?php if (current_user_can('edit_theme_options')): ?>
 	<div class="empty-feature">
 		<p>Para exibir um post aqui clique acima em "editar".</p>
 	</div>
-
+    <?php endif; ?>
 <?php
 endif;
 $post = $old_post;

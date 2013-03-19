@@ -15,10 +15,11 @@
 				</p>
             </header>
             <div class="post-content clearfix">    
-                <?php if ( has_post_thumbnail() ) : ?> 
-                  <?php the_post_thumbnail(); ?>				 
-                <?php endif; ?>
+                
                 <?php if (is_search() || is_archive()): ?>
+                    <?php if ( has_post_thumbnail() ) : ?> 
+                      <?php the_post_thumbnail(); ?>				 
+                    <?php endif; ?>
                     <?php the_excerpt(); ?>
                 <?php else: ?>
                     <?php the_content(__('Continue reading &raquo;', 'blog01')); ?>

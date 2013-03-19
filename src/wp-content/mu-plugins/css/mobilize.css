@@ -7,7 +7,9 @@
 .banner-250 img { margin: 0 auto 22px !important; }
 .banner-200 img { margin: 25px auto 47px !important; }
 .banner-125 img { margin: 63px auto 84px !important; }
-.code { height: 66px; padding: 10px; background: #f1f1f1; border: 1px solid #ccc; font-family: "Courier New", monospace; font-size: 12px; color: #666; width: 88%; word-break: break-all; }
+.code { background: #f1f1f1 !important; border: 1px solid #ccc !important; font-family: "Courier New", monospace !important; font-size: 12px !important; color: #666 !important; word-break: break-all !important; }
+textarea.code { height: 66px; padding: 10px; width: 88%; }
+input.code { width: 90%; }
 #mobilize-sticker p { float: left; }
 .sticked-avatar { position: relative; float: left; height: 80px; width: 80px; margin: 0 10px; }
 img.sticker { position: absolute; right: 0; bottom: 0; max-width: 80px; max-height: 80px; }
@@ -21,3 +23,13 @@ img.sticker { position: absolute; right: 0; bottom: 0; max-width: 80px; max-heig
 .fb-like { width: 360px !important; }
 .google-mala { width: 180px !important; margin: 0 10px; padding: 0 10px; border-left: 1px dotted #ccc; border-right: 1px dotted #ccc; }
 .twitter-share-button { width: 100px !important; }
+
+.error, .alert, .notice, .success, .info {padding:0.8em;margin-bottom:1em;border:2px solid #ddd;}
+.error, .alert {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
+.notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
+.success {background:#e6efc2;color:#264409;border-color:#c6d880;}
+.info {background:#d5edf8;color:#205791;border-color:#92cae4;}
+.error a, .alert a {color:#8a1f11;}
+.notice a {color:#514721;}
+.success a {color:#264409;}
+.info a {color:#205791;}

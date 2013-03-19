@@ -73,7 +73,7 @@ function magazine01_addJS() {
     
     wp_enqueue_script('jquery-autocomplete', get_template_directory_uri().'/js/jquery-ui-1.8.20-autocomplete.js', array('jquery-ui-widget'));
     wp_enqueue_script('congelado', get_template_directory_uri().'/js/congelado.js', 'jquery-autocomplete');
-    wp_enqueue_script('slideshow', get_template_directory_uri().'/js/slideshow.js');
+    wp_enqueue_script('magazine', get_template_directory_uri().'/js/magazine.js');
     
     wp_localize_script('congelado', 'vars', array(
         'ajaxurl' => admin_url('admin-ajax.php')
@@ -138,11 +138,14 @@ function magazine01_auto_excerpt_more( $more ) {
 if (!function_exists('magazine01_custom_header')) :
 
     function magazine01_custom_header() {
+        $custom_header = get_custom_header();
+        
         ?>
         <style type="text/css">
-            #branding { background: url(<?php header_image(); ?>); }
+            #branding { background: url(<?php header_image(); ?>) no-repeat; height: <?php echo $custom_header->height; ?>px; }
 			<?php if ( 'blank' == get_header_textcolor() ) : ?>
-				#branding h1, #branding p { display: none; }        
+				#branding a { height: <?php echo $custom_header->height; ?>px; }
+				#branding a:hover { background: none !important; }       
 			<?php else: ?>       
 				#branding, #branding a, #branding a:hover { color: #<?php header_textcolor(); ?>; }
 				#branding a:hover { text-decoration: none; }
@@ -260,7 +263,7 @@ function the_first_audio() {
         $audio = get_first_audio($post->post_content);
         
         if ($audio)
-            echo apply_filters('the_content', '[wpaudio url="'.$audio.'" dl="0"]');
+            print_audio_player($audio, false);
     
     }
 

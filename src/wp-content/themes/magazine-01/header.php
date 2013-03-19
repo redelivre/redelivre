@@ -58,13 +58,20 @@ $sidebar = get_option('campanha_theme_options');
     <body <?php body_class(); ?>>
 		<div class="wrap clearfix">
         <header id="main-header" class="clearfix">
+
+        
 			<div class="col-12 clearfix">
 				<?php wp_nav_menu( array( 'theme_location' => 'quick-links', 'container' => '', 'menu_id' => 'quick-links', 'menu_class' => 'clearfix alignleft', 'depth' => 1, 'fallback_cb' =>'') ); ?>
 				<?php do_action('campanha_body_header'); ?>
 			</div>        
             <div id="branding" class="clear clearfix">
-                <h1 class="col-12"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
-                <p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>                		
+				<?php if ( 'blank' == get_header_textcolor() ) : ?>
+					<a id="header-image-link" href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"></a>
+					
+                <?php else: ?>
+					<h1 class="col-12"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?> - <?php global $campaign; echo $campaign->candidate_number; ?></a></h1>
+					<p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>
+                <?php endif; ?>
             </div>
             <!-- .wrap -->            
 			<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-nav', 'menu_class' => 'clearfix', 'fallback_cb' => '', 'depth' => '3',) ); ?>

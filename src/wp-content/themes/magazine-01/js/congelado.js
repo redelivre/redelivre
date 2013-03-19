@@ -370,6 +370,9 @@ var hl;
                         
                         $wrapped.animate({left: -aleft[cindex]});
                         
+                        window.clearInterval(autoChange);
+                        autoChange = window.setInterval(function() { $right.click(); }, 9000);
+                        
                     });
                     
                      $left.click(function(){
@@ -384,6 +387,8 @@ var hl;
                         $wrapped.animate({left: -aleft[cindex]});
                         
                     });
+                    
+                    var autoChange = window.setInterval(function() { $right.click(); }, 9000);
                     
                     
                 });

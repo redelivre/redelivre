@@ -109,7 +109,8 @@ function blog01_custom_header() {
                 
         #branding { background: url(<?php header_image(); ?>) no-repeat; height: <?php echo $custom_header->height; ?>px;}
         <?php if ( 'blank' == get_header_textcolor() ) : ?>
-			#branding h1, #branding p { display: none; }        
+			#branding a { height: <?php echo $custom_header->height; ?>px; }
+			#branding a:hover { background: none !important; }    
         <?php else: ?>       
 			#branding, #branding a, #branding a:hover { color: #<?php header_textcolor(); ?> !important; }
 			#branding a:hover { text-decoration: none; }

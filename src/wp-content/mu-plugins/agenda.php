@@ -77,6 +77,7 @@ class Agenda {
         
         $link = get_post_meta($post->ID, '_link', true);
         $onde = get_post_meta($post->ID, '_onde', true);
+        $horario = get_post_meta($post->ID, '_horario', true);
      
         // The actual fields for data entry
         
@@ -92,6 +93,12 @@ class Agenda {
             echo '<tr>';
                 echo '<td><b><label for="_data_inicial">Data Final </label></td>';
                 echo "<td><input type='text' id='_data_final' name='_data_final' value='$data_final' size='25' /></td>";
+            
+            echo '</tr>';
+            
+            echo '<tr>';
+                echo '<td><b><label for="_horario">Horário </label></td>';
+                echo "<td><input type='text' id='_horario' name='_horario' value='$horario' size='25' /></td>";
             
             echo '</tr>';
             
@@ -146,6 +153,7 @@ class Agenda {
         $data_final = '_data_final';
         $link = '_link';
         $onde = '_onde';
+        $horario = '_horario';
         
         // not agenda post type
         if (!isset($_POST['agenda_noncename'])) {
@@ -191,6 +199,7 @@ class Agenda {
         update_post_meta($post_id, $data_final, date('Y-m-d h:i', strtotime($final_date_en)));
         update_post_meta($post_id, $link, trim($_POST[$link]));
         update_post_meta($post_id, $onde, trim($_POST[$onde]));
+        update_post_meta($post_id, $horario, trim($_POST[$horario]));
 
         
     }
@@ -213,23 +222,23 @@ class Agenda {
 
 Agenda::init();
 
-add_action('pre_get_posts', 'sbc_agenda_query');
-
-function sbc_agenda_query($wp_query) {
+add_action('pre_get_posts', 'campanha_agenda_query');
+function campanha_agenda_query($wp_query) {
     
     if (is_admin()) return;
     
     if (isset($wp_query->query_vars['post_type']) && $wp_query->query_vars['post_type'] === 'agenda' && is_post_type_archive('agenda')) {
         
         
-        if (!is_array($wp_query->query_vars['meta_query'])) $wp_query->query_vars['meta_query'] = array();
-        
+        if (!isset($wp_query->query_vars['meta_query']) || !is_array($wp_query->query_vars['meta_query'])) {
+            $wp_query->query_vars['meta_query'] = array();
+        }
         
         $wp_query->query_vars['orderby'] = 'meta_value';
         $wp_query->query_vars['order'] = 'ASC';
         $wp_query->query_vars['meta_key'] = '_data_inicial';
         
-        if ($wp_query->query_vars['paged'] > 0 || $_GET['eventos'] == 'passados') {
+        if ($wp_query->query_vars['paged'] > 0 || (isset($_GET['eventos']) && $_GET['eventos'] == 'passados')) {
             array_push($wp_query->query_vars['meta_query'],
                 array(
                     'key' => '_data_final',
@@ -276,8 +285,9 @@ function agenda_menu_page() {
         $menuItem = null;
         
         if ($menu) {
+            
             foreach ($items as $item) {
-                if ($item->post_title == 'Agenda') {
+                if ($item->url == home_url('/agenda')) {
                     $menuItem = $item;
                 }
             }
@@ -319,6 +329,26 @@ function agenda_menu_page() {
     </div>
     <?php
 
+}
+
+function the_event_box() {
+        
+    $meta = get_metadata('post', get_the_ID());
+    
+    if (is_array($meta) && !empty($meta)) {
+        ?>
+        <div class="event-info clear">
+            <h3>Informações do Evento</h3>
+            <?php
+            if ($meta['_data_inicial'][0]) echo '<p class="bottom"><span class="label">Data Inicial:</span> ', date('d/m/Y', strtotime($meta['_data_inicial'][0])), '</p>';
+            if ($meta['_data_final'][0]) echo '<p class="bottom"><span class="label">Data Final:</span> ', date('d/m/Y', strtotime($meta['_data_final'][0])), '</p>';
+            if ($meta['_horario'][0]) echo '<p class="bottom"><span class="label">Horário:</span> ', $meta['_horario'][0], '</p>';
+            if ($meta['_onde'][0]) echo '<p class="bottom"><span class="label">Local:</span> ', $meta['_onde'][0], '</p>';
+            if ($meta['_link'][0]) echo '<p class="bottom"><span class="label">Site:</span> ', $meta['_link'][0], '</p>';
+            ?>
+        </div>
+        <?php
+    }
 }
 
 ?>

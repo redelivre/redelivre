@@ -154,16 +154,17 @@ a:hover#twitter { background-position: -32px -32px; }
 a:hover#google-plus { background-position: -32px -64px; }
 a:hover#youtube { background-position: -32px -96px; }
 a:hover#rss { background-position: -32px -128px; }
-#branding { height: 88px; margin-bottom: 11px; padding: 55px 0; }
-#branding h1 { margin-bottom: 0; font-size: 42px; line-height: 66px; }
+#branding { height: 198px; margin-bottom: 11px; padding: 0; }
+#branding h1 { margin: 55px 0 0; font-size: 42px; line-height: 66px; }
 #branding p { margin-bottom: 0; }
+#header-image-link { display: block; height: 198px; }
 
 /* =Menu
 -------------------------------------------------------------- */
 #main-nav { margin: 0; list-style-type: none; }
 #main-nav li { position: relative; display: block; float: left; height: 33px; margin-right: 2px; }
 #main-nav ul { display: none; position: absolute; top: 33px; left: 0; margin: 0; width: 150px; float: left; }
-#main-nav li:hover>ul { display: block; }
+#main-nav li:hover>ul { display: block; z-index: 999999; }
 #main-nav ul ul { left: 100%; top: 0; }
 #main-nav ul li { float: none; height: auto; min-width: 150px; }
 #main-nav a { display: block; padding: 0 10px; color: #fff; font-weight: bold; font-size: 16px; line-height: 33px; background: #0033CC; }
@@ -319,9 +320,9 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 
 /* =Main Sidebar
 -------------------------------------------------------------- */
-#main-sidebar { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }
-#main-sidebar ul { list-style: none; }
-#main-sidebar h3 { font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #ccc; }
+#main-sidebar, #home-sidebar { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }
+#main-sidebar ul, #home-sidebar ul { list-style: none; }
+#main-sidebar h3, #home-sidebar h3 { font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #ccc; }
 
 /* =Widgets
 -------------------------------------------------------------- */

@@ -7,23 +7,82 @@ include('admin/theme.php');
 include('admin/metabox.php');
 include('template/ajax.php');
 
-
 add_action('init', function() { 
 
-    global $capabilities, $current_blog;
+    global $current_blog, $campaign;
+    
+    if (!$campaign) {
+        return;
+    }
+    
+    $capabilities = Capability::getByPlanId($campaign->plan_id);
     
     if ($current_blog->blog_id > 1 && isset($capabilities->georreferenciamento) && $capabilities->georreferenciamento->value == 1 )  { 
-        
         mapasdevista_regiser_post_type(); 
         add_action( 'admin_menu', 'mapasdevista_admin_menu' );
         add_action( 'admin_init', 'mapasdevista_admin_init' );
-
-        
     } else {
         return;
     }
     
+    // activate for each blog:
+    if (get_option('mapasdevista_activaded') != 4) {
+        update_option('mapasdevista_activaded', 4);
+        mapasdevista_set_default_settings();
+        mapasdevista_flush_rules();
+        mapasdevista_set_default_menu();
+        include('import-default-pins.php');
+    }
+    
 });
+
+function mapasdevista_set_default_menu() {
+
+    $menu = get_term_by('slug', 'main', 'nav_menu');
+    if ($menu && is_object($menu) && !is_wp_error($menu)) {
+        $current = get_theme_mod( 'nav_menu_locations' );
+        $current['mapasdevista_top'] = $menu->term_id;
+        set_theme_mod( 'nav_menu_locations', $current );
+    }    
+}
+
+function mapasdevista_set_default_settings() {
+
+    $defaults = array(
+        
+        'name' => 'Mapa',
+        'api' => 'googlev3',
+        'type' => 'road',
+        'coord' => Array
+            (
+                'lat' => '-15.050826166796774',
+                'lng' => '-54.4263372014763'
+            ),
+
+        'zoom' => 4,
+        'control' => Array
+            (
+                'zoom' => 'large',
+                'pan' => 'on',
+                'map_type' => 'on'
+            ),
+        'logical_operator' => 'OR',
+        'post_types' => array('mapa'),
+        'taxonomies' => array('categoria-mapa'),
+        'visibility' => 'private'
+    
+    );
+    
+    update_option('mapasdevista', $defaults);
+
+}
+
+function mapasdevista_flush_rules() {
+
+    global $wp_rewrite;
+    $wp_rewrite->flush_rules();
+
+}
 
 load_plugin_textdomain( 'mapasdevista', WP_CONTENT_DIR . '/plugins/mapasdevista/languages/', basename(dirname(__FILE__)) . '/languages/' );
 
@@ -33,7 +92,7 @@ if ( ! function_exists( 'mapasdevista_setup' ) ):
     function mapasdevista_setup() {
 
         // Post Format support. You can also use the legacy "gallery" or "asides" (note the plural) categories.
-        add_theme_support( 'post-formats', array( 'gallery', 'image', 'video' /*, 'audio' */ ) );
+        add_theme_support( 'post-formats', array( 'gallery', 'image', 'video' , 'audio'  ) );
 
         // This theme uses post thumbnails
         add_theme_support( 'post-thumbnails' );
@@ -69,9 +128,9 @@ function mapasdevista_admin_init() {
     
     
     
-    global $pagenow, $post_type;
+    global $pagenow;
     
-    if( ($pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps")) && $post_type == 'mapa') {
+    if( ($pagenow === "post.php" || $pagenow === "post-new.php" || (isset($_GET['page']) && $_GET['page'] === "mapasdevista_maps")) ) {
         // api do google maps versao 3 direto 
         $googleapikey = get_mapasdevista_theme_option('google_key');
         $googleapikey = $googleapikey ? "&key=$googleapikey" : '';
@@ -131,15 +190,39 @@ function mapasdevista_regiser_post_type() {
         'supports' => array(
             'title',
             'editor',
-            'post-formats'
+            'post-formats',
+            'thumbnail'
         ),
            
         )
     );
+    
+    // Add new taxonomy, make it hierarchical (like categories)
+    $labels = array(
+        'name' => 'Categorias',
+        'singular_name' => 'Categoria',
+        'search_items' =>  'Buscar categorias',
+        'all_items' => 'Todas as categorias',
+        'parent_item' => 'Categoria mãe',
+        'parent_item_colon' => 'Categoria mãe:',
+        'edit_item' => 'Editar categoria', 
+        'update_item' => 'Atualizar categoria',
+        'add_new_item' => 'Adicionar nova categoria',
+        'new_item_name' => 'Nome da nova categoria',
+        'menu_name' => 'Categorias',
+    ); 	
+
+    register_taxonomy('categoria-mapa',array('mapa'), array(
+        'hierarchical' => true,
+        'labels' => $labels,
+        'show_ui' => true,
+        'query_var' => true,
+        //'rewrite' => false,
+    ));
 
 }
 
-add_post_type_support( 'mapa', 'post-formats' );
+//add_post_type_support( 'mapa', array('post-formats', 'post-thumbnails') );
 
 function mapasdevista_base_custom_query_vars($public_query_vars) {
     $public_query_vars[] = "mapa-tpl";
@@ -160,10 +243,19 @@ function mapasdevista_base_custom_url_rewrites($rules) {
 
 function mapasdevista_page_template_redirect() {
     global $wp_query;
+    
+    $mapinfo = get_option('mapasdevista', true);
 
-    if ($wp_query->get('mapa-tpl')) {
-        mapasdevista_get_template('template/main-template');
-        exit;
+
+    
+    if ($wp_query->get('mapa-tpl')  ) {
+        if ( $mapinfo['visibility'] == 'public' || current_user_can('edit_posts')) {
+            mapasdevista_get_template('template/main-template');
+            exit;
+        }
+        else
+            $wp_query->is_404 = true;
+        
     }
 }
 

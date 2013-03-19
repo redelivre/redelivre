@@ -6,6 +6,8 @@
 					<header>                       
 						<h1>Entre em contato</h1>				
 					</header>
+					<?php $contactText = get_option('campanha_contact_page_text'); ?>
+					<p><?php echo nl2br($contactText); ?></p>
 					<div class="post-content clearfix">
 						<?php if (function_exists('campanha_the_contact_form')) campanha_the_contact_form(); ?>	
 					</div>

@@ -9,6 +9,12 @@ class Campaign {
     public $id;
     
     /**
+     * Id of the campaign's blog.
+     * @var int
+     */
+    public $blog_id;
+    
+    /**
      * Campaign sub domain inside the system.
      * @var string
      */
@@ -86,10 +92,6 @@ class Campaign {
 
         if (!$result) {
             throw new Exception('Não existe uma campanha associada a este blog. Verifique se você não selecionou um tema de campanha para o site principal.');
-        }
-        
-        if (is_user_logged_in() && $result['user_id'] != wp_get_current_user()->ID && !is_super_admin()) {
-            throw new Exception('Você não tem permissão para ver as informações desta campanha.');
         }
         
         return self::formatData($result);
@@ -344,14 +346,20 @@ class Campaign {
      */
     public function update() {
         global $wpdb;
-        
+
         $data = array('own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number, 'plan_id' => $this->plan_id, 'state' => $this->state,
-            'city' => $this->city, 'observations' => $this->observations, 'status' => $this->status); 
+            'city' => $this->city, 'observations' => $this->observations, 'status' => $this->status, 'blog_id' => $this->blog_id); 
         
         $data['location'] = $this->formatLocation($data['state'], $data['city']);
         unset($data['state'], $data['city']);
         
-        return $wpdb->update('campaigns', $data, array('id' => $this->id));
+        $r = $wpdb->update('campaigns', $data, array('id' => $this->id));
+        
+        if (false !== $r)
+            do_action('Campaign-updated', $data, $this->id);
+        
+        return $r;
+        
     }
     
     /**
@@ -510,6 +518,9 @@ class Campaign {
                     'menu-item-type' => 'post_type',
                     'menu-item-status' => 'publish')
                 );*/
+                
+                set_theme_mod( 'nav_menu_locations', array('main' => $menu_id) );
+                
             }
             
             // remove default page

@@ -1,5 +1,6 @@
 	<footer id="main-footer" class="wrap clearfix">
 		<?php wp_nav_menu( array( 'theme_location' => 'rodape', 'container' => false, 'menu_id' => 'footer-nav', 'menu_class' =>'col-9 clearfix', 'fallback_cb' => '', 'depth' =>'1' ) ); ?>
+		<div class="alignleft textleft creditos"><?php echo nl2br(get_option('campanha_contact_footer')); ?></div>
 		<p class="creditos textright alignright">
 		    <?php if (is_user_logged_in()): ?>
                 <a class="login" href="<?php echo admin_url(); ?>">Painel de Administração</a> &bull;
