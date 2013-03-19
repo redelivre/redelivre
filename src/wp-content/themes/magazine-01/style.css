@@ -328,6 +328,7 @@ ul.commentlist > li.comment:last-child, ul.children > li.comment:last-child { bo
 .widget { margin-bottom: 22px; }
 .widget img { max-width: 100%; height: auto; }
 .widget ul { margin-bottom: 0; }
+.widget ul li { border-bottom: 1px dashed #ccc; padding-bottom: 5px; line-height: 18px; margin-bottom: 7px; }
 /*recentcomments*/
 .widget li.recentcomments { font-style: italic; }
 .widget li.recentcomments a { font-style: normal; }
