@@ -121,8 +121,9 @@ add_action('wp_ajax_form-contato', 'campanha_handle_form_contato');
 add_action('wp_ajax_nopriv_form-contato', 'campanha_handle_form_contato');
 
 function campanha_handle_form_contato() {
-
-    $msg = '';
+    global $current_blog;    
+    
+    $msg = "site: " . get_site_url($current_blog->blog_id) . "\n";
     
     foreach($_POST as $campo => $valor) {
     
