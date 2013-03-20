@@ -3,8 +3,10 @@
 function delibera_archive_template( $archive_template )
 {
 	global $post;
-	if(get_post_type($post) == "pauta")
+	
+	if(get_post_type($post) == "pauta" || is_post_type_archive( 'pauta' ))
 	{
+		
 		if(!file_exists(get_stylesheet_directory()."/delibera_style.css"))
 		{
 			wp_enqueue_style('delibera_style', WP_CONTENT_URL.'/plugins/delibera/themes/delibera_style.css');
@@ -16,8 +18,6 @@ function delibera_archive_template( $archive_template )
 		
 		if(!file_exists(get_stylesheet_directory()."/archive-pauta.php"))
 		{
-			global $post;
-			
 			if ( is_post_type_archive ( 'pauta' ) ) {
 				$archive_template = dirname( __FILE__ ).DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.'archive-pauta.php';
 			}
@@ -31,7 +31,7 @@ add_filter( 'archive_template', 'delibera_archive_template' ) ;
 function delibera_single_template($single_template)
 {
 	global $post;
-	if(get_post_type($post) == "pauta")
+	if(get_post_type($post) == "pauta" || is_post_type_archive( 'pauta' ))
 	{
 		if(!file_exists(get_stylesheet_directory()."/delibera_style.css"))
 		{
@@ -68,5 +68,7 @@ function delibera_themes_admin_print_styles()
 	}
 }
 add_action('admin_print_styles', 'delibera_print_styles');
+
+require_once __DIR__.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.'delibera_header.php';
 
 ?>

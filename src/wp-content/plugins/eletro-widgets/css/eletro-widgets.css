@@ -1,0 +1,65 @@
+/* Faça uma copia desse arquivo para a pasta do seu tema e modifique a vontade */
+/* Make a copy of this file to your theme's folder and play around */
+
+.eletro_widgets_separator {
+    clear: both;
+}
+
+#eletro_widgets_container {
+    overflow: hidden;
+}
+
+div#eletro_widgets_col_0 {
+    float: left;
+}
+
+div#eletro_widgets_col_1 {
+    float: right;
+}
+
+/* Esses são os estilos das colunas e dos itens de cada set de Eletro Widgets. Crie mais conforme necessário */
+/* These are the styles applied to the columns and items of each eletro-widgets set. Create new one as needed */
+
+
+/* Estilos para o container 0 (2 colunas)*/
+/* Styles for container 0 (2 columns)*/
+#eletro_widgets_container_0 div.eletro_widgets_col {
+	width: 48%;
+}
+
+#eletro_widgets_container_0 div.itemDrag {
+	width: 100%;
+}
+/* Fim dos estilos para o container 0 */
+/* End of styles for container 0 */
+
+
+/* Estilos para o container 1 (3 colunas)*/
+/* Styles for container 1 (3 columns)*/
+#eletro_widgets_container_1 div.eletro_widgets_col {
+	width: 30%;
+}
+
+#eletro_widgets_container_1 div.itemDrag {
+	width: 90%;
+}
+/* Fim dos estilos para o container 1 */
+/* End of styles for container 1 */
+
+
+/* Esses são os estilos dos widgets inseridos no Eletro Widgets. Crie mais conforme necessário */
+/* These are the styles of the widgets inside of Eletro Widgets. Create new one as needed */
+.eletro_widgets_content {
+    border-bottom: 1px dotted #BBBBBB;
+}
+
+.eletro_widgets_content h2 {
+    border-bottom: 1px solid #333333;
+}
+.eletro_widgets_content ul {
+    margin: 9px 0 9px 9px;
+    padding: 3px 0 0 18px;
+}
+.eletro_widgets_content ul li {
+    line-height: 18px;
+}

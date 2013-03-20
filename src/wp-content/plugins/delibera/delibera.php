@@ -593,14 +593,18 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_cron.php';
 function delibera_get_situacao($postID)
 {
 	$situacao = get_the_terms($postID, 'situacao');
+	$ret = false;
 	if(is_array($situacao) && count($situacao)  > 0)
 	{
-		return array_pop($situacao);
+		$ret = array_pop($situacao);
 	}
-	else 
+	
+	if(has_filter('delibera_get_situacao'))
 	{
-		return false;
+		return apply_filters('delibera_get_situacao', $ret);
 	}
+	
+	return $ret;
 }
 
 function delibera_pauta_meta()
@@ -1958,14 +1962,30 @@ function delibera_comments_template($path)
 
 add_filter('comments_template', 'delibera_comments_template');
 
+$filename = __DIR__.DIRECTORY_SEPARATOR.'delibera_template.php';
+//if(file_exists($filename))
+	require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_template.php';
+
 // Fim Inicialização do plugin
 
 // Menu de configuração
 
 function delibera_config_menu()
 {
+	/*if (function_exists('add_menu_page'))
+		add_menu_page( __('Delibera','delibera'), __('Delibera plugin','delibera'), 'manage_options', 'delibera-config', 'delibera_conf_page');*/
+	
+	$base_page = 'delibera-config';
+	
 	if (function_exists('add_menu_page'))
-		add_menu_page( __('Delibera','delibera'), __('Delibera plugin','delibera'), 'manage_options', 'delibera-config', 'delibera_conf_page');
+	{
+		add_object_page( __('Delibera','delibera'), __('Delibera','delibera'), 'manage_options', $base_page, array(), WP_PLUGIN_URL."/delibera/images/delibera_icon.png");
+		//add_submenu_page($base_page, __('Pesquisar Contatos','delibera'), __('Pesquisar Contatos','delibera'), 'manage_options', 'delibera-gerenciar', 'delibera_GerenciarContato' );
+		//add_submenu_page($base_page, __('Criar Contato','delibera'), __('Criar Contato','delibera'), 'manage_options', 'delibera-criar', 'delibera_CriarContato' );
+		//add_submenu_page($base_page, __('Importar Contatos','delibera'), __('Importar Contatos','delibera'), 'manage_options', 'delibera-importar', 'delibera_ImportarContato' );
+		add_submenu_page($base_page, __('Configurações do Plugin','delibera'),__('Configurações do Plugin','delibera'), 'manage_options', 'delibera-config', 'delibera_conf_page');
+		do_action('delibera_menu_itens', $base_page);
+	}
 }
 
 /**
@@ -2150,6 +2170,11 @@ function delibera_conf_page()
 					"label" => __('Importar novas configurações de arquivo externo?','delibera'),
 					"content" => '<input type="checkbox" name="delibera_reinstall" value="S" />'
 				);
+				$rows[] = array(
+					"id" => "cabecalho_arquivo",
+					"label" => __('Cabeçalho da página de arquivo do sistema (lista de pautas)','delibera'),
+					"content" => '<input type="text" name="cabecalho_arquivo" id="cabecalho_arquivo" value="'.htmlspecialchars_decode($opt['cabecalho_arquivo']).'"/>'
+				);
 				$table = delibera_form_table($rows);
 				if(has_filter('delibera_config_form'))
 				{
@@ -2239,6 +2264,7 @@ function delibera_get_config()
 	$opt['limitar_tamanho_comentario'] = 'N';
 	$opt['numero_max_palavras_comentario'] = '50';
 	$opt['plan_restriction'] = 'N';
+	$opt['cabecalho_arquivo'] = false;
 	
 	
 	$opt_conf = get_option('delibera-config');
@@ -3163,64 +3189,6 @@ $conf = delibera_get_config();
 if(array_key_exists('plan_restriction', $conf) && $conf['plan_restriction'] == 'S')
 {
 	require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_plan.php';
-}
-
-function get_delibera_header() {
-
-	?>
-	
-	<div id="delibera-header">
-		<?php
-		
-		$h = ( is_post_type_archive ( 'pauta' ) ) ? 'h1' : 'h2';
-		
-		$delibera_header = '<' . $h . ' class="page-title"><span>';
-		$delibera_header .= __( 'Sistema de Discussão', 'direitoamoradia' );
-		$delibera_header .= '</span></' . $h . '>';
-		
-		echo $delibera_header;
-		
-		?>
-		<div class="delibera-apresentacao">
-	        <p class="delibera-boasvindas">
-    	    	<?php _e( 'Bem-vindo a plataforma de debate do Litoral Sustentável', 'direitoamoradia' ); ?>
-        	</p>
-            <p class="delibera-participacao">
-            	<a href="<?php echo get_page_link( get_page_by_slug( 'about-the-platform' )->ID ); ?>"><?php _e( 'Saiba por que e como participar', 'direitoamoradia' ); ?></a>
-            </p>
-        </div>
-		<p class="delibera-login">
-			<?php
-			if ( is_user_logged_in() )
-			{
-				global $current_user;
-				get_currentuserinfo();
-				
-            	printf(
-            		__( 'Você está logado como <a href="%1$s" title="Ver meu perfil" class="profile">%2$s</a>. Caso deseje sair de sua conta, <a href="%3$s" title="Sair">faça o logout</a>.', 'direitoamoradia' ), 
-            		get_author_link( false, $current_user->ID ),
-            		$current_user->display_name,
-            		wp_logout_url( home_url( '/' ) )
-            	);
-			} 		
-			else
-			{	
-				printf(
-            		__( 'Para participar, você precisa <a href="%1$s" title="Faça o login">fazer o login</a> ou <a href="%2$s" title="Registre-se" class="register">registrar-se no site</a>.', 'direitoamoradia' ), 
-            		wp_login_url( home_url( '/' ) ),
-            		site_url('wp-login.php?action=register', 'login')."&lang="
-            	);
-            							
-			}
-			?>
-		</p><!-- .delibera-login -->
-		
-		<?php if ( ! ( is_home() || is_post_type_archive( 'pauta' ) ) ) : ?>
-			<p class="delibera-pagina-discussoes"><a href="<?php echo get_post_type_archive_link( 'pauta' ); ?>"><?php _e( 'Voltar à página de discussões', 'direitoamoradia' ); ?></a></p>
-		<?php endif; ?>
-	</div><!-- #delibera-header -->
-
-<?php
 }
 
 /*

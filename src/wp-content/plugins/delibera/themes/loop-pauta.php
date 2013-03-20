@@ -8,12 +8,12 @@
 
 						<div class="entry-meta">
 							<div class="entry-situacao">
-								<?php printf( __( 'Situação da pauta', 'direitoamoradia' ).': %s', delibera_get_situacao($post->ID)->name );?>
+								<?php printf( __( 'Situação da pauta', 'delibera' ).': %s', delibera_get_situacao($post->ID)->name );?>
 							</div><!-- .entry-situacao -->
 							<div class="entry-author">
-								<?php _e( 'Discussão criada por', 'direitoamoradia' ); ?>
+								<?php _e( 'Discussão criada por', 'delibera' ); ?>
 								<span class="author vcard">
-									<a class="url fn n" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>" title="<?php printf( __( 'Ver o perfil de %s', 'direitoamoradia' ), get_the_author() ); ?>">
+									<a class="url fn n" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>" title="<?php printf( __( 'Ver o perfil de %s', 'delibera' ), get_the_author() ); ?>">
 										<?php the_author(); ?>
 									</a>
 								</span>
@@ -22,8 +22,8 @@
 								<?php if(comments_open(get_the_ID()) && is_user_logged_in())
 								{?>
 									<a href="#delibera-comments">
-										<?php _e( 'Discuta', 'direitoamoradia' ); ?>
-										<?php comments_number( '', '('. __( 'Um comentário', 'direitoamoradia' ) . ')', '('. __( '% comentários', 'direitoamoradia' ) . ')' ); ?> 
+										<?php _e( 'Discuta', 'delibera' ); ?>
+										<?php comments_number( '', '('. __( 'Um comentário', 'delibera' ) . ')', '('. __( '% comentários', 'delibera' ) . ')' ); ?> 
 									</a>
 								<?php
 								}
@@ -31,8 +31,8 @@
 								{
 								?>
 									<a href="<?php echo wp_login_url( get_post_type() == "pauta" ? get_permalink() : delibera_get_comment_link());?>#delibera-comments">
-										<?php _e( 'Discuta', 'direitoamoradia' ); ?>
-										<?php comments_number( '', '('. __( 'Um comentário', 'direitoamoradia' ) . ')', '('. __( '% comentários', 'direitoamoradia' ) . ')' ); ?> 
+										<?php _e( 'Discuta', 'delibera' ); ?>
+										<?php comments_number( '', '('. __( 'Um comentário', 'delibera' ) . ')', '('. __( '% comentários', 'delibera' ) . ')' ); ?> 
 									</a>
 								<?php
 								}
@@ -46,9 +46,9 @@
 							
 								<?php
 								if ( delibera_get_prazo( $post->ID ) == 0 )
-									_e( 'Prazo encerrado', 'direitoamoradia' );
+									_e( 'Prazo encerrado', 'delibera' );
 								else
-									printf( _n( 'Encerra em um dia', 'Encerra em %1$s dias', delibera_get_prazo( $post->ID ), 'direitoamoradia' ), number_format_i18n( delibera_get_prazo( $post->ID ) ) );
+									printf( _n( 'Encerra em um dia', 'Encerra em %1$s dias', delibera_get_prazo( $post->ID ), 'delibera' ), number_format_i18n( delibera_get_prazo( $post->ID ) ) );
 								?>
 							</div><!-- .entry-prazo -->
 							<div class="entry-print">
@@ -106,7 +106,7 @@
 						{
 						?>
 							<div class="entry-respond">
-								<a href="<?php get_permalink() ?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'direitoamoradia' ); ?></a>
+								<a href="<?php get_permalink() ?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'delibera' ); ?></a>
 							</div><!-- .entry-respond -->
 						<?php
 						}
@@ -114,7 +114,7 @@
 						{
 							?>
 							<div class="entry-respond">
-								<a href="<?php echo wp_login_url( get_post_type() == "pauta" ? get_permalink() : delibera_get_comment_link());?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'direitoamoradia' ); ?></a>
+								<a href="<?php echo wp_login_url( get_post_type() == "pauta" ? get_permalink() : delibera_get_comment_link());?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'delibera' ); ?></a>
 							</div><!-- .entry-respond -->
 						<?php
 						}

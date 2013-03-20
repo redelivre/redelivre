@@ -6,3 +6,6 @@ wp-config.php
 Thumbs.db
 base_bkp_last_reset.sql
 .project
+wp-content/blogs.dir
+wp-content/uploads
+src/wp-content/uploads/
