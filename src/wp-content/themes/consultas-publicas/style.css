@@ -497,4 +497,6 @@ ul.acoes li.selected { background: #e6e6e6; }
 #social-bookmarks #twitter { background: url('img/icones/twitter.png') no-repeat; }
 #social-bookmarks #google-plus { background: url('img/icones/google-plus.png') no-repeat; }
 #social-bookmarks #youtube { background: url('img/icones/youtube.png') no-repeat; }
-#social-bookmarks #rss { background: url('img/icones/rss.png') no-repeat; }
+#social-lobookmarks #rss { background: url('img/icones/rss.png') no-repeat; }
+
+.working { width: 16px; height: 16px; background:url('img/ajax-loader.gif') no-repeat right center; display: inline-block; } 
