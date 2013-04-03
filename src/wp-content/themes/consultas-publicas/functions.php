@@ -654,3 +654,58 @@ $custom_header_config = array(
 
 add_theme_support('custom-header');
 if ( ! isset( $content_width ) ) $content_width = 900;
+
+add_filter('the_content', 'propostas_inline');
+function propostas_inline($content)
+{
+    global $post;
+    
+    $resultado = array();
+    
+    preg_match_all("/\[propostas\](.*)\[\/propostas\]/s", $content, $resultado, PREG_PATTERN_ORDER);
+    
+    $propostas_parsed = $resultado[1][0];
+    
+    $resultado_itens = array();
+    preg_match_all("/(?:^|\s)\#(\w+)\b/s", $propostas_parsed, $resultado_itens);
+    
+    foreach($resultado_itens[0] as $chave => $item_proposta) {
+        
+        $item_proposta = trim($item_proposta);
+        $item_proposta_clear = trim($resultado_itens[1][$chave]);
+        
+        $meta_concordo =  get_post_meta($post->ID, $item_proposta.'-concordo');
+        $numero_concordam = intval($meta_concordo[0]);
+        
+        $meta_naoconcordo = get_post_meta($post->ID, $item_proposta.'-naoconcordo');
+        $numero_naoconcordam = intval($meta_naoconcordo[0]);
+        
+        $propostas_parsed = str_replace($item_proposta, 
+            "<p class='opcoes-proposta'><a data-post='".$post->ID."' href='".$item_proposta."' class='proposta-concordo'>concordo</a>(<span id='".$item_proposta_clear."-proposta-concordo'>$numero_concordam</span>) " .
+            "<a data-post='".$post->ID."' href='".$item_proposta."' class='proposta-naoconcordo'>não concordo</a>(<span id='".$item_proposta_clear ."-proposta-naoconcordo'>$numero_naoconcordam</span>)</p>", $propostas_parsed);
+    }
+    
+    $content = preg_replace ("/\[propostas\](.*)\[\/propostas\]/s", $propostas_parsed, $content);    
+    
+    return $content; 
+}
+
+if ($_REQUEST['proposta_inline'] == 'true') {
+    
+    switch ($_REQUEST['tipo_proposta_inline']) {
+        case "proposta-concordo":
+            $meta = get_post_meta($_REQUEST['post_id'], $_REQUEST['item_proposta'].'-concordo');
+            $numero_concordam = intval($meta[0]);
+            update_post_meta($_REQUEST['post_id'], $_REQUEST['item_proposta']."-concordo", ++$numero_concordam);
+            echo $numero_concordam;
+            break;
+        case "proposta-naoconcordo":
+            $meta = get_post_meta($_REQUEST['post_id'], $_REQUEST['item_proposta'].'-naoconcordo');
+            $numero_naoconcordam = intval($meta[0]);
+            update_post_meta($_REQUEST['post_id'], $_REQUEST['item_proposta']."-naoconcordo", ++$numero_naoconcordam);
+            echo $numero_naoconcordam;
+            break;
+    }
+    
+    die();
+}
