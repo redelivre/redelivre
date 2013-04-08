@@ -6,11 +6,13 @@
  * @since Guarani 1.0
  */
  
- 
+if ( ! function_exists( 'guarani_user_social' ) ) :
 /**
  * Create social links plus feed & author links
  * 
  * @param object $user Os dados do usuário
+ *
+ * @since Guarani 1.0
  */
 function guarani_user_social( $user ) {
 
@@ -34,6 +36,11 @@ function guarani_user_social( $user ) {
 			'name'			=> 'googleplus',
 			'url'			=> esc_url( $userdata->googleplus ),
 			'title'			=> __( 'Profile on Google+', 'guarani' )
+		),
+		array(
+			'name'			=> 'globe',
+			'url'			=> esc_url( $userdata->user_url ),
+			'title'			=> __( 'Personal website', 'guarani' )
 		)
 	);
 	
@@ -56,12 +63,13 @@ function guarani_user_social( $user ) {
 	echo $output;
 
 }
+endif; //guarani_user_social
 
 if ( ! function_exists( 'guarani_content_nav' ) ) :
 /**
  * Display navigation to next/previous pages when applicable
  *
- * @since guarani 1.0
+ * @since Guarani 1.0
  */
 function guarani_content_nav( $nav_id ) {
 	global $wp_query, $post;
@@ -89,17 +97,17 @@ function guarani_content_nav( $nav_id ) {
 
 	<?php if ( is_single() ) : // navigation links for single posts ?>
 
-		<?php previous_post_link( '<div class="nav-previous">%link</div>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'guarani' ) . '</span> %title' ); ?>
-		<?php next_post_link( '<div class="nav-next">%link</div>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'guarani' ) . '</span>' ); ?>
+		<?php previous_post_link( '<div class="previous">%link</div>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'guarani' ) . '</span> %title' ); ?>
+		<?php next_post_link( '<div class="next">%link</div>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'guarani' ) . '</span>' ); ?>
 
 	<?php elseif ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
 
 		<?php if ( get_next_posts_link() ) : ?>
-		<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'guarani' ) ); ?></div>
+		<div class="previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'guarani' ) ); ?></div>
 		<?php endif; ?>
 
 		<?php if ( get_previous_posts_link() ) : ?>
-		<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'guarani' ) ); ?></div>
+		<div class="next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'guarani' ) ); ?></div>
 		<?php endif; ?>
 
 	<?php endif; ?>
@@ -115,7 +123,7 @@ if ( ! function_exists( 'guarani_comment' ) ) :
  *
  * Used as a callback by wp_list_comments() for displaying the comments.
  *
- * @since guarani 1.0
+ * @since Guarani 1.0
  */
 function guarani_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
@@ -140,11 +148,10 @@ function guarani_comment( $comment, $args, $depth ) {
 					<?php if ( $comment->comment_approved == '0' ) : ?>
 						<span class="comment-awaiting"><?php _e( 'Your comment is awaiting moderation.', 'guarani' ); ?></span>
 					<?php endif; ?>
-					&middot;
 					<time pubdate datetime="<?php comment_time( 'c' ); ?>">
 					<?php
 						/* translators: 1: date, 2: time */
-						printf( __( '%1$s at %2$s', 'guarani' ), get_comment_date(), get_comment_time() ); ?>
+						printf( __( '<span>on</span> %1$s at %2$s', 'guarani' ), get_comment_date(), get_comment_time() ); ?>
 					</time>
 				</div><!-- .comment-author .vcard -->
 
@@ -157,7 +164,7 @@ function guarani_comment( $comment, $args, $depth ) {
 			<div class="comment-content"><?php comment_text(); ?></div>
 
 			<div class="reply">
-				<?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => '<span aria-hidden="true" class="icon-reply"></span><span class="assistive-text">Reply</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</div><!-- .reply -->
 		</article><!-- #comment-## -->
 
@@ -171,7 +178,7 @@ if ( ! function_exists( 'guarani_posted_on' ) ) :
 /**
  * Prints HTML with meta information for the current post-date/time and author.
  *
- * @since guarani 1.0
+ * @since Guarani 1.0
  */
 function guarani_posted_on() {
 	echo '<span aria-hidden="true" class="icon-clock"></span>';
@@ -181,7 +188,11 @@ function guarani_posted_on() {
 		esc_attr( get_the_date( 'c' ) ),
 		esc_html( get_the_date() )
 	);
-	
+	// Comments link
+	if ( ! post_password_required() && ( comments_open() || '0' != get_comments_number() ) ) : ?>
+	<span class="comments-link"><span aria-hidden="true" class="icon-comment"></span><?php comments_popup_link( __( 'Leave a comment', 'guarani' ), __( '1 Comment', 'guarani' ), __( '% Comments', 'guarani' ) ); ?></span>
+	<?php
+	endif;
 	// Display the 'Last updated' time
 	/*
 	if ( get_the_date() != get_the_modified_date() ) {
@@ -190,13 +201,35 @@ function guarani_posted_on() {
 		echo '</time>';
 	}
 	*/
+	
 }
 endif;
 
 /**
+ * Display video as a post feature, above the title
+ * 
+ * @since Guarani 1.0
+ */
+function guarani_featured_video() {
+	
+	global $post; ?>
+	
+	<figure class="entry-image">
+		<?php
+		if ( $featured_video = get_post_meta( $post->ID, '_guarani_featured_video', true ) ) {
+			$featured_video_embed = wp_oembed_get( $featured_video, array( 'width' => 680 ) );
+			echo '<div class="featured-video">' . $featured_video_embed . '</div>';		
+		}
+		?>
+	</figure><!-- .entry-image -->
+	
+	<?php
+}
+
+/**
  * Returns true if a blog has more than 1 category
  *
- * @since guarani 1.0
+ * @since Guarani 1.0
  */
 function guarani_categorized_blog() {
 	if ( false === ( $all_the_cool_cats = get_transient( 'all_the_cool_cats' ) ) ) {
@@ -223,7 +256,7 @@ function guarani_categorized_blog() {
 /**
  * Flush out the transients used in guarani_categorized_blog
  *
- * @since guarani 1.0
+ * @since Guarani 1.0
  */
 function guarani_category_transient_flusher() {
 	// Like, beat it. Dig?

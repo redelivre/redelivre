@@ -210,9 +210,15 @@ class Campaign {
             $this->errorHandler->add('error', 'O domínio próprio digitado é inválido.');
         }
         
+        /**
+        * Retirando obrigatoriedade do campo número do candidato
+        * @author Henrique Menegale
+        */
+        
+        /*
         if (preg_match('|^(\d){2,5}$|', $this->candidate_number) === 0) {
             $this->errorHandler->add('error', 'Número de candidato inválido.');
-        }
+        }*/
         
         if ($this->candidateExist()) {
             $this->errorHandler->add('error', 'Uma campanha para este candidato já foi criada no sistema.');
@@ -247,22 +253,27 @@ class Campaign {
     protected function candidateExist() {
         global $wpdb;
         
-        if (empty($this->candidate_number) || empty($this->city) || empty($this->state)) {
+        if (empty($this->city) || empty($this->state)) {
             // all three fields above must be set to check if the candidate exist
             return false;
         }
-        
+          
         if (isset($this->id)) {
-            $campaign = $wpdb->get_row(
-                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s AND `id` != %d",
-                    $this->candidate_number, "$this->state:$this->city", $this->id));            
-        } else {
-            $campaign = $wpdb->get_row(
-                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s",
-                    $this->candidate_number, "$this->state:$this->city"));
-        }
+        	if($this->candidate_number){
+	            $campaign = $wpdb->get_row(
+	                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s AND `id` != %d",
+	                $this->candidate_number, "$this->state:$this->city", $this->id));  
+            } else {
+	             $campaign = $wpdb->get_row(
+	                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `location` = %s AND `id` != %d",
+	                "$this->state:$this->city", $this->id)); 
+            }    
+        } elseif($this->candidate_number){
+	            $campaign = $wpdb->get_row(
+	                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s",
+	                $this->candidate_number, "$this->state:$this->city"));
+        } 
         
-                
         if (!is_null($campaign)) {
             return true;
         }
@@ -467,8 +478,8 @@ class Campaign {
      */
     protected function createDefaultPagesAndMenu($blogId) {
         if (switch_to_blog($blogId)) {
-            $this->createPost('page', 'Biografia', 'Edite essa página para colocar sua biografia. Se não quiser utilizar esta página você precisará removê-la do menu também.');
-            $this->createPost('page', 'Propostas', 'Edite essa página para colocar suas propostas. Se não quiser utilizar esta página você precisará removê-la do menu também.');
+            //$this->createPost('page', 'Biografia', 'Edite essa página para colocar sua biografia. Se não quiser utilizar esta página você precisará removê-la do menu também.');
+            //$this->createPost('page', 'Propostas', 'Edite essa página para colocar suas propostas. Se não quiser utilizar esta página você precisará removê-la do menu também.');
             
             if (!is_nav_menu('main')) {
                 $menu_id = wp_create_nav_menu('main');
@@ -478,7 +489,7 @@ class Campaign {
                     'menu-item-url' => home_url('/'),
                     'menu-item-status' => 'publish')
                 );
-                
+                /*
                 wp_update_nav_menu_item($menu_id, 0, array(
                     'menu-item-title' => 'Biografia',
                     'menu-item-url' => home_url('/biografia'), 
@@ -490,7 +501,7 @@ class Campaign {
                     'menu-item-url' => home_url('/propostas'), 
                     'menu-item-status' => 'publish')
                 );
-                
+                */
                 wp_update_nav_menu_item($menu_id, 0, array(
                     'menu-item-title' => 'Mobilização',
                     'menu-item-url' => home_url('/mobilizacao'),

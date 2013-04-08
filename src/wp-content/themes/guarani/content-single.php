@@ -1,19 +1,21 @@
 <?php
 /**
- * @package guarani
- * @since guarani 1.0
+ * @package Guarani
+ * @since Guarani 1.0
  */
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php if ( has_post_thumbnail() ) : ?>
-	<figure class="entry-image">
-		<?php the_post_thumbnail( 'highlight-single' ); ?>
-		<?php if ( $thumb_caption = get_post( get_post_thumbnail_id() )->post_excerpt ) : ?>
-			<figcaption><?php echo $thumb_caption; ?></figcaption>
-		<?php endif; ?>
-	</figure>
+	<?php if ( has_post_format( 'video' ) ) : ?>
+		<?php guarani_featured_video(); ?>
+	<?php elseif ( has_post_thumbnail() ) : ?>
+		<figure class="entry-image">
+			<?php the_post_thumbnail( 'highlight-single' ); ?>
+			<?php if ( $thumb_caption = get_post( get_post_thumbnail_id() )->post_excerpt ) : ?>
+				<figcaption><?php echo $thumb_caption; ?></figcaption>
+			<?php endif; ?>
+		</figure>
 	<?php endif; ?>
 	
 	<header class="entry-header">
@@ -31,8 +33,22 @@
 		<?php the_content(); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'guarani' ), 'after' => '</div>' ) ); ?>
 	</div><!-- .entry-content -->
-
+	
 	<footer class="entry-meta">
+		<div class="entry-share cf">
+	        <ul class="share-social cf">
+	        	<?php  $post_permalink = get_permalink(); ?>
+		    	<li><a class="share-twitter icon-twitter" title="<?php _e( 'Share on Twitter', 'guarani' ); ?>" href="http://twitter.com/intent/tweet?original_referer=<?php echo $post_permalink; ?>&text=<?php echo $post->post_title; ?>&url=<?php echo $post_permalink; ?>" rel="nofollow" target="_blank"><span class="assistive-text"><?php _e( 'Share on Twitter', 'guarani' ); ?></span></a></li>
+		    	<li><a class="share-facebook icon-facebook" title="<?php _e( 'Share on Facebook', 'guarani' ); ?>" href="https://www.facebook.com/sharer.php?u=<?php echo $post_permalink; ?>" rel="nofollow" target="_blank"><span class="assistive-text"><?php _e( 'Share on Facebook', 'guarani' ); ?></span></a></li>
+		    	<li><a class="share-googleplus icon-googleplus" title="<?php _e( 'Share on Google+', 'guarani' ); ?>" href="https://plus.google.com/share?url=<?php echo $post_permalink; ?>" rel="nofollow" target="_blank"><span class="assistive-text"><?php _e( 'Share on Google+', 'guarani' ); ?></span></a></li>
+			</ul>
+			<div class="share-shortlink">
+				<span aria-hidden="true" class="icon-link"></span>
+	        	<input type="text" value="<?php if ( $shortlink = wp_get_shortlink( $post->ID ) ) echo $shortlink; else the_permalink(); ?>" onclick="this.focus(); this.select();" readonly="readonly" />
+			</div>
+	    </div><!-- .entry-share -->
+	    
+	    <div class="entry-taxonomies">
 		<?php
 			/* translators: used between list items, there is a space after the comma */
 			$category_list = get_the_category_list( __( ', ', 'guarani' ) );
@@ -51,9 +67,9 @@
 			} else {
 				// But this blog has loads of categories so we should probably display them here
 				if ( '' != $tag_list ) {
-					$meta_text = __( 'This entry was posted in %1$s and tagged %2$s. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'guarani' );
+					$meta_text = __( 'This entry was posted in %1$s and tagged %2$s.', 'guarani' );
 				} else {
-					$meta_text = __( 'This entry was posted in %1$s. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'guarani' );
+					$meta_text = __( 'This entry was posted in %1$s.', 'guarani' );
 				}
 
 			} // end check for categories on this blog
@@ -61,12 +77,9 @@
 			printf(
 				$meta_text,
 				$category_list,
-				$tag_list,
-				get_permalink(),
-				the_title_attribute( 'echo=0' )
+				$tag_list
 			);
 		?>
-
-		<?php edit_post_link( __( 'Edit', 'guarani' ), '<span class="edit-link">', '</span>' ); ?>
+	    </div><!-- .entry-taxonomies -->
 	</footer><!-- .entry-meta -->
 </article><!-- #post-<?php the_ID(); ?> -->

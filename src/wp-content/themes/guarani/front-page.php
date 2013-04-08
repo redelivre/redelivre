@@ -2,7 +2,7 @@
     
     
 	<?php
-	$feature = new WP_Query( array( 'posts_per_page' => 2, 'ignore_sticky_posts' => 1, 'meta_key' => '_home', 'meta_value' => 1 ) );
+	$feature = new WP_Query( array( 'posts_per_page' => -1, 'ignore_sticky_posts' => 1, 'meta_key' => '_home', 'meta_value' => 1 ) );
 	
     if ( $feature->have_posts() ) : ?>
     

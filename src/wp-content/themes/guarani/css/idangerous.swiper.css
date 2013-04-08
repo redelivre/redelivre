@@ -78,6 +78,11 @@
 	height: 20.125em;
 }
 
+/* Margin for container */
+.swiper-container {
+	margin-bottom: 3em;
+}
+
 /* Swiper Navigation */
 .swiper-pagination {
 	margin: 1em 0;

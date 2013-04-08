@@ -1,7 +1,7 @@
 /*
 Theme Name: Magazine 01
 Theme URI: http://www.campanhacompleta.com.br/
-Description: Tema para candidatos que desejam um portal de notícias
+Description: Tema para candidatos que desejam um portal de notícias.
 Author: Campanha Completa
 Version: 1.0
 */
@@ -74,7 +74,6 @@ a img {
 .clear { clear: both; }
 .first { margin-left: 0; }
 .last { margin-right: 0; }
-
 
 /* =HTML5
 -------------------------------------------------------------- */
@@ -228,7 +227,6 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post .interaction { padding: 13px 0; border-bottom: 1px dotted #ccc; }
 
 /*post content*/
-.post-content ul li:before { content: "- "; }
 .post-content fieldset { border: 1px solid #ccc; margin: 0 0 22px 0; padding: 22px; }
 .post-content fieldset legend {	background: #fff; color: #000; font-weight: bold; padding: 0 22px; }
 .post-content input, .post-content textarea { margin: 0 0 11px 0; width: 80%; }
@@ -397,3 +395,24 @@ a.mobilize-youtube { background-image:url(img/gosocial_32x32.png); background-re
 .entry-gallery          { position:relative; height:154px; width:200px; }
 .entry-gallery img   { position:absolute; }
 
+/*
+List styles
+--------------------------------------- */
+ul { 
+   list-style-type: disc; 
+   list-style-position: inside; 
+}
+ol { 
+   list-style-type: decimal; 
+   list-style-position: inside; 
+}
+ul ul, ol ul { 
+   list-style-type: circle; 
+   list-style-position: inside; 
+   margin-left: 15px; 
+}
+ol ol, ul ol { 
+   list-style-type: lower-latin; 
+   list-style-position: inside; 
+   margin-left: 15px; 
+}

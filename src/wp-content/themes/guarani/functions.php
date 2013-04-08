@@ -12,7 +12,7 @@
  * @since Guarani 1.0
  */
 if ( ! isset( $content_width ) )
-	$content_width = 670;
+	$content_width = 648;
 
 if ( ! function_exists( 'guarani_setup' ) ) :
 /**
@@ -35,6 +35,9 @@ function guarani_setup() {
 	// Customizer
 	require( get_template_directory() . '/inc/customizer.php' );
 	
+	// Featured Video function
+	require( get_template_directory() . '/inc/featured-video.php' );
+	
 	//Implement the Custom Header feature
 	//require( get_template_directory() . '/inc/custom-header.php' );
 	
@@ -49,29 +52,31 @@ function guarani_setup() {
 	 */
 	load_theme_textdomain( 'guarani', get_template_directory() . '/languages' );
 	
-	// Custom Background
-	add_theme_support( 'custom-background' );
+	// Register menus
+	register_nav_menus( array(
+		'primary' => __( 'Primary Menu', 'guarani' ),
+	) );
+	
 
 	// Add default posts and comments RSS feed links to head
 	add_theme_support( 'automatic-feed-links' );
 
 	// Post Thumbnails
 	add_theme_support( 'post-thumbnails' );
-
-	// Register menus
-	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'guarani' ),
-	) );
+	
+	// Custom Background
+	add_theme_support( 'custom-background' );
 	
 	// Image sizes
 	add_image_size( 'highlight', 500, 320, true );
 	add_image_size( 'small-feature', 330, 250, true );
 	add_image_size( 'highlight-single', 686, 400, true );
 	
+	// Default link type is file
+	update_option( 'image_default_link_type','file' );	
 
 	// Add suport for Post Formats
-	add_theme_support( 'post-formats', array( 'aside', ) );
-	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'image', 'link', 'quote', 'status', 'video' ) );
+	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'image', 'link', 'video' ) );
 	
 	// Call Theme Custom Widgets
 	require( get_template_directory() . '/inc/widgets.php' );
@@ -83,11 +88,10 @@ function guarani_setup() {
 	 * Debugging & testing
 	 * This file is only meant for testing functionalities (e.g. Agenda post type)
 	 */
-	require( get_template_directory() . '/inc/debugging.php' );
+	//require( get_template_directory() . '/inc/debugging.php' );
 }
 endif; // guarani_setup
 add_action( 'after_setup_theme', 'guarani_setup' );
-
 
 /**
  * Register widgetized area and update sidebar with default widgets
@@ -146,10 +150,14 @@ function guarani_scripts() {
 	}
 	
 	// Swiper slider (http://www.idangero.us/sliders/swiper/)
-	if ( is_home() || is_front_page() ) {
+	if ( is_front_page() ) {
 		wp_enqueue_style( 'swiper', get_template_directory_uri() . '/css/idangerous.swiper.css' );
 		wp_enqueue_script( 'swiper', get_template_directory_uri() . '/js/idangerous.swiper-1.8.min.js', array( 'jquery' ), '1.8', true );
 	}
+	
+	// fancyBox (http://fancyapps.com/fancybox/)
+	wp_enqueue_style( 'fancybox', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.css' );
+	wp_enqueue_script( 'fancybox', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.pack.js', array( 'jquery' ), '2.1.4', true );
 	
 	
 }
@@ -166,6 +174,7 @@ function guarani_footer_scripts() {
 	
 	if ( is_home() || is_front_page() ) :
 	?>
+	<!-- Swiper -->
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			var mySwiper = jQuery('.swiper-container').swiper({
@@ -179,6 +188,18 @@ function guarani_footer_scripts() {
 	</script>
 	<?php
 	endif; 
+	?>
+	
+	<!-- fancyBox -->
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+		    jQuery('.hentry').find('a:has(img)').addClass('fancybox');
+	        jQuery('.hentry').find('a:has(img)').attr('rel','gallery');
+	        jQuery('a.fancybox').fancybox();
+		});
+	</script>
+	<?php
+	
 }
 add_action( 'wp_footer', 'guarani_footer_scripts' );
 ?>

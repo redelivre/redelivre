@@ -85,7 +85,9 @@ get_header(); ?>
 	    <p class="section-description">
 	        Coloque seu nome e seu e-mail. Depois coloque o e-mail de seus amigos separados por vírgulas e agora é só colocar sua mensagem pessoal e enviar!.                    </p>
 	    <div id="standard-message">
-	        <div><p>proposta, biografia</p></div>
+	        <div><p>A prática cotidiana prova que a adoção de políticas descentralizadoras ainda não demonstrou convincentemente que vai participar na mudança dos paradigmas corporativos. Pensando mais a longo prazo, a constante divulgação das informações facilita a criação dos níveis de motivação departamental. O que temos que ter sempre em mente é que a consolidação das estruturas obstaculiza a apreciação da importância das condições inegavelmente apropriadas.</p>
+	        
+	        <p>É importante questionar o quanto o desafiador cenário globalizado exige a precisão e a definição das formas de ação. Por outro lado, o início da atividade geral de formação de atitudes representa uma abertura para a melhoria da gestão inovadora da qual fazemos parte. Todavia, o entendimento das metas propostas acarreta um processo de reformulação e modernização dos procedimentos normalmente adotados. Neste sentido, o consenso sobre a necessidade de qualificação auxilia a preparação e a composição dos relacionamentos verticais entre as hierarquias.</p></div>
 	    </div>
 	    <!-- #standard-message -->
 	    <div id="mobilize-sendto-form">
