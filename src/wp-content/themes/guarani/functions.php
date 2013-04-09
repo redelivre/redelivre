@@ -65,7 +65,9 @@ function guarani_setup() {
 	add_theme_support( 'post-thumbnails' );
 	
 	// Custom Background
-	add_theme_support( 'custom-background' );
+	add_theme_support( 'custom-background', array(
+		'default-image' => get_stylesheet_directory_uri() . '/images/background.png'
+	) );
 	
 	// Image sizes
 	add_image_size( 'highlight', 500, 320, true );
@@ -179,10 +181,21 @@ function guarani_footer_scripts() {
 		jQuery(document).ready(function() {
 			var mySwiper = jQuery('.swiper-container').swiper({
 				autoPlay: 8000,
-				createPagination: true,
+				//createPagination: true,
 				loop: true,
-				pagination: '.swiper-pagination',
+				//pagination: '.swiper-pagination',
 				speed: 1300
+			});
+			
+			// A navegação
+			jQuery('.previous-slide').bind('click', function(e){
+				e.preventDefault();
+			    mySwiper.swipePrev();
+			});
+			
+			jQuery('.next-slide').bind('click', function(e){
+				e.preventDefault();
+			    mySwiper.swipeNext();
 			});
 		});
 	</script>

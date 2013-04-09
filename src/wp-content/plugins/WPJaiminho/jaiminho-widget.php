@@ -38,7 +38,7 @@ class Widget_Jaiminho extends WP_Widget {
 		echo $after_widget;
 	}
  
-function update( $new_instance, $old_instance ) {
+	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['jaiminho_id'] = (int) $new_instance['jaiminho_id'];

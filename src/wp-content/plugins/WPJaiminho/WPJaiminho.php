@@ -21,7 +21,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 // Defines
-
 if(!defined('__DIR__')) {
     $iPos = strrpos(__FILE__, DIRECTORY_SEPARATOR);
     define("__DIR__", substr(__FILE__, 0, $iPos) . DIRECTORY_SEPARATOR);
@@ -51,9 +50,7 @@ define('JAIMINHO_URL', $jaiminho_plugin_url.'/plugins/'.JAIMINHO_FOLDER);
 /*
  * Rotinas de instalação do plugin
  */
-
-function jaiminho_get_config()
-{
+function jaiminho_get_config(){
 	$opt = array();
 	
 	$opt['jaiminho_style'] = '';
@@ -80,35 +77,44 @@ function jaiminho_get_config()
 	return $opt;
 } 
 
-function jaiminho_instalacao() 
-{ 
+/**
+*
+*
+*/
+function jaiminho_instalacao() { 
 	
 }
+
 register_activation_hook(__FILE__,'jaiminho_instalacao');
 
-
-add_action('admin_init','jaiminho_instalacao');
-
-// Inicialização do plugin
-
-function jaiminho_init()
-{
+/**
+* Inicialização do plugin
+*
+*/
+function jaiminho_init(){
 	add_action('admin_menu', 'jaiminho_config_menu');
 }
-add_action('init','jaiminho_init');
 
-function jaiminho_scripts()
-{
+/**
+*
+*/
+function jaiminho_scripts(){
 	wp_enqueue_script('jaiminho', JAIMINHO_URL.'/js/WPJaiminho.js',array('jquery','jquery-form'));
 }
+
+// Registra actions
+add_action('admin_init','jaiminho_instalacao');
+add_action('init','jaiminho_init');
 add_action( 'wp_print_scripts', 'jaiminho_scripts' );
 
 // Fim Inicialização do plugin
 
 // Menu de configuração
 
-function jaiminho_config_menu()
-{
+/**
+*
+*/
+function jaiminho_config_menu(){
 	$opt = jaiminho_get_config();
 	
 	$base_page = 'jaiminho-campanha';
@@ -154,7 +160,7 @@ function jaiminho_form_table($rows) {
 }
 
 /**
- * Create a potbox widget
+ * Create a postbox widget
  */
 function jaiminho_postbox($id, $title, $content) {
 ?>
@@ -274,6 +280,7 @@ function jaiminho_conf_page()
 
 	$opt = jaiminho_get_config();
 	?>
+	
 	<div class="wrap">
 		<h2>Configurações gerais</h2>
 		<div class="postbox-container" style="width:80%;">
@@ -410,8 +417,11 @@ function jaiminho_conf_page()
 
 }
 
-function jaiminho_campaigncreated($data)
-{
+/**
+*
+*
+*/
+function jaiminho_campaigncreated($data){
 	$errors = array();
 	
 	$blog_id = $data['blog_id'];
@@ -467,13 +477,19 @@ add_action('Campaign-created', 'jaiminho_campaigncreated', 15, 1);
 
 // Fim Página de configuração
 
-// Mensagem de dashboard para notificar eventuais falhas de ativação dos plugins
+/*
+* Mensagem de dashboard para notificar eventuais falhas de ativação dos plugins
+*
+*/
 function jaiminho_displayMessageWidget(){
 	_e('<div class="error">ATENÇÃO! Ocorreu um erro ao ativar o recurso de envio de emails.</div>');
 	_e('Por favor, entre em contato com o suporte do Campanha Completa para resolver o problema no sistema de envio de emails.');
 }
 
-//Setup the widget
+/*
+* Setup the widget
+*
+*/
 function jaiminho_setupMessageWidget(){
 	if (get_option('jaiminho-error-log',false)) {
 		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'jaiminho_displayMessageWidget');	
@@ -481,8 +497,11 @@ function jaiminho_setupMessageWidget(){
 }
 add_action('wp_dashboard_setup', 'jaiminho_setupMessageWidget' );
 
-function jaiminho_campaignupdated($data)
-{
+/**
+*
+*
+*/
+function jaiminho_campaignupdated($data){
 	$plan_capabilities = Capability::getByPlanId($data['plan_id']);
 		
 	switch_to_blog($data['blog_id']);
@@ -506,8 +525,11 @@ function jaiminho_campaignupdated($data)
 
 add_action('Campaign-updated', 'jaiminho_campaignupdated', 10, 1);
 
-function jaiminho_GenerateIFrame($params)
-{
+/**
+*
+*
+*/
+function jaiminho_GenerateIFrame($params){
 	if(is_string($params))
 	{
 		$params = explode(',', $params);
@@ -601,8 +623,11 @@ function jaiminho_GenerateIFrame($params)
 	
 }
 
-function jaiminho_auth()
-{
+/**
+*
+*
+*/
+function jaiminho_auth(){
 	$opt = jaiminho_get_config();
 	$output_headers = null;
 
@@ -617,8 +642,11 @@ function jaiminho_auth()
 	return $auth;
 }
 
-function jaiminho_closesession()
-{
+/**
+*
+*
+*/
+function jaiminho_closesession(){
 	echo '<html>' .
 			'<body>';
 		
@@ -688,33 +716,51 @@ function jaiminho_register_widget() {
 	
 add_action( 'init', 'jaiminho_register_widget', 1 );
 
-function jaiminho_criarlista()
-{
+/**
+*
+*
+*/
+function jaiminho_criarlista(){
 	echo jaiminho_GenerateIFrame('list_add.php');
 }
 
-function jaiminho_explorarlistas()
-{
+/**
+*
+*
+*/
+function jaiminho_explorarlistas(){
 	echo jaiminho_GenerateIFrame('list_browse.php');
 }
 
-function jaiminho_campospersonalizados()
-{
+/**
+*
+*
+*/
+function jaiminho_campospersonalizados(){
 	echo jaiminho_GenerateIFrame('field_browse.php');
 }
 
-function jaiminho_importarmembros()
-{
+/**
+*
+*
+*/
+function jaiminho_importarmembros(){
 	echo jaiminho_GenerateIFrame('member_import.php');
 }
 
-function jaiminho_campanha()
-{
+/**
+*
+*
+*/
+function jaiminho_campanha(){
 	echo jaiminho_GenerateIFrame('campaign_new.php');
 }
 
-function jaiminho_remetente()
-{
+/**
+*
+*
+*/
+function jaiminho_remetente(){
 	if ($_SERVER['REQUEST_METHOD']=='POST')
 	{
 		$opt = jaiminho_get_config();
@@ -779,18 +825,27 @@ function jaiminho_remetente()
 <?php
 }
 
-function jaiminho_explorarcampanhas()
-{
+/**
+*
+*
+*/
+function jaiminho_explorarcampanhas(){
 	echo jaiminho_GenerateIFrame('campaign_browse.php');
 }
 
-function jaiminho_sms()
-{
+/**
+*
+*
+*/
+function jaiminho_sms(){
 	echo jaiminho_GenerateIFrame('plg0007_index.php');
 }
 
-function jaiminho_listarusuarios()
-{
+/**
+*
+*
+*/
+function jaiminho_listarusuarios(){
 	echo jaiminho_GenerateIFrame('settings_admins.php');
 }
 
