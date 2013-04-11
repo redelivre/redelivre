@@ -60,7 +60,7 @@
                         <?php else: ?>
                             <a href="<?php echo site_url('wp-login.php'); ?>">Log in</a>
                             <?php if (get_option('users_can_register')) : ?>
-                                | <a href="<?php echo home_url('wp-login.php?action=register'); ?>">Cadastro</a>
+                                | <a href="<?php echo get_page_link(101); ?>#formulario-cadastro">Cadastro</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>

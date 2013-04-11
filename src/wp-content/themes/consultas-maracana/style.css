@@ -505,11 +505,38 @@ ul.acoes li.selected { background: #e6e6e6; }
 #social-bookmarks #youtube { background: url('img/icones/youtube.png') no-repeat; }
 #social-lobookmarks #rss { background: url('img/icones/rss.png') no-repeat; }
 
-.working { width: 16px; height: 16px; background:url('img/ajax-loader.gif') no-repeat right center; display: inline-block; } 
+.working { width: 16px; height: 16px; background: url('img/ajax-loader.gif') no-repeat right center; display: inline-block; } 
 
 /**
 Personalização propostas
 ******************************/
+
+.bt-verde {
+	font-weight: 100;
+	display: block;
+	border: none;
+	color: #fff;
+	padding: 7px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #21794f;
+	background-image: -webkit-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: -moz-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: -o-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: -ms-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: linear-gradient(to top, #0a7241, #24a769);
+}
+
+input[type=text], input[type=password] { box-shadow: none; border: 1px solid #ddd; background: #fff; }
+
+/** Formulario de registro **/
+.register-form { margin: 0 0 30px 0; }
+.register-form p { padding: 0; margin: 0;}
+.register-form label { clear: both; display: table; font-weight: normal; }
+.register-form label em { font-size: 11px; display: block; clear: both; }
+.register-form .campo { }
+.register-form .bt-enviar { width: 100px; padding: 7px;}
 
 .lista-propostas { width: 639px; margin-left: -35px; }
 .lista-propostas ul { padding: 0; margin: 0; }
@@ -519,19 +546,39 @@ Personalização propostas
 
 .titulo-bloco, #main-section h3.subtitulo { background: #166923; color: #fff; padding: 15px 0 15px 35px; font-size: 18px; font-weight: bolder; display: block; width: 100%;  }
 .titulo-bloco { margin-left: -35px; padding-right: 35px; }
-#main-section { padding: 0; width:  639px; margin: 0;}
-#main-section h1 { margin: 0 0 0 35px; }
+#main-section { padding: 0; width:  639px; margin: 0; }
+#main-section header { margin-left: 35px; }
 #main-sidebar { border-left: 1px solid #006837; float: right; padding: 0 20px; margin: 0; width: 270px;}
 .post-entry { margin: 0 35px; }
 
-#main-header .info-consulta { padding: 50px 0 0 40px; width: 910px; display: table; border-bottom: 1px dashed #7f9857;}
+#main-header .info-consulta { padding: 30px 0 0 40px; width: 910px; display: table; border-bottom: 1px dashed #7f9857;}
 
 .evaluation p, .evaluation #evaluation_bars, .evaluation #user_evaluation { margin: 0 0 0 35px; }
 #comments h4, #comments .commentlist, #respond { margin-left: 35px; }
 #main-section .interaction { margin-left: 35px; }
 #main-section .interaction div { float:left; display:table; padding: 0 7px 0 0; }
-
+#evaluation_scale { margin-left: 35px; display:table; clear: both; }
+#evaluation_sclae h5 { display: table; clear: both;}
 .commentlist li.conselheiro .content { background: none; }
+
+#searchform { }
+#searchform label { clear: both; display:block; font-weight: bold; font-size: 14px;}
+#searchform input[type=text] { float: left; background: #fff; border: 1px solid #ddd; width: 100px; box-shadow: none; height: 15px;}
+#searchform input[type=submit] { margin: 10px 0 0 10px;
+	font-weight: 100;
+	border: none;
+	color: #fff;
+	padding: 7px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #21794f;
+	background-image: -webkit-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: -moz-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: -o-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: -ms-linear-gradient(bottom, #0a7241, #24a769);
+	background-image: linear-gradient(to top, #0a7241, #24a769);
+}
 /*
 formulario comentarios 
 */
