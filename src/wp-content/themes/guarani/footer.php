@@ -38,13 +38,7 @@
 				<?php endif; ?>
 			</div><!-- .site-info -->
 
-	    	<div id="social-bookmarks" class="alignright">
-				<a id="facebook" href="http://..." title="Facebook"></a>
-				<a id="twitter" href="http://..." title="Twitter"></a>
-				<a id="google-plus" href="http://..." title="Google+"></a>
-				<a id="youtube" href="http://..." title="YouTube"></a>
-				<a id="rss" href="http://..." title="RSS"></a>
-			</div>
+	    	<?php do_action( 'campanha_body_header' ); ?>
 		</footer><!-- #colophon .site-footer -->
 		
 	</div><!-- .site-wrapper .hfeed .site -->

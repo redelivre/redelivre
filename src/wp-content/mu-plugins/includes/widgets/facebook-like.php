@@ -33,7 +33,15 @@ class WidgetFacebookLikeBox extends WP_Widget {
     function form($instance) {
         ?>
         Este Widget utiliza a configuração de Página do Facebook do menu <a href="<?php bloginfo('url') ?>/wp-admin/admin.php?page=campaign_social_networks">Redes Sociais</a> e para funcionar corretamente, você deve ter uma página no Facebook.
-        <?php
+        <strong>Opções do widget</strong>
+        <p>
+        	<label for="<?php $this->get_field_id('fb-show-faces'); ?>">Exibir fotos</label>
+        	<select name="<?php echo $this->get_field_name('fb-show-faces'); ?>" id="<?php echo $this->get_field_id('fb-show-faces'); ?>">
+        		<option value="1" <?php echo ($instance['fb-show-faces'] == 1) ? "selected=1" : ""; ?>>Sim</option>
+        		<option value="0" <?php echo ($instance['fb-show-faces'] == 1) ? "selected=1" : ""; ?>>Não</option>
+        	</select>
+        </p>
+        <?php 
     }
  
 }

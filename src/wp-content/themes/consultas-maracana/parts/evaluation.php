@@ -86,7 +86,7 @@
                 </form>
             </div>
         <?php else: ?>
-            <p><?php _e('Para avaliar é necessário se <a href="' . get_page_link(101) . '">cadastrar</a> e efetuar o <a href="' . wp_login_url() . '">login</a>.', 'consulta'); ?></p>
+            <p><?php _e('Para avaliar é necessário se <a href="' . get_page_link(get_page_by_path('registro-de-usuario')->ID) . '#formulario-cadastro">cadastrar</a> e efetuar o <a href="' . wp_login_url() . '">login</a>.', 'consulta'); ?></p>
         <?php endif; ?>
     </div>
 <?php endif; ?>

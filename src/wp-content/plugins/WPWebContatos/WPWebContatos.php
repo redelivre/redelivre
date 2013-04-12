@@ -676,4 +676,13 @@ function webcontatos_update_user($user, $pass, $permissao, $grupo)
 	$ret = $client->__soapCall('UpdateUsuario', array('nome'=> $user->user_login, 'pass' => $pass, 'grupo' => $grupo, 'permissao' => $permissao, 'nomeCompleto' => ($user->first_name.' '.$user->last_name)) , array(), null, $output_headers);
 	
 }
+
+/**
+ * 
+ */
+function webcontatos_recriar()
+{
+	
+}
+
 ?>

@@ -15,6 +15,20 @@
     },
     {
       "search": [
+        "hand",
+        "up",
+        "arrow"
+      ],
+      "code": 9757,
+      "from": 9757,
+      "uid": "034e645aa3bad56ce68389a816547c87",
+      "css": "up-hand",
+      "orig_css": "up-hand",
+      "orig_code": 9757,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
         "pencil",
         "write",
         "reply",
@@ -107,6 +121,32 @@
       "orig_css": "rss",
       "orig_code": 59194,
       "src": "websymbols"
+    },
+    {
+      "search": [
+        "arrow",
+        "left"
+      ],
+      "code": 59237,
+      "uid": "884cfc3e6e2d456dd2a2ca0dbb9e6337",
+      "css": "left-open-big",
+      "orig_css": "left-open-big",
+      "orig_code": 59237,
+      "src": "entypo",
+      "from": 59237
+    },
+    {
+      "search": [
+        "arrow",
+        "right"
+      ],
+      "code": 59238,
+      "uid": "004882ab2d5c418c5b2060e80596279b",
+      "css": "right-open-big",
+      "orig_css": "right-open-big",
+      "orig_code": 59238,
+      "src": "entypo",
+      "from": 59238
     },
     {
       "search": [

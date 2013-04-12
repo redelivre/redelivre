@@ -211,11 +211,12 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 
 
 /*interaction*/
-.post .interaction { padding: 13px 0; border-top: 1px dotted #ccc; border-bottom: 1px dotted #ccc; }
-.post .interaction div { float: left; height: 22px; padding: 9px; border-left: 1px dotted #ccc; }
+.post .interaction { padding: 13px 0;  text-align: right; }
+.post .interaction div { float: left; height: 22px; padding: 0 10px; display:table; border-left: 1px dotted #ccc; }
 .post .interaction a { font-weight: bold; }
 .post .interaction .comments-number { width: 43px; height: 40px; margin-right: 9px; padding: 0; border-left: none; font-size: 18px; font-weight: bold; line-height: 30px; text-align: center; color: #fff; background: transparent url(img/balao.png) no-repeat; }
-.post .interaction .commenters-number { font-size: 18px; font-weight: bold; }
+.post .interaction .commenters-number { font-size: 18px; font-weight: bold; padding: 5px 10px;}
+.share.a2a_dd { margin: 0 20px 0 30px; }
 .post .interaction span.commenters-number-icon { background: url(img/users.png) no-repeat left center; border:none; display:inline-block; float:left; height:22px; padding:0; width:32px; }
 
 .interaction .show_evaluation { display: inline-block; border-left: 1px dotted #ccc; font-size: 13px; padding: 0 9px; font-weight: bold; }
@@ -510,6 +511,13 @@ ul.acoes li.selected { background: #e6e6e6; }
 /**
 Personalização propostas
 ******************************/
+.post header p.bottom {
+	color: #fff;
+	background: #0a6539;
+	display: table;
+	padding: 3px 7px;
+	margin-bottom: 15px!important;
+}
 
 .bt-verde {
 	font-weight: 100;
@@ -559,6 +567,9 @@ input[type=text], input[type=password] { box-shadow: none; border: 1px solid #dd
 #main-section .interaction div { float:left; display:table; padding: 0 7px 0 0; }
 #evaluation_scale { margin-left: 35px; display:table; clear: both; }
 #evaluation_sclae h5 { display: table; clear: both;}
+
+.evaluation_average_marker { top: 50px; height: 50%; }
+
 .commentlist li.conselheiro .content { background: none; }
 
 #searchform { }
@@ -579,6 +590,8 @@ input[type=text], input[type=password] { box-shadow: none; border: 1px solid #dd
 	background-image: -ms-linear-gradient(bottom, #0a7241, #24a769);
 	background-image: linear-gradient(to top, #0a7241, #24a769);
 }
+
+
 /*
 formulario comentarios 
 */

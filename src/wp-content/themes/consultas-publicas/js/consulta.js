@@ -56,14 +56,21 @@ jQuery(document).ready(function(){
     
     // Ação para capturar o click dos links de concordo e não concordo das propostas rápidas.    
     jQuery('.proposta-concordo, .proposta-naoconcordo').click(function(event) {        
+        var nome_proposta = jQuery(event.target).attr('href');
         var id_span_target = jQuery(event.target).attr('href') + '-' +jQuery(event.target).attr('class');
         
         jQuery.ajax({
-            beforeSubmit: function() { jQuery(id_span_target).text(''); jQuery(id_span_target).addClass('working'); }, 
-            data: { proposta_inline: 'true', tipo_proposta_inline: jQuery(event.target).attr('class'), item_proposta: jQuery(event.target).attr('href'), post_id: jQuery(event.target).attr('data-post') }
-        }).done(function(resposta) {
-            jQuery(id_span_target).text(resposta);
-            jQuery(id_span_target).removeClass('working');
-        });
+            beforeSend: function() { 
+                if (jQuery.cookie(nome_proposta) === 'true') 
+                    return false;            
+                jQuery(id_span_target).text(''); 
+                jQuery(id_span_target).addClass('working'); 
+            }, 
+            data: { proposta_inline: 'true', tipo_proposta_inline: jQuery(event.target).attr('class'), item_proposta: jQuery(event.target).attr('href'), post_id: jQuery(event.target).attr('data-post') },
+            success: function(resposta) {
+                jQuery(id_span_target).text(resposta);
+                jQuery(id_span_target).removeClass('working');
+                jQuery.cookie(nome_proposta,'true');
+        }});
     });    
 });

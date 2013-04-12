@@ -75,7 +75,8 @@ add_filter( 'show_admin_bar' , 'remove_admin_bar');
 // JS
 function consulta_addJS() {
     wp_enqueue_script('scrollto', get_template_directory_uri() . '/js/jquery.scrollTo-1.4.2-min.js',array('jquery'));
-    wp_enqueue_script('consulta', get_template_directory_uri() . '/js/consulta.js',array('jquery', 'scrollto'));
+    wp_enqueue_script('jquery-cookie', get_template_directory_uri() . '/js/jquery.cookie.js',array('jquery'));
+    wp_enqueue_script('consulta', get_template_directory_uri() . '/js/consulta.js',array('jquery', 'scrollto', 'jquery-cookie'));
     wp_localize_script('consulta', 'consulta', array( 'ajaxurl' => admin_url('admin-ajax.php') ));
     wp_enqueue_script('hl', get_template_directory_uri() . '/js/hl.js', array('consulta'));
     
@@ -178,24 +179,24 @@ function consulta_comment($comment, $args, $depth) {
     
     ?>
     <li <?php comment_class($commentClass); ?> id="comment-<?php comment_ID(); ?>"  > 
+		
+        
 		<div class="content clearfix">
+		<p class="comment-meta">
+           <span class="comment-author"><?php echo is_object($autor) ? $autor->display_name : ''; ?></span> | <?php echo get_comment_date() . ' às ' . get_comment_time() ; ?>
+        </p>
 		<?php if ($sugestao): ?>
 			<h6 class="alteracao">
 				<?php _oi('Sugestão de alteração para esta meta', 'Comentários: Texto que aparece acima do comentário quando este é uma sugestão de alteração'); ?>
 			</h6>
         <?php endif; ?>
-        <p class="comment-meta bottom">
-          <?php echo get_comment_date() . ' às ' . get_comment_time() ; ?>                  
-        </p>
         
         <?php //echo get_avatar($comment, 44); ?>
         
 			<?php if($comment->comment_approved == '0') : ?><br/><em><?php _oi('Seu comentário está aguardando moderação', 'Comentários: Texto que aparece para o usuário quando o seu comentário fica em moderação'); ?></em><?php endif; ?>
           <?php comment_text(); ?>          
         
-        <p class="comment-meta">
-            <span class="comment-author"><?php echo is_object($autor) ? $autor->display_name : ''; ?></span>
-        </p> 
+         
         <p class="comment-meta">            
 			<?php comment_reply_link(array('depth' => $depth, 'max_depth' => $args['max_depth'])) ?> <?php edit_comment_link( __('Edit', 'consulta'), '| ', ''); ?>
         </p>
@@ -663,9 +664,9 @@ function propostas_inline($content)
     $resultado = array();
     
     preg_match_all("/\[propostas\](.*)\[\/propostas\]/s", $content, $resultado, PREG_PATTERN_ORDER);
-    
-    $propostas_parsed = $resultado[1][0];
-    
+ 
+    $propostas_parsed = '<div class="lista-propostas">' . $resultado[1][0] . '</div>';
+
     $resultado_itens = array();
     preg_match_all("/(?:^|\s)\#(\w+)\b/s", $propostas_parsed, $resultado_itens);
     
@@ -686,7 +687,7 @@ function propostas_inline($content)
     }
     
     $content = preg_replace ("/\[propostas\](.*)\[\/propostas\]/s", $propostas_parsed, $content);    
-    
+
     return $content; 
 }
 

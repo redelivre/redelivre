@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
  
         // other available options: 
         beforeSubmit:  function () { jQuery('#jaiminho-message').text("aguarde, enviando...") },  // pre-submit callback 
-        success:       function () { jQuery('#jaiminho-message').text(""); }  // post-submit callback 
+        success:       function () { jQuery('#jaiminho-message').html(""); }  // post-submit callback 
         //url:       url         // override for form's 'action' attribute 
         //type:      type        // 'get' or 'post', override for form's 'method' attribute 
         //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 

@@ -182,5 +182,5 @@ function guarani_rss_widget_icon( $title, $instance, $id ) {
 		
 	return $title;	
 }
-add_filter( 'widget_title', 'guarani_rss_widget_icon', 10, 3 );
+//add_filter( 'widget_title', 'guarani_rss_widget_icon', 10, 3 );
 ?>

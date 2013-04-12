@@ -167,7 +167,7 @@ class Consultas_Maracana{
 		if($erros){
 			include get_stylesheet_directory() . '/register-form.php';
 			foreach($erros as $erro){
-				echo $erro . "</br>";
+				echo $erro . "<br />";
 			}
 		} else {
                         $action = site_url('wp-login.php');

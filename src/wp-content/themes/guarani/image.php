@@ -19,6 +19,7 @@ get_header();
 						<h1 class="entry-title"><?php the_title(); ?></h1>
 
 						<div class="entry-meta">
+							<span aria-hidden="true" class="icon-clock"></span>
 							<?php
 								$metadata = wp_get_attachment_metadata();
 								printf( __( 'Published <span class="entry-date"><time class="entry-date" datetime="%1$s" pubdate>%2$s</time></span> at <a href="%3$s" title="Link to full-size image">%4$s &times; %5$s</a> in <a href="%6$s" title="Return to %7$s" rel="gallery">%7$s</a>', 'guarani' ),
@@ -35,8 +36,8 @@ get_header();
 						</div><!-- .entry-meta -->
 
 						<nav id="image-navigation" class="site-navigation">
-							<span class="previous-image"><?php previous_image_link( false, __( '&larr; Previous', 'guarani' ) ); ?></span>
-							<span class="next-image"><?php next_image_link( false, __( 'Next &rarr;', 'guarani' ) ); ?></span>
+							<span class="previous"><?php previous_image_link( false, __( '&larr; Previous', 'guarani' ) ); ?></span>
+							<span class="next"><?php next_image_link( false, __( 'Next &rarr;', 'guarani' ) ); ?></span>
 						</nav><!-- #image-navigation -->
 					</header><!-- .entry-header -->
 

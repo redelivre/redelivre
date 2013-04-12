@@ -51,13 +51,16 @@ input:-ms-input-placeholder {
 	color: #464646;
 }
 
-.highlights .slide,
-.archive-header,
-.member-contact,
 input[type="text"],
 input[type="email"],
 textarea,
-#searchform #s {
+#searchform #s,
+.highlights .slide,
+.archive-header,
+.member-contact,
+.single footer.entry-meta,
+.mobilize-widget h6,
+.commentlist > .comment.odd {
 	background: #fbfbfb;
 }
 
@@ -66,15 +69,31 @@ textarea,
 .archive-header,
 input[type="text"],
 input[type="email"],
-textarea {
+textarea,
+.commentlist > .comment.even {
 	border-color: #f4f4f4;
+}
+
+
+.main-navigation .menu > .menu-item > a:hover,
+.main-navigation .menu > .current_page_item > a,
+.main-navigation .menu > .current-menu-parent > a {
+	border-bottom-color: #c91f32;
+}
+
+.main-navigation ul ul a:hover:after {
+	color: #c91f32;
+}
+
+.entry-share {
+	background: #f4f4f4;
 }
 
 .eletro_widgets_content.widget_guarani_custom_posts .entry-title {
 	background: #c2c2c2;
 }
 
-.eletro_widgets_content.widget_guarani_custom_posts article,
+.eletro_widgets_content.widget_guarani_custom_posts article .entry-content,
 .widget_calendar #wp-calendar caption {
 	background: #e1e1e1;
 }
@@ -87,7 +106,8 @@ textarea {
 h1, h2, h3, h4, h5, h6,
 .archive-item h3,
 .archive-title,
-.widget-title {
+.widget-title,
+.mobilize-widget h6 {
 	color: #464646;
 }
 
@@ -103,14 +123,14 @@ h1, h2, h3, h4, h5, h6,
 -------------------------------------------------------------- */
 
 .single .entry-title a,
-.page .entry-title {
+.page .entry-title,
+#mobilize-content h1 {
 	color: #c91f32;
 }
 
 .more-link {
 	color: #4d99a6;
 }
-
 
 /* Extras */
 .wp-tag-cloud li a {

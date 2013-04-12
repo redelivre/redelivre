@@ -1,10 +1,10 @@
 <?php $post_type_object = get_post_type_object( 'object' ); ?>
 <?php get_header(); ?>	
 	<section id="main-section" class="span-15 prepend-1 append-1">
-		
         <?php if ( have_posts()) : the_post(); ?>
 		
 			<?php html::part('loop', 'single-meta'); ?>
+			
 			
             <?php comments_template('/comments-objects.php'); ?>
 		    <!-- comentários -->

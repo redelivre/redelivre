@@ -1,6 +1,26 @@
 <?php
+/**
+ * Replace the default "_" (underscore) with "-" (hyphen) in protected custom fields for debugging purposes
+ * 
+ * @param bool $protected The default value
+ * @param string $meta_key The meta key
+ * @return bool True for meta keys starting with "-" (hyphen), false otherwise
+ */
+function unprotected_meta( $protected, $meta_key ) {
+ 
+  $protected = ( '-' == $meta_key[0] );
+	
+	return $protected;
+	
+}
+ 
+add_filter( 'is_protected_meta', 'unprotected_meta', 10, 2 );
+
+
+
+
 //POST TYPE DE EVENTOS DA AGENDA
-/*class Agenda {
+class Agenda {
     const NAME = 'Evento';
     const MENU_NAME = 'Eventos';
 
@@ -48,7 +68,7 @@
     }
     
     
-    /* Adds a box to the main column on the Post and Page edit screens /
+    /* Adds a box to the main column on the Post and Page edit screens */
     static function add_custom_box() {
         
         add_meta_box( 
@@ -62,7 +82,7 @@
         );
     }
 
-    /* Prints the box content /
+    /* Prints the box content */
     static function inner_custom_box_callback_function() {
         global $post;
         
@@ -146,7 +166,8 @@
         
     }
 
-    /* When the post is saved, saves our custom data *    function save_postdata( $post_id ) {
+    /* When the post is saved, saves our custom data */
+    function save_postdata( $post_id ) {
         
         $data_inicial = '_data_inicial';
         $data_final = '_data_final';
@@ -278,7 +299,7 @@ add_action('admin_menu', function() {
     add_submenu_page('edit.php?post_type=agenda', 'Inserir no menu', 'Inserir link no menu', 'publish_posts', 'agenda_menu_page', 'agenda_menu_page');
 });
 
-/*function agenda_menu_page() {
+function agenda_menu_page() {
 
     ?>
     
@@ -355,13 +376,13 @@ function the_event_box() {
         </div>
         <?php
     }
-}*/
+}
 
 /*
   Plugin Name: Widget de Lista da Agenda
  */
 
-/*class WidgetAgenda extends WP_Widget {
+class WidgetAgenda extends WP_Widget {
 
     function WidgetAgenda() {
         $widget_ops = array('classname' => __CLASS__, 'description' => 'adiciona uma lista dos eventos');
@@ -464,5 +485,5 @@ function registerWidgetAgendaLista() {
 
 add_action('widgets_init', 'registerWidgetAgendaLista');
 
-//*/
+//
 ?>
