@@ -2,9 +2,9 @@
 /**
  * Template Name: Mobilize
  *
- * @package Guarani
  * @since Guarani 1.0
  */
+__( 'Mobilize', 'guarani' );
 
 get_header(); ?>
 

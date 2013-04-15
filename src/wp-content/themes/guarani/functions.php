@@ -169,7 +169,6 @@ add_action( 'wp_enqueue_scripts', 'guarani_scripts' );
 /**
  * Call footer scripts
  * 
- *
  * @since Guarani 1.0
  */
 function guarani_footer_scripts() {
@@ -215,4 +214,56 @@ function guarani_footer_scripts() {
 	
 }
 add_action( 'wp_footer', 'guarani_footer_scripts' );
+
+
+/**
+ * Auto activate plugins
+ *
+ * @link http://wpengineer.com/2300/activate-wordpress-plugins-automatically-via-a-function/
+ *
+ * @since Guarani 1.0
+ */
+function guarani_activate_plugins() {
+    
+    if ( ! current_user_can( 'activate_plugins' ) )
+        wp_die( __( 'You do not have sufficient permissions to activate plugins for this site.', 'guarani' ) );
+        
+    $plugins = FALSE;
+    $plugins = get_option( 'active_plugins' );
+    
+    if ( $plugins ) {
+    
+    	// The plugin list
+        $pugins_to_active = array(
+            'eletro-widgets/eletro-widgets.php', 
+            'akismet/akismet.php'
+        );
+        
+        foreach ( $pugins_to_active as $plugin ) {
+            if ( ! in_array( $plugin, $plugins ) ) {
+                array_push( $plugins, $plugin );
+                update_option( 'active_plugins', $plugins );
+            }
+        }
+        
+    }
+}
+add_action( 'admin_init', 'guarani_activate_plugins' );
+
+
+/**
+ * Deactivate Eletro Widgets plugin removal
+ *
+ * @link http://wpmu.org/remove-plugin-deactivation-wordpress/
+ * @since Guarani 1.0
+ */
+function lock_plugins( $actions, $plugin_file, $plugin_data, $context ) {
+ 
+  if ( array_key_exists( 'deactivate', $actions ) && in_array( $plugin_file, array( 'eletro-widgets/eletro-widgets.php' ) ) )
+    unset( $actions['deactivate'] );
+    
+  return $actions;
+  
+}
+add_filter( 'plugin_action_links', 'lock_plugins', 10, 4 );
 ?>

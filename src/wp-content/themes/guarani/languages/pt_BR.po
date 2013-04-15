@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Guarani package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-03-10 23:36-0300\n"
+"PO-Revision-Date: 2013-04-13 19:59-0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,89 @@ msgstr ""
 "Last-Translator: Eduardo Zulian <eduardozulian@gmail.com>\n"
 "Language-Team: \n"
 
-#: inc/template-tags.php:178
+#: page-templates/mobilizacao.php:7
+msgid "Mobilize"
+msgstr "Mobilização"
+
+#: page-templates/custom-archive.php:10
+msgid "Custom Archive"
+msgstr "Arquivo personalizado"
+
+#: page-templates/front-page.php:7
+msgid "Front Page Template"
+msgstr "Capa personalizada"
+
+#: content-single.php:41
+msgid "Share on Twitter"
+msgstr "Compartilhe no Twitter"
+
+#: content-single.php:42
+msgid "Share on Facebook"
+msgstr "Compartilhe no Facebook"
+
+#: content-single.php:43
+msgid "Share on Google+"
+msgstr "Compartilhe no Google+"
+
+#: content-single.php:70
+msgid "This entry was posted in %1$s and tagged %2$s."
+msgstr "Publicado em %1$s com as tags %2$s."
+
+#: content-single.php:72
+msgid "This entry was posted in %1$s."
+msgstr "Publicado em %1$s."
+
+#: functions.php:229
+msgid "You do not have sufficient permissions to activate plugins for this site."
+msgstr "Você não tem permissão para ativar plugins neste site."
+
+#: inc/customizer.php:24
+msgid "Clean"
+msgstr "Clean"
+
+#: inc/template-tags.php:43
+msgid "Personal website"
+msgstr "Site pessoal"
+
+#: inc/template-tags.php:154
+msgid "<span>on</span> %1$s at %2$s"
+msgstr "<span>em</span> %1$s às %2$s"
+
+#: inc/widgets.php:89
+msgid "View all posts filed under %s"
+msgstr "Veja todos os posts arquivados em %s"
+
+#: inc/widgets.php:208
+msgid "Feature a page, showing its excerpt and thumbnail"
+msgstr "Apresenta uma página e mostra o seu resumo acompanhado da imagem destacada"
+
+#: inc/widgets.php:209
+msgid "Featured Page"
+msgstr "Página destacada"
+
+#: inc/widgets.php:321
+msgid "Page:"
+msgstr "Página:"
+
+#: page-templates/front-page.php:54
+msgid "Previous"
+msgstr "Anterior"
+
+#: page-templates/front-page.php:58
+msgid "Next"
+msgstr "Próxima"
+
+#: tpl-contato.php:18
+msgid "Contact Us"
+msgstr "Entre em contato"
+
+msgid "Eduardo Zulian e Thalita Sejanes"
+msgstr "Eduardo Zulian e Thalita Sejanes"
+
+msgid "light, brown, gray, green, red, white, light, one-column, two-columns, right-sidebar, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, sticky-post, theme-options, threaded-comments, translation-ready"
+msgstr "light, brown, gray, green, red, white, light, one-column, two-columns, right-sidebar, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, sticky-post, theme-options, threaded-comments, translation-ready"
+
+#: inc/template-tags.php:185
 msgid "Posted on <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a>"
 msgstr "Publicado em <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a>"
 
@@ -104,7 +186,7 @@ msgid "Comments are closed."
 msgstr "Os comentários estão fechados."
 
 #: content-agenda.php:21
-#: content-single.php:21
+#: content-single.php:23
 msgid "Read, comment and share &ldquo;%s&rdquo;"
 msgstr "Leia, comente e compartilhe &ldquo;%s&rdquo;"
 
@@ -115,100 +197,93 @@ msgstr "Mais informações"
 
 #: content-agenda.php:63
 #: content-page.php:17
-#: content-single.php:32
-#: content.php:26
-#: image.php:86
+#: content-single.php:34
+#: content.php:21
+#: image.php:87
+#: tpl-contato.php:31
 msgid "Pages:"
 msgstr "Páginas:"
 
 #: content-agenda.php:67
 #: content-page.php:18
-#: content-single.php:70
-#: content.php:59
-#: image.php:34
-#: image.php:100
+#: content.php:53
+#: image.php:35
+#: image.php:101
+#: tpl-contato.php:32
 msgid "Edit"
 msgstr "Editar"
 
-#: content-single.php:38
-#: content.php:34
-#: content.php:44
+#: content-single.php:54
+#: content.php:33
+#: content.php:43
 msgid ", "
 msgstr ", "
 
-#: content-single.php:46
+#: content-single.php:62
 msgid "This entry was tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr "Este post foi marcado com as tags %2$s. Salve o <a href=\"%3$s\" title=\"Permalink para %4$s\" rel=\"bookmark\">permalink</a>."
 
-#: content-single.php:48
+#: content-single.php:64
 msgid "Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr "Salve o <a href=\"%3$s\" title=\"Permalink para %4$s\" rel=\"bookmark\">permalink</a>."
 
-#: content-single.php:54
-msgid "This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
-msgstr "Este post foi arquivado em %1$s e marcado com as tags %2$s. Salve o <a href=\"%3$s\" title=\"Permalink para %4$s\" rel=\"bookmark\">permalink</a>."
-
-#: content-single.php:56
-msgid "This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
-msgstr "Este post foi arquivado em %1$s. Salve o <a href=\"%3$s\" title=\"Permalink para %4$s\" rel=\"bookmark\">permalink</a>."
-
-#: content.php:25
+#: content.php:20
 msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Continue lendo <span class=\"meta-nav\">&rarr;</span>"
 
-#: content.php:38
+#: content.php:37
 msgid "Posted in %1$s"
 msgstr "Arquivado em %1$s"
 
-#: content.php:49
+#: content.php:48
 msgid "Tagged %1$s"
 msgstr "Marcado como %1$s"
 
-#: content.php:56
+#: inc/template-tags.php:193
 msgid "Leave a comment"
 msgstr "Faça um comentário"
 
-#: content.php:56
+#: inc/template-tags.php:193
 msgid "1 Comment"
 msgstr "Um comentário"
 
-#: content.php:56
+#: inc/template-tags.php:193
 msgid "% Comments"
 msgstr "% comentários"
 
-#: footer.php:53
+#: footer.php:47
 msgid "Campanha Completa"
 msgstr "Campanha Completa"
 
-#: footer.php:53
+#: footer.php:47
 msgid "Campanha Completa logo"
 msgstr "Logo do Campanha Completa"
 
-#: footer.php:54
+#: footer.php:48
 msgid "Proudly powered by WordPress"
 msgstr "Orgulhosamente criado com WordPress"
 
-#: footer.php:54
+#: footer.php:48
 msgid "WordPress logo"
 msgstr "Logo do WordPress"
 
-#: functions.php:63
+#: functions.php:57
 msgid "Primary Menu"
 msgstr "Menu primário"
 
-#: functions.php:99
+#: functions.php:105
 msgid "Sidebar"
 msgstr "Barra lateral"
 
-#: functions.php:101
+#: functions.php:107
 msgid "The main sidebar"
 msgstr "A sidebar principal"
 
-#: functions.php:109
+#: functions.php:115
 msgid "Footer Widget Area"
 msgstr "Área de widgets do rodapé"
 
-#: functions.php:111
+#: functions.php:117
 msgid "Appears in the footer section of the site"
 msgstr "Está no rodapé do seu site"
 
@@ -220,118 +295,118 @@ msgstr "Menu"
 msgid "Skip to content"
 msgstr "Pule para o conteúdo"
 
-#: image.php:24
+#: image.php:25
 msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\" pubdate>%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%7$s</a>"
-msgstr ""
+msgstr "Publicado em <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\" pubdate>%2$s</time></span> com o tamanho <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> dentro de <a href=\"%6$s\" title=\"Retornar para %7$s\" rel=\"gallery\">%7$s</a>"
 
-#: image.php:38
+#: image.php:39
 msgid "&larr; Previous"
 msgstr "&larr; Anterior"
 
-#: image.php:39
+#: image.php:40
 msgid "Next &rarr;"
 msgstr "Próximo &rarr;"
 
-#: image.php:92
+#: image.php:93
 msgid "<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">Post a comment</a> or leave a trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
-msgstr ""
+msgstr "<a class=\"comment-link\" href=\"#respond\" title=\"Fazer um comentário\">Faça um comentário</a> ou deixe um trackback: <a class=\"trackback-link\" href=\"%s\" title=\"URL de trackback para o seu post\" rel=\"trackback\">URL de trackback</a>."
 
-#: image.php:94
+#: image.php:95
 msgid "Comments are closed, but you can leave a trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
-msgstr ""
+msgstr "Os comentários estão fechados, mas você pode deixar um trackback: <a class=\"trackback-link\" href=\"%s\" title=\"URL de trackback para o seu post\" rel=\"trackback\">URL de trackback</a>."
 
-#: image.php:96
+#: image.php:97
 msgid "Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">post a comment</a>."
-msgstr ""
+msgstr "Trackbacks estão fechados, mas você pode <a class=\"comment-link\" href=\"#respond\" title=\"Fazer um comentário\">fazer um comentário</a>."
 
-#: image.php:98
+#: image.php:99
 msgid "Both comments and trackbacks are currently closed."
-msgstr ""
+msgstr "Os comentários e os trackbacks estão fechados."
 
-#: inc/customizer/customizer.php:33
+#: inc/customizer.php:18
 msgid "Default"
 msgstr "Padrão"
 
-#: inc/customizer/customizer.php:39
+#: inc/customizer.php:30
 msgid "Eco"
 msgstr "Eco"
 
-#: inc/customizer/customizer.php:181
+#: inc/customizer.php:172
 msgid "Display header text"
 msgstr "Mostrar texto do cabeçalho"
 
-#: inc/customizer/customizer.php:205
+#: inc/customizer.php:196
 msgid "Color Scheme"
 msgstr "Esquema de cores"
 
-#: inc/customizer/customizer.php:218
+#: inc/customizer.php:209
 msgid "Branding"
 msgstr "Marca"
 
-#: inc/customizer/customizer.php:229
+#: inc/customizer.php:220
 msgid "Logo"
 msgstr "Logo"
 
-#: inc/customizer/customizer.php:242
+#: inc/customizer.php:233
 msgid "Favicon"
 msgstr "Favicon"
 
-#: inc/customizer/customizer.php:329
+#: inc/customizer.php:320
 msgid "Customize %s"
 msgstr "Personalizar %s"
 
-#: inc/customizer/customizer.php:332
+#: inc/customizer.php:323
 msgid "Customize"
 msgstr "Personalizar"
 
-#: inc/debugging.php:19
+#: inc/debugging.php:39
 msgctxt "post type general name"
 msgid "Evento"
 msgstr "Evento"
 
-#: inc/debugging.php:20
+#: inc/debugging.php:40
 msgctxt "post type singular name"
 msgid "Evento"
 msgstr "Evento"
 
-#: inc/debugging.php:21
+#: inc/debugging.php:41
 msgctxt "image"
 msgid "Adicionar novo"
 msgstr "Adicionar novo"
 
-#: inc/debugging.php:22
+#: inc/debugging.php:42
 msgid "Adicionar novo evento"
 msgstr "Adicionar novo evento"
 
-#: inc/debugging.php:23
+#: inc/debugging.php:43
 msgid "Editar evento"
 msgstr "Editar evento"
 
-#: inc/debugging.php:24
+#: inc/debugging.php:44
 msgid "Novo evento"
 msgstr "Novo evento"
 
-#: inc/debugging.php:25
+#: inc/debugging.php:45
 msgid "Ver evento"
 msgstr "Ver evento"
 
-#: inc/debugging.php:26
+#: inc/debugging.php:46
 msgid "Buscar eventos"
 msgstr "Buscar eventos"
 
-#: inc/debugging.php:27
+#: inc/debugging.php:47
 msgid "Nenhum evento encontrado"
 msgstr "Nenhum evento encontrado"
 
-#: inc/debugging.php:28
+#: inc/debugging.php:48
 msgid "Nenhum evento encontrado na lixeira"
 msgstr "Nenhum evento encontrado na lixeira"
 
-#: inc/debugging.php:446
+#: inc/debugging.php:466
 msgid "Título"
 msgstr "Título"
 
-#: inc/debugging.php:452
+#: inc/debugging.php:472
 msgid "Número de eventos na lista"
 msgstr "Número de eventos na lista"
 
@@ -340,6 +415,7 @@ msgid "Page %s"
 msgstr "Página %s"
 
 #: inc/meta-box-team.php:21
+#: page-templates/team.php:7
 msgid "Team"
 msgstr "Equipe"
 
@@ -347,93 +423,91 @@ msgstr "Equipe"
 msgid "Add your team by writing their usernames, comma-separated:"
 msgstr "Adicione sua equipe digitando o login dos usuários, separados por vígulas:"
 
-#: inc/template-tags.php:25
+#: inc/template-tags.php:27
 msgid "Profile on Facebook"
 msgstr "Perfil no Facebook"
 
-#: inc/template-tags.php:30
+#: inc/template-tags.php:32
 msgid "Profile on Twitter"
 msgstr "Perfil no Twitter"
 
-#: inc/template-tags.php:36
+#: inc/template-tags.php:38
 msgid "Profile on Google+"
 msgstr "Perfil no Google+"
 
-#: inc/template-tags.php:44
+#: inc/template-tags.php:51
 msgid "All posts by %s"
 msgstr "Todos os posts de %s"
 
-#: inc/template-tags.php:88
+#: inc/template-tags.php:96
 msgid "Post navigation"
 msgstr "Navegação de posts"
 
-#: inc/template-tags.php:92
+#: inc/template-tags.php:100
 msgctxt "Previous post link"
 msgid "&larr;"
 msgstr "&larr;"
 
-#: inc/template-tags.php:93
+#: inc/template-tags.php:101
 msgctxt "Next post link"
 msgid "&rarr;"
 msgstr "&rarr;"
 
-#: inc/template-tags.php:98
+#: inc/template-tags.php:106
 msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
 msgstr "<span class=\"meta-nav\">&larr;</span> Posts antigos"
 
-#: inc/template-tags.php:102
+#: inc/template-tags.php:110
 msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Posts recentes <span class=\"meta-nav\">&rarr;</span>"
 
-#: inc/template-tags.php:127
+#: inc/template-tags.php:135
 msgid "Pingback:"
 msgstr "Pingback:"
 
-#: inc/template-tags.php:127
+#: inc/template-tags.php:135
 msgid "(Edit)"
 msgstr "(Editar)"
 
-#: inc/template-tags.php:141
+#: inc/template-tags.php:149
 msgid "Your comment is awaiting moderation."
 msgstr "Seu comentário está aguardando moderação."
 
-#: inc/template-tags.php:147
-msgid "%1$s at %2$s"
-msgstr "%1$s às %2$s"
-
-#: inc/template-tags.php:152
+#: inc/template-tags.php:159
 msgid "Copy the permalink"
 msgstr "Copiar o permalink"
 
-#: inc/template-tags.php:153
+#: inc/template-tags.php:160
 msgid "<span class=\"icon-edit\">(Edit)</span>"
 msgstr "<span class=\"icon-edit\">(Editar)</span>"
 
-#: inc/widgets.php:29
+#: inc/widgets.php:32
 msgid "Displays the latest posts from a certain category"
 msgstr "Exibe os últimos posts de uma certa categoria"
 
-#: inc/widgets.php:30
+#: inc/widgets.php:33
 msgid "Posts from a Category"
 msgstr "Posts de uma Categoria"
 
-#: inc/widgets.php:105
+#: inc/widgets.php:108
+#: inc/widgets.php:269
 msgid "Continue reading"
 msgstr "Continue lendo"
 
-#: inc/widgets.php:168
+#: inc/widgets.php:171
+#: inc/widgets.php:316
 msgid "Title:"
 msgstr "Título:"
 
-#: inc/widgets.php:173
+#: inc/widgets.php:176
 msgid "Category:"
 msgstr "Categoria:"
 
-#: inc/widgets.php:178
+#: inc/widgets.php:181
 msgid "Number of posts to show:"
 msgstr "Número de posts a exibir:"
 
-#: inc/widgets.php:184
+#: inc/widgets.php:187
 msgctxt "guarani"
 msgid "Show as a featured post (will override the number of posts option above to show only the last one)"
 msgstr "Exibir como um post destacado (isto irá sobrescrever a opção acima e mostrar apenas o último da categoria)"
@@ -505,9 +579,6 @@ msgstr "http://ethymos.com.br"
 
 msgid "A theme for non-profit organizations"
 msgstr "Um tema para associações civis"
-
-msgid "eduardozulian"
-msgstr "eduardozulian"
 
 msgid "http://flutuante.com.br"
 msgstr "http://flutuante.com.br"
