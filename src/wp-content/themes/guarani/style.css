@@ -7,7 +7,8 @@ Description: A theme for non-profit organizations
 Version: 1.0
 License: GNU General Public License
 License URI: http://www.gnu.org/licenses/gpl.html
-Tags:
+Tags: light, brown, gray, green, red, white, light, one-column, two-columns, right-sidebar, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, sticky-post, theme-options, threaded-comments, translation-ready
+Text Domain: guarani
 */
 
 /*
@@ -284,7 +285,10 @@ th {
 [class^="icon-"]:before,
 [class*=" icon-"]:before,
 #social-bookmarks a:before,
-.mobilize-button:before {
+.mobilize-button:before,
+#formcontato .feedback:before,
+#formcontato [id^="error-for-"] .error:before,
+#formcontato [id*=" error-for-"] .error:before {
 	display: inline-block;
 	font-family: 'guarani';
 	font-style: normal;
@@ -423,6 +427,18 @@ th {
 
 .icon-hand:before {
 	content: '\261d';
+}
+
+.icon-attention:before,
+#formcontato .feedback.error:before,
+#formcontato [id^="error-for-"] .error:before,
+#formcontato [id*=" error-for-"] .error:before {
+	content: '\26a0';
+}
+
+.icon-ok:before,
+#formcontato .feedback.success:before {
+	content: '\f06d';
 }
 
 
@@ -680,11 +696,11 @@ a:active {
 	margin: 0;
 }
 
-#searchform {
+.site-header #searchform {
 	float: right;
 }
 
-#searchform #s {
+.site-header #searchform #s {
 	width: 250px;
 }
 
@@ -1196,6 +1212,56 @@ header.entry-meta a {
 	margin-bottom: 2.286em;
 }
 
+/* Contact Page */
+
+#formcontato > div {
+	margin-bottom: 1.625em;
+	position: relative;
+}
+
+#formcontato input[type="text"],
+#formcontato textarea {
+	width: 100%;
+}
+
+#formcontato label {
+	font-size: 0.875em;
+	text-transform: uppercase;
+}
+
+#formcontato textarea {
+	height: 10em;
+}
+
+#formcontato [id^="error-for-"],
+#formcontato [id*=" error-for-"] {
+	color: #cc032b;
+	font-size: 0.875em;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#formcontato .feedback {
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 0.875em;
+	padding: 1em;
+}
+
+#formcontato .feedback.error {
+	background-color: #fff1f4;
+	border-color: #cc032b;
+	color: #cc032b;
+}
+
+#formcontato .feedback.success {
+	background-color: #467c06;
+	background-color: #ecfdd9;
+	color: #467c06;
+}
+
 /* Team */
 
 .member-name {
@@ -1312,6 +1378,8 @@ header.entry-meta a {
 /* Text Widget */
 
 .textwidget img {
+	display: block;
+	margin-bottom: 1.625em;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1400,6 +1468,12 @@ header.entry-meta a {
 .widget_agenda .all:first-letter,
 .WidgetAgenda .all:first-letter {
 	text-transform: uppercase;
+}
+
+/* Search */
+
+.widget_search #s {
+	width: 100%;
 }
 
 

@@ -2,12 +2,12 @@
 /**
  * Template Name: Custom Archive
  *
- * Displays most of the site content, including recent posts, date archives, categories
+ * Display most of the site content, including recent posts, date archives, categories
  * and post tags 
  *
- * @package Guarani
  * @since Guarani 1.0
  */
+__( 'Custom Archive', 'guarani' );
 
 get_header(); ?>
 

@@ -2,9 +2,9 @@
 /**
  * Template Name: Team
  *
- * @package Guarani
  * @since Guarani 1.0
  */
+__( 'Team', 'guarani' );
 
 get_header(); ?>
 

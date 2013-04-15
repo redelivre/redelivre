@@ -76,7 +76,7 @@ function webcontatos_get_config()
 	$opt['webcontatos_error_log'] = '0';
 	$opt['webcontatos_data_atualizacao'] = date("Y-m-d H:i:s", time());
 	$opt['webcontatos_user_atualizacao'] = get_current_user_id();
-	$opt['width'] = 900;
+	//$opt['width'] = 900;
 	$opt['height'] = 2500;
 	
 	$opt_conf = get_option('webcontatos-config');
@@ -523,7 +523,7 @@ function webcontatos_GenerateIFrame($params)
 		return $error;
 	}
 	
-    $width = isset($params['width']) ? $params['width'] : $opt['width'];
+    $width = isset($params['width']) ? $params['width'] : '';
     $height = isset($params['height']) ? $params['height'] : $opt['height'];
     $x = isset($params['scrollToX']) ? $params['scrollToX'] : 0;
     $y = isset($params['scrollToY']) ? $params['scrollToY'] : 0;
@@ -663,17 +663,24 @@ function webcontatos_get_grupos()
  */
 function webcontatos_update_user($user, $pass, $permissao, $grupo)
 {
-	$opt = webcontatos_get_config();
-	
-	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
-	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
-	
-	if(!$auth)
+	try
 	{
-		return false;
+		$opt = webcontatos_get_config();
+		
+		$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+		$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+		
+		if(!$auth)
+		{
+			return false;
+		}
+		
+		$ret = $client->__soapCall('UpdateUsuario', array('nome'=> $user->user_login, 'pass' => $pass, 'grupo' => $grupo, 'permissao' => $permissao, 'nomeCompleto' => ($user->first_name.' '.$user->last_name)) , array(), null, $output_headers);
 	}
-	
-	$ret = $client->__soapCall('UpdateUsuario', array('nome'=> $user->user_login, 'pass' => $pass, 'grupo' => $grupo, 'permissao' => $permissao, 'nomeCompleto' => ($user->first_name.' '.$user->last_name)) , array(), null, $output_headers);
+	catch (Exception $e)
+	{
+		webcontatos_report_error(print_r($e, true), $opt);
+	}
 	
 }
 

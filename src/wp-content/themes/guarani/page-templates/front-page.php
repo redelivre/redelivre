@@ -4,6 +4,7 @@
  *
  * @since Guarani 1.0
  */
+__( 'Front Page Template', 'guarani' );
 
 get_header(); ?>
     

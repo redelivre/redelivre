@@ -20,25 +20,33 @@ class WidgetFacebookLikeBox extends WP_Widget {
             return;
         
         echo $before_widget;
+        $show_faces = (isset($instance['fb-show-faces'])) ? $instance['fb-show-faces'] : true;
         ?>
-        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width=292&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;border_color=white&amp;stream=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:290px;" allowTransparency="true"></iframe>
+        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width=292&amp;height=290&amp;colorscheme=light&amp;show_faces=<?php echo $show_faces; ?>&amp;border_color=white&amp;stream=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:290px;" allowTransparency="true"></iframe>
         <?php
         echo $after_widget;
     }
  
     function update($new_instance, $old_instance) {
-        return $old_instance;
+        $instance = array();
+		$instance['fb-show-faces'] = $new_instance['fb-show-faces'];
+
+		return $instance;
+        //return $old_instance;
     }
     
     function form($instance) {
         ?>
+        <p>
         Este Widget utiliza a configuração de Página do Facebook do menu <a href="<?php bloginfo('url') ?>/wp-admin/admin.php?page=campaign_social_networks">Redes Sociais</a> e para funcionar corretamente, você deve ter uma página no Facebook.
+        </p>
+
         <strong>Opções do widget</strong>
         <p>
         	<label for="<?php $this->get_field_id('fb-show-faces'); ?>">Exibir fotos</label>
         	<select name="<?php echo $this->get_field_name('fb-show-faces'); ?>" id="<?php echo $this->get_field_id('fb-show-faces'); ?>">
-        		<option value="1" <?php echo ($instance['fb-show-faces'] == 1) ? "selected=1" : ""; ?>>Sim</option>
-        		<option value="0" <?php echo ($instance['fb-show-faces'] == 1) ? "selected=1" : ""; ?>>Não</option>
+        		<option value="true" <?php echo ($instance['fb-show-faces'] == 'true') ? "selected=1" : ""; ?>>Sim</option>
+        		<option value="false" <?php echo ($instance['fb-show-faces'] == 'false') ? "selected=1" : ""; ?>>Não</option>
         	</select>
         </p>
         <?php 
