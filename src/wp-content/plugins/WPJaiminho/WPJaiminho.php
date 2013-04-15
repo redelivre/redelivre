@@ -648,7 +648,11 @@ function jaiminho_auth(){
 */
 function jaiminho_closesession(){
 	echo '<html>' .
-			'<body>';
+			'<body>'.
+				'<head>'.
+					'<meta http-equiv="refresh" content="1;url='.get_home_url().'">'.
+				'</head>'
+	;
 		
 	echo jaiminho_GenerateIFrame(array('page' => 'logout.php', 'width' => 0, 'height' => 0, 'auth' => false ));
 	
