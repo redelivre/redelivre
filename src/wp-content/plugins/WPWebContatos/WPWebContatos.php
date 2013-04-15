@@ -76,7 +76,7 @@ function webcontatos_get_config()
 	$opt['webcontatos_error_log'] = '0';
 	$opt['webcontatos_data_atualizacao'] = date("Y-m-d H:i:s", time());
 	$opt['webcontatos_user_atualizacao'] = get_current_user_id();
-	//$opt['width'] = 900;
+	$opt['width'] = 900;
 	$opt['height'] = 2500;
 	
 	$opt_conf = get_option('webcontatos-config');
@@ -523,12 +523,12 @@ function webcontatos_GenerateIFrame($params)
 		return $error;
 	}
 	
-    $width = isset($params['width']) ? $params['width'] : '';
+    $width = isset($params['width']) ? $params['width'] : $params['page'] == 'Display' ? '' : $opt['width']; 
     $height = isset($params['height']) ? $params['height'] : $opt['height'];
     $x = isset($params['scrollToX']) ? $params['scrollToX'] : 0;
     $y = isset($params['scrollToY']) ? $params['scrollToY'] : 0;
 
-    if (strpos($width, 'px') === false and strpos($width, '%') === false)
+    if ( strlen($width) > 0 && (strpos($width, 'px') === false && strpos($width, '%') === false))
     {
     	$width .= 'px'; 
     }
