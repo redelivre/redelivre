@@ -648,10 +648,7 @@ function jaiminho_auth(){
 */
 function jaiminho_closesession(){
 	echo '<html>' .
-			'<body>'.
-				'<head>'.
-					'<meta http-equiv="refresh" content="1;url='.get_home_url().'">'.
-				'</head>'
+			'<body>'
 	;
 		
 	echo jaiminho_GenerateIFrame(array('page' => 'logout.php', 'width' => 0, 'height' => 0, 'auth' => false ));
@@ -659,7 +656,7 @@ function jaiminho_closesession(){
 	echo 	'<script type="text/javascript">' .
 			'	window.onload = function ()' .
 			'		{' .
-			'		window.location = "' . ($_SERVER['HTTPS'] ? 'https://' : 'http://') .$_SERVER['HTTP_HOST'].str_replace('?'.$_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI']).'";'.
+			'		window.location = "' . ((is_ssl()) ? 'https://' : 'http://') .$_SERVER['HTTP_HOST'].str_replace('?'.$_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI']).'";'.
 			'		} 	' .
 			'</script>' .
 			'</body>' .
