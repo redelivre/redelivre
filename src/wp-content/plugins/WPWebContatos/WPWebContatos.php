@@ -523,7 +523,7 @@ function webcontatos_GenerateIFrame($params)
 		return $error;
 	}
 	
-    $width = isset($params['width']) ? $params['width'] : $params['page'] == 'Display' ? '' : $opt['width']; 
+    $width = isset($params['width']) ? $params['width'] : $params['page'] == 'Display' ? '100%' : $opt['width']; 
     $height = isset($params['height']) ? $params['height'] : $opt['height'];
     $x = isset($params['scrollToX']) ? $params['scrollToX'] : 0;
     $y = isset($params['scrollToY']) ? $params['scrollToY'] : 0;
