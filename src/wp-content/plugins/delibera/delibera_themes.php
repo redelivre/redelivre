@@ -71,4 +71,16 @@ add_action('admin_print_styles', 'delibera_print_styles');
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.'delibera_header.php';
 
+function delibera_themes_archive_pauta_loop()
+{
+	if(!file_exists(get_stylesheet_directory()."/archive-pauta.php"))
+	{
+		load_template(WP_PLUGIN_DIR.DIRECTORY_SEPARATOR.'delibera'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.'delibera-loop-archive.php', true);
+	}
+	else
+	{
+		get_template_part( 'loop', 'archive' );
+	}
+}
+
 ?>

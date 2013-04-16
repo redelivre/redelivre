@@ -214,7 +214,14 @@ function delibera_filtros_archive_callback()
 	<div id="lista-de-pautas">
 		<?php
 		// Chama o loop do arquivo
-		get_template_part( 'loop', 'archive' );
+		if(function_exists('delibera_themes_archive_pauta_loop'))
+		{
+			delibera_themes_archive_pauta_loop();
+		}
+		else
+		{
+			get_template_part( 'loop', 'archive' );
+		}
 		?>
 		
 		
