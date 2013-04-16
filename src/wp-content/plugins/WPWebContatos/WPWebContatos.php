@@ -548,7 +548,7 @@ function webcontatos_GenerateIFrame($params)
 	else
 	{		
 		$scrollTo1 = '<div style="position:relative; overflow: hidden; width: ' . $width . '; height: ' . $height . '">' .
-					'<div style="position:absolute; left:' . (-1 * $x) . 'px; top: ' . (-1 * $y) . 'px">';
+					'<div style="left:' . (-1 * $x) . 'px; top: ' . (-1 * $y) . 'px">';
 		$scrollTo2 = '></iframe></div></div>';
 		$w = (int) $width;
 		$h = (int) $height;
@@ -689,6 +689,15 @@ function webcontatos_update_user($user, $pass, $permissao, $grupo)
  */
 function webcontatos_recriar()
 {
+	if(is_super_admin())
+	{
+		$data = array();
+		$campaign = Campaign::getByBlogId(get_current_blog_id());
+		$data['domain'] =  $campaign->domain;
+		$data['blog_id'] = get_current_blog_id();
+		
+		webcontatos_Campaign_created($data);
+	}
 	
 }
 
