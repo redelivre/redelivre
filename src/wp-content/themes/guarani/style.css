@@ -441,6 +441,10 @@ th {
 	content: '\f06d';
 }
 
+.icon-search:before {
+	content: '\f50d';
+}
+
 
 /* Forms, inputs, buttons etc */
 
@@ -657,6 +661,7 @@ a:active {
 
 .site-header {
 	padding: 2em 2em 3em;
+	position: relative;
 }
 
 
@@ -670,7 +675,6 @@ a:active {
 ----------------------------------------------- */
 
 .branding {
-	float: left;
 	margin-bottom: 1.5em;	
 }
 
@@ -687,6 +691,7 @@ a:active {
 }
 
 .site-logo {
+	margin: 2em 0 1em;
 	max-width: 100%;
 }
 
@@ -697,13 +702,41 @@ a:active {
 }
 
 .site-header #searchform {
-	float: right;
+	margin-bottom: 1em;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 .site-header #searchform #s {
 	width: 250px;
 }
 
+.site-header #searchform #s {
+	-moz-transition-duration: 400ms;
+	-moz-transition-property: width;
+	-moz-transition-timing-function: ease;
+	-webkit-transition-duration: 400ms;
+	-webkit-transition-property: width;
+	-webkit-transition-timing-function: ease;
+	border-radius: 3px 0 0 3px;
+	position: relative;
+	padding-left: 2.5em;
+	width: 3em;
+
+}
+.site-header #searchform #s:focus {
+	width: 20em;
+	z-index: 1;
+}
+.site-header #searchform .icon-search {
+	margin-top: -0.875em;
+	pointer-events: none;
+	position: absolute;
+		left: 0.75em;
+		top: 50%;
+	z-index: 2;
+}
 
 /* =Menu
 ----------------------------------------------- */
@@ -764,6 +797,7 @@ a:active {
 	position: absolute;
 		top: 2.5em;
 		left: 0;
+	text-align: left;
 	z-index: 99999;
 }
 
@@ -871,6 +905,10 @@ a:active {
 	border-bottom: 1px dotted #f2f2f2;
 	margin: 0 0 3.25em;
 	padding-bottom: 3.25em;
+}
+
+body.page-template-page-templatescustom-archive-php #primary .hentry {
+	padding-bottom: 0;
 }
 
 .entry-header {

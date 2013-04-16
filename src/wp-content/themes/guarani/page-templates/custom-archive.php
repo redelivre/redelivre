@@ -87,8 +87,6 @@ get_header(); ?>
 						
 					</div><!-- .entry-archive -->
 
-					<?php comments_template( '', true ); ?>
-
 				<?php endwhile; // end of the loop. ?>
 
 			</div><!-- #content .site-content -->

@@ -52,8 +52,6 @@ get_header(); ?>
 						?>
 					</div><!-- .entry-team -->
 
-					<?php comments_template( '', true ); ?>
-
 				<?php endwhile; // end of the loop. ?>
 
 			</div><!-- #content .site-content -->

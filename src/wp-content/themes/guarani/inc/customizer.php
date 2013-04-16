@@ -162,8 +162,8 @@ function guarani_customize_register( $wp_customize ) {
 	
 	/*
 	 * Site title & tagline
-	 * Option to display or hide header text
 	 */
+	// Option to display or hide header text
 	$wp_customize->add_setting( 'guarani_display_header_text', array(
 		'capability' => 'edit_theme_options',
 	) );
@@ -173,6 +173,18 @@ function guarani_customize_register( $wp_customize ) {
 		'section'  => 'title_tagline',
 		'type'     => 'checkbox',
 		'settings' => 'guarani_display_header_text'
+	) );
+	
+	// Centering header
+	$wp_customize->add_setting( 'guarani_center_header', array(
+		'capability' => 'edit_theme_options',
+	) );
+
+	$wp_customize->add_control( 'guarani_center_header', array(
+		'label'    => __( 'Center header', 'guarani' ),
+		'section'  => 'title_tagline',
+		'type'     => 'checkbox',
+		'settings' => 'guarani_center_header'
 	) );
 
 	/*
@@ -279,13 +291,19 @@ function guarani_customize_css()
 	?>
 	<!-- Customize CSS -->
 	<style type="text/css">
+		<?php if ( get_theme_mod( 'guarani_display_header_text' ) == '' ) : ?>
 		/* Header text */
-		<?php if ( get_theme_mod( 'guarani_display_header_text' ) === false ) : ?>
 		.site-title,
 		.site-description {
 			position: absolute !important;
 			clip: rect(1px 1px 1px 1px); /* IE7 */
 			clip: rect(1px, 1px, 1px, 1px);
+		}
+		<?php endif; ?>
+		
+		<?php if ( get_theme_mod( 'guarani_center_header' ) == 1 ) : ?>
+		.site-header > * {
+			text-align: center;
 		}
 		<?php endif; ?>
 	</style> 
