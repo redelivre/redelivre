@@ -15,8 +15,6 @@ get_header(); ?>
 
 					<?php get_template_part( 'content', 'page' ); ?>
 
-					<?php comments_template( '', true ); ?>
-
 				<?php endwhile; // end of the loop. ?>
 
 			</div><!-- #content .site-content -->

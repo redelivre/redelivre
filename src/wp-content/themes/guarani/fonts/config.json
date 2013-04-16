@@ -224,6 +224,20 @@
     },
     {
       "search": [
+        "search",
+        "find",
+        "magnify"
+      ],
+      "code": 62733,
+      "uid": "ec21fe3492bb04d9e29103c319556ed8",
+      "css": "search",
+      "orig_css": "search",
+      "orig_code": 62733,
+      "src": "mfglabs",
+      "from": 62733
+    },
+    {
+      "search": [
         "globe"
       ],
       "code": 127758,

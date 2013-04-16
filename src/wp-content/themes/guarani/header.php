@@ -27,7 +27,9 @@
 		<?php do_action( 'before' ); ?>
 		<header id="masthead" class="site-header cf" role="banner">
 		
-			<hgroup class="branding">
+			<?php get_search_form(); ?>
+			
+			<div class="branding">
 				<?php
 				// Get the current color scheme 
 				$color_scheme = get_theme_mod( 'guarani_color_scheme' );
@@ -38,16 +40,17 @@
 				
 				<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 					 <img class="site-logo" src="<?php echo $logo_uri; ?>" alt="Logo <?php bloginfo ( 'name' ); ?>" />
-					 <h1 class="site-title">
-						<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-						   	<?php bloginfo( 'name' ); ?>
-						</a>
-					</h1>
 				</a>
+				
+				<h1 class="site-title">
+					<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
+					   	<?php bloginfo( 'name' ); ?>
+					</a>
+				</h1>
 				<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
-			</hgroup>
+			</div>
 			
-			<?php get_search_form(); ?>
+			
 	
 			<nav role="navigation" class="site-navigation main-navigation">
 				<h1 class="assistive-text"><?php _e( 'Menu', 'guarani' ); ?></h1>
