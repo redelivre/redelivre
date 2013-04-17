@@ -14,7 +14,7 @@
 					return true;
 				},
 				beforeSerialize: function(jqForm, options) {
-					jqForm.find('.wpcf7-use-title-as-watermark.watermark').each(function(i, n) {
+					jqForm.find('[placeholder].placeheld').each(function(i, n) {
 						$(n).val('');
 					});
 					return true;
@@ -22,6 +22,9 @@
 				data: { '_wpcf7_is_ajax_call': 1 },
 				dataType: 'json',
 				success: function(data) {
+					if (! $.isPlainObject(data) || $.isEmptyObject(data))
+						return;
+
 					var ro = $(data.into).find('div.wpcf7-response-output');
 					$(data.into).wpcf7ClearResponseOutput();
 
@@ -43,9 +46,13 @@
 						ro.addClass('wpcf7-validation-errors');
 						$(data.into).find('form.wpcf7-form').addClass('invalid');
 
+						$(data.into).trigger('invalid.wpcf7');
+
 					} else if (1 == data.spam) {
 						ro.addClass('wpcf7-spam-blocked');
 						$(data.into).find('form.wpcf7-form').addClass('spam');
+
+						$(data.into).trigger('spam.wpcf7');
 
 					} else if (1 == data.mailSent) {
 						ro.addClass('wpcf7-mail-sent-ok');
@@ -54,19 +61,25 @@
 						if (data.onSentOk)
 							$.each(data.onSentOk, function(i, n) { eval(n) });
 
+						$(data.into).trigger('mailsent.wpcf7');
+
 					} else {
 						ro.addClass('wpcf7-mail-sent-ng');
 						$(data.into).find('form.wpcf7-form').addClass('failed');
+
+						$(data.into).trigger('mailfailed.wpcf7');
 					}
 
 					if (data.onSubmit)
 						$.each(data.onSubmit, function(i, n) { eval(n) });
 
+					$(data.into).trigger('submit.wpcf7');
+
 					if (1 == data.mailSent)
 						$(data.into).find('form').resetForm().clearForm();
 
-					$(data.into).find('.wpcf7-use-title-as-watermark.watermark').each(function(i, n) {
-						$(n).val($(n).attr('title'));
+					$(data.into).find('[placeholder].placeheld').each(function(i, n) {
+						$(n).val($(n).attr('placeholder'));
 					});
 
 					$(data.into).wpcf7FillResponseOutput(data.message);
@@ -91,19 +104,25 @@
 					});
 				});
 
-				$(n).find('.wpcf7-use-title-as-watermark').each(function(i, n) {
+				$(n).find('[placeholder]').each(function(i, n) {
 					var input = $(n);
-					input.val(input.attr('title'));
-					input.addClass('watermark');
+
+					if ('placeholder' in input.get(0))
+						return;
+
+					input.val(input.attr('placeholder'));
+					input.addClass('placeheld');
 
 					input.focus(function() {
-						if ($(this).hasClass('watermark'))
-							$(this).val('').removeClass('watermark');
+						if ($(this).hasClass('placeheld'))
+							$(this).val('').removeClass('placeheld');
 					});
 
 					input.blur(function() {
-						if ('' == $(this).val())
-							$(this).val($(this).attr('title')).addClass('watermark');
+						if ('' == $(this).val()) {
+							$(this).val($(this).attr('placeholder'));
+							$(this).addClass('placeheld');
+						}
 					});
 				});
 			});

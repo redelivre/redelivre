@@ -11,10 +11,16 @@ class WPCF7_ShortcodeManager {
 	var $exec = true;
 
 	function add_shortcode( $tag, $func, $has_name = false ) {
-		if ( is_callable( $func ) )
+		if ( ! is_callable( $func ) )
+			return;
+
+		$tags = array_filter( array_unique( (array) $tag ) );
+
+		foreach ( $tags as $tag ) {
 			$this->shortcode_tags[$tag] = array(
 				'function' => $func,
 				'has_name' => (boolean) $has_name );
+		}
 	}
 
 	function remove_shortcode( $tag ) {
@@ -89,6 +95,7 @@ class WPCF7_ShortcodeManager {
 
 		$scanned_tag = array(
 			'type' => $tag,
+			'basetype' => trim( $tag, '*' ),
 			'name' => '',
 			'options' => array(),
 			'raw_values' => array(),
@@ -166,30 +173,180 @@ class WPCF7_ShortcodeManager {
 
 }
 
-$wpcf7_shortcode_manager = new WPCF7_ShortcodeManager();
-
 function wpcf7_add_shortcode( $tag, $func, $has_name = false ) {
 	global $wpcf7_shortcode_manager;
 
-	return $wpcf7_shortcode_manager->add_shortcode( $tag, $func, $has_name );
+	if ( is_a( $wpcf7_shortcode_manager, 'WPCF7_ShortcodeManager' ) )
+		return $wpcf7_shortcode_manager->add_shortcode( $tag, $func, $has_name );
 }
 
 function wpcf7_remove_shortcode( $tag ) {
 	global $wpcf7_shortcode_manager;
 
-	return $wpcf7_shortcode_manager->remove_shortcode( $tag );
+	if ( is_a( $wpcf7_shortcode_manager, 'WPCF7_ShortcodeManager' ) )
+		return $wpcf7_shortcode_manager->remove_shortcode( $tag );
 }
 
 function wpcf7_do_shortcode( $content ) {
 	global $wpcf7_shortcode_manager;
 
-	return $wpcf7_shortcode_manager->do_shortcode( $content );
+	if ( is_a( $wpcf7_shortcode_manager, 'WPCF7_ShortcodeManager' ) )
+		return $wpcf7_shortcode_manager->do_shortcode( $content );
 }
 
 function wpcf7_get_shortcode_regex() {
 	global $wpcf7_shortcode_manager;
 
-	return $wpcf7_shortcode_manager->get_shortcode_regex();
+	if ( is_a( $wpcf7_shortcode_manager, 'WPCF7_ShortcodeManager' ) )
+		return $wpcf7_shortcode_manager->get_shortcode_regex();
+}
+
+class WPCF7_Shortcode {
+
+	public $type;
+	public $basetype;
+	public $name = '';
+	public $options = array();
+	public $raw_values = array();
+	public $values = array();
+	public $pipes;
+	public $labels = array();
+	public $attr = '';
+	public $content = '';
+
+	public function __construct( $tag ) {
+		foreach ( $tag as $key => $value ) {
+			if ( property_exists( __CLASS__, $key ) )
+				$this->{$key} = $value;
+		}
+	}
+
+	public function is_required() {
+		return ( '*' == substr( $this->type, -1 ) );
+	}
+
+	public function has_option( $opt ) {
+		$pattern = sprintf( '/^%s(:.+)?$/i', preg_quote( $opt, '/' ) );
+		return (bool) preg_grep( $pattern, $this->options );
+	}
+
+	public function get_option( $opt, $pattern = '', $single = false ) {
+		$preset_patterns = array(
+			'date' => '[0-9]{4}-[0-9]{2}-[0-9]{2}',
+			'int' => '[0-9]+',
+			'signed_int' => '-?[0-9]+',
+			'class' => '[-0-9a-zA-Z_]+',
+			'id' => '[-0-9a-zA-Z_]+' );
+
+		if ( isset( $preset_patterns[$pattern] ) )
+			$pattern = $preset_patterns[$pattern];
+
+		if ( '' == $pattern )
+			$pattern = '.+';
+
+		$pattern = sprintf( '/^%s:%s$/i', preg_quote( $opt, '/' ), $pattern );
+
+		if ( $single ) {
+			$matches = $this->get_first_match_option( $pattern );
+
+			if ( ! $matches )
+				return false;
+
+			return substr( $matches[0], strlen( $opt ) + 1 );
+		} else {
+			$matches_a = $this->get_all_match_options( $pattern );
+
+			if ( ! $matches_a )
+				return false;
+
+			$results = array();
+
+			foreach ( $matches_a as $matches )
+				$results[] = substr( $matches[0], strlen( $opt ) + 1 );
+
+			return $results;
+		}
+	}
+
+	public function get_class_option( $default = '' ) {
+		if ( is_string( $default ) )
+			$default = explode( ' ', $default );
+
+		$options = array_merge(
+			(array) $default,
+			(array) $this->get_option( 'class', 'class' ) );
+
+		$options = array_filter( array_unique( $options ) );
+
+		return implode( ' ', $options );
+	}
+
+	public function get_size_option( $default = '' ) {
+		$matches_a = $this->get_all_match_options( '%^([0-9]*)/[0-9]*$%' );
+
+		foreach ( (array) $matches_a as $matches ) {
+			if ( isset( $matches[1] ) && '' !== $matches[1] )
+				return $matches[1];
+		}
+
+		return $default;
+	}
+
+	public function get_maxlength_option( $default = '' ) {
+		$matches_a = $this->get_all_match_options(
+			'%^(?:[0-9]*x?[0-9]*)?/([0-9]+)$%' );
+
+		foreach ( (array) $matches_a as $matches ) {
+			if ( isset( $matches[1] ) && '' !== $matches[1] )
+				return $matches[1];
+		}
+
+		return $default;
+	}
+
+	public function get_cols_option( $default = '' ) {
+		$matches_a = $this->get_all_match_options(
+			'%^([0-9]*)x([0-9]*)(?:/[0-9]+)?$%' );
+
+		foreach ( (array) $matches_a as $matches ) {
+			if ( isset( $matches[1] ) && '' !== $matches[1] )
+				return $matches[1];
+		}
+
+		return $default;
+	}
+
+	public function get_rows_option( $default = '' ) {
+		$matches_a = $this->get_all_match_options(
+			'%^([0-9]*)x([0-9]*)(?:/[0-9]+)?$%' );
+
+		foreach ( (array) $matches_a as $matches ) {
+			if ( isset( $matches[2] ) && '' !== $matches[2] )
+				return $matches[2];
+		}
+
+		return $default;
+	}
+
+	public function get_first_match_option( $pattern ) {
+		foreach( (array) $this->options as $option ) {
+			if ( preg_match( $pattern, $option, $matches ) )
+				return $matches;
+		}
+
+		return false;
+	}
+
+	public function get_all_match_options( $pattern ) {
+		$result = array();
+
+		foreach( (array) $this->options as $option ) {
+			if ( preg_match( $pattern, $option, $matches ) )
+				$result[] = $matches;
+		}
+
+		return $result;
+	}
 }
 
 ?>

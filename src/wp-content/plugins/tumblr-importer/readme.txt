@@ -2,8 +2,8 @@
 Contributors: wordpressdotorg, Otto42, dd32, westi, dllh
 Tags: tumblr, import
 Requires at least: 3.2
-Tested up to: 3.4
-Stable tag: 0.5
+Tested up to: 3.6
+Stable tag: 0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,16 @@ Imports a Tumblr blog into a WordPress blog.
 
 == Upgrade Notice ==
 
+Version 0.8 fixes a problem with authorization caused by Tumblr's undocumented change to their OAuth handling.
+
 == Changelog ==
+
+= 0.8 =
+* Fix callback handling for Tumblr OAuth. They no longer recognize the callback in the authorize URL, and instead expect a non-urlencoded callback parameter in the request-token call. This is not documented anywhere that I can find.
+
+= 0.7 =
+* Update to use new Tumblr API, many fixes and improvements.
+
 = 0.6 =
 * Significant improvements in the performance of the importer
 * Improves import of images from Tumblr - better choice of images sizes for theme display
