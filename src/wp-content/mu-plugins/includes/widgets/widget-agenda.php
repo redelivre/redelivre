@@ -51,7 +51,7 @@ class WidgetAgenda extends WP_Widget {
 
             $data_final = get_post_meta($event->ID, '_data_final', true);
             if ($data_final)
-                $data_final = mysql2date(get_option('date_format'), $data_inicial, true);
+                $data_final = mysql2date(get_option('date_format'), $data_final, true);
             ?>
             <p>
                 <span class="date">
