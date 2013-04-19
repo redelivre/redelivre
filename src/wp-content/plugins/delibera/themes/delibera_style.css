@@ -5,6 +5,9 @@
 /* 
    Header - archive
    ================================================================================*/
+#content{
+	float: none;
+}
 
 .home p.delibera-boasvindas {
     padding-left:20px;
@@ -21,13 +24,13 @@
 }
 
 p.delibera-boasvindas {
-    color:#008466;
+    color:#5d5a5d;
     float: left;
-    font-size: 21px;
+    font-size: 22px;
     font-weight: bold;
     width: 500px;
     line-height: 30px;
-    font-family:'Candal'
+    font-family: sans-serif;
 }
 
 p.delibera-login {
@@ -42,13 +45,9 @@ p.delibera-login {
 }
 
 p.delibera-participacao a{
-    border-radius:10px;
-<<<<<<< HEAD
-    padding: 20px !important;
-=======
-    padding-top:20px;
-    padding-bottom:20px;
->>>>>>> d9a5d41d0cf8b4a2f3503e218182fe2e563de33e
+    border-radius:5px;
+    padding-top:15px;
+    padding-bottom:15px;
     display: block;
     float: right;
     width: 225px;
@@ -56,13 +55,14 @@ p.delibera-participacao a{
     color:white;
     text-shadow:1px 1px 1px #888;
     text-transform:uppercase;
-    background:#008466;
+    background:#959595;
     margin-right:30px;  
   } 
   
  p.delibera-participacao a:hover {
-    background-color:#6db95c;
-    color:#fff !important;
+    background-color:#898989;
+    /*color:#fff !important;*/
+    text-decoration: none;
 }
 
 /* 
@@ -211,9 +211,10 @@ p.delibera-participacao a{
 }
 
 .archive .form-filtro-ultimos-div label {
-    color:#034ea1 !important;
+    /*color:#034ea1 !important;*/
     font-size:12px;
     margin:5px 10px 10px 0;
+    font-family:sans-serif;
 }
 
 .archive .form-filtro-ultimos-div label:hover {
@@ -221,7 +222,7 @@ p.delibera-participacao a{
  }
  
 .archive span#form-filtro-button {
-    background: #6db95c;
+    background: #acacac;
     display: block;
     color: white;
     cursor: pointer;
@@ -233,7 +234,7 @@ p.delibera-participacao a{
 }
 
 .archive span#form-filtro-button:hover {
-    background:#a6cf56;
+    background:#959595;
 }
 
 /* 
@@ -244,7 +245,7 @@ p.delibera-participacao a{
     float: left;
     margin: 10px;
     width: 400px;
-    border: 3px solid #a8ddef;
+    border: 3px solid #c4c2c2;
     padding-left: 15px;
     border-radius: 10px;
 }
@@ -315,10 +316,6 @@ body.post-type-archive-pauta .entry-utility {
     margin-left:0 !important; 
 }
 
-.meta-prep-author {
-	margin-left: 10px;
-}
-
 /* ================================================================================
     Discussão-single
    ================================================================================*/
@@ -330,7 +327,7 @@ body.post-type-archive-pauta .entry-utility {
 .single-pauta #leader, h1.entry-title {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	background-color: #d8eaf0;
+	background-color: #e1e1e1;
 	clear:both;
 	font-family: 'LucidaSansDemiboldRoman', arial, sans-serif;
 	font-size:22px;
@@ -344,12 +341,11 @@ body.post-type-archive-pauta .entry-utility {
 .single-pauta #leader img {
     float: left;
 	margin-right: 20px;
-	border: 3px solid #a8ddef;
+	border: 3px solid #ebebeb;
 }
 
 .single-pauta #leader h1.entry-title {
     clear: none;
-    color:#1b61ae;
     float: left;
     font-family: 'LucidaSansDemiboldRoman', arial, sans-serif;
     line-height:27px;
@@ -363,11 +359,11 @@ body.post-type-archive-pauta .entry-utility {
 }
 
 .single-pauta #leader .entry-meta a {
-    color:#1b61ae;
+    /*color:#1b61ae;*/
 }
 
 .single-pauta #leader .entry-meta a:hover {
-    color:#a9c03d;
+    /*color:#a9c03d;*/
 }
 
 .single-pauta #leader .entry-meta div {
@@ -381,6 +377,12 @@ body.post-type-archive-pauta .entry-utility {
 
 span.author {
     display:inline;
+    margin-left: 10px;
+}
+
+.delibera-aceitou-view,
+.delibera-rejeitou-view{
+	margin-left: 60px;
 }
 
 .single-pauta #leader .entry-comment {
@@ -392,6 +394,7 @@ span.author {
     background:url('images/icone-calendario.gif') right center no-repeat;
     color:#cd334e !important;
     padding-right:20px;
+    font-weight: bold;
 }
 
 .single-pauta #leader .entry-print {
@@ -409,15 +412,16 @@ span.author {
 } 
 
 span.delibera_seguir_text {
-    color:#1b61ae;
+    /*color:#1b61ae;*/
     font-size: 13px;
     margin-top: 5px;
     padding-top: 20px;
+    font-weight:bold;
 }
 
 span.delibera_seguir_text:hover {
     cursor:pointer;
-    color:#aac13f;
+    /*color:#aac13f;*/
 }
 
 .single-pauta .hentry {
@@ -440,7 +444,7 @@ span.delibera_seguir_text:hover {
 .single-pauta .entry-utility {
   /*border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;*/
-    background: #d8eaf0;
+    background: #E1E1E1;
     clear: both;
     height:50px;
     padding-bottom:5px;
@@ -461,6 +465,17 @@ span.delibera_seguir_text:hover {
     margin: 10px;
     margin-left: 12px;
     width: 300px !important;
+}
+
+.single-pauta .entry-respond a.comment-reply-link {
+    background-position:right 3px;
+    float: right;
+    text-align: right;
+    padding-right: 22px;
+    padding-top: 0 !important;
+    /*color: #034ea1;*/
+    font-size: 1em;
+    margin-right: 0!important;
 }
 
 .comentario_coluna2 {
@@ -487,7 +502,6 @@ span.delibera_seguir_text:hover {
     border-bottom:1px solid #e9eeda;
     overflow:hidden;
     padding-top: 15px;
-    margin-left: 30px;
 }
 
 .author li.comment {
@@ -517,13 +531,23 @@ span.delibera_seguir_text:hover {
 .single .delibera-comment-text, .author .delibera-comment-text {
     color:#4f4f4f;
     float:left;
-    width:550px;
-    margin-left:30px;
+    width:600px;
+    margin-left:60px;
+    
 }
 
 .single li.comment .reply a {
     padding-right: 24px;
     width: 200px;
+}
+
+li.comment .reply a:hover,  .single-pauta .entry-utility {
+    opacity:1;
+    margin-right: 30px !important;
+}
+
+a.comment-reply-link:hover{
+	
 }
 
 .delibera_like, .delibera_unlike {
@@ -590,37 +614,18 @@ span.delibera-unlike-count, .delibera_unlike span.delibera_unlike_reposta {
 } 
 
 .delibera_like a, .delibera_like_text,.delibera_unlike_text {
-    color: #1b61ae !important;  
+    /*color: #1b61ae !important;*/  
     cursor:pointer;
 }
 
 .delibera_like a:hover, .delibera_like_text:hover, .delibera_like_text:hover, .delibera_unlike_text:hover {
-    color: #6bc6d3 !important;
+    /*color: #6bc6d3 !important;*/
     cursor:pointer !important;
     opacity:1;
     font-weight: bold;
 }
 
-.single-pauta .entry-respond a.comment-reply-link {
-    background-position:right 3px;
-    float: right;
-    text-align: right;
-    padding-right: 22px;
-    padding-top: 0 !important;
-    color: #034ea1;
-    font-size: 1em;
-    margin-right: 0 !important;
-}
 
-li.comment .reply a:hover,  .single-pauta .entry-utility {
-    opacity:1;
-    margin-right: 30px !important;
-}
-
-a.comment-reply-link:hover {
-    opacity:1 !important;
-    margin-right: 0px !important;
-}
  /* 
    resposta - discussão-single
    ================================================================================*/
@@ -655,7 +660,7 @@ a.comment-reply-link:hover {
    ================================================================================*/
    
 .single-pauta h3#reply-title {
-    color:#034ea1;
+    color:#464646;
     font-family: 'Candal', arial, helvetica;
     margin:10px 0;
 }
@@ -690,7 +695,6 @@ a.comment-reply-link:hover {
 
 #respond {
     overflow: visible;
-    border: none;
 }
 
 #respond input {
@@ -714,7 +718,7 @@ a.comment-reply-link:hover {
 }
 
 #delibera-comments input#submit, .single-post #respond input#submit {
-    background: url('images/flecha-lateral.png') 10px center no-repeat #9EBB2F;
+    background: #666666;
     border:0;
     color: white;
     display: block;
@@ -722,10 +726,6 @@ a.comment-reply-link:hover {
     font-size: 12px;
     height:25px;
     padding-right: 10px;
-<<<<<<< HEAD
-    padding-left: 20px;
-=======
->>>>>>> d9a5d41d0cf8b4a2f3503e218182fe2e563de33e
     text-align: right;
     text-transform: uppercase;
     width:250px;
@@ -733,7 +733,7 @@ a.comment-reply-link:hover {
 }
 
 #delibera-comments input#submit:hover, .single-post #respond input#submit:hover { 
-    background:url('images/flecha-lateral.png') 10px center no-repeat #7BAC2F;
+    background:#464646;
     cursor:pointer;
 } 
 
@@ -862,6 +862,7 @@ ul.tab-navigation li a:hover {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     width: 940px;
+    margin: 0 auto;
 }
 
 .single .hentry img.alignnone {
@@ -900,22 +901,24 @@ ul.tab-navigation li a:hover {
 }
 
 li.comment .vcard img{
-    border:2px solid #6db95c;
+    border:2px solid #fff;
     float:left;
     height:40px;
     margin: 0 20px 10px 10px;
     width:40px;
     border-radius: 2px;
+    display: block;
 }  
 
 cite.fn a{
-    color:#6db95c !important;
     display:block;
     float:left;
     font-style:normal;
     font-family: 'LucidaSansDemiboldRoman', arial, helvetica;
-    margin-left: 30px;
+    margin-left: 60px;
 }
+
+
 
 #windowBox .delibera-comment-text {
     padding:10px;  
@@ -939,11 +942,6 @@ label.encaminhamento-label {
 .single a.comment-reply-link {
     float:right;
 } 
-
-.single a.comment-reply-link:hover {
-    float:right;
-    color: #104493;
-}
 
 .single li.depth-1 .delibera-comment-body {
     margin-left:10px;
@@ -1036,12 +1034,18 @@ input#baseadoem-checkbox-9 {
 }
 
 p.delibera-pagina-discussoes a {
-    border-bottom:2px solid #034ea1;
-    color:#666;
+   /* border-bottom:2px solid #034ea1;
+    color:#666;*/
+    margin-top: 20px;
     float: right;
     text-align:right;
     text-transform:uppercase;
     margin-right: 30px;
+    font-family;;
+}
+
+p.delibera-pagina-discussoes a:hover{
+	text-decoration:none;
 }
 
 .delibera-slide, #delibera #ultimos-comentarios .delibera_leia_mais_link { 
@@ -1359,6 +1363,16 @@ input .delibera-encaminha-label {
     margin-top: 10px;
 }
 
+.single-pauta .entry-respond a.comment-reply-link {
+    background-position:right 3px;
+    float: right;
+    text-align: right;
+    padding-right: 22px;
+    padding-top: 0 !important;
+    /*color: #034ea1;*/
+    font-size: 1em;
+    margin-right: 0!important;
+}
 
 #lista-de-pautas .hentry {
     margin-bottom:35px !important;
@@ -1557,8 +1571,4 @@ h1.author {
 
 #entry-author-info {
     min-height:250px;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d9a5d41d0cf8b4a2f3503e218182fe2e563de33e
