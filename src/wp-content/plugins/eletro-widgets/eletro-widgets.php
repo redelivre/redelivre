@@ -12,7 +12,14 @@ Version: 1.0
 ///// PLUGIN PATH ///////////
 
 define('EW_ABSPATH', WP_CONTENT_DIR.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
-define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
+if(function_exists('domain_mapping_plugins_uri'))
+{
+	define('EW_URLPATH', domain_mapping_plugins_uri(WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' ));
+}
+else
+{
+	define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
+}
 
 add_action('wp_print_scripts', 'eletrowidgets_print_scripts');
 add_action('wp_print_styles', 'eletrowidgets_print_styles');
