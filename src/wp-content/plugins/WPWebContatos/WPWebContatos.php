@@ -414,16 +414,19 @@ function webcontatos_Campaign_created($data)
 	$webcontatos_options['webcontatos_admin_key'] = '';
 
 	switch_to_blog($blog_id);
+	{
 		if (count($errors) > 0) {
 			$webcontatos_options['webcontatos_error_log'] = $errors;
 		}
+		
 		update_option('webcontatos-config', $webcontatos_options, false);
 		activate_plugin('WPWebContatos/WPWebContatos.php');
 		$user = wp_get_current_user();
-		update_user_meta($user->ID. 'webcontatos_user', $contatoscc_user);
-		update_user_meta($user->ID. 'webcontatos_pass', md5($contatoscc_pass));
-		update_user_meta($user->ID. 'grupo_webcontatos', 6);
-		update_user_meta($user->ID. 'user_webcontatos', 'A');
+		update_user_meta($user->ID, 'webcontatos_user', $contatoscc_user);
+		update_user_meta($user->ID, 'webcontatos_pass', md5($contatoscc_pass));
+		update_user_meta($user->ID, 'grupo_webcontatos', 6);
+		update_user_meta($user->ID, 'user_webcontatos', 'A');
+	}	
 	restore_current_blog();
 }
 
