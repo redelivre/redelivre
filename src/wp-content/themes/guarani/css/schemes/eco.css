@@ -7,7 +7,6 @@
  * Green #1 		#589d8f Links
  * Green #2 		#699328 Titles
  * Green #3			#e1ead4 Caixas (Variações: #f9fbf6, #f1f5eb)
- * Green #4			#567821 Links visitados
  * Gray #1			#464646
  */
 
@@ -15,32 +14,11 @@
 /* =Global
 -------------------------------------------------------------- */
 
-body {
-	background: #e1ead4 url('../../images/schemes/pattern-eco.png') repeat;
-}
-
-.entry-content h1,
-.comment-content h1,
-.entry-content h2,
-.comment-content h2,
-.entry-content h3,
-.comment-content h3,
-.entry-content h4,
-.comment-content h4,
-.entry-content h5,
-.comment-content h5,
-.entry-content h6,
-.comment-content h6 {
-	color: #699328;
-}
 
 /* Links */
-a {
+a,
+.eletro_widgets_content.widget_guarani_custom_posts a:hover .entry-title {
 	color: #589d8f;
-}
-
-a:visited {
-	color: #567821;
 }
 
 a:hover,
@@ -66,53 +44,82 @@ input:-ms-input-placeholder {
 	color: #699328;
 }
 
-#searchform #s {
+input[type="text"],
+input[type="email"],
+textarea,
+#searchform #s,
+.highlights .slide,
+.archive-header,
+.member-contact,
+.single footer.entry-meta,
+.mobilize-widget h6,
+.commentlist > .comment.odd,
+#secondary .widget-container,
+.eletro_widgets_content.widget_guarani_custom_posts article .entry-content,
+.widget_calendar #wp-calendar caption {
+	background: #f9fbf6;
+}
+
+.main-navigation .menu > .menu-item > a,
+.highlights .slide,
+.archive-header,
+input[type="text"],
+input[type="email"],
+textarea,
+.commentlist > .comment.even {
+	border-color: #f4f4f4;
+}
+
+
+.main-navigation .menu > .menu-item > a:hover,
+.main-navigation .menu > .current_page_item > a,
+.main-navigation .menu > .current-menu-parent > a {
+	border-bottom-color: #589d8f;
+}
+
+.main-navigation ul ul a:hover:after {
+	color: #c91f32;
+}
+
+.entry-share {
+	background: #f4f4f4;
+}
+
+.eletro_widgets_content.widget_guarani_custom_posts .entry-title,
+.eletro_widgets_content.widget_guarani_custom_posts > h2 a,
+#tertiary,
+.widget-footer {
 	background: #e1ead4;
-	color: #699328;
 }
 
-/* =Header
--------------------------------------------------------------- */
-
-.main-navigation li.current_page_item a {
-	border-bottom: 2px solid #589d8f;
+.eletro_widgets_content.widget_guarani_custom_posts figure {
+	background: #464646;
 }
+
+.eletro_widgets_content.widget_guarani_custom_posts a .entry-title,
+h1, h2, h3, h4, h5, h6,
+.archive-item h3,
+.archive-title,
+.widget-title,
+.mobilize-widget h6 {
+	color: #464646;
+}
+
 
 
 /* =Content
 -------------------------------------------------------------- */
 
-.entry-title {
-	line-height: 1.4;
-}
-
-.entry-title a {
-	color: #589d8f;
-}
-
 .single .entry-title a,
-.page .entry-title {
+.page .entry-title,
+#mobilize-content h1,
+.entry-meta [class^="icon-"],
+.entry-meta [class*=" icon-"] {
 	color: #699328;
-	line-height: 1.4;	
-}
-
-.entry-content a {
-	color: #589d8f;
 }
 
 .more-link {
 	color: #4d99a6;
-}
-
-/* Archives */
-
-.archive-header {
-	background: #f9fbf6;
-	border-color: #f1f5eb;
-}
-
-.archive-title {
-	color: #699328;
 }
 
 /* Extras */
@@ -122,22 +129,19 @@ input:-ms-input-placeholder {
 }
 
 
-/* =Asides
--------------------------------------------------------------- */
-
-
-
-/* =Footer
--------------------------------------------------------------- */
-
-.widget-footer {
-	background: #e1ead4;
+#secondary .widget_recent_entries ul li,
+#secondary .widget_rss ul li,
+#secondary .widget_guarani_custom_posts ul li {
+	border-color: #e3e3e3;
 }
 
-/* =Media Screen
--------------------------------------------------------------- */
+#tertiary {
+	border-bottom: 3px solid #f1f5eb; 
+	border-top: 3px solid #699328;
+}
 
-@media only screen and (min-width: 920px) {
-	
-	
+#tertiary .widget_recent_entries ul li,
+#tertiary .widget_rss ul li,
+#tertiary .widget_guarani_custom_posts ul li {
+	border-color: #d0d0d0;
 }

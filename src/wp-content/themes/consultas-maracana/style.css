@@ -173,10 +173,10 @@ a:active, a:hover {	text-decoration: underline; }
 -------------------------------------------------------------- */
 
 /* fix para poder usar o bg do topo pelo editor de cabeçalho do wordpress */
-#branding a { height: auto !important; }
+#branding a { height: 100%; display:block;}
 /* */
 
-#main-nav { position: relative; }
+#main-nav { position:absolute; width: 320px; top:120px; }
 #main-menu { float: left; margin: 0; list-style: none; font-size: 14px; }
 #main-menu > li { position: relative; display: block; margin-right: 6px; display:table; height: 16px; }
 #main-menu > li > a, #temas-item { color: #7f7f7f; display: block; padding: 3px 10px; border-radius: 6px 6px 0 0; -moz-border-radius: 6px 6px 0 0; -webkit-border-radius: 6px 6px 0 0; font-weight: bold;  }
