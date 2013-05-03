@@ -20,7 +20,6 @@ Text Domain: guarani
  * Gray #1			#363636 Text (Variations: #585858 [secondary widget])
  * Red #1 			#8f2634 Links
  * Red #2			#b73143 Hover links
- * Red #3			#2e0418 Visited links
  * Brown #2 		#47312d Titles
  * Gray #2			#c7c1c0 Boxes #1
  * Cream #1			#daccab	Boxes #2 (Variations: #f4f0e6, #f9f7f2)
@@ -87,14 +86,6 @@ html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
-
-/*
-body {
-	background-image: url('images/schemes/pattern-default.png');
-	background-repeat: repeat;
-	background-position: top left;
-	background-attachment: fixed;
-} */
 
 body,
 button,
@@ -593,10 +584,6 @@ a {
 	transition: all .1s linear;
 }
 
-a:visited {
-	color: #8f2634;
-}
-
 a:hover,
 a:focus,
 a:active {
@@ -686,10 +673,6 @@ a:active {
 	margin: 0;
 }
 
-.site-title a {
-
-}
-
 .site-logo {
 	margin: 2em 0 1em;
 	max-width: 100%;
@@ -768,8 +751,8 @@ a:active {
 }
 
 .main-navigation a,
-.main-navigation a:visited {
-	color: #47312d;
+.main-navigation a:hover {
+	color: #363636;
 }
 
 .main-navigation .menu > .menu-item > a {
@@ -795,7 +778,7 @@ a:active {
 	float: left;
 	padding: 0.5em;
 	position: absolute;
-		top: 2.5em;
+		top: 2.4em;
 		left: 0;
 	text-align: left;
 	z-index: 99999;
@@ -979,10 +962,6 @@ header.entry-meta a {
 	padding-bottom: 1.625em;
 }
 
-.entry-content a:visited {
-	color: #741f2a;
-}
-
 .entry-content ul,
 .entry-content ol {
 	margin-bottom: 1.625em;
@@ -1059,8 +1038,7 @@ header.entry-meta a {
 }
 
 .share-social a,
-.share-social a:before,
-.share-social a:visited {
+.share-social a:before {
 	color: #fff;
 }
 
@@ -1695,14 +1673,11 @@ object {
 	text-transform: uppercase;
 }
 
-.mobilize-widget .section-description {
-	
-}
-
 #mobilize-redes .mobilize-button {
 	color: #fff;
 	display: inline-block;
 	float: left;
+	margin-bottom: 1.625em;
 	padding: 1em 2em;
 	text-align: center;
 	width: 25%;
@@ -1741,25 +1716,7 @@ object {
 }
 
 .mobilize-banners div[class^="banner-"] {
-	height: 250px;
 	position: relative;
-}
-
-.mobilize-banners .banner-200 img,
-.mobilize-banners .banner-125 img {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-}
-
-.mobilize-banners .banner-200 img {
-	margin-left: -100px;
-	margin-top: -100px;
-}
-
-.mobilize-banners .banner-125 img {
-	margin-left: -75px;
-	margin-top: -75px;
 }
 
 .mobilize-banners .code {
@@ -1781,12 +1738,10 @@ object {
 }
 
 #standard-message {
-	border-left: 1px solid #f4f0e6;
 	color: #666;
 	font-size: 0.875em;
 	float: left;
 	line-height: 1.643em;
-	padding: 1.143em 1.143em 0 1.143em;
 	width: 62%;
 }
 
@@ -1829,6 +1784,12 @@ object {
 
 /* =Comments
 ----------------------------------------------- */
+
+.form-allowed-tags,
+.form-allowed-tags code {
+	color: #999;
+	font-size: 0.875em;
+}
 
 .comments-area .commentlist {
 	list-style-type: none;
@@ -2101,10 +2062,6 @@ object {
 .eletro_widgets_content.widget_guarani_custom_posts a:hover img,
 .eletro_widgets_content.widget_guarani_featured_page a:hover img {
 	opacity: 1;
-}
-
-.eletro_widgets_content.widget_guarani_custom_posts a.more-link {
-	color: #8f2634;
 }
 
 .eletro_widgets_content.widget_guarani_custom_posts .entry-content {

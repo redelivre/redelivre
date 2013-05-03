@@ -2,7 +2,6 @@
 /**
  * The template for the Contact page.
  *
- * @package Guarani
  * @since Guarani 1.0
  */
 
@@ -11,7 +10,7 @@ get_header(); ?>
 		<div id="primary" class="content-area">
 			<div id="content" class="site-content" role="main">
 
-				<?php while ( have_posts() ) : the_post(); ?>
+				<?php if ( have_posts() ) : the_post(); ?>
 
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<header class="entry-header">
@@ -29,11 +28,11 @@ get_header(); ?>
 							?>
 							
 							<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'guarani' ), 'after' => '</div>' ) ); ?>
-							<a class="post-edit-link" href="<?php admin_url( 'admin.php?page=campaign_contact' ); ?>"><span class="edit-link"><?php _e( 'Edit', 'guarani' ); ?></span></a>
+							<a class="post-edit-link" href="<?php echo admin_url( 'admin.php?page=campaign_contact' ); ?>"><span class="edit-link"><?php _e( 'Edit', 'guarani' ); ?></span></a>
 						</div><!-- .entry-content -->
 					</article><!-- #post-<?php the_ID(); ?> -->
 
-				<?php endwhile; // end of the loop. ?>
+				<?php endif; // end of the loop. ?>
 
 			</div><!-- #content .site-content -->
 		</div><!-- #primary .content-area -->

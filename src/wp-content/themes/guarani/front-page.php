@@ -1,8 +1,16 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Template Name: Front Page Template
+ *
+ * @since Guarani 1.0
+ */
+__( 'Front Page Template', 'guarani' );
+
+get_header(); ?>
     
     
 	<?php
-	$feature = new WP_Query( array( 'posts_per_page' => 2, 'ignore_sticky_posts' => 1, 'meta_key' => '_home', 'meta_value' => 1 ) );
+	$feature = new WP_Query( array( 'posts_per_page' => -1, 'ignore_sticky_posts' => 1, 'meta_key' => '_home', 'meta_value' => 1 ) );
 	
     if ( $feature->have_posts() ) : ?>
     
@@ -12,14 +20,17 @@
 		        <div class="swiper-slide">
 			        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			        	<div class="media slide cf">
-			        		<figure class="img entry-image">
+			        		
 				    			<?php
-				    			if ( has_post_thumbnail() )
+				    			if ( has_post_thumbnail() ) : ?>
+				    			<figure class="img entry-image">
+				    			<?php
 				    				the_post_thumbnail( 'highlight' );
-				    			else
-				    				echo '<img src="http://lorempixel.com/468/300/nature/" />';
+				    			
 				    			?>
-			        		</figure>
+				    			</figure>
+				    			<?php endif; ?>
+			        		
 			        		<div class="bd">
 			        			<div class="entry-meta">
 				        			<?php $category = get_the_category(); ?>
@@ -35,10 +46,17 @@
 		        </div>
         	<?php endwhile; ?>
         	</div><!-- .swiper-wrapper -->
+        	
     </div><!-- .swiper-container -->
-	
+    
     <?php if ( $feature->post_count > 1 ) : ?>
-		<div class="swiper-pagination"></div>
+		<div class="navigation slide-navigation">
+			<a href="#" class="nav-previous previous-slide icon-left"><span class="assistive-text"><?php _e( 'Previous', 'guarani' ); ?></span></a>
+			<?php if ( wp_is_mobile() ) : ?>
+				<span class="swipe">&#x261d;</span>
+			<?php endif; ?>
+			<a href="#" class="nav-next next-slide icon-right"><span class="assistive-text"><?php _e( 'Next', 'guarani' ); ?></span></a>
+		</div>
 	<?php endif; ?>
 	
 	<?php

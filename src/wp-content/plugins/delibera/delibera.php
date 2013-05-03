@@ -65,7 +65,7 @@ add_action('init','delibera_init');
  * 	Para Multisites
  */
 
-function delibera_wpmu_new_blog($blog_id, $user_id, $domain, $path, $site_id, $meta )
+function delibera_wpmu_new_blog($blog_id, $user_id = 0, $domain = '', $path = '', $site_id = '', $meta = '' )
 {
 	/** Antes de mudar **/
 	$permalink_structure = get_option('permalink_structure');
@@ -77,15 +77,15 @@ function delibera_wpmu_new_blog($blog_id, $user_id, $domain, $path, $site_id, $m
 	}
 	
 	switch_to_blog($blog_id);
-	/** Depois de mudar de blog **/
-	
-	
-	if(function_exists('qtrans_enableLanguage'))
-	{
-		update_option('qtranslate_enabled_languages', $qtrans['enabled_languages']); 
-		update_option('qtranslate_default_language', $qtrans['default_language']);
+		/** Depois de mudar de blog **/
+		
+		if(function_exists('qtrans_enableLanguage'))
+		{
+			update_option('qtranslate_enabled_languages', $qtrans['enabled_languages']); 
+			update_option('qtranslate_default_language', $qtrans['default_language']);
+		}
 		update_option('permalink_structure', $permalink_structure);
-	}
+		flush_rewrite_rules();
 	restore_current_blog();
 }
 
@@ -2293,6 +2293,13 @@ function delibera_instalacao()
 			require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_roles.php';
 			delibera_roles_install($delibera_permissoes);
 		}
+	}
+	if(is_multisite())
+	{
+		$id = get_current_blog_id();
+		switch_to_blog(1);
+			delibera_wpmu_new_blog($id);
+		restore_current_blog();
 	}
 }
 register_activation_hook(__FILE__,'delibera_instalacao');

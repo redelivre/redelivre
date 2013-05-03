@@ -6,7 +6,6 @@
  *
  * Red #1 			#c91f32 Links
  * Red #2			#e55868 Hover links
- * Red #3			#ba1d2e Visited links
  * Gray #1 			#464646 Titles
  * Gray #2			#e1e1e1 Caixas (Variations: #ececec, #f4f4f4, #fbfbfb)
  */
@@ -22,10 +21,6 @@ body {
 /* Links */
 a {
 	color: #c91f32;
-}
-
-a:visited {
-	color: #ba1d2e;
 }
 
 a:hover,
