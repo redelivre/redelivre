@@ -41,14 +41,14 @@ function wpcf7_messages() {
 			'default' => __( 'Validation errors occurred. Please confirm the fields and submit it again.', 'wpcf7' )
 		),
 
+		'spam' => array(
+			'description' => __( "Submission was referred to as spam", 'wpcf7' ),
+			'default' => __( 'Failed to send your message. Please try later or contact the administrator by another method.', 'wpcf7' )
+		),
+
 		'accept_terms' => array(
 			'description' => __( "There are terms that the sender must accept", 'wpcf7' ),
 			'default' => __( 'Please accept the terms to proceed.', 'wpcf7' )
-		),
-
-		'invalid_email' => array(
-			'description' => __( "Email address that the sender entered is invalid", 'wpcf7' ),
-			'default' => __( 'Email address seems invalid.', 'wpcf7' )
 		),
 
 		'invalid_required' => array(
@@ -130,51 +130,11 @@ function wpcf7_default_messages_template() {
 }
 
 function wpcf7_upload_dir( $type = false ) {
-	global $switched;
+	$uploads = wp_upload_dir();
 
-	$siteurl = get_option( 'siteurl' );
-	$upload_path = trim( get_option( 'upload_path' ) );
-
-	$main_override = is_multisite() && defined( 'MULTISITE' ) && is_main_site();
-
-	if ( empty( $upload_path ) ) {
-		$dir = WP_CONTENT_DIR . '/uploads';
-	} else {
-		$dir = $upload_path;
-
-		if ( 'wp-content/uploads' == $upload_path ) {
-			$dir = WP_CONTENT_DIR . '/uploads';
-		} elseif ( 0 !== strpos( $dir, ABSPATH ) ) {
-			// $dir is absolute, $upload_path is (maybe) relative to ABSPATH
-			$dir = path_join( ABSPATH, $dir );
-		}
-	}
-
-	if ( ! $url = get_option( 'upload_url_path' ) ) {
-		if ( empty( $upload_path )
-		|| ( 'wp-content/uploads' == $upload_path )
-		|| ( $upload_path == $dir ) )
-			$url = WP_CONTENT_URL . '/uploads';
-		else
-			$url = trailingslashit( $siteurl ) . $upload_path;
-	}
-
-	if ( defined( 'UPLOADS' ) && ! $main_override
-	&& ( ! isset( $switched ) || $switched === false ) ) {
-		$dir = ABSPATH . UPLOADS;
-		$url = trailingslashit( $siteurl ) . UPLOADS;
-	}
-
-	if ( is_multisite() && ! $main_override
-	&& ( ! isset( $switched ) || $switched === false ) ) {
-
-		if ( defined( 'BLOGUPLOADDIR' ) )
-			$dir = untrailingslashit( BLOGUPLOADDIR );
-
-		$url = str_replace( UPLOADS, 'files', $url );
-	}
-
-	$uploads = apply_filters( 'wpcf7_upload_dir', array( 'dir' => $dir, 'url' => $url ) );
+	$uploads = apply_filters( 'wpcf7_upload_dir', array(
+		'dir' => $uploads['basedir'],
+		'url' => $uploads['baseurl'] ) );
 
 	if ( 'dir' == $type )
 		return $uploads['dir'];
@@ -192,6 +152,7 @@ function wpcf7_l10n() {
 		'hy_AM' => __( 'Armenian', 'wpcf7' ),
 		'az_AZ' => __( 'Azerbaijani', 'wpcf7' ),
 		'bn_BD' => __( 'Bangla', 'wpcf7' ),
+		'eu' => __( 'Basque', 'wpcf7' ),
 		'be_BY' => __( 'Belarusian', 'wpcf7' ),
 		'bs' => __( 'Bosnian', 'wpcf7' ),
 		'pt_BR' => __( 'Brazilian Portuguese', 'wpcf7' ),
@@ -216,6 +177,7 @@ function wpcf7_l10n() {
 		'hi_IN' => __( 'Hindi', 'wpcf7' ),
 		'hu_HU' => __( 'Hungarian', 'wpcf7' ),
 		'id_ID' => __( 'Indonesian', 'wpcf7' ),
+		'ga_IE' => __( 'Irish', 'wpcf7' ),
 		'it_IT' => __( 'Italian', 'wpcf7' ),
 		'ja' => __( 'Japanese', 'wpcf7' ),
 		'ko_KR' => __( 'Korean', 'wpcf7' ),
@@ -261,32 +223,77 @@ function wpcf7_ajax_loader() {
 	return apply_filters( 'wpcf7_ajax_loader', $url );
 }
 
-/* Nonce functions: wpcf7_verify_nonce() and wpcf7_create_nonce()
- * For front-end use only.
- * Almost the same as wp_verify_nonce() and wp_create_nonce() except that $uid is always 0.
-*/
-
 function wpcf7_verify_nonce( $nonce, $action = -1 ) {
-	$i = wp_nonce_tick();
-	$uid = 0;
+	if ( substr( wp_hash( $action, 'nonce' ), -12, 10 ) == $nonce )
+		return true;
 
-	// Nonce generated 0-12 hours ago
-	if ( substr( wp_hash( $i . $action . $uid, 'nonce' ), -12, 10 ) == $nonce )
-		return 1;
-
-	// Nonce generated 12-24 hours ago
-	if ( substr( wp_hash( ( $i - 1 ) . $action . $uid, 'nonce' ), -12, 10 ) == $nonce )
-		return 2;
-
-	// Invalid nonce
 	return false;
 }
 
 function wpcf7_create_nonce( $action = -1 ) {
-	$i = wp_nonce_tick();
-	$uid = 0;
+	return substr( wp_hash( $action, 'nonce' ), -12, 10 );
+}
 
-	return substr( wp_hash( $i . $action . $uid, 'nonce' ), -12, 10 );
+function wpcf7_blacklist_check( $target ) {
+	$mod_keys = trim( get_option( 'blacklist_keys' ) );
+
+	if ( empty( $mod_keys ) )
+		return false;
+
+	$words = explode( "\n", $mod_keys );
+
+	foreach ( (array) $words as $word ) {
+		$word = trim( $word );
+
+		if ( empty( $word ) )
+			continue;
+
+		if ( preg_match( '#' . preg_quote( $word, '#' ) . '#', $target ) )
+			return true;
+	}
+
+	return false;
+}
+
+function wpcf7_array_flatten( $input ) {
+	if ( ! is_array( $input ) )
+		return array( $input );
+
+	$output = array();
+
+	foreach ( $input as $value )
+		$output = array_merge( $output, wpcf7_array_flatten( $value ) );
+
+	return $output;
+}
+
+function wpcf7_support_html5() {
+	return (bool) apply_filters( 'wpcf7_support_html5', true );
+}
+
+function wpcf7_format_atts( $atts ) {
+	$html = '';
+
+	$prioritized_atts = array( 'type', 'name', 'value' );
+
+	foreach ( $prioritized_atts as $att ) {
+		if ( isset( $atts[$att] ) ) {
+			$value = trim( $atts[$att] );
+			$html .= sprintf( ' %s="%s"', $att, esc_attr( $value ) );
+			unset( $atts[$att] );
+		}
+	}
+
+	foreach ( $atts as $key => $value ) {
+		$value = trim( $value );
+
+		if ( '' !== $value )
+			$html .= sprintf( ' %s="%s"', $key, esc_attr( $value ) );
+	}
+
+	$html = trim( $html );
+
+	return $html;
 }
 
 ?>
