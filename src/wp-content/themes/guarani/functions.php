@@ -71,7 +71,7 @@ function guarani_setup() {
 	
 	// Image sizes
 	add_image_size( 'highlight', 500, 320, true );
-	add_image_size( 'small-feature', 330, 250, true );
+	add_image_size( 'small-feature', 330, 9999 );
 	add_image_size( 'highlight-single', 686, 400, true );
 	
 	// Default link type is file
@@ -226,7 +226,7 @@ add_action( 'wp_footer', 'guarani_footer_scripts' );
 function guarani_activate_plugins() {
     
     if ( ! current_user_can( 'activate_plugins' ) )
-        wp_die( __( 'You do not have sufficient permissions to activate plugins for this site.', 'guarani' ) );
+        return;
         
     $plugins = FALSE;
     $plugins = get_option( 'active_plugins' );
