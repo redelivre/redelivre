@@ -9,3 +9,4 @@ base_bkp_last_reset.sql
 wp-content/blogs.dir
 wp-content/uploads
 src/wp-content/uploads/
+src/index.html
