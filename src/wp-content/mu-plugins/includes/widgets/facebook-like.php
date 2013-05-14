@@ -20,9 +20,10 @@ class WidgetFacebookLikeBox extends WP_Widget {
             return;
         
         echo $before_widget;
-        $show_faces = (isset($instance['fb-show-faces'])) ? $instance['fb-show-faces'] : true;
+        $show_faces = (isset($instance['fb-show-faces'])) ? $instance['fb-show-faces'] : 'true';
+        $altura = ($show_faces == 'true') ? '285px' : '80px';
         ?>
-        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width=292&amp;height=290&amp;colorscheme=light&amp;show_faces=<?php echo $show_faces; ?>&amp;border_color=white&amp;stream=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:290px;" allowTransparency="true"></iframe>
+        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width=292&amp;height=290&amp;colorscheme=light&amp;show_faces=<?php echo $show_faces; ?>&amp;border_color=white&amp;stream=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" allowTransparency="true" style="width: 280px; height: <?php echo $altura; ?>; overflow:hidden;" ></iframe>
         <?php
         echo $after_widget;
     }
