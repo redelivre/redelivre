@@ -144,7 +144,7 @@ function guarani_post_thumbnail( $html, $post_id ) {
 	
 	return $html;
 }
-add_filter( 'post_thumbnail_html', 'guarani_post_thumbnail', 10, 2 );
+//add_filter( 'post_thumbnail_html', 'guarani_post_thumbnail', 10, 2 );
 
 
 /**
