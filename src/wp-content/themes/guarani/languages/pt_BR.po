@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Guarani package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-04-13 19:59-0300\n"
+"PO-Revision-Date: 2013-05-17 11:56-0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,6 +13,42 @@ msgstr ""
 "Last-Translator: Eduardo Zulian <eduardozulian@gmail.com>\n"
 "Language-Team: \n"
 
+#: footer.php:24
+msgid "To display your widgets here go to the <a href=\"%s\">Widget Page</a> and drag them into the \"Footer Widget Area\"."
+msgstr "Para mostrar seus widgets neste espaço, vá até a <a href=\"%s\">página de widgets</a> e os arraste para a \"Área de widgets do rodapé\"."
+
+#: front-page.php:63
+msgid "To display your featured posts here go to the <a href=\"%s\">Post Edit Page</a> and check the \"Feature\" box. You can select how many posts you want, but use it wisely."
+msgstr "Para mostrar seus posts destacados, vá até a <a href=\"%s\">página de edição de posts</a> e marque a opção \"Destaque\". Você pode marcar quantos posts quiser, mas use a funcionalidade com sabedoria."
+
+#: inc/customizer.php:184
+msgid "Center header"
+msgstr "Centralizar cabeçalho"
+
+#: inc/widgets.php:346
+msgid "Your most used tags in cloud format"
+msgstr "Suas tags mais usadas, em formato de nuvem"
+
+#: inc/widgets.php:347
+msgid "Tag Cloud"
+msgstr "Nuvem de tags"
+
+#: inc/widgets.php:357
+msgid "Tags"
+msgstr "Tags"
+
+#: inc/widgets.php:394
+msgid "Number of taxonomies to show:"
+msgstr "Número de taxonomias a exibir:"
+
+#: inc/widgets.php:398
+msgid "Taxonomy:"
+msgstr "Taxonomia:"
+
+#: sidebar.php:15
+msgid "To display your widgets here go to the <a href=\"%s\">Widget Page</a> and drag them into the \"Sidebar\" box."
+msgstr "Para mostrar seus widgets neste espaço, vá até a <a href=\"%s\">página de widgets</a> e os arraste para a \"Barra lateral\"."
+
 #: page-templates/mobilizacao.php:7
 msgid "Mobilize"
 msgstr "Mobilização"
@@ -21,7 +57,7 @@ msgstr "Mobilização"
 msgid "Custom Archive"
 msgstr "Arquivo personalizado"
 
-#: page-templates/front-page.php:7
+#: front-page.php:7
 msgid "Front Page Template"
 msgstr "Capa personalizada"
 
@@ -45,10 +81,6 @@ msgstr "Publicado em %1$s com as tags %2$s."
 msgid "This entry was posted in %1$s."
 msgstr "Publicado em %1$s."
 
-#: functions.php:229
-msgid "You do not have sufficient permissions to activate plugins for this site."
-msgstr "Você não tem permissão para ativar plugins neste site."
-
 #: inc/customizer.php:24
 msgid "Clean"
 msgstr "Clean"
@@ -61,31 +93,31 @@ msgstr "Site pessoal"
 msgid "<span>on</span> %1$s at %2$s"
 msgstr "<span>em</span> %1$s às %2$s"
 
-#: inc/widgets.php:89
+#: inc/widgets.php:92
 msgid "View all posts filed under %s"
 msgstr "Veja todos os posts arquivados em %s"
 
-#: inc/widgets.php:208
+#: inc/widgets.php:211
 msgid "Feature a page, showing its excerpt and thumbnail"
 msgstr "Apresenta uma página e mostra o seu resumo acompanhado da imagem destacada"
 
-#: inc/widgets.php:209
+#: inc/widgets.php:212
 msgid "Featured Page"
 msgstr "Página destacada"
 
-#: inc/widgets.php:321
+#: inc/widgets.php:324
 msgid "Page:"
 msgstr "Página:"
 
-#: page-templates/front-page.php:54
+#: front-page.php:49
 msgid "Previous"
 msgstr "Anterior"
 
-#: page-templates/front-page.php:58
+#: front-page.php:53
 msgid "Next"
 msgstr "Próxima"
 
-#: tpl-contato.php:18
+#: tpl-contato.php:17
 msgid "Contact Us"
 msgstr "Entre em contato"
 
@@ -200,7 +232,7 @@ msgstr "Mais informações"
 #: content-single.php:34
 #: content.php:21
 #: image.php:87
-#: tpl-contato.php:31
+#: tpl-contato.php:30
 msgid "Pages:"
 msgstr "Páginas:"
 
@@ -209,7 +241,7 @@ msgstr "Páginas:"
 #: content.php:53
 #: image.php:35
 #: image.php:101
-#: tpl-contato.php:32
+#: tpl-contato.php:31
 msgid "Edit"
 msgstr "Editar"
 
@@ -287,11 +319,11 @@ msgstr "Área de widgets do rodapé"
 msgid "Appears in the footer section of the site"
 msgstr "Está no rodapé do seu site"
 
-#: header.php:53
+#: header.php:56
 msgid "Menu"
 msgstr "Menu"
 
-#: header.php:54
+#: header.php:57
 msgid "Skip to content"
 msgstr "Pule para o conteúdo"
 
@@ -335,27 +367,27 @@ msgstr "Eco"
 msgid "Display header text"
 msgstr "Mostrar texto do cabeçalho"
 
-#: inc/customizer.php:196
+#: inc/customizer.php:208
 msgid "Color Scheme"
 msgstr "Esquema de cores"
 
-#: inc/customizer.php:209
+#: inc/customizer.php:221
 msgid "Branding"
 msgstr "Marca"
 
-#: inc/customizer.php:220
+#: inc/customizer.php:232
 msgid "Logo"
 msgstr "Logo"
 
-#: inc/customizer.php:233
+#: inc/customizer.php:245
 msgid "Favicon"
 msgstr "Favicon"
 
-#: inc/customizer.php:320
+#: inc/customizer.php:338
 msgid "Customize %s"
 msgstr "Personalizar %s"
 
-#: inc/customizer.php:323
+#: inc/customizer.php:341
 msgid "Customize"
 msgstr "Personalizar"
 
@@ -481,33 +513,34 @@ msgstr "Copiar o permalink"
 msgid "<span class=\"icon-edit\">(Edit)</span>"
 msgstr "<span class=\"icon-edit\">(Editar)</span>"
 
-#: inc/widgets.php:32
+#: inc/widgets.php:35
 msgid "Displays the latest posts from a certain category"
 msgstr "Exibe os últimos posts de uma certa categoria"
 
-#: inc/widgets.php:33
+#: inc/widgets.php:36
 msgid "Posts from a Category"
 msgstr "Posts de uma Categoria"
 
-#: inc/widgets.php:108
-#: inc/widgets.php:269
+#: inc/widgets.php:111
+#: inc/widgets.php:272
 msgid "Continue reading"
 msgstr "Continue lendo"
 
-#: inc/widgets.php:171
-#: inc/widgets.php:316
+#: inc/widgets.php:174
+#: inc/widgets.php:319
+#: inc/widgets.php:390
 msgid "Title:"
 msgstr "Título:"
 
-#: inc/widgets.php:176
+#: inc/widgets.php:179
 msgid "Category:"
 msgstr "Categoria:"
 
-#: inc/widgets.php:181
+#: inc/widgets.php:184
 msgid "Number of posts to show:"
 msgstr "Número de posts a exibir:"
 
-#: inc/widgets.php:187
+#: inc/widgets.php:190
 msgctxt "guarani"
 msgid "Show as a featured post (will override the number of posts option above to show only the last one)"
 msgstr "Exibir como um post destacado (isto irá sobrescrever a opção acima e mostrar apenas o último da categoria)"
@@ -562,12 +595,12 @@ msgstr "Palavras-chave"
 msgid "Search Results for: %s"
 msgstr "Resultados da pesquisa por: %s"
 
-#: searchform.php:10
-#: searchform.php:12
+#: searchform.php:11
+#: searchform.php:13
 msgid "Search"
 msgstr "Pesquisar"
 
-#: searchform.php:11
+#: searchform.php:12
 msgid "Type your search and press enter"
 msgstr "Digite sua pesquisa e aperte enter"
 
