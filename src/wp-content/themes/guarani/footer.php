@@ -21,7 +21,7 @@
 		else:
 			if ( current_user_can( 'publish_posts' ) ): ?>
 				<div class="empty-feature widget">
-					<p>Para exibir widgets aqui acesse o <a href="<?php echo admin_url( 'widgets.php' ); ?>">painel de administração</a> e arraste widgets para o box "Footer".</p>
+					<p><?php printf( __( 'To display your widgets here go to the <a href="%s">Widget Page</a> and drag them into the "Footer Widget Area".', 'guarani' ), admin_url( 'widgets.php' ) ); ?></p>
 				</div>
 			<?php
 			endif;

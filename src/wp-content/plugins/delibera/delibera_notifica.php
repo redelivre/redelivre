@@ -518,7 +518,7 @@ function delibera_notificar_novo_comentario($comment)
 	$users = is_array($users) ? array_merge($users, array($autor)) : array($autor);
 	
 	$mensage = '<br/>'.__('Autor', 'delibera').": ".$autor->display_name.'<br/>';
-	$mensage = get_comment_text($comment);
+	$mensage = get_comment_text($comment->comment_ID);
 	
 	$link = delibera_get_comment_link($comment);
 	

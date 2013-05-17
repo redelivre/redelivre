@@ -20,16 +20,11 @@ get_header(); ?>
 		        <div class="swiper-slide">
 			        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			        	<div class="media slide cf">
-			        		
-				    			<?php
-				    			if ( has_post_thumbnail() ) : ?>
-				    			<figure class="img entry-image">
-				    			<?php
-				    				the_post_thumbnail( 'highlight' );
-				    			
-				    			?>
-				    			</figure>
-				    			<?php endif; ?>
+			    			<?php if ( has_post_thumbnail() ) : ?>
+			    			<figure class="img entry-image">
+			    			<?php the_post_thumbnail( 'highlight' ); ?>
+			    			</figure>
+			    			<?php endif; ?>
 			        		
 			        		<div class="bd">
 			        			<div class="entry-meta">
@@ -65,7 +60,7 @@ get_header(); ?>
 	else : ?>
 		<?php if ( current_user_can( 'edit_theme_options' ) ): ?>
 			<div class="empty-feature">
-                <p>Para exibir posts aqui acesse o <a href="<?php echo admin_url('edit.php'); ?>">painel de administração</a> e marque a caixa de seleção "Destaque". Você pode marcar quantos posts quiser.</p>
+                <p><?php printf( __( 'To display your featured posts here go to the <a href="%s">Post Edit Page</a> and check the "Feature" box. You can select how many posts you want, but use it wisely.', 'guarani' ), admin_url('edit.php') ); ?></p>
 			</div>
 		<?php
 		endif;
