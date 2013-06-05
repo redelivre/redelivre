@@ -1,0 +1,454 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FG Joomla to WordPress v1.4.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-02 20:22+0100\n"
+"PO-Revision-Date: 2013-06-02 20:25+0100\n"
+"Last-Translator: F. GILLES\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:18
+msgid "WordPress database"
+msgstr "Wordpress Datenbank"
+
+#: admin_build_page.tpl.php:29
+msgid ""
+"If you want to rerun the import, you must empty the WordPress content with "
+"the button hereafter."
+msgstr ""
+"Wenn Sie den Import erneut möchten, müssen Sie die WordPress Inhalte mit der "
+"Taste nachfolgend entleeren."
+
+#: admin_build_page.tpl.php:30
+msgid "Remove only new imported posts"
+msgstr "Entfernen Sie nur neue importierte Beiträge"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:31
+msgid "Remove all posts, categories, tags, medias, comments and pages"
+msgstr ""
+"Entfernen Sie alle Beiträge, Kategorien, Schlagworte, Medien, Kommentare und "
+"Seiten"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:32
+msgid "Empty WordPress content"
+msgstr "Wordpress-Inhalte Löschen"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:43
+msgid "Joomla web site parameters"
+msgstr "Joomla Seitenparameter"
+
+#: admin_build_page.tpl.php:46
+msgid "URL (beginning with http://)"
+msgstr "URL (beginnend mit http://)"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:50
+msgid "Joomla version"
+msgstr "Joomla Version"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:59
+msgid "Joomla database parameters"
+msgstr "Joomla Datenbankparameter"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:62
+msgid "Hostname"
+msgstr "Hostname"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:66
+msgid "Port"
+msgstr "Port"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:70
+msgid "Database"
+msgstr "Datenbank"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:74
+msgid "Username"
+msgstr "Benutzer"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:78
+msgid "Password"
+msgstr "Passwort"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:82
+msgid "Joomla Table Prefix"
+msgstr "Joomla Tabellen-Präfix"
+
+#: admin_build_page.tpl.php:87
+msgid "Test the connection"
+msgstr "Testen Sie die Verbindung"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:90
+msgid "Behavior"
+msgstr "Verhalten"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:93
+msgid "Posts with a \"read more\" split:"
+msgstr "Beiträge mit \"weiterlesen\"-Trennung:"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:94
+msgid ""
+"Checked: the Joomla introtext is imported into the excerpt. Unchecked: it is "
+"imported into the post content with a «read more» link."
+msgstr ""
+"Markiert: Der Joomla-Einleitungstext wird in den Anrisstext importiert. "
+"Nicht markiert: Einleitungstext wird mit einem «weiterlesen» Link in den "
+"Beiträg importiert."
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:94
+msgid "Import the text above the \"read more\" to the excerpt"
+msgstr "Den Text vor dem \"weiterlesen\" in den Anrisstext importieren"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:97
+msgid "Medias:"
+msgstr "Medien:"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:98
+msgid "Skip media"
+msgstr "Medien auslassen"
+
+#: admin_build_page.tpl.php:101
+msgid "Import first image as featured image"
+msgstr "Importieren erste Bild als Ausgewähltes Bild"
+
+#: admin_build_page.tpl.php:103
+msgid "Import external media"
+msgstr "Importieren externe Medien"
+
+#: admin_build_page.tpl.php:105
+msgid ""
+"Checked: download the media even if it has already been imported. Unchecked: "
+"Download only media which were not already imported."
+msgstr ""
+"Markiert: downloaden Sie die Medien, auch wenn es bereits importiert wurde. "
+"Nicht markiert: Download nur Medien, die nicht bereits importiert."
+
+#: admin_build_page.tpl.php:105
+msgid ""
+"Force media import. Leave unchecked if you have already transfered the media."
+"<br />It will speed up the import."
+msgstr ""
+"Force-Medien importieren. Lassen deaktiviert, wenn Sie bereits die Medien "
+"übertragen. <br /> Es beschleunigt den Import."
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:109
+msgid "Meta keywords:"
+msgstr "Meta-Keywords:"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:110
+msgid "Import meta keywords as tags"
+msgstr "Meta-Keywords als Schlagworte importieren"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:113
+msgid "Create pages:"
+msgstr "Seiten erstellen:"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:114
+msgid "Import as pages instead of blog posts (without categories)"
+msgstr ""
+"Beiträge als Seiten statt als Artikel importieren (ohne den Kategorien)"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:118
+msgid "Import content from Joomla to WordPress"
+msgstr "Inhalt von Joomla nach WordPress importieren"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:125
+msgid "After the migration"
+msgstr "Nach der Migration"
+
+#: admin_build_page.tpl.php:128
+msgid ""
+"During the migration, prefixes have been added to the categories slugs to "
+"avoid categories duplicates. This button will remove these prefixes which "
+"are useless after the migration."
+msgstr ""
+"Während der Migration haben Präfixe zu den Kategorien Schnecken hinzugefügt "
+"worden, um Duplikate zu vermeiden Kategorien. Diese Taste löscht diese "
+"Vorwahlen die nutzlos nach der Migration sind."
+
+#: admin_build_page.tpl.php:132
+msgid "Remove the prefixes from the categories"
+msgstr "Entfernen Sie die Vorwahlen in den Kategorien"
+
+#: admin_build_page.tpl.php:137
+msgid "If you have links between articles, you need to modify internal links."
+msgstr ""
+"Wenn Sie Links zwischen den Artikeln haben, müssen Sie interne Links ändern."
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:141
+msgid "Modify internal links"
+msgstr "Interne Links anpassen"
+
+#: admin_build_page.tpl.php:149
+msgid "Do you need extra features?"
+msgstr "Benötigen Sie zusätzliche Funktionen?"
+
+#: admin_build_page.tpl.php:152
+msgid "authors and all users migration"
+msgstr "Autoren und alle Anwender Migration"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:153
+msgid "Joomla views counts migration"
+msgstr "Joomla views zählt Migration"
+
+#: admin_build_page.tpl.php:154
+msgid "SEO: redirects standard Joomla URLs"
+msgstr "SEO: Umleitungen Standard Joomla URLs"
+
+#: admin_build_page.tpl.php:155
+msgid "Joomla 1.0 compatible"
+msgstr "Joomla 1.0 kompatibel"
+
+#: admin_build_page.tpl.php:156
+msgid "Joomla 2.5+ featured images"
+msgstr "Joomla 2.5+ featured Bilder"
+
+#: admin_build_page.tpl.php:157
+msgid "Mambo 4.5 and 4.6 compatible"
+msgstr "Mambo 4.5 und 4.6 kompatibel"
+
+#: admin_build_page.tpl.php:158
+msgid "K2 content"
+msgstr "K2 Inhalte"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:159
+msgid "Flexicontent content"
+msgstr "Flexicontent Inhalte"
+
+#: admin_build_page.tpl.php:160
+msgid "Jcomments comments"
+msgstr "JComments Kommentare"
+
+#: admin_build_page.tpl.php:161
+msgid "Jomcomment comments"
+msgstr "JomComment Kommentare"
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:168
+msgid ""
+"If you found this plugin useful and it saved you many hours or days, please "
+"rate it on <a href=\"http://wordpress.org/extend/plugins/fg-joomla-to-"
+"wordpress/\">FG Joomla to WordPress</a>. You can also make a donation using "
+"the button below."
+msgstr ""
+"Wenn Sie dieses Plugin mögen und es Ihnen viele Stunden oder gar Tage "
+"erspart hat, bitten bewerten Sie es unter <a href=\"http://wordpress.org/"
+"extend/plugins/fg-joomla-to-wordpress/\">FG Joomla to WordPress</a>. Sie "
+"können auch den Spendenbutton benutzen, um eine kleine Spende zu geben."
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:187
+msgid ""
+"All new imported posts or pages and their comments will be deleted from "
+"WordPress."
+msgstr ""
+"Alle neuen importierten Beiträge oder Seiten, und ihre Kommentare werden von "
+"WordPress gelöscht werden."
+
+# @ fgj2wp
+#: admin_build_page.tpl.php:190
+msgid ""
+"All posts, categories, tags, medias, comments and pages will be deleted from "
+"WordPress."
+msgstr ""
+"Alle Beiträge, Kategorien, Schlagworte, Medien, Kommentare und Seiten von "
+"WordPress gelöscht werden."
+
+#: admin_build_page.tpl.php:193
+msgid "Please select a remove option."
+msgstr "Bitte wählen Sie eine Option entfernen."
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:58
+msgid "Joomla (FG)"
+msgstr "Joomla (FG)"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:58
+msgid ""
+"Import categories, articles and medias (images, attachments) from a Joomla "
+"database into WordPress."
+msgstr ""
+"Kategorien, Artikel und Medien (Bilder, Anhänge) aus der Joomla Datenbank zu "
+"WordPress importieren."
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:120
+msgid "WordPress content removed"
+msgstr "WordPress Inhalte entfernt"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:122
+msgid "Couldn't remove content"
+msgstr "Konnte nicht entfernt werden Inhalte"
+
+#: fg-joomla-to-wordpress.php:155
+msgid "Prefixes removed from categories"
+msgstr "Vorwahlen von Kategorien entfernt"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:164
+#, php-format
+msgid "%d internal link modified"
+msgid_plural "%d internal links modified"
+msgstr[0] "Ein interner Link angepasst"
+msgstr[1] "%d interne Links angepasst"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:184
+msgid "Import Joomla (FG)"
+msgstr "Import Joomla (FG)"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:185
+msgid ""
+"This plugin will import sections, categories, posts and medias (images, "
+"attachments) from a Joomla database into WordPress.<br />Compatible with "
+"Joomla versions 1.5, 1.6, 1.7, 2.5 and 3.0."
+msgstr ""
+"Dieses Plugin wird Abschnitte, Kategorien, Beiträge und Medien (Bilder, "
+"Anhänge) aus der Joomla-Datenbank zu WordPress importieren.<br />Kompatibel "
+"mit Joomla-Versionen 1.5, 1.6, 1.7, 2.5 und 3.0."
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:190
+#, php-format
+msgid "%d category"
+msgid_plural "%d categories"
+msgstr[0] "%d Kategorie"
+msgstr[1] "%d Kategorien"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:191
+#, php-format
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] "%d Beiträg"
+msgstr[1] "%d Beiträge"
+
+#: fg-joomla-to-wordpress.php:192
+#, php-format
+msgid "%d page"
+msgid_plural "%d pages"
+msgstr[0] "%d Seite"
+msgstr[1] "%d Seiten"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:193
+#, php-format
+msgid "%d media"
+msgid_plural "%d medias"
+msgstr[0] "%d Medium"
+msgstr[1] "%d Medien"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:194
+#, php-format
+msgid "%d tag"
+msgid_plural "%d tags"
+msgstr[0] "%d Schlagwort"
+msgstr[1] "%d Schlagworte"
+
+#: fg-joomla-to-wordpress.php:370
+msgid "Connected with success to the Joomla database"
+msgstr "Verbunden mit Erfolg auf die Joomla-Datenbank"
+
+#: fg-joomla-to-wordpress.php:374
+msgid ""
+"Couldn't connect to the Joomla database. Please check your parameters. And "
+"be sure the WordPress server can access the Joomla database."
+msgstr ""
+"Konnte nicht mit dem Joomla-Datenbank zu verbinden. Bitte überprüfen Sie "
+"Ihre Parameter. Und seien Sie sicher, dass das WordPress-Server können die "
+"Joomla-Datenbank zuzugreifen."
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:430
+#, php-format
+msgid "%d category imported"
+msgid_plural "%d categories imported"
+msgstr[0] "Eine Kategorie importiert"
+msgstr[1] "%d Kategorien importiert"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:437
+#, php-format
+msgid "%d page imported"
+msgid_plural "%d pages imported"
+msgstr[0] "%d Seite importiert"
+msgstr[1] "%d Seiten importiert"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:441
+#, php-format
+msgid "%d post imported"
+msgid_plural "%d posts imported"
+msgstr[0] "Ein Beiträg importiert"
+msgstr[1] "%d Beiträge importiert"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:443
+#, php-format
+msgid "%d media imported"
+msgid_plural "%d medias imported"
+msgstr[0] "Ein Medium importiert"
+msgstr[1] "%d Medien importiert"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:448
+#, php-format
+msgid "%d tag imported"
+msgid_plural "%d tags imported"
+msgstr[0] "Ein Schlagwort importiert"
+msgstr[1] "%d Schlagworte importiert"
+
+# @ fgj2wp
+#: fg-joomla-to-wordpress.php:458
+msgid "Don't forget to modify internal links."
+msgstr "Vergessen Sie nicht, die internen Links anzupassen."
+
+#: fg-joomla-to-wordpress.php:694 fg-joomla-to-wordpress.php:744
+#: fg-joomla-to-wordpress.php:797
+msgid "Error:"
+msgstr "Fehler:"
+
+#~ msgid "SEO"
+#~ msgstr "SEO"
