@@ -11,8 +11,8 @@
  */
 
 define('INC_MOBILIZE', dirname(__FILE__));
-define('MOBILIZE_MATERIAL_DIR', INC_MOBILIZE.'/../../mu-plugins/includes/graphic_material/');
-define('MOBILIZE_MATERIAL_URL', get_bloginfo('url').'/files/graphic_material/');
+//define('MOBILIZE_MATERIAL_DIR', INC_MOBILIZE.'/../../mu-plugins/includes/graphic_material/');
+//define('MOBILIZE_MATERIAL_URL', get_bloginfo('url').'/files/graphic_material/');
 
 if (class_exists('WideImage')) {
     require INC_MOBILIZE.'/includes/wideimage/WideImage.php';
@@ -182,7 +182,7 @@ class Mobilize {
         $option = self::getOption('banners');
 
         if (isset($option['files'][$index]) && is_numeric($size)) {
-            return MOBILIZE_MATERIAL_URL.'banners/'.preg_replace("/^(.*)(\.[a-zA-Z]{3,4})$/", "$1-{$size}$2", $option['files'][$index]);
+            return GRAPHIC_MATERIAL_URL.'banners/'.preg_replace("/^(.*)(\.[a-zA-Z]{3,4})$/", "$1-{$size}$2", $option['files'][$index]);
         }
         else {
             return '';
@@ -191,15 +191,15 @@ class Mobilize {
 
     public static function getAdesiveURL($index = 0) {
         $option = self::getOption('adesive');
-        return isset($option['files'][$index]) ? MOBILIZE_MATERIAL_URL.'adesives/'.$option['files'][$index] : '';
+        return isset($option['files'][$index]) ? GRAPHIC_MATERIAL_URL.'adesives/'.$option['files'][$index] : '';
     }
 
     public static function getBannersPath() {
-        return MOBILIZE_MATERIAL_DIR.'banners/';
+        return GRAPHIC_MATERIAL_DIR.'banners/';
     }
 
     public static function getAdesivesPath() {
-        return MOBILIZE_MATERIAL_DIR.'adesives/';
+        return GRAPHIC_MATERIAL_DIR.'adesives/';
     }
 
     public static function getBannerFilename($size, $index = 0) {
