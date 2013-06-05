@@ -23,7 +23,6 @@ if (!is_main_site()) {
 
     require_once(__DIR__ . '/includes/payment.php');
     require_once(__DIR__ . '/includes/EasyAjax.php');
-    require_once(__DIR__ . '/includes/mobilize/Mobilize.php');
     require_once(__DIR__ . '/includes/admin-contact.php');
 
     $campaign = Campaign::getByBlogId($blog_id);
@@ -118,7 +117,6 @@ function campaign_base_custom_query_vars($public_query_vars) {
 function campaign_base_custom_url_rewrites($rules) {
     $new_rules = array(
         "materialgrafico/?$" => "index.php?tpl=materialgrafico",
-        "mobilizacao/?$" => "index.php?tpl=mobilizacao",
         "contato/?$" => "index.php?tpl=contato",
     );
 
@@ -140,21 +138,6 @@ function campaign_base_template_redirect_intercept() {
                 require(WPMU_PLUGIN_DIR . '/includes/tpl-graphic_material_list_links.php');
             }
             die;
-        case 'mobilizacao':
-            $wp_query->is_home = false;
-            
-            $capabilities = Capability::getByPlanId($campaign->plan_id);
-            
-            if ($capabilities->mobilize->value) {
-                add_action('wp_print_scripts', function() {
-                    wp_enqueue_script('mobilize', WPMU_PLUGIN_URL . '/js/mobilize.js');
-                });
-    
-                require(WPMU_PLUGIN_DIR . '/includes/tpl-mobilize.php');
-                die;
-            }
-            
-            break;
         case 'contato':
             $wp_query->is_home = false;
             
@@ -325,7 +308,7 @@ add_action('campanha_body_header', function() {
     ?>
     
 	<div id="social-bookmarks" class="alignright">
-		<?php if(@$redes['facebook']): ?><a id="facebook" href="<?php echo $redes['facebook'] ?>" title="Facebook"></a><?php endif; ?>
+		<?php if(@$redes['facebook']): ?><a id="facebook" href="<?php echo $redes['facebook-page'] ?>" title="Facebook"></a><?php endif; ?>
 		<?php if(@$redes['twitter']): ?><a id="twitter" href="<?php echo $redes['twitter'] ?>" title="Twitter"></a><?php endif; ?>
 		<?php if(@$redes['google']): ?><a id="google-plus" href="<?php echo $redes['google'] ?>" title="Google+"></a><?php endif; ?>
 		<?php if(@$redes['youtube']): ?><a id="youtube" href="<?php echo $redes['youtube'] ?>" title="YouTube"></a><?php endif; ?>
