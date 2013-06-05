@@ -84,8 +84,14 @@
 				));
 			}
 		}
+
+		public function template($url)
+		{
+			return dirname(MOIP_PATH_FILE).'/tpl_mobilize_moip.php';
+		}
 	}
 
 	$m_options = get_option('mobilize_options');
 	add_action('mobilize-admin-page', array('Mobilize_moip', 'init'));
+	add_filter('Mobilize-template', array('Mobilize_moip', 'template'));
 ?>
