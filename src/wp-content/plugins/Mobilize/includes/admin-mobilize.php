@@ -1,7 +1,11 @@
 <?php
     Mobilize::saveSettings();
     Mobilize::saveRedesSociais();
-    Mobilize_moip::save_mobilize_moip_settings();
+    
+    if (is_plugin_active('Mobilize_moip/Mobilize_moip.php')) {
+        Mobilize_moip::save_mobilize_moip_settings();
+    }
+
     $option = Mobilize::getOption();
 
     $optionsRedesSociais = Mobilize::optionRedesSociais();

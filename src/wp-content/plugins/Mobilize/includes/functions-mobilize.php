@@ -18,7 +18,7 @@ function mobilize_tpl() {
                 wp_enqueue_script('mobilize', plugins_url('/js/mobilize.js', __FILE__));
             });
 
-            require(INC_MOBILIZE.'/includes/tpl-mobilize.php');
+            require(apply_filters('Mobilize-template', INC_MOBILIZE.'/includes/tpl-mobilize.php'));
             die;
         //}
     }
@@ -82,6 +82,8 @@ function mobilize_init() {
 function do_mobilize_action() {
     Mobilize::adesivar();
 }
+
+
 
 /*
     =======================================================================================================
