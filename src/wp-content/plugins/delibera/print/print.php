@@ -26,6 +26,10 @@ add_action('init', 'print_content');
 ### Filters
 add_filter('wp_title', 'print_pagetitle');
 add_filter('comments_template', 'print_template_comments');
+//add_filter('comments_array', 'delibera_print_comments');
+remove_filter('comments_array', 'delibera_get_comments_filter');
+
+define('PRINT', true);
 
 ### Load Print Post/Page Template
 if(file_exists(TEMPLATEPATH.'/print-posts.php')) {

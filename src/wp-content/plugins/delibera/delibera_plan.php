@@ -160,12 +160,12 @@ function delibera_plan_config_page()
 	$rows = array();
 	$rows[] = array(
 			"id" => "current_plan",
-			"label" => __('O seu plano actual é','delibera'),
+			"label" => __('O seu plano actual é:', 'delibera'),
 			"content" => '<input type="text" name="current_plan" id="current_plan" value="'.get_current_plan().'" disabled/>'
 	);
 	$rows[] = array(
 			"id" => "expire_date",
-			"label" => __('Válido até','delibera'),
+			"label" => __('Válido até:', 'delibera'),
 			"content" => '<input type="text" name="current_plan" id="current_plan" value="'.get_current_plan_expire_date().'" disabled/>'
 	);
 		

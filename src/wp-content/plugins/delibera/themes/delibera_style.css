@@ -261,6 +261,11 @@ p.delibera-participacao a{
     padding: 10px 0 0; 
 }
 
+.entry-meta{
+	margin-top: 10px;
+
+}
+
 .post-type-archive-pauta .hentry .entry-meta {
     border-bottom:1px solid #eee;
     display:block;
@@ -269,8 +274,9 @@ p.delibera-participacao a{
   
 body.post-type-archive-pauta .entry-meta {
     background:url('images/icone-calendario.gif') 5px 3px no-repeat;
-    height: 24px;
+    height: 60px;
     padding-left: 15px;
+    
   /*padding-left: 28px !important;
     padding:0;
     margin-left:0;*/
@@ -285,6 +291,7 @@ body.post-type-archive-pauta .entry-meta {
 .post-type-archive-pauta .entry-content {
     line-height: 1.9em;
     padding:0 10px;
+    margin-top: 40px;
 }
 
 .post-type-archive-pauta .hentry .entry-content {
@@ -317,11 +324,11 @@ body.post-type-archive-pauta .entry-utility {
 }
 
 /* ================================================================================
-    Discussão-single
+    Discussï¿½o-single
    ================================================================================*/
 
 /* 
-   leader-discussão-single
+   leader-discussï¿½o-single
    ================================================================================*/
    
 .single-pauta #leader, h1.entry-title {
@@ -335,7 +342,6 @@ body.post-type-archive-pauta .entry-utility {
 	padding: 15px;
 	margin-bottom: 0;
 	overflow: hidden;
-	width: 880px;
 }
 
 .single-pauta #leader img {
@@ -356,6 +362,7 @@ body.post-type-archive-pauta .entry-utility {
 .single-pauta #leader .entry-meta {
     font-size: 11px;
     text-align: right;
+    clear: none;
 }
 
 .single-pauta #leader .entry-meta a {
@@ -427,7 +434,7 @@ span.delibera_seguir_text:hover {
 .single-pauta .hentry {
     float: left;
     background: #fff;
-    width: 910px;
+    width: 940px;
     border-radius: 15px;
 }
 
@@ -438,7 +445,7 @@ span.delibera_seguir_text:hover {
     float: left;
     line-height: 1.9em;
     padding: 20px 30px;
-    width: 878px;
+    width: 940px;
 }
 
 .single-pauta .entry-utility {
@@ -450,7 +457,7 @@ span.delibera_seguir_text:hover {
     padding-bottom:5px;
     padding: 0 15px;
     padding-top:1px;
-    width:880px;
+    width:940px;
     float:left;
     border:none;
 }
@@ -498,11 +505,17 @@ span.delibera_seguir_text:hover {
     text-align:right;
 }
 
+/*.single li.comment{
+	width: 864px;
+}*/
+
 .single li.comment, .author li.comment {
     border-bottom:1px solid #e9eeda;
     overflow:hidden;
     padding-top: 15px;
 }
+
+
 
 .author li.comment {
     border-left: 1px solid #F4F4F4;
@@ -528,12 +541,15 @@ span.delibera_seguir_text:hover {
   
 }
 
+.delibera-comment-text{
+	width: 500px;
+	margin-left: 10px;
+}
+
 .single .delibera-comment-text, .author .delibera-comment-text {
     color:#4f4f4f;
-    float:left;
-    width:600px;
-    margin-left:60px;
-    
+    clear: both;
+    width:500px;    
 }
 
 .single li.comment .reply a {
@@ -544,6 +560,7 @@ span.delibera_seguir_text:hover {
 li.comment .reply a:hover,  .single-pauta .entry-utility {
     opacity:1;
     margin-right: 30px !important;
+    margin-bottom: 20px;
 }
 
 a.comment-reply-link:hover{
@@ -627,7 +644,7 @@ span.delibera-unlike-count, .delibera_unlike span.delibera_unlike_reposta {
 
 
  /* 
-   resposta - discussão-single
+   resposta - discussï¿½o-single
    ================================================================================*/
  
 .single li.comment ul.children li {
@@ -646,7 +663,7 @@ span.delibera-unlike-count, .delibera_unlike span.delibera_unlike_reposta {
 }
 
  /* 
-   resposta-resposta - discussão-single
+   resposta-resposta - discussï¿½o-single
    ================================================================================*/
    
 .single li.comment ul.children li.depth-3 {
@@ -656,13 +673,18 @@ span.delibera-unlike-count, .delibera_unlike span.delibera_unlike_reposta {
 } 
 
  /* 
-   publicar-resposta - discussão-single
+   publicar-resposta - discussï¿½o-single
    ================================================================================*/
    
 .single-pauta h3#reply-title {
     color:#464646;
     font-family: 'Candal', arial, helvetica;
-    margin:10px 0;
+    margin:10px 0 0 20px;
+    float: left;
+}
+
+#painel_validacao{
+	clear:both;
 }
 
 .single-pauta p.comment-form-comment {
@@ -738,7 +760,7 @@ span.delibera-unlike-count, .delibera_unlike span.delibera_unlike_reposta {
 } 
 
 /* 
-  comentários - discussão-single
+  comentï¿½rios - discussï¿½o-single
   ================================================================================*/
 
 /* editar e deletar comentarios*/
@@ -754,7 +776,7 @@ span.delibera-unlike-count, .delibera_unlike span.delibera_unlike_reposta {
 }
 
  /* 
-   página de discussões - discussão-single (css antigo)
+   pï¿½gina de discussï¿½es - discussï¿½o-single (css antigo)
    ================================================================================*/
 
 #delibera h2, #delibera-header h2, #delibera-header h1.page-title {
@@ -930,7 +952,7 @@ label.encaminhamento-label {
     display: block;
     font-family: 'LucidaSansDemiboldRoman', arial, helvetica;
     font-size: 10px;
-    height: 15px;
+    /*height: 15px;*/
     opacity: 0.7;
     padding-right: 23px;
     padding-top: 5px;
@@ -1011,7 +1033,7 @@ input.baseadoem-checkbox {
     padding-top:5px;*/
     text-align:right;
     text-transform:uppercase;
-    width: 236px;
+    /*width: 236px;*/
 }
 
 input#baseadoem-checkbox-9 {
@@ -1072,7 +1094,7 @@ a#cancel-comment-reply-link {
 }
 
  /* 
-   votação - discussão-single (css antigo)
+   votaï¿½ï¿½o - discussï¿½o-single (css antigo)
    ================================================================================*/
 
 .instrucoes-votacao{
@@ -1089,7 +1111,7 @@ a#cancel-comment-reply-link {
 }
 
  /* 
-   Estilo de todas as discussões - discussão-single (css antigo)
+   Estilo de todas as discussï¿½es - discussï¿½o-single (css antigo)
    ================================================================================*/
 
 p.nocomments {
@@ -1282,7 +1304,7 @@ input .delibera-encaminha-label {
 }
 
 /* 
-  upload-form - discussão-single
+  upload-form - discussï¿½o-single
   ================================================================================*/
    
 #ecu_uploadform {
@@ -1308,7 +1330,7 @@ input .delibera-encaminha-label {
 }
 
 /* 
-  embed - discussão-single
+  embed - discussï¿½o-single
   ================================================================================*/
 
 #twitcamPlayer { 
@@ -1316,7 +1338,7 @@ input .delibera-encaminha-label {
 } 
 
 /* 
-  compartilhamento - discussão-single
+  compartilhamento - discussï¿½o-single
   ================================================================================*/
 
 .single .pauta .entry-share {
@@ -1381,7 +1403,7 @@ input .delibera-encaminha-label {
 }
   
 /* 
- temporários - css antigo
+ temporï¿½rios - css antigo
  ================================================================================*/
 
 .nav-next, .nav-previous {
@@ -1571,4 +1593,15 @@ h1.author {
 
 #entry-author-info {
     min-height:250px;
+}
+
+#delibera_commentform{
+	margin-left: 20px;
+	clear: both;
+}
+
+.entry-share{
+	background: none;
+	box-shadow: none;
+	padding: 0;
 }

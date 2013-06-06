@@ -102,21 +102,26 @@
 							</div>
 						</div>
 						<?php
-						if(comments_open(get_the_ID()) && is_user_logged_in())
-						{
-						?>
-							<div class="entry-respond">
-								<a href="<?php get_permalink() ?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'delibera' ); ?></a>
-							</div><!-- .entry-respond -->
-						<?php
-						}
-						elseif(delibera_comments_is_open(get_the_ID()) && !is_user_logged_in())
-						{
+						
+						$situacao = delibera_get_situacao($post->ID);
+						
+						if ($situacao->slug != 'validacao') {
+							if(comments_open(get_the_ID()) && is_user_logged_in())
+							{
 							?>
-							<div class="entry-respond">
-								<a href="<?php echo wp_login_url( get_post_type() == "pauta" ? get_permalink() : delibera_get_comment_link());?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'delibera' ); ?></a>
-							</div><!-- .entry-respond -->
-						<?php
+								<div class="entry-respond">
+									<a href="<?php get_permalink() ?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'delibera' ); ?></a>
+								</div><!-- .entry-respond -->
+							<?php
+							}
+							elseif(delibera_comments_is_open(get_the_ID()) && !is_user_logged_in())
+							{
+								?>
+								<div class="entry-respond">
+									<a href="<?php echo wp_login_url( get_post_type() == "pauta" ? get_permalink() : delibera_get_comment_link());?>#respond" class="comment-reply-link"><?php _e( 'Responder', 'delibera' ); ?></a>
+								</div><!-- .entry-respond -->
+							<?php
+							}
 						}
 						?>
 						

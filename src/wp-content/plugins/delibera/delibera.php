@@ -29,6 +29,8 @@ if(!defined('__DIR__')) {
     define("__DIR__", substr(__FILE__, 0, $iPos) . DIRECTORY_SEPARATOR);
 }
 
+define('DELIBERA_ABOUT_PAGE', __('sobre-a-plataforma', 'delibera'));
+
 // End Defines
 
 // Parse shorttag
@@ -42,6 +44,9 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_shortcodes.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_widgets.php';
 
 // End Parse widgets
+
+// pagina de configuracao do plugin
+require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_conf.php';
 
 // Inicialização do plugin
 
@@ -342,7 +347,7 @@ function delibera_Add_custom_taxonomy()
 				)
 			);
 		}
-		if($opt['relatoria'] == 'S')
+		if(isset($opt['relatoria']) && $opt['relatoria'] == 'S')
 		{
 			if($opt['eleicao_relator'] == 'S')
 			{
@@ -388,7 +393,7 @@ function delibera_Add_custom_taxonomy()
 				)
 			);
 		}
-		if($opt['validacao'] == 'S')
+		if(isset($opt['validacao']) && $opt['validacao'] == 'S')
 		{
 			if(term_exists('validacao', 'situacao', null) == false)
 			{
@@ -666,6 +671,8 @@ function delibera_pauta_meta()
 	)
 	{
 		$disable_edicao = 'readonly="readonly"';
+	} else {
+	    $disable_edicao = '';
 	}
 	
 	if(!($post->post_status == 'draft' ||
@@ -688,14 +695,14 @@ function delibera_pauta_meta()
 		</p>
 		<p>
 			<label for="prazo_validacao" class="label_prazo_validacao"><?php _e('Prazo para Validação','delibera') ?>:</label>
-			<input <?php echo $disable_edicao ?> id="prazo_validacao" name="prazo_validacao" class="prazo_validacao widefat hasDatepicker" value="<?php echo $prazo_validacao; ?>"/>
+			<input <?php echo $disable_edicao ?> id="prazo_validacao" name="prazo_validacao" class="prazo_validacao widefat hasdatepicker" value="<?php echo $prazo_validacao; ?>"/>
 		</p>
 	<?php
 	} 
 	?>
 	<p>
 		<label for="prazo_discussao" class="label_prazo_discussao"><?php _e('Prazo para Discussões','delibera') ?>:</label>
-		<input <?php echo $disable_edicao ?> id="prazo_discussao" name="prazo_discussao" class="prazo_discussao widefat hasDatepicker" value="<?php echo $prazo_discussao; ?>"/>
+		<input <?php echo $disable_edicao ?> id="prazo_discussao" name="prazo_discussao" class="prazo_discussao widefat hasdatepicker" value="<?php echo $prazo_discussao; ?>"/>
 	</p>
 	<?php 
 	if($options_plugin_delibera['relatoria'] == "S")
@@ -705,21 +712,21 @@ function delibera_pauta_meta()
 		?>
 			<p>
 				<label for="prazo_eleicao_relator" class="label_prazo_eleicao_relator"><?php _e('Prazo para Eleição de Relator','delibera') ?>:</label>
-				<input <?php echo $disable_edicao ?> id="prazo_eleicao_relator" name="prazo_eleicao_relator" class="prazo_eleicao_relator widefat hasDatepicker" value="<?php echo $prazo_eleicao_relator; ?>"/>
+				<input <?php echo $disable_edicao ?> id="prazo_eleicao_relator" name="prazo_eleicao_relator" class="prazo_eleicao_relator widefat hasdatepicker" value="<?php echo $prazo_eleicao_relator; ?>"/>
 			</p>
 		<?php
 		}
 	?>
 		<p>
 			<label for="prazo_relatoria" class="label_prazo_relatoria"><?php _e('Prazo para Relatoria','delibera') ?>:</label>
-			<input <?php echo $disable_edicao ?> id="prazo_relatoria" name="prazo_relatoria" class="prazo_relatoria widefat hasDatepicker" value="<?php echo $prazo_relatoria; ?>"/>
+			<input <?php echo $disable_edicao ?> id="prazo_relatoria" name="prazo_relatoria" class="prazo_relatoria widefat hasdatepicker" value="<?php echo $prazo_relatoria; ?>"/>
 		</p>
 	<?php
 	}
 	?>
 	<p>
 		<label for="prazo_votacao" class="label_prazo_votacao"><?php _e('Prazo para Votações','delibera') ?>:</label>
-		<input <?php echo $disable_edicao ?> id="prazo_votacao" name="prazo_votacao" class="prazo_votacao widefat hasDatepicker" value="<?php echo $prazo_votacao; ?>"/>
+		<input <?php echo $disable_edicao ?> id="prazo_votacao" name="prazo_votacao" class="prazo_votacao widefat hasdatepicker" value="<?php echo $prazo_votacao; ?>"/>
 	</p>
 	<?php
 }
@@ -889,17 +896,14 @@ function delibera_tratar_prazo_discussao($args)
 			if($opts['eleicao_relator'] == 'S')
 			{
 				wp_set_object_terms($post_id, 'eleicaoredator', 'situacao', false); //Mudar situação para Votação
-				//delibera_notificar_situacao($post_id);
 			}
 			elseif($opts['relatoria'] == 'S')
 			{
 				wp_set_object_terms($post_id, 'relatoria', 'situacao', false); //Mudar situação para Votação
-				//delibera_notificar_situacao($post_id);
 			}
 			else 
 			{
 				wp_set_object_terms($post_id, 'emvotacao', 'situacao', false); //Mudar situação para Votação
-				//delibera_notificar_situacao($post_id); 
 			}
 			if(has_action('delibera_discussao_concluida'))
 			{
@@ -1131,7 +1135,7 @@ function delibera_check_post_data($data, $postarr)
 	$opt = delibera_get_config();
 	$erros = array();
 	$autosave = ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE );
-	if(get_post_type() == 'pauta' && $_POST['action'] != 'trash' && $_REQUEST['action'] != 'trash')
+	if(get_post_type() == 'pauta' && (!isset($_REQUEST['action']) || $_REQUEST['action'] != 'trash'))
 	{
 		if($opt['validacao'] == 'S')
 		{
@@ -1238,8 +1242,9 @@ function delibera_comment_text($commentText)
 	global $comment, $post, $delibera_comments_padrao;
 	if(get_post_type($post) == "pauta" && $delibera_comments_padrao !== true)
 	{
-		$commentText = delibera_comment_text_filtro($commentText, $comment->comment_ID);
-		$tipo = get_comment_meta($comment->comment_ID, "delibera_comment_tipo", true);
+		$commentId = isset($comment) ? $comment->comment_ID : false;
+		$commentText = delibera_comment_text_filtro($commentText, $commentId);
+		$tipo = get_comment_meta($commentId, "delibera_comment_tipo", true);
 		$total = 0;
 		$nvotos = 0;
 		switch ($tipo)
@@ -1274,7 +1279,7 @@ function delibera_comment_text($commentText)
 					}
 					$commentText = "<div id=\"delibera-comment-text-".$comment->comment_ID."\" class='".$class_comment."'>".$commentText."</div>";
 				}
-				elseif($situacao->slug == 'comresolucao')
+				elseif($situacao->slug == 'comresolucao' && !defined('PRINT'))
 				{
 					$total = get_post_meta($comment->comment_post_ID, 'delibera_numero_comments_votos', true);
 					$nvotos = get_comment_meta($comment->comment_ID, "delibera_comment_numero_votos", true);
@@ -1995,12 +2000,17 @@ function delibera_form_table($rows) {
 	$content = '<table class="form-table">';
 	foreach ($rows as $row) {
 		$content .= '<tr '.(array_key_exists('row-id', $row) ? 'id="'.$row['row-id'].'"' : '' ).' '.(array_key_exists('row-style', $row) ? 'style="'.$row['row-style'].'"' : '' ).' '.(array_key_exists('row-class', $row) ? 'class="'.$row['row-class'].'"' : '' ).' ><th valign="top" scrope="row">';
-		if (isset($row['id']) && $row['id'] != '')
-			$content .= '<label for="'.$row['id'].'">'.$row['label'].':</label>';
-		else
+        
+		if (isset($row['id']) && $row['id'] != '') {
+			$content .= '<label for="'.$row['id'].'">'.$row['label'].'</label>';
+		} else {
 			$content .= $row['label'];
-		if (isset($row['desc']) && $row['desc'] != '')
+		}
+        
+		if (isset($row['desc']) && $row['desc'] != '') {
 			$content .= '<br/><small>'.$row['desc'].'</small>';
+		}
+
 		$content .= '</th><td valign="top">';
 		$content .= $row['content'];
 		$content .= '</td></tr>'; 
@@ -2023,180 +2033,6 @@ function delibera_postbox($id, $title, $content) {
 	</div>
 <?php
 }	
-
-/**
- * Gera a página de configuração/Tratamento dos dados de Post
- */
-function delibera_conf_page()
-{
-
-	if ($_SERVER['REQUEST_METHOD']=='POST')
-	{
-		
-		if (!current_user_can('manage_options')) die(__('Você não pode editar as configurações do delibera.','delibera'));
-		check_admin_referer('delibera-config');
-			
-		foreach ( array_keys(delibera_get_config()) as $option_name
-		)
-		{
-			if (isset($_POST[$option_name]))
-			{
-				$opt[$option_name] = htmlspecialchars($_POST[$option_name]);
-			}
-			else 
-			{
-				$opt[$option_name] = "N";
-			}
-		}
-
-		if(
-			isset($_POST["delibera_reinstall"]) &&
-			$_POST['delibera_reinstall'] == 'S'
-		)
-		{
-			try
-			{
-				include_once __DIR__.DIRECTORY_SEPARATOR.'delibera_reinstall.php';
-			}
-			catch (Exception $e)
-			{
-				wp_die($e->getMessage());
-			}
-		}
-		
-		if (update_option('delibera-config', $opt) || (isset($_POST["delibera_reinstall"]) && $_POST['delibera_reinstall'] == 'S'))
-			$mensagem = __('Configurações salvas!','delibera');
-		else
-			$mensagem = __('Erro ao salvar as configurações. Verifique os valores inseridos e tente novamente!','delibera');
-	}
-
-	$opt = delibera_get_config();
-	?>
-		
-<div class="wrap">
-<h2>Configurações gerais</h2>
-<div class="postbox-container" style="width:80%;">
-	<div class="metabox-holder">	
-		<div class="meta-box-sortables">
-			<?php if ($mensagem) {?>
-			<div id="message" class="updated">
-			<?php echo $mensagem; ?>
-			</div>
-			<?php }?>
-			<form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" id="delibera-config" >
-			<?php if (function_exists('wp_nonce_field')) 		
-					wp_nonce_field('delibera-config');
-						
-				$rows = array();
-				if(is_multisite() && get_current_blog_id() == 1)
-				{
-					$rows[] = array(
-						"id" => "plan_restriction",
-						"label" => __('Sistema de planos de pagamento ativo?','delibera'),
-						"content" => '<input type="checkbox" name="plan_restriction" id="plan_restriction" value="S" '. ( htmlspecialchars_decode($opt['plan_restriction']) == "S" ? "checked='checked'" : "" ).'/>',
-					);
-				}
-				$rows[] = array(
-					"id" => "representante_define_prazos",
-					"label" => __('Representante define prazos?','delibera'),
-					"content" => '<input type="checkbox" name="representante_define_prazos" id="representante_define_prazos" value="S" '. ( htmlspecialchars_decode($opt['representante_define_prazos']) == "S" ? "checked='checked'" : "" ).'/>',
-				);
-				$rows[] = array(
-					"id" => "validacao",
-					"label" => __('É Necessário Validação?','delibera'),
-					"content" => '<input type="checkbox" name="validacao" value="S" '.(htmlspecialchars_decode($opt['validacao']) == 'S' ? 'checked="checked"' : '').' />'
-				);
-				$rows[] = array(
-					"id" => "minimo_validacao",
-					"label" => __('Mínimo de adesões para pauta','delibera'),
-					"content" => '<input type="text" name="minimo_validacao" id="minimo_validacao" value="'.htmlspecialchars_decode($opt['minimo_validacao']).'"/>'
-				);
-				
-				$rows[] = array(
-					"id" => "dias_validacao",
-					"label" => __('Dias para validação da pauta','delibera'),
-					"content" => '<input type="text" name="dias_validacao" id="dias_validacao" value="'.htmlspecialchars_decode($opt['dias_validacao']).'"/>'
-				);
-				
-				$rows[] = array(
-					"id" => "dias_discussao",
-					"label" => __('Dias para discussão da pauta','delibera'),
-					"content" => '<input type="text" name="dias_discussao" id="dias_discussao" value="'.htmlspecialchars_decode($opt['dias_discussao']).'"/>'
-				);
-				
-				$rows[] = array(
-					"id" => "dias_votacao",
-					"label" => __('Dias para votação de encaminhamentos','delibera'),
-					"content" => '<input type="text" name="dias_votacao" id="dias_votacao" value="'.htmlspecialchars_decode($opt['dias_votacao']).'"/>'
-				);
-				
-				$rows[] = array(
-					"id" => "dias_novo_prazo",
-					"label" => __('Dias para novo prazo','delibera'),
-					"content" => '<input type="text" name="dias_novo_prazo" id="dias_novo_prazo" value="'.htmlspecialchars_decode($opt['dias_novo_prazo']).'"/>'
-				);
-				$rows[] = array(
-					"id" => "relatoria",
-					"label" => __('Necessário Relatoria?','delibera'),
-					"content" => '<input type="checkbox" name="relatoria" value="S" '.(htmlspecialchars_decode($opt['relatoria']) == 'S' ? 'checked="checked"' : '').' />'
-				);
-				$rows[] = array(
-					"id" => "dias_relatoria",
-					"label" => __('Prazo para Relatoria','delibera'),
-					"content" => '<input type="text" name="dias_relatoria" id="dias_relatoria" value="'.htmlspecialchars_decode($opt['dias_relatoria']).'"/>'
-				);
-				$rows[] = array(
-					"id" => "eleicao_relator",
-					"label" => __('Necessário Eleição de Relator?','delibera'),
-					"content" => '<input type="checkbox" name="eleicao_relator" value="S" '.(htmlspecialchars_decode($opt['eleicao_relator']) == 'S' ? 'checked="checked"' : '').' />'
-				);
-				$rows[] = array(
-					"id" => "dias_votacao_relator",
-					"label" => __('Prazo para Eleição de Relator','delibera'),
-					"content" => '<input type="text" name="dias_votacao_relator" id="dias_votacao_relator" value="'.htmlspecialchars_decode($opt['dias_votacao_relator']).'"/>'
-				);
-				$rows[] = array(
-					"id" => "limitar_tamanho_comentario",
-					"label" => __('Necessário Limitar o Tamanho do comentário visível?','delibera'),
-					"content" => '<input type="checkbox" name="limitar_tamanho_comentario" value="S" '.(htmlspecialchars_decode($opt['limitar_tamanho_comentario']) == 'S' ? 'checked="checked"' : '').' />'
-				);
-				$rows[] = array(
-					"id" => "numero_max_palavras_comentario",
-					"label" => __('Número máximo de caracteres por comentário','delibera'),
-					"content" => '<input type="text" name="numero_max_palavras_comentario" id="numero_max_palavras_comentario" value="'.htmlspecialchars_decode($opt['numero_max_palavras_comentario']).'"/>'
-				);
-				$rows[] = array(
-					"id" => "delibera_reinstall",
-					"label" => __('Importar novas configurações de arquivo externo?','delibera'),
-					"content" => '<input type="checkbox" name="delibera_reinstall" value="S" />'
-				);
-				$rows[] = array(
-					"id" => "cabecalho_arquivo",
-					"label" => __('Cabeçalho da página de arquivo do sistema (lista de pautas)','delibera'),
-					"content" => '<input type="text" name="cabecalho_arquivo" id="cabecalho_arquivo" value="'.htmlspecialchars_decode($opt['cabecalho_arquivo']).'"/>'
-				);
-				$table = delibera_form_table($rows);
-				if(has_filter('delibera_config_form'))
-				{
-					$table = apply_filters('delibera_config_form', $table, $opt);
-				}
-				delibera_postbox('delibera-config',__('Configurações para o plugin Delibera','delibera'), $table.'<div class="submit"><input type="submit" class="button-primary" name="submit" value="'.__('Salvar as configurações do Delibera','delibera').'" /></form></div>');
-			?>
-				
-				</form>
-			</div> <!-- meta-box-sortables -->
-		</div> <!-- meta-box-holder -->
-	</div> <!-- postbox-container -->
-
-	<?php do_action('delibera_config_page_extra');?>
-	
-</div>
-
-<?php	
-
-}
-
-// Fim Página de configuração
 
 // Scripts
 
@@ -2223,7 +2059,11 @@ add_action('wp_print_styles', 'delibera_print_styles');*/
 
 function delibera_print_styles()
 {
-	wp_enqueue_style('delibera_style', WP_CONTENT_URL.'/plugins/delibera/delibera.css');
+	if (is_pauta()) {
+		wp_enqueue_style('jquery-ui-custom', plugins_url() . '/delibera/css/jquery-ui-1.9.2.custom.min.css');
+	}
+	
+	wp_enqueue_style('delibera_style', WP_CONTENT_URL.'/plugins/delibera/css/delibera.css');
 } 
 add_action('admin_print_styles', 'delibera_print_styles');
 
@@ -2234,7 +2074,7 @@ function delibera_admin_scripts()
 		wp_enqueue_script('jquery-ui-datepicker-ptbr', WP_CONTENT_URL.'/plugins/delibera/js/jquery.ui.datepicker-pt-BR.js', array('jquery-ui-datepicker'));
 		wp_enqueue_script('delibera-admin',WP_CONTENT_URL.'/plugins/delibera/js/admin_scripts.js', array( 'jquery-ui-datepicker-ptbr'));
 	}
-	if($_REQUEST['page'] == 'delibera-config')
+	if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'delibera-config')
 	{
 		wp_enqueue_script('delibera-admin-notifica',WP_CONTENT_URL.'/plugins/delibera/js/admin_notifica_scripts.js', array('jquery'));
 	}
@@ -2247,66 +2087,48 @@ add_action( 'admin_print_scripts', 'delibera_admin_scripts' );
  * Rotinas de instalação do plugin
  */
 
-function delibera_get_config()
-{
-	$opt = array();
-	$opt['minimo_validacao'] = '10';
-	$opt['dias_validacao'] = '5';
-	$opt['dias_discussao'] = '5';
-	$opt['dias_votacao'] = '5';
-	$opt['representante_define_prazos'] = 'N';
-	$opt['dias_novo_prazo'] = '2';
-	$opt['validacao'] = 'S';
-	$opt['dias_relatoria'] = '2';
-	$opt['relatoria'] = 'N';
-	$opt['eleicao_relator'] = 'N';
-	$opt['dias_votacao_relator'] = '2';
-	$opt['limitar_tamanho_comentario'] = 'N';
-	$opt['numero_max_palavras_comentario'] = '50';
-	$opt['plan_restriction'] = 'N';
-	$opt['cabecalho_arquivo'] = false;
-	
-	
-	$opt_conf = get_option('delibera-config');
-	if(!is_array($opt_conf)) $opt_conf = array();
-	$opt = array_merge($opt, $opt_conf);
-	if(has_filter('delibera_get_config'))
-	{
-		$opt = apply_filters('delibera_get_config', $opt);
-	}
-	return $opt;
-} 
-
 function delibera_instalacao() 
 { 
-	// simple check to see if pautas capabilities are in place. We only set them if not.
-	$Role = get_role('administrator');
-	if(!$Role->has_cap('publish_pautas'))
-	{
-		// Inicialização das configurações padrão
-		$opt = delibera_get_config();
-			
-		update_option('delibera-config', $opt);
-		if(file_exists(__DIR__.DIRECTORY_SEPARATOR.'delibera_roles.php'))
-		{
-			$delibera_permissoes = array();
-			require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_roles.php';
-			delibera_roles_install($delibera_permissoes);
-		}
-	}
 	if(is_multisite())
 	{
 		$id = get_current_blog_id();
 		switch_to_blog(1);
-			delibera_wpmu_new_blog($id);
+		delibera_wpmu_new_blog($id);
 		restore_current_blog();
 	}
+	
+	if (!get_page_by_slug(DELIBERA_ABOUT_PAGE)) {
+		$post = array(
+			'post_name' => DELIBERA_ABOUT_PAGE,
+			'post_title' => __('Sobre a plataforma', 'delibera'),
+	        'post_content' => __('Use está página para explicar para os usuários como utilizar o sistema', 'delibera'),
+	        'post_type' => 'page',
+	        'post_status' => 'publish',
+		);
+		wp_insert_post($post);
+	}
 }
-register_activation_hook(__FILE__,'delibera_instalacao');
+register_activation_hook(__FILE__, 'delibera_instalacao');
 
-
-add_action('admin_init','delibera_instalacao');
-
+function delibera_install_roles()
+{
+	// simple check to see if pautas capabilities are in place. We only set them if not.
+	$Role = get_role('administrator');
+	if(!$Role->has_cap('publish_pautas'))
+	{
+	    // Inicialização das configurações padrão
+	    $opt = delibera_get_config();
+	    	
+	    update_option('delibera-config', $opt);
+	    if(file_exists(__DIR__.DIRECTORY_SEPARATOR.'delibera_roles.php'))
+	    {
+	        $delibera_permissoes = array();
+	        require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_roles.php';
+	        delibera_roles_install($delibera_permissoes);
+	    }
+	}
+}
+add_action('admin_init', 'delibera_install_roles');
 
 function delibera_roles_install($delibera_permissoes)
 {
@@ -2780,7 +2602,7 @@ function delibera_comment_number($postID, $tipo)
 			return doubleval(get_post_meta($postID, 'delibera_numero_comments_votos', true));
 		break;
 		/*case 'resolucao':
-			return doubleval(get_post_meta($postID, 'delibera_numero_comments_resolucoes', true));
+			return doubleval(get_post_meta($postID, 'delibera_numero_comments_resolucoes', true)); TODO Número de resoluções, baseado no mínimo de votos, ou marcação especial
 		break;*/
 		case 'todos':
 			return get_post($postID)->comment_count;
@@ -2794,6 +2616,11 @@ function delibera_comment_number($postID, $tipo)
 function delibera_comment_number_filtro($count, $postID)
 {
 	$situacao = delibera_get_situacao($postID);
+	
+	if (!$situacao) {
+		return;
+	}
+	
 	switch($situacao->slug)
 	{
 		case 'validacao':
@@ -2833,7 +2660,7 @@ function delibera_restrict_listings()
 			'taxonomy' => $taxonomy,
 			'name' => 'situacao',
 			'orderby' => 'id',
-			'selected' => $_REQUEST['situacao'],
+			'selected' => isset($_REQUEST['situacao']) ? $_REQUEST['situacao'] : '',
 			'hierarchical' => false,
 			'depth' => 1,
 			'show_count' => true, // This will give a view
@@ -2847,7 +2674,8 @@ function delibera_convert_situacao_id_to_taxonomy_term_in_query(&$query)
 {
 	global $pagenow; 
 	$qv = &$query->query_vars;
-	if ($qv['post_type'] == 'pauta' &&
+	if (isset($qv['post_type']) &&
+		$qv['post_type'] == 'pauta' &&
 		$pagenow=='edit.php' &&
 		isset($qv['situacao'])
 	)
@@ -2861,7 +2689,7 @@ add_filter('parse_query','delibera_convert_situacao_id_to_taxonomy_term_in_query
 /**
  * Notificações do sistema.
  */
-require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_notifica.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_notificar.php';
 
 /**
  * Perfil do usuário
@@ -3209,4 +3037,21 @@ function get_page_by_slug($page_slug, $output = OBJECT, $post_type = 'page' ) {
 	return null;
 }
 
-?>
+/**
+ * Retorna a lista de idiomas disponível. Se o plugin
+ * qtrans estiver habilitado retorna os idiomas dele, se
+ * não usa o idioma definido no wp-config.php
+ * 
+ * @return array
+ */
+function delibera_get_available_languages() {
+    $langs = array(get_locale());
+    
+    if(function_exists('qtrans_enableLanguage'))
+    {
+        global $q_config;
+        $langs = $q_config['enabled_languages'];
+    }
+
+    return $langs;
+}

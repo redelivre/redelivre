@@ -119,7 +119,7 @@ class Delibera_Walker_Comment extends Walker_Comment
 			}
 			comment_text();
 			delibera_comment_edit_form();
-			if ($tipo == "encaminhamento" && current_user_can('relatoria') && ($situacao->slug == "discussao" || $situacao->slug == "relatoria"))
+			if ($tipo == "encaminhamento" && current_user_can('relatoria') && (/*$situacao->slug == "discussao" || TODO Opção de baseamento na discussão */ $situacao->slug == "relatoria"))
 			{
 				?>
 				<div class="baseadoem-checkbox-div"><label class="baseadoem-checkbox-label"><input id="baseadoem-checkbox-<?php echo $comment->comment_ID; ?>" type="checkbox" name="baseadoem-checkbox[]" value="<?php echo $comment->comment_ID; ?>" class="baseadoem-checkbox" autocomplete="off" /><?php _e('basear-se neste encaminhamento?', 'delibera'); ?></label></div>

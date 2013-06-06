@@ -107,6 +107,17 @@ function facebook_share () {
     echo '<meta property="og:type" content="blog"/>'.PHP_EOL;
 }
 
+function redirect_mobilizacao()
+{
+	$uri  = $_SERVER['REQUEST_URI'];
+		
+	if (preg_match('/mobilizacao/i', $uri)) {
+		wp_redirect('/mobilize');
+		exit;
+	}
+}
+
+add_action('init', 'redirect_mobilizacao', 100);
 add_action('admin_menu', 'mobilize_add_menu_page');
 add_action('template_redirect', 'mobilize_tpl');
 add_action('wp_head', 'facebook_share');
