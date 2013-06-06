@@ -227,7 +227,6 @@ function print_template_comments($file = '') {
 	return $file;
 }
 
-
 ### Function: Print Page Title
 function print_pagetitle($page_title) {
 	$page_title .= ' &raquo; '.__('Print', 'wp-print');

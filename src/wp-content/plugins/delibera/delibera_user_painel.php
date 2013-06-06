@@ -46,7 +46,7 @@ function delibera_get_user_campos_form_registro()
 		$campos_form_registro = apply_filters('delibera_user_painel_campos', $campos_form_registro);
 	}
 	
-	if(function_exists(get_user_campos_form_registro))
+	if(function_exists('get_user_campos_form_registro'))
 	{
 		$get_user_campos_form_registro = get_user_campos_form_registro();
 		if(is_array($get_user_campos_form_registro))

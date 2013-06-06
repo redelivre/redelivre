@@ -1,18 +1,18 @@
 <?php
 /*
 +----------------------------------------------------------------+
-|																							|
-|	WordPress 2.7 Plugin: WP-Print 2.50										|
-|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
-|																							|
-|	File Written By:																	|
-|	- Lester "GaMerZ" Chan															|
-|	- http://lesterchan.net															|
-|																							|
-|	File Information:																	|
-|	- Printer Friendly Post/Page Template										|
-|	- wp-content/plugins/wp-print/print-posts.php							|
-|																							|
+|																 |
+|	WordPress 2.7 Plugin: WP-Print 2.50							 |
+|	Copyright (c) 2008 Lester "GaMerZ" Chan						 |
+|																 |
+|	File Written By:											 |
+|	- Lester "GaMerZ" Chan										 |
+|	- http://lesterchan.net										 |
+|																 |
+|	File Information:											 |
+|	- Printer Friendly Post/Page Template						 |
+|	- wp-content/plugins/wp-print/print-posts.php				 |
+|																 |
 +----------------------------------------------------------------+
 */
 ?>
@@ -62,6 +62,5 @@
 		<?php endif; ?>
 	</div>
 </div>
-<p style="text-align: center;"><?php echo stripslashes($print_options['disclaimer']); ?></p>
 </body>
 </html>

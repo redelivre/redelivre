@@ -221,7 +221,7 @@ function delibera_mailer_mailer($id,$comment_parent,$comment_post, $tipo = 'repl
 					{
 						$lang = get_user_meta($user->ID, 'user_idioma', true);
 						
-						if(strlen($lang) == 0) $lang = defined('WPLANG')? WPLANG : 'pt_BR';
+						if(strlen($lang) == 0) $lang = defined('WPLANG') && strlen(WPLANG) > 0 ? WPLANG : get_locale();
 						
 						if(array_key_exists("mailer_$tipo-$lang", $options_plugin_delibera))
 						{

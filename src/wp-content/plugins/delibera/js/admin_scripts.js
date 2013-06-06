@@ -1,6 +1,6 @@
 jQuery(document).ready(function()
 {
-	jQuery('.hasDatepicker').datepicker({
+	jQuery('.hasdatepicker:not([readonly])').datepicker({
 		userLang	: 'pt-BR',
 		americanMode: false,
 	}); 				

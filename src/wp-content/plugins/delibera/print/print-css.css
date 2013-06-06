@@ -76,6 +76,6 @@ HR.Divider {
 	margin: 10px 0 5px 10px;
 }
 
-div.print-comment-body.encaminhamento {
+div.print-comment-body.encaminhamento, div.print-comment-body.resolucao {
 	border: 1px solid #000;
 }

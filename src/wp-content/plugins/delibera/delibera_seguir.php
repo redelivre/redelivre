@@ -55,7 +55,7 @@ function delibera_ja_seguiu($postID, $user_id, $ip)
 	{
 		foreach ($seguiram as $seguiu)
 		{
-			if($user_id == $seguiu['user'])
+			if(array_key_exists('user', $seguiu) && $user_id == $seguiu['user'])
 			{
 				return true;
 			}

@@ -206,4 +206,41 @@ class delibera_timeline
 	
 }
 
+add_filter('query_vars', 'timeline_variables');
+function timeline_variables($public_query_vars) {
+	$public_query_vars[] = 'delibera_timeline';
+	$public_query_vars[] = 'delibera_timelinepage';
+	return $public_query_vars;
+}
+
+function delibera_timeline_template_redirect()
+{
+	if(intval(get_query_var('delibera_timeline')) == 1 || intval(get_query_var('delibera_timelinepage')) == 1)
+	{
+		wp_enqueue_style('delibera_timeline_css',  WP_CONTENT_URL.'/plugins/delibera/timeline/delibera_timeline.css');
+		wp_enqueue_script( 'delibera_timeline_js', WP_CONTENT_URL.'/plugins/delibera/timeline/js/delibera_timeline.js', array( 'jquery' ));
+		wp_enqueue_script( 'jquery-ui-draggable');
+		echo delibera_timeline(get_the_ID());
+	}
+}
+
+add_action('template_redirect', 'delibera_timeline_template_redirect', 5);
+
+new delibera_timeline();
+
+function delibera_timeline($post_id = false, $tipo_data = false)
+{
+	$timeline = new delibera_timeline();
+	$timeline->generate($post_id, $tipo_data);
+}
+
+function delibera_replace_timeline($args)
+{
+	$atts = array('post_id' => false, 'tipo_data' => false);
+	$atts = array_merge($atts, $args);
+
+	return delibera_timeline($atts['post_id'], $atts['tipo_data']);
+}
+add_shortcode( 'delibera_timeline', 'delibera_replace_timeline' );
+
 ?>
