@@ -1221,6 +1221,11 @@ function delibera_get_comment_link($comment_pass = false)
 	{
 		$comment = $comment_pass;
 	}
+
+	if(!isset($comment))
+	{
+		return str_replace('#comment', '#delibera-comment', get_comments_link());
+	}
 	
 	return str_replace('#comment', '#delibera-comment', get_comment_link($comment));
 }

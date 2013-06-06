@@ -720,7 +720,7 @@ span.delibera-unlike-count, .delibera_unlike span.delibera_unlike_reposta {
 }
 
 #respond input {
-    margin:0 !important;
+    margin:10px 0 !important;
     width: auto !important;
 }
 
@@ -1347,6 +1347,9 @@ input .delibera-encaminha-label {
     margin: 10px;
     margin-left: 12px;
     width: 300px !important;
+    background: transparent;
+	box-shadow: none;
+	padding: 0;
 }
 .single .entry-share {
     float:left;
@@ -1601,7 +1604,14 @@ h1.author {
 }
 
 .entry-share{
-	background: none;
+	background: transparent;
 	box-shadow: none;
 	padding: 0;
+}
+
+#lista-de-pautas .entry-prazo{
+	display: block;
+	color: #CD334E !important;
+	font-weight: bold;
+	
 }
