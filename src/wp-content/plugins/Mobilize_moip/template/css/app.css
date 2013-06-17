@@ -1,0 +1,37 @@
+.clear { clear: both; }
+
+.moip-check { cursor: pointer; }
+
+.contribuicao {
+	display: inline-block;
+	margin-top: 10px;
+	padding-bottom: 5px;
+	border-bottom: 1px dashed #999;
+}
+
+.colorSelector1, .colorSelector2, .colorSelector3 {
+	float: left;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+	overflow: hidden;
+	border: 2px solid #FFF;
+}
+
+.cores {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.cores label.description {
+	text-align: center;
+}
+
+.cores label {
+	display: block;
+	margin-bottom: 2px;
+}

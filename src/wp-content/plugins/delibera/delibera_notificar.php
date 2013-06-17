@@ -25,7 +25,66 @@
 	return has_filter('delibera_notificar_get_tipos') ? apply_filters('delibera_notificar_get_tipos', $tipos) : $tipos;   
 }*/
 
-function delibera_notificar_get_config($config)
+function delibera_notifications_menu_action($base_page)
+{
+	add_submenu_page($base_page, __('Notificações', 'delibera'), __('Notificações', 'delibera'), 'manage_options', 'delibera-notifications', 'delibera_notifications_page' );
+}
+add_action('delibera_menu_itens', 'delibera_notifications_menu_action', 10, 1);
+
+function delibera_notifications_page()
+{
+	$mensagem = '';
+	$opt = delibera_get_config();
+	$notification_options = delibera_get_notification_config();
+	
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		if (!current_user_can('manage_options')) {
+			die(__('Você não pode editar as configurações do delibera.', 'delibera'));
+		}
+		check_admin_referer('delibera-notifications');
+
+		foreach (array_keys($notification_options) as $option_name) {
+			if (isset($_POST[$option_name])) {
+				$opt[$option_name] = htmlspecialchars($_POST[$option_name]);
+			} else {
+			    $opt[$option_name] = 'N';
+			}
+		}
+
+		if (update_option('delibera-config', $opt)) {
+			$mensagem = __('Configurações salvas!','delibera');
+		} else {
+			$mensagem = __('Erro ao salvar as configurações. Verifique os valores inseridos e tente novamente!','delibera');
+		}
+	}
+
+	?>
+	<div class="wrap">
+		<h2>Notificações</h2>
+		<div class="postbox-container" style="width:80%;">
+			<div class="metabox-holder">	
+				<div class="meta-box-sortables">
+					<?php if ($mensagem) : ?>
+						<div id="message" class="updated">
+							<?php echo $mensagem; ?>
+						</div>
+					<?php endif; ?>
+					<form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" id="delibera-config" >
+						<?php
+						wp_nonce_field('delibera-notifications');
+		
+						$table = delibera_nofiticar_config_page();
+						delibera_postbox('delibera-notifications', __('Notificações', 'delibera'), $table . '<div class="submit"><input type="submit" class="button-primary" name="submit" value="' . __('Save Changes') . '" /></div>');
+						?>
+					</form>
+				</div> <!-- meta-box-sortables -->
+			</div> <!-- meta-box-holder -->
+		</div> <!-- postbox-container -->
+	</div>
+	<?php
+}
+
+function delibera_get_notification_config($config = array())
 {
 	$opt['notificacoes'] = "S";
 	foreach (delibera_nofiticar_get_tipos() as $notif)
@@ -34,7 +93,7 @@ function delibera_notificar_get_config($config)
 	}
 	
 	$opt['mensagem_criacao_pauta_assunto'] = __('Nova Pauta Criada','delibera'); 
-	$opt['mensagem_criacao_pauta'] = __('Nova Pauta:','delibera');
+	$opt['mensagem_criacao_pauta'] = __('Nova Pauta: {post_title}','delibera');
 	$opt['mensagem_validacao_assunto'] = __('Novo voto de validação: Pauta {post_title}','delibera');
 	$opt['mensagem_validacao'] = __(
 'A validação do usuário xxx na pauta {post_title} foi registrada no sistema. Acesse a pauta para verificar a situação: 
@@ -73,7 +132,7 @@ falta apenas 1 dia para o fim do prazo para validação da pauta {post_title}. C
 Equipe ÀgoraDelibera
 
 ';
-	$opt['mensagem_novo_comentario_assunto'] = __('Novo Comentário','delibera');
+	$opt['mensagem_novo_comentario_assunto'] = __('Novo Comentário em {post_title}','delibera');
 	$opt['mensagem_novo_comentario'] = __('Há um novo comentário na pauta seguida: ','delibera');
 	$opt['mensagem_fim_prazo_discussao_assunto'] = 'Fim de prazo para Discussão: Pauta {post_title}';
 	$opt['mensagem_fim_prazo_discussao'] = 'Olá {first_name},
@@ -152,14 +211,8 @@ Equipe ÀgoraDelibera
 
 ','delibera');
 	
-	$langs = array(get_locale());
-	
-	if(function_exists('qtrans_enableLanguage'))
-	{
-		global $q_config;
-		$langs = $q_config['enabled_languages'];
-	}
-		
+    $langs = delibera_get_available_languages();
+    
 	foreach ($langs as $lang)
 	{
 		foreach (delibera_nofiticar_get_tipos() as $notif)
@@ -171,8 +224,7 @@ Equipe ÀgoraDelibera
 	
 	return array_merge($opt, $config);
 }
-
-add_filter('delibera_get_config', 'delibera_notificar_get_config');
+add_filter('delibera_get_config', 'delibera_get_notification_config');
 
 function delibeta_nofiticar_config_page_row(&$rows, $opt, $tipo, $label = '', $lang = '')
 {
@@ -185,13 +237,13 @@ function delibeta_nofiticar_config_page_row(&$rows, $opt, $tipo, $label = '', $l
 	$rows2[] = array(
 		"id" => "mensagem_{$tipo}_assunto".$lang,
 		"row-id" => "row-mensagem_{$tipo}_assunto".$lang,
-		"label" => __('Assunto da mensagem padrão de notificação de '.$label,'delibera'),
+		"label" => __('Assunto da mensagem padrão de notificação de ' . $label . ':', 'delibera'),
 		"content" => '<input type="text" class="delibera-config-mensagem-assunto" name="mensagem_'.$tipo.'_assunto'.$lang.'" id="mensagem_'.$tipo.'_assunto'.$lang.'" value="'.htmlspecialchars_decode($opt['mensagem_'.$tipo.'_assunto'.$lang]).'"/>'
 	);
 	$rows2[] = array(
 		"id" => "mensagem_{$tipo}".$lang,
 		"row-id" => "row-mensagem_{$tipo}".$lang,
-		"label" => __('Mensagem padrão de notificação de '.$label,'delibera'),
+		"label" => __('Mensagem padrão de notificação de ' . $label . ':', 'delibera'),
 		"content" => '<textarea class="delibera-config-mensagem" name="mensagem_'.$tipo.$lang.'" id="mensagem_'.$tipo.$lang.'" >'.htmlspecialchars_decode($opt['mensagem_'.$tipo.$lang]).'</textarea>'
 	);
 	
@@ -212,8 +264,11 @@ function delibera_nofiticar_config_page_campos($opt, $lang = '')
 	return $rows;
 }
 
-function delibera_nofiticar_config_page($table, $opt)
+function delibera_nofiticar_config_page()
 {
+	$table = '';
+	$opt = delibera_get_config();
+	
 	$rows = array();
 	$rows[] = array(
 		"id" => "notificacoes",
@@ -222,6 +277,7 @@ function delibera_nofiticar_config_page($table, $opt)
 	);
 	$table .= delibera_form_table($rows);
 	$rows_lang = array();
+	
 	if(function_exists('qtrans_enableLanguage'))
 	{
 		$head = "<div id=\"delibera-mensagens-notificacoes-painel\" ".(htmlspecialchars_decode($opt['notificacoes']) == 'S' ? '' : 'style="display:none"')." ><div id=\"delibera-mensagens-notificacoes\"><label id=\"label-delibera-mensagens-notificacoes\" >".__('Selecione uma língua para configurar as notificações em cada idioma', 'delibera')."</label>";
@@ -271,15 +327,12 @@ function delibera_nofiticar_config_page($table, $opt)
 			
 		
 		$table .= $head."</div>";
-		
-		
-//		$rows_lang = delibera_nofiticar_config_page_campos($opt);
-		//$table .= delibera_form_table($rows);
 	}
-//	wp_die(print_r($rows_lang, true));
+
 	$table .= '<div id="painel-notificacoes" '.(htmlspecialchars_decode($opt['notificacoes']) == 'S' ? '' : 'style="display:none"').' >';
 	$rows = array();
 	$i = 0;
+	
 	foreach (delibera_nofiticar_get_tipos() as $notif)
 	{
 		delibera_nofiticar_config_page_create_checkbox($rows,
@@ -295,7 +348,6 @@ function delibera_nofiticar_config_page($table, $opt)
 	
 	return $table;
 }
-add_filter('delibera_config_form', 'delibera_nofiticar_config_page', 10, 2);
 
 function delibera_nofiticar_config_page_create_checkbox(&$rows, $id, $label, $opt, $rows_lang, $index)
 {
@@ -332,8 +384,9 @@ function delibera_notificar_get_mensagem_link($post, $link = false)
 	{
 		$link = get_permalink($post);
 	}
-	$mensage = '<br/><a href="'.$link.'">'.$post->post_title.'</a><br/>';
-	$mensage .= $link;
+	$mensage = '<br/><br/>Origem: <a href="'.get_post_type_archive_link('pauta').'">'.get_bloginfo('name').'</a><br/>';
+	$mensage .= 'Pauta: <a href="'.$link.'">'.$post->post_title.'</a><br/><br/>';
+	$mensage .= __('Para ver a mensagem na página, clique aqui: ', 'delibera').$link;
 	return $mensage;
 }
 
@@ -407,7 +460,6 @@ function delibera_notificar_fim_prazo($args)
 }
 function delibera_notificar_representantes($mensage, $tipo, $post = false, $users = false, $link = false)
 {
-	
 	require_once  WP_CONTENT_DIR.'/../wp-includes/pluggable.php';
 	add_filter('wp_mail_content_type',create_function('', 'return "text/html"; '));
 	
@@ -454,7 +506,6 @@ function delibera_notificar_representantes($mensage, $tipo, $post = false, $user
 		{
 			if(user_can($user->ID, 'votar') && isset($user->user_email) && $user->ID != $autor_id)
 			{
-				///$mensage = delibera_notifica_replace_vars($mensage, $user);
 				$segue = array_search($user->ID, $seguiram);
 				
 				$user_notificacoes = get_user_meta($user->ID, 'delibera_notificacoes_email', true);
@@ -466,23 +517,22 @@ function delibera_notificar_representantes($mensage, $tipo, $post = false, $user
 				
 				$mensage_tmp = $mensage_default;
 				$subject_tmp = $subject_default;
-				if(function_exists('qtrans_enableLanguage'))
+                
+				$lang = get_user_meta($user->ID, 'user_idioma', true);
+				
+				if(strlen($lang) == 0) $lang = defined('WPLANG') && strlen(WPLANG) > 0 ? WPLANG : get_locale();
+				
+				if(array_key_exists("$tipo-$lang", $options_plugin_delibera))
 				{
-					$lang = get_user_meta($user->ID, 'user_idioma', true);
-					
-					if(strlen($lang) == 0) $lang = defined('WPLANG')? WPLANG : 'pt_BR';
-					
-					if(array_key_exists("$tipo-$lang", $options_plugin_delibera))
-					{
-						$mensage_tmp = htmlspecialchars_decode($options_plugin_delibera["$tipo-$lang"]).$mensage.delibera_notificar_get_mensagem_link($post, $link);
-					}
-					if(array_key_exists("{$tipo}_assunto-$lang", $options_plugin_delibera))
-					{
-						$subject_tmp = htmlspecialchars_decode($options_plugin_delibera["{$tipo}_assunto-$lang"]);
-					}
+					$mensage_tmp = htmlspecialchars_decode($options_plugin_delibera["$tipo-$lang"]).$mensage.delibera_notificar_get_mensagem_link($post, $link);
 				}
-				$subject_tmp = delibera_notifica_replace_vars($subject_tmp, $user, $post);
-				$mensage_tmp = delibera_notifica_replace_vars($mensage_tmp, $user, $post);
+				if(array_key_exists("{$tipo}_assunto-$lang", $options_plugin_delibera))
+				{
+					$subject_tmp = htmlspecialchars_decode($options_plugin_delibera["{$tipo}_assunto-$lang"]);
+				}
+                
+				$subject_tmp = delibera_notificar_replace_vars($subject_tmp, $user, $post);
+				$mensage_tmp = delibera_notificar_replace_vars($mensage_tmp, $user, $post);
 				wp_mail($user->user_email, $subject_tmp, $mensage_tmp);
 			}
 		}
@@ -518,7 +568,7 @@ function delibera_notificar_novo_comentario($comment)
 	$users = is_array($users) ? array_merge($users, array($autor)) : array($autor);
 	
 	$mensage = '<br/>'.__('Autor', 'delibera').": ".$autor->display_name.'<br/>';
-	$mensage = get_comment_text($comment);
+	$mensage .= get_comment_text($comment->comment_ID)."<br/>";
 	
 	$link = delibera_get_comment_link($comment);
 	
@@ -526,7 +576,7 @@ function delibera_notificar_novo_comentario($comment)
 
 }
 
-function delibera_notifica_replace_vars($subject, $user, $post)
+function delibera_notificar_replace_vars($subject, $user, $post)
 {
 	if(!is_object($post))
 	{

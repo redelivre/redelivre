@@ -7,7 +7,7 @@
 	
 	function delibera_widgets_admin_script()
 	{
-		if(substr($_SERVER[REQUEST_URI], -(strlen('nav-menus.php'))) == 'nav-menus.php')
+		if(substr($_SERVER['REQUEST_URI'], -(strlen('nav-menus.php'))) == 'nav-menus.php')
 		{
 			wp_enqueue_script('delibera_widgets_admin_script_nav_menus',WP_CONTENT_URL.'/plugins/delibera/js/delibera_nav_menu.js', array('jquery'));
 		}

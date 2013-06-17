@@ -1,0 +1,33 @@
+div.section {
+    border-bottom: 1px solid #bbb;
+    min-height: 100px;
+    margin: 11px;
+    padding: 11px;
+}
+
+#mobilize-redes .section-content label {
+    display: inline-block;
+    width: 80px;
+}
+
+#mobilize-redes .section-content input {
+    width: 400px;
+}
+
+#mobilize-enviar .section-content input {
+    width: 400px;
+}
+
+#mobilize-enviar .section-content textarea {
+    width: 400px;
+    height: 300px;
+}
+
+.section-description textarea {
+    height: 50px !important;
+    width: 500px;
+}
+
+.section-description label {
+    width: 500px !important;
+}

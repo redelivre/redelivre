@@ -202,7 +202,7 @@ function delibera_filtros_archive_callback()
 	$action = new stdClass();
 	$action->canQuery = true;
 	
-	$args = delibera_filtros_get_tax_filtro($_POST, array('post_type' => 'pauta'));
+	$args = delibera_filtros_get_tax_filtro($_POST, array('post_type' => 'pauta', 'post_status' => 'publish'));
 	
 	$paged = ( array_key_exists('paged', $_POST) && $_POST['paged'] > 0 ) ? $_POST['paged'] : 1;
 	$args['paged'] = $paged;

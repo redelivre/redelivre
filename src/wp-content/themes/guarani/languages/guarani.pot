@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Guarani 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/guarani\n"
-"POT-Creation-Date: 2013-04-13 22:42:38+00:00\n"
+"POT-Creation-Date: 2013-05-17 14:51:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -109,12 +109,12 @@ msgid "More info"
 msgstr ""
 
 #: content-agenda.php:63 content-page.php:17 content-single.php:34
-#: content.php:21 image.php:87 tpl-contato.php:31
+#: content.php:21 image.php:87 tpl-contato.php:30
 msgid "Pages:"
 msgstr ""
 
 #: content-agenda.php:67 content-page.php:18 content.php:53 image.php:35
-#: image.php:101 tpl-contato.php:32
+#: image.php:101 tpl-contato.php:31
 msgid "Edit"
 msgstr ""
 
@@ -168,6 +168,12 @@ msgstr ""
 msgid "Tagged %1$s"
 msgstr ""
 
+#: footer.php:24
+msgid ""
+"To display your widgets here go to the <a href=\"%s\">Widget Page</a> and "
+"drag them into the \"Footer Widget Area\"."
+msgstr ""
+
 #: footer.php:47
 msgid "Campanha Completa"
 msgstr ""
@@ -182,6 +188,25 @@ msgstr ""
 
 #: footer.php:48
 msgid "WordPress logo"
+msgstr ""
+
+#: front-page.php:7
+msgid "Front Page Template"
+msgstr ""
+
+#: front-page.php:49
+msgid "Previous"
+msgstr ""
+
+#: front-page.php:53
+msgid "Next"
+msgstr ""
+
+#: front-page.php:63
+msgid ""
+"To display your featured posts here go to the <a href=\"%s\">Post Edit Page</"
+"a> and check the \"Feature\" box. You can select how many posts you want, "
+"but use it wisely."
 msgstr ""
 
 #: functions.php:57
@@ -204,16 +229,11 @@ msgstr ""
 msgid "Appears in the footer section of the site"
 msgstr ""
 
-#: functions.php:229
-msgid ""
-"You do not have sufficient permissions to activate plugins for this site."
-msgstr ""
-
-#: header.php:53
+#: header.php:56
 msgid "Menu"
 msgstr ""
 
-#: header.php:54
+#: header.php:57
 msgid "Skip to content"
 msgstr ""
 
@@ -273,27 +293,31 @@ msgstr ""
 msgid "Display header text"
 msgstr ""
 
-#: inc/customizer.php:196
+#: inc/customizer.php:184
+msgid "Center header"
+msgstr ""
+
+#: inc/customizer.php:208
 msgid "Color Scheme"
 msgstr ""
 
-#: inc/customizer.php:209
+#: inc/customizer.php:221
 msgid "Branding"
 msgstr ""
 
-#: inc/customizer.php:220
+#: inc/customizer.php:232
 msgid "Logo"
 msgstr ""
 
-#: inc/customizer.php:233
+#: inc/customizer.php:245
 msgid "Favicon"
 msgstr ""
 
-#: inc/customizer.php:320
+#: inc/customizer.php:338
 msgid "Customize %s"
 msgstr ""
 
-#: inc/customizer.php:323
+#: inc/customizer.php:341
 msgid "Customize"
 msgstr ""
 
@@ -445,51 +469,71 @@ msgstr ""
 msgid "% Comments"
 msgstr ""
 
-#: inc/widgets.php:32
+#: inc/widgets.php:35
 msgid "Displays the latest posts from a certain category"
 msgstr ""
 
-#: inc/widgets.php:33
+#: inc/widgets.php:36
 msgid "Posts from a Category"
 msgstr ""
 
-#: inc/widgets.php:89
+#: inc/widgets.php:92
 msgid "View all posts filed under %s"
 msgstr ""
 
-#: inc/widgets.php:108 inc/widgets.php:269
+#: inc/widgets.php:111 inc/widgets.php:272
 msgid "Continue reading"
 msgstr ""
 
-#: inc/widgets.php:171 inc/widgets.php:316
+#: inc/widgets.php:174 inc/widgets.php:319 inc/widgets.php:390
 msgid "Title:"
 msgstr ""
 
-#: inc/widgets.php:176
+#: inc/widgets.php:179
 msgid "Category:"
 msgstr ""
 
-#: inc/widgets.php:181
+#: inc/widgets.php:184
 msgid "Number of posts to show:"
 msgstr ""
 
-#: inc/widgets.php:187
+#: inc/widgets.php:190
 msgctxt "guarani"
 msgid ""
 "Show as a featured post (will override the number of posts option above to "
 "show only the last one)"
 msgstr ""
 
-#: inc/widgets.php:208
+#: inc/widgets.php:211
 msgid "Feature a page, showing its excerpt and thumbnail"
 msgstr ""
 
-#: inc/widgets.php:209
+#: inc/widgets.php:212
 msgid "Featured Page"
 msgstr ""
 
-#: inc/widgets.php:321
+#: inc/widgets.php:324
 msgid "Page:"
+msgstr ""
+
+#: inc/widgets.php:346
+msgid "Your most used tags in cloud format"
+msgstr ""
+
+#: inc/widgets.php:347
+msgid "Tag Cloud"
+msgstr ""
+
+#: inc/widgets.php:357
+msgid "Tags"
+msgstr ""
+
+#: inc/widgets.php:394
+msgid "Number of taxonomies to show:"
+msgstr ""
+
+#: inc/widgets.php:398
+msgid "Taxonomy:"
 msgstr ""
 
 #: no-results.php:14
@@ -547,18 +591,6 @@ msgctxt "Custom Archive Template"
 msgid "Post tags"
 msgstr ""
 
-#: page-templates/front-page.php:7
-msgid "Front Page Template"
-msgstr ""
-
-#: page-templates/front-page.php:54
-msgid "Previous"
-msgstr ""
-
-#: page-templates/front-page.php:58
-msgid "Next"
-msgstr ""
-
 #: page-templates/mobilizacao.php:7
 msgid "Mobilize"
 msgstr ""
@@ -567,15 +599,21 @@ msgstr ""
 msgid "Search Results for: %s"
 msgstr ""
 
-#: searchform.php:10 searchform.php:12
+#: searchform.php:11 searchform.php:13
 msgid "Search"
 msgstr ""
 
-#: searchform.php:11
+#: searchform.php:12
 msgid "Type your search and press enter"
 msgstr ""
 
-#: tpl-contato.php:18
+#: sidebar.php:15
+msgid ""
+"To display your widgets here go to the <a href=\"%s\">Widget Page</a> and "
+"drag them into the \"Sidebar\" box."
+msgstr ""
+
+#: tpl-contato.php:17
 msgid "Contact Us"
 msgstr ""
 
