@@ -1,27 +1,7 @@
 <?php
-/*
-    =======================================================================================================
-    Mobilize Functions
-    =======================================================================================================
-*/
+
 function mobilize_tpl() {
     global $wp_query, $campaign;
-
-    if($wp_query->get('tpl') == 'mobilizacao') 
-    {
-        $wp_query->is_home = false;
-            
-       // $capabilities = Capability::getByPlanId($campaign->plan_id);
-        
-        //if ($capabilities->mobilize->value) {
-            add_action('wp_print_scripts', function() {
-                wp_enqueue_script('mobilize', plugins_url('/js/mobilize.js', __FILE__));
-            });
-
-            require(apply_filters('Mobilize-template', INC_MOBILIZE.'/includes/tpl-mobilize.php'));
-            die;
-        //}
-    }
 }
 
 function mobilize_single_template($single_template)
@@ -30,13 +10,14 @@ function mobilize_single_template($single_template)
 
     $post_slug = $post->post_name;
 
-    if($post_slug == "mobilize" and !locate_template(array('mobilize', 'mobilize.php')))
+    if($post_slug == "mobilize")
     {
         add_action('wp_print_scripts', function() {
             wp_enqueue_script('mobilize', plugins_url('/js/mobilize.js', __FILE__));
         });
 
-        $single_template = INC_MOBILIZE.'/includes/tpl-mobilize.php';
+        $templateTheme   = get_stylesheet_directory().'/mobilize.php';
+        $single_template = file_exists($templateTheme) ? $templateTheme : INC_MOBILIZE.'/includes/tpl-mobilize.php';
     }
 
     return $single_template;
@@ -83,28 +64,14 @@ function do_mobilize_action() {
     Mobilize::adesivar();
 }
 
-
-
-/*
-    =======================================================================================================
-    Mobilize Filters
-    =======================================================================================================
-*/
-add_filter('page_template', 'mobilize_single_template');
-
-/*
-    =======================================================================================================
-    Mobilize Actions
-    =======================================================================================================
-*/
-
 $options = Mobilize::getOption();
 
-function facebook_share () {
-    echo '<meta property="og:image" content="'.Mobilize::getBannerURL(125).'"/>'.PHP_EOL;
-    echo '<meta property="og:url" content="'.get_permalink().'"/>'.PHP_EOL;
-    echo isset($options['general']['description']) && !empty($options['general']['description']) ? '<meta property="og:title" content="'.$options['general']['description'].'" />'.PHP_EOL : '<meta property="og:title" content="Nesta página, você encontra diferentes formas de mobilização e apoio." />'.PHP_EOL;
-    echo '<meta property="og:type" content="blog"/>'.PHP_EOL;
+function mobilize_instalacao()
+{
+	if(is_multisite())
+	{
+		flush_rewrite_rules();
+	}
 }
 
 function redirect_mobilizacao()
@@ -117,9 +84,16 @@ function redirect_mobilizacao()
 	}
 }
 
+// Actions
 add_action('init', 'redirect_mobilizacao', 100);
 add_action('admin_menu', 'mobilize_add_menu_page');
 add_action('template_redirect', 'mobilize_tpl');
 add_action('wp_head', 'facebook_share');
 add_action('init', 'do_mobilize_action', 100);
 add_action('init', 'mobilize_init');
+
+// Filters
+add_filter('page_template', 'mobilize_single_template');
+
+// Hooks
+register_activation_hook(__FILE__, 'mobilize_instalacao');

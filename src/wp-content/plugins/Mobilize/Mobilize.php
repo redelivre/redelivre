@@ -14,10 +14,6 @@ define('INC_MOBILIZE', dirname(__FILE__));
 //define('MOBILIZE_MATERIAL_DIR', INC_MOBILIZE.'/../../mu-plugins/includes/graphic_material/');
 //define('MOBILIZE_MATERIAL_URL', get_bloginfo('url').'/files/graphic_material/');
 
-if (class_exists('WideImage')) {
-    require INC_MOBILIZE.'/includes/wideimage/WideImage.php';
-}
-
 class Mobilize {
 
     const SETTINGS_NONCE                  = 'save-mobilize';
