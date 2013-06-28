@@ -576,12 +576,15 @@ function delibera_notificar_novo_comentario($comment)
 
 }
 
-function delibera_notificar_replace_vars($subject, $user, $post)
+function delibera_notificar_replace_vars($subject, $user, $postReport)
 {
-	if(!is_object($post))
+	global $post;
+	if(!is_object($postReport))
 	{
-		$post = get_post($post);
+		$postReport = get_post($postReport);
 	}
+	
+	$post = $postReport;
 	
 	$opt = delibera_get_config();
 	
@@ -598,7 +601,8 @@ function delibera_notificar_replace_vars($subject, $user, $post)
 	$subject = str_ireplace("{discuss_days}", $opt['dias_validacao'], $subject);
 	$subject = str_ireplace("{election_days}", $opt['dias_votacao'], $subject);
 	$subject = str_ireplace("{post_author}", $author->user_firstname, $subject);
-	
+	$subject = str_ireplace("{post_content}", get_the_content(), $subject);
+	$subject = str_ireplace("{post_excerpt}", get_the_excerpt(), $subject);
 	
 	$campos = delibera_get_user_campos_form_registro();
 	if($campos > 0)

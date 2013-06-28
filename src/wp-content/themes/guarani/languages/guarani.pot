@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Guarani 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/guarani\n"
-"POT-Creation-Date: 2013-05-17 14:51:00+00:00\n"
+"POT-Creation-Date: 2013-06-19 21:15:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -213,27 +213,35 @@ msgstr ""
 msgid "Primary Menu"
 msgstr ""
 
-#: functions.php:105
+#: functions.php:107
 msgid "Sidebar"
 msgstr ""
 
-#: functions.php:107
+#: functions.php:109
 msgid "The main sidebar"
 msgstr ""
 
-#: functions.php:115
+#: functions.php:117
 msgid "Footer Widget Area"
 msgstr ""
 
-#: functions.php:117
+#: functions.php:119
 msgid "Appears in the footer section of the site"
 msgstr ""
 
-#: header.php:56
+#: header.php:27
+msgid ""
+"You are using an <strong>outdated</strong> browser. Please <a href=\"http://"
+"browsehappy.com/\">upgrade your browser</a> or <a href=\"http://www.google."
+"com/chromeframe/?redirect=true\">activate Google Chrome Frame</a> to improve "
+"your experience."
+msgstr ""
+
+#: header.php:59
 msgid "Menu"
 msgstr ""
 
-#: header.php:57
+#: header.php:60
 msgid "Skip to content"
 msgstr ""
 
@@ -313,11 +321,7 @@ msgstr ""
 msgid "Favicon"
 msgstr ""
 
-#: inc/customizer.php:338
-msgid "Customize %s"
-msgstr ""
-
-#: inc/customizer.php:341
+#: inc/customizer.php:338 inc/customizer.php:341
 msgid "Customize"
 msgstr ""
 

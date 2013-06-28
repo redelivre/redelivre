@@ -17,7 +17,8 @@
 
 /* Links */
 a,
-.eletro_widgets_content.widget_guarani_custom_posts a:hover .entry-title {
+.eletro_widgets_content.widget_guarani_custom_posts a:hover .entry-title,
+blockquote cite {
 	color: #589d8f;
 }
 
@@ -42,6 +43,18 @@ input::-moz-placeholder {
 
 input:-ms-input-placeholder {
 	color: #699328;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button:hover,
+html input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+	border: 1px solid #467c71;
+	background: #589d8f;
 }
 
 input[type="text"],
@@ -105,10 +118,10 @@ h1, h2, h3, h4, h5, h6,
 	color: #464646;
 }
 
-
-
-/* =Content
--------------------------------------------------------------- */
+.widget_agenda .all,
+.WidgetAgenda .all {
+	background: #589d8f;
+}
 
 .single .entry-title a,
 .page .entry-title,
@@ -122,7 +135,6 @@ h1, h2, h3, h4, h5, h6,
 	color: #4d99a6;
 }
 
-/* Extras */
 .wp-tag-cloud li a {
 	background: #f9fbf6;
 	border: 1px solid #f1f5eb;

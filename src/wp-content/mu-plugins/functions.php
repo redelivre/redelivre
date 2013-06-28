@@ -357,6 +357,7 @@ add_action('phpmailer_init', 'campanha_use_smtp');
 
 // custom admin login logo
 function custom_login_logo() {
+	if(is_main_site()){
 	$baseUrl = WP_CONTENT_URL . '/themes/campanha/';
     echo '
 		<link rel="stylesheet" type="text/css" media="all" href=" '.$baseUrl.'style.css" />
@@ -376,6 +377,7 @@ function custom_login_logo() {
 	        div.error, .login #login_error { background: none; margin-left: 0; }
 	        @media screen and (max-width: 320px) { .login h1 { display: none; } #login { padding-top: 24px;} }
         </style>';
+     }
 }
 add_action('login_head', 'custom_login_logo');
 

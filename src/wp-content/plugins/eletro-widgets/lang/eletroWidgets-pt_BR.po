@@ -1,79 +1,69 @@
-# Translation of Eletro Widgets in Portuguese (Brazil)
-# This file is distributed under the same license as the Eletro Widgets package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-05-17 11:48-0300\n"
+"Project-Id-Version: Eletro Widgets\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-14 16:35-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Leo Germani <leogermani@gmail.com>\n"
+"Language-Team: HackLab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: GlotPress/0.1\n"
-"Project-Id-Version: Eletro Widgets\n"
-"POT-Creation-Date: \n"
-"Last-Translator: Eduardo Zulian <eduardozulian@gmail.com>\n"
-"Language-Team: \n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-Basepath: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets\n"
 
-#: eletro-widgets.php:34
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:34
 msgid "Are you sure you want to clear all widgets and its settings from this canvas?"
 msgstr "Você tem certeza que deseja limpar a área de edição e remover todos os widgets?"
 
-#: eletro-widgets.php:35
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:35
 msgid "Are you sure you want to apply this configuration to the public view of this canvas?"
 msgstr "Você tem certeza de que deseja aplicar as configurações atuais para a visualização pública do site?"
 
-#: eletro-widgets.php:36
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:36
 msgid "Are you sure you want to copy the settings from the public view and loose any changes you have made?"
 msgstr "Você tem certeza de que quer restaurar as configurações da visualização pública para a área de edição e descartar qualquer mudança feita?"
 
-#: eletro-widgets.php:37
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:37
 msgid "Widgets applied"
 msgstr "Configurações Aplicadas"
 
-#: eletro-widgets.php:38
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:38
 msgid "Are you sure you want to remove this widget?"
 msgstr "Você tem certeza de que deseja remover este widget?"
 
-#: eletro-widgets.php:92
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:92
 msgid "Show/Hide Controls"
 msgstr "Controles +/-"
 
-#: eletro-widgets.php:93
-msgid "Clear"
-msgstr "Limpar"
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:93
+msgid "Clear all widgets"
+msgstr "Limpar Todos"
 
-#: eletro-widgets.php:94
-msgid "Restore"
-msgstr "Restaurar"
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:94
+msgid "Restore from public"
+msgstr "Restaurar do Público"
 
-#: eletro-widgets.php:97
-msgid "Apply"
-msgstr "Aplicar"
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:97
+msgid "Apply to public"
+msgstr "Aplicar para Público"
 
-#: eletro-widgets.php:168
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:164
 msgid "Select"
 msgstr "Selecione"
 
-#: eletro-widgets.php:207
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:203
 msgid "Add new Widget: "
 msgstr "Adicionar Widget:"
 
-#: eletro-widgets.php:220
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:216
 msgid "Add"
 msgstr "Adicionar"
 
-#: eletro-widgets.php:314
+#: /home/leo/devel/catraca/trunk/src/wp-content/plugins/eletro-widgets/eletro-widgets.php:321
 msgid "There are no options for this widget."
 msgstr "Não há opções para este widget"
-
-msgid "Eletro Widgets"
-msgstr "Eletro Widgets"
-
-msgid "http://eletrowidgets.hacklab.com.br"
-msgstr "http://eletrowidgets.hacklab.com.br"
-
-msgid "Allows you to use the power and flexibility of the WordPress Widgets to set up a dynamic area anywhere in your site and manage multiple columns of widgets, dragging and dropping them around"
-msgstr "Permite usar o poder e a flexibilidade dos widgets do WordPress para criar uma área dinâmica em qualquer lugar de seu site e gerenciar múltiplas colunas de widgets no estilo drag-and-drop"
-
-msgid "HackLab"
-msgstr "HackLab"
 
