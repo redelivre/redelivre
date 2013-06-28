@@ -45,4 +45,14 @@
 	    </div>
 	    <?php
 	}
+	
+	add_action( 'widgets_init', function()
+	{
+		$widgets = array('WidgetListaPropostas');
+		foreach ($widgets as $widgetName)
+		{
+			require_once dirname(__FILE__).'/widgets/'.$widgetName.'/'.$widgetName.'.php';
+			register_widget( $widgetName );
+		}
+	});
 ?>

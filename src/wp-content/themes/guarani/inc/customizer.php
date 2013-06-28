@@ -335,7 +335,7 @@ global $menu;
 
 	if ( current_user_can( 'edit_theme_options' ) ) {
 		// In main menu
-		add_menu_page( sprintf( __( 'Customize %s', 'default' ), get_bloginfo( 'blogname' ) ), sprintf( __( 'Customize %s', 'default' ), get_bloginfo( 'blogname' ) ), 'edit_theme_options', 'customize.php?url=index.php', '', '', '99.2' );
+		add_menu_page( sprintf( __( 'Customize', 'default' ), get_bloginfo( 'blogname' ) ), sprintf( __( 'Customize', 'default' ), get_bloginfo( 'blogname' ) ), 'edit_theme_options', 'customize.php?url=index.php', '', '', '99.2' );
 		
 		// Inside Appearance submenu
 		add_theme_page( __( 'Customize', 'default' ), __( 'Customize', 'default' ), 'edit_theme_options', 'customize.php' );

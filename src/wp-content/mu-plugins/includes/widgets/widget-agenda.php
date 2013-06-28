@@ -14,7 +14,7 @@ class WidgetAgenda extends WP_Widget {
     
     	extract( $args, EXTR_SKIP );
     	
-        $num_posts = $instance['num_posts'];
+        $num_posts = array_key_exists('num_posts', $instance) ? $instance['num_posts'] : 0;
         
         $qargs = array(
             'posts_per_page' => $num_posts,

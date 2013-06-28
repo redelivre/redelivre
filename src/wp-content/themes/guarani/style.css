@@ -473,9 +473,9 @@ input[type="submit"] {
 	border-radius: 3px;
 	background: #8f2634;
 	font-size: 0.875em;
-	-webkit-box-shadow: inset 0 15px 17px rgba(183,49,67,0.4);
-	-moz-box-shadow: inset 0 15px 17px rgba(183,49,67,0.4);
-	box-shadow: inset 0 15px 17px rgba(183,49,67,0.4);
+	-webkit-box-shadow: inset 0 15px 17px rgba(255, 255, 255, 0.1);
+	-moz-box-shadow: inset 0 15px 17px rgba(255, 255, 255, 0.1);
+	box-shadow: inset 0 15px 17px rgba(255, 255, 255, 0.1);
 	color: #f9f7f2;
 	cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
 	-webkit-appearance: button; /* Corrects inability to style clickable 'input' types in iOS */
@@ -490,9 +490,9 @@ html input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
 	background: #b73143;
-	-webkit-box-shadow: inset 0 15px 17px rgba(130, 34, 47, 0.4);
-	-moz-box-shadow: inset 0 15px 17px rgba(130, 34, 47, 0.4);
-	box-shadow: inset 0 15px 17px rgba(130, 34, 47, 0.4);
+	-webkit-box-shadow: inset 0 15px 17px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: inset 0 15px 17px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 15px 17px rgba(0, 0, 0, 0.1);
 }
 
 button:focus,
@@ -634,6 +634,14 @@ a:active {
 	zoom: 1;
 }
 
+/* Outdated browsers */
+.browse-happy {
+	border-bottom: 1px solid #f8f990;
+    background: #ffc;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+    padding: 0.5em 1em;
+    text-align: center;
+}
 
 /* =Basic Structure
 ----------------------------------------------- */
@@ -1323,176 +1331,6 @@ header.entry-meta a {
 }
 
 
-/* =Asides
------------------------------------------------ */
-
-.widget-container {
-	font-size: 0.875em;
-	line-height: 1.5em;
-}
-
-.widget-container img {
-	height: auto;
-	max-width: 100%;
-}
-
-.widget-title {
-	color: #47312d;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: bold;
-	margin-bottom: 1em;
-	margin-top: 0;
-	text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
-}
-
-.widget-container > ul,
-.widget-container > ol,
-.widget-container ul:first-child,
-.widget-container ol:first-child  {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-}
-
-.widget-container ul li,
-.widget-container ol li {
-	margin-bottom: 0.5em;
-}
-
-/* Sidebar Widget Area */
-
-#secondary .widget-container {
-	background: #f9f7f2;
-	border-radius: 3px;
-	color: #585858;
-	margin: 0 0 1.5em;
-	padding: 1.5em;
-}
-
-#secondary .widget-container a {
-	
-}
-
-#secondary .wp-tag-cloud li a {
-	background: #fefefe;
-}
-
-/* Footer Widget Area */
-
-#tertiary {
-	background: #daccab;
-	border-bottom: 3px solid #f9f7f2;
-	border-top: 3px solid #47312d;
-	margin: 1em 0 1em;
-	padding: 1em;
-}
-
-#tertiary .widget-container {
-	padding: 1.143em;
-}
-
-/* Text Widget */
-
-.textwidget img {
-	display: block;
-	margin-bottom: 1.625em;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* Recent Posts + RSS Widget */
-
-.widget_recent_entries ul li,
-.widget_rss ul li,
-.widget_guarani_custom_posts ul li {
-	margin-bottom: 0.75em;
-	padding-bottom: 0.75em;
-}
-
-#secondary .widget_recent_entries ul li, 
-#secondary .widget_rss ul li,
-#secondary .widget_guarani_custom_posts ul li  {
-	border-bottom: 1px dotted #eee9db;
-}
-
-#tertiary .widget_recent_entries ul li, 
-#tertiary .widget_rss ul li,
-#tertiary .widget_guarani_custom_posts ul li  {
-	border-bottom: 1px dotted #d0be93;
-}
-
-/* Featured Page Widget */
-
-.widget_guarani_featured_page figure {
-	margin-bottom: 1em;
-}
-
-/* RSS Widget */
-
-.rsswidget img {
-	display: none;
-}
-
-.rsswidget:hover .icon-rss:before {
-	color: #ff6600;
-}
-
-/* Calendar Widget */
-
-.widget_calendar #wp-calendar caption {
-	font-size: 0.813em;
-	letter-spacing: 1px;
-	margin-bottom: 0.5em;
-	padding: 0.25em 0.5em;
-	text-transform: uppercase;
-}
-
-.widget_calendar #wp-calendar thead,
-.widget_calendar #wp-calendar tbody {
-	text-align: center;
-}
-
-/* Agenda */
-
-.widget_agenda .date:before,
-.WidgetAgenda .date:before {
-	content: '\1f4c5';
-	display: inline-block;
-	font-family: 'guarani';
-	font-style: normal;
-	font-weight: normal;
-	line-height: 1em;
-	margin-left: 0.2em;
-	margin-right: 0.2em;
-	speak: none;
-	text-align: center;
-	text-decoration: inherit;
-	width: 1em;
-}
-
-.widget_agenda .all,
-.WidgetAgenda .all {
-	background: #8f2634;
-	border-radius: 2px;
-	display: block;
-	padding: 0.5em;
-	color: #f9f7f2;
-	font-size: 13px;
-	text-align: center;
-}
-
-.widget_agenda .all:first-letter,
-.WidgetAgenda .all:first-letter {
-	text-transform: uppercase;
-}
-
-/* Search */
-
-.widget_search #s {
-	width: 100%;
-}
-
-
 /* =Footer
 ----------------------------------------------- */
 
@@ -1510,6 +1348,7 @@ header.entry-meta a {
 
 .site-info {
 	float: left;
+	max-width: 50%;
 }
 
 #social-bookmarks {
@@ -1800,7 +1639,7 @@ object {
 	margin-bottom: 2em;
 }
 
-.comment {
+.comment.depth-1 {
 	padding: 1em;
 }
 
@@ -1831,6 +1670,12 @@ object {
 	position: relative;
 }
 
+.children .comment-container {
+	border-top: 1px solid #f4f4f4;
+	margin-top: 1em;
+	padding-top: 1em;
+}
+
 .comment-avatar img {
 	border-radius: 3px;
 	float: left;
@@ -1847,10 +1692,6 @@ object {
 	font-weight: bold;
 }
 
-.comment-author time {
-
-}
-
 .comment-content,
 .pingback {
 	font-size: 0.875em;
@@ -1864,13 +1705,14 @@ object {
 	margin-bottom: 1.857em;
 }
 
-.bypostauthor {
-}
-
 .comment-extras {
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+
+.children .comment-extras {
+	top: 1em;
 }
 
 .comment .reply {
@@ -1903,13 +1745,173 @@ object {
 }
 
 
-/* =FancyBox
+/* =Asides
 ----------------------------------------------- */
-.fancybox-title-float-wrap .child {
-	background: transparent !important;
-	border-radius: 0 !important;
-	font-family: Ubuntu, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
-	font-weight: normal !important;
+
+.widget-container {
+	font-size: 0.875em;
+	line-height: 1.5em;
+}
+
+.widget-container img {
+	height: auto;
+	max-width: 100%;
+}
+
+.widget-title {
+	color: #47312d;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	margin-bottom: 1em;
+	margin-top: 0;
+	text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.widget-container > ul,
+.widget-container > ol,
+.widget-container ul:first-child,
+.widget-container ol:first-child  {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.widget-container ul li,
+.widget-container ol li {
+	margin-bottom: 0.5em;
+}
+
+/* Sidebar Widget Area */
+
+#secondary .widget-container {
+	background: #f9f7f2;
+	border-radius: 3px;
+	color: #585858;
+	margin: 0 0 1.5em;
+	padding: 1.5em;
+}
+
+#secondary .widget-container a {
+	
+}
+
+#secondary .wp-tag-cloud li a {
+	background: #fefefe;
+}
+
+/* Footer Widget Area */
+
+#tertiary {
+	background: #daccab;
+	border-bottom: 3px solid #f9f7f2;
+	border-top: 3px solid #47312d;
+	margin: 1em 0 1em;
+	padding: 1em;
+}
+
+#tertiary .widget-container {
+	padding: 1.143em;
+}
+
+/* Text Widget */
+
+.textwidget img {
+	display: block;
+	margin-bottom: 1.625em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Recent Posts + RSS Widget */
+
+.widget_recent_entries ul li,
+.widget_rss ul li,
+.widget_guarani_custom_posts ul li {
+	margin-bottom: 0.75em;
+	padding-bottom: 0.75em;
+}
+
+#secondary .widget_recent_entries ul li, 
+#secondary .widget_rss ul li,
+#secondary .widget_guarani_custom_posts ul li  {
+	border-bottom: 1px dotted #eee9db;
+}
+
+#tertiary .widget_recent_entries ul li, 
+#tertiary .widget_rss ul li,
+#tertiary .widget_guarani_custom_posts ul li  {
+	border-bottom: 1px dotted #d0be93;
+}
+
+/* Featured Page Widget */
+
+.widget_guarani_featured_page figure {
+	margin-bottom: 1em;
+}
+
+/* RSS Widget */
+
+.rsswidget img {
+	display: none;
+}
+
+.rsswidget:hover .icon-rss:before {
+	color: #ff6600;
+}
+
+/* Calendar Widget */
+
+.widget_calendar #wp-calendar caption {
+	font-size: 0.813em;
+	letter-spacing: 1px;
+	margin-bottom: 0.5em;
+	padding: 0.25em 0.5em;
+	text-transform: uppercase;
+}
+
+.widget_calendar #wp-calendar thead,
+.widget_calendar #wp-calendar tbody {
+	text-align: center;
+}
+
+/* Agenda */
+
+.widget_agenda .date:before,
+.WidgetAgenda .date:before {
+	content: '\1f4c5';
+	display: inline-block;
+	font-family: 'guarani';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1em;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	speak: none;
+	text-align: center;
+	text-decoration: inherit;
+	width: 1em;
+}
+
+.widget_agenda .all,
+.WidgetAgenda .all {
+	background: #8f2634;
+	border-radius: 2px;
+	display: block;
+	padding: 0.5em;
+	color: #f9f7f2;
+	font-size: 13px;
+	text-align: center;
+}
+
+.widget_agenda .all:first-letter,
+.WidgetAgenda .all:first-letter {
+	text-transform: uppercase;
+}
+
+/* Search */
+
+.widget_search #s {
+	width: 100%;
 }
 
 
@@ -2072,6 +2074,42 @@ object {
 .eletro_widgets_content.widget_guarani_custom_posts .entry-content p {
 	margin-bottom: 1.5em;
 }
+
+.eletro_widgets_content.jaiminho .jaiminho,
+.eletro_widgets_content.facebooklikebox,
+.eletro_widgets_content.search,
+.eletro_widgets_content.categories,
+.eletro_widgets_content.archives {
+	padding-bottom: 1.625em;
+}
+
+.eletro_widgets_content.search #s {
+	width: 100%;
+}
+
+/* No search icon but in the main search field */
+.eletro_widgets_content .icon-search,
+.widget-container .icon-search {
+	display: none;
+}
+
+.eletro_widgets_content.categories select,
+.eletro_widgets_content.archives select,
+#secondary .widget_archive select,
+#secondary .widget_categories select {
+	width: 100%;
+}
+
+
+/* =FancyBox
+----------------------------------------------- */
+.fancybox-title-float-wrap .child {
+	background: transparent !important;
+	border-radius: 0 !important;
+	font-family: Ubuntu, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
+	font-weight: normal !important;
+}
+
 
 @media only screen and (min-width: 57.5em) {
 	

@@ -23,6 +23,11 @@
 	</head>
 	
 	<body <?php body_class(); ?>>
+	<!--[if lt IE 7]>
+	<p class="browse-happy">
+	 	<?php _e( 'You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.', 'guarani' ); ?>
+	</p>
+	<![endif]-->
 	<div class="site-wrapper hfeed">
 		<?php do_action( 'before' ); ?>
 		<header id="masthead" class="site-header cf" role="banner">

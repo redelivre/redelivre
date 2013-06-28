@@ -5,7 +5,7 @@ Plugin URI: http://aaroncollegeman.com/sharepress
 Description: SharePress publishes your content to your personal Facebook Wall and the Walls of Pages you choose.
 Author: Fat Panda, LLC
 Author URI: http://fatpandadev.com
-Version: 2.2.10
+Version: 2.2.11
 License: GPL2
 */
 
@@ -1779,7 +1779,7 @@ class SharePress_TwitterClient {
   private $consumer_secret;
   private $access_token;
   private $access_token_secret;
-  private $host = 'https://api.twitter.com/1';
+  private $host = 'https://api.twitter.com/1.1';
   
   function __construct($settings) {
     $this->consumer_key = $settings['twitter_consumer_key'];
@@ -1792,23 +1792,13 @@ class SharePress_TwitterClient {
    * @return String a Text message indicating success or failure and reason
    */
   function test() {
-    $result = SharePress_WordPressOAuth::get($this->host.'/help/test.json', self::build_params());
-    if (!is_wp_error($result)) {
-      if ($result['body'] == '"ok"') {
-        $tweet = "Hey, hey! Just testing SharePress: an awesome plugin for posting to Twitter and Facebook from WordPress http://bit.ly/pqo6KO";
-        if (false === ($response = $this->post($tweet))) {
-          return "Connection error. Please try again."; 
-        } else if ($response->error) {
-          return "Twitter says there's a problem: {$response->error} Make sure all of your keys are correct, and double-check your Twitter app's settings.";
-        } else {
-          return "Success! Remember to save your settings.";
-        }
-      } else {
-        $response = json_decode($result['body']);
-        return "Twitter says there's a problem: {$response->error} Make sure all of your keys are correct, and double-check your Twitter app's settings.";
-      }
+    $tweet = "Hey, hey! Just testing SharePress: an awesome plugin for posting to Twitter and Facebook from WordPress http://bit.ly/pqo6KO";
+    if (false === ($response = $this->post($tweet))) {
+      return "Connection error. Please try again."; 
+    } else if ($response->errors) {
+      return "Twitter says there's a problem: [{$response->errors[0]->code}' : '{$response->errors[0]->message}] Make sure all of your keys are correct, and double-check your Twitter app's settings.";
     } else {
-      return "Connection error. Please try again.";
+      return "Success! Remember to save your settings.";
     }
   }
 

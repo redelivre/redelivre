@@ -4,7 +4,7 @@ Plugin Uri: http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
 Tags: joomla, mambo, wordpress, migrator, converter, import, k2, jcomments, joomlacomments, jomcomment, flexicontent, postviews
 Requires at least: 3.0
 Tested up to: WP 3.5.1
-Stable tag: 1.12.0
+Stable tag: 1.12.1
 License: GPLv2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=fred%2egilles%40free%2efr&lc=FR&item_name=Fr%c3%a9d%c3%a9ric%20GILLES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 
@@ -131,6 +131,9 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 * other can be translated
 
 == Changelog ==
+
+= 1.12.1 =
+* Fixed: Replaces the publication date by the creation date as Joomla uses the creation date for sorting articles
 
 = 1.12.0 =
 * New: Add a button to remove the categories prefixes
@@ -273,6 +276,17 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 * Initial version: Import Joomla 1.5 sections, categories, posts and images
 
 == Upgrade Notice ==
+
+= 1.12.1 =
+Fixed: Replaces the publication date by the creation date as Joomla uses the creation date for sorting articles
+
+= 1.12.0 =
+New: Add a button to remove the categories prefixes
+New: Option to not use the first post image as the featured image
+
+= 1.11.0 =
+New: Import external media (as an option)
+New translation: Russian (Thanks to Julia N.)
 
 = 1.10.6 =
 Fixed: Categories hierarchy lost when parent categories had an id greater than their children

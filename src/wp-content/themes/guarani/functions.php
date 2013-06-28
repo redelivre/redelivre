@@ -57,7 +57,9 @@ function guarani_setup() {
 		'primary' => __( 'Primary Menu', 'guarani' ),
 	) );
 	
-
+	// Editor style
+	add_editor_style();
+	
 	// Add default posts and comments RSS feed links to head
 	add_theme_support( 'automatic-feed-links' );
 

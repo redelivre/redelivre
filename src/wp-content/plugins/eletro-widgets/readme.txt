@@ -3,8 +3,8 @@ Contributors: HackLab
 Donate link: http://eletrowidgets.hacklab.com.br
 Tags: widgets, home, cms
 Requires at least: 2.7
-Tested up to: 2.9.2
-Stable tag: 1.0
+Tested up to: 3.5.1
+Stable tag: 1.0.1
 
 Allows you to use the power and flexibility of the WordPress Widgets to set up a dynamic area anywhere in your site and manage multiple columns of widgets, dragging and dropping them around
 

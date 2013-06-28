@@ -4,7 +4,7 @@ Plugin Name: Eletro Widgets
 Plugin URI: http://eletrowidgets.hacklab.com.br
 Description: Allows you to use the power and flexibility of the WordPress Widgets to set up a dynamic area anywhere in your site and manage multiple columns of widgets, dragging and dropping them around
 Author: HackLab
-Version: 1.0
+Version: 1.0.1
 
 
 */
@@ -12,14 +12,7 @@ Version: 1.0
 ///// PLUGIN PATH ///////////
 
 define('EW_ABSPATH', WP_CONTENT_DIR.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
-if(function_exists('domain_mapping_plugins_uri'))
-{
-	define('EW_URLPATH', domain_mapping_plugins_uri(WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' ));
-}
-else
-{
-	define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
-}
+define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
 
 add_action('wp_print_scripts', 'eletrowidgets_print_scripts');
 add_action('wp_print_styles', 'eletrowidgets_print_styles');
@@ -218,9 +211,9 @@ class EletroWidgets {
 	}
 
 	function get_widget_on_list($args) {
-		$r .= "<div class='widget_add_control' id='widget_add_control_{$args['_id_base']}'>";
+		$r = "<div class='widget_add_control' id='widget_add_control_{$args['_id_base']}'>";
 		$r .= "<input type='hidden' class='id_base' name='id_base' value='{$args['_id_base']}'>";
-		$r .= "<input type='hidden' class='multi_number' name='multi_number' value='{$args['_multi_num']}'>";
+		$r .= "<input type='hidden' class='multi_number' name='multi_number' value='" . (array_key_exists('_multi_num', $args)) ? $args['_multi_num'] : '' . "'>";
 		$r .= "<input type='hidden' class='widget-id' name='widget-id' value='{$args['widget_id']}'>";
 		$r .= "<input type='hidden' class='add' name='add' value='{$args['_add']}'>";
 
