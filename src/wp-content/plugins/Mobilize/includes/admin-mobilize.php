@@ -27,10 +27,11 @@
             <h3>Configurações gerais</h3>
             <p><label><input type="checkbox" name="mobilize[general][active]" <?php echo Mobilize::isActive('general') ? 'checked="checked"' : ''; ?> data-section="mobilize-general" /> Habilitar a página de mobilização</label></p>
             <p><label><input type="checkbox" name="mobilize[general][menuItem]" <?php echo (isset($option['general']) && isset($option['general']['menuItem']) && $option['general']['menuItem']) ? 'checked="checked"' : ''; ?> data-section="mobilize-general" /> Exibir link para a página de mobilização no menu</label></p>
+            <p><label><input type="checkbox" name="mobilize[general][ocultarexplicacao]" <?php echo (isset($option['ocultarexplicacao']) && isset($option['general']['ocultarexplicacao']) && $option['general']['menuItem']) ? 'checked="checked"' : ''; ?> data-section="mobilize-general" /> Ocultar texto explicativo</label></p>
             <p class="section-description">
                 <label>
                     Título desta página:<br>
-                    <input name="mobilize[general][title]" type="text">
+                    <input name="mobilize[general][title]" type="text" value="<?php echo $option['general']['title']; ?>">
                 </label><br><br>
                 <label>Texto explicativo geral para o usuário:<br/>
                     <textarea name="mobilize[general][description]"><?php echo @htmlentities(utf8_decode($option['general']['description'])) ?></textarea>
