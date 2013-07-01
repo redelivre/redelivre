@@ -18,7 +18,7 @@
 <section id="mobilize-content">
 
 	<?php /*if (Mobilize::isActive('general')):*/ ?>
-        <h1>Apoie este projeto</h1>
+        <h1><?php echo !empty($options['general']['title']) ? $options['general']['title'] : 'Apoie este projeto'; ?></h1>
         <div class="section-description">
             <p><?php echo isset($options['general']['description']) && !empty($options['general']['description']) ? $options['general']['description'] : 'Nesta página, você encontra diferentes formas de mobilização e apoio.'; ?></p>
         </div>
