@@ -1,5 +1,6 @@
 <?php
     $optionsRedesSociais = Mobilize::optionRedesSociais();
+    $optionsPluginRedesSociais = get_option('campanha_social_networks');
 
     // variables
     $blogurl = urlencode(get_bloginfo('url'));
@@ -33,18 +34,26 @@
                 <div class='clearfix'>
                     <?php if (!is_null($optionsRedesSociais['redes_facebook_page']) && !empty($optionsRedesSociais['redes_facebook_page'])) { ?>
                         <a class="mobilize-button mobilize-facebook" href="<?php echo $optionsRedesSociais['redes_facebook_page']; ?>">Facebook</a>
+                    <?php } else if(is_array($optionsPluginRedesSociais) && isset($optionsPluginRedesSociais['facebook-page']) && !empty($optionsPluginRedesSociais['facebook-page'])) { ?>
+                    	<a class="mobilize-button mobilize-facebook" href="<?php echo $optionsPluginRedesSociais['facebook-page']; ?>">Facebook</a>
                     <?php } ?>
 
                     <?php if (!is_null($optionsRedesSociais['redes_twitter']) && !empty($optionsRedesSociais['redes_twitter'])) { ?>
                         <a class="mobilize-button mobilize-twitter" href="<?php echo $optionsRedesSociais['redes_twitter']; ?>">Twitter</a>
+                    <?php } else if(is_array($optionsPluginRedesSociais) && isset($optionsPluginRedesSociais['twitter']) && !empty($optionsPluginRedesSociais['twitter'])) { ?>
+                    	<a class="mobilize-button mobilize-twitter" href="<?php echo $optionsPluginRedesSociais['twitter']; ?>">Twitter</a>
                     <?php } ?>
 
                     <?php if (!is_null($optionsRedesSociais['redes_google']) && !empty($optionsRedesSociais['redes_google'])) { ?>
                         <a class="mobilize-button mobilize-google" href="<?php echo $optionsRedesSociais['redes_google']; ?>">Google +</a>
+                    <?php } else if(is_array($optionsPluginRedesSociais) && isset($optionsPluginRedesSociais['google']) && !empty($optionsPluginRedesSociais['google'])) { ?>
+                    	<a class="mobilize-button mobilize-google" href="<?php echo $optionsPluginRedesSociais['google']; ?>">Google +</a>
                     <?php } ?>
                         
                     <?php if (!is_null($optionsRedesSociais['redes_youtube']) && !empty($optionsRedesSociais['redes_youtube'])) { ?>
                         <a class="mobilize-button mobilize-youtube" href="<?php echo $optionsRedesSociais['redes_youtube']; ?>">Youtube</a>
+                    <?php } else if(is_array($optionsPluginRedesSociais) && isset($optionsPluginRedesSociais['youtube']) && !empty($optionsPluginRedesSociais['youtube'])) { ?>
+                    	<a class="mobilize-button mobilize-youtube" href="<?php echo $optionsPluginRedesSociais['youtube']; ?>">Youtube</a>
                     <?php } ?>
                 </div>
 
