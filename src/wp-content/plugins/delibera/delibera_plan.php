@@ -181,8 +181,8 @@ function delibera_plan_config_page()
 		
 	$table = delibera_form_table($rows);
 		
-	//delibera_postbox('delibera-plan-config',__('Configurações planos plugin Delibera','delibera'), $table.'<div class="submit"><input type="submit" class="button-primary" name="submit" value="'.__('Actualizar Plano','delibera').'" /></form></div>');
-	delibera_postbox('delibera-plan-config',__('Configurações planos plugin Delibera','delibera'), $table);
+	// echo $table.'<div class="submit"><input type="submit" class="button-primary" name="submit" value="'.__('Actualizar Plano','delibera').'" /></form></div>';
+	echo $table;
 	//	wpsc_add_to_cart();
 	?>
 			

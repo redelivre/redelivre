@@ -12,7 +12,14 @@ Version: 1.0.1
 ///// PLUGIN PATH ///////////
 
 define('EW_ABSPATH', WP_CONTENT_DIR.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
-define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
+if(function_exists('domain_mapping_plugins_uri'))
+{
+	define('EW_URLPATH', domain_mapping_plugins_uri(WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' ));
+}
+else
+{
+	define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
+}
 
 add_action('wp_print_scripts', 'eletrowidgets_print_scripts');
 add_action('wp_print_styles', 'eletrowidgets_print_styles');
@@ -107,6 +114,7 @@ class EletroWidgets {
         // Put the canvas ID in a hidden field
         echo "<input type='hidden' name='eletro_widgets_id' id='eletro_widgets_id' value='{$this->id}'>";
 
+        $dashedCols = '';
         // Get saved widgets and print them
         if (current_user_can('manage_eletro_widgets')) {
             $options = get_option('eletro_widgets');
@@ -213,7 +221,7 @@ class EletroWidgets {
 	function get_widget_on_list($args) {
 		$r = "<div class='widget_add_control' id='widget_add_control_{$args['_id_base']}'>";
 		$r .= "<input type='hidden' class='id_base' name='id_base' value='{$args['_id_base']}'>";
-		$r .= "<input type='hidden' class='multi_number' name='multi_number' value='" . (array_key_exists('_multi_num', $args)) ? $args['_multi_num'] : '' . "'>";
+		$r .= "<input type='hidden' class='multi_number' name='multi_number' value='" . (array_key_exists('_multi_num', $args) ? $args['_multi_num'] : '') . "'>";
 		$r .= "<input type='hidden' class='widget-id' name='widget-id' value='{$args['widget_id']}'>";
 		$r .= "<input type='hidden' class='add' name='add' value='{$args['_add']}'>";
 

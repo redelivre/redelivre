@@ -74,7 +74,7 @@ function delibera_notifications_page()
 						wp_nonce_field('delibera-notifications');
 		
 						$table = delibera_nofiticar_config_page();
-						delibera_postbox('delibera-notifications', __('Notificações', 'delibera'), $table . '<div class="submit"><input type="submit" class="button-primary" name="submit" value="' . __('Save Changes') . '" /></div>');
+						echo $table . '<div class="submit"><input type="submit" class="button-primary" name="submit" value="' . __('Save Changes') . '" /></div>';
 						?>
 					</form>
 				</div> <!-- meta-box-sortables -->
@@ -281,9 +281,7 @@ function delibera_nofiticar_config_page()
 	if(function_exists('qtrans_enableLanguage'))
 	{
 		$head = "<div id=\"delibera-mensagens-notificacoes-painel\" ".(htmlspecialchars_decode($opt['notificacoes']) == 'S' ? '' : 'style="display:none"')." ><div id=\"delibera-mensagens-notificacoes\"><label id=\"label-delibera-mensagens-notificacoes\" >".__('Selecione uma língua para configurar as notificações em cada idioma', 'delibera')."</label>";
-		$table2 = "";
 		global $q_config;
-		
 			
 		foreach ($q_config['enabled_languages'] as $lang)
 		{
@@ -313,20 +311,14 @@ function delibera_nofiticar_config_page()
 		
 		$lang = get_locale();
 		
-		$head = "<div id=\"delibera-mensagens-notificacoes-painel\" ".(htmlspecialchars_decode($opt['notificacoes']) == 'S' ? '' : 'style="display:none"')." ><div id=\"delibera-mensagens-notificacoes\"><label id=\"label-delibera-mensagens-notificacoes\" >".__('Configurar Notificações', 'delibera')."</label>";
-		$table2 = "";
-		
-		
 		$display = "block";
 		$ativa = "active";
 		
 		$rows_lang[$lang] = delibera_nofiticar_config_page_campos($opt, $lang);
 		
-			
 		$rows_lang[$lang]['default'] = true;
 			
-		
-		$table .= $head."</div>";
+		$table;
 	}
 
 	$table .= '<div id="painel-notificacoes" '.(htmlspecialchars_decode($opt['notificacoes']) == 'S' ? '' : 'style="display:none"').' >';

@@ -58,6 +58,8 @@ class Mobilize {
     }
 
     public static function getErrors($section = null) {
+        if(!isset(self::$errors[$section])){ self::$errors[$section] = NULL; }
+
         return $section ? self::$errors[$section] : self::$errors;
     }
 

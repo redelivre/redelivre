@@ -574,11 +574,7 @@ function jaiminho_GenerateIFrame($params){
 		wp_die('É necessário a url do serviço jaiminho');
 	}
 	
-	if ($opt['auth'] === false)
-		$authorize = "";
-	else
-		$authorize = "?apikeysession=".jaiminho_auth();
-		
+	$authorize = "?apikeysession=".jaiminho_auth();
 	
 	$url = $opt['jaiminho_admin_url']."/".$params['page'].$authorize;
 	
@@ -663,6 +659,7 @@ function jaiminho_closesession(){
 		'</html>';
 	
 	flush();
+	exit();
 }
 
 add_action('wp_logout','jaiminho_closesession');

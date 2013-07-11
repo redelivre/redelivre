@@ -36,7 +36,7 @@ function delibera_get_main_config($config = array()) {
     $opt['limitar_tamanho_comentario'] = 'N';
     $opt['numero_max_palavras_comentario'] = '50';
     $opt['plan_restriction'] = 'N';
-    $opt['cabecalho_arquivo'] = __( 'Bem-vindo a plataforma de debate do ', 'direitoamoradia' ).get_bloginfo('name');
+    $opt['cabecalho_arquivo'] = __( 'Bem-vindo a plataforma de debate do ', 'delibera' ).get_bloginfo('name');
     
     return array_merge($opt, $config);
 }
@@ -117,7 +117,7 @@ function delibera_conf_page()
 				$rows[] = array(
 					"id" => "validacao",
 					"label" => __('É necessário validação das pautas?', 'delibera'),
-					"content" => '<input type="checkbox" name="validacao" value="S" '.(htmlspecialchars_decode($opt['validacao']) == 'S' ? 'checked="checked"' : '').' />'
+					"content" => '<input type="checkbox" name="validacao" id="validacao" value="S" '.(htmlspecialchars_decode($opt['validacao']) == 'S' ? 'checked="checked"' : '').' />'
 				);
 				$rows[] = array(
 					"id" => "minimo_validacao",
@@ -151,7 +151,7 @@ function delibera_conf_page()
 				$rows[] = array(
 					"id" => "relatoria",
 					"label" => __('Necessário relatoria da discussão das pautas?', 'delibera'),
-					"content" => '<input type="checkbox" name="relatoria" value="S" '.(htmlspecialchars_decode($opt['relatoria']) == 'S' ? 'checked="checked"' : '').' />'
+					"content" => '<input type="checkbox" id="relatoria" name="relatoria" value="S" '.(htmlspecialchars_decode($opt['relatoria']) == 'S' ? 'checked="checked"' : '').' />'
 				);
 				$rows[] = array(
 					"id" => "dias_relatoria",
@@ -171,7 +171,7 @@ function delibera_conf_page()
 				$rows[] = array(
 					"id" => "limitar_tamanho_comentario",
 					"label" => __('Necessário limitar o tamanho do comentário visível?', 'delibera'),
-					"content" => '<input type="checkbox" name="limitar_tamanho_comentario" value="S" '.(htmlspecialchars_decode($opt['limitar_tamanho_comentario']) == 'S' ? 'checked="checked"' : '').' />'
+					"content" => '<input type="checkbox" name="limitar_tamanho_comentario" id="limitar_tamanho_comentario" value="S" '.(htmlspecialchars_decode($opt['limitar_tamanho_comentario']) == 'S' ? 'checked="checked"' : '').' />'
 				);
 				$rows[] = array(
 					"id" => "numero_max_palavras_comentario",
@@ -180,7 +180,7 @@ function delibera_conf_page()
 				);
 				$rows[] = array(
 					"id" => "cabecalho_arquivo",
-					"label" => __('Cabeçalho da página de arquivo do sistema (lista de pautas):', 'delibera'),
+					"label" => __('Título da página de listagem de pautas e da página de uma pauta:', 'delibera'),
 					"content" => '<input type="text" name="cabecalho_arquivo" id="cabecalho_arquivo" value="'.htmlspecialchars_decode($opt['cabecalho_arquivo']).'"/>'
 				);
 				$table = delibera_form_table($rows);
@@ -188,7 +188,7 @@ function delibera_conf_page()
 				{
 					$table = apply_filters('delibera_config_form', $table, $opt);
 				}
-				delibera_postbox('delibera-config',__('Configurações para o plugin Delibera','delibera'), $table.'<div class="submit"><input type="submit" class="button-primary" name="submit" value="'.__('Save Changes').'" /></form></div>');
+				echo $table.'<div class="submit"><input type="submit" class="button-primary" name="submit" value="'.__('Save Changes').'" /></form></div>';
 			?>
 				
 				</form>
