@@ -2604,6 +2604,9 @@ function delibera_comment_number($postID, $tipo)
 
 function delibera_comment_number_filtro($count, $postID)
 {
+	if (!is_pauta()) {
+		return $count;
+	}
 	$situacao = delibera_get_situacao($postID);
 	
 	if (!$situacao) {
