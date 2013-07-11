@@ -62,14 +62,14 @@ function webcontatos_get_user_campos_form_registro()
 		),
 	);
 	
-	if(function_exists(get_user_campos_form_registro))
+	/*if(function_exists('get_user_campos_form_registro'))
 	{
 		$get_user_campos_form_registro = get_user_campos_form_registro();
 		if(is_array($get_user_campos_form_registro))
 		{
 			//$campos_form_registro = array_merge($campos_form_registro, $get_user_campos_form_registro);
 		}
-	}
+	}*/
 	$campo_template = webcontatos_get_user_campos_form_registro_template();
 	for($i = 0; $i < count($campos_form_registro); $i++)
 	{

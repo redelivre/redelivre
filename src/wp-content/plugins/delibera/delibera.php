@@ -1077,7 +1077,7 @@ function delibera_publish_pauta($postID, $post, $alterar = false)
 	{
 		return $postID;
 	}
-	if ($alterar || (($post->post_status == 'publish' || $_POST['publish'] == 'Publicar') && ($_POST['prev_status'] == 'draft' || $_POST['original_post_status'] == 'draft' || $_POST['original_post_status'] == 'auto-draft' || $_POST['prev_status'] == 'pending' || $_POST['original_post_status'] == 'pending' ) ))
+	if ($alterar || (($post->post_status == 'publish' || $_POST['publish'] == 'Publicar') && ((isset($_POST['prev_status']) && $_POST['prev_status'] == 'draft') || $_POST['original_post_status'] == 'draft' || $_POST['original_post_status'] == 'auto-draft' || $_POST['prev_status'] == 'pending' || $_POST['original_post_status'] == 'pending' ) ))
 	{
 		$prazo_validacao = get_post_meta($postID, 'prazo_validacao', true);
 		$prazo_discussao =  get_post_meta($postID, 'prazo_discussao', true);
@@ -1972,9 +1972,7 @@ function delibera_comments_template($path)
 
 add_filter('comments_template', 'delibera_comments_template');
 
-$filename = __DIR__.DIRECTORY_SEPARATOR.'delibera_template.php';
-//if(file_exists($filename))
-	require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_template.php';
+// require_once __DIR__.DIRECTORY_SEPARATOR.'delibera_template.php';
 
 // Fim Inicialização do plugin
 
@@ -2024,21 +2022,6 @@ function delibera_form_table($rows) {
 	return $content;
 }
 
-/**
- * Create a potbox widget
- */
-function delibera_postbox($id, $title, $content) {
-?>
-	<div id="<?php echo $id; ?>" class="postbox">
-		<div class="handlediv" title="Click to toggle"><br /></div>
-		<h3 class="hndle"><span><?php echo $title; ?></span></h3>
-		<div class="inside">
-			<?php echo $content; ?>
-		</div>
-	</div>
-<?php
-}	
-
 // Scripts
 
 function delibera_scripts()
@@ -2079,7 +2062,8 @@ function delibera_admin_scripts()
 		wp_enqueue_script('jquery-ui-datepicker-ptbr', WP_CONTENT_URL.'/plugins/delibera/js/jquery.ui.datepicker-pt-BR.js', array('jquery-ui-datepicker'));
 		wp_enqueue_script('delibera-admin',WP_CONTENT_URL.'/plugins/delibera/js/admin_scripts.js', array( 'jquery-ui-datepicker-ptbr'));
 	}
-	if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'delibera-config')
+	
+	if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'delibera-notifications')
 	{
 		wp_enqueue_script('delibera-admin-notifica',WP_CONTENT_URL.'/plugins/delibera/js/admin_notifica_scripts.js', array('jquery'));
 	}
@@ -2804,9 +2788,9 @@ function delibera_valida_validacoes($post)
  */
 function delibera_valida_permissoes($comment_ID)
 {
-	if (!current_user_can('votar'))
+	if (get_post_type() == 'pauta' && !current_user_can('votar'))
 	{
-		if ($_REQUEST['delibera_validacao'] || $_REQUEST['delibera_encaminha'])
+		if (array_key_exists('delibera_validacao', $_REQUEST) || array_key_exists('delibera_encaminha', $_REQUEST) )
 			wp_die("Nananina não! Você não tem que ter permissão pra votar.","Tocooo!!");	
 	}
 }

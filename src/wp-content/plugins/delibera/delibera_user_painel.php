@@ -30,7 +30,7 @@ function delibera_get_user_campos_form_registro()
 		 * 		'nome' => __('País', 'delibera'),
 		 * 		'registro' => true, // Necessário no formulário de registro
 		 * 		'obrigatorio' => true, // Obrigatório no formulário de registro
-		 * 		'Informar' => __('Favor informar o país do qual deseja participar', 'direitoamoradia'),
+		 * 		'Informar' => __('Favor informar o país do qual deseja participar', 'delibera'),
 		 * 		'funcao_registro', => 'get_tax_regiao_paises' // opcional
 		 * 		'tipo_painel' => 'DropDown', // Opcional: tipo do painel (Texto, DropDown ou CheckBox)
 		 * 		'dados' => 'get_paises', // Opcional: Função para pegar opções

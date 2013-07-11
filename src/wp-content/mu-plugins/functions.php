@@ -433,3 +433,146 @@ function custom_menu_order($order) {
 }
 
 add_filter('menu_order', 'custom_menu_order', 20);
+
+/*
+* Filter used for correct the register URL
+*/
+function custom_register_redirect($content){
+	if(!is_main_site()){
+		//die("chamou filtro");
+		unset($_REQUEST['action']);
+		return "registro-de-usuario/?".http_build_query($_REQUEST);
+	} else {
+		return $content;
+	}
+}
+
+add_filter('wp_signup_location', 'custom_register_redirect', 10, 3);
+
+/**
+* 
+*
+*/
+function custom_register_rule(){
+	
+	add_rewrite_rule('registro-de-usuario(.*)', 'index.php?custom_user_register=true$matches[1]', 'top');
+	//flush_rewrite_rules();
+}
+
+add_action('init', 'custom_register_rule');
+
+/**
+* 
+*
+*/
+function custom_register_query_var($query_vars){
+	$query_vars[] = 'custom_user_register';
+	return $query_vars;
+}
+
+add_filter('query_vars', 'custom_register_query_var');
+
+/**
+* 
+*
+*/
+function custom_register_form(){
+	if(get_query_var('custom_user_register')){
+		get_header();
+		$file_path = get_stylesheet_directory() . '/template-registro-de-usuario.php';
+		if(file_exists($file_path)){
+			include $file_path;
+		} else {
+			include ABSPATH . '/wp-content/mu-plugins/includes/custom-register-form.php';
+		}		
+		get_footer();
+		exit();
+	}
+}
+
+add_action('template_redirect', 'custom_register_form');
+
+/**
+*
+*
+*/
+function custom_register_js(){
+	wp_register_script('custom_register', network_site_url() . 'wp-content/mu-plugins/js/custom_user_register.js', array('jquery'));
+	
+	if(get_query_var('custom_user_register')){
+		wp_enqueue_script('custom_register');
+		wp_localize_script('custom_register', 'custom_register_ajax', array('ajaxurl' => home_url() . '/wp-admin/admin-ajax.php?'.http_build_query($_GET)));
+	}
+}
+
+add_action('wp_enqueue_scripts', 'custom_register_js');
+
+/**
+*
+*
+*/
+function custom_register_ajax_send(){
+	$dados = array(
+		'user_login' => $_POST['username'],
+		'user_pass' => $_POST['password'],
+		'user_email' => $_POST['email'],
+		'first_name' => $_POST['realname'],
+		'captcha_code'  => $_POST['captcha_code']
+	);
+	
+	session_start();
+	if(class_exists('siCaptcha', false))
+	{
+		global $registro_captcha;
+		$registro_captcha = new siCaptcha();
+		
+		if($_SESSION["securimage_code_si_com"] != $dados['captcha_code'])
+		{
+			echo "<div class='erro'>".__('Wrong CAPTCHA', 'si-captcha')."</div>";
+			exit();
+		}
+	}
+	
+	$usuario = wp_insert_user($dados);
+	if(!is_wp_error($usuario)){
+		echo _x('Cadastro efetuado com sucesso. <a href="' . wp_login_url($_REQUEST['redirect_to']) . '">Clique aqui</a> para fazer o login.', 'registro-de-usuario', 'campanha-completa');
+		echo '<script>jQuery(".formulario-de-registro-padrao .campos").slideUp();</script>';
+	} else {
+		$erros = $usuario->get_error_message();
+		echo "<div class='erro'>{$erros}</div>";
+	}
+	
+	exit();
+}
+
+add_action('wp_ajax_custom_register_send', 'custom_register_ajax_send');
+add_action('wp_ajax_nopriv_custom_register_send', 'custom_register_ajax_send');
+
+/**
+ * registra os headers para o registro customizado
+ */
+function custom_register_header()
+{
+	if(get_query_var('custom_user_register'))
+	{
+		if(class_exists('siCaptcha', false))
+		{
+			global $registro_captcha;
+			$registro_captcha = new siCaptcha;
+			$registro_captcha->si_captcha_start_session();
+		}
+		wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
+		wp_enqueue_script('jquery_validate_messages', WPMU_PLUGIN_URL . '/js/jquery.validate.messages_pt_BR.js', array('jquery', 'jquery_validate'));
+	}
+}
+add_action('wp_head', 'custom_register_header');
+
+function return_after_register($url, $path, $scheme, $blog_id)
+{
+	if($scheme == 'login' && strpos($url, 'action=register') !== false)
+	{
+		$url .= "&redirect_to=".urlencode(get_permalink());
+	}
+	return $url;
+}
+add_filter('site_url', 'return_after_register', 10, 4);

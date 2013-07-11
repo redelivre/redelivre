@@ -24,6 +24,13 @@ class WidgetListaPropostas extends WP_Widget
 			'Delibera Lista de Propostas', // Name
 			array( 'description' => __( 'Listas as Propostas de Pauta do Delibera', 'delibera' ), ) // Args
 		);
+		add_action('wp_enqueue_scripts', array($this, 'styles'));
+	}
+	
+	public function styles()
+	{
+		wp_register_style('WidgetListaPropostas', plugin_dir_url(__FILE__)."/WidgetListaPropostas.css");
+		wp_enqueue_style('WidgetListaPropostas');
 	}
 	
 	public function widget( $args, $instance )
@@ -40,10 +47,10 @@ class WidgetListaPropostas extends WP_Widget
 			}
 		}
 		
-		/* @var $wp_posts WP_Query */ 
-		$wp_posts = delibera_get_pautas_em(array(), $params['situacao']);
-		
 		extract($params);
+		
+		/* @var $wp_posts WP_Query */ 
+		$wp_posts = delibera_get_pautas_em(array('posts_per_page'  => $items), $params['situacao']);
 		
 		include 'view.php';
 	}

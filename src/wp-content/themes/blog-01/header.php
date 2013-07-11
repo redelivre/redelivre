@@ -54,6 +54,7 @@ $sidebar = get_option('campanha_theme_options');
 	<div class="wrap clearfix">
 		<?php do_action('campanha_body_header'); ?>
     </div>
+    
 	<div id="branding" class="wrap clearfix">
 		<?php if ( 'blank' == get_header_textcolor() ) : ?>
 			<a id="header-image-link" href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"></a>
@@ -71,6 +72,4 @@ $sidebar = get_option('campanha_theme_options');
 	</div>
 	<!-- #menubar -->
 </header>
-
 <!-- #main-header -->
-

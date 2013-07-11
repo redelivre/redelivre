@@ -148,7 +148,7 @@ class Delibera_Walker_Comment extends Walker_Comment
 						comment_reply_link(array_merge( $args, array('add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth'])));*/
 						?>
 						<div class="entry-respond">
-							<a href="<?php delibera_get_comment_link();?>#respond" class="comment-reply-link"><?php _e( 'De sua opinião', 'direitoamoradia' ); ?></a>
+							<a href="<?php delibera_get_comment_link();?>#respond" class="comment-reply-link"><?php _e( 'De sua opinião', 'delibera' ); ?></a>
 						</div>
 						<?php
 					}
@@ -156,7 +156,7 @@ class Delibera_Walker_Comment extends Walker_Comment
 					{
 					?>
 						<div class="entry-respond">
-							<a href="<?php echo wp_login_url(delibera_get_comment_link());?>#respond" class="comment-reply-link"><?php _e( 'Faça login e de sua opinião', 'direitoamoradia' ); ?></a>
+							<a href="<?php echo wp_login_url(delibera_get_comment_link());?>#respond" class="comment-reply-link"><?php _e( 'Faça login e de sua opinião', 'delibera' ); ?></a>
 						</div><!-- .entry-respond -->
 					<?php
 					}

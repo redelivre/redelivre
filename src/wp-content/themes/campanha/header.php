@@ -56,7 +56,7 @@
 				    <?php if (is_user_logged_in()): ?>
 					    <a class="login" href="<?php echo admin_url(); ?>">admin</a>
 					<?php else: ?>
-					    <a class="login" href="<?php echo wp_login_url(); ?>">login</a>
+					    <a class="login" href="<?php echo wp_login_url(get_permalink()); ?>">login</a>
 					<?php endif; ?>
 					<?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-menu', 'menu_class' => 'clearfix', 'fallback_cb' =>'', 'depth' => '1') ); ?>
 				</nav>
