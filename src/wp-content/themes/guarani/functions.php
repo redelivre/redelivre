@@ -180,13 +180,15 @@ function guarani_footer_scripts() {
 	<!-- Swiper -->
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
-			var mySwiper = jQuery('.swiper-container').swiper({
-				autoPlay: 8000,
+			var mySwiper = jQuery('.swiper-container').swiper({				
 				//createPagination: true,
 				loop: true,
 				//pagination: '.swiper-pagination',
 				speed: 1300
 			});
+                        
+                        if (mySwiper.slides.length > 3)
+                            mySwiper.params.autoPlay = 8000;
 			
 			// A navegação
 			jQuery('.previous-slide').bind('click', function(e){
