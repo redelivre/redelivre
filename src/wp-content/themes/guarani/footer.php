@@ -44,8 +44,8 @@
 	</div><!-- .site-wrapper .hfeed .site -->
 	
 	<div class="guarani-credits cf">
-		<a href="http://campanhacompleta.com.br/" title="<?php _e( 'Campanha Completa', 'guarani' ); ?>" class="icon-campanha-completa"><img src="<?php echo get_bloginfo( 'stylesheet_directory' ) . '/images/icon-campanha-completa.png'; ?>" alt="<?php _e( 'Campanha Completa logo', 'guarani' ); ?>" /><span class="assistive-text"><?php _e( 'Campanha Completa', 'guarani' ); ?></span></a>
-		<a href="http://wordpress.org/" title="<?php esc_attr_e( 'Proudly powered by WordPress', 'guarani' ); ?>" class="icon-wordpress" rel="generator"><img src="<?php echo get_bloginfo( 'stylesheet_directory' ) . '/images/icon-wordpress.png'; ?>" alt="<?php _e( 'WordPress logo', 'guarani' ); ?>" /><span class="assistive-text"><?php _e( 'Proudly powered by WordPress', 'guarani' ); ?></span></a>
+            <a href="http://campanhacompleta.com.br/" title="<?php _e( 'Campanha Completa', 'guarani' ); ?>" class="icon-campanha-completa"><img src="<?php echo get_template_directory_uri() . '/images/icon-campanha-completa.png'; ?>" alt="<?php _e( 'Campanha Completa logo', 'guarani' ); ?>" /><span class="assistive-text"><?php _e( 'Campanha Completa', 'guarani' ); ?></span></a>
+		<a href="http://wordpress.org/" title="<?php esc_attr_e( 'Proudly powered by WordPress', 'guarani' ); ?>" class="icon-wordpress" rel="generator"><img src="<?php echo get_template_directory_uri() . '/images/icon-wordpress.png'; ?>" alt="<?php _e( 'WordPress logo', 'guarani' ); ?>" /><span class="assistive-text"><?php _e( 'Proudly powered by WordPress', 'guarani' ); ?></span></a>
 	</div><!-- .guarani-credits -->
 	
 	<?php wp_footer(); ?>
