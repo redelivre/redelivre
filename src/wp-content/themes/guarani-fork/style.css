@@ -17,4 +17,5 @@ Version:        0.1.0
 .home .site-wrapper  {background: none; box-shadow: none; }
 .home .main { padding: 0px; }
 .home .container { background: white; padding: 0 32px 0 32px; }
-.home #tertiary { background: white; }
+
+.site-footer { height: 32px; line-height: 2.3em; background: white; }
