@@ -31,12 +31,6 @@
 	<div class="site-wrapper hfeed">
 		<?php do_action( 'before' ); ?>
 		<header id="masthead" class="site-header cf" role="banner">
-		
-                        <nav role="navigation" class="site-navigation main-navigation">
-				<h1 class="assistive-text"><?php _e( 'Menu', 'guarani' ); ?></h1>
-				<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'guarani' ); ?>"><?php _e( 'Skip to content', 'guarani' ); ?></a></div>
-				<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'primary' ) ); ?>
-			</nav><!-- .site-navigation .main-navigation -->
 			<div class="branding">
 				<?php
 				// Get the current color scheme 
@@ -57,10 +51,11 @@
 				</h1>
 				<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
 			</div>
-			
-			
-	
-			
+                        <nav role="navigation" class="site-navigation main-navigation">
+				<h1 class="assistive-text"><?php _e( 'Menu', 'guarani' ); ?></h1>
+				<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'guarani' ); ?>"><?php _e( 'Skip to content', 'guarani' ); ?></a></div>
+				<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'primary' ) ); ?>
+			</nav><!-- .site-navigation .main-navigation -->
 		</header><!-- #masthead .site-header -->
 	
 		<section id="main" class="main cf">
