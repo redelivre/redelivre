@@ -1,0 +1,247 @@
+# Copyright (C) 2012 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-dropbox-upload-form\n"
+"POT-Creation-Date: 2013-07-14 18:08-0300\n"
+"PO-Revision-Date: 2013-07-14 18:15-0300\n"
+"Last-Translator: Marco Antonio Konopacki <marcoamarelo@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ./..\n"
+"X-Poedit-SearchPath-1: ./../inc\n"
+
+#: ../wp-dropbox.php:127
+msgid "Need to configure allowed file extensions!"
+msgstr "Você precisa configurar as extensões de arquivo permitidas!"
+
+#: ../wp-dropbox.php:131
+msgid "Need to authorize plugin!"
+msgstr "Você precisa autorizar o plugin a sua conta Dropbox!"
+
+#: ../wp-dropbox.php:135 ../wp-dropbox.php:172 ../wp-dropbox.php:305
+msgid "Error:"
+msgstr "Erro:"
+
+#: ../wp-dropbox.php:150 ../wp-dropbox.php:264 ../dragup/upload.class.php:81
+msgid "Internal Server Error!"
+msgstr "Erro interno de servidor!"
+
+#: ../wp-dropbox.php:187 ../wp-dropbox.php:275
+msgid "Problem with uploaded file!"
+msgstr "Não foi possível renomear o arquivo!"
+
+#: ../wp-dropbox.php:200 ../wp-dropbox.php:312
+msgid "ERROR! Upload Failed."
+msgstr "Erro! O envio falhou."
+
+#: ../wp-dropbox.php:226 ../wp-dropbox.php:337
+msgid "Error: "
+msgstr "Erro:"
+
+#: ../wp-dropbox.php:252
+msgid "Allowed file extensions: "
+msgstr "Extensões de arquivo permitidas:"
+
+#: ../wp-dropbox.php:260
+msgid "File was not uploaded from your computer."
+msgstr "O arquivo foi enviado com sucesso."
+
+#: ../wp-dropbox.php:268
+msgid "File name not supplied by the browser."
+msgstr "O nome do arquivo não foi preenchido."
+
+#: ../wp-dropbox.php:411
+msgid "Submit"
+msgstr "Enviar"
+
+#: ../wp-dropbox.php:634
+msgid "Options saved."
+msgstr "Opções salvas."
+
+#: ../wp-dropbox.php:644
+msgid "Simple Dropbox Upload"
+msgstr "Formulário de envio para o Dropbox pelo WordPress"
+
+#: ../wp-dropbox.php:644 ../wp-dropbox.php:647
+msgid ""
+"This plugin will create a folder in your Dropbox account and allow public "
+"uploads."
+msgstr "Plugin que permite subir arquivos diretamente para usa conta Dropbox."
+
+#: ../wp-dropbox.php:699
+msgid "Space: "
+msgstr "Espaço:"
+
+#: ../wp-dropbox.php:702
+msgid "used"
+msgstr "usado"
+
+#: ../wp-dropbox.php:705
+msgid "free"
+msgstr "livre"
+
+#: ../wp-dropbox.php:860
+msgid ""
+"Need a Dropbox account? Please use this link so we both get some extra space."
+msgstr ""
+"Precisa de uma conta no Dropbox? Por favor, use esse link e assim ambos "
+"ganham mais espaço extra."
+
+#: ../wp-dropbox.php:866
+msgid "Keep Simple Dropbox in settings menu."
+msgstr "Manter o Simple Dropbox no menu de Configurações"
+
+#: ../wp-dropbox.php:872
+msgid "Path in dropbox folder."
+msgstr "Endereço para a pasta Dropbox."
+
+#: ../wp-dropbox.php:875
+msgid "All files/folders will be located in the base of your dropbox."
+msgstr ""
+"Todos os arquivos/pastas estarão disponíveis no diretório base do seu "
+"Dropbox."
+
+#: ../wp-dropbox.php:878
+msgid ""
+"Temporary path on server. Files get saved here if Dropbox server is down."
+msgstr ""
+"Endereço temporário no servidor. Os arquivos serão salvos aqui se o Dropbox "
+"estiver offline."
+
+#: ../wp-dropbox.php:881
+msgid "Default Location:"
+msgstr "Localização padrão:"
+
+#: ../wp-dropbox.php:884
+msgid "Allowed file extensions, separated by spaces."
+msgstr "Extensões de arquivos permitidas, separadas por espaço."
+
+#: ../wp-dropbox.php:884
+msgid "Required"
+msgstr "Obrigatório"
+
+#: ../wp-dropbox.php:887
+msgid "Example:"
+msgstr "Exemplo:"
+
+#: ../wp-dropbox.php:890
+msgid "Message displayed after uploading a file."
+msgstr "Mensagem de agradecimento depois que o arquivo é enviado."
+
+#: ../wp-dropbox.php:894
+msgid "Text color of thank you message."
+msgstr "Cor do texto da sua mensagem"
+
+#: ../wp-dropbox.php:904
+#, fuzzy, php-format
+msgid "Default color: %s"
+msgstr "Localização padrão:"
+
+#: ../wp-dropbox.php:909
+msgid "Show upload progress indicators?(Experimental)"
+msgstr "Mostrar a barra de progresso de upload? (Experimental)"
+
+#: ../wp-dropbox.php:911 ../wp-dropbox.php:949 ../wp-dropbox.php:972
+#: ../wp-dropbox.php:980
+msgid "True"
+msgstr "Sim"
+
+#: ../wp-dropbox.php:912 ../wp-dropbox.php:950 ../wp-dropbox.php:973
+#: ../wp-dropbox.php:981
+msgid "False"
+msgstr "Não"
+
+#: ../wp-dropbox.php:917
+msgid "Page directed to after uploading a file."
+msgstr "Mensagem de agradecimento depois que o arquivo é enviado."
+
+#: ../wp-dropbox.php:947
+msgid "Show multiple upload link?<br />(Experimental)"
+msgstr "Mostrar o link para mútiplos uploads?<br/>(Experimental)"
+
+#: ../wp-dropbox.php:955
+msgid "Multiple upload link text."
+msgstr "Texto do link para upload múltiplo"
+
+#: ../wp-dropbox.php:959
+msgid "Per file size limit. (Multiple Upload Only)"
+msgstr "Limite de upload por arquivo. (No caso de múltiplos uploads)"
+
+#: ../wp-dropbox.php:961
+msgid "1MB"
+msgstr "1MB"
+
+#: ../wp-dropbox.php:962
+msgid "5MB"
+msgstr "5MB"
+
+#: ../wp-dropbox.php:963
+msgid "10MB"
+msgstr "10MB"
+
+#: ../wp-dropbox.php:964
+msgid "15MB"
+msgstr "15MB"
+
+#: ../wp-dropbox.php:965
+msgid "20MB"
+msgstr "20MB"
+
+#: ../wp-dropbox.php:970
+msgid "Show upload form again after upload?"
+msgstr "Mostrar o formulário de upload novamente depois do envio do arquivo?"
+
+#: ../wp-dropbox.php:978
+msgid "Delete local file after upload to dropbox?"
+msgstr "Apagar os arquivos do servidor depois de enviados ao Dropbox?"
+
+#: ../wp-dropbox.php:986
+msgid "Use CURL, PHP oAuth or PEAR oAuth?"
+msgstr "Usar qual biclioteca (CURL, PHP oAuth ou PEAR oAuth)?"
+
+#: ../wp-dropbox.php:995
+msgid "RESET SETTINGS."
+msgstr "APAGAR CONFIGURAÇÕES."
+
+#: ../wp-dropbox.php:998
+msgid "PLEASE TYPE THE FOLLOWING NUMBERS: "
+msgstr "POR FAVOR, DIGITE OS SEGUINTES NÚMEROS:"
+
+#: ../wp-dropbox.php:1004
+msgid "Save options"
+msgstr "Salvar opções"
+
+#: ../wp-dropbox.php:1008
+msgid "Authorize"
+msgstr "Autorizar"
+
+#: ../wp-dropbox.php:1013
+msgid "Confirm"
+msgstr "Confirmar"
+
+#~ msgid ""
+#~ "Seems your host might not play nice with this plugin... But give it a "
+#~ "shot anyway."
+#~ msgstr ""
+#~ "Parece que seu servidor não tem os recursos necessários para utilização "
+#~ "desse plugin."
+
+#~ msgid "Cannot create temporary directory!"
+#~ msgstr "Não foi possível criar o diretório temporário!"
+
+#~ msgid ""
+#~ "This plugin will create a folder in your Dropbox account and allow public "
+#~ "uploads. The date when the file got uploded is appended at the end of the "
+#~ "filename, example foo_2010-01-01.pdf just so we don't overwrite files."
+#~ msgstr ""
+#~ "O plugin irá criar uma pasta na sua conta Dropbox que permitirá o envio "
+#~ "de arquivos. Será será adicionada uma data no final do arquivo, por "
+#~ "exemplo teste_2010-01-01.pdf, logo nunca nenhum arquivo será apagado. "

@@ -1,0 +1,148 @@
+# Copyright (C) 2012 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-dropbox-upload-form\n"
+"POT-Creation-Date: 2012-03-12 19:20:43+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: wp-dropbox.php:63
+msgid ""
+"Seems your host might not play nice with this plugin... But give it a shot "
+"anyway."
+msgstr ""
+
+#: wp-dropbox.php:111
+msgid "Need to configure allowed file extensions!"
+msgstr ""
+
+#: wp-dropbox.php:115
+msgid "Need to authorize plugin!"
+msgstr ""
+
+#: wp-dropbox.php:119 wp-dropbox.php:145
+msgid "Error:"
+msgstr ""
+
+#: wp-dropbox.php:165
+msgid "Allowed file extensions: "
+msgstr ""
+
+#: wp-dropbox.php:180
+msgid "File was not uploaded from your computer."
+msgstr ""
+
+#: wp-dropbox.php:188
+msgid "Cannot create temporary directory!"
+msgstr ""
+
+#: wp-dropbox.php:194
+msgid "File name not supplied by the browser."
+msgstr ""
+
+#: wp-dropbox.php:204
+msgid "Cannot rename uploaded file!"
+msgstr ""
+
+#: wp-dropbox.php:218
+msgid "ERROR! Upload Failed."
+msgstr ""
+
+#: wp-dropbox.php:239
+msgid "Error: "
+msgstr ""
+
+#: wp-dropbox.php:264
+msgid "Submit"
+msgstr ""
+
+#: wp-dropbox.php:313
+msgid "Wordpress Drobox Upload Form"
+msgstr ""
+
+#: wp-dropbox.php:314
+msgid ""
+"This plugin will create a folder in your Dropbox account and allow public "
+"uploads. The date when the file got uploded is appended at the end of the "
+"filename, example foo_2010-01-01.pdf just so we don't overwrite files."
+msgstr ""
+
+#: wp-dropbox.php:383
+msgid "Options saved."
+msgstr ""
+
+#: wp-dropbox.php:394
+msgid "Path in dropbox folder."
+msgstr ""
+
+#: wp-dropbox.php:397
+msgid "All files/folders will be located in the base of your dropbox."
+msgstr ""
+
+#: wp-dropbox.php:400
+msgid ""
+"Temporary path on server. Files get saved here if Dropbox server is down."
+msgstr ""
+
+#: wp-dropbox.php:403
+msgid "Default Location:"
+msgstr ""
+
+#: wp-dropbox.php:406
+msgid "Allowed file extensions, separated by one space."
+msgstr ""
+
+#: wp-dropbox.php:406
+msgid "Required"
+msgstr ""
+
+#: wp-dropbox.php:411
+msgid "Thank you message displayed after uploading a file."
+msgstr ""
+
+#: wp-dropbox.php:415
+msgid "Show upload form again after upload?"
+msgstr ""
+
+#: wp-dropbox.php:417 wp-dropbox.php:425
+msgid "True"
+msgstr ""
+
+#: wp-dropbox.php:418 wp-dropbox.php:426
+msgid "False"
+msgstr ""
+
+#: wp-dropbox.php:423
+msgid "Delete local file after upload to dropbox?"
+msgstr ""
+
+#: wp-dropbox.php:440
+msgid "RESET SETTINGS."
+msgstr ""
+
+#: wp-dropbox.php:443
+msgid "PLEASE TYPE THE FOLLOWING NUMBERS:"
+msgstr ""
+
+#: wp-dropbox.php:448
+msgid "Save options"
+msgstr ""
+
+#: wp-dropbox.php:453
+msgid "Authorize"
+msgstr ""
+
+#: wp-dropbox.php:458
+msgid "Confirm"
+msgstr ""
+
+#: wp-dropbox.php:468
+msgid ""
+"Need a Dropbox account? Please use this link so we both get some extra space."
+msgstr ""
