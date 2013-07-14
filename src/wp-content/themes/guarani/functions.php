@@ -187,8 +187,10 @@ function guarani_footer_scripts() {
 				speed: 1300
 			});
                         
-                        if (mySwiper.slides.length > 3)
+                        if (mySwiper.slides.length > 3) {
                             mySwiper.params.autoPlay = 8000;
+                            mySwiper.startAutoPlay();
+                        }
 			
 			// A navegação
 			jQuery('.previous-slide').bind('click', function(e){
