@@ -20,4 +20,4 @@ Version:        0.1.0
 
 .site-footer { height: 32px; line-height: 2.3em; background: white; }
 
-.swiper-container { margin-bottom: 2em; }
+.swiper-container { margin-bottom: 1em !important; }
