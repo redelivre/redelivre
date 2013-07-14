@@ -19,3 +19,5 @@ Version:        0.1.0
 .home .container { background: white; padding: 0 32px 0 32px; }
 
 .site-footer { height: 32px; line-height: 2.3em; background: white; }
+
+.swiper-container { margin-bottom: 2em; }
