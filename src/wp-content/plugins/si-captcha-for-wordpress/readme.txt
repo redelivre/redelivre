@@ -4,7 +4,7 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S
 Tags: akismet, captcha, comment, comments, login, anti-spam, spam, security, multilingual, buddypress, wpmu, wordpressmu
 Requires at least: 2.9
-Tested up to: 3.5
+Tested up to: 3.5.2
 Stable tag: trunk
 
 Adds CAPTCHA anti-spam methods to WordPress on the forms for comments, registration, lost password, login, or all. For WP, WPMU, and BuddyPress.
@@ -85,6 +85,22 @@ Once activated, a captcha image and captcha code entry is added to the comment a
 
 == Frequently Asked Questions ==
 
+= Spammers have been able to bypass my CAPTCHA, what can I do? =
+
+First check this: make sure the only other security plugins you have are Akismet or WP-spamFree. 
+Akismet and WP-spamFree are the only other anti-spam plugins approved for use with SI CAPTCHA Anti-Spam, others can simply break the CAPTCHA validation so that the CAPTCHA is never checked.
+If another security plugin is combined(not Akismet or WP-spamFree), the captcha may not block invalid code! Be sure to always test all the CAPTCHA forms after installing or updating themes or plugins. 
+
+Sometimes your site becomes targeted by a spammer that uses a combination of a bot and human captcha solver. [See this help forum for a solution](http://wordpress.org/support/topic/plugin-si-captcha-for-wordpress-spammers-bypassed-captcha-registration-system?replies=13#post-2023124)
+
+Try enabling the setting "Enable honeypot spambot trap" on the plugin settings page.
+
+Try allowing only Registered users to post, and or moderating comments.
+Read more about [Combating Comment Spam](http://codex.wordpress.org/Combating_Comment_Spam)
+
+= How can I change the color of the CAPTCHA input field on the comment form? =
+If you need to learn how to adjust the captcha input form colors, [See this FAQ](http://www.fastsecurecontactform.com/si-captcha-comment-form-css)
+
 
 = Troubleshooting if the CAPTCHA form fields and image is not being shown: =
 
@@ -137,14 +153,6 @@ You can just check the 'Comment Form Rearrange' box on the admin plugins 'Captch
 = Why is it better to uncheck the 'Comment Form Rearrange' box and move the tag? =
 Because the XHTML will no longer validate if it is checked.
 
-= Why do I get "ERROR: Could not read CAPTCHA cookie."? =
-
-Check your web browser settings and make sure you are not blocking cookies for your blog domain. Cookies have to be enabled in your web browser and not blocked for the blog web domain.
-
-
-The Cookie Test can be used to test if your browser is accepting cookies from your site:
-Click on the "Test if your PHP installation will support the CAPTCHA" link on the Options page.
-or open this URL in your web browser to run the test: `/wp-content/plugins/si-captcha-for-wordpress/captcha/test/index.php`
 
 = The CAPTCHA refresh button does not work =
 
@@ -152,16 +160,6 @@ Your theme could be missing the wp_footer PHP tag. Your theme should be consider
 
 All WordPress themes should always have `<?php wp_footer(); ?>` PHP tag just before the closing `</body>` tag of your theme's footer.php, or you will break many plugins which generally use this hook to reference JavaScript files. The solution: edit your theme's footer.php and make sure this tag is there. If it is missing, add it. Next, be sure to test that the CAPTCHA refresh button works, if it does not work and you have performed this step correctly, you could have some other cause.
 
-= Spammers have been able to bypass my CAPTCHA, what can I do? =
-
-First check this: make sure the only other security plugins you have are Akismet or WP-spamFree. 
-Akismet and WP-spamFree are the only other anti-spam plugins approved for use with SI CAPTCHA Anti-Spam, others can simply break the CAPTCHA validation so that the CAPTCHA is never checked.
-If another security plugin is combined(not Akismet or WP-spamFree), the captcha may not work. Be sure to always test the CAPTCHA after installing new plugins. 
-
-Sometimes your site becomes targeted by a spammer that uses a combination of a bot and human captcha solver. [See this help forum for a solution](http://wordpress.org/support/topic/plugin-si-captcha-for-wordpress-spammers-bypassed-captcha-registration-system?replies=13#post-2023124)
-
-= How can I change the color of the CAPTCHA input field on the comment form? =
-If you need to learn how to adjust the captcha input form colors, [See this FAQ](http://www.fastsecurecontactform.com/si-captcha-comment-form-css)
 
 = The CAPTCHA is not working and I cannot login at my login page =
 This failure could have been caused by another plugin conflict with this one.
@@ -209,25 +207,29 @@ The following translations are included in the download zip file:
 * Spanish (en_ES) - Translated by [zinedine](http://www.informacioniphone.com/)
 * Swedish (sv_SE) - Translated by [Benct]
 * Traditional Chinese, Taiwan Language (zh_TW) - Translated by [Cjh]
-* Turkish (tr_TR) - Translated by [Volkan](http://www.kirpininyeri.com/)
+* Turkish (tr_TR) - Translated by [Burak Yavuz]
 * More are needed... Please help translate.
 
 
 = Can I provide a new translation? =
 
-Yes, It will be very gratefully received. 
+Yes please. 
 Please read [How to translate SI Captcha Anti-Spam for WordPress](http://www.fastsecurecontactform.com/translate-si-captcha-anti-spam) 
 
 = Can I update a translation? =
 
-Yes, It will be very gratefully received. 
+Yes please. 
 Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](http://www.fastsecurecontactform.com/update-translation-si-captcha-anti-spam) 
 
 
 == Changelog ==
 
+= 2.7.7 =
+- (13 Jul 2013) - Bug fixes and code cleanup.
+- Update Turkish language (tr_TR) - Translated by [Burak Yavuz] 
+
 = 2.7.6.4 =
-- (05 Jan 2013) - added new setting "Enable honeypot spambot trap". Enables empty field and time based token honyepot traps. For best results, do not enable unless you have a spam bot problem. Does not stop human spammers.
+- (05 Jan 2013) - added new setting "Enable honeypot spambot trap". Enables empty field token honyepot trap. For best results, do not enable unless you have a spam bot problem. Does not stop human spammers.
 - fixed some bugs.
 
 = 2.7.6.2 =

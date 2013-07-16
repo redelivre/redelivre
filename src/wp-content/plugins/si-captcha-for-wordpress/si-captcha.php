@@ -3,12 +3,12 @@
 Plugin Name: SI CAPTCHA Anti-Spam
 Plugin URI: http://www.642weather.com/weather/scripts-wordpress-captcha.php
 Description: Adds CAPTCHA anti-spam methods to WordPress forms for comments, registration, lost password, login, or all. This prevents spam from automated bots. WP, WPMU, and BuddyPress compatible. <a href="plugins.php?page=si-captcha-for-wordpress/si-captcha.php">Settings</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S">Donate</a>
-Version: 2.7.6.4
+Version: 2.7.7
 Author: Mike Challis
 Author URI: http://www.642weather.com/weather/scripts.php
 */
 
-$si_captcha_version = '2.7.6.4';
+$si_captcha_version = '2.7.7';
 
 /*  Copyright (C) 2008-2013 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 
@@ -65,7 +65,6 @@ function si_captcha_get_options() {
 
   $si_captcha_option_defaults = array(
          'si_captcha_donated' => 'false',
-         'si_captcha_captcha_difficulty' => 'medium',
          'si_captcha_perm' => 'true',
          'si_captcha_perm_level' => 'read',
          'si_captcha_comment' => 'true',
@@ -74,9 +73,8 @@ function si_captcha_get_options() {
          'si_captcha_register' => 'true',
          'si_captcha_lostpwd'  => 'true',
          'si_captcha_rearrange' => 'true',
-         'si_captcha_disable_session' => 'true',
+         'si_captcha_enable_session' => 'false',
          'si_captcha_captcha_small' => 'false',
-         'si_captcha_no_trans' => 'false',
          'si_captcha_honeypot_enable' => 'false',
          'si_captcha_aria_required' => 'false',
          'si_captcha_external_style' => 'false',
@@ -93,6 +91,7 @@ function si_captcha_get_options() {
          'si_captcha_error_incorrect' =>    '',
          'si_captcha_error_empty' =>    '',
          'si_captcha_error_token' =>    '',
+         'si_captcha_error_unreadable' =>    '',
          'si_captcha_error_cookie' =>    '',
          'si_captcha_error_error' =>    '',
          'si_captcha_required_indicator' => ' *',
@@ -736,36 +735,17 @@ function si_wp_authenticate_username_password($user, $username, $password) {
 } // end function si_wp_authenticate_username_password
 
 
-// check the honeypot traps for spam bots
-// this is a very basic implementation, more agressive approaches might have to be added later
+// check the honeypot trap for spam bots
+// hidden empty field honyepot trap for spam bots
 function si_captcha_check_honeypot($form_id = 'com') {
       global $si_captcha_opt;
 
       if ($si_captcha_opt['si_captcha_honeypot_enable'] == 'false')
            return 'ok';
 
-    // hidden honeypot field
+    // validate hidden honeypot field
     if( isset($_POST["email_$form_id"]) && trim($_POST["email_$form_id"]) != '')
          return 'failed honeypot';
-
-    // server-side timestamp forgery token.
-    if (!isset($_POST["si_tok_$form_id"]) || empty($_POST["si_tok_$form_id"]) || strpos($_POST["si_tok_$form_id"] , ',') === false )
-         return 'no timestamp';
-
-    $vars = explode(',', $_POST["si_tok_$form_id"]);
-    if ( empty($vars[0]) || empty($vars[1]) || ! preg_match("/^[0-9]+$/",$vars[1]) )
-         return 'bad timestamp';
-
-    if ( wp_hash( $vars[1] ) != $vars[0] )
-       return 'bad timestamp';
-
-      $form_timestamp = $vars[1];
-      $now_timestamp  = time();
-      $human_typing_time = 5; // page load (1s) + submit (1s) + typing time (3s)
-      if ( $now_timestamp - $form_timestamp < $human_typing_time )
-	     return 'too fast less than 5 sec';
-      if ( $now_timestamp - $form_timestamp > 1800 )
-	     return 'over 30 min';
 
       return 'ok';
 
@@ -781,7 +761,7 @@ function si_captcha_validate_code($form_id = 'com', $unlink = 'unlink') {
   if (isset($_POST['captcha_code']) && empty($_POST['captcha_code']))
         return ($si_captcha_opt['si_captcha_error_empty'] != '') ? $si_captcha_opt['si_captcha_error_empty'] : __('Empty CAPTCHA', 'si-captcha');
 
-  if($si_captcha_opt['si_captcha_disable_session'] == 'true') {
+  if($si_captcha_opt['si_captcha_enable_session'] != 'true') {
    //captcha without sessions
       if (empty($_POST['captcha_code']) || $_POST['captcha_code'] == '') {
          return ($si_captcha_opt['si_captcha_error_empty'] != '') ? $si_captcha_opt['si_captcha_error_empty'] : __('Empty CAPTCHA', 'si-captcha');
@@ -798,7 +778,7 @@ function si_captcha_validate_code($form_id = 'com', $unlink = 'unlink') {
               // captcha was matched
              if($unlink == 'unlink')
                 @unlink ($si_captcha_dir_ns . $prefix . '.php');
-                   // some empty field and time based honyepot traps for spam bots
+                   // empty field honyepot trap for spam bots
                    $hp_check = $this->si_captcha_check_honeypot("$form_id");
                    if($hp_check != 'ok')
                       return ($si_captcha_opt['si_captcha_error_spambot'] != '') ? $si_captcha_opt['si_captcha_error_spambot'] : __('Possible spam bot', 'si-captcha');
@@ -822,12 +802,12 @@ function si_captcha_validate_code($form_id = 'com', $unlink = 'unlink') {
       $captcha_code = trim(strip_tags($_POST['captcha_code']));
 
       require_once "$si_captcha_dir/securimage.php";
-      $img = new Securimage();
+      $img = new Securimage_si();
       $img->form_id = $form_id; // makes compatible with multi-forms on same page
       $valid = $img->check("$captcha_code");
       // Check, that the right CAPTCHA password has been entered, display an error message otherwise.
       if($valid == true) {
-           // some empty field and time based honyepot traps for spam bots
+           // empty field honyepot trap for spam bots
            $hp_check= $this->si_captcha_check_honeypot("$form_id");
            if($hp_check != 'ok')
                 return ($si_captcha_opt['si_captcha_error_spambot'] != '') ? $si_captcha_opt['si_captcha_error_spambot'] : __('Possible spam bot', 'si-captcha');
@@ -846,7 +826,7 @@ function si_captcha_captcha_html($label = 'si_image', $form_id = 'com') {
   global $si_captcha_url, $si_captcha_dir, $si_captcha_url_ns, $si_captcha_dir_ns, $si_captcha_opt;
 
   $capt_disable_sess = 0;
-   if ($si_captcha_opt['si_captcha_disable_session'] == 'true')
+   if ($si_captcha_opt['si_captcha_enable_session'] != 'true')
      $capt_disable_sess = 1;
 
   // url for no session captcha image
@@ -860,9 +840,6 @@ function si_captcha_captcha_html($label = 'si_image', $form_id = 'com') {
   $parseUrl = parse_url($si_captcha_url);
   $securimage_url = $parseUrl['path'];
 
-  if($si_captcha_opt['si_captcha_captcha_difficulty'] == 'low') $securimage_show_url .= 'difficulty=1&amp;';
-  if($si_captcha_opt['si_captcha_captcha_difficulty'] == 'high') $securimage_show_url .= 'difficulty=2&amp;';
-  if($si_captcha_opt['si_captcha_no_trans'] == 'true') $securimage_show_url .= 'no_trans=1&amp;';
   $securimage_show_url .= 'si_form_id=' .$form_id;
 
   if($capt_disable_sess) {
@@ -887,9 +864,6 @@ function si_captcha_captcha_html($label = 'si_image', $form_id = 'com') {
           <label for="email_'.$form_id.'"><small>'.__('Leave this field empty', 'si-captcha').'</small></label>
           <input type="text" name="email_'.$form_id.'" id="email_'.$form_id.'" value="" />
         </div>
-';
-      // server-side timestamp forgery token.
-      echo '    <input type="hidden" name="si_tok_'.$form_id.'" value="'. wp_hash( time() ).','.time() .'" />
 ';
   }
 
@@ -950,9 +924,12 @@ function si_captcha_start_session() {
    //echo "before starting session si captcha";
   if( !isset( $_SESSION ) ) { // play nice with other plugins
    if ( !defined('XMLRPC_REQUEST') ) { // buddypress fix
-     session_cache_limiter ('private, must-revalidate');
-     session_start();
-     //echo "session started si captcha";
+      //set the $_SESSION cookie into HTTPOnly mode for better security
+      if (version_compare(PHP_VERSION, '5.2.0') >= 0)  // supported on PHP version 5.2.0  and higher
+        @ini_set("session.cookie_httponly", 1);
+      session_cache_limiter ('private, must-revalidate');
+      session_start();
+      //echo "session started si captcha";
    }
   }
 
@@ -1183,7 +1160,7 @@ if (class_exists("siCaptcha")) {
 }
 
 if (isset($si_image_captcha)) {
-global $wp_version;
+global $wp_version, $si_captcha_opt;
 
 // WordPress MU detection
 //    0  Regular WordPress installation
@@ -1208,8 +1185,8 @@ else if (basename(dirname(__FILE__)) == "si-captcha-for-wordpress" && function_e
   $si_captcha_url  = $si_image_captcha->get_captcha_url_si();
 
   // only used for the no-session captcha setting
-  $si_captcha_url_ns = $si_captcha_url  . '/temp/';
-  $si_captcha_dir_ns = $si_captcha_dir . '/temp/';
+  $si_captcha_url_ns = $si_captcha_url  . '/cache/';
+  $si_captcha_dir_ns = $si_captcha_dir . '/cache/';
   $si_image_captcha->si_captcha_init_temp_dir($si_captcha_dir_ns);
 
   //Actions
@@ -1218,7 +1195,7 @@ else if (basename(dirname(__FILE__)) == "si-captcha-for-wordpress" && function_e
   // get the options now
   $si_image_captcha->si_captcha_get_options();
 
-  if ( isset($si_captcha_opt['si_captcha_disable_session']) && $si_captcha_opt['si_captcha_disable_session'] == 'true') {
+  if ( isset($si_captcha_opt['si_captcha_enable_session']) && $si_captcha_opt['si_captcha_enable_session'] != 'true') {
      // add javascript (conditionally to footer)
      // http://scribu.net/wordpress/optimal-script-loading.html
      add_action( 'wp_footer', array(&$si_image_captcha,'si_captcha_add_script'));

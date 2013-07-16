@@ -22,7 +22,6 @@ if ( strpos(strtolower($_SERVER['SCRIPT_NAME']),strtolower(basename(__FILE__))) 
         check_admin_referer( 'si-captcha-options_update'); // nonce
    // post changes to the options array
    $optionarray_update = array(
-         'si_captcha_captcha_difficulty' =>   (trim($_POST['si_captcha_captcha_difficulty']) != '' ) ? strip_tags(trim($_POST['si_captcha_captcha_difficulty'])) : $si_captcha_option_defaults['si_captcha_captcha_difficulty'], // use default if empty
          'si_captcha_donated' =>            (isset( $_POST['si_captcha_donated'] ) ) ? 'true' : 'false',// true or false
          'si_captcha_perm' =>               (isset( $_POST['si_captcha_perm'] ) ) ? 'true' : 'false',
          'si_captcha_perm_level' =>           (trim($_POST['si_captcha_perm_level']) != '' ) ? strip_tags(trim($_POST['si_captcha_perm_level'])) : $si_captcha_option_defaults['si_captcha_perm_level'], // use default if empty
@@ -32,9 +31,8 @@ if ( strpos(strtolower($_SERVER['SCRIPT_NAME']),strtolower(basename(__FILE__))) 
          'si_captcha_register' =>           (isset( $_POST['si_captcha_register'] ) ) ? 'true' : 'false',
          'si_captcha_lostpwd' =>            (isset( $_POST['si_captcha_lostpwd'] ) ) ? 'true' : 'false',
          'si_captcha_rearrange' =>          (isset( $_POST['si_captcha_rearrange'] ) ) ? 'true' : 'false',
-         'si_captcha_disable_session' =>    (isset( $_POST['si_captcha_disable_session'] ) ) ? 'true' : 'false',
+         'si_captcha_enable_session' =>    (isset( $_POST['si_captcha_enable_session'] ) ) ? 'true' : 'false',
          'si_captcha_captcha_small' =>      (isset( $_POST['si_captcha_captcha_small'] ) ) ? 'true' : 'false',
-         'si_captcha_no_trans' =>           (isset( $_POST['si_captcha_no_trans'] ) ) ? 'true' : 'false',
          'si_captcha_honeypot_enable' =>    (isset( $_POST['si_captcha_honeypot_enable'] ) ) ? 'true' : 'false',
          'si_captcha_aria_required' =>      (isset( $_POST['si_captcha_aria_required'] ) ) ? 'true' : 'false',
          'si_captcha_external_style' =>      strip_tags(trim( $_POST['si_captcha_external_style'] )),
@@ -51,6 +49,8 @@ if ( strpos(strtolower($_SERVER['SCRIPT_NAME']),strtolower(basename(__FILE__))) 
          'si_captcha_error_incorrect' =>       strip_tags(trim($_POST['si_captcha_error_incorrect'])),
          'si_captcha_error_empty' =>           strip_tags(trim($_POST['si_captcha_error_empty'])),
          'si_captcha_error_token' =>           strip_tags(trim($_POST['si_captcha_error_token'])),
+         'si_captcha_error_error' =>           strip_tags(trim($_POST['si_captcha_error_error'])),
+         'si_captcha_error_unreadable' =>      strip_tags(trim($_POST['si_captcha_error_unreadable'])),
          'si_captcha_error_cookie' =>          strip_tags(trim($_POST['si_captcha_error_cookie'])),
          'si_captcha_label_captcha' =>         strip_tags(trim($_POST['si_captcha_label_captcha'])),
          'si_captcha_tooltip_captcha' =>       strip_tags(trim($_POST['si_captcha_tooltip_captcha'])),
@@ -263,6 +263,22 @@ else
 <?php
     }
 ?>
+
+<h3><?php _e('Test Compatibility', 'si-captcha') ?></h3>
+
+<p>
+<?php _e('Be sure to test the CAPTCHA and make sure it works. It should display, allow actions on valid code, and block actions on wrong code.', 'si-captcha');
+echo ' ';
+ _e('Some other plugins or themes can cause conflicts that let spammers bypass the CAPTCHA.', 'si-captcha');
+echo ' ';
+ _e('Some other security plugins use the same WordPress authenticate functions for Login and Registration.', 'si-captcha');
+ echo '</p><p>';
+  _e('After installing or updating plugins and themes, test the CAPTCHA on each form where it is enabled on.', 'si-captcha');
+ echo ' ';
+   _e('If the CAPTCHA does not work, try deactivating other plugins to find the one that is incompatible.', 'si-captcha');
+ ?>
+</p>
+
 <h3><?php _e('Options', 'si-captcha') ?></h3>
 
         <p class="submit">
@@ -276,28 +292,6 @@ else
         <tr>
             <th scope="row" style="width: 75px;"><?php _e('CAPTCHA:', 'si-captcha') ?></th>
         <td>
-
-        <label for="si_captcha_captcha_difficulty"><?php echo __('CAPTCHA difficulty level:', 'si-captcha'); ?></label>
-      <select id="si_captcha_captcha_difficulty" name="si_captcha_captcha_difficulty">
-<?php
-$captcha_difficulty_array = array(
-'low' =>    __('Low', 'si-captcha'),
-'medium' => __('Medium', 'si-captcha'),
-'high' =>   __('High', 'si-captcha'),
-);
-$selected = '';
-foreach ($captcha_difficulty_array as $k => $v) {
- if ($si_captcha_opt['si_captcha_captcha_difficulty'] == "$k")  $selected = ' selected="selected"';
- echo '<option value="'.esc_attr($k).'"'.$selected.'>'.esc_html($v).'</option>'."\n";
- $selected = '';
-}
-?>
-</select>
-        <a style="cursor:pointer;" title="<?php esc_attr_e('Click for Help!', 'si-captcha'); ?>" onclick="toggleVisibility('si_captcha_captcha_difficulty_tip');"><?php _e('help', 'si-captcha'); ?></a>
-        <div style="text-align:left; display:none" id="si_captcha_captcha_difficulty_tip">
-        <?php _e('Changes level of distortion of the CAPTCHA image text.', 'si-captcha') ?>
-        </div>
-        <br />
 
     <input name="si_captcha_login" id="si_captcha_login" type="checkbox" <?php if ( $si_captcha_opt['si_captcha_login'] == 'true' ) echo ' checked="checked" '; ?> />
     <label for="si_captcha_login"><?php _e('Enable CAPTCHA on the login form.', 'si-captcha') ?></label>
@@ -380,30 +374,30 @@ foreach ($captcha_pos_array as $k => $v) {
     </div>
     <br />
 
-    <input name="si_captcha_disable_session" id="si_captcha_disable_session" type="checkbox" <?php if ( $si_captcha_opt['si_captcha_disable_session'] == 'true' ) echo ' checked="checked" '; ?> />
-    <label for="si_captcha_disable_session"><?php _e('Use CAPTCHA without PHP session.', 'si-captcha'); ?></label>
-    <a style="cursor:pointer;" title="<?php esc_attr_e('Click for Help!', 'si-captcha'); ?>" onclick="toggleVisibility('si_captcha_disable_session_tip');"><?php _e('help', 'si-captcha'); ?></a>
-    <div style="text-align:left; display:none" id="si_captcha_disable_session_tip">
-    <?php _e('Sometimes the CAPTCHA code never validates because of a server problem with PHP session handling. If the CAPTCHA code never validates and does not work, you can enable this setting to use files for session.', 'si-captcha'); ?>
+    <input name="si_captcha_enable_session" id="si_captcha_enable_session" type="checkbox" <?php if ( $si_captcha_opt['si_captcha_enable_session'] == 'true' ) echo ' checked="checked" '; ?> />
+    <label for="si_captcha_enable_session"><?php _e('Enable PHP sessions.', 'si-captcha'); ?></label>
+    <a style="cursor:pointer;" title="<?php esc_attr_e('Click for Help!', 'si-captcha'); ?>" onclick="toggleVisibility('si_captcha_enable_session_tip');"><?php _e('help', 'si-captcha'); ?></a>
+    <div style="text-align:left; display:none" id="si_captcha_enable_session_tip">
+    <?php _e('Enables PHP session handling. Only enable this if you have CAPTCHA token errors. Enable this setting to use PHP sessions for the CAPTCHA. PHP Sessions must be supported by your web host or there may be session errors.', 'si-captcha'); ?>
     </div>
     <br />
 
         <?php
-         if ( $si_captcha_opt['si_captcha_disable_session'] == 'true' ){
+         if ( $si_captcha_opt['si_captcha_enable_session'] != 'true' ){
             $check_this_dir = untrailingslashit( $si_captcha_dir_ns );
            if(is_writable($check_this_dir)) {
 				//echo '<span style="color: green">OK - Writable</span> ' . substr(sprintf('%o', fileperms($check_this_dir)), -4);
            } else if(!file_exists($check_this_dir)) {
               echo '<span style="color: red;">';
               echo __('There is a problem with the directory', 'si-captcha');
-              echo ' /wp-content/plugins/si-captcha-for-wordpress/captcha/temp/. ';
+              echo ' /captcha/cache/. ';
 	          echo __('The directory is not found, a <a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">permissions</a> problem may have prevented this directory from being created.', 'si-captcha');
               echo ' ';
-              echo __('Fixing the actual problem is recommended, but you can uncheck this setting on the contact form options page: "Use CAPTCHA without PHP session" and the captcha will work this way just fine (as long as PHP sessions are working).', 'si-captcha');
+              echo __('Fixing the actual problem is recommended, but you can check this setting on the SI CAPTCHA options page: "Use PHP sessions" and the captcha will work (if PHP sessions are supported by your web host).', 'si-captcha');
               echo '</span><br />';
            } else {
              echo '<span style="color: red;">';
-             echo __('There is a problem with the directory', 'si-captcha') .' /wp-content/plugins/si-captcha-for-wordpress/captcha/temp/. ';
+             echo __('There is a problem with the directory', 'si-captcha') .' /captcha/cache/. ';
              echo __('The directory Unwritable (<a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">fix permissions</a>)', 'si-captcha').'. ';
              echo __('Permissions are: ', 'si-captcha');
              echo ' ';
@@ -411,7 +405,7 @@ foreach ($captcha_pos_array as $k => $v) {
              echo ' ';
              echo __('Fixing this may require assigning 0755 permissions or higher (e.g. 0777 on some hosts. Try 0755 first, because 0777 is sometimes too much and will not work.)', 'si-captcha');
              echo ' ';
-             echo __('Fixing the actual problem is recommended, but you can uncheck this setting on the SI CAPTCHA options page: "Use CAPTCHA without PHP session" and the captcha will work this way just fine (as long as PHP sessions are working).', 'si-captcha');
+             echo __('Fixing the actual problem is recommended, but you can check this setting on the SI CAPTCHA options page: "Use PHP sessions" and the captcha will work (if PHP sessions are supported by your web host).', 'si-captcha');
              echo '</span><br />';
           }
          }
@@ -419,19 +413,11 @@ foreach ($captcha_pos_array as $k => $v) {
         ?>
 
 
-       <input name="si_captcha_no_trans" id="si_captcha_no_trans" type="checkbox" <?php if ( $si_captcha_opt['si_captcha_no_trans'] == 'true' ) echo ' checked="checked" '; ?> />
-       <label for="si_captcha_no_trans"><?php echo __('Disable CAPTCHA transparent text (only if captcha text is missing on the image, try this fix).', 'si-captcha'); ?></label>
-       <a style="cursor:pointer;" title="<?php esc_attr_e('Click for Help!', 'si-captcha'); ?>" onclick="toggleVisibility('si_captcha_captcha_no_trans_tip');"><?php _e('help', 'si-captcha'); ?></a>
-        <div style="text-align:left; display:none" id="si_captcha_captcha_no_trans_tip">
-        <?php _e('Sometimes fixes missing text on the CAPTCHA image. If this does not fix missing text, your PHP server is not compatible with the CAPTCHA functions. You should have your web server fixed.', 'si-captcha') ?>
-        </div>
-        <br />
-
         <input name="si_captcha_honeypot_enable" id="si_captcha_honeypot_enable" type="checkbox" <?php if ( $si_captcha_opt['si_captcha_honeypot_enable'] == 'true' ) echo ' checked="checked" '; ?> />
         <label for="si_captcha_honeypot_enable"><?php _e('Enable honeypot spambot trap.', 'si-captcha'); ?></label>
         <a style="cursor:pointer;" title="<?php esc_attr_e('Click for Help!', 'si-captcha'); ?>" onclick="toggleVisibility('si_captcha_honeypot_enable_tip');"><?php _e('help', 'si-captcha'); ?></a>
         <div style="text-align:left; display:none" id="si_captcha_honeypot_enable_tip">
-        <?php _e('Enables empty field and time based honyepot traps for spam bots. For best results, do not enable unless you have a spam problem.', 'si-captcha') ?>
+        <?php _e('Enables hidden empty field honyepot trap for spam bots. For best results, do not enable unless you have a spam problem.', 'si-captcha') ?>
         </div>
 
        </td>
