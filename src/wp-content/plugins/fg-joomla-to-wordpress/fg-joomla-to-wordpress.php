@@ -3,7 +3,7 @@
  * Plugin Name: FG Joomla to WordPress
  * Plugin Uri:  http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
  * Description: A plugin to migrate categories, posts, images and medias from Joomla to WordPress
- * Version:     1.12.1
+ * Version:     1.13.0
  * Author:      Frédéric GILLES
  */
 
@@ -125,6 +125,13 @@ if ( !class_exists('fgj2wp', false) ) {
 				}
 			}
 			
+			elseif ( isset($_POST['save']) ) {
+				
+				// Save database options
+				$this->save_plugin_options();
+				$this->display_admin_notice(__('Settings saved', 'fgj2wp'));
+			}
+			
 			elseif ( isset($_POST['test']) ) {
 				
 				// Save database options
@@ -216,20 +223,39 @@ if ( !class_exists('fgj2wp', false) ) {
 			$result = true;
 			
 			$wpdb->show_errors();
+			$sql_queries = array();
 			
-			// WordPress post ID to start the deletion
 			if ( $action == 'all' ) {
+				// Remove all content
 				$start_id = 1;
 				update_option('fgj2wp_start_id', $start_id);
+				
+				$sql_queries[] = "TRUNCATE $wpdb->commentmeta";
+				$sql_queries[] = "TRUNCATE $wpdb->comments";
+				$sql_queries[] = "TRUNCATE $wpdb->term_relationships";
+				$sql_queries[] = "TRUNCATE $wpdb->postmeta";
+				$sql_queries[] = "TRUNCATE $wpdb->posts";
+				$sql_queries[] = <<<SQL
+-- Delete Terms
+DELETE FROM $wpdb->terms
+WHERE term_id > 1 -- non-classe
+SQL;
+				$sql_queries[] = <<<SQL
+-- Delete Terms taxonomies
+DELETE FROM $wpdb->term_taxonomy
+WHERE term_id > 1 -- non-classe
+SQL;
+				$sql_queries[] = "ALTER TABLE $wpdb->terms AUTO_INCREMENT = 2";
+				$sql_queries[] = "ALTER TABLE $wpdb->term_taxonomy AUTO_INCREMENT = 2";
 			} else {
+				// Remove only new imported posts
+				// WordPress post ID to start the deletion
 				$start_id = intval(get_option('fgj2wp_start_id'));
 				if ( $start_id == 0) {
 					$start_id = $this->get_next_post_autoincrement();
 					update_option('fgj2wp_start_id', $start_id);
-				}
-			}
-			
-			$sql = <<<SQL
+					
+					$sql_queries[] = <<<SQL
 -- Delete Comments meta
 DELETE FROM $wpdb->commentmeta
 WHERE comment_id IN
@@ -245,9 +271,8 @@ WHERE comment_id IN
 		)
 	);
 SQL;
-			$result &= $wpdb->query($sql);
 
-			$sql = <<<SQL
+					$sql_queries[] = <<<SQL
 -- Delete Comments
 DELETE FROM $wpdb->comments
 WHERE comment_post_ID IN
@@ -259,9 +284,8 @@ WHERE comment_post_ID IN
 	AND ID >= $start_id
 	);
 SQL;
-			$result &= $wpdb->query($sql);
 
-			$sql = <<<SQL
+					$sql_queries[] = <<<SQL
 -- Delete Term relashionships
 DELETE FROM $wpdb->term_relationships
 WHERE `object_id` IN
@@ -273,9 +297,8 @@ WHERE `object_id` IN
 	AND ID >= $start_id
 	);
 SQL;
-			$result &= $wpdb->query($sql);
 
-			$sql = <<<SQL
+					$sql_queries[] = <<<SQL
 -- Delete Post meta
 DELETE FROM $wpdb->postmeta
 WHERE post_id IN
@@ -287,9 +310,8 @@ WHERE post_id IN
 	AND ID >= $start_id
 	);
 SQL;
-			$result &= $wpdb->query($sql);
 
-			$sql = <<<SQL
+					$sql_queries[] = <<<SQL
 -- Delete Posts
 DELETE FROM $wpdb->posts
 WHERE (post_type IN ('post', 'page', 'attachment', 'revision')
@@ -297,17 +319,14 @@ OR post_status = 'trash'
 OR post_title = 'Brouillon auto')
 AND ID >= $start_id;
 SQL;
-			$result &= $wpdb->query($sql);
-
-			if ( $action == 'all' ) {
-				$sql = <<<SQL
--- Delete Categories and Tags
-DELETE t, tt FROM $wpdb->terms t, $wpdb->term_taxonomy tt
-WHERE t.term_id = tt.term_id
-AND t.term_id > 1 -- non-classe
-AND tt.taxonomy IN ('category', 'post_tag')
-SQL;
-				$result &= $wpdb->query($sql);
+				}
+			}
+			
+			// Execute SQL queries
+			if ( count($sql_queries) > 0 ) {
+				foreach ( $sql_queries as $sql ) {
+					$result &= $wpdb->query($sql);
+				}
 			}
 			
 			// Hook for doing other actions after emptying the database
@@ -418,6 +437,10 @@ SQL;
 		 *
 		 */
 		private function import() {
+			
+			// Check prerequesites before the import
+			$do_import = apply_filters('fgj2wp_pre_import_check', true);
+			if ( !$do_import) return;
 			
 			$this->post_type = ($this->plugin_options['import_as_pages'] == 1) ? 'page' : 'post';
 

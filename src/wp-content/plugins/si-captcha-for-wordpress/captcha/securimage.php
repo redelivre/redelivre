@@ -85,7 +85,7 @@
  * @subpackage classes
  *
  */
-class Securimage {
+class Securimage_si {
 
 	/**
 	 * The desired width of the CAPTCHA image.
@@ -132,19 +132,6 @@ class Securimage {
 	 */
 	var $charset;
 
-	/**
-	 * Create codes using this word list
-	 *
-	 * @var string  The path to the word list to use for creating CAPTCHA codes
-	 */
-	var $wordlist_file;
-
-	/**
-	 * Use wordlist of not
-	 *
-	 * @var bool true to use wordlist file, false to use random code
-	 */
-	var $use_wordlist = false;
 
 	/**
 	 * Note: Use of GD fonts is not recommended as many distortion features are not available<br />
@@ -306,46 +293,6 @@ class Securimage {
 	 */
 	var $draw_lines_over_text;
 
-	/**
-	 * Text to write at the bottom corner of captcha image
-	 * 
-	 * @since 2.0
-	 * @var string Signature text
-	 */
-	var $image_signature;
-	
-	/**
-	 * Color to use for writing signature text
-	 * 
-	 * @since 2.0
-	 * @var Securimage_Color
-	 */
-	var $signature_color;
-
-	/**
-	 * Full path to the WAV files to use to make the audio files, include trailing /.<br />
-	 * Name Files  [A-Z0-9].wav
-	 *
-	 * @since 1.0.1
-	 * @var string
-	 */
-	var $audio_path;
-
-	/**
-	 * Type of audio file to generate (mp3 or wav)
-	 *
-	 * @var string
-	 */
-	var $audio_format;
-
-	/**
-	 * The session name to use if not the default.  Blank for none
-	 *
-	 * @see http://php.net/session_name
-	 * @since 2.0
-	 * @var string
-	 */
-	var $session_name = '';
 
 
 	//END USER CONFIGURATION
@@ -425,10 +372,11 @@ class Securimage {
 	 * </code>
 	 *
 	 */
-	function Securimage()
+	function Securimage_si()
 	{
 
 		// Set Default Values
+        $this->working_directory = getcwd();
         $this->form_id = 'com';
         $this->nosession = false;
         $this->prefix = '000000';
@@ -437,49 +385,41 @@ class Securimage {
 
 		$this->image_type    = 'png'; // png, jpg or gif
 
-		$this->code_length   = 6;
-		$this->charset       = 'ABCDEFGHKLMNPRSTUVWYZabcdefghklmnprstuvwyz23456789';
-		$this->wordlist_file = getcwd() . '/words/words.txt';
-		$this->use_wordlist  = false;
+	$this->code_length   = 4;
+	$this->charset       = 'ABCDEFGHKLMNPRSTUVWYZabcdefghklmnprstuvwyz23456789';
 
-		$this->gd_font_file  = getcwd() . '/gdfonts/bubblebath.gdf';
-		$this->use_gd_font   = false;
-		$this->gd_font_size  = 24;
-		$this->text_x_start  = 15;
+	$this->gd_font_file  = $this->working_directory . '/gdfonts/bubblebath.gdf';
+	$this->use_gd_font   = false;
+	$this->gd_font_size  = 24;
+	$this->text_x_start  = 15;
 
-		$this->ttf_file      = getcwd() . '/ahg-bold.ttf';
+	$this->ttf_file      = $this->working_directory . '/ttffonts/ahg-bold.ttf';
 
-		$this->perturbation       = 0.75;
-		$this->iscale             = 5;
-		$this->text_angle_minimum = 0;
-		$this->text_angle_maximum = 0;
+	$this->perturbation       = 0.7;
+	$this->iscale             = 5;
+	$this->text_angle_minimum = 0;
+	$this->text_angle_maximum = 0;
 
-		$this->image_bg_color   = '#ffffff';
-        $this->text_color       = '#ff0000';
-        $this->multi_text_color = array('#0020CC','#0030EE','#0040CC','#0050EE','#0060CC');
-		$this->use_multi_text   = false;
+	$this->image_bg_color   = '#ffffff';
+    $this->text_color       = '#ff0000';
+    $this->multi_text_color = array('#0020CC','#0030EE','#0040CC','#0050EE','#0060CC');
+	$this->use_multi_text   = true;
 
-		$this->use_transparent_text         = false;
-		$this->text_transparency_percentage = 30;
+	$this->use_transparent_text         = true;
+	$this->text_transparency_percentage = 30;
 
-		$this->num_lines            = 10;
-		$this->line_color           = '#3d3d3d';
-		$this->draw_lines_over_text = true;
+	$this->num_lines            = 6;
+	$this->line_color           = '#3d3d3d';
+	$this->draw_lines_over_text = true;
 
-		$this->image_signature = '';
-		$this->signature_color = '#2050CC';
-		$this->signature_font  = getcwd() . '/ahg-bold.ttf';
-
-		$this->audio_path   = getcwd() . '/audio/';
-		$this->audio_format = 'mp3';
-		$this->session_name = '';
-
-        		// Initialize session or attach to existing
-		if ( $this->nosession == false && session_id() == '' ) { // no session has been started yet, which is needed for validation
-			if (trim($this->session_name) != '') {
-				session_name($this->session_name);
-			}
-			session_start();
+        // Initialize session or attach to existing
+        // no session has been started yet, which is needed for validation
+        if ( $this->nosession == false && session_id() == '' ) { // play nice with other plugins
+            //set the $_SESSION cookie into HTTPOnly mode for better security
+            if (version_compare(PHP_VERSION, '5.2.0') >= 0)  // supported on PHP version 5.2.0  and higher
+            @ini_set("session.cookie_httponly", 1);
+            session_cache_limiter ('private, must-revalidate');
+            session_start();
 		}
 	}
 
@@ -489,7 +429,7 @@ class Securimage {
 	 * <code>
 	 *   <?php
 	 *   include 'securimage.php';
-	 *   $securimage = new Securimage();
+	 *   $securimage = new Securimage_si();
 	 *   $securimage->show('bg.jpg');
 	 *   ?>
 	 * </code>
@@ -526,39 +466,6 @@ class Securimage {
 		return $this->correct_code;
 	}
 
-	/**
-	 * Output audio file with HTTP headers to browser
-	 * 
-	 * <code>
-	 *   $sound = new Securimage();
-	 *   $sound->audio_format = 'mp3';
-	 *   $sound->outputAudioFile();
-	 * </code>
-	 * 
-	 * @since 2.0
-	 */
-	function outputAudioFile()
-	{
-		if (strtolower($this->audio_format) == 'wav') {
-			header('Content-type: audio/x-wav');
-			$ext = 'wav';
-		} else {
-			header('Content-type: audio/mpeg'); // default to mp3
-			$ext = 'mp3';
-		}
-
-		header("Content-Disposition: attachment; filename=\"securimage_audio.{$ext}\"");
-		header('Cache-Control: no-store, no-cache, must-revalidate');
-		header('Expires: Sun, 1 Jan 2000 12:00:00 GMT');
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . 'GMT');
-
-		$audio = $this->getAudibleCode($ext);
-
-		header('Content-Length: ' . strlen($audio));
-
-		echo $audio;
-		exit;
-	}
 
 	/**
 	 * Generate and output the image
@@ -595,14 +502,12 @@ class Securimage {
 
 		$this->createCode();
 
-		if (!$this->draw_lines_over_text && $this->num_lines > 0) $this->drawLines();
+		//if (!$this->draw_lines_over_text && $this->num_lines > 0) $this->drawLines();
 
 		$this->drawWord();
 		if ($this->use_gd_font == false) $this->distortedCopy();
 
 		if ($this->draw_lines_over_text && $this->num_lines > 0) $this->drawLines();
-
-		if (trim($this->image_signature) != '')	$this->addSignature();
 
 		$this->output();
 
@@ -625,6 +530,10 @@ class Securimage {
 			}
 		}
 
+        if ($this->bgimg == '') {
+            return;
+        }
+
 		$dat = @getimagesize($this->bgimg);
 		if($dat == false) { return; }
 
@@ -632,8 +541,6 @@ class Securimage {
 			case 1:  $newim = @imagecreatefromgif($this->bgimg); break;
 			case 2:  $newim = @imagecreatefromjpeg($this->bgimg); break;
 			case 3:  $newim = @imagecreatefrompng($this->bgimg); break;
-			case 15: $newim = @imagecreatefromwbmp($this->bgimg); break;
-			case 16: $newim = @imagecreatefromxbm($this->bgimg); break;
 			default: return;
 		}
 
@@ -856,9 +763,9 @@ class Securimage {
 		 
 		// make array of poles AKA attractor points
 		for ($i = 0; $i < $numpoles; ++$i) {
-			$px[$i]  = rand($this->image_width * 0.3, $this->image_width * 0.7);
-			$py[$i]  = rand($this->image_height * 0.3, $this->image_height * 0.7);
-			$rad[$i] = rand($this->image_width * 0.4, $this->image_width * 0.7);
+			$px[$i]  = rand($this->image_width * 0.3, $this->image_width * 0.8);
+			$py[$i]  = rand($this->image_height * 0.3, $this->image_height * 0.8);
+			$rad[$i] = rand($this->image_width * 0.4, $this->image_width * 0.8);
 			$tmp     = -$this->frand() * 0.15 - 0.15;
 			$amp[$i] = $this->perturbation * $tmp;
 		}
@@ -911,15 +818,9 @@ class Securimage {
 	 */
 	function createCode()
 	{
-		$this->code = false;
 
-		if ($this->use_wordlist && is_readable($this->wordlist_file)) {
-			$this->code = $this->readCodeFromFile();
-		}
+		$this->code = $this->generateCode($this->code_length);
 
-		if ($this->code == false) {
-			$this->code = $this->generateCode($this->code_length);
-		}
 
 		$this->saveData();
 	}
@@ -960,37 +861,6 @@ class Securimage {
 		  return $code;
 	}
 
-	/**
-	 * Reads a word list file to get a code
-	 *
-	 * @access private
-	 * @since 1.0.2
-	 * @return mixed  false on failure, a word on success
-	 */
-	function readCodeFromFile()
-	{
-		$fp = @fopen($this->wordlist_file, 'rb');
-		if (!$fp) return false;
-
-		$fsize = filesize($this->wordlist_file);
-		if ($fsize < 32) return false; // too small of a list to be effective
-
-		if ($fsize < 128) {
-			$max = $fsize; // still pretty small but changes the range of seeking
-		} else {
-			$max = 128;
-		}
-
-		fseek($fp, rand(0, $fsize - $max), SEEK_SET);
-		$data = fread($fp, 128); // read a random 128 bytes from file
-		fclose($fp);
-		$data = preg_replace("/\r?\n/", "\n", $data);
-
-		$start = strpos($data, "\n", rand(0, 100)) + 1; // random start position
-		$end   = strpos($data, "\n", $start);           // find end of word
-
-		return strtolower(substr($data, $start, $end - $start)); // return substring in 128 bytes
-	}
 
 	/**
 	 * Output image to the browser
@@ -1026,60 +896,6 @@ class Securimage {
 		}
 		imagedestroy($this->im);
 		//exit;
-	}
-
-	/**
-	 * Get WAV or MP3 file data of the spoken code.<br />
-	 * This is appropriate for output to the browser as audio/x-wav or audio/mpeg
-	 *
-	 * @since 1.0.1
-	 * @return string  WAV or MP3 data
-	 *
-	 */
-	function getAudibleCode($format = 'wav')
-	{
-		$letters = array();
-        if ( $this->nosession == false ) {
-	        $code = $this->getCode();
-            if ($code == '') {
-			  $this->createCode();
-			  $code = $this->getCode();
-		    }
-        }
-
-        if ( $this->nosession == true ) {
-          if ( is_readable( $this->captcha_path . $this->prefix . '.php' ) ) {
-			    include( $this->captcha_path . $this->prefix . '.php' );
-				$code = $captcha_word;
-		  } else {
-                $code = 'nono';
-		  }
-        }
-		for($i = 0; $i < strlen($code); ++$i) {
-			$letters[] = $code{$i};
-		}
-
-		if ($format == 'mp3') {
-			return $this->generateMP3($letters);
-		} else {
-			return $this->generateWAV($letters);
-		}
-	}
-
-	/**
-	 * Set the path to the audio directory.<br />
-	 *
-	 * @since 1.0.4
-	 * @return bool true if the directory exists and is readble, false if not
-	 */
-	function setAudioPath($audio_directory)
-	{
-		if (is_dir($audio_directory) && is_readable($audio_directory)) {
-			$this->audio_path = $audio_directory;
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
@@ -1140,142 +956,6 @@ class Securimage {
 		return $this->correct_code;
 	}
 
-	/**
-	 * Generate a wav file by concatenating individual files
-	 *
-	 * @since 1.0.1
-	 * @access private
-	 * @param array $letters  Array of letters to build a file from
-	 * @return string  WAV file data
-	 */
-	function generateWAV($letters)
-	{
-		$data_len    = 0;
-		$files       = array();
-		$out_data    = '';
-
-		foreach ($letters as $letter) {
-			$filename = $this->audio_path . strtoupper($letter) . '.wav';
-
-			$fp = fopen($filename, 'rb');
-
-			$file = array();
-
-			$data = fread($fp, filesize($filename)); // read file in
-
-			$header = substr($data, 0, 36);
-			$body   = substr($data, 44);
-
-
-			$data = unpack('NChunkID/VChunkSize/NFormat/NSubChunk1ID/VSubChunk1Size/vAudioFormat/vNumChannels/VSampleRate/VByteRate/vBlockAlign/vBitsPerSample', $header);
-
-			$file['sub_chunk1_id']   = $data['SubChunk1ID'];
-			$file['bits_per_sample'] = $data['BitsPerSample'];
-			$file['channels']        = $data['NumChannels'];
-			$file['format']          = $data['AudioFormat'];
-			$file['sample_rate']     = $data['SampleRate'];
-			$file['size']            = $data['ChunkSize'] + 8;
-			$file['data']            = $body;
-
-			if ( ($p = strpos($file['data'], 'LIST')) !== false) {
-				// If the LIST data is not at the end of the file, this will probably break your sound file
-				$info         = substr($file['data'], $p + 4, 8);
-				$data         = unpack('Vlength/Vjunk', $info);
-				$file['data'] = substr($file['data'], 0, $p);
-				$file['size'] = $file['size'] - (strlen($file['data']) - $p);
-			}
-
-			$files[] = $file;
-			$data    = null;
-			$header  = null;
-			$body    = null;
-
-			$data_len += strlen($file['data']);
-
-			fclose($fp);
-		}
-
-		$out_data = '';
-		for($i = 0; $i < sizeof($files); ++$i) {
-			if ($i == 0) { // output header
-				$out_data .= pack('C4VC8', ord('R'), ord('I'), ord('F'), ord('F'), $data_len + 36, ord('W'), ord('A'), ord('V'), ord('E'), ord('f'), ord('m'), ord('t'), ord(' '));
-
-				$out_data .= pack('VvvVVvv',
-				16,
-				$files[$i]['format'],
-				$files[$i]['channels'],
-				$files[$i]['sample_rate'],
-				$files[$i]['sample_rate'] * (($files[$i]['bits_per_sample'] * $files[$i]['channels']) / 8),
-				($files[$i]['bits_per_sample'] * $files[$i]['channels']) / 8,
-				$files[$i]['bits_per_sample'] );
-
-				$out_data .= pack('C4', ord('d'), ord('a'), ord('t'), ord('a'));
-
-				$out_data .= pack('V', $data_len);
-			}
-
-			$out_data .= $files[$i]['data'];
-		}
-
-		$this->scrambleAudioData($out_data, 'wav');
-		return $out_data;
-	}
-
-	/**
-	 * Randomly modify the audio data to scramble sound and prevent binary recognition.<br />
-	 * Take care not to "break" the audio file by leaving the header data intact.
-	 *
-	 * @since 2.0
-	 * @param $data Sound data in mp3 of wav format
-	 */
-	function scrambleAudioData(&$data, $format)
-	{
-		if ($format == 'wav') {
-			$start = strpos($data, 'data') + 4; // look for "data" indicator
-			if ($start === false) $start = 44;  // if not found assume 44 byte header
-		} else { // mp3
-			$start = 4; // 4 byte (32 bit) frame header
-		}
-		 
-		$start  += rand(1, 64); // randomize starting offset
-		$datalen = strlen($data) - $start - 256; // leave last 256 bytes unchanged
-		 
-		for ($i = $start; $i < $datalen; $i += 64) {
-			$ch = ord($data{$i});
-			if ($ch < 9 || $ch > 119) continue;
-
-			$data{$i} = chr($ch + rand(-8, 8));
-		}
-	}
-
-	/**
-	 * Generate an mp3 file by concatenating individual files
-	 * @since 1.0.4
-	 * @access private
-	 * @param array $letters  Array of letters to build a file from
-	 * @return string  MP3 file data
-	 */
-	function generateMP3($letters)
-	{
-		$data_len    = 0;
-		$files       = array();
-		$out_data    = '';
-
-		foreach ($letters as $letter) {
-			$filename = $this->audio_path . strtoupper($letter) . '.mp3';
-
-			$fp   = fopen($filename, 'rb');
-			$data = fread($fp, filesize($filename)); // read file in
-
-			$this->scrambleAudioData($data, 'mp3');
-			$out_data .= $data;
-
-			fclose($fp);
-		}
-
-
-		return $out_data;
-	}
 
 	/**
 	 * Generate random number less than 1
@@ -1421,17 +1101,17 @@ function clean_temp_dir($dir, $minutes = 30) {
 	return $count;
 }
 
-} /* class Securimage */
+} /* class Securimage_si */
 
 /**
- * Color object for Securimage CAPTCHA
+ * Color object for Securimage_si CAPTCHA
  *
  * @since 2.0
  * @package Securimage
  * @subpackage classes
  *
  */
-class Securimage_Color {
+class Securimage_Color_si {
 	/**
 	 * Red component: 0-255
 	 *
@@ -1452,7 +1132,7 @@ class Securimage_Color {
 	var $b;
 
 	/**
-	 * Create a new Securimage_Color object.<br />
+	 * Create a new Securimage_Color_si object.<br />
 	 * Specify the red, green, and blue components using their HTML hex code equivalent.<br />
 	 * i.e. #4A203C is declared as new Securimage_Color(0x4A, 0x20, 0x3C)
 	 *
@@ -1460,7 +1140,7 @@ class Securimage_Color {
 	 * @param $green Green component 0-255
 	 * @param $blue Blue component 0-255
 	 */
-	function Securimage_Color($red, $green, $blue)
+	function Securimage_Color_si($red, $green, $blue)
 	{
 		if ($red < 0) $red       = 0;
 		if ($red > 255) $red     = 255;

@@ -10,7 +10,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
   <div id="icon-general" class="icon32" style="background:url('<?php echo plugins_url('img/icon32.png', __FILE__) ?>') no-repeat;"><br /></div>
   <h2>
     SharePress
-    <span>a WordPress plugin from <a href="http://aaroncollegeman.com/fatpanda/" target="_blank">Fat Panda</a></span>
+    <span>a WordPress plugin from <a href="http://fatpandadev.com" target="_blank">Fat Panda</a></span>
   </h2>
 
   <form method="post" action="options.php" id="settings_form">
@@ -63,7 +63,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
 
         <h3 class="title">Connect to Facebook</h3>
       
-        <p>Click the button below, authorize the Facebook application, and you're in.</p>
+        <p>Click the button below, authorize the Facebook application, and you're in!</p>
 
         <table class="form-table">
           <tr>
@@ -80,7 +80,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
 
         <h3 class="title">SharePress is not setup properly.</h3>
 
-        <p>This copy of SharePress is running in MU mode, but the Facebook App Id and App Secret have not been configured.</p>
+        <p>This copy of SharePress is running in Multisite mode, but the Facebook App Id and App Secret have not been configured.</p>
 
         <p>Please contact your network admin.</p>
         
@@ -131,29 +131,29 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
       
       <?php settings_fields('fb-settings') ?>
 
-      <?php if (!self::is_mu()) { ?>
+      <?php if (!self::is_mu() && ( !defined('SHAREPRESS_MU_LICENSE_KEY') || !SHAREPRESS_MU_LICENSE_KEY )) { ?>
 
         <h3 class="title">Your License Key</h3>
 
         <?php 
           #
-          # Don't be a dick. I like to eat, too.
-          # http://aaroncollegeman.com/sharepress/
+          # Don't be a dick. We have kids to feed. :)
+          # https://getsharepress.com
           #
           if (!self::unlocked()) { ?>
           <p>
-            <a href="http://aaroncollegeman.com/sharepress?utm_source=sharepress&utm_medium=in-app-promo&utm_campaign=buy-a-license">Buy a license</a> key today.
+            <a href="https://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=buy-a-license">Buy a license</a> key today.
             Unlock pro features, get access to documentation and support from the developer of SharePress!
           </p>
         <?php } else { ?>
-          <p>Awesome, tamales! Need support? <a href="http://aaroncollegeman.com/sharepress/help/">Go here</a>.
+          <p>Awesome, tamales! Need support? <a href="http://fatpanda.zendesk.com">Go here</a>.
         <?php } ?>
 
         <table class="form-table">
           <tr>
             <th><label for="sharepress_license_key">License Key:</label></th>
             <td>
-              <input style="width:25em;" type="text" id="sharepress_license_key" name="<?php echo self::OPTION_SETTINGS ?>[license_key]" value="<?php echo htmlentities(self::setting('license_key')) ?>" />
+              <input style="width:25em;" type="text" id="sharepress_license_key" name="<?php echo self::OPTION_SETTINGS ?>[license_key]" value="<?php echo htmlentities(self::license_key()) ?>" />
             </td>
           </tr>
         </table>
@@ -220,6 +220,17 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
         For example, to override the <code>og:type</code> property, just create a Custom Field named <code>og:type</code> and give it the desired value.</p>
       
       <table class="form-table">
+        <tr>
+          <td>
+            <b>Facebook "article:publisher" url</b><br>
+            <input type="text" class="regular-text" name="<?php echo self::OPTION_SETTINGS ?>[fb_publisher_url]" id="fb_publisher_url" value="<?= $this->setting('fb_publisher_url') ?>">
+            <p>
+              <span class="description">
+                You may add a url to a publisher page here. It will allow readers to like your publisher page from their news feed, <a href="https://developers.facebook.com/blog/post/2013/06/19/platform-updates--new-open-graph-tags-for-media-publishers-and-more/">read this article for details.</a>
+              </span>
+            </p>
+          </td>
+        </tr>
         <tr>
           <td>
             <?php
@@ -304,7 +315,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
           <?php if (self::$pro) { ?>
             You'll be able to change this for each post: these are just the defaults.
           <?php } else { ?>
-            If you <a href="http://aaroncollegeman.com/sharepress">unlock the pro features</a>, you will also be able to select from your Facebook pages.
+            If you <a href="https://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=post-to-page">unlock the pro features</a>, you will also be able to select from your Facebook pages.
           <?php } ?>
            
         <div style="max-height: 365px; overflow:auto; border:1px solid #ccc;">
@@ -358,7 +369,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
         <br />
         <h3 class="title">Twitter</h3>
    
-        <p>If you <a href="http://aaroncollegeman.com/sharepress">unlock the pro features</a>, you'll be able to post to Twitter, too.</p>
+        <p>If you <a href="https://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=twitter">unlock the pro features</a>, you'll be able to post to Twitter, too.</p>
      
         <input type="hidden" name="<?php echo self::OPTION_SETTINGS ?>[twitter_is_ready]" value="<?php echo self::setting('twitter_is_ready', 0) ?>" />
         <input type="hidden" class="twitter_setting" name="<?php echo self::OPTION_SETTINGS ?>[twitter_consumer_key]" value="<?php echo esc_attr(self::setting('twitter_consumer_key')) ?>" />
@@ -789,7 +800,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
         <?php if (!self::setting('license_key')) { ?>
           Note that as an unlicensed user, your help will be limited to getting the free version up and running.
         <?php } ?>
-        The <a href="http://aaroncollegeman.com/sharepress/help" target="_blank">documentation</a> is also awesome, and is available to everyone.
+        The <a href="http://fatpanda.zendesk.com" target="_blank">documentation</a> is also awesome, and is available to everyone.
 
         <br /><br />
         <h3 class="title">Anonymous Usage Tracking</h3>       

@@ -49,7 +49,7 @@ switch ($_POST['action']) {
     
     	$widget_id = $_POST['widget_id'];
         $id_base = $_POST['id_base'];
-        $refresh = $_POST['refresh'] ? true : false;
+        $refresh = array_key_exists('refresh', $_POST) && $_POST['refresh'] ? true : false;
         $widget_number = $_POST['widget_number'];
         $canvas_id = $_POST['canvas_id'];
         

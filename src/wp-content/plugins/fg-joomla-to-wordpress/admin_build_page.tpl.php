@@ -28,7 +28,7 @@
 				<tr>
 					<th scope="row"><?php _e('If you want to rerun the import, you must empty the WordPress content with the button hereafter.', 'fgj2wp'); ?></th>
 					<td><input type="radio" name="empty_action" id="empty_action_newposts" value="newposts" /> <label for="empty_action_newposts"><?php _e('Remove only new imported posts', 'fgj2wp'); ?></label><br />
-					<input type="radio" name="empty_action" id="empty_action_all" value="all" /> <label for="empty_action_all"><?php _e('Remove all posts, categories, tags, medias, comments and pages', 'fgj2wp'); ?></label><br />
+					<input type="radio" name="empty_action" id="empty_action_all" value="all" /> <label for="empty_action_all"><?php _e('Remove all WordPress content', 'fgj2wp'); ?></label><br />
 					<?php submit_button( __('Empty WordPress content', 'fgj2wp'), 'primary', 'empty' ); ?></td>
 				</tr>
 			</table>
@@ -115,7 +115,8 @@
 				</tr>
 				<tr>
 					<th scope="row">&nbsp;</th>
-					<td><?php submit_button( __('Import content from Joomla to WordPress', 'fgj2wp'), 'primary', 'import' ); ?></td>
+					<td><?php submit_button( __('Save settings', 'fgj2wp'), 'secondary', 'save' ); ?>
+					<?php submit_button( __('Import content from Joomla to WordPress', 'fgj2wp'), 'primary', 'import' ); ?></td>
 				</tr>
 			</table>
 		</form>
@@ -150,8 +151,9 @@
 		<p>
 		<ul style="list-style:disc inside">
 			<li><?php _e('authors and all users migration', 'fgj2wp'); ?></li>
+			<li><?php _e('menus migration', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla views counts migration', 'fgj2wp'); ?></li>
-			<li><?php _e('SEO: redirects standard Joomla URLs', 'fgj2wp'); ?></li>
+			<li><?php _e('SEO: keeps Joomla IDs or redirects standard Joomla URLs', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla 1.0 compatible', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla 2.5+ featured images', 'fgj2wp'); ?></li>
 			<li><?php _e('Mambo 4.5 and 4.6 compatible', 'fgj2wp'); ?></li>
@@ -187,7 +189,7 @@
 				confirm_message = '<?php _e('All new imported posts or pages and their comments will be deleted from WordPress.', 'fgj2wp'); ?>';
 				break;
 			case 'all':
-				confirm_message = '<?php _e('All posts, categories, tags, medias, comments and pages will be deleted from WordPress.', 'fgj2wp'); ?>';
+				confirm_message = '<?php _e('All content will be deleted from WordPress.', 'fgj2wp'); ?>';
 				break;
 			default:
 				alert('<?php _e('Please select a remove option.', 'fgj2wp'); ?>');

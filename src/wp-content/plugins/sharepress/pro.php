@@ -93,6 +93,7 @@ class SharepressPro {
     
     // enhancement #6: twitter support
     add_action('wp_ajax_sharepress_test_twitter_settings', array($this, 'ajax_test_twitter_settings'));
+
   }
   
   function after_setup_theme() {
@@ -157,7 +158,7 @@ class SharepressPro {
       $last_posted = Sharepress::get_last_posted($post);
       $scheduled = get_post_meta($post_id, Sharepress::META_SCHEDULED, true);
       $edit = get_admin_url()."post.php?post={$post->ID}&action=edit&sharepress=schedule";
-      $meta = get_post_meta($post_id, Sharepress::META, true);
+      $meta = (array) get_post_meta($post_id, Sharepress::META, true);
       $delayed = (($length = $meta['delay_length']) && ($unit = $meta['delay_unit'])) ? strtotime($delay = "{$length} {$unit}", strtotime($post->post_date_gmt)) : false;
       $error = get_post_meta($post_id, Sharepress::META_ERROR, true);
       

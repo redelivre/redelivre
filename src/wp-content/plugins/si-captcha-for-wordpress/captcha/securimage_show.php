@@ -24,8 +24,7 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
 	   $captcha_word .= $char;
    }
 
-   $img = new securimage();
-   $img->code_length = 4;
+   $img = new securimage_si();
 
    $img->image_width   = 175;
    $img->image_height  = 60;
@@ -38,7 +37,7 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
    //set some settings
    $img->nosession = true;
    $img->prefix = $prefix;
-   $img->captcha_path = getcwd() . '/temp/';
+   $img->captcha_path = $img->working_directory . '/cache/';
    if(file_exists($img->captcha_path . $prefix . '.php') && is_readable( $img->captcha_path . $prefix . '.php' ) ) {
        include( $img->captcha_path . $prefix . '.php' );
        $img->captcha_word = $captcha_word;
@@ -46,36 +45,23 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
        $img->captcha_word = $captcha_word;
    }
 
-   $img->use_multi_text = true;
-   $img->use_transparent_text = true;
-   $img->text_transparency_percentage = 20;
-   $img->num_lines = 3;
-   $img->perturbation = 0.6; // 1.0 = high distortion, higher numbers = more distortion
    $img->multi_text_color = array(
        '#6666FF','#660000','#3333CC','#993300','#0060CC',
        '#339900','#6633CC','#330000','#006666','#CC3366',
    );
-  if (isset($_GET['difficulty']) && $_GET['difficulty'] == 1 ) {
-    $img->perturbation = 0.5; // 1.0 = high distortion, higher numbers = more distortion
-    $img->num_lines = 2;
-    $img->multi_text_color = array('#6666FF','#660000','#3333CC','#993300','#0060CC');
-  }
-  if (isset($_GET['difficulty']) && $_GET['difficulty'] == 2 ) {
-    $img->perturbation = 0.7; // 1.0 = high distortion, higher numbers = more distortion
-    $img->num_lines = 6;
-  }
-  if (isset($_GET['no_trans']) && $_GET['no_trans'] == 1) {
-     $img->use_transparent_text = false;
-  }
+
    $img->charset = 'ABCDEFHKLMNPRSTUVWYZ234578';
-   $img->ttf_file = getcwd() . '/ttffonts/ahg-bold.ttf';   // single font
-   $img->line_color = new Securimage_Color(rand(0, 64), rand(64, 128), rand(128, 255));
+   $img->code_length = 4;
+   $img->ttf_file = $img->working_directory  . '/ttffonts/ahg-bold.ttf';   // single font
+   $img->line_color = new Securimage_Color_si(rand(0, 64), rand(64, 128), rand(128, 255));
+   $img->num_lines = 6;
+   $img->perturbation = 0.75; // 1.0 = high distortion, higher numbers = more distortion
    $img->image_type = 'png';
-   $img->background_directory = getcwd() . '/backgrounds';
-   $img->ttf_font_directory  = getcwd() . '/ttffonts';
+   $img->background_directory = $img->working_directory . '/backgrounds';
+   $img->ttf_font_directory  = $img->working_directory . '/ttffonts';
    $img->show('');
    if(!file_exists($img->captcha_path . $prefix . '.php')) {
-      $img->clean_temp_dir( $img->captcha_path ); 
+      $img->clean_temp_dir( $img->captcha_path );
       if ( $fh = fopen( $img->captcha_path . $prefix . '.php', 'w' ) ) {
 			fwrite( $fh, '<?php $captcha_word = \'' . $captcha_word . '\'; ?>' );
 			fclose( $fh );
@@ -88,8 +74,7 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
        // session
    include 'securimage.php';
 
-   $img = new securimage();
-   $img->code_length = 4;
+   $img = new securimage_si();
 
    $img->image_width   = 175;
    $img->image_height  = 60;
@@ -103,33 +88,21 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
    if( isset($_GET['si_form_id']) && in_array($_GET['si_form_id'], array('com', 'reg', 'log')) ) {
             $img->form_id = $_GET['si_form_id'];
    }
-   $img->use_multi_text = true;
-   $img->use_transparent_text = true;
-   $img->text_transparency_percentage = 20;
-   $img->num_lines = 3;
-   $img->perturbation = 0.6; // 1.0 = high distortion, higher numbers = more distortion
+
    $img->multi_text_color = array(
        '#6666FF','#660000','#3333CC','#993300','#0060CC',
        '#339900','#6633CC','#330000','#006666','#CC3366',
    );
-  if (isset($_GET['difficulty']) && $_GET['difficulty'] == 1 ) {
-    $img->perturbation = 0.5; // 1.0 = high distortion, higher numbers = more distortion
-    $img->num_lines = 2;
-    $img->multi_text_color = array('#6666FF','#660000','#3333CC','#993300','#0060CC');
-  }
-  if (isset($_GET['difficulty']) && $_GET['difficulty'] == 2 ) {
-    $img->perturbation = 0.7; // 1.0 = high distortion, higher numbers = more distortion
-    $img->num_lines = 6;
-  }
-  if (isset($_GET['no_trans']) && $_GET['no_trans'] == 1) {
-     $img->use_transparent_text = false;
-  }
+
    $img->charset = 'ABCDEFHKLMNPRSTUVWYZ234578';
-   $img->ttf_file = getcwd() . '/ttffonts/ahg-bold.ttf';   // single font
-   $img->line_color = new Securimage_Color(rand(0, 64), rand(64, 128), rand(128, 255));
+   $img->code_length = 4;
+   $img->ttf_file = $img->working_directory . '/ttffonts/ahg-bold.ttf';   // single font
+   $img->line_color = new Securimage_Color_si(rand(0, 64), rand(64, 128), rand(128, 255));
+   $img->num_lines = 6;
+   $img->perturbation = 0.75; // 1.0 = high distortion, higher numbers = more distortion
    $img->image_type = 'png';
-   $img->background_directory = getcwd() . '/backgrounds';
-   $img->ttf_font_directory  = getcwd() . '/ttffonts';
+   $img->background_directory = $img->working_directory . '/backgrounds';
+   $img->ttf_font_directory  = $img->working_directory . '/ttffonts';
    $img->show('');
 
    unset($img);
