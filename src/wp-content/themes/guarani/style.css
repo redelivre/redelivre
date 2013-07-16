@@ -1348,7 +1348,6 @@ header.entry-meta a {
 
 .site-info {
 	float: left;
-	max-width: 50%;
 }
 
 #social-bookmarks {
@@ -2110,7 +2109,7 @@ object {
 	font-weight: normal !important;
 }
 
-
+/*
 @media only screen and (min-width: 57.5em) {
 	
 	.eletro_widgets_col {
@@ -2191,4 +2190,45 @@ object {
 		max-width: 1032px;
 	}
 	
+}
+*/
+@media only screen and (max-width: 600px) {
+	.menu-toggle {
+		background: #FFF;
+		color: #c04a4a;
+		float: left;
+		padding: 10px;
+	}
+
+	.menu {
+		background: #FFF;
+		margin-left: 0;
+		position: absolute;
+		width: 200px;
+		top: 120px;
+		z-index: 999;
+	}
+
+	.menu li a {
+		display: block;
+		padding: 3px 10px;
+		margin: 5px 0;
+	}
+
+	.menu li a:hover {
+		color: #FFF;
+	}
+
+	.menu li a:hover, .menu li a:active {
+		background: #c04a4a;
+	}
+
+	.menu-toggle.toggled-on {
+		background: #c04a4a;
+		color: #FFF;
+	}
+
+	.menu li > ul {
+		border-left: 2px solid #DDD;
+	}	
 }

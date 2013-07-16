@@ -14,10 +14,10 @@ get_header(); ?>
 	
     if ( $feature->have_posts() ) : ?>
     
-    <div class="swiper-container highlights">
-        <div class="swiper-wrapper">
+    <div class="flexslider highlights">
+        <ul class="slides">
 	        <?php while ( $feature->have_posts() ) : $feature->the_post(); ?>
-		        <div class="swiper-slide">
+		        <li>
 			        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			        	<div class="media slide cf">
 			    			<?php if ( has_post_thumbnail() ) : ?>
@@ -38,10 +38,10 @@ get_header(); ?>
 			        		</div>
 			        	</div><!-- /slide -->
 			        </article><!-- /article -->
-		        </div>
+		        </li>
         	<?php endwhile; ?>
-        	</div><!-- .swiper-wrapper -->
-        	
+        	</ul><!-- .swiper-wrapper -->
+
     </div><!-- .swiper-container -->
     
     <?php if ( $feature->post_count > 1 ) : ?>

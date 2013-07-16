@@ -155,8 +155,8 @@ function guarani_scripts() {
 	
 	// Swiper slider (http://www.idangero.us/sliders/swiper/)
 	if ( is_front_page() ) {
-		wp_enqueue_style( 'swiper', get_template_directory_uri() . '/css/idangerous.swiper.css' );
-		wp_enqueue_script( 'swiper', get_template_directory_uri() . '/js/idangerous.swiper-1.8.min.js', array( 'jquery' ), '1.8', true );
+		wp_enqueue_style( 'swiper', get_template_directory_uri() . '/css/flexslider.css' );
+		wp_enqueue_script( 'swiper', get_template_directory_uri() . '/js/jquery.flexslider-min.js', array( 'jquery' ), '1.8', true );
 	}
 	
 	// fancyBox (http://fancyapps.com/fancybox/)
@@ -179,29 +179,14 @@ function guarani_footer_scripts() {
 	?>
 	<!-- Swiper -->
 	<script type="text/javascript">
-		jQuery(document).ready(function() {
-			var mySwiper = jQuery('.swiper-container').swiper({				
-				//createPagination: true,
-				loop: true,
-				//pagination: '.swiper-pagination',
-				speed: 1300
+		jQuery(function($){
+			$('.flexslider').flexslider({
+				animation: "slide",
+				direction: "horizontal",
+				smoothHeight: true,
 			});
-                        
-                        if (mySwiper.slides.length > 3) {
-                            mySwiper.params.autoPlay = 8000;
-                            mySwiper.startAutoPlay();
-                        }
-			
-			// A navegação
-			jQuery('.previous-slide').bind('click', function(e){
-				e.preventDefault();
-			    mySwiper.swipePrev();
-			});
-			
-			jQuery('.next-slide').bind('click', function(e){
-				e.preventDefault();
-			    mySwiper.swipeNext();
-			});
+
+			$('.flex-control-nav').remove();
 		});
 	</script>
 	<?php

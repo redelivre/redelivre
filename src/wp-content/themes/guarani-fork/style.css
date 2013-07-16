@@ -21,3 +21,15 @@ Version:        0.1.0
 .site-footer { height: 32px; line-height: 2.3em; background: white; }
 
 .swiper-container { margin-bottom: 1em !important; }
+
+@media (max-width: 768px) {
+    .entry-image {
+        float: none !important;
+        width: 100% !important;
+    }
+    
+    .bd {
+        float: none !important;
+        width: 100% !important;
+    }
+}
