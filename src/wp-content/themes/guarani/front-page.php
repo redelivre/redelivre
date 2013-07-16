@@ -40,7 +40,7 @@ get_header(); ?>
 			        </article><!-- /article -->
 		        </li>
         	<?php endwhile; ?>
-        	</div><!-- .swiper-wrapper -->
+        	</ul><!-- .swiper-wrapper -->
         	
     </div><!-- .swiper-container -->
     
