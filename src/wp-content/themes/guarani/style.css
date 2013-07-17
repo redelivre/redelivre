@@ -655,8 +655,7 @@ a:active {
 }
 
 .site-header {
-	padding: 2em 2em 3em;
-	position: relative;
+	padding: 2em 0 3em;
 }
 
 
@@ -818,6 +817,7 @@ a:active {
 .menu-toggle {
 	cursor: pointer;
 }
+
 
 .main-small-navigation .menu {
 	display: none;
@@ -2198,37 +2198,57 @@ object {
 		color: #c04a4a;
 		float: left;
 		padding: 10px;
+		margin-bottom: 0;
 	}
 
-	.menu {
+	.menu, .menu-tmp {
 		background: #FFF;
+		float: left;
+		width: 100%;
 		margin-left: 0;
-		position: absolute;
-		width: 200px;
-		top: 120px;
+		top: 66px;
 		z-index: 999;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+		margin-bottom: -30px;
+		border-radius-right-bottom: 3px;
 	}
 
-	.menu li a {
+	.menu li a, .menu-tmp li a {
 		display: block;
 		padding: 3px 10px;
 		margin: 5px 0;
 	}
 
-	.menu li a:hover {
+	.menu li a:hover, .menu-tmp li a:hover {
 		color: #FFF;
 	}
 
-	.menu li a:hover, .menu li a:active {
+	.menu li a:hover, .menu li a:active, .menu-tmp li a:hover, .menu-tmp li a:active {
 		background: #c04a4a;
 	}
 
-	.menu-toggle.toggled-on {
+	.toggled-on {
 		background: #c04a4a;
 		color: #FFF;
 	}
-
+	/*
 	.menu li > ul {
 		border-left: 2px solid #DDD;
-	}	
+	}	*/
+	
+	.menu li > ul, .menu-tmp li > ul {
+		display: none;
+	}
+}
+
+@media (max-width: 768px) {
+    .entry-image {
+        float: none !important;
+        width: 100% !important;
+    }
+    
+    .bd {
+        float: none !important;
+        width: 100% !important;
+    }
 }

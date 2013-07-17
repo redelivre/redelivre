@@ -162,6 +162,7 @@ function guarani_scripts() {
 	// fancyBox (http://fancyapps.com/fancybox/)
 	wp_enqueue_style( 'fancybox', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.css' );
 	wp_enqueue_script( 'fancybox', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.pack.js', array( 'jquery' ), '2.1.4', true );
+	wp_enqueue_script( 'responsive', get_template_directory_uri() . '/js/responsive.js');
 	
 	
 }
