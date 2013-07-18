@@ -25,3 +25,7 @@ Version:        0.1.0
 .site-navigation {
 	position: relative;
 }
+
+.flexslider {
+	margin: 0 0 15px !important;
+}
