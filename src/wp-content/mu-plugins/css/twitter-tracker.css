@@ -1,0 +1,9 @@
+.tweets { padding: 0; margin: 0; }
+.tweets a {  }
+.tweets li {  padding: 20px 5px 0 5px; font-size: 13px; line-height: 18px; } 
+.tweets li:hover { background: #f2f2f2; }
+.tweets li .avatar { float:left; margin: 0 10px 0 0; }
+.tweets .msg { display:table; }
+.tweets .msg .twit { display:block; clear:right; font-weight: bold; font-size: 14px; }
+.tweets li { list-style: none; border-bottom: 1px solid #c5c5c5; }
+.tweets li .info { float:right; }

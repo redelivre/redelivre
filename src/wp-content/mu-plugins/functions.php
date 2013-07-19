@@ -576,3 +576,9 @@ function return_after_register($url, $path, $scheme, $blog_id)
 	return $url;
 }
 add_filter('site_url', 'return_after_register', 10, 4);
+
+function campanha_top_style()
+{
+	wp_enqueue_style('twitter-track-fix', WPMU_PLUGIN_URL.'/css/twitter-tracker.css');
+}
+add_action('wp_enqueue_scripts', 'campanha_top_style', 1);
