@@ -1,0 +1,282 @@
+# Copyright (C) 2013 Twitter Tracker
+# This file is distributed under the same license as the Twitter Tracker package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/\n"
+"POT-Creation-Date: 2013-01-18 11:30:04+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: class-TwitterTracker_Profile_Widget.php:31
+msgid "Twitter Profile Tracker"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:32
+msgid ""
+"A widget which displays the tweets from a specific Twitter user account."
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:85
+#: class-TwitterTracker_Widget.php:95
+msgid "Title:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:86
+msgid "Preamble:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:87
+msgid "Username:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:88
+#: class-TwitterTracker_Widget.php:99
+msgid "Max tweets to show:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:89
+#: class-TwitterTracker_Widget.php:100
+msgid ""
+"When replies are hidden the widget will <em>attempt</em> to keep the number "
+"of tweets constant, however this may not be possible."
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:90
+#: class-TwitterTracker_Widget.php:101
+msgid "Hide @ replies:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:91
+msgid "Include retweets:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:92
+#: class-TwitterTracker_Widget.php:102
+msgid "Include the \"#\". Tweets without this #hashtag will not be shown."
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:93
+#: class-TwitterTracker_Widget.php:103
+msgid "Mandatory hashtag:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:94
+msgid "HTML to put after the results:"
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:94
+#: class-TwitterTracker_Widget.php:104
+msgid "Optional, use for things like a link to this Twitter search, etc."
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:95
+#: class-TwitterTracker_Widget.php:105
+msgid ""
+"You can put an individual class, or classes (separate with spaces), on each "
+"instance of the Twitter Tracker to enable you to style them differently."
+msgstr ""
+
+#: class-TwitterTracker_Profile_Widget.php:96
+#: class-TwitterTracker_Widget.php:106
+msgid "HTML Class:"
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:31
+msgid "Twitter Search Tracker"
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:32
+msgid "A widget which displays results from Twitter Search."
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:84
+msgid "Old plugin values"
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:91
+msgid ""
+"These values will be deleted after your first save and not shown again. If "
+"you want to keep them, paste them below. Apologies for the inconvenience."
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:96
+msgid ""
+"Preamble (HTML limited to <kbd>&lt;a&gt;</kbd>, <kbd>&lt;em&gt;</kbd>, "
+"<kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;br&gt;</kbd>):"
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:97
+msgid ""
+"Enter any search term that works on <a href=\"http://twitter.com/\" "
+"target=\"_blank\">Twitter Search</a>, here&apos;s some <a href=\"http://"
+"twitter.com/operators\" target=\"_blank\">help with the syntax</a>."
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:98
+msgid "Twitter search:"
+msgstr ""
+
+#: class-TwitterTracker_Widget.php:104
+msgid ""
+"HTML to put after the results (limited to <kbd>&lt;a&gt;</kbd>, <kbd>&lt;"
+"em&gt;</kbd>, <kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;"
+"br&gt;</kbd>):"
+msgstr ""
+
+#: model/tweet.php:62
+msgid "%d year"
+msgstr ""
+
+#: model/tweet.php:62 model/tweet.php:77
+msgid "%d years"
+msgstr ""
+
+#: model/tweet.php:63
+msgid "%d month"
+msgstr ""
+
+#: model/tweet.php:63 model/tweet.php:78
+msgid "%d months"
+msgstr ""
+
+#: model/tweet.php:64
+msgid "%d week"
+msgstr ""
+
+#: model/tweet.php:64 model/tweet.php:79
+msgid "%d weeks"
+msgstr ""
+
+#: model/tweet.php:65
+msgid "%d day"
+msgstr ""
+
+#: model/tweet.php:65 model/tweet.php:80
+msgid "%d days"
+msgstr ""
+
+#: model/tweet.php:66
+msgid "%d hour"
+msgstr ""
+
+#: model/tweet.php:66 model/tweet.php:81
+msgid "%d hours"
+msgstr ""
+
+#: model/tweet.php:67
+msgid "%d minute"
+msgstr ""
+
+#: model/tweet.php:67 model/tweet.php:82
+msgid "%d minutes"
+msgstr ""
+
+#: model/tweet.php:68
+msgid "%d second"
+msgstr ""
+
+#: model/tweet.php:68 model/tweet.php:83
+msgid "%d seconds"
+msgstr ""
+
+#: model/tweet.php:77
+msgid "a year"
+msgstr ""
+
+#: model/tweet.php:78
+msgid "a month"
+msgstr ""
+
+#: model/tweet.php:79
+msgid "a week"
+msgstr ""
+
+#: model/tweet.php:80
+msgid "a day"
+msgstr ""
+
+#: model/tweet.php:81
+msgid "an hour"
+msgstr ""
+
+#: model/tweet.php:82
+msgid "a minute"
+msgstr ""
+
+#: model/tweet.php:83
+msgid "a second"
+msgstr ""
+
+#: model/tweet.php:88
+msgid "about %s, %s ago"
+msgstr ""
+
+#: model/tweet.php:91
+msgid "about %s ago"
+msgstr ""
+
+#: twitter-tracker.php:75
+msgid ""
+"Twitter Tracker filter error: The tt_allowed_post_types filter has been "
+"deprecated and will be removed in a future version, please use "
+"tt_post_types_with_override instead."
+msgstr ""
+
+#. #-#-#-#-#  twitter-tracker.pot (Twitter Tracker 3.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: twitter-tracker.php:106 twitter-tracker.php:107
+msgid "Twitter Tracker"
+msgstr ""
+
+#: twitter-tracker.php:189 twitter-tracker.php:225
+msgctxt "Publish box date format"
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: view/admin/metabox.php:11
+msgid ""
+"This term will override, for this page or post only, any value you have "
+"entered into the widget. Enter any search term that works on <a href="
+"\"http://twitter.com/\" target=\"_blank\">Twitter Search</a>, "
+"here&apos;s some <a href=\"http://twitter.com/operators\" target="
+"\"_blank\">help with the syntax</a>."
+msgstr ""
+
+#: view/admin/metabox.php:19
+msgid ""
+"This will override, for this page or post only, any username you have "
+"entered into the widget."
+msgstr ""
+
+#: view/twitter-tracker/widget-contents.php:14
+msgid "View tweet"
+msgstr ""
+
+#: view/twitter-tracker/widget-error.php:3
+msgid ""
+"For this plugin to work you need to set at least a Twitter Search in the "
+"widget settings."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/twitter-tracker/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Tracks the search results on Twitter search or Twitter profile in a sidebar "
+"widget."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Simon Wheatley (Code for the People)"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://codeforthepeople.com/"
+msgstr ""

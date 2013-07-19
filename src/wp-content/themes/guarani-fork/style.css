@@ -22,8 +22,16 @@ Version:        0.1.0
 
 .swiper-container { margin-bottom: 1em !important; }
 
-.site-navigation {
-	position: relative;
+@media (max-width: 768px) {
+    .entry-image {
+        float: none !important;
+        width: 100% !important;
+    }
+    
+    .bd {
+        float: none !important;
+        width: 100% !important;
+    }
 }
 
 .flexslider {

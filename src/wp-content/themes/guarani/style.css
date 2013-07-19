@@ -2252,3 +2252,7 @@ object {
         width: 100% !important;
     }
 }
+
+.eletro_widgets_control input[type="text"] {
+	border-color: #ccc;
+}

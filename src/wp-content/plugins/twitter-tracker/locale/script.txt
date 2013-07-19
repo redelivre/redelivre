@@ -1,0 +1,2 @@
+svn up ~/Projects/WordPress-i18n/; cd ~/Projects/WordPress/site/wp-content/plugin/twitter-tracker/; php ~/Projects/WordPress-i18n/makepot.php wp-plugin ~/Projects/WordPress/site/wp-content/plugin/twitter-tracker/;
+svn up ~/Projects/WordPress-i18n/; cd ~/Projects/FSD/htdocs/wp-content/themes/fsd/;                 php ~/Projects/WordPress-i18n/makepot.php wp-theme  ~/Projects/FSD/htdocs/wp-content/themes/fsd/; mv -v ~/Projects/FSD/htdocs/wp-content/themes/fsd/fsd.pot ~/Projects/FSD/htdocs/wp-content/themes/fsd/lang/;

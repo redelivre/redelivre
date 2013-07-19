@@ -1,0 +1,316 @@
+# Copyright (C) 2013 Twitter Tracker
+# This file is distributed under the same license as the Twitter Tracker package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/\n"
+"POT-Creation-Date: 2013-01-18 11:30:04+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-01-21 23:03+0300\n"
+"Last-Translator: Serg\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: class-TwitterTracker_Profile_Widget.php:31
+msgid "Twitter Profile Tracker"
+msgstr "Twitter profil Tracker"
+
+#: class-TwitterTracker_Profile_Widget.php:32
+msgid ""
+"A widget which displays the tweets from a specific Twitter user account."
+msgstr ""
+"Widget, ktorý zobrazuje tweets z konkrétnych Twitter používateľské konto."
+
+#: class-TwitterTracker_Profile_Widget.php:85
+#: class-TwitterTracker_Widget.php:95
+msgid "Title:"
+msgstr "Názov:"
+
+#: class-TwitterTracker_Profile_Widget.php:86
+msgid "Preamble:"
+msgstr "Preambula:"
+
+#: class-TwitterTracker_Profile_Widget.php:87
+msgid "Username:"
+msgstr "Užívateľské meno:"
+
+#: class-TwitterTracker_Profile_Widget.php:88
+#: class-TwitterTracker_Widget.php:99
+msgid "Max tweets to show:"
+msgstr "Max tweets Ukázať:"
+
+#: class-TwitterTracker_Profile_Widget.php:89
+#: class-TwitterTracker_Widget.php:100
+msgid ""
+"When replies are hidden the widget will <em>attempt</em> to keep the number "
+"of tweets constant, however this may not be possible."
+msgstr ""
+"Keď odpovede sú skryté widget sa <em>pokúsi</em> udržať počettweets "
+"konštanty, ale to nemusí byť možné."
+
+#: class-TwitterTracker_Profile_Widget.php:90
+#: class-TwitterTracker_Widget.php:101
+msgid "Hide @ replies:"
+msgstr "Skryť @ odpovede:"
+
+#: class-TwitterTracker_Profile_Widget.php:91
+msgid "Include retweets:"
+msgstr "Zahŕňajú retweets:"
+
+#: class-TwitterTracker_Profile_Widget.php:92
+#: class-TwitterTracker_Widget.php:102
+msgid "Include the \"#\". Tweets without this #hashtag will not be shown."
+msgstr "Zahŕňajú \" &quot;# \". Tweets bez tejto #hashtag sa nezobrazí."
+
+#: class-TwitterTracker_Profile_Widget.php:93
+#: class-TwitterTracker_Widget.php:103
+msgid "Mandatory hashtag:"
+msgstr "Povinné hashtag:"
+
+#: class-TwitterTracker_Profile_Widget.php:94
+msgid "HTML to put after the results:"
+msgstr "HTML dať po výsledkoch:"
+
+#: class-TwitterTracker_Profile_Widget.php:94
+#: class-TwitterTracker_Widget.php:104
+msgid "Optional, use for things like a link to this Twitter search, etc."
+msgstr ""
+"Voliteľné, použitie pre veci, ako je odkaz na tento Twitter vyhľadávanie, "
+"atď."
+
+#: class-TwitterTracker_Profile_Widget.php:95
+#: class-TwitterTracker_Widget.php:105
+msgid ""
+"You can put an individual class, or classes (separate with spaces), on each "
+"instance of the Twitter Tracker to enable you to style them differently."
+msgstr ""
+"Si môžete dať jednotlivé triedy alebo tried (oddelených medzerami), na "
+"každom stupňa z neštebotajú Trackera vám umožní štýl je inak."
+
+#: class-TwitterTracker_Profile_Widget.php:96
+#: class-TwitterTracker_Widget.php:106
+msgid "HTML Class:"
+msgstr "HTML triedy:"
+
+#: class-TwitterTracker_Widget.php:31
+msgid "Twitter Search Tracker"
+msgstr "Twitter Search Tracker"
+
+#: class-TwitterTracker_Widget.php:32
+msgid "A widget which displays results from Twitter Search."
+msgstr "Widget, ktorý zobrazuje výsledky z Twitter vyhľadávanie."
+
+#: class-TwitterTracker_Widget.php:84
+msgid "Old plugin values"
+msgstr "Starý plugin hodnoty"
+
+#: class-TwitterTracker_Widget.php:91
+msgid ""
+"These values will be deleted after your first save and not shown again. If "
+"you want to keep them, paste them below. Apologies for the inconvenience."
+msgstr ""
+"Tieto hodnoty odstránia po svoj prvý uložiť a znova nezobrazí. Ak chcete "
+"uchovať, vložiť nižšie. Ospravedlňujem sa za spôsobené nepríjemnosti."
+
+#: class-TwitterTracker_Widget.php:96
+msgid ""
+"Preamble (HTML limited to <kbd>&lt;a&gt;</kbd>, <kbd>&lt;em&gt;</kbd>, "
+"<kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;br&gt;</kbd>):"
+msgstr ""
+"Preambula (HTML, obmedzené na <kbd>&amp;lt;a&amp;gt;</kbd> , <kbd>&amp;lt;"
+"em&amp;gt;</kbd> ,<kbd>&amp;lt;strong&amp;gt;</kbd>, <kbd>&amp;lt;p&amp;gt;</"
+"kbd>, <kbd>&amp;lt;br&amp;gt;</kbd>):"
+
+#: class-TwitterTracker_Widget.php:97
+msgid ""
+"Enter any search term that works on <a href=\"http://twitter.com/\" "
+"target=\"_blank\">Twitter Search</a>, here&apos;s some <a href=\"http://"
+"twitter.com/operators\" target=\"_blank\">help with the syntax</a>."
+msgstr ""
+"Zadajte všetky hľadaný výraz, ktorý pracuje na < href=\"http://search."
+"twitter.com/\" cieľ = \" &quot;_blank\" > neštebotajú vyhľadávanie, tu je "
+"niekoľko<a href=\"http:// href=&quot;&quot;></a href=\"http://>Search."
+"Twitter.com/operators\" &quot;target = \"_blank\"> pomôcť so syntaxou."
+
+#: class-TwitterTracker_Widget.php:98
+msgid "Twitter search:"
+msgstr "Neštebotajú Hľadať:"
+
+#: class-TwitterTracker_Widget.php:104
+msgid ""
+"HTML to put after the results (limited to <kbd>&lt;a&gt;</kbd>, <kbd>&lt;"
+"em&gt;</kbd>, <kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;"
+"br&gt;</kbd>):"
+msgstr ""
+"HTML dať po výsledkoch (obmedzené na <kbd>&amp;lt;a&amp;gt;</kbd> ,<kbd>&amp;"
+"lt;</kbd>em&amp;gt;, <kbd>&amp;lt;strong&amp;gt;</kbd>, <kbd>&amp;lt;p&amp;"
+"gt;</kbd>,<kbd>&amp;lt;</kbd>br &amp;gt;):"
+
+#: model/tweet.php:62
+msgid "%d year"
+msgstr "%d rok"
+
+#: model/tweet.php:62 model/tweet.php:77
+msgid "%d years"
+msgstr "%d rokmi"
+
+#: model/tweet.php:63
+msgid "%d month"
+msgstr "%d mesiac"
+
+#: model/tweet.php:63 model/tweet.php:78
+msgid "%d months"
+msgstr "%d mesiacmi"
+
+#: model/tweet.php:64
+msgid "%d week"
+msgstr "%d týždeň"
+
+#: model/tweet.php:64 model/tweet.php:79
+msgid "%d weeks"
+msgstr "%d týždňami"
+
+#: model/tweet.php:65
+msgid "%d day"
+msgstr "%d deň"
+
+#: model/tweet.php:65 model/tweet.php:80
+msgid "%d days"
+msgstr "%d dňami"
+
+#: model/tweet.php:66
+msgid "%d hour"
+msgstr "%d hodinami"
+
+#: model/tweet.php:66 model/tweet.php:81
+msgid "%d hours"
+msgstr "%d hodinami"
+
+#: model/tweet.php:67
+msgid "%d minute"
+msgstr "%d minúta"
+
+#: model/tweet.php:67 model/tweet.php:82
+msgid "%d minutes"
+msgstr "%d minút"
+
+#: model/tweet.php:68
+msgid "%d second"
+msgstr "%d druhý"
+
+#: model/tweet.php:68 model/tweet.php:83
+msgid "%d seconds"
+msgstr "%d sekúnd"
+
+#: model/tweet.php:77
+msgid "a year"
+msgstr "rok"
+
+#: model/tweet.php:78
+msgid "a month"
+msgstr "mesiac"
+
+#: model/tweet.php:79
+msgid "a week"
+msgstr "týždenne"
+
+#: model/tweet.php:80
+msgid "a day"
+msgstr "denne"
+
+#: model/tweet.php:81
+msgid "an hour"
+msgstr "hodinu"
+
+#: model/tweet.php:82
+msgid "a minute"
+msgstr "za minútu"
+
+#: model/tweet.php:83
+msgid "a second"
+msgstr "druhý"
+
+#: model/tweet.php:88
+msgid "about %s, %s ago"
+msgstr "o %s %s pred"
+
+#: model/tweet.php:91
+msgid "about %s ago"
+msgstr "o %s pred"
+
+#: twitter-tracker.php:75
+msgid ""
+"Twitter Tracker filter error: The tt_allowed_post_types filter has been "
+"deprecated and will be removed in a future version, please use "
+"tt_post_types_with_override instead."
+msgstr ""
+"Twitter Tracker chybe filtra: tt_allowed_post_types filter bol zastarané a "
+"budú odstránené v budúcej verzii, prosím použite tt_post_types_with_override "
+"miesto."
+
+#. #-#-#-#-#  twitter-tracker.pot (Twitter Tracker 3.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: twitter-tracker.php:106 twitter-tracker.php:107
+msgid "Twitter Tracker"
+msgstr "Twitter Tracker"
+
+#: twitter-tracker.php:189 twitter-tracker.php:225
+msgctxt "Publish box date format"
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: view/admin/metabox.php:11
+msgid ""
+"This term will override, for this page or post only, any value you have "
+"entered into the widget. Enter any search term that works on <a href="
+"\"http://twitter.com/\" target=\"_blank\">Twitter Search</a>, "
+"here&apos;s some <a href=\"http://twitter.com/operators\" target="
+"\"_blank\">help with the syntax</a>."
+msgstr ""
+"Tento termín bude prepísať, pre túto stránku alebo poštou len žiadnu hodnotu "
+"máte nadobudla widget. Zadajte všetky hľadaný výraz, ktorý pracuje na < a "
+"href =\"http://Search.Twitter.com/\" target = \" &quot;_blank\" > "
+"neštebotajú vyhľadávanie,Tu je niekoľko < href=\"http://twitter.com/"
+"operators\" target =\"_blank\">help so syntaxou."
+
+#: view/admin/metabox.php:19
+msgid ""
+"This will override, for this page or post only, any username you have "
+"entered into the widget."
+msgstr ""
+"To bude prepísať, pre túto stránku alebo poštou iba, žiadne meno máte "
+"nadobudla widget."
+
+#: view/twitter-tracker/widget-contents.php:14
+msgid "View tweet"
+msgstr "Zobrazenie pípanie"
+
+#: view/twitter-tracker/widget-error.php:3
+msgid ""
+"For this plugin to work you need to set at least a Twitter Search in the "
+"widget settings."
+msgstr ""
+"Pre tento plugin do práce, budete musieť nastaviť aspoň Twitter vyhľadávanie "
+"widget nastavenia."
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/twitter-tracker/"
+msgstr "http://WordPress.org/extend/plugins/Twitter-tracker/"
+
+#. Description of the plugin/theme
+msgid ""
+"Tracks the search results on Twitter search or Twitter profile in a sidebar "
+"widget."
+msgstr ""
+"Výsledky vyhľadávania skladieb na Twitter search alebo Twitter profil v "
+"bočnom paneli widget."
+
+#. Author of the plugin/theme
+msgid "Simon Wheatley (Code for the People)"
+msgstr "Simon Wheatley (kód pre ľudí)"
+
+#. Author URI of the plugin/theme
+msgid "http://codeforthepeople.com/"
+msgstr "http://codeforthepeople.com/"

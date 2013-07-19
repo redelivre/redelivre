@@ -1,0 +1,312 @@
+# Copyright (C) 2013 Twitter Tracker
+# This file is distributed under the same license as the Twitter Tracker package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Twitter Tracker 3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/twitter-tracker\n"
+"POT-Creation-Date: 2013-01-18 09:39:50+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-01-18 14:44+0100\n"
+"Last-Translator: Milo van der Linden <milo@dogodigi.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: nl_NL\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: class-TwitterTracker_Profile_Widget.php:31
+msgid "Twitter Profile Tracker"
+msgstr "Twitter Profiel Tracker"
+
+#: class-TwitterTracker_Profile_Widget.php:32
+msgid ""
+"A widget which displays the tweets from a specific Twitter user account."
+msgstr "Widget waarmee tweets van een specifiek Twitter account worden getoond"
+
+#: class-TwitterTracker_Profile_Widget.php:85
+#: class-TwitterTracker_Widget.php:95
+msgid "Title:"
+msgstr "Titel:"
+
+#: class-TwitterTracker_Profile_Widget.php:86
+msgid "Preamble:"
+msgstr "Intro"
+
+#: class-TwitterTracker_Profile_Widget.php:87
+msgid "Username:"
+msgstr "Twitter account:"
+
+#: class-TwitterTracker_Profile_Widget.php:88
+#: class-TwitterTracker_Widget.php:99
+msgid "Max tweets to show:"
+msgstr "Aantal tweets:"
+
+#: class-TwitterTracker_Profile_Widget.php:89
+#: class-TwitterTracker_Widget.php:100
+msgid ""
+"When replies are hidden the widget will <em>attempt</em> to keep the number "
+"of tweets constant, however this may not be possible."
+msgstr ""
+"Wanneer reacties worden verborgen zal de widget <em>proberen</em> om het "
+"aantal tweets constant te houden. Dit kan afwijken."
+
+#: class-TwitterTracker_Profile_Widget.php:90
+#: class-TwitterTracker_Widget.php:101
+msgid "Hide @ replies:"
+msgstr "Verberg @ reacties:"
+
+#: class-TwitterTracker_Profile_Widget.php:91
+msgid "Include retweets:"
+msgstr "Retweets tonen:"
+
+#: class-TwitterTracker_Profile_Widget.php:92
+#: class-TwitterTracker_Widget.php:102
+msgid "Include the \"#\". Tweets without this #hashtag will not be shown."
+msgstr ""
+"Inclusief \"#\". Tweets zonder de aangegeven #hashtag worden verborgen."
+
+#: class-TwitterTracker_Profile_Widget.php:93
+#: class-TwitterTracker_Widget.php:103
+msgid "Mandatory hashtag:"
+msgstr "Verplichte hashtag:"
+
+#: class-TwitterTracker_Profile_Widget.php:94
+msgid "HTML to put after the results:"
+msgstr "HTML voetnoot:"
+
+#: class-TwitterTracker_Profile_Widget.php:94
+#: class-TwitterTracker_Widget.php:104
+msgid "Optional, use for things like a link to this Twitter search, etc."
+msgstr ""
+"Optioneel, gebruik de voetnoot bijv. voor links naar Twitter search, etc."
+
+#: class-TwitterTracker_Profile_Widget.php:95
+#: class-TwitterTracker_Widget.php:105
+msgid ""
+"You can put an individual class, or classes (separate with spaces), on each "
+"instance of the Twitter Tracker to enable you to style them differently."
+msgstr ""
+"Je kunt individuele (CSS) klassen (gescheiden door spaties), op elke "
+"instantie van de Twitter Tracker plaatsen om de weergave te wijzigen."
+
+#: class-TwitterTracker_Profile_Widget.php:96
+#: class-TwitterTracker_Widget.php:106
+msgid "HTML Class:"
+msgstr "CSS klasse:"
+
+#: class-TwitterTracker_Widget.php:31
+msgid "Twitter Search Tracker"
+msgstr "Twitter Search Tracker"
+
+#: class-TwitterTracker_Widget.php:32
+msgid "A widget which displays results from Twitter Search."
+msgstr "Widget om resultaten van een Twitter Search te tonen"
+
+#: class-TwitterTracker_Widget.php:84
+msgid "Old plugin values"
+msgstr "Oude plugin waarden"
+
+#: class-TwitterTracker_Widget.php:91
+msgid ""
+"These values will be deleted after your first save and not shown again. If "
+"you want to keep them, paste them below. Apologies for the inconvenience."
+msgstr ""
+"Deze waarden worden verwijderd na de eerste keer opslaan. Wanneer deze "
+"moeten worden behouden, plak ze dan hier. Excuses voor het ongemak"
+
+#: class-TwitterTracker_Widget.php:96
+msgid ""
+"Preamble (HTML limited to <kbd>&lt;a&gt;</kbd>, <kbd>&lt;em&gt;</kbd>, "
+"<kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;br&gt;</kbd>):"
+msgstr ""
+"Intro (HTML beperkt tot <kbd>&lt;a&gt;</kbd>, <kbd>&lt;em&gt;</kbd>, "
+"<kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;br&gt;</kbd>):"
+
+#: class-TwitterTracker_Widget.php:97
+msgid ""
+"Enter any search term that works on <a href=\"http://twitter.com/\" "
+"target=\"_blank\">Twitter Search</a>, here&apos;s some <a href=\"http://"
+"twitter.com/operators\" target=\"_blank\">help with the syntax</a>."
+msgstr ""
+"Geef een geldige <a href=\"http://twitter.com/\" target=\"_blank"
+"\">Twitter Search</a> zoekterm, <a href=\"http://twitter.com/operators"
+"\" target=\"_blank\">klik hier voor hulp</a>."
+
+#: class-TwitterTracker_Widget.php:98
+msgid "Twitter search:"
+msgstr "Zoekopdracht"
+
+#: class-TwitterTracker_Widget.php:104
+msgid ""
+"HTML to put after the results (limited to <kbd>&lt;a&gt;</kbd>, <kbd>&lt;"
+"em&gt;</kbd>, <kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;"
+"br&gt;</kbd>):"
+msgstr ""
+"Voetnoot (HTML beperkt tot <kbd>&lt;a&gt;</kbd>, <kbd>&lt;em&gt;</kbd>, "
+"<kbd>&lt;strong&gt;</kbd>, <kbd>&lt;p&gt;</kbd>, <kbd>&lt;br&gt;</kbd>):"
+
+#: model/tweet.php:62
+msgid "%d year"
+msgstr "%d jaar"
+
+#: model/tweet.php:62 model/tweet.php:77
+msgid "%d years"
+msgstr "%d jaar"
+
+#: model/tweet.php:63
+msgid "%d month"
+msgstr "%d maand"
+
+#: model/tweet.php:63 model/tweet.php:78
+msgid "%d months"
+msgstr "%d maanden"
+
+#: model/tweet.php:64
+msgid "%d week"
+msgstr "%d week"
+
+#: model/tweet.php:64 model/tweet.php:79
+msgid "%d weeks"
+msgstr "%d weken"
+
+#: model/tweet.php:65
+msgid "%d day"
+msgstr "%d dag"
+
+#: model/tweet.php:65 model/tweet.php:80
+msgid "%d days"
+msgstr "%d dagen"
+
+#: model/tweet.php:66
+msgid "%d hour"
+msgstr "%d uur"
+
+#: model/tweet.php:66 model/tweet.php:81
+msgid "%d hours"
+msgstr "%d uur"
+
+#: model/tweet.php:67
+msgid "%d minute"
+msgstr "%d minuut"
+
+#: model/tweet.php:67 model/tweet.php:82
+msgid "%d minutes"
+msgstr "%d minuten"
+
+#: model/tweet.php:68
+msgid "%d second"
+msgstr "%d seconde"
+
+#: model/tweet.php:68 model/tweet.php:83
+msgid "%d seconds"
+msgstr "%d seconde"
+
+#: model/tweet.php:77
+msgid "a year"
+msgstr "een jaar"
+
+#: model/tweet.php:78
+msgid "a month"
+msgstr "een maand"
+
+#: model/tweet.php:79
+msgid "a week"
+msgstr "een week"
+
+#: model/tweet.php:80
+msgid "a day"
+msgstr "een dag"
+
+#: model/tweet.php:81
+msgid "an hour"
+msgstr "een uur"
+
+#: model/tweet.php:82
+msgid "a minute"
+msgstr "een minuut"
+
+#: model/tweet.php:83
+msgid "a second"
+msgstr "een seconde"
+
+#: model/tweet.php:88
+msgid "about %s, %s ago"
+msgstr "%s, %s geleden"
+
+#: model/tweet.php:91
+msgid "about %s ago"
+msgstr "%s geleden"
+
+#: twitter-tracker.php:75
+msgid ""
+"Twitter Tracker filter error: The tt_allowed_post_types filter has been "
+"deprecated and will be removed in a future version, please use "
+"tt_post_types_with_override instead."
+msgstr ""
+"Twitter Tracker filter error: De tt_allowed_post_types filter is verouderd "
+"en zal worden verwijderd in toekomstige versies, gebruik "
+"tt_post_types_with_override."
+
+#. #-#-#-#-#  twitter-tracker.pot (Twitter Tracker 3.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: twitter-tracker.php:106 twitter-tracker.php:107
+msgid "Twitter Tracker"
+msgstr "Twitter Tracker"
+
+#: twitter-tracker.php:189 twitter-tracker.php:225
+msgctxt "Publish box date format"
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: view/admin/metabox.php:11
+msgid ""
+"This term will override, for this page or post only, any value you have "
+"entered into the widget. Enter any search term that works on <a href="
+"\"http://twitter.com/\" target=\"_blank\">Twitter Search</a>, "
+"here&apos;s some <a href=\"http://twitter.com/operators\" target="
+"\"_blank\">help with the syntax</a>."
+msgstr ""
+"Deze term overschrijft elke waarde in de widget voor deze pagina.Geef een "
+"geldige <a href=\"http://twitter.com/\" target=\"_blank\">Twitter "
+"Search</a> zoekterm, <a href=\"http://twitter.com/operators\" target="
+"\"_blank\">klik hier voor hulp</a>."
+
+#: view/admin/metabox.php:19
+msgid ""
+"This will override, for this page or post only, any username you have "
+"entered into the widget."
+msgstr ""
+"Deze term overschrijft elke gebruikersnaamin de widget voor deze pagina."
+
+#: view/twitter-tracker/widget-contents.php:14
+msgid "View tweet"
+msgstr "Bekijk tweet"
+
+#: view/twitter-tracker/widget-error.php:3
+msgid ""
+"For this plugin to work you need to set at least a Twitter Search in the "
+"widget settings."
+msgstr ""
+"Geef tenminste een Twitter Search op in de instellingen van de widget.widget "
+"settings."
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/twitter-tracker/"
+msgstr "http://wordpress.org/extend/plugins/twitter-tracker/"
+
+#. Description of the plugin/theme
+msgid ""
+"Tracks the search results on Twitter search or Twitter profile in a sidebar "
+"widget."
+msgstr ""
+"Geeft zoekresultaten van een Twitter Search of Twitter profiel weer in de "
+"sidebar widget."
+
+#. Author of the plugin/theme
+msgid "Simon Wheatley (Code for the People)"
+msgstr "Simon Wheatley (Code for the People)"
+
+#. Author URI of the plugin/theme
+msgid "http://codeforthepeople.com/"
+msgstr "http://codeforthepeople.com/"
