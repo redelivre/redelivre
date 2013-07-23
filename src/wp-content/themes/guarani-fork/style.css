@@ -1,5 +1,5 @@
 /*
-Theme Name:     Fork do Guarani para ConferÃªncia Municipal de Cultura
+Theme Name:     Fork do Guarani para Conferência Municipal de Cultura
 Theme URI:      http://campanhacompleta.com.br
 Description:    Tema filho do Guarani
 Author:         Marco Antonio Konopacki
@@ -13,35 +13,15 @@ Version:        0.1.0
 .site-logo { float: right; margin: 0; }
 .main-navigation { margin-top: 50px; width: 100%; clear:none; float: none; }
 
-.site-header { padding: 10px 20px 40px 20px; }
-
-#tertiary { border: none; }
-
 .site-wrapper  { max-width: 1100px; }
-.site-wrapper  {background: none; box-shadow: none; }
-.main { padding: 20px; background: #fff; }
-.home .main {  padding: 0px; background: none; }
-
-.entry-share { margin-left: 0; }
-
-.container { background: white; padding: 0 32px 0 32px; }
+.home .site-wrapper  {background: none; box-shadow: none; }
+.home .main { padding: 0px; }
+.home .container { background: white; padding: 0 32px 0 32px; }
 
 .site-footer { height: 32px; line-height: 2.3em; background: white; }
 
 .swiper-container { margin-bottom: 1em !important; }
 
-@media (max-width: 768px) {
-    .entry-image {
-        float: none !important;
-        width: 100% !important;
-    }
-    
-    .bd {
-        float: none !important;
-        width: 100% !important;
-    }
-}
-
-.flexslider {
-	margin: 0 0 15px !important;
+.site-navigation {
+	position: relative;
 }
