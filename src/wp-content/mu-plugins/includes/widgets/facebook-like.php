@@ -21,9 +21,11 @@ class WidgetFacebookLikeBox extends WP_Widget {
         
         echo $before_widget;
         $show_faces = (isset($instance['fb-show-faces'])) ? $instance['fb-show-faces'] : 'true';
-        $altura = ($show_faces == 'true') ? '285px' : '80px';
+        
+        $altura = ( array_key_exists('fb-height', $instance) && intval($instance['fb-height']) > 0 ) ? intval($instance['fb-height']) : (($show_faces == 'true') ? '285' : '80');
+        $alturapx = $altura.'px';
         ?>
-        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width=292&amp;height=290&amp;colorscheme=light&amp;show_faces=<?php echo $show_faces; ?>&amp;border_color=white&amp;stream=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" allowTransparency="true" style="width: 280px; height: <?php echo $altura; ?>; overflow:hidden;" ></iframe>
+        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width=282&amp;height=<?php echo $altura; ?>&amp;colorscheme=light&amp;show_faces=<?php echo $show_faces; ?>&amp;border_color=white&amp;stream=false&amp;show_border=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" allowTransparency="true" style="width: 280px; height: <?php echo $alturapx; ?>; overflow:hidden;" ></iframe>
         <?php
         echo $after_widget;
     }
@@ -31,12 +33,18 @@ class WidgetFacebookLikeBox extends WP_Widget {
     function update($new_instance, $old_instance) {
         $instance = array();
 		$instance['fb-show-faces'] = $new_instance['fb-show-faces'];
+		$instance['fb-height'] = $new_instance['fb-height'];
 
 		return $instance;
         //return $old_instance;
     }
     
     function form($instance) {
+    	
+    	wp_register_script('facebook_like_form', network_site_url() . 'wp-content/mu-plugins/includes/widgets/js/facebook-like.js', array('jquery'));
+    	wp_enqueue_script('facebook_like_form');
+    	
+    	$fb_height = array_key_exists('fb-height', $instance) ? intval($instance['fb-height']) : 290;
         ?>
         <p>
         Este Widget utiliza a configuração de Página do Facebook do menu <a href="<?php bloginfo('url') ?>/wp-admin/admin.php?page=campaign_social_networks">Redes Sociais</a> e para funcionar corretamente, você deve ter uma página no Facebook.
@@ -46,10 +54,22 @@ class WidgetFacebookLikeBox extends WP_Widget {
         <p>
         	<label for="<?php $this->get_field_id('fb-show-faces'); ?>">Exibir fotos</label>
         	<select name="<?php echo $this->get_field_name('fb-show-faces'); ?>" id="<?php echo $this->get_field_id('fb-show-faces'); ?>">
-        		<option value="true" <?php echo ($instance['fb-show-faces'] == 'true') ? "selected=1" : ""; ?>>Sim</option>
-        		<option value="false" <?php echo ($instance['fb-show-faces'] == 'false') ? "selected=1" : ""; ?>>Não</option>
+        		<option value="true" <?php echo ( array_key_exists('fb-show-faces', $instance) && $instance['fb-show-faces'] == 'true') ? "selected=1" : ""; ?>>Sim</option>
+        		<option value="false" <?php echo ( array_key_exists('fb-show-faces', $instance) && $instance['fb-show-faces'] == 'true') ? "" : "selected=1"; ?>>Não</option>
         	</select>
         </p>
+        <p>
+        	<label for="<?php $this->get_field_id('fb-height'); ?>"><?php _e('Altura do Widget', 'campanhacompleta'); ?></label>
+        	<input id="<?php echo $this->get_field_id( 'fb-height' ); ?>" name="<?php echo $this->get_field_name( 'fb-height' ); ?>" type="text" value="<?php echo esc_attr( $fb_height ); ?>" />
+        	<label for="<?php $this->get_field_id('fb-height'); ?>"><small><?php _e('Obs.: use 0 para configuração padrão', 'campanhacompleta'); ?></small></label>
+        </p>
+        <script type="text/javascript">
+		<!--
+			jQuery(document).ready(function() {
+				facebook_like_form_auto_height_init("<?php echo $this->get_field_id('fb-show-faces'); ?>", "<?php echo $this->get_field_id( 'fb-height' ); ?>");
+			});
+		//-->
+		</script>
         <?php 
     }
  

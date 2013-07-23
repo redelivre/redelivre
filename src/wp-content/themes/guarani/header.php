@@ -59,6 +59,7 @@
 	
 			<nav role="navigation" class="site-navigation main-navigation">
 				<h1 class="assistive-text"><?php _e( 'Menu', 'guarani' ); ?></h1>
+				<div class="clearfix"></div>
 				<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'guarani' ); ?>"><?php _e( 'Skip to content', 'guarani' ); ?></a></div>
 				<?php wp_nav_menu( array( 'menu' => 'main', 'theme_location' => 'primary' ) ); ?>
 			</nav><!-- .site-navigation .main-navigation -->
