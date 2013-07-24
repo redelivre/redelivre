@@ -655,7 +655,7 @@ a:active {
 }
 
 .site-header {
-	padding: 2em 0 3em;
+	padding: 2em 2em 3em;
 }
 
 
@@ -2193,12 +2193,24 @@ object {
 }
 
 @media only screen and (max-width: 600px) {
+	.site-header {
+		padding: 2em 0 1em;
+	}
+
+	.branding a {
+		display: table !important;
+		margin: 0 auto !important;
+	}
+
 	.menu-toggle {
 		background: #FFF;
 		color: #c04a4a;
-		float: left;
+		float: none;
+		display: table;
 		padding: 10px;
-		margin-bottom: 0;
+		margin-bottom: 0 !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
 	}
 
 	.menu, .menu-tmp {
@@ -2209,7 +2221,7 @@ object {
 		top: 66px;
 		z-index: 999;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-		margin-bottom: -30px;
+		margin-bottom: 15px;
 		border-radius-right-bottom: 3px;
 	}
 
@@ -2217,14 +2229,12 @@ object {
 		display: block;
 		padding: 3px 10px;
 		margin: 5px 0;
+		text-align: center;
 	}
 
-	.menu li a:hover, .menu-tmp li a:hover {
-		color: #FFF;
-	}
-
-	.menu li a:hover, .menu li a:active, .menu-tmp li a:hover, .menu-tmp li a:active {
+	.menu li a:active, .menu-tmp li a:active {
 		background: #c04a4a;
+		color: #FFF;
 	}
 
 	.toggled-on {
