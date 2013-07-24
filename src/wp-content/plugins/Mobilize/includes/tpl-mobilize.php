@@ -1,4 +1,5 @@
 <?php
+    $optionsPluginRedesSociais = get_option('campanha_social_networks');
     $optionsRedesSociais = Mobilize::optionRedesSociais();
 
     // variables
