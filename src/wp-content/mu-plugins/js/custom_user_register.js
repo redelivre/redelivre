@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 	jQuery("#custom-register-send").click(function(){
 		custom_register.ajax_register();
 	});	
-	jQuery_validator = jQuery("#form-registro").validate();
+	jQuery_validator = jQuery("#registerform").validate();
 });
 
 /**
@@ -21,34 +21,37 @@ function Custom_User_Register(){
 	this.valida_form = function(){
 		var erros = new Array();
 		if(jQuery("#custom-register-username").val() == ""){
-			erros.push("É preciso escolher um nome de usuário <br />");
+			erros.push("<li>É preciso escolher um <strong>nome de usuário</strong></li>");
 		}
 		
 		if(jQuery("#custom-register-realname").val() == ""){
-			erros.push("É preciso informar seu nome real <br />");	
+			erros.push("<li>É preciso informar seu <strong>nome completo</strong></li>");	
 		}
 		
 		if(jQuery("#custom-register-password").val() == ""){
-			erros.push("É preciso definir uma senha <Br />");
+			erros.push("<li>É preciso definir uma <strong>senha</strong></li>");
 		}
 		
 		if(jQuery("#custom-register-email").val() == ""){
-			erros.push("É preciso informar seu email <br />");
+			erros.push("<li>É preciso informar seu <strong>email</strong></li>");
 		}
 		
 		if(jQuery("#custom-register-password").val() != jQuery("#custom-register-password-review").val()){
-			erros.push("As senhas digitadas não conferem <br />");
+			erros.push("<li>As senhas digitadas não conferem</li>");
 		}
-		
+		var erros_txt = '';
 		if(erros.length > 0){
 			jQuery("#custom-register-resposta").html("");
-			for( i in erros){
-				jQuery("#custom-register-resposta").append(erros[i]);
+			for( i in erros){				
+				erros_txt += erros[i];
 			}
+			
+			jQuery("#custom-register-resposta").append('<div class="resposta-erro">' + erros_txt + '</div>');
 			jQuery("#custom-register-resposta").slideDown();
+			
 			return false;
 		} else {
-			if(jQuery('#form-registro').valid())
+			if(jQuery('#registerform').valid())
 				return true;
 			else
 			{
@@ -77,7 +80,7 @@ function Custom_User_Register(){
 			jQuery("#custom-register-resposta").slideDown();
 			
 			jQuery.post(custom_register_ajax.ajaxurl, data, function(response){
-				jQuery("#custom-register-resposta").html(response);
+				jQuery("#custom-register-resposta").html("<div class='resposta-sucesso'>" + response + '</div>');
 				si_captcha_refresh('si_image_reg','reg','/wp-content/plugins/si-captcha-for-wordpress/captcha','/wp-content/plugins/si-captcha-for-wordpress/captcha/securimage_show.php?si_form_id=reg&prefix='); return false;
 			});
 		}

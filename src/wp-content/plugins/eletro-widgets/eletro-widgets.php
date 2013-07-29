@@ -123,11 +123,11 @@ class EletroWidgets {
             $options = get_option('eletro_widgets_public');
         }
 
-        $colunas = $options[$this->id]['widgets'];
+        $colunas = array_key_exists($this->id, $options) ? $options[$this->id]['widgets'] : array();
 
         for ($i = 0; $i < $this->cols; $i ++) {
             echo "<div class='eletro_widgets_col $dashedCols' id='eletro_widgets_col_$i'>";
-            if (is_array($colunas[$i])) {
+            if ( array_key_exists($i, $colunas) && is_array($colunas[$i])) {
                 foreach ($colunas[$i] as $w) {
                     print_eletro_widgets($w['id'], $w['number'], $w['id_base'], $this->id);
                 }
