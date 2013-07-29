@@ -656,6 +656,7 @@ a:active {
 
 .site-header {
 	padding: 2em 2em 3em;
+	position: relative;
 }
 
 
