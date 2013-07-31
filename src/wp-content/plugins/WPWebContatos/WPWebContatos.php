@@ -379,7 +379,7 @@ function webcontatos_Campaign_created($data)
 	
 	$blog_id = $data['blog_id'];
 	switch_to_blog($blog_id);
-		$webcontatos_options = get_option('webcontatos-config', $webcontatos_options, false);
+		$webcontatos_options = get_option('webcontatos-config', array());
 	restore_current_blog();
 	
 	if(array_key_exists('webcontatos_pass', $webcontatos_options) && $webcontatos_options['webcontatos_pass'] != 'admin')
