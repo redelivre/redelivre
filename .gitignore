@@ -11,3 +11,5 @@ wp-content/uploads
 src/wp-content/uploads/
 src/index.html
 src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp/
+/nbproject/private/
+nbproject/

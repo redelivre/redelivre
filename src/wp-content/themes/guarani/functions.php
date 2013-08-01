@@ -235,6 +235,7 @@ function guarani_activate_plugins() {
             if ( ! in_array( $plugin, $plugins ) ) {
                 array_push( $plugins, $plugin );
                 update_option( 'active_plugins', $plugins );
+                do_action('activate_' . $plugin);
             }
         }
         

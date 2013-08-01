@@ -7,17 +7,6 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php if ( has_post_format( 'video' ) ) : ?>
-		<?php guarani_featured_video(); ?>
-	<?php elseif ( has_post_thumbnail() ) : ?>
-		<figure class="entry-image">
-			<?php the_post_thumbnail( 'highlight-single' ); ?>
-			<?php if ( $thumb_caption = get_post( get_post_thumbnail_id() )->post_excerpt ) : ?>
-				<figcaption><?php echo $thumb_caption; ?></figcaption>
-			<?php endif; ?>
-		</figure>
-	<?php endif; ?>
-	
 	<header class="entry-header">
 		<h1 class="entry-title">
 			<a href="<?php the_permalink(); ?>" title="<?php printf( __('Read, comment and share &ldquo;%s&rdquo;', 'f451'), the_title_attribute('echo=0') ); ?>" rel="bookmark">

@@ -526,7 +526,7 @@ function custom_register_ajax_send(){
 		global $registro_captcha;
 		$registro_captcha = new siCaptcha();
 		
-		if($_SESSION["securimage_code_si_com"] != $dados['captcha_code'])
+		if(strcasecmp( $_SESSION["securimage_code_si_com"], $dados['captcha_code'] ) != 0 )
 		{
 			echo "<div class='erro'>".__('Wrong CAPTCHA', 'si-captcha')."</div>";
 			exit();
@@ -535,7 +535,8 @@ function custom_register_ajax_send(){
 	
 	$usuario = wp_insert_user($dados);
 	if(!is_wp_error($usuario)){
-		echo _x('Cadastro efetuado com sucesso. <a href="' . wp_login_url($_REQUEST['redirect_to']) . '">Clique aqui</a> para fazer o login.', 'registro-de-usuario', 'campanha-completa');
+		$url = array_key_exists('redirect_to', $_REQUEST) ? $_REQUEST['redirect_to'] : '';
+		echo _x('Cadastro efetuado com sucesso. <a href="' . wp_login_url($url) . '">Clique aqui</a> para fazer o login.', 'registro-de-usuario', 'campanha-completa');
 		echo '<script>jQuery(".formulario-de-registro-padrao .campos").slideUp();</script>';
 	} else {
 		$erros = $usuario->get_error_message();
