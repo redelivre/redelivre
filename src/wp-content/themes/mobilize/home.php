@@ -20,7 +20,7 @@
 			<div class="row">			
 				<div class="span7 destaques <?php echo (!get_theme_mod('banner-home')) ? 'sem-banner' : ''; ?>">
 					<div class="flexslider bg-cor-1">
-			  			<ul class="items">
+			  			<ul class="slides">
 					  		<?php $slider = $ethymos->query->slider(); ?>
 					  		<?php if($slider->have_posts()) : while($slider->have_posts()) : $slider->the_post(); ?>
 								<li class="flex-slider-item">
@@ -34,6 +34,7 @@
 									  	<a href="<?php the_permalink(); ?>"><?php _e('Leia mais', 'mobilize'); ?></a>
 									  	<div class="clearfix"></div>
 								    </div>
+								    <div class="clearfix"></div>
 								   </div>
 							    </li>
 					    	<?php endwhile; else : ?>
@@ -44,10 +45,10 @@
 					
 					<div class="clearfix"></div>
 
-					<div class="dest-navigator">
+					<!-- <div class="dest-navigator">
 			    		<a class="prev browse left"><</a>
 						<a class="next browse right"></a>
-					</div>
+					</div> -->
 				</div>
 				<div class="span7 sub-destaques">
 					<div class="title-sub-dest span7">
