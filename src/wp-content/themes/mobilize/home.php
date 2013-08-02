@@ -1,85 +1,1378 @@
-<?php get_header(); ?>
-<div id="primary" class="site-content row">
-	<div id="content" role="main" class="container">
-		<div class="span12 miolo">
-			<?php if(get_theme_mod('banner-home')) : ?>
-				<div class="banner">
-					<img src="<?php echo get_theme_mod('banner-home'); ?>" />
-				</div>
-			<?php endif; ?>
-			
-			<div class="span4 sidebar-home">
-				<div class="info">
-					<?php echo get_option('_mobilize_apresentacao'); ?>
-				</div>
-				<div class="widgets">
-					<?php get_sidebar()?>
-				</div>
-			</div>
-			
-			<div class="row">			
-				<div class="span7 destaques <?php echo (!get_theme_mod('banner-home')) ? 'sem-banner' : ''; ?>">
-					<div class="flexslider bg-cor-1">
-			  			<ul class="slides">
-					  		<?php $slider = $ethymos->query->slider(); ?>
-					  		<?php if($slider->have_posts()) : while($slider->have_posts()) : $slider->the_post(); ?>
-								<li class="flex-slider-item">
-								  <h2 class="span7 dest-titulo"> <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-								  <div class="clearfix"></div>
-								  <div class="slider">
-								    <?php the_post_thumbnail('banner-home'); ?>
-								    <div class="slider-content-data">
-								    	<span class="slider-date"><?php the_time('d/m/Y'); ?></span>
-									    <?php the_excerpt(); ?>
-									  	<a href="<?php the_permalink(); ?>"><?php _e('Leia mais', 'mobilize'); ?></a>
-									  	<div class="clearfix"></div>
-								    </div>
-								    <div class="clearfix"></div>
-								   </div>
-							    </li>
-					    	<?php endwhile; else : ?>
-								<?php _e('Nenhum conteúdo cadastrado para o slider', 'mobilize'); ?>
-							<?php endif; ?>
-			  			</ul>
-					</div>
-					
-					<div class="clearfix"></div>
+/*
+Theme Name: Mobilize 1.0
+Theme URI: http://ethymos.com.br
+Description: Mais um tema campanha completa.
+Version: 1.0
+Author: Ethymos soluções em web
+Author URI: http://ethymos.com.br
+Tags: light, gray,orange, white, light, one-column, two-columns, right-sidebar, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, sticky-post, theme-options
+License: GNU General Public License
+License URI: http://www.gnu.org/licenses/gpl.html
+*/
 
-					<!-- <div class="dest-navigator">
-			    		<a class="prev browse left"><</a>
-						<a class="next browse right"></a>
-					</div> -->
-				</div>
-				<div class="span7 sub-destaques">
-					<div class="title-sub-dest span7">
-						<?php _e("+DESTAQUES", 'mobilize'); ?>
-					</div>
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
 
-					<?php $destaques = $ethymos->query->destaques(3); ?>
-					<?php if($destaques->have_posts()) : while($destaques->have_posts()) : $destaques->the_post(); ?>
-						<div class="not-1 span7 borda-cor-1">
-							<div class="sub-dest-img span3">
-								<?php the_post_thumbnail('destaques-home'); ?>
-							</div>
-							
-							<div class="sub-dest-tex span3">
-							   <p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
-							</div>
-							
-							<div class="sub-dest-desc span4">
-							   <p><?php the_excerpt(); ?></p>
-							</div>
-							
-							<a href="<?php the_permalink(); ?>" class="sub-dest-seguir"><?php _e('Continue lendo', 'mobilize'); ?></a>
-						</div>
-					<?php endwhile; else : ?>
-					<div id="default">
-						<?php _e('Nenhum destaque cadastrado', 'mobilize'); ?>
-					</div>
-					<?php endif; ?>
-				</div>
-			</div>
-		</div>
-    </div>
-</div>
-<?php get_footer(); ?>
+/* Classes padrão wordpress
+-------------------------------------------------------------- */
+.alignnone                    { margin: 5px 20px 20px 0; }
+.aligncenter, div.aligncenter { display:block; margin: 5px auto 5px auto; }
+.alignright                   { float:right; margin: 5px 0 20px 20px; }
+.alignleft                    { float:left; margin: 5px 20px 20px 0; }
+.aligncenter                  { display: block; margin: 5px auto 5px auto; }
+a img.alignright              { float:right; margin: 5px 0 20px 20px; }
+a img.alignnone               { margin: 5px 20px 20px 0; }
+a img.alignleft               { float:left; margin: 5px 20px 20px 0; }
+a img.aligncenter             { display: block; margin-left: auto; margin-right: auto }
+.wp-caption                   { background: #E0E0E0; border: 1px solid #f0f0f0; max-width: 96%; /* Image does not overflow the content area */ padding: 5px 3px 10px; text-align: center; }
+.wp-caption.alignnone         { margin: 5px 20px 20px 0; }
+.wp-caption.alignleft         { margin: 5px 20px 20px 0; }
+.wp-caption.alignright        { margin: 5px 0 20px 20px; }
+.wp-caption img               { border: 0 none; height: auto; margin:0; max-width: 98.5%; padding:0; width: auto; }
+.wp-caption p.wp-caption-text { font-size:13px; line-height:17px; margin:10px 0 0; padding:0 4px 5px; }
+.sticky                       { }
+.gallery-caption              { }
+.bypostauthor                 { }
+
+/*
+Documento
+--------------------------------------- */
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+	background: url('imagens/stucco.png');
+}
+
+h1 { }
+h2 { }
+h3 {
+	font-weight: 300;
+}
+h4 { }
+h5 { }
+h6 { }
+
+a {
+	font-weight: 900;
+	color:#ee720d;	
+}
+
+a:hover {
+	color: #f39200;
+	text-decoration: none;
+}
+
+p { }
+
+/*
+Genericas
+--------------------------------------- */
+.float-left  { float:left; }
+.float-right { float:right; }
+
+.img-replacement   { text-indent: -5000em; display: block; }
+.img-replacement a { display: block; width: 100%; height: 100%; }
+
+.subtitulo {
+	border-bottom: 2px solid #ee720d;
+	margin: 20px 0 10px 0;
+	font-size: 31px;
+	font-weight: bolder;
+	padding: 0 0 15px 0;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+#masterheader{
+    background:#fff;	
+    
+}
+
+.header{
+	
+}
+
+.brand{
+	margin: 10px 0 0 30px;
+}
+
+.header-title{
+	font-size: 60px;
+	display: block;
+	margin-top: 70px;
+}
+
+.header .right{
+	
+}
+
+/*
+Redes sociais
+--------------------------------------- */
+.social {
+
+}
+
+#social-bookmarks {
+	height: 33px;
+}
+
+#facebook {
+	background: url('imagens/sprite.png') no-repeat -2px -42px;
+	width: 35px;
+	height: 35px;
+	display: block;
+	-webkit-border-radius: 5px; /*safari e chrome*/
+	-moz-border-radius: 5px; /*firefox*/
+	-o-border-radius: 5px; /*opera hipster*/
+	border-radius: 5px;
+	float:left;
+	margin-right: 5px;
+}
+
+#facebook:hover {
+	background: url('imagens/sprite.png') no-repeat -2px -42px;
+}
+
+#twitter {
+	background: url('imagens/sprite.png') no-repeat -6px -3px;
+	width: 35px;
+	height: 35px;
+	display: block;
+	webkit-border-radius: 5px; /*safari e chrome*/
+	-moz-border-radius: 5px; /*firefox*/
+	-o-border-radius: 5px; /*opera hipster*/
+	border-radius: 5px;
+	float:left;
+	margin-right: 5px;
+}
+
+#twitter:hover {
+	background: url('imagens/sprite.png') no-repeat -6px -3px;
+}
+
+#google-plus {
+    background: url('imagens/sprite.png') no-repeat -5px -117px;
+	width: 35px;
+	height: 35px;
+	display: block;
+	webkit-border-radius: 5px; /*safari e chrome*/
+	-moz-border-radius: 5px; /*firefox*/
+	-o-border-radius: 5px; /*opera hipster*/
+	border-radius: 5px;
+	float:left;
+	margin-right: 5px;
+}
+
+#google-plus:hover {
+    background: url('imagens/sprite.png') no-repeat -5px -117px;
+}
+
+#youtube {
+	background: url('imagens/sprite.png') no-repeat -4px -79px;
+	width: 35px;
+	height: 35px;
+	display: block;
+	webkit-border-radius: 5px; /*safari e chrome*/
+	-moz-border-radius: 5px; /*firefox*/
+	-o-border-radius: 5px; /*opera hipster*/
+	border-radius: 5px;
+	float:left;
+	margin-right: 5px;
+}
+
+#youtube:hover {
+	background: url('imagens/sprite.png') no-repeat -4px -79px;
+}
+
+#rss {
+	background: url('imagens/sprite.png') no-repeat -6px -156px;
+	width: 35px;
+	height: 35px;
+	display: block;
+	webkit-border-radius: 5px; /*safari e chrome*/
+	-moz-border-radius: 5px; /*firefox*/
+	-o-border-radius: 5px; /*opera hipster*/
+	border-radius: 5px;
+	float:left;
+	margin-right: 5px;
+}
+
+#rss:hover {
+	background: url('imagens/sprite.png') no-repeat -6px -156px;
+}
+
+
+/*
+Busca
+--------------------------------------- */
+
+.busca {
+	float: right;
+}
+
+/*
+Menu
+--------------------------------------- */
+
+.menu {
+	margin-top: 10px;
+}
+
+.main-menu {
+	color:#fff;
+}
+
+.main-menu #menu-main > li {
+	display: block;
+	margin-left: 15px;
+	font-size: 20px;
+	font-weigth: 700;
+	float:left;	
+	padding: 10px 0 10px;
+}
+
+.main-menu li ul {
+    position: absolute;
+    z-index: 999;
+    display:none;	
+    margin: 10px;
+    padding: 0;
+    list-style: none;
+    padding: 0px;
+}
+
+.main-menu li:hover ul {
+	display: table;	
+}
+
+.main-menu li ul li {
+	padding: 0 5px;
+}
+
+.main-menu li ul li:first-child {
+	margin-top:10px;
+}
+
+.main-menu li ul li:hover  {
+	text-decoration: none;
+}
+
+.main-menu a{
+	color: #fff;
+	display: inline;
+	line-height: 25px;
+}
+
+   
+/* ==========================================================================
+  Home
+   ========================================================================== */
+
+#mobilize-content {
+	background: #c6c1c1;
+	min-height: 500px;
+	margin: 0 auto;	
+}
+
+#wrap .container {
+	background: #c6c1c1;
+	min-height: 500px;
+	margin: 0 auto;
+}
+   
+.miolo {
+	background: #fff;
+	border: 1px #fff;
+	/*display: table;*/
+}
+
+.banner {
+	
+}
+
+.info {
+	/*margin-top: 100px;*/
+	padding: 100px 20px 60px 20px;
+	background: url('imagens/stucco-trans.png') #505050;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: -30px;
+	line-height: 22px;
+}
+
+.title-sub-dest {
+	background: #515151;
+	color: #fff;
+	font-size: 18px;
+	padding: 10px 20px 10px 18px;
+	margin-left: 0;
+	clear: both;
+}
+
+.not-1 {
+	border-bottom: 2px solid;	
+}
+
+.sub-dest-img {
+	/*width: 274px;*/
+	height: 122px;
+	background: #ccc;
+	float:left;
+	margin: 15px 0 40px;	
+}
+
+.sub-dest-tex {
+	/*width: 350px;*/
+	display: block;
+	margin-right: 15px;
+	line-height: 25px;	
+}
+
+.sub-dest-tex p {
+	font-size: 22px;
+}
+
+.sub-dest-desc {
+	font-size: 15px;
+	display: block;
+	/*width: 350px;*/
+	
+	float: left;
+	margin-left: 30px;
+}
+
+.sub-dest-seguir {
+	font-weight: 900;
+	font-size: 15px;
+	margin-right: 30px;
+	float: right;
+}
+
+.sub-dest-seguir:hover {
+	text-decoration: none;
+}
+
+.not-2 {
+	margin-bottom: 10px;
+	clear: both;
+	border-bottom: 2px solid #ee720d;
+	margin-left: 10px;
+	padding-bottom: 25px;
+}
+
+.not-3 {
+	margin-bottom: 10px;
+	clear: both;
+	margin-left: 10px;
+	padding-bottom: 25px;
+}
+
+.destaques{
+    margin-bottom: 20px;
+}
+
+.destaques a{
+	color: #fff;
+	font-weight: 900;
+	text-decoration: none;	
+}
+
+.slider a{
+	float: right;
+	margin-right: 30px;	
+}
+
+.destaques a:hover{
+	text-decoration: none;
+}
+
+.items li {
+  float:left;
+}
+
+/* prev, next, prevPage and nextPage buttons */
+a.browse {
+    display:block;
+    width:32px;
+    height:32px;
+    float:left;
+    margin:40px 10px;
+    cursor:pointer;
+    font-size:1px;
+}
+
+/* right */
+a.right { 
+	clear:right; 
+	border-radius: 20px;
+	color: #fff;
+	background:url(imagens/d.png) #505050 no-repeat;
+	width: 40px;
+	height: 40px;
+	margin:10px -40px -30px 5px;
+}
+	
+	
+	
+a.right:hover {
+	opacity: 0.8;	
+}
+a.right:active { }
+
+
+/* left */
+a.left { 
+	clear:right; 
+	border-radius: 20px;
+	color: #fff;
+	background:url(imagens/e.png) #505050 no-repeat;
+	width: 40px;
+	height: 40px;
+	margin: 10px 0 0 0; 
+}
+*/
+
+a.left:hover  { 
+	opacity: 0.8;
+}
+
+a.left:active { }
+
+/* up and down */
+a.up, a.down  {
+    background:url(/media/img/scrollable/arrow/vert_large.png) no-repeat;
+    float: none;
+    margin: 10px 50px;
+}
+
+/* up */
+a.up:hover  { background-position:-30px 0; }
+a.up:active { background-position:-60px 0; }
+
+/* down */
+a.down        { background-position: 0 -30px; }
+a.down:hover  { background-position:-30px -30px; }
+a.down:active { background-position:-60px -30px; }
+
+
+a.disabled {
+   visibility:hidden !important;
+}
+
+.items {
+	list-style: none;
+	padding: 0;
+    font-weight: 300; 
+    clear: both;   
+}
+
+.items li {
+    float:left;
+    color:#fff; 
+}
+
+/* single scrollable item */
+.flexslider img {
+    float:left;
+    margin: 20px 5px 20px 30px;
+    background-color: #ee720d;
+		
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+}
+
+/* active item */
+.flexslider .active {
+    border:2px solid #ee720d;;
+    position:relative;
+    cursor:pointer;
+}
+
+.dest-navigator {
+	float: right;
+}
+
+.sem-banner {
+	margin-top: 20px;
+}
+
+.slider {
+	padding: 12px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.slider span {
+	margin: 20px 0 20px 20px;
+	font-weight: 900;
+	display: block;
+}
+
+.slider img {
+	float: left;
+	margin: 0;
+}
+
+.slider span.slider-date {
+	margin: 0;
+	display: inline;
+}
+
+.slider-content-data {
+	float: left;
+	width: 350px;
+	padding-left: 15px;
+}
+
+.slider-content-data p {
+	margin-top: 8px;
+}
+
+div.slider img {
+	float: left;
+}
+
+/* fim-slider*/
+
+#default {
+	margin: 20px 0 0 30px;
+}
+
+   
+/* ==========================================================================
+ Footer
+========================================================================== */
+
+.masterfooter {
+	background: #626363;
+	padding: 20px 0 20px;
+	clear: both;
+}
+
+.masterfooter a {
+	
+}
+
+.masterfooter p {
+	margin: 0;
+	font-weight: 100;
+}
+
+.end-footer {
+    padding-top: 25px;
+    font-weight: 900 !important;    
+}
+
+.masterfooter a:hover {
+	oppacity: 0.65;
+	opacity: 0.65;
+	-moz-opacity: 0.65;
+	filter: alpha(opacity=65);
+	
+}
+
+.endereco {
+	margin: 20px 0 20px;
+	background: pink;
+}
+
+.masterfooter a { 
+	color: #fff;
+}
+.masterfooter .titulo-menu  { color: #fff; font-size: 18px; }
+.masterfooter .menu         { }
+.masterfooter .menu ul      { padding: 0; margin: 0; }
+.masterfooter .menu ul li   { padding: 0; list-style: none; font-size:  15px; }
+.masterfooter .menu ul li a { font-weight: bold; color: #fff; }
+
+
+/* ==========================================================================
+Widgets
+========================================================================== */
+
+.sidebar-box{
+	background: #ebebeb;
+	padding: 15px;
+	margin-bottom: 20px;
+	border-top: 7px solid #999;
+}
+
+.sidebar-box h2{
+	/*color: #606060;*/
+	font-size: 25px; 
+}
+
+.sidebar-box a {
+	font-size: 16px;
+	font-weight: normal;
+	display: block;
+	margin: 8px 0;
+}
+
+.sidebar-box p{
+	border-bottom:  1px solid #CCCCCC;
+}
+
+.sidebar-box .date{
+	font-size: 16px;
+	font-weight: 300;
+}
+
+.sidebar-box li{
+	list-style: none;
+}
+
+.sidebar-box ul{
+    padding: 0;
+    margin: 0 0 0 15px;
+}
+
+.widgets{
+	min-height: 300px;	
+	margin: 30px 0 0 -15px;
+}
+
+.wid-contribua {
+	
+}
+
+.wid {
+	
+	width: 320px;
+	background: #ebebeb;
+	padding: 30px 0 30px 25px;
+	margin-bottom: 20px;
+}
+
+.wid-contribua p{
+	margin-bottom: 40px;
+}
+
+.wid a:hover{
+	font-weight: 900;
+	color:#f39200;
+	text-decoration: none;
+	font-size: 20px;
+}
+
+.wid-informativo input{
+	background: #505050;
+	color:#fff;
+}
+
+.wid-informativo p{
+	margin-bottom: 20px;
+}
+.wid-agenda{
+	
+}
+
+.ag-um{
+	padding-left: 15px;
+	border-bottom: 1px solid #ee720d;
+	width: 250px;
+}
+
+.ag-dois{
+	padding-left: 15px;
+	border-bottom: 1px solid #ee720d;
+	width: 250px;
+}
+
+.wid-agenda a{
+	padding: 15px 0 0 15px;
+	display:block;
+}
+
+.sid-int{
+	margin-top: 20px;
+}
+
+
+/* ==========================================================================
+   Comentários
+   ========================================================================== */
+
+#comments{
+    float:left;
+}
+    
+.comm-head{
+	border-top:5px solid #bebebe;
+    border-bottom:1px solid #bebebe;
+    margin-top: 40px;
+    padding: 25px 0 5px;
+}
+
+#comments p{
+    font-weight: 400;
+}
+ 
+.commen{
+    font-size:18px;
+    margin-left: 30px;
+    font-weight: 300;
+}
+
+.commentlist img{
+	margin-top: 10px;
+}
+ 
+.commentlist{
+    list-style:none;
+    margin: 0;
+}
+ 
+.commentlist li{
+    margin-bottom:30px;
+}
+ 
+.commentlist ul{
+    margin:0px;
+}
+ 
+.commentlist ul li{
+    margin:20px 20px 20px 40px;
+}
+ 
+#respond-comment{
+    margin:0 0 30px 0;
+    clear:both;
+}
+
+#respond-comment p{
+	font-size: 16px;
+	font-weight: 300;
+
+}
+
+#respond-comment .commen-1{
+	font-size: 18px;
+	font-weight: 700;
+}
+ 
+#respond form label{
+    float:left;
+    clear:left;
+    width:60px;
+    text-align:right;
+    margin-right:10px;
+}
+  
+#respond form textarea{
+    display:block;
+    margin-left: 30px;
+    }
+ 
+#respond form input.commentsubmit{
+    border: none;
+	border-radius: 5px;
+	float:right;
+	padding: 5px 20px;
+	background: #ebebeb;
+}
+
+#respond form input.commentsubmit:hover{
+    background: #ccc;
+}
+    
+#respond h3{
+	margin: 0 30px 0 30px;
+}
+    
+
+.commentlist .comment{
+	
+}
+
+.commentlist .comment-body{
+	margin-top: 20px;
+	
+}
+
+.commentlist .comment-body .delibera-comment-text{
+	display: table;	
+}	
+
+.comment-author{
+
+}
+
+.commentlist .comment-author img{
+    float: left;
+    margin-right: 20px;
+    margin-top: 0px;
+}
+
+.comment-meta{
+	margin-left: 50px;
+}
+
+.comment-meta a {
+	float: left;
+	margin-left: 5px;
+}
+
+.comment-body{
+	
+}
+
+.comment-body p{
+	margin: 30px 0 0 85px;
+	
+}
+
+.comment-body cite{
+	margin-top: 50px;
+}
+
+.comment-body .reply{
+	margin: 20px 0 20px 80px;
+}
+
+#commentform p{
+	margin-left: 30px;
+}
+
+.comment-edit-link{
+	margin: none;
+}
+
+.reply-comments{
+	margin: 30px 0 0 85px;
+}
+
+.commentsubmit{
+		
+}
+
+
+/* ==========================================================================
+Contato
+========================================================================== */
+
+.contact{
+	border-top: 7px solid;
+	border-bottom: 7px solid #ee720d;
+	padding: 20px 0 20px;
+	font-size: 16px;
+	font-weight:300; 
+}
+
+.contact span{
+	font-size: 26px;
+}
+
+.contact-form{
+	padding: 20px 0 20px;
+	border-bottom: 7px solid;
+	
+}
+
+
+/* ==========================================================================
+quem somos
+========================================================================== */
+
+.logo{
+	margin: 0 auto;
+	background: url('imagens/logomarca.png');
+	width: 273px;
+	height: 197px;
+}
+
+.cabecalho{
+	border-bottom: 2px solid;
+	margin-bottom: 15px;
+}
+
+.logo{
+    margin-bottom: 20px;	
+}
+
+.equipe{
+    margin-top: 30px;	
+}
+
+.person{
+	float: left;
+	border-bottom: 4px solid;
+	margin-bottom: 20px;
+}
+
+.person-img{
+	float: left;
+	display: block;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
+.des-person{
+	margin: 0 0 30px 10px;
+	display: block;
+	
+}
+
+.des-person h3{
+    font-weight: 600;	
+}
+
+.person a{
+	margin-right: 20px;
+}
+
+
+/* ==========================================================================
+Cores personalizadas
+========================================================================== */
+
+.bg-cor-1                        { background:#ee720d; }
+.bg-cor-2                        { background: #f39200; }
+.borda-cor-1                     { border-color: #ee720d; }
+.borda-cor-2                     { }
+.main-menu.bg-cor .sub-menu      { background: #f39200; }
+.main-menu.bg-cor li ul li:hover { background: #fff; }
+
+
+/* ==========================================================================
+Ultimos
+========================================================================== */
+
+.dest-titulo {
+	clear: both;
+	margin-left: 0;
+	padding-left: 12px;
+	margin-bottom: 5px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+
+/* ==========================================================================
+Arquivo
+========================================================================== */
+
+.list-post {
+	border-bottom: 2px solid;
+}
+
+
+/* ==========================================================================
+Error
+========================================================================== */
+
+.error h1 {
+	margin-left: 30px;
+}
+
+.error-search {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-top: 30px;
+    margin: 30px; 
+}
+
+.error-search input {
+	display: block;
+	margin: 0 auto;
+}
+
+
+/* ==========================================================================
+Resultado busca
+========================================================================== */
+
+.search-cab {
+	border-bottom: 2px solid;
+}
+
+
+/* ==========================================================================
+compartilhamento
+========================================================================== */
+
+.compartilhamento a {
+	color:#fff;
+}
+
+.compartilhamento a:hover {
+	color:#fff;	
+}
+
+.compartilhamento p {
+	font-weight: 700;
+	font-size: 18px;
+	margin-bottom: 20px;
+	border-top: 5px solid #ccc;
+	padding-top:25px;	
+	
+	
+}
+
+.compartilhamento span {
+	font-weight: 300;
+	font-size: 16px;
+}
+
+.compartilhamento .share-twitter {
+    background: url('imagens/sprite.png') #ccc no-repeat -6px -2px; 
+    /*text-indent: -5000em;*/
+	padding: 5px 5px 5px 60px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	border-radius: 2px;
+	-webkit-border-radius: 2px; /*safari e chrome*/
+	-moz-border-radius: 2px; /*firefox*/
+	-o-border-radius: 2px; /*opera hipster*/
+	font-size: 24px;
+	color: #fff;
+	transition: all 0.3s;
+	
+}
+
+.compartilhamento .share-twitter:hover {
+	background: url('imagens/sprite.png') #019ad2 no-repeat -6px -4px;
+}
+
+.compartilhamento .share-facebook {
+	background: url('imagens/sprite.png') #ccc no-repeat -6px -41px;
+	padding: 5px 5px 5px 60px;	
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	border-radius: 2px;
+	-webkit-border-radius: 2px; /*safari e chrome*/
+	-moz-border-radius: 2px; /*firefox*/
+	-o-border-radius: 2px; /*opera hipster*/
+	font-size: 24px;
+	color: #fff;
+	transition: all 0.3s;
+}
+
+.compartilhamento .share-facebook:hover {
+	background: url('imagens/sprite.png') #3b5999 no-repeat -6px -43px;
+}
+
+.compartilhamento .share-googleplus {
+	background: url('imagens/sprite.png') #ccc no-repeat -5px -118px;
+	padding: 5px 5px 5px 60px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	border-radius: 2px;
+	-webkit-border-radius: 2px; /*safari e chrome*/
+	-moz-border-radius: 2px; /*firefox*/
+	-o-border-radius: 2px; /*opera hipster*/
+	font-size: 24px;
+	color: #fff;
+	transition: all 0.3s;
+}
+
+.compartilhamento .share-googleplus:hover {
+	background: url('imagens/sprite.png') #cf3e2d no-repeat -5px -120px;
+}
+
+.sidebar-footer {
+	padding-left: 20px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+#calendar_wrap {
+	text-align: center;
+	display: table;
+	margin: 0 auto;
+}
+
+#calendar_wrap caption {
+	font-size: 20px;
+	margin-bottom: 10px;
+	font-weight: 900;
+}
+
+/* ==========================================================================
+Agenda
+========================================================================== */
+
+.entry-agenda  {
+	list-style: none;
+}
+.ico-calendar {
+	background: url('imagens/sprite.png') no-repeat -11px -192px;
+	width: 25px; 
+	height: 25px;
+	margin-rigth: 5px;
+	float: left;
+	
+}
+.agenda-time {
+	clear: both;
+}
+
+.ico-clock {
+	background: url('imagens/sprite.png') no-repeat -11px -215px;
+	width: 25px; 
+	height: 25px;
+	margin-rigth: 5px;
+	float: left;
+}
+
+.agenda-location {
+	clear: both;
+}
+
+.ico-location {
+	background: url('imagens/sprite.png') no-repeat -11px -240px;
+	width: 25px; 
+	height: 25px;
+	margin-rigth: 5px;
+	float: left;
+}
+
+.agenda-link {
+	clear:both;
+}
+
+.ico-more {
+	background: url('imagens/sprite.png') no-repeat -11px -266px;
+	width: 25px; 
+	height: 25px;
+	margin-rigth: 5px;
+	float: left;
+}
+
+.agenda-events-list li {
+	/*background: #ccc;*/
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	padding: 10px 0 10px;
+	list-style: none;
+}
+
+.archive-agenda-header {
+	margin-bottom: 20px;
+}
+
+/* ==========================================================================
+IE-8
+========================================================================== */
+
+#ie8 .masterheader {
+	background: #fff;
+}
+
+#ie8 .header .right {
+	float: right;
+}
+
+#ie8 .header .rigth .social {
+	
+}
+
+#ie8 .container {
+
+}
+
+#ie8 .container .miolo {
+	
+}
+
+#ie8 .container .miolo .row .destaques .flexslider {
+	width: 580px;
+}
+
+#ie8 .container .miolo .row .destaques .flexslider .items li.flex-slider-item {
+	width: 600px;
+}
+
+#ie8 .container .miolo .span4 .info {
+	margin-left: -20px;
+}
+
+#ie8 .page-id-52 .masterfooter {
+	width: 100%;
+	position:absolute;
+	margin-left: -450px;
+}
+
+#ie8 .mobilize-content {
+	padding: 25px;
+}     
+
+#ie8 .mobilize-content input {
+	height: 30px;
+}
+
+#ie8 .container .miolo .sub-dest-desc {
+	margin-left:20px;
+}
+
+
+/* ==========================================================================
+Ajustes - responsivo
+========================================================================== */
+
+/* Desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+ 
+/* Tablets */
+@media (max-width: 767px) { 
+
+	.sid-int {
+		display: none;
+	}
+
+	.flexslider .dest-titulo {
+		width: 100%;
+	}
+
+	.flexslider .dest-titulo {
+		width: 100%;
+	}
+
+	.slider-content-data {
+		width: 100%;
+		padding: 0;
+		margin-top: 8px;
+	}
+}
+ 
+/* Smartphones */
+@media (max-width: 480px) {    
+	.right           { margin: 5px 20px; }
+	.left            { margin: 5px -15px; }
+	.busca           { margin: 0 20px 0 0; }
+	.brand a         { display:table; margin:0 auto; }
+	.info            { width: 300px; }
+	.sidebar-box     { width: 300px; }
+	.dest-titulo     { font-size: 28px; width: 290px; }
+	.title-sub-dest  { width: 300px; }
+	.sub-dest-img    { width:260px; }
+	.not-1           { height: 420px; }
+	.sub-dest-tex h2 { clear: both; }
+	.miolo           { background: pink; }
+	.sidebar-home    { display:none; }
+	.busca           { float:none; margin: 0 auto; display:table; }
+	.social          { display: table; margin: 0 auto; padding: 20px 0; }
+}
+
+
+/* ==========================================================================
+Comentários remover/resolver
+========================================================================== */
+
+.form-allowed-tags code {
+	white-space: normal;
+}
+
+.comment {
+	border-top:5px solid #bebebe;
+	margin-top: 40px;
+	padding: 25px 0 5px;
+}
+
+#comment {
+	width: 500px;
+}
+
+
+/* 
+ Responsive Menu
+========================================================================== */
+
+@media only screen and (max-width: 600px) {
+	ul.menu {
+		padding: 0;
+		margin: 0;
+	}
+
+	ul.menu li {
+		width: 100%;
+		margin: 3px 0 !important;
+		padding: 0 !important;
+	}
+
+	ul.menu li a {
+		display: block;
+		text-align: center;
+		padding: 5px 0 !important;
+		margin: 0 !important;
+	}
+
+	ul.menu li a:hover {
+		color: #FFF !important;
+	}
+
+	ul.menu > li > ul {
+		position: relative !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		width: 100% !important;
+		text-align: center !important;
+	}
+
+	ul.menu > li > ul > li:hover {
+		background: none !important;
+	}
+
+	ul.menu > li:hover ul {
+		display: none !important;
+	}
+
+	/*
+	Menu TMP
+	-----------------------------------------------------
+	*/
+
+	.menu-tmp {
+		padding: 0;
+		margin: 0;
+	}
+
+	.menu-tmp > li {
+		display: block;
+		margin-left: 15px;
+		font-size: 20px;
+		font-weigth: 700;
+		width: 100% !important;
+	}
+
+	.menu-tmp a {
+		color: #fff;
+		display: inline;
+		line-height: 25px;
+	}
+	
+	.menu-tmp li {
+		width: 100%;
+		margin: 3px 0 !important;
+		padding: 0 !important;
+	}
+
+	.menu-tmp li a {
+		display: block;
+		text-align: center;
+		padding: 5px 0 !important;
+		margin: 0 !important;
+	}
+
+	.menu-tmp li a:hover {
+		color: #FFF !important;
+	}
+}
