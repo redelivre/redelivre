@@ -9,8 +9,9 @@ Author: HackLab
 class WidgetFacebookLikeBox extends WP_Widget {
     function WidgetFacebookLikeBox() {
         $widget_ops = array('classname' => 'FacebookLikeBox', 'description' => 'Adciona uma caixa de likes de sua página no Facebook' );
+        wp_register_script('facebook_like_form', network_site_url() . 'wp-content/mu-plugins/includes/widgets/js/facebook-like.js', array('jquery'));
+        wp_enqueue_script('facebook_like_form');
         parent::WP_Widget('facebookLikeBox', 'Facebook LikeBox', $widget_ops);
-
     }
     
     function widget($args, $instance) {
@@ -41,9 +42,6 @@ class WidgetFacebookLikeBox extends WP_Widget {
     
     function form($instance) {
     	
-    	wp_register_script('facebook_like_form', network_site_url() . 'wp-content/mu-plugins/includes/widgets/js/facebook-like.js', array('jquery'));
-    	wp_enqueue_script('facebook_like_form');
-    	
     	$fb_height = array_key_exists('fb-height', $instance) ? intval($instance['fb-height']) : 290;
         ?>
         <p>
@@ -54,8 +52,8 @@ class WidgetFacebookLikeBox extends WP_Widget {
         <p>
         	<label for="<?php $this->get_field_id('fb-show-faces'); ?>">Exibir fotos</label>
         	<select name="<?php echo $this->get_field_name('fb-show-faces'); ?>" id="<?php echo $this->get_field_id('fb-show-faces'); ?>">
-        		<option value="true" <?php echo ( array_key_exists('fb-show-faces', $instance) && $instance['fb-show-faces'] == 'true') ? "selected=1" : ""; ?>>Sim</option>
-        		<option value="false" <?php echo ( array_key_exists('fb-show-faces', $instance) && $instance['fb-show-faces'] == 'true') ? "" : "selected=1"; ?>>Não</option>
+        		<option value="true" <?php echo ( array_key_exists('fb-show-faces', $instance) && $instance['fb-show-faces'] == 'true') ? "selected=1" : "selected=1"; ?>>Sim</option>
+        		<option value="false" <?php echo ( array_key_exists('fb-show-faces', $instance) && $instance['fb-show-faces'] == 'true') ? "" : ""; ?>>Não</option>
         	</select>
         </p>
         <p>
