@@ -10,7 +10,7 @@ get_header(); ?>
     
     
 	<?php
-	$feature = new WP_Query( array( 'posts_per_page' => -1, 'ignore_sticky_posts' => 1, 'meta_key' => '_home', 'meta_value' => 1 ) );
+	$feature = new WP_Query( array( 'posts_per_page' => -1, 'ignore_sticky_posts' => 1, 'meta_key' => '_home', 'meta_value' => 1, 'post_type' => array('post', 'page') ) );
 	
     if ( $feature->have_posts() ) : ?>
     
@@ -28,8 +28,13 @@ get_header(); ?>
 			        		
 			        		<div class="bd">
 			        			<div class="entry-meta">
-				        			<?php $category = get_the_category(); ?>
+				        			<?php $category = get_the_category();
+				        				if(count($category) > 0) :
+				        			?>
 									<a href="<?php echo get_category_link( $category[0]->term_id ); ?>"><?php echo $category[0]->cat_name; ?></a>
+									<?php
+										endif; 
+									?>
 								</div>
 			        			<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 			        			<div class="entry-summary">

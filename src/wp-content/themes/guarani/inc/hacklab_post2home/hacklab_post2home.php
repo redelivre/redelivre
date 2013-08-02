@@ -3,12 +3,14 @@
 
 add_action('manage_posts_custom_column', 'hacklab_post2home_select', 10, 2);
 add_filter('manage_posts_columns','hacklab_post2home_add_column');
+add_action('manage_pages_custom_column', 'hacklab_post2home_select', 10, 2);
+add_filter('manage_pages_columns','hacklab_post2home_add_column');
 add_action('load-edit.php', 'hacklab_post2home_JS');
 add_action('load-edit-pages.php', 'hacklab_post2home_JS');
 
 function hacklab_post2home_add_column($defaults){
     global $post_type;
-    if ('post' == $post_type)
+    if ('post' == $post_type || 'page' == $post_type)
         $defaults['destaques'] = 'Destaque';
     return $defaults;
 }
