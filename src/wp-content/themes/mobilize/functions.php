@@ -150,9 +150,10 @@ class Ethymos{
 		$path = get_template_directory_uri().'/js';
 
 		wp_enqueue_script('jquery');
-		wp_enqueue_script('mobilize', $path.'/mobilize.js', array('jquery','jquery-tools'));
 		wp_enqueue_script('responsive', $path.'/jquery.flexslider-min.js');
 		wp_enqueue_script('flexslider', $path.'/responsive.js');
+		wp_enqueue_script('mobilizejs', $path.'/mobilize.js');
+		wp_enqueue_script('jquery-tools');
 	}
 	
 	/**
