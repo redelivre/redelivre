@@ -19,5 +19,9 @@
 		ul.menu li a:active {
 			background: <?php echo get_theme_mod('cor-2'); ?>;
 		}
+
+		ul.menu-tmp li a:active {
+			background: <?php echo get_theme_mod('cor-2'); ?>;
+		}
 	}
 </style>
