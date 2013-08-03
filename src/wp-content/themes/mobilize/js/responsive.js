@@ -1,10 +1,33 @@
 jQuery(function($){
 
+	function mobilizeResponsive()
+	{
+		if ($(window).width() <= 600) {
+			$('.social').parent().removeClass('right');
+			$('#social-bookmarks').removeClass('alignright');
+			$('.brand').css('margin-left', 0);
+		}
+
+		if ($(window).width() > 600) {
+			$('.social').parent().addClass('right');
+			$('#social-bookmarks').addClass('alignright');
+			$('.brand').css('margin-left', '30px');
+		}
+	}
+
+	mobilizeResponsive();
+
 	$(window).on('resize', function(){
 		if ($(this).width() > 600) {
 			$('ul.menu-tmp').remove();
 			$('ul.menu').show();
 		}
+
+		///////////////////////////////////////////////////
+		// Alterações Exclusivas para o Tema Mobilize //
+		///////////////////////////////////////////////////
+
+		mobilizeResponsive();
 	});
 
 	$('.menu li > ul').parent('li').on('click', function(){

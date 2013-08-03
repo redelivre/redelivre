@@ -446,7 +446,7 @@ function jaiminho_campaigncreated($data){
 		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
 		$defaultmailinglist_id = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => 'contato@'.$mainSiteDomain, 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
 	} catch (Exception $ex) {
-		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
+		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->faultdetail;
 	}
 	
 	$opt['jaiminho_user'] = $id;
@@ -456,13 +456,19 @@ function jaiminho_campaigncreated($data){
 		
 		update_option('jaiminho-config', $opt);
 		activate_plugin('WPJaiminho/WPJaiminho.php');
-		if (count($errors) > 0) 
+		if (count($errors) > 0)
+		{ 
 			update_option('jaiminho-error-log', $errors);
-
-		add_option( 'widget_jaiminho',
-						array( 	'title' => 'Cadastre seu e-mail',
-								'jaiminho_text' => 'Receba novidades da campanha',
-								'jaiminho_id' => $defaultmailinglist_id));
+		}
+		else
+		{
+			add_option( 'widget_jaiminho',
+				array( 	'title' => 'Cadastre seu e-mail',
+						'jaiminho_text' => 'Receba novidades da campanha',
+						'jaiminho_id' => $defaultmailinglist_id
+				)
+			);
+		}
 		
 		$sidebar_widget = get_option("sidebars_widgets");
 		
