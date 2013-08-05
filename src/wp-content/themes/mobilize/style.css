@@ -318,7 +318,6 @@ Menu
 .sub-dest-img {
 	/*width: 274px;*/
 	height: 122px;
-	background: #ccc;
 	float:left;
 	margin: 15px 0 40px;	
 }
@@ -371,6 +370,7 @@ Menu
 
 .destaques{
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .destaques a{
@@ -713,7 +713,6 @@ Widgets
  
 .commen{
     font-size:18px;
-    margin-left: 30px;
     font-weight: 300;
 }
 
@@ -752,6 +751,7 @@ Widgets
 #respond-comment .commen-1{
 	font-size: 18px;
 	font-weight: 700;
+	margin-top: 20px;
 }
  
 #respond form label{
@@ -1254,7 +1254,7 @@ Ajustes - responsivo
 }
  
 /* Smartphones */
-@media (max-width: 480px) {    
+@media (max-width: 768px) {    
 	.right           { margin: 5px 20px; }
 	.left            { margin: 5px -15px; }
 	.busca           { margin: 0 20px 0 0; }
@@ -1264,12 +1264,13 @@ Ajustes - responsivo
 	.dest-titulo     { font-size: 28px; width: 290px; }
 	.title-sub-dest  { width: 300px; }
 	.sub-dest-img    { width:260px; }
-	.not-1           { height: 420px; }
+	.not-1           { display: table; }
 	.sub-dest-tex h2 { clear: both; }
-	.miolo           { background: pink; }
+	.miolo           { padding: 10px;}
 	.sidebar-home    { display:none; }
 	.busca           { float:none; margin: 0 auto; display:table; }
 	.social          { display: table; margin: 0 auto; padding: 20px 0; }
+	.banner          { display: none;}
 }
 
 
@@ -1297,6 +1298,31 @@ Comentários remover/resolver
 ========================================================================== */
 
 @media (max-width: 768px) {
+	#respond h3 {
+		margin: 0; 
+	}
+
+	#commentform p {
+		margin-left: 0 !important;
+	}
+
+	#respond form label {
+		float: none;
+		text-align: left;
+		width: 100%;
+	}
+
+	#respond form input, #respond form textarea {
+		width: 100%;
+		margin: 0 !important;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		height: auto !important;
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+
 	ul.menu {
 		padding: 0;
 		margin: 0;
@@ -1382,14 +1408,14 @@ Comentários remover/resolver
 	*/
 
 	.comment-form-comment {
-		margin: 0 30px;
+		margin: 0;
 	}
 
 	.comment-form-comment textarea {
 		width: 100% !important;
 		box-sizing: border-box;
 		padding: 10px;
-		margin-left: 0 !important;
+		margin: 0 !important;
 	}
 
 	.sidebar-footer form input {

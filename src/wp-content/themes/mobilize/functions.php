@@ -41,7 +41,7 @@ class Ethymos{
 		//Recursos que o tema suporta
 		add_theme_support('post-thumbnails');
 		add_theme_support('custom-backgrounds'); 
-		add_theme_support('custom-header');
+		//add_theme_support('custom-header');
 		
 		add_action('wp_enqueue_scripts', array($this, 'css'));
 		add_action('wp_enqueue_scripts', array($this, 'javascript'));
