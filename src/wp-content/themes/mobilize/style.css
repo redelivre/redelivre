@@ -318,7 +318,6 @@ Menu
 .sub-dest-img {
 	/*width: 274px;*/
 	height: 122px;
-	background: #ccc;
 	float:left;
 	margin: 15px 0 40px;	
 }
@@ -713,7 +712,6 @@ Widgets
  
 .commen{
     font-size:18px;
-    margin-left: 30px;
     font-weight: 300;
 }
 
@@ -752,6 +750,7 @@ Widgets
 #respond-comment .commen-1{
 	font-size: 18px;
 	font-weight: 700;
+	margin-top: 20px;
 }
  
 #respond form label{
@@ -1254,7 +1253,7 @@ Ajustes - responsivo
 }
  
 /* Smartphones */
-@media (max-width: 480px) {    
+@media (max-width: 500px) {    
 	.right           { margin: 5px 20px; }
 	.left            { margin: 5px -15px; }
 	.busca           { margin: 0 20px 0 0; }
@@ -1264,9 +1263,9 @@ Ajustes - responsivo
 	.dest-titulo     { font-size: 28px; width: 290px; }
 	.title-sub-dest  { width: 300px; }
 	.sub-dest-img    { width:260px; }
-	.not-1           { height: 420px; }
+	.not-1           { display: table; }
 	.sub-dest-tex h2 { clear: both; }
-	.miolo           { background: pink; }
+	.miolo           { padding: 10px;}
 	.sidebar-home    { display:none; }
 	.busca           { float:none; margin: 0 auto; display:table; }
 	.social          { display: table; margin: 0 auto; padding: 20px 0; }
