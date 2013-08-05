@@ -370,6 +370,7 @@ Menu
 
 .destaques{
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .destaques a{
@@ -1269,6 +1270,7 @@ Ajustes - responsivo
 	.sidebar-home    { display:none; }
 	.busca           { float:none; margin: 0 auto; display:table; }
 	.social          { display: table; margin: 0 auto; padding: 20px 0; }
+	.banner          { display: none;}
 }
 
 
