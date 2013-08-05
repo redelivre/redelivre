@@ -1298,6 +1298,31 @@ Comentários remover/resolver
 ========================================================================== */
 
 @media (max-width: 768px) {
+	#respond h3 {
+		margin: 0; 
+	}
+
+	#commentform p {
+		margin-left: 0 !important;
+	}
+
+	#respond form label {
+		float: none;
+		text-align: left;
+		width: 100%;
+	}
+
+	#respond form input, #respond form textarea {
+		width: 100%;
+		margin: 0 !important;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		height: auto !important;
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+
 	ul.menu {
 		padding: 0;
 		margin: 0;
@@ -1383,14 +1408,14 @@ Comentários remover/resolver
 	*/
 
 	.comment-form-comment {
-		margin: 0 30px;
+		margin: 0;
 	}
 
 	.comment-form-comment textarea {
 		width: 100% !important;
 		box-sizing: border-box;
 		padding: 10px;
-		margin-left: 0 !important;
+		margin: 0 !important;
 	}
 
 	.sidebar-footer form input {
