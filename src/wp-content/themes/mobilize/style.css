@@ -1254,7 +1254,7 @@ Ajustes - responsivo
 }
  
 /* Smartphones */
-@media (max-width: 500px) {    
+@media (max-width: 768px) {    
 	.right           { margin: 5px 20px; }
 	.left            { margin: 5px -15px; }
 	.busca           { margin: 0 20px 0 0; }
