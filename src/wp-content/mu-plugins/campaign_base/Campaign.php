@@ -212,7 +212,7 @@ class Campaign {
         
         /**
         * Retirando obrigatoriedade do campo número do candidato
-        * @author Henrique Menegale
+        * @author Henrique Menegale (Ethymos)
         */
         
         /*
@@ -228,6 +228,12 @@ class Campaign {
             $this->errorHandler->add('error', 'Selecione o plano desejado.');
         }
         
+        /**
+         * Retirando obrigatoriedade do campo Estado
+         * @author Jacson Passold (Ethymos)
+         */
+        
+        /*
         if (empty($this->state)) {
             $this->errorHandler->add('error', 'Você precisa selecionar um estado.');
         }
@@ -235,6 +241,7 @@ class Campaign {
         if (empty($this->city)) {
             $this->errorHandler->add('error', 'Você precisa selecionar uma cidade.');
         }
+        */
         
         do_action('Campaign-validate', $this->errorHandler);
         

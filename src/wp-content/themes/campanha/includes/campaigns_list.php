@@ -31,6 +31,10 @@ $campaignTable = new CampaingTable;
     <?php endif; ?>
     
     <?php if ($campaignTable->prepare_items()) : ?>
+	    <form action="" method="get" id="ms-search">
+			<?php $campaignTable->search_box( __( 'Procurar Campanha' ), 'campanhas' ); ?>
+			<input type="hidden" name="action" value="campanhas" />
+		</form>
         <?php $campaignTable->display(); ?>
     <?php else : ?>
         <p>Você ainda não criou nenhuma campanha. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de campanha</a>.</p>
