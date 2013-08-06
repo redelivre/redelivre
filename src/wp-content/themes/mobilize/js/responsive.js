@@ -2,13 +2,13 @@ jQuery(function($){
 
 	function mobilizeResponsive()
 	{
-		if ($(window).width() <= 600) {
+		if ($(window).width() <= 768) {
 			$('.social').parent().removeClass('right');
 			$('#social-bookmarks').removeClass('alignright');
 			$('.brand').css('margin-left', 0);
 		}
 
-		if ($(window).width() > 600) {
+		if ($(window).width() > 768) {
 			$('.social').parent().addClass('right');
 			$('#social-bookmarks').addClass('alignright');
 			$('.brand').css('margin-left', '30px');
@@ -36,7 +36,7 @@ jQuery(function($){
 
 	liParent.each(function(){
 		$(this).children('a').on('click', function(){
-			if($(window).width() < 600) {
+			if($(window).width() < 768) {
 				var liLinkOriginalHTML = '<a href="'+$(this).attr('href')+'">'+$(this).text().replace($(this).text().substr(-1), '')+'</a>';
 
 				var ulChildren = $(this).next('ul');
@@ -51,7 +51,7 @@ jQuery(function($){
 	});
 
 	$('.menu-back-live').live('click', function(){
-		if($(window).width() < 600) {
+		if($(window).width() < 768) {
 			$('.menu-tmp').fadeOut('fast');
 			$('.menu-tmp').remove();
 
@@ -62,7 +62,7 @@ jQuery(function($){
 	});
 
 	$('.menu-toggle').live('click', function(event){
-		if($(window).width() < 600) {
+		if($(window).width() < 768) {
 			if($('.menu-tmp').length > 0) {
 				$('.menu-tmp').remove();
 			}

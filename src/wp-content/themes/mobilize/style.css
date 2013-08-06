@@ -812,8 +812,8 @@ Widgets
 }
 
 .comment-meta a {
-	float: left;
-	margin-left: 5px;
+	display: block;
+	margin: 5px 0;
 }
 
 .comment-body{
@@ -830,7 +830,10 @@ Widgets
 }
 
 .comment-body .reply{
-	margin: 20px 0 20px 80px;
+	margin-left: 0;
+	margin-top: 5px;
+	padding-left: 83px;
+	box-sizing: border-box;
 }
 
 #commentform p{
@@ -1460,4 +1463,13 @@ Comentários remover/resolver
 		box-sizing: border-box;
 	}
 	
+	/*
+	Comentários
+	---------------------------------------------------
+	 */
+	
+	.comment-meta a {
+		float: none;
+		margin-left: 0;
+	}
 }
