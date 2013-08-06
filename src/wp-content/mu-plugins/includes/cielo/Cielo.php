@@ -112,7 +112,7 @@ class Cielo {
         $requisicaoCieloTID->{'forma-pagamento'}->parcelas = $this->requisicaoCielo->{'forma-pagamento'}->parcelas;
                 
                 
-        $useragent = 'Campanha Completa';
+        $useragent = 'Redelivre';
         curl_setopt($connection, CURLOPT_SSL_VERIFYPEER, 0); 
         curl_setopt($connection, CURLOPT_SSL_VERIFYHOST, 0); 
         curl_setopt($connection, CURLOPT_NOPROGRESS, 1); 

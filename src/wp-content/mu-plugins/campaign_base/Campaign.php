@@ -91,7 +91,7 @@ class Campaign {
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
 
         if (!$result) {
-            throw new Exception('Não existe uma campanha associada a este blog. Verifique se você não selecionou um tema de campanha para o site principal.');
+            throw new Exception('Não existe uma projeto associada a este blog. Verifique se você não selecionou um tema de projeto para o site principal.');
         }
         
         return self::formatData($result);
@@ -109,7 +109,7 @@ class Campaign {
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE id = %d", $id), ARRAY_A);
 
         if (!$result) {
-            throw new Exception('Não foi possível encontrar a campanha.');
+            throw new Exception('Não foi possível encontrar a projeto.');
         }
         
         return self::formatData($result);
@@ -221,7 +221,7 @@ class Campaign {
         }*/
         
         if ($this->candidateExist()) {
-            $this->errorHandler->add('error', 'Uma campanha para este candidato já foi criada no sistema.');
+            $this->errorHandler->add('error', 'Uma projeto para este candidato já foi criada no sistema.');
         }
         
         if (empty($this->plan_id) || !in_array($this->plan_id, Plan::getAllIds())) {
@@ -391,7 +391,7 @@ class Campaign {
         
         // only the owner or super admin can delete a campaign
         if (wp_get_current_user()->ID != $this->campaignOwner->ID && !is_super_admin()) {
-            throw new Exception('Você não tem permissão para remover está campanha.');
+            throw new Exception('Você não tem permissão para remover está projeto.');
         }
         
         $wpdb->query($wpdb->prepare("DELETE FROM `campaigns` WHERE `id` = %d", $this->id));
@@ -411,8 +411,8 @@ class Campaign {
         $userName = $this->campaignOwner->data->user_login;
         
         $to = get_bloginfo('admin_email');
-        $subject = "Uma nova campanha foi criada com o domínio próprio {$this->own_domain}";
-        $message = "O usuário $userName criou uma nova campanha com o sub-domínio <a href='{$this->domain}'>{$this->domain}</a> e o domínio próprio <a href='{$this->own_domain}'>{$this->own_domain}</a>.";
+        $subject = "Uma nova projeto foi criada com o domínio próprio {$this->own_domain}";
+        $message = "O usuário $userName criou uma nova projeto com o sub-domínio <a href='{$this->domain}'>{$this->domain}</a> e o domínio próprio <a href='{$this->own_domain}'>{$this->own_domain}</a>.";
         $headers = "content-type: text/html \r\n";
             
         wp_mail($to, $subject, $message, $headers);
@@ -465,7 +465,7 @@ class Campaign {
         update_blog_option($blogId, 'blog_upload_space', $capabilities->upload_limit->value);
         
         // enable contact page
-        update_blog_option($blogId, 'campanha_contact_enabled', 'on');
+        update_blog_option($blogId, 'projeto_contact_enabled', 'on');
         
         // enable "mobilize" menu entry option
         if ($capabilities->mobilize->value) {
