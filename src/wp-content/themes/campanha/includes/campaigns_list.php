@@ -20,7 +20,7 @@ $campaignTable = new CampaingTable;
 ?>
 
 <div class="wrap">
-    <h2>Suas campanhas</h2>
+    <h2>Suas projetos</h2>
     
     <?php if (!empty($msg)) : ?>
         <div class="updated"><p><?php echo $msg; ?></p></div>
@@ -32,8 +32,8 @@ $campaignTable = new CampaingTable;
     
     <?php if ($campaignTable->prepare_items()) : ?>
 	    <form action="" method="get" id="ms-search">
-			<?php $campaignTable->search_box( __( 'Procurar Campanha' ), 'campanhas' ); ?>
-			<input type="hidden" name="action" value="campanhas" />
+			<?php $campaignTable->search_box( __( 'Procurar Campanha' ), 'projetos' ); ?>
+			<input type="hidden" name="action" value="projetos" />
 		</form>
         <?php $campaignTable->display(); ?>
     <?php else : ?>

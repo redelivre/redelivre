@@ -3,7 +3,7 @@
 $msgs = array();
 
 if (!is_super_admin()) {
-    print_msgs(array('error' => 'Você não tem permissão para editar campanhas.'));
+    print_msgs(array('error' => 'Você não tem permissão para editar projetos.'));
     die;
 }
 

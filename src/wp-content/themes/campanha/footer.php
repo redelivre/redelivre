@@ -13,7 +13,7 @@
 				<section>
 					<h1>Contato</h1>
 					<address class="vcard adr">
-						<span class="email">contato@campanhacompleta.com.br</span>
+						<span class="email">contato@redelivre.org.br</span>
 					</address>
 				</section>
 				<section>
