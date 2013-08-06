@@ -106,7 +106,7 @@ add_action( 'init', 'campanha_custom_menus' );
 function campanha_custom_menus() {
     register_nav_menus( array(
         'main' => __('Principal', 'campanha'),
-        'sobre' => __('Sobre o Campanha Completa', 'campanha'),
+        'sobre' => __('Sobre o Projetos', 'campanha'),
         'info' => __('Informações Legais', 'campanha'),
         
     ) );

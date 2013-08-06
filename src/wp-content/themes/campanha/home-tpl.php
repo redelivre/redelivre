@@ -5,7 +5,7 @@ Template Name: Home
 ?>
 <?php get_header(); ?>
     <section id="home-main-section" class="clearfix">
-		<div id="logo"><?php html::image('logao.png','Campanha Completa') ?></div>
+		<div id="logo"><?php html::image('logao.png','Projetos') ?></div>
 		<nav id="prev"><a>Anterior</a></nav>
 		<div id="janela">
 			<article id="frase-0" class="frase current">
@@ -66,17 +66,17 @@ Template Name: Home
 	<section id="destaques" class="clearfix">
 		<div id="destaque-passo">
 			<h3>Passo a Passo</h3>
-			<p>Comece sua Campanha Completa antes de seus concorrentes.</p>
+			<p>Comece sua Projetos antes de seus concorrentes.</p>
 			<a href="<?php echo get_page_link(772); ?>">Veja como é rápido »</a>
 		</div>
 		<div id="destaque-planos">
 			<h3>Planos e Preços</h3>
-			<p>Tenha sua Campanha Completa pagando a partir de <strong>R$450,00</strong>.</p>
+			<p>Tenha sua Projetos pagando a partir de <strong>R$450,00</strong>.</p>
 			<a href="<?php echo get_page_link(501); ?>">Compare nossos planos »</a>
 		</div>
 		<div id="destaque-representante">
 			<h3>Seja um representante</h3>
-			<p>Represente o Campanha Completa e ganhe <strong>10%</strong> das vendas.</p>
+			<p>Represente o Projetos e ganhe <strong>10%</strong> das vendas.</p>
 			<a href="<?php echo get_page_link(156); ?>">Saiba como »</a>
 		</div>
 	</section>

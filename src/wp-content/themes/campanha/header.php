@@ -51,7 +51,7 @@
     <body <?php body_class(); ?>>
 		<div class="wrap clearfix">
 			<header id="main-header" class="clearfix">
-				<h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php html::image('logo.png', 'Campanha Completa') ?></a></h1>	
+				<h1><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php html::image('logo.png', 'Projetos') ?></a></h1>	
 				<nav id="main-nav" class="clearfix">
 				    <?php if (is_user_logged_in()): ?>
 					    <a class="login" href="<?php echo admin_url(); ?>">admin</a>
