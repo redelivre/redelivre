@@ -13,3 +13,5 @@ src/index.html
 src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp/
 /nbproject/private/
 nbproject/
+.buildpath
+.settings
