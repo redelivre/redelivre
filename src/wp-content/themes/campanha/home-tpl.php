@@ -3,7 +3,7 @@
 Template Name: Home
 */
 ?>
-<center>Estamos construíndo um site para você</center><br/>
+<center>Estamos construindo um site para você</center><br/>
 <br/>
 <br/>
 <br/>
