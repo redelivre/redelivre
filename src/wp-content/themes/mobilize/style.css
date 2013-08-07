@@ -96,6 +96,10 @@ Genericas
 	margin: 10px 0 0 30px;
 }
 
+.img-brand{
+	width: 100%;
+}
+
 .header-title{
 	font-size: 20px;
 	display: block;
