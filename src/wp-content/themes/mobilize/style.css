@@ -16,7 +16,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 -------------------------------------------------------------- */
 .alignnone                    { margin: 5px 20px 20px 0; }
 .aligncenter, div.aligncenter { display:block; margin: 5px auto 5px auto; }
-.alignright                   { float:right; margin: 5px 0 20px 20px; }
+.alignright                   { float:right; margin: 5px 0 10px 20px; }
 .alignleft                    { float:left; margin: 5px 20px 20px 0; }
 .aligncenter                  { display: block; margin: 5px auto 5px auto; }
 a img.alignright              { float:right; margin: 5px 0 20px 20px; }
@@ -97,7 +97,7 @@ Genericas
 }
 
 .header-title{
-	font-size: 60px;
+	font-size: 20px;
 	display: block;
 	margin-top: 70px;
 }
@@ -209,6 +209,7 @@ Busca
 
 .busca {
 	float: right;
+	margin-top: 20px;
 }
 
 /*
