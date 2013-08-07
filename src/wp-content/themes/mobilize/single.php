@@ -31,10 +31,11 @@
 						
 						<div class="comments span7">
 							<?php comments_template(); ?>
-							<?php endwhile; endif; ?>
 						</div>
+						
 					</div>
 				</div>
+				<?php endwhile; endif; ?>
 			</div>	
 				
         </div><!-- #content -->	
