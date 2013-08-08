@@ -23,7 +23,7 @@ if (!empty($_POST)) {
             wp_redirect(admin_url());
         } else {
             //TODO: improve error handling for campaign creation
-            $errors = array('error' => 'Não foi possível criar a campanha.');
+            $errors = array('error' => 'Não foi possível criar o projeto.');
         }
     } else {
         $errors = $campaign->errorHandler->errors;
@@ -63,12 +63,6 @@ if (isset($_GET['noheader'])) {
                     <td>
                         <input type="text" value="<?php if (isset($_POST['own_domain'])) echo $_POST['own_domain']; ?>" name="own_domain" style="display: block;">
                         <small>Caso possua informe aqui o domínio próprio do seu site (ele será usado no lugar do sub-domínio)</small>
-                    </td>
-                </tr>
-                <tr class="form-field">
-                    <th scope="row"><label for="candidate_number">Número do candidato</label></th>
-                    <td>
-                        <input type="text" value="<?php if (isset($_POST['candidate_number'])) echo $_POST['candidate_number']; ?>" maxLength="5" name="candidate_number">
                     </td>
                 </tr>
                 <tr class="form-field">

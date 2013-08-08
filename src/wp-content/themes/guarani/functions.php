@@ -186,8 +186,6 @@ function guarani_footer_scripts() {
 				direction: "horizontal",
 				smoothHeight: true,
 			});
-
-			$('.flex-control-nav').remove();
 		});
 	</script>
 	<?php
@@ -235,10 +233,11 @@ function guarani_activate_plugins() {
             if ( ! in_array( $plugin, $plugins ) ) {
                 array_push( $plugins, $plugin );
                 update_option( 'active_plugins', $plugins );
-                do_action('activate_' . $plugin);
+                do_action('activate_' . basename($plugin));
             }
         }
-        
+        $role = get_role('administrator');
+        $role->add_cap('manage_eletro_widgets');
     }
 }
 add_action( 'admin_init', 'guarani_activate_plugins' );

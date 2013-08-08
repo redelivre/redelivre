@@ -41,7 +41,7 @@ class Ethymos{
 		//Recursos que o tema suporta
 		add_theme_support('post-thumbnails');
 		add_theme_support('custom-backgrounds'); 
-		add_theme_support('custom-header');
+		//add_theme_support('custom-header');
 		
 		add_action('wp_enqueue_scripts', array($this, 'css'));
 		add_action('wp_enqueue_scripts', array($this, 'javascript'));
@@ -150,6 +150,7 @@ class Ethymos{
 		$path = get_template_directory_uri().'/js';
 
 		wp_enqueue_script('jquery');
+		wp_enqueue_script('modernizr', $path.'/modernizr.js');
 		wp_enqueue_script('responsive', $path.'/jquery.flexslider-min.js');
 		wp_enqueue_script('flexslider', $path.'/responsive.js');
 		wp_enqueue_script('mobilizejs', $path.'/mobilize.js');

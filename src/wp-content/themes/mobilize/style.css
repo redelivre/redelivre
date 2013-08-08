@@ -16,7 +16,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 -------------------------------------------------------------- */
 .alignnone                    { margin: 5px 20px 20px 0; }
 .aligncenter, div.aligncenter { display:block; margin: 5px auto 5px auto; }
-.alignright                   { float:right; margin: 5px 0 20px 20px; }
+.alignright                   { float:right; margin: 5px 0 10px 20px; }
 .alignleft                    { float:left; margin: 5px 20px 20px 0; }
 .aligncenter                  { display: block; margin: 5px auto 5px auto; }
 a img.alignright              { float:right; margin: 5px 0 20px 20px; }
@@ -96,8 +96,12 @@ Genericas
 	margin: 10px 0 0 30px;
 }
 
+.img-brand{
+	width: 100%;
+}
+
 .header-title{
-	font-size: 60px;
+	font-size: 20px;
 	display: block;
 	margin-top: 70px;
 }
@@ -209,6 +213,7 @@ Busca
 
 .busca {
 	float: right;
+	margin-top: 20px;
 }
 
 /*
@@ -318,7 +323,6 @@ Menu
 .sub-dest-img {
 	/*width: 274px;*/
 	height: 122px;
-	background: #ccc;
 	float:left;
 	margin: 15px 0 40px;	
 }
@@ -371,6 +375,7 @@ Menu
 
 .destaques{
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .destaques a{
@@ -713,7 +718,6 @@ Widgets
  
 .commen{
     font-size:18px;
-    margin-left: 30px;
     font-weight: 300;
 }
 
@@ -752,6 +756,7 @@ Widgets
 #respond-comment .commen-1{
 	font-size: 18px;
 	font-weight: 700;
+	margin-top: 20px;
 }
  
 #respond form label{
@@ -812,8 +817,8 @@ Widgets
 }
 
 .comment-meta a {
-	float: left;
-	margin-left: 5px;
+	display: block;
+	margin: 5px 0;
 }
 
 .comment-body{
@@ -830,7 +835,10 @@ Widgets
 }
 
 .comment-body .reply{
-	margin: 20px 0 20px 80px;
+	margin-left: 0;
+	margin-top: 5px;
+	padding-left: 83px;
+	box-sizing: border-box;
 }
 
 #commentform p{
@@ -1254,7 +1262,7 @@ Ajustes - responsivo
 }
  
 /* Smartphones */
-@media (max-width: 480px) {    
+@media (max-width: 768px) {    
 	.right           { margin: 5px 20px; }
 	.left            { margin: 5px -15px; }
 	.busca           { margin: 0 20px 0 0; }
@@ -1264,12 +1272,13 @@ Ajustes - responsivo
 	.dest-titulo     { font-size: 28px; width: 290px; }
 	.title-sub-dest  { width: 300px; }
 	.sub-dest-img    { width:260px; }
-	.not-1           { height: 420px; }
+	.not-1           { display: table; }
 	.sub-dest-tex h2 { clear: both; }
-	.miolo           { background: pink; }
+	.miolo           { padding: 10px;}
 	.sidebar-home    { display:none; }
 	.busca           { float:none; margin: 0 auto; display:table; }
 	.social          { display: table; margin: 0 auto; padding: 20px 0; }
+	.banner          { display: none;}
 }
 
 
@@ -1296,7 +1305,32 @@ Comentários remover/resolver
  Responsive Menu
 ========================================================================== */
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 768px) {
+	#respond h3 {
+		margin: 0; 
+	}
+
+	#commentform p {
+		margin-left: 0 !important;
+	}
+
+	#respond form label {
+		float: none;
+		text-align: left;
+		width: 100%;
+	}
+
+	#respond form input, #respond form textarea {
+		width: 100%;
+		margin: 0 !important;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		height: auto !important;
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+
 	ul.menu {
 		padding: 0;
 		margin: 0;
@@ -1374,5 +1408,73 @@ Comentários remover/resolver
 
 	.menu-tmp li a:hover {
 		color: #FFF !important;
+	}
+
+	/*
+	Comments
+	-----------------------------------------------------
+	*/
+
+	.comment-form-comment {
+		margin: 0;
+	}
+
+	.comment-form-comment textarea {
+		width: 100% !important;
+		box-sizing: border-box;
+		padding: 10px;
+		margin: 0 !important;
+	}
+
+	.sidebar-footer form input {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 13px 5px !important;
+	}
+
+	.sidebar-footer {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	/*
+	Sub Destaques
+	 */
+	
+	.title-sub-dest {
+		width: 100%;
+	}
+	.sub-dest-img {
+		width: 100%;
+	}
+
+	.sub-dest-img img {
+		display: block;
+		margin: 0 auto;
+	}
+
+	.sub-dest-desc {
+		margin-left: 0;
+	}
+	
+	.sub-dest-tex p a {
+		display: block;
+		padding: 0 30px;
+		box-sizing: border-box;
+	}
+
+	.sub-dest-desc {
+		padding: 0 30px;
+		box-sizing: border-box;
+	}
+	
+	/*
+	Comentários
+	---------------------------------------------------
+	 */
+	
+	.comment-meta a {
+		float: none;
+		margin-left: 0;
 	}
 }

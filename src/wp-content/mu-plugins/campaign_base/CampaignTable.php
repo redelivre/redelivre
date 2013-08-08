@@ -52,7 +52,7 @@ class CampaingTable extends WP_List_Table {
         $columns = array(
             'domain'     => 'Sub-domínio',
             'own_domain'    => 'Domínio próprio',
-            'candidate_number'  => 'Número do candidato',
+            //'candidate_number'  => 'Número do candidato',
             'plan_id'  => 'Plano',
             'status'  => 'Status',
         );

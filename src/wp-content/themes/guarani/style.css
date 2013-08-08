@@ -1,8 +1,8 @@
 /*
 Theme Name: Guarani
 Theme URI: http://ethymos.com.br
-Author: Eduardo Zulian e Thalita Sejanes
-Author URI: http://flutuante.com.br
+Author: Ethymos
+Author URI: http://ethymos.com.br
 Description: A theme for non-profit organizations
 Version: 1.0
 License: GNU General Public License
@@ -2267,3 +2267,27 @@ object {
 .eletro_widgets_control input[type="text"] {
 	border-color: #ccc;
 }
+
+/**
+* Formulário de registro
+* @todo revisar
+*
+*/
+.instrucoes { float:left; width: 50%; margin: 0 60px 0 0; background: #fff; }
+.container-registro { background-color: #fff; display:block; width: 100%; }
+
+.container-registro .titulo h1 { font-weight: normal; font-size: 20px; }
+		
+#custom-register-resposta { width: 100%; text-align: center; }
+#custom-register-resposta .resposta-erro,
+#custom-register-resposta .resposta-sucesso { text-align: center; clear:both; margin: 15px 0 0 0; width: 100%; }
+		
+#custom-register-resposta .resposta-sucesso { background: #d8fce5; border: 1px solid #e3d89e; }
+#custom-register-resposta .resposta-erro { background: #fce8d8; border: 1px solid #e3d89e; }
+#custom-register-resposta .resposta-erro li { list-style:none; }
+#registerform { display: table; margin: 20px 0 0 0; }
+#registerform .input { width: 300px; border-radius: 5px; background: #fff; border: 1px solid #ccc; padding: 7px; }	
+		
+#registerform .error { border-color: #e70606; }
+#registerform label.error { font-size: 12px; color: #e70606; clear:left; display:table; margin: 7px 0 0 0; }
+#registerform .info-campo { font-size: 12px; font-style: italic; clear: both; display: block; line-height: 18px; color: #4d4d4d; margin: 0 0 7px 0; }

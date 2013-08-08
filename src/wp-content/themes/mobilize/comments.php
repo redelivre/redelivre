@@ -13,11 +13,8 @@
  
  	<div class="comm-head">
 	    <h4><?php _x('Comentários', 'comentarios', 'mobilize'); ?><span class="commen"><?php comments_number('Nenhum comentário', '1 Comentário', '% Comentários' );?></span></h4>
-	     <?php if ( have_comments() ) : ?>
     </div>
-    
-   
- 
+     <?php if ( have_comments() ) : ?>
         <ol class="commentlist">
         	<?php wp_list_comments('avatar_size=64&type=comment'); ?>
     	</ol>
@@ -35,7 +32,7 @@
  
     <?php if ( comments_open() ) : ?>
  
-    <div id="respond-comment">
+    	<div id="respond-comment">
             <div class="commen-1">
             	<?php _e('Deixe o seu comentário!', 'mobilize'); ?>
             	<p>

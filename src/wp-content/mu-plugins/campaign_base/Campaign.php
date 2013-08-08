@@ -220,9 +220,15 @@ class Campaign {
             $this->errorHandler->add('error', 'Número de candidato inválido.');
         }*/
         
-        if ($this->candidateExist()) {
+        /**
+         * Retirando obrigatoriedade do campo Estado e número
+         * @author Jacson Passold (Ethymos)
+         */
+        
+        /*if ($this->candidateExist()) {
             $this->errorHandler->add('error', 'Uma projeto para este candidato já foi criada no sistema.');
         }
+        */
         
         if (empty($this->plan_id) || !in_array($this->plan_id, Plan::getAllIds())) {
             $this->errorHandler->add('error', 'Selecione o plano desejado.');
@@ -279,7 +285,7 @@ class Campaign {
 	            $campaign = $wpdb->get_row(
 	                $wpdb->prepare("SELECT * FROM `campaigns` WHERE `candidate_number` = %d AND `location` = %s",
 	                $this->candidate_number, "$this->state:$this->city"));
-        } 
+        }
         
         if (!is_null($campaign)) {
             return true;

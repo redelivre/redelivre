@@ -54,7 +54,7 @@
 	        	<div class="brand">
 	        		<?php if(get_theme_mod('logo')) : ?>
 		        		<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-		            		<img src="<?php echo get_theme_mod('logo'); ?>" alt="<?php bloginfo ( 'name' ); ?>" />
+		            		<img class="img-brand" src="<?php echo get_theme_mod('logo'); ?>" alt="<?php bloginfo ( 'name' ); ?>" />
 		            	</a>
 	            	<?php else : ?>
 	            	<a href="<?php echo home_url(); ?>">
@@ -64,7 +64,7 @@
 	            </div>
 		     </div>
 		        	
-		        	<div class="right offset4 span4">
+		        	<div class="right offset5 span3">
 			        	<div class="social">
 			              <?php do_action('campanha_body_header'); ?>
 			             </div> 
