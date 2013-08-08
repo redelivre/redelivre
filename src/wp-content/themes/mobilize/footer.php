@@ -24,8 +24,8 @@
             <?php else: ?>
                 <a class="login" href="<?php echo wp_login_url(get_permalink()); ?>">Login</a> &bull;
             <?php endif; ?>
-    	    <a href="http://campanhacompleta.com.br" title="Campanha Completa"><img src="<?php get_template_directory_uri(); ?>/imagens/campanha-completa.png" alt="" /></a> &bull; 
-		    <a href="http://wordpress.org"><img src="<?php get_template_directory_uri(); ?>/imagens/wp.png" alt="" /></a>
+    	    <a href="http://campanhacompleta.com.br" title="Campanha Completa"><img src="<?php echo get_template_directory_uri(); ?>/imagens/campanha-completa.png" alt="" /></a> &bull; 
+		    <a href="http://wordpress.org"><img src="<?php echo get_template_directory_uri(); ?>/imagens/wp.png" alt="" /></a>
 		</p>
 	</div>
 	
