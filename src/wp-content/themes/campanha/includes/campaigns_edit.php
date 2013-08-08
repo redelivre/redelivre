@@ -15,7 +15,7 @@ if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
         die;
     }
 } else {
-    print_msgs(array('error' => 'Campanha não encontrada'));
+    print_msgs(array('error' => 'Projeto não encontrado'));
     die;
 }
 
@@ -31,7 +31,7 @@ if (!empty($_POST)) {
     if ($campaign->validate()) {
         $campaign->update();
         
-        $msgs = array('updated' => 'Campanha atualizada com sucesso.');
+        $msgs = array('updated' => 'Projeto atualizado com sucesso.');
     } else {
         $msgs = $campaign->errorHandler->errors;
     }
@@ -40,7 +40,7 @@ if (!empty($_POST)) {
 ?>
 
 <div class="wrap">
-    <h2 id="form_title">Editar campanha <?php echo $campaign->domain; ?></h2>
+    <h2 id="form_title">Editar Projeto <?php echo $campaign->domain; ?></h2>
     
     <?php
     if (!empty($msgs)) {
@@ -61,12 +61,6 @@ if (!empty($_POST)) {
                     <th scope="row"><label for="own_domain">Domínio próprio (opcional)</label></th>
                     <td>
                         <input type="text" value="<?php if (isset($_POST['own_domain'])) { echo $_POST['own_domain']; } else if (isset($campaign->own_domain)) { echo $campaign->own_domain; } ?>" name="own_domain" style="display: block;">
-                    </td>
-                </tr>
-                <tr class="form-field">
-                    <th scope="row"><label for="candidate_number">Número do candidato</label></th>
-                    <td>
-                        <input type="text" value="<?php if (isset($_POST['candidate_number'])) { echo $_POST['candidate_number']; } else if (isset($campaign->candidate_number)) { echo $campaign->candidate_number; }?>" maxLength="5" name="candidate_number">
                     </td>
                 </tr>
                 <tr class="form-field">

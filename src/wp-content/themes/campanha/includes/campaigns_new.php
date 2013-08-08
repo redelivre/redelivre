@@ -23,7 +23,7 @@ if (!empty($_POST)) {
             wp_redirect(admin_url());
         } else {
             //TODO: improve error handling for campaign creation
-            $errors = array('error' => 'Não foi possível criar a campanha.');
+            $errors = array('error' => 'Não foi possível criar o projeto.');
         }
     } else {
         $errors = $campaign->errorHandler->errors;

@@ -32,7 +32,7 @@ $campaignTable = new CampaingTable;
     
     <?php if ($campaignTable->prepare_items()) : ?>
 	    <form action="" method="get" id="ms-search">
-			<?php $campaignTable->search_box( __( 'Procurar Campanha' ), 'projetos' ); ?>
+			<?php $campaignTable->search_box( __( 'Procurar Projeto' ), 'projetos' ); ?>
 			<input type="hidden" name="action" value="projetos" />
 		</form>
         <?php $campaignTable->display(); ?>
