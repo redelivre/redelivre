@@ -66,12 +66,6 @@ if (isset($_GET['noheader'])) {
                     </td>
                 </tr>
                 <tr class="form-field">
-                    <th scope="row"><label for="candidate_number">Número do candidato</label></th>
-                    <td>
-                        <input type="text" value="<?php if (isset($_POST['candidate_number'])) echo $_POST['candidate_number']; ?>" maxLength="5" name="candidate_number">
-                    </td>
-                </tr>
-                <tr class="form-field">
                     <th scope="row"><label for="state">Localização</label></th>
                     <td>
                         <label for="state">Estado</label>
