@@ -15,3 +15,4 @@ src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp/
 nbproject/
 .buildpath
 .settings
+src/wp-content/blogs.dir
