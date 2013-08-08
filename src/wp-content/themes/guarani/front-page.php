@@ -43,16 +43,6 @@ get_header(); ?>
         	</ul><!-- .swiper-wrapper -->
         	
     </div><!-- .swiper-container -->
-    
-    <?php if ( $feature->post_count > 1 ) : ?>
-		<div class="navigation slide-navigation">
-			<a href="#" class="nav-previous previous-slide icon-left"><span class="assistive-text"><?php _e( 'Previous', 'guarani' ); ?></span></a>
-			<?php if ( wp_is_mobile() ) : ?>
-				<span class="swipe">&#x261d;</span>
-			<?php endif; ?>
-			<a href="#" class="nav-next next-slide icon-right"><span class="assistive-text"><?php _e( 'Next', 'guarani' ); ?></span></a>
-		</div>
-	<?php endif; ?>
 	
 	<?php
 	wp_reset_postdata();

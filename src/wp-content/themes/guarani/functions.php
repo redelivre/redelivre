@@ -186,8 +186,6 @@ function guarani_footer_scripts() {
 				direction: "horizontal",
 				smoothHeight: true,
 			});
-
-			$('.flex-control-nav').remove();
 		});
 	</script>
 	<?php
