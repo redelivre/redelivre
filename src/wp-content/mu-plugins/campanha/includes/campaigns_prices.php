@@ -17,14 +17,6 @@
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
     </tr>
     <tr>
-        <th class="feature textleft">Envios de email e SMS</th>
-        <td class="nao textcenter"><?php html::image("nao.png","Não"); ?></td>
-        <td class="textcenter">5<span> mil</span></td>
-        <td class="textcenter">10<span> mil</span></td>
-        <td class="textcenter">20<span> mil</span></td>
-        <td class="textcenter">50<span> mil</span></td>
-    </tr>
-    <tr>
         <th class="feature textleft">Upload de arquivos</th>
         <td class="textcenter">500M</td>
         <td class="textcenter">1G</td>
@@ -51,7 +43,7 @@
     </tr>
      
     <tr>
-        <th class="feature textleft">Subdomínio <small>(seunome.campanhacompleta.com.br)</small></th>
+        <th class="feature textleft">Subdomínio <small>(seunome.redelivre.org.br)</small></th>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
@@ -75,13 +67,5 @@
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
-    </tr>
-    <tr class="last">
-        <th class="feature textleft">Valor único</th>
-        <td class="valor textcenter">R$450,00</td>
-        <td class="valor textcenter">R$1.300,00</td>
-        <td class="valor textcenter">R$1.800,00</td>
-        <td class="valor textcenter">R$2.500,00</td>
-        <td class="valor textcenter">R$3.500,00</td>
     </tr>
 </tbody>

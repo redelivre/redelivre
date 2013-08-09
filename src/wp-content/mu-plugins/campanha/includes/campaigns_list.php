@@ -9,7 +9,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'delete'
     try {
         $campaign = Campaign::getById($_REQUEST['id']);
         $campaign->delete();
-        $msg = "Campanha $campaign->domain removida com sucesso.";
+        $msg = "Projeto $campaign->domain removida com sucesso.";
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -20,7 +20,7 @@ $campaignTable = new CampaingTable;
 ?>
 
 <div class="wrap">
-    <h2>Suas campanhas</h2>
+    <h2>Seus Projetos</h2>
     
     <?php if (!empty($msg)) : ?>
         <div class="updated"><p><?php echo $msg; ?></p></div>
@@ -37,6 +37,6 @@ $campaignTable = new CampaingTable;
 		</form>
         <?php $campaignTable->display(); ?>
     <?php else : ?>
-        <p>Você ainda não criou nenhuma campanha. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de campanha</a>.</p>
+        <p>Você ainda não criou nenhuma projeto. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de projeto</a>.</p>
     <?php endif; ?>
 </div>

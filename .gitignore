@@ -11,6 +11,7 @@ wp-content/uploads
 src/wp-content/uploads/
 src/index.html
 src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp/
+src/wp-content/plugins/delibera/
 /nbproject/private/
 nbproject/
 .buildpath

@@ -30,7 +30,7 @@ if (!empty($_POST)) {
             wp_redirect(admin_url());
         } else {
             //TODO: improve error handling for campaign creation
-            $errors = array('error' => 'Não foi possível criar a campanha.');
+            $errors = array('error' => 'Não foi possível criar o projeto.');
         }
     } else {
         $errors = $campaign->errorHandler->errors;
@@ -46,7 +46,7 @@ if (isset($_GET['noheader'])) {
 ?>
 
 <div class="wrap">
-    <h2 id="form_title">Nova campanha</h2>
+    <h2 id="form_title">Novo Projeto</h2>
     
     <?php
     if (!empty($errors)) {
@@ -63,7 +63,7 @@ if (isset($_GET['noheader'])) {
                         <input type="text" value="<?php if (isset($_POST['domain'])) echo $_POST['domain']; ?>" name="domain" style="display: block;">
                         <small>São recomendados apenas os caracteres a-z e 0-9.</small> <br />
                         <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo,
-                         se preencher nesse campo "joao" o sub-domínio será joao.campanhacompleta.com.br.</small>
+                         se preencher nesse campo "joao" o sub-domínio será joao.redelivre.org.br.</small>
                     </td>
                 </tr>
                 <tr class="form-field">
@@ -71,12 +71,6 @@ if (isset($_GET['noheader'])) {
                     <td>
                         <input type="text" value="<?php if (isset($_POST['own_domain'])) echo $_POST['own_domain']; ?>" name="own_domain" style="display: block;">
                         <small>Caso possua informe aqui o domínio próprio do seu site (ele será usado no lugar do sub-domínio)</small>
-                    </td>
-                </tr>
-                <tr class="form-field">
-                    <th scope="row"><label for="candidate_number">Número do candidato</label></th>
-                    <td>
-                        <input type="text" value="<?php if (isset($_POST['candidate_number'])) echo $_POST['candidate_number']; ?>" maxLength="5" name="candidate_number">
                     </td>
                 </tr>
                 <tr class="form-field">
