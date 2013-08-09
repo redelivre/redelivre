@@ -25,7 +25,6 @@ if (!is_main_site()) {
         global $blog_id, $campaign;
 
         require_once(__DIR__ . '/includes/payment.php');
-        require_once(__DIR__ . '/includes/EasyAjax.php');
         require_once(__DIR__ . '/includes/admin-contact.php');
 
         $campaign = Campaign::getByBlogId($blog_id);
