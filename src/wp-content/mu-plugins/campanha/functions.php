@@ -89,7 +89,7 @@ add_filter( 'show_admin_bar' , 'remove_admin_bar');
 add_action('admin_print_styles', 'campanha_addAdminCSS');
 function campanha_addAdminCSS() {
     
-    wp_enqueue_style('campanhaAdmin', get_stylesheet_directory_uri().'/css/admin.css');
+    wp_enqueue_style('campanhaAdmin', WPMU_PLUGIN_URL.'/campanha/css/admin.css');
 }
 
 
@@ -98,8 +98,8 @@ add_action('wp_print_scripts', 'campanha_addJS');
 function campanha_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); 
     wp_enqueue_script('jquery');
-    wp_enqueue_script('congelado', get_stylesheet_directory_uri().'/js/congelado.js', 'jquery');
-    wp_enqueue_script('campanha', get_stylesheet_directory_uri().'/js/campanha.js', 'jquery');
+    wp_enqueue_script('congelado', WPMU_PLUGIN_URL.'/campanha/js/congelado.js', 'jquery');
+    wp_enqueue_script('campanha', WPMU_PLUGIN_URL.'/campanha/js/campanha.js', 'jquery');
 }
 
 // CUSTOM MENU
