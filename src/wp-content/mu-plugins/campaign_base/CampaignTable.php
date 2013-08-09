@@ -4,18 +4,49 @@ if (!class_exists('WP_List_Table')) {
     require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 }
 
+add_action('admin_action_projetosSearch', array('CampaingTable', 'Search'));
+add_action('wp_ajax_projetosSearch', array('CampaingTable', 'Search'));
+
+add_action('admin_enqueue_scripts', array('CampaingTable', 'JS'));
+
 class CampaingTable extends WP_List_Table {
     function __construct() {
         parent::__construct( array(
             'singular'  => 'projeto',     //singular name of the listed records
             'plural'    => 'projetos',    //plural name of the listed records
-            'ajax'      => false        //does this table support ajax?
+            'ajax'      => true,        //does this table support ajax?
+            'screen'	=> 'campaigns'
         ) );
-        
     }
     
     function column_default($item, $column_name) {
         return $item->$column_name;
+    }
+    
+    function JS()
+    {
+    	$data = array(
+    		'ajax_url' => admin_url('admin-ajax.php'),
+    	);
+    	 
+    	wp_enqueue_script('CampaingTableJS', WPMU_PLUGIN_URL.'/campaign_base/js/CampaingTableJS.js', array('jquery'));
+    	wp_localize_script('CampaingTableJS', 'CampaingTable', $data);
+    }
+    
+    function Search()
+    {
+    	global $WP_Screen;
+    	$campaignTable = new self();
+    	$campaignTable->prepare_items(" domains like '%tes%' ");
+     	$campaignTable->display();
+    	exit();
+    }
+    
+    function display()
+    {
+    	echo '<div id="capaignsList" >';
+    	parent::display();
+    	echo '</div>';
     }
     
     function column_domain($item) {
@@ -78,7 +109,7 @@ class CampaingTable extends WP_List_Table {
         return $sortable_columns;
     }
     
-    function prepare_items() {
+    function prepare_items($query = '') {
         //TODO: do pagination and ordering in the query and not here manipulating arrays
         
         $per_page = 25;
@@ -87,14 +118,13 @@ class CampaingTable extends WP_List_Table {
         $hidden = array();
         $sortable = $this->get_sortable_columns();
         
-        
         $this->_column_headers = array($columns, $hidden, $sortable);
         
         if (is_super_admin()) {
-            $data = Campaign::getAll();
+            $data = $query == '' ? Campaign::getAll() : Campaign::findAll($query);
         } else {
             $user = wp_get_current_user();
-            $data = Campaign::getAll($user->ID);
+            $data = $query == '' ? Campaign::getAll($user->ID) : Campaign::findAll($query, $user->ID);
         }
         
         function usort_reorder($a,$b){
@@ -121,5 +151,37 @@ class CampaingTable extends WP_List_Table {
         
         return $this->items;
     }
+    
+    /**
+     * Display the search box.
+     *
+     * @since 3.1.0
+     * @access public
+     *
+     * @param string $text The search button text
+     * @param string $input_id The search input id
+     */
+    function search_box( $text, $input_id ) {
+    	if ( empty( $_REQUEST['s'] ) && !$this->has_items() )
+    		return;
+    
+    	$input_id = $input_id . '-search-input';
+    
+    	if ( ! empty( $_REQUEST['orderby'] ) )
+    		echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+    	if ( ! empty( $_REQUEST['order'] ) )
+    		echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+    	if ( ! empty( $_REQUEST['post_mime_type'] ) )
+    		echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+    	if ( ! empty( $_REQUEST['detached'] ) )
+    		echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+    	?>
+    <p class="search-box">
+    	<label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
+    	<input type="search" id="<?php echo $input_id ?>" name="s" value="<?php _admin_search_query(); ?>" />
+    	<?php submit_button( $text, 'button', false, false, array('id' => 'search-submit') ); ?>
+    </p>
+    <?php
+    	}
     
 }

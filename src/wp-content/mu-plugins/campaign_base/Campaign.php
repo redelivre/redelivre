@@ -80,6 +80,35 @@ class Campaign {
     }
     
     /**
+     * Return all available campaigns for the query.
+     *
+     * @param int $user_id
+     * @param string $queryString
+     * @return array array of Campaign objects
+     */
+    public static function findAll($queryString, $user_id = null) {
+    	global $wpdb;
+    
+    	if ($user_id) {
+    		$query = $wpdb->prepare('SELECT * FROM `campaigns` WHERE user_id = %d AND %s ORDER BY `domain` asc', $user_id, $queryString);
+    	} else if (is_super_admin()) {
+    		// only super admins should be able to see all campaigns
+    		$query = $wpdb->prepare('SELECT * FROM `campaigns` WHERE %s ORDER BY `domain` asc', $queryString);
+    	}
+    
+    	$results = $wpdb->get_results($query, ARRAY_A);
+    	$campaigns = array();
+    
+    	if ($results) {
+    		foreach ($results as $result) {
+    			$campaigns[] = new Campaign($result);
+    		}
+    	}
+    
+    	return $campaigns;
+    }
+    
+    /**
      * Get a campaign by blog_id
      * 
      * @param int $blog_id
