@@ -39,7 +39,7 @@ if (isset($_GET['noheader'])) {
 ?>
 
 <div class="wrap">
-    <h2 id="form_title">Nova campanha</h2>
+    <h2 id="form_title">Novo projeto</h2>
     
     <?php
     if (!empty($errors)) {
@@ -115,7 +115,16 @@ if (isset($_GET['noheader'])) {
                                     <th class="textcenter"><input type="radio" name="plan_id" class="radio" value="<?php echo $plan->id; ?>" <?php if (isset($_POST['plan_id']) && $_POST['plan_id'] == $plan->id) echo ' checked '; ?>> <?php echo $plan->name; ?></th>
                                 <?php endforeach; ?>
                             </thead>
-                            <?php require_once(TEMPLATEPATH . '/includes/campaigns_prices.php'); ?>
+                            <?php
+                                $priceFile = TEMPLATEPATH . '/includes/campaigns_prices.php';
+
+                                if (file_exists($priceFile)) {
+                                    require $priceFile;
+                                }
+                                else {
+                                    require MUCAMPANHAPATH.'/includes/campaigns_prices.php';
+                                }
+                            ?>
                         </table>
                     </td>
                 </tr>                
