@@ -34,6 +34,7 @@ $campaignTable = new CampaingTable;
 	    <form action="" method="get" id="ms-search">
 			<?php $campaignTable->search_box( __( 'Procurar Projeto' ), 'projetos' ); ?>
 			<input type="hidden" name="action" value="projetos" />
+			<input type="hidden" name="page" value="campaigns" />
 		</form>
         <?php $campaignTable->display(); ?>
     <?php else : ?>

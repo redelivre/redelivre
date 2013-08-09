@@ -86,14 +86,31 @@ class Campaign {
      * @param string $queryString
      * @return array array of Campaign objects
      */
-    public static function findAll($queryString, $user_id = null) {
+    public static function findAll($orderby, $order, $queryString = null, $user_id = null) {
     	global $wpdb;
     
-    	if ($user_id) {
-    		$query = $wpdb->prepare('SELECT * FROM `campaigns` WHERE user_id = %d AND %s ORDER BY `domain` asc', $user_id, $queryString);
-    	} else if (is_super_admin()) {
-    		// only super admins should be able to see all campaigns
-    		$query = $wpdb->prepare('SELECT * FROM `campaigns` WHERE %s ORDER BY `domain` asc', $queryString);
+    	$join = '';
+    	if($orderby == 'user_login')
+    	{
+    		$join = " inner join ".$wpdb->prefix."users ON campaigns.user_id = ".$wpdb->prefix."users.ID";
+    	}
+    	if(is_null($queryString))
+    	{
+    		if ($user_id) {
+    			$query = $wpdb->prepare('SELECT * FROM `campaigns` '.$join.' WHERE user_id = %d ORDER BY `'.$orderby.'` '.$order, $user_id);
+    		} else if (is_super_admin()) {
+    			// only super admins should be able to see all campaigns
+    			$query = 'SELECT * FROM `campaigns` '.$join.' ORDER BY `'.$orderby.'` '.$order;
+    		}
+    	}
+    	else 
+    	{
+	    	if ($user_id) {
+	    		$query = $wpdb->prepare('SELECT * FROM `campaigns` '.$join.' WHERE user_id = %d AND domain like %s ORDER BY `'.$orderby.'` '.$order, $user_id, $queryString);
+	    	} else if (is_super_admin()) {
+	    		// only super admins should be able to see all campaigns
+	    		$query = $wpdb->prepare('SELECT * FROM `campaigns` '.$join.' WHERE domain like %s ORDER BY `'.$orderby.'` '.$order, $queryString);
+	    	}
     	}
     
     	$results = $wpdb->get_results($query, ARRAY_A);
