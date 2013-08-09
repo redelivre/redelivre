@@ -86,7 +86,7 @@ class Campaign {
      * @param string $queryString
      * @return array array of Campaign objects
      */
-    public static function findAll($orderby, $order, $queryString = null, $user_id = null) {
+    public static function findAll($orderby, $order, $offset, $limit, $queryString = null, $user_id = null) {
     	global $wpdb;
     
     	$join = '';
@@ -94,26 +94,32 @@ class Campaign {
     	{
     		$join = " inner join ".$wpdb->prefix."users ON campaigns.user_id = ".$wpdb->prefix."users.ID";
     	}
+    	
+    	$paged = ' LIMIT '.$limit.' OFFSET '.$offset; 
+    	
     	if(is_null($queryString))
     	{
     		if ($user_id) {
-    			$query = $wpdb->prepare('SELECT * FROM `campaigns` '.$join.' WHERE user_id = %d ORDER BY `'.$orderby.'` '.$order, $user_id);
+    			$query = $wpdb->prepare('FROM `campaigns` '.$join.' WHERE user_id = %d ORDER BY `'.$orderby.'` '.$order, $user_id);
     		} else if (is_super_admin()) {
     			// only super admins should be able to see all campaigns
-    			$query = 'SELECT * FROM `campaigns` '.$join.' ORDER BY `'.$orderby.'` '.$order;
+    			$query = 'FROM `campaigns` '.$join.' ORDER BY `'.$orderby.'` '.$order;
     		}
     	}
     	else 
     	{
 	    	if ($user_id) {
-	    		$query = $wpdb->prepare('SELECT * FROM `campaigns` '.$join.' WHERE user_id = %d AND domain like %s ORDER BY `'.$orderby.'` '.$order, $user_id, $queryString);
+	    		$query = $wpdb->prepare('FROM `campaigns` '.$join.' WHERE user_id = %d AND domain like %s ORDER BY `'.$orderby.'` '.$order, $user_id, $queryString);
 	    	} else if (is_super_admin()) {
 	    		// only super admins should be able to see all campaigns
-	    		$query = $wpdb->prepare('SELECT * FROM `campaigns` '.$join.' WHERE domain like %s ORDER BY `'.$orderby.'` '.$order, $queryString);
+	    		$query = $wpdb->prepare('FROM `campaigns` '.$join.' WHERE domain like %s ORDER BY `'.$orderby.'` '.$order, $queryString);
 	    	}
     	}
     
-    	$results = $wpdb->get_results($query, ARRAY_A);
+    	$count = $wpdb->get_results('SELECT count(*) '.$query, ARRAY_N);
+
+    	$results = $wpdb->get_results('SELECT * '.$query.$paged, ARRAY_A);
+    	
     	$campaigns = array();
     
     	if ($results) {
@@ -122,7 +128,7 @@ class Campaign {
     		}
     	}
     
-    	return $campaigns;
+    	return (object)array('itens' => $campaigns, 'count' => $count[0][0]);
     }
     
     /**

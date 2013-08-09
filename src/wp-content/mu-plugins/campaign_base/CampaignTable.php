@@ -90,9 +90,8 @@ class CampaingTable extends WP_List_Table {
         return $sortable_columns;
     }
     
-    function prepare_items() {
-        //TODO: do pagination and ordering in the query and not here manipulating arrays
-        
+    function prepare_items()
+    {
     	$orderby = 'domain' ;
     	if(array_key_exists('orderby', $_REQUEST) && $_REQUEST['orderby'] != '')
     	{
@@ -112,6 +111,11 @@ class CampaingTable extends WP_List_Table {
     	
         $per_page = 25;
         
+        $current_page = $this->get_pagenum();
+        
+        $offset = ($current_page-1) * $per_page;
+        $limit = $current_page * $per_page;
+        
         $columns = $this->get_columns();
         $hidden = array();
         $sortable = $this->get_sortable_columns();
@@ -119,19 +123,15 @@ class CampaingTable extends WP_List_Table {
         $this->_column_headers = array($columns, $hidden, $sortable);
         
         if (is_super_admin()) {
-            $data = Campaign::findAll($orderby, $order, $domain);
+            $data = Campaign::findAll($orderby, $order,$offset,$limit, $domain);
         } else {
             $user = wp_get_current_user();
-            $data = Campaign::findAll($orderby, $order, $domain, $user->ID);
+            $data = Campaign::findAll($orderby, $order,$offset,$limit, $domain, $user->ID);
         }
         
-        $current_page = $this->get_pagenum();
+        $total_items = $data->count;
         
-        $total_items = count($data);
-        
-        $data = array_slice($data,(($current_page-1)*$per_page),$per_page);
-        
-        $this->items = $data;
+        $this->items = $data->itens;
         
         $this->set_pagination_args( array(
             'total_items' => $total_items,                  //WE have to calculate the total number of items
