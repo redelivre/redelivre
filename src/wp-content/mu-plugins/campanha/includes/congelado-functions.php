@@ -8,11 +8,13 @@ function __autoload($class) {
 }
 
 // inclui os arquivos
-$autoinclude_base_dir = dirname(__FILE__);
+$autoinclude_base_dir = dirname(__FILE__) . '/';
 
 
 // inclui o arquivo de sctipts de atualização da base de dados
 include $autoinclude_base_dir . '/db-updates.php';
+
+include $autoinclude_base_dir . '/EasyAjax.php';
 
 
 $autoinclude_folders = array(

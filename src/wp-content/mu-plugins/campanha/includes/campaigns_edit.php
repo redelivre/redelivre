@@ -15,7 +15,7 @@ if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
         die;
     }
 } else {
-    print_msgs(array('error' => 'Projeto não encontrada'));
+    print_msgs(array('error' => 'Projeto não encontrado'));
     die;
 }
 

@@ -3,24 +3,17 @@
 $errors = array();
 
 if (!empty($_POST)) {
-    $domain           = filter_input(INPUT_POST, 'domain',           FILTER_SANITIZE_STRING);
-    $own_domain       = filter_input(INPUT_POST, 'own_domain',       FILTER_SANITIZE_URL);
+    $domain = filter_input(INPUT_POST, 'domain', FILTER_SANITIZE_STRING);
+    $own_domain = filter_input(INPUT_POST, 'own_domain', FILTER_SANITIZE_URL);
     $candidate_number = filter_input(INPUT_POST, 'candidate_number', FILTER_SANITIZE_NUMBER_INT);
-    $plan_id          = filter_input(INPUT_POST, 'plan_id',          FILTER_SANITIZE_NUMBER_INT);
-    $state            = filter_input(INPUT_POST, 'state',            FILTER_SANITIZE_NUMBER_INT);
-    $city             = filter_input(INPUT_POST, 'city',             FILTER_SANITIZE_NUMBER_INT);
-    $observations     = filter_input(INPUT_POST, 'observations',     FILTER_SANITIZE_STRING);
+    $plan_id = filter_input(INPUT_POST, 'plan_id', FILTER_SANITIZE_NUMBER_INT);
+    $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
+    $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_NUMBER_INT);
+    $observations = filter_input(INPUT_POST, 'observations', FILTER_SANITIZE_STRING);
     
     $campaign = new Campaign(
-        array(
-            'domain'           => $domain, 
-            'own_domain'       => $own_domain, 
-            'plan_id'          => $plan_id,
-            'candidate_number' => $candidate_number,
-            'state'            => $state,
-            'city'             => $city,
-            'observations'     => $observations
-        )
+        array('domain' => $domain, 'own_domain' => $own_domain, 'plan_id' => $plan_id, 'candidate_number' => $candidate_number,
+            'state' => $state, 'city' => $city, 'observations' => $observations)
     );
     
     if ($campaign->validate()) {
@@ -46,7 +39,7 @@ if (isset($_GET['noheader'])) {
 ?>
 
 <div class="wrap">
-    <h2 id="form_title">Novo Projeto</h2>
+    <h2 id="form_title">Nova campanha</h2>
     
     <?php
     if (!empty($errors)) {
@@ -62,8 +55,7 @@ if (isset($_GET['noheader'])) {
                     <td>
                         <input type="text" value="<?php if (isset($_POST['domain'])) echo $_POST['domain']; ?>" name="domain" style="display: block;">
                         <small>São recomendados apenas os caracteres a-z e 0-9.</small> <br />
-                        <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo,
-                         se preencher nesse campo "joao" o sub-domínio será joao.redelivre.org.br.</small>
+                        <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo, se preencher nesse campo "joao" o sub-domínio será joao.campanhacompleta.com.br.</small>
                     </td>
                 </tr>
                 <tr class="form-field">
@@ -123,20 +115,7 @@ if (isset($_GET['noheader'])) {
                                     <th class="textcenter"><input type="radio" name="plan_id" class="radio" value="<?php echo $plan->id; ?>" <?php if (isset($_POST['plan_id']) && $_POST['plan_id'] == $plan->id) echo ' checked '; ?>> <?php echo $plan->name; ?></th>
                                 <?php endforeach; ?>
                             </thead>
-                            <?php
-                                ///////////////////////////////////////
-                                // Inclui a tabela de preços do tema //
-                                ///////////////////////////////////////
-
-                                $priceFile = TEMPLATEPATH.'/includes/campaigns_prices.php';
-
-                                if (file_exists($priceFile)) {
-                                    require $priceFile;
-                                }
-                                else {
-                                    require MUCAMPANHAPATH.'/includes/campaigns_prices.php';   
-                                }
-                            ?>
+                            <?php require_once(TEMPLATEPATH . '/includes/campaigns_prices.php'); ?>
                         </table>
                     </td>
                 </tr>                
