@@ -3,17 +3,24 @@
 $errors = array();
 
 if (!empty($_POST)) {
-    $domain = filter_input(INPUT_POST, 'domain', FILTER_SANITIZE_STRING);
-    $own_domain = filter_input(INPUT_POST, 'own_domain', FILTER_SANITIZE_URL);
+    $domain           = filter_input(INPUT_POST, 'domain',           FILTER_SANITIZE_STRING);
+    $own_domain       = filter_input(INPUT_POST, 'own_domain',       FILTER_SANITIZE_URL);
     $candidate_number = filter_input(INPUT_POST, 'candidate_number', FILTER_SANITIZE_NUMBER_INT);
-    $plan_id = filter_input(INPUT_POST, 'plan_id', FILTER_SANITIZE_NUMBER_INT);
-    $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
-    $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_NUMBER_INT);
-    $observations = filter_input(INPUT_POST, 'observations', FILTER_SANITIZE_STRING);
+    $plan_id          = filter_input(INPUT_POST, 'plan_id',          FILTER_SANITIZE_NUMBER_INT);
+    $state            = filter_input(INPUT_POST, 'state',            FILTER_SANITIZE_NUMBER_INT);
+    $city             = filter_input(INPUT_POST, 'city',             FILTER_SANITIZE_NUMBER_INT);
+    $observations     = filter_input(INPUT_POST, 'observations',     FILTER_SANITIZE_STRING);
     
     $campaign = new Campaign(
-        array('domain' => $domain, 'own_domain' => $own_domain, 'plan_id' => $plan_id, 'candidate_number' => $candidate_number,
-            'state' => $state, 'city' => $city, 'observations' => $observations)
+        array(
+            'domain'           => $domain, 
+            'own_domain'       => $own_domain, 
+            'plan_id'          => $plan_id,
+            'candidate_number' => $candidate_number,
+            'state'            => $state,
+            'city'             => $city,
+            'observations'     => $observations
+        )
     );
     
     if ($campaign->validate()) {
@@ -23,7 +30,7 @@ if (!empty($_POST)) {
             wp_redirect(admin_url());
         } else {
             //TODO: improve error handling for campaign creation
-            $errors = array('error' => 'Não foi possível criar o projeto.');
+            $errors = array('error' => 'Não foi possível criar a campanha.');
         }
     } else {
         $errors = $campaign->errorHandler->errors;
@@ -55,7 +62,8 @@ if (isset($_GET['noheader'])) {
                     <td>
                         <input type="text" value="<?php if (isset($_POST['domain'])) echo $_POST['domain']; ?>" name="domain" style="display: block;">
                         <small>São recomendados apenas os caracteres a-z e 0-9.</small> <br />
-                        <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo, se preencher nesse campo "joao" o sub-domínio será joao.campanhacompleta.com.br.</small>
+                        <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo,
+                         se preencher nesse campo "joao" o sub-domínio será joao.campanhacompleta.com.br.</small>
                     </td>
                 </tr>
                 <tr class="form-field">
@@ -63,6 +71,12 @@ if (isset($_GET['noheader'])) {
                     <td>
                         <input type="text" value="<?php if (isset($_POST['own_domain'])) echo $_POST['own_domain']; ?>" name="own_domain" style="display: block;">
                         <small>Caso possua informe aqui o domínio próprio do seu site (ele será usado no lugar do sub-domínio)</small>
+                    </td>
+                </tr>
+                <tr class="form-field">
+                    <th scope="row"><label for="candidate_number">Número do candidato</label></th>
+                    <td>
+                        <input type="text" value="<?php if (isset($_POST['candidate_number'])) echo $_POST['candidate_number']; ?>" maxLength="5" name="candidate_number">
                     </td>
                 </tr>
                 <tr class="form-field">
@@ -115,7 +129,20 @@ if (isset($_GET['noheader'])) {
                                     <th class="textcenter"><input type="radio" name="plan_id" class="radio" value="<?php echo $plan->id; ?>" <?php if (isset($_POST['plan_id']) && $_POST['plan_id'] == $plan->id) echo ' checked '; ?>> <?php echo $plan->name; ?></th>
                                 <?php endforeach; ?>
                             </thead>
-                            <?php require_once(TEMPLATEPATH . '/includes/campaigns_prices.php'); ?>
+                            <?php
+                                ///////////////////////////////////////
+                                // Inclui a tabela de preços do tema //
+                                ///////////////////////////////////////
+
+                                $priceFile = TEMPLATEPATH.'/includes/campaigns_prices.php';
+
+                                if (file_exists($priceFile)) {
+                                    require $priceFile;
+                                }
+                                else {
+                                    require MUCAMPANHAPATH.'/includes/campaigns_prices.php';   
+                                }
+                            ?>
                         </table>
                     </td>
                 </tr>                

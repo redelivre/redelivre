@@ -8,19 +8,20 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php'; 
 
-define('CAMPAIGN_LIST_URL', 'admin.php?page=campaigns&action=list');
+define('CAMPAIGN_LIST_URL',   'admin.php?page=campaigns&action=list');
 define('CAMPAIGN_DELETE_URL', 'admin.php?page=campaigns&action=delete');
-define('CAMPAIGN_EDIT_URL', 'admin.php?page=campaigns&action=edit');
-define('CAMPAIGN_NEW_URL', 'admin.php?page=campaigns_new');
+define('CAMPAIGN_EDIT_URL',   'admin.php?page=campaigns&action=edit');
+define('CAMPAIGN_NEW_URL',    'admin.php?page=campaigns_new');
 
 if (is_admin()) {
-    require(TEMPLATEPATH . '/custom_admin.php');
+    require(MUCAMPANHAPATH . '/custom_admin.php');
 }
 
-add_action( 'after_setup_theme', 'campanha_setup' );
+add_action('after_setup_theme', 'campanha_setup');
+
 function campanha_setup() {
 
-    load_theme_textdomain('campanha', TEMPLATEPATH . '/languages' );
+    load_theme_textdomain('campanha', MUCAMPANHAPATH . '/languages' );
 
     // POST THUMBNAILS
     add_theme_support('post-thumbnails');
@@ -52,7 +53,7 @@ function template_redirect_intercept() {
 
     switch ($wp_query->get('tpl')) {
         case 'cadastro':
-            require(TEMPLATEPATH . '/register.php');
+            require MUCAMPANHAPATH . '/register.php';
             die;
         default:
             break;
