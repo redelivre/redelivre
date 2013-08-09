@@ -43,7 +43,7 @@
     </tr>
      
     <tr>
-        <th class="feature textleft">Subdomínio <small>(seunome.campanhacompleta.com.br)</small></th>
+        <th class="feature textleft">Subdomínio <small>(seunome.redelivre.org.br)</small></th>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>
         <td class="sim textcenter"><?php html::image("sim.png","Sim"); ?></td>

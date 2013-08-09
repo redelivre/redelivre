@@ -37,6 +37,6 @@ $campaignTable = new CampaingTable;
 		</form>
         <?php $campaignTable->display(); ?>
     <?php else : ?>
-        <p>Você ainda não criou nenhuma campanha. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de campanha</a>.</p>
+        <p>Você ainda não criou nenhum projeto. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de projetos</a>.</p>
     <?php endif; ?>
 </div>

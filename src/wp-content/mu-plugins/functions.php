@@ -181,7 +181,7 @@ function campanha_login_messages($message) {
     
     // display message when campaign is not open to the public due to pending payment
     if (!$campaign->isPaid()) {
-        // $message .= '<p class="message">Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p>';
+        // $message .= '<p class="message">Este projeto está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p>';
         $addMessage = true;
     }
     
@@ -210,14 +210,14 @@ function campanha_admin_messages() {
         $link = admin_url('admin.php?page=payments');
         // echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente. <a href='$link'>Pague agora!</a></p></div>";
         // temporarily remove link to payment page while it is not finished
-        echo "<div class='error'><p>Esta campanha está visível somente para o criador pois o pagamento está pendente.</p></div>";
+        echo "<div class='error'><p>Este projeto está visível somente para o criador pois o pagamento está pendente.</p></div>";
     }
     
     // display message if using plan "blog" and a theme
     // other than 'blog-01'
     $theme = wp_get_theme();
     if ($campaign->plan_id == 6 && strpos($theme->get_stylesheet(), 'blog-01') === false) {
-        echo "<div class='error'><p>Esta campanha está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.</p></div>";
+        echo "<div class='error'><p>Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.</p></div>";
     }
     
 }
