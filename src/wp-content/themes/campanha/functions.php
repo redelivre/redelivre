@@ -9,5 +9,18 @@ function remove_admin_bar(){
 }
 add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
+// EXCERPT MORE
+
+add_filter('utils_excerpt_more_link', 'campanha_utils_excerpt_more',10,2);
+function campanha_utils_excerpt_more($more_link, $post){
+	return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'campanha') . '</a>';
+}
+
+
+add_filter( 'excerpt_more', 'campanha_auto_excerpt_more' );
+function campanha_auto_excerpt_more( $more ) {
+	global $post;
+	return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'campanha') . '</a>';
+}
 
 ?>
