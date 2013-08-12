@@ -33,7 +33,7 @@ if(is_ssl()) {
 	$jaiminho_siteurl = str_replace("http://", "https://", $jaiminho_siteurl);
 }
 
-$jaiminho_plugin_url = WP_CONTENT_URL;
+$jaiminho_plugin_url = apply_filters('plugins_url', WP_CONTENT_URL);
 if(is_ssl()) {
   $plugin_url_parts = parse_url($jaiminho_plugin_url);
   $site_url_parts = parse_url($jaiminho_siteurl);
