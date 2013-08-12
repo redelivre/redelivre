@@ -76,16 +76,6 @@ function custom_query_vars($public_query_vars) {
     return $public_query_vars;
 }
 
-// admin_bar removal
-//wp_deregister_script('admin-bar');
-//wp_deregister_style('admin-bar');
-remove_action('wp_footer','wp_admin_bar_render',1000);
-function remove_admin_bar(){
-   return false;
-}
-add_filter( 'show_admin_bar' , 'remove_admin_bar');
-
-
 add_action('admin_print_styles', 'campanha_addAdminCSS');
 function campanha_addAdminCSS() {
     
