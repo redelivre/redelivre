@@ -13,6 +13,7 @@ jQuery(document).ready(function(){
     jQuery('#jaiminho-form').submit(function() { 
         // inside event callbacks 'this' is the DOM element so we first 
         // wrap it in a jQuery object and then invoke ajaxSubmit 
+    	jQuery('#jaiminho-message').text("aguarde, enviando...");
     	jQuery(this).ajaxSubmit(options); 
  
         jQuery('#jaiminho-message').empty();

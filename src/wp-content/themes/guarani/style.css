@@ -1988,6 +1988,7 @@ object {
 .eletro_widgets_content img {
 	height: auto;
 	max-width: 100%;
+	width: 100%;
 }
 
 /* New sizes for widget titles */
