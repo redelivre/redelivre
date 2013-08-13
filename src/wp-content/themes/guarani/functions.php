@@ -181,10 +181,14 @@ function guarani_footer_scripts() {
 	<!-- Swiper -->
 	<script type="text/javascript">
 		jQuery(function($){
-			$('.flexslider').flexslider({
+			var slider = $('.flexslider').flexslider({
 				animation: "slide",
 				direction: "horizontal",
 				smoothHeight: true,
+				start: function(slider) {
+					$('.flex-direction-nav li:first a').addClass('flexslider-guarani-prev');
+					$('.flex-direction-nav li:last a').addClass('flexslider-guarani-next');
+				}
 			});
 		});
 	</script>

@@ -1,5 +1,4 @@
 jQuery(function($){
-
 	$(window).on('resize', function(){
 		if ($(this).width() > 600) {
 			$('.menu-tmp').remove();

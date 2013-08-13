@@ -2292,3 +2292,20 @@ object {
 #registerform .error { border-color: #e70606; }
 #registerform label.error { font-size: 12px; color: #e70606; clear:left; display:table; margin: 7px 0 0 0; }
 #registerform .info-campo { font-size: 12px; font-style: italic; clear: both; display: block; line-height: 18px; color: #4d4d4d; margin: 0 0 7px 0; }
+
+/*
+Flexslider guarani prev e next
+=======================================================
+ */
+
+.flexslider-guarani-prev {
+	width: 21px !important;
+	height: 21px !important;
+	background: url('images/seta-esquerda.png') !important;
+}
+
+.flexslider-guarani-next {
+	width: 21px !important;
+	height: 21px !important;
+	background: url('images/seta-direita.png') !important;
+}
