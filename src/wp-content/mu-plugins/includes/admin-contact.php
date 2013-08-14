@@ -130,7 +130,7 @@ function campanha_handle_form_contato() {
     
     }
 
-    $msg = '<br><br>Origem: <a href="'.home_url().'">'.bloginfo('name').'</a>';
+    $msg .= '<br><br>Origem: <a href="'.home_url().'">'.bloginfo('name').'</a>';
     
     $email = get_option('admin_email');
     
