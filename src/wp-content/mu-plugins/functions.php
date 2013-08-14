@@ -462,7 +462,7 @@ function custom_register_rule(){
 add_action('init', 'custom_register_rule');
 
 /**
-* 
+*
 *
 */
 function custom_register_query_var($query_vars){
@@ -583,3 +583,114 @@ function campanha_top_style()
 	wp_enqueue_style('twitter-track-fix', WPMU_PLUGIN_URL.'/css/twitter-tracker.css');
 }
 add_action('wp_enqueue_scripts', 'campanha_top_style', 1);
+
+/**
+* ****************************************************************************************************************
+*
+* Custom lost password
+*
+*/
+function shortcode_lost_password(){
+	include ABSPATH . '/wp-content/mu-plugins/includes/custom-lost-password.php';
+}
+
+/**
+*
+*
+*/
+function lost_password_reset(){
+	global $wpdb;
+	$email = $wpdb->escape(trim($_POST['user-email']));
+	$user_info = get_user_by('email', $email);
+	$user_login = $user_info->user_login;
+	$user_email = $user_info->user_email;
+	
+	//url para onde ele encaminha a validação do link por email, é preciso alterar.
+	$validate_url = "http://teste4.campanha.ethymos.com.br/recuperar-minha-senha";
+	
+	if($user_info){
+				
+		/*
+		* Daqui para a frente eu fiz com base na função original do wordpress.
+		*/
+		$key = $wpdb->get_var($wpdb->prepare("SELECT user_activation_key FROM $wpdb->users WHERE user_login = %s", $user_login));
+		if ( empty($key) ) {
+			// Generate something random for a key...
+			$key = wp_generate_password(20, false);
+			do_action('retrieve_password_key', $user_login, $key);
+			// Now insert the new md5 key into the db
+			$wpdb->update($wpdb->users, array('user_activation_key' => $key), array('user_login' => $user_login));
+		}
+		$message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
+		$message .= network_home_url( '/' ) . "\r\n\r\n";
+		$message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+		$message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
+		$message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
+		$message .= '<' . $validate_url . "?action=rp&key=$key&login=" . rawurlencode($user_login) . ">\r\n";
+	
+		if ( is_multisite() )
+			$blogname = $GLOBALS['current_site']->site_name;
+		else
+			// The blogname option is escaped with esc_html on the way into the database in sanitize_option
+			// we want to reverse this for the plain text arena of emails.
+			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+	
+		$title = sprintf( __('[%s] Password Reset'), $blogname );
+	
+		$title = apply_filters('retrieve_password_title', $title);
+		$message = apply_filters('retrieve_password_message', $message, $key);
+	
+		if ( $message && !wp_mail($user_email, $title, $message) )
+			wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );
+		/*
+		* Fim do ctrl+c do wordpress
+		*/
+		
+		echo _x('Foi enviada uma mensagem para seu email com uma chave de validação e os próximos passos para recuperar sua senha', 'custom-lost-password', 'campanhacompleta');
+		return true;
+		
+	} else {
+		echo _x('Nenhum usuário encontrado com este email', 'custom-lost-password', 'campanhacommpleta');
+		return false;
+	}
+}
+
+/**
+*
+*
+*/
+function lost_password_javascript(){
+	wp_register_script('custom_lost_password', network_site_url() . 'wp-content/mu-plugins/js/custom_lost_password.js', array('jquery'));
+	
+	wp_enqueue_script('custom_lost_password');
+	
+	//url para ajax
+	wp_localize_script('custom_lost_password', 'custom_lost_password_ajax', array('url' => home_url() . '/wp-admin/admin-ajax.php'));
+}
+
+add_action('wp_enqueue_scripts', 'lost_password_javascript');
+
+/**
+*
+*
+*/
+function lost_password_ajax_send(){
+	lost_password_reset();
+	exit();
+}
+
+add_action('wp_ajax_custom_lost_password_send', 'lost_password_ajax_send');
+add_action('wp_ajax_nopriv_custom_lost_password_send', 'lost_password_ajax_send');
+
+/**
+*
+*
+*/
+function lost_password_validate(){
+	
+}
+
+/***************************************************************************************************************/
+
+
+add_shortcode('lost-password-form', 'shortcode_lost_password');
