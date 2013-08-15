@@ -6,6 +6,7 @@
 <?php if(!isset($_GET['action'])) : ?>
 
 <form>
+bla bla
 	<p>
 		<?php _x('Digite seu nome de usuário ou endereço de email. Você receberá um link para criar uma nova senha via email.', 'custom-lost-password', 'campanhacompleta'); ?>
 	</p>
