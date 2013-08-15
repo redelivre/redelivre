@@ -3,7 +3,7 @@
 	<?php echo _x('Recuperar minha senha', 'custom-lost-password', 'campanhacompleta'); ?>
 </h1>
 
-<?php if(isset($_GET['action'])) : ?>
+<?php if(!isset($_GET['action'])) : ?>
 
 <form>
 	<p>
