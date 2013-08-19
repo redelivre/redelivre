@@ -590,6 +590,9 @@ add_action('wp_enqueue_scripts', 'campanha_top_style', 1);
 * Custom lost password
 *
 */
+
+define('lost_password_page', 'custom_lost_password');
+
 function shortcode_lost_password(){
 	include ABSPATH . '/wp-content/mu-plugins/includes/custom-lost-password.php';
 }
@@ -599,14 +602,31 @@ function shortcode_lost_password(){
 *
 */
 function lost_password_reset(){
-	global $wpdb;
-	$email = $wpdb->escape(trim($_POST['user-email']));
-	$user_info = get_user_by('email', $email);
+	global $wpdb, $current_site;
+
+	$errors = new WP_Error();
+
+	$user_data = get_user_by( 'email', trim( $_POST['user-email'] ) );
+	
+	if ( empty( $user_data ) )
+		$errors->add('invalid_email', __('<strong>ERROR</strong>: There is no user registered with that email address.'));
+
+	do_action('lostpassword_post');
+
+	if ( $errors->get_error_code() )
+		return $errors;
+
+	if ( !$user_data ) {
+		$errors->add('invalidcombo', __('<strong>ERROR</strong>: Invalid username or e-mail.'));
+		return $errors;
+	}
+	
+	$user_info = $user_data;
 	$user_login = $user_info->user_login;
 	$user_email = $user_info->user_email;
 	
 	//url para onde ele encaminha a validação do link por email, é preciso alterar.
-	$validate_url = "http://teste4.campanha.ethymos.com.br/recuperar-minha-senha";
+	$validate_url = get_bloginfo('url').'/'.lost_password_page;
 	
 	if($user_info){
 				
@@ -622,7 +642,7 @@ function lost_password_reset(){
 			$wpdb->update($wpdb->users, array('user_activation_key' => $key), array('user_login' => $user_login));
 		}
 		$message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
-		$message .= network_home_url( '/' ) . "\r\n\r\n";
+		$message .= get_bloginfo('url') . "\r\n\r\n";
 		$message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
 		$message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
 		$message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
@@ -686,7 +706,8 @@ add_action('wp_ajax_nopriv_custom_lost_password_send', 'lost_password_ajax_send'
 *
 *
 */
-function lost_password_validate(){
+function lost_password_validate()
+{
 	
 }
 
@@ -694,3 +715,56 @@ function lost_password_validate(){
 
 
 add_shortcode('lost-password-form', 'shortcode_lost_password');
+
+function custom_lostpassword_url($url)
+{
+	return bloginfo('url').'/'.lost_password_page;	
+}
+add_filter('lostpassword_url', 'custom_lostpassword_url');
+
+/**
+ *
+ *
+ */
+function custom_lost_password_query_var($query_vars){
+	$query_vars[] = lost_password_page;
+	return $query_vars;
+}
+
+add_filter('query_vars', 'custom_lost_password_query_var');
+
+/**
+ *
+ *
+ */
+function custom_lost_password_form()
+{
+	if(get_query_var(lost_password_page)){
+		get_header();
+		$file_path = get_stylesheet_directory() . '/template-custom-lost-password.php';
+		if(file_exists($file_path)){
+			include $file_path;
+		} else {
+			include ABSPATH . '/wp-content/mu-plugins/includes/custom-lost-password.php';
+		}
+		get_footer();
+		exit();
+	}
+}
+
+add_action('template_redirect', 'custom_lost_password_form');
+
+/**
+ *
+ *
+ */
+function custom_lost_password_rule(){
+
+	add_rewrite_rule(lost_password_page.'(.*)', 'index.php?'.lost_password_page.'=true$matches[1]', 'top');
+	//flush_rewrite_rules();
+}
+
+add_action('init', 'custom_lost_password_rule');
+
+
+

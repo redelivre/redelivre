@@ -15,7 +15,7 @@
 		<label for="user-email"><?php _e('Digite seu email utilizado no cadastro', 'custom-lost-password', 'campanhacompleta'); ?></label><br />
 		<input type="text" name="user-email" id="user-email">
 	</p>
-	
+	<?php do_action('lostpassword_form'); ?>
 	<p>
 		<input type="button" value="enviar" id="lost-password-send"/>
 	</p>
