@@ -686,6 +686,23 @@ function lost_password_javascript(){
 	
 	//url para ajax
 	wp_localize_script('custom_lost_password', 'custom_lost_password_ajax', array('url' => home_url() . '/wp-admin/admin-ajax.php'));
+	
+	if(file_exists(get_stylesheet_directory() . '/custom-lost-password.css') || file_exists(get_stylesheet_directory() . '/css/custom-lost-password.css'))
+	{
+		if(file_exists(get_stylesheet_directory() . '/custom-lost-password.css'))
+		{
+			wp_enqueue_style('custom-lost-password', get_stylesheet_directory_uri() . '/custom-lost-password.css');
+		}
+		else
+		{
+			wp_enqueue_style('custom-lost-password', get_stylesheet_directory_uri() . '/css/custom-lost-password.css');
+		}
+	}
+	else
+	{
+		wp_enqueue_style('custom-lost-password', site_url() . '/wp-content/mu-plugins/css/custom-lost-password.css');
+	}
+	
 }
 
 add_action('wp_enqueue_scripts', 'lost_password_javascript');
