@@ -689,7 +689,7 @@ class TT_OAuthServer {
 
 }
 
-class OAuthDataStore {
+class TT_OAuthDataStore {
   function lookup_consumer($consumer_key) {
     // implement me
   }

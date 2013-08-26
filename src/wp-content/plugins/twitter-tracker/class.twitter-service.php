@@ -158,10 +158,10 @@ class TT_Service {
 
 	public function search_response( $r ) {
 
-		if ( !isset( $r->statuses ) or empty( $r->statuses ) )
-			return false;
-
 		$response = new TT_Response;
+
+		if ( !isset( $r->statuses ) or empty( $r->statuses ) )
+			return $response;
 
 		$this->response_statuses( $response, $r->statuses );
 

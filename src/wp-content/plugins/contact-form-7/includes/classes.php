@@ -70,6 +70,7 @@ class WPCF7_ContactForm {
 			$this->initial = false;
 			$this->id = $post->ID;
 			$this->title = $post->post_title;
+			$this->locale = get_post_meta( $post->ID, '_locale', true );
 
 			$props = $this->get_properties();
 
@@ -180,6 +181,7 @@ class WPCF7_ContactForm {
 		$hidden_fields = array(
 			'_wpcf7' => $this->id,
 			'_wpcf7_version' => WPCF7_VERSION,
+			'_wpcf7_locale' => $this->locale,
 			'_wpcf7_unit_tag' => $this->unit_tag );
 
 		if ( WPCF7_VERIFY_NONCE )
@@ -531,14 +533,7 @@ class WPCF7_ContactForm {
 			$body = $this->replace_mail_tags( $mail_template['body'] );
 		}
 
-		$attachments = array();
-
-		foreach ( (array) $this->uploaded_files as $name => $path ) {
-			if ( false === strpos( $mail_template['attachments'], "[${name}]" ) || empty( $path ) )
-				continue;
-
-			$attachments[] = $path;
-		}
+		$attachments = $this->mail_attachments( $mail_template['attachments'] );
 
 		$components = compact(
 			'subject', 'sender', 'body', 'recipient', 'additional_headers', 'attachments' );
@@ -547,6 +542,10 @@ class WPCF7_ContactForm {
 			array( $components, &$this ) );
 
 		extract( $components );
+
+		$subject = wpcf7_strip_newline( $subject );
+		$sender = wpcf7_strip_newline( $sender );
+		$recipient = wpcf7_strip_newline( $recipient );
 
 		$headers = "From: $sender\n";
 
@@ -601,10 +600,7 @@ class WPCF7_ContactForm {
 			else
 				$submitted = $this->posted_data[$tagname];
 
-			if ( is_array( $submitted ) )
-				$replaced = join( ', ', $submitted );
-			else
-				$replaced = $submitted;
+			$replaced = wpcf7_flat_join( $submitted );
 
 			if ( $html ) {
 				$replaced = strip_tags( $replaced );
@@ -623,6 +619,29 @@ class WPCF7_ContactForm {
 			return $special;
 
 		return $tag;
+	}
+
+	function mail_attachments( $template ) {
+		$attachments = array();
+
+		foreach ( (array) $this->uploaded_files as $name => $path ) {
+			if ( false !== strpos( $template, "[${name}]" ) && ! empty( $path ) )
+				$attachments[] = $path;
+		}
+
+		foreach ( explode( "\n", $template ) as $line ) {
+			$line = trim( $line );
+
+			if ( '[' == substr( $line, 0, 1 ) )
+				continue;
+
+			$path = path_join( WP_CONTENT_DIR, $line );
+
+			if ( @is_readable( $path ) && @is_file( $path ) )
+				$attachments[] = $path;
+		}
+
+		return $attachments;
 	}
 
 	/* Message */
@@ -711,6 +730,9 @@ class WPCF7_ContactForm {
 			foreach ( $props as $prop => $value )
 				update_post_meta( $post_id, '_' . $prop, wpcf7_normalize_newline_deep( $value ) );
 
+			if ( ! empty( $this->locale ) )
+				update_post_meta( $post_id, '_locale', $this->locale );
+
 			if ( $this->initial ) {
 				$this->initial = false;
 				$this->id = $post_id;
@@ -729,6 +751,7 @@ class WPCF7_ContactForm {
 		$new = new WPCF7_ContactForm();
 		$new->initial = true;
 		$new->title = $this->title . '_copy';
+		$new->locale = $this->locale;
 
 		$props = $this->get_properties();
 
@@ -806,8 +829,8 @@ function wpcf7_get_contact_form_default_pack( $args = '' ) {
 
 	$contact_form = new WPCF7_ContactForm();
 	$contact_form->initial = true;
-
 	$contact_form->title = ( $title ? $title : __( 'Untitled', 'wpcf7' ) );
+	$contact_form->locale = ( $locale ? $locale : get_locale() );
 
 	$props = $contact_form->get_properties();
 

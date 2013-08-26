@@ -45,7 +45,7 @@ class TwitterTracker_Widget extends TwitterTracker_SW_Widget {
 		
 		echo $before_widget;
 
-		if ( isset($title) ) echo $before_title . $title . $after_title;
+		if ( $title ) echo $before_title . $title . $after_title;
 
 		twitter_tracker( $instance );
 

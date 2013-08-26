@@ -94,6 +94,14 @@
 					<td><input id="introtext_in_excerpt" name="introtext_in_excerpt" type="checkbox" value="1" <?php checked($data['introtext_in_excerpt'], 1); ?> /> <label for="introtext_in_excerpt" title="<?php _e("Checked: the Joomla introtext is imported into the excerpt. Unchecked: it is imported into the post content with a «read more» link.", 'fgj2wp'); ?>"><?php _e('Import the text above the "read more" to the excerpt', 'fgj2wp'); ?></label></td>
 				</tr>
 				<tr>
+					<th scope="row"><?php _e('Archived posts', 'fgj2wp'); ?></th>
+					<td>
+						<input id="archived_posts_not_imported" name="archived_posts" type="radio" value="not_imported" <?php checked($data['archived_posts'], 'not_imported'); ?> /> <label for="archived_posts_not_imported" title="<?php _e("Do not import archived posts", 'fgj2wp'); ?>"><?php _e('Not imported', 'fgj2wp'); ?></label>&nbsp;&nbsp;
+						<input id="archived_posts_drafts" name="archived_posts" type="radio" value="drafts" <?php checked($data['archived_posts'], 'drafts'); ?> /> <label for="archived_posts_drafts" title="<?php _e("Import archived posts as drafts", 'fgj2wp'); ?>"><?php _e('Import as drafts', 'fgj2wp'); ?></label>&nbsp;&nbsp;
+						<input id="archived_posts_published" name="archived_posts" type="radio" value="published" <?php checked($data['archived_posts'], 'published'); ?> /> <label for="archived_posts_published" title="<?php _e("Import archived posts as published posts", 'fgj2wp'); ?>"><?php _e('Import as published posts', 'fgj2wp'); ?></label>
+					</td>
+				</tr>
+				<tr>
 					<th scope="row"><?php _e('Medias:', 'fgj2wp'); ?></th>
 					<td><input id="skip_media" name="skip_media" type="checkbox" value="1" <?php checked($data['skip_media'], 1); ?> /> <label for="skip_media" ><?php _e('Skip media', 'fgj2wp'); ?></label>
 					<br />
@@ -154,13 +162,18 @@
 			<li><?php _e('menus migration', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla views counts migration', 'fgj2wp'); ?></li>
 			<li><?php _e('SEO: keeps Joomla IDs or redirects standard Joomla URLs', 'fgj2wp'); ?></li>
+			<li><?php _e('SEO: Keeps sh404sef URLs', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla 1.0 compatible', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla 2.5+ featured images', 'fgj2wp'); ?></li>
 			<li><?php _e('Mambo 4.5 and 4.6 compatible', 'fgj2wp'); ?></li>
 			<li><?php _e('K2 content', 'fgj2wp'); ?></li>
+			<li><?php _e('Kunena forum to bbPress', 'fgj2wp'); ?></li>
 			<li><?php _e('Flexicontent content', 'fgj2wp'); ?></li>
 			<li><?php _e('Jcomments comments', 'fgj2wp'); ?></li>
 			<li><?php _e('Jomcomment comments', 'fgj2wp'); ?></li>
+			<li><?php _e('Joomlatags tags', 'fgj2wp'); ?></li>
+			<li><?php _e('Attachments', 'fgj2wp'); ?></li>
+			<li><?php _e('Rokbox images', 'fgj2wp'); ?></li>
 		</ul>
 		<div style="text-align: center;">
 			<a href="http://www.fredericgilles.net/fg-joomla-to-wordpress/" target="_blank"><img src="http://www.fredericgilles.net/wp-content/uploads/premium-version.png" alt="Buy Premium Version" /></a>

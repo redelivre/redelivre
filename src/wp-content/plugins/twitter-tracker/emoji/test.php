@@ -25,22 +25,22 @@
 
 	$test_html	= "Hello <span class=\"emoji emoji2649\"></span>";
 
-	is(emoji_docomo_to_unified($test_docomo),	$test_unified, "DoCoMo -> Unified");
-	is(emoji_kddi_to_unified($test_kddi),		$test_unified, "KDDI -> Unified");
-	is(emoji_softbank_to_unified($test_iphone),	$test_unified, "Softbank -> Unified");
-	is(emoji_google_to_unified($test_google),	$test_unified, "Google -> Unified");
+	is(tt_emoji_docomo_to_unified($test_docomo),	$test_unified, "DoCoMo -> Unified");
+	is(tt_emoji_kddi_to_unified($test_kddi),		$test_unified, "KDDI -> Unified");
+	is(tt_emoji_softbank_to_unified($test_iphone),	$test_unified, "Softbank -> Unified");
+	is(tt_emoji_google_to_unified($test_google),	$test_unified, "Google -> Unified");
 
 	echo "#------------------\n";
 
-	is(emoji_unified_to_docomo($test_unified),	$test_docomo,	"Unified -> DoCoMo");
-	is(emoji_unified_to_kddi($test_unified),	$test_kddi,	"Unified -> KDDI");
-	is(emoji_unified_to_softbank($test_unified),	$test_iphone,	"Unified -> Softbank");
-	is(emoji_unified_to_google($test_unified),	$test_google,	"Unified -> Google");
+	is(tt_emoji_unified_to_docomo($test_unified),	$test_docomo,	"Unified -> DoCoMo");
+	is(tt_emoji_unified_to_kddi($test_unified),	$test_kddi,	"Unified -> KDDI");
+	is(tt_emoji_unified_to_softbank($test_unified),	$test_iphone,	"Unified -> Softbank");
+	is(tt_emoji_unified_to_google($test_unified),	$test_google,	"Unified -> Google");
 
 	echo "#------------------\n";
 
-	is(emoji_unified_to_html($test_unified),	$test_html,	"Unified -> HTML");
-	is(emoji_html_to_unified($test_html),		$test_unified,	"HTML -> Unified");
+	is(tt_emoji_unified_to_html($test_unified),	$test_html,	"Unified -> HTML");
+	is(tt_emoji_html_to_unified($test_html),		$test_unified,	"HTML -> Unified");
 
 	echo "#------------------\n";
 
@@ -60,22 +60,22 @@
 	$test_html	= "Hello <span class=\"emoji emoji3620e3\"></span>";
 
 
-	is(emoji_docomo_to_unified($test_docomo),	$test_unified, "DoCoMo -> Unified");
-	is(emoji_kddi_to_unified($test_kddi),		$test_unified, "KDDI -> Unified");
-	is(emoji_softbank_to_unified($test_iphone),	$test_unified, "Softbank -> Unified");
-	is(emoji_google_to_unified($test_google),	$test_unified, "Google -> Unified");
+	is(tt_emoji_docomo_to_unified($test_docomo),	$test_unified, "DoCoMo -> Unified");
+	is(tt_emoji_kddi_to_unified($test_kddi),		$test_unified, "KDDI -> Unified");
+	is(tt_emoji_softbank_to_unified($test_iphone),	$test_unified, "Softbank -> Unified");
+	is(tt_emoji_google_to_unified($test_google),	$test_unified, "Google -> Unified");
 
 	echo "#------------------\n";
 
-	is(emoji_unified_to_docomo($test_unified),	$test_docomo,	"Unified -> DoCoMo");
-	is(emoji_unified_to_kddi($test_unified),	$test_kddi,	"Unified -> KDDI");
-	is(emoji_unified_to_softbank($test_unified),	$test_iphone,	"Unified -> Softbank");
-	is(emoji_unified_to_google($test_unified),	$test_google,	"Unified -> Google");
+	is(tt_emoji_unified_to_docomo($test_unified),	$test_docomo,	"Unified -> DoCoMo");
+	is(tt_emoji_unified_to_kddi($test_unified),	$test_kddi,	"Unified -> KDDI");
+	is(tt_emoji_unified_to_softbank($test_unified),	$test_iphone,	"Unified -> Softbank");
+	is(tt_emoji_unified_to_google($test_unified),	$test_google,	"Unified -> Google");
 
 	echo "#------------------\n";
 
-	is(emoji_unified_to_html($test_unified),	$test_html,	"Unified -> HTML");
-	is(emoji_html_to_unified($test_html),		$test_unified,	"HTML -> Unified");
+	is(tt_emoji_unified_to_html($test_unified),	$test_html,	"Unified -> HTML");
+	is(tt_emoji_html_to_unified($test_html),		$test_unified,	"HTML -> Unified");
 
 	echo "#------------------\n";
 	
@@ -84,12 +84,12 @@
 	# names are accessed by the unified codepoint (which makes it tricky for 2-codepoint unicode symbols)
 	#
 
-	is(emoji_get_name(utf8_bytes(0x2600)),	'BLACK SUN WITH RAYS',		"name U+2600");
-	is(emoji_get_name(utf8_bytes(0x26EA)),	'CHURCH',			"name U+26EA");
-	is(emoji_get_name(utf8_bytes(0x1F480)),	'SKULL',			"name U+1F480");
-	is(emoji_get_name(utf8_bytes(0x1F450)),	'OPEN HANDS SIGN',		"name U+1F450");
-	is(emoji_get_name(utf8_bytes(0x1F52B)),	'PISTOL',			"name U+1F52B");
-	is(emoji_get_name(utf8_bytes(0x36).utf8_bytes(0x20E3)),	'KEYCAP 6',	"name U+36 U+20E3");
+	is(tt_emoji_get_name(utf8_bytes(0x2600)),	'BLACK SUN WITH RAYS',		"name U+2600");
+	is(tt_emoji_get_name(utf8_bytes(0x26EA)),	'CHURCH',			"name U+26EA");
+	is(tt_emoji_get_name(utf8_bytes(0x1F480)),	'SKULL',			"name U+1F480");
+	is(tt_emoji_get_name(utf8_bytes(0x1F450)),	'OPEN HANDS SIGN',		"name U+1F450");
+	is(tt_emoji_get_name(utf8_bytes(0x1F52B)),	'PISTOL',			"name U+1F52B");
+	is(tt_emoji_get_name(utf8_bytes(0x36).utf8_bytes(0x20E3)),	'KEYCAP 6',	"name U+36 U+20E3");
 
 
 	#

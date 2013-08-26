@@ -24,10 +24,10 @@ you want to convert it to HTML for viewing on PCs, Android phones, older Macs, e
         # when you recieve text from a mobile device, convert it
         # to the unified format.
 
-        $data = emoji_docomo_to_unified($data);   # DoCoMo devices
-        $data = emoji_kddi_to_unified($data);     # KDDI & Au devices
-        $data = emoji_softbank_to_unified($data); # Softbank & pre-iOS6 Apple devices
-        $data = emoji_google_to_unified($data);   # Google Android devices
+        $data = tt_emoji_docomo_to_unified($data);   # DoCoMo devices
+        $data = tt_emoji_kddi_to_unified($data);     # KDDI & Au devices
+        $data = tt_emoji_softbank_to_unified($data); # Softbank & pre-iOS6 Apple devices
+        $data = tt_emoji_google_to_unified($data);   # Google Android devices
 
 
         # when sending data back to mobile devices, you can
@@ -42,12 +42,12 @@ you want to convert it to HTML for viewing on PCs, Android phones, older Macs, e
         # when displaying data to anyone else, you can use HTML
         # to format the emoji.
 
-        $data = emoji_unified_to_html($data);
+        $data = tt_emoji_unified_to_html($data);
 
         # if you want to use an editor(i.e:wysiwyg) to create the content, 
         # you can use html_to_unified to store the unified value.
 
-        $data = emoji_html_to_unified(emoji_unified_to_html($data));
+        $data = tt_emoji_html_to_unified(tt_emoji_unified_to_html($data));
     ?>
 
 When using the HTML format, you'll also need to include the <code>emoji.css</code> file, which points 

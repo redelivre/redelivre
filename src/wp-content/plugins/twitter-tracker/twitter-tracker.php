@@ -4,13 +4,30 @@ Plugin Name: Twitter Tracker
 Plugin URI: http://wordpress.org/extend/plugins/twitter-tracker/
 Description: Tracks the search results on Twitter search or Twitter profile in a sidebar widget.
 Author: Simon Wheatley (Code for the People)
-Version: 3.3.3
+Version: 3.3.6
 Author URI: http://codeforthepeople.com/
 */
 
 // http://twitter.com/search.atom?q=wordcampuk
 
-/*  Copyright 2008 Simon Wheatley
+/*  Copyright 2013 Code For The People
+
+				_____________
+			   /      ____   \
+		 _____/       \   \   \
+		/\    \        \___\   \
+	   /  \    \                \
+	  /   /    /          _______\
+	 /   /    /          \       /
+	/   /    /            \     /
+	\   \    \ _____    ___\   /
+	 \   \    /\    \  /       \
+	  \   \  /  \____\/    _____\
+	   \   \/        /    /    / \
+		\           /____/    /___\
+		 \                        /
+		  \______________________/
+
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -202,10 +219,12 @@ class TwitterTracker extends TwitterTracker_Plugin
 				$twitter_search = $local_query;
 
 		// Let the user know if there's no search query
-		$twitter_search = isset($twitter_search) ? trim( $twitter_search ) : '';
+		$twitter_search = trim( $twitter_search );
 		if ( empty( $twitter_search ) ) {
 			$vars = array( 
 				'msg' => __( 'For this Twitter Tracker search widget to work you need to set at least a Twitter Search in the widget settings.', 'twitter-tracker' ),
+				'additional_error_class' => '',
+				'strong' => true,
 			);
 			$this->render( 'widget-error', $vars );
 			return;
@@ -215,6 +234,8 @@ class TwitterTracker extends TwitterTracker_Plugin
 		if ( ! TT_Twitter_Authentication::init()->is_authenticated() ) {
 			$vars = array( 
 				'msg' => __( 'For this Twitter Tracker search widget to work you need to authorise with Twitter in "Dashboard" -> "Settings" -> "Twitter Tracker Auth".', 'twitter-tracker' ),
+				'additional_error_class' => '',
+				'strong' => true,
 			);
 			$this->render( 'widget-error', $vars );
 			return;
@@ -235,8 +256,8 @@ class TwitterTracker extends TwitterTracker_Plugin
 		$transient_key = 'tt_profile-' . md5( serialize( $instance ) . serialize( $args ) );
 
 		if ( $output = get_transient( $transient_key ) ) {
-			// echo $output;
-			// return;
+			echo $output;
+			return;
 		}
 
 		$service = new TT_Service;
@@ -244,12 +265,12 @@ class TwitterTracker extends TwitterTracker_Plugin
 
 		if ( is_wp_error( $response ) ) {
 			error_log( "Twitter Tracker response error: " . print_r( $response, true ) );
-			return;			
+			return;
 		}
 
 		if ( $hide_replies )
 			$response->remove_replies();
-
+		
 		if ( ! $include_retweets )
 			$response->remove_retweets();
 
@@ -266,7 +287,15 @@ class TwitterTracker extends TwitterTracker_Plugin
 		);
 		
 		$vars[ 'datef' ] = _x( 'M j, Y @ G:i', 'Publish box date format', 'twitter-tracker' );
-		$output = $this->capture( 'widget-contents', $vars );
+
+		if ( ! $response->have_tweets() ) {
+			$vars[ 'msg' ] = apply_filters( 'tt_no_tweets', __( 'No tweets found.', 'twitter-tracker' ), $twitter_search, $instance );
+			$vars[ 'additional_error_class' ] = 'no-tweets';
+			$vars[ 'strong' ] = false;
+			$output = $this->capture( 'widget-error', $vars );
+		} else {
+			$output = $this->capture( 'widget-contents', $vars );
+		}
 		echo PHP_EOL . "<!-- Regenerating cache $transient_key at " . current_time( 'mysql' ) . " -->" . PHP_EOL;
 		echo $output;
 		$output = PHP_EOL . "<!-- Retrieved from $transient_key, cached at " . current_time( 'mysql' ) . " -->" . PHP_EOL . $output;
@@ -299,6 +328,8 @@ class TwitterTracker extends TwitterTracker_Plugin
 		if ( empty( $username ) ) {
 			$vars = array( 
 				'msg' => __( 'For this Twitter Tracker profile widget to work you need to set at least a Twitter screenname (username) in the widget settings.', 'twitter-tracker' ),
+				'additional_error_class' => '',
+				'strong' => true,
 			);
 			$this->render( 'widget-error', $vars );
 			return;
@@ -308,6 +339,8 @@ class TwitterTracker extends TwitterTracker_Plugin
 		if ( ! TT_Twitter_Authentication::init()->is_authenticated() ) {
 			$vars = array( 
 				'msg' => __( 'For this Twitter Tracker profile widget to work you need to authorise with Twitter in "Dashboard" -> "Settings" -> "Twitter Tracker Auth".', 'twitter-tracker' ),
+				'additional_error_class' => '',
+				'strong' => true,
 			);
 			$this->render( 'widget-error', $vars );
 			return;
@@ -325,8 +358,8 @@ class TwitterTracker extends TwitterTracker_Plugin
 		$transient_key = 'tt_search-' . md5( serialize( $instance ) . $username . serialize( $args ) );
 
 		if ( $output = get_transient( $transient_key ) ) {
-			// echo $output;
-			// return;
+			echo $output;
+			return;
 		}
 
 		$service = new TT_Service;
@@ -349,6 +382,7 @@ class TwitterTracker extends TwitterTracker_Plugin
 		if ( $mandatory_hash )
 			$response->remove_without_hash( $mandatory_hash );
 
+		// @TODO Setup a method for the default vars needed
 		$vars = array( 
 			'tweets' => array_slice( $response->items, 0, $max_tweets ),
 			'preamble' => $preamble,

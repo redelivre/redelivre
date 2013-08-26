@@ -224,6 +224,10 @@ Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](
 
 == Changelog ==
 
+= 2.7.7.1 =
+- (18 Jul 2013) - added captcha font randomization.
+- fix captcha gd font fallback.
+
 = 2.7.7 =
 - (13 Jul 2013) - Bug fixes and code cleanup.
 - Update Turkish language (tr_TR) - Translated by [Burak Yavuz] 
