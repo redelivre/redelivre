@@ -129,11 +129,13 @@ function campanha_handle_form_contato() {
         $msg .= "$campo: $valor \n";
     
     }
+
+    $msg .= '<br><br>Origem: <a href="'.home_url().'">'.bloginfo('name').'</a>';
     
     $email = get_option('admin_email');
     
     // generate the response
-    $response = json_encode(array('success' => wp_mail( $email, 'Novo contato no site', $msg, "From: 'Carteiro Campanha Completa' <noreply@campanhacompleta.com.br>" ) ));
+    $response = json_encode(array('success' => wp_mail( $email, 'Novo contato no site '.bloginfo('name'), $msg, "From: 'Carteiro Campanha Completa' <noreply@campanhacompleta.com.br>\r\nContent-type: text/html" ) ));
  
     // response output
     header( "Content-Type: application/json" );
