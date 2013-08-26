@@ -1,7 +1,5 @@
 <?php
 
-define('MUCAMPANHAPATH', dirname(__FILE__).'/campanha');
-
 // load campaign base files
 foreach (glob(WPMU_PLUGIN_DIR . '/campaign_base/*.php') as $file) {
     require_once($file);
@@ -588,13 +586,6 @@ function campanha_top_style()
 }
 add_action('wp_enqueue_scripts', 'campanha_top_style', 1);
 
-
-/////////////////////////////////////////////////////////
-// Backup das funcionalidades do antigo theme campanha //
-/////////////////////////////////////////////////////////
-
-require MUCAMPANHAPATH.'/functions.php';
-
 /**
 * ****************************************************************************************************************
 *
@@ -793,5 +784,3 @@ function custom_lost_password_rule(){
 }
 
 add_action('init', 'custom_lost_password_rule');
-
-

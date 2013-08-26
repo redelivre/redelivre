@@ -4,9 +4,11 @@
  * substituir todos os campanha pelo campanha do projeto
  */
 
-include dirname(__FILE__).'/includes/congelado-functions.php';
-include dirname(__FILE__).'/includes/html.class.php';
-include dirname(__FILE__).'/includes/utils.class.php'; 
+define('MUCAMPANHAPATH', dirname(__FILE__).'/campanha');
+
+include dirname(__FILE__).'/campanha/includes/congelado-functions.php';
+include dirname(__FILE__).'/campanha/includes/html.class.php';
+include dirname(__FILE__).'/campanha/includes/utils.class.php'; 
 
 define('CAMPAIGN_LIST_URL',   'admin.php?page=campaigns&action=list');
 define('CAMPAIGN_DELETE_URL', 'admin.php?page=campaigns&action=delete');
@@ -14,13 +16,10 @@ define('CAMPAIGN_EDIT_URL',   'admin.php?page=campaigns&action=edit');
 define('CAMPAIGN_NEW_URL',    'admin.php?page=campaigns_new');
 
 if (is_admin()) {
-    require(MUCAMPANHAPATH . '/custom_admin.php');
+    require MUCAMPANHAPATH . '/custom_admin.php';
 }
 
-add_action('after_setup_theme', 'campanha_setup');
-
 function campanha_setup() {
-
     load_theme_textdomain('campanha', MUCAMPANHAPATH . '/languages' );
 
     // POST THUMBNAILS
@@ -36,9 +35,10 @@ function campanha_setup() {
 
 }
 
+add_action('after_setup_theme', 'campanha_setup');
+
 
 // REDIRECIONAMENTOS
-add_filter('rewrite_rules_array', 'custom_url_rewrites', 10, 1);
 function custom_url_rewrites($rules) {
     $new_rules = array(
         "cadastro/?$" => "index.php?tpl=cadastro",
@@ -47,7 +47,8 @@ function custom_url_rewrites($rules) {
     return $new_rules + $rules;
 }
 
-add_action('template_redirect', 'template_redirect_intercept');
+add_filter('rewrite_rules_array', 'custom_url_rewrites', 10, 1);
+
 function template_redirect_intercept() {
     global $wp_query;
 
@@ -60,6 +61,8 @@ function template_redirect_intercept() {
     }
 }
 
+add_action('template_redirect', 'template_redirect_intercept');
+
 function cadastro_url() {
     return home_url() . '/cadastro';
 }
@@ -69,22 +72,22 @@ add_action('wp_ajax_campanha_get_cities_options', function() {
     City::printCitiesSelectBox($state_id);
 });
 
-add_filter('query_vars', 'custom_query_vars');
 function custom_query_vars($public_query_vars) {
     $public_query_vars[] = "tpl";
 
     return $public_query_vars;
 }
 
-add_action('admin_print_styles', 'campanha_addAdminCSS');
+add_filter('query_vars', 'custom_query_vars');
+
 function campanha_addAdminCSS() {
-    
     wp_enqueue_style('campanhaAdmin', WPMU_PLUGIN_URL.'/campanha/css/admin.css');
 }
 
+add_action('admin_print_styles', 'campanha_addAdminCSS');
+
 
 // JS
-add_action('wp_print_scripts', 'campanha_addJS');
 function campanha_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); 
     wp_enqueue_script('jquery');
@@ -92,33 +95,35 @@ function campanha_addJS() {
     wp_enqueue_script('campanha', WPMU_PLUGIN_URL.'/campanha/js/campanha.js', 'jquery');
 }
 
+add_action('wp_print_scripts', 'campanha_addJS');
+
 // CUSTOM MENU
-add_action( 'init', 'campanha_custom_menus' );
 function campanha_custom_menus() {
     register_nav_menus( array(
-        'main' => __('Principal', 'campanha'),
+        'main'  => __('Principal', 'campanha'),
         'sobre' => __('Sobre o Projetos', 'campanha'),
-        'info' => __('Informações Legais', 'campanha'),
+        'info'  => __('Informações Legais', 'campanha'),
         
-    ) );
+    ));
 }
+
+add_action( 'init', 'campanha_custom_menus');
 
 // SIDEBARS
 if(function_exists('register_sidebar')) {
     // sidebar 
-    register_sidebar( array(
-        'name' =>  'Sidebar',
-        'description' => __('Sidebar', 'campanha'),
+    register_sidebar(array(
+        'name'          =>  'Sidebar',
+        'description'   => __('Sidebar', 'campanha'),
         'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
-        'after_widget' => '</div></div>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>',
-    ) );
+        'after_widget'  => '</div></div>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>',
+    ));
 }
 
 // COMMENTS
 if (!function_exists('campanha_comment')):
-
     function campanha_comment($comment, $args, $depth) {
         $GLOBALS['comment'] = $comment;
         ?>
@@ -137,7 +142,6 @@ if (!function_exists('campanha_comment')):
         </li>
         <?php
     }
-
 endif; 
 
 
@@ -158,12 +162,14 @@ function campanha_login_redirect($redirect_to, $request, $user) {
 
     return $redirect_to;
 }
+
 add_filter('login_redirect', 'campanha_login_redirect', 10, 3);
 
 /**
  * Subscribers never see the admin home page. Instead they
  * are redirected to the campaigns admin page.
  */
+
 function campanha_change_admin_home() {
     $user = wp_get_current_user();
     
@@ -173,6 +179,7 @@ function campanha_change_admin_home() {
         wp_redirect(campanha_redirect_to_campaign_home());
     }
 }
+
 add_action('admin_init', 'campanha_change_admin_home');
 
 /**
@@ -182,6 +189,7 @@ add_action('admin_init', 'campanha_change_admin_home');
  * @param WP_User $user
  * @return string url to list campaigns page or create new campaign page
  */
+
 function campanha_redirect_to_campaign_home($user = null) {
     if (!$user) {
         $user = wp_get_current_user();
