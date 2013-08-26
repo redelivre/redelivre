@@ -42,6 +42,10 @@ final class TT_Response {
 		$this->items[] = $item;
 	}
 
+	public function have_tweets() {
+		return ! empty( $this->items );
+	}
+
 	public function remove_retweets() {
 		foreach ( $this->items as $i => & $item )
 			if ( $item->retweeted )
@@ -70,7 +74,7 @@ final class TT_Response {
 	public function convert_emoji() {
 		require_once( dirname( __FILE__ ) . '/emoji/emoji.php' );
 		foreach ( $this->items as $i => & $item )
-			$item->content = emoji_unified_to_html( $item->content );
+			$item->content = tt_emoji_unified_to_html( $item->content );
 	}
 
 }

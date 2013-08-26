@@ -3,12 +3,12 @@
 Plugin Name: SI CAPTCHA Anti-Spam
 Plugin URI: http://www.642weather.com/weather/scripts-wordpress-captcha.php
 Description: Adds CAPTCHA anti-spam methods to WordPress forms for comments, registration, lost password, login, or all. This prevents spam from automated bots. WP, WPMU, and BuddyPress compatible. <a href="plugins.php?page=si-captcha-for-wordpress/si-captcha.php">Settings</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S">Donate</a>
-Version: 2.7.7
+Version: 2.7.7.1
 Author: Mike Challis
 Author URI: http://www.642weather.com/weather/scripts.php
 */
 
-$si_captcha_version = '2.7.7';
+$si_captcha_version = '2.7.7.1';
 
 /*  Copyright (C) 2008-2013 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 

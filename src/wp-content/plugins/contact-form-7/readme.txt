@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: http://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 3.5
-Tested up to: 3.5.2
-Stable tag: 3.4.2
+Tested up to: 3.6
+Stable tag: 3.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,7 +49,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Croatian (hr) - [tolingo Translation Services](http://www.tolingo.com)
 * Czech (cs_CZ) - Korry, [Radovan Fiser](http://algymsa.cz/), [Tomas Vesely](http://www.mcmotylek.cz/), [Pavel Bilek](http://chcistranky.eu/zdarma/)
 * Danish (da_DK) - [Jens Griebel](http://www.kompas-it.dk/), [Georg S. Adamsen](http://wordpress.blogos.dk/)
-* Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/), [Rene](http://wpwebshop.com/)
+* Dutch (nl_NL) - [Chris Devriese](http://www.100it.be/), [Martin Hein](http://www.split-a-pixel.nl/), [Rene](http://wpwebshop.com/), [TenSheep](http://tensheep.nl/)
 * Esperanto (eo_EO) - Arkadiusz Zychewicz
 * Estonian (et) - [Peeter Rahuvarm](http://www.kraabus.ee), Egon Elbre
 * Finnish (fi) - [Miika Turunen](http://www.webwork.fi/), [Mediajalostamo](http://www.mediajalostamo.fi/), [Jani Alha](http://www.wysiwyg.fi/)
@@ -62,6 +62,7 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Hebrew (he_IL) - [Yaron Ofer](http://www.gadgetguru.co.il/), [Arik Galansky](http://www.arikg.co.il/)
 * Hindi (hi_IN) - [Tarun Joshi](http://www.readers-cafe.net/), [Ashish](http://outshinesolutions.com/)
 * Hungarian (hu_HU) - [Andras Hirschler](http://hia.itblog.hu/), [János Csárdi-Braunstein](http://blogocska.org/), [Farkas Győző](http://www.sakraft.hu/)
+* Indian Bengali (bn_IN) - [Suman Manna](http://www.gwebpro.com/)
 * Indonesian (Bahasa Indonesia; id_ID) - [Hendry Lee](http://blogbuildingu.com/), [Belajar Seo Indonesia](http://dhany.web.id/panduan-seo)
 * Irish (ga_IE) - [Vikas Arora](http://www.wiznicworld.com/)
 * Italian (it_IT) - [Bruno](http://www.brunosalzano.com), [Gianni Diurno](http://gidibao.net/)
@@ -83,9 +84,9 @@ The following are other recommended plugins by the author of Contact Form 7.
 * Sinhala (si_LK) - [Nitin Aggarwal](http://offshoreally.com/)
 * Slovak (sk_SK) - [Patrik Bóna](http://www.mrhead.sk/), [WordPress Slovakia](http://wp.sk/)
 * Slovene (sl_SI) - [Mihael Simonič](http://smihael.bplaced.net), Jani Roskar
-* Spanish (es_ES) - [Jordi Sancho](http://www.qasolutions.net/blog), [Vladimir Prieto](http://vladimir.prie.to/), [Federico Mikaelian](http://www.fedemika.com.ar/), [Matias Baldanza](http://matiasbaldanza.com/), [Carlos Agnese](http://albumdecarlitos.com.ar/)
+* Spanish (es_ES) - [Jordi Sancho](http://www.qasolutions.net/blog), [Vladimir Prieto](http://vladimir.prie.to/), [Federico Mikaelian](http://www.fedemika.com.ar/), [Matias Baldanza](http://matiasbaldanza.com/), [Carlos Agnese](http://albumdecarlitos.com.ar/), [Lourdes Cuesta](http://www.morote.net)
 * Swedish (sv_SE) - [Fredrik Jonsson](http://www.fredda-o-ac.se/), [the Swedish community](http://wp-support.se/)
-* Tagalog (tl) - [Rupert Agnew Lanuza](http://www.rupertlanuza.com/), [Hanne](http://pointen.dk/)
+* Tagalog (tl) - [Rupert Agnew Lanuza](http://www.rupertlanuza.com/), [Hanne](http://pointen.dk/), [Language Connect](http://www.languageconnect.net/)
 * Tamil (ta) - [Nitin Aggarwal](http://offshoreally.com/)
 * Thai (th) - [ToshiK](http://www.tuntikorn.com/), [kazama](http://blog.wordthai.com/)
 * Turkish (tr_TR) - [Roman Neumuller](http://katpatuka.wordpress.com), [Hasan Yılmaz](http://hedefturkce.com/), [Emin Buğra Saral](http://www.rahmetli.info/), Burak Yavuz
@@ -119,29 +120,32 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 == Changelog ==
 
-= 3.4.2 =
+= 3.5.2 =
 
-* Fixed: Unintended tabindex attributes are added to checkbox items.
-* Fixed: Added an unique number to each getJSON request for avoiding cache-related issues.
-* The jQuery Form Plugin (jquery.form.js) has been updated to 3.36.0.
-* Translation for Gujarati language has been created by Apoto.
-* Translations for French, Polish, Simplified Chinese, Arabic, Catalan and Japanese have been updated.
+* Fixed: Strip newlines to prevent mail header injection.
+* The jQuery Form Plugin (jquery.form.js) has been updated to 3.40.0.
+* Translations for Spanish and Dutch have been updated.
 
-= 3.4.1 =
+= 3.5.1 =
 
-* Fixed: Watermark option doesn't work on old browsers.
-* Fixed: Telephone number validation doesn't accept space and parentheses.
-* Translations for Russian, Slovak, Hungarian, German and Turkish have been updated.
+* Fixed: Submissions with array value cause PHP error.
+* Translation for Indian Bengali (bn_IN) has been created.
+* Translations for Spanish, Tagalog and Japanese have been updated.
 
-= 3.4 =
+= 3.5 =
 
-* Introduced the following form-tags: [url] and [url\*] for URL field, [tel] and [tel\*] for telephone number field, [number], [number\*], [range] and [range\*] for number input field, and [date] and [date\*] for date input field.
-* Changed the type attribute of email field ([email] and [email\*]) from text to email.
-* Support the use of the maxlength attribute for textarea ([textarea] and [textarea\*]).
-* Support the use of HTML5 placeholder attribute (watermark is still supported and works as an alias of placeholder).
-* Support the use of readonly attribute.
-* Add the attribute aria-required="true" to each required field.
-* Introduced WPCF7_Shortcode class and rewrote all shortcode handler functions using it.
-* The following action and filter hooks have been introduced: wpcf7_mail_failed, wpcf7_support_html5, wpcf7_form_novalidate, wpcf7_is_email, wpcf7_is_url, wpcf7_is_tel, wpcf7_is_number, wpcf7_is_date and wpcf7_map_meta_cap.
-* The jQuery Form Plugin (jquery.form.js) has been updated to 3.32.0.
-* The required WordPress version has been changed and now requires WordPress 3.5 or higher.
+* Added: Support of local file attachment.
+* Added: first_as_label option to drop-down menu (select) tag.
+* Added: Support of jQuery UI fallback for non-HTML5 browsers.
+* Show error message from jquery.form.js in a hidden element.
+* Make ajax-loader image have https URL when the page is https.
+* Use win_is_writable() to avoid file system issues on Windows server.
+* Save locale information when generating a contact form.
+* The jQuery Form Plugin (jquery.form.js) has been updated to 3.39.0.
+* Translations for Finnish, German and Turkish have been updated.
+
+== Upgrade Notice ==
+
+= 3.5.2 =
+
+This version fixes a security related bug. Upgrade immediately.

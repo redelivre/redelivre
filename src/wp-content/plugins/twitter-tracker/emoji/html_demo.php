@@ -66,10 +66,10 @@
 
 		echo "<tr>\n";
 		echo "<td>".implode(' ', $hex)."</td>\n";
-		echo "<td>".HtmlSpecialChars(emoji_get_name($bytes))."</td>\n";
+		echo "<td>".HtmlSpecialChars(tt_emoji_get_name($bytes))."</td>\n";
 		echo "<td>$str</td>\n";
-		echo "<td>".emoji_unified_to_html($str)."</td>\n";
-		echo "<td>".emoji_html_to_unified(emoji_unified_to_html($str))."</td>\n";
+		echo "<td>".tt_emoji_unified_to_html($str)."</td>\n";
+		echo "<td>".tt_emoji_html_to_unified(tt_emoji_unified_to_html($str))."</td>\n";
 		echo "</tr>\n";
 	}
 ?>

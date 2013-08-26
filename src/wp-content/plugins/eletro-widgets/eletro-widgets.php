@@ -117,10 +117,10 @@ class EletroWidgets {
         $dashedCols = '';
         // Get saved widgets and print them
         if (current_user_can('manage_eletro_widgets')) {
-            $options = get_option('eletro_widgets');
+            $options = get_option('eletro_widgets', array());
             $dashedCols = 'eletro_widgets_dashed';
         } else {
-            $options = get_option('eletro_widgets_public');
+            $options = get_option('eletro_widgets_public', array());
         }
 
         $colunas = array_key_exists($this->id, $options) ? $options[$this->id]['widgets'] : array();
