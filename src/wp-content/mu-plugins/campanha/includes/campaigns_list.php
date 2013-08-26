@@ -32,12 +32,12 @@ $campaignTable = new CampaingTable;
     
     <?php if ($campaignTable->prepare_items()) : ?>
 	    <form action="" method="get" id="ms-search">
-			<?php $campaignTable->search_box( __( 'Procurar Projeto' ), 'projetos' ); ?>
+			<?php $campaignTable->search_box( __( Campaign::getStrings('ProcurarProjeto') ), 'projetos' ); ?>
 			<input type="hidden" name="action" value="projetos" />
 			<input type="hidden" name="page" value="campaigns" />
 		</form>
         <?php $campaignTable->display(); ?>
     <?php else : ?>
-        <p>Você ainda não criou nenhum projeto. Para isso vá para a <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>">página de criação de projetos</a>.</p>
+        <p><?php echo Campaign::getStrings('NaoCriou1');?> <a href="<?php echo admin_url(CAMPAIGN_NEW_URL); ?>"><?php echo Campaign::getStrings('NaoCriou2')?></a>.</p>
     <?php endif; ?>
 </div>

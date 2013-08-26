@@ -23,7 +23,7 @@ if (!empty($_POST)) {
             wp_redirect(admin_url());
         } else {
             //TODO: improve error handling for campaign creation
-            $errors = array('error' => 'Não foi possível criar o projeto.');
+            $errors = array('error' => Campaign::getStrings('NaoFoiPossivelCriar'));
         }
     } else {
         $errors = $campaign->errorHandler->errors;
@@ -39,7 +39,7 @@ if (isset($_GET['noheader'])) {
 ?>
 
 <div class="wrap">
-    <h2 id="form_title">Novo projeto</h2>
+    <h2 id="form_title"><?php echo Campaign::getStrings('NovoProjeto');?></h2>
     
     <?php
     if (!empty($errors)) {

@@ -9,8 +9,8 @@ add_action('admin_enqueue_scripts', array('CampaingTable', 'JS'));
 class CampaingTable extends WP_List_Table {
     function __construct() {
         parent::__construct( array(
-            'singular'  => 'projeto',     //singular name of the listed records
-            'plural'    => 'projetos',    //plural name of the listed records
+            'singular'  => Campaign::getStrings('singular'),     //singular name of the listed records
+            'plural'    => Campaign::getStrings('plural'),    //plural name of the listed records
             'ajax'      => true,        //does this table support ajax?
             'screen'	=> 'campaigns'
         ) );
@@ -33,7 +33,7 @@ class CampaingTable extends WP_List_Table {
     function column_domain($item) {
         $actions = array();
         
-        $actions['delete'] = "<a href='" . CAMPAIGN_DELETE_URL . "&id=$item->id' onclick=\"if (confirm('Você tem certeza de que deseja remover permanentemente está projeto? Não será possível desfazer essa ação e todos os dados serão perdidos.')) { return true; } return false;\">Remover</a>";
+        $actions['delete'] = "<a href='" . CAMPAIGN_DELETE_URL . "&id=$item->id' onclick=\"if (confirm('".Campaign::getStrings('remover')."')) { return true; } return false;\">Remover</a>";
         
         if (is_super_admin()) {
             $actions['edit'] = "<a href='" . CAMPAIGN_EDIT_URL . "&id={$item->id}'>Editar</a>"; 

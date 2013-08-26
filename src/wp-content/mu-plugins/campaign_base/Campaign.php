@@ -143,7 +143,7 @@ class Campaign {
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
 
         if (!$result) {
-            throw new Exception('Não existe uma projeto associada a este blog. Verifique se você não selecionou um tema de projeto para o site principal.');
+            throw new Exception(self::getStrings('NaoExiste'));
         }
         
         return self::formatData($result);
@@ -161,7 +161,7 @@ class Campaign {
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE id = %d", $id), ARRAY_A);
 
         if (!$result) {
-            throw new Exception('Não foi possível encontrar a projeto.');
+            throw new Exception(self::getStrings('NaoEncontrado'));
         }
         
         return self::formatData($result);
@@ -278,7 +278,7 @@ class Campaign {
          */
         
         /*if ($this->candidateExist()) {
-            $this->errorHandler->add('error', 'Uma projeto para este candidato já foi criada no sistema.');
+            $this->errorHandler->add('error', self::getStrings('candidateExist'));
         }
         */
         
@@ -449,7 +449,7 @@ class Campaign {
         
         // only the owner or super admin can delete a campaign
         if (wp_get_current_user()->ID != $this->campaignOwner->ID && !is_super_admin()) {
-            throw new Exception('Você não tem permissão para remover está projeto.');
+            throw new Exception(Campaign::getStrings('SemPermissao'));
         }
         
         $wpdb->query($wpdb->prepare("DELETE FROM `campaigns` WHERE `id` = %d", $this->id));
@@ -469,8 +469,8 @@ class Campaign {
         $userName = $this->campaignOwner->data->user_login;
         
         $to = get_bloginfo('admin_email');
-        $subject = "Uma nova projeto foi criada com o domínio próprio {$this->own_domain}";
-        $message = "O usuário $userName criou uma nova projeto com o sub-domínio <a href='{$this->domain}'>{$this->domain}</a> e o domínio próprio <a href='{$this->own_domain}'>{$this->own_domain}</a>.";
+        $subject = Campaign::getStrings('DominioProprio')." {$this->own_domain}";
+        $message = "O usuário $userName ".self::getStrings('CriouNovo')." <a href='{$this->domain}'>{$this->domain}</a> e o domínio próprio <a href='{$this->own_domain}'>{$this->own_domain}</a>.";
         $headers = "content-type: text/html \r\n";
             
         wp_mail($to, $subject, $message, $headers);
@@ -676,5 +676,44 @@ class Campaign {
             default:
                 throw new Exception('Campo status não definido ou com valor inválido');
         }
+    }
+    
+    public static function getStrings($id = '')
+    {
+    	$strings = array();
+    	//CampaignTable.php
+		$strings['singular']  = 'projeto';	//'singular'  => 'projeto',     //singular name of the listed records
+    	$strings['plural']    = 'projetos';	//'plural'    => 'projetos',    //plural name of the listed records
+    	$strings['remover'] = 'Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer essa ação e todos os dados serão perdidos.';
+    	//Campaign.php
+    	$strings['NaoExiste'] = 'Não existe um projeto associado a este blog. Verifique se você não selecionou um tema de projeto para o site principal.';
+    	$strings['NaoEncontrado'] = 'Não foi possível encontrar o projeto.';
+    	$strings['candidateExist'] = 'Um projeto para este usuário já foi criado no sistema.';
+    	$strings['SemPermissao'] = 'Você não tem permissão para remover este projeto.';
+    	$strings['DominioProprio'] = "Um novo projeto foi criado com o domínio próprio";
+    	$strings['CriouNovo'] = "criou um novo projeto com o sub-domínio";
+    	// campaigns_edit.php
+    	$strings['SemPermissaoEditar'] = 'Você não tem permissão para editar projetos.';
+    	// campaigns_list.php
+    	$strings['ProcurarProjeto'] = 'Procurar Projeto';
+    	$strings['NaoCriou1'] = 'Você ainda não criou nenhum projeto. Para isso vá para a';
+    	$strings['NaoCriou2'] = 'página de criação de projetos';
+    	// campaigns_new.php
+    	$strings['NaoFoiPossivelCriar'] = 'Não foi possível criar o projeto.';
+    	$strings['NovoProjeto'] = 'Novo projeto';
+    	// functions.php
+    	$strings['ProjetoVisivel'] = 'Este projeto está visível somente para o criador pois o pagamento está pendente.';
+    	$strings['AtualizePlano'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
+    	
+    	$campaign_common_strings = array();
+    	$campaign_common_strings['MeusProjetos'] = 'Meus projetos';
+    	$campaign_common_strings['AdministrarProjetos'] = 'Administrar projetos';
+    	wp_localize_script('campaign_common', 'campaign_common', $campaign_common_strings);
+    	
+    	if($id != '')
+    	{
+    		return array_key_exists($id, $strings) ? $strings[$id] : '';
+    	}
+   		return $strings; 
     }
 }
