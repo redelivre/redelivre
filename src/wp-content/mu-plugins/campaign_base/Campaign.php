@@ -681,39 +681,79 @@ class Campaign {
     public static function getStrings($id = '')
     {
     	$strings = array();
+
     	//CampaignTable.php
-		$strings['singular']  = 'projeto';	//'singular'  => 'projeto',     //singular name of the listed records
-    	$strings['plural']    = 'projetos';	//'plural'    => 'projetos',    //plural name of the listed records
-    	$strings['remover'] = 'Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer essa ação e todos os dados serão perdidos.';
+        $strings['singular']['label'] = '';
+		$strings['singular']['value'] = 'projeto';	//'singular'  => 'projeto',     //singular name of the listed records
+        $strings['plural']['label'] = '';
+    	$strings['plural']['value'] = 'projetos';	//'plural'    => 'projetos',    //plural name of the listed records
+        $strings['remover']['label'] = '';
+    	$strings['remover']['value'] = 'Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer essa ação e todos os dados serão perdidos.';
+
     	//Campaign.php
-    	$strings['NaoExiste'] = 'Não existe um projeto associado a este blog. Verifique se você não selecionou um tema de projeto para o site principal.';
-    	$strings['NaoEncontrado'] = 'Não foi possível encontrar o projeto.';
-    	$strings['candidateExist'] = 'Um projeto para este usuário já foi criado no sistema.';
-    	$strings['SemPermissao'] = 'Você não tem permissão para remover este projeto.';
-    	$strings['DominioProprio'] = "Um novo projeto foi criado com o domínio próprio";
-    	$strings['CriouNovo'] = "criou um novo projeto com o sub-domínio";
+        $strings['NaoExiste']['label'] = '';
+    	$strings['NaoExiste']['value'] = 'Não existe um projeto associado a este blog. Verifique se você não selecionou um tema de projeto para o site principal.';
+        $strings['NaoEncontrado']['label'] = '';
+    	$strings['NaoEncontrado']['value'] = 'Não foi possível encontrar o projeto.';
+        $strings['candidateExist']['label'] = '';
+    	$strings['candidateExist']['value'] = 'Um projeto para este usuário já foi criado no sistema.';
+        $strings['SemPermissao']['label'] = '';
+    	$strings['SemPermissao']['value'] = 'Você não tem permissão para remover este projeto.';
+        $strings['DominioProprio']['label'] = '';
+    	$strings['DominioProprio']['value'] = "Um novo projeto foi criado com o domínio próprio";
+        $strings['CriouNovo']['label'] = '';
+    	$strings['CriouNovo']['value'] = "criou um novo projeto com o sub-domínio";
+
     	// campaigns_edit.php
-    	$strings['SemPermissaoEditar'] = 'Você não tem permissão para editar projetos.';
+        $strings['SemPermissaoEditar']['label'] = '';
+    	$strings['SemPermissaoEditar']['value'] = 'Você não tem permissão para editar projetos.';
+
     	// campaigns_list.php
-    	$strings['ProcurarProjeto'] = 'Procurar Projeto';
-    	$strings['NaoCriou1'] = 'Você ainda não criou nenhum projeto. Para isso vá para a';
-    	$strings['NaoCriou2'] = 'página de criação de projetos';
+        $strings['ProcurarProjeto']['label'] = '';
+    	$strings['ProcurarProjeto']['value'] = 'Procurar Projeto';
+        $strings['NaoCriou1']['label'] = '';
+    	$strings['NaoCriou1']['value'] = 'Você ainda não criou nenhum projeto. Para isso vá para a';
+        $strings['NaoCriou2']['label'] = '';
+    	$strings['NaoCriou2']['value'] = 'página de criação de projetos';
+
     	// campaigns_new.php
-    	$strings['NaoFoiPossivelCriar'] = 'Não foi possível criar o projeto.';
-    	$strings['NovoProjeto'] = 'Novo projeto';
+        $strings['NaoFoiPossivelCriar']['label'] = '';
+    	$strings['NaoFoiPossivelCriar']['value'] = 'Não foi possível criar o projeto.';
+        $strings['NovoProjeto']['label'] = '';
+    	$strings['NovoProjeto']['value'] = 'Novo projeto';
+
     	// functions.php
-    	$strings['ProjetoVisivel'] = 'Este projeto está visível somente para o criador pois o pagamento está pendente.';
-    	$strings['AtualizePlano'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
+        $strings['ProjetoVisivel']['label'] = '';
+    	$strings['ProjetoVisivel']['value'] = 'Este projeto está visível somente para o criador pois o pagamento está pendente.';
+        $strings['AtualizePlano']['label'] = '';
+    	$strings['AtualizePlano']['value'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
     	
     	$campaign_common_strings = array();
     	$campaign_common_strings['MeusProjetos'] = 'Meus projetos';
     	$campaign_common_strings['AdministrarProjetos'] = 'Administrar projetos';
+
+        // Merge default settings com defined settings
+        $strings = array_merge($strings, get_option('campanha_defined_settings_strings', array()));
+        $campaign_common_strings = array_merge($strings, get_option('campanha_defined_settings_campaign_common_strings', array()));
+
     	wp_localize_script('campaign_common', 'campaign_common', $campaign_common_strings);
     	
     	if($id != '')
     	{
-    		return array_key_exists($id, $strings) ? $strings[$id] : '';
+    		return array_key_exists($id, $strings) ? $strings[$id]['value'] : '';
     	}
+
    		return $strings; 
+    }
+
+    public static function saveDefinedSettingsStrings()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['settings_strings']) && is_array($_POST['settings_strings']))
+        {
+            if (update_option('campanha_defined_settings_strings', $_POST['settings_strings']))
+            {
+                echo 'Dados atualizados com sucesso!';
+            }
+        }
     }
 }

@@ -129,13 +129,12 @@ if(get_current_blog_id() != 1) //TODO Painel do usuário
 function webcontatos_config_menu()
 {
 	$base_page = 'webcontatos-gerenciar';
-	if (function_exists('add_menu_page'))
-		add_object_page( __('Webcontatos','webcontatos'), __('WebContatos','webcontatos'), 'manage_options', $base_page, array(), WebContatos_URL."/imagens/icon.png");
-		add_submenu_page($base_page, __('Pesquisar Contatos','webcontatos'), __('Pesquisar Contatos','webcontatos'), 'manage_options', 'webcontatos-gerenciar', 'webcontatos_GerenciarContato' );
-		add_submenu_page($base_page, __('Criar Contato','webcontatos'), __('Criar Contato','webcontatos'), 'manage_options', 'webcontatos-criar', 'webcontatos_CriarContato' );
-		add_submenu_page($base_page, __('Importar Contatos','webcontatos'), __('Importar Contatos','webcontatos'), 'manage_options', 'webcontatos-importar', 'webcontatos_ImportarContato' );
-		add_submenu_page($base_page, __('Exportar Contatos','webcontatos'), __('Exportar Contatos','webcontatos'), 'manage_options', 'webcontatos-exportar', 'webcontatos_ExportarContato' );
-		add_submenu_page($base_page, __('Configurações do Plugin','webcontatos'),__('Configurações do Plugin','webcontatos'), 'manage_options', 'webcontatos-config', 'webcontatos_conf_page');
+	add_object_page( __('Webcontatos','webcontatos'), __('WebContatos','webcontatos'), 'manage_options', $base_page, array(), WebContatos_URL."/imagens/icon.png");
+	add_submenu_page($base_page, __('Pesquisar Contatos','webcontatos'), __('Pesquisar Contatos','webcontatos'), 'manage_options', $base_page, 'webcontatos_GerenciarContato' );
+	add_submenu_page($base_page, __('Criar Contato','webcontatos'), __('Criar Contato','webcontatos'), 'manage_options', 'webcontatos-criar', 'webcontatos_CriarContato' );
+	add_submenu_page($base_page, __('Importar Contatos','webcontatos'), __('Importar Contatos','webcontatos'), 'manage_options', 'webcontatos-importar', 'webcontatos_ImportarContato' );
+	add_submenu_page($base_page, __('Exportar Contatos','webcontatos'), __('Exportar Contatos','webcontatos'), 'manage_options', 'webcontatos-exportar', 'webcontatos_ExportarContato' );
+	add_submenu_page($base_page, __('Configurações do Plugin','webcontatos'),__('Configurações do Plugin','webcontatos'), 'manage_options', 'webcontatos-config', 'webcontatos_conf_page');
 }
 
 /**
