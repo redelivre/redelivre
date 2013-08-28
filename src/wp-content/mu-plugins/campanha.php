@@ -101,7 +101,7 @@ add_action('wp_print_scripts', 'campanha_addJS');
 function campanha_custom_menus() {
     register_nav_menus( array(
         'main'  => __('Principal', 'campanha'),
-        'sobre' => __('Sobre o Projetos', 'campanha'),
+        'sobre' => Campaign::getStrings('Sobre'),
         'info'  => __('Informações Legais', 'campanha'),
         
     ));

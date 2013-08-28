@@ -734,7 +734,19 @@ class Campaign {
     	$strings['MenuPlataforma']['label'] = '';
     	$strings['MenuPlataforma']['value'] = 'Redelivre';	//'plural'    => 'projetos',    //Como aparece no menu
     	
-    	//
+    	//campaigns_edit.php
+    	$strings['AtualizadoSucesso']['label'] = '';
+    	$strings['AtualizadoSucesso']['value'] = 'Projeto atualizado com sucesso.';
+    	$strings['Editar']['label'] = '';
+    	$strings['Editar']['value'] = 'Editar Projeto';
+    	
+    	//campaign_list.php
+    	$strings['Seus']['label'] = '';
+    	$strings['Seus']['value'] = 'Seus Projetos';
+    	
+    	//campanha.php
+    	$strings['Sobre']['label'] = '';
+    	$strings['Sobre']['value'] = 'Sobre o Projeto';
     	
     	// javascritps
     	$campaign_common_strings = array();

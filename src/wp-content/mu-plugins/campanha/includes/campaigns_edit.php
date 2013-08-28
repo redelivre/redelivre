@@ -15,7 +15,7 @@ if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
         die;
     }
 } else {
-    print_msgs(array('error' => 'Projeto não encontrado'));
+    print_msgs(array('error' => Campaign::getStrings('NaoEncontrado')));
     die;
 }
 
@@ -31,7 +31,7 @@ if (!empty($_POST)) {
     if ($campaign->validate()) {
         $campaign->update();
         
-        $msgs = array('updated' => 'Projeto atualizado com sucesso.');
+        $msgs = array('updated' => Campaign::getStrings('AtualizadoSucesso'));
     } else {
         $msgs = $campaign->errorHandler->errors;
     }
@@ -40,7 +40,7 @@ if (!empty($_POST)) {
 ?>
 
 <div class="wrap">
-    <h2 id="form_title">Editar Projeto <?php echo $campaign->domain; ?></h2>
+    <h2 id="form_title"><?php echo Campaign::getStrings('Editar')." {$campaign->domain}"; ?></h2>
     
     <?php
     if (!empty($msgs)) {

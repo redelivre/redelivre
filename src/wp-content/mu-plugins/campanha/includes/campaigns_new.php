@@ -55,7 +55,7 @@ if (isset($_GET['noheader'])) {
                     <td>
                         <input type="text" value="<?php if (isset($_POST['domain'])) echo $_POST['domain']; ?>" name="domain" style="display: block;">
                         <small>São recomendados apenas os caracteres a-z e 0-9.</small> <br />
-                        <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo, se preencher nesse campo "joao" o sub-domínio será joao.redelivre.org.br.</small>
+                        <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo, se preencher nesse campo "joao" o sub-domínio será joao.<?php echo get_blog_details(1)->domain; ?>.</small>
                     </td>
                 </tr>
                 <tr class="form-field">

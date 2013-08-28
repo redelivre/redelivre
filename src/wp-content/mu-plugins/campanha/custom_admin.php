@@ -1,7 +1,7 @@
 <?php
 
 add_action('admin_menu', function() {
-	$base_page = 'rede-livre';
+	$base_page = 'platform-strings';
 
 	add_object_page( __(Campaign::getStrings('MenuPlataforma'),'redelivre'), __(Campaign::getStrings('MenuPlataforma'),'redelivre'), 'manage_options', $base_page, array());
 
@@ -9,7 +9,7 @@ add_action('admin_menu', function() {
 		require MUCAMPANHAPATH.'/admin-strings-tpl.php';
 	});
 
-	add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'redelivre', function(){
+	add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
 		require MUCAMPANHAPATH.'/admin-settings-tpl.php';
 	});
 

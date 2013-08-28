@@ -20,7 +20,7 @@ $campaignTable = new CampaingTable;
 ?>
 
 <div class="wrap">
-    <h2>Seus Projetos</h2>
+    <h2><?php echo Campaign::getStrings('Seus'); ?></h2>
     
     <?php if (!empty($msg)) : ?>
         <div class="updated"><p><?php echo $msg; ?></p></div>
