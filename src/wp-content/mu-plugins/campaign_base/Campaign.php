@@ -683,7 +683,7 @@ class Campaign {
     	$strings = array();
 
     	//CampaignTable.php
-        $strings['singular']['label'] = '';
+        $strings['singular']['label'] = 'Hello World!';
 		$strings['singular']['value'] = 'projeto';	//'singular'  => 'projeto',     //singular name of the listed records
         $strings['plural']['label'] = '';
     	$strings['plural']['value'] = 'projetos';	//'plural'    => 'projetos',    //plural name of the listed records
@@ -731,7 +731,7 @@ class Campaign {
     	$campaign_common_strings = array();
     	$campaign_common_strings['MeusProjetos'] = 'Meus projetos';
     	$campaign_common_strings['AdministrarProjetos'] = 'Administrar projetos';
-
+        
         // Merge default settings com defined settings
         $strings = array_merge($strings, get_option('campanha_defined_settings_strings', array()));
         $campaign_common_strings = array_merge($strings, get_option('campanha_defined_settings_campaign_common_strings', array()));
@@ -750,6 +750,8 @@ class Campaign {
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['settings_strings']) && is_array($_POST['settings_strings']))
         {
+            $_POST['settings_strings'] = array_merge(self::getStrings(), $_POST['settings_strings']);
+
             if (update_option('campanha_defined_settings_strings', $_POST['settings_strings']))
             {
                 echo 'Dados atualizados com sucesso!';
