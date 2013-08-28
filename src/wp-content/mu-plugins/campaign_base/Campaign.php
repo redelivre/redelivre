@@ -728,6 +728,15 @@ class Campaign {
         $strings['AtualizePlano']['label'] = '';
     	$strings['AtualizePlano']['value'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
     	
+    	// custom_admin.php
+    	$strings['MenuPrincipal']['label'] = '';
+    	$strings['MenuPrincipal']['value'] = 'Projetos';	//'plural'    => 'projetos',    //Como aparece no menu
+    	$strings['MenuPlataforma']['label'] = '';
+    	$strings['MenuPlataforma']['value'] = 'Redelivre';	//'plural'    => 'projetos',    //Como aparece no menu
+    	
+    	//
+    	
+    	// javascritps
     	$campaign_common_strings = array();
     	$campaign_common_strings['MeusProjetos'] = 'Meus projetos';
     	$campaign_common_strings['AdministrarProjetos'] = 'Administrar projetos';
