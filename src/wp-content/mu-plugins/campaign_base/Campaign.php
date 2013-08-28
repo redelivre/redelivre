@@ -683,71 +683,73 @@ class Campaign {
     	$strings = array();
 
     	//CampaignTable.php
-        $strings['singular']['label'] = 'Hello World!';
-		$strings['singular']['value'] = 'projeto';	//'singular'  => 'projeto',     //singular name of the listed records
-        $strings['plural']['label'] = '';
-    	$strings['plural']['value'] = 'projetos';	//'plural'    => 'projetos',    //plural name of the listed records
-        $strings['remover']['label'] = '';
-    	$strings['remover']['value'] = 'Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer essa ação e todos os dados serão perdidos.';
+        $strings['label']['singular'] = '';
+		$strings['value']['singular'] = 'projeto';	//'singular'  => 'projeto',     //singular name of the listed records
+        $strings['label']['plural'] = '';
+    	$strings['value']['plural'] = 'projetos';	//'plural'    => 'projetos',    //plural name of the listed records
+        $strings['label']['remover'] = '';
+    	$strings['value']['remover'] = 'Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer essa ação e todos os dados serão perdidos.';
 
     	//Campaign.php
-        $strings['NaoExiste']['label'] = '';
-    	$strings['NaoExiste']['value'] = 'Não existe um projeto associado a este blog. Verifique se você não selecionou um tema de projeto para o site principal.';
-        $strings['NaoEncontrado']['label'] = '';
-    	$strings['NaoEncontrado']['value'] = 'Não foi possível encontrar o projeto.';
-        $strings['candidateExist']['label'] = '';
-    	$strings['candidateExist']['value'] = 'Um projeto para este usuário já foi criado no sistema.';
-        $strings['SemPermissao']['label'] = '';
-    	$strings['SemPermissao']['value'] = 'Você não tem permissão para remover este projeto.';
-        $strings['DominioProprio']['label'] = '';
-    	$strings['DominioProprio']['value'] = "Um novo projeto foi criado com o domínio próprio";
-        $strings['CriouNovo']['label'] = '';
-    	$strings['CriouNovo']['value'] = "criou um novo projeto com o sub-domínio";
+        $strings['label']['NaoExiste'] = '';
+    	$strings['value']['NaoExiste'] = 'Não existe um projeto associado a este blog. Verifique se você não selecionou um tema de projeto para o site principal.';
+        $strings['label']['NaoEncontrado'] = '';
+    	$strings['value']['NaoEncontrado'] = 'Não foi possível encontrar o projeto.';
+        $strings['label']['candidateExist'] = '';
+    	$strings['value']['candidateExist'] = 'Um projeto para este usuário já foi criado no sistema.';
+        $strings['label']['SemPermissao'] = '';
+    	$strings['value']['SemPermissao'] = 'Você não tem permissão para remover este projeto.';
+        $strings['label']['DominioProprio'] = '';
+    	$strings['value']['DominioProprio'] = "Um novo projeto foi criado com o domínio próprio";
+        $strings['label']['CriouNovo'] = '';
+    	$strings['value']['CriouNovo'] = "criou um novo projeto com o sub-domínio";
 
     	// campaigns_edit.php
-        $strings['SemPermissaoEditar']['label'] = '';
-    	$strings['SemPermissaoEditar']['value'] = 'Você não tem permissão para editar projetos.';
+        $strings['label']['SemPermissaoEditar'] = '';
+    	$strings['value']['SemPermissaoEditar'] = 'Você não tem permissão para editar projetos.';
 
     	// campaigns_list.php
-        $strings['ProcurarProjeto']['label'] = '';
-    	$strings['ProcurarProjeto']['value'] = 'Procurar Projeto';
-        $strings['NaoCriou1']['label'] = '';
-    	$strings['NaoCriou1']['value'] = 'Você ainda não criou nenhum projeto. Para isso vá para a';
-        $strings['NaoCriou2']['label'] = '';
-    	$strings['NaoCriou2']['value'] = 'página de criação de projetos';
+        $strings['label']['ProcurarProjeto'] = '';
+    	$strings['value']['ProcurarProjeto'] = 'Procurar Projeto';
+        $strings['label']['NaoCriou1'] = '';
+    	$strings['value']['NaoCriou1'] = 'Você ainda não criou nenhum projeto. Para isso vá para a';
+        $strings['label']['NaoCriou2'] = '';
+    	$strings['value']['NaoCriou2'] = 'página de criação de projetos';
 
     	// campaigns_new.php
-        $strings['NaoFoiPossivelCriar']['label'] = '';
-    	$strings['NaoFoiPossivelCriar']['value'] = 'Não foi possível criar o projeto.';
-        $strings['NovoProjeto']['label'] = '';
-    	$strings['NovoProjeto']['value'] = 'Novo projeto';
+        $strings['label']['NaoFoiPossivelCriar'] = '';
+    	$strings['value']['NaoFoiPossivelCriar'] = 'Não foi possível criar o projeto.';
+        $strings['label']['NovoProjeto'] = '';
+    	$strings['value']['NovoProjeto'] = 'Novo projeto';
 
     	// functions.php
-        $strings['ProjetoVisivel']['label'] = '';
-    	$strings['ProjetoVisivel']['value'] = 'Este projeto está visível somente para o criador pois o pagamento está pendente.';
-        $strings['AtualizePlano']['label'] = '';
-    	$strings['AtualizePlano']['value'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
+        $strings['label']['ProjetoVisivel'] = '';
+    	$strings['value']['ProjetoVisivel'] = 'Este projeto está visível somente para o criador pois o pagamento está pendente.';
+        $strings['label']['AtualizePlano'] = '';
+    	$strings['value']['AtualizePlano'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
     	
     	// custom_admin.php
-    	$strings['MenuPrincipal']['label'] = '';
-    	$strings['MenuPrincipal']['value'] = 'Projetos';	//'plural'    => 'projetos',    //Como aparece no menu
-    	$strings['MenuPlataforma']['label'] = '';
-    	$strings['MenuPlataforma']['value'] = 'Redelivre';	//'plural'    => 'projetos',    //Como aparece no menu
+    	$strings['label']['MenuPrincipal'] = '';
+    	$strings['value']['MenuPrincipal'] = 'Projetos';	//'plural'    => 'projetos',    //Como aparece no menu
+    	$strings['label']['MenuPlataforma'] = '';
+    	$strings['value']['MenuPlataforma'] = 'Redelivre';	//'plural'    => 'projetos',    //Como aparece no menu
     	
     	//campaigns_edit.php
-    	$strings['AtualizadoSucesso']['label'] = '';
-    	$strings['AtualizadoSucesso']['value'] = 'Projeto atualizado com sucesso.';
-    	$strings['Editar']['label'] = '';
-    	$strings['Editar']['value'] = 'Editar Projeto';
+    	$strings['label']['AtualizadoSucesso'] = '';
+    	$strings['value']['AtualizadoSucesso'] = 'Projeto atualizado com sucesso.';
+    	$strings['label']['Editar'] = '';
+    	$strings['value']['Editar'] = 'Editar Projeto';
     	
     	//campaign_list.php
-    	$strings['Seus']['label'] = '';
-    	$strings['Seus']['value'] = 'Seus Projetos';
+    	$strings['label']['Seus'] = '';
+    	$strings['value']['Seus'] = 'Seus Projetos';
     	
     	//campanha.php
-    	$strings['Sobre']['label'] = '';
-    	$strings['Sobre']['value'] = 'Sobre o Projeto';
+    	$strings['label']['Sobre'] = '';
+    	$strings['value']['Sobre'] = 'Sobre o Projeto';
     	
+        $stringsFirstLabels = $strings['label'];
+
     	// javascritps
     	$campaign_common_strings = array();
     	$campaign_common_strings['MeusProjetos'] = 'Meus projetos';
@@ -761,8 +763,10 @@ class Campaign {
     	
     	if($id != '')
     	{
-    		return array_key_exists($id, $strings) ? $strings[$id]['value'] : '';
+    		return array_key_exists($id, $strings['value']) ? $strings['value'][$id] : '';
     	}
+
+        $strings['label'] = $stringsFirstLabels;
 
    		return $strings; 
     }
