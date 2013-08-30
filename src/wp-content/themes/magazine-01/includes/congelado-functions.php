@@ -1,11 +1,13 @@
 <?php
 
-function __autoload($class) {
+function magazine_autoload($class) {
     $fname = dirname(__FILE__) . '/template-widgets/' . $class . '.php';
 
     if (file_exists($fname))
         require_once $fname;
 }
+
+spl_autoload_register('magazine_autoload');
 
 // inclui os arquivos
 $autoinclude_base_dir = dirname(__FILE__) . '/';

@@ -1,4 +1,5 @@
 <?php 
+
 /*
  * IMPORTANTE
  * substituir todos os campanha pelo campanha do projeto
@@ -6,16 +7,12 @@
 
 define('MUCAMPANHAPATH', dirname(__FILE__).'/campanha');
 
-include dirname(__FILE__).'/campanha/includes/congelado-functions.php';
-include dirname(__FILE__).'/campanha/includes/html.class.php';
-include dirname(__FILE__).'/campanha/includes/utils.class.php'; 
-
 define('CAMPAIGN_LIST_URL',   'admin.php?page=campaigns&action=list');
 define('CAMPAIGN_DELETE_URL', 'admin.php?page=campaigns&action=delete');
 define('CAMPAIGN_EDIT_URL',   'admin.php?page=campaigns&action=edit');
 define('CAMPAIGN_NEW_URL',    'admin.php?page=campaigns_new');
 
-if (is_admin()) {
+if (is_admin() && get_current_blog_id() == 1) {
     require MUCAMPANHAPATH . '/custom_admin.php';
 }
 
