@@ -340,8 +340,8 @@ function campanha_custom_options_strings() {
  */
 function campanha_use_smtp($phpmailer) {
 
-    $email_p = 'ethymos@hacklab';
-    $email = 'noreply@campanhacompleta.com.br';
+    $email_p = getPlataformSettings('emailPassword');
+    $email = getPlataformSettings('email');
 
     $phpmailer->IsSMTP();
     $phpmailer->SMTPAuth   = true;

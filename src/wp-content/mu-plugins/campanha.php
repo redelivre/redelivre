@@ -200,3 +200,28 @@ function campanha_redirect_to_campaign_home($user = null) {
         return admin_url(CAMPAIGN_NEW_URL);
     }
 }
+
+function getPlataformSettings($id = '')
+{
+	$sets = array();
+	
+	$sets['label']['email'] = 'E-Mail';
+	$sets['value']['email'] = 'noreply@campanhacompleta.com.br';
+	$sets['label']['emailPassword'] = 'E-Mail Password';
+	$sets['value']['emailPassword'] = 'ethymos@hacklab';
+	
+	
+	$setsFirstLabels = $sets['label'];
+	
+	// Merge default settings com defined settings
+	$sets = array_merge($sets, get_option('plataform_defined_settings', array()));
+	
+	if($id != '')
+	{
+		return array_key_exists($id, $sets['value']) ? $sets['value'][$id] : '';
+	}
+	
+	$sets['label'] = $setsFirstLabels;
+	
+	return $sets;
+}

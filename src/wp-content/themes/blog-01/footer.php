@@ -7,7 +7,8 @@
             <?php else: ?>
                 <a class="login" href="<?php echo wp_login_url(get_permalink()); ?>">Login</a> &bull;
             <?php endif; ?>
-    	    <a href="http://campanhacompleta.com.br" title="Campanha Completa"><img src="<?php bloginfo( 'template_url' ); ?>/img/campanha-completa.png" alt="" /></a> &bull; 
+            <?php $infos = get_blog_details(1); ?>
+    	    <a href="<?php echo $infos->siteurl ?>" title="<?php echo $infos->blogname ?>"><img src="<?php WPMU_PLUGIN_URL; ?>/img/plataform.png" alt="" /></a> &bull; 
 		    <a href="http://wordpress.org"><img src="<?php bloginfo( 'template_url' ); ?>/img/wp.png" alt="" /></a>
 		</p>
 

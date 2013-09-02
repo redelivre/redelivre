@@ -266,7 +266,7 @@ function jaiminho_conf_page()
 		
 		if (isset($_POST["jaiminho_recreatecredentials"])) {
 			if (get_option('jaiminho-error-log',false))
-				$mensagem = "Ocorreu um erro ao recriar as credenciais do recurso de envio de emails. Consulte o suporte do Campanha Completa";
+				$mensagem = "Ocorreu um erro ao recriar as credenciais do recurso de envio de emails. Consulte o suporte do ".get_bloginfo('name');
 			else
 				$mensagem = "Credenciais recriadas com sucessso!";	
 			
@@ -489,7 +489,7 @@ add_action('Campaign-created', 'jaiminho_campaigncreated', 15, 1);
 */
 function jaiminho_displayMessageWidget(){
 	_e('<div class="error">ATENÇÃO! Ocorreu um erro ao ativar o recurso de envio de emails.</div>');
-	_e('Por favor, entre em contato com o suporte do Campanha Completa para resolver o problema no sistema de envio de emails.');
+	echo __('Por favor, entre em contato com o suporte do ').get_bloginfo('name').__(' para resolver o problema no sistema de envio de emails.');
 }
 
 /*

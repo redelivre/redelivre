@@ -135,7 +135,7 @@ function campanha_handle_form_contato() {
     $email = get_option('admin_email');
     
     // generate the response
-    $response = json_encode(array('success' => wp_mail( $email, 'Novo contato no site '.bloginfo('name'), $msg, "From: 'Carteiro Campanha Completa' <noreply@campanhacompleta.com.br>\r\nContent-type: text/html" ) ));
+    $response = json_encode(array('success' => wp_mail( $email, 'Novo contato no site '.bloginfo('name'), $msg, "From: 'Carteiro ".bloginfo('name')."' <".getPlataformSettings('email').">\r\nContent-type: text/html" ) ));
  
     // response output
     header( "Content-Type: application/json" );

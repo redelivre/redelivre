@@ -436,7 +436,7 @@ function webcontatos_displayMessageWidget(){
 
 	$opt = webcontatos_get_config();
 	_e('<div class="error">ATENÇÃO! Ocorreu um erro ao ativar o recurso de gerenciamento de contatos.</div> ');
-	_e('Por favor, entre em contato com o suporte do Campanha Completa para resolver o problema no sistema de gerenaciamento de contatos.');
+	echo __('Por favor, entre em contato com o suporte do ').get_bloginfo('name').__(' para resolver o problema no sistema de gerenaciamento de contatos.');
 }
 
 //Setup the widget
