@@ -225,3 +225,15 @@ function getPlataformSettings($id = '')
 	
 	return $sets;
 }
+
+function savePlataformSettings()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['plataform_settings_strings'])) {
+        $_POST['plataform_settings_strings'] = array_merge(getPlataformSettings(), $_POST['plataform_settings_strings']);
+
+        if (update_option('plataform_defined_settings', $_POST['plataform_settings_strings']))
+        {
+            echo 'Dados atualizados com sucesso!';
+        }
+    }
+}
