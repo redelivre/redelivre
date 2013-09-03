@@ -388,13 +388,15 @@ class Mobilize {
 
             // TODO: ENVIAR EMAIL
             $success = null;
+            $from = self::getOption();
+            $from = isset($from['general']['email_from']) && !empty($from['general']['email_from']) ? $from['general']['email_from'] : 'noreply@campanhacompleta.com.br';
 
             if ($_POST['sender-name'] && $_POST['sender-email']) {
                 // Headers
                 $sender      = filter_input(INPUT_POST, 'sender-name', FILTER_SANITIZE_STRING);
                 $senderEmail = filter_input(INPUT_POST, 'sender-email', FILTER_SANITIZE_EMAIL);
                 $recipients  = explode(',', $_POST['recipient-email']);
-                $from        = "From: '$sender' <noreply@campanhacompleta.com.br>";
+                $from        = "From: '{$sender}' <{$from}>";
 
                 // Mensagem
                 $msg  = "$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";

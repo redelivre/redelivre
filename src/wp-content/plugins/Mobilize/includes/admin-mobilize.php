@@ -33,6 +33,10 @@
                     Título desta página:<br>
                     <input name="mobilize[general][title]" type="text" value="<?php echo $option['general']['title']; ?>">
                 </label><br><br>
+                <label>
+                    Usuário de e-mail:<br>
+                    <input name="mobilize[general][email_from]" type="text" value="<?php echo $option['general']['email_from']; ?>">
+                </label><br><br>
                 <label>Texto explicativo geral para o usuário:<br/>
                     <textarea name="mobilize[general][description]"><?php echo @htmlentities(utf8_decode($option['general']['description'])) ?></textarea>
                 </label>
