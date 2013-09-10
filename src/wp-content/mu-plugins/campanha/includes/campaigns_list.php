@@ -9,7 +9,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'delete'
     try {
         $campaign = Campaign::getById($_REQUEST['id']);
         $campaign->delete();
-        $msg = "Campanha $campaign->domain removida com sucesso.";
+        $msg = str_replace('{domain}', $campaign->domain, Campaign::getStrings('RemovidoSucesso'));
     } catch (Exception $e) {
         $error = $e->getMessage();
     }

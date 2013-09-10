@@ -192,7 +192,7 @@ function campanha_login_messages($message) {
     }
 
     if ($addMessage) {
-        $message .= '<p class="message">Esta campanha ainda não está disponível.</p>';
+        $message .= '<p class="message">'.Campaign::getStrings('NaoDisponivel').'</p>';
     }
 
     return $message;

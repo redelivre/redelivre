@@ -727,6 +727,8 @@ class Campaign {
     	$strings['value']['ProjetoVisivel'] = 'Este projeto está visível somente para o criador pois o pagamento está pendente.';
         $strings['label']['AtualizePlano'] = '';
     	$strings['value']['AtualizePlano'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
+    	$strings['label']['NaoDisponivel'] = '';
+    	$strings['value']['NaoDisponivel'] = "Este projeto ainda não está disponível.";
     	
     	// custom_admin.php
     	$strings['label']['MenuPrincipal'] = '';
@@ -743,6 +745,8 @@ class Campaign {
     	//campaign_list.php
     	$strings['label']['Seus'] = '';
     	$strings['value']['Seus'] = 'Seus Projetos';
+    	$strings['label']['RemovidoSucesso'] = '';
+    	$strings['value']['RemovidoSucesso'] = "Projeto {domain} removido com sucesso.";
     	
     	//campanha.php
     	$strings['label']['Sobre'] = '';
