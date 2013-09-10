@@ -96,10 +96,6 @@ Genericas
 	margin: 10px 0 0 30px;
 }
 
-.img-brand{
-	width: 100%;
-}
-
 .header-title{
 	font-size: 20px;
 	display: block;
@@ -1235,8 +1231,14 @@ Ajustes - responsivo
 ========================================================================== */
 
 /* Desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-
+@media (min-width: 768px) and (max-width: 1024px) {
+	.social {
+		margin: 8px 0 0 28px;
+	}
+	
+	.info{
+	margin-left: -20px;
+	}
 }
  
 /* Tablets */
@@ -1262,7 +1264,7 @@ Ajustes - responsivo
 }
  
 /* Smartphones */
-@media (max-width: 768px) {    
+@media (max-width: 767px) {    
 	.right           { margin: 5px 20px; }
 	.left            { margin: 5px -15px; }
 	.busca           { margin: 0 20px 0 0; }
