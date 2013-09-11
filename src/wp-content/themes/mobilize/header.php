@@ -64,7 +64,7 @@
 	            </div>
 		     </div>
 		        	
-		        	<div class="right offset5 span3">
+		        	<div class="right offset4 span4">
 			        	<div class="social">
 			              <?php do_action('campanha_body_header'); ?>
 			             </div> 
