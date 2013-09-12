@@ -752,25 +752,40 @@ class Campaign {
     	$strings['label']['Sobre'] = '';
     	$strings['value']['Sobre'] = 'Sobre o Projeto';
     	
-        $stringsFirstLabels = $strings['label'];
-
     	// javascritps
+    	
+    	//campaign_common.js
     	$campaign_common_strings = array();
-    	$campaign_common_strings['MeusProjetos'] = 'Meus projetos';
-    	$campaign_common_strings['AdministrarProjetos'] = 'Administrar projetos';
+    	$campaign_common_strings['label']['MeusProjetos'] = '';
+    	$campaign_common_strings['value']['MeusProjetos'] = 'Meus projetos';
+    	$campaign_common_strings['label']['AdministrarProjetos'] = '';
+    	$campaign_common_strings['value']['AdministrarProjetos'] = 'Administrar projetos';
+
+    	$opts_campaign_common = get_option('campanha_defined_settings_campaign_common_strings', array());
+    	if(array_key_exists('value', $opts_campaign_common))
+    	{
+    		$opts_campaign_common = $opts_campaign_common['value'];
+    	}
+    	$campaign_common_strings['value'] = array_merge($campaign_common_strings['value'], $opts_campaign_common);
+    	
+    	wp_localize_script('campaign_common', 'campaign_common', $campaign_common_strings);
+    	//END campaign_common.js
+    	//END javascritps
         
         // Merge default settings com defined settings
-        $strings = array_merge($strings, get_option('campanha_defined_settings_strings', array()));
-        $campaign_common_strings = array_merge($strings, get_option('campanha_defined_settings_campaign_common_strings', array()));
-
-    	wp_localize_script('campaign_common', 'campaign_common', $campaign_common_strings);
-    	
+        $opts = get_option('campanha_defined_settings_strings', array());
+        if(array_key_exists('value', $opts))
+        {
+        	$opts = $opts['value'];
+        }
+        $strings['value'] = array_merge($strings['value'], $opts);
+        
     	if($id != '')
     	{
     		return array_key_exists($id, $strings['value']) ? $strings['value'][$id] : '';
     	}
-
-        $strings['label'] = $stringsFirstLabels;
+    	
+    	$strings['campaign_common'] = $campaign_common_strings;
 
    		return $strings; 
     }
@@ -779,11 +794,29 @@ class Campaign {
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['settings_strings']) && is_array($_POST['settings_strings']))
         {
-            $_POST['settings_strings'] = array_merge(self::getStrings(), $_POST['settings_strings']);
+        	$strings = self::getStrings();
+            $_POST['settings_strings'] = array_merge($strings['value'], $_POST['settings_strings']);
 
             if (update_option('campanha_defined_settings_strings', $_POST['settings_strings']))
             {
                 echo 'Dados atualizados com sucesso!';
+            }
+            
+            foreach ($_POST as $key => $value)
+            {
+            	$pkey = strpos($key, 'settings_strings');
+            	if($pkey === 0 || $pkey === false) continue;
+            	
+            	$knowKey = substr($key, 0, $pkey);
+            	if(array_key_exists($knowKey, $strings))
+            	{
+            		$merge = array_merge($strings[$knowKey], $_POST[$knowKey.'settings_strings']);
+            		print_r($merge);
+            		if (update_option('campanha_defined_settings_'.$knowKey.'_strings', $merge))
+            		{
+            			echo 'Dados '.$knowKey.' atualizados com sucesso!';
+            		}
+            	}
             }
         }
     }
