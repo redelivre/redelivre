@@ -765,6 +765,7 @@ class Campaign {
     	if(array_key_exists('value', $opts_campaign_common))
     	{
     		$opts_campaign_common = $opts_campaign_common['value'];
+    		update_option('campanha_defined_settings_campaign_common_strings', $opts_campaign_common);
     	}
     	$campaign_common_strings['value'] = array_merge($campaign_common_strings['value'], $opts_campaign_common);
     	
@@ -810,8 +811,8 @@ class Campaign {
             	$knowKey = substr($key, 0, $pkey);
             	if(array_key_exists($knowKey, $strings))
             	{
-            		$merge = array_merge($strings[$knowKey], $_POST[$knowKey.'settings_strings']);
-            		print_r($merge);
+            		$merge = array_merge($strings[$knowKey]['value'], $_POST[$knowKey.'settings_strings']);
+
             		if (update_option('campanha_defined_settings_'.$knowKey.'_strings', $merge))
             		{
             			echo 'Dados '.$knowKey.' atualizados com sucesso!';
