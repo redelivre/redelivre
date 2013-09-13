@@ -683,33 +683,33 @@ class Campaign {
     	$strings = array();
 
     	//CampaignTable.php
-        $strings['label']['singular'] = '';
+        $strings['label']['singular'] = 'Nome <b>singular</b>, em letras minúsculas, dado a cada blog dentro da rede';
 		$strings['value']['singular'] = 'projeto';	//'singular'  => 'projeto',     //singular name of the listed records
-        $strings['label']['plural'] = '';
+        $strings['label']['plural'] = 'Nome <b>plural</b>, em letras minúsculas, dado a cada blog dentro da rede';
     	$strings['value']['plural'] = 'projetos';	//'plural'    => 'projetos',    //plural name of the listed records
-        $strings['label']['remover'] = '';
-    	$strings['value']['remover'] = 'Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer essa ação e todos os dados serão perdidos.';
+        $strings['label']['remover'] = 'Alerta sobre a impossibilidade de recuperação de dados após a remoção de um blog da rede';
+    	$strings['value']['remover'] = 'Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer esta ação e todos os dados serão perdidos.';
 
     	//Campaign.php
         $strings['label']['NaoExiste'] = '';
     	$strings['value']['NaoExiste'] = 'Não existe um projeto associado a este blog. Verifique se você não selecionou um tema de projeto para o site principal.';
-        $strings['label']['NaoEncontrado'] = '';
-    	$strings['value']['NaoEncontrado'] = 'Não foi possível encontrar o projeto.';
+        $strings['label']['NaoEncontrado'] = 'Alerta sobre projeto não localizado pelo sistema';
+    	$strings['value']['NaoEncontrado'] = 'Desculpe, não foi possível encontrar este projeto.';
         $strings['label']['candidateExist'] = '';
     	$strings['value']['candidateExist'] = 'Um projeto para este usuário já foi criado no sistema.';
-        $strings['label']['SemPermissao'] = '';
-    	$strings['value']['SemPermissao'] = 'Você não tem permissão para remover este projeto.';
-        $strings['label']['DominioProprio'] = '';
-    	$strings['value']['DominioProprio'] = "Um novo projeto foi criado com o domínio próprio";
-        $strings['label']['CriouNovo'] = '';
-    	$strings['value']['CriouNovo'] = "criou um novo projeto com o sub-domínio";
+        $strings['label']['SemPermissao'] = 'Aviso de que o usuário não tem permissão para remover um blog da rede';
+    	$strings['value']['SemPermissao'] = 'Desculpe, seu usuário não tem permissão para remover este projeto.';
+        $strings['label']['DominioProprio'] = 'Confirmação da criação de blog com domínio próprio na rede';
+    	$strings['value']['DominioProprio'] = 'Um novo projeto foi criado com seu domínio próprio.';
+        $strings['label']['CriouNovo'] = 'Confirmação da criação de blog com domínio próprio na rede';
+    	$strings['value']['CriouNovo'] = 'Um novo projeto foi criado no sub-domínio.';
 
     	// campaigns_edit.php
-        $strings['label']['SemPermissaoEditar'] = '';
-    	$strings['value']['SemPermissaoEditar'] = 'Você não tem permissão para editar projetos.';
+        $strings['label']['SemPermissaoEditar'] = 'Aviso de que o usuário não tem permissão para editar blogs da rede';
+    	$strings['value']['SemPermissaoEditar'] = 'Desculpe, seu usuário não tem permissão para editar projetos.';
 
     	// campaigns_list.php
-        $strings['label']['ProcurarProjeto'] = '';
+        $strings['label']['ProcurarProjeto'] = 'Texto da pesquisa por blogs na rede';
     	$strings['value']['ProcurarProjeto'] = 'Procurar Projeto';
         $strings['label']['NaoCriou1'] = '';
     	$strings['value']['NaoCriou1'] = 'Você ainda não criou nenhum projeto. Para isso vá para a';
@@ -717,36 +717,36 @@ class Campaign {
     	$strings['value']['NaoCriou2'] = 'página de criação de projetos';
 
     	// campaigns_new.php
-        $strings['label']['NaoFoiPossivelCriar'] = '';
-    	$strings['value']['NaoFoiPossivelCriar'] = 'Não foi possível criar o projeto.';
-        $strings['label']['NovoProjeto'] = '';
+        $strings['label']['NaoFoiPossivelCriar'] = 'Alerta sobre falha na criação de novo blog na rede';
+    	$strings['value']['NaoFoiPossivelCriar'] = 'Desculpe, não foi possível criar o projeto.';
+        $strings['label']['NovoProjeto'] = 'Texto do campo para criação de novo blog na rede';
     	$strings['value']['NovoProjeto'] = 'Novo projeto';
 
     	// functions.php
-        $strings['label']['ProjetoVisivel'] = '';
-    	$strings['value']['ProjetoVisivel'] = 'Este projeto está visível somente para o criador pois o pagamento está pendente.';
+        $strings['label']['ProjetoVisivel'] = 'Aviso sobre o blog não estar visível por não ter sido ativado ainda';
+    	$strings['value']['ProjetoVisivel'] = 'Por enquanto, este projeto está visível somente para o criador pois ainda não foi ativado.';
         $strings['label']['AtualizePlano'] = '';
-    	$strings['value']['AtualizePlano'] = "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.";
+    	$strings['value']['AtualizePlano'] = 'Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \"Blog 01\". Mude o tema ou atualize o plano.';
     	$strings['label']['NaoDisponivel'] = '';
-    	$strings['value']['NaoDisponivel'] = "Este projeto ainda não está disponível.";
+    	$strings['value']['NaoDisponivel'] = 'Este projeto ainda não está disponível.';
     	
     	// custom_admin.php
-    	$strings['label']['MenuPrincipal'] = '';
+    	$strings['label']['MenuPrincipal'] = 'Nome dado aos blogs, no <b>plural</b>, presente no menu administrativo da raiz da rede';
     	$strings['value']['MenuPrincipal'] = 'Projetos';	//'plural'    => 'projetos',    //Como aparece no menu
-    	$strings['label']['MenuPlataforma'] = '';
-    	$strings['value']['MenuPlataforma'] = 'Redelivre';	//'plural'    => 'projetos',    //Como aparece no menu
+    	$strings['label']['MenuPlataforma'] = 'Nome dado à rede na barra superior administrativa';
+    	$strings['value']['MenuPlataforma'] = 'RedeLivre';	//'plural'    => 'projetos',    //Como aparece no menu
     	
     	//campaigns_edit.php
-    	$strings['label']['AtualizadoSucesso'] = '';
-    	$strings['value']['AtualizadoSucesso'] = 'Projeto atualizado com sucesso.';
-    	$strings['label']['Editar'] = '';
-    	$strings['value']['Editar'] = 'Editar Projeto';
+    	$strings['label']['AtualizadoSucesso'] = 'Resposta do sistema quando o administrador conclui a edição de um blog na rede';
+    	$strings['value']['AtualizadoSucesso'] = 'Projeto atualizado com sucesso!';
+    	$strings['label']['Editar'] = 'Texto que vem antes do nome do blog na tela de edição de cada um deles na rede';
+    	$strings['value']['Editar'] = 'Editar projeto:';
     	
     	//campaign_list.php
-    	$strings['label']['Seus'] = '';
-    	$strings['value']['Seus'] = 'Seus Projetos';
-    	$strings['label']['RemovidoSucesso'] = '';
-    	$strings['value']['RemovidoSucesso'] = "Projeto {domain} removido com sucesso.";
+    	$strings['label']['Seus'] = 'Título da página que lista os blogs da rede, visíveis de acordo com o nível de permissão do usuário';
+    	$strings['value']['Seus'] = 'Seus projetos';
+    	$strings['label']['RemovidoSucesso'] = 'Confirmação de remoção de blog na rede';
+    	$strings['value']['RemovidoSucesso'] = 'Projeto {domain} removido com sucesso!';
     	
     	//campanha.php
     	$strings['label']['Sobre'] = '';
@@ -756,7 +756,7 @@ class Campaign {
     	
     	//campaign_common.js
     	$campaign_common_strings = array();
-    	$campaign_common_strings['label']['MeusProjetos'] = '';
+    	$campaign_common_strings['label']['MeusProjetos'] = 'Nome de listagem dos blogs por usuário na barra superior administrativa';
     	$campaign_common_strings['value']['MeusProjetos'] = 'Meus projetos';
     	$campaign_common_strings['label']['AdministrarProjetos'] = '';
     	$campaign_common_strings['value']['AdministrarProjetos'] = 'Administrar projetos';
