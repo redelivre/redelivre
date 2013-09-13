@@ -2,8 +2,8 @@
     $(document).ready(function() {
         // customize strings from my sites admin menu        
         a = $('#wp-admin-bar-my-sites a').first();
-        if (a.text() == 'Meus sites') {
-            a.text(campaign_common.MeusProjetos);
+        if (a.text() == 'Meus Sites') {
+            a.text(campaign_common.value.MeusProjetos);
             a.removeAttr('href');
         }      
         
