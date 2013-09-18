@@ -593,10 +593,6 @@ add_action('wp_enqueue_scripts', 'campanha_top_style', 1);
 
 define('lost_password_page', 'custom_lost_password');
 
-function shortcode_lost_password(){
-	include ABSPATH . '/wp-content/mu-plugins/includes/custom-lost-password.php';
-}
-
 /**
 *
 *
@@ -731,8 +727,6 @@ function lost_password_validate()
 /***************************************************************************************************************/
 
 
-add_shortcode('lost-password-form', 'shortcode_lost_password');
-
 function custom_lostpassword_url($url)
 {
 	return bloginfo('url').'/'.lost_password_page;	
@@ -750,18 +744,86 @@ function custom_lost_password_query_var($query_vars){
 
 add_filter('query_vars', 'custom_lost_password_query_var');
 
+
+function custom_lost_password_check_password_reset_key($key, $login) {
+	global $wpdb;
+
+	$key = preg_replace('/[^a-z0-9]/i', '', $key);
+
+	if ( empty( $key ) || !is_string( $key ) )
+		return new WP_Error('invalid_key', __('Invalid key'));
+
+	if ( empty($login) || !is_string($login) )
+		return new WP_Error('invalid_key', __('Invalid key'));
+
+	$user = $wpdb->get_row($wpdb->prepare("SELECT * FROM $wpdb->users WHERE user_activation_key = %s AND user_login = %s", $key, $login));
+
+	if ( empty( $user ) )
+		return new WP_Error('invalid_key', __('Invalid key'));
+
+	return $user;
+}
+
+/**
+ * Handles resetting the user's password.
+ *
+ * @param object $user The user
+ * @param string $new_pass New password for the user in plaintext
+ */
+function custom_lost_password_reset_password($user, $new_pass) {
+	do_action('password_reset', $user, $new_pass);
+
+	wp_set_password($new_pass, $user->ID);
+
+	wp_password_change_notification($user);
+}
+
 /**
  *
  *
  */
 function custom_lost_password_form()
 {
-	if(get_query_var(lost_password_page)){
+	if(get_query_var(lost_password_page))
+	{
+		nocache_headers();
+		if($_GET['action'] == 'rp' || $_GET['action'] == 'resetpass')
+		{
+			// baseado no wp-login code line: 458
+			$user = custom_lost_password_check_password_reset_key($_GET['key'], $_GET['login']);
+		
+			if ( is_wp_error($user) )
+			{
+				wp_redirect( site_url(lost_password_page.'/?action=lostpassword&error=invalidkey') );
+				exit;
+			}
+		
+			$errors = new WP_Error();
+		
+			if ( isset($_POST['pass1']) && $_POST['pass1'] != $_POST['pass2'] )
+				$errors->add( 'password_reset_mismatch', __( 'The passwords do not match.' ) );
+		
+			do_action( 'validate_password_reset', $errors, $user );
+		
+			if ( ( ! $errors->get_error_code() ) && isset( $_POST['pass1'] ) && !empty( $_POST['pass1'] ) ) {
+				custom_lost_password_reset_password($user, $_POST['pass1']);
+				//login_header( __( 'Password Reset' ), '<p class="message reset-pass">' . __( 'Your password has been reset.' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'Log in' ) . '</a></p>' );
+				//login_footer();
+				exit;
+			}
+		
+			wp_enqueue_script('utils');
+			wp_enqueue_script('user-profile');
+			//end wp-login code
+		}
 		get_header();
 		$file_path = get_stylesheet_directory() . '/template-custom-lost-password.php';
-		if(file_exists($file_path)){
+		if(file_exists($file_path))
+		{
 			include $file_path;
-		} else {
+		}
+		else
+		{
 			include ABSPATH . '/wp-content/mu-plugins/includes/custom-lost-password.php';
 		}
 		get_footer();
