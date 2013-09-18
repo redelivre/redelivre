@@ -29,7 +29,8 @@
 </form>
 <?php elseif($_GET['action'] == 'rp' || $_GET['action'] == 'resetpass'): ?>
 <form>
-	<input type="hidden" id="user_login" value="<?php echo esc_attr( $_GET['login'] ); ?>" autocomplete="off" />
+	<input type="hidden" id="login" value="<?php echo esc_attr( $_GET['login'] ); ?>" autocomplete="off" />
+	<input type="hidden" id="key" value="<?php echo esc_attr( $_GET['key'] ); ?>" autocomplete="off" />
 
 	<p>
 		<label for="pass1"><?php _e('New password') ?><br />
@@ -44,6 +45,6 @@
 	<p class="description indicator-hint"><?php _e('Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers and symbols like ! " ? $ % ^ &amp; ).'); ?></p>
 
 	<br class="clear" />
-	<p class="submit"><input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Reset Password'); ?>" /></p>
+	<input type="button" value="enviar-reset" id="lost-password-send-reset"/>
 </form>	
 <?php endif; ?>
