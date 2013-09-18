@@ -28,7 +28,8 @@
 	 	<?php _e( 'You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.', 'guarani' ); ?>
 	</p>
 	<![endif]-->
-	<div class="site-wrapper hfeed">
+	<?php $guarani_front_content_bg_color = get_option('guarani_front_content_bg_color'); ?>
+	<div class="site-wrapper hfeed" <?php echo 'style="background-color:'.$guarani_front_content_bg_color.'" ' ?> >
 		<?php do_action( 'before' ); ?>
 		<header id="masthead" class="site-header cf" role="banner">
 		
@@ -41,8 +42,20 @@
 				
 				// Check if there's a custom logo
 				$logo = get_theme_mod( 'guarani_logo' );
-				$logo_uri = ( $logo ) ? $logo : get_template_directory_uri() . '/images/schemes/logo-' . $color_scheme . '.png'; ?>
-				
+				$logo_uri = get_template_directory_uri() . '/images/schemes/logo-undefined.png';
+				if( $logo && url_exists($logo) )
+				{
+					$logo_uri =  $logo; 
+				}
+				else
+				{
+					$logo = get_template_directory_uri() . '/images/schemes/logo-' . $color_scheme . '.png';
+					if(url_exists($logo))
+					{
+						$logo_uri = $logo;
+					}
+				}
+				?>
 				<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 					 <img class="site-logo" src="<?php echo $logo_uri; ?>" alt="Logo <?php bloginfo ( 'name' ); ?>" />
 				</a>

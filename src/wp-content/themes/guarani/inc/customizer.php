@@ -213,6 +213,12 @@ function guarani_customize_register( $wp_customize ) {
 		'settings' => 'guarani_color_scheme'
 	) );
 	
+	
+	$color = array( 'slug'=>'guarani_front_content_bg_color', 'default' => '#ffffff', 'label' => __( 'Cor de fundo do conteúdo', 'guarani' ) );
+	$wp_customize->add_setting( $color['slug'], array( 'default' => $color['default'], 'type' => 'option', 'capability' => 'edit_theme_options', 'transport'=>'postMessage' ));
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $color['slug'], array( 'label' => $color['label'], 'section' => 'colors', 'settings' => $color['slug'] )));
+	
+	
 	/*
 	 * Branding
 	 * Logo, favicon, default image
@@ -224,12 +230,12 @@ function guarani_customize_register( $wp_customize ) {
 	
 	// Branding: logo
 	$wp_customize->add_setting( 'guarani_logo', array(
-		'default'     => get_template_directory_uri() . '/images/schemes/logo.png',
+		'default'     => get_template_directory_uri() . '/images/schemes/logo-default.png',
 		'capability'    => 'edit_theme_options',
 	) );
 	
     $wp_customize->add_control( new WP_Customize_Image_Reloaded_Control( $wp_customize, 'guarani_logo', array(
-        'label'   	=> __( 'Logo', 'guarani' ),
+        'label'   	=> __( 'Cabeçalho', 'guarani' ),
         'section'	=> 'guarani_branding',
         'settings' 	=> 'guarani_logo',
         'context'	=> 'guarani-custom-logo'
@@ -242,7 +248,7 @@ function guarani_customize_register( $wp_customize ) {
 	) );
     
     $wp_customize->add_control( new WP_Customize_Image_Reloaded_Control( $wp_customize, 'guarani_favicon', array(
-        'label'   	=> __( 'Favicon', 'guarani' ),
+        'label'   	=> __( 'Favicon (icone da barra de navegação/aba)', 'guarani' ),
         'section'	=> 'guarani_branding',
         'settings' 	=> 'guarani_favicon',
         'context'	=> 'guarani-favicon'
