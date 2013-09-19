@@ -68,7 +68,7 @@
 			        	<div class="social">
 			              <?php do_action('campanha_body_header'); ?>
 			             </div> 
-		              	<div class="busca">
+		              	<div id="busca" class="alignright">
 		             		<?php get_search_form(); ?>
 		             	</div>
 	             	</div>

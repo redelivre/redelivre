@@ -30,4 +30,12 @@
 				$( 'body' ).removeClass( 'custom-background-empty custom-background-white' );
 		} );
 	} );
+	
+	//Update site title color in real time...
+	wp.customize( 'guarani_front_content_bg_color', function( value ) {
+		value.bind( function( newval ) {
+			$('.site-wrapper').css('background-color', newval );
+		} );
+	} );;
+	
 } )( jQuery );
