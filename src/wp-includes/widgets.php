@@ -1121,8 +1121,6 @@ function wp_convert_widget_settings($base_name, $option_name, $settings) {
 function the_widget($widget, $instance = array(), $args = array()) {
 	global $wp_widget_factory;
 
-	if(!array_key_exists($widget, $wp_widget_factory->widgets) return;
-
 	$widget_obj = $wp_widget_factory->widgets[$widget];
 	if ( !is_a($widget_obj, 'WP_Widget') )
 		return;

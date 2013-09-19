@@ -36,7 +36,7 @@ get_header(); ?>
 					the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$archive_content" );
 					?>
 
-					<?php the_widget( 'WP_Widget_Tag_Cloud' ); ?>
+					<?php the_widget( 'Guarani_Tag_Cloud_Reloaded_Widget' ); ?>
 
 				</div><!-- .entry-content -->
 			</article><!-- #post-0 .post .error404 .not-found -->
