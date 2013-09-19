@@ -45,6 +45,10 @@
 	<p class="description indicator-hint"><?php _e('Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers and symbols like ! " ? $ % ^ &amp; ).'); ?></p>
 
 	<br class="clear" />
-	<input type="button" value="enviar-reset" id="lost-password-send-reset"/>
+	<input type="button" value="<?php esc_attr_e('Reset Password'); ?>" id="lost-password-send-reset"/>
+	
+	<div class="resposta-ajax">
+	
+	</div>
 </form>	
 <?php endif; ?>

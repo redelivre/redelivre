@@ -38,7 +38,9 @@ function Custom_Lost_Password_Reset(){
 			'key': jQuery("#key").val()
 		}		
 		
-		jQuery.post(custom_lost_password_ajax.url, data, function(response){
+		jQuery.post(custom_lost_password_ajax.url, data, function(response)
+		{
+			//jQuery("#lost-password-send-reset").hide();
 			jQuery(".resposta-ajax").html(response);
 		});
 	}

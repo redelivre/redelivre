@@ -784,13 +784,20 @@ function custom_lost_password_reset_password($user, $new_pass) {
  */
 function custom_lost_password_form()
 {
-	if(get_query_var(lost_password_page))
+	if(
+		get_query_var(lost_password_page) || 
+		(
+			basename($_SERVER['PHP_SELF']) === 'admin-ajax.php' &&
+			array_key_exists('action', $_POST) &&
+			$_POST['action'] == 'resetpass'
+		)
+	)
 	{
 		nocache_headers();
-		if($_GET['action'] == 'rp' || $_GET['action'] == 'resetpass')
+		if($_GET['action'] == 'rp' || $_REQUEST['action'] == 'resetpass')
 		{
 			// baseado no wp-login code line: 458
-			$user = custom_lost_password_check_password_reset_key($_GET['key'], $_GET['login']);
+			$user = custom_lost_password_check_password_reset_key($_REQUEST['key'], $_REQUEST['login']);
 		
 			if ( is_wp_error($user) )
 			{
@@ -806,10 +813,9 @@ function custom_lost_password_form()
 			do_action( 'validate_password_reset', $errors, $user );
 		
 			if ( ( ! $errors->get_error_code() ) && isset( $_POST['pass1'] ) && !empty( $_POST['pass1'] ) ) {
-				custom_lost_password_reset_password($user, $_POST['pass1']);
-				//login_header( __( 'Password Reset' ), '<p class="message reset-pass">' . __( 'Your password has been reset.' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'Log in' ) . '</a></p>' );
-				//login_footer();
-				exit;
+				//custom_lost_password_reset_password($user, $_POST['pass1']);
+				echo  '<p class="message reset-pass">' . __( 'Your password has been reset.' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'Log in' ) . '</a></p>';
+				return '';
 			}
 		
 			wp_enqueue_script('utils');
@@ -830,8 +836,9 @@ function custom_lost_password_form()
 		exit();
 	}
 }
-
 add_action('template_redirect', 'custom_lost_password_form');
+add_action('wp_ajax_resetpass', 'custom_lost_password_form');
+add_action('wp_ajax_nopriv_resetpass', 'custom_lost_password_form');
 
 /**
  *
