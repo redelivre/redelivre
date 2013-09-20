@@ -5,9 +5,13 @@ jQuery(document).ready(function(){
 		var lost_password = new Custom_Lost_Password();
 		lost_password.send();
 	});
-	jQuery("#lost-password-send-reset").click(function(){
-		var lost_password = new Custom_Lost_Password_Reset();
-		lost_password.send();
+	jQuery("#lost-password-send-reset").click(function()
+	{
+		if(jQuery("#pass1").val() == jQuery("#pass2").val() && jQuery("#pass1").length > 6)
+		{
+			var lost_password = new Custom_Lost_Password_Reset();
+			lost_password.send();
+		}
 	});
 });
 
@@ -34,7 +38,7 @@ function Custom_Lost_Password_Reset(){
 			'action': 'resetpass',
 			'pass1': jQuery("#pass1").val(),
 			'pass2': jQuery("#pass2").val(),
-			'login': jQuery("#login").val(),
+			'login': jQuery("#user_login").val(),
 			'key': jQuery("#key").val()
 		}		
 		

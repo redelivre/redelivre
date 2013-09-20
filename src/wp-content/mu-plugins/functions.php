@@ -744,7 +744,17 @@ function custom_lost_password_query_var($query_vars){
 
 add_filter('query_vars', 'custom_lost_password_query_var');
 
-
+/**
+ * Cópia de wp_login.php check_password_reset_key
+ * 
+ * Retrieves a user row based on password reset key and login
+ *
+ * @uses $wpdb WordPress Database object
+ *
+ * @param string $key Hash to validate sending user's password
+ * @param string $login The user login
+ * @return object|WP_Error User's database row on success, error object for invalid keys
+ */
 function custom_lost_password_check_password_reset_key($key, $login) {
 	global $wpdb;
 
@@ -765,6 +775,7 @@ function custom_lost_password_check_password_reset_key($key, $login) {
 }
 
 /**
+ * Cópia de wp_login.php reset_password
  * Handles resetting the user's password.
  *
  * @param object $user The user
@@ -794,7 +805,10 @@ function custom_lost_password_form()
 	)
 	{
 		nocache_headers();
-		if($_GET['action'] == 'rp' || $_REQUEST['action'] == 'resetpass')
+		if( 
+			(array_key_exists('action', $_GET) && $_GET['action'] == 'rp') ||
+			(array_key_exists('action', $_REQUEST) && $_REQUEST['action'] == 'resetpass')
+		)
 		{
 			// baseado no wp-login code line: 458
 			$user = custom_lost_password_check_password_reset_key($_REQUEST['key'], $_REQUEST['login']);
@@ -813,9 +827,13 @@ function custom_lost_password_form()
 			do_action( 'validate_password_reset', $errors, $user );
 		
 			if ( ( ! $errors->get_error_code() ) && isset( $_POST['pass1'] ) && !empty( $_POST['pass1'] ) ) {
-				//custom_lost_password_reset_password($user, $_POST['pass1']);
+				custom_lost_password_reset_password($user, $_POST['pass1']);
 				echo  '<p class="message reset-pass">' . __( 'Your password has been reset.' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'Log in' ) . '</a></p>';
-				return '';
+				die();
+			}
+			if($errors->get_error_code())
+			{
+				echo implode('<br/>', $errors->get_error_messages());
 			}
 		
 			wp_enqueue_script('utils');

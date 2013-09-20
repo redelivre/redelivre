@@ -28,8 +28,8 @@
 		
 </form>
 <?php elseif($_GET['action'] == 'rp' || $_GET['action'] == 'resetpass'): ?>
-<form>
-	<input type="hidden" id="login" value="<?php echo esc_attr( $_GET['login'] ); ?>" autocomplete="off" />
+<form class="custom-lost-password">
+	<input type="hidden" id="user_login" value="<?php echo esc_attr( $_GET['login'] ); ?>" autocomplete="off" />
 	<input type="hidden" id="key" value="<?php echo esc_attr( $_GET['key'] ); ?>" autocomplete="off" />
 
 	<p>
@@ -50,5 +50,6 @@
 	<div class="resposta-ajax">
 	
 	</div>
-</form>	
+</form>
+<br/>
 <?php endif; ?>
