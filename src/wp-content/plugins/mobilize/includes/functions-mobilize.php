@@ -175,9 +175,9 @@ function mobilize_template_chamada()
     $options = Mobilize::getOption();
 
     $smartView = new smartView(INC_MOBILIZE.'/views/chamada.php');
-    $smartView->padding      = $options['general']['espacamento_lateral'];
+    $smartView->padding      = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
     $smartView->chamadaTitle = !empty($options['general']['title']) ? $options['general']['title'] : 'Apoie este projeto';
-    $smartView->chamadaDescription = isset($options['general']['description']) && isset($options['general']['description']) ? $options['general']['description'] : (isset($option['general']['ocultarexplicacao']) ? 'Nesta página, você encontra diferentes formas de mobilização e apoio.' : '');
+    $smartView->chamadaDescription = isset($options['general']['description']) ? $options['general']['description'] : (isset($option['general']['ocultarexplicacao']) ? '' : 'Nesta página, você encontra diferentes formas de mobilização e apoio.');
     return $smartView->display();
 }
 
@@ -191,7 +191,7 @@ function mobilize_template_banners()
         $options = Mobilize::getOption();
 
         $smartView = new smartView(INC_MOBILIZE.'/views/banners.php');
-        $smartView->padding           = $options['general']['espacamento_lateral'];
+        $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
         $smartView->bannerDescription = $options['banners']['description'];
         $smartView->bannerCode250 = htmlentities('<a href="' . get_bloginfo('url') . '/mobilize"><img src="' . Mobilize::getBannerURL(250) . '" /></a>');
         $smartView->bannerCode200 = htmlentities('<a href="' . get_bloginfo('url') . '/mobilize"><img src="' . Mobilize::getBannerURL(200) . '" /></a>');
@@ -218,7 +218,7 @@ function mobilize_template_social()
         $optionsRedesSociais = Mobilize::optionRedesSociais();
 
         $smartView = new smartView(INC_MOBILIZE.'/views/redes-sociais.php');
-        $smartView->padding           = $options['general']['espacamento_lateral'];
+        $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
         $smartView->socialDescription = $options['redes']['description'];
 
         if (!is_null($optionsRedesSociais['redes_facebook_page']) && !empty($optionsRedesSociais['redes_facebook_page'])) {
@@ -251,7 +251,7 @@ function mobilize_template_adesive()
         $options = Mobilize::getOption();
 
         $smartView = new SmartView(INC_MOBILIZE.'/views/adesive.php');
-        $smartView->padding            = $options['general']['espacamento_lateral'];
+        $smartView->padding            = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
         $smartView->adesiveDescription = $options['adesive']['description'];
         $smartView->baseURL = get_bloginfo('url');
         $smartView->adesiveURL = Mobilize::getAdesiveURL();
@@ -270,7 +270,7 @@ function mobilize_template_enviar()
         $options = Mobilize::getOption();
 
         $smartView = new SmartView(INC_MOBILIZE.'/views/enviar.php');
-        $smartView->padding           = $options['general']['espacamento_lateral'];
+        $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
         $smartView->enviarDescription = $options['envie']['description'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
