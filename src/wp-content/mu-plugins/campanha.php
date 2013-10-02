@@ -226,6 +226,13 @@ function getPlataformSettings($id = '')
 	return $sets;
 }
 
+function editStringsStylesheets()
+{
+    wp_enqueue_style('plataform-edit-strings', plugins_url('/css/plataform-edit-strings.css', MUCAMPANHAPATH));   
+}
+
+add_action('admin_enqueue_scripts', 'editStringsStylesheets');
+
 function savePlataformSettings()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['plataform_settings_strings'])) {
