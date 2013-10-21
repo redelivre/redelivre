@@ -3,7 +3,7 @@
  * Plugin Name: FG Joomla to WordPress
  * Plugin Uri:  http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
  * Description: A plugin to migrate categories, posts, images and medias from Joomla to WordPress
- * Version:     1.15.2
+ * Version:     1.21.3
  * Author:      Frédéric GILLES
  */
 
@@ -99,11 +99,12 @@ if ( !class_exists('fgj2wp', false) ) {
 				'username'				=> 'root',
 				'password'				=> '',
 				'prefix'				=> 'jos_',
-				'introtext_in_excerpt'	=> 0,
+				'introtext'				=> 'in_content',
 				'archived_posts'		=> 'not_imported',
 				'skip_media'			=> 0,
-				'import_featured'		=> 1,
+				'first_image'			=> 'as_is_and_featured',
 				'import_external'		=> 0,
+				'import_duplicates'		=> 0,
 				'force_media_import'	=> 0,
 				'meta_keywords_in_tags'	=> 0,
 				'import_as_pages'		=> 0,
@@ -190,7 +191,8 @@ if ( !class_exists('fgj2wp', false) ) {
 			$data = $this->plugin_options;
 			
 			$data['title'] = __('Import Joomla (FG)', 'fgj2wp');
-			$data['description'] = __('This plugin will import sections, categories, posts and medias (images, attachments) from a Joomla database into WordPress.<br />Compatible with Joomla versions 1.5, 1.6, 1.7, 2.5 and 3.0.', 'fgj2wp');
+			$data['description'] = __('This plugin will import sections, categories, posts and medias (images, attachments) from a Joomla database into WordPress.<br />Compatible with Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 and 3.1.', 'fgj2wp');
+			$data['description'] .= "<br />\n" . __('For any issue, please read the <a href="http://wordpress.org/plugins/fg-joomla-to-wordpress/faq/" target="_blank">FAQ</a> first.', 'fgj2wp');
 			$data['posts_count'] = $posts_count->publish + $posts_count->draft + $posts_count->future + $posts_count->pending;
 			$data['pages_count'] = $pages_count->publish + $pages_count->draft + $pages_count->future + $pages_count->pending;
 			$data['media_count'] = $media_count->inherit;
@@ -434,8 +436,13 @@ SQL;
 		 * @return array Form parameters
 		 */
 		private function validate_form_info() {
+			// Add http:// before the URL if it is missing
+			$url = $_POST['url'];
+			if ( !empty($url) && (preg_match('#^https?://#', $url) == 0) ) {
+				$url = 'http://' . $url;
+			}
 			return array(
-				'url'					=> $_POST['url'],
+				'url'					=> $url,
 				'version'				=> $_POST['version'],
 				'hostname'				=> $_POST['hostname'],
 				'port'					=> intval($_POST['port']),
@@ -443,11 +450,12 @@ SQL;
 				'username'				=> $_POST['username'],
 				'password'				=> $_POST['password'],
 				'prefix'				=> $_POST['prefix'],
-				'introtext_in_excerpt'	=> !empty($_POST['introtext_in_excerpt']),
+				'introtext'				=> $_POST['introtext'],
 				'archived_posts'		=> $_POST['archived_posts'],
 				'skip_media'			=> !empty($_POST['skip_media']),
-				'import_featured'		=> !empty($_POST['import_featured']),
+				'first_image'			=> $_POST['first_image'],
 				'import_external'		=> !empty($_POST['import_external']),
+				'import_duplicates'		=> !empty($_POST['import_duplicates']),
 				'force_media_import'	=> !empty($_POST['force_media_import']),
 				'meta_keywords_in_tags'	=> !empty($_POST['meta_keywords_in_tags']),
 				'import_as_pages'		=> !empty($_POST['import_as_pages']),
@@ -462,6 +470,8 @@ SQL;
 			global $joomla_db;
 			
 			if ( $this->joomla_connect() ) {
+				
+				$time_start = microtime(true);
 				
 				// Check prerequesites before the import
 				$do_import = apply_filters('fgj2wp_pre_import_check', true);
@@ -502,6 +512,13 @@ SQL;
 				
 				// Hook for other notices
 				do_action('fgj2wp_import_notices');
+				
+				// Debug info
+				if ( defined('WP_DEBUG') && WP_DEBUG ) {
+					$this->display_admin_notice(sprintf("Memory used: %s bytes<br />\n", number_format(memory_get_usage())));
+					$time_end = microtime(true);
+					$this->display_admin_notice(sprintf("Duration: %d sec<br />\n", $time_end - $time_start));
+				}
 				
 				$this->display_admin_notice(__("Don't forget to modify internal links.", 'fgj2wp'));
 				
@@ -612,13 +629,16 @@ SQL;
 						// Hook for modifying the Joomla post before processing
 						$post = apply_filters('fgj2wp_pre_process_post', $post);
 						
+						// Date
+						$post_date = ($post['date'] != '0000-00-00 00:00:00')? $post['date']: $post['modified'];
+						
 						// Medias
 						if ( !$this->plugin_options['skip_media'] ) {
 							// Extra featured image
 							$featured_image = '';
 							list($featured_image, $post) = apply_filters('fgj2wp_pre_import_media', array($featured_image, $post));
 							// Import media
-							$result = $this->import_media($featured_image . $post['introtext'] . $post['fulltext'], $post['date']);
+							$result = $this->import_media($featured_image . $post['introtext'] . $post['fulltext'], $post_date);
 							$post_media = $result['media'];
 							$media_count += $result['media_count'];
 						} else {
@@ -642,22 +662,7 @@ SQL;
 						}
 						
 						// Define excerpt and post content
-						if ( empty($post['fulltext']) ) {
-							// Posts without a "Read more" link
-							$excerpt = '';
-							$content = $post['introtext'];
-						} else {
-							// Posts with a "Read more" link
-							if ( $this->plugin_options['introtext_in_excerpt'] ) {
-								// Introtext imported in excerpt
-								$excerpt = $post['introtext'];
-								$content = $post['fulltext'];
-							} else {
-								// Introtext imported in post content with a "Read more" tag
-								$excerpt = '';
-								$content = $post['introtext'] . "\n<!--more-->\n" . $post['fulltext'];
-							}
-						}
+						list($excerpt, $content) = $this->set_excerpt_content($post);
 						
 						// Process content
 						$excerpt = $this->process_content($excerpt, $post_media);
@@ -686,7 +691,7 @@ SQL;
 						$new_post = array(
 							'post_category'		=> $categories_ids,
 							'post_content'		=> $content,
-							'post_date'			=> $post['date'],
+							'post_date'			=> $post_date,
 							'post_excerpt'		=> $excerpt,
 							'post_status'		=> $status,
 							'post_title'		=> $post['title'],
@@ -703,7 +708,7 @@ SQL;
 						
 						if ( $new_post_id ) { 
 							// Add links between the post and its medias
-							$this->add_post_media($new_post_id, $new_post, $post_media, $this->plugin_options['import_featured']);
+							$this->add_post_media($new_post_id, $new_post, $post_media, $this->plugin_options['first_image'] != 'as_is');
 							
 							// Add the Joomla ID as a post meta in order to modify links after
 							add_post_meta($new_post_id, '_fgj2wp_old_id', $post['id'], true);
@@ -838,7 +843,7 @@ SQL;
 				$extra_joins = apply_filters('fgj2wp_get_posts_add_extra_joins', '');
 				
 				$sql = "
-					SELECT p.id, p.title, p.alias, p.introtext, p.fulltext, p.state, CONCAT('c', c.id, '-', $cat_field) AS category, p.modified, p.created AS `date`, p.metakey, p.metadesc, p.ordering
+					SELECT p.id, p.title, p.alias, p.introtext, p.fulltext, p.state, CONCAT('c', c.id, '-', $cat_field) AS category, p.modified, p.created AS `date`, p.attribs, p.metakey, p.metadesc, p.ordering
 					$extra_cols
 					FROM ${prefix}content p
 					LEFT JOIN ${prefix}categories AS c ON p.catid = c.id
@@ -860,6 +865,59 @@ SQL;
 				$this->display_admin_error(__('Error:', 'fgj2wp') . $e->getMessage());
 			}
 			return $posts;		
+		}
+		
+		/**
+		 * Return the excerpt and the content of a post
+		 *
+		 * @param array $post Post data
+		 * @return array ($excerpt, $content)
+		 */
+		public function set_excerpt_content($post) {
+			$excerpt = '';
+			$content = '';
+			
+			// Attribs
+			$post_attribs = $this->convert_post_attribs_to_array(array_key_exists('attribs', $post)? $post['attribs']: '');
+			
+			if ( empty($post['fulltext']) ) {
+				// Posts without a "Read more" link
+				$content = $post['introtext'];
+			} else {
+				// Posts with a "Read more" link
+				$show_intro = (is_array($post_attribs) && array_key_exists('show_intro', $post_attribs))? $post_attribs['show_intro'] : '';
+				if ( (($this->plugin_options['introtext'] == 'in_excerpt') && ($show_intro !== '1'))
+					|| (($this->plugin_options['introtext'] == 'in_excerpt_and_content') && ($show_intro == '0')) ) {
+					// Introtext imported in excerpt
+					$excerpt = $post['introtext'];
+					$content = $post['fulltext'];
+				} elseif ( (($this->plugin_options['introtext'] == 'in_excerpt_and_content') && ($show_intro !== '0'))
+					|| (($this->plugin_options['introtext'] == 'in_excerpt') && ($show_intro == '1')) ) {
+					// Introtext imported in excerpt and in content
+					$excerpt = $post['introtext'];
+					$content = $post['introtext'] . "\n" . $post['fulltext'];
+				} else {
+					// Introtext imported in post content with a "Read more" tag
+					$content = $post['introtext'] . "\n<!--more-->\n" . $post['fulltext'];
+				}
+			}
+			return array($excerpt, $content);
+		}
+		
+		/**
+		 * Return the post attribs in an array
+		 *
+		 * @param string $attribs Post attribs as a string
+		 * @return array Post attribs as an array
+		 */
+		function convert_post_attribs_to_array($attribs) {
+			$attribs = trim($attribs);
+			if ( (substr($attribs, 0, 1) != '{') && (substr($attribs, -1, 1) != '}') ) {
+				$post_attribs = parse_ini_string($attribs);
+			} else {
+				$post_attribs = json_decode($attribs, true);
+			}
+			return $post_attribs;
 		}
 		
 		/**
@@ -919,17 +977,26 @@ SQL;
 						$uploads = wp_upload_dir($date);
 						$new_upload_dir = $uploads['path'];
 						
-						$new_filename = $new_upload_dir . '/' . basename($filename);
+						$new_filename = $filename;
+						if ( $this->plugin_options['import_duplicates'] == 1 ) {
+							// Images with duplicate names
+							$new_filename = preg_replace('#.*images/stories/#', '', $new_filename);
+							$new_filename = preg_replace('#.*media/k2#', 'k2', $new_filename);
+							$new_filename = str_replace('http://', '', $new_filename);
+							$new_filename = str_replace('/', '_', $new_filename);
+						}
 						
-						// print "Copy \"$old_filename\" => $new_filename<br />";
-						if ( ! @$this->remote_copy($old_filename, $new_filename) ) {
+						$new_full_filename = $new_upload_dir . '/' . basename($new_filename);
+						
+						// print "Copy \"$old_filename\" => $new_full_filename<br />";
+						if ( ! @$this->remote_copy($old_filename, $new_full_filename) ) {
 							$error = error_get_last();
 							$error_message = $error['message'];
-							$this->display_admin_error("Can't copy $old_filename to $new_filename : $error_message");
+							$this->display_admin_error("Can't copy $old_filename to $new_full_filename : $error_message");
 							continue;
 						}
-
-						$post_name = preg_replace('/\.[^.]+$/', '', basename($filename));
+						
+						$post_name = preg_replace('/\.[^.]+$/', '', basename($new_filename));
 						
 						// If the attachment does not exist yet, insert it in the database
 						$attachment = $this->get_attachment_from_name($post_name);
@@ -939,9 +1006,10 @@ SQL;
 								'post_mime_type'	=> $filetype['type'],
 								'post_name'			=> $post_name,
 								'post_title'		=> $post_name,
-								'post_status'		=> 'inherit'
+								'post_status'		=> 'inherit',
+								'post_content'		=> '',
 							);
-							$attach_id = wp_insert_attachment($attachment_data, $new_filename);
+							$attach_id = wp_insert_attachment($attachment_data, $new_full_filename);
 							$attachment = get_post($attach_id);
 							$post_name = $attachment->post_name; // Get the real post name
 							$media_count++;
@@ -957,7 +1025,7 @@ SQL;
 							// you must first include the image.php file
 							// for the function wp_generate_attachment_metadata() to work
 							require_once(ABSPATH . 'wp-admin/includes/image.php');
-							$attach_data = wp_generate_attachment_metadata( $attach_id, $new_filename );
+							$attach_data = wp_generate_attachment_metadata( $attach_id, $new_full_filename );
 							wp_update_attachment_metadata( $attach_id, $attach_data );
 
 							// Image Alt
@@ -1007,6 +1075,11 @@ SQL;
 		public function process_content($content, $post_media) {
 			
 			if ( !empty($content) ) {
+				$content = str_replace(array("\r", "\n"), array('', ' '), $content);
+				
+				// Replace page breaks
+				$content = preg_replace("#<hr([^>]*?)class=\"system-pagebreak\"(.*?)/>#", "<!--nextpage-->", $content);
+				
 				// Replace media URLs with the new URLs
 				$content = $this->process_content_media_links($content, $post_media);
 			}
@@ -1054,7 +1127,15 @@ SQL;
 					$content = preg_replace_callback('#<(img) (.*?)(src)=(.*?)>#i', array($this, 'remove_links'), $content);
 					
 					// Process the stored medias links
+					$first_image_removed = false;
 					foreach ($this->post_link as &$link) {
+						
+						// Remove the first image from the content
+						if ( ($this->plugin_options['first_image'] == 'as_featured') && !$first_image_removed && preg_match('#^<img#', $link['old_link']) ) {
+							$link['new_link'] = '';
+							$first_image_removed = true;
+							continue;
+						}
 						$new_link = $link['old_link'];
 						$alignment = '';
 						if ( preg_match('/(align="|float: )(left|right)/', $new_link, $matches) ) {
@@ -1074,8 +1155,9 @@ SQL;
 											if ( $link_type == 'img' ) { // images only
 												// Caption shortcode
 												if ( preg_match('/class=".*caption.*?".*?title="(.*?)"/', $link['old_link'], $matches_caption) ) {
+													$caption_value = str_replace('%', '%%', $matches_caption[1]);
 													$align_value = ($alignment != '')? $alignment : 'alignnone';
-													$caption = '[caption id="attachment_' . $media['attachment_id'] . '" align="' . $align_value . '" width="' . $media['width'] . '"]%s' . $matches_caption[1] . '[/caption]';
+													$caption = '[caption id="attachment_' . $media['attachment_id'] . '" align="' . $align_value . '" width="' . $media['width'] . '"]%s' . $caption_value . '[/caption]';
 												}
 												
 												$align_class = ($alignment != '')? $alignment . ' ' : '';

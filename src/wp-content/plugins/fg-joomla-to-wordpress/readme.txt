@@ -1,10 +1,10 @@
 === FG Joomla to WordPress ===
 Contributors: Frédéric GILLES
 Plugin Uri: http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
-Tags: joomla, mambo, wordpress, migrator, converter, import, k2, jcomments, joomlacomments, jomcomment, flexicontent, postviews, joomlatags, sh404sef, attachments, rokbox, kunena
+Tags: joomla, mambo, wordpress, migrator, converter, import, k2, jcomments, joomlacomments, jomcomment, flexicontent, postviews, joomlatags, sh404sef, attachments, rokbox, kunena, phocagallery, phoca, joomsef, opensef, easyblog
 Requires at least: 3.0
-Tested up to: WP 3.6
-Stable tag: 1.15.2
+Tested up to: WP 3.6.1
+Stable tag: 1.21.3
 License: GPLv2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=fred%2egilles%40free%2efr&lc=FR&item_name=Fr%c3%a9d%c3%a9ric%20GILLES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 
@@ -14,7 +14,7 @@ A plugin to migrate categories, posts, tags, images and other medias from Joomla
 
 This plugin migrates sections, categories, posts, images, medias and tags from Joomla to Wordpress.
 
-It has been tested with **Joomla versions 1.5, 1.6, 1.7, 2.5 and 3.0** and **Wordpress 3.6** on huge databases (72 000+ posts). It is compatible with multisite installations.
+It has been tested with **Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 and 3.1** and **Wordpress 3.6.1** on huge databases (72 000+ posts). It is compatible with multisite installations.
 
 Major features include:
 
@@ -30,6 +30,7 @@ Major features include:
 * keeps the image caption
 * modifies the internal links
 * migrates meta keywords as tags
+* migrates page breaks
 * can import Joomla articles as posts or pages
 
 No need to subscribe to an external web site.
@@ -38,79 +39,52 @@ No need to subscribe to an external web site.
 
 The **Premium version** includes these extra features:
 
-* migrates authors and other users
+* migrates authors and other users with their passwords
 * migrates the navigation menus
+* SEO: migrates the meta description and the meta keywords
 * SEO: keeps the Joomla articles IDs or redirects Joomla URLs to the new WordPress URLs
 * compatible with **Joomla 1.0** and **Mambo 4.5 and 4.6** (process {mosimages} and {mospagebreak})
 * migrates Joomla 1.0 static articles as pages
 * migrates Joomla 2.5+ featured images
 
+The Premium version can be purchased on: http://www.fredericgilles.net/fg-joomla-to-wordpress/
+
 = Add-ons =
 
-The following add-ons are extensions of the Premium version.
+The Premium version allows the use of add-ons that enhance functionality:
 
-The **K2 module** includes these features:
+* K2
+* EasyBlog
+* Flexicontent
+* Kunena forum
+* sh404sef
+* JoomSEF
+* OpenSEF
+* WP-PostViews (keep Joomla hits)
+* JComments
+* JomComment
+* Joomlatags
+* Attachments
+* Rokbox
+* Phocagallery
 
-* migrates K2 items
-* migrates K2 categories
-* migrates K2 tags
-* migrates K2 comments
-* migrates K2 images
-* migrates K2 images galleries
-* migrates K2 videos
-* migrates K2 attachments
-* migrates K2 custom fields
-* migrates K2 authors
-
-The **Kunena module** includes these features:
-
-* migrates Kunena forums to bbPress
-* migrates Kunena messages
-
-The **sh404sef module** includes these features:
-
-* keeps or redirects the URLs from the Joomla extension sh404sef
-
-The **WP-PostViews module** includes these features:
-
-* migrates the Joomla views counts. This module requires the WP-PostViews plugin.
-
-The **JComments module** includes these features:
-
-* migrates the comments from the JComments Joomla extension
-
-The **JomComment module** includes these features:
-
-* migrates the comments from the JomComment Joomla extension
-
-The **Joomlatags module** includes these features:
-
-* migrates the tags from the Joomlatags extension
-
-The **Attachments module** includes these features:
-
-* migrates the attachments from the Attachments Joomla extension
-
-The **Rokbox module** includes these features:
-
-* migrates the images from the Rokbox Joomla extension
-
-The **Flexicontent module** includes these features:
-
-* migrates Flexicontent items/categories relations
-* migrates Flexicontent tags
-* migrates Flexicontent images
-* migrates Flexicontent custom fields
-
-The Premium version and the modules can be purchased on: http://www.fredericgilles.net/fg-joomla-to-wordpress/
+These modules can be purchased on: http://www.fredericgilles.net/fg-joomla-to-wordpress/
 
 == Installation ==
 
-1.  Extract plugin zip file and load up to your wp-content/plugin directory
-2.  Activate Plugin in the Admin => Plugins Menu
+1.  Install the plugin in the Admin => Plugins menu => Add New => Upload => Select the zip file => Install Now
+2.  Activate the plugin in the Admin => Plugins menu
 3.  Run the importer in Tools > Import > Joomla (FG)
 
 == Frequently Asked Questions ==
+
+= I get the message: "[fgj2wp] Couldn't connect to the Joomla database. Please check your parameters. And be sure the WordPress server can access the Joomla database. SQLSTATE[28000] [1045] Access denied for user 'xxx'@'localhost' (using password: YES)" =
+
+* First verify your login and password to your Joomla database.
+* If Joomla and WordPress are not installed on the same host, you can do this:
+- export the Joomla database to a SQL file (with phpMyAdmin for example)
+- import this SQL file on the same database as WordPress
+- run the migration by using WordPress database credentials (host, user, password, database) instead of the Joomla ones in the plugin settings.
 
 = The migration stops and I get the message: "Fatal error: Allowed memory size of XXXXXX bytes exhausted" =
 
@@ -142,14 +116,6 @@ The Premium version and the modules can be purchased on: http://www.fredericgill
 
 * You have to enable PDO_MySQL in php.ini. That means uncomment the line extension=pdo_mysql.so in php.ini
 
-= I get the message: "SQLSTATE[28000] [1045] Access denied for user 'xxx'@'localhost' (using password: YES)" =
-
-* First verify your login and password to your Joomla database.
-* You must give access to the WordPress host on your Joomla database.
-* If your provider doesn't allow external IP to access your database, you have two solutions:
-- install WordPress on the same host as Joomla
-- install WordPress and the Joomla database on your localhost and do the migration on localhost
-
 = Does the migration process modify the Joomla site it migrates from? =
 
 * No, it only reads the Joomla database.
@@ -162,6 +128,10 @@ The Premium version and the modules can be purchased on: http://www.fredericgill
 
 * Xampp puts the htdocs in the applications folder which is write protected. You need to move the htdocs to a writeable folder.
 
+= How to import content from one section as posts and another section as pages? =
+
+* You can use the Convert Post Types plugin after the migration.
+
 Don't hesitate to let a comment on the forum or to report bugs if you found some.
 http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 
@@ -172,11 +142,51 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 == Translations ==
 * English (default)
 * French (fr_FR)
+* Spanish (es_ES)
 * German (de_DE)
 * Russian (ru_RU)
+* Polish (pl_PL)
 * other can be translated
 
 == Changelog ==
+
+= 1.21.3 =
+* Fixed: "Warning: sprintf(): Too few arguments" message for image captions with %
+
+= 1.21.0 =
+* New translation: Spanish (thanks to Bradis García L.)
+
+= 1.20.1 =
+* Fixed: Use the modified post date if the creation date is empty
+* Fixed: Warning: array_key_exists() [function.array-key-exists]: The second argument should be either an array or an object
+
+= 1.19.3 =
+* Fixed: Some spaces were removed (due to the extra newlines removal)
+* Fixed: Better rule for the convert_post_attribs_to_array function
+* Fixed: "WordPress database error Field 'post_content' doesn't have a default value"
+
+= 1.19.0 =
+* New: Import the page breaks
+* New: Option to import the Joomla introtext in the post and in the excerpt
+* New: Use the show_intro article parameter to import the introtext in the content or not
+* Tested with WordPress 3.6.1
+
+= 1.18.0 =
+* New: Compatibility with Joomla 3.1
+* Fixed: Remove extra newlines
+
+= 1.17.0 =
+* New: Add automatically http:// at the beginning of the URL if it is missing
+* New: Option for the first image import
+* FAQ updated
+
+= 1.16.1 =
+* Fixed: syntax error, "unexpected '&lt;'" in version 1.16.0
+
+= 1.16.0 =
+* New: Option to import images with duplicate names
+* New translation: Polish (Thanks to Łukasz Z.)
+* FAQ updated
 
 = 1.15.2 =
 * Optimize the Joomla connection
@@ -349,6 +359,42 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 * Initial version: Import Joomla 1.5 sections, categories, posts and images
 
 == Upgrade Notice ==
+
+= 1.21.3 =
+Fixed: "Warning: sprintf(): Too few arguments" message for image captions with %
+
+= 1.21.0 =
+New translation: Spanish (thanks to Bradis García L.)
+
+= 1.20.1 =
+Fixed: Use the modified post date if the creation date is empty
+Fixed: Warning: array_key_exists() [function.array-key-exists]: The second argument should be either an array or an object
+
+= 1.19.3 =
+Fixed: Some spaces were removed (due to the extra newlines removal)
+Fixed: Better rule for the convert_post_attribs_to_array function
+Fixed: "WordPress database error Field 'post_content' doesn't have a default value"
+
+= 1.19.0 =
+New: Import the page breaks
+New: Option to import the Joomla introtext in the post and in the excerpt
+New: Use the show_intro article parameter to import the introtext in the content or not
+Tested with WordPress 3.6.1
+
+= 1.18.0 =
+New: Compatibility with Joomla 3.1
+Fixed: Remove extra newlines
+
+= 1.17.0 =
+New: Add automatically http:// at the beginning of the URL if it is missing
+New: Option for the first image import
+
+= 1.16.1 =
+Fixed: syntax error, "unexpected '&lt;'" in version 1.16.0
+
+= 1.16.0 =
+New: Option to import images with duplicate names
+New translation: Polish
 
 = 1.15.2 =
 Optimize the Joomla connection

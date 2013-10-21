@@ -7,7 +7,7 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
    include 'securimage.php';
 
    $char_length = 4;
-   $chars = 'ABCDEFGHKLMNPRSTUVWYZabcdefghklmnprstuvwyz23456789';
+   $chars = 'ABCDEFGHKLMNPRSTUVWYZabcdeghmnpsuvwyz23456789';
    $chars_num = '2345789'; // do not change this or the code will break!!
    // one random position always has to be a number so that a 4 letter swear word could never appear
    $rand_pos = mt_rand( 0, $char_length - 1 );
@@ -28,11 +28,13 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
 
    $img->image_width   = 175;
    $img->image_height  = 60;
-   $img->num_lines     = 6;
+   $img->num_lines     = 3;
+   $img->perturbation  = 0.2;
+   $img->iscale        = 1;
    if(isset($_GET['si_sm_captcha']) && $_GET['si_sm_captcha'] == 1) {
        $img->image_width   = 132;
 	   $img->image_height  = 45;
-       $img->num_lines    = 3;
+       $img->num_lines     = 1;
    }
 
    //set some settings
@@ -67,11 +69,13 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
 
    $img->image_width   = 175;
    $img->image_height  = 60;
-   $img->num_lines     = 6;
+      $img->num_lines  = 3;
+   $img->perturbation  = 0.2;
+   $img->iscale        = 1;
    if(isset($_GET['si_sm_captcha']) && $_GET['si_sm_captcha'] == 1) {
        $img->image_width   = 132;
 	   $img->image_height  = 45;
-          $img->num_lines  = 3;
+       $img->num_lines     = 1;
    }
 
    //set some settings
@@ -87,4 +91,4 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
    exit;
 }
 
-?>
+// end of file

@@ -51,7 +51,7 @@
 					<td><select id="version" name="version">
 							<option id="version_1_5" value="1.5"<?php print ($data['version'] == '1.5')? ' selected' : ''; ?>>1.5</option>
 							<option id="version_1_6" value="1.6"<?php print ($data['version'] == '1.6')? ' selected' : ''; ?>>1.6, 1.7</option>
-							<option id="version_2_5" value="2.5"<?php print ($data['version'] == '2.5')? ' selected' : ''; ?>>2.5, 3.0</option>
+							<option id="version_2_5" value="2.5"<?php print ($data['version'] == '2.5')? ' selected' : ''; ?>>2.5, 3.0, 3.1</option>
 						</select>
 					</td>
 				</tr>
@@ -90,11 +90,15 @@
 					<th scope="row" colspan="2"><h3><?php _e('Behavior', 'fgj2wp'); ?></h3></th>
 				</tr>
 				<tr>
-					<th scope="row"><?php _e('Posts with a "read more" split:', 'fgj2wp'); ?></th>
-					<td><input id="introtext_in_excerpt" name="introtext_in_excerpt" type="checkbox" value="1" <?php checked($data['introtext_in_excerpt'], 1); ?> /> <label for="introtext_in_excerpt" title="<?php _e("Checked: the Joomla introtext is imported into the excerpt. Unchecked: it is imported into the post content with a «read more» link.", 'fgj2wp'); ?>"><?php _e('Import the text above the "read more" to the excerpt', 'fgj2wp'); ?></label></td>
+					<th scope="row"><?php _e('Import introtext:', 'fgj2wp'); ?></th>
+					<td>
+						<input id="introtext_in_excerpt" name="introtext" type="radio" value="in_excerpt" <?php checked($data['introtext'], 'in_excerpt'); ?> /> <label for="introtext_in_excerpt" title="<?php _e("The text before the «Read more» split will be imported into the excerpt.", 'fgj2wp'); ?>"><?php _e('to the excerpt', 'fgj2wp'); ?></label>&nbsp;&nbsp;
+						<input id="introtext_in_content" name="introtext" type="radio" value="in_content" <?php checked($data['introtext'], 'in_content'); ?> /> <label for="introtext_in_content" title="<?php _e("The text before the «Read more» split will be imported into the post content with a «read more» link.", 'fgj2wp'); ?>"><?php _e('to the content', 'fgj2wp'); ?></label>&nbsp;&nbsp;
+						<input id="introtext_in_excerpt_and_content" name="introtext" type="radio" value="in_excerpt_and_content" <?php checked($data['introtext'], 'in_excerpt_and_content'); ?> /> <label for="introtext_in_excerpt_and_content" title="<?php _e("The text before the «Read more» split will be imported into both the excerpt and the post content.", 'fgj2wp'); ?>"><?php _e('to both', 'fgj2wp'); ?></label>
+					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php _e('Archived posts', 'fgj2wp'); ?></th>
+					<th scope="row"><?php _e('Archived posts:', 'fgj2wp'); ?></th>
 					<td>
 						<input id="archived_posts_not_imported" name="archived_posts" type="radio" value="not_imported" <?php checked($data['archived_posts'], 'not_imported'); ?> /> <label for="archived_posts_not_imported" title="<?php _e("Do not import archived posts", 'fgj2wp'); ?>"><?php _e('Not imported', 'fgj2wp'); ?></label>&nbsp;&nbsp;
 						<input id="archived_posts_drafts" name="archived_posts" type="radio" value="drafts" <?php checked($data['archived_posts'], 'drafts'); ?> /> <label for="archived_posts_drafts" title="<?php _e("Import archived posts as drafts", 'fgj2wp'); ?>"><?php _e('Import as drafts', 'fgj2wp'); ?></label>&nbsp;&nbsp;
@@ -106,9 +110,14 @@
 					<td><input id="skip_media" name="skip_media" type="checkbox" value="1" <?php checked($data['skip_media'], 1); ?> /> <label for="skip_media" ><?php _e('Skip media', 'fgj2wp'); ?></label>
 					<br />
 					<div id="media_import_box">
-						<input id="import_featured" name="import_featured" type="checkbox" value="1" <?php checked($data['import_featured'], 1); ?> /> <label for="import_featured"><?php _e('Import first image as featured image', 'fgj2wp'); ?></label>
+						<?php _e('Import first image:', 'fgj2wp'); ?>&nbsp;
+						<input id="first_image_as_is" name="first_image" type="radio" value="as_is" <?php checked($data['first_image'], 'as_is'); ?> /> <label for="first_image_as_is" title="<?php _e('The first image will be kept in the post content', 'fgj2wp'); ?>"><?php _e('as is', 'fgj2wp'); ?></label>&nbsp;&nbsp;
+						<input id="first_image_as_featured" name="first_image" type="radio" value="as_featured" <?php checked($data['first_image'], 'as_featured'); ?> /> <label for="first_image_as_featured" title="<?php _e('The first image will be removed from the post content and imported as the featured image only', 'fgj2wp'); ?>"><?php _e('as featured only', 'fgj2wp'); ?></label>&nbsp;&nbsp;
+						<input id="first_image_as_is_and_featured" name="first_image" type="radio" value="as_is_and_featured" <?php checked($data['first_image'], 'as_is_and_featured'); ?> /> <label for="first_image_as_is_and_featured" title="<?php _e('The first image will be kept in the post content and imported as the featured image', 'fgj2wp'); ?>"><?php _e('as is and as featured', 'fgj2wp'); ?></label>
 						<br />
 						<input id="import_external" name="import_external" type="checkbox" value="1" <?php checked($data['import_external'], 1); ?> /> <label for="import_external"><?php _e('Import external media', 'fgj2wp'); ?></label>
+						<br />
+						<input id="import_duplicates" name="import_duplicates" type="checkbox" value="1" <?php checked($data['import_duplicates'], 1); ?> /> <label for="import_duplicates" title="<?php _e('Checked: download the media with their full path in order to import media with identical names.', 'fgj2wp'); ?>"><?php _e('Import media with duplicate names', 'fgj2wp'); ?></label>
 						<br />
 						<input id="force_media_import" name="force_media_import" type="checkbox" value="1" <?php checked($data['force_media_import'], 1); ?> /> <label for="force_media_import" title="<?php _e('Checked: download the media even if it has already been imported. Unchecked: Download only media which were not already imported.', 'fgj2wp'); ?>" ><?php _e('Force media import. Leave unchecked if you have already transfered the media.<br />It will speed up the import.', 'fgj2wp'); ?></label>
 					</div></td>
@@ -160,13 +169,17 @@
 		<ul style="list-style:disc inside">
 			<li><?php _e('authors and all users migration', 'fgj2wp'); ?></li>
 			<li><?php _e('menus migration', 'fgj2wp'); ?></li>
-			<li><?php _e('Joomla views counts migration', 'fgj2wp'); ?></li>
 			<li><?php _e('SEO: keeps Joomla IDs or redirects standard Joomla URLs', 'fgj2wp'); ?></li>
+			<li><?php _e('SEO: Keeps meta description and meta keywords', 'fgj2wp'); ?></li>
 			<li><?php _e('SEO: Keeps sh404sef URLs', 'fgj2wp'); ?></li>
+			<li><?php _e('SEO: Keeps JoomSEF URLs', 'fgj2wp'); ?></li>
+			<li><?php _e('SEO: Keeps OpenSEF URLs', 'fgj2wp'); ?></li>
+			<li><?php _e('Joomla views counts migration', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla 1.0 compatible', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomla 2.5+ featured images', 'fgj2wp'); ?></li>
 			<li><?php _e('Mambo 4.5 and 4.6 compatible', 'fgj2wp'); ?></li>
 			<li><?php _e('K2 content', 'fgj2wp'); ?></li>
+			<li><?php _e('EasyBlog content', 'fgj2wp'); ?></li>
 			<li><?php _e('Kunena forum to bbPress', 'fgj2wp'); ?></li>
 			<li><?php _e('Flexicontent content', 'fgj2wp'); ?></li>
 			<li><?php _e('Jcomments comments', 'fgj2wp'); ?></li>
@@ -174,6 +187,7 @@
 			<li><?php _e('Joomlatags tags', 'fgj2wp'); ?></li>
 			<li><?php _e('Attachments', 'fgj2wp'); ?></li>
 			<li><?php _e('Rokbox images', 'fgj2wp'); ?></li>
+			<li><?php _e('Phocagallery images', 'fgj2wp'); ?></li>
 		</ul>
 		<div style="text-align: center;">
 			<a href="http://www.fredericgilles.net/fg-joomla-to-wordpress/" target="_blank"><img src="http://www.fredericgilles.net/wp-content/uploads/premium-version.png" alt="Buy Premium Version" /></a>

@@ -5,7 +5,7 @@ Plugin URI: http://wordpress.org/extend/plugins/blogger-importer/
 Description: Import posts, comments, and tags from a Blogger blog and migrate authors to Wordpress users.
 Author: wordpressdotorg
 Author URI: http://wordpress.org/
-Version: 0.5
+Version: 0.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
@@ -929,9 +929,12 @@ if (class_exists('WP_Importer'))
             global $wpdb;
             $options = get_option('blogger_importer');
 
-            delete_option('blogger_importer');
-            $wpdb->query("DELETE FROM $wpdb->postmeta WHERE meta_key = 'blogger_author'");
+            if ( check_admin_referer( 'clear-blogger-importer', 'clear-blogger-importer-nonce' ) ) {
+                delete_option('blogger_importer');
+                $wpdb->query("DELETE FROM $wpdb->postmeta WHERE meta_key = 'blogger_author'");
+            }
             wp_redirect('?import=blogger');
+            exit;
         }
 
         // Step 9: Congratulate the user
@@ -983,7 +986,9 @@ if (class_exists('WP_Importer'))
                 $message = __('We have saved some information about your Blogger account in your WordPress database. Clearing this information will allow you to start over. Restarting will not affect any posts you have already imported. If you attempt to re-import a blog, duplicate posts and comments will be skipped.',
                     'blogger-importer');
                 $submit = esc_attr__('Clear account information', 'blogger-importer');
-                echo "<div class='wrap'><h2>$restart</h2><p>$message</p><form method='post' action='?import=blogger&amp;noheader=true'><p class='submit' style='text-align:left;'><input type='submit' class='button' value='$submit' name='restart' /></p></form></div>";
+                echo "<div class='wrap'><h2>$restart</h2><p>$message</p><form method='post' action='?import=blogger&amp;noheader=true'>";
+                wp_nonce_field( 'clear-blogger-importer', 'clear-blogger-importer-nonce' ); 
+                echo "<p class='submit' style='text-align:left;'><input type='submit' class='button' value='$submit' name='restart' /></p></form></div>";
             }
         }
 

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: simple, dropbox, upload, integration, api, form, file, photos, shortcode, widget
 Requires at least: 3.3.0
 Tested up to: 3.5.1
-Stable tag: 1.8.8
+Stable tag: 1.8.8.2
 
 Inserts an upload form for visitors to upload files to you Dropbox account without the need of a Dropbox developer account.
 
@@ -61,6 +61,11 @@ This plugin lets you insert an upload form on your pages or in a post so visitor
 
 == Frequently Asked Questions ==
 
+= I can no longer upload to DropBox =
+
+If you have a version before 1.8.8.2 this is due to someone finding a security hole. To protect your account, I kicked everyone out.
+You will have to reset your settings and Authorize this plugin with DropBox again. Sorry!
+
 = I updated to 1.7.0 and my settings got reset =
 
 This is due to a bug that was found in the database update function.
@@ -98,6 +103,12 @@ You have a few options:
 6. After a file is uploaded by user.
 
 == Changelog ==
+
+= 1.8.8.2 =
+* Changed DropBox API Keys
+
+= 1.8.8.1 =
+* Security bug fixed
 
 = 1.8.8 =
 * Fixed file extensions vanishing
@@ -182,6 +193,12 @@ You have a few options:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.8.8.2 =
+IMPORTANT SECURITY UPDATE.
+
+= 1.8.8.1 =
+IMPORTANT SECURITY UPDATE.
 
 = 1.8.6 =
 Added upload progress indicator and multiple file upload.

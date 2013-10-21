@@ -662,7 +662,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
 
         <div>
           <p><b>Global default picture</b></p>
-          <?php PostImage::ui('sharepress', self::OPTION_DEFAULT_PICTURE, null, 200, 200, self::load()->get_default_picture()) ?>
+          <?php PostImage::ui('sharepress', self::OPTION_DEFAULT_PICTURE, null, 640, 640, self::load()->get_default_picture()) ?>
         </div>
         <div style="clear:left;"></div>
 

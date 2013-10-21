@@ -7,7 +7,7 @@ Plugin URI:   http://cdsincdesign.com/simple-dropbox-upload-form/
 
 Description:  Use the shortcode [simple-wp-dropbox] in any page to insert a Dropbox file upload form.
 
-Version:      1.8.8
+Version:      1.8.8.2
 
 Author:       Creative Design Solutions
 
@@ -138,7 +138,7 @@ function show_dropbox($atts, $content = NULL){
 
 	}
 	
-	if (isset($_POST['upupnaway']) and $_POST['upupnaway']) {
+	/*if (isset($_POST['upupnaway']) and $_POST['upupnaway']) {
 		try{
 			$wpsdbMultiFiles = $_POST['multimages'];
 			$wpsdbMultiFiles = split(",",$wpsdbMultiFiles);
@@ -228,7 +228,7 @@ function show_dropbox($atts, $content = NULL){
 		$wpsshowform = "showit";
 		
 		}
-	}
+	}*/
 
 	if (isset($_POST['gogogadget']) and $_POST['gogogadget']) {
 
@@ -352,7 +352,7 @@ function show_dropbox($atts, $content = NULL){
 	}
 
 	if($wpsshowform == "showit") {
-		if($wpsdb_show_multi=="True"){
+		if(false){//$wpsdb_show_multi=="True"){
 		?>
           <p><a class="thickbox" href="<?php echo plugins_url('',__FILE__).'/multi.php?'; ?>&amp;height=500&amp;width=1000&amp;TB_iframe=true"><?php echo get_option('wpsdb_multi_link_text');?></a></p>
 		<form name="multi_image" method="POST" enctype="multipart/form-data">
@@ -859,6 +859,7 @@ endif;*/
   <?php if(get_option('wpsdb_auth_step')!=3):?>
   <p style="text-align:center"><a href="https://www.dropbox.com/referrals/NTIyNjI4MTM5OQ" target="_blank"><?php _e('Need a Dropbox account? Please use this link so we both get some extra space.','simpleDbUpload');?></a></p><?php endif; ?>
   <?php $wpssure = rand(10000,99999);?>
+  <p style="text-align:center;font-size:14px;color:#FF0000">Multiple File Upload has been disabled temporarily</p>
   <form name="wpsdb_form" method="POST" action="">
   <input type="hidden" name="wpsdb_set_nonce" id="wpsdb_set_nonce" value="<?php echo wp_create_nonce (plugin_basename(__FILE__));?>">
     <table class="form-table">
@@ -943,6 +944,7 @@ endif;*/
           ?>
           </td>
      </tr>
+     <?php /*
      <tr>
         <th scope="row"><p><?php _e('Show multiple upload link?<br />(Experimental)','simpleDbUpload');?> <a href="javascript:void(0)" class="help"><img border="0" src="<?php echo plugins_url( '/images/help.png', __FILE__ );?>"><span>Allows users to drag n drop multiple files.</span></a></p></th>
           <td><select name="wpsdb_show_multi" id="wpsdb_show_multi">
@@ -966,6 +968,7 @@ endif;*/
                </select>
           </td>
       </tr>
+	 */?>
       <tr id="showafter">
         <th scope="row"><p><?php _e('Show upload form again after upload?','simpleDbUpload');?> <a href="javascript:void(0)" class="help"><img border="0" src="<?php echo plugins_url( '/images/help.png', __FILE__ );?>"><span><strong>Single Upload:</strong> Doesn't apply to single uploads if progress indicators are enabled.<br /><strong>This feature will be removed in the future.</strong></span></a></p></th>
           <td><select name="wpsdb_show_form">
@@ -1197,9 +1200,9 @@ $check_settings->updateSettingsGroup($whattokeep);*/
 		
 		$registerThem->addSettingsGroup($whatToRegister);
 		
-		update_option('wpsdb_key', "".base64_decode("bWg4YmZzMGw1dThkcG5t")."");
+		update_option('wpsdb_key', "".base64_decode("enpuZnRmdjRxaTZ2bHd5")."");
 
-		update_option( 'wpsdb_secret', "".base64_decode("Y25saTlrMW9leWl3bzZr")."" );
+		update_option( 'wpsdb_secret', "".base64_decode("bngxcTVncW5oczJvZWsz")."" );
 		
 		//update_option( 'wpsdb_allow_ext' , 'doc docx gif jpg jpeg pdf png psd tif tiff');
 		
@@ -1265,6 +1268,7 @@ $check_settings->updateSettingsGroup($whattokeep);*/
 	}
 
 	function WP_DB_PluginInit(){
+	  	//load_plugin_textdomain( 'simpleDbUpload', PLUGINDIR.'/'.dirname(plugin_basename(__FILE__)),dirname(plugin_basename(__FILE__)).'/languages');
 		load_plugin_textdomain('simpleDbUpload', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 	
@@ -1273,9 +1277,11 @@ $check_settings->updateSettingsGroup($whattokeep);*/
 		$settings_link = '<a href="#">TEST</a>';
 		
 		if ( $file == $base )
-			array_unshift( $links, $settings_link );
+			return;
+			//array_unshift( $links, $settings_link );
 
 		return $links;
+		//return $settings_link;
 	}
 	
 	//add_filter( 'plugin_action_links', 'wpsdb_plugin_action_links' , 10, 2 );
@@ -1307,7 +1313,7 @@ $check_settings->updateSettingsGroup($whattokeep);*/
 	
 	add_action('admin_init', 'wpsdb_plugin_redirect');
 
-	add_action( 'plugins_loaded', 'WP_DB_PluginInit' );
+	//add_action( 'init', 'WP_DB_PluginInit' );
 	
 	register_deactivation_hook( __FILE__, 'wp_dropbox_deactivate' );
 	

@@ -3,8 +3,8 @@ Contributors: wordpressdotorg, Otto42, Workshopshed, SergeyBiryukov, rmccue
 Donate link: 
 Tags: importer, blogger
 Requires at least: 3.0
-Tested up to: 3.4
-Stable tag: 0.5
+Tested up to: 3.6
+Stable tag: 0.6
 License: GPLv2 or later
 
 Imports posts, comments, and categories (blogger tags) from a Blogger blog then migrates authors to Wordpress users.
@@ -94,6 +94,9 @@ The importer uses the SimplePie classes to process the data, these in turn use a
 * https://developers.google.com/gdata/articles/oauth
 
 == Changelog ==
+
+= 0.6 = 
+* Security improvements.
 
 = 0.5 =
 * Merged in fix by SergeyBiryukov http://core.trac.wordpress.org/ticket/16012

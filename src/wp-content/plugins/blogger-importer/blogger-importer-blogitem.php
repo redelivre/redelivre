@@ -10,7 +10,7 @@
  * 
  */
 
-define('SIMPLEPIE_NAMESPACE_ATOMPUB', 'http://www.w3.org/2007/app');
+define('SIMPLEPIE_NAMESPACE_ATOMPUB', 'http://purl.org/atom/app#');
 define('SIMPLEPIE_NAMESPACE_GEOTAG', 'http://www.georss.org/georss');
 
 /**

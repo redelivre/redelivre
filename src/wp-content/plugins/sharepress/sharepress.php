@@ -5,7 +5,7 @@ Plugin URI: https://getsharepress.com
 Description: SharePress publishes your content to your personal Facebook Wall and the Walls of Pages you choose.
 Author: Fat Panda, LLC
 Author URI: http://fatpandadev.com
-Version: 2.2.13
+Version: 2.2.18
 License: GPL2
 */
 
@@ -41,7 +41,7 @@ SpBaseFacebook::$CURL_OPTS = SpBaseFacebook::$CURL_OPTS + array(
 
 class Sharepress {
 
-  const VERSION = '2.2.10';
+  const VERSION = '2.2.18';
   
   const MISSED_SCHEDULE_DELAY = 5;
   const MISSED_SCHEDULE_OPTION = 'sharepress_missed_schedule';
@@ -364,7 +364,7 @@ class Sharepress {
         $defaults = array(
           'og:type' => 'article',
           'og:url' => $this->get_permalink(),
-          'og:title' => get_the_title(),
+          'og:title' => strip_tags(get_the_title()),
           'og:image' => $picture,
           'og:site_name' => get_bloginfo('name'),
           'fb:app_id' => get_option(self::OPTION_API_KEY),
@@ -376,7 +376,7 @@ class Sharepress {
         $defaults = array(
           'og:type' => self::setting('page_og_type', 'blog'),
           'og:url' => is_front_page() ? get_bloginfo('siteurl') : $this->get_permalink(),
-          'og:title' => get_the_title(),
+          'og:title' => strip_tags(get_the_title()),
           'og:site_name' => get_bloginfo('name'),
           'og:image' => $this->get_default_picture(),
           'fb:app_id' => get_option(self::OPTION_API_KEY),
@@ -783,8 +783,15 @@ class Sharepress {
 
     if (!$meta['let_facebook_pick_pic']) { // use featured image, fallback on first image in post, come to rest on global default
       
-      if ($src = wp_get_attachment_image_src( get_post_meta( $post->ID, '_thumbnail_id', true ), array(200, 200) )) {
+      if ($src = wp_get_attachment_image_src( get_post_meta( $post->ID, '_thumbnail_id', true ), 'large' )) {
         $picture = $src[0];
+      }
+
+      // try a smaller one
+      if (!$picture) {
+        if ($src = wp_get_attachment_image_src( get_post_meta( $post->ID, '_thumbnail_id', true ), 'medium' )) {
+          $picture = $src[0];
+        }
       }
 
       if (!$picture) {
@@ -1256,6 +1263,7 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
     }
     
     $post = get_post($post_id);
+    
     if ($post && ($post->post_status == 'publish')) {
       $this->share($post);
     }
@@ -1429,18 +1437,23 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
   }
   
   function share($post) {
+    
     if (self::debug()) {
       self::log(sprintf("share(%s)", is_object($post) ? $post->post_title : $post));
-    }
+    }    
     
     if (!is_object($post)) {
       $post = get_post($post);
     }
 
+    if ( ! in_array($post->post_type, self::supported_post_types()) ) {
+      return false;
+    }
+
+
     $posted = $error = false;
 
     if ($meta = $this->can_post_on_facebook($post)) {
-
       // determine if this should be delayed
       if ($meta['delay_length']) {
         self::log("Sharing of this post has been delayed {$meta['delay_length']} {$meta['delay_unit']}({$post->ID})");
