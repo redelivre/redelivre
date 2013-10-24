@@ -44,16 +44,16 @@ class Mobilize {
     
     public static function savePage($post_id)
     {
-    	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_POST['id']) && ($post_ID = $_POST['post_ID'])){  
-                if(array_key_exists('mobilize-template-checkbox', $_POST) && $_POST['mobilize-template-checkbox'] == 'S')
-                {
-                    update_post_meta( $post_ID, '_wp_page_template', 'mobilize' );
-                }
-                else
-                {
-                    update_post_meta( $post_ID, '_wp_page_template', 'default' );
-                }
+    	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['post_ID'])) {
+            $post_ID = (int) $_POST['post_ID'];
+
+            if(array_key_exists('mobilize-template-checkbox', $_POST) && $_POST['mobilize-template-checkbox'] == 'S')
+            {
+                update_post_meta( $post_ID, '_wp_page_template', 'mobilize' );
+            }
+            else
+            {
+                update_post_meta( $post_ID, '_wp_page_template', 'default' );
             }
         }
     }

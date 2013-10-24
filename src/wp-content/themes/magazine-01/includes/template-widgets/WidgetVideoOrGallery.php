@@ -47,7 +47,7 @@ class WidgetVideoOrGallery extends WidgetUniquePost {
 <label><input type="radio" name="type" value="video" <?php if($type == 'video') echo 'checked="checked"'; ?>/> vídeo </label>
 <label><input type="radio" name="type" value="gallery" <?php if($type == 'gallery') echo 'checked="checked"'; ?>/> galeria </label>
 </p>
-        <?
+        <?php
     }
 
     protected function getFormTitle() {
