@@ -58,8 +58,8 @@ function jaiminho_get_config(){
 	$opt['jaiminho_border'] = '';
 	$opt['jaiminho_scrolling'] = 'no';
 	$opt['jaiminho_scrollmethod'] = 1;
-	$opt['jaiminho_url'] = 'http://campanha.jaiminho.com.br/';
-	$opt['jaiminho_admin_url'] = 'http://campanha.jaiminho.com.br/admin/';
+	$opt['jaiminho_url'] = 'http://redelivre.jaiminho.com.br/';
+	$opt['jaiminho_admin_url'] = 'http://redelivre.jaiminho.com.br/admin/';
 	$opt['jaiminho_user'] = '';
 	$opt['jaiminho_pass'] = '';
 	$opt['jaiminho_apikey'] = 'AIzaSyDHowXjdVc2WOEx25AnVzF_tsWBUaY6wVA';
@@ -772,7 +772,10 @@ function jaiminho_remetente(){
 		try {
 			$output_headers = null;	
 			$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
-			$alterado = $client->__soapCall('changename', array('apikeymaster' => $opt['jaiminho_apikey'], 'username' => $opt['jaiminho_user'], 'newname' => $_POST['jaiminho_nomeremetente']) , array(), null, $output_headers);		
+			
+			$email = array_key_exists('jaiminho_nomeremetente_email', $_POST) ? $_POST['jaiminho_nomeremetente_email'] : '';
+			
+			$alterado = $client->__soapCall('changename', array('apikeymaster' => $opt['jaiminho_apikey'], 'username' => $opt['jaiminho_user'], 'newname' => $_POST['jaiminho_nomeremetente'], 'newemail' => $email) , array(), null, $output_headers);		
 		} catch (Exception $ex) {
 			wp_die('('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail);
 		}
@@ -789,7 +792,8 @@ function jaiminho_remetente(){
 	try {
 		$output_headers = null;	
 		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
-		$nome = $client->__soapCall('getdefaultname', array('apikeymaster' => $opt['jaiminho_apikey'], 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);		
+		$nome = $client->__soapCall('getdefaultname', array('apikeymaster' => $opt['jaiminho_apikey'], 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);
+		$email = $client->__soapCall('getdefaultemail', array('apikeymaster' => $opt['jaiminho_apikey'], 'username' => $opt['jaiminho_user']) , array(), null, $output_headers);
 	} catch (Exception $ex) {
 		wp_die('('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail);
 	}
@@ -816,7 +820,12 @@ function jaiminho_remetente(){
 								"label" => __('Nome do remetente padrão','jaiminho'),
 								"content" => '<input type="text" name="'.$id.'" id="'.$id.'" value="'.$nome.'"/>'
 						);
-						
+						$id = 'jaiminho_nomeremetente_email';
+						$rows[] = array(
+								"id" => $id,
+								"label" => __('E-mail do remetente padrão','jaiminho'),
+								"content" => '<input type="text" name="'.$id.'" id="'.$id.'" value="'.$email.'"/>'
+						);
 						$table .= jaiminho_form_table($rows);
 					
 						jaiminho_postbox('jaiminho-remetente',__('Alterar o nome do remetente padrão','jaiminho'), $table.'<div class="submit"><input type="submit" class="button-primary" name="submit" value="'.__('Salvar as configurações','jaiminho').'" /></form></div>');
