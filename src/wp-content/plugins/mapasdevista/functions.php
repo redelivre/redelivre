@@ -118,10 +118,71 @@ function mapasdevista_admin_menu() {
     //add_menu_page(__('Maps of view', 'mapasdevista'), __('Maps of view', 'mapasdevista'), 'publish_posts', 'mapasdevista_maps', 'mapasdevista_maps_page',null,30);
     add_submenu_page('edit.php?post_type=mapa', __('Layout', 'mapasdevista'), __('Layout', 'mapasdevista'), 'publish_posts', 'mapasdevista_theme_page', 'mapasdevista_theme_page');
     add_submenu_page('edit.php?post_type=mapa', __('Pins', 'mapasdevista'), __('Pins', 'mapasdevista'), 'publish_posts', 'mapasdevista_pins_page', 'mapasdevista_pins_page');
-    
 
+    add_submenu_page('edit.php?post_type=mapa', __('Importar Sql', 'mapasdevista'), __('Importar Sql', 'mapasdevista'), 'publish_posts', 'ImportarSql', 'mapasdevista_ImportarSql');
 }
 
+
+function mapasdevista_ImportarSql()
+{
+	ini_set("memory_limit", "2048M");
+	set_time_limit(0);
+	
+	global $wpdb;
+	
+	$query = "SELECT * FROM mapacompleto;";
+	
+	//$wpdb->query($query);
+	
+	$rows = $wpdb->get_results($query);
+	
+	foreach ($rows as $row)
+	{
+		$post = array(
+				'post_author'    => 1, //The user ID number of the author.
+				'post_content'   => $row->text,
+				'post_title'     => $row->proj, //The title of your post.
+				'post_type'      => 'mapa',
+				'post_status'	 => 'publish'
+		);
+		
+		$post_id = wp_insert_post($post);
+		
+		if( is_int($post_id) )
+		{
+			$location = array();
+			$location['lat'] = floatval(sprintf("%f", $row->lat));
+			$location['lon'] = floatval(sprintf("%f", $row->lon));
+			
+			if($location['lat'] !== floatval(0) && $location['lon'] !== floatval(0))
+			{
+				update_post_meta($post_id, '_mpv_location', $location);
+			}
+			else
+			{
+				delete_post_meta($post_id, '_mpv_location');
+			}
+			
+			$pin_id = substr($row->icon, 4);
+			
+			$pin_id = intval(sprintf("%d", $pin_id));
+			
+			if($pin_id > 0)
+			{
+				update_post_meta($post_id, '_mpv_pin', $pin_id);
+			}
+			
+			delete_post_meta($post_id, '_mpv_inmap');
+			delete_post_meta($post_id, '_mpv_in_img_map');
+			add_post_meta($post_id, "_mpv_inmap", 1);
+			
+		}
+		
+	}
+	
+	//echo '<pre>'.var_dump($rows).'</pre>';
+	
+}
 
 
 function mapasdevista_admin_init() {

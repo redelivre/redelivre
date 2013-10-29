@@ -49,7 +49,7 @@ function mapasdevista_metabox_map() {
     </fieldset>
 
 
-    <h4><?php _e("Available pins", "mapasdevista");?></h4>
+    <h4><?php _e("Available pins", "mapasdevista");?> (<?php echo $post_pin; ?>)</h4>
     <p>Se preferir, você pode <a href="<?php echo add_query_arg( array('post' => null, 'page' => 'mapasdevista_pins_page', 'post_type' => 'mapa'), admin_url('edit.php') ); ?>">adicionar seu próprio marcador</a></p>
     <div class="iconlist">
         <script type="text/javascript">var pinsanchor = { };</script>
