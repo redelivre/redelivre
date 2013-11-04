@@ -4,3 +4,6 @@
 [submodule "delibera"]
 	path = delibera
 	url = https://github.com/ethymos/delibera.git
+[submodule "src/wp-content/plugins/contribua"]
+	path = src/wp-content/plugins/contribua
+	url = http://gitlab.ethymos.com.br/contribua.git
