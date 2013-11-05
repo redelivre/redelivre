@@ -288,11 +288,11 @@ msgid "% Comments"
 msgstr ""
 
 #: footer.php:47
-msgid "Campanha Completa"
+msgid "Rede Livre"
 msgstr ""
 
 #: footer.php:47
-msgid "Campanha Completa logo"
+msgid "Rede Livre logo"
 msgstr ""
 
 #: footer.php:48

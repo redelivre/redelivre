@@ -352,7 +352,7 @@ function campanha_use_smtp($phpmailer) {
     $phpmailer->Password   = $email_p;
     $phpmailer->Sender     = $email;
     //$phpmailer->From       = $email;
-    //$phpmailer->FromName   = 'Campanha Completa'; -- Acho que podemos deixar isso inalterado, e manter o que foi colocado quando a wp_mail() foi chamada
+    //$phpmailer->FromName   = 'Rede Livre'; -- Acho que podemos deixar isso inalterado, e manter o que foi colocado quando a wp_mail() foi chamada
     
 }
 add_action('phpmailer_init', 'campanha_use_smtp');
@@ -669,7 +669,7 @@ function lost_password_reset(){
 		* Fim do ctrl+c do wordpress
 		*/
 		
-		echo _x('Foi enviada uma mensagem para seu email com uma chave de validação e os próximos passos para recuperar sua senha', 'custom-lost-password', 'campanhacompleta');
+		echo _x('Foi enviada uma mensagem para seu email com uma chave de validação e os próximos passos para recuperar sua senha', 'custom-lost-password', 'redelivre');
 		return true;
 		
 	} else {
