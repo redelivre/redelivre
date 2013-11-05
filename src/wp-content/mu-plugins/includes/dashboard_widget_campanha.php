@@ -1,4 +1,4 @@
-<p>Você está no Painel de controle da sua <i>Rede Livre</i>, agora você pode gerenciar todas as ferramentas utilizando o menu da sua lateral esquerda, mas sempre lembre que quando estiver logado haverá uma barra superior com opções de gerenciamento rápido.</p>
+<p>Você está no Painel de controle da <i>Rede Livre</i>, agora você pode gerenciar todas as ferramentas utilizando o menu da sua lateral esquerda, mas sempre lembre que quando estiver logado haverá uma barra superior com opções de gerenciamento rápido.</p>
 <p>Em todas as etapas não esqueça de salvar sempre suas opções.</p>
 
 <p>Você pode começar pela aparência do site:</p>
