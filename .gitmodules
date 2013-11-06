@@ -6,7 +6,7 @@
 	url = https://github.com/ethymos/delibera.git
 [submodule "src/wp-content/plugins/contribua"]
 	path = src/wp-content/plugins/contribua
-	url = http://gitlab.ethymos.com.br/contribua.git
+	url = https://github.com/redelivre/contribua.git
 [submodule "src/wp-content/themes/kaingang"]
 	path = src/wp-content/themes/kaingang
 	url = git@github.com:redelivre/kaingang.git
