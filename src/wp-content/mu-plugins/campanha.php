@@ -15,6 +15,18 @@ define('CAMPAIGN_NEW_URL',    'admin.php?page=campaigns_new');
 if (is_admin() && get_current_blog_id() == 1) {
     require MUCAMPANHAPATH . '/custom_admin.php';
 }
+elseif(is_admin())
+{
+	add_action('admin_menu', function() {
+	$base_page = 'platform-settings';
+	
+	add_object_page( __(Campaign::getStrings('MenuPlataforma'),'redelivre'), __(Campaign::getStrings('MenuPlataforma'),'redelivre'), 'manage_options', $base_page, array());
+	
+	add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
+			require MUCAMPANHAPATH.'/admin-settings-tpl.php';
+		});
+	});
+}
 
 function campanha_setup() {
     load_theme_textdomain('campanha', MUCAMPANHAPATH . '/languages' );
@@ -205,23 +217,22 @@ function getPlataformSettings($id = '')
 {
 	$sets = array();
 	
-	$sets['label']['email'] = 'E-Mail';
-	$sets['value']['email'] = 'noreply@campanhacompleta.com.br';
+	$sets['label']['email'] = 'E-Mail de Origem';
+	$sets['value']['email'] = 'noreply@redelivre.org';
+	$sets['label']['emailReplyTo'] = 'E-Mail de Reposta';
+	$sets['value']['emailReplyTo'] = 'contato@redelivre.org';
 	$sets['label']['emailPassword'] = 'E-Mail Password';
-	$sets['value']['emailPassword'] = 'ethymos@hacklab';
-	
-	
-	$setsFirstLabels = $sets['label'];
+	$sets['value']['emailPassword'] = 'redelivre';
+	$sets['label']['emailTipo'] = 'Tipo do E-mail (local ou gmail';
+	$sets['value']['emailTipo'] = 'local';
 	
 	// Merge default settings com defined settings
-	$sets = array_merge($sets, get_option('plataform_defined_settings', array()));
+	$sets['value'] = array_merge($sets['value'], get_option('plataform_defined_settings', array()));
 	
 	if($id != '')
 	{
 		return array_key_exists($id, $sets['value']) ? $sets['value'][$id] : '';
 	}
-	
-	$sets['label'] = $setsFirstLabels;
 	
 	return $sets;
 }
