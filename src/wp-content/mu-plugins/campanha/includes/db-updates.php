@@ -1,6 +1,6 @@
 <?php
 
-// create campanha completa custom tables
+// create rede livre custom tables
 if (!get_option('db-update-1')) {
     update_option('db-update-1', 1);
     

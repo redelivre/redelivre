@@ -4,3 +4,12 @@
 [submodule "delibera"]
 	path = delibera
 	url = https://github.com/ethymos/delibera.git
+	branch = master
+[submodule "src/wp-content/plugins/contribua"]
+	path = src/wp-content/plugins/contribua
+	url = https://github.com/redelivre/contribua.git
+	branch = master
+[submodule "src/wp-content/themes/kaingang"]
+	path = src/wp-content/themes/kaingang
+	url = git@github.com:redelivre/kaingang.git
+	branch = master

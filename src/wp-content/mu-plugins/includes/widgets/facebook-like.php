@@ -57,9 +57,9 @@ class WidgetFacebookLikeBox extends WP_Widget {
         	</select>
         </p>
         <p>
-        	<label for="<?php $this->get_field_id('fb-height'); ?>"><?php _e('Altura do Widget', 'campanhacompleta'); ?></label>
+        	<label for="<?php $this->get_field_id('fb-height'); ?>"><?php _e('Altura do Widget', 'redelivre'); ?></label>
         	<input id="<?php echo $this->get_field_id( 'fb-height' ); ?>" name="<?php echo $this->get_field_name( 'fb-height' ); ?>" type="text" value="<?php echo esc_attr( $fb_height ); ?>" />
-        	<label for="<?php $this->get_field_id('fb-height'); ?>"><small><?php _e('Obs.: use 0 para configuração padrão', 'campanhacompleta'); ?></small></label>
+        	<label for="<?php $this->get_field_id('fb-height'); ?>"><small><?php _e('Obs.: use 0 para configuração padrão', 'redelivre'); ?></small></label>
         </p>
         <script type="text/javascript">
 		<!--

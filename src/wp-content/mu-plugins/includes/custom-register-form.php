@@ -30,7 +30,7 @@
 	<div class="container-registro">
 		
 		<div class="titulo">
-			<h1><?php echo _x('Cadastre-se', 'registro-de-usuario', 'campanhacompleta'); ?></h1>
+			<h1><?php echo _x('Cadastre-se', 'registro-de-usuario', 'redelivre'); ?></h1>
 		</div>
 		
 		<div class="instrucoes">

@@ -288,12 +288,12 @@ msgid "% Comments"
 msgstr "% comentários"
 
 #: footer.php:47
-msgid "Campanha Completa"
-msgstr "Campanha Completa"
+msgid "Rede Livre"
+msgstr "Rede Livre"
 
 #: footer.php:47
-msgid "Campanha Completa logo"
-msgstr "Logo do Campanha Completa"
+msgid "Rede Livre logo"
+msgstr "Logo da Rede Livre"
 
 #: footer.php:48
 msgid "Proudly powered by WordPress"

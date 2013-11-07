@@ -118,19 +118,6 @@ function campanha_custom_menus() {
 
 add_action( 'init', 'campanha_custom_menus');
 
-// SIDEBARS
-if(function_exists('register_sidebar')) {
-    // sidebar 
-    register_sidebar(array(
-        'name'          =>  'Sidebar',
-        'description'   => __('Sidebar', 'campanha'),
-        'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clearfix">',
-        'after_widget'  => '</div></div>',
-        'before_title'  => '<h3>',
-        'after_title'   => '</h3>',
-    ));
-}
-
 // COMMENTS
 if (!function_exists('campanha_comment')):
     function campanha_comment($comment, $args, $depth) {
