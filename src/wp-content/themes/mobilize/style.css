@@ -207,8 +207,8 @@ Redes sociais
 Busca
 --------------------------------------- */
 
-.busca {
-	float: right;
+#busca {
+	clear: right;
 	margin-top: 20px;
 }
 
@@ -1267,7 +1267,6 @@ Ajustes - responsivo
 @media (max-width: 767px) {    
 	.right           { margin: 5px 20px; }
 	.left            { margin: 5px -15px; }
-	.busca           { margin: 0 20px 0 0; }
 	.brand a         { display:table; margin:0 auto; }
 	.info            { width: 300px; }
 	.sidebar-box     { width: 300px; }
@@ -1278,7 +1277,7 @@ Ajustes - responsivo
 	.sub-dest-tex h2 { clear: both; }
 	.miolo           { padding: 10px;}
 	.sidebar-home    { display:none; }
-	.busca           { float:none; margin: 0 auto; display:table; }
+	#busca           { float:none; margin: 0 auto; display:table; }
 	.social          { display: table; margin: 0 auto; padding: 20px 0; }
 	.banner          { display: none;}
 }

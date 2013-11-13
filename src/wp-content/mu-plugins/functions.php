@@ -767,20 +767,68 @@ add_filter('query_vars', 'custom_lost_password_query_var');
  */
 function custom_lost_password_form()
 {
-	if(get_query_var(lost_password_page)){
+	if(
+		get_query_var(lost_password_page) || 
+		(
+			basename($_SERVER['PHP_SELF']) === 'admin-ajax.php' &&
+			array_key_exists('action', $_POST) &&
+			$_POST['action'] == 'resetpass'
+		)
+	)
+	{
+		nocache_headers();
+		if( 
+			(array_key_exists('action', $_GET) && $_GET['action'] == 'rp') ||
+			(array_key_exists('action', $_REQUEST) && $_REQUEST['action'] == 'resetpass')
+		)
+		{
+			// baseado no wp-login code line: 458
+			$user = custom_lost_password_check_password_reset_key($_REQUEST['key'], $_REQUEST['login']);
+		
+			if ( is_wp_error($user) )
+			{
+				wp_redirect( site_url(lost_password_page.'/?action=lostpassword&error=invalidkey') );
+				exit;
+			}
+		
+			$errors = new WP_Error();
+		
+			if ( isset($_POST['pass1']) && $_POST['pass1'] != $_POST['pass2'] )
+				$errors->add( 'password_reset_mismatch', __( 'The passwords do not match.' ) );
+		
+			do_action( 'validate_password_reset', $errors, $user );
+		
+			if ( ( ! $errors->get_error_code() ) && isset( $_POST['pass1'] ) && !empty( $_POST['pass1'] ) ) {
+				custom_lost_password_reset_password($user, $_POST['pass1']);
+				echo  '<p class="message reset-pass">' . __( 'Your password has been reset.' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'Log in' ) . '</a></p>';
+				die();
+			}
+			if($errors->get_error_code())
+			{
+				echo implode('<br/>', $errors->get_error_messages());
+			}
+		
+			wp_enqueue_script('utils');
+			wp_enqueue_script('user-profile');
+			//end wp-login code
+		}
 		get_header();
 		$file_path = get_stylesheet_directory() . '/template-custom-lost-password.php';
-		if(file_exists($file_path)){
+		if(file_exists($file_path))
+		{
 			include $file_path;
-		} else {
+		}
+		else
+		{
 			include ABSPATH . '/wp-content/mu-plugins/includes/custom-lost-password.php';
 		}
 		get_footer();
 		exit();
 	}
 }
-
 add_action('template_redirect', 'custom_lost_password_form');
+add_action('wp_ajax_resetpass', 'custom_lost_password_form');
+add_action('wp_ajax_nopriv_resetpass', 'custom_lost_password_form');
 
 /**
  *

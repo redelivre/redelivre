@@ -262,4 +262,10 @@ function lock_plugins( $actions, $plugin_file, $plugin_data, $context ) {
   
 }
 add_filter( 'plugin_action_links', 'lock_plugins', 10, 4 );
+
+function url_exists($url) {
+	$hdrs = @get_headers($url);
+	return is_array($hdrs) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$hdrs[0]) : false;
+}
+
 ?>
