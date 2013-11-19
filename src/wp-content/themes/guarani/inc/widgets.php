@@ -362,7 +362,7 @@ class Guarani_Tag_Cloud_Reloaded_Widget extends WP_Widget {
                 }
                 
                 // Número de posts
-                if ( ! $number = absint( $instance['number'] ) )
+                if ( !array_key_exists('number', $instance) && ! $number = absint( $instance['number'] ) )
                 	$number = 45;
                 
                 $title = apply_filters('widget_title', $title, $instance, $this->id_base);
