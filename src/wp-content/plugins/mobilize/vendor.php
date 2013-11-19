@@ -51,7 +51,7 @@ class Mobilize {
             {
                 update_post_meta( $post_ID, '_wp_page_template', 'mobilize' );
             }
-            else
+            else if(get_post_meta( $post_ID, '_wp_page_template', true ) === 'mobilize')
             {
                 update_post_meta( $post_ID, '_wp_page_template', 'default' );
             }
