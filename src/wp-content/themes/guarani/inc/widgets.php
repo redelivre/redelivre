@@ -64,14 +64,21 @@ class Guarani_Custom_Posts_Widget extends WP_Widget {
 		extract( $args, EXTR_SKIP );
 
 		// ID da categoria
-		$category = (int) $instance['category'];
-		
+		$category = array_key_exists('category', $instance) ?
+			(int) $instance['category'] : 0;
+
+		$category_object = get_category($category);
+		$category_name = is_wp_error($category_object) ?
+			'' : $category_object->name;
+
 		// Não havendo título, usamos o nome da categoria
-		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? get_category( $category )->name : $instance['title'], $instance, $this->id_base );
+		$title = array_key_exists('title', $instance) || empty($instance['title']) ?
+			$category_name : $instance['title'];
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		// Número de posts
-		if ( ! $number = absint( $instance['number'] ) )
- 			$number = 5;
+		$number = array_key_exists('number', $instance) ?
+			absint($instance['number']) : 5;
  			
  		// Is a feature?
  		$is_feature = isset( $instance['feature'] ) ? $instance['feature'] : false;
@@ -89,7 +96,7 @@ class Guarani_Custom_Posts_Widget extends WP_Widget {
 			echo $before_widget;
 			
 			echo $before_title;
-			echo '<a href="' . get_category_link( $category ) . '" title="' . sprintf( __( 'View all posts filed under %s', 'guarani' ), get_category( $category )->name ) . '">' . $title . '</a>';
+			echo '<a href="' . get_category_link( $category ) . '" title="' .  sprintf( __( 'View all posts filed under %s', 'guarani' ), $category_name ) . '">' . $title . '</a>';
 			echo $after_title;
 			
 			if ( $is_feature ) :
