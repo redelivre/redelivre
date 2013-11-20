@@ -151,8 +151,10 @@ class Mobilize {
 
             // para não perder as imagens quando salvar o post sem enviar outras imagens.
             // se for implementar mais de uma imagem por seção, tem que pensar num modo de deletar imagens
-            $_POST['mobilize']['banners']['files'] = $option['banners']['files'];
-            $_POST['mobilize']['adesive']['files'] = $option['adesive']['files'];
+						if (array_key_exists('files', $option['banners']))
+							$_POST['mobilize']['banners']['files'] = $option['banners']['files'];
+						if (array_key_exists('files', $option['adesive']))
+							$_POST['mobilize']['adesive']['files'] = $option['adesive']['files'];
 
             self::handleBannerUploads();
             self::handleAdesiveUploads();
@@ -352,7 +354,7 @@ class Mobilize {
             $path = self::getBannersPath();
 
             if (!file_exists($path) && !is_dir($path)) {
-                mkdir($path);
+                mkdir($path, 0777, true);
             }
 
             foreach ($_FILES['banner']['tmp_name'] as $index => $tmp_name) {
@@ -384,7 +386,7 @@ class Mobilize {
             $path = self::getAdesivesPath();
 
             if (!file_exists($path) && !is_dir($path)) {
-                mkdir($path);
+                mkdir($path, 0777, true);
             }
 
             foreach ($_FILES['adesive']['tmp_name'] as $index => $tmp_name) {

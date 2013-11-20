@@ -15,9 +15,10 @@
 // Constants //
 ///////////////
 
+$upload_dir = wp_upload_dir();
 define('INC_MOBILIZE', dirname(__FILE__));
-define('MOBILIZE_MATERIAL_DIR', INC_MOBILIZE.'/uploads/');
-define('MOBILIZE_MATERIAL_URL', get_bloginfo('url').'/wp-content/plugins/mobilize/uploads/');
+define('MOBILIZE_MATERIAL_DIR', $upload_dir['basedir'].'/mobilize/');
+define('MOBILIZE_MATERIAL_URL', $upload_dir['baseurl'].'/mobilize/');
 
 //////////////////
 // Dependences  //
