@@ -21,7 +21,7 @@ class Widget_Jaiminho extends WP_Widget {
 		if ( $jaiminho_id = (int) $instance['jaiminho_id'] ) { ?>
 		
 			<div class="jaiminho">
-				<div class="jaiminho-excerpt"><?php echo $instance['jaiminho_filter'] ? wpautop($jaiminho_text) : $jaiminho_text; ?></div>
+				<div class="jaiminho-excerpt"><?php echo wpautop($jaiminho_text); ?></div>
 			
 				<?php jaiminho( $jaiminho_id ); ?>
 			</div><!-- .jaiminho -->
@@ -52,9 +52,12 @@ class Widget_Jaiminho extends WP_Widget {
 	}
  
 	function form( $instance ) {
-		$title = esc_attr($instance['title']);
-		$jaiminho_id = (int) $instance['jaiminho_id'];
-		$jaiminho_text = format_to_edit($instance['jaiminho_text']);
+		$title = (array_key_exists('title', $instance) ?
+			esc_attr($instance['title']) : '');
+		$jaiminho_id = (array_key_exists('jaiminho_id', $instance) ?
+				(int) $instance['jaiminho_id'] : 0);
+		$jaiminho_text = (array_key_exists('jaiminho_text', $instance) ?
+				format_to_edit($instance['jaiminho_text']) : '');
 ?>
 		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
