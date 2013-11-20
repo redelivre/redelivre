@@ -446,7 +446,7 @@ function jaiminho_campaigncreated($data){
 		$client=new SoapClient($opt['jaiminho_url'].'/james_bridge.php?wsdl', array('exceptions' => true));
 		$defaultmailinglist_id = $client->__soapCall('createadmin', array('apikeymaster' => $opt['jaiminho_apikey'], 'name' => get_blog_option($blog_id,'blogname','Candidato '.$data['candidate_number']), 'username' => $id,'email' => 'contato@'.$mainSiteDomain, 'password' => $opt_contatos['webcontatos_pass'], 'plan' => $limite_emails) , array(), null, $output_headers);
 	} catch (Exception $ex) {
-		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->faultdetail;
+		$errors[] = '('.$ex->faultcode.') '.$ex->faultstring.' - '.$ex->detail;
 	}
 	
 	$opt['jaiminho_user'] = $id;
