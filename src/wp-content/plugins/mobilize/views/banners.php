@@ -6,33 +6,33 @@
 
     <div class="mobilize-banners" style="padding-left: 0;">
         <!-- banner de 250x250 -->
-        <div class="image-banner">
-            <img class="image-banner-1" src="{{ bannerURL250 }}">
+        <div class="mobilize-image-banner">
+            <img class="mobilize-image-banner-1" src="{{ bannerURL250 }}">
         </div>
         
-        <textarea class="code">{{ bannerCode250 }}</textarea>
-        <input class="code" type="text" readonly="readonly" value="{{ bannerPermaLink }}">               
+        <textarea class="mobilize-code">{{ bannerCode250 }}</textarea>
+        <input class="mobilize-code" type="text" readonly="readonly" value="{{ bannerPermaLink }}">               
     </div>
 
     <div class="mobilize-banners">
         <!-- banner de 200x200 -->
-        <div class="image-banner">
-            <img class="image-banner-2" src="{{ bannerURL200 }}">
+        <div class="mobilize-image-banner">
+            <img class="mobilize-image-banner-2" src="{{ bannerURL200 }}">
         </div>
 
-        <textarea class="code">{{ bannerCode200 }}</textarea>
-        <input class="code" type="text" readonly="readonly" value="{{ bannerPermaLink }}">
+        <textarea class="mobilize-code">{{ bannerCode200 }}</textarea>
+        <input class="mobilize-code" type="text" readonly="readonly" value="{{ bannerPermaLink }}">
     </div>
 
     <div class="mobilize-banners">
         <!-- banner de 125x125 -->
-        <div class="image-banner">
-            <img class="image-banner-3" src="{{ bannerURL125 }}">
+        <div class="mobilize-image-banner">
+            <img class="mobilize-image-banner-3" src="{{ bannerURL125 }}">
         </div>
 
-        <textarea class="code">{{ bannerCode125 }}</textarea>
-        <input class="code" type="text" readonly="readonly" value="{{ bannerPermaLink }}">
+        <textarea class="mobilize-code">{{ bannerCode125 }}</textarea>
+        <input class="mobilize-code" type="text" readonly="readonly" value="{{ bannerPermaLink }}">
     </div>
 
-    <div class="clear"></div>
+    <div class="mobilize-clear"></div>
 </section>

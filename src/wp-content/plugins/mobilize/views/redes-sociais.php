@@ -10,5 +10,5 @@
         {{ socialYoutube }}
     </div>
 
-    <div class="clear"></div>
+    <div class="mobilize-clear"></div>
 </section>

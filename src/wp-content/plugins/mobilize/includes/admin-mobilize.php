@@ -32,7 +32,7 @@
         <ul id="sortable">        
             <li>
                 <div id="mobilize-redes" class="section">
-                    <!--<div class="clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[redes][active]" <?php if (Mobilize::isActive('redes')) echo 'checked="checked"' ?> data-section="mobilize-redes" value="1"/> Redes Sociais</label></h3>          
 
                    <div class="section-content">
@@ -76,9 +76,9 @@
 
             <li>
                 <div id="mobilize-banners" class="section">
-                    <!--<div class="clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[banners][active]" <?php if (Mobilize::isActive('banners')) echo 'checked="checked"' ?> data-section="mobilize-banners" value="1"/> Banners</label></h3>
-                    <p class="description">Carregue aqui um banner quadrado de 250x250 pixels que o sistema vai preparar automaticamente 3 tamanhos que seus apoiadores poderão colocar em sites, blogs ou mesmo nas redes sociais.</p>
+                    <p class="mobilize-description">Carregue aqui um banner quadrado de 250x250 pixels que o sistema vai preparar automaticamente 3 tamanhos que seus apoiadores poderão colocar em sites, blogs ou mesmo nas redes sociais.</p>
 
                     <div class="section-content">
                         <?php Mobilize::printErrors('banners'); ?>
@@ -101,9 +101,9 @@
 
             <li>
                 <div id="mobilize-adesive" class="section">
-                    <!--<div class="clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[adesive][active]" <?php if(Mobilize::isActive('adesive')) echo 'checked="checked"' ?> data-section="mobilize-adesive" value="1"/> Adesive sua Foto</label></h3>
-                    <p class="description">Carregue uma imagem pequena com seu nome e número, com isto seus apoiadores poderão adesivar suas fotos para colocar nas redes sociais. Suba uma imagem horizontal com, no mínimo, 150 pixels.</p>
+                    <p class="mobilize-description">Carregue uma imagem pequena com seu nome e número, com isto seus apoiadores poderão adesivar suas fotos para colocar nas redes sociais. Suba uma imagem horizontal com, no mínimo, 150 pixels.</p>
 
                     <div class="section-content">
                         <?php Mobilize::printErrors('adesive'); ?>
@@ -126,9 +126,9 @@
             
             <li>
                 <div id="mobilize-enviar" class="section">
-                    <!--<div class="clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[envie][active]" <?php if(Mobilize::isActive('envie')) echo 'checked="checked"' ?> data-section="mobilize-enviar" value="1"/> Enviar para um amigo</label></h3>
-                    <p class="description">Esta é uma mensagem padrão que seus apoiadores poderão enviar para várias pessoas. Insira o assunto da mensagem (ex: Eu apoio “Candidato X”) e um texto para a mensagem. Seja sucinto, mas passe sua mensagem.</p>
+                    <p class="mobilize-description">Esta é uma mensagem padrão que seus apoiadores poderão enviar para várias pessoas. Insira o assunto da mensagem (ex: Eu apoio “Candidato X”) e um texto para a mensagem. Seja sucinto, mas passe sua mensagem.</p>
                     
                     <div class="section-content">
                         <?php Mobilize::printErrors('enviar'); ?>

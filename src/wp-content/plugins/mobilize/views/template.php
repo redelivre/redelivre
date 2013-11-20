@@ -1,5 +1,5 @@
 <section id="mobilize-content" style="padding-left: {{ padding }}; padding-right: {{ padding }};">
 	{{ content }}
 
-	<div class="clear"></div>
+	<div class="mobilize-clear"></div>
 </section>

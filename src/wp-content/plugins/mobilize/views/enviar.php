@@ -19,8 +19,8 @@
             <input id="recipient-email" type="text" value="{{ enviarCampoDestinos }}" name="recipient-email" placeholder="Adicione até 10 endereços de email separados por vírgula">
             <textarea id="sender-message" name="sender-message" placeholder="Adicione sua própria mensagem ou deixe em branco">{{ enviarCampoMensagem }}</textarea>
             
-            <div id="standard-message">
-                <div class="message-container">{{ enviarEmailCorpo }}</div>
+            <div id="mobilize-standard-message">
+                <div class="mobilize-message-container">{{ enviarEmailCorpo }}</div>
             </div>
 
             <input id="submit" class="mobilize-enviar-button" type="submit" value="Enviar" name="submit">

@@ -4,8 +4,8 @@
         {{ adesiveDescription }}
     </p>
 
-    <div class="sticked-avatar">
-        <img class="sticker" src="{{ adesiveURL }}" alt="" />
+    <div class="mobilize-sticked-avatar">
+        <img class="mobilize-sticker" src="{{ adesiveURL }}" alt="" />
         <img width="80" height="80" src="{{ baseURL }}/wp-content/plugins/mobilize/assets/img/mistery_man.jpg" />
     </div>
 
@@ -14,5 +14,5 @@
         <input class="mobilize-button" type="submit" value="Adesivar foto" />
     </form>
 
-    <div class="clear"></div>
+    <div class="mobilize-clear"></div>
 </section>
