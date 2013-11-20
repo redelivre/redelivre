@@ -221,19 +221,19 @@ function mobilize_template_social()
         $smartView->socialDescription = $options['redes']['description'];
 
         if (!is_null($optionsRedesSociais['redes_facebook_page']) && !empty($optionsRedesSociais['redes_facebook_page'])) {
-            $smartView->socialFacebook = '<a class="mobilize-button mobilize-facebook" href="'.$optionsRedesSociais['redes_facebook_page'].'">Facebook</a>';
+            $smartView->socialFacebook = '<a class="mobilize-button mobilize-facebook" target="_blank" href="'.$optionsRedesSociais['redes_facebook_page'].'">Facebook</a>';
         } 
 
         if (!is_null($optionsRedesSociais['redes_twitter']) && !empty($optionsRedesSociais['redes_twitter'])) {
-            $smartView->socialTwitter = '<a class="mobilize-button mobilize-twitter" href="'.$optionsRedesSociais['redes_twitter'].'">Twitter</a>';
+            $smartView->socialTwitter = '<a class="mobilize-button mobilize-twitter" target="_blank" href="'.$optionsRedesSociais['redes_twitter'].'">Twitter</a>';
         } 
 
         if (!is_null($optionsRedesSociais['redes_google']) && !empty($optionsRedesSociais['redes_google'])) {
-            $smartView->socialGoogle = '<a class="mobilize-button mobilize-google" href="'.$optionsRedesSociais['redes_google'].'">Google +</a>';
+            $smartView->socialGoogle = '<a class="mobilize-button mobilize-google" target="_blank" href="'.$optionsRedesSociais['redes_google'].'">Google +</a>';
         } 
             
         if (!is_null($optionsRedesSociais['redes_youtube']) && !empty($optionsRedesSociais['redes_youtube'])) {
-            $smartView->socialYoutube = '<a class="mobilize-button mobilize-youtube" href="'.$optionsRedesSociais['redes_youtube'].'">Youtube</a>';
+            $smartView->socialYoutube = '<a class="mobilize-button mobilize-youtube" target="_blank" href="'.$optionsRedesSociais['redes_youtube'].'">Youtube</a>';
         } 
 
         return $smartView->display();
