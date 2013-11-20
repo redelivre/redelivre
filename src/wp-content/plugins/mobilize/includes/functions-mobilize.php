@@ -272,6 +272,7 @@ function mobilize_template_enviar()
         $smartView = new SmartView(INC_MOBILIZE.'/views/enviar.php');
         $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
         $smartView->enviarDescription = $options['envie']['description'];
+				$smartView->enviarEmailCorpo    = $options['envie']['message'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $smartView->enviarMessage       = Mobilize::enviarEmails() ? 'Mensagem enviada!' : 'Houve um erro ao enviar sua mensagem, tente novamente!';
@@ -279,7 +280,6 @@ function mobilize_template_enviar()
             $smartView->enviarCampoEmail    = isset($_POST['sender-email']) ? $_POST['sender-email'] : '';
             $smartView->enviarCampoDestinos = isset($_POST['recipient-email']) ? $_POST['recipient-email'] : '';
             $smartView->enviarCampoMensagem = isset($_POST['sender-message']) ? $_POST['sender-message'] : '';
-            $smartView->enviarEmailCorpo    = $options['envie']['message'];
         }
 
         return $smartView->display();
