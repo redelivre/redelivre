@@ -38,7 +38,8 @@ function fetch_remote_file( $url, $post ) {
     $file_name = basename( $url );
 
     // get placeholder file in the upload dir with a unique, sanitized filename
-    $upload = wp_upload_bits( $file_name, 0, '', $post['upload_date'] );
+    $upload = wp_upload_bits( $file_name, 0, '',
+				array_key_exists('upload_date', $post) ? $post['upload_date'] : null );
     if ( $upload['error'] )
         return new WP_Error( 'upload_dir_error', $upload['error'] );
 
