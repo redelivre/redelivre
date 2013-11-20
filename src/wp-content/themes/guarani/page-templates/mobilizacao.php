@@ -12,12 +12,12 @@ get_header(); ?>
 
 	<section id="mobilize-content">
 	    <h1>Apoie esta campanha</h1>
-		<div class="section-description">
+		<div class="mobilize-section-description">
 		<p>No entanto, não podemos esquecer que a contínua expansão de nossa atividade garante a contribuição de um grupo importante na determinação do levantamento das variáveis envolvidas. As experiências acumuladas demonstram que o desafiador cenário globalizado auxilia a preparação e a composição do remanejamento dos quadros funcionais.</p>
 		</div>
 	    <section id="mobilize-redes" class="mobilize-widget clearfix">
 			<h6>Redes sociais</h6>
-			<p class="section-description">
+			<p class="mobilize-section-description">
 			Acompanhe a campanha nas redes sociais abaixo.
 			</p>
 			<div class="clearfix">
