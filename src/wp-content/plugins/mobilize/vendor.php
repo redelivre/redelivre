@@ -158,39 +158,10 @@ class Mobilize {
 
             self::handleBannerUploads();
             self::handleAdesiveUploads();
-            self::toggleMenuItem();
 
             array_walk_recursive($_POST['mobilize'], create_function('&$val', '$val = stripslashes($val);'));
             self::updateOption($_POST['mobilize']);
             echo '<div style="margin: 15px 0; margin-right: 15px; box-sizing: border-box; -webkit-box-sizing: border-box; background-color: #f0f7fd; border-left: 5px solid #d0e3f0; padding: 10px; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; font-size: 18px;">Dados atualizados com sucesso!</div>';
-        }
-    }
-
-    /**
-     * [toggleMenuItem description]
-     * @return [type] [description]
-     */
-    public static function toggleMenuItem() {
-        $menu  = wp_get_nav_menu_object('main');
-        $items = wp_get_nav_menu_items('main');
-        $menuItem = null;
-
-        if ($menu) {
-            foreach ($items as $item) {
-                if ($item->url == home_url('/mobilizacao')) {
-                    $menuItem = $item;
-                }
-            }
-
-            if (isset($_POST['mobilize']['general']['menuItem']) && !$menuItem) {
-                wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
-                    'menu-item-title'  => 'Mobilização',
-                    'menu-item-url'    => home_url('/mobilizacao'),
-                    'menu-item-status' => 'publish')
-                );
-            } else if (!isset($_POST['mobilize']['general']['menuItem']) && $menuItem) {
-                wp_delete_post($menuItem->ID, true);
-            }
         }
     }
 
