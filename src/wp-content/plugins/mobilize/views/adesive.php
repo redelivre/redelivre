@@ -10,8 +10,9 @@
     </div>
 
     <form method="post" enctype="multipart/form-data" target="_blank">
-        <input type="file" name="photo" class="mobilize-trigger-photo" />
-        <input class="mobilize-button" type="submit" value="Adesivar foto" />
+			<input type="file" name="photo" class="mobilize-trigger-photo" />
+			<br>
+			<input class="mobilize-button" type="submit" value="Adesivar foto" />
     </form>
 
     <div class="mobilize-clear"></div>
