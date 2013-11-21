@@ -137,22 +137,6 @@ function mobilize_instalacao()
 register_activation_hook(__FILE__, 'mobilize_instalacao');
 
 /**
- * [redirect_mobilizacao description]
- * @return [type] [description]
- */
-function redirect_mobilizacao() 
-{
-	$uri  = $_SERVER['REQUEST_URI'];
-		
-	if (preg_match('/mobilizacao/i', $uri)) {
-		wp_redirect('/mobilize');
-		exit;
-	}
-}
-
-add_action('init', 'redirect_mobilizacao', 100);
-
-/**
  * [mobilize_template_contribua description]
  * @return [type] [description]
  */
