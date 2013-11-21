@@ -541,37 +541,32 @@ class Mobilize {
      * [enviarEmails description]
      * @return [type] [description]
      */
-    public static function enviarEmails() {
-        if ($_POST && isset($_POST[self::ENVIE_NONCE]) && wp_verify_nonce($_POST[self::ENVIE_NONCE], self::ENVIE_NONCE)) {
-            $option = self::getOption('envie');
+		public static function enviarEmails(
+				$sender, $senderEmail, $recipientList, $senderMessage)
+		{
+			$success = false;
+			$option = self::getOption('envie');
 
-            // TODO: ENVIAR EMAIL
-            $success = null;
-            $from = self::getOption('email_from');
+			if (!empty($sender) && !empty($senderEmail) && !empty($recipientList))
+			{
+				$sender      = filter_var($sender, FILTER_SANITIZE_STRING);
+				$senderEmail = filter_var($senderEmail, FILTER_SANITIZE_EMAIL);
+				$headers     = "From: '{$sender}' <{}>";
+				$recipients  = array();
+				foreach (explode(',', $recipientList) as $recipient)
+				{
+					$recipients[] = filter_var(trim($recipient), FILTER_SANITIZE_EMAIL);
+				}
 
-            if ($_POST['sender-name'] && $_POST['sender-email']) {
-                // Headers
-                $sender      = filter_input(INPUT_POST, 'sender-name', FILTER_SANITIZE_STRING);
-                $senderEmail = filter_input(INPUT_POST, 'sender-email', FILTER_SANITIZE_EMAIL);
-                $recipients  = explode(',', $_POST['recipient-email']);
-                $from        = "From: '{$sender}' <{}>";
+				$msg =
+					"$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";
+				if (!empty($senderMessage))
+					$msg .= $senderMessage . '\n\n';
+				$msg .= $option['message'];
 
-                // Mensagem
-                $msg  = "$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";
-                $msg .= $_POST['sender-message'] ? stripslashes($_POST['sender-message'])."\n\n".$option['message'] : $option['message'];
+				$success = wp_mail($recipients, $option['subject'], $msg, $headers);
+			}
 
-                $success = false;
-
-                if (is_array($recipients) && sizeof($recipients) > 0) {
-                    foreach ($recipients as $r) {
-                        if ($x = wp_mail($r, $option['subject'], $msg, $from)) {
-                            $success = true;
-                        }
-                    }
-                }
-            }
-
-            return $success;
-        }
-    }
+			return $success;
+		}
 }

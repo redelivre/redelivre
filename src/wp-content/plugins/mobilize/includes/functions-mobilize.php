@@ -271,14 +271,27 @@ function mobilize_template_enviar()
         $smartView = new SmartView(INC_MOBILIZE.'/views/enviar.php');
         $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
         $smartView->enviarDescription = $options['envie']['description'];
-				$smartView->enviarEmailCorpo    = $options['envie']['message'];
+				$smartView->enviarEmailCorpo  = $options['envie']['message'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $smartView->enviarMessage       = Mobilize::enviarEmails() ? 'Mensagem enviada!' : 'Houve um erro ao enviar sua mensagem, tente novamente!';
-            $smartView->enviarCampoNome     = isset($_POST['sender-name']) ? $_POST['sender-name'] : '';
-            $smartView->enviarCampoEmail    = isset($_POST['sender-email']) ? $_POST['sender-email'] : '';
-            $smartView->enviarCampoDestinos = isset($_POST['recipient-email']) ? $_POST['recipient-email'] : '';
-            $smartView->enviarCampoMensagem = isset($_POST['sender-message']) ? $_POST['sender-message'] : '';
+						$senderName = array_key_exists('sender-name', $_POST) ?
+							$_POST['sender-name'] : '';
+						$senderEmail = array_key_exists('sender-email', $_POST) ?
+							$_POST['sender-email'] : '';
+						$recipients = array_key_exists('recipient-email', $_POST) ?
+							$_POST['recipient-email'] : '';
+						$message = array_key_exists('sender-message', $_POST) ?
+							$_POST['sender-message'] : '';
+
+            $smartView->enviarCampoNome = $senderName;
+            $smartView->enviarCampoEmail = $senderEmail;
+            $smartView->enviarCampoDestinos = $recipients;
+            $smartView->enviarCampoMensagem = $message;
+            $smartView->enviarMessage =
+							Mobilize::enviarEmails($senderName, $senderEmail,
+									$recipients, $message) ?
+							'Mensagem enviada!' :
+							'Houve um erro ao enviar sua mensagem, tente novamente!';
         }
 
         return $smartView->display();
