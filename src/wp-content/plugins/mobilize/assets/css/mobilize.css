@@ -288,13 +288,6 @@ p.mobilize-description {
   margin-top: 10px;
 }
 
-.mobilize-trigger-photo {
-  position: absolute;
-  top: -999px;
-  left: -999px;
-  visibility: hidden;
-}
-
 #mobilize-sticker p.section-description {
   margin-bottom: 0;
 }

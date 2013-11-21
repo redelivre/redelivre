@@ -158,39 +158,10 @@ class Mobilize {
 
             self::handleBannerUploads();
             self::handleAdesiveUploads();
-            self::toggleMenuItem();
 
             array_walk_recursive($_POST['mobilize'], create_function('&$val', '$val = stripslashes($val);'));
             self::updateOption($_POST['mobilize']);
             echo '<div style="margin: 15px 0; margin-right: 15px; box-sizing: border-box; -webkit-box-sizing: border-box; background-color: #f0f7fd; border-left: 5px solid #d0e3f0; padding: 10px; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; font-size: 18px;">Dados atualizados com sucesso!</div>';
-        }
-    }
-
-    /**
-     * [toggleMenuItem description]
-     * @return [type] [description]
-     */
-    public static function toggleMenuItem() {
-        $menu  = wp_get_nav_menu_object('main');
-        $items = wp_get_nav_menu_items('main');
-        $menuItem = null;
-
-        if ($menu) {
-            foreach ($items as $item) {
-                if ($item->url == home_url('/mobilizacao')) {
-                    $menuItem = $item;
-                }
-            }
-
-            if (isset($_POST['mobilize']['general']['menuItem']) && !$menuItem) {
-                wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
-                    'menu-item-title'  => 'Mobilização',
-                    'menu-item-url'    => home_url('/mobilizacao'),
-                    'menu-item-status' => 'publish')
-                );
-            } else if (!isset($_POST['mobilize']['general']['menuItem']) && $menuItem) {
-                wp_delete_post($menuItem->ID, true);
-            }
         }
     }
 
@@ -541,37 +512,32 @@ class Mobilize {
      * [enviarEmails description]
      * @return [type] [description]
      */
-    public static function enviarEmails() {
-        if ($_POST && isset($_POST[self::ENVIE_NONCE]) && wp_verify_nonce($_POST[self::ENVIE_NONCE], self::ENVIE_NONCE)) {
-            $option = self::getOption('envie');
+		public static function enviarEmails(
+				$sender, $senderEmail, $recipientList, $senderMessage)
+		{
+			$success = false;
+			$option = self::getOption('envie');
 
-            // TODO: ENVIAR EMAIL
-            $success = null;
-            $from = self::getOption('email_from');
+			if (!empty($sender) && !empty($senderEmail) && !empty($recipientList))
+			{
+				$sender      = filter_var($sender, FILTER_SANITIZE_STRING);
+				$senderEmail = filter_var($senderEmail, FILTER_SANITIZE_EMAIL);
+				$headers     = "From: '{$sender}' <{}>";
+				$recipients  = array();
+				foreach (explode(',', $recipientList) as $recipient)
+				{
+					$recipients[] = filter_var(trim($recipient), FILTER_SANITIZE_EMAIL);
+				}
 
-            if ($_POST['sender-name'] && $_POST['sender-email']) {
-                // Headers
-                $sender      = filter_input(INPUT_POST, 'sender-name', FILTER_SANITIZE_STRING);
-                $senderEmail = filter_input(INPUT_POST, 'sender-email', FILTER_SANITIZE_EMAIL);
-                $recipients  = explode(',', $_POST['recipient-email']);
-                $from        = "From: '{$sender}' <{}>";
+				$msg =
+					"$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";
+				if (!empty($senderMessage))
+					$msg .= $senderMessage . '\n\n';
+				$msg .= $option['message'];
 
-                // Mensagem
-                $msg  = "$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";
-                $msg .= $_POST['sender-message'] ? stripslashes($_POST['sender-message'])."\n\n".$option['message'] : $option['message'];
+				$success = wp_mail($recipients, $option['subject'], $msg, $headers);
+			}
 
-                $success = false;
-
-                if (is_array($recipients) && sizeof($recipients) > 0) {
-                    foreach ($recipients as $r) {
-                        if ($x = wp_mail($r, $option['subject'], $msg, $from)) {
-                            $success = true;
-                        }
-                    }
-                }
-            }
-
-            return $success;
-        }
-    }
+			return $success;
+		}
 }
