@@ -1,26 +1,6 @@
 <?php do_action( 'before_signup_form' ); ?>
 
 	<?php if(!is_user_logged_in()) : ?>
-	<style type="text/css">
-		.instrucoes { float:left; width: 50%; margin: 0 60px 0 0; background: #fff; }
-		.container-registro { background-color: #fff; display:block; width: 100%; padding: 30px; margin: 0 auto; }
-		.container-registro .titulo { background: #404040; color: #fff; }
-		.container-registro .titulo h1 { color: #fff; font-weight: normal; padding: 10px; font-size: 20px; }
-		
-		#custom-register-resposta { width: 100%; text-align: center; }
-		#custom-register-resposta .resposta-erro,
-		#custom-register-resposta .resposta-sucesso { text-align: center; clear:both; margin: 15px 0 0 0; width: 100%; }
-		
-		#custom-register-resposta .resposta-sucesso { background: #d8fce5; border: 1px solid #e3d89e; }
-		#custom-register-resposta .resposta-erro { background: #fce8d8; border: 1px solid #e3d89e; }
-		#custom-register-resposta .resposta-erro li { list-style:none; }
-		#registerform { display: table; margin: 67px 0 0 0; }
-		#registerform .input { width: 300px; border-radius: 5px; background: #fff; border: 1px solid #ccc; padding: 7px; }		
-		#registerform { padding: 0 0 0 50px; }
-
-				
-	</style>
-	
 	<script type="text/javascript">
 		jQuery(document).ready(function(){
 			jQuery("#captcha_code").removeAttr("style");
@@ -32,15 +12,6 @@
 		<div class="titulo">
 			<h1><?php echo _x('Cadastre-se', 'registro-de-usuario', 'redelivre'); ?></h1>
 		</div>
-		
-		<div class="instrucoes">
-			<h2>Aqui vem o título do bloco de texto</h2>
-			Aqui vem o conteúdo do bloco definido no administrador. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-			
-			<hr />
-		</div>
-		
-		
 		
 		<form class="formulario-de-registro-padrao" id="registerform">
 			<div class="campos">

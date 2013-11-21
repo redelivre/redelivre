@@ -507,12 +507,30 @@ add_action('template_redirect', 'custom_register_form');
 *
 *
 */
-function custom_register_js(){
-	wp_register_script('custom_register', network_site_url() . 'wp-content/mu-plugins/js/custom_user_register.js', array('jquery'));
-	
-	if(get_query_var('custom_user_register')){
+function custom_register_js()
+{
+	if(get_query_var('custom_user_register'))
+	{
+		wp_register_script('custom_register', network_site_url() . 'wp-content/mu-plugins/js/custom_user_register.js', array('jquery'));
 		wp_enqueue_script('custom_register');
 		wp_localize_script('custom_register', 'custom_register_ajax', array('ajaxurl' => home_url() . '/wp-admin/admin-ajax.php?'.http_build_query($_GET)));
+		
+		if(file_exists(get_stylesheet_directory() . '/custom-register-form.css') || file_exists(get_stylesheet_directory() . '/css/custom-register-form.css'))
+		{
+			if(file_exists(get_stylesheet_directory() . '/custom-register-form.css'))
+			{
+				wp_enqueue_style('custom-register-form', get_stylesheet_directory_uri() . '/custom-register-form.css');
+			}
+			else
+			{
+				wp_enqueue_style('custom-register-form', get_stylesheet_directory_uri() . '/css/custom-register-form.css');
+			}
+		}
+		else
+		{
+			wp_enqueue_style('custom-register-form', site_url() . '/wp-content/mu-plugins/css/custom-register-form.css');
+		}
+		
 	}
 }
 
@@ -690,28 +708,32 @@ function lost_password_reset(){
 *
 *
 */
-function lost_password_javascript(){
-	wp_register_script('custom_lost_password', network_site_url() . 'wp-content/mu-plugins/js/custom_lost_password.js', array('jquery'));
-	
-	wp_enqueue_script('custom_lost_password');
-	
-	//url para ajax
-	wp_localize_script('custom_lost_password', 'custom_lost_password_ajax', array('url' => home_url() . '/wp-admin/admin-ajax.php'));
-	
-	if(file_exists(get_stylesheet_directory() . '/custom-lost-password.css') || file_exists(get_stylesheet_directory() . '/css/custom-lost-password.css'))
+function lost_password_javascript()
+{
+	if(get_query_var(lost_password_page))
 	{
-		if(file_exists(get_stylesheet_directory() . '/custom-lost-password.css'))
+		wp_register_script('custom_lost_password', network_site_url() . 'wp-content/mu-plugins/js/custom_lost_password.js', array('jquery'));
+		
+		wp_enqueue_script('custom_lost_password');
+		
+		//url para ajax
+		wp_localize_script('custom_lost_password', 'custom_lost_password_ajax', array('url' => home_url() . '/wp-admin/admin-ajax.php'));
+		
+		if(file_exists(get_stylesheet_directory() . '/custom-lost-password.css') || file_exists(get_stylesheet_directory() . '/css/custom-lost-password.css'))
 		{
-			wp_enqueue_style('custom-lost-password', get_stylesheet_directory_uri() . '/custom-lost-password.css');
+			if(file_exists(get_stylesheet_directory() . '/custom-lost-password.css'))
+			{
+				wp_enqueue_style('custom-lost-password', get_stylesheet_directory_uri() . '/custom-lost-password.css');
+			}
+			else
+			{
+				wp_enqueue_style('custom-lost-password', get_stylesheet_directory_uri() . '/css/custom-lost-password.css');
+			}
 		}
 		else
 		{
-			wp_enqueue_style('custom-lost-password', get_stylesheet_directory_uri() . '/css/custom-lost-password.css');
+			wp_enqueue_style('custom-lost-password', site_url() . '/wp-content/mu-plugins/css/custom-lost-password.css');
 		}
-	}
-	else
-	{
-		wp_enqueue_style('custom-lost-password', site_url() . '/wp-content/mu-plugins/css/custom-lost-password.css');
 	}
 	
 }
