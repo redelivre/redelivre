@@ -11,7 +11,7 @@
 			<div class="lista-posts span7">
 			
 			<div class="search-cab borda-cor-1">
-				<h1>Resultados da busca para: <?php echo $s; ?></h1>
+				<h1>Resultados da busca para: <?php echo wp_strip_all_tags($s); ?></h1>
 			</div>
 			
 				<?php if(have_posts()) : while(have_posts()) : the_post(); ?>
