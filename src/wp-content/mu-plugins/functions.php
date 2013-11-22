@@ -390,7 +390,7 @@ function custom_login_logo() {
         </style>';
      }
 }
-add_action('login_head', 'custom_login_logo');
+//add_action('login_head', 'custom_login_logo');
 
 function new_headertitle($url){
     return get_bloginfo('sitetitle');
