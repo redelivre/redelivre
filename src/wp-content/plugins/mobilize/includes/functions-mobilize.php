@@ -118,7 +118,11 @@ add_action('admin_menu', 'mobilize_add_menu_page');
  */
 function do_mobilize_action() 
 {
-    Mobilize::adesivar();
+	if (Mobilize::isActive('adesive')
+			&& array_key_exists('photo', $_FILES)
+			&& array_key_exists('error', $_FILES['photo'])
+			&& $_FILES['photo']['error'] == UPLOAD_ERR_OK)
+		Mobilize::adesivar('photo');
 }
 
 add_action('init', 'do_mobilize_action', 100);

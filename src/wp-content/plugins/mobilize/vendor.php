@@ -477,28 +477,26 @@ class Mobilize {
      * [adesivar description]
      * @return [type] [description]
      */
-    public static function adesivar() {
-        if ($_POST && isset($_POST[self::ADESIVE_NONCE]) && wp_verify_nonce($_POST[self::ADESIVE_NONCE], self::ADESIVE_NONCE) && isset($_FILES['photo']['error']) && $_FILES['photo']['error'] == UPLOAD_ERR_OK) {
-            $option = self::getOption('adesive');
+		public static function adesivar($photo) {
+			$option = self::getOption('adesive');
 
-            // se um dia tiver mais de um adesivo é só enviar o $index pelo post
-            $index = 0;
-            $adesive_filename = self::getAdesiveFilename($index);
+			// se um dia tiver mais de um adesivo é só enviar o $index pelo post
+			$index = 0;
+			$adesive_filename = self::getAdesiveFilename($index);
 
-            if ($adesive_filename) {
-                $adesivo  = WideImage::load($adesive_filename);
-                $uploaded = WideImage::loadFromUpload('photo');
-                
-                $uploaded = $uploaded->resize(250, null);
+			if ($adesive_filename) {
+				$adesivo	= WideImage::load($adesive_filename);
+				$uploaded = WideImage::loadFromUpload($photo);
 
-                $new = $uploaded->merge($adesivo, 'right', 'bottom');
-                header('Content-disposition: attachment; filename=foto.jpg');
-                header('Content-type: image/jpeg');
-                $new->output('jpg', 100);
-                die;
-            }
-        }
-    }
+				$uploaded = $uploaded->resize(250, null);
+
+				$new = $uploaded->merge($adesivo, 'right', 'bottom');
+				header('Content-disposition: attachment; filename=foto.jpg');
+				header('Content-type: image/jpeg');
+				$new->output('jpg', 100);
+				die;
+			}
+		}
 
     /**
      * [printEnvieNonce description]
