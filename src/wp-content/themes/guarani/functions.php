@@ -230,14 +230,13 @@ function guarani_activate_plugins() {
     	// The plugin list
         $pugins_to_active = array(
             'eletro-widgets/eletro-widgets.php', 
-            'akismet/akismet.php'
         );
         
         foreach ( $pugins_to_active as $plugin ) {
             if ( ! in_array( $plugin, $plugins ) ) {
                 array_push( $plugins, $plugin );
                 update_option( 'active_plugins', $plugins );
-                do_action('activate_' . basename($plugin)); // Não vai funcionar se o nome do plugin for diferente do nome do arquivo
+                do_action('activate_' . basename($plugin)); // TODO Não vai funcionar se o nome do plugin for diferente do nome do arquivo
             }
         }
         
@@ -273,10 +272,5 @@ function lock_plugins( $actions, $plugin_file, $plugin_data, $context ) {
   
 }
 add_filter( 'plugin_action_links', 'lock_plugins', 10, 4 );
-
-function url_exists($url) {
-	$hdrs = @get_headers($url);
-	return is_array($hdrs) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$hdrs[0]) : false;
-}
 
 ?>
