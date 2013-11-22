@@ -391,7 +391,7 @@ class Campaign {
         $data = array(
             'user_id' => $this->campaignOwner->ID, 'plan_id' => $this->plan_id, 'blog_id' => $this->blog_id,
             'election_id' => $this->election_id, 'domain' => $this->domain, 'own_domain' => $this->own_domain, 'candidate_number' => $this->candidate_number,
-            'status' => 0, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location, 'observations' => $this->observations,
+            'status' => 1, 'creation_date' => date('Y-m-d H:i:s'), 'location' => $location, 'observations' => $this->observations,
         );
         
         $wpdb->insert('campaigns', $data);
