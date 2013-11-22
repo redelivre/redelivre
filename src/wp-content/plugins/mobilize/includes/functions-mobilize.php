@@ -1,5 +1,7 @@
 <?php
 
+require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
 /**
  * [mobilize_tpl description]
  * @return [type] [description]
@@ -17,8 +19,21 @@ add_action('template_redirect', 'mobilize_tpl');
  */
 function mobilize_page_load_assets()
 {
-    wp_enqueue_style('mobilize-template-style', plugins_url('/mobilize/assets/css/mobilize.css', INC_MOBILIZE));
-    wp_enqueue_script('mobilize-template', plugins_url('/mobilize/assets/js/template.js', INC_MOBILIZE));
+	$options = Mobilize::getOption();
+
+	wp_enqueue_style('mobilize-template-style',
+			plugins_url('/mobilize/assets/css/mobilize.css', INC_MOBILIZE));
+	wp_enqueue_script('mobilize-template',
+			plugins_url('/mobilize/assets/js/template.js', INC_MOBILIZE));
+
+	if (is_plugin_active('contribua/contribua.php')
+			&& array_key_exists('general', $options)
+			&& array_key_exists('contribua', $options['general'])
+			&& $options['general']['contribua'])
+	{
+		Contribua::addJavascript();
+		Contribua::addStylesheet();
+	}
 }
 
 /**
@@ -146,11 +161,20 @@ register_activation_hook(__FILE__, 'mobilize_instalacao');
  */
 function mobilize_template_contribua()
 {
-    $options = Mobilize::getOption();
+	$options = Mobilize::getOption();
+	ob_start();
+	if (is_plugin_active('contribua/contribua.php')
+			&& array_key_exists('general', $options)
+			&& array_key_exists('contribua', $options['general'])
+			&& $options['general']['contribua'])
+	{
+		$padding = array_key_exists('general', $options)
+			&& array_key_exists('espacamento_lateral', $options['general']) ?
+			$options['general']['espacamento_lateral'] : '';
+		require INC_MOBILIZE . '/views/contribua.php';
+	}
 
-    if (isset($options['general']['contribua']) && is_file($contribuaContentFile = dirname(dirname(__DIR__))).'/contribua/views/content.php') {
-        return file_get_contents($contribuaContentFile);
-    }
+	return ob_get_clean();
 }
 
 /**
