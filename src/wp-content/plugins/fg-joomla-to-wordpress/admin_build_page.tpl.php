@@ -182,6 +182,7 @@
 			<li><?php _e('EasyBlog content', 'fgj2wp'); ?></li>
 			<li><?php _e('Kunena forum to bbPress', 'fgj2wp'); ?></li>
 			<li><?php _e('Flexicontent content', 'fgj2wp'); ?></li>
+			<li><?php _e('Zoo content', 'fgj2wp'); ?></li>
 			<li><?php _e('Jcomments comments', 'fgj2wp'); ?></li>
 			<li><?php _e('Jomcomment comments', 'fgj2wp'); ?></li>
 			<li><?php _e('Joomlatags tags', 'fgj2wp'); ?></li>
@@ -192,6 +193,8 @@
 		<div style="text-align: center;">
 			<a href="http://www.fredericgilles.net/fg-joomla-to-wordpress/" target="_blank"><img src="http://www.fredericgilles.net/wp-content/uploads/premium-version.png" alt="Buy Premium Version" /></a>
 		</div>
+		<p><?php _e('Please note that some of these features need an add-on in addition to the Premium version.', 'fgj2wp'); ?>
+		</p>
 		</p>
 		<hr />
 		<p><?php _e('If you found this plugin useful and it saved you many hours or days, please rate it on <a href="http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/">FG Joomla to WordPress</a>. You can also make a donation using the button below.', 'fgj2wp'); ?></p>

@@ -3,7 +3,7 @@
  * Plugin Name: FG Joomla to WordPress
  * Plugin Uri:  http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
  * Description: A plugin to migrate categories, posts, images and medias from Joomla to WordPress
- * Version:     1.21.3
+ * Version:     1.22.3
  * Author:      Frédéric GILLES
  */
 
@@ -112,6 +112,12 @@ if ( !class_exists('fgj2wp', false) ) {
 			$options = get_option('fgj2wp_options');
 			if ( is_array($options) ) {
 				$this->plugin_options = array_merge($this->plugin_options, $options);
+			}
+			
+			// Check if the upload directory is writable
+			$upload_dir = wp_upload_dir();
+			if ( !is_writable($upload_dir['basedir']) ) {
+				$this->display_admin_error(__('The wp-content directory must be writable.', 'fgj2wp'));
 			}
 			
 			if ( isset($_POST['empty']) ) {
@@ -224,6 +230,9 @@ if ( !class_exists('fgj2wp', false) ) {
 			
 			try {
 				$joomla_db = new PDO('mysql:host=' . $this->plugin_options['hostname'] . ';port=' . $this->plugin_options['port'] . ';dbname=' . $this->plugin_options['database'], $this->plugin_options['username'], $this->plugin_options['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+				if ( defined('WP_DEBUG') && WP_DEBUG ) {
+					$joomla_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Display SQL errors
+				}
 			} catch ( PDOException $e ) {
 				$this->display_admin_error(__('Couldn\'t connect to the Joomla database. Please check your parameters. And be sure the WordPress server can access the Joomla database.', 'fgj2wp') . '<br />' . $e->getMessage());
 				return false;
@@ -483,10 +492,8 @@ SQL;
 				do_action('fgj2wp_pre_import');
 				
 				// Categories
-				if ($this->post_type == 'post') {
-					$cat_count = $this->import_categories();
-					$this->display_admin_notice(sprintf(_n('%d category imported', '%d categories imported', $cat_count, 'fgj2wp'), $cat_count));
-				}
+				$cat_count = $this->import_categories();
+				$this->display_admin_notice(sprintf(_n('%d category imported', '%d categories imported', $cat_count, 'fgj2wp'), $cat_count));
 				
 				// Posts and medias
 				$result = $this->import_posts();
@@ -1420,9 +1427,9 @@ SQL;
 			$categories = get_terms( 'category', array('hide_empty' => 0) );
 			if ( !empty($categories) ) {
 				foreach ( $categories as $cat ) {
-					if ( preg_match('/^(s|ck?)\d+-(.*)/', $cat->slug, $matches) ) {
+					if ( preg_match('/^(s|c(e|k|z)?)\d+-(.*)/', $cat->slug, $matches) ) {
 						wp_update_term($cat->term_id, 'category', array(
-							'slug' => $matches[2]
+							'slug' => $matches[3]
 						));
 					}
 				}

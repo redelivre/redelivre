@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: SI CAPTCHA Anti-Spam 2.7.6.4\n"
+"Project-Id-Version: SI CAPTCHA Anti-Spam 2.7.7.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/si-captcha-for-wordpress\n"
-"POT-Creation-Date: 2011-12-08 01:44:01+00:00\n"
+"POT-Creation-Date: 2013-07-19 04:57:59+00:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Burak Yavuz <BouRock(at)live.com>\n"
 "Language-Team: BouRock <BouRock(at)live.com>\n"
@@ -13,318 +13,96 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 "Plural-Forms: nplurals=2; plural=(n>1);\n"
 
-#: si-captcha.php:49 si-captcha.php:50 si-captcha.php:53 si-captcha.php:54
-#: si-captcha.php:57 si-captcha-admin.php:88
-msgid "SI Captcha Options"
-msgstr "SI Captcha Seçenekleri"
-
-#: si-captcha.php:163
-msgid "All registered users"
-msgstr "Tüm kayıtlı kullanıcılar için gizle"
-
-#: si-captcha.php:164
-msgid "Edit posts"
-msgstr "Yazıları Düzenleyen için gizle"
-
-#: si-captcha.php:165
-msgid "Publish Posts"
-msgstr "Yazıları Yayımlayan için gizle"
-
-#: si-captcha.php:166
-msgid "Moderate Comments"
-msgstr "Yorumları Onaylayan için gizle"
-
-#: si-captcha.php:167
-msgid "Administer site"
-msgstr "Yönetici tarafındaki için gizle"
-
-#: si-captcha.php:185
-msgid "ERROR: si-captcha.php plugin says GD image support not detected in PHP!"
-msgstr ""
-"HATA: si-captcha.php eklentisi, PHP'de GD resim desteği saptanamadı diyor!"
-
-#: si-captcha.php:186
-msgid ""
-"Contact your web host and ask them why GD image support is not enabled for "
-"PHP."
-msgstr ""
-"Web barındırıcınızla irtibata geçin ve PHP için GD resim desteğinin neden "
-"etkin olmadığını sorun."
-
-#: si-captcha.php:190
-msgid ""
-"ERROR: si-captcha.php plugin says imagepng function not detected in PHP!"
-msgstr ""
-"HATA: si-captcha.php eklentisi, PHP'de imagepng işlevi bulunamadı diyor!"
-
-#: si-captcha.php:191
-msgid ""
-"Contact your web host and ask them why imagepng function is not enabled for "
-"PHP."
-msgstr ""
-"Web barındırıcınızla irtibata geçin ve PHP için imagepng işlevinin neden "
-"etkin olmadığını sorun."
-
-#: si-captcha.php:195
-msgid "ERROR: si-captcha.php plugin says captcha_library not found."
-msgstr "HATA: si-captcha.php eklentisi, captcha_library bulunamadı diyor."
-
-#: si-captcha.php:236 si-captcha.php:318 si-captcha.php:369 si-captcha.php:410
-#: si-captcha.php:443 si-captcha.php:479 si-captcha.php:525 si-captcha.php:558
-#: si-captcha-admin.php:601
-msgid "CAPTCHA Code"
-msgstr "CAPTCHA (Şahıs Denetim) Kodu:"
-
-#: si-captcha.php:271
-msgid "Submit Comment"
-msgstr "Yorumu Gönder"
-
-#: si-captcha.php:576 si-captcha.php:583 si-captcha-admin.php:389
-#: si-captcha-admin.php:397
-msgid "There is a problem with the directory"
-msgstr "Dizin ile ilgili bir sorun var"
-
-#: si-captcha.php:578 si-captcha-admin.php:391
-msgid ""
-"The directory is not found, a <a href=\"http://codex.wordpress.org/"
-"Changing_File_Permissions\" target=\"_blank\">permissions</a> problem may "
-"have prevented this directory from being created."
-msgstr ""
-"Dizin bulunamadı, <a href=\"http://codex.wordpress.org/"
-"Changing_File_Permissions\" target=\"_blank\">izin</a> sorunu bu dizinin "
-"oluşturulmasını önlüyor olabilir."
-
-#: si-captcha.php:580 si-captcha.php:591
-msgid ""
-"Fixing the actual problem is recommended, but you can uncheck this setting "
-"on the si captcha options page: \"Use CAPTCHA without PHP session\" and the "
-"captcha will work this way just fine (as long as PHP sessions are working)."
-msgstr ""
-"Asıl sorunun düzeltilmesi önerilir ama si captcha seçenekleri sayfasında şu "
-"ayarın işaretini kaldırabilirsiniz: \"CAPTCHA'yı (Şahıs Denetim Kodu) PHP "
-"oturumu olmadan kullan\"  ve captcha bu yolla gayet iyi çalışacaktır (PHP "
-"oturumları çalıştığı sürece)."
-
-#: si-captcha.php:584
-msgid ""
-"Directory Unwritable (<a href=\"http://codex.wordpress.org/"
-"Changing_File_Permissions\" target=\"_blank\">fix permissions</a>)"
-msgstr ""
-"Dizin Yazılamaz (<a href=\"http://codex.wordpress.org/"
-"Changing_File_Permissions\" target=\"_blank\">izinleri düzeltin</a>)"
-
-#: si-captcha.php:585 si-captcha-admin.php:399
-msgid "Permissions are: "
-msgstr "İzinler:"
-
-#: si-captcha.php:589 si-captcha-admin.php:403
-msgid ""
-"Fixing this may require assigning 0755 permissions or higher (e.g. 0777 on "
-"some hosts. Try 0755 first, because 0777 is sometimes too much and will not "
-"work.)"
-msgstr ""
-"Bunu düzeltmek 0755 izinlerini ya da daha yükseğini atamayı gerektirebilir "
-"(örn. bazı barındırıcılarda 0777. Önce 0755 deneyin, çünkü 0777 bazen çok "
-"gelebilir ama çalışmayacaktır.)"
-
-#: si-captcha.php:604 si-captcha.php:636 si-captcha.php:665 si-captcha.php:698
-#: si-captcha.php:727 si-captcha.php:760 si-captcha.php:936 si-captcha.php:945
-msgid "Please complete the CAPTCHA."
-msgstr "Lütfen CAPTCHA'yı (Şahıs Denetim Kodu) tamamlayın."
-
-#: si-captcha.php:607 si-captcha.php:668 si-captcha.php:730 si-captcha.php:789
-#: si-captcha.php:876 si-captcha.php:948
-msgid "Could not find CAPTCHA token."
-msgstr "CAPTCHA (Şahıs Denetim Kodu) simgesi bulunamadı."
-
-#: si-captcha.php:620 si-captcha.php:681 si-captcha.php:743 si-captcha.php:961
-msgid "That CAPTCHA was incorrect."
-msgstr "Bu CAPTCHA (Şahıs Denetim Kodu) yanlış oldu."
-
-#: si-captcha.php:624 si-captcha.php:685 si-captcha.php:747 si-captcha.php:805
-#: si-captcha.php:892 si-captcha.php:965
-msgid "Could not read CAPTCHA token file."
-msgstr "CAPTCHA (Şahıs Denetim Kodu) simgesi dosyası okunamadı."
-
-#: si-captcha.php:632 si-captcha.php:694 si-captcha.php:756 si-captcha.php:813
-#: si-captcha.php:899 si-captcha.php:973
-msgid ""
-"Could not read CAPTCHA cookie. Make sure you have cookies enabled and not "
-"blocking in your web browser settings. Or another plugin is conflicting. See "
-"plugin FAQ."
-msgstr ""
-"CAPTCHA (Şahıs Denetim Kodu) tanımlama bilgisi okunamadı. Tanımlama "
-"bilgilerinin etkinleştirildiğinden ve web tarayıcısı ayarlarınızda "
-"engellenmediğinden emin olun. Ya da başka bir eklenti çakışıyor. Eklenti SSS "
-"bakın."
-
-#: si-captcha.php:649 si-captcha.php:711 si-captcha.php:774 si-captcha.php:987
-msgid "That CAPTCHA was incorrect. Make sure you have not disabled cookies."
-msgstr ""
-"Bu CAPTCHA (Şahıs Denetim Kodu) yanlış. Tanımlama bilgilerinin "
-"etkisizleştirilmediğinden emin olun."
-
-#: si-captcha.php:665 si-captcha.php:668 si-captcha.php:681 si-captcha.php:685
-#: si-captcha.php:694 si-captcha.php:698 si-captcha.php:711 si-captcha.php:727
-#: si-captcha.php:730 si-captcha.php:743 si-captcha.php:747 si-captcha.php:756
-#: si-captcha.php:760 si-captcha.php:774 si-captcha.php:789 si-captcha.php:805
-#: si-captcha.php:813 si-captcha.php:876 si-captcha.php:892 si-captcha.php:899
-#: si-captcha.php:936 si-captcha.php:945 si-captcha.php:948 si-captcha.php:961
-#: si-captcha.php:965 si-captcha.php:973 si-captcha.php:987
-msgid "ERROR"
-msgstr "HATA:"
-
-#: si-captcha.php:787 si-captcha.php:816 si-captcha.php:874 si-captcha.php:902
-msgid ""
-"Error: You did not enter a CAPTCHA phrase. Press your browser's back button "
-"and try again."
-msgstr ""
-"Hata: Bir CAPTCHA (Şahıs Denetim Kodu) ifadesi girmediniz. Tarayıcınızın "
-"geri düğmesine basın ve tekrar deneyin."
-
-#: si-captcha.php:802 si-captcha.php:830 si-captcha.php:889 si-captcha.php:914
-msgid ""
-"Error: You entered in the wrong CAPTCHA phrase. Press your browser's back "
-"button and try again."
-msgstr ""
-"Hata: Yanlış CAPTCHA (Şahıs Denetim Kodu) ifadesini girdiniz. Tarayıcınızın "
-"geri düğmesine basın ve tekrar deneyin."
-
-#: si-captcha.php:929
-msgid "<strong>ERROR</strong>: The username field is empty."
-msgstr "<strong>HATA</strong>: Kullanıcı adı alanı boş."
-
-#: si-captcha.php:932
-msgid "<strong>ERROR</strong>: The password field is empty."
-msgstr "<strong>HATA</strong>: Parola alanı boş."
-
-#: si-captcha.php:997
-msgid ""
-"<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password "
-"Lost and Found\">Lost your password</a>?"
-msgstr ""
-"<strong>HATA</strong>: Geçersiz kullanıcı adı. <a href=\"%s\" title=\"Parola "
-"Kayıp ve Bulundu\">Parolanızı mı unuttunuz</a>?"
-
-#: si-captcha.php:1005
-msgid "<strong>ERROR</strong>: Your account has been marked as a spammer."
-msgstr ""
-"<strong>HATA</strong>: Hesabınız istenmeyen mesaj göndericisi olarak "
-"işaretlenmiş."
-
-#: si-captcha.php:1011
-msgid "Site Suspended."
-msgstr "Site Askıya Alındı."
-
-#: si-captcha.php:1021
-msgid ""
-"<strong>ERROR</strong>: Incorrect password. <a href=\"%s\" title=\"Password "
-"Lost and Found\">Lost your password</a>?"
-msgstr ""
-"<strong>HATA</strong>: Geçersiz parola. <a href=\"%s\" title=\"Parola Kayıp "
-"ve Bulundu\">Parolanızı mı unuttunuz</a>?"
-
-#: si-captcha.php:1068 si-captcha.php:1070 si-captcha-admin.php:602
-msgid "CAPTCHA Image"
-msgstr "CAPTCHA (Şahıs Denetim Kodu) Resmi:"
-
-#: si-captcha.php:1077 si-captcha.php:1084 si-captcha-admin.php:603
-msgid "Refresh Image"
-msgstr "Resmi Yenile:"
-
-#: si-captcha.php:1097
-msgid "Settings"
-msgstr "Ayarlar"
-
-#: si-captcha-admin.php:14
+#: si-captcha-admin.php:20
 msgid "You do not have permissions for managing this option"
 msgstr "Bu seçeneği yönetmek için izinlere sahip değilsiniz"
 
-#: si-captcha-admin.php:85
+#: si-captcha-admin.php:97
 msgid "Options saved."
 msgstr "Seçenekler kaydedildi."
 
-#: si-captcha-admin.php:129
+#: si-captcha-admin.php:100 si-captcha.php:49 si-captcha.php:50
+#: si-captcha.php:53 si-captcha.php:54 si-captcha.php:57
+msgid "SI Captcha Options"
+msgstr "SI Captcha Seçenekleri"
+
+#: si-captcha-admin.php:141
 msgid "Downloaded %s times"
 msgstr "%s kere indirildi"
 
-#: si-captcha-admin.php:134 si-captcha-admin.php:142
+#: si-captcha-admin.php:146 si-captcha-admin.php:154
 msgid "(Average rating based on %s ratings)"
 msgstr "(%s orana dayalı ortalama oran)"
 
-#: si-captcha-admin.php:136
+#: si-captcha-admin.php:148
 msgid "5 stars"
 msgstr "5 yıldız"
 
-#: si-captcha-admin.php:137
+#: si-captcha-admin.php:149
 msgid "4 stars"
 msgstr "4 yıldız"
 
-#: si-captcha-admin.php:138
+#: si-captcha-admin.php:150
 msgid "3 stars"
 msgstr "3 yıldız"
 
-#: si-captcha-admin.php:139
+#: si-captcha-admin.php:151
 msgid "2 stars"
 msgstr "2 yıldız"
 
-#: si-captcha-admin.php:140
+#: si-captcha-admin.php:152
 msgid "1 star"
 msgstr "1 yıldız"
 
-#: si-captcha-admin.php:142
+#: si-captcha-admin.php:154
 msgid "rate"
-msgstr "değerlendir"
+msgstr "değerlendirin"
 
-#: si-captcha-admin.php:153
+#: si-captcha-admin.php:165
 msgid "a newer version is available: %s"
 msgstr "daha yeni bir sürüm mevcut: %s"
 
-#: si-captcha-admin.php:155
+#: si-captcha-admin.php:167
 msgid "A newer version of SI Captcha Anti-Spam is available: %s"
 msgstr "SI Captcha Anti-Spam'ın daha yeni bir sürümü mevcut: %s"
 
-#: si-captcha-admin.php:158
+#: si-captcha-admin.php:170
 msgid "(latest version)"
 msgstr "(en son sürüm)"
 
-#: si-captcha-admin.php:164
+#: si-captcha-admin.php:176
 msgid "Version:"
 msgstr "Sürüm:"
 
-#: si-captcha-admin.php:165
+#: si-captcha-admin.php:177
 msgid "Changelog"
 msgstr "Değişiklikler"
 
-#: si-captcha-admin.php:166
+#: si-captcha-admin.php:178
 msgid "FAQ"
 msgstr "SSS"
 
-#: si-captcha-admin.php:167 si-captcha-admin.php:216
+#: si-captcha-admin.php:179 si-captcha-admin.php:225
 msgid "Rate This"
 msgstr "Bunu Değerlendir"
 
-#: si-captcha-admin.php:168
+#: si-captcha-admin.php:180
 msgid "Support"
 msgstr "Destek"
 
-#: si-captcha-admin.php:169 si-captcha-admin.php:184
+#: si-captcha-admin.php:181 si-captcha-admin.php:195
 msgid "Donate"
 msgstr "Bağış"
 
-#: si-captcha-admin.php:170
+#: si-captcha-admin.php:182
 msgid "Free PHP Scripts"
 msgstr "Ücretsiz PHP Betikleri"
 
-#: si-captcha-admin.php:171
-msgid "Contact"
-msgstr "İletişim"
-
-#: si-captcha-admin.php:187
+#: si-captcha-admin.php:198
 msgid "Please donate to keep this plugin FREE"
 msgstr "Lütfen bu eklentiyi ÜCRETSİZ tutmak için bağış yapın"
 
-#: si-captcha-admin.php:188
+#: si-captcha-admin.php:199
 msgid ""
 "If you find this plugin useful to you, please consider making a small "
 "donation to help contribute to my time invested and to further development. "
@@ -334,72 +112,56 @@ msgstr ""
 "ayırdığım zamana katkıda bulunmak küçük bir bağış yapmayı düşünün. Nazik "
 "desteğiniz için teşekkürler!"
 
-#: si-captcha-admin.php:188
+#: si-captcha-admin.php:199
 msgid "More from Mike Challis"
 msgstr "Mike Challis'ten daha fazlası"
 
-#: si-captcha-admin.php:201
+#: si-captcha-admin.php:211
 msgid "ThemeFuse Original WP Themes"
 msgstr "ThemeFuse Orijinal WP Temaları"
 
-#: si-captcha-admin.php:202
-msgid ""
-"Try <a href=\"%s\" target=\"_blank\">ThemeFuse</a>, they make some amazing "
-"original WP themes that have a cool 1 click auto install feature and "
-"excellent after care support services. Check out some of their themes!"
-msgstr ""
-"<a href=\"%s\" target=\"_blank\">ThemeFuse</a>'u deneyin, harika 1 "
-"tıklamayla otomatik yükleme özelliğine sahip inanılmaz orijinal WP temaları "
-"yapıyorlar ve bakım desteği sonrası hizmetleri mükemmel. Temalarının "
-"bazılarını gözden geçirin!"
-
-#: si-captcha-admin.php:204
-msgid "ThemeFuse"
-msgstr "ThemeFuse"
-
-#: si-captcha-admin.php:214
+#: si-captcha-admin.php:223
 msgid ""
 "Mike Challis says: \"Hello, I have spend hundreds of hours coding this "
-"plugin just for you. If you are satisfied with my programs and support "
-"please consider making a small donation. If you are not able to, that is OK."
+"plugin just for you. Please consider making a small donation. If you are not "
+"able to, that is OK."
 msgstr ""
 "Mike Challis diyor ki: \"Merhaba, bu eklentiyi sırf sizin için yüzlerce saat "
-"harcayarak yazdım. Eğer programlarımdan ve desteğimden memnunsanız lütfen "
-"küçük bir bağış yapmayı düşünün. Eğer değilseniz, sorun değil."
+"harcayarak yazdım. Lütfen küçük bir bağış yapmayı düşünün. Eğer değilseniz, "
+"sorun değil."
 
-#: si-captcha-admin.php:215
+#: si-captcha-admin.php:224
 msgid ""
-"Most people donate $3, $5, $10, $20, or more. Though no amount is too small. "
-"Donations can be made with your PayPal account, or securely using any of the "
-"major credit cards. Please also rate my plugin.\""
+"Suggested donation: $25, $20, $15, $10, $5, $3. Donations can be made with "
+"your PayPal account, or securely using any of the major credit cards. Please "
+"also rate my plugin.\""
 msgstr ""
-"Çoğu insan, $ 3, $ 5, $ 10, $ 20 veya daha fazla bağış yapıyor. Hiçbir "
-"miktarı çok az değil. Bağışlar PayPal hesabınız ile yapılabilir ya da asıl "
-"kredi kartlarından herhangi biri güvenle kullanılabilir. Ayrıca lütfen "
-"eklentimi değerlendirin. \""
+"Önerilen bağışlar: $25, $20, $15, $10, $5, $3. Bağışlar PayPal hesabınız ile "
+"yapılabilir ya da asıl kredi kartlarından herhangi biri güvenle "
+"kullanılabilir. Ayrıca lütfen eklentimi değerlendirin.\""
 
-#: si-captcha-admin.php:218
+#: si-captcha-admin.php:227
 msgid "Close this message"
 msgstr "Bu iletiyi kapat"
 
-#: si-captcha-admin.php:241
+#: si-captcha-admin.php:252
 msgid "I have donated to help contribute for the development of this plugin."
 msgstr "Bu eklentinin geliştirilmesine katkıda bulunmak için bağış yaptım."
 
-#: si-captcha-admin.php:246
+#: si-captcha-admin.php:257
 msgid "Usage"
 msgstr "Kullanım"
 
-#: si-captcha-admin.php:249
+#: si-captcha-admin.php:260
 msgid "Your theme must have a"
 msgstr "Temanız "
 
-#: si-captcha-admin.php:249
+#: si-captcha-admin.php:260
 msgid "tag inside your comments.php form. Most themes do."
 msgstr ""
 "etiketi içeren bir comments.php formuna sahip olmalı. Çoğu temada bu vardır."
 
-#: si-captcha-admin.php:250
+#: si-captcha-admin.php:261
 msgid ""
 "The best place to locate the tag is before the comment textarea, you may "
 "want to move it if it is below the comment textarea, or the captcha image "
@@ -410,66 +172,85 @@ msgstr ""
 "ve captcha (şahıs denetim kodu) kodu girişi gönder düğmesinden sonra "
 "görüntülenebilir."
 
-#: si-captcha-admin.php:255
+#: si-captcha-admin.php:267
+msgid "Test Compatibility"
+msgstr "Uyumluluğu Deneyin"
+
+#: si-captcha-admin.php:270
+msgid ""
+"Be sure to test the CAPTCHA and make sure it works. It should display, allow "
+"actions on valid code, and block actions on wrong code."
+msgstr ""
+"CAPTCHA'yı (Şahıs Denetim Kodu) denediğinizden ve çalıştığından emin olun. "
+"Görüntülemeli, geçerli kodda eylemlere izin vermeli ve yanlış kodda "
+"eylemleri engellemeli."
+
+#: si-captcha-admin.php:272
+msgid ""
+"Some other plugins or themes can cause conflicts that let spammers bypass "
+"the CAPTCHA."
+msgstr ""
+"Bazı diğer eklentiler ya da temalar, CAPTCHA'yı (Şahıs Denetim Kodu) "
+"atlatarak istenmeyen mesaj göndericilerine izin veren çakışmalara neden "
+"olabilir."
+
+#: si-captcha-admin.php:274
+msgid ""
+"Some other security plugins use the same WordPress authenticate functions "
+"for Login and Registration."
+msgstr ""
+"Bazı diğer güvenlik eklentileri Oturum Açma ve Kayıt Olma için aynı "
+"WordPress kimlik doğrulaması işlevlerini kullanır."
+
+#: si-captcha-admin.php:276
+msgid ""
+"After installing or updating plugins and themes, test the CAPTCHA on each "
+"form where it is enabled on."
+msgstr ""
+"Eklentileri ve temaları yükledikten ve güncelledikten sonra "
+"etkinleştirildiği her formda CAPTCHA'yı (Şahıs Denetim Kodu) deneyin."
+
+#: si-captcha-admin.php:278
+msgid ""
+"If the CAPTCHA does not work, try deactivating other plugins to find the one "
+"that is incompatible."
+msgstr ""
+"Eğer CAPTCHA (Şahıs Denetim Kodu) çalışmazsa, uyumsuz olanı bulmak için "
+"diğer eklentileri devre dışı bırakmayı deneyin."
+
+#: si-captcha-admin.php:282
 msgid "Options"
 msgstr "Seçenekler"
 
-#: si-captcha-admin.php:258 si-captcha-admin.php:612
+#: si-captcha-admin.php:285 si-captcha-admin.php:622
 msgid "Update Options"
 msgstr "Seçenekleri Güncelle"
 
-#: si-captcha-admin.php:266
+#: si-captcha-admin.php:293
 msgid "CAPTCHA:"
 msgstr "CAPTCHA:"
 
-#: si-captcha-admin.php:268
-msgid "Test if your PHP installation will support the CAPTCHA"
-msgstr ""
-"PHP kurulumunuzun CAPTCHA'yı (Şahıs Denetim Kodu) destekleyip "
-"desteklemeyeceğini deneyin"
-
-#: si-captcha-admin.php:271
-msgid "CAPTCHA difficulty level:"
-msgstr "CAPTCHA (Şahıs Denetim Kodu) zorluk seviyesi:"
-
-#: si-captcha-admin.php:275
-msgid "Low"
-msgstr "Düşük"
-
-#: si-captcha-admin.php:276
-msgid "Medium"
-msgstr "Orta"
-
-#: si-captcha-admin.php:277
-msgid "High"
-msgstr "Yüksek"
-
-#: si-captcha-admin.php:287 si-captcha-admin.php:295 si-captcha-admin.php:303
-#: si-captcha-admin.php:311 si-captcha-admin.php:319 si-captcha-admin.php:351
-#: si-captcha-admin.php:359 si-captcha-admin.php:368 si-captcha-admin.php:376
-#: si-captcha-admin.php:415 si-captcha-admin.php:428 si-captcha-admin.php:440
-#: si-captcha-admin.php:516 si-captcha-admin.php:540 si-captcha-admin.php:595
-msgid "Click for Help!"
-msgstr "Yardım için tıklayın!"
-
-#: si-captcha-admin.php:287 si-captcha-admin.php:295 si-captcha-admin.php:303
-#: si-captcha-admin.php:311 si-captcha-admin.php:319 si-captcha-admin.php:351
-#: si-captcha-admin.php:359 si-captcha-admin.php:368 si-captcha-admin.php:376
-#: si-captcha-admin.php:415 si-captcha-admin.php:428 si-captcha-admin.php:440
-#: si-captcha-admin.php:516 si-captcha-admin.php:540 si-captcha-admin.php:595
-msgid "help"
-msgstr "yardım"
-
-#: si-captcha-admin.php:289
-msgid "Changes level of distortion of the CAPTCHA image text."
-msgstr ""
-"CAPTCHA (Şahıs Denetim Kodu) resim metninin çarpıklık seviyesini değiştirir."
-
-#: si-captcha-admin.php:294
+#: si-captcha-admin.php:297
 msgid "Enable CAPTCHA on the login form."
 msgstr "Oturum açma formunda CAPTCHA'yı (Şahıs Denetim Kodu) etkinleştir."
 
-#: si-captcha-admin.php:297
+#: si-captcha-admin.php:298 si-captcha-admin.php:306 si-captcha-admin.php:314
+#: si-captcha-admin.php:322 si-captcha-admin.php:354 si-captcha-admin.php:362
+#: si-captcha-admin.php:371 si-captcha-admin.php:379 si-captcha-admin.php:418
+#: si-captcha-admin.php:431 si-captcha-admin.php:443 si-captcha-admin.php:519
+#: si-captcha-admin.php:543 si-captcha-admin.php:598
+msgid "Click for Help!"
+msgstr "Yardım için tıklayın!"
+
+#: si-captcha-admin.php:298 si-captcha-admin.php:306 si-captcha-admin.php:314
+#: si-captcha-admin.php:322 si-captcha-admin.php:354 si-captcha-admin.php:362
+#: si-captcha-admin.php:371 si-captcha-admin.php:379 si-captcha-admin.php:418
+#: si-captcha-admin.php:431 si-captcha-admin.php:443 si-captcha-admin.php:519
+#: si-captcha-admin.php:543 si-captcha-admin.php:598
+msgid "help"
+msgstr "yardım"
+
+#: si-captcha-admin.php:300
 msgid ""
 "The Login form captcha is not enabled by default because it might be "
 "annoying to users. Only enable it if you are having spam problems related to "
@@ -480,11 +261,11 @@ msgstr ""
 "olarak oturum açan robotlarla ilgili istenmeyen mesaj sorunları yaşıyorsanız "
 "etkinleştirin."
 
-#: si-captcha-admin.php:302
+#: si-captcha-admin.php:305
 msgid "Enable CAPTCHA on the register form."
 msgstr "Kayıt formunda CAPTCHA'yı (Şahıs Denetim Kodu) etkinleştir."
 
-#: si-captcha-admin.php:305
+#: si-captcha-admin.php:308
 msgid ""
 "Prevents automated spam bots by requiring that the user pass a CAPTCHA test "
 "before registering."
@@ -493,11 +274,11 @@ msgstr ""
 "denemesinden geçmelerini gerektirerek otomatikleştirilmiş istenmeyen mesaj "
 "robotlarını önler."
 
-#: si-captcha-admin.php:310
+#: si-captcha-admin.php:313
 msgid "Enable CAPTCHA on the lost password form."
 msgstr "Kayıp parola formunda CAPTCHA'yı (Şahıs Denetim Kodu) etkinleştir."
 
-#: si-captcha-admin.php:313
+#: si-captcha-admin.php:316
 msgid ""
 "Prevents automated spam bots by requiring that the user pass a CAPTCHA test "
 "before lost password request."
@@ -506,11 +287,11 @@ msgstr ""
 "denemesinden geçmelerini gerektirerek otomatikleştirilmiş istenmeyen mesaj "
 "robotlarını önler."
 
-#: si-captcha-admin.php:318
+#: si-captcha-admin.php:321
 msgid "Enable CAPTCHA on the comment form."
 msgstr "Yorum formunda CAPTCHA'yı (Şahıs Denetim Kodu) etkinleştir."
 
-#: si-captcha-admin.php:321
+#: si-captcha-admin.php:324
 msgid ""
 "Prevents automated spam bots by requiring that the user pass a CAPTCHA test "
 "before posting comments."
@@ -519,39 +300,39 @@ msgstr ""
 "denemesinden geçmelerini gerektirerek otomatikleştirilmiş istenmeyen mesaj "
 "robotlarını önler."
 
-#: si-captcha-admin.php:327
+#: si-captcha-admin.php:330
 msgid "Hide CAPTCHA for"
 msgstr "CAPTCHA'yı (Şahıs Denetim Kodu)"
 
-#: si-captcha-admin.php:328
+#: si-captcha-admin.php:331
 msgid "registered"
 msgstr "kayıtlı"
 
-#: si-captcha-admin.php:329
+#: si-captcha-admin.php:332
 msgid "users who can:"
 msgstr "kullanıcılar olan:"
 
-#: si-captcha-admin.php:333
+#: si-captcha-admin.php:336
 msgid "CAPTCHA input label position on the comment form:"
 msgstr "Yorum formundaki CAPTCHA (Şahıs Denetim Kodu) girdi etiketi konumu:"
 
-#: si-captcha-admin.php:337
+#: si-captcha-admin.php:340
 msgid "input-label-required"
 msgstr "girdi-etiket-zorunlu"
 
-#: si-captcha-admin.php:338
+#: si-captcha-admin.php:341
 msgid "label-required-input"
 msgstr "etiket-zorunlu-girdi"
 
-#: si-captcha-admin.php:339
+#: si-captcha-admin.php:342
 msgid "label-required-linebreak-input"
 msgstr "etiket-zorunlu-satır sonu-girdi"
 
-#: si-captcha-admin.php:340
+#: si-captcha-admin.php:343
 msgid "label-input-required"
 msgstr "etiket-girdi-zorunlu"
 
-#: si-captcha-admin.php:353
+#: si-captcha-admin.php:356
 msgid ""
 "Changes position of the CAPTCHA input labels on the comment form. Some "
 "themes have different label positions on the comment form. After changing "
@@ -562,14 +343,14 @@ msgstr ""
 "Bu ayarı değiştirdikten sonra, ayarın doğru olduğunu doğrulamak için "
 "yorumları gösterdiğinden emin olun."
 
-#: si-captcha-admin.php:358
+#: si-captcha-admin.php:361
 msgid ""
 "Change the display order of the CAPTCHA input field on the comment form."
 msgstr ""
 "Yorum formunda CAPTCHA (Şahıs Denetim Kodu) girdi alanının görüntüleme "
 "sırasını değiştirir."
 
-#: si-captcha-admin.php:361
+#: si-captcha-admin.php:364
 msgid ""
 "Sometimes the CAPTCHA image and input field are displayed AFTER the submit "
 "button on the comment form."
@@ -577,46 +358,59 @@ msgstr ""
 "Bazen CAPTCHA (Şahıs Denetim Kodu) resmi ve girdi alanı yorum formunda "
 "gönder düğmesinden SONRA görüntülenir."
 
-#: si-captcha-admin.php:362
+#: si-captcha-admin.php:365
 msgid "Enable this setting and javascript will relocate the button."
 msgstr "Bu ayarı etkinleştir ve javascript düğmeyi yeniden yerleştirecek."
 
-#: si-captcha-admin.php:367
+#: si-captcha-admin.php:370
 msgid "Enable smaller size CAPTCHA image."
 msgstr "Küçük boyutta CAPTCHA (Şahıs Denetim Kodu) resmini etkinleştir."
 
-#: si-captcha-admin.php:370
+#: si-captcha-admin.php:373
 msgid "Makes the CAPTCHA image smaller."
 msgstr "CAPTCHA (Şahıs Denetim Kodu) resmini daha küçük yapar."
 
-#: si-captcha-admin.php:375
-msgid "Use CAPTCHA without PHP session."
-msgstr "CAPTCHA'yı (Şahıs Denetim Kodu) PHP oturumu olmadan kullan."
-
 #: si-captcha-admin.php:378
-msgid ""
-"Sometimes the CAPTCHA code never validates because of a server problem with "
-"PHP session handling. If the CAPTCHA code never validates and does not work, "
-"you can enable this setting to use files for session."
-msgstr ""
-"Bazen CAPTCHA (Şahıs Denetim Kodu) kodu PHP oturumu kullanımıyla bir sunucu "
-"sorunundan dolayı hiçbir zaman doğrulamaz. Eğer CAPTCHA kodu hiçbir zaman "
-"doğrulamaz ve çalışmazsa, oturum için dosyaları kullanan bu ayarı "
-"etkinleştirebilirsiniz."
+msgid "Enable PHP sessions."
+msgstr "PHP oturumlarını etkinleştir."
 
-#: si-captcha-admin.php:393
+#: si-captcha-admin.php:381
 msgid ""
-"Fixing the actual problem is recommended, but you can uncheck this setting "
-"on the contact form options page: \"Use CAPTCHA without PHP session\" and "
-"the captcha will work this way just fine (as long as PHP sessions are "
-"working)."
+"Enables PHP session handling. Only enable this if you have CAPTCHA token "
+"errors. Enable this setting to use PHP sessions for the CAPTCHA. PHP "
+"Sessions must be supported by your web host or there may be session errors."
 msgstr ""
-"Asıl sorunun düzeltilmesi önerilir ama iletişim formu seçenekleri sayfasında "
-"şu ayarın işaretini kaldırabilirsiniz: \"CAPTCHA'yı (Şahıs Denetim Kodu) PHP "
-"oturumu olmadan kullan\"  ve captcha bu yolla gayet iyi çalışacaktır (PHP "
-"oturumları çalıştığı sürece)."
+"PHP oturumlarını etkinleştirir. Bunu sadece CAPTCHA (Şahıs Denetim Kodu) "
+"belirteci hataları alıyorsanız etkinleştirin. CAPTCHA için PHP oturumlarını "
+"kullanmak için bu ayarı etkinleştirin. PHP Oturumları web barındırıcınız "
+"tarafından desteklenmek zorundadır yoksa oturum hataları olabilir."
 
-#: si-captcha-admin.php:398
+#: si-captcha-admin.php:392 si-captcha-admin.php:400
+msgid "There is a problem with the directory"
+msgstr "Dizin ile ilgili bir sorun var"
+
+#: si-captcha-admin.php:394
+msgid ""
+"The directory is not found, a <a href=\"http://codex.wordpress.org/"
+"Changing_File_Permissions\" target=\"_blank\">permissions</a> problem may "
+"have prevented this directory from being created."
+msgstr ""
+"Dizin bulunamadı, <a href=\"http://codex.wordpress.org/"
+"Changing_File_Permissions\" target=\"_blank\">izin</a> sorunu bu dizinin "
+"oluşturulmasını önlüyor olabilir."
+
+#: si-captcha-admin.php:396 si-captcha-admin.php:408
+msgid ""
+"Fixing the actual problem is recommended, but you can check this setting on "
+"the SI CAPTCHA options page: \"Use PHP sessions\" and the captcha will work "
+"(if PHP sessions are supported by your web host)."
+msgstr ""
+"Asıl sorunun düzeltilmesi önerilir ama SI CAPTCHA seçenekleri sayfasında şu "
+"ayarı işaretleyebilirsiniz: \"PHP oturumlarını kullan\"  ve captcha (şahıs "
+"denetim kodu) çalışacaktır (eğer PHP oturumları web barındırıcınız "
+"tarafından desteklenirse)."
+
+#: si-captcha-admin.php:401
 msgid ""
 "The directory Unwritable (<a href=\"http://codex.wordpress.org/"
 "Changing_File_Permissions\" target=\"_blank\">fix permissions</a>)"
@@ -624,44 +418,42 @@ msgstr ""
 "Dizin Yazılamaz (<a href=\"http://codex.wordpress.org/"
 "Changing_File_Permissions\" target=\"_blank\">izinleri düzelt</a>)"
 
-#: si-captcha-admin.php:405
-msgid ""
-"Fixing the actual problem is recommended, but you can uncheck this setting "
-"on the SI CAPTCHA options page: \"Use CAPTCHA without PHP session\" and the "
-"captcha will work this way just fine (as long as PHP sessions are working)."
-msgstr ""
-"Asıl sorunun düzeltilmesi önerilir ama SI CAPTCHA seçenekleri sayfasında şu "
-"ayarın işaretini kaldırabilirsiniz: \"CAPTCHA'yı (Şahıs Denetim Kodu) PHP "
-"oturumu olmadan kullan\"  ve captcha bu yolla gayet iyi çalışacaktır (PHP "
-"oturumları çalıştığı sürece)."
+#: si-captcha-admin.php:402
+msgid "Permissions are: "
+msgstr "İzinler:"
 
-#: si-captcha-admin.php:414
+#: si-captcha-admin.php:406
 msgid ""
-"Disable CAPTCHA transparent text (only if captcha text is missing on the "
-"image, try this fix)."
+"Fixing this may require assigning 0755 permissions or higher (e.g. 0777 on "
+"some hosts. Try 0755 first, because 0777 is sometimes too much and will not "
+"work.)"
 msgstr ""
-"CAPTCHA (Şahıs Denetim Kodu) şeffaf metnini etkisizleştir (sadece captcha "
-"metni resimde eksikse, bu düzeltmeyi deneyin)."
+"Bunu düzeltmek 0755 izinlerini ya da daha yükseğini atamayı gerektirebilir "
+"(örn. bazı barındırıcılarda 0777. Önce 0755 deneyin, çünkü 0777 bazen çok "
+"gelebilir ama çalışmayacaktır.)"
 
 #: si-captcha-admin.php:417
-msgid ""
-"Sometimes fixes missing text on the CAPTCHA image. If this does not fix "
-"missing text, your PHP server is not compatible with the CAPTCHA functions. "
-"You should have your web server fixed."
-msgstr ""
-"Bazen CAPTCHA (Şahıs Denetim Kodu) resmindeki eksik metni düzeltir. Eğer bu "
-"eksik metni düzeltmezse, PHP sunucunuz CAPTCHA işlevleriyle uyumlu değildir. "
-"Web sunucunuzu düzeltmelisiniz."
+msgid "Enable honeypot spambot trap."
+msgstr "Honeypot istenmeyen mesaj robotu tuzağını etkinleştir."
 
-#: si-captcha-admin.php:424
+#: si-captcha-admin.php:420
+msgid ""
+"Enables hidden empty field honyepot trap for spam bots. For best results, do "
+"not enable unless you have a spam problem."
+msgstr ""
+"İstenmeyen mesaj robotları için gizli boş alan honeypot tuzağını "
+"etkinleştirir. En iyi sonuçlar için bir istenmeyen mesaj sorununuz olmadıkça "
+"etkinleştirmeyin."
+
+#: si-captcha-admin.php:427
 msgid "Accessibility:"
 msgstr "Erişebilirlik:"
 
-#: si-captcha-admin.php:427
+#: si-captcha-admin.php:430
 msgid "Enable aria-required tags for screen readers"
 msgstr "Ekran okuyucuları için aria-zorunlu etiketlerini etkinleştir"
 
-#: si-captcha-admin.php:430
+#: si-captcha-admin.php:433
 msgid ""
 "aria-required is a form input WAI ARIA tag. Screen readers use it to "
 "determine which fields are required. Enabling this is good for "
@@ -678,15 +470,15 @@ msgstr ""
 "tarafından kabul görmeye başlayacak, bu yüzden neden olacağı doğrulama "
 "hatasını güvenle görmezden gelebilirsiniz."
 
-#: si-captcha-admin.php:436
+#: si-captcha-admin.php:439
 msgid "Akismet:"
 msgstr "Akismet:"
 
-#: si-captcha-admin.php:438
+#: si-captcha-admin.php:441
 msgid "Akismet spam prevention status:"
 msgstr "Akismet istenmeyen mesaj önleme durumu:"
 
-#: si-captcha-admin.php:442
+#: si-captcha-admin.php:445
 msgid ""
 "Akismet is a WordPress plugin. Akismet will greatly reduce or even "
 "completely eliminate the comment and trackback spam you get on your site. If "
@@ -703,11 +495,11 @@ msgstr ""
 "istenmeyen mesajları önlemeye yardımcı olmak için Akismet ile birlikte "
 "kontrol edilecektir."
 
-#: si-captcha-admin.php:450
+#: si-captcha-admin.php:453
 msgid "Akismet is installed."
 msgstr "Akismet yüklendi."
 
-#: si-captcha-admin.php:454
+#: si-captcha-admin.php:457
 msgid ""
 "Check this and click \"Update Options\" to determine if Akismet key is "
 "active."
@@ -715,7 +507,7 @@ msgstr ""
 "Bunu kontrol edin ve Akismet anahtarının aktif olduğunu belirlemek için "
 "\"Seçenekleri Güncelle\"ye tıklayın."
 
-#: si-captcha-admin.php:467
+#: si-captcha-admin.php:470
 msgid ""
 "Akismet is installed and the key is valid. Comment posts will be checked "
 "with Akismet to help prevent spam."
@@ -723,27 +515,27 @@ msgstr ""
 "Akismet yüklendi ve anahtar geçerli. Yorum yazıları, istenmeyen mesajları "
 "önlemeye yardımcı olmak için Akismet ile birlikte kontrol edilecektir."
 
-#: si-captcha-admin.php:470
+#: si-captcha-admin.php:473
 msgid "Akismet plugin is installed but key needs to be activated."
 msgstr "Akismet eklentisi yüklendi ama anahtarın etkinleştirilmesi gerekli."
 
-#: si-captcha-admin.php:473
+#: si-captcha-admin.php:476
 msgid "Akismet plugin is installed but key failed to verify."
 msgstr "Akismet eklentisi yüklendi ama anahtar doğrulamada başarısız oldu."
 
-#: si-captcha-admin.php:476
+#: si-captcha-admin.php:479
 msgid "Configure Akismet"
 msgstr "Akismet'i Yapılandır"
 
-#: si-captcha-admin.php:479
+#: si-captcha-admin.php:482
 msgid "Akismet plugin is not installed or is deactivated."
 msgstr "Akismet eklentisi yüklenmedi ya da devre dışı bırakıldı."
 
-#: si-captcha-admin.php:493
+#: si-captcha-admin.php:496
 msgid "Warning: Your web host has not upgraded from PHP4 to PHP5."
 msgstr "Uyarı: Web barındırıcınız PHP4'ten PHP5'e yükseltilmemiş."
 
-#: si-captcha-admin.php:495
+#: si-captcha-admin.php:498
 msgid ""
 "PHP4 was officially discontinued August 8, 2008 and is no longer considered "
 "safe."
@@ -751,7 +543,7 @@ msgstr ""
 "PHP4 resmi olarak 8 Ağustos 2008'de durduruldu ve artık güvenli kabul "
 "edilmez."
 
-#: si-captcha-admin.php:496
+#: si-captcha-admin.php:499
 msgid ""
 "PHP5 is faster, has more features, and is and safer. Using PHP4 might still "
 "work, but is highly discouraged. Contact your web host for support."
@@ -759,20 +551,20 @@ msgstr ""
 "PHP5 daha hızlı, daha fazla özelliklere sahip, ve daha güvenlidir. PHP4 hala "
 "çalışabilir, ama önerilmez. Destek için web barındırıcınızla temasa geçin."
 
-#: si-captcha-admin.php:504
+#: si-captcha-admin.php:507
 msgid "CAPTCHA Form CSS Style:"
 msgstr "CAPTCHA Formu CSS Stili:"
 
-#: si-captcha-admin.php:510
+#: si-captcha-admin.php:513
 msgid "Reset the CAPTCHA form styles to default."
 msgstr "CAPTCHA (Şahıs Denetim Kodu) form stillerini varsayılana sıfırla."
 
-#: si-captcha-admin.php:515
+#: si-captcha-admin.php:518
 msgid "Modifiable CAPTCHA Form CSS Style Feature:"
 msgstr ""
 "Değiştirilebilir CAPTCHA (Şahıs Denetim Kodu) Formu CSS Stili Özelliği:"
 
-#: si-captcha-admin.php:518
+#: si-captcha-admin.php:521
 msgid ""
 "Use to adjust the font colors, image positioning, or other CSS styling of "
 "the CAPTCHA form."
@@ -781,23 +573,23 @@ msgstr ""
 "konumlandırmasını veya diğer CSS şekillendirmelerini ayarlamak için "
 "kullanılır."
 
-#: si-captcha-admin.php:519
+#: si-captcha-admin.php:522
 msgid "Acceptable Examples:"
 msgstr "Kabul Edilebilir Örnekler:"
 
-#: si-captcha-admin.php:525
+#: si-captcha-admin.php:528
 msgid "Select the method of delivering the CAPTCHA form style:"
 msgstr "CAPTCHA (Şahıs Denetim Kodu) formu stilini iletme yöntemini seçin:"
 
-#: si-captcha-admin.php:529
+#: si-captcha-admin.php:532
 msgid "Internal Style Sheet CSS (default, edit below)"
 msgstr "Dahili Stil Sayfası CSS (varsayılan, aşağıda düzenleyin)"
 
-#: si-captcha-admin.php:530
+#: si-captcha-admin.php:533
 msgid "External Style Sheet CSS (requires editing style.css)"
 msgstr "Harici Stil Sayfası CSS (style.css dosyasını düzenlemek gerekir)"
 
-#: si-captcha-admin.php:542
+#: si-captcha-admin.php:545
 msgid ""
 "By default, the CAPTCHA form styles are editable below when using \"Internal "
 "Style Sheet CSS\". The CAPTCHA CSS will be automatically be included in the "
@@ -807,7 +599,7 @@ msgstr ""
 "Sayfası CSS\" kullanıldığında aşağıdan düzenlenebilir olur. CAPTCHA CSS "
 "otomatik olarak sayfa &lt;head&gt; bölümüne eklenecektir."
 
-#: si-captcha-admin.php:543
+#: si-captcha-admin.php:546
 msgid ""
 "Premium themes may have already added support for SI Captcha Anti-Spam style "
 "in the theme's style.css. If that is the case, then select \"External Style "
@@ -817,7 +609,7 @@ msgstr ""
 "için zaten destek eklenmiş olabilir. Bu durumda,o zaman eğer temanın kurulum "
 "talimatlarına göre bilgi verilmişse, \"Harici Stil Sayfası CSS\" seçin."
 
-#: si-captcha-admin.php:544
+#: si-captcha-admin.php:547
 msgid ""
 "The CAPTCHA CSS will NOT be included in the page &lt;head&gt; section, and "
 "it must be included in the style.css of the theme. Be sure to remember this "
@@ -827,11 +619,11 @@ msgstr ""
 "css dosyası içine eklenmek zorundadır. Temanızı sonra değiştirirseniz bunu "
 "unutmadığınızdan emin olun."
 
-#: si-captcha-admin.php:546
+#: si-captcha-admin.php:549
 msgid "External Style Sheet CSS starting point for theme builders:"
 msgstr "Tema oluşturucuları için Harici Stil Sayfası CSS başlangıç noktası:"
 
-#: si-captcha-admin.php:567
+#: si-captcha-admin.php:570
 msgid ""
 "Caution: \"External Style Sheet CSS\" is enabled. This setting requires your "
 "theme's style.css to include the CAPTCHA CSS. Check the CAPTCHA images and "
@@ -847,7 +639,7 @@ msgstr ""
 "eğer değilse, o zaman ayarı \"Dahili Stil Sayfası CSS\" ayarına geri "
 "değiştirin."
 
-#: si-captcha-admin.php:571
+#: si-captcha-admin.php:574
 msgid ""
 "Note: \"Internal Style Sheet CSS\" fields below are not editable while "
 "\"External Style Sheet CSS\" is enabled."
@@ -855,51 +647,51 @@ msgstr ""
 "Not: Aşağıdaki \"Dahili Stil Sayfası CSS\" alanları, \"Harici Stil Sayfası "
 "CSS\" etkinleştirildiğinde, düzenlenebilir olmaz."
 
-#: si-captcha-admin.php:576
+#: si-captcha-admin.php:579
 msgid "Internal Style Sheet CSS:"
 msgstr "Dahili Stil Sayfası CSS:"
 
-#: si-captcha-admin.php:577
+#: si-captcha-admin.php:580
 msgid "CSS style for CAPTCHA DIV:"
 msgstr "CAPTCHA DIV'i için CSS stili:"
 
-#: si-captcha-admin.php:578
+#: si-captcha-admin.php:581
 msgid "CSS style for Small CAPTCHA Image DIV:"
 msgstr "Küçük CAPTCHA Resim DIV'i için CSS stili:"
 
-#: si-captcha-admin.php:579
+#: si-captcha-admin.php:582
 msgid "CSS style for Large CAPTCHA Image DIV:"
 msgstr "Büyük CAPTCHA Resim DIV'i için CSS stili:"
 
-#: si-captcha-admin.php:580
+#: si-captcha-admin.php:583
 msgid "CSS style for CAPTCHA image:"
 msgstr "CAPTCHA resmi için CSS stili:"
 
-#: si-captcha-admin.php:581
+#: si-captcha-admin.php:584
 msgid "CSS style for Refresh image:"
 msgstr "Yenile resmi için CSS stili:"
 
-#: si-captcha-admin.php:582
+#: si-captcha-admin.php:585
 msgid "CSS style for CAPTCHA input DIV:"
 msgstr "CAPTCHA girdi DIV'i için CSS stili:"
 
-#: si-captcha-admin.php:583
+#: si-captcha-admin.php:586
 msgid "CSS style for CAPTCHA input label:"
 msgstr "CAPTCHA girdi etiketi için CSS stili:"
 
-#: si-captcha-admin.php:584
+#: si-captcha-admin.php:587
 msgid "CSS style for CAPTCHA input field:"
 msgstr "CAPTCHA girdi alanı için CSS stili:"
 
-#: si-captcha-admin.php:590
+#: si-captcha-admin.php:593
 msgid "Text Labels:"
 msgstr "Metin Etiketleri:"
 
-#: si-captcha-admin.php:594
+#: si-captcha-admin.php:597
 msgid "Change text labels:"
 msgstr "Metin etiketlerini değiştir:"
 
-#: si-captcha-admin.php:597
+#: si-captcha-admin.php:600
 msgid ""
 "Some people wanted to change the text labels. These fields can be filled in "
 "to override the standard text labels."
@@ -907,36 +699,184 @@ msgstr ""
 "Bazı insanlar metin etiketlerini değiştirmek istediler. Bu alanlar, metin "
 "etiketlerini geçersiz kılmak için doldurulabilir."
 
-#: si-captcha-admin.php:600
+#: si-captcha-admin.php:603
 msgid "Required"
-msgstr "Zorunlu:"
+msgstr "Zorunlu"
 
-#: si-captcha-admin.php:620
+#: si-captcha-admin.php:604 si-captcha.php:784 si-captcha.php:813
+msgid "Possible spam bot"
+msgstr "Olası istenmeyen mesaj robotu"
+
+#: si-captcha-admin.php:605 si-captcha.php:787 si-captcha.php:817
+msgid "Wrong CAPTCHA"
+msgstr "Yanlış CAPTCHA (Şahıs Denetim Kodu)"
+
+#: si-captcha-admin.php:606 si-captcha.php:687 si-captcha.php:762
+#: si-captcha.php:767
+msgid "Empty CAPTCHA"
+msgstr "Boş CAPTCHA (Şahıs Denetim Kodu)"
+
+#: si-captcha-admin.php:607 si-captcha.php:769
+msgid "Missing CAPTCHA token"
+msgstr "Eksik CAPTCHA (Şahıs Denetim Kodu) belirteci"
+
+#: si-captcha-admin.php:608
+msgid "Unreadable CAPTCHA token"
+msgstr "Okunamaz CAPTCHA (Şahıs Denetim Kodu) belirteci"
+
+#: si-captcha-admin.php:609 si-captcha.php:798
+msgid "Unreadable CAPTCHA cookie"
+msgstr "Okunamaz CAPTCHA (Şahıs Denetim Kodu) tanımlama bilgisi"
+
+#: si-captcha-admin.php:610 si-captcha.php:593 si-captcha.php:608
+#: si-captcha.php:620 si-captcha.php:663 si-captcha.php:686 si-captcha.php:697
+msgid "ERROR"
+msgstr "HATA"
+
+#: si-captcha-admin.php:611 si-captcha.php:242 si-captcha.php:323
+#: si-captcha.php:374 si-captcha.php:415 si-captcha.php:448 si-captcha.php:484
+#: si-captcha.php:530 si-captcha.php:563
+msgid "CAPTCHA Code"
+msgstr "CAPTCHA (Şahıs Denetim) Kodu"
+
+#: si-captcha-admin.php:612 si-captcha.php:871 si-captcha.php:873
+msgid "CAPTCHA Image"
+msgstr "CAPTCHA (Şahıs Denetim Kodu) Resmi"
+
+#: si-captcha-admin.php:613 si-captcha.php:881 si-captcha.php:888
+msgid "Refresh Image"
+msgstr "Resmi Yenile"
+
+#: si-captcha-admin.php:630
 msgid "More WordPress plugins by Mike Challis:"
 msgstr "Mike Challis'ten daha fazla WordPress eklentileri:"
 
-#: si-captcha-admin.php:622
+#: si-captcha-admin.php:632
 msgid "Fast Secure Contact Form"
 msgstr "Hızlı Güvenli İletişim Formu"
 
-#: si-captcha-admin.php:623
+#: si-captcha-admin.php:633
 msgid "SI CAPTCHA Anti-Spam"
 msgstr "SI CAPTCHA Anti-İstenmeyen Mesaj"
 
-#: si-captcha-admin.php:624
+#: si-captcha-admin.php:634
 msgid "Visitor Maps and Who's Online"
 msgstr "Ziyaretçi Haritaları ve Kim Çevrimiçi"
 
-#: si-captcha-admin.php:629
+#: si-captcha-admin.php:639
 msgid ""
 "\"I recommend <a href=\"%s\" target=\"_blank\">HostGator Web Hosting</a>. "
-"All my sites are hosted there. The prices are great and they offer the most "
-"features.\" - Mike Challis"
+"All my sites are hosted there. The prices are great and they offer great "
+"features for WordPress users. If you click this link and start an account at "
+"HostGator, I get a small commission.\" - Mike Challis"
 msgstr ""
 "\"<a href=\"%s\" target=\"_blank\">HostGator Web Barındırma</a> firmasını "
-"tavsiye ederim. Tüm sitelerim burada barındırılıyor. Fiyatları harika ve en "
-"fazla özelliği sunuyorlar.\" - Mike Challis"
+"tavsiye ederim. Tüm sitelerim burada barındırılıyor. Fiyatları harika ve "
+"WordPress kullanıcıları için harika özellikler sunuyorlar. Eğer bu "
+"bağlantıya tıklarsanız ve HostGator'da bir hesap alırsanız, küçük bir "
+"komisyon alırım.\" - Mike Challis"
 
-#: si-captcha-admin.php:631
+#: si-captcha-admin.php:641
 msgid "Web Site Hosting"
 msgstr "Web Sitesi Barındırma"
+
+#: si-captcha.php:169
+msgid "All registered users"
+msgstr "Tüm kayıtlı kullanıcılar için gizle"
+
+#: si-captcha.php:170
+msgid "Edit posts"
+msgstr "Yazıları Düzenleyen için gizle"
+
+#: si-captcha.php:171
+msgid "Publish Posts"
+msgstr "Yazıları Yayımlayan için gizle"
+
+#: si-captcha.php:172
+msgid "Moderate Comments"
+msgstr "Yorumları Onaylayan için gizle"
+
+#: si-captcha.php:173
+msgid "Administer site"
+msgstr "Yönetici tarafındaki için gizle"
+
+#: si-captcha.php:191
+msgid "ERROR: si-captcha.php plugin says GD image support not detected in PHP!"
+msgstr ""
+"HATA: si-captcha.php eklentisi, PHP'de GD resim desteği saptanamadı diyor!"
+
+#: si-captcha.php:192
+msgid ""
+"Contact your web host and ask them why GD image support is not enabled for "
+"PHP."
+msgstr ""
+"Web barındırıcınızla irtibata geçin ve PHP için GD resim desteğinin neden "
+"etkin olmadığını sorun."
+
+#: si-captcha.php:196
+msgid ""
+"ERROR: si-captcha.php plugin says imagepng function not detected in PHP!"
+msgstr ""
+"HATA: si-captcha.php eklentisi, PHP'de imagepng işlevi bulunamadı diyor!"
+
+#: si-captcha.php:197
+msgid ""
+"Contact your web host and ask them why imagepng function is not enabled for "
+"PHP."
+msgstr ""
+"Web barındırıcınızla irtibata geçin ve PHP için imagepng işlevinin neden "
+"etkin olmadığını sorun."
+
+#: si-captcha.php:201
+msgid "ERROR: si-captcha.php plugin says captcha_library not found."
+msgstr "HATA: si-captcha.php eklentisi, captcha_library bulunamadı diyor."
+
+#: si-captcha.php:276
+msgid "Submit Comment"
+msgstr "Yorumu Gönder"
+
+#: si-captcha.php:679
+msgid "<strong>ERROR</strong>: The username field is empty."
+msgstr "<strong>HATA</strong>: Kullanıcı adı alanı boş."
+
+#: si-captcha.php:682
+msgid "<strong>ERROR</strong>: The password field is empty."
+msgstr "<strong>HATA</strong>: Parola alanı boş."
+
+#: si-captcha.php:706
+msgid ""
+"<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password "
+"Lost and Found\">Lost your password</a>?"
+msgstr ""
+"<strong>HATA</strong>: Geçersiz kullanıcı adı. <a href=\"%s\" title=\"Parola "
+"Kayıp ve Bulundu\">Parolanızı mı unuttunuz</a>?"
+
+#: si-captcha.php:714
+msgid "<strong>ERROR</strong>: Your account has been marked as a spammer."
+msgstr ""
+"<strong>HATA</strong>: Hesabınız istenmeyen mesaj göndericisi olarak "
+"işaretlenmiş."
+
+#: si-captcha.php:720
+msgid "Site Suspended."
+msgstr "Site Askıya Alındı."
+
+#: si-captcha.php:730
+msgid ""
+"<strong>ERROR</strong>: Incorrect password. <a href=\"%s\" title=\"Password "
+"Lost and Found\">Lost your password</a>?"
+msgstr ""
+"<strong>HATA</strong>: Geçersiz parola. <a href=\"%s\" title=\"Parola Kayıp "
+"ve Bulundu\">Parolanızı mı unuttunuz</a>?"
+
+#: si-captcha.php:790
+msgid "Unreadable CAPTCHA token file"
+msgstr "Okunamaz CAPTCHA (Şahıs Denetim Kodu) belirteç dosyası"
+
+#: si-captcha.php:864
+msgid "Leave this field empty"
+msgstr "Bu alanı boş bırakın"
+
+#: si-captcha.php:901
+msgid "Settings"
+msgstr "Ayarlar"

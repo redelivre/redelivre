@@ -3,8 +3,8 @@ Contributors: aaroncollegeman, joeyblake
 Donate link: https://getsharepress.com
 Tags: facebook, twitter, social, like, posts, page
 Requires at least: 2.9
-Tested up to: 3.6
-Stable tag: 2.2.18
+Tested up to: 3.7.1
+Stable tag: 2.2.20
 
 Automatic posting and reposting to Facebook and Twitter.
 
@@ -120,6 +120,16 @@ Documentation and support for SharePress are available [here](http://fatpanda.ze
 E-mail based tech support is available to Pro customers. All you have to do is [buy a key](https://getsharepress.com/?utm_source=wordpress.org&utm_medium=app-store&utm_campaign=get-support).
 
 == Changelog ==
+
+= 2.2.20 =
+* Fixed: facebook cache buster the old one is behind a login now! Uses api call.
+* Added: a link to the posts editing page to kick the facebook linter for a published post
+* Fixed: a couple of og:meta bugs
+* Compatible with WordPress 3.7.1
+
+= 2.2.19 =
+* Version bump: compatible with WordPress 3.7
+* Note: though we increased og:image image size in version 2.2.18, the Facebook API appears to only use small thumbnails for links posted this way; but rest assured we'll be prepared to support larger images if and when Zuck changes his mind... which happens all the time.
 
 = 2.2.18 =
 * Take advantage of new, larger image sizes in Facebook posts

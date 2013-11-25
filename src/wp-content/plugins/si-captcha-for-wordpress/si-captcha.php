@@ -3,12 +3,12 @@
 Plugin Name: SI CAPTCHA Anti-Spam
 Plugin URI: http://www.642weather.com/weather/scripts-wordpress-captcha.php
 Description: Adds CAPTCHA anti-spam methods to WordPress forms for comments, registration, lost password, login, or all. This prevents spam from automated bots. WP, WPMU, and BuddyPress compatible. <a href="plugins.php?page=si-captcha-for-wordpress/si-captcha.php">Settings</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S">Donate</a>
-Version: 2.7.7.2
+Version: 2.7.7.3
 Author: Mike Challis
 Author URI: http://www.642weather.com/weather/scripts.php
 */
 
-$si_captcha_version = '2.7.7.2';
+$si_captcha_version = '2.7.7.3';
 
 /*  Copyright (C) 2008-2013 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 
@@ -373,16 +373,7 @@ echo '</div>
  <label>';
   echo ($si_captcha_opt['si_captcha_label_captcha'] != '') ? $si_captcha_opt['si_captcha_label_captcha'] : __('CAPTCHA Code', 'si-captcha');
   echo '<br />
-<input id="captcha_code" name="captcha_code" class="input" type="text" value="" size="12" tabindex="30" '.$si_aria_required.'
-    style="font-size: 24px;
-	width: 97%;
-	padding: 3px;
-	margin-top: 2px;
-	margin-right: 6px;
-	margin-bottom: 16px;
-	border: 1px solid #e5e5e5;
-	background: #fbfbfb;"
-    /></label>
+<input id="captcha_code" name="captcha_code" class="input" type="text" value="" size="12" tabindex="30" '.$si_aria_required.' style="font-size: 24px; width: 97%; padding: 3px; margin-top: 2px; margin-right: 6px; margin-bottom: 16px; border: 1px solid #e5e5e5; background: #fbfbfb;" /></label>
 </p>
 <br />
 ';
@@ -483,16 +474,7 @@ echo '</div>
  <label>';
   echo ($si_captcha_opt['si_captcha_label_captcha'] != '') ? $si_captcha_opt['si_captcha_label_captcha'] : __('CAPTCHA Code', 'si-captcha');
   echo '<br />
-<input id="captcha_code" name="captcha_code" class="input" type="text" value="" tabindex="30" '.$si_aria_required.'
-style="font-size: 24px;
-	width: 97%;
-	padding: 3px;
-	margin-top: 2px;
-	margin-right: 6px;
-	margin-bottom: 16px;
-	border: 1px solid #e5e5e5;
-	background: #fbfbfb;"
-/></label>
+<input id="captcha_code" name="captcha_code" class="input" type="text" value="" tabindex="30" '.$si_aria_required.' style="font-size: 24px; width: 97%; padding: 3px; margin-top: 2px; margin-right: 6px; margin-bottom: 16px; border: 1px solid #e5e5e5; background: #fbfbfb;" /></label>
 </p>
 
 ';

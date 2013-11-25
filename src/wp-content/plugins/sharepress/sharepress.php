@@ -5,7 +5,7 @@ Plugin URI: https://getsharepress.com
 Description: SharePress publishes your content to your personal Facebook Wall and the Walls of Pages you choose.
 Author: Fat Panda, LLC
 Author URI: http://fatpandadev.com
-Version: 2.2.18
+Version: 2.2.20
 License: GPL2
 */
 
@@ -41,7 +41,7 @@ SpBaseFacebook::$CURL_OPTS = SpBaseFacebook::$CURL_OPTS + array(
 
 class Sharepress {
 
-  const VERSION = '2.2.18';
+  const VERSION = '2.2.20';
   
   const MISSED_SCHEDULE_DELAY = 5;
   const MISSED_SCHEDULE_OPTION = 'sharepress_missed_schedule';
@@ -230,6 +230,7 @@ class Sharepress {
     add_filter('filter_'.self::META, array($this, 'filter_'.self::META), 10, 2);
     add_action('wp_head', array($this, 'wp_head'));
     add_filter('cron_schedules', array($this, 'cron_schedules'));
+    add_filter( 'post_row_actions', array( $this, 'add_fb_debugger_link' ), 10, 2 );
 
     if (!wp_next_scheduled('sharepress_oneminute_cron')) {
       wp_schedule_event(time(), 'oneminute', 'sharepress_oneminute_cron');
@@ -256,6 +257,25 @@ class Sharepress {
   private static $ok_to_show_support_here = false;
   private static $on_settings_screen = false;
   private static $ok_to_show_error = false;
+
+  function add_fb_debugger_link( $actions, $id ) {
+    global $post, $current_screen, $mode;
+
+    $post_type_object = get_post_type_object( $post->post_type );
+
+    if ( ! current_user_can( $post_type_object->cap->delete_post, $post->ID ) )
+        return $actions;
+
+    if ( get_post_status( $ID ) !== 'publish' ) {
+      return $actions;
+    }
+
+    $actions['fb-kick'] = '<a data-action="fb-kick" target="_blank" href="'. sprintf('http://developers.facebook.com/tools/debug/og/object?q=%s', urlencode(get_permalink($post->ID))) .'" title="'
+      . esc_attr( __( 'Use this feature to flush Facebook\'s cache of your content, fixing most issues with images and meta data.', $this->textdomain  ) ) 
+      . '">' . __( 'Flush Facebook', $this->textdomain  ) . '</a>';
+
+    return $actions;
+  }
 
   function user_profile_fb_author_edit_action($user) {
     $fb_profile_url = get_user_meta($user->id, 'fb_author_url', true);
@@ -376,7 +396,7 @@ class Sharepress {
         $defaults = array(
           'og:type' => self::setting('page_og_type', 'blog'),
           'og:url' => is_front_page() ? get_bloginfo('siteurl') : $this->get_permalink(),
-          'og:title' => strip_tags(get_the_title()),
+          'og:title' => strip_tags(get_bloginfo('name')),
           'og:site_name' => get_bloginfo('name'),
           'og:image' => $this->get_default_picture(),
           'fb:app_id' => get_option(self::OPTION_API_KEY),
@@ -1472,8 +1492,13 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
       }
     
       try {
-        // poke the linter
-        _wp_http_get_object()->request(sprintf('http://developers.facebook.com/tools/debug/og/object?q=%s', urlencode($meta['link'])));
+        // flush the fb cache
+        $poke = self::api('/', 'POST', array(
+          'id' => $meta['link'],
+          'scrape' => 'true'
+          )
+        );
+        
         
         // no targets? error.
         if (!$meta['targets'] && !self::is_business()) {

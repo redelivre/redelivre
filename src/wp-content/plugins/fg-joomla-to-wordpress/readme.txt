@@ -1,10 +1,10 @@
 === FG Joomla to WordPress ===
 Contributors: Frédéric GILLES
 Plugin Uri: http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
-Tags: joomla, mambo, wordpress, migrator, converter, import, k2, jcomments, joomlacomments, jomcomment, flexicontent, postviews, joomlatags, sh404sef, attachments, rokbox, kunena, phocagallery, phoca, joomsef, opensef, easyblog
+Tags: joomla, mambo, wordpress, migrator, converter, import, k2, jcomments, joomlacomments, jomcomment, flexicontent, postviews, joomlatags, sh404sef, attachments, rokbox, kunena, phocagallery, phoca, joomsef, opensef, easyblog, zoo, zooitems
 Requires at least: 3.0
-Tested up to: WP 3.6.1
-Stable tag: 1.21.3
+Tested up to: WP 3.7.1
+Stable tag: 1.22.3
 License: GPLv2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=fred%2egilles%40free%2efr&lc=FR&item_name=Fr%c3%a9d%c3%a9ric%20GILLES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 
@@ -14,7 +14,7 @@ A plugin to migrate categories, posts, tags, images and other medias from Joomla
 
 This plugin migrates sections, categories, posts, images, medias and tags from Joomla to Wordpress.
 
-It has been tested with **Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 and 3.1** and **Wordpress 3.6.1** on huge databases (72 000+ posts). It is compatible with multisite installations.
+It has been tested with **Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 and 3.1** and **Wordpress 3.7** on huge databases (72 000+ posts). It is compatible with multisite installations.
 
 Major features include:
 
@@ -56,6 +56,7 @@ The Premium version allows the use of add-ons that enhance functionality:
 * K2
 * EasyBlog
 * Flexicontent
+* Zoo
 * Kunena forum
 * sh404sef
 * JoomSEF
@@ -149,6 +150,18 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 * other can be translated
 
 == Changelog ==
+
+= 1.22.3 =
+* New: Display SQL errors in debug mode
+* Description updated
+
+= 1.22.2 =
+* New: Check if the upload directory is writable
+* Tested with WordPress 3.7.1
+
+= 1.22.0 =
+* Fixed: Import the categories even when the articles are imported as pages
+* Tested with WordPress 3.7
 
 = 1.21.3 =
 * Fixed: "Warning: sprintf(): Too few arguments" message for image captions with %
@@ -359,6 +372,18 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 * Initial version: Import Joomla 1.5 sections, categories, posts and images
 
 == Upgrade Notice ==
+
+= 1.22.3 =
+New: Display SQL errors in debug mode
+Description updated
+
+= 1.22.2 =
+New: Check if the upload directory is writable
+Tested with WordPress 3.7.1
+
+= 1.22.0 =
+Fixed: Import the categories even when the articles are imported as pages
+Tested with WordPress 3.7
 
 = 1.21.3 =
 Fixed: "Warning: sprintf(): Too few arguments" message for image captions with %
