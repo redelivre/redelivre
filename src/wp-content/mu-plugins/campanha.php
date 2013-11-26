@@ -212,6 +212,10 @@ function getPlataformSettings($id = '')
 	$sets['value']['emailPassword'] = 'redelivre';
 	$sets['label']['emailTipo'] = 'Tipo do E-mail (local ou gmail';
 	$sets['value']['emailTipo'] = 'local';
+	$sets['label']['MostrarPlanos'] = 'Deve mostrar opções de planos';
+	$sets['value']['MostrarPlanos'] = 'S';
+	$sets['label']['defaultPlan'] = 'Plano Padrão';
+	$sets['value']['defaultPlan'] = '5';
 	
 	// Merge default settings com defined settings
 	$sets['value'] = array_merge($sets['value'], get_option('plataform_defined_settings', array()));
