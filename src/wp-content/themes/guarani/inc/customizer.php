@@ -86,7 +86,7 @@ function guarani_theme_options_validate( $input ) {
 function guarani_enqueue_color_scheme() {
 	$color_scheme = get_theme_mod( 'guarani_color_scheme' );
 
-	if ( $color_scheme !== 'default' )
+	if ( $color_scheme != '' && $color_scheme !== 'default' )
 		wp_enqueue_style( $color_scheme, get_template_directory_uri() . '/css/schemes/' . $color_scheme . '.css', array(), null );
 
 	do_action( 'guarani_enqueue_color_scheme', $color_scheme );
