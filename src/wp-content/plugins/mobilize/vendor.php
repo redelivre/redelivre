@@ -14,49 +14,31 @@ class Mobilize {
 
     public static $errors = array('banners' => array(), 'adesive' => array(), 'redes' => array(), 'envie' => array());
 
-    /**
-     * [createPageTemplate description]
-     * @return [type] [description]
-     */
-    public static function createPageTemplate()
-    {
-    	$screens = array( 'page' );
-    	foreach ($screens as $screen)
-    	{
-    		global $_wp_post_type_features;
-    		add_meta_box(
-    				'mobilize-meta',
-    				__( 'Template Mobilize', 'mobilize' ),
-    				function()
-    				{
-    					// Use nonce for verification
-    					wp_nonce_field(plugin_basename( __FILE__ ), 'mobilize_noncename');
-    				?>
-    					<input type="checkbox" name="mobilize-template-checkbox" id="mobilize-template-checkbox" class="mobilize-template-checkbox" <?php echo get_page_template_slug() == 'mobilize' ? 'checked="checked"': ''; ?> value="S" />
-    					<label for="mobilize-template-checkbox">Transforme essa página em Mobilize</label>
-    				<?php 
-    				},
-    				$screen,
-    				'side'
-    		);
-    	}
-    }
-    
-    public static function savePage($post_id)
-    {
-    	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['post_ID'])) {
-            $post_ID = (int) $_POST['post_ID'];
+	/**
+	 * [createPageTemplate description]
+	 * @return [type] [description]
+	 */
+	public static function createPageTemplate()
+	{
+		wp_enqueue_script('mobilize-edit',
+			plugins_url('/mobilize/assets/js/edit.js', INC_MOBILIZE));
+		wp_localize_script('mobilize-edit', 'templateData',
+				array('slug' => get_page_template_slug()));
+	}
 
-            if(array_key_exists('mobilize-template-checkbox', $_POST) && $_POST['mobilize-template-checkbox'] == 'S')
-            {
-                update_post_meta( $post_ID, '_wp_page_template', 'mobilize' );
-            }
-            else if(get_post_meta( $post_ID, '_wp_page_template', true ) === 'mobilize')
-            {
-                update_post_meta( $post_ID, '_wp_page_template', 'default' );
-            }
-        }
-    }
+	public static function savePage($post_ID)
+	{
+		if (array_key_exists('page_template', $_POST)
+				&& $_POST['page_template'] == 'mobilize')
+		{
+			update_post_meta($post_ID, '_wp_page_template', 'mobilize');
+			$_POST['page_template'] = 'default';
+		}
+		else if(get_post_meta($post_ID, '_wp_page_template', true) === 'mobilize')
+		{
+				update_post_meta($post_ID, '_wp_page_template', 'default');
+		}
+	}
 
     /**
      * [saveRedesSociais description]

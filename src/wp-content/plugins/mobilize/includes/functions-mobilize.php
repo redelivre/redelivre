@@ -59,20 +59,23 @@ add_filter('page_template', 'mobilize_single_template_assets');
  */
 function mobilize_single_template($single_template)
 {
-    if ('mobilize' == get_page_template_slug()) {
-        global $post, $user_ID;
+	if ('mobilize' == get_page_template_slug())
+	{
+		global $post;
 
-        $post_slug = $post->post_name;
+		$post_slug = $post->post_name;
 
-        add_action('wp_print_scripts', function() {
-            wp_enqueue_script('mobilize', plugins_url('/mobilize/assets/js/mobilize.js', INC_MOBILIZE));
-        });
+		add_action('wp_print_scripts', function() {
+			wp_enqueue_script('mobilize',
+				plugins_url('/mobilize/assets/js/mobilize.js', INC_MOBILIZE));
+		});
 
-        $templateTheme = get_stylesheet_directory().'/mobilize.php';
-        return file_exists($templateTheme) ? $templateTheme : INC_MOBILIZE.'/includes/tpl-mobilize.php';
-    }
+		$templateTheme = get_stylesheet_directory().'/mobilize.php';
+		return file_exists($templateTheme) ?
+			$templateTheme : INC_MOBILIZE.'/includes/tpl-mobilize.php';
+	}
 
-    return $single_template;
+	return $single_template;
 }
 
 add_filter('page_template', 'mobilize_single_template');
