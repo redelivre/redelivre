@@ -768,7 +768,7 @@ add_shortcode('lost-password-form', 'shortcode_lost_password');
 
 function custom_lostpassword_url($url)
 {
-	return bloginfo('url').'/'.lost_password_page;	
+	return get_option('siteurl').'/'.lost_password_page;
 }
 add_filter('lostpassword_url', 'custom_lostpassword_url');
 
