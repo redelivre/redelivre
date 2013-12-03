@@ -1,1 +1,0 @@
-languages/pt_BR.mo
