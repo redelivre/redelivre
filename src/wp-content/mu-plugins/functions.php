@@ -345,6 +345,7 @@ function campanha_use_smtp($phpmailer)
 	
 	$phpmailer->From	   = $email;
 	$phpmailer->AddReplyTo($emailrt);
+	$phpmailer->IsHTML(true);
 	
 	
 	if(getPlataformSettings('emailTipo') == 'gmail')
