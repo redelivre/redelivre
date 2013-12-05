@@ -510,9 +510,9 @@ class Mobilize {
 				}
 
 				$msg =
-					"$sender ($senderEmail) lhe enviou a mensagem que segue abaixo.\n\n";
+					"$sender ($senderEmail) lhe enviou a mensagem que segue abaixo:\n\n";
 				if (!empty($senderMessage))
-					$msg .= $senderMessage . '\n\n';
+					$msg .= "$senderMessage\n\n";
 				$msg .= $option['message'];
 
 				$success = wp_mail($recipients, $option['subject'], $msg, $headers);
