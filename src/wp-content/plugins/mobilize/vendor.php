@@ -154,10 +154,10 @@ class Mobilize {
      */
     public static function getOption($index = null) {
         $option = get_option(self::OPTION_NAME);
-        $option['redes']['description']   = isset($option['redes']['description'])   ? $option['redes']['description']   : self::TEXTO_DESCRITIVO_PADRAO_REDES;
-        $option['banners']['description'] = isset($option['banners']['description']) ? $option['banners']['description'] : self::TEXTO_DESCRITIVO_PADRAO_BANNERS;
-        $option['adesive']['description'] = isset($option['adesive']['description']) ? $option['adesive']['description'] : self::TEXTO_DESCRITIVO_PADRAO_ADESIVE;
-        $option['envie']['description']   = isset($option['envie']['description'])   ? $option['envie']['description']   : self::TEXTO_DESCRITIVO_PADRAO_ENVIE;
+        $option['redes']['description']   = isset($option['redes']['description'])   ?  $option['redes']['description']   : __(self::TEXTO_DESCRITIVO_PADRAO_REDES);;
+        $option['banners']['description'] = isset($option['banners']['description']) ?  $option['banners']['description'] : __(self::TEXTO_DESCRITIVO_PADRAO_BANNERS);
+        $option['adesive']['description'] = isset($option['adesive']['description']) ?  $option['adesive']['description'] : __(self::TEXTO_DESCRITIVO_PADRAO_ADESIVE);
+        $option['envie']['description']   = isset($option['envie']['description'])   ?  $option['envie']['description']   : __(self::TEXTO_DESCRITIVO_PADRAO_ENVIE);
 
         $result = $index ? @$option[$index] : $option;
 
