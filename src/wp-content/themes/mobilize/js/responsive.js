@@ -30,25 +30,33 @@ jQuery(function($){
 		mobilizeResponsive();
 	});
 
-	var liParent = $('ul.menu li > ul').parent('li');
+	function makeMenuResponsive(liParent)
+	{
+		liParent.each(function(){
+			$(this).children('a').on('click', function(){
+				if($(window).width() < 768) {
+					var liLinkOriginalHTML = '<a href="'+$(this).attr('href')+'">'
+						+$(this).text().replace($(this).text().substr(-1), '')+'</a>';
 
-	liParent.children('a').append(' &raquo;')
+					var ulChildren = $(this).next('ul');
+					var content = $(this).parent('li').children('a').next().html();
 
-	liParent.each(function(){
-		$(this).children('a').on('click', function(){
-			if($(window).width() < 768) {
-				var liLinkOriginalHTML = '<a href="'+$(this).attr('href')+'">'+$(this).text().replace($(this).text().substr(-1), '')+'</a>';
+					$('ul.menu').hide();
+					$('.menu-main-container').append('<ul class="menu menu-tmp"><li>'
+						+'<a href="#" class="menu-back-live">&laquo; Voltar</a></li><li>'
+						+liLinkOriginalHTML+'</li>'+content+'</ul>');
 
-				var ulChildren = $(this).next('ul');
-				var content = $(this).parent('li').children('a').next().html();
+					makeMenuResponsive($('ul.menu-tmp li > ul').parent('li'));
 
-				$('ul.menu').hide();
-				$('.menu-main-container').append('<ul class="menu-tmp"><li><a href="#" class="menu-back-live">&laquo; Voltar</a></li><li>'+liLinkOriginalHTML+'</li>'+content+'</ul>');
-
-				return false;
-			}
+					return false;
+				}
+			});
 		});
-	});
+	}
+
+	var liParent = $('ul.menu li > ul').parent('li');
+	liParent.children('a').append(' &raquo;');
+	makeMenuResponsive(liParent);
 
 	$('.menu-back-live').live('click', function(){
 		if($(window).width() < 768) {
