@@ -1,5 +1,5 @@
 <section id="mobilize-redes" class="mobilize-widget clearfix" style="padding-left: {{ padding }}; padding-right: {{ padding }};">
-    <h6>Redes sociais</h6>
+    <h6>{{ socialTitle }}</h6>
 
     <p class="section-description">{{ socialDescription }}</p>
 

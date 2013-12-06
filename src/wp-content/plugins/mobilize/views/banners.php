@@ -1,5 +1,5 @@
 <section id="mobilize-banners" class="mobilize-widget clearfix" style="padding-left: {{ padding }}; padding-right: {{ padding }};">
-    <h6>Banners</h6>
+    <h6>{{ bannerTitle }}</h6>
     <p class="section-description">
         {{ bannerDescription }}
     </p>

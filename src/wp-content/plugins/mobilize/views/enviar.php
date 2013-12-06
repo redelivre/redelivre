@@ -1,6 +1,6 @@
 <section id="mobilize-sendto" class="mobilize-widget clearfix" style="padding-left: {{ padding }}; padding-right: {{ padding }};">
     <a name="send-to"></a>
-    <h6>Envie para um amigo!</h6>
+    <h6>{{ enviarTitle }}</h6>
     <p class="section-description">
         
         {{ enviarDescription }}

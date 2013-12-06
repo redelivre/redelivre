@@ -206,6 +206,7 @@ function mobilize_template_banners()
 
         $smartView = new smartView(INC_MOBILIZE.'/views/banners.php');
         $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
+        $smartView->bannerTitle = __('Banners');
         $smartView->bannerDescription = $options['banners']['description'];
         $smartView->bannerCode250 = htmlentities('<a href="' . get_bloginfo('url') . '/mobilize"><img src="' . Mobilize::getBannerURL(250) . '" /></a>');
         $smartView->bannerCode200 = htmlentities('<a href="' . get_bloginfo('url') . '/mobilize"><img src="' . Mobilize::getBannerURL(200) . '" /></a>');
@@ -233,6 +234,7 @@ function mobilize_template_social()
 
         $smartView = new smartView(INC_MOBILIZE.'/views/redes-sociais.php');
         $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
+        $smartView->socialTitle = __('Redes sociais');
         $smartView->socialDescription = $options['redes']['description'];
 
         if (!is_null($optionsRedesSociais['redes_facebook_page']) && !empty($optionsRedesSociais['redes_facebook_page'])) {
@@ -266,6 +268,7 @@ function mobilize_template_adesive()
 
         $smartView = new SmartView(INC_MOBILIZE.'/views/adesive.php');
         $smartView->padding            = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
+        $smartView->adesiveTitle = __('Adesive sua foto!');
         $smartView->adesiveDescription = $options['adesive']['description'];
         $smartView->baseURL = get_bloginfo('url');
         $smartView->adesiveURL = Mobilize::getAdesiveURL();
@@ -285,6 +288,7 @@ function mobilize_template_enviar()
 
         $smartView = new SmartView(INC_MOBILIZE.'/views/enviar.php');
         $smartView->padding           = isset($options['general']['espacamento_lateral']) ? $options['general']['espacamento_lateral'] : '';
+        $smartView->enviarTitle = __('Envie para um amigo!');
         $smartView->enviarDescription = $options['envie']['description'];
 				$smartView->enviarEmailCorpo  = $options['envie']['message'];
 

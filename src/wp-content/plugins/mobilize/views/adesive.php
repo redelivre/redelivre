@@ -1,5 +1,5 @@
 <section id="mobilize-sticker" class="mobilize-widget clearfix" style="padding-left: {{ padding }}; padding-right: {{ padding }};">    
-    <h6>Adesive sua foto!</h6>
+    <h6>{{ adesiveTitle }}</h6>
     <p class="section-description">
         {{ adesiveDescription }}
     </p>
