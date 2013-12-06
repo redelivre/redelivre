@@ -60,10 +60,10 @@ jQuery(function($){
 
 	$('.menu-back-live').live('click', function(){
 		if($(window).width() < 768) {
-			$('.menu-tmp').fadeOut('fast');
-			$('.menu-tmp').remove();
-
-			$('.menu').fadeIn();
+			var menu = $(this).parents('.menu-tmp');
+			var oldMenu = menu.prev();
+			menu.remove();
+			oldMenu.show();
 
 			return false;
 		}
