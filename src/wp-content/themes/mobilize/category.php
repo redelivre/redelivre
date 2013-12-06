@@ -22,7 +22,7 @@
 				<?php endif; ?>
 				
 				<nav class="pagination">
-			<?php if (function_exists('pagination_funtion')) pagination_funtion(); ?> 
+			<?php if (function_exists('pagination_function')) pagination_function(); ?> 
 		</nav><!-- /.pagination -->
 	   	
 			</div>
