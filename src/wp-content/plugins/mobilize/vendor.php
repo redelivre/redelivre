@@ -423,8 +423,8 @@ class Mobilize {
             
         $file = WideImage::load($_FILES['adesive']['tmp_name'][$index]);
         
-        if ($file->getWidth() < 250) {
-            self::addError('adesive', "O banner deve ter no mínimo 250 pixels de largura.");
+        if ($file->getWidth() < 150) {
+            self::addError('adesive', "O adesivo deve ter no mínimo 150 pixels de largura.");
             $ok = false;
         }
 
