@@ -1,5 +1,6 @@
 jQuery(document).ready(function()
 {
+	jQuery('#page_template option[value="mobilize_force_dropdown"]').remove();
 	jQuery('#page_template').append(
 		'<option value="mobilize">Mobilize</option>');
 	if (templateData['slug'] == 'mobilize')
