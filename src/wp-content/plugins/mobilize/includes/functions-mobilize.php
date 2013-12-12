@@ -263,7 +263,7 @@ function mobilize_template_social()
  */
 function mobilize_template_adesive()
 {
-    if (Mobilize::isActive('adesive')) {
+    if (Mobilize::isActive('adesive') && Mobilize::getAdesiveURL()) {
         $options = Mobilize::getOption();
 
         $smartView = new SmartView(INC_MOBILIZE.'/views/adesive.php');
