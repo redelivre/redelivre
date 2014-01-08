@@ -17,3 +17,7 @@
 	path = src/wp-content/themes/guarani
 	url = git@github.com:redelivre/guarani.git
 	branch = master
+[submodule "src/wp-content/themes/quizumba"]
+	path = src/wp-content/themes/quizumba
+	url = git@github.com:redelivre/quizumba.git
+	branch = master
