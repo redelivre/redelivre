@@ -1,0 +1,10 @@
+<wpml-config>
+	<admin-texts>
+		<key name="et_origin">
+			<key name="origin_date_format" />
+			<key name="origin_seo_home_titletext" />
+			<key name="origin_seo_home_descriptiontext" />
+			<key name="origin_seo_home_keywordstext" />
+		</key>
+	</admin-texts>
+</wpml-config>
