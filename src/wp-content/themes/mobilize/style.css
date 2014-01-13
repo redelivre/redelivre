@@ -237,7 +237,7 @@ Menu
     position: absolute;
     z-index: 999;
     display:none;	
-    margin: 10px;
+    margin: 0px;
     padding: 0;
     list-style: none;
     padding: 0px;
@@ -247,11 +247,17 @@ Menu
 	display: table;	
 }
 
-.main-menu li ul li {
-	padding: 0 5px;
+.main-menu ul ul ul {
+	left: 100%;
+	top: 0px;
 }
 
-.main-menu li ul li:first-child {
+.main-menu li ul li {
+	padding: 0 5px;
+	position: relative;
+}
+
+.menu > li > .sub-menu > li:first-child {
 	margin-top:10px;
 }
 
