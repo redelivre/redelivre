@@ -33,5 +33,5 @@ require INC_MOBILIZE.'/vendor.php';
 // Actions //
 /////////////
 
-add_action('add_meta_boxes', array('Mobilize', 'createPageTemplate'));
+add_action('add_meta_boxes_page', array('Mobilize', 'createPageTemplate'));
 add_action('save_post', array('Mobilize', 'savePage'));
