@@ -25,3 +25,7 @@
 	path = src/wp-content/plugins/wp-opauth
 	url = git@github.com:redelivre/wp-opauth.git
 	branch = master
+[submodule "src/wp-content/plugins/wordpress-openid"]
+	path = src/wp-content/plugins/wordpress-openid
+	url = https://github.com/diso/wordpress-openid.git
+	branch = master
