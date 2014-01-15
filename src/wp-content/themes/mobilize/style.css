@@ -241,6 +241,11 @@ Menu
     padding: 0;
     list-style: none;
     padding: 0px;
+		width: inherit;
+}
+
+.main-menu li ul li {
+		width: 100%;
 }
 
 .main-menu li:hover > ul {
@@ -255,6 +260,10 @@ Menu
 .main-menu li ul li {
 	padding: 0 5px;
 	position: relative;
+}
+
+.main-menu li ul {
+	padding-right: 10px;
 }
 
 .menu > li > .sub-menu > li:first-child {
