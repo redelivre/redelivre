@@ -34,7 +34,7 @@ class Widget_Jaiminho extends WP_Widget {
 			
 		<?php
 		}
-		else {
+		else if ( current_user_can('manage_options') ){
 			echo '<em>Não foi informado o ID da lista do Jaiminho. Preencha corretamente o campo do ID dentro do
 			widget. Você pode encontrar o ID dentro do campo <code>value</code>, na primeira linha do
 			formulário.</em>';
