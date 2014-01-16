@@ -5,7 +5,7 @@ Plugin URI: https://getsharepress.com
 Description: SharePress publishes your content to your personal Facebook Wall and the Walls of Pages you choose.
 Author: Fat Panda, LLC
 Author URI: http://fatpandadev.com
-Version: 2.2.20
+Version: 2.2.25
 License: GPL2
 */
 
@@ -41,7 +41,7 @@ SpBaseFacebook::$CURL_OPTS = SpBaseFacebook::$CURL_OPTS + array(
 
 class Sharepress {
 
-  const VERSION = '2.2.20';
+  const VERSION = '2.2.26';
   
   const MISSED_SCHEDULE_DELAY = 5;
   const MISSED_SCHEDULE_OPTION = 'sharepress_missed_schedule';
@@ -284,7 +284,7 @@ class Sharepress {
     <table class="form-table">
       <tbody><tr>
         <th><label for="fb_author_link">Facebook article:author link</label></th>
-        <td><input name="fb_author_url" type="text" id="fb_author_link" value="<?= $fb_profile_url ?>" class="regular-text"><br>
+        <td><input name="fb_author_url" type="text" id="fb_author_link" value="<?php echo $fb_profile_url ?>" class="regular-text"><br>
         <span class="description">If you have enabled "Follow" on your facebook profile. You can add your facebook profile link, and readers will be able to subscribe to you as an author on Facebook. See <a href="https://developers.facebook.com/blog/post/2013/06/19/platform-updates--new-open-graph-tags-for-media-publishers-and-more/">this article for details.</a></span></td>
       </tr>
       </tbody>
@@ -554,17 +554,19 @@ class Sharepress {
 
     }
   }
+
+  private static $default_settings = array(
+    'default_behavior' => 'on',
+    'excerpt_length' => 20,
+    'excerpt_more' => '...',
+    'og_tags' => 'on',
+    'og_type' => 'blog',
+    'license_key' => null,
+    'append_link' => 'on'
+  );
   
   static function setting($name = null, $default = null) {
-    $settings = get_option(self::OPTION_SETTINGS, array(
-      'default_behavior' => 'on',
-      'excerpt_length' => 20,
-      'excerpt_more' => '...',
-      'og_tags' => 'on',
-      'og_type' => 'blog',
-      'license_key' => null,
-      'append_link' => 1
-    ));
+    $settings = get_option(self::OPTION_SETTINGS, self::$default_settings);
     
     return (!is_null($name)) ? ( !is_null(@$settings[$name]) ? $settings[$name] : $default ) : $settings;
   }
@@ -572,7 +574,11 @@ class Sharepress {
   static function targets($id = null) {
     $targets = get_option(self::OPTION_PUBLISHING_TARGETS, false);
     if ($targets === false) {
-      $targets = array('wall' => 1);
+      if (!self::$pro || !self::$pro->is_excluded_page('wall')) {
+        $targets = array('wall' => 1);
+      } else {
+        $targets = array();
+      }
     }
     
     return ($id) ? isset($targets[$id]) : $targets;
@@ -787,7 +793,7 @@ class Sharepress {
       $meta['name'] = apply_filters('post_title', $post->post_title);
     }
     
-    if (!@$meta['targets'] && !self::$pro) {
+    if (!@$meta['targets'] && ( !self::$pro || !self::$pro->is_excluded_page('wall') )) {
       $meta['targets'] = array('wall');
     }
     
@@ -1493,11 +1499,13 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
     
       try {
         // flush the fb cache
-        $poke = self::api('/', 'POST', array(
-          'id' => $meta['link'],
-          'scrape' => 'true'
-          )
-        );
+        if ( apply_filters('sp_auto_flush_fb', true) ) {
+          $poke = self::api('/', 'POST', array(
+            'id' => $meta['link'],
+            'scrape' => 'true'
+            )
+          );
+        }
         
         
         // no targets? error.
@@ -1579,7 +1587,7 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
    * As part of setup, save the client-side session data - we don't trust cookies
    */
   function ajax_fb_save_keys() {
-    if (current_user_can('activate_plugins')) {
+    if (current_user_can('administrator')) {
       if (!self::is_mu()) {
         update_option(self::OPTION_API_KEY, $_REQUEST['api_key']);
         update_option(self::OPTION_APP_SECRET, $_REQUEST['app_secret']);
@@ -1640,6 +1648,8 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
 
     register_setting('fb-step1', self::OPTION_API_KEY);
     register_setting('fb-step1', self::OPTION_APP_SECRET);
+    register_setting('fb-step1', self::OPTION_SETTINGS, array($this, 'sanitize_settings'));
+
     register_setting('fb-settings', self::OPTION_PUBLISHING_TARGETS);
     register_setting('fb-settings', self::OPTION_NOTIFICATIONS);
     register_setting('fb-settings', self::OPTION_SETTINGS, array($this, 'sanitize_settings'));
@@ -1651,7 +1661,8 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
       $settings['license_key'] = trim($settings['license_key']);
     }
 
-    return $settings;
+    return array_merge(get_option(self::OPTION_SETTINGS, self::$default_settings), $settings);
+
   }
 
   static function has_keys() {
@@ -1681,7 +1692,7 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
       if ( !self::installed() && self::$ok_to_show_error ) {
         ?>
           <div class="error">
-            <p>You haven't finished setting up <a href="<?php echo get_admin_url() ?>options-general.php?page=sharepress">SharePress</a>.</p>
+            <p><a href="<?php echo get_admin_url() ?>options-general.php?page=sharepress">Click here</a> to finish setting up <b>SharePress</b>.</p>
           </div>
         <?php
       } else if (@$_REQUEST['page'] == 'sharepress' && !self::$pro) {
@@ -1689,12 +1700,6 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
           ?>
             <div class="error">
               <p>Hmm... looks like there's something wrong with your <a href="<?php echo get_admin_url() ?>options-general.php?page=sharepress">SharePress</a> license key.</p>
-            </div>
-          <?php
-        } else {
-          ?>
-            <div class="updated">
-              <p><b>Go pro!</b> This plugin can do more: a lot more. <a href="https://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=learn-more">Learn more</a>.</p>
             </div>
           <?php
         }
@@ -1794,17 +1799,24 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
   
   function error($post, $meta, $error) {
     if (is_object($error)) {
+      $code = $error->getCode();
       $error = $error->getMessage();
     }
 
     if ($post) {
       update_post_meta($post->ID, self::META_ERROR, $error);
-      if ($this->notify_on_error()) {
+      if ($this->notify_on_error()) { 
         $link = get_option('siteurl').'/wp-admin/post.php?action=edit&post='.$post->ID;
+
+        $message = "SharePress Error: $error; while sending \"{$meta['message']}\" to Facebook for post {$post->ID}\n\nTo retry, simply edit your post and save it again:\n{$link}";
+        if ($code == 1611070) { 
+          $message = "SharePress Error: $error; while sending \"{$meta['message']}\" to Facebook for post {$post->ID}\n\Why is this happening?\n======================\nThis happened because there is more than one set of Open Graph Meta tags in the <head> of your page. These could be added either by your theme, or by another plugin.\n\nHow do I fix it?\n================\nThe recommended fix is to disable those settings elsewhere (my modifying the configuration of other plugins or your theme), and letting SharePress be the open graph meta tag authority for your site. If this isn't possible, you can uncheck the open graph checkboxes in SharePress' settings.\n\nYou can test whether or not you've fixed the problem by analyzing your content with Facebook's object debugger, here: https://developers.facebook.com/tools/debug/og/object?q={$this->get_permalink($post->ID)}";
+        }
+
         wp_mail(
           $this->get_error_email(),
           "SharePress Error",
-          "SharePress Error: $error; while sending \"{$meta['message']}\" to Facebook for post {$post->ID}\n\nTo retry, simply edit your post and save it again:\n{$link}"
+          $message
         );
       }
       error_log("SharePress Error: $error; while sending {$meta['message']} for post {$post->ID}");   

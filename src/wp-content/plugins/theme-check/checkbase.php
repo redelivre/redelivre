@@ -60,7 +60,7 @@ function display_themechecks() {
 			}
 		}
 	}
-	
+
 	if ( defined( 'TC_TRAC' ) ) {
 
 		if ( defined( 'TC_PRE' ) ) $results = TC_PRE . $results;
@@ -88,17 +88,18 @@ function tc_grep( $error, $file ) {
 			$error = ltrim( $error );
 		$pre = ( FALSE !== ( $pos = strpos( $this_line, $error ) ) ? substr( $this_line, 0, $pos ) : FALSE );
 		$pre = ltrim( htmlspecialchars( $pre ) );
-			$bad_lines .= __("<pre class='tc-grep'>Line ", "themecheck") . ( $line_index+1 ) . ": " . $pre . htmlspecialchars( substr( stristr( $this_line, $error ), 0, 75 ) ) . "</pre>";
+			$bad_lines .= "<pre class='tc-grep'>". __("Line ", "theme-check") . ( $line_index+1 ) . ": " . $pre . htmlspecialchars( substr( stristr( $this_line, $error ), 0, 75 ) ) . "</pre>";
 		}
 		$line_index++;
 	}
-		return str_replace( $error, '<span class="tc-grep">' . $error . '</span>', $bad_lines );
+	return str_replace( $error, '<span class="tc-grep">' . $error . '</span>', $bad_lines );
 }
 
 function tc_preg( $preg, $file ) {
 	$lines = file( $file, FILE_IGNORE_NEW_LINES ); // Read the theme file into an array
 	$line_index = 0;
 	$bad_lines = '';
+	$error = '';
 	foreach( $lines as $this_line ) {
 		if ( preg_match( $preg, $this_line, $matches ) ) {
 			$error = $matches[0];
@@ -106,7 +107,7 @@ function tc_preg( $preg, $file ) {
 			$error = ltrim( $error );
 			$pre = ( FALSE !== ( $pos = strpos( $this_line, $error ) ) ? substr( $this_line, 0, $pos ) : FALSE );
 			$pre = ltrim( htmlspecialchars( $pre ) );
-			$bad_lines .= __("<pre class='tc-grep'>Line ", "themecheck") . ( $line_index+1 ) . ": " . $pre . htmlspecialchars( substr( stristr( $this_line, $error ), 0, 75 ) ) . "</pre>";
+			$bad_lines .= "<pre class='tc-grep'>" . __("Line ", "theme-check") . ( $line_index+1 ) . ": " . $pre . htmlspecialchars( substr( stristr( $this_line, $error ), 0, 75 ) ) . "</pre>";
 		}
 		$line_index++;
 
@@ -153,7 +154,7 @@ function listdir( $dir ) {
 	$files = array();
 	$dir_iterator = new RecursiveDirectoryIterator( $dir );
 	$iterator = new RecursiveIteratorIterator($dir_iterator, RecursiveIteratorIterator::SELF_FIRST);
-	
+
 	foreach ($iterator as $file) {
     	array_push( $files, $file->getPathname() );
 	}
@@ -174,9 +175,9 @@ function old_listdir( $start_dir='.' ) {
 				array_push( $files, $filepath );
 		}
 		closedir( $fh );
-		
+
 	} else {
-	
+
 		# false if the function was called with an invalid non-directory argument
 		$files = false;
 	}
@@ -261,7 +262,7 @@ function get_theme_data_from_contents( $theme_data ) {
  *
  */
 function tc_get_themes() {
-	
+
 	if ( ! class_exists( 'WP_Theme' ) )
 		return get_themes();
 
@@ -280,11 +281,11 @@ function tc_get_themes() {
 			$wp_themes[ $name ] = $theme;
 	}
 
-	return $wp_themes;	
+	return $wp_themes;
 }
 
 function tc_get_theme_data( $theme_file ) {
-	
+
 	if ( ! class_exists( 'WP_Theme' ) )
 		return get_theme_data( $theme_file );
 

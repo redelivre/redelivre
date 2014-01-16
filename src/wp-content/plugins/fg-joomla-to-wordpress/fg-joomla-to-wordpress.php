@@ -3,7 +3,7 @@
  * Plugin Name: FG Joomla to WordPress
  * Plugin Uri:  http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
  * Description: A plugin to migrate categories, posts, images and medias from Joomla to WordPress
- * Version:     1.22.3
+ * Version:     1.24.0
  * Author:      Frédéric GILLES
  */
 
@@ -197,7 +197,7 @@ if ( !class_exists('fgj2wp', false) ) {
 			$data = $this->plugin_options;
 			
 			$data['title'] = __('Import Joomla (FG)', 'fgj2wp');
-			$data['description'] = __('This plugin will import sections, categories, posts and medias (images, attachments) from a Joomla database into WordPress.<br />Compatible with Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 and 3.1.', 'fgj2wp');
+			$data['description'] = __('This plugin will import sections, categories, posts and medias (images, attachments) from a Joomla database into WordPress.<br />Compatible with Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0, 3.1 and 3.2.', 'fgj2wp');
 			$data['description'] .= "<br />\n" . __('For any issue, please read the <a href="http://wordpress.org/plugins/fg-joomla-to-wordpress/faq/" target="_blank">FAQ</a> first.', 'fgj2wp');
 			$data['posts_count'] = $posts_count->publish + $posts_count->draft + $posts_count->future + $posts_count->pending;
 			$data['pages_count'] = $pages_count->publish + $pages_count->draft + $pages_count->future + $pages_count->pending;
@@ -227,7 +227,11 @@ if ( !class_exists('fgj2wp', false) ) {
 		 */
 		protected function joomla_connect() {
 			global $joomla_db;
-			
+
+			if ( !class_exists('PDO') ) {
+				$this->display_admin_error(__('PDO is required. Please enable it.', 'fgj2wp'));
+				return false;
+			}
 			try {
 				$joomla_db = new PDO('mysql:host=' . $this->plugin_options['hostname'] . ';port=' . $this->plugin_options['port'] . ';dbname=' . $this->plugin_options['database'], $this->plugin_options['username'], $this->plugin_options['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
 				if ( defined('WP_DEBUG') && WP_DEBUG ) {
@@ -280,9 +284,7 @@ SQL;
 				// Remove only new imported posts
 				// WordPress post ID to start the deletion
 				$start_id = intval(get_option('fgj2wp_start_id'));
-				if ( $start_id == 0) {
-					$start_id = $this->get_next_post_autoincrement();
-					update_option('fgj2wp_start_id', $start_id);
+				if ( $start_id != 0) {
 					
 					$sql_queries[] = <<<SQL
 -- Delete Comments meta
@@ -618,6 +620,13 @@ SQL;
 			
 			$tab_categories = $this->tab_categories(); // Get the categories list
 			
+			// Set the WordPress post ID to start the deletion (used when we want to remove only the new imported posts)
+			$start_id = intval(get_option('fgj2wp_start_id'));
+			if ( $start_id == 0) {
+				$start_id = $this->get_next_post_autoincrement();
+				update_option('fgj2wp_start_id', $start_id);
+			}
+			
 			// Hook for doing other actions before the import
 			do_action('fgj2wp_pre_import_posts');
 			
@@ -628,7 +637,7 @@ SQL;
 					foreach ( $posts as $post ) {
 						
 						// Archived posts not imported
-						if ( ($this->plugin_options['archived_posts'] == 'not_imported') && ($post['state'] == -1) ) {
+						if ( ($this->plugin_options['archived_posts'] == 'not_imported') && (in_array($post['state'], array(-1, 2))) ) {
 							update_option('fgj2wp_last_joomla_id', $post['id']);
 							continue;
 						}
@@ -681,6 +690,7 @@ SQL;
 								$status = 'publish';
 								break;
 							case -1: // archived post
+							case 2: // archived post in Joomla 2.5
 								$status = ($this->plugin_options['archived_posts'] == 'published')? 'publish' : 'draft';
 								break;
 							default:

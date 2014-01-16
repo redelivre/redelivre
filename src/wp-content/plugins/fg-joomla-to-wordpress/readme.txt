@@ -1,10 +1,10 @@
 === FG Joomla to WordPress ===
 Contributors: Frédéric GILLES
 Plugin Uri: http://wordpress.org/extend/plugins/fg-joomla-to-wordpress/
-Tags: joomla, mambo, wordpress, migrator, converter, import, k2, jcomments, joomlacomments, jomcomment, flexicontent, postviews, joomlatags, sh404sef, attachments, rokbox, kunena, phocagallery, phoca, joomsef, opensef, easyblog, zoo, zooitems
+Tags: joomla, mambo, wordpress, convert joomla to wordpress, migrate joomla to wordpress, joomla to wordpress migration, migrator, converter, import, k2, jcomments, joomlacomments, jomcomment, flexicontent, postviews, joomlatags, sh404sef, attachments, rokbox, kunena, phocagallery, phoca, joomsef, opensef, easyblog, zoo, zooitems
 Requires at least: 3.0
-Tested up to: WP 3.7.1
-Stable tag: 1.22.3
+Tested up to: WP 3.8
+Stable tag: 1.24.0
 License: GPLv2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=fred%2egilles%40free%2efr&lc=FR&item_name=Fr%c3%a9d%c3%a9ric%20GILLES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 
@@ -14,7 +14,7 @@ A plugin to migrate categories, posts, tags, images and other medias from Joomla
 
 This plugin migrates sections, categories, posts, images, medias and tags from Joomla to Wordpress.
 
-It has been tested with **Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 and 3.1** and **Wordpress 3.7** on huge databases (72 000+ posts). It is compatible with multisite installations.
+It has been tested with **Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0, 3.1 and 3.2** and **Wordpress 3.8** on huge databases (72 000+ posts). It is compatible with multisite installations.
 
 Major features include:
 
@@ -147,9 +147,24 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 * German (de_DE)
 * Russian (ru_RU)
 * Polish (pl_PL)
+* Bulgarian (bg_BG)
 * other can be translated
 
 == Changelog ==
+
+= 1.24.0 =
+* New: Compatibility with Joomla 3.2
+* New translation: Bulgarian (thanks to Hristo P.)
+
+= 1.22.6 =
+* Fixed: The «Remove only new imported posts» option was not removing anything
+* Tested with WordPress 3.8
+
+= 1.22.5 =
+* Fixed: Archived posts were always imported as drafts in Joomla 2.5
+
+= 1.22.4 =
+* New: Display error message if PDO is not enabled
 
 = 1.22.3 =
 * New: Display SQL errors in debug mode
@@ -372,6 +387,20 @@ http://wordpress.org/support/plugin/fg-joomla-to-wordpress
 * Initial version: Import Joomla 1.5 sections, categories, posts and images
 
 == Upgrade Notice ==
+
+= 1.24.0 =
+New: Compatibility with Joomla 3.2
+New translation: Bulgarian (thanks to Hristo P.)
+
+= 1.22.6 =
+Fixed: The «Remove only new imported posts» option was not removing anything
+Tested with WordPress 3.8
+
+= 1.22.5 =
+Fixed: Archived posts were always imported as drafts in Joomla 2.5
+
+= 1.22.4 =
+New: Display error message if PDO is not enabled
 
 = 1.22.3 =
 New: Display SQL errors in debug mode

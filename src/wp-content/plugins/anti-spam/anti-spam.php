@@ -3,10 +3,10 @@
 Plugin Name: Anti-spam
 Plugin URI: http://wordpress.org/plugins/anti-spam/
 Description: No spam in comments. No captcha.
-Version: 1.9
+Version: 2.0
 Author: webvitaly
 Author URI: http://web-profile.com.ua/wordpress/plugins/
-License: GPLv2 or later
+License: GPLv3 or later
 */
 
 $antispam_send_spam_comment_to_admin = false; // if true, than rejected spam comments will be sent to admin email
@@ -15,7 +15,7 @@ $antispam_allow_trackbacks = false; // if true, than trackbacks will be allowed
 // trackbacks almost not used by users, but mostly used by spammers; pingbacks are always enabled
 // more about the difference between trackback and pingback - http://web-profile.com.ua/web/trackback-vs-pingback/
 
-$antispam_version = '1.9';
+$antispam_version = '2.0';
 
 
 if ( ! function_exists( 'antispam_scripts_styles_init' ) ) :
@@ -35,9 +35,9 @@ if ( ! function_exists( 'antispam_form_part' ) ) :
 		if ( ! is_user_logged_in() ) { // add anti-spam fields only for not logged in users
 			$antispam_form_part = '
 	<p class="comment-form-ant-spm" style="clear:both;">
-		<strong>Current <span style="display:none;">month</span> <span style="display:inline;">ye@r</span> <span style="display:none;">day</span></strong> <span class="required">*</span>
+		<strong>Current <span style="display:none;">day</span> <span style="display:none;">month</span> <span style="display:inline;">ye@r</span></strong> <span class="required">*</span>
 		<input type="hidden" name="ant-spm-a" id="ant-spm-a" value="'.date('Y').'" />
-		<input type="text" name="ant-spm-q" id="ant-spm-q" size="30" value="19" />
+		<input type="text" name="ant-spm-q" id="ant-spm-q" size="30" value="20" />
 	</p>
 	'; // question (hidden with js) [aria-required="true" required="required"]
 			$antispam_form_part .= '
@@ -163,6 +163,7 @@ if ( ! function_exists( 'antispam_plugin_meta' ) ) :
 		if ( strpos( $file, 'anti-spam.php' ) !== false ) {
 			$links = array_merge( $links, array( '<a href="http://web-profile.com.ua/wordpress/plugins/anti-spam/" title="Plugin page">' . __('Anti-spam') . '</a>' ) );
 			$links = array_merge( $links, array( '<a href="http://web-profile.com.ua/donate/" title="Support the development">' . __('Donate') . '</a>' ) );
+			$links = array_merge( $links, array( '<a href="http://codecanyon.net/item/antispam-pro/6491169" title="Go Pro">' . __('Anti-spam Pro') . '</a>' ) );
 		}
 		return $links;
 	}
