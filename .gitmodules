@@ -32,3 +32,6 @@
 [submodule "src/wp-content/plugins/wordpress-xrds-simple"]
 	path = src/wp-content/plugins/wordpress-xrds-simple
 	url = https://github.com/diso/wordpress-xrds-simple.git
+[submodule "src/wp-content/plugins/qr-pdf"]
+	path = src/wp-content/plugins/qr-pdf
+	url = https://github.com/redelivre/qr-pdf.git
