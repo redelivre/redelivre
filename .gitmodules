@@ -27,8 +27,7 @@
 	branch = master
 [submodule "src/wp-content/plugins/wordpress-openid"]
 	path = src/wp-content/plugins/wordpress-openid
-	url = https://github.com/diso/wordpress-openid.git
-	branch = master
+	url = https://github.com/redelivre/wordpress-openid.git
 [submodule "src/wp-content/plugins/wordpress-xrds-simple"]
 	path = src/wp-content/plugins/wordpress-xrds-simple
 	url = https://github.com/diso/wordpress-xrds-simple.git

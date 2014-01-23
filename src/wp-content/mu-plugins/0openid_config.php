@@ -5,5 +5,6 @@
 
 define('OPENID_ENABLE_CONSUMER', false);
 define('OPENID_ENABLE_COMMENTS', false);
+define('OPENID_NETWORK_WIDE_CONFIG', true);
 
 ?>
