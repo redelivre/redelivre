@@ -32,3 +32,6 @@
 [submodule "src/wp-content/plugins/wordpress-xrds-simple"]
 	path = src/wp-content/plugins/wordpress-xrds-simple
 	url = https://github.com/diso/wordpress-xrds-simple.git
+[submodule "src/wp-content/plugins/rl-busca-avancada"]
+	path = src/wp-content/plugins/rl-busca-avancada
+	url = git@github.com:redelivre/rl-busca-avancada.git
