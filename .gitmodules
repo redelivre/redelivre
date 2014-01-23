@@ -35,3 +35,8 @@
 [submodule "src/wp-content/plugins/rl-busca-avancada"]
 	path = src/wp-content/plugins/rl-busca-avancada
 	url = git@github.com:redelivre/rl-busca-avancada.git
+	branch = master
+[submodule "src/wp-content/plugins/qr-pdf"]
+	path = src/wp-content/plugins/qr-pdf
+	url = https://github.com/redelivre/qr-pdf.git
+	branch = master
