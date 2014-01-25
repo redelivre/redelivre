@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Import Joomla 1.5 (FG)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-24 19:49+0100\n"
-"PO-Revision-Date: 2013-11-24 19:50+0100\n"
+"POT-Creation-Date: 2014-01-11 13:06+0100\n"
+"PO-Revision-Date: 2014-01-11 13:08+0100\n"
 "Last-Translator: F. GILLES\n"
 "Language-Team: F. GILLES\n"
 "Language: fr_FR\n"
@@ -17,11 +17,11 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin_build_page.tpl.php:18
+#: admin_build_page.tpl.php:22
 msgid "WordPress database"
 msgstr "Base de données WordPress"
 
-#: admin_build_page.tpl.php:29
+#: admin_build_page.tpl.php:33
 msgid ""
 "If you want to rerun the import, you must empty the WordPress content with "
 "the button hereafter."
@@ -29,81 +29,81 @@ msgstr ""
 "Si vous souhaitez relancer l'import, vous devez vider le contenu de "
 "WordPress avec le bouton ci-contre."
 
-#: admin_build_page.tpl.php:30
+#: admin_build_page.tpl.php:34
 msgid "Remove only new imported posts"
 msgstr "Supprimer seulement les nouveaux articles importés"
 
-#: admin_build_page.tpl.php:31
+#: admin_build_page.tpl.php:35
 msgid "Remove all WordPress content"
 msgstr "Supprimer tout le contenu de WordPress"
 
-#: admin_build_page.tpl.php:32
+#: admin_build_page.tpl.php:36
 msgid "Empty WordPress content"
 msgstr "Supprimer le contenu de WordPress"
 
-#: admin_build_page.tpl.php:43
+#: admin_build_page.tpl.php:47
 msgid "Joomla web site parameters"
 msgstr "Paramètres du site Web Joomla"
 
-#: admin_build_page.tpl.php:46
+#: admin_build_page.tpl.php:50
 msgid "URL (beginning with http://)"
 msgstr "URL (commençant par http://)"
 
-#: admin_build_page.tpl.php:50
+#: admin_build_page.tpl.php:54
 msgid "Joomla version"
 msgstr "Version de Joomla"
 
-#: admin_build_page.tpl.php:59
+#: admin_build_page.tpl.php:63
 msgid "Joomla database parameters"
 msgstr "Paramètres de la base Joomla"
 
-#: admin_build_page.tpl.php:62
+#: admin_build_page.tpl.php:66
 msgid "Hostname"
 msgstr "Serveur"
 
-#: admin_build_page.tpl.php:66
+#: admin_build_page.tpl.php:70
 msgid "Port"
 msgstr "Port"
 
-#: admin_build_page.tpl.php:70
+#: admin_build_page.tpl.php:74
 msgid "Database"
 msgstr "Nom de la base"
 
-#: admin_build_page.tpl.php:74
+#: admin_build_page.tpl.php:78
 msgid "Username"
 msgstr "Identifiant"
 
-#: admin_build_page.tpl.php:78
+#: admin_build_page.tpl.php:82
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin_build_page.tpl.php:82
+#: admin_build_page.tpl.php:86
 msgid "Joomla Table Prefix"
 msgstr "Préfixe des table Joomla"
 
-#: admin_build_page.tpl.php:87
+#: admin_build_page.tpl.php:91
 msgid "Test the connection"
 msgstr "Tester la connexion"
 
-#: admin_build_page.tpl.php:90
+#: admin_build_page.tpl.php:94
 msgid "Behavior"
 msgstr "Comportement"
 
-#: admin_build_page.tpl.php:93
+#: admin_build_page.tpl.php:97
 msgid "Import introtext:"
 msgstr "Importer le texte d'introduction :"
 
-#: admin_build_page.tpl.php:95
+#: admin_build_page.tpl.php:99
 msgid ""
 "The text before the «Read more» split will be imported into the excerpt."
 msgstr ""
 "Le texte situé avant la marque «Lire la suite» sera importé dans l'extrait."
 
-#: admin_build_page.tpl.php:95
+#: admin_build_page.tpl.php:99
 msgid "to the excerpt"
 msgstr "dans l'extrait"
 
-#: admin_build_page.tpl.php:96
+#: admin_build_page.tpl.php:100
 msgid ""
 "The text before the «Read more» split will be imported into the post content "
 "with a «read more» link."
@@ -111,11 +111,11 @@ msgstr ""
 "Le texte situé avant la marque «Lire la suite» sera importé dans le contenu "
 "de l'article avec un lien «Lire la suite»."
 
-#: admin_build_page.tpl.php:96
+#: admin_build_page.tpl.php:100
 msgid "to the content"
 msgstr "dans le contenu de l'article"
 
-#: admin_build_page.tpl.php:97
+#: admin_build_page.tpl.php:101
 msgid ""
 "The text before the «Read more» split will be imported into both the excerpt "
 "and the post content."
@@ -123,70 +123,70 @@ msgstr ""
 "Le texte situé avant la marque «Lire la suite» sera importé dans l'extrait "
 "et dans le contenu de l'article."
 
-#: admin_build_page.tpl.php:97
+#: admin_build_page.tpl.php:101
 msgid "to both"
 msgstr "dans les deux"
 
-#: admin_build_page.tpl.php:101
+#: admin_build_page.tpl.php:105
 msgid "Archived posts:"
 msgstr "Articles archivés :"
 
-#: admin_build_page.tpl.php:103
+#: admin_build_page.tpl.php:107
 msgid "Do not import archived posts"
 msgstr "Ne pas importer les articles archivés"
 
-#: admin_build_page.tpl.php:103
+#: admin_build_page.tpl.php:107
 msgid "Not imported"
 msgstr "Non importés"
 
-#: admin_build_page.tpl.php:104
+#: admin_build_page.tpl.php:108
 msgid "Import archived posts as drafts"
 msgstr "Importer les articles archivés comme brouillons"
 
-#: admin_build_page.tpl.php:104
+#: admin_build_page.tpl.php:108
 msgid "Import as drafts"
 msgstr "Importer comme brouillons"
 
-#: admin_build_page.tpl.php:105
+#: admin_build_page.tpl.php:109
 msgid "Import archived posts as published posts"
 msgstr "Importer les articles archivés comme articles publiés"
 
-#: admin_build_page.tpl.php:105
+#: admin_build_page.tpl.php:109
 msgid "Import as published posts"
 msgstr "Importer comme articles publiés"
 
-#: admin_build_page.tpl.php:109
+#: admin_build_page.tpl.php:113
 msgid "Medias:"
 msgstr "Médias :"
 
-#: admin_build_page.tpl.php:110
+#: admin_build_page.tpl.php:114
 msgid "Skip media"
 msgstr "Ne pas importer les médias"
 
-#: admin_build_page.tpl.php:113
+#: admin_build_page.tpl.php:117
 msgid "Import first image:"
 msgstr "Importer la première image :"
 
-#: admin_build_page.tpl.php:114
+#: admin_build_page.tpl.php:118
 msgid "The first image will be kept in the post content"
 msgstr "La première image sera conservée dans le contenu"
 
-#: admin_build_page.tpl.php:114
+#: admin_build_page.tpl.php:118
 msgid "as is"
 msgstr "tel quelle"
 
-#: admin_build_page.tpl.php:115
+#: admin_build_page.tpl.php:119
 msgid ""
 "The first image will be removed from the post content and imported as the "
 "featured image only"
 msgstr ""
 "La première image sera supprimée du contenu et importée en image à la une"
 
-#: admin_build_page.tpl.php:115
+#: admin_build_page.tpl.php:119
 msgid "as featured only"
 msgstr "en tant qu'image à la une seulement"
 
-#: admin_build_page.tpl.php:116
+#: admin_build_page.tpl.php:120
 msgid ""
 "The first image will be kept in the post content and imported as the "
 "featured image"
@@ -194,15 +194,15 @@ msgstr ""
 "La première image sera conservée dans le contenu et importée en image à la "
 "une"
 
-#: admin_build_page.tpl.php:116
+#: admin_build_page.tpl.php:120
 msgid "as is and as featured"
 msgstr "tel quelle et en tant qu'image à la une"
 
-#: admin_build_page.tpl.php:118
+#: admin_build_page.tpl.php:122
 msgid "Import external media"
 msgstr "Importer les médias externes"
 
-#: admin_build_page.tpl.php:120
+#: admin_build_page.tpl.php:124
 msgid ""
 "Checked: download the media with their full path in order to import media "
 "with identical names."
@@ -210,11 +210,11 @@ msgstr ""
 "Coché : télécharge les médias avec leur nom complet afin d'importer les "
 "médias comportant des noms identiques."
 
-#: admin_build_page.tpl.php:120
+#: admin_build_page.tpl.php:124
 msgid "Import media with duplicate names"
 msgstr "Importer les médias avec des noms identiques"
 
-#: admin_build_page.tpl.php:122
+#: admin_build_page.tpl.php:126
 msgid ""
 "Checked: download the media even if it has already been imported. Unchecked: "
 "Download only media which were not already imported."
@@ -222,43 +222,43 @@ msgstr ""
 "Coché : télécharge les médias même s'ils ont déjà été importés. Décoché : "
 "télécharge uniquement les médias qui n'ont pas déjà été importés."
 
-#: admin_build_page.tpl.php:122
-msgid ""
-"Force media import. Leave unchecked if you have already transfered the media."
-"<br />It will speed up the import."
-msgstr ""
-"Forcer l'import des médias. Laisser décoché si vous avez déjà transféré les "
-"médias. <br />Cela accélérera l'import."
-
 #: admin_build_page.tpl.php:126
+msgid ""
+"Force media import. Keep unchecked except if you had previously some media "
+"download issues."
+msgstr ""
+"Forcer l'import des médias. Laisser décoché sauf si vous avez auparavant "
+"rencontré des problèmes d'import de médias."
+
+#: admin_build_page.tpl.php:130
 msgid "Meta keywords:"
 msgstr "Mots-clefs :"
 
-#: admin_build_page.tpl.php:127
+#: admin_build_page.tpl.php:131
 msgid "Import meta keywords as tags"
 msgstr "Importer les meta keywords en tant que mots-clefs"
 
-#: admin_build_page.tpl.php:130
+#: admin_build_page.tpl.php:134
 msgid "Create pages:"
 msgstr "Créer des pages :"
 
-#: admin_build_page.tpl.php:131
+#: admin_build_page.tpl.php:135
 msgid "Import as pages instead of blog posts (without categories)"
 msgstr "Importer en tant que pages au lieu d'articles (sans les catégories)"
 
-#: admin_build_page.tpl.php:135
+#: admin_build_page.tpl.php:139
 msgid "Save settings"
 msgstr "Enregistrer les paramètres"
 
-#: admin_build_page.tpl.php:136
+#: admin_build_page.tpl.php:140
 msgid "Import content from Joomla to WordPress"
 msgstr "Importer le contenu de Joomla vers WordPress"
 
-#: admin_build_page.tpl.php:143
+#: admin_build_page.tpl.php:147
 msgid "After the migration"
 msgstr "Après la migration"
 
-#: admin_build_page.tpl.php:146
+#: admin_build_page.tpl.php:150
 msgid ""
 "During the migration, prefixes have been added to the categories slugs to "
 "avoid categories duplicates. This button will remove these prefixes which "
@@ -268,113 +268,113 @@ msgstr ""
 "pour éviter les doublons. Ce bouton supprimera ces préfixes qui sont "
 "inutiles après la migration."
 
-#: admin_build_page.tpl.php:150
+#: admin_build_page.tpl.php:154
 msgid "Remove the prefixes from the categories"
 msgstr "Supprimer les préfixes des catégories"
 
-#: admin_build_page.tpl.php:155
+#: admin_build_page.tpl.php:159
 msgid "If you have links between articles, you need to modify internal links."
 msgstr ""
 "Si vous avez des liens entre articles, vous avez besoin de modifier les "
 "liens internes."
 
-#: admin_build_page.tpl.php:159
+#: admin_build_page.tpl.php:163
 msgid "Modify internal links"
 msgstr "Modifier les liens internes"
 
-#: admin_build_page.tpl.php:167
+#: admin_build_page.tpl.php:171
 msgid "Do you need extra features?"
 msgstr "Vous avez besoin de fonctionnalités supplémentaires ?"
 
-#: admin_build_page.tpl.php:170
+#: admin_build_page.tpl.php:174
 msgid "authors and all users migration"
 msgstr "migration des auteurs et de tous les utilisateurs"
 
-#: admin_build_page.tpl.php:171
+#: admin_build_page.tpl.php:175
 msgid "menus migration"
 msgstr "migration des menus"
 
-#: admin_build_page.tpl.php:172
+#: admin_build_page.tpl.php:176
 msgid "SEO: keeps Joomla IDs or redirects standard Joomla URLs"
 msgstr "SEO : garde les IDs de Joomla ou redirige les URLs standards de Joomla"
 
-#: admin_build_page.tpl.php:173
+#: admin_build_page.tpl.php:177
 msgid "SEO: Keeps meta description and meta keywords"
 msgstr "SEO : Garde les meta description et meta keywords"
 
-#: admin_build_page.tpl.php:174
+#: admin_build_page.tpl.php:178
 msgid "SEO: Keeps sh404sef URLs"
 msgstr "SEO : garde les URLs sh404sef"
 
-#: admin_build_page.tpl.php:175
+#: admin_build_page.tpl.php:179
 msgid "SEO: Keeps JoomSEF URLs"
 msgstr "SEO : garde les URLs JoomSEF"
 
-#: admin_build_page.tpl.php:176
+#: admin_build_page.tpl.php:180
 msgid "SEO: Keeps OpenSEF URLs"
 msgstr "SEO : garde les URLs OpenSEF"
 
-#: admin_build_page.tpl.php:177
+#: admin_build_page.tpl.php:181
 msgid "Joomla views counts migration"
 msgstr "migration des compteurs de vues de Joomla"
 
-#: admin_build_page.tpl.php:178
+#: admin_build_page.tpl.php:182
 msgid "Joomla 1.0 compatible"
 msgstr "compatible Joomla 1.0"
 
-#: admin_build_page.tpl.php:179
+#: admin_build_page.tpl.php:183
 msgid "Joomla 2.5+ featured images"
 msgstr "images d'intro de Joomla 2.5+"
 
-#: admin_build_page.tpl.php:180
+#: admin_build_page.tpl.php:184
 msgid "Mambo 4.5 and 4.6 compatible"
 msgstr "compatible Mambo 4.5 et 4.6"
 
-#: admin_build_page.tpl.php:181
+#: admin_build_page.tpl.php:185
 msgid "K2 content"
 msgstr "contenu K2"
 
-#: admin_build_page.tpl.php:182
+#: admin_build_page.tpl.php:186
 msgid "EasyBlog content"
 msgstr "contenu EasyBlog"
 
-#: admin_build_page.tpl.php:183
+#: admin_build_page.tpl.php:187
 msgid "Kunena forum to bbPress"
 msgstr "Forum Kunena vers bbPress"
 
-#: admin_build_page.tpl.php:184
+#: admin_build_page.tpl.php:188
 msgid "Flexicontent content"
 msgstr "contenu Flexicontent"
 
-#: admin_build_page.tpl.php:185
+#: admin_build_page.tpl.php:189
 msgid "Zoo content"
 msgstr "contenu Zoo"
 
-#: admin_build_page.tpl.php:186
+#: admin_build_page.tpl.php:190
 msgid "Jcomments comments"
 msgstr "commentaires Jcomments"
 
-#: admin_build_page.tpl.php:187
+#: admin_build_page.tpl.php:191
 msgid "Jomcomment comments"
 msgstr "commentaires Jomcomment"
 
-#: admin_build_page.tpl.php:188
+#: admin_build_page.tpl.php:192
 msgid "Joomlatags tags"
 msgstr "mots-clefs Joomlatags"
 
-#: admin_build_page.tpl.php:189
+#: admin_build_page.tpl.php:193
 msgid "Attachments"
 msgstr "fichiers joints Attachments"
 
-#: admin_build_page.tpl.php:190
+#: admin_build_page.tpl.php:194
 msgid "Rokbox images"
 msgstr "images Rokbox"
 
-#: admin_build_page.tpl.php:191
+#: admin_build_page.tpl.php:195
 msgid "Phocagallery images"
 msgstr "images Phocagallery"
 
-#: admin_build_page.tpl.php:196
+#: admin_build_page.tpl.php:200
 msgid ""
 "Please note that some of these features need an add-on in addition to the "
 "Premium version."
@@ -382,7 +382,7 @@ msgstr ""
 "Veuillez noter que certaines de ces fonctionnalités nécessitent un module "
 "supplémentaire en plus de la version Premium."
 
-#: admin_build_page.tpl.php:200
+#: admin_build_page.tpl.php:204
 msgid ""
 "If you found this plugin useful and it saved you many hours or days, please "
 "rate it on <a href=\"http://wordpress.org/extend/plugins/fg-joomla-to-"
@@ -395,7 +395,7 @@ msgstr ""
 "WordPress</a>. Vous pouvez aussi faire une donation en utilisant le bouton "
 "ci-dessous."
 
-#: admin_build_page.tpl.php:219
+#: admin_build_page.tpl.php:223
 msgid ""
 "All new imported posts or pages and their comments will be deleted from "
 "WordPress."
@@ -403,11 +403,11 @@ msgstr ""
 "Tous les nouveaux articles ou pages importés vont être supprimés de "
 "WordPress."
 
-#: admin_build_page.tpl.php:222
+#: admin_build_page.tpl.php:226
 msgid "All content will be deleted from WordPress."
 msgstr "Toutes les données vont être supprimées de WordPress."
 
-#: admin_build_page.tpl.php:225
+#: admin_build_page.tpl.php:229
 msgid "Please select a remove option."
 msgstr "Veuillez sélectionner une option de suppression."
 
@@ -458,11 +458,11 @@ msgstr "Import Joomla (FG)"
 msgid ""
 "This plugin will import sections, categories, posts and medias (images, "
 "attachments) from a Joomla database into WordPress.<br />Compatible with "
-"Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 and 3.1."
+"Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0, 3.1 and 3.2."
 msgstr ""
 "Cette extension va importer les sections, les catégories, les articles et "
 "les médias (images, fichiers attachés) depuis une base Joomla vers WordPress."
-"<br />Compatible avec Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0 et 3.1."
+"<br />Compatible avec Joomla versions 1.5, 1.6, 1.7, 2.5, 3.0, 3.1 et 3.2."
 
 #: fg-joomla-to-wordpress.php:201
 msgid ""
@@ -508,7 +508,11 @@ msgid_plural "%d tags"
 msgstr[0] "%d mot-clef"
 msgstr[1] "%d mots-clefs"
 
-#: fg-joomla-to-wordpress.php:237 fg-joomla-to-wordpress.php:423
+#: fg-joomla-to-wordpress.php:232
+msgid "PDO is required. Please enable it."
+msgstr "PDO est requis. Veuillez l'activer."
+
+#: fg-joomla-to-wordpress.php:241 fg-joomla-to-wordpress.php:425
 msgid ""
 "Couldn't connect to the Joomla database. Please check your parameters. And "
 "be sure the WordPress server can access the Joomla database."
@@ -517,51 +521,51 @@ msgstr ""
 "vos paramètres. Et soyez certains que le serveur WordPress ait accès à la "
 "base de données de Joomla."
 
-#: fg-joomla-to-wordpress.php:419
+#: fg-joomla-to-wordpress.php:421
 msgid "Connected with success to the Joomla database"
 msgstr "Connecté avec succès à la base de données Joomla"
 
-#: fg-joomla-to-wordpress.php:496
+#: fg-joomla-to-wordpress.php:498
 #, php-format
 msgid "%d category imported"
 msgid_plural "%d categories imported"
 msgstr[0] "%d catégorie importée"
 msgstr[1] "%d catégories importées"
 
-#: fg-joomla-to-wordpress.php:502
+#: fg-joomla-to-wordpress.php:504
 #, php-format
 msgid "%d page imported"
 msgid_plural "%d pages imported"
 msgstr[0] "%d page importée"
 msgstr[1] "%d pages importées"
 
-#: fg-joomla-to-wordpress.php:506
+#: fg-joomla-to-wordpress.php:508
 #, php-format
 msgid "%d post imported"
 msgid_plural "%d posts imported"
 msgstr[0] "%d article importé"
 msgstr[1] "%d articles importés"
 
-#: fg-joomla-to-wordpress.php:508
+#: fg-joomla-to-wordpress.php:510
 #, php-format
 msgid "%d media imported"
 msgid_plural "%d medias imported"
 msgstr[0] "%d média importé"
 msgstr[1] "%d médias importés"
 
-#: fg-joomla-to-wordpress.php:513
+#: fg-joomla-to-wordpress.php:515
 #, php-format
 msgid "%d tag imported"
 msgid_plural "%d tags imported"
 msgstr[0] "%d mot-clef importé"
 msgstr[1] "%d mots-clefs importés"
 
-#: fg-joomla-to-wordpress.php:530
+#: fg-joomla-to-wordpress.php:532
 msgid "Don't forget to modify internal links."
 msgstr "N'oubliez pas de modifier les liens internes."
 
-#: fg-joomla-to-wordpress.php:772 fg-joomla-to-wordpress.php:821
-#: fg-joomla-to-wordpress.php:872
+#: fg-joomla-to-wordpress.php:782 fg-joomla-to-wordpress.php:831
+#: fg-joomla-to-wordpress.php:882
 msgid "Error:"
 msgstr "Erreur :"
 

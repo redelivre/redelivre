@@ -408,6 +408,7 @@ class SharepressPro {
   static function is_excluded_page($page) {
     if (is_null(self::$ok_page_names)) {
       self::$ok_page_names = array_map(array(__CLASS__, '_map_page_names'), self::pages());
+      self::$ok_page_names[] = 'wall';
       self::$ok_page_names = apply_filters('sharepress_ok_page_names', self::$ok_page_names, function_exists('get_current_site') ? get_current_site() : null);
     }
 
@@ -536,7 +537,7 @@ class SharepressPro {
 
     $field = Sharepress::META;
 
-    $month = "<select " . ( $multi ? '' : 'id="mm" ' ) . "name=\"{$field}[mm]\"$tab_index_attribute>\n";
+    $month = "<select " . ( $multi ? '' : 'id="sp_mm" ' ) . "name=\"{$field}[mm]\"$tab_index_attribute>\n";
     for ( $i = 1; $i < 13; $i = $i +1 ) {
       $month .= "\t\t\t" . '<option value="' . zeroise($i, 2) . '"';
       if ( $i == $mm )
@@ -545,10 +546,10 @@ class SharepressPro {
     }
     $month .= '</select>';
 
-    $day = '<input type="text" name="'.$field.'[jj]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$jj.'\');" value="' . $jj . '" style="width:30px;" maxlength="2" autocomplete="off" />';
-    $year = '<input type="text" name="'.$field.'[aa]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$aa.'\');" value="' . $aa . '" style="width:50px;" maxlength="4" autocomplete="off" />';
-    $hour = '<input type="text" name="'.$field.'[hh]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$hh.'\');" value="' . $hh . '" style="width:30px;" maxlength="2" autocomplete="off" />';
-    $minute = '<input type="text" name="'.$field.'[mn]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$mn.'\');" value="' . $mn . '" style="width:30px;" maxlength="2" autocomplete="off" />';
+    $day = '<input id="sp_jj" type="text" name="'.$field.'[jj]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$jj.'\');" value="' . $jj . '"  maxlength="2" autocomplete="off" />';
+    $year = '<input id="sp_aa" type="text" name="'.$field.'[aa]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$aa.'\');" value="' . $aa . '"  maxlength="4" autocomplete="off" />';
+    $hour = '<input id="sp_hh" type="text" name="'.$field.'[hh]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$hh.'\');" value="' . $hh . '" maxlength="2" autocomplete="off" />';
+    $minute = '<input id="sp_mn" type="text" name="'.$field.'[mn]" onblur="if(!jQuery.trim(jQuery(this).val())) jQuery(this).val(\''.$mn.'\');" value="' . $mn . '" maxlength="2" autocomplete="off" />';
 
     echo '<div class="timestamp-wrap">';
     /* translators: 1: month input, 2: day input, 3: year input, 4: hour input, 5: minute input */

@@ -1,0 +1,154 @@
+version 2.1 ( updated 12-23-2013 )
+- Now you can update Elegant Themes in the Dashboard: https://www.elegantthemes.com/members-area/documentation.html#updater
+	* epanel/custom_functions.php
+- Bumped version number
+	* style.css
+
+version 2.0 ( updated 09-13-2013 )
+- Fixed option name in Page Blog page template
+	* page-blog.php
+- Fixed Tabs shortcode layout issues with the slide effect
+	* epanel/shortcodes/css/shortcodes.css
+	* epanel/shortcodes/shortcodes.php
+- Bumped version number
+	* style.css
+
+version 1.9 ( updated 08-02-2013 )
+- Fixed separate_comments function notice
+	* epanel/custom_functions.php
+- Bumped version number
+	* style.css
+
+version 1.8 ( updated 06-26-2013 )
+- Removed fitVids plugin
+	* functions.php
+	* js/custom.js
+	* deleted js/jquery.fitvids.js
+	* style.css
+- Fixed Post/Page Editor Word Count Problem
+- Fixed issue with left tabs shortcode
+- Fixed tooltip glitch
+- Fixed issue with span in pricing table
+- Fixed get_current_theme warning message.
+- Fixed the issue with Fancybox videos not working on second launch in WordPress 3.6
+- Added shortcodes names to shortcode_atts() to enable filtering
+
+List of modified files:
+* epanel/custom_functions.php
+* epanel/page_templates/js/et-ptemplates-frontend.js
+* epanel/page_templates/js/fancybox/jquery.fancybox-1.3.4.pack.js
+* epanel/shortcodes/css/shortcodes.css
+* epanel/shortcodes/js/et_shortcodes_frontend.js
+* epanel/shortcodes/js/et_shortcodes_frontend.dev.js
+* epanel/shortcodes/shortcodes.php
+
+version 1.7 ( updated 05-15-2013 )
+-Added colosrchemes to customizer
+	* style.css
+	* functions.php
+	* js/theme-customizer.js
+
+version 1.6 ( updated 05-02-2013 )
+- Integrated Google Fonts options into Customizer
+
+List of modified files:
+epanel/core_functions.php
+epanel/custom_functions.php
+epanel/google-fonts/et_google_fonts.css
+epanel/google-fonts/et_google_fonts.js
+epanel/google-fonts/images/all-fonts.png
+epanel/options_origin.php
+functions.php
+lang/de_DE.mo
+lang/de_DE.po
+lang/en_US.mo
+lang/en_US.po
+lang/ru_RU.mo
+lang/ru_RU.po
+
+version 1.5 ( updated 04-02-2013 )
+- Integrated the default WordPress image system. It makes the theme work better on shared hostings and provides compatibility with plugins ( JetPack, WP Retina etc. ). Please, regenerate thumbnails after theme update ( http://wordpress.org/extend/plugins/regenerate-thumbnails/ ).
+- Full compatiblity with WPML plugin
+- Added 'Custom CSS' option to ePanel
+
+Nearly all files have been updated this time. Please, make sure you update all files.
+
+version 1.4 ( updated 02-04-2013 )
+- Fixed 'Disable top tier dropdown menu links' option
+	* js/custom.js
+- Removed unneeded advertisement options
+	* epanel/options_origin.php
+- Fixed IE8 and IE9 issues
+	* functions.php
+	* header.php
+	* style.css
+	* js/jquery.infinitescroll.js
+	* js/respond.min.js
+- Fixed the touch action on iOS and Android devices
+	* js/custom.js
+- Fixed the site flickering issue on iOS and Mountain Lion OS
+	* functions.php
+	* style.css
+- Corrected issue with placeholder text removal before comment form submission
+- Fixed 'Shortcode Slideshow Only Displays 11 Images' issue
+- Added alt attribute to the imagetab shortcode
+- Fixed update notification notice in WP-Admin
+- Fixed image issues with clean WordPress Multisite 3.5 installation
+- Added et_videolink_embed custom field ( it provides the way to use video embed code for posts in the Portfolio page template )
+- Improved ePanel functionality
+- Improvement: Contact form error notifications are translatable via localization files now
+- Code improvements
+	* epanel/core_functions.php
+	* epanel/custom_functions.php
+	* epanel/import_settings.php
+	* removed epanel/js/jquery-ui.min.js
+	* removed epanel/js/jquery.form.js
+	* epanel/options_origin.php
+	* epanel/page_templates/js/et-ptemplates-frontend.js
+	* epanel/page_templates/page_templates.php
+	* epanel/shortcodes/js/et_shortcodes_frontend.dev.js
+	* epanel/shortcodes/js/et_shortcodes_frontend.js
+	* epanel/shortcodes/shortcodes.php
+	* functions.php
+	* header.php
+	* includes/widgets/widget-about.php
+	* includes/widgets/widget-ads.php
+	* includes/widgets/widget-adsense.php
+	* index.php
+	* js/custom.js
+	* added js/jquery.infinitescroll.js
+	* removed js/jquery.infinitescroll.min.js
+	* added js/respond.min.js
+	* lang/de_DE.mo
+	* lang/de_DE.po
+	* lang/en_US.mo
+	* lang/en_US.po
+	* lang/ru_RU.mo
+	* lang/ru_RU.po
+	* page-blog.php
+	* page-contact.php
+	* page-gallery.php
+	* page-login.php
+	* page-search.php
+	* page-sitemap.php
+	* page-template-portfolio.php
+	* style.css
+
+version 1.3 ( updated 12-06-2012 )
+- Updated image resizing to utilize WP_Image_Editor object, available in WordPress 3.5 ( http://make.wordpress.org/core/2012/12/06/wp_image_editor-is-incoming/ )
+	* epanel/custom_functions.php
+
+version 1.2 ( updated 12-04-2012 )
+- Fixed ePanel active tab issue in WordPress 3.5
+	* epanel/css/panel.css
+- Bumped version number
+	* style.css
+
+version 1.1 ( updated 10-21-2012 )
+- Fixed text rendering on Mac
+- Bumped version number
+	* style.css
+
+version 1.0
+
+- initial release

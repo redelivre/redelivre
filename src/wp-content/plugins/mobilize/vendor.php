@@ -20,6 +20,17 @@ class Mobilize {
 	 */
 	public static function createPageTemplate()
 	{
+		/* Injeta um item no cache de templates para garantir que o dropdown seja
+		 * mostrado. Ainda é necessário o javascript porque podemos apenas
+		 * sobreescrever as opções, não adicionar. */
+		if (!count(get_page_templates()))
+		{
+			$cacheKey = 'page_templates-'.md5(get_theme_root().'/'.get_stylesheet());
+			wp_cache_set($cacheKey,
+					array('mobilize_force_dropdown' => 'mobilize_force_dropdown'),
+					'themes', 1800);
+		}
+
 		wp_enqueue_script('mobilize-edit',
 			plugins_url('/mobilize/assets/js/edit.js', INC_MOBILIZE));
 		wp_localize_script('mobilize-edit', 'templateData',
@@ -154,10 +165,10 @@ class Mobilize {
      */
     public static function getOption($index = null) {
         $option = get_option(self::OPTION_NAME);
-        $option['redes']['description']   = isset($option['redes']['description'])   ?  $option['redes']['description']   : __(self::TEXTO_DESCRITIVO_PADRAO_REDES);;
-        $option['banners']['description'] = isset($option['banners']['description']) ?  $option['banners']['description'] : __(self::TEXTO_DESCRITIVO_PADRAO_BANNERS);
-        $option['adesive']['description'] = isset($option['adesive']['description']) ?  $option['adesive']['description'] : __(self::TEXTO_DESCRITIVO_PADRAO_ADESIVE);
-        $option['envie']['description']   = isset($option['envie']['description'])   ?  $option['envie']['description']   : __(self::TEXTO_DESCRITIVO_PADRAO_ENVIE);
+        $option['redes']['description']   = isset($option['redes']['description'])   ?  $option['redes']['description']   : __(self::TEXTO_DESCRITIVO_PADRAO_REDES, 'mobilize');
+        $option['banners']['description'] = isset($option['banners']['description']) ?  $option['banners']['description'] : __(self::TEXTO_DESCRITIVO_PADRAO_BANNERS, 'mobilize');
+        $option['adesive']['description'] = isset($option['adesive']['description']) ?  $option['adesive']['description'] : __(self::TEXTO_DESCRITIVO_PADRAO_ADESIVE, 'mobilize');
+        $option['envie']['description']   = isset($option['envie']['description'])   ?  $option['envie']['description']   : __(self::TEXTO_DESCRITIVO_PADRAO_ENVIE, 'mobilize');
 
         $result = $index ? @$option[$index] : $option;
 
@@ -423,8 +434,8 @@ class Mobilize {
             
         $file = WideImage::load($_FILES['adesive']['tmp_name'][$index]);
         
-        if ($file->getWidth() < 250) {
-            self::addError('adesive', "O banner deve ter no mínimo 250 pixels de largura.");
+        if ($file->getWidth() < 150) {
+            self::addError('adesive', "O adesivo deve ter no mínimo 150 pixels de largura.");
             $ok = false;
         }
 

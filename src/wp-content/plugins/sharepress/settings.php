@@ -21,18 +21,67 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
       
       <?php if (!self::is_mu()) { ?>
 
+        <?php if (!self::is_mu() && ( !defined('SHAREPRESS_MU_LICENSE_KEY') || !SHAREPRESS_MU_LICENSE_KEY )) { ?>
+
+          <h3 class="title">Your License Key</h3>
+
+          <?php 
+            #
+            # Don't be a dick. We have kids to feed. :)
+            # https://getsharepress.com
+            #
+            if (!self::unlocked()) { ?>
+            <p>
+              <a href="https://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=buy-a-license">Buy a license key today</a>.
+              Unlock Facebook Pages and Twitter features, and get support from the developers of SharePress!
+            </p>
+          <?php } else { ?>
+            <p>You're a pro user! Need support? <a href="mailto:support@fatpanda.zendesk.com">Just e-mail us</a>.
+          <?php } ?>
+
+          <table class="form-table">
+            <tr>
+              <th><label for="sharepress_license_key">License Key:</label></th>
+              <td>
+                <input style="width:25em;" type="text" id="sharepress_license_key" name="<?php echo self::OPTION_SETTINGS ?>[license_key]" value="<?php echo htmlentities(self::license_key()) ?>" />
+              </td>
+            </tr>
+          </table>
+
+          <p class="submit">
+            <input id="btnSaveSettings" class="button" value="Save License Key" type="submit" />
+          </p>
+
+        <?php } ?>
+
         <h3 class="title">Your Facebook Application</h3>
       
+        <p>Start by visiting the <a href="https://developers.facebook.com/apps" target="_blank">App Dashboard</a>. If you haven't created an application before you will be prompted to register. Note that you have to <a href="https://www.facebook.com/help/?faq=17580" target="_blank">verify your Facebook account</a> to create apps on Facebook.</p>
+
         <p>
-          Before you continue, you'll need to create a Facebook Application. 
-          <a href="http://www.facebook.com/developers/createapp.php" target="_blank">Do this now</a>.
-          &nbsp;&nbsp;<b><a href="http://aaroncollegeman.com/sharepress/help/how-to-setup-sharepress/" target="_blank">Need more help?</a></b>
+          <b style="color:red;">APP DOMAINS</b>
+          &nbsp;&nbsp;Your App Domain is <b><?php $url = parse_url(get_option('siteurl')); echo $url['host'] ?></b>, and goes in <a href="http://cl.ly/image/2I3Q0d3U0d3Q" target="_blank">this field</a>.
+        </p>  
+
+        <p>
+          <b style="color:red;">SITE URL</b>
+          &nbsp;&nbsp;Your Site URL is <b><?php echo preg_replace('#/+$#', '/', get_option('siteurl').'/') ?></b>, and goes in <a href="http://cl.ly/image/0z1E0n0M2q3L" target="_blank">this field</a>.
         </p>
 
         <p>
-          <b>Note:</b> Your Site URL is <b><?php echo preg_replace('#/+$#', '/', get_option('siteurl').'/') ?></b>, 
-          and your domain is <b><?php $url = parse_url(get_option('siteurl')); echo $url['host'] ?></b>.
-        </p>  
+          <b style="color:red;">SANDBOX MODE</b>
+          &nbsp;&nbsp;Don't forget to <b>Disable</b> Sandbox Mode with <a href="http://cl.ly/image/0B2n0l2x120E" target="_blank">this field</a>. If you don't, no one will see your posts.
+        </p>
+
+        <?php if (self::unlocked()) { ?>
+          <p>
+            Need more help? <a href="mailto:support@fatpanda.zendesk.com">Just e-mail us</a>.
+          </p>
+        <?php } else { ?>
+          <p>
+            Need more help? <a href="http://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=go-pro">Buy a license key</a>.
+          </p>
+        <?php } ?>
         
         <table class="form-table">
           <tr>
@@ -53,11 +102,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
           </tr>
         </table>
 
-        <p style="padding:10px; background-color:#ffffcc;">
-          <b style="color:red;">Breaking Change</b>
-          &nbsp;Are you having to run SharePress setup repeatedly? You need to enable <code>offline_access</code> deprecation.
-          &nbsp;<a href="http://aaroncollegeman.com/2012/02/03/breaking-change-configuring-your-facebook-application-for-offline_access-deprecation" target="_blank">Read more &rarr;</a>
-        </p>
+        
 
       <?php } else if (self::has_keys()) { ?>
 
@@ -93,7 +138,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
           var app_secret = $('#<?php echo self::OPTION_APP_SECRET ?>');
           var btn = $('#btnConnect');
 
-          $('#settings_form').submit(function() {
+          $('#btnConnect').click(function() {
             api_key.val($.trim(api_key.val()));
             app_secret.val($.trim(app_secret.val()));  
 
@@ -143,7 +188,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
           if (!self::unlocked()) { ?>
           <p>
             <a href="https://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=buy-a-license">Buy a license</a> key today.
-            Unlock pro features, get access to documentation and support from the developer of SharePress!
+            Unlock Facebook Pages and Twitter features, and get support from the developers of SharePress!
           </p>
         <?php } else { ?>
           <p>Awesome, tamales! Need support? <a href="http://fatpanda.zendesk.com">Go here</a>.
@@ -184,8 +229,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
           </td>
         </tr>
       </table>
-
-      <br />
+       <br />
       <h3 class="title">Post Link</h3>
       <p>Append post link to the end of Facebook messages?</p>
 
@@ -223,7 +267,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
         <tr>
           <td>
             <b>Facebook "article:publisher" url</b><br>
-            <input type="text" class="regular-text" name="<?php echo self::OPTION_SETTINGS ?>[fb_publisher_url]" id="fb_publisher_url" value="<?= $this->setting('fb_publisher_url') ?>">
+            <input type="text" class="regular-text" name="<?php echo self::OPTION_SETTINGS ?>[fb_publisher_url]" id="fb_publisher_url" value="<?php echo $this->setting('fb_publisher_url') ?>">
             <p>
               <span class="description">
                 You may add a url to a publisher page here. It will allow readers to like your publisher page from their news feed, <a href="https://developers.facebook.com/blog/post/2013/06/19/platform-updates--new-open-graph-tags-for-media-publishers-and-more/">read this article for details.</a>
@@ -312,7 +356,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
       <?php } else { ?>
         <p>
           When you publish new post, where should it be announced?
-          <?php if (self::$pro) { ?>
+          <?php if (self::unlocked()) { ?>
             You'll be able to change this for each post: these are just the defaults.
           <?php } else { ?>
             If you <a href="https://getsharepress.com/?utm_source=sharepress&amp;utm_medium=in-app-promo&amp;utm_campaign=post-to-page">unlock the pro features</a>, you will also be able to select from your Facebook pages.
@@ -336,17 +380,19 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
 
             <tbody>
               <!-- our blog owner's wall -->
-              <tr id="" class="alternate">
-                <th scope="row" class="check-column">
-                  <input type="checkbox" name="sharepress_publishing_targets[wall]" value="1" <?php if (self::targets('wall')) echo 'checked="checked"' ?>>
-                </th>
-                <td><a target="_blank" href="http://facebook.com/profile.php?id=<?php echo self::me('id') ?>">
-                  <?php echo (preg_match('/s$/i', trim($name = self::me('name')))) ? $name.'&apos;' : $name.'&apos;s' ?> Wall</a></td>
-              </tr>
+              <?php if (!self::unlocked() || !self::$pro->is_excluded_page('wall')) { ?>
+                <tr id="" class="alternate">
+                  <th scope="row" class="check-column">
+                    <input type="checkbox" name="sharepress_publishing_targets[wall]" value="1" <?php if (self::targets('wall')) echo 'checked="checked"' ?>>
+                  </th>
+                  <td><a target="_blank" href="http://facebook.com/profile.php?id=<?php echo self::me('id') ?>">
+                    <?php echo (preg_match('/s$/i', trim($name = self::me('name')))) ? $name.'&apos;' : $name.'&apos;s' ?> Wall</a></td>
+                </tr>
+              <?php } ?>
               <!-- /blog owner's wall -->
             
               <!-- all of the blog owner's pages -->
-              <?php foreach(self::pages() as $i => $page) { if (self::$pro && self::$pro->is_excluded_page($page)) continue; ?>
+              <?php foreach(self::pages() as $i => $page) { if (self::unlocked() && self::$pro->is_excluded_page($page)) continue; ?>
                 <tr class="<?php if ($i % 2) echo 'alternate' ?>">
                   <th scope="row" class="check-column">
                     <input type="checkbox" name="sharepress_publishing_targets[<?php echo $page['id'] ?>]" value="1" <?php if (self::targets($page['id'])) echo 'checked="checked"' ?>>

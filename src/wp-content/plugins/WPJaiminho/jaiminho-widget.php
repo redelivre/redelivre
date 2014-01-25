@@ -10,15 +10,21 @@ class Widget_Jaiminho extends WP_Widget {
 		
 		extract( $args );
 
-		$title = apply_filters( 'widget_title', empty($instance['title']) ? __('Jaiminho') : $instance['title'] );
-		$jaiminho_text = apply_filters( 'widget_text', $instance['jaiminho_text'], $instance );
+		$title = array_key_exists('title', $instance)?
+			apply_filters( 'widget_title',
+					empty($instance['title']) ? __('Jaiminho') : $instance['title'] ) :
+			'';
+		$jaiminho_text = array_key_exists('jaiminho_text', $instance)?
+			apply_filters( 'widget_text', $instance['jaiminho_text'], $instance ) :
+			'';
 		
 		echo $before_widget;
 		
 		if ( $title ) echo $before_title . $title . $after_title;
 		
 		
-		if ( $jaiminho_id = (int) $instance['jaiminho_id'] ) { ?>
+		if ( array_key_exists('jaiminho_id', $instance)
+				&& $jaiminho_id = (int) $instance['jaiminho_id'] ) { ?>
 		
 			<div class="jaiminho">
 				<div class="jaiminho-excerpt"><?php echo wpautop($jaiminho_text); ?></div>
@@ -28,7 +34,7 @@ class Widget_Jaiminho extends WP_Widget {
 			
 		<?php
 		}
-		else {
+		else if ( current_user_can('manage_options') ){
 			echo '<em>Não foi informado o ID da lista do Jaiminho. Preencha corretamente o campo do ID dentro do
 			widget. Você pode encontrar o ID dentro do campo <code>value</code>, na primeira linha do
 			formulário.</em>';

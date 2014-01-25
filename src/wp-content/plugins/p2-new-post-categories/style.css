@@ -1,0 +1,10 @@
+#new_post {
+	position: relative;
+	padding-bottom: 2.25em;
+}
+
+	#p2-new-post-category {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}

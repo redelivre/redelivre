@@ -3,17 +3,18 @@ Contributors: webvitaly
 Donate link: http://web-profile.com.ua/donate/
 Tags: spam, spammer, spammers, comment, comments, antispam, anti-spam, block-spam, spamfree, spam-free, spambot, spam-bot, bot
 Requires at least: 3.0
-Tested up to: 3.6.1
-Stable tag: 1.9
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 3.8
+Stable tag: 2.0
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl.html
 
 No spam in comments. No captcha.
 
 == Description ==
 
 [Anti-spam](http://web-profile.com.ua/wordpress/plugins/anti-spam/ "Plugin page") |
-[Donate](http://web-profile.com.ua/donate/ "Support the development")
+[Donate](http://web-profile.com.ua/donate/ "Support the development") |
+[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169 "Go Pro")
 
 Anti-spam plugin blocks spam in comments automatically, invisibly for users and for admins.
 
@@ -92,6 +93,10 @@ Do not order products from spam. If spam will be less effective than spammers wi
 
 
 == Changelog ==
+
+= 2.0 - 2014-01-04 =
+* bug fixing
+* updating info
 
 = 1.9 - 2013-10-23 =
 * change the html structure
