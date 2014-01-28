@@ -105,6 +105,12 @@ switch ($_POST['action']) {
         
         // if using wp-super-cache, clean the cache
         if (function_exists('wp_cache_clean_cache')) wp_cache_clean_cache('wp-cache');
+
+        $lastOptions = eletrowidgets_get_last_options();
+
+        if (json_decode($lastOptions, true) !== $publicOptions) {
+            eletrowidgets_insert_into_history($publicOptions);
+        }
         
         break;
         
@@ -120,6 +126,27 @@ switch ($_POST['action']) {
         
         break;
     
+}
+
+function eletrowidgets_insert_into_history($options) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+    $data = array('data' => json_encode($options));
+
+    $wpdb->insert($table, $data);
+}
+
+function eletrowidgets_get_last_options() {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+
+    $query = "SELECT data FROM $table "
+        . 'ORDER BY ID DESC '
+        . 'LIMIT 1';
+
+    return $wpdb->get_var($query);
 }
 
 ?>

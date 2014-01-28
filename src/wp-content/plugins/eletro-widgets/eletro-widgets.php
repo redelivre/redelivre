@@ -20,7 +20,7 @@ else
 {
 	define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
 }
-define('EW_DB_VERSION', 1);
+define('EW_DB_VERSION', 2);
 
 add_action('wp_print_scripts', 'eletrowidgets_print_scripts');
 add_action('wp_print_styles', 'eletrowidgets_print_styles');
@@ -356,7 +356,7 @@ function eletrowidgets_update_db() {
 
 		$query = "CREATE TABLE $table (
 			id int NOT NULL AUTO_INCREMENT,
-			date datetime NOT NULL,
+			date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
 			data text,
 			UNIQUE KEY id (id)
 		);";
