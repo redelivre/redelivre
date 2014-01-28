@@ -149,7 +149,7 @@ function eletrowidget_get_revision($canvas, $revision) {
     $table = $wpdb->prefix . 'eletro_widgets_history';
 
     $query = $wpdb->prepare("SELECT data FROM $table "
-        . 'WHERE canvas = %d AND id = %d', $canvas, $revision);
+        . 'WHERE canvas = %s AND id = %d', $canvas, $revision);
 
     return json_decode($wpdb->get_var($query), true);
 }
@@ -160,7 +160,7 @@ function eletrowidgets_get_history($canvas, $offset, $limit) {
     $table = $wpdb->prefix . 'eletro_widgets_history';
 
     $query = "SELECT id, date FROM $table "
-        . 'WHERE CANVAS = %d '
+        . 'WHERE CANVAS = %s '
         . 'ORDER BY ID DESC ';
     if ($limit > 0) {
         $query .= "LIMIT $limit ";
@@ -194,7 +194,7 @@ function eletrowidgets_get_last_options($canvas) {
     $table = $wpdb->prefix . 'eletro_widgets_history';
 
     $query = $wpdb->prepare("SELECT data FROM $table "
-        . 'WHERE canvas = %d '
+        . 'WHERE canvas = %s '
         . 'ORDER BY ID DESC '
         . 'LIMIT 1', $canvas);
 

@@ -20,7 +20,7 @@ else
 {
 	define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
 }
-define('EW_DB_VERSION', 3);
+define('EW_DB_VERSION', 4);
 
 add_action('wp_print_scripts', 'eletrowidgets_print_scripts');
 add_action('wp_print_styles', 'eletrowidgets_print_styles');
@@ -361,7 +361,7 @@ function eletrowidgets_update_db() {
 			id int NOT NULL AUTO_INCREMENT,
 			date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
 			data text,
-			canvas int NOT NULL,
+			canvas varchar(128) NOT NULL,
 			UNIQUE KEY id (id)
 		);";
 
