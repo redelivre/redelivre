@@ -53,7 +53,7 @@ jQuery.extend(eletroCanvas.prototype, {
         //Apply to public behavior
         jQuery('#' + this.id).find('.eletroApply').click(function() {
             if (confirm(eletro.confirmApply)) {
-                jQuery.ajax({
+                var request = jQuery.ajax({
                     type: 'POST',
                     dataType: 'html',
                     url: eletro.ajaxurl,
@@ -62,9 +62,11 @@ jQuery.extend(eletroCanvas.prototype, {
                         action: 'apply',
                         canvas_id: th.index
                     },
-                    complete: function() {
-                        alert(eletro.feedbackApply);
-                    }
+                });
+
+                request.done(function() {
+                    alert(eletro.feedbackApply);
+                    th.getHistory();
                 });
             }
         });
@@ -230,16 +232,20 @@ jQuery.extend(eletroCanvas.prototype, {
             },
         });
 
-        var history = {0 : 'Default'}
+        var history = {};
         var select = jQuery('#' + this.id).find('#eletroHistory');
         request.done(function(jsonHistory) {
             history = jQuery.parseJSON(jsonHistory);
-            select.find('option').remove();
+
+            if (history.length) {
+                select.find('option').remove();
+            }
 
             for (var id in history) {
-                var option = jQuery('<option></option>').appendTo(select);
+                var option = jQuery('<option></option>').prependTo(select);
                 option.val(id);
                 option.text(history[id]);
+                select.val(id);
             }
         });
     }
