@@ -106,10 +106,10 @@ switch ($_POST['action']) {
         // if using wp-super-cache, clean the cache
         if (function_exists('wp_cache_clean_cache')) wp_cache_clean_cache('wp-cache');
 
-        $lastOptions = eletrowidgets_get_last_options();
+        $lastOptions = eletrowidgets_get_last_options($canvas_id);
 
         if (json_decode($lastOptions, true) !== $publicOptions) {
-            eletrowidgets_insert_into_history($publicOptions);
+            eletrowidgets_insert_into_history($publicOptions, $canvas_id);
         }
         
         break;
@@ -128,23 +128,25 @@ switch ($_POST['action']) {
     
 }
 
-function eletrowidgets_insert_into_history($options) {
+function eletrowidgets_insert_into_history($options, $canvas) {
     global $wpdb;
 
     $table = $wpdb->prefix . 'eletro_widgets_history';
-    $data = array('data' => json_encode($options));
+    $data = array('data' => json_encode($options),
+                'canvas' => $canvas);
 
     $wpdb->insert($table, $data);
 }
 
-function eletrowidgets_get_last_options() {
+function eletrowidgets_get_last_options($canvas) {
     global $wpdb;
 
     $table = $wpdb->prefix . 'eletro_widgets_history';
 
-    $query = "SELECT data FROM $table "
+    $query = $wpdb->prepare("SELECT data FROM $table "
+        . 'WHERE canvas = %d '
         . 'ORDER BY ID DESC '
-        . 'LIMIT 1';
+        . 'LIMIT 1', $canvas);
 
     return $wpdb->get_var($query);
 }
