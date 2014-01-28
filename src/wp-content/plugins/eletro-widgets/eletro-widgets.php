@@ -20,11 +20,13 @@ else
 {
 	define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
 }
+define('EW_DB_VERSION', 1);
 
 add_action('wp_print_scripts', 'eletrowidgets_print_scripts');
 add_action('wp_print_styles', 'eletrowidgets_print_styles');
 
 add_action('init', 'eletrowidgets_load_textdomain');
+add_action('init', 'eletrowidgets_update_db');
 
 function eletrowidgets_load_textdomain() {
 	$pluginFolder = plugin_basename( dirname(__FILE__) );
@@ -345,6 +347,25 @@ function eletroWidgetsInstall() {
     $options = array();
     update_option('eletro_widgets', $options);
     update_option('eletro_widgets_public', $options);
+}
+
+function eletrowidgets_update_db() {
+	if (get_option('eletro_widgets_db_version') != EW_DB_VERSION) {
+		global $wpdb;
+		$table = $wpdb->prefix . 'eletro_widgets_history';
+
+		$query = "CREATE TABLE $table (
+			id int NOT NULL AUTO_INCREMENT,
+			date datetime NOT NULL,
+			data text,
+			UNIQUE KEY id (id)
+		);";
+
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($query);
+
+		update_option('eletro_widgets_db_version', EW_DB_VERSION);
+	}
 }
 
 function eletroWidgetsUninstall() {
