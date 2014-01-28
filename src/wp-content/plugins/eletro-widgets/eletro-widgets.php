@@ -101,6 +101,9 @@ class EletroWidgets {
             echo '<a class="eletroToggleControls">' . __('Show/Hide Controls', 'eletroWidgets') . '</a>';
             echo '<a class="eletroClearAll">' . __('Clear', 'eletroWidgets') . '</a>';            
             echo '<a class="eletroRestore">' . __('Restore', 'eletroWidgets') . '</a>';
+            echo '<select id="eletroHistory">';
+            echo '<option value="0">', __('No History', 'eletroWidgets'), '</option>';
+            echo '</select>';
             echo '</div>';
             echo '<div class="right">';
             echo '<a class="eletroApply">' . __('Apply', 'eletroWidgets') . '</a>';

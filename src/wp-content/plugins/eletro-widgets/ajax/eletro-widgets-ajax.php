@@ -126,6 +126,40 @@ switch ($_POST['action']) {
         
         break;
     
+    case 'get_history':
+        $canvas = $_POST['canvas_id'];
+        $offset = (int) $_POST['offset'];
+        $limit = (int) $_POST['limit'];
+
+        $history = eletrowidgets_get_history($canvas, $offset, $limit);
+
+        echo json_encode($history);
+
+        break;
+}
+
+function eletrowidgets_get_history($canvas, $offset, $limit) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+
+    $query = "SELECT id, date FROM $table "
+        . 'WHERE CANVAS = %d '
+        . 'ORDER BY ID DESC ';
+    if ($limit > 0) {
+        $query .= "LIMIT $limit ";
+    }
+    if ($offset > 0) {
+        $query .= "OFFSET $offset ";
+    }
+    $query = $wpdb->prepare($query, $canvas);
+
+    $history = array();
+    for ($i = 0; $row = $wpdb->get_row($query, ARRAY_A, $i); $i++) {
+        $history[$row['id']] = $row['date'];
+    }
+
+    return $history;
 }
 
 function eletrowidgets_insert_into_history($options, $canvas) {

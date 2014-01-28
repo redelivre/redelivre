@@ -88,6 +88,7 @@ jQuery.extend(eletroCanvas.prototype, {
             }
         });
         
+        this.getHistory();
     },
     
     toggleControls: function() {
@@ -213,6 +214,34 @@ jQuery.extend(eletroCanvas.prototype, {
                     new eletroItem(instanceID, th);
                 }
             });
+    },
+
+    getHistory: function() {
+        var request = jQuery.ajax({
+            type: 'POST',
+            dataType: 'html',
+            url: eletro.ajaxurl,
+            data:
+            {
+                action: 'get_history',
+                offset: 0,
+                limit: -1,
+                canvas_id: this.index,
+            },
+        });
+
+        var history = {0 : 'Default'}
+        var select = jQuery('#' + this.id).find('#eletroHistory');
+        request.done(function(jsonHistory) {
+            history = jQuery.parseJSON(jsonHistory);
+            select.find('option').remove();
+
+            for (var id in history) {
+                var option = jQuery('<option></option>').appendTo(select);
+                option.val(id);
+                option.text(history[id]);
+            }
+        });
     }
 });
 
