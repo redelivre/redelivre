@@ -108,22 +108,27 @@ switch ($_POST['action']) {
 
         $lastOptions = eletrowidgets_get_last_options($canvas_id);
 
-        if (json_decode($lastOptions, true) !== $publicOptions) {
-            eletrowidgets_insert_into_history($publicOptions, $canvas_id);
+        if (json_decode($lastOptions, true) !== $publicOptions[$canvas_id]) {
+            eletrowidgets_insert_into_history($publicOptions[$canvas_id],
+                $canvas_id);
         }
         
         break;
         
     case 'restore' :
-    
+
         $canvas_id = $_POST['canvas_id'];
+        $revision = $_POST['revision'];
         $adminOptions = get_option('eletro_widgets');
-        $publicOptions = get_option('eletro_widgets_public');
-        
-        $adminOptions[$canvas_id] = $publicOptions[$canvas_id];
-        
-        update_option('eletro_widgets', $adminOptions);
-        
+
+        $data = eletrowidget_get_revision($canvas_id, $revision);
+
+        if ($data !== null) {
+            $adminOptions[$canvas_id] = $data;
+
+            update_option('eletro_widgets', $adminOptions);
+        }
+
         break;
     
     case 'get_history':
@@ -136,6 +141,17 @@ switch ($_POST['action']) {
         echo json_encode($history);
 
         break;
+}
+
+function eletrowidget_get_revision($canvas, $revision) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+
+    $query = $wpdb->prepare("SELECT data FROM $table "
+        . 'WHERE canvas = %d AND id = %d', $canvas, $revision);
+
+    return json_decode($wpdb->get_var($query), true);
 }
 
 function eletrowidgets_get_history($canvas, $offset, $limit) {

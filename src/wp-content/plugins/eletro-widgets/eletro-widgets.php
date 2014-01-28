@@ -42,7 +42,7 @@ function eletrowidgets_print_scripts() {
             'ajaxurl' => EW_URLPATH.'ajax/eletro-widgets-ajax.php',
             'confirmClear' => __('Are you sure you want to clear all widgets and its settings from this canvas?', 'eletroWidgets'),
             'confirmApply' => __('Are you sure you want to apply this configuration to the public view of this canvas?', 'eletroWidgets'),
-            'confirmRestore' => __('Are you sure you want to copy the settings from the public view and loose any changes you have made?', 'eletroWidgets'),
+            'confirmRestore' => __('Are you sure you want to restore an old configuration and discard unsaved changed?', 'eletroWidgets'),
             'feedbackApply' => __('Widgets applied', 'eletroWidgets'),
             'confirmRemove' => __('Are you sure you want to remove this widget?', 'eletroWidgets')
         );

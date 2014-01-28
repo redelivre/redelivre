@@ -74,6 +74,7 @@ jQuery.extend(eletroCanvas.prototype, {
         //Restore from public behavior
         jQuery('#' + this.id).find('.eletroRestore').click(function() {
             if (confirm(eletro.confirmRestore)) {
+                var revision = jQuery('#' + th.id).find('#eletroHistory').val();
                 jQuery.ajax({
                     type: 'POST',
                     dataType: 'html',
@@ -81,6 +82,7 @@ jQuery.extend(eletroCanvas.prototype, {
                      data: 
                     {
                         action: 'restore',
+                        revision: revision,
                         canvas_id: th.index
                     },
                     complete: function() {
@@ -237,7 +239,7 @@ jQuery.extend(eletroCanvas.prototype, {
         request.done(function(jsonHistory) {
             history = jQuery.parseJSON(jsonHistory);
 
-            if (history.length) {
+            if (!jQuery.isEmptyObject(history)) {
                 select.find('option').remove();
             }
 
