@@ -100,6 +100,10 @@ class EletroWidgets {
             echo '<div class="left">';
             echo '<a class="eletroToggleControls">' . __('Show/Hide Controls', 'eletroWidgets') . '</a>';
             echo '<a class="eletroClearAll">' . __('Clear', 'eletroWidgets') . '</a>';            
+            echo '<a class="eletroImport">' . __('Import', 'eletroWidgets') . '</a>';
+            echo '<a class="eletroExport" href="',
+							plugins_url("export.php?id={$this->id}", __FILE__), '">',
+							__('Export', 'eletroWidgets'), '</a>';
             echo '<a class="eletroRestore">' . __('Restore', 'eletroWidgets') . '</a>';
             echo '<select id="eletroHistory">';
             echo '<option value="0">', __('No History', 'eletroWidgets'), '</option>';
@@ -276,7 +280,7 @@ function print_eletro_widgets($id, $number, $id_base, $canvas_id, $refresh = fal
 			$widgetNiceName = $newWidget->name;
 			$widgetDivID = $newWidget->id;
 			$widgetType = 'multi';
-			$options = null;
+			$options = array('missingWidget' => $id);
 		}
 
 
@@ -392,22 +396,20 @@ register_activation_hook( __FILE__, 'eletroWidgetsInstall' );
 register_deactivation_hook( __FILE__, 'eletroWidgetsInstall' );
 
 class EletroWidgetsDummyWidget extends WP_Widget {
-	private $missingWidget;
-
-	public function __construct($missingWidget) {
+	public function __construct() {
 		parent::__construct('eletrowidgets_dummy_widget',
 			'EletroWidgets Dummy Widget',
 			array('description' =>
 				__('Displayed when the included widget is missing',
 					'eletroWidgets')));
-
-		$this->missingWidget = $missingWidget;
 	}
 
 	public function widget($args, $instance) {
 		if (current_user_can('manage_eletro_widgets')) {
+			$missingWidget = array_key_exists('missingWidget', $instance)?
+				$instance['missingWidget'] : '';
 			printf(__('%s widget is missing, reactive it or remove this',
-					'eletroWidgets'), $this->missingWidget);
+					'eletroWidgets'), $missingWidget);
 		}
 	}
 }
