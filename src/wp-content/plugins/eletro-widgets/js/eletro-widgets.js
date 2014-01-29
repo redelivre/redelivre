@@ -91,7 +91,18 @@ jQuery.extend(eletroCanvas.prototype, {
                 });
             }
         });
-        
+
+        //Import button
+        jQuery('#' + this.id).find('.eletroImport').click(function() {
+            var file = jQuery('#' + th.id).find('#eletroImportFile');
+            file.click();
+        });
+
+        //Import file chosen
+        jQuery('#' + this.id).find('#eletroImportFile').change(function() {
+            jQuery('#' + th.id).find('#eletroImportForm').submit();
+        });
+
         this.getHistory();
     },
     

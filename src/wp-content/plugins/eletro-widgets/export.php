@@ -11,7 +11,7 @@ $options = get_option('eletro_widgets');
 
 if (is_array($options) && array_key_exists($_GET['id'], $options)) {
 	header('Content-disposition: attachment; '
-			. 'filename=' . urlencode($_GET['id']));
+			. 'filename=' . urlencode($_GET['id']) . '.json');
 	header('Content-type: application/json');
 	echo json_encode($options[$_GET['id']]);
 }

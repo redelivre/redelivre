@@ -113,6 +113,15 @@ class EletroWidgets {
             echo '<a class="eletroApply">' . __('Apply', 'eletroWidgets') . '</a>';
             echo '</div>';
             echo '</div>';
+            echo '<form id="eletroImportForm" method="post" action="',
+                plugins_url('import.php', __FILE__),
+								'" style="display: none;" enctype="multipart/form-data">';
+            echo '<input name="importFile" id="eletroImportFile" type="file">';
+						echo '<input name="canvas" type="hidden" value="',
+								 htmlentities($this->id), '">';
+						echo '<input name="redirect" type="hidden" value="',
+								 htmlentities(site_url($_SERVER['REQUEST_URI'])), '">';
+            echo '</form>';
     
             
             echo '</div>';
