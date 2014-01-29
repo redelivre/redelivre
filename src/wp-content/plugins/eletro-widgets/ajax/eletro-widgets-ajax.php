@@ -2,6 +2,10 @@
 
 require_once('../../../../wp-load.php');
 
+if (!current_user_can('manage_eletro_widgets')) {
+    die;
+}
+
 global $wp_registered_widgets, $wp_registered_widget_controls, $wp_registered_widget_updates;
 
 switch ($_POST['action']) {
