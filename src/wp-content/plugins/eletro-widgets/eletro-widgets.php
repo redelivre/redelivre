@@ -241,7 +241,7 @@ function print_eletro_widgets($id, $number, $id_base, $canvas_id, $refresh = fal
 
 
     if ($id) {
-
+		global $wp_registered_widgets, $wp_registered_widget_controls;
 
         if (class_exists($id)) {
 			// Multi Widget
@@ -261,15 +261,24 @@ function print_eletro_widgets($id, $number, $id_base, $canvas_id, $refresh = fal
 			$widgetType = 'multi';
 			$widgetDivID = $newWidget->id;
 
-		} else {
+		} else if (array_key_exists($id, $wp_registered_widgets)) {
 			// Single Widget
-            global $wp_registered_widgets, $wp_registered_widget_controls;
             $widgetName = $widgetNiceName = $wp_registered_widgets[$id]['name'];
 			$callback = $wp_registered_widgets[$id]['callback'];
 			$callbackControl = $wp_registered_widget_controls[$id]['callback'];
 			$widgetType = 'single';
 			$widgetDivID = $id;
+		} else {
+			// The widget doesn't exist, replace it with a dummy one
+			$widgetName = $id_base;
+			$newWidget = new EletroWidgetsDummyWidget($id);
+			$newWidget->_set($number);
+			$widgetNiceName = $newWidget->name;
+			$widgetDivID = $newWidget->id;
+			$widgetType = 'multi';
+			$options = null;
 		}
+
 
 		$params = array(
 			'name' => $widgetName,
@@ -381,5 +390,26 @@ function eletroWidgetsUninstall() {
 
 register_activation_hook( __FILE__, 'eletroWidgetsInstall' );
 register_deactivation_hook( __FILE__, 'eletroWidgetsInstall' );
+
+class EletroWidgetsDummyWidget extends WP_Widget {
+	private $missingWidget;
+
+	public function __construct($missingWidget) {
+		parent::__construct('eletrowidgets_dummy_widget',
+			'EletroWidgets Dummy Widget',
+			array('description' =>
+				__('Displayed when the included widget is missing',
+					'eletroWidgets')));
+
+		$this->missingWidget = $missingWidget;
+	}
+
+	public function widget($args, $instance) {
+		if (current_user_can('manage_eletro_widgets')) {
+			printf(__('%s widget is missing, reactive it or remove this',
+					'eletroWidgets'), $this->missingWidget);
+		}
+	}
+}
 
 ?>
