@@ -142,7 +142,7 @@ switch ($_POST['action']) {
 
         $history = eletrowidgets_get_history($canvas, $offset, $limit);
 
-        echo json_encode($history);
+        echo json_encode($history === null? array() : $history);
 
         break;
 }
