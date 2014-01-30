@@ -9,9 +9,11 @@
 			<?php endif; ?>
 			
 			<div class="span4 sidebar-home">
-				<div class="info">
-					<?php echo get_option('_mobilize_apresentacao'); ?>
-				</div>
+				<?php if (get_theme_mod('show-presentation')): ?>
+					<pre class="info"><?php
+						echo esc_html(get_theme_mod('presentation'));
+					?></pre>
+				<?php endif; ?>
 				<div class="widgets">
 					<?php get_sidebar()?>
 				</div>

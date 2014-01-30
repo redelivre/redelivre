@@ -23,6 +23,8 @@ class Ethymos_Admin{
 	*
 	*/
 	public function theme_customizer($wp_customize){
+		require_once get_template_directory() . '/lib/control.class.php';
+
 		// Cores
 		$wp_customize->add_section('cores', array('title' => __('Cores', 'mobilize'), 'priority' => 30));
 		$wp_customize->add_setting('cor-1', array('default' => '#ee720d', 'transport' => 'refresh'));
@@ -74,6 +76,24 @@ class Ethymos_Admin{
 			'section'    => 'background',
 			'settings'   => 'background-cor',
 		)));
+
+		// Presentation
+		$wp_customize->add_section('presentation',
+				array('title' => __('Apresentação', 'mobilize'), 'priority' => 30));
+
+		$wp_customize->add_setting('show-presentation', array('default' => true));
+		$wp_customize->add_control('show-presentation',
+				array('label' => __('Mostrar apresentação', 'mobilize'),
+					'section' => 'presentation',
+					'type' => 'checkbox'));
+
+		$wp_customize->add_setting('presentation',
+				array('default' => __('Customize a apresentação', 'mobilize')));
+		$wp_customize->add_control(new MobilizeControl($wp_customize,
+					'presentation',
+					array('label' => __('Apresentação', 'mobilize'),
+						'section' => 'presentation',
+						'type' => 'textarea')));
 	}
 	
 	/**
