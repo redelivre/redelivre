@@ -12,8 +12,6 @@ class Ethymos_Admin{
 		add_action('add_meta_boxes', array($this, 'metabox_equipe'));
 		add_action('save_post', array($this, 'metabox_equipe_save'));
 		
-		add_action('admin_menu', array($this, 'theme_options'));
-		
 		//metabox subtitulo
 		add_action('add_meta_boxes', array($this, 'metabox_subtitulo'));
 		add_action('save_post', array($this, 'metabox_subtitulo_save'));
@@ -199,42 +197,6 @@ class Ethymos_Admin{
 				update_post_meta($_POST['post_ID'], '_link-twitter', $_POST['meta-link-twitter']);
 			}
 		}
-	}
-	
-	/**
-	*
-	*
-	*/
-	public function theme_options(){
-		add_theme_page('Opções', 'Opções', 'install_themes', 'opcoes', array($this, 'theme_options_exibe'));
-	}
-	
-	/**
-	*
-	*
-	*/
-	public function theme_options_exibe(){
-		include get_template_directory() . '/admin/theme-options.php';
-	}
-	
-	/**
-	*
-	*
-	*/
-	public function theme_options_save(){
-		if(isset($_POST['endereco'])){
-			update_option('_mobilize_endereco', $_POST['endereco']);
-		}
-		
-		if(isset($_POST['telefone'])){
-			update_option('_mobilize_telefone', $_POST['telefone']);
-		}
-		
-		if(isset($_POST['apresentacao'])){
-			update_option('_mobilize_apresentacao', $_POST['apresentacao']);
-		}
-		
-		return true;
 	}
 
 }
