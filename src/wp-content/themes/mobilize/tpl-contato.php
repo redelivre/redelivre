@@ -15,8 +15,25 @@
 		    				<h4>Fale conosco!</h4>
 		    				
 		    				<div class="contact borda-cor-1">
-		    				<p><span>telefones</span> 41 0000 0000</p>
-		    				<p><span>email</span> contato@mobilize.com.br</p>
+								<?php if (get_theme_mod('show-phone-number')): ?>
+									<p>
+										<span><?php _e('Telefone:', 'mobilize'); ?></span>
+										<?php echo esc_html(get_theme_mod('phone-number')); ?>
+									</p>
+								<?php endif; ?>
+								<?php if (get_theme_mod('show-email')): ?>
+									<p>
+										<span><?php _e('E-mail:', 'mobilize'); ?></span>
+										<?php echo esc_html(get_theme_mod('email')); ?>
+									</p>
+								<?php endif; ?>
+								<?php if (get_theme_mod('show-address')): ?>
+									<p>
+										<span><?php _e('Endereço:', 'mobilize'); ?></span>
+										<br>
+										<pre><?php echo esc_html(get_theme_mod('address')); ?></pre>
+									</p>
+								<?php endif; ?>
 		    				</div>
 		    				
 		    				<div class="contact-form borda-cor-1">

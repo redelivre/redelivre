@@ -94,6 +94,54 @@ class Ethymos_Admin{
 					array('label' => __('Apresentação', 'mobilize'),
 						'section' => 'presentation',
 						'type' => 'textarea')));
+
+		// Contact
+		$wp_customize->add_section('contact',
+				array('title' => __('Contato', 'mobilize'), 'priority' => 30));
+
+		$wp_customize->add_setting('show-phone-number', array('default' => true));
+		$wp_customize->add_control('show-phone-number',
+				array('label' => __('Mostrar telefone', 'mobilize'),
+					'section' => 'contact',
+					'type' => 'checkbox'));
+
+		$wp_customize->add_setting('show-email', array('default' => true));
+		$wp_customize->add_control('show-email',
+				array('label' => __('Mostrar e-mail', 'mobilize'),
+					'section' => 'contact',
+					'type' => 'checkbox'));
+
+		$wp_customize->add_setting('show-address', array('default' => true));
+		$wp_customize->add_control('show-address',
+				array('label' => __('Mostrar endereço', 'mobilize'),
+					'section' => 'contact',
+					'type' => 'checkbox'));
+
+		$wp_customize->add_setting('email', array('default' => 'name@example.com'));
+		$wp_customize->add_control('email',
+				array('label' => __('E-mail', 'mobilize'),
+					'section' => 'contact',
+					'type' => 'text'));
+
+		$wp_customize->add_setting('phone-number', array('default' => '(00) 0000-0000'));
+		$wp_customize->add_control('phone-number',
+				array('label' => __('Telefone', 'mobilize'),
+					'section' => 'contact',
+					'type' => 'text'));
+
+		$wp_customize->add_setting('address',
+				array('default' => "Endereço: Rua Coronel Sílvio da Silva\n"
+					. "Nº: 23\n"
+					. "Complemento: ap. 107\n"
+					. "Bairro: Marajó\n"
+					. "Cidade: Belo Horizonte\n"
+					. "Estado: Minas Gerais\n"
+					. "CEP: 80808-080"));
+		$wp_customize->add_control(new MobilizeControl($wp_customize,
+					'address',
+					array('label' => __('Endereço', 'mobilize'),
+						'section' => 'contact',
+						'type' => 'textarea')));
 	}
 	
 	/**
