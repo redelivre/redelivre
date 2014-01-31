@@ -95,7 +95,7 @@ class Ethymos_Admin{
 
 		// Contact
 		$wp_customize->add_section('contact',
-				array('title' => __('Contato', 'mobilize'), 'priority' => 30));
+				array('title' => __('Página de Contato', 'mobilize'), 'priority' => 30));
 
 		$wp_customize->add_setting('show-phone-number', array('default' => true));
 		$wp_customize->add_control('show-phone-number',
