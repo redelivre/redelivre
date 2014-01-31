@@ -33,14 +33,14 @@
 								    <div class="slider-content-data">
 								    	<span class="slider-date"><?php the_time('d/m/Y'); ?></span>
 									    <?php the_excerpt(); ?>
-									  	<a href="<?php the_permalink(); ?>"><?php _e('Leia mais', 'mobilize'); ?></a>
+									  	<a href="<?php the_permalink(); ?>"><?php _e('Leia mais', '_mobilize'); ?></a>
 									  	<div class="clearfix"></div>
 								    </div>
 								    <div class="clearfix"></div>
 								   </div>
 							    </li>
 					    	<?php endwhile; else : ?>
-								<?php _e('Nenhum conteúdo cadastrado para o slider', 'mobilize'); ?>
+								<?php _e('Nenhum conteúdo cadastrado para o slider', '_mobilize'); ?>
 							<?php endif; ?>
 			  			</ul>
 					</div>
@@ -54,7 +54,7 @@
 				</div>
 				<div class="span7 sub-destaques">
 					<div class="title-sub-dest span7">
-						<?php _e("+DESTAQUES", 'mobilize'); ?>
+						<?php _e("+DESTAQUES", '_mobilize'); ?>
 					</div>
 
 					<?php $destaques = $ethymos->query->destaques(3); ?>
@@ -72,11 +72,11 @@
 							   <p><?php the_excerpt(); ?></p>
 							</div>
 							
-							<a href="<?php the_permalink(); ?>" class="sub-dest-seguir"><?php _e('Continue lendo', 'mobilize'); ?></a>
+							<a href="<?php the_permalink(); ?>" class="sub-dest-seguir"><?php _e('Continue lendo', '_mobilize'); ?></a>
 						</div>
 					<?php endwhile; else : ?>
 					<div id="default">
-						<?php _e('Nenhum destaque cadastrado', 'mobilize'); ?>
+						<?php _e('Nenhum destaque cadastrado', '_mobilize'); ?>
 					</div>
 					<?php endif; ?>
 				</div>

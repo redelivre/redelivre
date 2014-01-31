@@ -7,7 +7,7 @@ class Widget_Contribua extends WP_Widget {
 		parent::__construct(
 	 		'widget-contribua',
 			'Widget Contribua',
-			array('description' => __( 'widget de contribui&ccedil;&atilde;o', 'mobilize' )) // Args
+			array('description' => __( 'widget de contribui&ccedil;&atilde;o', '_mobilize' )) // Args
 		);
 		
 		$this->path = get_template_directory() . '/widgets/contribua';

@@ -27,7 +27,7 @@
 	
 	
 	<?php endwhile; else : ?>
-		<?php _e('Não há nenhum membro da equipe cadastrado.', 'mobilize'); ?>
+		<?php _e('Não há nenhum membro da equipe cadastrado.', '_mobilize'); ?>
 	<?php endif; ?>
 	
 	<?php wp_reset_query(); ?>

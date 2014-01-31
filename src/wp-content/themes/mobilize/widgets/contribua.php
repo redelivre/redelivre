@@ -6,7 +6,7 @@ class Widget_Contribua extends WP_Widget {
 		parent::__construct(
 	 		'widgetcontribua', // Base ID
 			'Widget Contribua', // Name
-			array( 'description' => __( 'widget de contribui&ccedil;&atilde;o', 'mobilize' ), ) // Args
+			array( 'description' => __( 'widget de contribui&ccedil;&atilde;o', '_mobilize' ), ) // Args
 		);
 	}
 

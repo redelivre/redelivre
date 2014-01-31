@@ -18,7 +18,7 @@
 				
 				<?php endwhile; else : ?>
 					<div class="entry-content error-search">
-						<p><?php _e( 'Parece que a página que você está tentando encontrar não existe, sugerimos que faça uma nova busca!', 'mobilize' ); ?></p>
+						<p><?php _e( 'Parece que a página que você está tentando encontrar não existe, sugerimos que faça uma nova busca!', '_mobilize' ); ?></p>
 						<?php get_search_form(); ?>
 					</div><!-- .entry-content -->
 				
