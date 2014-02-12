@@ -1,0 +1,21 @@
+/*
++---------------------------------------------------------------+
+|																|
+|	WordPress Plugin: WP-licenses 0.1							|
+|	File Name: jquery.tooltip.css									|
+|	Enqueue ID: tooltipStyle									|
+|	File Written By:											|
+|	- Billy Blay												|
+|	- http://billyblay.com										|
+|																|
++---------------------------------------------------------------+
+*/
+.tooltip {
+	position: absolute;
+	z-index: 3000;
+	width:185px;
+	font-size:11px;
+	background:#FFF4CD;
+	border:1px solid #e8cb64;
+	padding: 10px;
+}
