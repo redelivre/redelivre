@@ -7,7 +7,7 @@ class Widget_Banner extends WP_Widget {
 		parent::__construct(
 	 		'widget-banner',
 			'Widget Banner',
-			array('description' => __( 'widget de banner na sidebar', 'mobilize' )) // Args
+			array('description' => __( 'widget de banner na sidebar', '_mobilize' )) // Args
 		);
 		
 		$this->path = get_template_directory() . '/widgets/banner';
