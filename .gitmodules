@@ -40,3 +40,6 @@
 	path = src/wp-content/plugins/qr-pdf
 	url = https://github.com/redelivre/qr-pdf.git
 	branch = master
+[submodule "src/wp-content/themes/minka"]
+	path = src/wp-content/themes/minka
+	url = git@github.com:redelivre/minka.git

@@ -20,7 +20,7 @@ elseif(is_admin())
 	add_action('admin_menu', function() {
 	$base_page = 'platform-settings';
 	
-	add_object_page( __(Campaign::getStrings('MenuPlataforma'),'redelivre'), __(Campaign::getStrings('MenuPlataforma'),'redelivre'), 'manage_options', $base_page, array());
+	add_object_page( Campaign::getStrings('MenuPlataforma'), Campaign::getStrings('MenuPlataforma'), 'manage_options', $base_page, array());
 	
 	add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
 			require MUCAMPANHAPATH.'/admin-settings-tpl.php';
@@ -109,9 +109,9 @@ add_action('wp_print_scripts', 'campanha_addJS');
 // CUSTOM MENU
 function campanha_custom_menus() {
     register_nav_menus( array(
-        'main'  => __('Principal', 'campanha'),
+        'main'  => __('Principal', 'redelivre'),
         'sobre' => Campaign::getStrings('Sobre'),
-        'info'  => __('Informações Legais', 'campanha'),
+        'info'  => __('Informações Legais', 'redelivre'),
         
     ));
 }
@@ -204,18 +204,27 @@ function getPlataformSettings($id = '')
 {
 	$sets = array();
 	
-	$sets['label']['email'] = 'E-Mail de Origem';
+	$sets['label']['email'] = __('E-Mail de Origem', 'redelivre');
 	$sets['value']['email'] = 'noreply@redelivre.org';
-	$sets['label']['emailReplyTo'] = 'E-Mail de Reposta';
+	//$sets['perm']['email'] = 'S';
+	$sets['label']['emailReplyTo'] = __('E-Mail de Reposta', 'redelivre');
 	$sets['value']['emailReplyTo'] = 'contato@redelivre.org';
-	$sets['label']['emailPassword'] = 'E-Mail Password';
+	//$sets['perm']['emailReplyTo'] = 'contato@redelivre.org';
+	$sets['label']['emailContato'] = __('E-Mail do formulário de contato', 'redelivre');
+	$sets['value']['emailContato'] = get_option('admin_email');
+	//$sets['perm']['emailContato'] = '';
+	$sets['label']['emailPassword'] = __('E-Mail Password', 'redelivre');
 	$sets['value']['emailPassword'] = 'redelivre';
-	$sets['label']['emailTipo'] = 'Tipo do E-mail (local ou gmail';
+	//$sets['perm']['emailPassword'] = 'redelivre';
+	$sets['label']['emailTipo'] = __('Tipo do E-mail (local ou gmail', 'redelivre');
 	$sets['value']['emailTipo'] = 'local';
-	$sets['label']['MostrarPlanos'] = 'Deve mostrar opções de planos';
+	//$sets['perm']['emailTipo'] = 'local';
+	$sets['label']['MostrarPlanos'] = __('Deve mostrar opções de planos', 'redelivre');
 	$sets['value']['MostrarPlanos'] = 'S';
-	$sets['label']['defaultPlan'] = 'Plano Padrão';
+	$sets['perm']['MostrarPlanos'] = 'S';
+	$sets['label']['defaultPlan'] = __('Plano Padrão', 'redelivre');
 	$sets['value']['defaultPlan'] = '5';
+	$sets['perm']['defaultPlan'] = 'S';
 	
 	// Merge default settings com defined settings
 	$sets['value'] = array_merge($sets['value'], get_option('plataform_defined_settings', array()));

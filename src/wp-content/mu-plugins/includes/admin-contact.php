@@ -132,7 +132,7 @@ function campanha_handle_form_contato() {
 
     $msg .= '<br><br>Origem: <a href="'.home_url().'">'.get_option('blogname').'</a>';
     
-    $email = get_option('admin_email');
+    $email = getPlataformSettings('emailContato');
     
     // generate the response
     $response = json_encode(array('success' => wp_mail( $email, 'Novo contato no site '.get_option('blogname'), $msg, "From: 'Carteiro ".get_option('blogname')."' <".getPlataformSettings('email').">\r\nContent-type: text/html" ) ));
