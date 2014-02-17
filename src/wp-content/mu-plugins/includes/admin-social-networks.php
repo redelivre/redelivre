@@ -47,6 +47,16 @@ $option = get_option( 'campanha_social_networks' );
                 <th scope="row"><label for="rede-5">Flickr</label></th>
                 <td><input id="rede-5" type="text" name="social_networks[flickr]" value="<?php echo @htmlentities($option['flickr']) ?>" class="regular-text" /></td>
             </tr>
+
+            <tr valign="top">
+                <th scope="row"><label for="rede-6">Instagram</label></th>
+                <td><input id="rede-6" type="text" name="social_networks[instagram]" value="<?php echo @htmlentities($option['instagram']) ?>" class="regular-text" /></td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row"><label for="rede-7">Pinterest</label></th>
+                <td><input id="rede-7" type="text" name="social_networks[pinterest]" value="<?php echo @htmlentities($option['pinterest']) ?>" class="regular-text" /></td>
+            </tr>
         </table>
         <?php do_settings_sections( 'campaign_social_networks' ); ?>
         <?php submit_button(); ?>
