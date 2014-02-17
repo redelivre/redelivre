@@ -2,6 +2,10 @@
 
 require_once('../../../../wp-load.php');
 
+if (!current_user_can('manage_eletro_widgets')) {
+    die;
+}
+
 global $wp_registered_widgets, $wp_registered_widget_controls, $wp_registered_widget_updates;
 
 switch ($_POST['action']) {
@@ -105,21 +109,100 @@ switch ($_POST['action']) {
         
         // if using wp-super-cache, clean the cache
         if (function_exists('wp_cache_clean_cache')) wp_cache_clean_cache('wp-cache');
+
+        $lastOptions = eletrowidgets_get_last_options($canvas_id);
+
+        if (json_decode($lastOptions, true) !== $publicOptions[$canvas_id]) {
+            eletrowidgets_insert_into_history($publicOptions[$canvas_id],
+                $canvas_id);
+        }
         
         break;
         
     case 'restore' :
-    
+
         $canvas_id = $_POST['canvas_id'];
+        $revision = $_POST['revision'];
         $adminOptions = get_option('eletro_widgets');
-        $publicOptions = get_option('eletro_widgets_public');
-        
-        $adminOptions[$canvas_id] = $publicOptions[$canvas_id];
-        
-        update_option('eletro_widgets', $adminOptions);
-        
+
+        $data = eletrowidget_get_revision($canvas_id, $revision);
+
+        if ($data !== null) {
+            $adminOptions[$canvas_id] = $data;
+
+            update_option('eletro_widgets', $adminOptions);
+        }
+
         break;
     
+    case 'get_history':
+        $canvas = $_POST['canvas_id'];
+        $offset = (int) $_POST['offset'];
+        $limit = (int) $_POST['limit'];
+
+        $history = eletrowidgets_get_history($canvas, $offset, $limit);
+
+        echo json_encode($history === null? array() : $history);
+
+        break;
+}
+
+function eletrowidget_get_revision($canvas, $revision) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+
+    $query = $wpdb->prepare("SELECT data FROM $table "
+        . 'WHERE canvas = %s AND id = %d', $canvas, $revision);
+
+    return json_decode($wpdb->get_var($query), true);
+}
+
+function eletrowidgets_get_history($canvas, $offset, $limit) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+
+    $query = "SELECT id, date FROM $table "
+        . 'WHERE CANVAS = %s '
+        . 'ORDER BY ID DESC ';
+    if ($limit > 0) {
+        $query .= "LIMIT $limit ";
+    }
+    if ($offset > 0) {
+        $query .= "OFFSET $offset ";
+    }
+    $query = $wpdb->prepare($query, $canvas);
+
+    $history = array();
+    for ($i = 0; $row = $wpdb->get_row($query, ARRAY_A, $i); $i++) {
+        $history[$row['id']] = $row['date'];
+    }
+
+    return $history;
+}
+
+function eletrowidgets_insert_into_history($options, $canvas) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+    $data = array('data' => json_encode($options),
+                'canvas' => $canvas);
+
+    $wpdb->insert($table, $data);
+}
+
+function eletrowidgets_get_last_options($canvas) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'eletro_widgets_history';
+
+    $query = $wpdb->prepare("SELECT data FROM $table "
+        . 'WHERE canvas = %s '
+        . 'ORDER BY ID DESC '
+        . 'LIMIT 1', $canvas);
+
+    return $wpdb->get_var($query);
 }
 
 ?>

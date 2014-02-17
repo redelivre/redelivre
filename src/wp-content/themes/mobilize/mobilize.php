@@ -113,7 +113,30 @@
 			
 			        <?php if (Mobilize::isActive('envie')) { ?>
 			
-			            <?php $success = Mobilize::enviarEmails(); ?>
+									<?php
+											$success = null;
+											if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+													$senderName =
+														array_key_exists('sender-name', $_POST) ?
+														$_POST['sender-name'] : '';
+
+													$senderEmail =
+														array_key_exists('sender-email', $_POST) ?
+														$_POST['sender-email'] : '';
+
+													$recipients =
+														array_key_exists('recipient-email', $_POST) ?
+														$_POST['recipient-email'] : '';
+
+													$message =
+														array_key_exists('sender-message', $_POST) ?
+														$_POST['sender-message'] : '';
+
+													$success =
+														Mobilize::enviarEmails($senderName, $senderEmail,
+																$recipients, $message);
+											}
+									?>
 			
 			            <section id="mobilize-sendto" class="mobilize-widget clearfix">
 			                <a name="send-to"></a>

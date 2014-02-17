@@ -1,0 +1,72 @@
+/*
++---------------------------------------------------------------+
+|																|
+|	WordPress Plugin: WP-licenses 0.2							|
+|	File Name: wp-licenses.css									|
+|	Enqueue ID: wpLicenseStyle									|
+|	File Written By:											|
+|	- Billy Blay												|
+|	- http://billyblay.com										|
+|																|
++---------------------------------------------------------------+
+*/
+
+.wplicense_none { display:none;}
+
+p#intro { 
+	background:#fff; 
+	padding:15px;
+	float:right;
+	width: 180px;
+}
+p#info { 
+	float:right;
+	width: 205px;
+	background: #fff url(../img/cc.logo.large.gif) 15px 15px no-repeat;
+	padding: 65px 15px 15px;
+}
+#aboutCC p {
+	background: url(../img/cc.logo.large.gif) 0 5px no-repeat;
+	padding-left: 165px;
+	}
+.box {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	border:2px solid #333;
+}
+.shadow {
+	-webkit-box-shadow: 0 0 7px #aaa;
+	-moz-box-shadow: 0 0 7px #aaa;
+	box-shadow: 0 0 7px #aaa;
+	}
+#alguns-direitos {
+	background:#fff;
+	padding:2px 10px;
+	border:2px solid #ccc;
+}
+#wplicense_direitos {
+	background:#fff;
+	padding:2px 10px;
+	color:#000;
+}
+#wplicense_box { margin-bottom:5px;}
+#wplicense_link { clear:both;}
+#wplicense_box img {
+	margin-right:4px;
+	border: none!important;
+	float:none!important;
+}
+.wplicenses-option fieldset {
+	border:1px solid #CECECE;
+	background:#fff;
+	margin:0 0 10px;
+	padding:10px 20px;
+}
+.wplicenses-option select { width:170px;}
+.wplicenses-option .list { 
+	padding:5px 5px 5px 38px; 
+	line-height:32px;
+	background:url(../img/licenses/t1/by.gif) left center no-repeat;
+}
+.wplicenses-option #type-2 { background:url(../img/licenses/t2/by.gif) 8px center no-repeat;}

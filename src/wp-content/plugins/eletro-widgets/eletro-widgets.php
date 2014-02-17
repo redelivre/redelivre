@@ -20,11 +20,13 @@ else
 {
 	define('EW_URLPATH', WP_CONTENT_URL.'/plugins/'.plugin_basename( dirname(__FILE__)).'/' );
 }
+define('EW_DB_VERSION', 4);
 
 add_action('wp_print_scripts', 'eletrowidgets_print_scripts');
 add_action('wp_print_styles', 'eletrowidgets_print_styles');
 
 add_action('init', 'eletrowidgets_load_textdomain');
+add_action('init', 'eletrowidgets_update_db');
 
 function eletrowidgets_load_textdomain() {
 	$pluginFolder = plugin_basename( dirname(__FILE__) );
@@ -40,7 +42,7 @@ function eletrowidgets_print_scripts() {
             'ajaxurl' => EW_URLPATH.'ajax/eletro-widgets-ajax.php',
             'confirmClear' => __('Are you sure you want to clear all widgets and its settings from this canvas?', 'eletroWidgets'),
             'confirmApply' => __('Are you sure you want to apply this configuration to the public view of this canvas?', 'eletroWidgets'),
-            'confirmRestore' => __('Are you sure you want to copy the settings from the public view and loose any changes you have made?', 'eletroWidgets'),
+            'confirmRestore' => __('Are you sure you want to restore an old configuration and discard unsaved changed? The restored configuration will not be public unless you apply it.', 'eletroWidgets'),
             'feedbackApply' => __('Widgets applied', 'eletroWidgets'),
             'confirmRemove' => __('Are you sure you want to remove this widget?', 'eletroWidgets')
         );
@@ -98,12 +100,28 @@ class EletroWidgets {
             echo '<div class="left">';
             echo '<a class="eletroToggleControls">' . __('Show/Hide Controls', 'eletroWidgets') . '</a>';
             echo '<a class="eletroClearAll">' . __('Clear', 'eletroWidgets') . '</a>';            
+            echo '<a class="eletroImport">' . __('Import', 'eletroWidgets') . '</a>';
+            echo '<a class="eletroExport" href="',
+							plugins_url("export.php?id={$this->id}", __FILE__), '">',
+							__('Export', 'eletroWidgets'), '</a>';
             echo '<a class="eletroRestore">' . __('Restore', 'eletroWidgets') . '</a>';
+            echo '<select id="eletroHistory">';
+            echo '<option value="0">', __('No History', 'eletroWidgets'), '</option>';
+            echo '</select>';
             echo '</div>';
             echo '<div class="right">';
             echo '<a class="eletroApply">' . __('Apply', 'eletroWidgets') . '</a>';
             echo '</div>';
             echo '</div>';
+            echo '<form id="eletroImportForm" method="post" action="',
+                plugins_url('import.php', __FILE__),
+								'" style="display: none;" enctype="multipart/form-data">';
+            echo '<input name="importFile" id="eletroImportFile" type="file">';
+						echo '<input name="canvas" type="hidden" value="',
+								 htmlentities($this->id), '">';
+						echo '<input name="redirect" type="hidden" value="',
+								 htmlentities(site_url($_SERVER['REQUEST_URI'])), '">';
+            echo '</form>';
     
             
             echo '</div>';
@@ -236,7 +254,7 @@ function print_eletro_widgets($id, $number, $id_base, $canvas_id, $refresh = fal
 
 
     if ($id) {
-
+		global $wp_registered_widgets, $wp_registered_widget_controls;
 
         if (class_exists($id)) {
 			// Multi Widget
@@ -256,15 +274,24 @@ function print_eletro_widgets($id, $number, $id_base, $canvas_id, $refresh = fal
 			$widgetType = 'multi';
 			$widgetDivID = $newWidget->id;
 
-		} else {
+		} else if (array_key_exists($id, $wp_registered_widgets)) {
 			// Single Widget
-            global $wp_registered_widgets, $wp_registered_widget_controls;
             $widgetName = $widgetNiceName = $wp_registered_widgets[$id]['name'];
 			$callback = $wp_registered_widgets[$id]['callback'];
 			$callbackControl = $wp_registered_widget_controls[$id]['callback'];
 			$widgetType = 'single';
 			$widgetDivID = $id;
+		} else {
+			// The widget doesn't exist, replace it with a dummy one
+			$widgetName = $id_base;
+			$newWidget = new EletroWidgetsDummyWidget($id);
+			$newWidget->_set($number);
+			$widgetNiceName = $newWidget->name;
+			$widgetDivID = $newWidget->id;
+			$widgetType = 'multi';
+			$options = array('missingWidget' => $id);
 		}
+
 
 		$params = array(
 			'name' => $widgetName,
@@ -347,6 +374,26 @@ function eletroWidgetsInstall() {
     update_option('eletro_widgets_public', $options);
 }
 
+function eletrowidgets_update_db() {
+	if (get_option('eletro_widgets_db_version') != EW_DB_VERSION) {
+		global $wpdb;
+		$table = $wpdb->prefix . 'eletro_widgets_history';
+
+		$query = "CREATE TABLE $table (
+			id int NOT NULL AUTO_INCREMENT,
+			date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+			data text,
+			canvas varchar(128) NOT NULL,
+			UNIQUE KEY id (id)
+		);";
+
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($query);
+
+		update_option('eletro_widgets_db_version', EW_DB_VERSION);
+	}
+}
+
 function eletroWidgetsUninstall() {
     $role = get_role('administrator');
     $role->remove_cap('manage_eletro_widgets');
@@ -356,5 +403,24 @@ function eletroWidgetsUninstall() {
 
 register_activation_hook( __FILE__, 'eletroWidgetsInstall' );
 register_deactivation_hook( __FILE__, 'eletroWidgetsInstall' );
+
+class EletroWidgetsDummyWidget extends WP_Widget {
+	public function __construct() {
+		parent::__construct('eletrowidgets_dummy_widget',
+			'EletroWidgets Dummy Widget',
+			array('description' =>
+				__('Displayed when the included widget is missing',
+					'eletroWidgets')));
+	}
+
+	public function widget($args, $instance) {
+		if (current_user_can('manage_eletro_widgets')) {
+			$missingWidget = array_key_exists('missingWidget', $instance)?
+				$instance['missingWidget'] : '';
+			printf(__('%s widget is missing, reactive it or remove this',
+					'eletroWidgets'), $missingWidget);
+		}
+	}
+}
 
 ?>

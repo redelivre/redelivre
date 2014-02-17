@@ -309,8 +309,9 @@ function mobilize_template_enviar()
             $smartView->enviarMessage =
 							Mobilize::enviarEmails($senderName, $senderEmail,
 									$recipients, $message) ?
-							'Mensagem enviada!' :
-							'Houve um erro ao enviar sua mensagem, tente novamente!';
+							__('Mensagem enviada!', 'mobilize') :
+							__('Houve um erro ao enviar sua mensagem, tente novamente!',
+									'mobilize');
         }
 
         return $smartView->display();

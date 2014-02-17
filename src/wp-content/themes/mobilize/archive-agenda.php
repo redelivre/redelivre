@@ -26,13 +26,13 @@ get_header();
 			<?php
 			if(isset($showingPast)): ?>
 				<h2 class="clearfix">
-					<?php _e('Eventos Passados', 'mobilize'); ?>
-					<a class="view-events" href="<?php echo add_query_arg('eventos', ''); ?>"><?php _e('Ver próximos eventos &raquo;', 'mobilize'); ?></a>
+					<?php _e('Eventos Passados', '_mobilize'); ?>
+					<a class="view-events" href="<?php echo add_query_arg('eventos', ''); ?>"><?php _e('Ver próximos eventos &raquo;', '_mobilize'); ?></a>
 				</h2>
 			<?php else: ?>
 				<h2 class="clearfix">
-					<?php _e('Próximos eventos', 'mobilize'); ?>
-					<a class="view-events" href="<?php echo add_query_arg('eventos', 'passados'); ?>"><?php _e('Ver eventos passados &raquo;', 'mobilize'); ?></a>
+					<?php _e('Próximos eventos', '_mobilize'); ?>
+					<a class="view-events" href="<?php echo add_query_arg('eventos', 'passados'); ?>"><?php _e('Ver eventos passados &raquo;', '_mobilize'); ?></a>
 				</h2>
 			<?php endif; ?>
 	    
@@ -41,7 +41,7 @@ get_header();
                 <?php get_template_part('loop', 'agenda'); ?>
 			
             <?php else : ?>
-                    <p class="post"><?php _e('Nenhum evento encontrado', 'mobilize'); ?></p>              
+                    <p class="post"><?php _e('Nenhum evento encontrado', '_mobilize'); ?></p>              
             <?php endif;
              ?>
 		</div>
@@ -52,10 +52,10 @@ get_header();
 			<header class="archive-header archive-agenda-header">
 				<?php  if ( $showing_past ) : ?>
 					<h1 class="archive-title agenda-title"><?php _e( 'Past events', 'guarani' ); ?></h1>
-					<a class="view-events" href="<?php echo add_query_arg( 'eventos', '' ); ?>"><?php _e( 'View next events &raquo;', 'mobilize' ); ?></a>
+					<a class="view-events" href="<?php echo add_query_arg( 'eventos', '' ); ?>"><?php _e( 'View next events &raquo;', '_mobilize' ); ?></a>
 				<?php else: ?>
-					<h1 class="archive-title agenda-title"><?php _e( 'Próximos Eventos', 'mobilize' ); ?></h1>
-					<a class="view-events" href="<?php echo add_query_arg( 'eventos', 'passados' ); ?>"><?php _e( 'View past event &raquo;', 'mobilize' ); ?></a>
+					<h1 class="archive-title agenda-title"><?php _e( 'Próximos Eventos', '_mobilize' ); ?></h1>
+					<a class="view-events" href="<?php echo add_query_arg( 'eventos', 'passados' ); ?>"><?php _e( 'View past event &raquo;', '_mobilize' ); ?></a>
 				<?php endif; ?>
 			</header><!-- .archive-header -->
 			

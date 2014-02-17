@@ -53,7 +53,7 @@ jQuery.extend(eletroCanvas.prototype, {
         //Apply to public behavior
         jQuery('#' + this.id).find('.eletroApply').click(function() {
             if (confirm(eletro.confirmApply)) {
-                jQuery.ajax({
+                var request = jQuery.ajax({
                     type: 'POST',
                     dataType: 'html',
                     url: eletro.ajaxurl,
@@ -62,9 +62,11 @@ jQuery.extend(eletroCanvas.prototype, {
                         action: 'apply',
                         canvas_id: th.index
                     },
-                    complete: function() {
-                        alert(eletro.feedbackApply);
-                    }
+                });
+
+                request.done(function() {
+                    alert(eletro.feedbackApply);
+                    th.getHistory();
                 });
             }
         });
@@ -72,6 +74,7 @@ jQuery.extend(eletroCanvas.prototype, {
         //Restore from public behavior
         jQuery('#' + this.id).find('.eletroRestore').click(function() {
             if (confirm(eletro.confirmRestore)) {
+                var revision = jQuery('#' + th.id).find('#eletroHistory').val();
                 jQuery.ajax({
                     type: 'POST',
                     dataType: 'html',
@@ -79,6 +82,7 @@ jQuery.extend(eletroCanvas.prototype, {
                      data: 
                     {
                         action: 'restore',
+                        revision: revision,
                         canvas_id: th.index
                     },
                     complete: function() {
@@ -87,7 +91,19 @@ jQuery.extend(eletroCanvas.prototype, {
                 });
             }
         });
-        
+
+        //Import button
+        jQuery('#' + this.id).find('.eletroImport').click(function() {
+            var file = jQuery('#' + th.id).find('#eletroImportFile');
+            file.click();
+        });
+
+        //Import file chosen
+        jQuery('#' + this.id).find('#eletroImportFile').change(function() {
+            jQuery('#' + th.id).find('#eletroImportForm').submit();
+        });
+
+        this.getHistory();
     },
     
     toggleControls: function() {
@@ -213,6 +229,38 @@ jQuery.extend(eletroCanvas.prototype, {
                     new eletroItem(instanceID, th);
                 }
             });
+    },
+
+    getHistory: function() {
+        var request = jQuery.ajax({
+            type: 'POST',
+            dataType: 'html',
+            url: eletro.ajaxurl,
+            data:
+            {
+                action: 'get_history',
+                offset: 0,
+                limit: -1,
+                canvas_id: this.index,
+            },
+        });
+
+        var history = {};
+        var select = jQuery('#' + this.id).find('#eletroHistory');
+        request.done(function(jsonHistory) {
+            history = jQuery.parseJSON(jsonHistory);
+
+            if (!jQuery.isEmptyObject(history)) {
+                select.find('option').remove();
+            }
+
+            for (var id in history) {
+                var option = jQuery('<option></option>').prependTo(select);
+                option.val(id);
+                option.text(history[id]);
+                select.val(id);
+            }
+        });
     }
 });
 

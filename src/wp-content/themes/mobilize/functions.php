@@ -135,7 +135,7 @@ class Ethymos{
 	*/
 	public function cria_categoria_destaques(){
 		if(!term_exists('Destaques', 'category')){
-			$this->categoria_destaques = wp_insert_term('Destaques', 'category', array('description' => _x('Destaques da capa do site', 'descricao-categoria', 'mobilize')));
+			$this->categoria_destaques = wp_insert_term('Destaques', 'category', array('description' => _x('Destaques da capa do site', 'descricao-categoria', '_mobilize')));
 		}
 	}
 		
