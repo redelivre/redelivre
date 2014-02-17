@@ -9,7 +9,12 @@ add_action( 'save_post', 'mapasdevista_save_postdata' );
 
 function mapasdevista_add_custom_box() {
 
-        add_meta_box( 'mapasdevista_metabox', __( 'Place it on the map', 'mapasdevista' ), 'mapasdevista_metabox_map', 'mapa' );
+		$post_types = get_option('mapasdevista');
+		$post_types = $post_types['post_types'];
+		foreach ($post_types as $post_type )
+		{
+        	add_meta_box( 'mapasdevista_metabox', __( 'Place it on the map', 'mapasdevista' ), 'mapasdevista_metabox_map', $post_type );
+		}
 
 }
 

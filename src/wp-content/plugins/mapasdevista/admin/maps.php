@@ -390,7 +390,7 @@ function mapasdevista_maps_page() {
             </script>
             
             
-            <input type="hidden" name="map[post_types][]" value="mapa" />
+            <input type="<?php echo is_super_admin() ? 'text' : 'hidden' ?>" name="map[post_types][]" value="<?php echo implode(',', $map['post_types']);?>" />
             
             <input type="hidden" name="map[taxonomies][]" value="categoria-mapa" />
             
