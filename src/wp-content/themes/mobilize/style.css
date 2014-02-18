@@ -316,6 +316,10 @@ Menu
 	font-weight: 300;
 	margin-left: -30px;
 	line-height: 22px;
+	font-family: 'Roboto Condensed',sans-serif;
+	word-break: normal;
+	word-wrap: normal;
+	border-radius: 0;
 }
 
 .title-sub-dest {
