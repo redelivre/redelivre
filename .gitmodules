@@ -49,3 +49,4 @@
 [submodule "src/wp-content/plugins/mapasdevista"]
 	path = src/wp-content/plugins/mapasdevista
 	url = git@github.com:redelivre/mapasdevista.git
+	branch = redelivre
