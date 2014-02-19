@@ -46,3 +46,6 @@
 [submodule "src/wp-content/themes/folia"]
 	path = src/wp-content/themes/folia
 	url = git@github.com:redelivre/folia.git
+[submodule "src/wp-content/plugins/mapasdevista"]
+	path = src/wp-content/plugins/mapasdevista
+	url = git@github.com:redelivre/mapasdevista.git
