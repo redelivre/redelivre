@@ -1,0 +1,43 @@
+
+- commit (sem parâmetro):
+   - adiciona arquivos da pasta upload (ou blogs.dir)
+   - faz UPDATE do git
+   - cria dump do banco (base.sql)
+   - commita as alterações de arquivos e o dump do banco
+
+- commit ("no_db"):
+  - executa a rotina padrão do commit sem fazer o dump do banco (o seu banco local não é enviado para o git)
+
+
+
+- reset all:
+   - faz um revert da pasta uploads
+   - pega o arquivo base.sql do git ignorando o seu (executa o git revert antes)
+   - aplica o base.sql (que foi pego do git)
+   - migra as urls do banco (coloca as urls baseadas no DOMAIN_CURRENT_SITE )
+   - executa o git UP
+
+- reset no_revert_uploads:
+    - não mexe nos uploads e nem dá git UP
+
+   - pega o arquivo base.sql do git ignorando o seu (executa o git revert antes)
+   - aplica o base.sql (que foi pego do git)
+   - migra as urls do banco (coloca as urls baseadas no DOMAIN_CURRENT_SITE )
+
+- reset no_revert_db:
+    - não mexe nos uploads e nem dá git UP
+    
+    - aplica o base.sql que está na sua pasta db, sem puxar nada do git
+    - migra as urls do banco (coloca as urls baseadas no DOMAIN_CURRENT_SITE ) 
+    
+
+- reset no_drop_db:
+   - não mexe nos uploads e nem dá git UP
+    
+   - migra as urls do banco (coloca as urls baseadas no DOMAIN_CURRENT_SITE )
+   - não faz revert do base.sql e nem reimporta o banco
+
+
+
+
+
