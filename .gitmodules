@@ -1,6 +1,3 @@
-[submodule "wp-scripts"]
-	path = wp-scripts
-	url = git@git.hacklab.com.br:wp-scripts
 [submodule "delibera"]
 	path = delibera
 	url = https://github.com/ethymos/delibera.git
@@ -43,9 +40,11 @@
 [submodule "src/wp-content/themes/minka"]
 	path = src/wp-content/themes/minka
 	url = git@github.com:redelivre/minka.git
+	branch = master
 [submodule "src/wp-content/themes/folia"]
 	path = src/wp-content/themes/folia
 	url = git@github.com:redelivre/folia.git
+	branch = master
 [submodule "src/wp-content/plugins/mapasdevista"]
 	path = src/wp-content/plugins/mapasdevista
 	url = git@github.com:redelivre/mapasdevista.git

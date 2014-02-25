@@ -1,0 +1,59 @@
+#!/bin/bash
+
+##BASE_DIR=`perl -e '$x = $ENV{"PWD"} . "/../"; $x =~ s/ /\\\\ /g; print $x;'`
+
+# vamos garantir que use a ultima versao dos scripts
+
+WP_SCRIPTS_DIR=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
+BASE_DIR=${WP_SCRIPTS_DIR}/../
+PROJECT_DIR=${BASE_DIR}/src/
+
+cd "$PROJECT_DIR"
+
+function die {
+    echo "Erro:"
+    echo -e "\t$1"
+    exit 1
+}
+
+if [ ! -f wp-config.php ];
+then
+    echo "Arquivo wp-config.php não encontrado!"
+    exit 1
+fi
+
+
+DB_NAME=`cat wp-config.php | grep "define('DB_NAME'"| perl -pe 's|define\(.DB_NAME.,\s*.(.*?)\W\s*\).*|$1|'`
+DB_USER=`cat wp-config.php | grep "define('DB_USER'"| perl -pe 's|define\(.DB_USER.,\s*.(.*?)\W\s*\).*|$1|'`
+DB_PASS=`cat wp-config.php | grep "define('DB_PASSWORD'"| perl -pe 's|define\(.DB_PASSWORD.,\s*.(.*?)\W\s*\).*|$1|'`
+DB_HOST=`cat wp-config.php | grep "define('DB_HOST'"| perl -pe 's|define\(.DB_HOST.,\s*.(.*?)\W\s*\).*|$1|'`
+TABLE_PREFIX=`cat wp-config.php | grep "table_prefix"| perl -pe 's|^.table_prefix\s*=\s*.(.*?)\W.*|$1|'`
+
+#Essa é uma constante padrão no wordpress MU que estamos usando mesmo no WP normal para nosso script saber lidar com as URLS do banco
+DOMAIN=`cat wp-config.php | grep "define(\s*'DOMAIN_CURRENT_SITE'"| perl -pe 's|define\(.DOMAIN_CURRENT_SITE.,\s*.(.*?)\W\s*\).*|$1|'`
+
+if [ "$DB_PASS" != "" ]
+then
+    DB_PASSWORD="-p${DB_PASS}"
+fi
+
+if [ "$DB_NAME" == "" ]
+then
+    die "Você precisa especificar a constante DB_NAME no wp-config.php"
+fi
+
+if [ "$DB_USER" == "" ]
+then
+    die "Você precisa especificar a constante DB_USER no wp-config.php"
+fi
+
+if [ "$DB_HOST" == "" ]
+then
+    die "Você precisa especificar a constante DB_HOST no wp-config.php"
+fi
+
+if [ "$DOMAIN" == "" ]
+then
+    die "Você precisa especificar a constante DOMAIN_CURRENT_SITE no wp-config.php"
+fi
+

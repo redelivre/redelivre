@@ -1,0 +1,107 @@
+#!/bin/bash
+
+
+
+source "`dirname $0`/config"
+
+function main {
+
+
+    if [ "$1" == "no_revert_uploads" ]; then
+        revert_basesql || die "revert my database failed"
+        apply_basesql || die "apply basesql failed"
+        do_migra_wordpress || die "migra wordpress failed"
+    elif [ "$1" == "no_revert_db" ]; then
+        apply_basesql || die "apply basesql failed"
+        do_migra_wordpress || die "migra wordpress failed"
+    elif [ "$1" == "no_revert_db_clean" ]; then
+        apply_basesql || die "apply basesql failed"
+        do_clean_wordpress || die "clean wordpress failed"
+        do_migra_wordpress || die "migra wordpress failed"
+    elif [ "$1" == "no_drop_db" ]; then
+        do_migra_wordpress || die "migra wordpress failed"
+    elif [ "$1" == "no_drop_db_clean" ]; then
+        do_clean_wordpress || die "clean wordpress failed"
+        do_migra_wordpress || die "migra wordpress failed"
+    elif [ "$1" == "all" ]; then
+        revert_my_uploads || die "revert my uploads failed"
+        revert_basesql || die "revert my database failed"
+        apply_basesql || die "apply basesql failed"
+        do_migra_wordpress || die "migra wordpress failed"
+        do_up || die "do up failed"
+    else
+        die "Nenhum parametro informado: use 'all' para um reset completo ou veja o LEIA.ME"
+    fi
+
+
+}
+
+function revert_my_uploads {
+    cd "$PROJECT_DIR"
+    if [[ ! -d wp-content/blogs.dir && ! -d wp-content/uploads ]]; then
+        return
+    fi
+    
+    cd wp-content/blogs.dir 2&> /dev/null || cd wp-content/uploads || die "Pasta de uploads faltando"
+    echo "removendo arquivos que não estão no GIT"
+    rm -rf `git status | grep -v ../ | sed -e '1,/include in what will be committed)/d' -e '/no changes/, $d' -e 's/#\|\t//g' -e '/^$/d'`
+    
+}
+
+function revert_basesql {
+    cd "$BASE_DIR"
+    cd db/
+    
+    echo "revertendo base.sql"
+    git checkout base.sql || die "failed to revert base.sql"
+    git pull
+}
+
+function apply_basesql {
+    cd "$BASE_DIR"
+    cd db/
+    
+    echo "zerando base de dados"
+    echo "Backup gravado em base_bkp_last_reset.sql"
+    mysqldump -u $DB_USER $DB_PASSWORD -h $DB_HOST $DB_NAME > base_bkp_last_reset.sql
+    mysqladmin -f -u $DB_USER $DB_PASSWORD -h $DB_HOST drop $DB_NAME
+    mysqladmin -u $DB_USER $DB_PASSWORD -h $DB_HOST create $DB_NAME
+
+    echo "Importando base de dados"
+    
+    mysql -u $DB_USER $DB_PASSWORD -h $DB_HOST $DB_NAME < base.sql
+}
+
+function do_migra_wordpress {
+    cd $WP_SCRIPTS_DIR
+
+    echo "Migrando base de dados para dominio local"
+    php migra_bd.php ${DB_NAME} ${DB_USER} %!%${DB_PASS}%!% ${DB_HOST} ${DOMAIN} $TABLE_PREFIX
+}
+
+function do_clean_wordpress {
+    cd $WP_SCRIPTS_DIR
+
+    echo "Diminuindo a base de dados para 1000 posts"
+
+    # Os DELETEs depois da linha em branco são específicos do Catraca
+    POST_ID=`mysql -u${DB_USER} -h${DB_HOST} $DB_NAME -Ns -e "SELECT ID FROM ${TABLE_PREFIX}posts where post_type = 'post' and post_status = 'publish' ORDER BY ID DESC LIMIT 1000,1"`
+    mysql -u${DB_USER} -h${DB_HOST} $DB_NAME -e "
+        DELETE FROM ${TABLE_PREFIX}posts WHERE ID < ${POST_ID};
+        DELETE FROM ${TABLE_PREFIX}postmeta WHERE post_id NOT IN (SELECT ID FROM ${TABLE_PREFIX}posts);
+        DELETE FROM ${TABLE_PREFIX}term_relationships WHERE object_id NOT IN (SELECT ID FROM ${TABLE_PREFIX}posts);
+        DELETE FROM ${TABLE_PREFIX}term_taxonomy WHERE term_taxonomy_id NOT IN (SELECT term_taxonomy_id FROM ${TABLE_PREFIX}term_relationships);
+        DELETE FROM ${TABLE_PREFIX}terms WHERE term_id NOT IN (SELECT term_id FROM ${TABLE_PREFIX}term_taxonomy);
+
+        DELETE FROM event WHERE post_ID NOT IN (SELECT ID from ${TABLE_PREFIX}posts);
+        DELETE FROM event_rules WHERE post_ID NOT IN (SELECT ID from ${TABLE_PREFIX}posts);
+    "
+}
+
+function do_up {
+    cd "$BASE_DIR"
+    echo "git pull"
+    git pull || die "failed to update working copy"
+}
+
+main $1
