@@ -147,7 +147,7 @@ class Agenda {
     }
 
     /* When the post is saved, saves our custom data */
-    function save_postdata( $post_id ) {
+    static function save_postdata( $post_id ) {
         
         $data_inicial = '_data_inicial';
         $data_final = '_data_final';
