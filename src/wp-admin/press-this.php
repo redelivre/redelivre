@@ -9,7 +9,7 @@
 define('IFRAME_REQUEST' , true);
 
 /** WordPress Administration Bootstrap */
-require_once('./admin.php');
+require_once( dirname( __FILE__ ) . '/admin.php' );
 
 header('Content-Type: ' . get_option('html_type') . '; charset=' . get_option('blog_charset'));
 
@@ -91,11 +91,11 @@ if ( isset($_REQUEST['action']) && 'post' == $_REQUEST['action'] ) {
 }
 
 // Set Variables
-$title = isset( $_GET['t'] ) ? trim( strip_tags( html_entity_decode( stripslashes( $_GET['t'] ) , ENT_QUOTES) ) ) : '';
+$title = isset( $_GET['t'] ) ? trim( strip_tags( html_entity_decode( wp_unslash( $_GET['t'] ) , ENT_QUOTES) ) ) : '';
 
 $selection = '';
 if ( !empty($_GET['s']) ) {
-	$selection = str_replace('&apos;', "'", stripslashes($_GET['s']));
+	$selection = str_replace('&apos;', "'", wp_unslash($_GET['s']));
 	$selection = trim( htmlspecialchars( html_entity_decode($selection, ENT_QUOTES) ) );
 }
 
@@ -303,16 +303,38 @@ die;
 <script type="text/javascript">
 //<![CDATA[
 addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
-var userSettings = {'url':'<?php echo SITECOOKIEPATH; ?>','uid':'<?php if ( ! isset($current_user) ) $current_user = wp_get_current_user(); echo $current_user->ID; ?>','time':'<?php echo time() ?>'};
 var ajaxurl = '<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>', pagenow = 'press-this', isRtl = <?php echo (int) is_rtl(); ?>;
 var photostorage = false;
 //]]>
 </script>
 
 <?php
-	do_action('admin_print_styles');
-	do_action('admin_print_scripts');
-	do_action('admin_head');
+	/** This action is documented in wp-admin/admin-header.php */
+	do_action( 'admin_enqueue_scripts', 'press-this.php' );
+	/**
+	 * Print styles for the Press This admin page.
+	 *
+	 * @since 3.7.0
+	 */
+	do_action( 'admin_print_styles-press-this.php' );
+	/** This action is documented in wp-admin/admin-header.php */
+	do_action( 'admin_print_styles' );
+	/**
+	 * Print scripts for the Press This admin page.
+	 *
+	 * @since 3.7.0
+	 */
+	do_action( 'admin_print_scripts-press-this.php' );
+	/** This action is documented in wp-admin/admin-header.php */
+	do_action( 'admin_print_scripts' );
+	/**
+	 * Fires in the head tag on the Press This admin page.
+	 *
+	 * @since 3.7.0
+	 */
+	do_action( 'admin_head-press-this.php' );
+	/** This action is documented in wp-admin/admin-header.php */
+	do_action( 'admin_head' );
 ?>
 	<script type="text/javascript">
 	var wpActiveEditor = 'content';
@@ -414,7 +436,7 @@ var photostorage = false;
 	}
 	jQuery(document).ready(function($) {
 		//resize screen
-		window.resizeTo(740,580);
+		window.resizeTo(760,580);
 		// set button actions
 		jQuery('#photo_button').click(function() { show('photo'); return false; });
 		jQuery('#video_button').click(function() { show('video'); return false; });
@@ -477,7 +499,7 @@ $admin_body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( 
 					<p>
 						<label for="post_format"><?php _e( 'Post Format:' ); ?>
 						<select name="post_format" id="post_format">
-							<option value="0"><?php _ex( 'Standard', 'Post format' ); ?></option>
+							<option value="0"><?php echo get_post_format_string( 'standard' ); ?></option>
 						<?php foreach ( $post_formats[0] as $format ): ?>
 							<option<?php selected( $default_format, $format ); ?> value="<?php echo esc_attr( $format ); ?>"> <?php echo esc_html( get_post_format_string( $format ) ); ?></option>
 						<?php endforeach; ?>
@@ -561,7 +583,6 @@ $admin_body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( 
 	<div class="posting">
 
 		<div id="wphead">
-			<img id="header-logo" src="<?php echo esc_url( includes_url( 'images/blank.gif' ) ); ?>" alt="" width="16" height="16" />
 			<h1 id="site-heading">
 				<a href="<?php echo get_option('home'); ?>/" target="_blank">
 					<span id="site-title"><?php bloginfo('name'); ?></span>
@@ -586,7 +607,7 @@ $admin_body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( 
 			</div>
 		</div>
 
-		<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php esc_html_e( 'Loading...' ); ?></span></div>
+		<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php esc_html_e( 'Loading&hellip;' ); ?></span></div>
 
 		<div id="extra-fields" style="display: none"></div>
 
@@ -646,8 +667,10 @@ $admin_body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( 
 	</tr></table>
 </div>
 <?php
-do_action('admin_footer');
-do_action('admin_print_footer_scripts');
+/** This action is documented in wp-admin/admin-footer.php */
+do_action( 'admin_footer' );
+/** This action is documented in wp-admin/admin-footer.php */
+do_action( 'admin_print_footer_scripts' );
 ?>
 <script type="text/javascript">if(typeof wpOnload=='function')wpOnload();</script>
 </body>

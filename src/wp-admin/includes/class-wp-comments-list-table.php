@@ -52,6 +52,8 @@ class WP_Comments_List_Table extends WP_List_Table {
 
 		$search = ( isset( $_REQUEST['s'] ) ) ? $_REQUEST['s'] : '';
 
+		$post_type = ( isset( $_REQUEST['post_type'] ) ) ? sanitize_key( $_REQUEST['post_type'] ) : '';
+
 		$user_id = ( isset( $_REQUEST['user_id'] ) ) ? $_REQUEST['user_id'] : '';
 
 		$orderby = ( isset( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : '';
@@ -96,6 +98,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 			'type' => $comment_type,
 			'orderby' => $orderby,
 			'order' => $order,
+			'post_type' => $post_type,
 		);
 
 		$_comments = get_comments( $args );
@@ -124,6 +127,14 @@ class WP_Comments_List_Table extends WP_List_Table {
 
 	function get_per_page( $comment_status = 'all' ) {
 		$comments_per_page = $this->get_items_per_page( 'edit_comments_per_page' );
+		/**
+		 * Filter the number of comments listed per page in the comments list table.
+		 *
+		 * @since 2.6.0
+		 *
+		 * @param int    $comments_per_page The number of comments to list per page.
+		 * @param string $comment_status    The comment status name. Default 'All'.
+		 */
 		$comments_per_page = apply_filters( 'comments_per_page', $comments_per_page, $comment_status );
 		return $comments_per_page;
 	}
@@ -170,7 +181,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 			/*
 			// I toyed with this, but decided against it. Leaving it in here in case anyone thinks it is a good idea. ~ Mark
 			if ( !empty( $_REQUEST['s'] ) )
-				$link = add_query_arg( 's', esc_attr( stripslashes( $_REQUEST['s'] ) ), $link );
+				$link = add_query_arg( 's', esc_attr( wp_unslash( $_REQUEST['s'] ) ), $link );
 			*/
 			$status_links[$status] = "<a href='$link'$class>" . sprintf(
 				translate_nooped_plural( $label, $num_comments->$status ),
@@ -178,6 +189,14 @@ class WP_Comments_List_Table extends WP_List_Table {
 			) . '</a>';
 		}
 
+		/**
+		 * Filter the comment status links.
+		 *
+		 * @since 2.5.0
+		 *
+		 * @param array $status_links An array of fully-formed status links. Default 'All'.
+		 *                            Accepts 'All', 'Pending', 'Approved', 'Spam', and 'Trash'.
+		 */
 		$status_links = apply_filters( 'comment_status_links', $status_links );
 		return $status_links;
 	}
@@ -216,6 +235,13 @@ class WP_Comments_List_Table extends WP_List_Table {
 			<select name="comment_type">
 				<option value=""><?php _e( 'Show all comment types' ); ?></option>
 <?php
+				/**
+				 * Filter the comment types dropdown menu.
+				 *
+				 * @since 2.7.0
+				 *
+				 * @param array $comment_types An array of comment types. Accepts 'Comments', 'Pings'.
+				 */
 				$comment_types = apply_filters( 'admin_comment_types_dropdown', array(
 					'comment' => __( 'Comments' ),
 					'pings' => __( 'Pings' ),
@@ -226,6 +252,11 @@ class WP_Comments_List_Table extends WP_List_Table {
 			?>
 			</select>
 <?php
+			/**
+			 * Fires just before the Filter submit button for comment types.
+			 *
+			 * @since 3.5.0
+			 */
 			do_action( 'restrict_manage_comments' );
 			submit_button( __( 'Filter' ), 'button', false, false, array( 'id' => 'post-query-submit' ) );
 		}
@@ -235,6 +266,13 @@ class WP_Comments_List_Table extends WP_List_Table {
 			$title = ( 'spam' == $comment_status ) ? esc_attr__( 'Empty Spam' ) : esc_attr__( 'Empty Trash' );
 			submit_button( $title, 'apply', 'delete_all', false );
 		}
+		/**
+		 * Fires after the Filter submit button for comment types.
+		 *
+		 * @since 2.5.0
+		 *
+		 * @param string $comment_status The comment status name. Default 'All'.
+		 */
 		do_action( 'manage_comments_nav', $comment_status );
 		echo '</div>';
 	}
@@ -308,14 +346,15 @@ class WP_Comments_List_Table extends WP_List_Table {
 		global $post, $comment;
 
 		$comment = $a_comment;
-		$the_comment_class = join( ' ', get_comment_class( wp_get_comment_status( $comment->comment_ID ) ) );
+		$the_comment_class = wp_get_comment_status( $comment->comment_ID );
+		$the_comment_class = join( ' ', get_comment_class( $the_comment_class, $comment->comment_ID, $comment->comment_post_ID ) );
 
 		$post = get_post( $comment->comment_post_ID );
 
 		$this->user_can = current_user_can( 'edit_comment', $comment->comment_ID );
 
 		echo "<tr id='comment-$comment->comment_ID' class='$the_comment_class'>";
-		echo $this->single_row_columns( $comment );
+		$this->single_row_columns( $comment );
 		echo "</tr>\n";
 	}
 
@@ -336,12 +375,6 @@ class WP_Comments_List_Table extends WP_List_Table {
 		$comment_url = esc_url( get_comment_link( $comment->comment_ID ) );
 		$the_comment_status = wp_get_comment_status( $comment->comment_ID );
 
-		$ptime = date( 'G', strtotime( $comment->comment_date ) );
-		if ( ( abs( time() - $ptime ) ) < DAY_IN_SECONDS )
-			$ptime = sprintf( __( '%s ago' ), human_time_diff( $ptime ) );
-		else
-			$ptime = mysql2date( __( 'Y/m/d \a\t g:i A' ), $comment->comment_date );
-
 		if ( $user_can ) {
 			$del_nonce = esc_html( '_wpnonce=' . wp_create_nonce( "delete-comment_$comment->comment_ID" ) );
 			$approve_nonce = esc_html( '_wpnonce=' . wp_create_nonce( "approve-comment_$comment->comment_ID" ) );
@@ -357,11 +390,17 @@ class WP_Comments_List_Table extends WP_List_Table {
 			$delete_url = esc_url( $url . "&action=deletecomment&$del_nonce" );
 		}
 
+		echo '<div class="comment-author">';
+			$this->column_author( $comment );
+		echo '</div>';
+
 		echo '<div class="submitted-on">';
 		/* translators: 2: comment date, 3: comment time */
 		printf( __( 'Submitted on <a href="%1$s">%2$s at %3$s</a>' ), $comment_url,
-			/* translators: comment date format. See http://php.net/date */ get_comment_date( __( 'Y/m/d' ) ),
-			/* translators: comment time format. See http://php.net/date */ get_comment_date( get_option( 'time_format' ) ) );
+			/* translators: comment date format. See http://php.net/date */
+			get_comment_date( __( 'Y/m/d' ) ),
+			get_comment_date( get_option( 'time_format' ) )
+		);
 
 		if ( $comment->comment_parent ) {
 			$parent = get_comment( $comment->comment_parent );
@@ -374,7 +413,10 @@ class WP_Comments_List_Table extends WP_List_Table {
 		comment_text();
 		if ( $user_can ) { ?>
 		<div id="inline-<?php echo $comment->comment_ID; ?>" class="hidden">
-		<textarea class="comment" rows="1" cols="1"><?php echo esc_textarea( apply_filters( 'comment_edit_pre', $comment->comment_content ) ); ?></textarea>
+		<textarea class="comment" rows="1" cols="1"><?php
+			/** This filter is documented in wp-admin/includes/comment.php */
+			echo esc_textarea( apply_filters( 'comment_edit_pre', $comment->comment_content ) );
+		?></textarea>
 		<div class="author-email"><?php echo esc_attr( $comment->comment_author_email ); ?></div>
 		<div class="author"><?php echo esc_attr( $comment->comment_author ); ?></div>
 		<div class="author-url"><?php echo esc_attr( $comment->comment_author_url ); ?></div>
@@ -424,6 +466,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 				$actions['reply'] = '<a onclick="commentReply.open( \''.$comment->comment_ID.'\',\''.$post->ID.'\' );return false;" class="vim-r" title="'.esc_attr__( 'Reply to this comment' ).'" href="#">' . __( 'Reply' ) . '</a>';
 			}
 
+			/** This filter is documented in wp-admin/includes/dashboard.php */
 			$actions = apply_filters( 'comment_row_actions', array_filter( $actions ), $comment );
 
 			$i = 0;
@@ -456,7 +499,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 			$author_url = '';
 		$author_url_display = preg_replace( '|http://(www\.)?|i', '', $author_url );
 		if ( strlen( $author_url_display ) > 50 )
-			$author_url_display = substr( $author_url_display, 0, 49 ) . '...';
+			$author_url_display = substr( $author_url_display, 0, 49 ) . '&hellip;';
 
 		echo "<strong>"; comment_author(); echo '</strong><br />';
 		if ( !empty( $author_url ) )
@@ -511,6 +554,14 @@ class WP_Comments_List_Table extends WP_List_Table {
 	}
 
 	function column_default( $comment, $column_name ) {
+		/**
+		 * Fires when the default column output is displayed for a single row.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param string $column_name         The custom column's name.
+		 * @param int    $comment->comment_ID The custom column's unique ID number.
+		 */
 		do_action( 'manage_comments_custom_column', $column_name, $comment->comment_ID );
 	}
 }

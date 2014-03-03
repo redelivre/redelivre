@@ -1,3 +1,4 @@
+/* global tinymce, getUserSetting, setUserSetting, switchEditors, autosave */
 /**
  * WordPress plugin.
  */
@@ -7,9 +8,9 @@
 
 	tinymce.create('tinymce.plugins.WordPress', {
 		init : function(ed, url) {
-			var t = this, tbId = ed.getParam('wordpress_adv_toolbar', 'toolbar2'), last = 0, moreHTML, nextpageHTML, closeOnClick, mod_key;
-			moreHTML = '<img src="' + url + '/img/trans.gif" class="mceWPmore mceItemNoResize" title="'+ed.getLang('wordpress.wp_more_alt')+'" />';
-			nextpageHTML = '<img src="' + url + '/img/trans.gif" class="mceWPnextpage mceItemNoResize" title="'+ed.getLang('wordpress.wp_page_alt')+'" />';
+			var t = this, tbId = ed.getParam('wordpress_adv_toolbar', 'toolbar2'), last = 0, moreHTML, nextpageHTML, closeOnClick, mod_key, style;
+			moreHTML = '<img src="' + url + '/img/trans.gif" class="mce-wp-more mceItemNoResize" title="'+ed.getLang('wordpress.wp_more_alt')+'" />';
+			nextpageHTML = '<img src="' + url + '/img/trans.gif" class="mce-wp-nextpage mceItemNoResize" title="'+ed.getLang('wordpress.wp_page_alt')+'" />';
 
 			if ( getUserSetting('hidetb', '0') == '1' )
 				ed.settings.wordpress_adv_hidden = 0;
@@ -133,6 +134,18 @@
 						}
 					}
 				}
+
+				if ( tinymce.isWebKit && ( 'InsertUnorderedList' == cmd || 'InsertOrderedList' == cmd ) ) {
+					if ( !style )
+						style = ed.dom.create('style', {'type': 'text/css'}, '#tinymce,#tinymce span,#tinymce li,#tinymce li>span,#tinymce p,#tinymce p>span{font:medium sans-serif;color:#000;line-height:normal;}');
+
+					ed.getDoc().head.appendChild( style );
+				}
+			});
+
+			ed.onExecCommand.add( function( ed, cmd ) {
+				if ( tinymce.isWebKit && style && ( 'InsertUnorderedList' == cmd || 'InsertOrderedList' == cmd ) )
+					ed.dom.remove( style );
 			});
 
 			ed.onInit.add(function(ed) {
@@ -209,20 +222,29 @@
 
 					last = k;
 				});
-			};
+			}
 
 			// keep empty paragraphs :(
 			ed.onSaveContent.addToTop(function(ed, o) {
 				o.content = o.content.replace(/<p>(<br ?\/?>|\u00a0|\uFEFF)?<\/p>/g, '<p>&nbsp;</p>');
 			});
 
+			// Fix bug in iOS Safari where it's impossible to type after a touchstart event on the parent document.
+			// Happens after zooming in or out while the keyboard is open. See #25131.
+			if ( tinymce.isIOS5 ) {
+				ed.onKeyDown.add( function() {
+					if ( document.activeElement == document.body ) {
+						ed.getWin().focus();
+					}
+				});
+			}
+
 			ed.onSaveContent.add(function(ed, o) {
-				if ( ed.getParam('wpautop', true) && typeof(switchEditors) == 'object' ) {
-					if ( ed.isHidden() )
-						o.content = o.element.value;
-					else
-						o.content = switchEditors.pre_wpautop(o.content);
-				}
+				// If editor is hidden, we just want the textarea's value to be saved
+				if ( ed.isHidden() )
+					o.content = o.element.value;
+				else if ( ed.getParam('wpautop', true) && typeof(switchEditors) == 'object' )
+					o.content = switchEditors.pre_wpautop(o.content);
 			});
 
 			/* disable for now
@@ -270,19 +292,19 @@
 
 			// popup buttons for images and the gallery
 			ed.onInit.add(function(ed) {
-				tinymce.dom.Event.add(ed.getWin(), 'scroll', function(e) {
+				tinymce.dom.Event.add(ed.getWin(), 'scroll', function() {
 					ed.plugins.wordpress._hideButtons();
 				});
-				tinymce.dom.Event.add(ed.getBody(), 'dragstart', function(e) {
+				tinymce.dom.Event.add(ed.getBody(), 'dragstart', function() {
 					ed.plugins.wordpress._hideButtons();
 				});
 			});
 
-			ed.onBeforeExecCommand.add(function(ed, cmd, ui, val) {
+			ed.onBeforeExecCommand.add( function( ed ) {
 				ed.plugins.wordpress._hideButtons();
 			});
 
-			ed.onSaveContent.add(function(ed, o) {
+			ed.onSaveContent.add( function( ed ) {
 				ed.plugins.wordpress._hideButtons();
 			});
 
@@ -304,7 +326,7 @@
 						ed.windowManager.close(null, id);
 					}
 				}
-			}
+			};
 
 			// close popups when clicking on the background
 			tinymce.dom.Event.remove(document.body, 'click', closeOnClick);
@@ -340,7 +362,7 @@
 		},
 
 		_showButtons : function(n, id) {
-			var ed = tinyMCE.activeEditor, p1, p2, vp, DOM = tinymce.DOM, X, Y;
+			var ed = tinymce.activeEditor, p1, p2, vp, DOM = tinymce.DOM, X, Y;
 
 			vp = ed.dom.getViewPort(ed.getWin());
 			p1 = DOM.getPos(ed.getContentAreaContainer());
@@ -372,17 +394,17 @@
 		_handleMoreBreak : function(ed, url) {
 			var moreHTML, nextpageHTML;
 
-			moreHTML = '<img src="' + url + '/img/trans.gif" alt="$1" class="mceWPmore mceItemNoResize" title="'+ed.getLang('wordpress.wp_more_alt')+'" />';
-			nextpageHTML = '<img src="' + url + '/img/trans.gif" class="mceWPnextpage mceItemNoResize" title="'+ed.getLang('wordpress.wp_page_alt')+'" />';
+			moreHTML = '<img src="' + url + '/img/trans.gif" alt="$1" class="mce-wp-more mceItemNoResize" title="'+ed.getLang('wordpress.wp_more_alt')+'" />';
+			nextpageHTML = '<img src="' + url + '/img/trans.gif" class="mce-wp-nextpage mceItemNoResize" title="'+ed.getLang('wordpress.wp_page_alt')+'" />';
 
 			// Display morebreak instead if img in element path
 			ed.onPostRender.add(function() {
 				if (ed.theme.onResolveName) {
 					ed.theme.onResolveName.add(function(th, o) {
 						if (o.node.nodeName == 'IMG') {
-							if ( ed.dom.hasClass(o.node, 'mceWPmore') )
+							if ( ed.dom.hasClass(o.node, 'mce-wp-more') )
 								o.name = 'wpmore';
-							if ( ed.dom.hasClass(o.node, 'mceWPnextpage') )
+							if ( ed.dom.hasClass(o.node, 'mce-wp-nextpage') )
 								o.name = 'wppage';
 						}
 
@@ -402,11 +424,11 @@
 			ed.onPostProcess.add(function(ed, o) {
 				if (o.get)
 					o.content = o.content.replace(/<img[^>]+>/g, function(im) {
-						if (im.indexOf('class="mceWPmore') !== -1) {
+						if (im.indexOf('class="mce-wp-more') !== -1) {
 							var m, moretext = (m = im.match(/alt="(.*?)"/)) ? m[1] : '';
 							im = '<!--more'+moretext+'-->';
 						}
-						if (im.indexOf('class="mceWPnextpage') !== -1)
+						if (im.indexOf('class="mce-wp-nextpage') !== -1)
 							im = '<!--nextpage-->';
 
 						return im;
@@ -415,8 +437,8 @@
 
 			// Set active buttons if user selected pagebreak or more break
 			ed.onNodeChange.add(function(ed, cm, n) {
-				cm.setActive('wp_page', n.nodeName === 'IMG' && ed.dom.hasClass(n, 'mceWPnextpage'));
-				cm.setActive('wp_more', n.nodeName === 'IMG' && ed.dom.hasClass(n, 'mceWPmore'));
+				cm.setActive('wp_page', n.nodeName === 'IMG' && ed.dom.hasClass(n, 'mce-wp-nextpage'));
+				cm.setActive('wp_more', n.nodeName === 'IMG' && ed.dom.hasClass(n, 'mce-wp-more'));
 			});
 		}
 	});

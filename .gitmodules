@@ -49,3 +49,6 @@
 	path = src/wp-content/plugins/mapasdevista
 	url = git@github.com:redelivre/mapasdevista.git
 	branch = redelivre
+[submodule "src/wp-content/plugins/jaiminho"]
+	path = src/wp-content/plugins/jaiminho
+	url = git@github.com:ethymos/sendpress.git

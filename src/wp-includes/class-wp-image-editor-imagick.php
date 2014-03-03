@@ -19,7 +19,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	protected $image = null; // Imagick Object
 
 	function __destruct() {
-		if ( $this->image ) {
+		if ( $this->image instanceof Imagick ) {
 			// we don't need the original in memory anymore
 			$this->image->clear();
 			$this->image->destroy();
@@ -97,7 +97,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 				return false;
 
 		try {
-			return ( (bool) Imagick::queryFormats( $imagick_extension ) );
+			return ( (bool) @Imagick::queryFormats( $imagick_extension ) );
 		}
 		catch ( Exception $e ) {
 			return false;
@@ -113,12 +113,13 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	 * @return boolean|WP_Error True if loaded; WP_Error on failure.
 	 */
 	public function load() {
-		if ( $this->image )
+		if ( $this->image instanceof Imagick )
 			return true;
 
 		if ( ! is_file( $this->file ) && ! preg_match( '|^https?://|', $this->file ) )
 			return new WP_Error( 'error_loading_image', __('File doesn&#8217;t exist?'), $this->file );
 
+		/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
 		// Even though Imagick uses less PHP memory than GD, set higher limit for users that have low PHP.ini limits
 		@ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
 
@@ -142,7 +143,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 		if ( is_wp_error( $updated_size ) )
 				return $updated_size;
 
-		return $this->set_quality();
+		return $this->set_quality( $this->quality );
 	}
 
 	/**
@@ -152,15 +153,19 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	 * @access public
 	 *
 	 * @param int $quality Compression Quality. Range: [1,100]
-	 * @return boolean|WP_Error
+	 * @return boolean|WP_Error True if set successfully; WP_Error on failure.
 	 */
 	public function set_quality( $quality = null ) {
-		if ( !$quality )
+		$quality_result = parent::set_quality( $quality );
+		if ( is_wp_error( $quality_result ) ) {
+			return $quality_result;
+		} else {
 			$quality = $this->quality;
+		}
 
 		try {
-			if( 'image/jpeg' == $this->mime_type ) {
-				$this->image->setImageCompressionQuality( apply_filters( 'jpeg_quality', $quality, 'image_resize' ) );
+			if ( 'image/jpeg' == $this->mime_type ) {
+				$this->image->setImageCompressionQuality( $quality );
 				$this->image->setImageCompression( imagick::COMPRESSION_JPEG );
 			}
 			else {
@@ -171,7 +176,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 			return new WP_Error( 'image_quality_error', $e->getMessage() );
 		}
 
-		return parent::set_quality( $quality );
+		return true;
 	}
 
 	/**
@@ -242,14 +247,21 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	}
 
 	/**
-	 * Processes current image and saves to disk
-	 * multiple sizes from single source.
+	 * Resize multiple images from a single source.
 	 *
 	 * @since 3.5.0
 	 * @access public
 	 *
-	 * @param array $sizes { {'width'=>int, 'height'=>int, 'crop'=>bool}, ... }
-	 * @return array
+	 * @param array $sizes {
+	 *     An array of image size arrays. Default sizes are 'small', 'medium', 'large'.
+	 *
+	 *     @type array $size {
+	 *         @type int  $width  Image width.
+	 *         @type int  $height Image height.
+	 *         @type bool $crop   Optional. Whether to crop the image. Default false.
+	 *     }
+	 * }
+	 * @return array An array of resized images metadata by size.
 	 */
 	public function multi_resize( $sizes ) {
 		$metadata = array();
@@ -259,6 +271,12 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 		foreach ( $sizes as $size => $size_data ) {
 			if ( ! $this->image )
 				$this->image = $orig_image->getImage();
+
+			if ( ! ( isset( $size_data['width'] ) && isset( $size_data['height'] ) ) )
+				continue;
+
+			if ( ! isset( $size_data['crop'] ) )
+				$size_data['crop'] = false;
 
 			$resize_result = $this->resize( $size_data['width'], $size_data['height'], $size_data['crop'] );
 
@@ -343,11 +361,18 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 		 */
 		try {
 			$this->image->rotateImage( new ImagickPixel('none'), 360-$angle );
+
+			// Since this changes the dimensions of the image, update the size.
+			$result = $this->update_size();
+			if ( is_wp_error( $result ) )
+				return $result;
+
+			$this->image->setImagePage( $this->size['width'], $this->size['height'], 0, 0 );
 		}
 		catch ( Exception $e ) {
 			return new WP_Error( 'image_rotate_error', $e->getMessage() );
 		}
-		return $this->update_size();
+		return true;
 	}
 
 	/**
@@ -356,8 +381,8 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	 * @since 3.5.0
 	 * @access public
 	 *
-	 * @param boolean $horz Horizontal Flip
-	 * @param boolean $vert Vertical Flip
+	 * @param boolean $horz Flip along Horizontal Axis
+	 * @param boolean $vert Flip along Vertical Axis
 	 * @returns boolean|WP_Error
 	 */
 	public function flip( $horz, $vert ) {
@@ -427,11 +452,12 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 		$perms = $stat['mode'] & 0000666; //same permissions as parent folder, strip off the executable bits
 		@ chmod( $filename, $perms );
 
+		/** This filter is documented in wp-includes/class-wp-image-editor-gd.php */
 		return array(
-			'path' => $filename,
-			'file' => wp_basename( apply_filters( 'image_make_intermediate_size', $filename ) ),
-			'width' => $this->size['width'],
-			'height' => $this->size['height'],
+			'path'      => $filename,
+			'file'      => wp_basename( apply_filters( 'image_make_intermediate_size', $filename ) ),
+			'width'     => $this->size['width'],
+			'height'    => $this->size['height'],
 			'mime-type' => $mime_type,
 		);
 	}

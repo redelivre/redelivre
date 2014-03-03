@@ -17,7 +17,13 @@ function wpmu_update_blogs_date() {
 	global $wpdb;
 
 	update_blog_details( $wpdb->blogid, array('last_updated' => current_time('mysql', true)) );
-
+	/**
+	 * Fires after the blog details are updated.
+	 *
+	 * @since MU
+	 *
+	 * @param int $blog_id Blog ID.
+	 */
 	do_action( 'wpmu_blog_updated', $wpdb->blogid );
 }
 
@@ -43,14 +49,12 @@ function get_blogaddress_by_id( $blog_id ) {
  * @return string
  */
 function get_blogaddress_by_name( $blogname ) {
-	global $current_site;
-
 	if ( is_subdomain_install() ) {
 		if ( $blogname == 'main' )
 			$blogname = 'www';
 		$url = rtrim( network_home_url(), '/' );
 		if ( !empty( $blogname ) )
-			$url = preg_replace( '|^([^\.]+://)|', '$1' . $blogname . '.', $url );
+			$url = preg_replace( '|^([^\.]+://)|', "\${1}" . $blogname . '.', $url );
 	} else {
 		$url = network_home_url( $blogname );
 	}
@@ -58,33 +62,7 @@ function get_blogaddress_by_name( $blogname ) {
 }
 
 /**
- * Get a full blog URL, given a domain and a path.
- *
- * @since MU
- *
- * @param string $domain
- * @param string $path
- * @return string
- */
-function get_blogaddress_by_domain( $domain, $path ) {
-	if ( is_subdomain_install() ) {
-		$url = "http://" . $domain.$path;
-	} else {
-		if ( $domain != $_SERVER['HTTP_HOST'] ) {
-			$blogname = substr( $domain, 0, strpos( $domain, '.' ) );
-			$url = 'http://' . substr( $domain, strpos( $domain, '.' ) + 1 ) . $path;
-			// we're not installing the main blog
-			if ( $blogname != 'www.' )
-				$url .= $blogname . '/';
-		} else { // main blog
-			$url = 'http://' . $domain . $path;
-		}
-	}
-	return esc_url( $url );
-}
-
-/**
- * Given a blog's (subdomain or directory) slug, retrieve it's id.
+ * Given a blog's (subdomain or directory) slug, retrieve its id.
  *
  * @since MU
  *
@@ -92,8 +70,9 @@ function get_blogaddress_by_domain( $domain, $path ) {
  * @return int A blog id
  */
 function get_id_from_blogname( $slug ) {
-	global $wpdb, $current_site;
+	global $wpdb;
 
+	$current_site = get_current_site();
 	$slug = trim( $slug, '/' );
 
 	$blog_id = wp_cache_get( 'get_id_from_blogname_' . $slug, 'blog-details' );
@@ -234,6 +213,13 @@ function get_blog_details( $fields = null, $get_all = true ) {
 	$details->post_count	= get_option( 'post_count' );
 	restore_current_blog();
 
+	/**
+	 * Filter a blog's details.
+	 *
+	 * @since MU
+	 *
+	 * @param object $details The blog details.
+	 */
 	$details = apply_filters( 'blog_details', $details );
 
 	wp_cache_set( $blog_id . $all, $details, 'blog-details' );
@@ -254,9 +240,26 @@ function get_blog_details( $fields = null, $get_all = true ) {
 function refresh_blog_details( $blog_id ) {
 	$blog_id = (int) $blog_id;
 	$details = get_blog_details( $blog_id, false );
+	if ( ! $details ) {
+		// Make sure clean_blog_cache() gets the blog ID
+		// when the blog has been previously cached as
+		// non-existent.
+		$details = (object) array(
+			'blog_id' => $blog_id,
+			'domain' => null,
+			'path' => null
+		);
+	}
 
 	clean_blog_cache( $details );
 
+	/**
+	 * Fires after the blog details cache is cleared.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @param int $blog_id Blog ID.
+	 */
 	do_action( 'refresh_blog_details', $blog_id );
 }
 
@@ -298,40 +301,100 @@ function update_blog_details( $blog_id, $details = array() ) {
 		return false;
 
 	// If spam status changed, issue actions.
-	if ( $details[ 'spam' ] != $current_details[ 'spam' ] ) {
-		if ( $details[ 'spam' ] == 1 )
+	if ( $details['spam'] != $current_details['spam'] ) {
+		if ( $details['spam'] == 1 ) {
+			/**
+			 * Fires when the blog status is changed to 'spam'.
+			 *
+			 * @since MU
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'make_spam_blog', $blog_id );
-		else
+		} else {
+			/**
+			 * Fires when the blog status is changed to 'ham'.
+			 *
+			 * @since MU
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'make_ham_blog', $blog_id );
+		}
 	}
 
 	// If mature status changed, issue actions.
-	if ( $details[ 'mature' ] != $current_details[ 'mature' ] ) {
-		if ( $details[ 'mature' ] == 1 )
+	if ( $details['mature'] != $current_details['mature'] ) {
+		if ( $details['mature'] == 1 ) {
+			/**
+			 * Fires when the blog status is changed to 'mature'.
+			 *
+			 * @since 3.1.0
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'mature_blog', $blog_id );
-		else
+		} else {
+			/**
+			 * Fires when the blog status is changed to 'unmature'.
+			 *
+			 * @since 3.1.0
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'unmature_blog', $blog_id );
+		}
 	}
 
 	// If archived status changed, issue actions.
-	if ( $details[ 'archived' ] != $current_details[ 'archived' ] ) {
-		if ( $details[ 'archived' ] == 1 )
+	if ( $details['archived'] != $current_details['archived'] ) {
+		if ( $details['archived'] == 1 ) {
+			/**
+			 * Fires when the blog status is changed to 'archived'.
+			 *
+			 * @since MU
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'archive_blog', $blog_id );
-		else
+		} else {
+			/**
+			 * Fires when the blog status is changed to 'unarchived'.
+			 *
+			 * @since MU
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'unarchive_blog', $blog_id );
+		}
 	}
 
 	// If deleted status changed, issue actions.
-	if ( $details[ 'deleted' ] != $current_details[ 'deleted' ] ) {
-		if ( $details[ 'deleted' ] == 1 )
+	if ( $details['deleted'] != $current_details['deleted'] ) {
+		if ( $details['deleted'] == 1 ) {
+			/**
+			 * Fires when the blog status is changed to 'deleted'.
+			 *
+			 * @since 3.5.0
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'make_delete_blog', $blog_id );
-		else
+		} else {
+			/**
+			 * Fires when the blog status is changed to 'undeleted'.
+			 *
+			 * @since 3.5.0
+			 *
+			 * @param int $blog_id Blog ID.
+			 */
 			do_action( 'make_undelete_blog', $blog_id );
+		}
 	}
 
-	if ( isset( $details[ 'public' ] ) ) {
+	if ( isset( $details['public'] ) ) {
 		switch_to_blog( $blog_id );
-		update_option( 'blog_public', $details[ 'public' ] );
+		update_option( 'blog_public', $details['public'] );
 		restore_current_blog();
 	}
 
@@ -390,7 +453,17 @@ function get_blog_option( $id, $option, $default = false ) {
 	$value = get_option( $option, $default );
 	restore_current_blog();
 
-	return apply_filters( 'blog_option_' . $option, $value, $id );
+	/**
+	 * Filter a blog option value.
+	 *
+	 * The dynamic portion of the hook name, $option, refers to the blog option name.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param string  $value The option value.
+	 * @param int     $id    Blog ID.
+	 */
+	return apply_filters( "blog_option_{$option}", $value, $id );
 }
 
 /**
@@ -461,7 +534,7 @@ function delete_blog_option( $id, $option ) {
  * @param int $id The blog id
  * @param string $option The option key
  * @param mixed $value The option value
- * @return bool True on success, false on failrue.
+ * @return bool True on success, false on failure.
  */
 function update_blog_option( $id, $option, $value, $deprecated = null ) {
 	$id = (int) $id;
@@ -506,17 +579,27 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
 
 	$GLOBALS['_wp_switched_stack'][] = $GLOBALS['blog_id'];
 
-	/* If we're switching to the same blog id that we're on,
-	* set the right vars, do the associated actions, but skip
-	* the extra unnecessary work */
+	/*
+	 * If we're switching to the same blog id that we're on,
+	 * set the right vars, do the associated actions, but skip
+	 * the extra unnecessary work
+	 */
 	if ( $new_blog == $GLOBALS['blog_id'] ) {
+		/**
+		 * Fires when the blog is switched.
+		 *
+		 * @since MU
+		 *
+		 * @param int $new_blog New blog ID.
+		 * @param int $new_blog Blog ID.
+		 */
 		do_action( 'switch_blog', $new_blog, $new_blog );
 		$GLOBALS['switched'] = true;
 		return true;
 	}
 
 	$wpdb->set_blog_id( $new_blog );
-	$GLOBALS['table_prefix'] = $wpdb->prefix;
+	$GLOBALS['table_prefix'] = $wpdb->get_blog_prefix();
 	$prev_blog_id = $GLOBALS['blog_id'];
 	$GLOBALS['blog_id'] = $new_blog;
 
@@ -547,6 +630,7 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
 		$current_user->for_blog( $new_blog );
 	}
 
+	/** This filter is documented in wp-includes/ms-blogs.php */
 	do_action( 'switch_blog', $new_blog, $prev_blog_id );
 	$GLOBALS['switched'] = true;
 
@@ -570,6 +654,7 @@ function restore_current_blog() {
 	$blog = array_pop( $GLOBALS['_wp_switched_stack'] );
 
 	if ( $GLOBALS['blog_id'] == $blog ) {
+		/** This filter is documented in wp-includes/ms-blogs.php */
 		do_action( 'switch_blog', $blog, $blog );
 		// If we still have items in the switched stack, consider ourselves still 'switched'
 		$GLOBALS['switched'] = ! empty( $GLOBALS['_wp_switched_stack'] );
@@ -579,7 +664,7 @@ function restore_current_blog() {
 	$wpdb->set_blog_id( $blog );
 	$prev_blog_id = $GLOBALS['blog_id'];
 	$GLOBALS['blog_id'] = $blog;
-	$GLOBALS['table_prefix'] = $wpdb->prefix;
+	$GLOBALS['table_prefix'] = $wpdb->get_blog_prefix();
 
 	if ( function_exists( 'wp_cache_switch_to_blog' ) ) {
 		wp_cache_switch_to_blog( $blog );
@@ -608,6 +693,7 @@ function restore_current_blog() {
 		$current_user->for_blog( $blog );
 	}
 
+	/** This filter is documented in wp-includes/ms-blogs.php */
 	do_action( 'switch_blog', $blog, $prev_blog_id );
 
 	// If we still have items in the switched stack, consider ourselves still 'switched'
@@ -679,14 +765,49 @@ function update_blog_status( $blog_id, $pref, $value, $deprecated = null ) {
 
 	refresh_blog_details( $blog_id );
 
-	if ( 'spam' == $pref )
-		( $value == 1 ) ? do_action( 'make_spam_blog', $blog_id ) :	do_action( 'make_ham_blog', $blog_id );
-	elseif ( 'mature' == $pref )
-		( $value == 1 ) ? do_action( 'mature_blog', $blog_id ) : do_action( 'unmature_blog', $blog_id );
-	elseif ( 'archived' == $pref )
-		( $value == 1 ) ? do_action( 'archive_blog', $blog_id ) : do_action( 'unarchive_blog', $blog_id );
-	elseif ( 'deleted' == $pref )
-		( $value == 1 ) ? do_action( 'make_delete_blog', $blog_id ) : do_action( 'make_undelete_blog', $blog_id );
+	if ( 'spam' == $pref ) {
+		if ( $value == 1 ) {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'make_spam_blog', $blog_id );
+		} else {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'make_ham_blog', $blog_id );
+		}
+	} elseif ( 'mature' == $pref ) {
+		if ( $value == 1 ) {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'mature_blog', $blog_id );
+		} else {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'unmature_blog', $blog_id );
+		}
+	} elseif ( 'archived' == $pref ) {
+		if ( $value == 1 ) {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'archive_blog', $blog_id );
+		} else {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'unarchive_blog', $blog_id );
+		}
+	} elseif ( 'deleted' == $pref ) {
+		if ( $value == 1 ) {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'make_delete_blog', $blog_id );
+		} else {
+			/** This filter is documented in wp-includes/ms-blogs.php */
+			do_action( 'make_undelete_blog', $blog_id );
+		}
+	} elseif ( 'public' == $pref ) {
+		/**
+		 * Fires after the current blog's 'public' setting is updated.
+		 *
+		 * @since MU
+		 *
+		 * @param int    $blog_id Blog ID.
+		 * @param string $value   The value of blog status.
+ 		 */
+		do_action( 'update_blog_public', $blog_id, $value ); // Moved here from update_blog_public().
+	}
 
 	return $value;
 }

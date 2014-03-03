@@ -23,7 +23,7 @@ class WP_Links_List_Table extends WP_List_Table {
 	function prepare_items() {
 		global $cat_id, $s, $orderby, $order;
 
-		wp_reset_vars( array( 'action', 'cat_id', 'linkurl', 'name', 'image', 'description', 'visible', 'target', 'category', 'link_id', 'submit', 'orderby', 'order', 'links_show_cat_id', 'rating', 'rel', 'notes', 'linkcheck[]', 's' ) );
+		wp_reset_vars( array( 'action', 'cat_id', 'link_id', 'orderby', 'order', 's' ) );
 
 		$args = array( 'hide_invisible' => 0, 'hide_empty' => 0 );
 
@@ -175,6 +175,14 @@ class WP_Links_List_Table extends WP_List_Table {
 	 					?><td <?php echo $attributes ?>><?php echo $rating; ?></td><?php
 						break;
 					default:
+						/**
+						 * Fires for each registered custom link column.
+						 *
+						 * @since 2.1.0
+						 *
+						 * @param string $column_name Name of the custom column.
+						 * @param int    $link_id     Link ID.
+						 */
 						?>
 						<td <?php echo $attributes ?>><?php do_action( 'manage_link_custom_column', $column_name, $link->link_id ); ?></td>
 						<?php
