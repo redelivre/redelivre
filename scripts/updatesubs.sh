@@ -12,3 +12,6 @@ done
 cd $PWDAtual/src/wp-content/plugins/mapasdevista;
 git checkout redelivre;
 git pull;
+cd $PWDAtual/src/wp-content/plugins/wp-opauth
+git submodule update --init;
+cd $PWDAtual
