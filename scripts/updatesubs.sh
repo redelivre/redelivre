@@ -19,3 +19,5 @@ if [ ! -e PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
 	cd $PWDAtual/src/wp-content/plugins/wp-opauth
 	git submodule update --init
 fi
+
+cd $PWDAtual
