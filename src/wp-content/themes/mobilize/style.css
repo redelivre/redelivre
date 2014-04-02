@@ -628,7 +628,7 @@ Widgets
 .sidebar-box a {
 	font-size: 16px;
 	font-weight: normal;
-	display: block;
+	display: table;
 	margin: 8px 0;
 }
 

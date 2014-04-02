@@ -184,19 +184,31 @@ class Agenda {
             return;
         }
 
-        // OK, we're authenticated: we need to find and save the data
-        $initial_date_pt = explode('/', trim($_POST[$data_inicial]));
-        $initial_date_en = $initial_date_pt[2].'-'.$initial_date_pt[1].'-'.$initial_date_pt[0];
+        $final_date_en = false;
+        $initial_date_en = false;
         
-        if ($_POST[$data_final]) {
+        // OK, we're authenticated: we need to find and save the data
+        if (array_key_exists($data_inicial, $_POST) && !empty($_POST[$data_inicial]))
+        {
+	        $initial_date_pt = explode('/', trim($_POST[$data_inicial]));
+	        $initial_date_en = $initial_date_pt[2].'-'.$initial_date_pt[1].'-'.$initial_date_pt[0];
+        }
+        
+        if (array_key_exists($data_final, $_POST) && !empty($_POST[$data_final])) {
             $final_date_pt = explode('/', trim($_POST[$data_final]));
             $final_date_en = $final_date_pt[2].'-'.$final_date_pt[1].'-'.$final_date_pt[0];
         }
         else 
             $final_date_en = $initial_date_en;
         
-        update_post_meta($post_id, $data_inicial, date('Y-m-d h:i', strtotime($initial_date_en)));
-        update_post_meta($post_id, $data_final, date('Y-m-d h:i', strtotime($final_date_en)));
+        if (array_key_exists($data_inicial, $_POST) && !empty($_POST[$data_inicial]))
+        {
+        	update_post_meta($post_id, $data_inicial, date('Y-m-d h:i', strtotime($initial_date_en)));
+        }
+        if (array_key_exists($data_final, $_POST) && !empty($_POST[$data_final]))
+        {
+        	update_post_meta($post_id, $data_final, date('Y-m-d h:i', strtotime($final_date_en)));
+        }
         update_post_meta($post_id, $link, trim($_POST[$link]));
         update_post_meta($post_id, $onde, trim($_POST[$onde]));
         update_post_meta($post_id, $horario, trim($_POST[$horario]));
@@ -340,8 +352,8 @@ function the_event_box() {
         <div class="event-info clear">
             <h3>Informações do Evento</h3>
             <?php
-            if ($meta['_data_inicial'][0]) echo '<p class="bottom"><span class="label">Data Inicial:</span> ', date('d/m/Y', strtotime($meta['_data_inicial'][0])), '</p>';
-            if ($meta['_data_final'][0]) echo '<p class="bottom"><span class="label">Data Final:</span> ', date('d/m/Y', strtotime($meta['_data_final'][0])), '</p>';
+            if (array_key_exists('_data_inicial', $meta)) echo '<p class="bottom"><span class="label">Data Inicial:</span> ', date('d/m/Y', strtotime($meta['_data_inicial'][0])), '</p>';
+            if (array_key_exists('_data_final', $meta)) echo '<p class="bottom"><span class="label">Data Final:</span> ', date('d/m/Y', strtotime($meta['_data_final'][0])), '</p>';
             if ($meta['_horario'][0]) echo '<p class="bottom"><span class="label">Horário:</span> ', $meta['_horario'][0], '</p>';
             if ($meta['_onde'][0]) echo '<p class="bottom"><span class="label">Local:</span> ', $meta['_onde'][0], '</p>';
             if ($meta['_link'][0]) echo '<p class="bottom"><span class="label">Site:</span> ', $meta['_link'][0], '</p>';
