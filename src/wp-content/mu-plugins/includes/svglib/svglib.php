@@ -172,7 +172,7 @@ class SVGDocument extends XMLElement
             $filename = 'compress.zlib://'.$filename;
         }
 
-        $xml = parent::asXML();
+        $xml = parent::asXML(null);
 
         //need to do it, if pass a null filename it return an error
         if ( $filename )
