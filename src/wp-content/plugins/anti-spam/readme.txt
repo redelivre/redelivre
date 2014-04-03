@@ -3,9 +3,9 @@ Contributors: webvitaly
 Donate link: http://web-profile.com.ua/donate/
 Tags: spam, spammer, spammers, comment, comments, antispam, anti-spam, block-spam, spamfree, spam-free, spambot, spam-bot, bot
 Requires at least: 3.0
-Tested up to: 3.8
-Stable tag: 2.0
-License: GPLv3 or later
+Tested up to: 3.8.1
+Stable tag: 2.1
+License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
 No spam in comments. No captcha.
@@ -14,13 +14,15 @@ No spam in comments. No captcha.
 
 [Anti-spam](http://web-profile.com.ua/wordpress/plugins/anti-spam/ "Plugin page") |
 [Donate](http://web-profile.com.ua/donate/ "Support the development") |
-[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169 "Go Pro")
+[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169 "Anti-spam Pro")
 
 Anti-spam plugin blocks spam in comments automatically, invisibly for users and for admins.
 
 * **no captcha**, because spam is not users' problem
 * **no moderation queues**, because spam is not administrators' problem
 * **no options**, because it is great to forget about spam completely
+
+If you need more powerful and extended version with options you may try [Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169).
 
 Plugin is easy to use: just install it and it just works.
 Need [more info about the plugin](http://wordpress.org/plugins/anti-spam/faq/)?
@@ -29,7 +31,7 @@ After installing the Anti-spam plugin **try to submit a comment on your site bei
 If you get an error - you may check the solution in the [Support section](http://wordpress.org/support/plugin/anti-spam) or submit a new topic with detailed description of your problem.
 
 = Useful: =
-* ["activetab" - responsive clean theme](http://wordpress.org/themes/activetab "responsive clean theme")
+* ["activetab" - responsive clean theme](http://wordpress.org/themes/activetab "responsive clean and light theme")
 * ["Page-list" - show list of pages with shortcodes](http://wordpress.org/plugins/page-list/ "list of pages with shortcodes")
 * ["Filenames to latin" - sanitize filenames to latin during upload](http://wordpress.org/plugins/filenames-to-latin/ "sanitize filenames to latin")
 
@@ -93,6 +95,9 @@ Do not order products from spam. If spam will be less effective than spammers wi
 
 
 == Changelog ==
+
+= 2.1 - 2014-02-15 =
+* add support for comments forms loaded via ajax
 
 = 2.0 - 2014-01-04 =
 * bug fixing

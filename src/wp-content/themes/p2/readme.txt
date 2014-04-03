@@ -25,6 +25,15 @@ http://en.blog.wordpress.com/2009/03/11/p2-the-new-prologue/
 
 == Changelog ==
 
+= 1.5.3 =
+* Add earlier filter to mentions URLs in case term doesn't exist
+* Add !important to #wrapper width property to fix iPhone stylesheet issue if no sidebar option is ticked
+* Stylesheet tags: update Width terms to Layout
+* Add ID argument when applying the_title filters, to match core
+* Remove reliance on is_super_admin() for mention functionality
+* Image optimization (PNG crushing!)
+* Update screenshot size to new standard, 880x660
+
 = 1.5.2 - November 2013 =
 * Fix posting bug with Chrome 31.x
 * Fix broken "selected" class values for post form
@@ -37,7 +46,6 @@ http://en.blog.wordpress.com/2009/03/11/p2-the-new-prologue/
 * When hide comments on homepage option is on, don't try to link to in-page comments in Recent Comments widget
 * Turkish translation added, via erayaydin
 * Serbian translation added, from Andrijana Nikolic
-
 
 = 1.5.1 - July 2013 =
 * Fix broken "Allow any registered member to post" feature

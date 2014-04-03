@@ -36,7 +36,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
               Unlock Facebook Pages and Twitter features, and get support from the developers of SharePress!
             </p>
           <?php } else { ?>
-            <p>You're a pro user! Need support? <a href="mailto:support@fatpanda.zendesk.com">Just e-mail us</a>.
+            <p>You're a pro user! Need support? <a href="mailto:support@fatpandadev.com">Just e-mail us</a>.
           <?php } ?>
 
           <table class="form-table">
@@ -75,7 +75,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
 
         <?php if (self::unlocked()) { ?>
           <p>
-            Need more help? <a href="mailto:support@fatpanda.zendesk.com">Just e-mail us</a>.
+            Need more help? <a href="mailto:support@fatpandadev.com">Just e-mail us</a>.
           </p>
         <?php } else { ?>
           <p>
@@ -191,7 +191,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
             Unlock Facebook Pages and Twitter features, and get support from the developers of SharePress!
           </p>
         <?php } else { ?>
-          <p>Awesome, tamales! Need support? <a href="http://fatpanda.zendesk.com">Go here</a>.
+          <p>Awesome, tamales! Need support? Email us! <a href="mailto:support@fatpandadev.com">support@fatpandadev.com</a>.
         <?php } ?>
 
         <table class="form-table">
@@ -842,11 +842,10 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
 
         <br />
         <h3 class="title">Get Help</h3>
-        Having trouble using SharePress? Contact our support team.
+        Having trouble using SharePress? Email us! <a href="mailto:support@fatpandadev.com">support@fatpandadev.com</a>.
         <?php if (!self::setting('license_key')) { ?>
           Note that as an unlicensed user, your help will be limited to getting the free version up and running.
         <?php } ?>
-        The <a href="http://fatpanda.zendesk.com" target="_blank">documentation</a> is also awesome, and is available to everyone.
 
         <br /><br />
         <h3 class="title">Anonymous Usage Tracking</h3>       

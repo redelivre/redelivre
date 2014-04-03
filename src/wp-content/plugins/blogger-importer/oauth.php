@@ -774,6 +774,10 @@ class Blogger_OAuthDataStore {
 }
 
 class Blogger_OAuthUtil {
+  public static function sslinstalled() {
+    return function_exists('openssl_sign');
+  }  
+    
   public static function urlencode_rfc3986($input) {
   if (is_array($input)) {
     return array_map(array('Blogger_OAuthUtil', 'urlencode_rfc3986'), $input);

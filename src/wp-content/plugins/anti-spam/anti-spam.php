@@ -3,10 +3,10 @@
 Plugin Name: Anti-spam
 Plugin URI: http://wordpress.org/plugins/anti-spam/
 Description: No spam in comments. No captcha.
-Version: 2.0
+Version: 2.1
 Author: webvitaly
 Author URI: http://web-profile.com.ua/wordpress/plugins/
-License: GPLv3 or later
+License: GPLv3
 */
 
 $antispam_send_spam_comment_to_admin = false; // if true, than rejected spam comments will be sent to admin email
@@ -15,7 +15,7 @@ $antispam_allow_trackbacks = false; // if true, than trackbacks will be allowed
 // trackbacks almost not used by users, but mostly used by spammers; pingbacks are always enabled
 // more about the difference between trackback and pingback - http://web-profile.com.ua/web/trackback-vs-pingback/
 
-$antispam_version = '2.0';
+$antispam_version = '2.1';
 
 
 if ( ! function_exists( 'antispam_scripts_styles_init' ) ) :
@@ -37,7 +37,7 @@ if ( ! function_exists( 'antispam_form_part' ) ) :
 	<p class="comment-form-ant-spm" style="clear:both;">
 		<strong>Current <span style="display:none;">day</span> <span style="display:none;">month</span> <span style="display:inline;">ye@r</span></strong> <span class="required">*</span>
 		<input type="hidden" name="ant-spm-a" id="ant-spm-a" value="'.date('Y').'" />
-		<input type="text" name="ant-spm-q" id="ant-spm-q" size="30" value="20" />
+		<input type="text" name="ant-spm-q" id="ant-spm-q" size="30" value="21" />
 	</p>
 	'; // question (hidden with js) [aria-required="true" required="required"]
 			$antispam_form_part .= '
@@ -91,7 +91,7 @@ if ( ! function_exists( 'antispam_check_comment' ) ) :
 			$antispam_message_spam_info .= "\r\n\r\n";
 
 			$antispam_message_append = '-----------------------------'."\r\n";
-			$antispam_message_append .= 'This is spam comment rejected by Anti-spam plugin. wordpress.org/plugins/anti-spam/' . "\r\n";
+			$antispam_message_append .= 'This is spam comment rejected by Anti-spam plugin - wordpress.org/plugins/anti-spam/' . "\r\n";
 			$antispam_message_append .= 'You may edit "anti-spam.php" file and disable this notification.' . "\r\n";
 			$antispam_message_append .= 'You should find "$antispam_send_spam_comment_to_admin" and make it equal to "false".' . "\r\n";
 		}
@@ -161,9 +161,9 @@ endif; // end of antispam_check_comment()
 if ( ! function_exists( 'antispam_plugin_meta' ) ) :
 	function antispam_plugin_meta( $links, $file ) { // add 'Plugin page' and 'Donate' links to plugin meta row
 		if ( strpos( $file, 'anti-spam.php' ) !== false ) {
-			$links = array_merge( $links, array( '<a href="http://web-profile.com.ua/wordpress/plugins/anti-spam/" title="Plugin page">' . __('Anti-spam') . '</a>' ) );
-			$links = array_merge( $links, array( '<a href="http://web-profile.com.ua/donate/" title="Support the development">' . __('Donate') . '</a>' ) );
-			$links = array_merge( $links, array( '<a href="http://codecanyon.net/item/antispam-pro/6491169" title="Go Pro">' . __('Anti-spam Pro') . '</a>' ) );
+			$links = array_merge( $links, array( '<a href="http://web-profile.com.ua/wordpress/plugins/anti-spam/" title="Plugin page">Anti-spam</a>' ) );
+			$links = array_merge( $links, array( '<a href="http://web-profile.com.ua/donate/" title="Support the development">Donate</a>' ) );
+			$links = array_merge( $links, array( '<a href="http://codecanyon.net/item/antispam-pro/6491169" title="Anti-spam Pro">Anti-spam Pro</a>' ) );
 		}
 		return $links;
 	}

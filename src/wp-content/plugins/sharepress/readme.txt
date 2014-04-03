@@ -3,8 +3,8 @@ Contributors: aaroncollegeman, joeyblake
 Donate link: https://getsharepress.com
 Tags: facebook, twitter, social, like, posts, page
 Requires at least: 2.9
-Tested up to: 3.8
-Stable tag: 2.2.25
+Tested up to: 3.8.1
+Stable tag: 2.2.27
 
 Automatic posting and reposting to Facebook and Twitter.
 
@@ -81,7 +81,7 @@ Want to try SharePress for FREE?
 
 1. Get the plugin. Activate the plugin.
 
-2. [Create a Facebook application](https://fatpanda.zendesk.com/entries/23637006-How-to-Install-and-Setup-SharePress).
+2. [Create a Facebook application](http://getsharepress.com/setup).
 
 3. Go to Settings / SharePress, and run setup.
 
@@ -115,11 +115,18 @@ Other services and plugins support writing to Google+, but they do this by stori
 
 = I'm having trouble. Where can I get support? =
 
-Documentation and support for SharePress are available [here](http://fatpanda.zendesk.com).
+Documentation and support for SharePress are available [here](http://getsharepress.com/setup).
 
 E-mail based tech support is available to Pro customers. All you have to do is [buy a key](https://getsharepress.com/?utm_source=wordpress.org&utm_medium=app-store&utm_campaign=get-support).
 
 == Changelog ==
+
+= 2.2.27 =
+* Gracefully fix twitter authentication keys
+
+= 2.2.26 = 
+* Added new support ticket system
+* Version bump: compatible with WordPress 3.8.1
 
 = 2.2.25 =
 * Added: Filter "sp_auto_flush_fb" for disabling Facebook cache flushing: just return false

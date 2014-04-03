@@ -5,7 +5,6 @@
  * Expect this to become part of core wordpress at some point.
  * See http://core.trac.wordpress.org/ticket/7652
  * 
- * Todo GeoTag parsing
  * http://codex.wordpress.org/Geodata
  * 
  */
@@ -27,9 +26,9 @@ if (!class_exists('WP_SimplePie_Blog_Item'))
         /**
          * Constructor 
          */
-        function WP_SimplePieAtomPub_Item($feed, $data)
+        function __construct($feed, $data)
         {
-            parent::SimplePie_Item($feed, $data);
+            parent::__construct($feed, $data);
         }
 
         /**
@@ -114,6 +113,47 @@ if (!class_exists('WP_SimplePie_Blog_Item'))
             {
                 return $return[0]['data'];
             }
+        }
+        
+        //Prefiltered links
+        function get_links($linktypes) {
+        
+            $mylinks = array();
+            foreach ($linktypes as $type)
+            {
+                $links =parent::get_links($type);
+
+                if (!is_null($links)) {
+                    foreach ($links as $link) {
+                        $mylinks[] = array('rel' => $type, 'href' => $link);
+                    }
+                }
+            }
+            return $mylinks;
+        }
+
+        //Preprocessed categories
+        function get_categories() {
+            $cats = parent::get_categories();
+            $mycats = array();
+
+            if (!is_null($cats)) {
+                foreach ($cats as $cat) {
+                    $mycats[] = $cat->term;
+                }
+            }
+            return $mycats;
+        }
+        
+        function get_source() {
+            $temp = $this->get_item_tags('http://purl.org/syndication/thread/1.0', 'in-reply-to');
+
+            foreach ($temp as $t) {
+                if (isset($t['attribs']['']['source'])) {
+                    $source = $t['attribs']['']['source'];
+                }
+            }
+            return $source;
         }
 
     }
