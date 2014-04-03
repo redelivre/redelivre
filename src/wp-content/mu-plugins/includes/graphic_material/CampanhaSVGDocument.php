@@ -9,7 +9,7 @@ class CampanhaSVGDocument extends SVGDocument {
      * a performance killer. If you call SVGDocument::asXML()
      * there is no way to skip XmlElement::prettyXML()
      */
-    protected function prettyXml($xml) {
+    protected function prettyXml($xml, $debug = false) {
         return $xml;
     }
     
