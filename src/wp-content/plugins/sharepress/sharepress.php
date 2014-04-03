@@ -5,7 +5,7 @@ Plugin URI: https://getsharepress.com
 Description: SharePress publishes your content to your personal Facebook Wall and the Walls of Pages you choose.
 Author: Fat Panda, LLC
 Author URI: http://fatpandadev.com
-Version: 2.2.25
+Version: 2.2.27
 License: GPL2
 */
 
@@ -41,7 +41,7 @@ SpBaseFacebook::$CURL_OPTS = SpBaseFacebook::$CURL_OPTS + array(
 
 class Sharepress {
 
-  const VERSION = '2.2.26';
+  const VERSION = '2.2.27';
   
   const MISSED_SCHEDULE_DELAY = 5;
   const MISSED_SCHEDULE_OPTION = 'sharepress_missed_schedule';
@@ -1550,7 +1550,6 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
     }
 
     if ($twitter_meta = $this->can_post_on_twitter($post)) {
-       
       $client = new SharePress_TwitterClient(get_option(self::OPTION_SETTINGS));
       $tweet = sprintf('%s %s', $post->post_title, $this->get_bitly_link($post));
       if ($hash_tag = trim($twitter_meta['hash_tag'])) {
@@ -1865,10 +1864,10 @@ class SharePress_TwitterClient {
   private $host = 'https://api.twitter.com/1.1';
   
   function __construct($settings) {
-    $this->consumer_key = $settings['twitter_consumer_key'];
-    $this->consumer_secret = $settings['twitter_consumer_secret'];
-    $this->access_token = $settings['twitter_access_token'];
-    $this->access_token_secret = $settings['twitter_access_token_secret'];
+    $this->consumer_key = trim( $settings['twitter_consumer_key'] );
+    $this->consumer_secret = trim( $settings['twitter_consumer_secret'] );
+    $this->access_token = trim( $settings['twitter_access_token'] );
+    $this->access_token_secret = trim( $settings['twitter_access_token_secret'] );
   }
 
   /**

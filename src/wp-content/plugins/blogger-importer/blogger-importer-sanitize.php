@@ -6,7 +6,7 @@
  *
  */
 
-class Blogger_Importer_Sanitize extends Simplepie_Sanitize
+class Blogger_Importer_Sanitize extends SimplePie_Sanitize
 {
     // Private vars
     var $base;
@@ -17,9 +17,10 @@ class Blogger_Importer_Sanitize extends Simplepie_Sanitize
     //Allow iframe (new style) and embed, param and object(old style) so that we get youtube videos transferred
     //Allow object and noscript for Amazon widgets
     var $encode_instead_of_strip = false;
-    var $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'imageanchor', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
-    //Allow styles so we don't have to redo in Wordpress
+    var $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'imageanchor', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc', 'trbidi');
+    //Allow styles so we don't have to redo in WordPress
     //Brett Morgan from Google has confirmed that imageanchor is a made up attribute that is just used in the blogger editor so we can remove that
+    //trbidi another blogger proprietory attribute
     var $output_encoding = 'UTF-8';
     var $enable_cache = true;
     var $cache_location = './cache';
@@ -33,6 +34,11 @@ class Blogger_Importer_Sanitize extends Simplepie_Sanitize
     var $replace_url_attributes = array('a' => 'href', 'area' => 'href', 'blockquote' => 'cite', 'del' => 'cite', 'form' => 'action', 'img' => array('longdesc', 'src'), 'input' => 'src', 'ins' => 'cite',
         'q' => 'cite');
 
+    public function __construct()
+        {
+            parent::__construct();
+        }
+
     function _normalize_tag($matches)
     {
         return '<' . strtolower($matches[1]);
@@ -42,6 +48,9 @@ class Blogger_Importer_Sanitize extends Simplepie_Sanitize
     {
         //Simplified function
         $data = trim($data);
+        
+        // Normalise tags (string replacement is case sensitive)
+        $data = preg_replace_callback('|<(/?[A-Z]+)|', array(&$this, '_normalize_tag'), $data);
 
         // Remappings
         $data = str_replace('<br>', '<br />', $data);
@@ -49,7 +58,8 @@ class Blogger_Importer_Sanitize extends Simplepie_Sanitize
         //<span style="font-weight:bold;">Workshopshed:</span> > <b>Workshopshed:</b>
         $data = preg_replace('|(<span style="font-weight:bold;">)(?<!<span style="font-weight:bold;">).*(.*)(</span>)|', '<strong>$2</strong>', $data);
 
-        //N.B. Don't strip comments as blogger uses <!--more--> which is the same as Wordpress
+        //N.B. Don't strip comments as blogger uses <!--more--> which is the same as WordPress
+        //     Comments might also contain section targetting e.g. <!-- google_ad_section_start -->
 
         //Now clean up
         foreach ($this->strip_htmltags as $tag)
@@ -69,56 +79,23 @@ class Blogger_Importer_Sanitize extends Simplepie_Sanitize
 
         // Replace relative URLs
         $this->base = $base;
+        
         foreach ($this->replace_url_attributes as $element => $attributes)
         {
             $data = $this->replace_urls($data, $element, $attributes);
         }
 
-        // If image handling (caching, etc.) is enabled, cache and rewrite all the image tags.
-        if (isset($this->image_handler) && ((string )$this->image_handler) !== '' && $this->enable_cache)
-        {
-            $images = SimplePie_Misc::get_element('img', $data);
-            foreach ($images as $img)
-            {
-                if (isset($img['attribs']['src']['data']))
-                {
-                    $image_url = call_user_func($this->cache_name_function, $img['attribs']['src']['data']);
-                    $cache = call_user_func(array($this->cache_class, 'create'), $this->cache_location, $image_url, 'spi');
-                    if ($cache->load())
-                    {
-                        $img['attribs']['src']['data'] = $this->image_handler . $image_url;
-                        $data = str_replace($img['full'], SimplePie_Misc::element_implode($img), $data);
-                    } else
-                    {
-                        $file = &new $this->file_class($img['attribs']['src']['data'], $this->timeout, 5, array('X-FORWARDED-FOR' => $_SERVER['REMOTE_ADDR']), $this->useragent, $this->force_fsockopen);
-                        $headers = $file->headers;
-                        if ($file->success && ($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($file->status_code === 200 || $file->status_code > 206 && $file->status_code < 300)))
-                        {
-                            if ($cache->save(array('headers' => $file->headers, 'body' => $file->body)))
-                            {
-                                $img['attribs']['src']['data'] = $this->image_handler . $image_url;
-                                $data = str_replace($img['full'], SimplePie_Misc::element_implode($img), $data);
-                            } else
-                            {
-                                trigger_error("$this->cache_location is not writeable", E_USER_WARNING);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        // Images are handled as a separate step as we need to download them
 
         // Having (possibly) taken stuff out, there may now be whitespace at the beginning/end of the data
         $data = trim($data);
-
-        // Normalise tags
-        $data = preg_replace_callback('|<(/?[A-Z]+)|', array(&$this, '_normalize_tag'), $data);
 
         return $data;
     }
 
     function replace_urls($data, $tag, $attributes)
     {
+        //This seems to do nothing at all!?
         if (!is_array($this->strip_htmltags) || !in_array($tag, $this->strip_htmltags))
         {
             $elements = SimplePie_Misc::get_element($tag, $data);
@@ -146,6 +123,11 @@ class Blogger_Importer_Sanitize extends Simplepie_Sanitize
         return $data;
     }
 
+    //Latest SimplePie checks for this function
+    public function set_registry(SimplePie_Registry $registry)
+	{
+		parent::set_registry($registry);
+	}
 
 }
 
