@@ -1,0 +1,62 @@
+# Translation of Development (trunk) in Portuguese (Brazil)
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2010-06-12 17:57:54+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: Development (trunk)\n"
+
+msgid "http://wordpress.org/extend/plugins/rss-importer/"
+msgstr ""
+
+msgid "http://wordpress.org/"
+msgstr ""
+
+msgid "wordpressdotorg"
+msgstr ""
+
+msgid "Import posts from an RSS feed. This plugin depends on the WP_Importer base class."
+msgstr "Importe posts de um feed RSS. Este plugin depende da classe base WP_Importer."
+
+msgid "RSS Importer"
+msgstr "Importador RSS"
+
+#: rss-importer.php:219
+msgid "Import posts from an RSS feed."
+msgstr "Importar posts de um feed RSS."
+
+#: rss-importer.php:219
+msgid "RSS"
+msgstr "RSS"
+
+#: rss-importer.php:185
+msgid "All done. <a href=\"%s\">Have fun!</a>"
+msgstr "Tudo concluído. <a href=\"%s\">Divirta-se!</a>"
+
+#: rss-importer.php:160
+msgid "Done!"
+msgstr "Pronto!"
+
+#: rss-importer.php:154
+msgid "Couldn&#8217;t get post ID"
+msgstr "Não foi possível obter a ID do post."
+
+#: rss-importer.php:148
+msgid "Post already imported"
+msgstr "Post já importado"
+
+#: rss-importer.php:143
+msgid "Importing post..."
+msgstr "Importando post..."
+
+#: rss-importer.php:59
+msgid "Howdy! This importer allows you to extract posts from an RSS 2.0 file into your WordPress site. This is useful if you want to import your posts from a system that is not handled by a custom import tool. Pick an RSS file to upload and click Import."
+msgstr "Olá! Este importador permite que você extraia posts de um arquivo RSS 2.0 para o seu site WordPress. Isto é útil se você quiser importar posts de um sistema que não é suportado por uma ferramente de importação personalizada. Selecione um arquivo RSS para fazer upload e clique em Importar."
+
+#: rss-importer.php:50
+msgid "Import RSS"
+msgstr "Importar RSS"

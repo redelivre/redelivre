@@ -1,0 +1,143 @@
+# Translation of Development (trunk) in Portuguese (Brazil)
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2012-02-11 22:13:55+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#: tumblr-importer.php:296 tumblr-importer.php:372 tumblr-importer.php:416
+msgid "Problem communicating with Tumblr, retrying later"
+msgstr "Problemas ao se comunicar com o Tumblr, nova tentativa mais tarde."
+
+#: tumblr-importer.php:224
+msgid "This blog is currently being imported."
+msgstr "Este blog está sendo importado."
+
+#: tumblr-importer.php:219
+msgid "The specified blog cannot be found."
+msgstr "O blog especificado não pode ser encontrado."
+
+#: tumblr-importer.php:579
+msgid "No blog information found for this account. "
+msgstr "Nenhuma informação sobre o blog foi encontrada para esta conta."
+
+#: tumblr-importer.php:570
+msgid "Tumblr replied with an error: "
+msgstr "Tumblr respondeu com um erro:"
+
+#: tumblr-importer.php:208
+msgid "Because Tumblr's servers are often overloaded, the importing process happens in the background. Thus, you will not see immediate results here. Come back to this page later to check on the importer's progress."
+msgstr "Porque os servidores do Tumblr está frequentemente sobrecarregado, o processo de importação acontece em segundo plano. Sendo assim, você não verá resultados imediatos por aqui. Volte a esta página mais tarde para ver como está a importação."
+
+#: tumblr-importer.php:185
+msgid "In Progress"
+msgstr "Em progresso"
+
+#: tumblr-importer.php:183
+msgid "Finished!"
+msgstr "Terminado!"
+
+#: tumblr-importer.php:181
+msgid "Import this blog"
+msgstr "Importar este blog"
+
+#: tumblr-importer.php:161
+msgid "Action"
+msgstr "Ação"
+
+#: tumblr-importer.php:160
+msgid "Author Selection"
+msgstr "Seleção do Autor"
+
+#: tumblr-importer.php:159
+msgid "Pages Imported"
+msgstr "Páginas Importadas"
+
+#: tumblr-importer.php:158
+msgid "Queued Imported"
+msgstr "Importação em fila"
+
+#: tumblr-importer.php:157
+msgid "Drafts Imported"
+msgstr "Rascunhos Importados"
+
+#: tumblr-importer.php:156
+msgid "Posts Imported"
+msgstr "Posts Importados"
+
+#: tumblr-importer.php:150
+msgid "Tumblr does not have such a concept as \"author\", even on multi-author blogs. Therefore you will need to select which WordPress user will be listed as the author of the imported posts."
+msgstr "O Tumblr não tem o conceito de \"autor\", mesmo em blogs de múltiplos autores. Portanto, você precisa selecionar um usuário WordPress listado para ser o autor dos posts importados."
+
+#: tumblr-importer.php:155
+msgid "URL"
+msgstr "URL"
+
+#: tumblr-importer.php:151
+msgid "Refresh view"
+msgstr "Atualizar visão"
+
+#: tumblr-importer.php:154
+msgid "Tumblr Blog"
+msgstr "Blog Tumblr"
+
+#: tumblr-importer.php:131
+msgid "This doesn't appear to be a valid email address. Please check it and try again."
+msgstr "Este não parece ser um endereço de email válido. Por favor, verifique e tente novamente."
+
+#: tumblr-importer.php:117
+msgid "Connect to Tumblr"
+msgstr "Conectar ao Tumblr"
+
+#: tumblr-importer.php:112
+msgid "Password:"
+msgstr "Senha:"
+
+#: tumblr-importer.php:108
+msgid "Email:"
+msgstr "Email:"
+
+#: tumblr-importer.php:103
+msgid "First, you need to do is provide your email and password for Tumblr, so that WordPress can access your account."
+msgstr "Primeiro, você precisa providenciar sem email e senha para o Tumblr, assim o WordPress pode acessar sua conta."
+
+#: tumblr-importer.php:102
+msgid "Howdy! This importer allows you to import posts from your Tumblr account into your WordPress site."
+msgstr "Oi! Este importador permite importar post do seu blog Tumblr para seu site WordPress."
+
+#: tumblr-importer.php:101 tumblr-importer.php:149
+msgid "Import Tumblr"
+msgstr "Importar Tumblr"
+
+#: tumblr-importer.php:86
+msgid "Clear account information"
+msgstr "Limpar as informações da conta"
+
+#: tumblr-importer.php:83
+msgid "Note: This will stop any import currently in progress."
+msgstr "Nota: Isto irá parar qualquer importação em andamento."
+
+#: tumblr-importer.php:82
+msgid "We have saved some information about your Tumblr account in your WordPress database. Clearing this information will allow you to start over. Restarting will not affect any posts you have already imported. If you attempt to re-import a blog, duplicate posts will be skipped."
+msgstr "Salvamos algumas informações sobre sua conta Tumblr em seu banco de dados WordPress. Limpar essas informações permitem que comece de novo. Reiniciar não irá afetar os posts que já importou. Se tentar importar novamente um mesmo blog, os posts duplicados serão ignorados."
+
+#: tumblr-importer.php:31
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: class-wp-importer-cron.php:51
+msgid "Every Minute"
+msgstr "A cada minuto"
+
+#: tumblr-importer.php:31
+msgid "Import posts from a Tumblr blog."
+msgstr "Importe posts de um blog Tumblr."
+
+#: tumblr-importer.php:81
+msgid "Restart"
+msgstr "Reiniciar"

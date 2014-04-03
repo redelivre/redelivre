@@ -1,0 +1,182 @@
+# Translation of Development (trunk) in Portuguese (Brazil)
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2012-09-02 17:40:53+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#: blogger-importer.php:1026
+msgid "Import categories, posts and comments then maps users from a Blogger blog."
+msgstr "Importar categorias, posts e comentários e depois mapear usuários de um blog Blogger."
+
+msgid "Import posts, comments and tags from a Blogger blog and migrate authors to Wordpress users."
+msgstr "Importar posts, comentários e tags de um blog Blogger e migrar autores para usuários WordPress."
+
+#: blogger-importer.php:101
+msgid "Import Blogger"
+msgstr "Importar do Blogger"
+
+#: blogger-importer.php:102
+msgid "Howdy! This importer allows you to import posts and comments from your Blogger account into your WordPress site."
+msgstr "Olá! Este importador permite que você importe posts e comentários de sua conta no Blogger para o seu site no WordPress."
+
+#: blogger-importer.php:103
+msgid "To use this importer, you must have a Google account and an upgraded (New, was Beta) blog hosted on blogspot.com or a custom domain (not FTP)."
+msgstr "Para usar este importador, você precisa ter uma conta no Google e um blog atualizado (novo, era Beta) hospedado no blogspot.com ou um domínio personalizado (não FTP)."
+
+#: blogger-importer.php:104
+msgid "The first thing you need to do is tell Blogger to let WordPress access your account. You will be sent back here after providing authorization."
+msgstr "A primeira coisa que você precisa fazer é dizer ao Blogger para deixar o WordPress acessar sua conta. Você será enviado de volta após fornecer a autorização."
+
+#: blogger-importer.php:105
+msgid "Authorize"
+msgstr "Autorização"
+
+#: blogger-importer.php:225
+msgid "Trouble signing in"
+msgstr "Dificuldades em iniciar sessão"
+
+#: blogger-importer.php:225
+msgid "We were not able to gain access to your account. Try starting over."
+msgstr "Não foi possível obter acesso à sua conta. Tente começar de novo."
+
+#: blogger-importer.php:267
+msgid "No blogs found"
+msgstr "Nenhum blog encontrado"
+
+#: blogger-importer.php:267
+msgid "We were able to log in but there were no blogs. Try a different account next time."
+msgstr "Foi possível fazer login, mas não havia nenhum blog. Tente uma conta diferente."
+
+#: blogger-importer.php:275
+msgid "Import"
+msgstr "Importar"
+
+#: blogger-importer.php:276
+msgid "Continue"
+msgstr "Continuar"
+
+#: blogger-importer.php:277
+msgid "Importing..."
+msgstr "Importando..."
+
+#: blogger-importer.php:278
+msgid "Set Authors"
+msgstr "Definir autores"
+
+#: blogger-importer.php:279
+msgid "Preparing author mapping form..."
+msgstr "Preparando formulário de mapeamento de autor..."
+
+#: blogger-importer.php:280
+msgid "Final Step: Author Mapping"
+msgstr "Passo final: Mapeamento de autor"
+
+#: blogger-importer.php:281
+msgid "Nothing was imported. Had you already imported this blog?"
+msgstr "Nada foi importado. Você já tinha importado este blog?"
+
+#: blogger-importer.php:283
+msgid "Blogger Blogs"
+msgstr "Blogs do Blogger"
+
+#: blogger-importer.php:284
+msgid "Blog Name"
+msgstr "Nome do Blog"
+
+#: blogger-importer.php:285
+msgid "Blog URL"
+msgstr "URL do blog"
+
+#: blogger-importer.php:286
+msgid "The Magic Button"
+msgstr "O Botão Mágico"
+
+#: blogger-importer.php:287
+msgid "Posts"
+msgstr "Posts"
+
+#: blogger-importer.php:288
+msgid "Comments"
+msgstr "Comentários"
+
+#: blogger-importer.php:289
+msgid "This feature requires Javascript but it seems to be disabled. Please enable Javascript and then reload this page. Don&#8217;t worry, you can turn it back off when you&#8217;re done."
+msgstr "Esta funcionalidade requer JavaScript, mas este parece estar desativado. Ative o JavaScript e atualize esta página. Não se preocupe, você pode voltar a desativar quando terminar."
+
+#: blogger-importer.php:858
+msgid "All posts were imported with the current user as author. Use this form to move each Blogger user&#8217;s posts to a different WordPress user. You may <a href=\"%s\">add users</a> and then return to this page and complete the user mapping. This form may be used as many times as you like until you activate the &#8220;Restart&#8221; function below."
+msgstr "Todos os posts foram importados com o usuário atual como autor. Use este formulário para mover cada posts de um usuário do Blogger para um usuário diferente do WordPress. Você pode <a href=\"%s\">adicionar usuários</a> e depois voltar para esta página e completar seu mapeamento. Este formulário pode ser usado quantas vezes você quiser até que você ative a função &#8220;Reiniciar&#8221; abaixo."
+
+#: blogger-importer.php:860
+msgid "Author mapping"
+msgstr "Mapeamento de autores"
+
+#: blogger-importer.php:862
+msgid "Blogger username"
+msgstr "Nome de usuário do Blogger"
+
+#: blogger-importer.php:863
+msgid "WordPress login"
+msgstr "Login do WordPress"
+
+#: blogger-importer.php:864
+msgid "Save Changes"
+msgstr "Salvar alterações"
+
+#: blogger-importer.php:941
+msgid "Congratulations!"
+msgstr "Parabéns!"
+
+#: blogger-importer.php:941
+msgid "Now that you have imported your Blogger blog into WordPress, what are you going to do? Here are some suggestions:"
+msgstr "Agora que você importou seu blog do Blogger para o WordPress, o que você vai fazer? Aqui vão algumas sugestões:"
+
+#: blogger-importer.php:942
+msgid "That was hard work! Take a break."
+msgstr "Foi um trabalho pesado! Faça uma pausa."
+
+#: blogger-importer.php:944
+msgid "In case you haven&#8217;t done it already, you can import the posts from your other blogs:"
+msgstr "Caso ainda não tenha feito, você pode importar os posts de outros blogs:"
+
+#: blogger-importer.php:946
+msgid "Go to <a href=\"%s\" target=\"%s\">Authors &amp; Users</a>, where you can modify the new user(s) or delete them. If you want to make all of the imported posts yours, you will be given that option when you delete the new authors."
+msgstr "Vá para <a href=\"%s\" target=\"%s\">Autores e Usuários</a>, onde você pode modificar o(s) novo(s) usuário(s) ou excluí-lo(s). Se quiser tornar todos os posts importados como sendo seus, você terá essa opção quando excluir os novos autores."
+
+#: blogger-importer.php:948
+msgid "For security, click the link below to reset this importer."
+msgstr "Por segurança, clique no link abaixo para redefinir este importador."
+
+#: blogger-importer.php:982
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: blogger-importer.php:983
+msgid "We have saved some information about your Blogger account in your WordPress database. Clearing this information will allow you to start over. Restarting will not affect any posts you have already imported. If you attempt to re-import a blog, duplicate posts and comments will be skipped."
+msgstr "Salvamos algumas informações sobre a sua conta do Blogger no nosso banco de dados do WordPress. Limpando estas informações, você poderá reiniciar o processo. Reiniciar não irá afetar nenhum post que já tenham sido importado. Se tentar voltar a importar um blog, os posts e comentários duplicados serão ignorados."
+
+#: blogger-importer.php:985
+msgid "Clear account information"
+msgstr "Limpar as informações da conta"
+
+#: blogger-importer.php:1026
+msgid "Blogger"
+msgstr "Blogger"
+
+msgid "Blogger Importer"
+msgstr "Importador do Blogger"
+
+msgid "http://wordpress.org/extend/plugins/blogger-importer/"
+msgstr ""
+
+msgid "wordpressdotorg"
+msgstr ""
+
+msgid "http://wordpress.org/"
+msgstr ""
