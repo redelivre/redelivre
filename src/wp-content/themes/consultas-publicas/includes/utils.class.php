@@ -88,7 +88,7 @@ class utils {
     }
 
     static function getResizedImagePath($filename, $size, $fit = 'inside', $quality = 80) {
-        require_once dirname(__FILE__) . '/lib/wideimage/WideImage.php';
+    	if(!class_exists('WideImage', false)) require_once dirname(__FILE__) . '/lib/wideimage/WideImage.php';
 
         if (file_exists($filename)) {
             $height = $width = null;
