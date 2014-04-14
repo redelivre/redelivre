@@ -349,6 +349,10 @@ function webcontatos_user_panel_post($location, $status)
 			//check_admin_referer( 'add-user', '_wpnonce_add-user' );
 			
 			$user = get_user_by('email',$_POST['email']);
+			if(!is_object($user))
+			{
+				$user = get_user_by('login',$_POST['email']);
+			}
 			webcontatos_user_panel_update($user);
 		}
 	}
