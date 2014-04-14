@@ -2,112 +2,13 @@
 # This file is distributed under the same license as the Twenty Thirteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-23 11:07:09+0000\n"
+"PO-Revision-Date: 2014-03-19 04:26:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: Twenty Thirteen\n"
-
-#: 404.php:16
-msgid "Not Found"
-msgstr "Não encontrado"
-
-msgid "The 2013 theme for WordPress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small."
-msgstr "O tema Twenty Thirteen nos leva de volta ao blog, destacando-se todos os formatos de posts, cada um exibido de forma elegante e única. São vários detalhes, começando com uma combinação de cores vibrantes e cabeçalho, bela tipografia e ícones, e um layout flexível que se adapta a qualquer dispositivo, pequeno ou grande. "
-
-#: functions.php:237
-msgid "Appears in the footer section of the site."
-msgstr "Aparece no rodapé do site."
-
-msgid "http://wordpress.org/themes/twentythirteen"
-msgstr "http://wordpress.org/themes/twentythirteen"
-
-#: image.php:38
-msgid "Link to full-size image"
-msgstr "Link para a imagem original"
-
-#: functions.php:235
-msgid "Main Widget Area"
-msgstr "Área de widgets principal"
-
-#: functions.php:245
-msgid "Secondary Widget Area"
-msgstr "Área de widgets secundária"
-
-#: functions.php:247
-msgid "Appears on posts and pages in the sidebar."
-msgstr "Aparece nos posts e nas páginas na barra lateral."
-
-#: image.php:39
-msgid "Full resolution"
-msgstr "Resolução original"
-
-#: inc/back-compat.php:41 inc/back-compat.php:53 inc/back-compat.php:68
-msgid "Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again."
-msgstr "O Twenty Thirteen necessita pelo menos a versão 3.6 do WordPress. A versão do seu WordPress é a %s. Atualize e tente novamente."
-
-#: 404.php:21
-msgid "This is somewhat embarrassing, isn&rsquo;t it?"
-msgstr "Isso é embaraçoso, não?"
-
-#: 404.php:22
-msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr "Parece que nada foi encontrado neste endereço. Que tal tentar fazer uma pesquisa?"
-
-#: archive.php:29
-msgid "Daily Archives: %s"
-msgstr "Arquivos diários: %s"
-
-#: archive.php:31
-msgid "Monthly Archives: %s"
-msgstr "Arquivos mensais: %s"
-
-#: archive.php:31
-msgctxt "monthly archives date format"
-msgid "F Y"
-msgstr "F Y"
-
-#: archive.php:33
-msgid "Yearly Archives: %s"
-msgstr "Arquivos anuais: %s"
-
-#: archive.php:33
-msgctxt "yearly archives date format"
-msgid "Y"
-msgstr "Y"
-
-#: archive.php:35
-msgid "Archives"
-msgstr "Arquivos"
-
-#: author-bio.php:26
-msgid "About %s"
-msgstr "Sobre %s"
-
-#: author-bio.php:30
-msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Ver todos os posts de %s <span class=\"meta-nav\">&rarr;</span>"
-
-#: author.php:31
-msgid "All posts by %s"
-msgstr "Todos os posts de %s"
-
-#: category.php:19
-msgid "Category Archives: %s"
-msgstr "Arquivos da categoria: %s"
-
-#: comments.php:25
-msgctxt "comments title"
-msgid "One thought on &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
-msgstr[0] "Um comentário sobre &ldquo;%2$s&rdquo;"
-msgstr[1] "%1$s comentários sobre &ldquo;%2$s&rdquo;"
-
-#: comments.php:45
-msgid "Comment navigation"
-msgstr "Navegação dos comentários"
 
 #: comments.php:46
 msgid "&larr; Older Comments"
@@ -140,10 +41,6 @@ msgstr "Páginas:"
 #: content-video.php:35 content.php:31 image.php:44 page.php:39
 msgid "Edit"
 msgstr "Editar"
-
-#: functions.php:379
-msgid "Permalink to %s"
-msgstr "Link permanente para %s"
 
 #: content-gallery.php:36 content-image.php:32 content-quote.php:22
 #: content-video.php:32 content.php:49
@@ -206,6 +103,22 @@ msgstr "ativada"
 msgid "Page %s"
 msgstr "Página %s"
 
+#: functions.php:235
+msgid "Main Widget Area"
+msgstr "Área de widgets principal"
+
+#: functions.php:237
+msgid "Appears in the footer section of the site."
+msgstr "Aparece no rodapé do site."
+
+#: functions.php:245
+msgid "Secondary Widget Area"
+msgstr "Área de widgets secundária"
+
+#: functions.php:247
+msgid "Appears on posts and pages in the sidebar."
+msgstr "Aparece nos posts e nas páginas na barra lateral."
+
 #: functions.php:272
 msgid "Posts navigation"
 msgstr "Navegação por posts"
@@ -249,6 +162,10 @@ msgctxt "1: post format name. 2: date"
 msgid "%1$s on %2$s"
 msgstr "%1$s em %2$s"
 
+#: functions.php:379
+msgid "Permalink to %s"
+msgstr "Link permanente para %s"
+
 #: header.php:43
 msgid "Menu"
 msgstr "Menu"
@@ -261,6 +178,14 @@ msgstr "Pular para o conteúdo"
 msgid "<span class=\"attachment-meta\">Published on <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> in <a href=\"%3$s\" title=\"Return to %4$s\" rel=\"gallery\">%5$s</a></span>"
 msgstr "<span class=\"attachment-meta\">Publicado em <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> em <a href=\"%3$s\" title=\"Voltar para %4$s\" rel=\"gallery\">%5$s</a></span>"
 
+#: image.php:38
+msgid "Link to full-size image"
+msgstr "Link para a imagem original"
+
+#: image.php:39
+msgid "Full resolution"
+msgstr "Resolução original"
+
 #: image.php:51
 msgid "<span class=\"meta-nav\">&larr;</span> Previous"
 msgstr "<span class=\"meta-nav\">&larr;</span> Anterior"
@@ -268,6 +193,10 @@ msgstr "<span class=\"meta-nav\">&larr;</span> Anterior"
 #: image.php:52
 msgid "Next <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Próxima <span class=\"meta-nav\">&rarr;</span>"
+
+#: inc/back-compat.php:41 inc/back-compat.php:53 inc/back-compat.php:68
+msgid "Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again."
+msgstr "O Twenty Thirteen necessita pelo menos a versão 3.6 do WordPress. A versão do seu WordPress é a %s. Atualize e tente novamente."
 
 #: inc/custom-header.php:51
 msgctxt "header image description"
@@ -299,5 +228,76 @@ msgstr "Arquivo de %s"
 msgid "Twenty Thirteen"
 msgstr "Twenty Thirteen"
 
+msgid "http://wordpress.org/themes/twentythirteen"
+msgstr "http://wordpress.org/themes/twentythirteen"
+
+msgid "The 2013 theme for WordPress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small."
+msgstr "O tema Twenty Thirteen nos leva de volta ao blog, destacando-se todos os formatos de posts, cada um exibido de forma elegante e única. São vários detalhes, começando com uma combinação de cores vibrantes e cabeçalho, bela tipografia e ícones, e um layout flexível que se adapta a qualquer dispositivo, pequeno ou grande. "
+
 msgid "the WordPress team"
 msgstr "a equipe do WordPress"
+
+#: 404.php:16
+msgid "Not Found"
+msgstr "Não encontrado"
+
+#: 404.php:21
+msgid "This is somewhat embarrassing, isn&rsquo;t it?"
+msgstr "Isso é embaraçoso, não?"
+
+#: 404.php:22
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "Parece que nada foi encontrado neste endereço. Que tal tentar fazer uma pesquisa?"
+
+#: archive.php:29
+msgid "Daily Archives: %s"
+msgstr "Arquivos diários: %s"
+
+#: archive.php:31
+msgid "Monthly Archives: %s"
+msgstr "Arquivos mensais: %s"
+
+#: archive.php:31
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr "F Y"
+
+#: archive.php:33
+msgid "Yearly Archives: %s"
+msgstr "Arquivos anuais: %s"
+
+#: archive.php:33
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#: archive.php:35
+msgid "Archives"
+msgstr "Arquivos"
+
+#: author-bio.php:26
+msgid "About %s"
+msgstr "Sobre %s"
+
+#: author-bio.php:30
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Ver todos os posts de %s <span class=\"meta-nav\">&rarr;</span>"
+
+#: author.php:31
+msgid "All posts by %s"
+msgstr "Todos os posts de %s"
+
+#: category.php:19
+msgid "Category Archives: %s"
+msgstr "Arquivos da categoria: %s"
+
+#: comments.php:25
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "Um comentário sobre &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s comentários sobre &ldquo;%2$s&rdquo;"
+
+#: comments.php:45
+msgid "Comment navigation"
+msgstr "Navegação dos comentários"
