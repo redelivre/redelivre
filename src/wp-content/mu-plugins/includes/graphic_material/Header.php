@@ -27,8 +27,10 @@ class Header extends GraphicMaterial {
         $this->data->shapeColor1 = isset($_REQUEST['data']['shapeColor1']) ? filter_var($_REQUEST['data']['shapeColor1'], FILTER_SANITIZE_STRING) : null;
         $this->data->shapeColor2 = isset($_REQUEST['data']['shapeColor2']) ? filter_var($_REQUEST['data']['shapeColor2'], FILTER_SANITIZE_STRING) : null;
 
-        $this->finalImage->getElementById('fundo')->setAttribute('fill', $this->data->shapeColor1);
-        $this->finalImage->getElementById('borda')->setAttribute('fill', $this->data->shapeColor2);
+        if(is_object($this->finalImage->getElementById('fundo')))
+        	$this->finalImage->getElementById('fundo')->setAttribute('fill', $this->data->shapeColor1);
+        if(is_object($this->finalImage->getElementById('borda')))
+        	$this->finalImage->getElementById('borda')->setAttribute('fill', $this->data->shapeColor2);
     }
     
     /**
@@ -54,8 +56,11 @@ class Header extends GraphicMaterial {
         
         $candidateName = $this->finalImage->getElementById('nome-do-candidato');
         $candidateName[0] = $this->data->candidateName;
-        $candidateName->setAttribute('fill', $this->data->candidateColor);
-        $candidateName->setAttribute('font-size', $this->data->candidateSize);
+        if(is_object($candidateName))
+        {
+        	$candidateName->setAttribute('fill', $this->data->candidateColor);
+        	$candidateName->setAttribute('font-size', $this->data->candidateSize);
+        }
 
         $slogan = $this->finalImage->getElementById('slogan');
         
@@ -74,8 +79,12 @@ class Header extends GraphicMaterial {
         
         $number = $this->finalImage->getElementById('numero');
         $number[0] = $this->data->candidateNumber;
-        $number->setAttribute('fill', $this->data->numberColor);
-        $number->setAttribute('font-size', $this->data->numberSize);
+        
+        if(is_object($number))
+        {
+        	$number->setAttribute('fill', $this->data->numberColor);
+        	$number->setAttribute('font-size', $this->data->numberSize);
+        }
     }
     
     
