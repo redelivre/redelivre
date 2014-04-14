@@ -140,9 +140,6 @@ function do_mobilize_action()
 	{
 		require INC_MOBILIZE.'/includes/wideimage/WideImage.php';
 	}
-	require INC_MOBILIZE.'/includes/smartView.php';
-	require INC_MOBILIZE.'/includes/functions-mobilize.php';
-	require INC_MOBILIZE.'/vendor.php';
 	
 	if (Mobilize::isActive('adesive')
 			&& array_key_exists('photo', $_FILES)

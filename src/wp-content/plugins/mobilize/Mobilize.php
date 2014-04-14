@@ -23,13 +23,9 @@ define('MOBILIZE_MATERIAL_URL', $upload_dir['baseurl'].'/mobilize/');
 //////////////////
 // Dependences  //
 //////////////////
-/*if(!class_exists('WideImage', false)) // check if already loaded this lib https://github.com/redelivre/redelivre/issues/5
-{
-	require INC_MOBILIZE.'/includes/wideimage/WideImage.php';
-}
 require INC_MOBILIZE.'/includes/smartView.php';
 require INC_MOBILIZE.'/includes/functions-mobilize.php';
-require INC_MOBILIZE.'/vendor.php';*/
+require INC_MOBILIZE.'/vendor.php';
 
 /////////////
 // Actions //
