@@ -365,6 +365,17 @@ function webcontatos_user_panel_update($user)
 {
 	if ( ! current_user_can( 'create_users' ) && ! current_user_can( 'promote_users' ) )
 		return;
+	
+	if(is_int($user)) //user_id
+	{
+		$user = get_user_by('id', $user);
+	}
+	
+	if(!is_object($user))
+	{
+		wp_die(__('can not locate a valid user', 'WebContatos'));
+	}
+	
 	$opt = webcontatos_get_config();
 	if($user->user_login == $opt['webcontatos_user']) return;
 	
