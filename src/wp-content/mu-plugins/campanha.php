@@ -150,7 +150,7 @@ endif;
  * @param Wp_Error|Wp_User $user
  */
 function campanha_login_redirect($redirect_to, $request, $user) {
-    if (!is_wp_error($user) && is_array($user->roles)
+    if (get_current_blog_id() == 1 && !is_wp_error($user) && is_array($user->roles)
         && in_array("subscriber", $user->roles))
     {
         return campanha_redirect_to_campaign_home($user);
@@ -169,7 +169,7 @@ add_filter('login_redirect', 'campanha_login_redirect', 10, 3);
 function campanha_change_admin_home() {
     $user = wp_get_current_user();
     
-    if (is_array($user->roles) && in_array("subscriber", $user->roles)
+    if (get_current_blog_id() == 1 && is_array($user->roles) && in_array("subscriber", $user->roles)
         && preg_match('#wp-admin/?(index.php)?$#', $_SERVER['REQUEST_URI']))
     {
         wp_redirect(campanha_redirect_to_campaign_home());
