@@ -20,4 +20,8 @@ if [ ! -e PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
 	git submodule update --init
 fi
 
+cd $PWDAtual/src/wp-content/plugins/wordpress-openid
+git checkout anyone
+git pull
+
 cd $PWDAtual
