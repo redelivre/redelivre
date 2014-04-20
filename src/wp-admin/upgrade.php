@@ -15,7 +15,7 @@
 define( 'WP_INSTALLING', true );
 
 /** Load WordPress Bootstrap */
-require( '../wp-load.php' );
+require( dirname( dirname( __FILE__ ) ) . '/wp-load.php' );
 
 nocache_headers();
 
@@ -50,6 +50,7 @@ else
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
 <head>
+	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php echo get_option( 'blog_charset' ); ?>" />
 	<title><?php _e( 'WordPress &rsaquo; Update' ); ?></title>
 	<?php
@@ -58,7 +59,7 @@ else
 	?>
 </head>
 <body class="wp-core-ui">
-<h1 id="logo"><a href="<?php esc_attr_e( 'http://wordpress.org/' ); ?>"><?php _e( 'WordPress' ); ?></a></h1>
+<h1 id="logo"><a href="<?php echo esc_url( __( 'http://wordpress.org/' ) ); ?>"><?php _e( 'WordPress' ); ?></a></h1>
 
 <?php if ( get_option( 'db_version' ) == $wp_db_version || !is_blog_installed() ) : ?>
 
@@ -77,7 +78,7 @@ else
 <?php else :
 switch ( $step ) :
 	case 0:
-		$goback = stripslashes( wp_get_referer() );
+		$goback = wp_get_referer();
 		$goback = esc_url_raw( $goback );
 		$goback = urlencode( $goback );
 ?>
@@ -90,7 +91,7 @@ switch ( $step ) :
 	case 1:
 		wp_upgrade();
 
-			$backto = !empty($_GET['backto']) ? stripslashes( urldecode( $_GET['backto'] ) ) : __get_option( 'home' ) . '/';
+			$backto = !empty($_GET['backto']) ? wp_unslash( urldecode( $_GET['backto'] ) ) : __get_option( 'home' ) . '/';
 			$backto = esc_url( $backto );
 			$backto = wp_validate_redirect($backto, __get_option( 'home' ) . '/');
 ?>

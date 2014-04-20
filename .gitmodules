@@ -53,3 +53,7 @@
 	path = src/wp-content/themes/mobilize
 	url = git@github.com:redelivre/mobilize.git
 	branch = master
+[submodule "src/wp-content/plugins/jaiminho"]
+	path = src/wp-content/plugins/jaiminho
+	url = git@github.com:ethymos/sendpress.git
+	branch = master

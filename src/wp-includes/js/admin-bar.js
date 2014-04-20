@@ -1,8 +1,12 @@
+/* jshint loopfunc: true */
 // use jQuery and hoverIntent if loaded
 if ( typeof(jQuery) != 'undefined' ) {
-	if ( typeof(jQuery.fn.hoverIntent) == 'undefined' )
-		(function(a){a.fn.hoverIntent=function(l,j){var m={sensitivity:7,interval:100,timeout:0};m=a.extend(m,j?{over:l,out:j}:l);var o,n,h,d;var e=function(f){o=f.pageX;n=f.pageY};var c=function(g,f){f.hoverIntent_t=clearTimeout(f.hoverIntent_t);if((Math.abs(h-o)+Math.abs(d-n))<m.sensitivity){a(f).unbind("mousemove",e);f.hoverIntent_s=1;return m.over.apply(f,[g])}else{h=o;d=n;f.hoverIntent_t=setTimeout(function(){c(g,f)},m.interval)}};var i=function(g,f){f.hoverIntent_t=clearTimeout(f.hoverIntent_t);f.hoverIntent_s=0;return m.out.apply(f,[g])};var b=function(q){var f=this;var g=(q.type=="mouseover"?q.fromElement:q.toElement)||q.relatedTarget;while(g&&g!=this){try{g=g.parentNode}catch(q){g=this}}if(g==this){if(a.browser.mozilla){if(q.type=="mouseout"){f.mtout=setTimeout(function(){k(q,f)},30)}else{if(f.mtout){f.mtout=clearTimeout(f.mtout)}}}return}else{if(f.mtout){f.mtout=clearTimeout(f.mtout)}k(q,f)}};var k=function(p,f){var g=jQuery.extend({},p);if(f.hoverIntent_t){f.hoverIntent_t=clearTimeout(f.hoverIntent_t)}if(p.type=="mouseover"){h=g.pageX;d=g.pageY;a(f).bind("mousemove",e);if(f.hoverIntent_s!=1){f.hoverIntent_t=setTimeout(function(){c(g,f)},m.interval)}}else{a(f).unbind("mousemove",e);if(f.hoverIntent_s==1){f.hoverIntent_t=setTimeout(function(){i(g,f)},m.timeout)}}};return this.mouseover(b).mouseout(b)}})(jQuery);
-
+	if ( typeof(jQuery.fn.hoverIntent) == 'undefined' ) {
+		/* jshint ignore:start */
+		// hoverIntent r6 - Copy of wp-includes/js/hoverIntent.min.js
+		(function(a){a.fn.hoverIntent=function(m,d,h){var j={interval:100,sensitivity:7,timeout:0};if(typeof m==="object"){j=a.extend(j,m)}else{if(a.isFunction(d)){j=a.extend(j,{over:m,out:d,selector:h})}else{j=a.extend(j,{over:m,out:m,selector:d})}}var l,k,g,f;var e=function(n){l=n.pageX;k=n.pageY};var c=function(o,n){n.hoverIntent_t=clearTimeout(n.hoverIntent_t);if((Math.abs(g-l)+Math.abs(f-k))<j.sensitivity){a(n).off("mousemove.hoverIntent",e);n.hoverIntent_s=1;return j.over.apply(n,[o])}else{g=l;f=k;n.hoverIntent_t=setTimeout(function(){c(o,n)},j.interval)}};var i=function(o,n){n.hoverIntent_t=clearTimeout(n.hoverIntent_t);n.hoverIntent_s=0;return j.out.apply(n,[o])};var b=function(p){var o=jQuery.extend({},p);var n=this;if(n.hoverIntent_t){n.hoverIntent_t=clearTimeout(n.hoverIntent_t)}if(p.type=="mouseenter"){g=o.pageX;f=o.pageY;a(n).on("mousemove.hoverIntent",e);if(n.hoverIntent_s!=1){n.hoverIntent_t=setTimeout(function(){c(o,n)},j.interval)}}else{a(n).off("mousemove.hoverIntent",e);if(n.hoverIntent_s==1){n.hoverIntent_t=setTimeout(function(){i(o,n)},j.timeout)}}};return this.on({"mouseenter.hoverIntent":b,"mouseleave.hoverIntent":b},j.selector)}})(jQuery);
+		/* jshint ignore:end */
+	}
 	jQuery(document).ready(function($){
 		var adminbar = $('#wpadminbar'), refresh, touchOpen, touchClose, disableHoverIntent = false;
 
@@ -16,9 +20,13 @@ if ( typeof(jQuery) != 'undefined' ) {
 			adminbar.find('li.menupop').on('click.wp-mobile-hover', function(e) {
 				var el = $(this);
 
-				if ( !el.hasClass('hover') ) {
+				if ( el.parent().is('#wp-admin-bar-root-default') && !el.hasClass('hover') ) {
 					e.preventDefault();
 					adminbar.find('li.menupop.hover').removeClass('hover');
+					el.addClass('hover');
+				} else if ( !el.hasClass('hover') ) {
+					e.stopPropagation();
+					e.preventDefault();
 					el.addClass('hover');
 				}
 
@@ -52,13 +60,13 @@ if ( typeof(jQuery) != 'undefined' ) {
 		}
 
 		adminbar.find('li.menupop').hoverIntent({
-			over: function(e){
+			over: function() {
 				if ( disableHoverIntent )
 					return;
 
 				$(this).addClass('hover');
 			},
-			out: function(e){
+			out: function() {
 				if ( disableHoverIntent )
 					return;
 
@@ -119,17 +127,39 @@ if ( typeof(jQuery) != 'undefined' ) {
 
 		// fix focus bug in WebKit
 		$('.screen-reader-shortcut').keydown( function(e) {
+			var id, ua;
+
 			if ( 13 != e.which )
 				return;
 
-			var id = $(this).attr('href');
+			id = $( this ).attr( 'href' );
 
-			if ( $.browser.webkit && id && id.charAt(0) == '#' ) {
+			ua = navigator.userAgent.toLowerCase();
+
+			if ( ua.indexOf('applewebkit') != -1 && id && id.charAt(0) == '#' ) {
 				setTimeout(function () {
 					$(id).focus();
 				}, 100);
 			}
 		});
+
+		// Empty sessionStorage on logging out
+		if ( 'sessionStorage' in window ) {
+			$('#wp-admin-bar-logout a').click( function() {
+				try {
+					for ( var key in sessionStorage ) {
+						if ( key.indexOf('wp-autosave-') != -1 )
+							sessionStorage.removeItem(key);
+					}
+				} catch(e) {}
+			});
+		}
+
+		if ( navigator.userAgent && document.body.className.indexOf( 'no-font-face' ) === -1 &&
+			/Android (1.0|1.1|1.5|1.6|2.0|2.1)|Nokia|Opera Mini|w(eb)?OSBrowser|webOS|UCWEB|Windows Phone OS 7|XBLWP7|ZuneWP7|MSIE 7/.test( navigator.userAgent ) ) {
+
+			document.body.className += ' no-font-face';
+		}
 	});
 } else {
 	(function(d, w) {
@@ -308,10 +338,27 @@ if ( typeof(jQuery) != 'undefined' ) {
 				addEvent(aB, 'click', function(e) {
 					scrollToTop( e.target || e.srcElement );
 				});
+
+				addEvent( document.getElementById('wp-admin-bar-logout'), 'click', function() {
+					if ( 'sessionStorage' in window ) {
+						try {
+							for ( var key in sessionStorage ) {
+								if ( key.indexOf('wp-autosave-') != -1 )
+									sessionStorage.removeItem(key);
+							}
+						} catch(e) {}
+					}
+				});
 			}
 
 			if ( w.location.hash )
 				w.scrollBy(0,-32);
+
+			if ( navigator.userAgent && document.body.className.indexOf( 'no-font-face' ) === -1 &&
+				/Android (1.0|1.1|1.5|1.6|2.0|2.1)|Nokia|Opera Mini|w(eb)?OSBrowser|webOS|UCWEB|Windows Phone OS 7|XBLWP7|ZuneWP7|MSIE 7/.test( navigator.userAgent ) ) {
+
+				document.body.className += ' no-font-face';
+			}
 		});
 	})(document, window);
 

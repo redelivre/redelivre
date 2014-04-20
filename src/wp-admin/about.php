@@ -7,19 +7,24 @@
  */
 
 /** WordPress Administration Bootstrap */
-require_once( './admin.php' );
+require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $title = __( 'About' );
 
 list( $display_version ) = explode( '-', $wp_version );
 
+// Temporary 3.8 hack: We want to use user-profile for the color schemes but don't need the heavy zxcvbn.
+wp_deregister_script( 'zxcvbn-async' );
+wp_register_script( 'zxcvbn-async', false );
+wp_enqueue_script( 'user-profile' );
+
 include( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
 <div class="wrap about-wrap">
 
-<h1><?php printf( __( 'Welcome to WordPress %s' ), $display_version ); ?></h1>
+<h1><?php printf( __( 'Welcome to WordPress&nbsp;%s' ), $display_version ); ?></h1>
 
-<div class="about-text"><?php printf( __( 'Thank you for updating to the latest version! WordPress %s is more polished and enjoyable than ever before. We hope you like it.' ), $display_version ); ?></div>
+<div class="about-text"><?php printf( __( 'Thank you for updating to WordPress %s, the most beautiful WordPress&nbsp;yet.' ), $display_version ); ?></div>
 
 <div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
@@ -34,102 +39,107 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 </h2>
 
 <div class="changelog point-releases">
-	<h3><?php echo _n( 'Maintenance and Security Release', 'Maintenance and Security Releases', 2 ); ?></h3>
-	<p><?php printf( _n( '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug.',
-         '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs.', 12 ), '3.5.2', number_format_i18n( 12 ) ); ?>
-		<?php printf( __( 'For more information, see <a href="%s">the release notes</a>.' ), 'http://codex.wordpress.org/Version_3.5.2' ); ?>
- 	</p>
-	<p><?php printf( _n( '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug.',
-         '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs.', 37 ), '3.5.1', number_format_i18n( 37 ) ); ?>
-		<?php printf( __( 'For more information, see <a href="%s">the release notes</a>.' ), 'http://codex.wordpress.org/Version_3.5.1' ); ?>
+	<h3><?php echo _n( 'Maintenance Release', 'Maintenance Releases', 1 ); ?></h3>
+	<p><?php printf( _n( '<strong>Version %1$s</strong> addressed %2$s bug.',
+		'<strong>Version %1$s</strong> addressed %2$s bugs.', 31 ), '3.8.1', number_format_i18n( 31 ) ); ?>
+		<?php printf( __( 'For more information, see <a href="%s">the release notes</a>.' ), 'http://codex.wordpress.org/Version_3.8.1' ); ?>
  	</p>
 </div>
 
 <div class="changelog">
-	<h3><?php _e( 'New Media Manager' ); ?></h3>
+	<h2 class="about-headline-callout"><?php _e( 'Introducing a modern new&nbsp;design' ); ?></h2>
+	<img class="about-overview-img" src="<?php echo is_ssl() ? 'https://' : '//s.'; ?>wordpress.org/images/core/3.8/overview.png?1" />
+	<div class="feature-section col three-col about-updates">
+		<div class="col-1">
+			<img src="<?php echo is_ssl() ? 'https://' : '//s.'; ?>wordpress.org/images/core/3.8/aesthetics.png?1" />
+			<h3><?php _e( 'Modern aesthetic' ); ?></h3>
+			<p><?php _e( 'The new WordPress dashboard has a fresh, uncluttered design that embraces clarity and simplicity.' ); ?></p>
+		</div>
+		<div class="col-2">
+			<img src="<?php echo is_ssl() ? 'https://' : '//s.'; ?>wordpress.org/images/core/3.8/typography.png?1" />
+			<h3><?php _e( 'Clean typography' ); ?></h3>
+			<p><?php _e( 'The Open Sans typeface provides simple, friendly text that is optimized for both desktop and mobile viewing. It&#8217;s even open source, just like WordPress.' ); ?></p>
+		</div>
+		<div class="col-3 last-feature">
+			<img src="<?php echo is_ssl() ? 'https://' : '//s.'; ?>wordpress.org/images/core/3.8/contrast.png?1" />
+			<h3><?php _e( 'Refined contrast' ); ?></h3>
+			<p><?php _e( 'We think beautiful design should never sacrifice legibility. With superior contrast and large, comfortable type, the new design is easy to read and a pleasure to navigate.' ); ?></p>
+		</div>
+	</div>
+</div>
 
+<hr>
+
+<div class="changelog">
 	<div class="feature-section col two-col">
-		<img alt="" src="<?php echo esc_url( admin_url( 'images/screenshots/about-media.png' ) ); ?>" class="image-100" />
-
 		<div>
-			<h4><?php _e( 'Beautiful Interface' ); ?></h4>
-			<p><?php _e( 'Adding media has been streamlined with an all-new experience, making it a breeze to upload files and place them into your posts.' ); ?></p>
+			<h3><?php _e( 'WordPress on every&nbsp;device' ); ?></h3>
+			<p><?php _e( 'We all access the internet in different ways. Smartphone, tablet, notebook, desktop &mdash; no matter what you use, WordPress will adapt and you&#8217;ll feel right at home.' ); ?></p>
+			<h4><?php _e( 'High definition at high&nbsp;speed' ); ?></h4>
+			<p><?php _e( 'WordPress is sharper than ever with new vector-based icons that scale to your screen. By ditching pixels, pages load significantly faster, too.' ); ?></p>
 		</div>
-		<div class="last-feature">
-			<h4><?php _e( 'Picturesque Galleries' ); ?></h4>
-			<p><?php _e( 'Creating image galleries is faster with drag and drop reordering, inline caption editing, and simplified controls for layout.' ); ?></p>
+		<div class="last-feature about-colors-img">
+			<img src="<?php echo is_ssl() ? 'https://' : '//s.'; ?>wordpress.org/images/core/3.8/colors.png?1" />
 		</div>
 	</div>
 </div>
+
+<hr>
+
+<?php
+global $_wp_admin_css_colors;
+$new_colors = array( 'fresh', 'light', 'blue', 'midnight', 'sunrise', 'ectoplasm', 'ocean', 'coffee' );
+$_wp_admin_css_colors = array_intersect_key( $_wp_admin_css_colors, array_fill_keys( $new_colors, true ) );
+
+if ( count( $_wp_admin_css_colors ) > 1 && has_action( 'admin_color_scheme_picker' ) ) : ?>
+<div class="changelog about-colors">
+	<div class="feature-section col one-col">
+		<div>
+			<h3><?php _e( 'Pick a color' ); ?></h3>
+			<p><?php _e( 'We&#8217;ve included eight color schemes so you can pick your favorite. Choose from any of them below to change it instantly.' ); ?>
+				<?php
+				/** This action is documented in wp-admin/user-edit.php */
+				do_action( 'admin_color_scheme_picker' );
+				?>
+			<p><?php printf( __( 'To change your color scheme later, just <a href="%1$s">visit your profile</a>.' ), get_edit_profile_url( get_current_user_id() ) ); ?></p>
+		</div>
+	</div>
+</div>
+
+<hr>
+<?php endif; ?>
 
 <div class="changelog">
-	<h3><?php _e( 'New Default Theme' ); ?></h3>
-
-	<div class="feature-section images-stagger-right">
-		<img alt="" src="<?php echo esc_url( admin_url( 'images/screenshots/about-twenty-twelve.png' ) ); ?>" class="image-66" />
-		<h4><?php _e( 'Introducing Twenty Twelve' ); ?></h4>
-		<p><?php _e( 'The newest default theme for WordPress is simple, flexible, and elegant.' ); ?></p>
-		<p><?php _e( 'What makes it really shine are the design details, like the gorgeous Open Sans typeface and a fully responsive design that looks great on any device.' ); ?></p>
-		<p><?php _e( 'Naturally, Twenty Twelve supports all the theme features you’ve come to know and love, but it is also designed to be as great for a website as it is for a blog.' ); ?></p>
+	<div class="feature-section col two-col">
+		<div>
+			<h3><?php _e( 'Refined theme management' ); ?></h3>
+			<p><?php _e( 'The new themes screen lets you survey your themes at a glance. Or want more information? Click to discover more. Then sit back and use your keyboard&#8217;s navigation arrows to flip through every theme you&#8217;ve got.' ); ?></p>
+			<h4><?php _e( 'Smoother widget experience' ); ?></h4>
+			<p><?php _e( 'Drag-drag-drag. Scroll-scroll-scroll. Widget management can be complicated. With the new design, we&#8217;ve worked to streamline the widgets&nbsp;screen.' ); ?></p>
+			<p><?php _e( 'Have a large monitor? Multiple widget areas stack side-by-side to use the available space. Using a tablet? Just tap a widget to add it.' ); ?></p>
+		</div>
+		<div class="last-feature about-themes-img">
+			<img src="<?php echo is_ssl() ? 'https://' : '//s.'; ?>wordpress.org/images/core/3.8/themes.png?1" />
+		</div>
 	</div>
 </div>
 
-<div class="changelog">
-	<h3><?php _e( 'Retina Ready' ); ?></h3>
+<hr>
 
-	<div class="feature-section images-stagger-right">
-		<img alt="" src="<?php echo esc_url( admin_url( 'images/screenshots/about-retina.png' ) ); ?>" class="image-66" />
-		<h4><?php _e( 'So Sharp You Can&#8217;t See the Pixels' ); ?></h4>
-		<p><?php _e( 'The WordPress dashboard now looks beautiful on high-resolution screens like those found on the iPad, Kindle Fire HD, Nexus 10, and MacBook Pro with Retina Display. Icons and other visual elements are crystal clear and full of detail.' ); ?></p>
+<div class="changelog about-twentyfourteen">
+	<h2 class="about-headline-callout"><?php _e( 'Twenty Fourteen, a sleek new magazine&nbsp;theme' ); ?></h2>
+	<img src="<?php echo is_ssl() ? 'https://' : '//s.'; ?>wordpress.org/images/core/3.8/twentyfourteen.jpg?1" />
+
+	<div class="feature-section col one-col center-col">
+		<div>
+			<h3><?php _e( 'Turn your blog into a&nbsp;magazine' ); ?></h3>
+			<p><?php _e( 'Create a beautiful magazine-style site with WordPress and Twenty Fourteen. Choose a grid or a slider to display featured content on your homepage. Customize your site with three widget areas or change your layout with two page templates.' ); ?></p>
+			<p><?php _e( 'With a striking design that does not compromise our trademark simplicity, Twenty Fourteen is our most intrepid default theme yet.' ); ?></p>
+		</div>
 	</div>
 </div>
 
-<div class="changelog">
-	<h3><?php _e( 'Smoother Experience' ); ?></h3>
-
-	<div class="feature-section images-stagger-right">
-		<img alt="" src="<?php echo esc_url( admin_url( 'images/screenshots/about-color-picker.png' ) ); ?>" class="image-30" />
-		<h4><?php _e( 'Better Accessibility' ); ?></h4>
-		<p><?php _e( 'WordPress supports more usage modes than ever before. Screenreaders, touch devices, and mouseless workflows all have improved ease of use and accessibility.' ); ?></p>
-
-		<h4><?php _e( 'More Polish' ); ?></h4>
-		<p><?php _e( 'A number of screens and controls have been refined. For example, a new color picker makes it easier for you to choose that perfect shade of blue.' ); ?></p>
-	</div>
-</div>
-
-<div class="changelog">
-	<h3><?php _e( 'Under the Hood' ); ?></h3>
-
-	<div class="feature-section col three-col">
-		<div>
-			<h4><?php _e( 'Meta Query Additions' ); ?></h4>
-			<p><?php _e( 'The <code>WP_Comment_Query</code> and <code>WP_User_Query</code> classes now support meta queries just like <code>WP_Query.</code> Meta queries now support querying for objects without a particular meta key.' ); ?></p>
-		</div>
-		<div>
-			<h4><?php _e( 'Post Objects' ); ?></h4>
-			<p><?php _e( 'Post objects are now instances of a <code>WP_Post</code> class, which improves performance by loading selected properties on demand.' ); ?></p>
-		</div>
-		<div class="last-feature">
-			<h4><?php _e( 'Image Editing API' ); ?></h4>
-			<p><?php _e( 'The <code>WP_Image_Editor</code> class abstracts image editing functionality such as cropping and scaling, and uses ImageMagick when available.' ); ?></p>
-		</div>
-	</div>
-
-	<div class="feature-section col three-col">
-		<div>
-			<h4><?php _e( 'Multisite Improvements' ); ?></h4>
-			<p><?php _e( '<code>switch_to_blog()</code> is now significantly faster and more reliable.' ); ?></p>
-		</div>
-		<div>
-			<h4><?php _e( 'XML-RPC API' ); ?></h4>
-			<p><?php printf( __( 'The <a href="%s">WordPress API</a> is now always enabled, and supports fetching users, editing profiles, managing post revisions, and searching posts.' ), __( 'http://codex.wordpress.org/XML-RPC_WordPress_API' ) ); ?></p>
-		</div>
-		<div class="last-feature">
-			<h4><?php _e( 'External Libraries' ); ?></h4>
-			<p><?php printf( __( 'WordPress now includes the <a href="%1$s">Underscore</a> and <a href="%2$s">Backbone</a> JavaScript libraries. TinyMCE, jQuery, jQuery UI, and SimplePie have all been updated to the latest versions.' ), 'http://underscorejs.org/', 'http://backbonejs.org/' ); ?></p>
-		</div>
-	</div>
-</div>
+<hr>
 
 <div class="return-to-dashboard">
 	<?php if ( current_user_can( 'update_core' ) && isset( $_GET['updated'] ) ) : ?>

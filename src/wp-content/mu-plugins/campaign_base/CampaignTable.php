@@ -20,7 +20,7 @@ class CampaingTable extends WP_List_Table {
         return $item->$column_name;
     }
     
-    function JS()
+    static function JS()
     {
     	$data = array(
     		'ajax_url' => admin_url('admin-ajax.php'),

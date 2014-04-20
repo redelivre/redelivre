@@ -125,52 +125,6 @@ function add_screen_option( $option, $args = array() ) {
 }
 
 /**
- * Displays a screen icon.
- *
- * @uses get_screen_icon()
- * @since 2.7.0
- *
- * @param string|WP_Screen $screen Optional. Accepts a screen object (and defaults to the current screen object)
- * 	which it uses to determine an icon HTML ID. Or, if a string is provided, it is used to form the icon HTML ID.
- */
-function screen_icon( $screen = '' ) {
-	echo get_screen_icon( $screen );
-}
-
-/**
- * Gets a screen icon.
- *
- * @since 3.2.0
- *
- * @param string|WP_Screen $screen Optional. Accepts a screen object (and defaults to the current screen object)
- * 	which it uses to determine an icon HTML ID. Or, if a string is provided, it is used to form the icon HTML ID.
- * @return string HTML for the screen icon.
- */
-function get_screen_icon( $screen = '' ) {
-	if ( empty( $screen ) )
-		$screen = get_current_screen();
-	elseif ( is_string( $screen ) )
-		$icon_id = $screen;
-
-	$class = 'icon32';
-
-	if ( empty( $icon_id ) ) {
-		if ( ! empty( $screen->parent_base ) )
-			$icon_id = $screen->parent_base;
-		else
-			$icon_id = $screen->base;
-
-		if ( 'page' == $screen->post_type )
-			$icon_id = 'edit-pages';
-
-		if ( $screen->post_type )
-			$class .= ' ' . sanitize_html_class( 'icon32-posts-' . $screen->post_type );
-	}
-
-	return '<div id="icon-' . esc_attr( $icon_id ) . '" class="' . $class . '"><br /></div>';
-}
-
-/**
  * Get the current screen object
  *
  * @since 3.1.0
@@ -319,20 +273,20 @@ final class WP_Screen {
 
 	/**
 	 * The help tab data associated with the screen, if any.
- 	 *
- 	 * @since 3.3.0
- 	 * @var array
- 	 * @access private
- 	 */
+	 *
+	 * @since 3.3.0
+	 * @var array
+	 * @access private
+	 */
 	private $_help_tabs = array();
 
- 	/**
+	/**
 	 * The help sidebar data associated with screen, if any.
 	 *
 	 * @since 3.3.0
 	 * @var string
 	 * @access private
- 	 */
+	 */
 	private $_help_sidebar = '';
 
 	/**
@@ -376,16 +330,16 @@ final class WP_Screen {
 	 */
 	private $_screen_settings;
 
- 	/**
+	/**
 	 * Fetches a screen object.
- 	 *
- 	 * @since 3.3.0
+	 *
+	 * @since 3.3.0
 	 * @access public
- 	 *
+	 *
 	 * @param string $hook_name Optional. The hook name (also known as the hook suffix) used to determine the screen.
 	 * 	Defaults to the current $hook_suffix global.
 	 * @return WP_Screen Screen object.
- 	 */
+	 */
 	public static function get( $hook_name = '' ) {
 
 		if ( is_a( $hook_name, 'WP_Screen' ) )
@@ -427,13 +381,13 @@ final class WP_Screen {
 			if ( 'edit-comments' != $id && 'edit-tags' != $id && 'edit-' == substr( $id, 0, 5 ) ) {
 				$maybe = substr( $id, 5 );
 				if ( taxonomy_exists( $maybe ) ) {
- 					$id = 'edit-tags';
+					$id = 'edit-tags';
 					$taxonomy = $maybe;
 				} elseif ( post_type_exists( $maybe ) ) {
 					$id = 'edit';
 					$post_type = $maybe;
 				}
- 			}
+			}
 
 			if ( ! $in_admin )
 				$in_admin = 'site';
@@ -480,7 +434,7 @@ final class WP_Screen {
 						$post_type = 'post';
 					break;
 			}
- 		}
+		}
 
 		switch ( $base ) {
 			case 'post' :
@@ -513,7 +467,7 @@ final class WP_Screen {
 		} elseif ( 'user' == $in_admin ) {
 			$id   .= '-user';
 			$base .= '-user';
- 		}
+		}
 
 		if ( isset( self::$_registry[ $id ] ) ) {
 			$screen = self::$_registry[ $id ];
@@ -535,7 +489,7 @@ final class WP_Screen {
 		self::$_registry[ $id ] = $screen;
 
 		return $screen;
- 	}
+	}
 
 	/**
 	 * Makes the screen object the current screen.
@@ -615,6 +569,37 @@ final class WP_Screen {
 	 */
 	public function add_option( $option, $args = array() ) {
 		$this->_options[ $option ] = $args;
+	}
+
+	/**
+	 * Remove an option from the screen.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param string $option Option ID.
+	 */
+	public function remove_option( $option ) {
+		unset( $this->_options[ $option ] );
+	}
+
+	/**
+	 * Remove all options from the screen.
+	 *
+	 * @since 3.8.0
+	 */
+	public function remove_options() {
+		$this->_options = array();
+	}
+
+	/**
+	 * Get the options registered for the screen.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return array Options with arguments.
+	 */
+	public function get_options() {
+		return $this->_options;
 	}
 
 	/**
@@ -898,13 +883,16 @@ final class WP_Screen {
 
 		$show_screen = ! empty( $wp_meta_boxes[ $this->id ] ) || $columns || $this->get_option( 'per_page' );
 
-		$this->_screen_settings = apply_filters( 'screen_settings', '', $this );
-
 		switch ( $this->id ) {
 			case 'widgets':
 				$this->_screen_settings = '<p><a id="access-on" href="widgets.php?widgets-access=on">' . __('Enable accessibility mode') . '</a><a id="access-off" href="widgets.php?widgets-access=off">' . __('Disable accessibility mode') . "</a></p>\n";
 				break;
+			default:
+				$this->_screen_settings = '';
+				break;
 		}
+
+		$this->_screen_settings = apply_filters( 'screen_settings', $this->_screen_settings, $this );
 
 		if ( $this->_screen_settings || $this->_options )
 			$show_screen = true;
@@ -923,6 +911,7 @@ final class WP_Screen {
 
 		$columns = get_column_headers( $this );
 		$hidden  = get_hidden_columns( $this );
+		$post    = get_post();
 
 		?>
 		<div id="screen-options-wrap" class="hidden" tabindex="-1" aria-label="<?php esc_attr_e('Screen Options Tab'); ?>">
