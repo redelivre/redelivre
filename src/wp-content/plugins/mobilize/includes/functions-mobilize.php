@@ -136,6 +136,11 @@ add_action('admin_menu', 'mobilize_add_menu_page');
  */
 function do_mobilize_action() 
 {
+	if(!class_exists('WideImage', false)) // check if already loaded this lib https://github.com/redelivre/redelivre/issues/5
+	{
+		require INC_MOBILIZE.'/includes/wideimage/WideImage.php';
+	}
+	
 	if (Mobilize::isActive('adesive')
 			&& array_key_exists('photo', $_FILES)
 			&& array_key_exists('error', $_FILES['photo'])

@@ -23,8 +23,6 @@ define('MOBILIZE_MATERIAL_URL', $upload_dir['baseurl'].'/mobilize/');
 //////////////////
 // Dependences  //
 //////////////////
-
-require INC_MOBILIZE.'/includes/wideimage/WideImage.php';
 require INC_MOBILIZE.'/includes/smartView.php';
 require INC_MOBILIZE.'/includes/functions-mobilize.php';
 require INC_MOBILIZE.'/vendor.php';
