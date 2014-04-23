@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Jaiminho
+Plugin Name: WPJaiminho
 Plugin URI: http://www.ethymos.com.br
 Description: O Plugin Jaiminho integra a ferramenta Jaiminho ao WordPress
 Version: 0.1 beta
