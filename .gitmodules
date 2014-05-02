@@ -58,3 +58,9 @@
 	url = git@github.com:redelivre/mobilize.git
 	branch = master
 
+[submodule "src/wp-content/themes/pontosdecultura"]
+	path = src/wp-content/themes/pontosdecultura
+	url = git@github.com:redelivre/pontosdecultura.git
+[submodule "src/wp-content/plugins/post-format-gallery-widget"]
+	path = src/wp-content/plugins/post-format-gallery-widget
+	url = git@github.com:redelivre/post-format-gallery-widget.git
