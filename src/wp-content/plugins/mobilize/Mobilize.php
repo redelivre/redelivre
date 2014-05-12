@@ -1,5 +1,4 @@
 <?php
-
 /*
     Plugin Name: Mobilize
     Plugin URI: http://www.ethymos.com.br
@@ -27,9 +26,4 @@ require INC_MOBILIZE.'/includes/smartView.php';
 require INC_MOBILIZE.'/includes/functions-mobilize.php';
 require INC_MOBILIZE.'/vendor.php';
 
-/////////////
-// Actions //
-/////////////
-
-add_action('add_meta_boxes_page', array('Mobilize', 'createPageTemplate'));
-add_action('save_post', array('Mobilize', 'savePage'));
+new Mobilize();

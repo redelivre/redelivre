@@ -43,7 +43,7 @@ function mobilize_page_load_assets()
  */
 function mobilize_single_template_assets($single_template)
 {
-    if ('mobilize' == get_page_template_slug()) {
+    if ('mobilize' == get_post_meta(get_the_ID(), '_mobilize_template', true)) {
         mobilize_page_load_assets();
     }
 
@@ -59,7 +59,7 @@ add_filter('page_template', 'mobilize_single_template_assets');
  */
 function mobilize_single_template($single_template)
 {
-	if ('mobilize' == get_page_template_slug())
+	if ('mobilize' == get_post_meta(get_the_ID(), '_mobilize_template', true))
 	{
 		global $post;
 

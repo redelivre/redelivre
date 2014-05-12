@@ -14,6 +14,17 @@ class Mobilize {
 
     public static $errors = array('banners' => array(), 'adesive' => array(), 'redes' => array(), 'envie' => array());
 
+    
+    public function __construct()
+    {
+    	/////////////
+    	// Actions //
+    	/////////////
+    	
+    	add_action('add_meta_boxes_page', array('Mobilize', 'createPageTemplate'));
+    	add_action('admin_init', array('Mobilize', 'savePage'));
+    }
+    
 	/**
 	 * [createPageTemplate description]
 	 * @return [type] [description]
@@ -34,20 +45,28 @@ class Mobilize {
 		wp_enqueue_script('mobilize-edit',
 			plugins_url('/mobilize/assets/js/edit.js', INC_MOBILIZE));
 		wp_localize_script('mobilize-edit', 'templateData',
-				array('slug' => get_page_template_slug()));
+				array('slug' => get_post_meta(get_the_ID(), '_mobilize_template', true)));
+		
 	}
 
-	public static function savePage($post_ID)
+	public static function savePage()
 	{
-		if (array_key_exists('page_template', $_POST)
-				&& $_POST['page_template'] == 'mobilize')
+		
+		if (
+			array_key_exists('page_template', $_POST) &&
+			$_POST['page_template'] == 'mobilize')
 		{
-			update_post_meta($post_ID, '_wp_page_template', 'mobilize');
+			$post_ID = $_REQUEST['post_ID'];
+			update_post_meta($post_ID, '_mobilize_template', 'mobilize');
 			$_POST['page_template'] = 'default';
 		}
-		else if(get_post_meta($post_ID, '_wp_page_template', true) === 'mobilize')
+		elseif(array_key_exists('post_ID', $_REQUEST))
 		{
-				update_post_meta($post_ID, '_wp_page_template', 'default');
+			$post_ID = $_REQUEST['post_ID'];
+			if(array_key_exists('page_template', $_POST) && get_post_meta($post_ID, '_mobilize_template', true) === 'mobilize')
+			{
+				update_post_meta($post_ID, '_mobilize_template', 'default');
+			}
 		}
 	}
 
