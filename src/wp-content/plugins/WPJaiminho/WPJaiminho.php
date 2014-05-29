@@ -451,6 +451,8 @@ function jaiminho_campaigncreated($data){
 	
 	jaiminho_create_credentials($blog_id);
 	
+	$opt = jaiminho_get_config();
+	
 	$opt['jaiminho_user'] = $id;
 	$opt['jaiminho_pass'] = $opt_contatos['webcontatos_pass'];
 	
