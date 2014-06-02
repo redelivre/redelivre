@@ -15,10 +15,7 @@ class Agenda {
     
     static function register()
     {
-    	if(!load_plugin_textdomain( 'sbc', false, basename( dirname( __FILE__ ) ).'/languages/' ))
-    	{
-    		wp_die('Não achei arquivo de idioma!');
-    	}
+    	load_muplugin_textdomain( 'sbc', 'agenda/languages' );
     	
         register_post_type('agenda', array(
                 

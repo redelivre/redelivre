@@ -1,0 +1,327 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Redelivre Agenda\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-02 17:01-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jacson Passold <jacson@ethymos.com.br>\n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: ../agenda.php:26
+msgctxt "post type general name"
+msgid "Evento"
+msgstr ""
+
+#: ../agenda.php:27
+msgctxt "post type singular name"
+msgid "Evento"
+msgstr ""
+
+#: ../agenda.php:28
+msgctxt "image"
+msgid "Adicionar novo"
+msgstr ""
+
+#: ../agenda.php:29
+msgid "Adicionar novo evento"
+msgstr ""
+
+#: ../agenda.php:30
+msgid "Editar evento"
+msgstr ""
+
+#: ../agenda.php:31
+msgid "Novo evento"
+msgstr ""
+
+#: ../agenda.php:32
+msgid "Ver evento"
+msgstr ""
+
+#: ../agenda.php:33
+msgid "Buscar eventos"
+msgstr ""
+
+#: ../agenda.php:34
+msgid "Nenhum evento encontrado"
+msgstr ""
+
+#: ../agenda.php:35
+msgid "Nenhum evento encontrado na lixeira"
+msgstr ""
+
+#: ../agenda.php:63
+msgid "Dados do Evento"
+msgstr ""
+
+#: ../agenda.php:93
+#: ../agenda.php:403
+msgid "Data Inicial"
+msgstr ""
+
+#: ../agenda.php:95
+msgid "ex.: 01/01/2011"
+msgstr ""
+
+#: ../agenda.php:101
+#: ../agenda.php:404
+msgid "Data Final"
+msgstr ""
+
+#: ../agenda.php:107
+#: ../agenda.php:405
+msgid "Horário"
+msgstr ""
+
+#: ../agenda.php:113
+msgid "Link Externo"
+msgstr ""
+
+#: ../agenda.php:119
+msgid "Onde"
+msgstr ""
+
+#: ../agenda.php:129
+msgid "Fechar"
+msgstr ""
+
+#: ../agenda.php:130
+msgid "&#x3c;Anterior"
+msgstr ""
+
+#: ../agenda.php:131
+msgid "Pr&oacute;ximo&#x3e;"
+msgstr ""
+
+#: ../agenda.php:132
+msgid "Hoje"
+msgstr ""
+
+#: ../agenda.php:134
+msgid "Janeiro"
+msgstr ""
+
+#: ../agenda.php:135
+msgid "Fevereiro"
+msgstr ""
+
+#: ../agenda.php:136
+msgid "Mar&ccedil;o"
+msgstr ""
+
+#: ../agenda.php:137
+msgid "Abril"
+msgstr ""
+
+#: ../agenda.php:138
+msgid "Maio"
+msgstr ""
+
+#: ../agenda.php:139
+msgid "Junho"
+msgstr ""
+
+#: ../agenda.php:140
+msgid "Julho"
+msgstr ""
+
+#: ../agenda.php:141
+msgid "Agosto"
+msgstr ""
+
+#: ../agenda.php:142
+msgid "Setembro"
+msgstr ""
+
+#: ../agenda.php:143
+msgid "Outubro"
+msgstr ""
+
+#: ../agenda.php:144
+msgid "Novembro"
+msgstr ""
+
+#: ../agenda.php:145
+msgid "Dezembro"
+msgstr ""
+
+#: ../agenda.php:148
+msgid "Jan"
+msgstr ""
+
+#: ../agenda.php:149
+msgid "Fev"
+msgstr ""
+
+#: ../agenda.php:150
+msgid "Mar"
+msgstr ""
+
+#: ../agenda.php:151
+msgid "Abr"
+msgstr ""
+
+#: ../agenda.php:152
+msgid "Mai"
+msgstr ""
+
+#: ../agenda.php:153
+msgid "Jun"
+msgstr ""
+
+#: ../agenda.php:154
+msgid "Jul"
+msgstr ""
+
+#: ../agenda.php:155
+msgid "Ago"
+msgstr ""
+
+#: ../agenda.php:156
+msgid "Set"
+msgstr ""
+
+#: ../agenda.php:157
+msgid "Out"
+msgstr ""
+
+#: ../agenda.php:158
+msgid "Nov"
+msgstr ""
+
+#: ../agenda.php:159
+msgid "Dez"
+msgstr ""
+
+#: ../agenda.php:162
+msgid "Domingo"
+msgstr ""
+
+#: ../agenda.php:163
+msgid "Segunda-feira"
+msgstr ""
+
+#: ../agenda.php:164
+msgid "Ter&ccedil;a-feira"
+msgstr ""
+
+#: ../agenda.php:165
+msgid "Quarta-feira"
+msgstr ""
+
+#: ../agenda.php:166
+msgid "Quinta-feira"
+msgstr ""
+
+#: ../agenda.php:167
+msgid "Sexta-feira"
+msgstr ""
+
+#: ../agenda.php:168
+msgid "S&aacute;bado"
+msgstr ""
+
+#: ../agenda.php:171
+msgid "Dom"
+msgstr ""
+
+#: ../agenda.php:172
+msgid "Seg"
+msgstr ""
+
+#: ../agenda.php:173
+msgid "Ter"
+msgstr ""
+
+#: ../agenda.php:174
+msgid "Qua"
+msgstr ""
+
+#: ../agenda.php:175
+msgid "Qui"
+msgstr ""
+
+#: ../agenda.php:176
+msgid "Sex"
+msgstr ""
+
+#: ../agenda.php:177
+msgid "S&aacute;b"
+msgstr ""
+
+#: ../agenda.php:181
+msgctxt "week header"
+msgid "Sm"
+msgstr ""
+
+#: ../agenda.php:332
+msgid "Inserir no menu"
+msgstr ""
+
+#: ../agenda.php:332
+msgid "Inserir link no menu"
+msgstr ""
+
+#: ../agenda.php:357
+#: ../widgets/widget-agenda.php:44
+#: ../widgets/widget-agenda.php:89
+msgid "Agenda"
+msgstr ""
+
+#: ../agenda.php:361
+msgid "Entrada no menu inserida com sucesso!"
+msgstr ""
+
+#: ../agenda.php:363
+msgid "Já existe este item no menu!"
+msgstr ""
+
+#: ../agenda.php:382
+msgid "Sua agenda de eventos pode ser acessada através do endereço"
+msgstr ""
+
+#: ../agenda.php:401
+msgid "Informações do Evento"
+msgstr ""
+
+#: ../agenda.php:406
+msgid "Local"
+msgstr ""
+
+#: ../agenda.php:407
+msgid "Site"
+msgstr ""
+
+#: ../widgets/widget-agenda.php:9
+msgid "adiciona uma lista dos eventos"
+msgstr ""
+
+#: ../widgets/widget-agenda.php:10
+msgid "Agenda - Lista"
+msgstr ""
+
+#: ../widgets/widget-agenda.php:68
+msgid "veja o calendário completo"
+msgstr ""
+
+#: ../widgets/widget-agenda.php:88
+msgid "Título"
+msgstr ""
+
+#: ../widgets/widget-agenda.php:94
+msgid "Número de eventos na lista"
+msgstr ""
+
