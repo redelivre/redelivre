@@ -1,0 +1,2089 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Redelivre Agenda\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-02 16:15-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jacson Passold <jacson@ethymos.com.br>\n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: ../agenda.php:23
+msgctxt "post type general name"
+msgid "Evento"
+msgstr "Evento"
+
+#: ../agenda.php:24
+msgctxt "post type singular name"
+msgid "Evento"
+msgstr "Evento"
+
+#: ../agenda.php:25
+msgctxt "image"
+msgid "Adicionar novo"
+msgstr "Añadir nuevo"
+
+#: ../agenda.php:26
+msgid "Adicionar novo evento"
+msgstr "Añadir nuevo evento"
+
+#: ../agenda.php:27
+msgid "Editar evento"
+msgstr "Editar evento"
+
+#: ../agenda.php:28
+msgid "Novo evento"
+msgstr "Nuevo evento"
+
+#: ../agenda.php:29
+msgid "Ver evento"
+msgstr "Ver evento"
+
+#: ../agenda.php:30
+msgid "Buscar eventos"
+msgstr "Buscar eventos"
+
+#: ../agenda.php:31
+msgid "Nenhum evento encontrado"
+msgstr "Ningún evento encontrado"
+
+#: ../agenda.php:32
+msgid "Nenhum evento encontrado na lixeira"
+msgstr "No se han encontrado en la basura eventos"
+
+#: ../agenda.php:60
+msgid "Dados do Evento"
+msgstr "Datos del Evento"
+
+#: ../agenda.php:90
+#: ../agenda.php:400
+msgid "Data Inicial"
+msgstr "Fecha Inicial"
+
+#: ../agenda.php:92
+msgid "ex.: 01/01/2011"
+msgstr "ej.: 01/01/2011"
+
+#: ../agenda.php:98
+#: ../agenda.php:401
+msgid "Data Final"
+msgstr "Fecha Final"
+
+#: ../agenda.php:104
+#: ../agenda.php:402
+msgid "Horário"
+msgstr "Horario"
+
+#: ../agenda.php:110
+msgid "Link Externo"
+msgstr "Link Externo"
+
+#: ../agenda.php:116
+msgid "Onde"
+msgstr "Dirección"
+
+#: ../agenda.php:126
+msgid "Fechar"
+msgstr "Cerca"
+
+#: ../agenda.php:127
+msgid "&#x3c;Anterior"
+msgstr "Anterior"
+
+#: ../agenda.php:128
+msgid "Pr&oacute;ximo&#x3e;"
+msgstr "Cerca"
+
+#: ../agenda.php:129
+msgid "Hoje"
+msgstr "hoy"
+
+#: ../agenda.php:131
+msgid "Janeiro"
+msgstr "Enero"
+
+#: ../agenda.php:132
+msgid "Fevereiro"
+msgstr "Febrero"
+
+#: ../agenda.php:133
+msgid "Mar&ccedil;o"
+msgstr "Marzo"
+
+#: ../agenda.php:134
+msgid "Abril"
+msgstr "Abril"
+
+#: ../agenda.php:135
+msgid "Maio"
+msgstr "Mayo"
+
+#: ../agenda.php:136
+msgid "Junho"
+msgstr "Junio"
+
+#: ../agenda.php:137
+msgid "Julho"
+msgstr "Julio"
+
+#: ../agenda.php:138
+msgid "Agosto"
+msgstr "Agosto"
+
+#: ../agenda.php:139
+msgid "Setembro"
+msgstr "Septiembre"
+
+#: ../agenda.php:140
+msgid "Outubro"
+msgstr "Octubre"
+
+#: ../agenda.php:141
+msgid "Novembro"
+msgstr "Noviembre"
+
+#: ../agenda.php:142
+msgid "Dezembro"
+msgstr "Diciembre"
+
+#: ../agenda.php:145
+msgid "Jan"
+msgstr "Ene"
+
+#: ../agenda.php:146
+msgid "Fev"
+msgstr "Feb"
+
+#: ../agenda.php:147
+msgid "Mar"
+msgstr "Mar"
+
+#: ../agenda.php:148
+msgid "Abr"
+msgstr "Abr"
+
+#: ../agenda.php:149
+msgid "Mai"
+msgstr "Mar"
+
+#: ../agenda.php:150
+msgid "Jun"
+msgstr "Jun"
+
+#: ../agenda.php:151
+msgid "Jul"
+msgstr "Jul"
+
+#: ../agenda.php:152
+msgid "Ago"
+msgstr "Ago"
+
+#: ../agenda.php:153
+msgid "Set"
+msgstr "Sep"
+
+#: ../agenda.php:154
+msgid "Out"
+msgstr "Oct"
+
+#: ../agenda.php:155
+msgid "Nov"
+msgstr "Nov"
+
+#: ../agenda.php:156
+msgid "Dez"
+msgstr "Dic"
+
+#: ../agenda.php:159
+msgid "Domingo"
+msgstr "Domingo"
+
+#: ../agenda.php:160
+msgid "Segunda-feira"
+msgstr "Lunes"
+
+#: ../agenda.php:161
+msgid "Ter&ccedil;a-feira"
+msgstr "Martes"
+
+#: ../agenda.php:162
+msgid "Quarta-feira"
+msgstr "Miércoles"
+
+#: ../agenda.php:163
+msgid "Quinta-feira"
+msgstr "Jueves"
+
+#: ../agenda.php:164
+msgid "Sexta-feira"
+msgstr "Viernes"
+
+#: ../agenda.php:165
+msgid "S&aacute;bado"
+msgstr "S&aacute;bado"
+
+#: ../agenda.php:168
+msgid "Dom"
+msgstr "Dom"
+
+#: ../agenda.php:169
+msgid "Seg"
+msgstr "Lun"
+
+#: ../agenda.php:170
+msgid "Ter"
+msgstr "Mar"
+
+#: ../agenda.php:171
+msgid "Qua"
+msgstr "Mie"
+
+#: ../agenda.php:172
+msgid "Qui"
+msgstr "Jue"
+
+#: ../agenda.php:173
+msgid "Sex"
+msgstr "Vie"
+
+#: ../agenda.php:174
+msgid "S&aacute;b"
+msgstr "S&aacute;b"
+
+#: ../agenda.php:178
+msgctxt "week header"
+msgid "Sm"
+msgstr "Sm"
+
+#: ../agenda.php:329
+msgid "Inserir no menu"
+msgstr "Insertar en el menú"
+
+#: ../agenda.php:329
+msgid "Inserir link no menu"
+msgstr "Insertar link en el menú"
+
+#: ../agenda.php:354
+#: ../widgets/widget-agenda.php:44
+#: ../widgets/widget-agenda.php:89
+msgid "Agenda"
+msgstr "Eventos"
+
+#: ../agenda.php:358
+msgid "Entrada no menu inserida com sucesso!"
+msgstr "Compruebe el menú insertado correctamente!"
+
+#: ../agenda.php:360
+msgid "Já existe este item no menu!"
+msgstr "Este objeto ya existe en el menú!"
+
+#: ../agenda.php:379
+msgid "Sua agenda de eventos pode ser acessada através do endereço"
+msgstr "Los eventos de calendario se puede acceder en la dirección"
+
+#: ../agenda.php:398
+msgid "Informações do Evento"
+msgstr "Información del evento"
+
+#: ../agenda.php:403
+msgid "Local"
+msgstr "Lugar"
+
+#: ../agenda.php:404
+msgid "Site"
+msgstr "Sitio web"
+
+#: ../widgets/widget-agenda.php:9
+msgid "adiciona uma lista dos eventos"
+msgstr "añade una lista de eventos"
+
+#: ../widgets/widget-agenda.php:10
+msgid "Agenda - Lista"
+msgstr "Agenda - Lista"
+
+#: ../widgets/widget-agenda.php:68
+msgid "veja o calendário completo"
+msgstr "Ver el calendario completo"
+
+#: ../widgets/widget-agenda.php:88
+msgid "Título"
+msgstr "Título"
+
+#: ../widgets/widget-agenda.php:94
+msgid "Número de eventos na lista"
+msgstr "Número de eventos en la lista"
+
+#~ msgid "Error creating the map: "
+#~ msgstr "Erro criando o mapa:"
+
+#~ msgid "You don't have permission to do that"
+#~ msgstr "Você não tem permissão para fazer isso"
+
+#~ msgid "Hi there! In order to start using your map:"
+#~ msgstr "Salve! Para começar a usar seu mapa:"
+
+#~ msgid "1. set up a page as your home page"
+#~ msgstr "1. Crie uma página e a configure como sua Home Page"
+
+#~ msgid "2. create a map in this page"
+#~ msgstr "2. Crie um mapa usando esta página"
+
+#~ msgid "Or click here and I'll do it for you:"
+#~ msgstr "Ou clique aqui e eu faço isso pra você"
+
+#~ msgid "Create my first map for me"
+#~ msgstr "Crie meu primeiro mapa para mim"
+
+#~ msgid "Remote server did not respond"
+#~ msgstr "Servidor remoto não está respondendo"
+
+#~ msgid "Remote server returned error response %1$d %2$s"
+#~ msgstr "Servidor remoto retornou um erro: %1$d %2$s"
+
+#~ msgid "Remote file is incorrect size"
+#~ msgstr "Arquivo remoto possui um tamanho incorreto"
+
+#~ msgid "Zero size file downloaded"
+#~ msgstr "Arquivo com tamanho 0 baixado"
+
+#~ msgid "Invalid file type"
+#~ msgstr "tipo de arquivo inválido"
+
+#~ msgid "Published by"
+#~ msgstr "Publicado em"
+
+#~ msgid "Edit"
+#~ msgstr "Editar"
+
+#~ msgid "Map Menu (top)"
+#~ msgstr "Menu do mapa (topo)"
+
+#~ msgid "Map Menu (side)"
+#~ msgstr "Menu do mapa (lateral)"
+
+#~ msgid "Map configuration"
+#~ msgstr "Configuração do Mapa"
+
+#~ msgid "Layout"
+#~ msgstr "Aparência"
+
+#~ msgid "Pins"
+#~ msgstr "Marcadores"
+
+#~ msgid "Csv Import"
+#~ msgstr "Importar CSV"
+
+#~ msgid ""
+#~ "By <strong>%s</strong> on <strong>%s</strong> at <strong>%s</strong>."
+#~ msgstr ""
+#~ "Por <strong>%s</strong> em <strong>%s</strong> as <strong>%s</strong>."
+
+#~ msgid "Your comment is awaiting moderation."
+#~ msgstr "Seu comentário está aguradando moderação"
+
+#~ msgid "Home Page Map"
+#~ msgstr "Mapa da Home"
+
+#~ msgid ""
+#~ "Page automatically created by Mapas de Vista as a placeholder for your "
+#~ "map."
+#~ msgstr ""
+#~ "Página automaticamente criada pelo Mapas de Vista para receber seu mapa"
+
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Categories: "
+#~ msgstr "Categorias:"
+
+#~ msgid "Tags: "
+#~ msgstr "Tags:"
+
+#~ msgid "Information is incomplete? Comment Here!"
+#~ msgstr "As informações estão incompletas? Comente Aqui!"
+
+#~ msgid "Results"
+#~ msgstr "Resultados"
+
+#~ msgid "Comments"
+#~ msgstr "Comentários"
+
+#~ msgid "No comments"
+#~ msgstr "Nenhum Comentário"
+
+#~ msgid "1 comment"
+#~ msgstr "1 comentário"
+
+#~ msgid "%s comments"
+#~ msgstr "%s comentários"
+
+#~ msgid "Leave a comment &raquo;"
+#~ msgstr "Deixe um comentário &raquo;"
+
+#~ msgid "&laquo; Older Comments"
+#~ msgstr "&laquo; Comentários anteriores"
+
+#~ msgid "Newer Comments &raquo;"
+#~ msgstr "Comentários recentes &raquo;"
+
+#~ msgid "Leave a comment"
+#~ msgstr "Deixe um comentário"
+
+#~ msgid "comment"
+#~ msgstr "comentário"
+
+#~ msgid "All comments need to be approved"
+#~ msgstr "Todos os comentários precisam ser aprovados"
+
+#~ msgid "items loaded"
+#~ msgstr "itens carregados"
+
+#~ msgid "Loading..."
+#~ msgstr "Carregando..."
+
+#~ msgid "Please enter your name."
+#~ msgstr "Por favor digite seu nome"
+
+#~ msgid "Please enter your email address."
+#~ msgstr "Por favor digite seu endereço de email."
+
+#~ msgid "Please enter a valid email address."
+#~ msgstr "Por favor digite um endereço de email inválido"
+
+#~ msgid "Please enter your comment"
+#~ msgstr "Por favor insira seu comentário"
+
+#~ msgid "Your comment has been added."
+#~ msgstr "Seu comentário foi adicionado"
+
+#~ msgid "Error!"
+#~ msgstr "Erro!"
+
+#~ msgid "Show Filters"
+#~ msgstr "Mostrar Filtros"
+
+#~ msgid "Hide Filters"
+#~ msgstr "Esconder Filtros"
+
+#~ msgid "Search..."
+#~ msgstr "Busca..."
+
+#~ msgid "Displays posts that match all the filters"
+#~ msgstr "Mostrar posts que se enquadram em todos os filtros"
+
+#~ msgid "Displays posts that match at least one of the filters"
+#~ msgstr "Mostrar posts que se enquadram em qualquer um dos filtros"
+
+#~ msgid "Show most recent posts"
+#~ msgstr "Mostrar os posts mais recentes"
+
+#~ msgid "Content Types"
+#~ msgstr "Tipos de conteúdo"
+
+#~ msgid "Authors"
+#~ msgstr "Autores"
+
+#~ msgid "Map Saved"
+#~ msgstr "Mapa salvo"
+
+#~ msgid "Map API"
+#~ msgstr "API de mapas"
+
+#~ msgid "Image as map"
+#~ msgstr "Imagem como mapa"
+
+#~ msgid "Map initial state"
+#~ msgstr "Estado inicial do mapa"
+
+#~ msgid "Map type"
+#~ msgstr "Tipo do mapa"
+
+#~ msgid "Road"
+#~ msgstr "Estradas"
+
+#~ msgid "Satellite"
+#~ msgstr "Satelite"
+
+#~ msgid "Hybrid"
+#~ msgstr "Híbrido"
+
+#~ msgid "Initial position"
+#~ msgstr "Posição inicial"
+
+#~ msgid "Latitude"
+#~ msgstr "Latitude"
+
+#~ msgid "Longitude"
+#~ msgstr "Longitude"
+
+#~ msgid "North East limit position"
+#~ msgstr "Limite nordeste"
+
+#~ msgid "Empty for no limit."
+#~ msgstr "Deixe vazio para sem limite"
+
+#~ msgid "Capture current position"
+#~ msgstr "Capturar posição atual"
+
+#~ msgid "South West limit position"
+#~ msgstr "Limite sudoeste"
+
+#~ msgid "Zoom limit"
+#~ msgstr "Limite de zoom"
+
+#~ msgid "Minimum"
+#~ msgstr "Mínimo"
+
+#~ msgid "Capture current level"
+#~ msgstr "Capturar zoom atual"
+
+#~ msgid "Zoom"
+#~ msgstr "Zoom"
+
+#~ msgid "Post types that can have a map"
+#~ msgstr "Tipos de post que podem ter no mapa"
+
+#~ msgid "Taxonomies for filters"
+#~ msgstr "Taxonomias para filtrar"
+
+#~ msgid "Filters operator"
+#~ msgstr "Operador lógico do filtro"
+
+#~ msgid "OR"
+#~ msgstr "ou"
+
+#~ msgid "AND"
+#~ msgstr "e"
+
+#~ msgid "Save Changes"
+#~ msgstr "Salvar modificações"
+
+#~ msgid "Could not create directory."
+#~ msgstr "Não foi possível criar o diretório"
+
+#~ msgid "Sorry, no such page."
+#~ msgstr "Desculpe, essa página não existe"
+
+#~ msgid "Invalid post ID."
+#~ msgstr "ID do post inválido"
+
+#~ msgid "Edit pin"
+#~ msgstr "Editar marcador"
+
+#~ msgid "Clickable pin"
+#~ msgstr "Marcador clicável"
+
+#~ msgid "Yes"
+#~ msgstr "Sim"
+
+#~ msgid "New pin"
+#~ msgstr "Novo Marcador"
+
+#~ msgid "Upload"
+#~ msgstr "Upload"
+
+#~ msgid "Available pins"
+#~ msgstr "Marcadores disponíveis"
+
+#~ msgid "Apagar"
+#~ msgstr "Apagar"
+
+#~ msgid "Theme Options"
+#~ msgstr "Opções de Tema"
+
+#~ msgid "Maps of View theme options"
+#~ msgstr "Opções do tema Mapas de Vista"
+
+#~ msgid "Header Image"
+#~ msgstr "Imagem do cabeçalho"
+
+#~ msgid "GoogleMaps API Key"
+#~ msgstr "GoogleMaps API Key"
+
+#~ msgid ""
+#~ "You will need this if you are running your site outside of your "
+#~ "localhost. Even if you use Open Street Maps in the front end, you will "
+#~ "use GoogleMaps API to place your posts in the map through the Edit Post "
+#~ "interafce"
+#~ msgstr ""
+#~ "Você provavelmente vai precisar disso se rodar seu site fora do seu "
+#~ "localhost. Mesmo se você usar o Open Street Maps no seu mapa, você ainda "
+#~ "vai precisar do Google Maps na página de edição dos posts para posicioná-"
+#~ "los no mapa."
+
+#~ msgid "Theme color"
+#~ msgstr "Cor do tema"
+
+#~ msgid "Background color"
+#~ msgstr "Cor de fundo"
+
+#~ msgid "Background opacity"
+#~ msgstr "Opacidade do fundo"
+
+#~ msgid "Font color"
+#~ msgstr "Cor da fonte"
+
+#~ msgid "Link color"
+#~ msgstr "Cor do link"
+
+#~ msgid "Show post authors?"
+#~ msgstr "Mostrar Autores do posts"
+
+#~ msgid "Show post created date?"
+#~ msgstr "Mostrar data de criação dos posts"
+
+#~ msgid "Group markers as clusters?"
+#~ msgstr "Agrupar itens"
+
+#~ msgid "with automatic grouping of markers"
+#~ msgstr "agrupar itens automaticamente"
+
+#~ msgid "without automatic grouping of markers"
+#~ msgstr "não agrupar itens automaticamente"
+
+#~ msgid "Place it on the map"
+#~ msgstr "Posicione no mapa"
+
+#~ msgid "Search address"
+#~ msgstr "Buscar endereço"
+
+#~ msgid "Maps"
+#~ msgstr "Mapas"
+
+#~ msgid "Maps of view"
+#~ msgstr "Mapas de Vista"
+
+#~ msgid "Settings"
+#~ msgstr "Configurações"
+
+#~ msgid "Mark the maps in which this post is going to appear"
+#~ msgstr "Marque os mapas nos quais esse post deve aparecer"
+
+#~ msgid "Pin anchor"
+#~ msgstr "Âncora do marcador"
+
+#~ msgid ""
+#~ "There is another map already in this page. Please choose another page."
+#~ msgstr ""
+#~ "Já existe outro mapa nesta página. Por favor selecione outra página."
+
+#~ msgid "Select the page that will be the placeholder for this map"
+#~ msgstr "Selecione a página onde você quer que esse mapa apareça"
+
+#~ msgid "Map Name"
+#~ msgstr "Nome do mapa"
+
+#~ msgid "Show controls"
+#~ msgstr "Mostrar controles"
+
+#~ msgid "Large"
+#~ msgstr "Grande"
+
+#~ msgid "Small"
+#~ msgstr "Pequeno"
+
+#~ msgid "None"
+#~ msgstr "Nenhum"
+
+#~ msgid "How the map should handle multiple filters?"
+#~ msgstr "Como o mapa deve lidar com múltiplos filtros?"
+
+#~ msgid "Intersection - Displays posts that match all the filters"
+#~ msgstr "Intersecção - Mostra posts que se enquadram em todos os filtros"
+
+#~ msgid "Union - Displays posts that match at least one of the filters"
+#~ msgstr "União - Mostra posts que se enquadram em qualquer um dos filtros"
+
+#~ msgid "Let the visitor decide"
+#~ msgstr "Deixe o visitante decidir"
+
+#~ msgid "What kind of posts may appear on the map?"
+#~ msgstr "Que tipo de posts podem aparecer neste mapa?"
+
+#~ msgid "What filters should be visible to the visitors?"
+#~ msgstr "Que filtros estarão disponíveis para os visitantes?"
+
+#~ msgid "Filter by new posts (displays 10 most recent posts)"
+#~ msgstr "Filtrar por posts novos (mostra os 10 mais recentes)"
+
+#~ msgid "Filter by post types"
+#~ msgstr "Filtro por 'post types'"
+
+#~ msgid "Filter by Authors"
+#~ msgstr "Filtro por autores"
+
+#~ msgid "Filter by the following taxonomies"
+#~ msgstr "Filtrar pelas seguintes taxonomias"
+
+#~ msgid "Map Deleted"
+#~ msgstr "Mapa apagado"
+
+#~ msgid "Map name"
+#~ msgstr "Nome do mapa"
+
+#~ msgid "Page"
+#~ msgstr "Página"
+
+#~ msgid "Untitled"
+#~ msgstr "Sem Título"
+
+#~ msgid "Are you sure you want to permanently delete this map?"
+#~ msgstr "Você quer realmente apagar este mapa?"
+
+#~ msgid "Delete map"
+#~ msgstr "Apagar mapa"
+
+#~ msgid "Add New Map"
+#~ msgstr "Adicionar novo mapa"
+
+#~ msgid "No posts found"
+#~ msgstr "Nenhum post encontrado"
+
+#~ msgid "Filter by new posts"
+#~ msgstr "Filtro por posts novos"
+
+#~ msgid ""
+#~ "Ther is another map already in this page. Please choose another page."
+#~ msgstr ""
+#~ "Já existe outro mapa nesta página. Por favor selecione outra página."
+
+#~ msgid "By"
+#~ msgstr "Por"
+
+#~ msgid "on"
+#~ msgstr "em"
+
+#~ msgid "You must be %sloggedin%s to post a comment."
+#~ msgstr "Você precisa estar %slogado%s para publicar um comentário."
+
+#~ msgid "Logged in as"
+#~ msgstr "Conectado como "
+
+#~ msgid "cancel"
+#~ msgstr "cancelar"
+
+#~ msgid "Page %s"
+#~ msgstr "Página %s"
+
+#~ msgid "Top Menu"
+#~ msgstr "Menu do topo"
+
+#~ msgid "Footer Menu"
+#~ msgstr "Menu do rodapé"
+
+#~ msgid "Sidebar"
+#~ msgstr "Barra lateral"
+
+#~ msgid "Tag Cloud"
+#~ msgstr "Nuvem de tags"
+
+#~ msgid "Continue reading &raquo;"
+#~ msgstr "Continue lendo &raquo;"
+
+#~ msgid "By %s on %s at %s."
+#~ msgstr "Por %s em %s as %s."
+
+#~ msgid "No results found."
+#~ msgstr "Nenhum post encontrado"
+
+#~ msgid "&laquo; Older posts"
+#~ msgstr "&laquo; Artigos mais antigos"
+
+#~ msgid "Newer posts &raquo;"
+#~ msgstr "Artigos mais recentes &raquo;"
+
+#~ msgid "&laquo; Previous post"
+#~ msgstr "&laquo; Artigo anterior"
+
+#~ msgid "Next post &raquo;"
+#~ msgstr "Próximo artigo &raquo;"
+
+#~ msgid "Destaques Home"
+#~ msgstr "Destaques Home"
+
+#~ msgid "destaque_home"
+#~ msgstr "destaque_home"
+
+#~ msgid "Please wait..."
+#~ msgstr "Por favor aguarde..."
+
+#~ msgid "Submit"
+#~ msgstr "Enviar"
+
+#~ msgid "Link to Post"
+#~ msgstr "Link para o post"
+
+#~ msgid "Title:"
+#~ msgstr "Título:"
+
+#~ msgid "Author:"
+#~ msgstr "Criador:"
+
+#~ msgid "Published on:"
+#~ msgstr "Publicado em:"
+
+#~ msgid "From:"
+#~ msgstr "De:"
+
+#~ msgid "To:"
+#~ msgstr "Para:"
+
+#~ msgid "Date:"
+#~ msgstr "Data:"
+
+#~ msgid "Learn more"
+#~ msgstr "Saiba mais"
+
+#~ msgid "Your message has been successfully sent."
+#~ msgstr "Sua mensagem foi enviada com sucesso."
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Website"
+#~ msgstr "Website"
+
+#~ msgid "Message"
+#~ msgstr "Mensagem"
+
+#~ msgid "Developed by"
+#~ msgstr "Desenvolvido por"
+
+#~ msgid "No items to display"
+#~ msgstr "Nenhum item exibido"
+
+#~ msgid "Next"
+#~ msgstr "Próximo"
+
+#~ msgid "Prev"
+#~ msgstr "Anterior"
+
+#~ msgid "Never"
+#~ msgstr "Nunca"
+
+#~ msgid "creation"
+#~ msgstr "criação"
+
+#~ msgid "creations"
+#~ msgstr "criações"
+
+#~ msgid "Last publication:"
+#~ msgstr "Última publicação:"
+
+#~ msgid "published an image %s"
+#~ msgstr "publicou uma imagem %s"
+
+#~ msgid "published a video %s"
+#~ msgstr "publicou um vídeo %s"
+
+#~ msgid "published a song %s"
+#~ msgstr "Publicou uma música %s"
+
+#~ msgid "published a podcast %s"
+#~ msgstr "publicou um programa de rádio%s"
+
+#~ msgid "microblog"
+#~ msgstr "microblog"
+
+#~ msgid "said on %s %s ago"
+#~ msgstr "disse em %s %s atrás"
+
+#~ msgid "Admin panel"
+#~ msgstr "Painel do administrador"
+
+#~ msgid "Log out"
+#~ msgstr "Sair"
+
+#~ msgid "Microblog"
+#~ msgstr "Microblog"
+
+#~ msgid "Videos"
+#~ msgstr "Vídeos"
+
+#~ msgid "Music"
+#~ msgstr "Música"
+
+#~ msgid "Podcast"
+#~ msgstr "Programa de Rádio"
+
+#~ msgid "LOGIN"
+#~ msgstr "ENTRAR"
+
+#~ msgid "Invalid username or password."
+#~ msgstr "Usuário ou senha inválidos."
+
+#~ msgid "Check your e-mail inbox for a confirmation link."
+#~ msgstr "Veja a confirmação na sua caixa de email."
+
+#~ msgid "Check your e-mail for your new password"
+#~ msgstr "Sua nova senha foi enviada por email"
+
+#~ msgid "Sorry, that key does not appear to be valid."
+#~ msgstr "Desculpe, esta chave não está válida"
+
+#~ msgid "Password"
+#~ msgstr "Senha"
+
+#~ msgid "Forgot my password!"
+#~ msgstr "Esqueci minha senha!"
+
+#~ msgid "LOST PASS."
+#~ msgstr "SENHA"
+
+#~ msgid "Username or E-mail:"
+#~ msgstr "Usuário ou email:"
+
+#~ msgid "Get New Password"
+#~ msgstr "Obter Nova Senha"
+
+#~ msgid "SIGN UP NOW!"
+#~ msgstr "CRIAR PERFIL"
+
+#~ msgid "E-mail"
+#~ msgstr "Email"
+
+#~ msgid "Confirm e-mail"
+#~ msgstr "Confirmar email"
+
+#~ msgid "Wait..."
+#~ msgstr "Aguarde..."
+
+#~ msgid "Description"
+#~ msgstr "Descrição"
+
+#~ msgid "TAGS, separate by commas"
+#~ msgstr "TAGS, separadas por vírgula"
+
+#~ msgid "Blog"
+#~ msgstr "Blog"
+
+#~ msgid "Other sizes"
+#~ msgstr "Outros tamanhos"
+
+#~ msgid "Footer menu - 1st column"
+#~ msgstr "Menu do rodapé - 1.a coluna"
+
+#~ msgid "Footer menu - 2nd column"
+#~ msgstr "Menu do rodapé - 2.a coluna"
+
+#~ msgid "Footer menu - Baseline"
+#~ msgstr "Menú de rodapé - Base"
+
+#~ msgid "You have to fill in your user name"
+#~ msgstr "Você deve preencher com seu nome de usuário"
+
+#~ msgid "Usernames can only contain numbers and letter in the lowercase"
+#~ msgstr "Nomes de usuário só podem conter números e letras minúsculas"
+
+#~ msgid "Email does not match with email confirmation."
+#~ msgstr "O email não coincide com o email de confirmação"
+
+#~ msgid "Do you realy want to delete this comment ?"
+#~ msgstr "Você quer realmente apagar esse comentário?"
+
+#~ msgid "Invalid URL"
+#~ msgstr "URL inválida"
+
+#~ msgid "Insert Youtube URL"
+#~ msgstr "inserir a URL do Youtube"
+
+#~ msgid "You have to accept the Terms of Use"
+#~ msgstr "Você tem que aceitar os Termos de Uso"
+
+#~ msgid "Fill in"
+#~ msgstr "Preencher"
+
+#~ msgid "Follow"
+#~ msgstr "Acompanhar"
+
+#~ msgid "Unfollow"
+#~ msgstr "Parar de acompanhar"
+
+#~ msgid "Do you realy want to delete %s ?"
+#~ msgstr "Você quer mesmo apagar %s?"
+
+#~ msgid "this item"
+#~ msgstr "Este item"
+
+#~ msgid "Type the email of your friend and write an invitation message"
+#~ msgstr "Digite o email do seu amigo e escreva uma mensagem de convite"
+
+#~ msgid "Blog's sidebar"
+#~ msgstr "Barra lateral do blog"
+
+#~ msgid "The widget area of the blog"
+#~ msgstr "A área do widget do blog"
+
+#~ msgid "Itsnoon left sidebar"
+#~ msgstr "Barra lateral esquerda do ItsNoon"
+
+#~ msgid "%s <span class=\"says\">says:</span>"
+#~ msgstr "%s <span class=\"says\">says:</span>"
+
+#~ msgid "%1$s at %2$s"
+#~ msgstr "%1s em %2$s"
+
+#~ msgid "(Edit)"
+#~ msgstr "(Editar)"
+
+#~ msgid "Pingback:"
+#~ msgstr "Pingback:"
+
+#~ msgid "second"
+#~ msgstr "segundo"
+
+#~ msgid "minute"
+#~ msgstr "minuto"
+
+#~ msgid "hour"
+#~ msgstr "hora"
+
+#~ msgid "day"
+#~ msgstr "dia"
+
+#~ msgid "week"
+#~ msgstr "semana"
+
+#~ msgid "month"
+#~ msgstr "mês"
+
+#~ msgid "year"
+#~ msgstr "ano"
+
+#~ msgid "decade"
+#~ msgstr "Década"
+
+#~ msgid "seconds"
+#~ msgstr "segundos"
+
+#~ msgid "minutes"
+#~ msgstr "minutos"
+
+#~ msgid "hours"
+#~ msgstr "horas"
+
+#~ msgid "days"
+#~ msgstr "dias"
+
+#~ msgid "weeks"
+#~ msgstr "semanas"
+
+#~ msgid "months"
+#~ msgstr "meses"
+
+#~ msgid "years"
+#~ msgstr "anos"
+
+#~ msgid "decades"
+#~ msgstr "Décadas"
+
+#~ msgid "%s %s ago"
+#~ msgstr "%s %s atrás"
+
+#~ msgid "Contact from site"
+#~ msgstr "Contato do site"
+
+#~ msgid "Itsnoon: %s is following your updates on the ItsNoon platform"
+#~ msgstr ""
+#~ "Rede Itsnoon: %s está acompanhando as suas atualizações na Rede ItsNoon"
+
+#~ msgid ""
+#~ "Hi! %s ! %s is following your updates on the ItsNoon platform!\n"
+#~ "\n"
+#~ "View the profile of %s (%s)."
+#~ msgstr ""
+#~ "Olá! %s ! %s está acompanhando as suas atualizações na Rede ItsNoon\n"
+#~ "\n"
+#~ "Veja o perfil de %s (%s)."
+
+#~ msgid "Itsnoon: New message for you from %s"
+#~ msgstr "Rede ItsNoon: Nova mensagem de %s"
+
+#~ msgid ""
+#~ "Hello %s !\n"
+#~ "\n"
+#~ "You have received the following message from %s :\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Reply the message from %s here: %s"
+#~ msgstr ""
+#~ "Olá %s !\n"
+#~ "\n"
+#~ "Você recebeu essa mensagem de %s :\n"
+#~ "\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Responda a mensagem de %s aqui: %s"
+
+#~ msgid "Itsnoon: %s your creation has received a value from %s."
+#~ msgstr "Itsnoon: %s sua criação recebeu um valor de %s."
+
+#~ msgid "%s your creation \"%s\" received a %s from %s (%s)"
+#~ msgstr "%s sua criação \"%s\" recebeu  %s de %s (%s)"
+
+#~ msgid ""
+#~ "Hi!\n"
+#~ "\n"
+#~ "You have received an invitation:\n"
+#~ "\n"
+#~ "%s is inviting you to create your profile on the ItsNoon platform.\n"
+#~ "\n"
+#~ " See here what (s)he wrote:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "The ItsNoon platform is a social network for creation and education. Here "
+#~ "you can find a very cool archive of videos, pictures, songs and podcasts, "
+#~ "created by creative people from all around the world*. You can also get "
+#~ "to know self sustainability, participate in Creation Calls and even have "
+#~ "the chance to make some money with this! Participate! Create your "
+#~ "profile  here now:\n"
+#~ "##siteurl##\n"
+#~ "\n"
+#~ "Thanks, we'll be waiting for you there!!\n"
+#~ "\n"
+#~ "ItsNoon Platform"
+#~ msgstr ""
+#~ "Olá!\n"
+#~ "\n"
+#~ " Você recebeu um convite:\n"
+
+#~ msgid "%s is inviting you for the ItsNoon platfrom"
+#~ msgstr "%s está te convidando para a Rede ItsNoon"
+
+#~ msgid "This username is already registered."
+#~ msgstr "Esse usuário já foi cadastrado."
+
+#~ msgid "This email address is already registered."
+#~ msgstr "Esse endereço de email já está cadastrado."
+
+#~ msgid "Who I follow"
+#~ msgstr "Quem eu acompanho"
+
+#~ msgid "Who follows me"
+#~ msgstr "Quem me acompanha"
+
+#~ msgid "No users found."
+#~ msgstr "Nenhum usuário encontrado."
+
+#~ msgid "Duplicate comment detected; it looks like you've already said that!"
+#~ msgstr "Comentário repetido; parece que você já fez esse comentário antes!"
+
+#~ msgid "You are posting comments too quickly.  Slow down."
+#~ msgstr "Você está escrevendo comentários rápido demais. Vá mais devagar."
+
+#~ msgid "No video to show"
+#~ msgstr "Nenhum vídeo para ser exibido"
+
+#~ msgid "Tags (comma separated)"
+#~ msgstr "Tags (separadas por vírgula)"
+
+#~ msgid "Calls"
+#~ msgstr "Chamadas"
+
+#~ msgid "Featured"
+#~ msgstr "Destaque"
+
+#~ msgid "Text"
+#~ msgstr "Texto"
+
+#~ msgid "Picture"
+#~ msgstr "Imagem"
+
+#~ msgid "Link"
+#~ msgstr "Link"
+
+#~ msgid "Color"
+#~ msgstr "Cor"
+
+#~ msgid "Itsnoon MicroBlog"
+#~ msgstr "Microblog da Rede ItsNoon"
+
+#~ msgid "From"
+#~ msgstr "De"
+
+#~ msgid "Post Count:"
+#~ msgstr "contagem de posts:"
+
+#~ msgid "Max Width"
+#~ msgstr "Largura Máxima"
+
+#~ msgid "Max Height"
+#~ msgstr "Tamanho Máximo"
+
+#~ msgid "Personalized Title"
+#~ msgstr "Título personalizado"
+
+#~ msgid "Post Image"
+#~ msgstr "Postar Imagem"
+
+#~ msgid "I accept"
+#~ msgstr "Eu aceito"
+
+#~ msgid "terms of use"
+#~ msgstr "termos de uso"
+
+#~ msgid "to send content"
+#~ msgstr "para enviar conteúdo"
+
+#~ msgid "Send"
+#~ msgstr "Enviar"
+
+#~ msgid "Password does not match with password confirmation."
+#~ msgstr "A senha não coincide com a senha de confirmação."
+
+#~ msgid "Display name should be more than 3 letters"
+#~ msgstr "O nome que vai ser exibido deve ter mais de 3 letras"
+
+#~ msgid "User data updated"
+#~ msgstr "Dados do usuário atualizados"
+
+#~ msgid "Back to profile"
+#~ msgstr "Voltar ao perfil"
+
+#~ msgid "Display name"
+#~ msgstr "Nome de exibição"
+
+#~ msgid "Password confirmation"
+#~ msgstr "Confirmação de senha"
+
+#~ msgid "Post Video"
+#~ msgstr "Postar Vídeo"
+
+#~ msgid "Insert Youtube URL:"
+#~ msgstr "Inserir URL do Youtube:"
+
+#~ msgid "Send a mesage to %s:"
+#~ msgstr "Enviar uma mensagem para: %s"
+
+#~ msgid "Post Music"
+#~ msgstr "Postar Música"
+
+#~ msgid "TAGS <small>(separate by commas)</small>"
+#~ msgstr "TAGS <pequenas> (separadas por vírgula)</pequenas>"
+
+#~ msgid "File"
+#~ msgstr "Arquivo"
+
+#~ msgid "Wait...."
+#~ msgstr "Aguarde..."
+
+#~ msgid "More"
+#~ msgstr "Mais"
+
+#~ msgid "Post Podcast"
+#~ msgstr "Postar Programa de Rádio"
+
+#~ msgid "Write on your microblog:"
+#~ msgstr "Escrever no seu microblog"
+
+#~ msgid "Publish"
+#~ msgstr "Publicar"
+
+#~ msgid "Refine your search"
+#~ msgstr "Refine a sua busca"
+
+#~ msgid "Network"
+#~ msgstr "Rede"
+
+#~ msgid "All"
+#~ msgstr "Todos"
+
+#~ msgid "Sort by"
+#~ msgstr "Classificar por"
+
+#~ msgid "Alphabetical order"
+#~ msgstr "Ordem alfabética"
+
+#~ msgid "Date of last of publication"
+#~ msgstr "Data da última publicação"
+
+#~ msgid "Date joined"
+#~ msgstr "Data do cadastro "
+
+#~ msgid "Are you certain you would like to remove this item permanently?"
+#~ msgstr "Você tem certeza que deseja remover esse item?"
+
+#~ msgid ""
+#~ "Duplicate message detected; it looks as though you've already said that!"
+#~ msgstr "Mensagem repetida; parece que você já fez esse comentário antes!"
+
+#~ msgid "Video"
+#~ msgstr "Vídeo"
+
+#~ msgid "insert with success!"
+#~ msgstr "inserido com sucesso!"
+
+#~ msgid "The file size can not exceed "
+#~ msgstr "O tamanho do arquivo não pode exceder"
+
+#~ msgid ""
+#~ "An error occurred and only part of the file was sent. Please send again."
+#~ msgstr ""
+#~ "Ocorreu um erro e apenas parte do arquivo foi enviado. Por favor tente "
+#~ "mais uma vez."
+
+#~ msgid "No file sent!"
+#~ msgstr "Nnehum arquivo enviado!"
+
+#~ msgid "File type not allowed"
+#~ msgstr "tipo de arquivo não permitido"
+
+#~ msgid "ERROR"
+#~ msgstr "ERRO"
+
+#~ msgid "files "
+#~ msgstr "arquivos"
+
+#~ msgid "not inserted!"
+#~ msgstr "não inserido!"
+
+#~ msgid " try again."
+#~ msgstr "tente de novo."
+
+#~ msgid "microblog message inserted successfully"
+#~ msgstr "Mensagem do microblog inserida com sucesso"
+
+#~ msgid "item deleted successfully"
+#~ msgstr "Item deletado com sucesso"
+
+#~ msgid "message deleted successfully"
+#~ msgstr "Mensagem deletada com sucesso"
+
+#~ msgid "Status:"
+#~ msgstr "Estatus:"
+
+#~ msgid "All Creation Calls"
+#~ msgstr "Todas as Chamadas"
+
+#~ msgid "Ongoing"
+#~ msgstr "Em andamento"
+
+#~ msgid "Closed"
+#~ msgstr "Encerradas"
+
+#~ msgid "Start Date"
+#~ msgstr "Data de início"
+
+#~ msgid "End Date"
+#~ msgstr "Data final"
+
+#~ msgid "Submissions from <strong>%s</strong>"
+#~ msgstr "Publicações de <strong>%s</strong>"
+
+#~ msgid " to <strong>%s</strong>"
+#~ msgstr " a <strong>%s</strong>"
+
+#~ msgid "Rules"
+#~ msgstr "Regulamento"
+
+#~ msgid "Tips"
+#~ msgstr "Dicas"
+
+#~ msgid "Participants:"
+#~ msgstr "Participantes"
+
+#~ msgid "Publications"
+#~ msgstr "Publicações"
+
+#~ msgid "Selected"
+#~ msgstr "Selecionados"
+
+#~ msgid "Not selected"
+#~ msgstr "Não selecionados"
+
+#~ msgid "Type"
+#~ msgstr "Tipo"
+
+#~ msgid "Creations"
+#~ msgstr "Criações"
+
+#~ msgid "Creator"
+#~ msgstr "Criador"
+
+#~ msgid "Date"
+#~ msgstr "Data"
+
+#~ msgid "These are all the creations for this Creation Call:"
+#~ msgstr "Todas as criações que participaram dessa Chamada Criativa"
+
+#~ msgid ""
+#~ "Sorry, its not possible to see the participants of this Creation Call"
+#~ msgstr "Desculpe, não é possível ver os participantes dessa chamada"
+
+#~ msgid "[more]"
+#~ msgstr "[mais]"
+
+#~ msgid "Description:"
+#~ msgstr "Descrição:"
+
+#~ msgid "Add New Post"
+#~ msgstr "Adicionar Novo Post"
+
+#~ msgid "Edit Post"
+#~ msgstr "Editar Post"
+
+#~ msgid "New Post"
+#~ msgstr "Novo Post"
+
+#~ msgid "View Post"
+#~ msgstr "Ver Posts"
+
+#~ msgid "Search posts"
+#~ msgstr "Buscar posts"
+
+#~ msgid "No posts found in Trash"
+#~ msgstr "Nnenhum post encontrado na Lixeira"
+
+#~ msgid "Image"
+#~ msgstr "Imagem"
+
+#~ msgid "Add New Image"
+#~ msgstr "Adicionar Nova Imagem"
+
+#~ msgid "Edit Image"
+#~ msgstr "Editar Imagem"
+
+#~ msgid "View Image"
+#~ msgstr "Ver Imagens"
+
+#~ msgid "No images found"
+#~ msgstr "Nnehuma imagem encontrada"
+
+#~ msgid "No images found in Trash"
+#~ msgstr "Nehuma imagem encontrada na Lixeira"
+
+#~ msgid "Add New Video"
+#~ msgstr "Adicionar Novo Vídeo"
+
+#~ msgid "View Video"
+#~ msgstr "Ver vídeo"
+
+#~ msgid "No videos found"
+#~ msgstr "Nnenhum vídeo encontrado"
+
+#~ msgid "No videos found in Trash"
+#~ msgstr "Nnenhum vídeo encontrado na Lixeira"
+
+#~ msgid "Add New Music"
+#~ msgstr "Adicionar Nova Música"
+
+#~ msgid "Edit Music"
+#~ msgstr "Editar Música"
+
+#~ msgid "New Music"
+#~ msgstr "Nova Música"
+
+#~ msgid "View Music"
+#~ msgstr "Ouvir música"
+
+#~ msgid "Search music"
+#~ msgstr "Buscar música"
+
+#~ msgid "No music found"
+#~ msgstr "Nnenhuma música encontrada"
+
+#~ msgid "No music found in Trash"
+#~ msgstr "Nenhuma música encontrada na Lixeira"
+
+#~ msgid "Podcasts"
+#~ msgstr "Programas de Rádio"
+
+#~ msgid "Add New Podcast"
+#~ msgstr "Adicionar Programa de Rádio"
+
+#~ msgid "Edit podcast"
+#~ msgstr "Editar programa de rádio"
+
+#~ msgid "New podcast"
+#~ msgstr "Novo programa de rádio"
+
+#~ msgid "View podcast"
+#~ msgstr "Ouvir programa de rádio"
+
+#~ msgid "Search podcasts"
+#~ msgstr "Buscar programas de rádio"
+
+#~ msgid "No podcasts found in Trash"
+#~ msgstr "Nenhum Programa de Rádio encontrado na Lixeira"
+
+#~ msgid "Call Image Size"
+#~ msgstr "Chamar Tamanho da Imagem"
+
+#~ msgid "Highlight Image Size"
+#~ msgstr "Tamanho da imagem em destaque"
+
+#~ msgid "See all"
+#~ msgstr "Ver todos"
+
+#~ msgid "Invite a friend"
+#~ msgstr "Convide um amigo"
+
+#~ msgid "E-mail of your friend"
+#~ msgstr "Email do seu amigo"
+
+#~ msgid "Invitation message"
+#~ msgstr "Mensagem de Convite"
+
+#~ msgid "Send Invitation"
+#~ msgstr "Enviar Convite"
+
+#~ msgid "Invitation successfully sent!"
+#~ msgstr "Convite enviado com sucesso!"
+
+#~ msgid "Failed to send invitation, please try again"
+#~ msgstr "Falha no envio da mensagem de convite, por favor tente de novo"
+
+#~ msgid "Unable to delete photo."
+#~ msgstr "Não é possível apagar a foto."
+
+#~ msgid "The file exceeds the maximum upload size."
+#~ msgstr "O arquivo excedeu o tamanho máximo de postagem."
+
+#~ msgid "The file was only partially uploaded."
+#~ msgstr "Apenas uma parte do arquivo foi postada."
+
+#~ msgid "Missing a temporary folder."
+#~ msgstr "A pasta temporária foi perdida."
+
+#~ msgid "Failed to write file to disk."
+#~ msgstr "O arquivo falhou ao ser escrito no disco."
+
+#~ msgid "File upload stopped by extension."
+#~ msgstr "A postagem foi interrompida por causa da extensão."
+
+#~ msgid "File upload failed due to unknown error."
+#~ msgstr "A postagem do arquivo falhou por um erro desconhecido."
+
+#~ msgid ""
+#~ "The file &ldquo;%s&rdquo; was not uploaded. Did you provide the correct "
+#~ "filename?"
+#~ msgstr ""
+#~ "O arquivo &ldquo;%s&rdquo; não foi postado. Você forneceu o nome do "
+#~ "arquivo correto?"
+
+#~ msgid "The uploaded file type &ldquo;%s&rdquo; is not allowed."
+#~ msgstr "O tipo de arquivo postado &ldquo;%s&rdquo; não é permitido."
+
+#~ msgid "Unable to get image dimensions."
+#~ msgstr "Não é possível ver as dimensões da imagem."
+
+#~ msgid ""
+#~ "The profile picture upload content directory does not exist and could not "
+#~ "be created. Please ensure that you have permissions for the '%s' "
+#~ "directory. Did you put slash at the beginning of the upload path in Misc. "
+#~ "settings? It should be a path relative to the WordPress root directory. "
+#~ "<code>wp_upload_dir()</code> returned:<br /> <code style='white-space:"
+#~ "pre'>%s</code>"
+#~ msgstr ""
+#~ "A foto do perfil postada contém um diretório que não existe e não pode "
+#~ "ser criado. Por favor, certifique-se que você tem permissões para '%s' o "
+#~ "diretório. Você colocou a barra no início da postagem nas configurações "
+#~ "Misc? Deve ser um caminho relativo ao diretório raiz do WordPress."
+#~ "<code>wp_upload_dir()</code> returned:<br /> <code style='white-space:"
+#~ "pre'>%s</code>"
+
+#~ msgid "Unable to place the user photo at: %s"
+#~ msgstr "Não é possível colocar a foto do usuário em:"
+
+#~ msgid "Delete photo?"
+#~ msgstr "Apagar foto?"
+
+#~ msgid "Upload image file:"
+#~ msgstr "Postar arquivo de imagem:"
+
+#~ msgid "max upload size %s"
+#~ msgstr "Tamanho máximo para postagem %s"
+
+#~ msgid "Approval status:"
+#~ msgstr "Estatus da aprovação:"
+
+#~ msgid "pending"
+#~ msgstr "pendente"
+
+#~ msgid "rejected"
+#~ msgstr "rejeitado"
+
+#~ msgid "approved"
+#~ msgstr "Aprovado"
+
+#~ msgid "The photo is inappropriate."
+#~ msgstr "A foto não é apropriada."
+
+#~ msgid "Options saved."
+#~ msgstr "Opções salvas"
+
+#~ msgid "Maximum dimension: "
+#~ msgstr "Dimensão máxima"
+
+#~ msgid "Thumbnail dimension: "
+#~ msgstr "Dimensão da miniatura"
+
+#~ msgid "Serve Avatar as Fallback: "
+#~ msgstr "Servir Avatar como Reserva:"
+
+#~ msgid ""
+#~ "In case the user does not have a photo uploaded or approved, their avatar "
+#~ "will be fetched for them. Respects the 'Avatar Display' setting under "
+#~ "<b>Discussion</b>."
+#~ msgstr ""
+#~ "No caso do usuário não ter uma foto postada ou aprovada, um avatar será "
+#~ "obtido para ele. Respeite o 'Espaço do Avatar' configurado abaixo "
+#~ "<b>Discussion</b>"
+
+#~ msgid "Override Avatar with User Photo: "
+#~ msgstr "Anular Avatar com a foto do usuário:"
+
+#~ msgid ""
+#~ "When making calls to <code>get_avatar()</code>, the user's photo will be "
+#~ "used instead if it is available. Respects the 'Avatar Display' setting "
+#~ "under <b>Discussion</b>."
+#~ msgstr ""
+#~ "Quando fizer ligações para <code>get_avatar()</code>, a foto do perfil "
+#~ "será usada se estiver disponível. Respeite o 'Espaço do Avatar' "
+#~ "<b>Discussion</b>."
+
+#~ msgid "JPEG compression: "
+#~ msgstr "Compressão JPEG:"
+
+#~ msgid "Notify this administrator by email when user photo needs approval: "
+#~ msgstr ""
+#~ "Notifique o administrador por email quando a foto do usuário precisar de "
+#~ "aprovação:"
+
+#~ msgid "Require user photo moderation for all users at or below this level: "
+#~ msgstr ""
+#~ "As fotos de todos os usuários abaixo deste nível requerem moderação:"
+
+#~ msgid "Filetype not supported."
+#~ msgstr "Tipo de arquivo não suportado."
+
+#~ msgid "Unrecognized image format."
+#~ msgstr "Formato da imagem não reconhecido."
+
+#~ msgid "Thumbnail path invalid"
+#~ msgstr "Caminho de miniatura inválido"
+
+#~ msgid "Select for the call"
+#~ msgstr "Selecionar para a chamada"
+
+#~ msgid "Remove from the call"
+#~ msgstr "Remover da chamada"
+
+#~ msgid "Selected in the Creation Call: "
+#~ msgstr "Selecionado na Chamada Criativa"
+
+#~ msgid "Competing in the Creation Call: "
+#~ msgstr "Participando da Chamada Criativa"
+
+#~ msgid "Value shared with success"
+#~ msgstr "Valor compartilhado com sucesso"
+
+#~ msgid "See who shared this value"
+#~ msgstr "Veja quem compartilhou esse valor"
+
+#~ msgid "Happiness"
+#~ msgstr "Alegria"
+
+#~ msgid "Love"
+#~ msgstr "Amor"
+
+#~ msgid "Inspiration"
+#~ msgstr "Inspiração"
+
+#~ msgid "Courage"
+#~ msgstr "Coragem"
+
+#~ msgid "Trust"
+#~ msgstr "Confiança"
+
+#~ msgid "Updates"
+#~ msgstr "Atualizações"
+
+#~ msgid "Messages"
+#~ msgstr "Mensagens"
+
+#~ msgid "Uploading file ..."
+#~ msgstr "Postando arquivo...."
+
+#~ msgid ""
+#~ "Keep this window open while your file is being sent.\n"
+#~ "        This may take some time depending on the size of your file."
+#~ msgstr ""
+#~ "Mantenha essa janela aberta enquanto o seu arquivo está sendo enviado.\n"
+#~ " Isso pode levar um tempo dependendo do tamanho do tamanho do arquivo."
+
+#~ msgid "Creation"
+#~ msgstr "Criação"
+
+#~ msgid "ERROR: "
+#~ msgstr "ERRO:"
+
+#~ msgid "Newer &gt;&gt;"
+#~ msgstr "Atuais &gt;&gt;"
+
+#~ msgid "&lt;&lt; Older"
+#~ msgstr "&gt;&gt; Antigos"
+
+#~ msgid "Database Name"
+#~ msgstr "Nome para o banco de dados"
+
+#~ msgid "Free text"
+#~ msgstr "Texto livre"
+
+#~ msgid "CPF (Brasil)"
+#~ msgstr "CPF (Brasil)"
+
+#~ msgid "Brazilian State/Cities"
+#~ msgstr "Estados / Cidades brasileiras"
+
+#~ msgid "Phone number"
+#~ msgstr "Número de telefone"
+
+#~ msgid ""
+#~ "If you choose \"CPF\" or \"Brazilian State/Cities\" the field name will "
+#~ "be ignored (cpf, cidade and uf will be used)"
+#~ msgstr ""
+#~ "Se você escolher \"CPF\" ou \"Cidades/Estados Brasileiros\", o nome do "
+#~ "campo será ignorado (será usado cpf, cidade e uf)"
+
+#~ msgid "Mandatory for calls"
+#~ msgstr "Obrigatório para as chamadas"
+
+#~ msgid "Mandatory for registration"
+#~ msgstr "Obrigatório para o cadastro"
+
+#~ msgid "Will show on register"
+#~ msgstr "Vai aparecer no cadastro"
+
+#~ msgid "Will show on user lists"
+#~ msgstr "Vai aparecer na lista de usuários"
+
+#~ msgid "Allow sort by"
+#~ msgstr "Permitir classificação por"
+
+#~ msgid "Allow auto complete"
+#~ msgstr "Permitir completar sozinho"
+
+#~ msgid "Phone (area code + telephone number)"
+#~ msgstr "Telefone (código de área + número)"
+
+#~ msgid "Area code"
+#~ msgstr "Código de área"
+
+#~ msgid ""
+#~ "In order to submit a creation to a creative call, you have to first fill "
+#~ "in the following fields in your profile:"
+#~ msgstr ""
+#~ "Para inscrever uma obra em uma Chamada Criativa, você precisa preencher "
+#~ "os seguintes campos no seu perfil: "
+
+#~ msgid "Edit your profile now"
+#~ msgstr "Edite seu perfil agora"
+
+#~ msgid "You must fill %s"
+#~ msgstr "Você deve preencher %s"
+
+#~ msgid "Area code must have 2 digits"
+#~ msgstr "Código de área deve ter 2 dígitos"
+
+#~ msgid "Phone number must have 8 digits"
+#~ msgstr "O número de telefone deve ter 8 dígitos"
+
+#~ msgid "Network options"
+#~ msgstr "Opções da rede"
+
+#, fuzzy
+#~ msgid "Welcome Title"
+#~ msgstr "Texto livre"
+
+#, fuzzy
+#~ msgid "Welcome text"
+#~ msgstr "Texto livre"
+
+#, fuzzy
+#~ msgid "Welcome button label"
+#~ msgstr "Texto livre"
+
+#, fuzzy
+#~ msgid "Welcome button link"
+#~ msgstr "Texto livre"
+
+#, fuzzy
+#~ msgid "Video Text"
+#~ msgstr "Vídeo"
+
+#~ msgid "Network information"
+#~ msgstr "Informações da rede"
+
+#~ msgid ""
+#~ "Please choose a slug for this network and indicate how you call the other "
+#~ "networks in your language"
+#~ msgstr ""
+#~ "Por favor escolha um slug para essa rede e indique como você vai chamar "
+#~ "as outras redes no seu idioma"
+
+#~ msgid "Set a name for \"%s\""
+#~ msgstr "Determine um nome para \"%s\""
+
+#~ msgid "To change this option go to Settings > General"
+#~ msgstr "Para modificar essa opção vá para configurações > Geral"
+
+#~ msgid "Set a slug for \"%s\""
+#~ msgstr "Determine um slug para \"%s\""
+
+#~ msgid "Footer information"
+#~ msgstr "Informação do rodapé"
+
+#~ msgid "Text above the footer baseline menu:"
+#~ msgstr "Texto acima do menu do rodapé base"
+
+#~ msgid "Slug"
+#~ msgstr "Slug"
+
+#~ msgid "Creators"
+#~ msgstr "Criadores"
+
+#~ msgid "Itsnoon Values"
+#~ msgstr "Valores da Rede ItsNoon"
+
+#~ msgid "Text before the action buttons for values:"
+#~ msgstr "Texto antes dos botões dos valores:"
+
+#~ msgid "Text before the total count icons for values:"
+#~ msgstr "Texto antes da contagem total de ícones dos valores:"
+
+#~ msgid "Slugs"
+#~ msgstr "Slug"
+
+#~ msgid "Slug for 'updates'"
+#~ msgstr "Slug para 'updates'"
+
+#~ msgid "Slug for 'microblog'"
+#~ msgstr "Slug para microblog"
+
+#~ msgid "Slug for 'videos'"
+#~ msgstr "Slug para 'videos'"
+
+#~ msgid "Slug for 'images'"
+#~ msgstr "Slug para 'images'"
+
+#~ msgid "Slug for 'podcast'"
+#~ msgstr "Slug para 'podcast'"
+
+#~ msgid "Slug for 'music'"
+#~ msgstr "Slug para 'music'"
+
+#~ msgid "Slug for 'messages'"
+#~ msgstr "Slug para 'messages'"
+
+#~ msgid "Slug for 'edit'"
+#~ msgstr "Slug para 'edit'"
+
+#~ msgid "Slug for 'network'"
+#~ msgstr "Slug para 'network'"
+
+#~ msgid "Video Highlights"
+#~ msgstr "Destaques de Vídeo"
+
+#~ msgid "Home Highlights"
+#~ msgstr "Destaques da Home"
+
+#~ msgid "Image Highlights"
+#~ msgstr "Destaques de Imagens"
+
+#~ msgid "Music Highlights"
+#~ msgstr "Destaques de Música"
+
+#~ msgid "Podcast Highlights"
+#~ msgstr "Destaques de Rádio"
+
+#~ msgid "Remove from home"
+#~ msgstr "Remover da home"
+
+#~ msgid "Add to home"
+#~ msgstr "Adicionar na home"
+
+#~ msgid "Number of Posts:"
+#~ msgstr "Número de Posts:"
+
+#~ msgid "Color:"
+#~ msgstr "Cor:"
+
+#~ msgid "To"
+#~ msgstr "Para"
+
+#~ msgid "Amount"
+#~ msgstr "Quantidade"
+
+#~ msgid "Previous"
+#~ msgstr "Anterior"
+
+#~ msgid "No records found"
+#~ msgstr "Nenhum registro encontrado"
+
+#, fuzzy
+#~ msgid "Transaction successfully reverted."
+#~ msgstr "Convite enviado com sucesso!"
+
+#~ msgid "Actions"
+#~ msgstr "Ações"
+
+#, fuzzy
+#~ msgid "Amount invested"
+#~ msgstr "não inserido!"
+
+#~ msgid "Total balance"
+#~ msgstr "Saldo total"
+
+#~ msgid "Refundable balance"
+#~ msgstr "Saldo reembolsável"
+
+#, fuzzy
+#~ msgid "Front End Messages"
+#~ msgstr "Mensagens"
+
+#, fuzzy
+#~ msgid "List creators"
+#~ msgstr "Criadores"
+
+#, fuzzy
+#~ msgid "No creator selected."
+#~ msgstr "Não selecionados"
+
+#, fuzzy
+#~ msgid "Call has no creation."
+#~ msgstr "Descrição"
+
+#~ msgid "ERROR: %s"
+#~ msgstr "ERRO: %s"
+
+#~ msgid "User"
+#~ msgstr "Usuário"
+
+#, fuzzy
+#~ msgid "Select call:"
+#~ msgstr "Selecionar para a chamada"
+
+#~ msgid "I want my work to be entered for the following call:"
+#~ msgstr "Eu quero que minha criação participe da seguinte chamada:"
+
+#~ msgid "clear"
+#~ msgstr "limpar"
+
+#, fuzzy
+#~ msgid "Call description"
+#~ msgstr "Descrição"
+
+#, fuzzy
+#~ msgid "Hide Participants"
+#~ msgstr "Participantes"
+
+#, fuzzy
+#~ msgid "Start date"
+#~ msgstr "Data de início"
+
+#, fuzzy
+#~ msgid "image icon"
+#~ msgstr "Nnehuma imagem encontrada"
+
+#, fuzzy
+#~ msgid "Tips page"
+#~ msgstr "Dicas"
+
+#, fuzzy
+#~ msgid "Rules Page"
+#~ msgstr "Regulamento"
+
+#~ msgid "Short description"
+#~ msgstr "Pequena descrição"
+
+#~ msgid "Title order"
+#~ msgstr "Ordem do título"
+
+#~ msgid "Your profile photo has been submitted for review."
+#~ msgstr "Sua foto de perfil foi enviada para avaliação."
+
+#~ msgid "Reason: "
+#~ msgstr "Motivo:"
+
+#~ msgid "messages"
+#~ msgstr "mensagens"
+
+#~ msgid "Who is participating in this Creation Call:"
+#~ msgstr "Quem está participando desta chamada:"
+
+#~ msgid "updates"
+#~ msgstr "atualizações"
+
+#, fuzzy
+#~ msgid "Folw"
+#~ msgstr "Seguir"
+
+#, fuzzy
+#~ msgid "Unfolw"
+#~ msgstr "Parar de seguir"
+
+#, fuzzy
+#~ msgid "Foll"
+#~ msgstr "Seguir"
+
+#~ msgid "images"
+#~ msgstr "imagens"
+
+#~ msgid "videos"
+#~ msgstr "videos"
+
+#~ msgid "music"
+#~ msgstr "musica"
+
+#~ msgid "podcast"
+#~ msgstr "radio"
+
+#~ msgid "###login### is your new username"
+#~ msgstr "###login### seu novo nome de usuário"
+
+#~ msgid ""
+#~ "But, before you can start using your new username, <strong>you must "
+#~ "activate it</strong>."
+#~ msgstr ""
+#~ "Mas, antes de começar a usar o seu novo nome de usuário, <strong>você "
+#~ "deve ativá-lo</strong>"
+
+#~ msgid "Go to your inbox <strong>###email###</strong> and click on the link"
+#~ msgstr ""
+#~ "Vá para sua caixa de email <strong>###email###</strong> e clique no link"
+
+#~ msgid ""
+#~ "If you do not activate your username within two days, you will have to "
+#~ "sign up again."
+#~ msgstr ""
+#~ "Se você não ativar o seu nome de usuário em dois dias, você deverá se "
+#~ "cadastrar de novo."
+
+#~ msgid "network"
+#~ msgstr "rede"
+
+#~ msgid "edit"
+#~ msgstr "editar"
+
+#~ msgid "published a music %s"
+#~ msgstr "Música publicada %s"
+
+#~ msgid "Wisdom"
+#~ msgstr "Confiança"
+
+#~ msgid "Hints"
+#~ msgstr "Dicas"

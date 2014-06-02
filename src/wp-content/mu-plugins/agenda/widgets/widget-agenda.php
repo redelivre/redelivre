@@ -6,8 +6,8 @@
 class WidgetAgenda extends WP_Widget {
 
     function WidgetAgenda() {
-        $widget_ops = array('classname' => __CLASS__, 'description' => 'adiciona uma lista dos eventos');
-        parent::WP_Widget('widget_agenda', 'Agenda - Lista', $widget_ops);
+        $widget_ops = array('classname' => __CLASS__, 'description' => __('adiciona uma lista dos eventos', 'sbc'));
+        parent::WP_Widget('widget_agenda', __('Agenda - Lista', 'sbc'), $widget_ops);
     }
 
     function widget($args, $instance) {
@@ -41,7 +41,7 @@ class WidgetAgenda extends WP_Widget {
         echo $before_widget;
 	            
         echo $before_title;
-        echo empty( $instance['title'] ) ? _e( 'Agenda' ) : $instance['title'];
+        echo empty( $instance['title'] ) ? _e( 'Agenda', 'sbc' ) : $instance['title'];
         echo $after_title;
         
         foreach ($events as $event):
@@ -65,7 +65,7 @@ class WidgetAgenda extends WP_Widget {
             <?php
         endforeach;
         ?>
-        <p class="textright"><a href="<?php echo get_post_type_archive_link('agenda') ?>" class="all">veja o calendário completo</a></p>
+        <p class="textright"><a href="<?php echo get_post_type_archive_link('agenda') ?>" class="all"><?php _e('veja o calendário completo', 'sbc'); ?></a></p>
         
         <?php
         echo $after_widget;
@@ -86,12 +86,12 @@ class WidgetAgenda extends WP_Widget {
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>">
                 <?php _e('Título'); ?><br/>
-                <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo isset($title) ? $title : 'Agenda'; ?>"/>
+                <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo isset($title) ? $title : __('Agenda', 'sbc'); ?>"/>
             </label>
         </p>
         <p>
             <label for="<?php echo $this->get_field_id('post_name'); ?>">
-                <?php _e('Número de eventos na lista'); ?> 
+                <?php _e('Número de eventos na lista', 'sbc'); ?> 
                 <input class="widefat" id="<?php echo $this->get_field_id('num_posts'); ?>" name="<?php echo $this->get_field_name('num_posts'); ?>" type="text" value="<?php echo $num_posts; ?>" />
             </label>
         </p>
