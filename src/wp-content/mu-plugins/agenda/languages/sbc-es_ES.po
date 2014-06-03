@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Redelivre Agenda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-02 16:15-0300\n"
+"POT-Creation-Date: 2014-06-02 21:19-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jacson Passold <jacson@ethymos.com.br>\n"
 "Language-Team: \n"
@@ -14,7 +14,9 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: .\n"
 
@@ -59,7 +61,7 @@ msgstr "Ningún evento encontrado"
 
 #: ../agenda.php:32
 msgid "Nenhum evento encontrado na lixeira"
-msgstr "No se han encontrado en la basura eventos"
+msgstr "No se han encontrado en la papelera eventos"
 
 #: ../agenda.php:60
 msgid "Dados do Evento"
@@ -94,7 +96,7 @@ msgstr "Dirección"
 
 #: ../agenda.php:126
 msgid "Fechar"
-msgstr "Cerca"
+msgstr "Cerrar"
 
 #: ../agenda.php:127
 msgid "&#x3c;Anterior"
@@ -102,11 +104,11 @@ msgstr "Anterior"
 
 #: ../agenda.php:128
 msgid "Pr&oacute;ximo&#x3e;"
-msgstr "Cerca"
+msgstr "Próximo"
 
 #: ../agenda.php:129
 msgid "Hoje"
-msgstr "hoy"
+msgstr "Hoy"
 
 #: ../agenda.php:131
 msgid "Janeiro"
@@ -281,15 +283,15 @@ msgstr "Eventos"
 
 #: ../agenda.php:358
 msgid "Entrada no menu inserida com sucesso!"
-msgstr "Compruebe el menú insertado correctamente!"
+msgstr "Item en el menú insertado correctamente!"
 
 #: ../agenda.php:360
 msgid "Já existe este item no menu!"
-msgstr "Este objeto ya existe en el menú!"
+msgstr "Este item ya existe en el menú!"
 
 #: ../agenda.php:379
 msgid "Sua agenda de eventos pode ser acessada através do endereço"
-msgstr "Los eventos de calendario se puede acceder en la dirección"
+msgstr "Se puede acceder su agenda de eventos en la dirección"
 
 #: ../agenda.php:398
 msgid "Informações do Evento"
@@ -297,11 +299,11 @@ msgstr "Información del evento"
 
 #: ../agenda.php:403
 msgid "Local"
-msgstr "Lugar"
+msgstr "Local"
 
 #: ../agenda.php:404
 msgid "Site"
-msgstr "Sitio web"
+msgstr "Sitio"
 
 #: ../widgets/widget-agenda.php:9
 msgid "adiciona uma lista dos eventos"
@@ -1805,23 +1807,15 @@ msgstr "Número de eventos en la lista"
 #~ msgid "Network options"
 #~ msgstr "Opções da rede"
 
-#, fuzzy
 #~ msgid "Welcome Title"
 #~ msgstr "Texto livre"
 
-#, fuzzy
 #~ msgid "Welcome text"
 #~ msgstr "Texto livre"
 
-#, fuzzy
 #~ msgid "Welcome button label"
 #~ msgstr "Texto livre"
 
-#, fuzzy
-#~ msgid "Welcome button link"
-#~ msgstr "Texto livre"
-
-#, fuzzy
 #~ msgid "Video Text"
 #~ msgstr "Vídeo"
 
@@ -1934,14 +1928,12 @@ msgstr "Número de eventos en la lista"
 #~ msgid "No records found"
 #~ msgstr "Nenhum registro encontrado"
 
-#, fuzzy
 #~ msgid "Transaction successfully reverted."
 #~ msgstr "Convite enviado com sucesso!"
 
 #~ msgid "Actions"
 #~ msgstr "Ações"
 
-#, fuzzy
 #~ msgid "Amount invested"
 #~ msgstr "não inserido!"
 
@@ -1951,19 +1943,15 @@ msgstr "Número de eventos en la lista"
 #~ msgid "Refundable balance"
 #~ msgstr "Saldo reembolsável"
 
-#, fuzzy
 #~ msgid "Front End Messages"
 #~ msgstr "Mensagens"
 
-#, fuzzy
 #~ msgid "List creators"
 #~ msgstr "Criadores"
 
-#, fuzzy
 #~ msgid "No creator selected."
 #~ msgstr "Não selecionados"
 
-#, fuzzy
 #~ msgid "Call has no creation."
 #~ msgstr "Descrição"
 
@@ -1973,7 +1961,6 @@ msgstr "Número de eventos en la lista"
 #~ msgid "User"
 #~ msgstr "Usuário"
 
-#, fuzzy
 #~ msgid "Select call:"
 #~ msgstr "Selecionar para a chamada"
 
@@ -1983,27 +1970,21 @@ msgstr "Número de eventos en la lista"
 #~ msgid "clear"
 #~ msgstr "limpar"
 
-#, fuzzy
 #~ msgid "Call description"
 #~ msgstr "Descrição"
 
-#, fuzzy
 #~ msgid "Hide Participants"
 #~ msgstr "Participantes"
 
-#, fuzzy
 #~ msgid "Start date"
 #~ msgstr "Data de início"
 
-#, fuzzy
 #~ msgid "image icon"
 #~ msgstr "Nnehuma imagem encontrada"
 
-#, fuzzy
 #~ msgid "Tips page"
 #~ msgstr "Dicas"
 
-#, fuzzy
 #~ msgid "Rules Page"
 #~ msgstr "Regulamento"
 
@@ -2028,15 +2009,12 @@ msgstr "Número de eventos en la lista"
 #~ msgid "updates"
 #~ msgstr "atualizações"
 
-#, fuzzy
 #~ msgid "Folw"
 #~ msgstr "Seguir"
 
-#, fuzzy
 #~ msgid "Unfolw"
 #~ msgstr "Parar de seguir"
 
-#, fuzzy
 #~ msgid "Foll"
 #~ msgstr "Seguir"
 
