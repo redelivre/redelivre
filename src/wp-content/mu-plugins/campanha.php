@@ -255,3 +255,17 @@ function savePlataformSettings()
         }
     }
 }
+
+// Fix Users not in blogs root 
+/* global $wpdb;
+$query = "SELECT ID FROM {$wpdb->users}";
+$users = $wpdb->get_results( $query, ARRAY_A );
+foreach($users as $user) {
+	add_user_to_blog('1', $user['ID'], 'subscriber');
+}*/
+
+function campanha_new_user_to_root($user_id)
+{
+	add_user_to_blog('1', $user_id, 'subscriber');
+}
+add_action( 'wpmu_new_user', 'campanha_new_user_to_root', 10, 2);
