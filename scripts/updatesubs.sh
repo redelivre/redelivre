@@ -4,6 +4,8 @@ PWDAtual=`pwd`
 
 git pull;
 
+for l in $(git submodule |grep ^-|awk '{print $2}'); do git submodule update --init $l; done
+
 for l in $(git submodule|grep -v wordpress-xrds-simple|grep -v wordpress-openid|grep -v mapasdevista |awk {'print $2;'}); do
 	echo "Updating $l"
         cd $PWDAtual/$l;
