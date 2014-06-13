@@ -121,7 +121,7 @@ class P2_JS {
 		wp_enqueue_script( 'p2js',
 			P2_JS_URL . '/p2.js',
 			$depends,
-			'20131101'
+			'20140603'
 		);
 
 		wp_localize_script( 'p2js', 'p2txt', array(

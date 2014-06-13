@@ -4,7 +4,7 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S
 Tags: akismet, captcha, comment, comments, login, anti-spam, spam, security, multilingual, buddypress, wpmu, wordpressmu
 Requires at least: 2.9
-Tested up to: 3.7.1
+Tested up to: 3.9.1
 Stable tag: trunk
 
 Adds CAPTCHA anti-spam methods to WordPress on the forms for comments, registration, lost password, login, or all. For WP, WPMU, and BuddyPress.
@@ -223,6 +223,12 @@ Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](
 
 
 == Changelog ==
+
+- akismet 3.xx compatible
+
+= 2.7.7.4 =
+- (15 May 2014) - Removed themefuse ad
+- tested for WP 3.9.1
 
 = 2.7.7.3 =
 - (18 Nov 2013) - Update Turkish Language.

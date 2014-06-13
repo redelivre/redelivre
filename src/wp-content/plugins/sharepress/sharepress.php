@@ -5,7 +5,7 @@ Plugin URI: https://getsharepress.com
 Description: SharePress publishes your content to your personal Facebook Wall and the Walls of Pages you choose.
 Author: Fat Panda, LLC
 Author URI: http://fatpandadev.com
-Version: 2.2.27
+Version: 2.2.29
 License: GPL2
 */
 
@@ -41,7 +41,7 @@ SpBaseFacebook::$CURL_OPTS = SpBaseFacebook::$CURL_OPTS + array(
 
 class Sharepress {
 
-  const VERSION = '2.2.27';
+  const VERSION = '2.2.29';
   
   const MISSED_SCHEDULE_DELAY = 5;
   const MISSED_SCHEDULE_OPTION = 'sharepress_missed_schedule';
@@ -1576,6 +1576,7 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
    */
   function plugin_action_links($actions, $plugin_file, $plugin_data, $context) {
     $actions['settings'] = '<a href="options-general.php?page=sharepress">Settings</a>';
+    $actions['flush-settings'] = '<a href="options-general.php?page=sharepress&action=flush" onclick="return confirm(\'Are you sure you want to delete SharePress settings data? \')">Flush Settings</a>';
     if (!self::$pro && self::session()) {
       $actions['go-pro'] = '<a href="https://getsharepress.com/?utm_source=sharepress&utm_medium=in-app-promo&utm_campaign=unlock-pro-version">Unlock Pro Version</a>';
     }
@@ -1593,7 +1594,7 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
       }
       echo self::facebook()->getLoginUrl(array(
         'redirect_uri' => $_REQUEST['current_url'],
-        'scope' => 'read_stream,publish_stream,manage_pages,share_item'
+        'scope' => 'read_stream,publish_actions,manage_pages,share_item'
       ));
         
     } else {
@@ -1606,6 +1607,17 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
   function admin_init() {
     if ($action = @$_REQUEST['action']) {
       
+      if ( $action == 'flush') {
+        if (current_user_can('administrator')) {
+          self::log('Flushing all SharePress options.');
+          global $wpdb;
+          $sp_opts = $wpdb->query("DELETE FROM $wpdb->options WHERE option_name like 'sharepress_%'");
+          wp_redirect('options-general.php?page=sharepress');
+          exit;
+        } else {
+          wp_die();
+        }
+      }
       // when the user clicks "Setup" tab on the settings screen:
       if ($action == 'clear_session') {      
         if (current_user_can('administrator')) {
@@ -1710,7 +1722,7 @@ So, these posts were published late...\n\n".implode("\n", $permalinks));
     add_submenu_page('options-general.php', 'SharePress', 'SharePress', 'administrator', 'sharepress', array($this, 'settings'));
   }
   
-  function settings() {
+  function settings() {  
     if (isset($_REQUEST['log'])) {
       require('console.php');
       return;

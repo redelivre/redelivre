@@ -25,6 +25,11 @@ http://en.blog.wordpress.com/2009/03/11/p2-the-new-prologue/
 
 == Changelog ==
 
+= 1.5.4 - June 2014 =
+* Reduce text strings to avoid too many similar strings for easier translation
+* Add display inline-block to sharedaddy lists to avoid issue with lists in the content
+* Fix tooltip issue with Recent Comments widget
+
 = 1.5.3 =
 * Add earlier filter to mentions URLs in case term doesn't exist
 * Add !important to #wrapper width property to fix iPhone stylesheet issue if no sidebar option is ticked

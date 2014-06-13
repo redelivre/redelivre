@@ -3,15 +3,15 @@ Contributors: aaroncollegeman, joeyblake
 Donate link: https://getsharepress.com
 Tags: facebook, twitter, social, like, posts, page
 Requires at least: 2.9
-Tested up to: 3.8.1
-Stable tag: 2.2.27
+Tested up to: 3.9
+Stable tag: 2.2.29
 
 Automatic posting and reposting to Facebook and Twitter.
 
 == Description ==
 
 [SharePress](https://getsharepress.com/?utm_source=wordpress.org&utm_medium=app-store&utm_campaign=sharepress) is a WordPress plugin that automatically shares your content to Facebook and Twitter.
-Support for Google+ and LinkedIn are coming in [version 3.0](https://getsharepress.com/?utm_source=wordpress.org&utm_medium=app-store&utm_campaign=version-3.0). 
+Support for LinkedIn, and more goodies are coming in [version 3.0](https://getsharepress.com/?utm_source=wordpress.org&utm_medium=app-store&utm_campaign=version-3.0). 
 
 Features include:
 
@@ -120,6 +120,13 @@ Documentation and support for SharePress are available [here](http://getsharepre
 E-mail based tech support is available to Pro customers. All you have to do is [buy a key](https://getsharepress.com/?utm_source=wordpress.org&utm_medium=app-store&utm_campaign=get-support).
 
 == Changelog ==
+
+= 2.2.29 =
+* Facebook permissions update
+
+= 2.2.28 = 
+* Compatible with WordPress 3.9
+* Admin utility for flushing settings
 
 = 2.2.27 =
 * Gracefully fix twitter authentication keys
