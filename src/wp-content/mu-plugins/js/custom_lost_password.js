@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
 			lost_password.send();
 		}
 	});
-	si_captcha_refresh('si_image_reg','reg','/wp-content/plugins/si-captcha-for-wordpress/captcha','http://campanhacompleta.com.br/wp-content/plugins/si-captcha-for-wordpress/captcha/securimage_show.php?si_form_id=reg&prefix=');
+	si_captcha_refresh('si_image_reg','reg','/wp-content/plugins/si-captcha-for-wordpress/captcha','/wp-content/plugins/si-captcha-for-wordpress/captcha/securimage_show.php?si_form_id=reg&prefix=');
 });
 
 function Custom_Lost_Password(){
