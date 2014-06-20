@@ -643,13 +643,16 @@ function lost_password_reset(){
 
 	do_action('lostpassword_post');
 
-	if ( $errors->get_error_code() )
-		return $errors;
-
 	if ( !$user_data ) {
 		$errors->add('invalidcombo', __('<strong>ERROR</strong>: Invalid username or e-mail.'));
-		return $errors;
 	}
+	
+	if ( $errors->get_error_code() )
+	{
+		echo $errors->get_error_messages();
+		exit();
+	}
+	
 	
 	$user_info = $user_data;
 	$user_login = $user_info->user_login;
@@ -702,7 +705,7 @@ function lost_password_reset(){
 		return true;
 		
 	} else {
-		echo _x('Nenhum usuário encontrado com este email', 'custom-lost-password', 'campanhacommpleta');
+		echo _x('Nenhum usuário encontrado com este email', 'custom-lost-password', 'redelivre');
 		return false;
 	}
 }
