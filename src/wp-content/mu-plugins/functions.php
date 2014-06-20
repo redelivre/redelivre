@@ -649,7 +649,7 @@ function lost_password_reset(){
 	
 	if ( $errors->get_error_code() )
 	{
-		echo $errors->get_error_messages();
+		echo implode('<br/>', $errors->get_error_messages());
 		exit();
 	}
 	
