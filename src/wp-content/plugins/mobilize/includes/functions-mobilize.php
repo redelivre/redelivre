@@ -23,8 +23,8 @@ function mobilize_page_load_assets()
 
 	wp_enqueue_style('mobilize-template-style',
 			plugins_url('/mobilize/assets/css/mobilize.css', INC_MOBILIZE));
-	wp_enqueue_script('mobilize-template',
-			plugins_url('/mobilize/assets/js/template.js', INC_MOBILIZE));
+	/*wp_enqueue_script('mobilize-template',
+			plugins_url('/mobilize/assets/js/template.js', INC_MOBILIZE));*/
 
 	if (is_plugin_active('contribua/contribua.php')
 			&& array_key_exists('general', $options)
