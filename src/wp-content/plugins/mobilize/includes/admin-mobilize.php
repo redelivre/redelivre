@@ -36,7 +36,7 @@
         <ul id="sortable">        
             <li>
                 <div id="mobilize-redes" class="section">
-                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/mobilize/assets/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[redes][active]" <?php if (Mobilize::isActive('redes')) echo 'checked="checked"' ?> data-section="mobilize-redes" value="1"/> <?php _e('Redes Sociais', 'mobilize'); ?></label></h3>          
 
                    <div class="section-content">
@@ -80,7 +80,7 @@
 
             <li>
                 <div id="mobilize-banners" class="section">
-                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/mobilize/assets/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[banners][active]" <?php if (Mobilize::isActive('banners')) echo 'checked="checked"' ?> data-section="mobilize-banners" value="1"/> <?php _e('Banners', 'mobilize'); ?></label></h3>
                     <p class="mobilize-description"><?php _e('Carregue aqui um banner quadrado de 250x250 pixels que o sistema vai preparar automaticamente 3 tamanhos que seus apoiadores poderão colocar em sites, blogs ou mesmo nas redes sociais.', 'mobilize'); ?></p>
 
@@ -105,7 +105,7 @@
 
             <li>
                 <div id="mobilize-adesive" class="section">
-                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/mobilize/assets/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[adesive][active]" <?php if(Mobilize::isActive('adesive')) echo 'checked="checked"' ?> data-section="mobilize-adesive" value="1"/> <?php _e('Adesive sua Foto', 'mobilize'); ?></label></h3>
                     <p class="mobilize-description"><?php _e('Carregue uma imagem pequena com seu nome e número, com isto seus apoiadores poderão adesivar suas fotos para colocar nas redes sociais. Suba uma imagem horizontal com, no mínimo, 150 pixels.', 'mobilize'); ?></p>
 
@@ -130,7 +130,7 @@
             
             <li>
                 <div id="mobilize-enviar" class="section">
-                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/img/move.png'; ?>" alt="mover"></a></div>-->
+                    <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/mobilize/assets/img/move.png'; ?>" alt="mover"></a></div>-->
                     <h3><label><input type="checkbox" name="mobilize[envie][active]" <?php if(Mobilize::isActive('envie')) echo 'checked="checked"' ?> data-section="mobilize-enviar" value="1"/> <?php _e('Enviar para um amigo', 'mobilize'); ?></label></h3>
                     <p class="mobilize-description"><?php _e('Esta é uma mensagem padrão que seus apoiadores poderão enviar para várias pessoas.  Insira o assunto da mensagem (ex: Eu apoio “Candidato X”) e um texto para a mensagem. Seja sucinto, mas passe sua mensagem.', 'mobilize'); ?></p>
                     
@@ -170,4 +170,4 @@
     </form> 
 </div>
 
-<script src="<?php echo get_bloginfo('url').'/wp-content/plugins/Mobilize/js/admin-mobilize.js'; ?>"></script>
+<script src="<?php echo get_bloginfo('url').'/wp-content/plugins/mobilize/assets/js/admin-mobilize.js'; ?>"></script>
