@@ -64,3 +64,6 @@
 [submodule "src/wp-content/plugins/post-format-gallery-widget"]
 	path = src/wp-content/plugins/post-format-gallery-widget
 	url = git@github.com:redelivre/post-format-gallery-widget.git
+[submodule "src/wp-content/themes/educacaopopular"]
+	path = src/wp-content/themes/educacaopopular
+	url = git@github.com:redelivre/educacaopopular.git
