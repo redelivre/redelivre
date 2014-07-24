@@ -44,21 +44,39 @@ class Mobilize {
 
 		wp_enqueue_script('mobilize-edit',
 			plugins_url('/mobilize/assets/js/edit.js', INC_MOBILIZE));
+		$slug = get_post_meta(get_the_ID(), '_mobilize_template', true);
 		wp_localize_script('mobilize-edit', 'templateData',
-				array('slug' => get_post_meta(get_the_ID(), '_mobilize_template', true)));
-		
+				array('slug' => $slug));
+		if ($slug === 'mobilize')
+		{
+			$layout = self::getPageLayout(get_the_ID());
+			require INC_MOBILIZE . '/includes/page_edit.php';
+		}
+	}
+
+	public static function savePageCustomization()
+	{
+		if (array_key_exists('mobilize-custom', $_POST)
+				&& array_key_exists('mobilize-layout-string', $_POST))
+		{
+			$layout = explode(';', $_POST['mobilize-layout-string'], 16);
+			update_option('mobilize_pages_' . $_REQUEST['post_ID'], $layout);
+		}
+		else {
+			delete_option('mobilize_pages_' . $_REQUEST['post_ID']);
+		}
 	}
 
 	public static function savePage()
 	{
-		
-		if (
-			array_key_exists('page_template', $_POST) &&
+		if (array_key_exists('page_template', $_POST) &&
 			$_POST['page_template'] == 'mobilize')
 		{
 			$post_ID = $_REQUEST['post_ID'];
 			update_post_meta($post_ID, '_mobilize_template', 'mobilize');
 			$_POST['page_template'] = 'default';
+
+			self::savePageCustomization();
 		}
 		elseif(array_key_exists('post_ID', $_REQUEST))
 		{
@@ -192,6 +210,10 @@ class Mobilize {
         $result = $index ? @$option[$index] : $option;
 
         return is_array($result) ? $result : array();
+    }
+
+    public static function getPageLayout($pageID) {
+			return get_option("mobilize_pages_$pageID");
     }
 
     /**
