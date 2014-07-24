@@ -16,6 +16,7 @@
 			_e('As seções só irão funcionar se estiverem configuradas na página de '
 			. 'configuração do Mobilize.', 'mobilize');
 		?></i>
+		<br>
 
 		<select name="mobilize-layout-template" id="mobilize-layout-template"
 			size="16" style="height: auto;">
