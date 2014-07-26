@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $sectionFunction = array(
 		'description' => mobilize_template_chamada,
@@ -31,6 +31,7 @@ else {
 	}
 }
 $smartView->content = implode("\n", $content);
+$smartView->locale = get_locale();
 
 $smartView->display(true);
 
