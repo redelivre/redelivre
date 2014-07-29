@@ -6,7 +6,8 @@ $sectionFunction = array(
 		'banners' => mobilize_template_banners,
 		'sticker' => mobilize_template_adesive,
 		'share' => mobilize_template_enviar,
-		'contribute' => mobilize_template_contribua
+		'contribute' => mobilize_template_contribua,
+		'links' => mobilize_template_links
 );
 
 get_header();

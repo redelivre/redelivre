@@ -18,4 +18,41 @@ jQuery(function(){
     });
 
     // jQuery( "#sortable" ).sortable();
+
+		var linkID = 0;
+		jQuery('#mobilize-links-add').click(function() {
+			if (jQuery('#mobilize-links-text').val() &&
+					jQuery('#mobilize-links-url').val())
+			{
+
+				var ul = jQuery('<li></li>').appendTo(jQuery('#mobilize-links-list'));
+
+				text = jQuery('<input type="hidden">').appendTo(ul);
+				text.val(jQuery('#mobilize-links-text').val());
+				text.attr('name', 'mobilize[links][' + linkID + '][text]');
+				text = jQuery('<input type="hidden">').appendTo(ul);
+				text.val(jQuery('#mobilize-links-url').val());
+				text.attr('name', 'mobilize[links][' + linkID + '][url]');
+				text = jQuery('<input type="hidden">').appendTo(ul);
+				text.val(jQuery('#mobilize-links-description').val());
+				text.attr('name', 'mobilize[links][' + linkID + '][description]');
+				linkID += 1;
+
+				button = jQuery('<input type="button" value="X">').appendTo(ul);
+				ul.append(jQuery('<div/>').text(
+							jQuery('#mobilize-links-text').val()).html());
+
+				button.click(function() {
+					jQuery(this).parent().remove();
+				});
+
+				jQuery('#mobilize-links-text').val('');
+				jQuery('#mobilize-links-url').val('');
+				jQuery('#mobilize-links-description').val('');
+			}
+		});
+
+		jQuery('#mobilize-links-list input').click(function() {
+			jQuery(this).parent().remove();
+		});
 });

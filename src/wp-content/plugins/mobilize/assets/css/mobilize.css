@@ -291,3 +291,41 @@ p.mobilize-description {
 #mobilize-sticker p.section-description {
   margin-bottom: 0;
 }
+
+.mobilize-link {
+	display: inline-block;
+	width: 200px;
+	vertical-align: top;
+}
+
+.mobilize-link a:hover, .mobilize-link a:visited, .mobilize-link a:link,
+	.mobilize-link a:active {
+	text-decoration: none;
+	color: black;
+}
+
+.mobilize-link-square {
+	border-radius: 48px;
+	background: red;
+	vertical-align: middle;
+	display: table-cell;
+	width: 200px;
+	height: 200px;
+}
+
+.mobilize-link-square p {
+	text-align: center;
+	vertical-align: middle;
+	font-size: large;
+	font-weight: bold;
+	font-family: sans-serif;
+	margin: 0px;
+	max-height: 200px;
+}
+
+.mobilize-link-description {
+	margin-left: 20px;
+	margin-right: 20px;
+	font-size: small;
+	height: 150px;
+}

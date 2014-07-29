@@ -35,6 +35,9 @@
 			<option name="mobilize-contribute"><?php
 				_e('Contribua', 'mobilize');
 			?></option>
+			<option name="mobilize-links"><?php
+				_e('Links', 'mobilize');
+			?></option>
 			<option name="mobilize-share"><?php
 				_e('Enviar Para Um Amigo', 'mobilize');
 			?></option>

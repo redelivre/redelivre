@@ -127,7 +127,90 @@
                     </div>
                 </div>
             </li>
-            
+
+            <li>
+							<div id="mobilize-links" class="section">
+								<h3><label>
+									<input type="checkbox"
+										name="mobilize[links][active]"
+										<?php
+											if(Mobilize::isActive('links'))
+												echo 'checked="checked"';
+										?> data-section="mobilize-links" value="1"/>
+										<?php _e('Links', 'mobilize'); ?>
+									</label></h3>
+									<p class="mobilize-description"><?php
+										_e('Divulgação de links genéricos.', 'mobilize');
+									?></p>
+
+									<div class="section-content">
+										<?php Mobilize::printErrors('links'); ?>
+										<p class="section-description">
+										<label>
+											<?php
+												_e('Texto do Botão:', 'mobilize');
+											?>
+											<br>
+											<input size="40" id="mobilize-links-text" type="text">
+										</label>
+										<br>
+										<label>
+											<?php
+												_e('URL:', 'mobilize');
+											?>
+											<br>
+											<input size="40" id="mobilize-links-url" type="text">
+										</label>
+										<br>
+										<label>
+											<?php
+												_e('Descrição:', 'mobilize');
+											?>
+											<br>
+											<textarea  rows="5" cols="20"
+												id="mobilize-links-description"></textarea>
+										</label>
+										<br>
+										<input type="button" id="mobilize-links-add"
+											value="<?php _e('Adicionar Link', 'mobilize'); ?>">
+									</div>
+								</div>
+								<h4><?php _e('Links Disponíveis:', 'mobilize'); ?></h4>
+								<ul id="mobilize-links-list">
+									<?php
+										if (array_key_exists('links', $option))
+										{
+											$id = -sizeof($option['links']);
+											if (array_key_exists('active', $option['links']))
+												$id += 1;
+
+											foreach ($option['links'] as $k => $v)
+											{
+												if ($k === 'active')
+													continue;
+												?>
+													<li>
+														<input type="hidden"
+															name="mobilize[links][<?php echo $id; ?>][text]"
+															value=<?php echo htmlentities($v['text']); ?>>
+														<input type="hidden"
+															name="mobilize[links][<?php echo $id; ?>][url]"
+															value=<?php echo htmlentities($v['url']); ?>>
+														<input type="hidden"
+															name="mobilize[links][<?php
+																echo $id; ?>][description]"
+															value=<?php
+																echo htmlentities($v['description']); ?>>
+														<input type="button" value="X">
+														<?php echo htmlentities($v['text']); ?>
+													</li>
+												<?php
+											}
+										}
+									?>
+								</ul>
+            </li>
+
             <li>
                 <div id="mobilize-enviar" class="section">
                     <!--<div class="mobilize-clear"><a href="#" title="mover"><img width="15" src="<?php echo get_bloginfo('url').'/wp-content/plugins/mobilize/assets/img/move.png'; ?>" alt="mover"></a></div>-->
