@@ -552,20 +552,21 @@ class Mobilize {
 
 			if (!empty($sender) && !empty($senderEmail) && !empty($recipientList))
 			{
-				$sender      = filter_var($sender, FILTER_SANITIZE_STRING);
+				$sender = filter_var($sender, FILTER_SANITIZE_STRING);
 				$senderEmail = filter_var($senderEmail, FILTER_SANITIZE_EMAIL);
-				$headers     = "From: '{$sender}' <{}>";
-				$recipients  = array();
+				$headers = "From: '{$sender}' <{}>\n";
+				$headers .= 'Content-Type: text/html; charset=UTF8';
+				$recipients = array();
 				foreach (explode(',', $recipientList) as $recipient)
 				{
 					$recipients[] = filter_var(trim($recipient), FILTER_SANITIZE_EMAIL);
 				}
 
-				$msg =
-					"$sender ($senderEmail) lhe enviou a mensagem que segue abaixo:\n\n";
+				$msg = '<p>' . htmlentities($option['message']) . '</p>';
+				$msg .= "<p>$sender ($senderEmail)";
+				$msg .= ' lhe enviou a mensagem que segue abaixo:</p>';
 				if (!empty($senderMessage))
-					$msg .= "$senderMessage\n\n";
-				$msg .= $option['message'];
+					$msg .= '<p>' . htmlentities($senderMessage) . '</p>';
 
 				$success = wp_mail($recipients, $option['subject'], $msg, $headers);
 			}
