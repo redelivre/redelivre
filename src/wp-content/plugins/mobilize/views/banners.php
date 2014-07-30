@@ -9,9 +9,10 @@
         <div class="mobilize-image-banner">
             <img class="mobilize-image-banner-1" src="{{ bannerURL250 }}">
         </div>
+				<p>
 				<div data-type="button" class="fb-share-button"
 					data-href="{{ bannerURL250 }}"></div>
-				<br>
+				</p>
         <textarea class="mobilize-code">{{ bannerCode250 }}</textarea>
     </div>
 
@@ -20,10 +21,10 @@
         <div class="mobilize-image-banner">
             <img class="mobilize-image-banner-2" src="{{ bannerURL200 }}">
         </div>
-
+				<p>
 				<div data-type="button" class="fb-share-button"
 					data-href="{{ bannerURL200 }}"></div>
-				<br>
+				</p>
         <textarea class="mobilize-code">{{ bannerCode200 }}</textarea>
     </div>
 
@@ -32,10 +33,10 @@
         <div class="mobilize-image-banner">
             <img class="mobilize-image-banner-3" src="{{ bannerURL125 }}">
         </div>
-
+				<p>
 				<div data-type="button" class="fb-share-button"
 					data-href="{{ bannerURL125 }}"></div>
-				<br>
+				</p>
         <textarea class="mobilize-code">{{ bannerCode125 }}</textarea>
     </div>
 
