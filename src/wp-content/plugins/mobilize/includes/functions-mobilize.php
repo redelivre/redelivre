@@ -282,6 +282,43 @@ function mobilize_template_adesive()
     }
 }
 
+function mobilize_template_link($data)
+{
+	$smartView = new SmartView(INC_MOBILIZE . '/views/link.php');
+
+	$smartView->linkText = strtoupper($data['text']);
+	$smartView->linkDescription = $data['description'];
+	$smartView->linkURL = $data['url'];
+
+	return $smartView->display();
+}
+
+function mobilize_template_links()
+{
+	if (Mobilize::isActive('links'))
+	{
+		$options = Mobilize::getOption();
+		$smartView = new SmartView(INC_MOBILIZE . '/views/links.php');
+		$smartView->padding = isset($options['general']['espacamento_lateral']) ?
+			$options['general']['espacamento_lateral'] : '';
+		$smartView->linksTitle = __('Links', 'mobilize');
+
+		$links = '';
+		foreach ($options['links'] as $k => $v)
+		{
+			if ($k !== 'active')
+			{
+				$links .= mobilize_template_link($v);
+			}
+		}
+		$smartView->links = $links;
+
+		return $smartView->display();
+	}
+
+	return "";
+}
+
 /**
  * [mobilize_template_enviar description]
  * @return [type] [description]
@@ -371,6 +408,14 @@ function mobilize_shortag_banners()
 
 add_shortcode('mobilize-banners', 'mobilize_shortag_banners');
 
+function mobilize_shortag_links()
+{
+    mobilize_page_load_assets();
+    return mobilize_template_links();
+}
+
+add_shortcode('mobilize-links', 'mobilize_shortag_links');
+
 /**
  * [mobilize_shortag_banners description]
  * @return [type] [description]
@@ -384,6 +429,7 @@ function mobilize_shortag()
         mobilize_template_social(), 
         mobilize_template_banners(), 
         mobilize_template_adesive(), 
+				mobilize_template_links(),
         mobilize_template_enviar()
     );
 
