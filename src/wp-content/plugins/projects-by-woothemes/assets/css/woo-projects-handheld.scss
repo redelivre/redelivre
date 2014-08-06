@@ -1,0 +1,51 @@
+// Imports
+@import 'mixins';
+
+// Styles for handheld devices
+
+@media only screen and ( max-width: 768px ) {
+
+
+
+	.projects, .projects-page {
+		ul.projects {
+			li.project {
+				width:48%;
+				float: left;
+				clear:both;
+				&:nth-child(2n) {
+					margin-right:0;
+					float: right;
+					clear: none !important;
+				}
+			}
+		}
+	}
+
+	.single-project {
+		&.has-gallery {
+			.gallery,
+			.summary {
+				width: 100%;
+				float: none;
+				padding: 0;
+			}
+
+			.summary {
+				> div {
+					font-size: 1em;
+				}
+			}
+		}
+
+		&.no-gallery {
+			.project_title,
+			.single-project-description,
+			.project-meta {
+				width: 100% !important;
+				float: none;
+			}
+		}
+	}
+
+}
