@@ -10,7 +10,7 @@ if ($file_url) {
     header("Cache-Control: public");
     header("Content-Description: File Transfer");
     header("Content-Type: 'audio/mpeg3'");
-    header("Content-Disposition: attachment; \"filename=$clean_name\"");
+    header("Content-Disposition: attachment; filename=$clean_name");
     header("Content-Transfer-Encoding: binary");
 
     readfile($file_url);
