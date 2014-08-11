@@ -67,3 +67,7 @@
 [submodule "src/wp-content/themes/educacaopopular"]
 	path = src/wp-content/themes/educacaopopular
 	url = git@github.com:redelivre/educacaopopular.git
+[submodule "src/wp-content/themes/recid"]
+	path = src/wp-content/themes/recid
+	url = git@github.com:redelivre/pontosdecultura.git
+	branch = recid
