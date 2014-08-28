@@ -71,3 +71,27 @@
 	path = src/wp-content/themes/recid
 	url = git@github.com:redelivre/pontosdecultura.git
 	branch = recid
+[submodule "src/wp-content/plugins/fg-joomla-to-wordpress-premium"]
+	path = src/wp-content/plugins/fg-joomla-to-wordpress-premium
+	url = git@gitlab.ethymos.com.br:ethymos/fg-joomla-to-wordpress-premium.git
+	branch = master
+[submodule "src/wp-content/plugins/fg-joomla-to-wordpress-premium-k2-module"]
+	path = src/wp-content/plugins/fg-joomla-to-wordpress-premium-k2-module
+	url = git@gitlab.ethymos.com.br:ethymos/fg-joomla-to-wordpress-premium-k2-module.git
+	branch = master
+[submodule "src/wp-content/plugins/sitepress-multilingual-cms"]
+	path = src/wp-content/plugins/sitepress-multilingual-cms
+	url = git@gitlab.ethymos.com.br:ethymos/sitepress-multilingual-cms.git
+	branch = master
+[submodule "src/wp-content/plugins/wpml-cms-nav"]
+	path = src/wp-content/plugins/wpml-cms-nav
+	url = git@gitlab.ethymos.com.br:ethymos/wpml-cms-nav.git
+	branch = master
+[submodule "src/wp-content/plugins/wpml-media"]
+	path = src/wp-content/plugins/wpml-media
+	url = git@gitlab.ethymos.com.br:ethymos/wpml-media.git
+	branch = master
+[submodule "src/wp-content/plugins/wpml-sticky-links"]
+	path = src/wp-content/plugins/wpml-sticky-links
+	url = git@gitlab.ethymos.com.br:ethymos/wpml-sticky-links.git
+	branch = master
