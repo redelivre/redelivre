@@ -42,8 +42,6 @@ if(is_ssl()) {
 	}
 }
 
-define('JAIMINHO_URL', apply_filters('plugins_url', $jaiminho_plugin_url.'/plugins/'.JAIMINHO_FOLDER));
-
 // End Defines
 
 
@@ -91,7 +89,18 @@ register_activation_hook(__FILE__,'jaiminho_instalacao');
 * Inicialização do plugin
 *
 */
-function jaiminho_init(){
+function jaiminho_init()
+{
+	$jaiminho_plugin_url = WP_CONTENT_URL;
+	if(is_ssl()) {
+		$plugin_url_parts = parse_url($jaiminho_plugin_url);
+		$site_url_parts = parse_url($jaiminho_siteurl);
+		if(stristr($plugin_url_parts['host'], $site_url_parts['host']) && stristr($site_url_parts['host'], $plugin_url_parts['host'])) {
+			$jaiminho_plugin_url = str_replace("http://", "https://", $jaiminho_plugin_url);
+		}
+	}
+	define('JAIMINHO_URL', apply_filters('plugins_url', $jaiminho_plugin_url.'/plugins/'.JAIMINHO_FOLDER));
+	
 	add_action('admin_menu', 'jaiminho_config_menu');
 }
 
