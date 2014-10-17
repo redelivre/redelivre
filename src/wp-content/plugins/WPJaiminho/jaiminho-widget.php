@@ -1,7 +1,7 @@
 <?php
 class Widget_Jaiminho extends WP_Widget {
 	function Widget_Jaiminho() {
-		$widget_ops = array( 'classname' => 'widget_jaiminho', 'description' => 'O formulário para cadastro no Jaiminho' );
+		$widget_ops = array( 'classname' => 'widget_jaiminho', 'description' => __('O formulário para cadastro no Jaiminho', 'jaiminho') );
 		$this->WP_Widget( 'jaiminho', 'Jaiminho', $widget_ops );
 		
 	}
@@ -35,9 +35,9 @@ class Widget_Jaiminho extends WP_Widget {
 		<?php
 		}
 		else if ( current_user_can('manage_options') ){
-			echo '<em>Não foi informado o ID da lista do Jaiminho. Preencha corretamente o campo do ID dentro do
+			echo '<em>'.__('Não foi informado o ID da lista do Jaiminho. Preencha corretamente o campo do ID dentro do
 			widget. Você pode encontrar o ID dentro do campo <code>value</code>, na primeira linha do
-			formulário.</em>';
+			formulário.', 'jaiminho').'</em>';
 		}
 		
 		
@@ -70,11 +70,11 @@ class Widget_Jaiminho extends WP_Widget {
 		
 		<p>
 		<textarea class="widefat" rows="10" cols="15" id="<?php echo $this->get_field_id('jaiminho_text'); ?>" name="<?php echo $this->get_field_name('jaiminho_text'); ?>"><?php echo $jaiminho_text; ?></textarea>
-		<small><?php _e('(Um texto para apresentação da ferramenta. Não é obrigatório)'); ?></small></p>
+		<small><?php _e('(Um texto para apresentação da ferramenta. Não é obrigatório)', 'jaiminho'); ?></small></p>
 
 		<p><label for="<?php echo $this->get_field_id('jaiminho_id'); ?>"><?php _e('ID da lista:'); ?></label>
 		<input id="<?php echo $this->get_field_id('jaiminho_id'); ?>" name="<?php echo $this->get_field_name('jaiminho_id'); ?>" type="text" value="<?php echo $jaiminho_id; ?>" size="3" /><br />
-		<small><?php _e('(O valor presente em <code>value</code>, dentro do formulário gerado pelo Jaiminho)'); ?></small></p>
+		<small><?php _e('(O valor presente em <code>value</code>, dentro do formulário gerado pelo Jaiminho)', 'jaiminho'); ?></small></p>
 <?php
 	}
 }

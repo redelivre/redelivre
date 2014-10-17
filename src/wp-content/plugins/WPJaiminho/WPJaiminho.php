@@ -119,8 +119,8 @@ function jaiminho_config_menu(){
 	
 	$base_page = 'jaiminho-campanha';
 	if (function_exists('add_menu_page')) 
-		add_object_page( __('Email/SMS','Email/SMS'), __('Email/SMS','Jaiminho'), 'manage_options', $base_page, array(), JAIMINHO_URL."/imagens/icon.png");
-		add_submenu_page($base_page, __('Criar lista','jaiminho'), __('Criar lista','jaiminho'), 'manage_options', 'jaiminho-criarlista', 'jaiminho_criarlista' );
+		add_object_page( __('Email/SMS','Email/SMS'), __('Email/SMS','jaiminho'), 'manage_options', $base_page, array(), JAIMINHO_URL."/imagens/icon.png");
+		add_submenu_page($base_page, __('Criar lista','jaiminho', 'jaiminho'), __('Criar lista','jaiminho'), 'manage_options', 'jaiminho-criarlista', 'jaiminho_criarlista' );
 		add_submenu_page($base_page, __('Explorar listas','jaiminho'), __('Explorar listas','jaiminho'), 'manage_options', 'jaiminho-explorarlistas', 'jaiminho_explorarlistas' );
 		add_submenu_page($base_page, __('Campos personalizados','jaiminho'), __('Campos personalizados','jaiminho'), 'manage_options', 'jaiminho-campospersonalizados', 'jaiminho_campospersonalizados' );
 		add_submenu_page($base_page, __('Importar membros','jaiminho'), __('Importar membros','jaiminho'), 'manage_options', 'jaiminho-importarmembros', 'jaiminho_importarmembros' );
@@ -165,7 +165,7 @@ function jaiminho_form_table($rows) {
 function jaiminho_postbox($id, $title, $content) {
 ?>
 	<div id="<?php echo $id; ?>" class="postbox">
-		<div class="handlediv" title="Click to toggle"><br /></div>
+		<div class="handlediv" title="<?php _e('Click to toggle', 'jaiminho') ?>"><br /></div>
 		<h3 class="hndle"><span><?php echo $title; ?></span></h3>
 		<div class="inside">
 			<?php echo $content; ?>
@@ -283,9 +283,9 @@ function jaiminho_conf_page()
 		
 		if (isset($_POST["jaiminho_recreatecredentials"])) {
 			if (get_option('jaiminho-error-log',false))
-				$mensagem = "Ocorreu um erro ao recriar as credenciais do recurso de envio de emails. Consulte o suporte do ".get_bloginfo('name');
+				$mensagem = __("Ocorreu um erro ao recriar as credenciais do recurso de envio de emails. Consulte o suporte do", 'jaiminho')." ".get_bloginfo('name');
 			else
-				$mensagem = "Credenciais recriadas com sucessso!";	
+				$mensagem = __("Credenciais recriadas com sucessso!", 'jaiminho');	
 			
 		} else {
 			if (update_option('jaiminho-config', $opt))
@@ -325,35 +325,35 @@ function jaiminho_conf_page()
 				        <td>
 							<select name="jaiminho_scrolling">
 								<option value="auto" >Auto</option>
-								<option value="yes" '.(($opt['jaiminho_scrolling'] == 'yes')? 'selected="selected"' : '').'>Sim</option>
-								<option value="no" '.(($opt['jaiminho_scrolling'] == 'no')? 'selected="selected"' : '').'>Não</option>
+								<option value="yes" '.(($opt['jaiminho_scrolling'] == 'yes')? 'selected="selected"' : '').'>'.__('Sim', 'jaiminho').'</option>
+								<option value="no" '.(($opt['jaiminho_scrolling'] == 'no')? 'selected="selected"' : '').'>'.__('Não', 'jaiminho').'</option>
 							</select>
 						</td>
 				        </tr>
 				        
 				        <tr valign="top">
-				        <th scope="row">Método de rolagem</th>
+				        <th scope="row">'.__('Método de rolagem', 'jaiminho').'</th>
 				        <td>
 							<select name="jaiminho_scrollmethod">
-								<option value="0">#1 (serviço no mesmo domínio)</option>
-								<option value="1" '.(($opt['jaiminho_scrollmethod'] == '1') ? 'selected="selected"' : '' ).'>#2 (em outro domínio)</option>
+								<option value="0">#1 ('.__('serviço no mesmo domínio', 'jaiminho').')</option>
+								<option value="1" '.(($opt['jaiminho_scrollmethod'] == '1') ? 'selected="selected"' : '' ).'>#2 ('.__('em outro domínio'.'jaiminho').')</option>
 							</select><br />
-							<b>Info:</b>
-							Método #2 esconde parcialmente as barras de rolagem, esse método deveria ser usado com junto com a opção de "Não" para barra de rolagem
+							<b>Info:</b>'.
+							__('Método #2 esconde parcialmente as barras de rolagem, esse método deveria ser usado com junto com a opção de "Não" para barra de rolagem', 'jaiminho').'
 						</td>
 				        </tr>
 				        
 						<tr valign="top">
-				        <th scope="row">Nome da classe do estilo </th>
+				        <th scope="row">'.__('Nome da classe do estilo', 'jaiminho').'</th>
 				        <td><input type="text" name="jaiminho_class" style="width: 400px" value="'.$opt['jaiminho_class'].'" /></td>
 				        </tr>
 				         
 				        <tr valign="top">
-				        <th scope="row">Estilo CSS customizado</th>
+				        <th scope="row">'.__('Estilo CSS customizado', 'jaiminho').'</th>
 				        <td>
 							<textarea name="jaiminho_style" style="width: 400px; height: 70px">'.$opt['jaiminho_style'].'</textarea><br />
-							<b>Info:</b>
-							Não use "width" e "height" - esses valores devem ser especificados nas configurações<br />
+							<b>'.__('Info', 'jaiminho').':</b>'.
+							__('Não use "width" e "height" - esses valores devem ser especificados nas configurações', 'jaiminho').'<br />
 						</td>
 				        </tr>
 				        
@@ -467,8 +467,8 @@ function jaiminho_campaigncreated($data){
 		else
 		{
 			add_option( 'widget_jaiminho',
-				array( 	'title' => 'Cadastre seu e-mail',
-						'jaiminho_text' => 'Receba novidades',
+				array( 	'title' => __('Cadastre seu e-mail', 'jaiminho'),
+						'jaiminho_text' => __('Receba novidades', 'jaiminho'),
 						'jaiminho_id' => $defaultmailinglist_id
 				)
 			);
@@ -493,7 +493,7 @@ add_action('Campaign-created', 'jaiminho_campaigncreated', 15, 1);
 */
 function jaiminho_displayMessageWidget(){
 	_e('<div class="error">ATENÇÃO! Ocorreu um erro ao ativar o recurso de envio de emails.</div>');
-	echo __('Por favor, entre em contato com o suporte do ').get_bloginfo('name').__(' para resolver o problema no sistema de envio de emails.');
+	echo __('Por favor, entre em contato com o suporte do ', 'jaiminho').get_bloginfo('name').__(' para resolver o problema no sistema de envio de emails.', 'jaiminho');
 }
 
 /*
@@ -502,7 +502,7 @@ function jaiminho_displayMessageWidget(){
 */
 function jaiminho_setupMessageWidget(){
 	if (get_option('jaiminho-error-log',false)) {
-		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'jaiminho_displayMessageWidget');	
+		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','jaiminho'), 'jaiminho_displayMessageWidget');	
 	}
 }
 add_action('wp_dashboard_setup', 'jaiminho_setupMessageWidget' );
