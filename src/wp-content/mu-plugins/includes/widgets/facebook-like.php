@@ -26,7 +26,7 @@ class WidgetFacebookLikeBox extends WP_Widget {
         $altura = ( array_key_exists('fb-height', $instance) && intval($instance['fb-height']) > 0 ) ? intval($instance['fb-height']) : (($show_faces == 'true') ? '285' : '80');
         $alturapx = $altura.'px';
         ?>
-        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;width="100%"&amp;height=<?php echo $altura; ?>&amp;colorscheme=light&amp;show_faces=<?php echo $show_faces; ?>&amp;border_color=white&amp;stream=false&amp;show_border=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" allowTransparency="true" style="width: 100%; height: <?php echo $alturapx; ?>; overflow:hidden;" ></iframe>
+        <iframe src="//www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($options['facebook-page']) ?>&amp;wXXXXw&amp;height=<?php echo $altura; ?>&amp;colorscheme=light&amp;show_faces=<?php echo $show_faces; ?>&amp;border_color=white&amp;stream=false&amp;show_border=false&amp;header=false&amp;appId=" scrolling="no" frameborder="0" allowTransparency="true" style="width:100%;height:<?php echo $alturapx;?>;overflow:hidden;" ></iframe>
         <?php
         echo $after_widget;
     }
