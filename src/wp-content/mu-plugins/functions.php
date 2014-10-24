@@ -315,6 +315,9 @@ add_action('campanha_body_header', function() {
 		<?php if(@$redes['twitter']): ?><a id="twitter" href="<?php echo $redes['twitter'] ?>" title="Twitter"></a><?php endif; ?>
 		<?php if(@$redes['google']): ?><a id="google-plus" href="<?php echo $redes['google'] ?>" title="Google+"></a><?php endif; ?>
 		<?php if(@$redes['youtube']): ?><a id="youtube" href="<?php echo $redes['youtube'] ?>" title="YouTube"></a><?php endif; ?>
+		<?php if(@$redes['instagram']): ?><a id="instagram" href="<?php echo $redes['instagram'] ?>" title="Instagram"></a><?php endif; ?>
+		<?php if(@$redes['pinterest']): ?><a id="pinterest" href="<?php echo $redes['pinterest'] ?>" title="Pinterest"></a><?php endif; ?>
+		<?php if(@$redes['flickr']): ?><a id="flickr" href="<?php echo $redes['flickr'] ?>" title="Flickr"></a><?php endif; ?>
 		<a id="rss" href="<?php echo bloginfo('url') ?>/rss" title="RSS"></a>
 	</div>
     
