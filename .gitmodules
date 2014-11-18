@@ -1,7 +1,3 @@
-[submodule "delibera"]
-	path = src/wp-content/plugins/delibera
-	url = https://github.com/ethymos/delibera.git
-	branch = master
 [submodule "src/wp-content/plugins/contribua"]
 	path = src/wp-content/plugins/contribua
 	url = https://github.com/redelivre/contribua.git
