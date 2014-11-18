@@ -14,7 +14,7 @@ for l in $(git submodule|grep -v wordpress-xrds-simple|grep -v wordpress-openid|
 done
 echo "Updating Mapasdevista on branch Redelivre"
 cd $PWDAtual/src/wp-content/plugins/mapasdevista;
-git checkout redelivre;
+git checkout pontosdecultura;
 git pull;
 
 if [ ! -e PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
