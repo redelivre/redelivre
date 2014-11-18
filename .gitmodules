@@ -95,3 +95,6 @@
 	path = src/wp-content/plugins/wpml-sticky-links
 	url = git@gitlab.ethymos.com.br:ethymos/wpml-sticky-links.git
 	branch = master
+[submodule "src/wp-content/themes/flacso"]
+	path = src/wp-content/themes/flacso
+	url = git@github.com:redelivre/flacso.git
