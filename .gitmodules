@@ -94,3 +94,6 @@
 [submodule "src/wp-content/themes/flacso"]
 	path = src/wp-content/themes/flacso
 	url = git@github.com:redelivre/flacso.git
+[submodule "src/wp-content/plugins/delibera"]
+	path = src/wp-content/plugins/delibera
+	url = git@github.com:ethymos/delibera.git
