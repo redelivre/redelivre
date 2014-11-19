@@ -1,0 +1,1265 @@
+# Copyright (C) 2014 Wiki Lite
+# This file is distributed under the same license as the Wiki Lite package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Wiki Lite 1.1.0.1\n"
+"Report-Msgid-Bugs-To: http://premium.wpmudev.org\n"
+"POT-Creation-Date: 2014-05-01 22:45:13+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin-pages/settings.php:15 admin-pages/settings.php:28
+msgid "Wiki Settings"
+msgstr ""
+
+#: admin-pages/settings.php:22
+msgid "You do not have permission to access this page"
+msgstr ""
+
+#: admin-pages/settings.php:25
+msgid "Settings saved."
+msgstr ""
+
+#: admin-pages/settings.php:33
+msgid "Wiki Slug"
+msgstr ""
+
+#: admin-pages/settings.php:43
+msgid "<a target=\"_blank\" href=\"http://premium.wpmudev.org/project/e-commerce\">Upgrade now</a> to access additional features!"
+msgstr ""
+
+#: admin-pages/settings.php:45
+msgid "Specify the number of breadcrumbs to add to title"
+msgstr ""
+
+#: admin-pages/settings.php:46
+msgid "Specify a custom name for Wikis"
+msgstr ""
+
+#: admin-pages/settings.php:47
+msgid "Add sub wikis"
+msgstr ""
+
+#: admin-pages/settings.php:48
+msgid "Specify how sub wikis should be ordered"
+msgstr ""
+
+#: admin-pages/settings.php:49
+msgid "Allow users other than administrator to edit wikis"
+msgstr ""
+
+#: admin-pages/settings.php:53
+msgid "Save Changes"
+msgstr ""
+
+#: default-templates/404-incsub_wiki.php:12
+msgid "Wiki page you are looking for does not exist. Feel free to create it yourself."
+msgstr ""
+
+#: lib/classes/WPEditor.php:168 lib/classes/WPEditor.php:1215
+msgctxt "Name for the Text editor tab (formerly HTML)"
+msgid "Text"
+msgstr ""
+
+#: lib/classes/WPEditor.php:169 lib/classes/WPEditor.php:1214
+msgid "Visual"
+msgstr ""
+
+#: lib/classes/WPEditor.php:756
+msgid "New document"
+msgstr ""
+
+#: lib/classes/WPEditor.php:757
+msgctxt "TinyMCE"
+msgid "Formats"
+msgstr ""
+
+#: lib/classes/WPEditor.php:759
+msgctxt "TinyMCE"
+msgid "Headings"
+msgstr ""
+
+#: lib/classes/WPEditor.php:760
+msgid "Heading 1"
+msgstr ""
+
+#: lib/classes/WPEditor.php:761
+msgid "Heading 2"
+msgstr ""
+
+#: lib/classes/WPEditor.php:762
+msgid "Heading 3"
+msgstr ""
+
+#: lib/classes/WPEditor.php:763
+msgid "Heading 4"
+msgstr ""
+
+#: lib/classes/WPEditor.php:764
+msgid "Heading 5"
+msgstr ""
+
+#: lib/classes/WPEditor.php:765
+msgid "Heading 6"
+msgstr ""
+
+#. translators: block tags
+
+#: lib/classes/WPEditor.php:768
+msgctxt "TinyMCE"
+msgid "Blocks"
+msgstr ""
+
+#: lib/classes/WPEditor.php:769
+msgid "Paragraph"
+msgstr ""
+
+#: lib/classes/WPEditor.php:770
+msgid "Blockquote"
+msgstr ""
+
+#: lib/classes/WPEditor.php:771
+msgctxt "HTML tag"
+msgid "Div"
+msgstr ""
+
+#: lib/classes/WPEditor.php:772
+msgctxt "HTML tag"
+msgid "Pre"
+msgstr ""
+
+#: lib/classes/WPEditor.php:773
+msgctxt "HTML tag"
+msgid "Address"
+msgstr ""
+
+#: lib/classes/WPEditor.php:775
+msgctxt "HTML elements"
+msgid "Inline"
+msgstr ""
+
+#: lib/classes/WPEditor.php:776
+msgid "Underline"
+msgstr ""
+
+#: lib/classes/WPEditor.php:777
+msgid "Strikethrough"
+msgstr ""
+
+#: lib/classes/WPEditor.php:778
+msgid "Subscript"
+msgstr ""
+
+#: lib/classes/WPEditor.php:779
+msgid "Superscript"
+msgstr ""
+
+#: lib/classes/WPEditor.php:780
+msgid "Clear formatting"
+msgstr ""
+
+#: lib/classes/WPEditor.php:781
+msgid "Bold"
+msgstr ""
+
+#: lib/classes/WPEditor.php:782
+msgid "Italic"
+msgstr ""
+
+#: lib/classes/WPEditor.php:783
+msgctxt "editor button"
+msgid "Code"
+msgstr ""
+
+#: lib/classes/WPEditor.php:784
+msgid "Source code"
+msgstr ""
+
+#: lib/classes/WPEditor.php:785
+msgid "Font Family"
+msgstr ""
+
+#: lib/classes/WPEditor.php:786
+msgid "Font Sizes"
+msgstr ""
+
+#: lib/classes/WPEditor.php:788
+msgid "Align center"
+msgstr ""
+
+#: lib/classes/WPEditor.php:789
+msgid "Align right"
+msgstr ""
+
+#: lib/classes/WPEditor.php:790
+msgid "Align left"
+msgstr ""
+
+#: lib/classes/WPEditor.php:791
+msgid "Justify"
+msgstr ""
+
+#: lib/classes/WPEditor.php:792
+msgid "Increase indent"
+msgstr ""
+
+#: lib/classes/WPEditor.php:793
+msgid "Decrease indent"
+msgstr ""
+
+#: lib/classes/WPEditor.php:795
+msgid "Cut"
+msgstr ""
+
+#: lib/classes/WPEditor.php:796
+msgid "Copy"
+msgstr ""
+
+#: lib/classes/WPEditor.php:797
+msgid "Paste"
+msgstr ""
+
+#: lib/classes/WPEditor.php:798
+msgid "Select all"
+msgstr ""
+
+#: lib/classes/WPEditor.php:799
+msgid "Undo"
+msgstr ""
+
+#: lib/classes/WPEditor.php:800
+msgid "Redo"
+msgstr ""
+
+#: lib/classes/WPEditor.php:802
+msgid "OK"
+msgstr ""
+
+#: lib/classes/WPEditor.php:803 lib/classes/WPEditor.php:1438 wiki.php:1090
+#: wiki.php:1184
+msgid "Cancel"
+msgstr ""
+
+#: lib/classes/WPEditor.php:804
+msgid "Close"
+msgstr ""
+
+#: lib/classes/WPEditor.php:805
+msgid "Visual aids"
+msgstr ""
+
+#: lib/classes/WPEditor.php:807
+msgid "Bulleted list"
+msgstr ""
+
+#: lib/classes/WPEditor.php:808
+msgid "Numbered list"
+msgstr ""
+
+#: lib/classes/WPEditor.php:809
+msgctxt "list style"
+msgid "Square"
+msgstr ""
+
+#: lib/classes/WPEditor.php:810
+msgctxt "list style"
+msgid "Default"
+msgstr ""
+
+#: lib/classes/WPEditor.php:811
+msgctxt "list style"
+msgid "Circle"
+msgstr ""
+
+#: lib/classes/WPEditor.php:812
+msgctxt "list style"
+msgid "Disc"
+msgstr ""
+
+#: lib/classes/WPEditor.php:813
+msgctxt "list style"
+msgid "Lower Greek"
+msgstr ""
+
+#: lib/classes/WPEditor.php:814
+msgctxt "list style"
+msgid "Lower Alpha"
+msgstr ""
+
+#: lib/classes/WPEditor.php:815
+msgctxt "list style"
+msgid "Upper Alpha"
+msgstr ""
+
+#: lib/classes/WPEditor.php:816
+msgctxt "list style"
+msgid "Upper Roman"
+msgstr ""
+
+#: lib/classes/WPEditor.php:817
+msgctxt "list style"
+msgid "Lower Roman"
+msgstr ""
+
+#: lib/classes/WPEditor.php:820
+msgctxt "Name of link anchor (TinyMCE)"
+msgid "Name"
+msgstr ""
+
+#: lib/classes/WPEditor.php:821
+msgctxt "Link anchor (TinyMCE)"
+msgid "Anchor"
+msgstr ""
+
+#: lib/classes/WPEditor.php:822
+msgctxt "Link anchors (TinyMCE)"
+msgid "Anchors"
+msgstr ""
+
+#: lib/classes/WPEditor.php:825
+msgid "Document properties"
+msgstr ""
+
+#: lib/classes/WPEditor.php:826
+msgid "Robots"
+msgstr ""
+
+#: lib/classes/WPEditor.php:827 lib/classes/WPEditor.php:1403
+#: lib/classes/WikiWidget.php:113 lib/classes/WikiWidget.php:127
+msgid "Title"
+msgstr ""
+
+#: lib/classes/WPEditor.php:828
+msgid "Keywords"
+msgstr ""
+
+#: lib/classes/WPEditor.php:829
+msgid "Encoding"
+msgstr ""
+
+#: lib/classes/WPEditor.php:830
+msgid "Description"
+msgstr ""
+
+#: lib/classes/WPEditor.php:831 wiki.php:1405
+msgid "Author"
+msgstr ""
+
+#: lib/classes/WPEditor.php:834
+msgid "Insert/edit image"
+msgstr ""
+
+#: lib/classes/WPEditor.php:835
+msgid "General"
+msgstr ""
+
+#: lib/classes/WPEditor.php:836 wiki.php:1276
+msgid "Advanced"
+msgstr ""
+
+#: lib/classes/WPEditor.php:837
+msgid "Source"
+msgstr ""
+
+#: lib/classes/WPEditor.php:838
+msgid "Border"
+msgstr ""
+
+#: lib/classes/WPEditor.php:839
+msgid "Constrain proportions"
+msgstr ""
+
+#: lib/classes/WPEditor.php:840
+msgid "Vertical space"
+msgstr ""
+
+#: lib/classes/WPEditor.php:841
+msgid "Image description"
+msgstr ""
+
+#: lib/classes/WPEditor.php:842
+msgid "Style"
+msgstr ""
+
+#: lib/classes/WPEditor.php:843
+msgid "Dimensions"
+msgstr ""
+
+#: lib/classes/WPEditor.php:844
+msgid "Insert image"
+msgstr ""
+
+#: lib/classes/WPEditor.php:845
+msgid "Insert date/time"
+msgstr ""
+
+#: lib/classes/WPEditor.php:846
+msgid "Insert/edit video"
+msgstr ""
+
+#: lib/classes/WPEditor.php:847
+msgid "Poster"
+msgstr ""
+
+#: lib/classes/WPEditor.php:848
+msgid "Alternative source"
+msgstr ""
+
+#: lib/classes/WPEditor.php:849
+msgid "Paste your embed code below:"
+msgstr ""
+
+#: lib/classes/WPEditor.php:850
+msgid "Insert video"
+msgstr ""
+
+#: lib/classes/WPEditor.php:851
+msgid "Embed"
+msgstr ""
+
+#: lib/classes/WPEditor.php:854
+msgid "Special character"
+msgstr ""
+
+#: lib/classes/WPEditor.php:855
+msgctxt "editor button"
+msgid "Right to left"
+msgstr ""
+
+#: lib/classes/WPEditor.php:856
+msgctxt "editor button"
+msgid "Left to right"
+msgstr ""
+
+#: lib/classes/WPEditor.php:857
+msgid "Emoticons"
+msgstr ""
+
+#: lib/classes/WPEditor.php:858
+msgid "Nonbreaking space"
+msgstr ""
+
+#: lib/classes/WPEditor.php:859
+msgid "Page break"
+msgstr ""
+
+#: lib/classes/WPEditor.php:860
+msgid "Paste as text"
+msgstr ""
+
+#: lib/classes/WPEditor.php:861
+msgid "Preview"
+msgstr ""
+
+#: lib/classes/WPEditor.php:862
+msgid "Print"
+msgstr ""
+
+#: lib/classes/WPEditor.php:863 lib/classes/WPEditor.php:1203 wiki.php:1089
+#: wiki.php:1183
+msgid "Save"
+msgstr ""
+
+#: lib/classes/WPEditor.php:864
+msgid "Fullscreen"
+msgstr ""
+
+#: lib/classes/WPEditor.php:865
+msgid "Horizontal line"
+msgstr ""
+
+#: lib/classes/WPEditor.php:866
+msgid "Horizontal space"
+msgstr ""
+
+#: lib/classes/WPEditor.php:867
+msgid "Restore last draft"
+msgstr ""
+
+#: lib/classes/WPEditor.php:868 lib/classes/WPEditor.php:1393
+msgid "Insert/edit link"
+msgstr ""
+
+#: lib/classes/WPEditor.php:869
+msgid "Remove link"
+msgstr ""
+
+#: lib/classes/WPEditor.php:872
+msgid "Could not find the specified string."
+msgstr ""
+
+#: lib/classes/WPEditor.php:873
+msgctxt "find/replace"
+msgid "Replace"
+msgstr ""
+
+#: lib/classes/WPEditor.php:874
+msgctxt "find/replace"
+msgid "Next"
+msgstr ""
+
+#. translators: previous
+
+#: lib/classes/WPEditor.php:876
+msgctxt "find/replace"
+msgid "Prev"
+msgstr ""
+
+#: lib/classes/WPEditor.php:877
+msgctxt "find/replace"
+msgid "Whole words"
+msgstr ""
+
+#: lib/classes/WPEditor.php:878
+msgid "Find and replace"
+msgstr ""
+
+#: lib/classes/WPEditor.php:879
+msgctxt "find/replace"
+msgid "Replace with"
+msgstr ""
+
+#: lib/classes/WPEditor.php:880
+msgctxt "find/replace"
+msgid "Find"
+msgstr ""
+
+#: lib/classes/WPEditor.php:881
+msgctxt "find/replace"
+msgid "Replace all"
+msgstr ""
+
+#: lib/classes/WPEditor.php:882
+msgid "Match case"
+msgstr ""
+
+#: lib/classes/WPEditor.php:883
+msgid "Check Spelling"
+msgstr ""
+
+#: lib/classes/WPEditor.php:884
+msgctxt "spellcheck"
+msgid "Finish"
+msgstr ""
+
+#: lib/classes/WPEditor.php:885
+msgctxt "spellcheck"
+msgid "Ignore all"
+msgstr ""
+
+#: lib/classes/WPEditor.php:886
+msgctxt "spellcheck"
+msgid "Ignore"
+msgstr ""
+
+#: lib/classes/WPEditor.php:889
+msgid "Insert table"
+msgstr ""
+
+#: lib/classes/WPEditor.php:890
+msgid "Delete table"
+msgstr ""
+
+#: lib/classes/WPEditor.php:891
+msgid "Table properties"
+msgstr ""
+
+#: lib/classes/WPEditor.php:892
+msgid "Table row properties"
+msgstr ""
+
+#: lib/classes/WPEditor.php:893
+msgid "Table cell properties"
+msgstr ""
+
+#: lib/classes/WPEditor.php:895
+msgid "Row"
+msgstr ""
+
+#: lib/classes/WPEditor.php:896
+msgid "Rows"
+msgstr ""
+
+#: lib/classes/WPEditor.php:897
+msgctxt "table column"
+msgid "Column"
+msgstr ""
+
+#: lib/classes/WPEditor.php:898
+msgctxt "table columns"
+msgid "Cols"
+msgstr ""
+
+#: lib/classes/WPEditor.php:899
+msgctxt "table cell"
+msgid "Cell"
+msgstr ""
+
+#: lib/classes/WPEditor.php:900
+msgid "Header cell"
+msgstr ""
+
+#: lib/classes/WPEditor.php:901
+msgctxt "table header"
+msgid "Header"
+msgstr ""
+
+#: lib/classes/WPEditor.php:902
+msgctxt "table body"
+msgid "Body"
+msgstr ""
+
+#: lib/classes/WPEditor.php:903
+msgctxt "table footer"
+msgid "Footer"
+msgstr ""
+
+#: lib/classes/WPEditor.php:905
+msgid "Insert row before"
+msgstr ""
+
+#: lib/classes/WPEditor.php:906
+msgid "Insert row after"
+msgstr ""
+
+#: lib/classes/WPEditor.php:907
+msgid "Insert column before"
+msgstr ""
+
+#: lib/classes/WPEditor.php:908
+msgid "Insert column after"
+msgstr ""
+
+#: lib/classes/WPEditor.php:909
+msgid "Paste table row before"
+msgstr ""
+
+#: lib/classes/WPEditor.php:910
+msgid "Paste table row after"
+msgstr ""
+
+#: lib/classes/WPEditor.php:911
+msgid "Delete row"
+msgstr ""
+
+#: lib/classes/WPEditor.php:912
+msgid "Delete column"
+msgstr ""
+
+#: lib/classes/WPEditor.php:913
+msgid "Cut table row"
+msgstr ""
+
+#: lib/classes/WPEditor.php:914
+msgid "Copy table row"
+msgstr ""
+
+#: lib/classes/WPEditor.php:915
+msgid "Merge table cells"
+msgstr ""
+
+#: lib/classes/WPEditor.php:916
+msgid "Split table cell"
+msgstr ""
+
+#: lib/classes/WPEditor.php:918
+msgid "Height"
+msgstr ""
+
+#: lib/classes/WPEditor.php:919
+msgid "Width"
+msgstr ""
+
+#: lib/classes/WPEditor.php:920
+msgid "Caption"
+msgstr ""
+
+#: lib/classes/WPEditor.php:921
+msgid "Alignment"
+msgstr ""
+
+#: lib/classes/WPEditor.php:922
+msgid "Left"
+msgstr ""
+
+#: lib/classes/WPEditor.php:923
+msgid "Center"
+msgstr ""
+
+#: lib/classes/WPEditor.php:924
+msgid "Right"
+msgstr ""
+
+#: lib/classes/WPEditor.php:925
+msgctxt "table cell alignment attribute"
+msgid "None"
+msgstr ""
+
+#: lib/classes/WPEditor.php:927
+msgid "Row group"
+msgstr ""
+
+#: lib/classes/WPEditor.php:928
+msgid "Column group"
+msgstr ""
+
+#: lib/classes/WPEditor.php:929
+msgid "Row type"
+msgstr ""
+
+#: lib/classes/WPEditor.php:930
+msgid "Cell type"
+msgstr ""
+
+#: lib/classes/WPEditor.php:931
+msgid "Cell padding"
+msgstr ""
+
+#: lib/classes/WPEditor.php:932
+msgid "Cell spacing"
+msgstr ""
+
+#: lib/classes/WPEditor.php:933
+msgctxt "table cell scope attribute"
+msgid "Scope"
+msgstr ""
+
+#: lib/classes/WPEditor.php:935
+msgctxt "TinyMCE"
+msgid "Insert template"
+msgstr ""
+
+#: lib/classes/WPEditor.php:936
+msgctxt "TinyMCE"
+msgid "Templates"
+msgstr ""
+
+#: lib/classes/WPEditor.php:938
+msgid "Background color"
+msgstr ""
+
+#: lib/classes/WPEditor.php:939
+msgid "Text color"
+msgstr ""
+
+#: lib/classes/WPEditor.php:940
+msgctxt "editor button"
+msgid "Show blocks"
+msgstr ""
+
+#: lib/classes/WPEditor.php:941
+msgid "Show invisible characters"
+msgstr ""
+
+#. translators: word count
+
+#: lib/classes/WPEditor.php:944
+msgid "Words: %s"
+msgstr ""
+
+#: lib/classes/WPEditor.php:945
+msgid "Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off."
+msgstr ""
+
+#: lib/classes/WPEditor.php:945
+msgid "If you&#8217;re looking to paste rich content from Microsoft Word, try turning this option off. The editor will clean up text pasted from Word automatically."
+msgstr ""
+
+#: lib/classes/WPEditor.php:946
+msgid "Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help"
+msgstr ""
+
+#: lib/classes/WPEditor.php:947
+msgid "The changes you made will be lost if you navigate away from this page."
+msgstr ""
+
+#: lib/classes/WPEditor.php:948
+msgid "Your browser does not support direct access to the clipboard. Please use the Ctrl+X/C/V keyboard shortcuts instead."
+msgstr ""
+
+#: lib/classes/WPEditor.php:951
+msgctxt "TinyMCE menu"
+msgid "Insert"
+msgstr ""
+
+#: lib/classes/WPEditor.php:952
+msgctxt "TinyMCE menu"
+msgid "File"
+msgstr ""
+
+#: lib/classes/WPEditor.php:953
+msgctxt "TinyMCE menu"
+msgid "Edit"
+msgstr ""
+
+#: lib/classes/WPEditor.php:954
+msgctxt "TinyMCE menu"
+msgid "Tools"
+msgstr ""
+
+#: lib/classes/WPEditor.php:955
+msgctxt "TinyMCE menu"
+msgid "View"
+msgstr ""
+
+#: lib/classes/WPEditor.php:956
+msgctxt "TinyMCE menu"
+msgid "Table"
+msgstr ""
+
+#: lib/classes/WPEditor.php:957
+msgctxt "TinyMCE menu"
+msgid "Format"
+msgstr ""
+
+#: lib/classes/WPEditor.php:960
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: lib/classes/WPEditor.php:961
+msgid "Toolbar Toggle"
+msgstr ""
+
+#: lib/classes/WPEditor.php:962
+msgid "Insert Read More tag"
+msgstr ""
+
+#: lib/classes/WPEditor.php:963
+msgid "Distraction Free Writing"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1203
+msgid "Update"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1209
+msgid "Exit fullscreen"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1224
+msgid "Bold (Ctrl + B)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1225
+msgid "Italic (Ctrl + I)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1226
+msgid "Unordered list (Alt + Shift + U)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1227
+msgid "Ordered list (Alt + Shift + O)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1228
+msgid "Blockquote (Alt + Shift + Q)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1229
+msgid "Media library (Alt + Shift + M)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1230
+msgid "Insert/edit link (Alt + Shift + A)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1231
+msgid "Unlink (Alt + Shift + S)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1232
+msgid "Help (Alt + Shift + H)"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1268
+msgid "Updated."
+msgstr ""
+
+#: lib/classes/WPEditor.php:1268
+msgid "Saved."
+msgstr ""
+
+#: lib/classes/WPEditor.php:1269
+msgid "Save failed."
+msgstr ""
+
+#: lib/classes/WPEditor.php:1278
+msgid "Word count: %s"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1279
+msgid "Just write."
+msgstr ""
+
+#: lib/classes/WPEditor.php:1341
+msgid "Y/m/d"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1398
+msgid "Enter the destination URL"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1400
+msgid "URL"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1406
+msgid "Open link in a new window/tab"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1409
+msgid "Or link to existing content"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1413
+msgid "Search"
+msgstr ""
+
+#: lib/classes/WPEditor.php:1425
+msgid "No search term specified. Showing recent items."
+msgstr ""
+
+#: lib/classes/WPEditor.php:1435
+msgid "Add Link"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:7
+msgid "Display Wiki Pages"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:8 lib/classes/WikiWidget.php:10
+#: lib/classes/WikiWidget.php:20 lib/classes/WikiWidget.php:91
+#: lib/classes/WikiWidget.php:103 wiki.php:154 wiki.php:1729
+msgid "Wiki"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:116
+msgid "Levels"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:121
+msgid "Unlimited"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:124
+msgid "Order by"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:126
+msgid "Menu Order/Order Created"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:128
+msgid "Random"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:131
+msgid "Order"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:133
+msgid "Ascending"
+msgstr ""
+
+#: lib/classes/WikiWidget.php:134
+msgid "Descending"
+msgstr ""
+
+#: wiki.php:390
+msgid "You are not allowed to edit pages as this user."
+msgstr ""
+
+#: wiki.php:391
+msgid "You are not allowed to create pages as this user."
+msgstr ""
+
+#: wiki.php:395
+msgid "You are not allowed to edit posts as this user."
+msgstr ""
+
+#: wiki.php:396
+msgid "You are not allowed to post as this user."
+msgstr ""
+
+#: wiki.php:481
+msgid "You are not allowed to edit this page."
+msgstr ""
+
+#: wiki.php:483
+msgid "You are not allowed to edit this post."
+msgstr ""
+
+#: wiki.php:599
+msgid "Revision restored successfully"
+msgstr ""
+
+#: wiki.php:638
+msgid "You attempted to edit an item that doesn&#8217;t exist. Perhaps it was deleted?"
+msgstr ""
+
+#: wiki.php:641
+msgid "You are not allowed to edit this item."
+msgstr ""
+
+#: wiki.php:644
+msgid "You can&#8217;t edit this item because it is in the Trash. Please restore it and try again."
+msgstr ""
+
+#: wiki.php:647
+msgid "Unknown post type."
+msgstr ""
+
+#: wiki.php:736
+msgid "Compare Revisions of &#8220;%1$s&#8221;"
+msgstr ""
+
+#: wiki.php:737
+msgid "Revisions"
+msgstr ""
+
+#: wiki.php:752
+msgid "Revision for &#8220;%1$s&#8221; created on %2$s"
+msgstr ""
+
+#: wiki.php:763
+msgid "Older: %s"
+msgstr ""
+
+#: wiki.php:764
+msgid "Newer: %s"
+msgstr ""
+
+#: wiki.php:789
+msgid "These revisions are identical."
+msgstr ""
+
+#: wiki.php:817 wiki.php:820
+msgid "Category:"
+msgstr ""
+
+#: wiki.php:818 wiki.php:821
+msgid "Tags:"
+msgstr ""
+
+#: wiki.php:862 wiki.php:874
+msgid "Notify me of changes"
+msgstr ""
+
+#: wiki.php:872
+msgid "E-mail"
+msgstr ""
+
+#: wiki.php:934
+msgid "Auto Draft"
+msgstr ""
+
+#: wiki.php:1052 wiki.php:1122 wiki.php:1274
+msgid "Edit"
+msgstr ""
+
+#: wiki.php:1107
+msgid "You do not have permission to view this page."
+msgstr ""
+
+#: wiki.php:1144
+msgid "Private"
+msgstr ""
+
+#: wiki.php:1147
+msgid "Password protected"
+msgstr ""
+
+#: wiki.php:1150
+msgid "Public"
+msgstr ""
+
+#: wiki.php:1206
+msgid "Wiki Categories/Tags"
+msgstr ""
+
+#: wiki.php:1210
+msgid "Wiki Notifications"
+msgstr ""
+
+#: wiki.php:1214
+msgid "Wiki Privileges"
+msgstr ""
+
+#: wiki.php:1263
+msgid "Page"
+msgstr ""
+
+#: wiki.php:1265
+msgid "Discussion"
+msgstr ""
+
+#: wiki.php:1267
+msgid "History"
+msgstr ""
+
+#: wiki.php:1278
+msgid "Create new"
+msgstr ""
+
+#. translators: post revision: 1: when, 2: author name
+
+#: wiki.php:1344
+msgctxt "post revision"
+msgid "%1$s by %2$s"
+msgstr ""
+
+#: wiki.php:1372
+msgid "Restore"
+msgstr ""
+
+#: wiki.php:1392
+msgid "Compare Revisions"
+msgstr ""
+
+#: wiki.php:1402
+msgctxt "revisions column name"
+msgid "Old"
+msgstr ""
+
+#: wiki.php:1403
+msgctxt "revisions column name"
+msgid "New"
+msgstr ""
+
+#: wiki.php:1404
+msgctxt "revisions column name"
+msgid "Date Created"
+msgstr ""
+
+#: wiki.php:1406
+msgid "Actions"
+msgstr ""
+
+#: wiki.php:1587 wiki.php:1728 wiki.php:1738
+msgid "Wikis"
+msgstr ""
+
+#: wiki.php:1588
+msgid "Sub Wikis"
+msgstr ""
+
+#: wiki.php:1730
+msgid "Add Wiki"
+msgstr ""
+
+#: wiki.php:1731
+msgid "Add New Wiki"
+msgstr ""
+
+#: wiki.php:1732
+msgid "Edit Wiki"
+msgstr ""
+
+#: wiki.php:1733
+msgid "New Wiki"
+msgstr ""
+
+#: wiki.php:1734
+msgid "View Wiki"
+msgstr ""
+
+#: wiki.php:1735
+msgid "Search Wiki"
+msgstr ""
+
+#: wiki.php:1736
+msgid "No wiki found"
+msgstr ""
+
+#: wiki.php:1737
+msgid "No wikis found in Trash"
+msgstr ""
+
+#: wiki.php:1778
+msgid "Are you sure you want to restore to this revision?"
+msgstr ""
+
+#: wiki.php:1798
+msgid "Wiki E-mail Notifications"
+msgstr ""
+
+#: wiki.php:1854
+msgid "Enable e-mail notifications"
+msgstr ""
+
+#: wiki.php:1932
+msgid ""
+"Dear Subscriber,\n"
+"\n"
+"%s was changed\n"
+"\n"
+"You can read the Wiki page in full here: %s\n"
+"\n"
+"%s\n"
+"\n"
+"Thanks,\n"
+"BLOGNAME\n"
+"\n"
+"Cancel subscription: CANCEL_URL"
+msgstr ""
+
+#: wiki.php:1946
+msgid ""
+"Dear Author,\n"
+"\n"
+"%s was changed\n"
+"\n"
+"You can read the Wiki page in full here: %s\n"
+"You can revert the changes: %s\n"
+"\n"
+"%s\n"
+"\n"
+"Thanks,\n"
+"%s\n"
+"\n"
+"Cancel subscription: %s"
+msgstr ""
+
+#: wiki.php:1960
+msgid ""
+"Dear Author,\n"
+"\n"
+"%s was changed\n"
+"\n"
+"You can read the Wiki page in full here: %s\n"
+"\n"
+"%s\n"
+"\n"
+"Thanks,\n"
+"%s\n"
+"\n"
+"Cancel subscription: %s"
+msgstr ""
+
+#: wiki.php:2006
+msgid "Wiki Page Changes"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "Wiki Lite"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://premium.wpmudev.org/project/wiki"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Add a wiki to your blog"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPMU DEV"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://premium.wpmudev.org"
+msgstr ""

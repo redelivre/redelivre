@@ -1,0 +1,58 @@
+Plugin Name: Wiki
+Author: WPMU DEV
+
+Change Log:
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+= 1.1.0.3 = 
+* Fixed: Wiki Lite links to MarketPress rather than the Wiki project in settings
+
+= 1.1.0.2 = 
+* Fixed: Prev/next links don't show correct posts based upon Wiki settings
+
+= 1.1.0.1 = 
+* Fixed: unable to translate notification emails 
+
+= 1.1 =
+* Fixed: Better usability when restoring from front-end
+* Fixed: Front-end editor styles for WP 3.9
+* Removed: legacy editor code for WP versions < 3.3
+* Tested compatible with WP 3.9
+* Minor bugfixes and enhancements
+
+= 1.0.8.3 =
+* Preserve post status when editing in frontend
+* Preserve comment status when editing in frontend
+
+= 1.0.8.2 =
+* Fix slug issue
+
+= 1.0.8.1 =
+* Improve History tab
+* Make easier to change wiki slugs
+
+= 1.0.7 =
+* WordPress 3.3 compatibility
+* More minor improvements
+
+= 1.0.6 =
+* Remove update notifier
+* Widget fix
+
+= 1.0.5 =
+* Fixed: Page formatting for Wiki in Blogsmu
+* Fixed: Wiki revision compare error
+* Fixed: Wiki create issue when no permalink is not set
+
+= 1.0.4 =
+* New WPIDs
+
+= 1.0.3 =
+* Up the version to work with update plugin
+
+= 1.0.1 =
+* Fix: wiki -> wordpress-wiki-plugin
+
+= 1.0.0 =
+* Initial release.
