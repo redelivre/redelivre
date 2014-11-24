@@ -28,6 +28,12 @@ class Plan {
     public $price;
     
     /**
+     * Plan order
+     * @var int
+     */
+    public $order;
+    
+    /**
      * Return all available plans
      * 
      * @return array
@@ -93,6 +99,33 @@ class Plan {
             $this->price = $data['price'];
         }
         
+    }
+    
+    public function insert()
+    {
+    	if($this->election_id > 0 && strlen($this->name) > 0 && $this->price > 0 )
+    	{
+    		global $wpdb;
+    		$table = 'plans'; //TODO db prefix
+    		$data = array('election_id' => $this->election_id, 'name' => $this->name, 'price' => $this->price);
+    		$format = array('%d', '%s', '%d');
+    		
+    		if($this->order > 0)
+    		{
+    			$data['order'] = $this->order;
+    			$format[] = '%d';
+    		}
+    		
+    		$id = $wpdb->insert($table, $data, $format);
+    		if($id > 0)
+    		{
+    			$this->id = $id;
+    		}
+    		else 
+    		{
+    			throw new Exception('Error inserting Plan on database');
+    		}
+    	}
     }
     
 }

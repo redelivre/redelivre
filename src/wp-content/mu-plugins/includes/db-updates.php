@@ -8,3 +8,89 @@ if ( is_multisite() &&  !get_blog_option($current_blog->blog_id, 'db-update-1'))
     update_blog_option($current_blog->blog_id, 'wpaudio_options', $d);
 }
 
+global $wpdb;
+
+wp_die( get_blog_option(1, 'db-create-1') ? 'Y' : 'N' );
+
+if( is_multisite() && !get_blog_option(1, 'db-create-1'))
+{
+	$table_name = "plans";
+	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name)
+	{
+		$wpdb->query('CREATE TABLE IF NOT EXISTS `elections` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`slug` varchar(32) NOT NULL,
+			primary key (id))'
+		);
+		
+		$wpdb->query('CREATE TABLE IF NOT EXISTS `plans` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`election_id` int(11) NOT NULL,
+			`name` varchar(255) NOT NULL,
+			`price` int(11) NOT NULL,
+			primary key (id))'
+		);
+		
+		$wpdb->query('CREATE TABLE IF NOT EXISTS `capabilities` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`plan_id` int(11) NOT NULL,
+			`name` varchar(255) NOT NULL,
+			`slug` varchar(32) NOT NULL,
+			`value` int(4) NOT NULL,
+			primary key (id))'
+		);
+		
+		$wpdb->query('CREATE TABLE IF NOT EXISTS `campaigns` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`user_id` int(11) NOT NULL,
+			`plan_id` int(11) NOT NULL,
+			`blog_id` int(11) NOT NULL,
+			`election_id` int(11) NOT NULL,
+			`domain` varchar(255) NOT NULL,
+			`own_domain` varchar(255) NOT NULL,
+			`candidate_number` int(11) NULL,
+			`status` bool NOT NULL,
+			`creation_date` datetime NOT NULL,
+			`location` varchar(255) NOT NULL,
+			`observations` varchar(255) NULL,
+			primary key (id))'
+		);
+		
+		$wpdb->query('CREATE TABLE IF NOT EXISTS `states` (
+			`id` int(11) NOT NULL,
+			`name` varchar(32) NOT NULL,
+			`uf` char(2) NOT NULL,
+			PRIMARY KEY (`id`))'
+		);
+		
+		$wpdb->query('CREATE TABLE IF NOT EXISTS `cities` (
+			`id` int(11) NOT NULL,
+			`state_id` int(11) NOT NULL,
+			`name` varchar(128) NOT NULL,
+			PRIMARY KEY (`id`))'
+		);
+		
+		$wpdb->query('CREATE TABLE `transaction_log` (
+		    `id` int(11) NOT NULL AUTO_INCREMENT,
+		    `date` datetime DEFAULT NULL,
+		    `valor` varchar(255) DEFAULT NULL,
+		    `user_id` int(11) DEFAULT NULL,
+		    `campaign_id` int(11) DEFAULT NULL,
+		    `id_transacao` int(11) DEFAULT NULL,
+		    `numero_pedido` int(11) DEFAULT NULL,
+		    `response` TEXT DEFAULT NULL,
+		    `aprovada` tinyint(1) DEFAULT 0,
+		    PRIMARY KEY (`id`))'
+		);
+	}
+	else 
+	{
+		update_blog_option(1, 'db-create-1', true);
+	}
+}
+
+/*if( is_multisite() && !get_blog_option(1, 'db-sample-1') && count(Plan::getAllIds()) == 0 )
+{
+	$wpdb->query("INSERT INTO `elections` VALUES (1, '".date('Y')."')");
+	$wpdb->query("INSERT INTO `plans` VALUES (1, 1, 'Full', 0)");
+}*/
