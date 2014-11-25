@@ -10,8 +10,6 @@ if ( is_multisite() &&  !get_blog_option($current_blog->blog_id, 'db-update-1'))
 
 global $wpdb;
 
-wp_die( get_blog_option(1, 'db-create-1') ? 'Y' : 'N' );
-
 if( is_multisite() && !get_blog_option(1, 'db-create-1'))
 {
 	$table_name = "plans";
@@ -26,6 +24,7 @@ if( is_multisite() && !get_blog_option(1, 'db-create-1'))
 		$wpdb->query('CREATE TABLE IF NOT EXISTS `plans` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`election_id` int(11) NOT NULL,
+			`item_order` int(11) DEFAULT NULL,
 			`name` varchar(255) NOT NULL,
 			`price` int(11) NOT NULL,
 			primary key (id))'
@@ -83,14 +82,53 @@ if( is_multisite() && !get_blog_option(1, 'db-create-1'))
 		    PRIMARY KEY (`id`))'
 		);
 	}
-	else 
-	{
-		update_blog_option(1, 'db-create-1', true);
-	}
+	update_blog_option(1, 'db-create-1', true);
 }
 
-/*if( is_multisite() && !get_blog_option(1, 'db-sample-1') && count(Plan::getAllIds()) == 0 )
+if( is_multisite() && !get_blog_option(1, 'db-sample-1') )
 {
-	$wpdb->query("INSERT INTO `elections` VALUES (1, '".date('Y')."')");
-	$wpdb->query("INSERT INTO `plans` VALUES (1, 1, 'Full', 0)");
-}*/
+	$table_name = "elections";
+	if($wpdb->get_var(" select count(*) from $table_name ") == 0 )
+	{
+		$wpdb->query("INSERT INTO `elections` VALUES (1, '".date('Y')."')");
+	}
+	$table_name = "plans";
+	if($wpdb->get_var(" select count(*) from $table_name ") == 0 )
+	{
+		$wpdb->query("INSERT INTO `plans` VALUES (1, 1, 1, 'Full', 100000)");
+	}
+	$table_name = "capabilities";
+	if($wpdb->get_var(" select count(*) from $table_name ") == 0 )
+	{
+		include 'db-capabilities.php';
+		foreach ($capabilities as $capability)
+		{
+			$wpdb->query($capability);
+		}
+	}
+	
+	update_blog_option(1, 'db-sample-1', true);
+}
+
+if( is_multisite() && !get_blog_option(1, 'db-location-1')  )
+{
+	$table_name = "cities";
+	if($wpdb->get_var(" select count(*) from $table_name ") == 0 )
+	{
+		include 'db-cities.php';
+		foreach ($cities as $city)
+		{
+			$wpdb->query($city);
+		}
+	}
+	$table_name = "states";
+	if($wpdb->get_var(" select count(*) from $table_name ") == 0 )
+	{
+		include 'db-states.php';
+		foreach ($states as $state)
+		{
+			$wpdb->query($state);
+		}
+	}
+	update_blog_option(1, 'db-location-1', true);
+}
