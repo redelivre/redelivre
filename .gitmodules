@@ -97,3 +97,6 @@
 [submodule "src/wp-content/plugins/delibera"]
 	path = src/wp-content/plugins/delibera
 	url = git@github.com:ethymos/delibera.git
+[submodule "src/wp-content/plugins/jaiminho-sms"]
+	path = src/wp-content/plugins/jaiminho-sms
+	url = git@github.com:ethymos/jaiminho-sms.git
