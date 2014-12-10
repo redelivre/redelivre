@@ -256,13 +256,20 @@ function savePlataformSettings()
     }
 }
 
-// Fix Users not in blogs root 
-/* global $wpdb;
-$query = "SELECT ID FROM {$wpdb->users}";
-$users = $wpdb->get_results( $query, ARRAY_A );
-foreach($users as $user) {
-	add_user_to_blog('1', $user['ID'], 'subscriber');
-}*/
+function campanha_add_user_to_root()
+{
+	if(is_super_admin())
+	{
+		// Fix Users not in blogs root 
+		global $wpdb;
+		$query = "SELECT ID FROM {$wpdb->users}";
+		$users = $wpdb->get_results( $query, ARRAY_A );
+		foreach($users as $user) {
+			add_user_to_blog('1', $user['ID'], 'subscriber');
+		}
+	}
+}
+//add_action( 'init', 'campanha_add_user_to_root', 1, 2); // TODO exec when need and not always
 
 function campanha_new_user_to_root($user_id)
 {
