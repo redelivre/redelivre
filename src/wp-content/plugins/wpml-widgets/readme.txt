@@ -3,8 +3,8 @@ Contributors: sormano
 Donate link: http://www.jeroensormani.com/donate/
 Tags: WPML, WPML widget, Wordpress Multilanguage, Wordpress Multilanguage widget, WPML widget selector
 Requires at least: 3.6
-Tested up to: 3.9.1
-Stable tag: 1.0.2
+Tested up to: 4.1
+Stable tag: 1.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,12 @@ WPML Widgets is a ultra lightweight plugin, so there will be (about) zero extra 
 
 
 == Changelog ==
+
+= 1.0.3 - 20/12/2014 =
+* Fix - Notice on WP_Debug mode when values are not saved
+* Add - Nagg message when WPML is not active ;-)
+* Improvement - Use Singleton to initiate plugin
+* Improvement - Better code/comment quality
 
 = 1.0.2 =
 * Fix - WordPress Multisite supported check

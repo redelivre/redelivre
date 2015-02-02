@@ -180,7 +180,7 @@ class P2_JS {
 		<?php
 	}
 
-	function ajax_url() {
+	static function ajax_url() {
 		global $current_blog;
 
 		// Generate the ajax url based on the current scheme
@@ -191,7 +191,7 @@ class P2_JS {
 		return $admin_url;
 	}
 
-	function ajax_read_url() {
+	static function ajax_read_url() {
 		return add_query_arg( 'p2ajax', 'true', get_feed_link( 'p2.ajax' ) );
 	}
 

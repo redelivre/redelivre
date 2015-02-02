@@ -40,14 +40,12 @@ if ( $action ) {
 			else
 				wp_safe_redirect( add_query_arg( 'enabled', 1, $referer ) );
 			exit;
-			break;
 		case 'disable':
 			check_admin_referer('disable-theme_' . $_GET['theme']);
 			unset( $allowed_themes[ $_GET['theme'] ] );
 			update_site_option( 'allowedthemes', $allowed_themes );
 			wp_safe_redirect( add_query_arg( 'disabled', '1', $referer ) );
 			exit;
-			break;
 		case 'enable-selected':
 			check_admin_referer('bulk-themes');
 			$themes = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
@@ -60,7 +58,6 @@ if ( $action ) {
 			update_site_option( 'allowedthemes', $allowed_themes );
 			wp_safe_redirect( add_query_arg( 'enabled', count( $themes ), $referer ) );
 			exit;
-			break;
 		case 'disable-selected':
 			check_admin_referer('bulk-themes');
 			$themes = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
@@ -73,7 +70,6 @@ if ( $action ) {
 			update_site_option( 'allowedthemes', $allowed_themes );
 			wp_safe_redirect( add_query_arg( 'disabled', count( $themes ), $referer ) );
 			exit;
-			break;
 		case 'update-selected' :
 			check_admin_referer( 'bulk-themes' );
 
@@ -99,30 +95,48 @@ if ( $action ) {
 			echo '</div>';
 			require_once(ABSPATH . 'wp-admin/admin-footer.php');
 			exit;
-			break;
 		case 'delete-selected':
-			if ( ! current_user_can( 'delete_themes' ) )
+			if ( ! current_user_can( 'delete_themes' ) ) {
 				wp_die( __('You do not have sufficient permissions to delete themes for this site.') );
+			}
+
 			check_admin_referer( 'bulk-themes' );
 
 			$themes = isset( $_REQUEST['checked'] ) ? (array) $_REQUEST['checked'] : array();
-
-			unset( $themes[ get_option( 'stylesheet' ) ], $themes[ get_option( 'template' ) ] );
 
 			if ( empty( $themes ) ) {
 				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
 				exit;
 			}
 
-			$files_to_delete = $theme_info = array();
-			foreach ( $themes as $key => $theme ) {
-				$theme_info[ $theme ] = wp_get_theme( $theme );
-				$files_to_delete = array_merge( $files_to_delete, list_files( $theme_info[ $theme ]->get_stylesheet_directory() ) );
-			}
+			$themes = array_diff( $themes, array( get_option( 'stylesheet' ), get_option( 'template' ) ) );
 
 			if ( empty( $themes ) ) {
 				wp_safe_redirect( add_query_arg( 'error', 'main', $referer ) );
 				exit;
+			}
+
+			$files_to_delete = $theme_info = array();
+			$theme_translations = wp_get_installed_translations( 'themes' );
+			foreach ( $themes as $key => $theme ) {
+				$theme_info[ $theme ] = wp_get_theme( $theme );
+
+				// Locate all the files in that folder.
+				$files = list_files( $theme_info[ $theme ]->get_stylesheet_directory() );
+				if ( $files ) {
+					$files_to_delete = array_merge( $files_to_delete, $files );
+				}
+
+				// Add translation files.
+				$theme_slug = $theme_info[ $theme ]->get_stylesheet();
+				if ( ! empty( $theme_translations[ $theme_slug ] ) ) {
+					$translations = $theme_translations[ $theme_slug ];
+
+					foreach ( $translations as $translation => $data ) {
+						$files_to_delete[] = $theme_slug . '-' . $translation . '.po';
+						$files_to_delete[] = $theme_slug . '-' . $translation . '.mo';
+					}
+				}
 			}
 
 			include(ABSPATH . 'wp-admin/update.php');
@@ -141,16 +155,21 @@ if ( $action ) {
 				<div class="error"><p><strong><?php _e( 'Caution:' ); ?></strong> <?php echo _n( 'This theme may be active on other sites in the network.', 'These themes may be active on other sites in the network.', $themes_to_delete ); ?></p></div>
 				<p><?php echo _n( 'You are about to remove the following theme:', 'You are about to remove the following themes:', $themes_to_delete ); ?></p>
 					<ul class="ul-disc">
-						<?php foreach ( $theme_info as $theme )
-							echo '<li>', sprintf( __('<strong>%1$s</strong> by <em>%2$s</em>' ), $theme->display('Name'), $theme->display('Author') ), '</li>'; /* translators: 1: theme name, 2: theme author */ ?>
+					<?php
+						foreach ( $theme_info as $theme ) {
+							/* translators: 1: theme name, 2: theme author */
+							echo '<li>', sprintf( __('<strong>%1$s</strong> by <em>%2$s</em>' ), $theme->display('Name'), $theme->display('Author') ), '</li>';
+						}
+					?>
 					</ul>
 				<p><?php _e('Are you sure you wish to delete these themes?'); ?></p>
 				<form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" style="display:inline;">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php
-						foreach ( (array) $themes as $theme )
+						foreach ( (array) $themes as $theme ) {
 							echo '<input type="hidden" name="checked[]" value="' . esc_attr($theme) . '" />';
+						}
 					?>
 					<?php wp_nonce_field('bulk-themes') ?>
 					<?php submit_button( _n( 'Yes, Delete this theme', 'Yes, Delete these themes', $themes_to_delete ), 'button', 'submit', false ); ?>
@@ -163,8 +182,9 @@ if ( $action ) {
 				<div id="files-list" style="display:none;">
 					<ul class="code">
 					<?php
-						foreach ( (array) $files_to_delete as $file )
-							echo '<li>' . esc_html( str_replace( WP_CONTENT_DIR . "/themes", '', $file) ) . '</li>';
+						foreach ( (array) $files_to_delete as $file ) {
+							echo '<li>' . esc_html( str_replace( WP_CONTENT_DIR . '/themes', '', $file ) ) . '</li>';
+						}
 					?>
 					</ul>
 				</div>
@@ -182,7 +202,7 @@ if ( $action ) {
 					'_wpnonce' => $_REQUEST['_wpnonce']
 				), network_admin_url( 'themes.php' ) ) ) );
 			}
-			
+
 			$paged = ( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
 			wp_redirect( add_query_arg( array(
 				'deleted' => count( $themes ),
@@ -190,7 +210,6 @@ if ( $action ) {
 				's' => $s
 			), network_admin_url( 'themes.php' ) ) );
 			exit;
-			break;
 	}
 }
 
@@ -212,7 +231,7 @@ get_current_screen()->add_help_tab( array(
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
 	'<p>' . __('<a href="http://codex.wordpress.org/Network_Admin_Themes_Screen" target="_blank">Documentation on Network Themes</a>') . '</p>' .
-	'<p>' . __('<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 $title = __('Themes');

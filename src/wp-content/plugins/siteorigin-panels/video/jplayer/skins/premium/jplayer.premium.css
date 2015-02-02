@@ -4,192 +4,185 @@
 .jp-audio,
 .jp-audio-stream,
 .jp-video {
+	background-color:#1c1c1c;
 	position: relative;
-	
-	background-color: #1c1c1c;
 }
 
-.jp-video .jp-type-single {
+.jp-video .jp-type-single{
 }
 
-/* =GUI 
--------------------------------------------------------------- */
+/* @group GUI */
 
-.jp-video .jp-gui {
-	position: relative;
+.jp-video .jp-gui{
 	height: 35px;
+	overflow: hidden;
+	margin-top: -35px;
 	
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#F1F1F1), to(#D1D1D1));
+	
 	box-shadow: 0 0 1px rgba(255,255,255,1);
-	margin-top: -35px;
-	overflow: hidden;
+	
+	position: relative;
 }
 
 .jp-video .jp-gui .jp-controls {
-	display: block;
 	list-style: none;
+	display: block;
 	margin: 0;
 }
 
-.jp-video .jp-gui .jp-controls li a {
+.jp-video .jp-gui .jp-controls li a{
 	position: absolute;
-	
 	display: block;
-	overflow: hidden;
 	text-indent: -9999px;
+	overflow: hidden;
 }
 
 .jp-video .jp-gui .jp-controls .jp-play,
-.jp-video .jp-gui .jp-controls .jp-pause {
-	top: 11px;
-	left: 15px;
+.jp-video .jp-gui .jp-controls .jp-pause{
 	width: 15px;
 	height: 15px;
+	overflow: hidden;
+	
+	top: 11px;
+	left: 15px;
 	
 	background: url('sprites/play.png');
-	overflow: hidden;
 }
 
-.jp-video .jp-gui .jp-controls .jp-pause {
-	width: 13px;
-	
+.jp-video .jp-gui .jp-controls .jp-pause{
 	background: url('sprites/pause.png');
+	width: 13px;
 }
 
-/* =Progress Bar 
--------------------------------------------------------------- */
+/* @end */
 
-.jp-video .jp-progress {
-	width: auto;
+/* @group Progress Bar */
+
+.jp-video .jp-progress{
+	display: block;
 	height: 10px;
-	
+	width: auto;
+	margin: 0 125px 0 51px;
 	background: #706d6d;
+	margin-top: 13px;
+	
 	border-radius: 10px;
 	box-shadow: inset 0 1px 4px rgba(0,0,0,0.4), 0 1px 0 #FFF;
-	display: block;
-	margin: 0 125px 0 51px;
-	margin-top: 13px;
 }
 
-.jp-video .jp-progress .jp-seek-bar {
+.jp-video .jp-progress .jp-seek-bar{
 	height: 10px;
-	
 	background: rgba(34,34,34,0.34);
 	border-radius: 10px;
+	
 	cursor: pointer;
 }
 
-.jp-video .jp-progress .jp-play-bar {
+.jp-video .jp-progress .jp-play-bar{
 	position: relative;
 	height: 10px;
-	
 	background: #bb2a1e;
 	border-radius: 10px;
 	box-shadow: inset 0 1px 4px rgba(0,0,0,0.4);
 }
 
-.jp-video .jp-progress .jp-play-bar-marker {
+.jp-video .jp-progress .jp-play-bar-marker{
 	position: absolute;
-	top: -3px;
-	right: -8px;
 	width: 16px;
 	height: 17px;
-	
 	background: url('sprites/handle.png') no-repeat;
+	right: -8px;
+	top: -3px;
 }
 
-.jp-video .jp-time-info {
+/* @end */
+
+.jp-video .jp-time-info{
+
 	position: absolute;
-	top: 50%;
 	right: 34px;
-	width: 80px;
-	
-	color: #444;
-	font: 11px/1 Arial, sans-serif;
+	top: 50%;
 	margin-top: -0.475em;
+	width: 80px;
+	color: #444;
 	text-shadow: 0 1px 0 #FFF;
+	font: 11px/1 Arial, sans-serif;
 }
 
-.jp-video .jp-time-info > div {
+.jp-video .jp-time-info > div{
 	display: inline;
 }
 
 .jp-video .jp-full-screen,
-.jp-video .jp-restore-screen {
+.jp-video .jp-restore-screen{
+	display: block;
 	top: 11px;
 	right: 15px;
+	
 	width: 14px;
 	height: 15px;
-	
 	background: url('sprites/full-screen.png') no-repeat;
-	display: block;
 }
 
-/* =Full Screen 
--------------------------------------------------------------- */
+/* @group Full Screen */
 
-.jp-video-full .jp-jplayer {
+.jp-video-full .jp-jplayer{
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	
-	background: #000000;
-	z-index: 100000; /* One higher than the WordPress admin bar */ 
+	z-index: 100000; /* One higher than the WordPress admin bar */
+    background: #000000;
 }
 
-.jp-video-full .jp-gui {
+.jp-video-full .jp-gui{
 	position: fixed;
-	bottom: 0;
 	left: 0;
+	bottom: 0;
 	width: 100%;
-	
-	z-index: 100001; /* One higher than the video player */ 
+	z-index: 100001; /* One higher than the video player */
 }
 
-.jp-video .sep {
+/* @end */
+
+.jp-video .sep{
 	position: absolute;
-	top: 7px;
+	display: block;
 	width: 2px;
 	height: 21px;
-	
 	background: url('sprites/sep.png') no-repeat;
-	display: block;
+	top: 7px;
 }
 
-.jp-video .jp-controls-sep {
+.jp-video .jp-controls-sep{
 	left: 40px;
-	
 }
 
-.jp-video .jp-time-sep {
+.jp-video .jp-time-sep{
 	right: 235px;
-	
 }
 
-.jp-video .jp-full-sep {
+.jp-video .jp-full-sep{
 	right: 39px;
-	
 }
 
-.jp-video .jp-play {
+.jp-video .jp-play{
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	
 	cursor: pointer;
 }
 
-.jp-video .jp-play-default {
+.jp-video .jp-play-default{
+	margin-top: -49px;
+	margin-left: -49px;
+	
 	width: 97px;
 	height: 97px;
-	
-	margin-left: -49px;
-	margin-top: -49px;
 }
 
-.jp-video .jp-gui {
+.jp-video .jp-gui{
 	display: none;
 }
-

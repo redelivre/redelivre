@@ -9,17 +9,17 @@
 /**
  * WordPress Filesystem Class for implementing FTP.
  *
- * @since 2.5
+ * @since 2.5.0
  * @package WordPress
  * @subpackage Filesystem
  * @uses WP_Filesystem_Base Extends class
  */
 class WP_Filesystem_FTPext extends WP_Filesystem_Base {
-	var $link;
-	var $errors = null;
-	var $options = array();
+	public $link;
+	public $errors = null;
+	public $options = array();
 
-	function __construct($opt='') {
+	public function __construct($opt='') {
 		$this->method = 'ftpext';
 		$this->errors = new WP_Error();
 
@@ -63,7 +63,7 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 			$this->options['ssl'] = true;
 	}
 
-	function connect() {
+	public function connect() {
 		if ( isset($this->options['ssl']) && $this->options['ssl'] && function_exists('ftp_ssl_connect') )
 			$this->link = @ftp_ssl_connect($this->options['hostname'], $this->options['port'], FS_CONNECT_TIMEOUT);
 		else
@@ -87,7 +87,11 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return true;
 	}
 
-	function get_contents( $file ) {
+	/**
+	 * @param string $file
+	 * @return bool|string
+	 */
+	public function get_contents( $file ) {
 		$tempfile = wp_tempnam($file);
 		$temp = fopen($tempfile, 'w+');
 
@@ -108,11 +112,21 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return $contents;
 	}
 
-	function get_contents_array($file) {
+	/**
+	 * @param string $file
+	 * @return array
+	 */
+	public function get_contents_array($file) {
 		return explode("\n", $this->get_contents($file));
 	}
 
-	function put_contents($file, $contents, $mode = false ) {
+	/**
+	 * @param string $file
+	 * @param string $contents
+	 * @param bool|int $mode
+	 * @return bool
+	 */
+	public function put_contents($file, $contents, $mode = false ) {
 		$tempfile = wp_tempnam($file);
 		$temp = fopen( $tempfile, 'wb+' );
 		if ( ! $temp )
@@ -143,22 +157,40 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return $ret;
 	}
 
-	function cwd() {
+	/**
+	 * @return string
+	 */
+	public function cwd() {
 		$cwd = @ftp_pwd($this->link);
 		if ( $cwd )
 			$cwd = trailingslashit($cwd);
 		return $cwd;
 	}
 
-	function chdir($dir) {
+	/**
+	 * @param string $dir
+	 * @return bool
+	 */
+	public function chdir($dir) {
 		return @ftp_chdir($this->link, $dir);
 	}
 
-	function chgrp($file, $group, $recursive = false ) {
+	/**
+	 * @param string $file
+	 * @param bool $group
+	 * @param bool $recursive
+	 */
+	public function chgrp($file, $group, $recursive = false ) {
 		return false;
 	}
 
-	function chmod($file, $mode = false, $recursive = false) {
+	/**
+	 * @param string $file
+	 * @param int $mode
+	 * @param bool $recursive
+	 * @return bool
+	 */
+	public function chmod($file, $mode = false, $recursive = false) {
 		if ( ! $mode ) {
 			if ( $this->is_file($file) )
 				$mode = FS_CHMOD_FILE;
@@ -181,22 +213,40 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return (bool)@ftp_chmod($this->link, $mode, $file);
 	}
 
-	function owner($file) {
+	/**
+	 * @param string $file
+	 * @return string
+	 */
+	public function owner($file) {
 		$dir = $this->dirlist($file);
 		return $dir[$file]['owner'];
 	}
-
-	function getchmod($file) {
+	/**
+	 * @param string $file
+	 * @return string
+	 */
+	public function getchmod($file) {
 		$dir = $this->dirlist($file);
 		return $dir[$file]['permsn'];
 	}
-
-	function group($file) {
+	/**
+	 * @param string $file
+	 * @return string
+	 */
+	public function group($file) {
 		$dir = $this->dirlist($file);
 		return $dir[$file]['group'];
 	}
 
-	function copy($source, $destination, $overwrite = false, $mode = false) {
+	/**
+	 *
+	 * @param string $source
+	 * @param string $destination
+	 * @param bool   $overwrite
+	 * @param string|bool $mode
+	 * @return bool
+	 */
+	public function copy($source, $destination, $overwrite = false, $mode = false) {
 		if ( ! $overwrite && $this->exists($destination) )
 			return false;
 		$content = $this->get_contents($source);
@@ -204,12 +254,22 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 			return false;
 		return $this->put_contents($destination, $content, $mode);
 	}
-
-	function move($source, $destination, $overwrite = false) {
+	/**
+	 * @param string $source
+	 * @param string $destination
+	 * @param bool $overwrite
+	 * @return bool
+	 */
+	public function move($source, $destination, $overwrite = false) {
 		return ftp_rename($this->link, $source, $destination);
 	}
-
-	function delete($file, $recursive = false, $type = false) {
+	/**
+	 * @param string $file
+	 * @param bool $recursive
+	 * @param string $type
+	 * @return bool
+	 */
+	public function delete($file, $recursive = false, $type = false) {
 		if ( empty($file) )
 			return false;
 		if ( 'f' == $type || $this->is_file($file) )
@@ -223,17 +283,26 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 				$this->delete( trailingslashit($file) . $delete_file['name'], $recursive, $delete_file['type'] );
 		return @ftp_rmdir($this->link, $file);
 	}
-
-	function exists($file) {
+	/**
+	 * @param string $file
+	 * @return bool
+	 */
+	public function exists($file) {
 		$list = @ftp_nlist($this->link, $file);
 		return !empty($list); //empty list = no file, so invert.
 	}
-
-	function is_file($file) {
+	/**
+	 * @param string $file
+	 * @return bool
+	 */
+	public function is_file($file) {
 		return $this->exists($file) && !$this->is_dir($file);
 	}
-
-	function is_dir($path) {
+	/**
+	 * @param string $path
+	 * @return bool
+	 */
+	public function is_dir($path) {
 		$cwd = $this->cwd();
 		$result = @ftp_chdir($this->link, trailingslashit($path) );
 		if ( $result && $path == $this->cwd() || $this->cwd() != $cwd ) {
@@ -243,31 +312,57 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return false;
 	}
 
-	function is_readable($file) {
+	/**
+	 * @param string $file
+	 * @return bool
+	 */
+	public function is_readable($file) {
 		return true;
 	}
-
-	function is_writable($file) {
+	/**
+	 * @param string $file
+	 * @return bool
+	 */
+	public function is_writable($file) {
 		return true;
 	}
-
-	function atime($file) {
+	/**
+	 * @param string $file
+	 * @return bool
+	 */
+	public function atime($file) {
 		return false;
 	}
-
-	function mtime($file) {
+	/**
+	 * @param string $file
+	 * @return int
+	 */
+	public function mtime($file) {
 		return ftp_mdtm($this->link, $file);
 	}
-
-	function size($file) {
+	/**
+	 * @param string $file
+	 * @return int
+	 */
+	public function size($file) {
 		return ftp_size($this->link, $file);
 	}
-
-	function touch($file, $time = 0, $atime = 0) {
+	/**
+	 * @param string $file
+	 * @return bool
+	 */
+	public function touch($file, $time = 0, $atime = 0) {
 		return false;
 	}
 
-	function mkdir($path, $chmod = false, $chown = false, $chgrp = false) {
+	/**
+	 * @param string $path
+	 * @param mixed $chmod
+	 * @param mixed $chown
+	 * @param mixed $chgrp
+	 * @return bool
+	 */
+	public function mkdir($path, $chmod = false, $chown = false, $chgrp = false) {
 		$path = untrailingslashit($path);
 		if ( empty($path) )
 			return false;
@@ -282,11 +377,21 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return true;
 	}
 
-	function rmdir($path, $recursive = false) {
+	/**
+	 * @param string $path
+	 * @param bool $recursive
+	 * @return bool
+	 */
+	public function rmdir($path, $recursive = false) {
 		return $this->delete($path, $recursive);
 	}
 
-	function parselisting($line) {
+	/**
+	 * @staticvar bool $is_windows
+	 * @param string $line
+	 * @return string
+	 */
+	public function parselisting($line) {
 		static $is_windows;
 		if ( is_null($is_windows) )
 			$is_windows = stripos( ftp_systype($this->link), 'win') !== false;
@@ -359,7 +464,13 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return $b;
 	}
 
-	function dirlist($path = '.', $include_hidden = true, $recursive = false) {
+	/**
+	 * @param string $path
+	 * @param bool $include_hidden
+	 * @param bool $recursive
+	 * @return bool|array
+	 */
+	public function dirlist($path = '.', $include_hidden = true, $recursive = false) {
 		if ( $this->is_file($path) ) {
 			$limit_file = basename($path);
 			$path = dirname($path) . '/';
@@ -408,7 +519,7 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 		return $ret;
 	}
 
-	function __destruct() {
+	public function __destruct() {
 		if ( $this->link )
 			ftp_close($this->link);
 	}

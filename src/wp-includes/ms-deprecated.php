@@ -86,7 +86,7 @@ function graceful_fail( $message ) {
 	$message = apply_filters( 'graceful_fail', $message );
 	$message_template = apply_filters( 'graceful_fail_template',
 '<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head profile="http://gmpg.org/xfn/11">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Error!</title>
 <style type="text/css">
@@ -232,7 +232,6 @@ function get_most_active_blogs( $num = 10, $display = true ) {
  * @since MU
  * @deprecated 3.3.0
  * @deprecated Use wp_redirect()
- * @uses wpmu_admin_redirect_add_updated_param()
  *
  * @param string $url
  */
@@ -297,7 +296,6 @@ function wpmu_admin_redirect_add_updated_param( $url = '' ) {
  * @since MU
  * @deprecated 3.6.0
  * @deprecated Use get_user_by()
- * @uses get_user_by()
  *
  * @param string $string Either an email address or a login.
  * @return int

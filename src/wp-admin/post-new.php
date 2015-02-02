@@ -28,8 +28,16 @@ if ( 'post' == $post_type ) {
 	$submenu_file = "post-new.php?post_type=$post_type";
 	if ( isset( $post_type_object ) && $post_type_object->show_in_menu && $post_type_object->show_in_menu !== true ) {
 		$parent_file = $post_type_object->show_in_menu;
-		if ( ! isset( $_registered_pages[ get_plugin_page_hookname( "post-new.php?post_type=$post_type", $post_type_object->show_in_menu ) ] ) )
-			$submenu_file = $parent_file;
+		// What if there isn't a post-new.php item for this post type?
+		if ( ! isset( $_registered_pages[ get_plugin_page_hookname( "post-new.php?post_type=$post_type", $post_type_object->show_in_menu ) ] ) ) {
+			if (	isset( $_registered_pages[ get_plugin_page_hookname( "edit.php?post_type=$post_type", $post_type_object->show_in_menu ) ] ) ) {
+				// Fall back to edit.php for that post type, if it exists
+				$submenu_file = "edit.php?post_type=$post_type";
+			} else {
+				// Otherwise, give up and highlight the parent
+				$submenu_file = $parent_file;
+			}
+		}
 	} else {
 		$parent_file = "edit.php?post_type=$post_type";
 	}
@@ -40,7 +48,7 @@ $title = $post_type_object->labels->add_new_item;
 $editing = true;
 
 if ( ! current_user_can( $post_type_object->cap->edit_posts ) || ! current_user_can( $post_type_object->cap->create_posts ) )
-	wp_die( __( 'Cheatin&#8217; uh?' ) );
+	wp_die( __( 'Cheatin&#8217; uh?' ), 403 );
 
 // Schedule auto-draft cleanup
 if ( ! wp_next_scheduled( 'wp_scheduled_auto_draft_delete' ) )

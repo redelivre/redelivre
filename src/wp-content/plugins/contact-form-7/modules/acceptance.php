@@ -69,12 +69,7 @@ function wpcf7_acceptance_validation_filter( $result, $tag ) {
 	$invert = $tag->has_option( 'invert' );
 
 	if ( $invert && $value || ! $invert && ! $value ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'accept_terms' );
-	}
-
-	if ( isset( $result['reason'][$name] ) && $id = $tag->get_id_option() ) {
-		$result['idref'][$name] = $id;
+		$result->invalidate( $tag, wpcf7_get_message( 'accept_terms' ) );
 	}
 
 	return $result;
@@ -138,7 +133,7 @@ function wpcf7_add_tag_generator_acceptance() {
 		'wpcf7-tg-pane-acceptance', 'wpcf7_tg_pane_acceptance' );
 }
 
-function wpcf7_tg_pane_acceptance( &$contact_form ) {
+function wpcf7_tg_pane_acceptance( $contact_form ) {
 ?>
 <div id="wpcf7-tg-pane-acceptance" class="hidden">
 <form action="">

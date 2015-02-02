@@ -8,6 +8,9 @@
 header('Content-Type: ' . feed_content_type('rss-http') . '; charset=' . get_option('blog_charset'), true);
 
 echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
+
+/** This action is documented in wp-includes/feed-rss2.php */
+do_action( 'rss_tag_pre', 'rss2-comments' );
 ?>
 <rss version="2.0"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -41,10 +44,14 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 	<link><?php (is_single()) ? the_permalink_rss() : bloginfo_rss("url") ?></link>
 	<description><?php bloginfo_rss("description") ?></description>
 	<lastBuildDate><?php echo mysql2date('r', get_lastcommentmodified('GMT')); ?></lastBuildDate>
-	<?php /** This filter is documented in wp-includes/feed-rss2.php */ ?>
-	<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
-	<?php /** This filter is documented in wp-includes/feed-rss2.php */ ?>
-	<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
+	<sy:updatePeriod><?php
+		/** This filter is documented in wp-includes/feed-rss2.php */
+		echo apply_filters( 'rss_update_period', 'hourly' );
+	?></sy:updatePeriod>
+	<sy:updateFrequency><?php
+		/** This filter is documented in wp-includes/feed-rss2.php */
+		echo apply_filters( 'rss_update_frequency', '1' );
+	?></sy:updateFrequency>
 	<?php
 	/**
 	 * Fires at the end of the RSS2 comment feed header.

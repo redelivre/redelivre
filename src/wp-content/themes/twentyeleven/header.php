@@ -18,7 +18,7 @@
 <!--[if IE 8]>
 <html id="ie8" <?php language_attributes(); ?>>
 <![endif]-->
-<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<!--[if !(IE 6) & !(IE 7) & !(IE 8)]><!-->
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
@@ -39,7 +39,7 @@
 		echo " | $site_description";
 
 	// Add a page number if necessary:
-	if ( $paged >= 2 || $page >= 2 )
+	if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() )
 		echo ' | ' . sprintf( __( 'Page %s', 'twentyeleven' ), max( $paged, $page ) );
 
 	?></title>
@@ -111,7 +111,7 @@
 							$header_image_height = HEADER_IMAGE_HEIGHT;
 						}
 						?>
-					<img src="<?php header_image(); ?>" width="<?php echo $header_image_width; ?>" height="<?php echo $header_image_height; ?>" alt="" />
+					<img src="<?php header_image(); ?>" width="<?php echo $header_image_width; ?>" height="<?php echo $header_image_height; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
 				<?php endif; // end check for featured image or standard header ?>
 			</a>
 			<?php endif; // end check for removed header image ?>

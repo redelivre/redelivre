@@ -58,8 +58,9 @@ add_filter( 'wpcf7_form_enctype', 'wpcf7_file_form_enctype_filter' );
 function wpcf7_file_form_enctype_filter( $enctype ) {
 	$multipart = (bool) wpcf7_scan_shortcode( array( 'type' => array( 'file', 'file*' ) ) );
 
-	if ( $multipart )
-		$enctype = ' enctype="multipart/form-data"';
+	if ( $multipart ) {
+		$enctype = 'multipart/form-data';
+	}
 
 	return $enctype;
 }
@@ -79,16 +80,12 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	$file = isset( $_FILES[$name] ) ? $_FILES[$name] : null;
 
 	if ( $file['error'] && UPLOAD_ERR_NO_FILE != $file['error'] ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'upload_failed_php_error' );
-		$result['idref'][$name] = $id ? $id : null;
+		$result->invalidate( $tag, wpcf7_get_message( 'upload_failed_php_error' ) );
 		return $result;
 	}
 
 	if ( empty( $file['tmp_name'] ) && $tag->is_required() ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
-		$result['idref'][$name] = $id ? $id : null;
+		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 		return $result;
 	}
 
@@ -147,45 +144,39 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	$file_type_pattern = '/\.' . $file_type_pattern . '$/i';
 
 	if ( ! preg_match( $file_type_pattern, $file['name'] ) ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'upload_file_type_invalid' );
-		$result['idref'][$name] = $id ? $id : null;
+		$result->invalidate( $tag, wpcf7_get_message( 'upload_file_type_invalid' ) );
 		return $result;
 	}
 
 	/* File size validation */
 
 	if ( $file['size'] > $allowed_size ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'upload_file_too_large' );
-		$result['idref'][$name] = $id ? $id : null;
+		$result->invalidate( $tag, wpcf7_get_message( 'upload_file_too_large' ) );
 		return $result;
 	}
 
-	$uploads_dir = wpcf7_upload_tmp_dir();
 	wpcf7_init_uploads(); // Confirm upload dir
+	$uploads_dir = wpcf7_upload_tmp_dir();
+	$uploads_dir = wpcf7_maybe_add_random_dir( $uploads_dir );
 
 	$filename = $file['name'];
+	$filename = wpcf7_canonicalize( $filename );
+	$filename = sanitize_file_name( $filename );
 	$filename = wpcf7_antiscript_file_name( $filename );
 	$filename = wp_unique_filename( $uploads_dir, $filename );
 
 	$new_file = trailingslashit( $uploads_dir ) . $filename;
 
 	if ( false === @move_uploaded_file( $file['tmp_name'], $new_file ) ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'upload_failed' );
-		$result['idref'][$name] = $id ? $id : null;
+		$result->invalidate( $tag, wpcf7_get_message( 'upload_failed' ) );
 		return $result;
 	}
 
 	// Make sure the uploaded file is only readable for the owner process
 	@chmod( $new_file, 0400 );
 
-	if ( $contact_form = wpcf7_get_current_contact_form() ) {
-		$contact_form->uploaded_files[$name] = $new_file;
-
-		if ( empty( $contact_form->posted_data[$name] ) )
-			$contact_form->posted_data[$name] = $filename;
+	if ( $submission = WPCF7_Submission::get_instance() ) {
+		$submission->add_uploaded_file( $name, $new_file );
 	}
 
 	return $result;
@@ -233,7 +224,7 @@ function wpcf7_add_tag_generator_file() {
 		'wpcf7-tg-pane-file', 'wpcf7_tg_pane_file' );
 }
 
-function wpcf7_tg_pane_file( &$contact_form ) {
+function wpcf7_tg_pane_file( $contact_form ) {
 ?>
 <div id="wpcf7-tg-pane-file" class="hidden">
 <form action="">
@@ -299,17 +290,32 @@ function wpcf7_file_display_warning_message() {
 
 function wpcf7_init_uploads() {
 	$dir = wpcf7_upload_tmp_dir();
-	wp_mkdir_p( trailingslashit( $dir ) );
-	@chmod( $dir, 0733 );
+	wp_mkdir_p( $dir );
 
 	$htaccess_file = trailingslashit( $dir ) . '.htaccess';
-	if ( file_exists( $htaccess_file ) )
+
+	if ( file_exists( $htaccess_file ) ) {
 		return;
+	}
 
 	if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
 		fwrite( $handle, "Deny from all\n" );
 		fclose( $handle );
 	}
+}
+
+function wpcf7_maybe_add_random_dir( $dir ) {
+	do {
+		$rand_max = mt_getrandmax();
+		$rand = zeroise( mt_rand( 0, $rand_max ), strlen( $rand_max ) );
+		$dir_new = path_join( $dir, $rand );
+	} while ( file_exists( $dir_new ) );
+
+	if ( wp_mkdir_p( $dir_new ) ) {
+		return $dir_new;
+	}
+
+	return $dir;
 }
 
 function wpcf7_upload_tmp_dir() {
@@ -319,30 +325,37 @@ function wpcf7_upload_tmp_dir() {
 		return wpcf7_upload_dir( 'dir' ) . '/wpcf7_uploads';
 }
 
+add_action( 'template_redirect', 'wpcf7_cleanup_upload_files', 20 );
+
 function wpcf7_cleanup_upload_files() {
+	if ( is_admin() || 'GET' != $_SERVER['REQUEST_METHOD']
+	|| is_robots() || is_feed() || is_trackback() ) {
+		return;
+	}
+
 	$dir = trailingslashit( wpcf7_upload_tmp_dir() );
 
-	if ( ! is_dir( $dir ) )
-		return false;
-	if ( ! is_readable( $dir ) )
-		return false;
-	if ( ! wp_is_writable( $dir ) )
-		return false;
+	if ( ! is_dir( $dir ) || ! is_readable( $dir ) || ! wp_is_writable( $dir ) ) {
+		return;
+	}
 
 	if ( $handle = @opendir( $dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
-			if ( $file == "." || $file == ".." || $file == ".htaccess" )
+			if ( $file == "." || $file == ".." || $file == ".htaccess" ) {
 				continue;
+			}
 
-			$stat = stat( $dir . $file );
-			if ( $stat['mtime'] + 60 < time() ) // 60 secs
-				@unlink( $dir . $file );
+			$mtime = @filemtime( $dir . $file );
+
+			if ( $mtime && time() < $mtime + 60 ) { // less than 60 secs old
+				continue;
+			}
+
+			wpcf7_rmdir_p( path_join( $dir, $file ) );
 		}
+
 		closedir( $handle );
 	}
 }
-
-if ( ! is_admin() && 'GET' == $_SERVER['REQUEST_METHOD'] )
-	wpcf7_cleanup_upload_files();
 
 ?>

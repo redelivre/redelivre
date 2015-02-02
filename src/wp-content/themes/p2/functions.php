@@ -527,20 +527,6 @@ function p2_new_post_noajax() {
 add_filter( 'template_redirect', 'p2_new_post_noajax' );
 
 /**
- * iPhone viewport meta tag.
- *
- * Hooks into the wp_head action late.
- *
- * @uses p2_is_iphone()
- * @since P2 1.4
- */
-function p2_viewport_meta_tag() {
-	if ( p2_is_iphone() )
-		echo '<meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no"/>';
-}
-add_action( 'wp_head', 'p2_viewport_meta_tag', 1000 );
-
-/**
  * iPhone Stylesheet.
  *
  * Hooks into the wp_enqueue_scripts action late.

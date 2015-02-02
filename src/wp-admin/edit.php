@@ -12,6 +12,12 @@ require_once( dirname( __FILE__ ) . '/admin.php' );
 if ( ! $typenow )
 	wp_die( __( 'Invalid post type' ) );
 
+if ( 'attachment' === $typenow ) {
+	if ( wp_redirect( admin_url( 'upload.php' ) ) ) {
+		exit;
+	}
+}
+
 $post_type = $typenow;
 $post_type_object = get_post_type_object( $post_type );
 
@@ -19,7 +25,7 @@ if ( ! $post_type_object )
 	wp_die( __( 'Invalid post type' ) );
 
 if ( ! current_user_can( $post_type_object->cap->edit_posts ) )
-	wp_die( __( 'Cheatin&#8217; uh?' ) );
+	wp_die( __( 'Cheatin&#8217; uh?' ), 403 );
 
 $wp_list_table = _get_list_table('WP_Posts_List_Table');
 $pagenum = $wp_list_table->get_pagenum();
@@ -56,9 +62,12 @@ if ( $doaction ) {
 		$sendback = admin_url($post_new_file);
 
 	if ( 'delete_all' == $doaction ) {
+		// Prepare for deletion of all posts with a specified post status (i.e. Empty trash).
 		$post_status = preg_replace('/[^a-z0-9_-]+/i', '', $_REQUEST['post_status']);
-		if ( get_post_status_object($post_status) ) // Check the post status exists first
+		// Validate the post status exists.
+		if ( get_post_status_object( $post_status ) ) {
 			$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type=%s AND post_status = %s", $post_type, $post_status ) );
+		}
 		$doaction = 'delete';
 	} elseif ( isset( $_REQUEST['media'] ) ) {
 		$post_ids = $_REQUEST['media'];
@@ -152,6 +161,7 @@ if ( $doaction ) {
 $wp_list_table->prepare_items();
 
 wp_enqueue_script('inline-edit-post');
+wp_enqueue_script('heartbeat');
 
 $title = $post_type_object->labels->name;
 
@@ -197,7 +207,7 @@ if ( 'post' == $post_type ) {
 	get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
 	'<p>' . __('<a href="http://codex.wordpress.org/Posts_Screen" target="_blank">Documentation on Managing Posts</a>') . '</p>' .
-	'<p>' . __('<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
 	);
 
 } elseif ( 'page' == $post_type ) {
@@ -218,7 +228,7 @@ if ( 'post' == $post_type ) {
 	get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
 	'<p>' . __('<a href="http://codex.wordpress.org/Pages_Screen" target="_blank">Documentation on Managing Pages</a>') . '</p>' .
-	'<p>' . __('<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
 	);
 }
 

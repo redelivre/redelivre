@@ -44,6 +44,10 @@
 if ( ! defined( 'CUSTOM_TAGS' ) )
 	define( 'CUSTOM_TAGS', false );
 
+// Ensure that these variables are added to the global namespace
+// (e.g. if using namespaces / autoload in the current PHP environment).
+global $allowedposttags, $allowedtags, $allowedentitynames;
+
 if ( ! CUSTOM_TAGS ) {
 	/**
 	 * Kses global for default allowable HTML tags.
@@ -84,6 +88,14 @@ if ( ! CUSTOM_TAGS ) {
 			'lang' => true,
 			'xml:lang' => true,
 		),
+		'audio' => array(
+			'autoplay' => true,
+			'controls' => true,
+			'loop' => true,
+			'muted' => true,
+			'preload' => true,
+			'src' => true,
+		),
 		'b' => array(),
 		'big' => array(),
 		'blockquote' => array(
@@ -115,10 +127,19 @@ if ( ! CUSTOM_TAGS ) {
 			'valign' => true,
 			'width' => true,
 		),
+		'colgroup' => array(
+			'align' => true,
+			'char' => true,
+			'charoff' => true,
+			'span' => true,
+			'valign' => true,
+			'width' => true,
+		),
 		'del' => array(
 			'datetime' => true,
 		),
 		'dd' => array(),
+		'dfn' => array(),
 		'details' => array(
 			'align' => true,
 			'dir' => true,
@@ -235,6 +256,7 @@ if ( ! CUSTOM_TAGS ) {
 		'map' => array(
 			'name' => true,
 		),
+		'mark' => array(),
 		'menu' => array(
 			'type' => true,
 		),
@@ -257,6 +279,7 @@ if ( ! CUSTOM_TAGS ) {
 			'cite' => true,
 		),
 		's' => array(),
+		'samp' => array(),
 		'span' => array(
 			'dir' => true,
 			'align' => true,
@@ -357,6 +380,13 @@ if ( ! CUSTOM_TAGS ) {
 			'charoff' => true,
 			'valign' => true,
 		),
+		'track' => array(
+			'default' => true,
+			'kind' => true,
+			'label' => true,
+			'src' => true,
+			'srclang' => true,
+		),
 		'tt' => array(),
 		'u' => array(),
 		'ul' => array(
@@ -367,6 +397,17 @@ if ( ! CUSTOM_TAGS ) {
 			'type' => true,
 		),
 		'var' => array(),
+		'video' => array(
+			'autoplay' => true,
+			'controls' => true,
+			'height' => true,
+			'loop' => true,
+			'muted' => true,
+			'poster' => true,
+			'preload' => true,
+			'src' => true,
+			'width' => true,
+		),
 	);
 
 	/**
@@ -498,27 +539,42 @@ function wp_kses( $string, $allowed_html, $allowed_protocols = array() ) {
 function wp_kses_allowed_html( $context = '' ) {
 	global $allowedposttags, $allowedtags, $allowedentitynames;
 
-	if ( is_array( $context ) )
+	if ( is_array( $context ) ) {
+		/**
+		 * Filter HTML elements allowed for a given context.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param string $tags    Allowed tags, attributes, and/or entities.
+		 * @param string $context Context to judge allowed tags by. Allowed values are 'post',
+		 *                        'data', 'strip', 'entities', 'explicit', or the name of a filter.
+		 */
 		return apply_filters( 'wp_kses_allowed_html', $context, 'explicit' );
+	}
 
 	switch ( $context ) {
 		case 'post':
+			/** This filter is documented in wp-includes/kses.php */
 			return apply_filters( 'wp_kses_allowed_html', $allowedposttags, $context );
 			break;
 		case 'user_description':
 		case 'pre_user_description':
 			$tags = $allowedtags;
 			$tags['a']['rel'] = true;
+			/** This filter is documented in wp-includes/kses.php */
 			return apply_filters( 'wp_kses_allowed_html', $tags, $context );
 			break;
 		case 'strip':
+			/** This filter is documented in wp-includes/kses.php */
 			return apply_filters( 'wp_kses_allowed_html', array(), $context );
 			break;
 		case 'entities':
+			/** This filter is documented in wp-includes/kses.php */
 			return apply_filters( 'wp_kses_allowed_html', $allowedentitynames, $context);
 			break;
 		case 'data':
 		default:
+			/** This filter is documented in wp-includes/kses.php */
 			return apply_filters( 'wp_kses_allowed_html', $allowedtags, $context );
 	}
 }
@@ -537,7 +593,16 @@ function wp_kses_allowed_html( $context = '' ) {
  * @return string Filtered content through 'pre_kses' hook
  */
 function wp_kses_hook( $string, $allowed_html, $allowed_protocols ) {
-	$string = apply_filters('pre_kses', $string, $allowed_html, $allowed_protocols);
+	/**
+	 * Filter content to be run through kses.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $string            Content to run through kses.
+	 * @param array  $allowed_html      Allowed HTML elements.
+	 * @param array  $allowed_protocols Allowed protocol in links.
+	 */
+	$string = apply_filters( 'pre_kses', $string, $allowed_html, $allowed_protocols );
 	return $string;
 }
 
@@ -596,7 +661,6 @@ function _wp_kses_split_callback( $match ) {
  *
  * @access private
  * @since 1.0.0
- * @uses wp_kses_attr()
  *
  * @param string $string Content to filter
  * @param array $allowed_html Allowed HTML elements
@@ -760,10 +824,10 @@ function wp_kses_hair($attr, $allowed_protocols) {
 		switch ($mode) {
 			case 0 : # attribute name, href for instance
 
-				if (preg_match('/^([-a-zA-Z]+)/', $attr, $match)) {
+				if ( preg_match('/^([-a-zA-Z:]+)/', $attr, $match ) ) {
 					$attrname = $match[1];
 					$working = $mode = 1;
-					$attr = preg_replace('/^[-a-zA-Z]+/', '', $attr);
+					$attr = preg_replace( '/^[-a-zA-Z:]+/', '', $attr );
 				}
 
 				break;
@@ -960,7 +1024,9 @@ function wp_kses_bad_protocol($string, $allowed_protocols) {
 }
 
 /**
- * Removes any null characters in $string.
+ * Removes any invalid control characters in $string.
+ *
+ * Also removes any instance of the '\0' string.
  *
  * @since 1.0.0
  *
@@ -968,7 +1034,7 @@ function wp_kses_bad_protocol($string, $allowed_protocols) {
  * @return string
  */
 function wp_kses_no_null($string) {
-	$string = preg_replace('/\0+/', '', $string);
+	$string = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', '', $string);
 	$string = preg_replace('/(\\\\0)+/', '', $string);
 
 	return $string;
@@ -1106,8 +1172,8 @@ function wp_kses_bad_protocol_once2( $string, $allowed_protocols ) {
 /**
  * Converts and fixes HTML entities.
  *
- * This function normalizes HTML entities. It will convert "AT&T" to the correct
- * "AT&amp;T", "&#00058;" to "&#58;", "&#XYZZY;" to "&amp;#XYZZY;" and so on.
+ * This function normalizes HTML entities. It will convert `AT&T` to the correct
+ * `AT&amp;T`, `&#00058;` to `&#58;`, `&#XYZZY;` to `&amp;#XYZZY;` and so on.
  *
  * @since 1.0.0
  *
@@ -1152,8 +1218,8 @@ function wp_kses_named_entities($matches) {
 /**
  * Callback for wp_kses_normalize_entities() regular expression.
  *
- * This function helps wp_kses_normalize_entities() to only accept 16-bit values
- * and nothing more for &#number; entities.
+ * This function helps {@see wp_kses_normalize_entities()} to only accept 16-bit
+ * values and nothing more for `&#number;` entities.
  *
  * @access private
  * @since 1.0.0
@@ -1211,9 +1277,9 @@ function valid_unicode($i) {
 /**
  * Convert all entities to their character counterparts.
  *
- * This function decodes numeric HTML entities (&#65; and &#x41;). It doesn't do
- * anything with other entities like &auml;, but we don't need them in the URL
- * protocol whitelisting system anyway.
+ * This function decodes numeric HTML entities (`&#65;` and `&#x41;`).
+ * It doesn't do anything with other entities like &auml;, but we don't
+ * need them in the URL protocol whitelisting system anyway.
  *
  * @since 1.0.0
  *
@@ -1251,7 +1317,6 @@ function _wp_kses_decode_entities_chr_hexdec( $match ) {
  * Sanitize content with allowed HTML Kses rules.
  *
  * @since 1.0.0
- * @uses $allowedtags
  *
  * @param string $data Content to filter, expected to be escaped with slashes
  * @return string Filtered content
@@ -1264,7 +1329,6 @@ function wp_filter_kses( $data ) {
  * Sanitize content with allowed HTML Kses rules.
  *
  * @since 2.9.0
- * @uses $allowedtags
  *
  * @param string $data Content to filter, expected to not be escaped
  * @return string Filtered content
@@ -1325,7 +1389,6 @@ function wp_filter_nohtml_kses( $data ) {
  * 'excerpt_save_pre', and 'content_filtered_save_pre' hooks.
  *
  * @since 2.0.0
- * @uses add_filter() See description for what functions are added to what hooks.
  */
 function kses_init_filters() {
 	// Normal filtering
@@ -1380,9 +1443,6 @@ function kses_remove_filters() {
  * to have Kses filter the content. If the user does not have unfiltered_html
  * capability, then Kses filters are added.
  *
- * @uses kses_remove_filters() Removes the Kses filters
- * @uses kses_init_filters() Adds the Kses filters back if the user
- *		does not have unfiltered HTML capability.
  * @since 2.0.0
  */
 function kses_init() {
@@ -1407,10 +1467,18 @@ function safecss_filter_attr( $css, $deprecated = '' ) {
 	$css = wp_kses_no_null($css);
 	$css = str_replace(array("\n","\r","\t"), '', $css);
 
-	if ( preg_match( '%[\\(&=}]|/\*%', $css ) ) // remove any inline css containing \ ( & } = or comments
+	if ( preg_match( '%[\\\\(&=}]|/\*%', $css ) ) // remove any inline css containing \ ( & } = or comments
 		return '';
 
 	$css_array = explode( ';', trim( $css ) );
+
+	/**
+	 * Filter list of allowed CSS attributes.
+	 *
+	 * @since 2.8.1
+	 *
+	 * @param array $attr List of allowed CSS attributes.
+	 */
 	$allowed_attr = apply_filters( 'safe_style_css', array( 'text-align', 'margin', 'color', 'float',
 	'border', 'background', 'background-color', 'border-bottom', 'border-bottom-color',
 	'border-bottom-style', 'border-bottom-width', 'border-collapse', 'border-color', 'border-left',
@@ -1464,6 +1532,7 @@ function _wp_add_global_attributes( $value ) {
 		'id' => true,
 		'style' => true,
 		'title' => true,
+		'role' => true,
 	);
 
 	if ( true === $value )

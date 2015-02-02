@@ -41,7 +41,6 @@ while( have_posts()) : the_post();
 <?php
 // this line is WordPress' motor, do not delete it.
 $commenter = wp_get_current_commenter();
-extract($commenter);
 $comments = get_approved_comments($id);
 $post = get_post($id);
 if ( post_password_required($post) ) {  // and it doesn't match the cookie
@@ -71,17 +70,17 @@ if ( post_password_required($post) ) {  // and it doesn't match the cookie
 	<p><?php printf(__('Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s" title="Log out of this account">Log out &raquo;</a>'), get_edit_user_link(), $user_identity, wp_logout_url(get_permalink())); ?></p>
 <?php else : ?>
 	<p>
-	  <input type="text" name="author" id="author" class="textarea" value="<?php echo esc_attr($comment_author); ?>" size="28" tabindex="1" />
+	  <input type="text" name="author" id="author" class="textarea" value="<?php echo esc_attr( $commenter['comment_author'] ); ?>" size="28" tabindex="1" />
 	   <label for="author"><?php _e('Name'); ?></label>
 	</p>
 
 	<p>
-	  <input type="text" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="28" tabindex="2" />
+	  <input type="text" name="email" id="email" value="<?php echo esc_attr( $commenter['comment_author_email'] ); ?>" size="28" tabindex="2" />
 	   <label for="email"><?php _e('E-mail'); ?></label>
 	</p>
 
 	<p>
-	  <input type="text" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="28" tabindex="3" />
+	  <input type="text" name="url" id="url" value="<?php echo esc_attr( $commenter['comment_author_url'] ); ?>" size="28" tabindex="3" />
 	   <label for="url"><?php _e('<abbr title="Universal Resource Locator">URL</abbr>'); ?></label>
 	</p>
 <?php endif; ?>
@@ -97,7 +96,10 @@ if ( post_password_required($post) ) {  // and it doesn't match the cookie
 	  <input type="hidden" name="redirect_to" value="<?php echo esc_attr($_SERVER["REQUEST_URI"]); ?>" />
 	  <input name="submit" type="submit" tabindex="5" value="<?php esc_attr_e('Say It!' ); ?>" />
 	</p>
-	<?php do_action('comment_form', $post->ID); ?>
+	<?php
+	/** This filter is documented in wp-includes/comment-template.php */
+	do_action( 'comment_form', $post->ID );
+	?>
 </form>
 <?php } else { // comments are closed ?>
 <p><?php _e('Sorry, the comment form is closed at this time.'); ?></p>
@@ -115,7 +117,7 @@ else: // have_posts()
 <?php endif; ?>
 <!-- // this is just the end of the motor - don't touch that line either :) -->
 <?php //} ?>
-<p class="credit"><?php timer_stop(1); ?> <cite><?php printf(__('Powered by <a href="%s" title="Powered by WordPress, state-of-the-art semantic personal publishing platform"><strong>WordPress</strong></a>'), 'http://wordpress.org/'); ?></cite></p>
+<p class="credit"><?php timer_stop(1); ?> <cite><?php printf(__('Powered by <a href="%s" title="Powered by WordPress, state-of-the-art semantic personal publishing platform"><strong>WordPress</strong></a>'), 'https://wordpress.org/'); ?></cite></p>
 <?php // Seen at http://www.mijnkopthee.nl/log2/archive/2003/05/28/esc(18) ?>
 <script type="text/javascript">
 <!--

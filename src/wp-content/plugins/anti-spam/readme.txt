@@ -1,10 +1,10 @@
 === Anti-spam ===
 Contributors: webvitaly
 Donate link: http://web-profile.com.ua/donate/
-Tags: spam, spammer, spammers, comment, comments, antispam, anti-spam, block-spam, spamfree, spam-free, spambot, spam-bot, bot
-Requires at least: 3.0
-Tested up to: 3.8.1
-Stable tag: 2.1
+Tags: spam, spammer, comment, comments, comment-spam, antispam, anti-spam, block-spam, spam-free, spambot, spam-bot, bot
+Requires at least: 3.3
+Tested up to: 4.1
+Stable tag: 3.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -12,9 +12,11 @@ No spam in comments. No captcha.
 
 == Description ==
 
-[Anti-spam](http://web-profile.com.ua/wordpress/plugins/anti-spam/ "Plugin page") |
-[Donate](http://web-profile.com.ua/donate/ "Support the development") |
-[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169 "Anti-spam Pro")
+> **[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitaly "Upgrade to Pro")** |
+> **[Anti-spam](http://web-profile.com.ua/wordpress/plugins/anti-spam/ "Plugin page")** |
+> **[Donate](http://web-profile.com.ua/donate/ "Support the development")**
+
+**Why humans should prove that they are humans by filling captchas? Lets bots prove that they are not bots with adding javascript to their user-agents!**
 
 Anti-spam plugin blocks spam in comments automatically, invisibly for users and for admins.
 
@@ -22,18 +24,17 @@ Anti-spam plugin blocks spam in comments automatically, invisibly for users and 
 * **no moderation queues**, because spam is not administrators' problem
 * **no options**, because it is great to forget about spam completely
 
-If you need more powerful and extended version with options you may try [Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169).
-
 Plugin is easy to use: just install it and it just works.
-Need [more info about the plugin](http://wordpress.org/plugins/anti-spam/faq/)?
+
+**Plugin blocks spam only in comments section**.
 
 After installing the Anti-spam plugin **try to submit a comment on your site being logged out**.
 If you get an error - you may check the solution in the [Support section](http://wordpress.org/support/plugin/anti-spam) or submit a new topic with detailed description of your problem.
 
 = Useful: =
-* ["activetab" - responsive clean theme](http://wordpress.org/themes/activetab "responsive clean and light theme")
-* ["Page-list" - show list of pages with shortcodes](http://wordpress.org/plugins/page-list/ "list of pages with shortcodes")
-* ["Filenames to latin" - sanitize filenames to latin during upload](http://wordpress.org/plugins/filenames-to-latin/ "sanitize filenames to latin")
+* [Anti-spam Pro - more powerful and extended version with settings page](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitaly "Upgrade to Pro")
+* [Security-protection - blocks brute-force attacks](http://wordpress.org/plugins/security-protection/ "stops brute-force attacks")
+* [WordPress Pro plugins](http://codecanyon.net/popular_item/by_category?category=wordpress&ref=webvitaly)
 
 == Installation ==
 
@@ -42,33 +43,49 @@ If you get an error - you may check the solution in the [Support section](http:/
 
 == Frequently Asked Questions ==
 
+= Incompatible with: =
+
+* Disqus
+* Jetpack Comments
+* AJAX Comment Form
+* bbPress
+
 = How does Anti-spam plugin work? =
 
-Two extra hidden fields are added to comments form. First field is the question about the current year. Second field should be empty.
-If the user visits site, than first field is answered automatically with javascript, second field left blank and both fields are hidden by javascript and css and invisible for the user.
-If the spammer tries to submit comment form, he will make a mistake with answer on first field or tries to submit an empty field and spam comment will be automatically rejected.
+The blocking algorithm is based on 2 methods: 'invisible js-captcha' and 'invisible input trap'.
+
+= How does 'invisible js-captcha' method work? =
+
+The 'invisible js-captcha' method is based on fact that bots does not have javascript on their user-agents.
+Extra hidden field is added to comments form.
+It is the question about the current year.
+If the user visits site, than this field is answered automatically with javascript, is hidden by javascript and css and invisible for the user.
+If the spammer will fill year-field incorrectly - the comment will be blocked because it is spam.
+
+= How does 'invisible input trap' method work? =
+
+The 'invisible input trap' method is based on fact that almost all the bots will fill inputs with name 'email' or 'url'.
+Extra hidden field is added to comments form.
+This field is hidden for the user and user will not fill it.
+But this field is visible for the spammer.
+If the spammer will fill this trap-field with anything - the comment will be blocked because it is spam.
 
 = How to test what spam comments are rejected? =
 
 You may enable sending all rejected spam comments to admin email.
 Edit [anti-spam.php](http://plugins.trac.wordpress.org/browser/anti-spam/trunk/anti-spam.php) file and find "$antispam_send_spam_comment_to_admin" and make it "true".
+You can also find the info block with total spam blocked counter in the admin comments section.
+You can hide or show this info block in the "Screen Options" section. The info block visibility option is saved per user.
 
-= Does Anti-spam plugin work with Jetpack Comments? =
+= Does plugin block spam from Contact or other forms? =
 
-Anti-spam plugin does not work with [Jetpack Comments](http://jetpack.me/support/comments/).
-Jetpack Comments use iframe to insert comment form and it is impossible to access it via javascript because of security reasons.
-If you use Jetpack Comments - you should find some other plugin to block spam.
-You could try [Akismet](http://wordpress.org/plugins/akismet/), it is compatible with Jetpack Comments.
-
-= Does Anti-spam plugin work with ajax comments forms? =
-
-Some themes, for example [p2](http://wordpress.org/themes/p2), use ajax to submit comment.
-But if the script of the theme will not submit extra Anti-spam fields - so Anti-spam plugin will not work.
+Plugin blocks spam only in comments form section and does not block spam from any other forms on site.
+If you installed and activated the plugin and you still receiving spam - probably this could be because of some other forms on your site (for example comments forms).
 
 = What is the percentage of spam blocked? =
 
-Anti-spam plugin blocks about 99.9% of automatic spam messages (sent by spam-bots via post requests). 
-But Anti-spam plugin will pass the messages which were submitted by spammers manually via browser. But such messages happens very rarely.
+Plugin blocks about 99.9% of automatic spam messages (sent by spam-bots via post requests).
+Plugin will pass the messages which were submitted by spammers manually via browser. But such messages happens very rarely.
 
 = What about trackback spam? =
 
@@ -78,23 +95,64 @@ So trackbacks are blocked by default but pingbacks are enabled. You may enable t
 Edit [anti-spam.php](http://plugins.trac.wordpress.org/browser/anti-spam/trunk/anti-spam.php) file and find "$antispam_allow_trackbacks" and make it "true".
 You may read more about the [difference between trackbacks and pingbacks](http://web-profile.com.ua/web/trackback-vs-pingback/).
 
-= And one more thing... =
+= Unobtrusive JavaScript =
 
-If site has caching plugin enabled and cache is not cleared or if theme does not use 'comment_form' action - Anti-spam plugin does not worked. So in new version of the plugin now whole input added via javascript if it does not exist in html of the comments form.
+Anti-spam plugin works with disabled JavaScript. JavaScript is disabled on less than 1% of devices.
+Users with disabled JavaScript should manually fill catcha-like input before submitting the comment.
+
+= And one more extra note... =
+
+If site has caching plugin enabled and cache is not cleared or if theme does not use 'comment_form' action
+and there is no plugin inputs in comments form - plugin tries to add hidden fields automatically using JavaScript.
 
 = Not enough information about the plugin? =
 
 You may check out the [source code of the plugin](http://plugins.trac.wordpress.org/browser/anti-spam/trunk/anti-spam.php).
-The plugin has about 100 lines of code and pretty easy to read. I was trying my best to make plugin's code clean.
-Plugin is small but it makes all the dirty work against spam pretty good. You may give it a try.
-
-= How to reduce the amount of spam? =
-
-Do not order spam-newsletters because people hate spam and people will not like products received from spam.
-Do not order products from spam. If spam will be less effective than spammers will stop sending it.
+The plugin is pretty small and easy to read.
 
 
 == Changelog ==
+= 3.5 - 2015-01-17 =
+* removed function_exists check because each function has unique prefix
+* removed add_option()
+
+= 3.4 - 2014-12-20 =
+* added the ability to hide or show info block in the "Screen Options" section
+
+= 3.3 - 2014-12-15 =
+* refactor code structure
+* added blocked spam counter in the comments section
+* clean up the docs
+
+= 3.2 - 2014-12-05 =
+* added ANTISPAM_VERSION constant (thanks to jumbo)
+* removed new spam-block algorithm because it is not needed
+
+= 3.1 - 2014-12-04 =
+* remove log notices
+
+= 3.0 - 2014-12-02 =
+* added new spam-block algorithm
+* bugfixing
+* enqueue script only for pages with comments form and in the footer (thanks to dougvdotcom)
+* refactor code structure
+
+= 2.6 - 2014-11-30 =
+* reverting to ver.2.2 state (enqueue script using 'init' hook and into the header) because users start receiving spam messages
+
+= 2.5 - 2014-11-26 =
+* update input names
+
+= 2.4 - 2014-11-25 =
+* update input names
+
+= 2.3 - 2014-11-23 =
+* enqueue script only for pages with comments form and in the footer (thanks to dougvdotcom)
+* clean up code
+
+= 2.2 - 2014-08-03 =
+* clear value of the empty input because some themes are adding some value for all inputs
+* updated FAQ section
 
 = 2.1 - 2014-02-15 =
 * add support for comments forms loaded via ajax

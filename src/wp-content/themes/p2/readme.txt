@@ -25,10 +25,19 @@ http://en.blog.wordpress.com/2009/03/11/p2-the-new-prologue/
 
 == Changelog ==
 
+= 1.5.5 - July 2014 =
+* Allow user scaling on mobile version, props ryansommers
+* Move viewport meta element to header, to load for all user agents, props ryansommers
+* Fix audio player styles, props targz-1
+* Fix menu display bug when custom header image is enabled and header text is hidden + a menu is visible
+* Fix PHP warnings for strict mode
+* Fix a bug where Author users could not add media via front end editor, props mfkelly
+* Translation updates (pulled automatically from https://translate.wordpress.com/projects/wpcom/themes/p2)
+
 = 1.5.4 - June 2014 =
 * Reduce text strings to avoid too many similar strings for easier translation
-* Add display inline-block to sharedaddy lists to avoid issue with lists in the content
-* Fix tooltip issue with Recent Comments widget
+* Add display inline-block to Sharedaddy lists to avoid issue with lists in the content
+* Fix tooltip issue with Recent Comments widget, reported by Mazen Gamal Mesbah @mazengamal
 
 = 1.5.3 =
 * Add earlier filter to mentions URLs in case term doesn't exist

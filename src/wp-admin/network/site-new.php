@@ -27,7 +27,7 @@ if ( ! current_user_can( 'manage_sites' ) )
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
 	'<p>' . __('<a href="http://codex.wordpress.org/Network_Admin_Sites_Screen" target="_blank">Documentation on Site Management</a>') . '</p>' .
-	'<p>' . __('<a href="http://wordpress.org/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://wordpress.org/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
@@ -49,15 +49,19 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 			wp_die( sprintf( __('The following words are reserved for use by WordPress functions and cannot be used as blog names: <code>%s</code>' ), implode( '</code>, <code>', $subdirectory_reserved_names ) ) );
 	}
 
-	$email = sanitize_email( $blog['email'] );
 	$title = $blog['title'];
 
 	if ( empty( $domain ) )
 		wp_die( __( 'Missing or invalid site address.' ) );
-	if ( empty( $email ) )
+
+	if ( isset( $blog['email'] ) && '' === trim( $blog['email'] ) ) {
 		wp_die( __( 'Missing email address.' ) );
-	if ( !is_email( $email ) )
+	}
+
+	$email = sanitize_email( $blog['email'] );
+	if ( ! is_email( $email ) ) {
 		wp_die( __( 'Invalid email address.' ) );
+	}
 
 	if ( is_subdomain_install() ) {
 		$newdomain = $domain . '.' . preg_replace( '|^www\.|', '', $current_site->domain );
@@ -106,6 +110,8 @@ if ( isset($_GET['update']) ) {
 $title = __('Add New Site');
 $parent_file = 'sites.php';
 
+wp_enqueue_script( 'user-suggest' );
+
 require( ABSPATH . 'wp-admin/admin-header.php' );
 
 ?>
@@ -117,16 +123,16 @@ if ( ! empty( $messages ) ) {
 	foreach ( $messages as $msg )
 		echo '<div id="message" class="updated"><p>' . $msg . '</p></div>';
 } ?>
-<form method="post" action="<?php echo network_admin_url('site-new.php?action=add-site'); ?>">
+<form method="post" action="<?php echo network_admin_url( 'site-new.php?action=add-site' ); ?>" novalidate="novalidate">
 <?php wp_nonce_field( 'add-blog', '_wpnonce_add-blog' ) ?>
 	<table class="form-table">
 		<tr class="form-field form-required">
 			<th scope="row"><?php _e( 'Site Address' ) ?></th>
 			<td>
 			<?php if ( is_subdomain_install() ) { ?>
-				<input name="blog[domain]" type="text" class="regular-text" title="<?php esc_attr_e( 'Domain' ) ?>"/><span class="no-break">.<?php echo preg_replace( '|^www\.|', '', $current_site->domain ); ?></span>
+				<input name="blog[domain]" type="text" class="regular-text" id="site-address" title="<?php esc_attr_e( 'Domain' ) ?>"/><span class="no-break">.<?php echo preg_replace( '|^www\.|', '', $current_site->domain ); ?></span>
 			<?php } else {
-				echo $current_site->domain . $current_site->path ?><input name="blog[domain]" class="regular-text" type="text" title="<?php esc_attr_e( 'Domain' ) ?>"/>
+				echo $current_site->domain . $current_site->path ?><input name="blog[domain]" class="regular-text" id="site-address" type="text" title="<?php esc_attr_e( 'Domain' ) ?>"/>
 			<?php }
 			echo '<p>' . __( 'Only lowercase letters (a-z) and numbers are allowed.' ) . '</p>';
 			?>
@@ -134,11 +140,11 @@ if ( ! empty( $messages ) ) {
 		</tr>
 		<tr class="form-field form-required">
 			<th scope="row"><?php _e( 'Site Title' ) ?></th>
-			<td><input name="blog[title]" type="text" class="regular-text" title="<?php esc_attr_e( 'Title' ) ?>"/></td>
+			<td><input name="blog[title]" type="text" class="regular-text" id="site-title" title="<?php esc_attr_e( 'Title' ) ?>"/></td>
 		</tr>
 		<tr class="form-field form-required">
 			<th scope="row"><?php _e( 'Admin Email' ) ?></th>
-			<td><input name="blog[email]" type="text" class="regular-text" title="<?php esc_attr_e( 'Email' ) ?>"/></td>
+			<td><input name="blog[email]" type="email" class="regular-text wp-suggest-user" id="admin-email" data-autocomplete-type="search" data-autocomplete-field="user_email" title="<?php esc_attr_e( 'Email' ) ?>"/></td>
 		</tr>
 		<tr class="form-field">
 			<td colspan="2"><?php _e( 'A new user will be created if the above email address is not in the database.' ) ?><br /><?php _e( 'The username and password will be mailed to this email address.' ) ?></td>

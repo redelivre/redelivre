@@ -78,11 +78,16 @@ function origin_widgets_less_widgetimage($url){
 	}
 
 	// Search for the appropriate image
+	$return_url = '';
 	foreach(SiteOrigin_Panels_Widget::get_image_folders() as $folder => $folder_url) {
 		if(file_exists($folder.'/'.$the_url)) {
-			return esc_url($folder_url.'/'.$the_url);
+			$return_url = $folder_url.'/'.$the_url;
 		}
 	}
 
-	return '';
+	if ( is_ssl() ) {
+		$return_url = str_replace('http://', 'https://', $return_url);
+	}
+
+	return $return_url;
 }

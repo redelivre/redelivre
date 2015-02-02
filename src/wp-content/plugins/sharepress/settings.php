@@ -309,7 +309,7 @@ p.submit.floating input { position: fixed; top: 40px; right: 20px; font-size: 18
                 'og:site_name' => false,
                 'og:description' => false,
                 'og:locale' => false
-              ), $page_og_tag);
+              ), !empty($page_og_tag) ? $page_og_tag : array());
             ?>
             <input type="hidden" name="<?php echo self::OPTION_SETTINGS ?>[page_og_tag][__PLACEHOLDER__]" value="__PLACEHOLDER__" />
             

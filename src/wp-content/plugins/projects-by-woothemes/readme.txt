@@ -3,8 +3,8 @@ Contributors: woothemes, mattyza, jameskoster, tiagonoronha
 Donate link: http://woothemes.com/
 Tags: portfolio, projects, project, showcase, artwork, work, creative, photography, art, images, woocommerce
 Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 1.2.2
+Tested up to: 4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,14 +103,37 @@ You sure can! Read about how in the [documentation](http://docs.woothemes.com/do
 
 == Upgrade Notice ==
 
-= 1.2.0 =
+= 1.4.0 =
+* The default permalink structure has been tweaked to remove the project category. So http://localhost/network/project/landscapes/the-barrow-downs/ becomes http://localhost/network/project/the-barrow-downs/. Any old links will automatically redirect to their newer counterparts. You may have to re-save your permalink settings after performing this update. You can use the `projects_post_type_rewrite` filter to adjust this.
 
+= 1.3.0 =
+* The project category urls have been improved to use the base page title as the slug opposed to the `project-category` default. So, previously your project cateogry urls will have looked like: yoursite.com/project-category/illustration. Now, `project-category` is replaced with the slug of your projects base page. So if you're using a page called 'Portfolio' that url will now look like: yoursite.com/portfolio/illustration. You will have to create custom redirects if you want the old urls work.
+* This version adds admin tabs to the settings screens, and will run an update to your existing settings data. If your data is not retained, simply resave your settings.
+
+= 1.2.0 =
 * The project archive slug now mirrors your projects base page slug isntead of being fixed as 'projects'.  If you're using a base page with a slug other than 'projects' you may want to check any static links to your projects page. For example if your base page is 'portfolio' your projects post type archive will now exist at http://yoursite.com/portfolio rather than http://yoursite.com/projects.
 
 = 1.0.0 =
 * Initial release. Woo!
 
 == Changelog ==
+
+= 1.4.1 =
+* 2014.12.05
+* Fix - Redirect issue when setting projects page as homepage.
+
+= 1.4.0 =
+* 2014-11-11
+* Fix - Project gallery thumbnail sizes in admin. (Props @corvannoorloos).
+* Fix - Undefined index notice when trashing/untrashing projects. (Props @johnbuck).
+* Tweak - Improvements to `projects_template_redirect()`.
+* Tweak - Added `rel="lightbox"` to project galleries for compatibility with lightbox plugins.
+* Tweak - Project post type default url structure no longer includes project category (resolves attachment page 404's.
+
+= 1.3.0 =
+* 2014-08-26
+* New - Adds admin tabs to the settings screens for better UX.
+* New - Category permalinks use base page for structure.
 
 = 1.2.2 =
 * 2014-06-06

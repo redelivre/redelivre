@@ -27,7 +27,7 @@ get_current_screen()->add_help_tab( array(
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
 	'<p>' . __('<a href="http://codex.wordpress.org/Network_Admin_Users_Screen" target="_blank">Documentation on Network Users</a>') . '</p>' .
-	'<p>' . __('<a href="http://wordpress.org/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://wordpress.org/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 if ( isset($_REQUEST['action']) && 'add-user' == $_REQUEST['action'] ) {
@@ -38,14 +38,14 @@ if ( isset($_REQUEST['action']) && 'add-user' == $_REQUEST['action'] ) {
 	if ( ! is_array( $_POST['user'] ) )
 		wp_die( __( 'Cannot create an empty user.' ) );
 
-	$user = $_POST['user'];
+	$user = wp_unslash( $_POST['user'] );
 
 	$user_details = wpmu_validate_user_signup( $user['username'], $user['email'] );
 	if ( is_wp_error( $user_details[ 'errors' ] ) && ! empty( $user_details[ 'errors' ]->errors ) ) {
 		$add_user_errors = $user_details[ 'errors' ];
 	} else {
 		$password = wp_generate_password( 12, false);
-		$user_id = wpmu_create_user( esc_html( strtolower( $user['username'] ) ), $password, esc_html( $user['email'] ) );
+		$user_id = wpmu_create_user( esc_html( strtolower( $user['username'] ) ), $password, sanitize_email( $user['email'] ) );
 
 		if ( ! $user_id ) {
 	 		$add_user_errors = new WP_Error( 'add_user_fail', __( 'Cannot add user.' ) );

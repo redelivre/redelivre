@@ -61,15 +61,6 @@ define('NONCE_SALT',       'put your unique phrase here');
  */
 $table_prefix  = 'wp_';
 
-/**
- * O idioma localizado do WordPress é o inglês por padrão.
- *
- * Altere esta definição para localizar o WordPress. Um arquivo MO correspondente ao
- * idioma escolhido deve ser instalado em wp-content/languages. Por exemplo, instale
- * pt_BR.mo em wp-content/languages e altere WPLANG para 'pt_BR' para habilitar o suporte
- * ao português do Brasil.
- */
-define('WPLANG', 'pt_BR');
 
 /**
  * Para desenvolvedores: Modo debugging WordPress.

@@ -28,7 +28,7 @@ if ( !function_exists('set_current_user') ) :
  *
  * @param int|null $id User ID.
  * @param string $name Optional. The user's username
- * @return object returns wp_set_current_user()
+ * @return WP_User returns wp_set_current_user()
  */
 function set_current_user($id, $name = '') {
 	_deprecated_function( __FUNCTION__, '3.0', 'wp_set_current_user()' );
@@ -57,7 +57,7 @@ if ( !function_exists('get_user_by_email') ) :
 /**
  * Retrieve user info by email.
  *
- * @since 2.5
+ * @since 2.5.0
  * @deprecated 3.3.0
  * @deprecated Use get_user_by('email')
  *
@@ -74,8 +74,8 @@ if ( !function_exists('wp_setcookie') ) :
 /**
  * Sets a cookie for a user who just logged in. This function is deprecated.
  *
- * @since 1.5
- * @deprecated 2.5
+ * @since 1.5.0
+ * @deprecated 2.5.0
  * @deprecated Use wp_set_auth_cookie()
  * @see wp_set_auth_cookie()
  *
@@ -99,8 +99,8 @@ if ( !function_exists('wp_clearcookie') ) :
 /**
  * Clears the authentication cookie, logging the user out. This function is deprecated.
  *
- * @since 1.5
- * @deprecated 2.5
+ * @since 1.5.0
+ * @deprecated 2.5.0
  * @deprecated Use wp_clear_auth_cookie()
  * @see wp_clear_auth_cookie()
  */
@@ -120,7 +120,7 @@ if ( !function_exists('wp_get_cookie_login') ):
  * used anywhere in WordPress. Also, plugins shouldn't use it either.
  *
  * @since 2.0.3
- * @deprecated 2.5
+ * @deprecated 2.5.0
  * @deprecated No alternative
  *
  * @return bool Always returns false
@@ -148,9 +148,9 @@ if ( !function_exists('wp_login') ) :
  * @deprecated Use wp_signon()
  * @global string $error Error when false is returned
  *
- * @param string $username User's username
- * @param string $password User's password
- * @param bool $deprecated Not used
+ * @param string $username   User's username
+ * @param string $password   User's password
+ * @param string $deprecated Not used
  * @return bool False on login failure, true on successful check
  */
 function wp_login($username, $password, $deprecated = '') {
@@ -177,7 +177,7 @@ endif;
  *
  * @since 2.2.0
  * @deprecated 3.5.0
- * @link http://wordpress.org/plugins/atom-publishing-protocol/
+ * @link https://wordpress.org/plugins/atom-publishing-protocol/
  */
 if ( ! class_exists( 'wp_atom_server' ) ) {
 	class wp_atom_server {

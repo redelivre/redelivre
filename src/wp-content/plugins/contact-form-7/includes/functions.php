@@ -13,122 +13,6 @@ function wpcf7_plugin_url( $path = '' ) {
 	return $url;
 }
 
-function wpcf7_deprecated_function( $function, $version, $replacement = null ) {
-	do_action( 'wpcf7_deprecated_function_run', $function, $replacement, $version );
-
-	if ( WP_DEBUG && apply_filters( 'wpcf7_deprecated_function_trigger_error', true ) ) {
-		if ( ! is_null( $replacement ) )
-			trigger_error( sprintf( __( '%1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead.', 'contact-form-7' ), $function, $version, $replacement ) );
-		else
-			trigger_error( sprintf( __( '%1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s with no alternative available.', 'contact-form-7' ), $function, $version ) );
-	}
-}
-
-function wpcf7_messages() {
-	$messages = array(
-		'mail_sent_ok' => array(
-			'description' => __( "Sender's message was sent successfully", 'contact-form-7' ),
-			'default' => __( 'Your message was sent successfully. Thanks.', 'contact-form-7' )
-		),
-
-		'mail_sent_ng' => array(
-			'description' => __( "Sender's message was failed to send", 'contact-form-7' ),
-			'default' => __( 'Failed to send your message. Please try later or contact the administrator by another method.', 'contact-form-7' )
-		),
-
-		'validation_error' => array(
-			'description' => __( "Validation errors occurred", 'contact-form-7' ),
-			'default' => __( 'Validation errors occurred. Please confirm the fields and submit it again.', 'contact-form-7' )
-		),
-
-		'spam' => array(
-			'description' => __( "Submission was referred to as spam", 'contact-form-7' ),
-			'default' => __( 'Failed to send your message. Please try later or contact the administrator by another method.', 'contact-form-7' )
-		),
-
-		'accept_terms' => array(
-			'description' => __( "There are terms that the sender must accept", 'contact-form-7' ),
-			'default' => __( 'Please accept the terms to proceed.', 'contact-form-7' )
-		),
-
-		'invalid_required' => array(
-			'description' => __( "There is a field that the sender must fill in", 'contact-form-7' ),
-			'default' => __( 'Please fill the required field.', 'contact-form-7' )
-		)
-	);
-
-	return apply_filters( 'wpcf7_messages', $messages );
-}
-
-function wpcf7_get_default_template( $prop = 'form' ) {
-	if ( 'form' == $prop )
-		$template = wpcf7_default_form_template();
-	elseif ( 'mail' == $prop )
-		$template = wpcf7_default_mail_template();
-	elseif ( 'mail_2' == $prop )
-		$template = wpcf7_default_mail_2_template();
-	elseif ( 'messages' == $prop )
-		$template = wpcf7_default_messages_template();
-	else
-		$template = null;
-
-	return apply_filters( 'wpcf7_default_template', $template, $prop );
-}
-
-function wpcf7_default_form_template() {
-	$template =
-		'<p>' . __( 'Your Name', 'contact-form-7' ) . ' ' . __( '(required)', 'contact-form-7' ) . '<br />' . "\n"
-		. '    [text* your-name] </p>' . "\n\n"
-		. '<p>' . __( 'Your Email', 'contact-form-7' ) . ' ' . __( '(required)', 'contact-form-7' ) . '<br />' . "\n"
-		. '    [email* your-email] </p>' . "\n\n"
-		. '<p>' . __( 'Subject', 'contact-form-7' ) . '<br />' . "\n"
-		. '    [text your-subject] </p>' . "\n\n"
-		. '<p>' . __( 'Your Message', 'contact-form-7' ) . '<br />' . "\n"
-		. '    [textarea your-message] </p>' . "\n\n"
-		. '<p>[submit "' . __( 'Send', 'contact-form-7' ) . '"]</p>';
-
-	return $template;
-}
-
-function wpcf7_default_mail_template() {
-	$subject = '[your-subject]';
-	$sender = '[your-name] <[your-email]>';
-	$body = sprintf( __( 'From: %s', 'contact-form-7' ), '[your-name] <[your-email]>' ) . "\n"
-		. sprintf( __( 'Subject: %s', 'contact-form-7' ), '[your-subject]' ) . "\n\n"
-		. __( 'Message Body:', 'contact-form-7' ) . "\n" . '[your-message]' . "\n\n" . '--' . "\n"
-		. sprintf( __( 'This e-mail was sent from a contact form on %1$s (%2$s)', 'contact-form-7' ),
-			get_bloginfo( 'name' ), get_bloginfo( 'url' ) );
-	$recipient = get_option( 'admin_email' );
-	$additional_headers = '';
-	$attachments = '';
-	$use_html = 0;
-	return compact( 'subject', 'sender', 'body', 'recipient', 'additional_headers', 'attachments', 'use_html' );
-}
-
-function wpcf7_default_mail_2_template() {
-	$active = false;
-	$subject = '[your-subject]';
-	$sender = '[your-name] <[your-email]>';
-	$body = __( 'Message Body:', 'contact-form-7' ) . "\n" . '[your-message]' . "\n\n" . '--' . "\n"
-		. sprintf( __( 'This e-mail was sent from a contact form on %1$s (%2$s)', 'contact-form-7' ),
-			get_bloginfo( 'name' ), get_bloginfo( 'url' ) );
-	$recipient = '[your-email]';
-	$additional_headers = '';
-	$attachments = '';
-	$use_html = 0;
-	return compact( 'active', 'subject', 'sender', 'body', 'recipient', 'additional_headers', 'attachments', 'use_html' );
-}
-
-function wpcf7_default_messages_template() {
-	$messages = array();
-
-	foreach ( wpcf7_messages() as $key => $arr ) {
-		$messages[$key] = $arr['default'];
-	}
-
-	return $messages;
-}
-
 function wpcf7_upload_dir( $type = false ) {
 	$uploads = wp_upload_dir();
 
@@ -156,26 +40,25 @@ function wpcf7_l10n() {
 		'sq' => __( 'Albanian', 'contact-form-7' ),
 		'ar' => __( 'Arabic', 'contact-form-7' ),
 		'hy_AM' => __( 'Armenian', 'contact-form-7' ),
-		'az_AZ' => __( 'Azerbaijani', 'contact-form-7' ),
+		'az' => __( 'Azerbaijani', 'contact-form-7' ),
 		'bn_BD' => __( 'Bangla', 'contact-form-7' ),
 		'eu' => __( 'Basque', 'contact-form-7' ),
 		'be_BY' => __( 'Belarusian', 'contact-form-7' ),
-		'bs' => __( 'Bosnian', 'contact-form-7' ),
-		'pt_BR' => __( 'Brazilian Portuguese', 'contact-form-7' ),
+		'bs_BA' => __( 'Bosnian', 'contact-form-7' ),
 		'bg_BG' => __( 'Bulgarian', 'contact-form-7' ),
 		'ca' => __( 'Catalan', 'contact-form-7' ),
 		'ckb' => __( 'Central Kurdish', 'contact-form-7' ),
-		'zh_CN' => __( 'Chinese (Simplified)', 'contact-form-7' ),
-		'zh_TW' => __( 'Chinese (Traditional)', 'contact-form-7' ),
+		'zh_CN' => __( 'Chinese (China)', 'contact-form-7' ),
+		'zh_TW' => __( 'Chinese (Taiwan)', 'contact-form-7' ),
 		'hr' => __( 'Croatian', 'contact-form-7' ),
 		'cs_CZ' => __( 'Czech', 'contact-form-7' ),
 		'da_DK' => __( 'Danish', 'contact-form-7' ),
 		'nl_NL' => __( 'Dutch', 'contact-form-7' ),
-		'en_US' => __( 'English', 'contact-form-7' ),
+		'en_US' => __( 'English (United States)', 'contact-form-7' ),
 		'eo_EO' => __( 'Esperanto', 'contact-form-7' ),
 		'et' => __( 'Estonian', 'contact-form-7' ),
 		'fi' => __( 'Finnish', 'contact-form-7' ),
-		'fr_FR' => __( 'French', 'contact-form-7' ),
+		'fr_FR' => __( 'French (France)', 'contact-form-7' ),
 		'gl_ES' => __( 'Galician', 'contact-form-7' ),
 		'gu_IN' => __( 'Gujarati', 'contact-form-7' ),
 		'ka_GE' => __( 'Georgian', 'contact-form-7' ),
@@ -197,17 +80,19 @@ function wpcf7_l10n() {
 		'ms_MY' => __( 'Malay', 'contact-form-7' ),
 		'ml_IN' => __( 'Malayalam', 'contact-form-7' ),
 		'mt_MT' => __( 'Maltese', 'contact-form-7' ),
-		'nb_NO' => __( 'Norwegian', 'contact-form-7' ),
+		'nb_NO' => __( 'Norwegian (Bokmål)', 'contact-form-7' ),
 		'fa_IR' => __( 'Persian', 'contact-form-7' ),
 		'pl_PL' => __( 'Polish', 'contact-form-7' ),
-		'pt_PT' => __( 'Portuguese', 'contact-form-7' ),
+		'pt_BR' => __( 'Portuguese (Brazil)', 'contact-form-7' ),
+		'pt_PT' => __( 'Portuguese (Portugal)', 'contact-form-7' ),
+		'pa_IN' => __( 'Punjabi', 'contact-form-7' ),
 		'ru_RU' => __( 'Russian', 'contact-form-7' ),
 		'ro_RO' => __( 'Romanian', 'contact-form-7' ),
 		'sr_RS' => __( 'Serbian', 'contact-form-7' ),
 		'si_LK' => __( 'Sinhala', 'contact-form-7' ),
 		'sk_SK' => __( 'Slovak', 'contact-form-7' ),
 		'sl_SI' => __( 'Slovene', 'contact-form-7' ),
-		'es_ES' => __( 'Spanish', 'contact-form-7' ),
+		'es_ES' => __( 'Spanish (Spain)', 'contact-form-7' ),
 		'sv_SE' => __( 'Swedish', 'contact-form-7' ),
 		'ta' => __( 'Tamil', 'contact-form-7' ),
 		'th' => __( 'Thai', 'contact-form-7' ),
@@ -220,11 +105,22 @@ function wpcf7_l10n() {
 	return $l10n;
 }
 
-function wpcf7_is_rtl() {
-	if ( function_exists( 'is_rtl' ) )
-		return is_rtl();
+function wpcf7_is_valid_locale( $locale ) {
+	$l10n = wpcf7_l10n();
+	return isset( $l10n[$locale] );
+}
 
-	return false;
+function wpcf7_is_rtl( $locale = '' ) {
+	if ( empty( $locale ) ) {
+		return function_exists( 'is_rtl' ) ? is_rtl() : false;
+	}
+
+	$rtl_locales = array(
+		'ar' => 'Arabic',
+		'he_IL' => 'Hebrew',
+		'fa_IR' => 'Persian' );
+
+	return isset( $rtl_locales[$locale] );
 }
 
 function wpcf7_ajax_loader() {
@@ -298,6 +194,14 @@ function wpcf7_support_html5_fallback() {
 	return (bool) apply_filters( 'wpcf7_support_html5_fallback', false );
 }
 
+function wpcf7_load_js() {
+	return apply_filters( 'wpcf7_load_js', WPCF7_LOAD_JS );
+}
+
+function wpcf7_load_css() {
+	return apply_filters( 'wpcf7_load_css', WPCF7_LOAD_CSS );
+}
+
 function wpcf7_format_atts( $atts ) {
 	$html = '';
 
@@ -312,10 +216,17 @@ function wpcf7_format_atts( $atts ) {
 	}
 
 	foreach ( $atts as $key => $value ) {
+		$key = strtolower( trim( $key ) );
+
+		if ( ! preg_match( '/^[a-z_:][a-z_:.0-9-]*$/', $key ) ) {
+			continue;
+		}
+
 		$value = trim( $value );
 
-		if ( '' !== $value )
+		if ( '' !== $value ) {
 			$html .= sprintf( ' %s="%s"', $key, esc_attr( $value ) );
+		}
 	}
 
 	$html = trim( $html );
@@ -366,10 +277,10 @@ function wpcf7_load_modules() {
 	}
 
 	$mods = array(
-		'acceptance', 'flamingo', 'special-mail-tags',
+		'acceptance', 'flamingo',
 		'akismet', 'jetpack', 'submit', 'captcha', 'number',
 		'text', 'checkbox', 'quiz', 'textarea', 'date',
-		'response', 'file', 'select', 'listo' );
+		'response', 'file', 'select', 'listo', 'count' );
 
 	foreach ( $mods as $mod ) {
 		$file = trailingslashit( $dir ) . $mod . '.php';
@@ -432,6 +343,117 @@ function wpcf7_version_grep( $version, array $input ) {
 	$pattern = '/^' . preg_quote( (string) $version, '/' ) . '(?:\.|$)/';
 
 	return preg_grep( $pattern, $input );
+}
+
+function wpcf7_enctype_value( $enctype ) {
+	$enctype = trim( $enctype );
+
+	if ( empty( $enctype ) ) {
+		return '';
+	}
+
+	$valid_enctypes = array(
+		'application/x-www-form-urlencoded',
+		'multipart/form-data',
+		'text/plain' );
+
+	if ( in_array( $enctype, $valid_enctypes ) ) {
+		return $enctype;
+	}
+
+	$pattern = '%^enctype="(' . implode( '|', $valid_enctypes ) . ')"$%';
+
+	if ( preg_match( $pattern, $enctype, $matches ) ) {
+		return $matches[1]; // for back-compat
+	}
+
+	return '';
+}
+
+function wpcf7_rmdir_p( $dir ) {
+	if ( is_file( $dir ) ) {
+		@unlink( $dir );
+		return true;
+	}
+
+	if ( ! is_dir( $dir ) ) {
+		return false;
+	}
+
+	if ( $handle = @opendir( $dir ) ) {
+		while ( false !== ( $file = readdir( $handle ) ) ) {
+			if ( $file == "." || $file == ".." ) {
+				continue;
+			}
+
+			wpcf7_rmdir_p( path_join( $dir, $file ) );
+		}
+
+		closedir( $handle );
+	}
+
+	return @rmdir( $dir );
+}
+
+/* From _http_build_query in wp-includes/functions.php */
+function wpcf7_build_query( $args, $key = '' ) {
+	$sep = '&';
+	$ret = array();
+
+	foreach ( (array) $args as $k => $v ) {
+		$k = urlencode( $k );
+
+		if ( ! empty( $key ) ) {
+			$k = $key . '%5B' . $k . '%5D';
+		}
+
+		if ( null === $v ) {
+			continue;
+		} elseif ( false === $v ) {
+			$v = '0';
+		}
+
+		if ( is_array( $v ) || is_object( $v ) ) {
+			array_push( $ret, wpcf7_build_query( $v, $k ) );
+		} else {
+			array_push( $ret, $k . '=' . urlencode( $v ) );
+		}
+	}
+
+	return implode( $sep, $ret );
+}
+
+/**
+ * Returns the number of code units in a string.
+ *
+ * @see http://www.w3.org/TR/html5/infrastructure.html#code-unit-length
+ *
+ * @return int|bool The number of code units, or false if mb_convert_encoding is not available.
+ */
+function wpcf7_count_code_units( $string ) {
+	static $use_mb = null;
+
+	if ( is_null( $use_mb ) ) {
+		$use_mb = function_exists( 'mb_convert_encoding' );
+	}
+
+	if ( ! $use_mb ) {
+		return false;
+	}
+
+	$string = (string) $string;
+
+	$encoding = mb_detect_encoding( $string, mb_detect_order(), true );
+
+	if ( $encoding ) {
+		$string = mb_convert_encoding( $string, 'UTF-16', $encoding );
+	} else {
+		$string = mb_convert_encoding( $string, 'UTF-16', 'UTF-8' );
+	}
+
+	$byte_count = mb_strlen( $string, '8bit' );
+
+	return floor( $byte_count / 2 );
 }
 
 ?>

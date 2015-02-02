@@ -50,7 +50,7 @@ function check_main( $theme ) {
 		echo ( !empty( $data[ 'AuthorURI' ] ) ) ? '<p><label>' . __( 'Author URI', 'theme-check' ) . '</label><span class="info"><a href="' . $data[ 'AuthorURI' ] . '">' . $data[ 'AuthorURI' ] . '</a>' . '</span></p>' : '';
 		echo ( !empty( $data[ 'URI' ] ) ) ? '<p><label>' . __( 'Theme URI', 'theme-check' ) . '</label><span class="info"><a href="' . $data[ 'URI' ] . '">' . $data[ 'URI' ] . '</a>' . '</span></p>' : '';
 		echo ( !empty( $data[ 'License' ] ) ) ? '<p><label>' . __( 'License', 'theme-check' ) . '</label><span class="info">' . $data[ 'License' ] . '</span></p>' : '';
-		echo ( !empty( $data[ 'License URI' ] ) ) ? '<p><label>' . __( 'LicenseURI', 'theme-check' ) . '</label><span class="info">' . $data[ 'License URI' ] . '</span></p>' : '';
+		echo ( !empty( $data[ 'License URI' ] ) ) ? '<p><label>' . __( 'License URI', 'theme-check' ) . '</label><span class="info">' . $data[ 'License URI' ] . '</span></p>' : '';
 		echo ( !empty( $data[ 'Tags' ] ) ) ? '<p><label>' . __( 'Tags', 'theme-check' ) . '</label><span class="info">' . implode( $data[ 'Tags' ], ', ') . '</span></p>' : '';
 		echo ( !empty( $data[ 'Description' ] ) ) ? '<p><label>' . __( 'Description', 'theme-check' ) . '</label><span class="info">' . $data[ 'Description' ] . '</span></p>' : '';
 
@@ -100,7 +100,7 @@ function tc_intro() {
 	<h3><?php _e( 'Localization', 'theme-check' ); ?></h3>
 	<ul>
 	<li><a href="http://www.onedesigns.com/">Daniel Tara</a></li>
-	<li><a href="http://themeid.com/">Emil Uzelac</a></li>
+	<li><a href="http://index56.com/">Emil Uzelac</a></li>
 	</ul>
 	<h3><?php _e( 'Testers', 'theme-check' ); ?></h3>
 	<p><a href="http://make.wordpress.org/themes/"><?php _e( 'The WordPress Theme Review Team', 'theme-check' ); ?></a></p>

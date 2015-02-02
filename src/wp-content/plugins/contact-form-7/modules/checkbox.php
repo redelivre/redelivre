@@ -49,18 +49,6 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 	if ( false !== $tabindex )
 		$tabindex = absint( $tabindex );
 
-	$defaults = array();
-
-	if ( $matches = $tag->get_first_match_option( '/^default:([0-9_]+)$/' ) )
-		$defaults = explode( '_', $matches[1] );
-
-	if ( isset( $_POST[$tag->name] ) )
-		$post = $_POST[$tag->name];
-	else
-		$post = $multiple ? array() : '';
-
-	$is_posted = wpcf7_is_posted();
-
 	$html = '';
 	$count = 0;
 
@@ -83,19 +71,39 @@ function wpcf7_checkbox_shortcode_handler( $tag ) {
 		}
 	}
 
+	$defaults = array();
+
+	$default_choice = $tag->get_default_option( null, 'multiple=1' );
+
+	foreach ( $default_choice as $value ) {
+		$key = array_search( $value, $values, true );
+
+		if ( false !== $key ) {
+			$defaults[] = (int) $key + 1;
+		}
+	}
+
+	if ( $matches = $tag->get_first_match_option( '/^default:([0-9_]+)$/' ) ) {
+		$defaults = array_merge( $defaults, explode( '_', $matches[1] ) );
+	}
+
+	$defaults = array_unique( $defaults );
+
+	$hangover = wpcf7_get_hangover( $tag->name, $multiple ? array() : '' );
+
 	foreach ( $values as $key => $value ) {
 		$class = 'wpcf7-list-item';
 
 		$checked = false;
 
-		if ( $is_posted && ! empty( $post ) ) {
-			if ( $multiple && in_array( esc_sql( $value ), (array) $post ) )
-				$checked = true;
-			if ( ! $multiple && $post == esc_sql( $value ) )
-				$checked = true;
+		if ( $hangover ) {
+			if ( $multiple ) {
+				$checked = in_array( esc_sql( $value ), (array) $hangover );
+			} else {
+				$checked = ( $hangover == esc_sql( $value ) );
+			}
 		} else {
-			if ( in_array( $key + 1, (array) $defaults ) )
-				$checked = true;
+			$checked = in_array( $key + 1, (array) $defaults );
 		}
 
 		if ( isset( $labels[$key] ) )
@@ -187,15 +195,8 @@ function wpcf7_checkbox_validation_filter( $result, $tag ) {
 
 	$value = isset( $_POST[$name] ) ? (array) $_POST[$name] : array();
 
-	if ( 'checkbox*' == $type ) {
-		if ( empty( $value ) ) {
-			$result['valid'] = false;
-			$result['reason'][$name] = wpcf7_get_message( 'invalid_required' );
-		}
-	}
-
-	if ( isset( $result['reason'][$name] ) && $id = $tag->get_id_option() ) {
-		$result['idref'][$name] = $id;
+	if ( $tag->is_required() && empty( $value ) ) {
+		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 
 	return $result;
@@ -231,6 +232,7 @@ function wpcf7_checkbox_posted_data( $posted_data ) {
 			}
 
 			$last = array_pop( $values );
+			$last = html_entity_decode( $last, ENT_QUOTES, 'UTF-8' );
 
 			if ( in_array( $last, $posted_items ) ) {
 				$posted_items = array_diff( $posted_items, array( $last ) );
@@ -270,11 +272,11 @@ function wpcf7_add_tag_generator_checkbox_and_radio() {
 		'wpcf7-tg-pane-radio', 'wpcf7_tg_pane_radio' );
 }
 
-function wpcf7_tg_pane_checkbox( &$contact_form ) {
+function wpcf7_tg_pane_checkbox( $contact_form ) {
 	wpcf7_tg_pane_checkbox_and_radio( 'checkbox' );
 }
 
-function wpcf7_tg_pane_radio( &$contact_form ) {
+function wpcf7_tg_pane_radio( $contact_form ) {
 	wpcf7_tg_pane_checkbox_and_radio( 'radio' );
 }
 

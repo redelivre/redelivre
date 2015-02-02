@@ -23,9 +23,13 @@ function projects_template_redirect() {
 	global $wp_query, $wp;
 
 	// Redirect project base page to post type archive url
-	if ( is_page( projects_get_page_id( 'projects' ) ) ) {
+	if ( ! empty( $_GET['page_id'] ) && get_option( 'permalink_structure' ) == "" && $_GET['page_id'] == projects_get_page_id( 'projects' ) ) {
 		wp_safe_redirect( get_post_type_archive_link( 'project' ) );
 		exit;
+	}
+
+	if ( is_front_page() && is_page( projects_get_page_id( 'projects' ) ) ) {
+		wp_safe_redirect( get_post_type_archive_link( 'project' ) );
 	}
 }
 
