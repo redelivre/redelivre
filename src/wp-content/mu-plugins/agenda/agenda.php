@@ -15,21 +15,21 @@ class Agenda {
     
     static function register()
     {
-    	load_muplugin_textdomain( 'sbc', 'agenda/languages' );
+    	load_muplugin_textdomain( 'redelivre', 'agenda/languages' );
     	
         register_post_type('agenda', array(
                 
                 'labels' => array(
-                                    'name' => _x('Evento', 'post type general name', 'sbc'),
-                                    'singular_name' => _x('Evento', 'post type singular name', 'sbc'),
-                                    'add_new' => _x('Adicionar novo', 'image', 'sbc'),
-                                    'add_new_item' => __('Adicionar novo evento', 'sbc'),
-                                    'edit_item' => __('Editar evento', 'sbc'),
-                                    'new_item' => __('Novo evento', 'sbc'),
-                                    'view_item' => __('Ver evento', 'sbc'),
-                                    'search_items' => __('Buscar eventos', 'sbc'),
-                                    'not_found' =>  __('Nenhum evento encontrado', 'sbc'),
-                                    'not_found_in_trash' => __('Nenhum evento encontrado na lixeira', 'sbc'),
+                                    'name' => _x('Evento', 'post type general name', 'redelivre'),
+                                    'singular_name' => _x('Evento', 'post type singular name', 'redelivre'),
+                                    'add_new' => _x('Adicionar novo', 'image', 'redelivre'),
+                                    'add_new_item' => __('Adicionar novo evento', 'redelivre'),
+                                    'edit_item' => __('Editar evento', 'redelivre'),
+                                    'new_item' => __('Novo evento', 'redelivre'),
+                                    'view_item' => __('Ver evento', 'redelivre'),
+                                    'search_items' => __('Buscar eventos', 'redelivre'),
+                                    'not_found' =>  __('Nenhum evento encontrado', 'redelivre'),
+                                    'not_found_in_trash' => __('Nenhum evento encontrado na lixeira', 'redelivre'),
                                     'parent_item_colon' => ''
                                  ),
                  'public' => true,
@@ -57,7 +57,7 @@ class Agenda {
         
         add_meta_box( 
             'agenda_data',
-            __('Dados do Evento', 'sbc'),
+            __('Dados do Evento', 'redelivre'),
             array(__CLASS__,'inner_custom_box_callback_function'),
             'agenda', // em que post type eles entram?
             'normal' // onde? side, normal, advanced
@@ -87,106 +87,107 @@ class Agenda {
         
         echo '<table>';
             echo '<tr>';
-                echo '<td><b><label for="_data_inicial">'.__('Data Inicial', 'sbc').' </label></td>';
+                echo '<td><b><label for="_data_inicial">'.__('Data Inicial', 'redelivre').' </label></td>';
                 echo "<td><input type='text' id='_data_inicial' name='_data_inicial' value='$data_inicial' size='25' />";
-                echo '<small> ('.__('ex.: 01/01/2011', 'sbc').')</small>';
+                echo '<small> ('.__('ex.: 01/01/2011', 'redelivre').')</small>';
                 echo '</td>';
             
             echo '</tr>';
             
             echo '<tr>';
-                echo '<td><b><label for="_data_inicial">'.__('Data Final', 'sbc').' </label></td>';
+                echo '<td><b><label for="_data_inicial">'.__('Data Final', 'redelivre').' </label></td>';
                 echo "<td><input type='text' id='_data_final' name='_data_final' value='$data_final' size='25' /></td>";
             
             echo '</tr>';
             
             echo '<tr>';
-                echo '<td><b><label for="_horario">'.__('Horário', 'sbc').' </label></td>';
+                echo '<td><b><label for="_horario">'.__('Horário', 'redelivre').' </label></td>';
                 echo "<td><input type='text' id='_horario' name='_horario' value='$horario' size='25' /></td>";
             
             echo '</tr>';
             
             echo '<tr>';
-                echo '<td><b><label for="_link">'.__('Link Externo', 'sbc').' </label></td>';
+                echo '<td><b><label for="_link">'.__('Link Externo', 'redelivre').' </label></td>';
                 echo "<td><input type='text' id='_link' name='_link' value='$link' size='25' /></td>";
             
             echo '</tr>';
             
             echo '<tr>';
-                echo '<td><b><label for="_onde">'.__('Onde', 'sbc').'</label></td>';
+                echo '<td><b><label for="_onde">'.__('Onde', 'redelivre').'</label></td>';
                 echo "<td><input type='text' id='_onde' name='_onde' value='$onde' size='25' /></td>";
             
             echo '</tr>';
             
         echo '</table>';
         ?>
-        <script>
+        <script type="text/javascript">
+		<!--
+	        var opts = {
+			closeText: "<?php _e('Fechar', 'redelivre'); ?>",
+			prevText: "<?php _e('Anterior', 'redelivre'); ?>",
+			nextText: "<?php _e('Próximo', 'redelivre'); ?>",
+			currentText: "<?php _e('Hoje', 'redelivre'); ?>",
+			monthNames: [<?php echo "'".
+				__("Janeiro", "sbc")."','".
+				__("Fevereiro", "sbc")."','".
+				__("Março", "sbc")."','".
+				__("Abril", "sbc")."','".
+				__("Maio", "sbc")."','".
+				__("Junho", "sbc")."','".
+				__("Julho", "sbc")."','".
+				__("Agosto", "sbc")."','".
+				__("Setembro", "sbc")."','".
+				__("Outubro", "sbc")."','".
+				__("Novembro", "sbc")."','".
+				__("Dezembro", "sbc")."'"; ?>
+			],
+			monthNamesShort: [<?php echo "'".
+				__("Jan", "sbc")."','".
+				__("Fev", "sbc")."','".
+				__("Mar", "sbc")."','".
+				__("Abr", "sbc")."','".
+				__("Mai", "sbc")."','".
+				__("Jun", "sbc")."','".
+				__("Jul", "sbc")."','".
+				__("Ago", "sbc")."','".
+				__("Set", "sbc")."','".
+				__("Out", "sbc")."','".
+				__("Nov", "sbc")."','".
+				__("Dez", "sbc")."'"
+			;?>],
+			dayNames: [ <?php echo "'".
+				__('Domingo', "sbc")."','".
+				__('Segunda-feira', "sbc")."','".
+				__('Ter&ccedil;a-feira', "sbc")."','".
+				__('Quarta-feira', "sbc")."','".
+				__('Quinta-feira', "sbc")."','".
+				__('Sexta-feira', "sbc")."','".
+				__('S&aacute;bado', "sbc")."'"
+			;?>],
+			<?php $dayNamesShort = "'".
+					__('Dom', "sbc")."','".
+					__('Seg', "sbc")."','".
+					__('Ter', "sbc")."','".
+					__('Qua', "sbc")."','".
+					__('Qui', "sbc")."','".
+					__('Sex', "sbc")."','".
+					__('S&aacute;b', "sbc")."'"
+			;?>
+			dayNamesShort: [<?php echo $dayNamesShort;?>],
+			dayNamesMin: [<?php echo $dayNamesShort;?>],
+			weekHeader: "<?php echo _x('Sm', 'week header', 'redelivre');?>" ,
+			dateFormat: 'dd/mm/yy',
+			firstDay: 0,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: ''};
+	        
+	        jQuery(document).ready(function() {
+	            jQuery('#_data_inicial, #_data_final').datepicker( opts );
+	        });
         
-        var opts = {
-		closeText: <?php _e('Fechar', 'sbc'); ?>,
-		prevText: <?php _e('&#x3c;Anterior', 'sbc'); ?>,
-		nextText: <?php _e('Pr&oacute;ximo&#x3e;', 'sbc'); ?>,
-		currentText: <?php _e('Hoje', 'sbc'); ?>,
-		monthNames: [<?php echo "'".
-			__("Janeiro", "sbc")."','".
-			__("Fevereiro", "sbc")."','".
-			__("Mar&ccedil;o", "sbc")."','".
-			__("Abril", "sbc")."','".
-			__("Maio", "sbc")."','".
-			__("Junho", "sbc")."','".
-			__("Julho", "sbc")."','".
-			__("Agosto", "sbc")."','".
-			__("Setembro", "sbc")."','".
-			__("Outubro", "sbc")."','".
-			__("Novembro", "sbc")."','".
-			__("Dezembro", "sbc")."'"; ?>
-		],
-		monthNamesShort: [<?php echo "'".
-			__("Jan", "sbc")."','".
-			__("Fev", "sbc")."','".
-			__("Mar", "sbc")."','".
-			__("Abr", "sbc")."','".
-			__("Mai", "sbc")."','".
-			__("Jun", "sbc")."','".
-			__("Jul", "sbc")."','".
-			__("Ago", "sbc")."','".
-			__("Set", "sbc")."','".
-			__("Out", "sbc")."','".
-			__("Nov", "sbc")."','".
-			__("Dez", "sbc")."'"
-		;?>],
-		dayNames: [ <?php echo "'".
-			__('Domingo', "sbc")."','".
-			__('Segunda-feira', "sbc")."','".
-			__('Ter&ccedil;a-feira', "sbc")."','".
-			__('Quarta-feira', "sbc")."','".
-			__('Quinta-feira', "sbc")."','".
-			__('Sexta-feira', "sbc")."','".
-			__('S&aacute;bado', "sbc")."'"
-		;?>],
-		<?php $dayNamesShort = "'".
-				__('Dom', "sbc")."','".
-				__('Seg', "sbc")."','".
-				__('Ter', "sbc")."','".
-				__('Qua', "sbc")."','".
-				__('Qui', "sbc")."','".
-				__('Sex', "sbc")."','".
-				__('S&aacute;b', "sbc")."'"
-		;?>
-		dayNamesShort: [<?php echo $dayNamesShort;?>],
-		dayNamesMin: [<?php echo $dayNamesShort;?>],
-		weekHeader: <?php echo _x('Sm', 'week header', 'sbc');?> ,
-		dateFormat: 'dd/mm/yy',
-		firstDay: 0,
-		isRTL: false,
-		showMonthAfterYear: false,
-		yearSuffix: ''};
-        
-        jQuery(document).ready(function() {
-            jQuery('#_data_inicial, #_data_final').datepicker( opts );
-        });
-        
-        </script>
+	    //-->
+		</script>
         <?php
         
     }
@@ -326,7 +327,7 @@ add_action('admin_init', function() {
 });
 
 add_action('admin_menu', function() {
-    add_submenu_page('edit.php?post_type=agenda', __('Inserir no menu', 'sbc'), __('Inserir link no menu', 'sbc'), 'publish_posts', 'agenda_menu_page', 'agenda_menu_page');
+    add_submenu_page('edit.php?post_type=agenda', __('Inserir no menu', 'redelivre'), __('Inserir link no menu', 'redelivre'), 'publish_posts', 'agenda_menu_page', 'agenda_menu_page');
 });
 
 function agenda_menu_page() {
@@ -351,13 +352,13 @@ function agenda_menu_page() {
         
             if (!$menuItem) {
                 wp_update_nav_menu_item($menu->term_taxonomy_id, 0, array(
-                    'menu-item-title' => __('Agenda', 'sbc'),
+                    'menu-item-title' => __('Agenda', 'redelivre'),
                     'menu-item-url' => home_url('/agenda'), 
                     'menu-item-status' => 'publish')
                 );
-                $msg = __('Entrada no menu inserida com sucesso!', 'sbc');
+                $msg = __('Entrada no menu inserida com sucesso!', 'redelivre');
             } else {
-                $msg = __('Já existe este item no menu!', 'sbc');
+                $msg = __('Já existe este item no menu!', 'redelivre');
             }
         }
         
@@ -376,7 +377,7 @@ function agenda_menu_page() {
         
             <p>
             
-            <?php _e('Sua agenda de eventos pode ser acessada através do endereço', 'sbc')." ";?><a href="<?php echo site_url('agenda'); ?>"><?php echo site_url('agenda'); ?></a>.
+            <?php _e('Sua agenda de eventos pode ser acessada através do endereço', 'redelivre')." ";?><a href="<?php echo site_url('agenda'); ?>"><?php echo site_url('agenda'); ?></a>.
             
             <input type="button" name="create_menu_item" value="Inserir item no menu" onClick="document.location = '<?php echo add_query_arg('action', 'add_menu_item'); ?>';" />
             
