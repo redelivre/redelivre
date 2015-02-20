@@ -22,46 +22,13 @@ msgstr "Próximo post:"
 msgid "Applied to the header on small screens and the sidebar on wide screens."
 msgstr "Aplicado ao cabeçalho em telas pequenas e à barra lateral em telas widescreen."
 
-#: single.php:36
-msgid "Previous"
-msgstr "Anterior"
-
 #: single.php:33
 msgid "Next"
 msgstr "Próximo"
 
-#: inc/template-tags.php:91 inc/template-tags.php:99
-msgctxt "Used between list items, there is a space after the comma."
-msgid ", "
-msgstr ", "
-
-#: image.php:24
-msgid "Previous Image"
-msgstr "Imagem anterior"
-
-#: image.php:24
-msgid "Next Image"
-msgstr "Próxima imagem"
-
-#: inc/template-tags.php:23
-msgid "Comment navigation"
-msgstr "Navegação dos comentários"
-
-#: inc/template-tags.php:122
-msgid "Leave a comment"
-msgstr "Deixe um comentário"
-
-#: inc/template-tags.php:122
-msgid "1 Comment"
-msgstr "1 Comentário"
-
-#: inc/template-tags.php:122
-msgid "% Comments"
-msgstr "% Comentários"
-
-#: search.php:18
-msgid "Search Results for: %s"
-msgstr "Resultados da pesquisa por: %s"
+#: single.php:36
+msgid "Previous"
+msgstr "Anterior"
 
 #. Author of the plugin/theme
 msgid "the WordPress team"
@@ -79,10 +46,26 @@ msgstr "https://wordpress.org/themes/twentyfifteen"
 msgid "Twenty Fifteen"
 msgstr "Twenty Fifteen"
 
+#: search.php:18
+msgid "Search Results for: %s"
+msgstr "Resultados da pesquisa por: %s"
+
+#: inc/template-tags.php:122
+msgid "% Comments"
+msgstr "% Comentários"
+
+#: inc/template-tags.php:122
+msgid "1 Comment"
+msgstr "1 Comentário"
+
 #: inc/template-tags.php:113
 msgctxt "Used before full size attachment link."
 msgid "Full size"
 msgstr "Tamanho original"
+
+#: inc/template-tags.php:122
+msgid "Leave a comment"
+msgstr "Deixe um comentário"
 
 #: inc/template-tags.php:102
 msgctxt "Used before tag names."
@@ -93,6 +76,11 @@ msgstr "Tags"
 msgctxt "Used before category names."
 msgid "Categories"
 msgstr "Categorias"
+
+#: inc/template-tags.php:91 inc/template-tags.php:99
+msgctxt "Used between list items, there is a space after the comma."
+msgid ", "
+msgstr ", "
 
 #: inc/template-tags.php:85
 msgctxt "Used before post author name."
@@ -120,6 +108,10 @@ msgstr "Comentários mais recentes"
 #: inc/template-tags.php:49
 msgid "Featured"
 msgstr "Destaque"
+
+#: inc/template-tags.php:23
+msgid "Comment navigation"
+msgstr "Navegação dos comentários"
 
 #: inc/customizer.php:152
 msgid "Blue"
@@ -161,6 +153,14 @@ msgstr "Cor do texto do cabeçalho e da barra lateral"
 msgid "Twenty Fifteen requires at least WordPress version 4.1. You are running version %s. Please upgrade and try again."
 msgstr "O Twenty Fifteen necessita do WordPress versão 4.1 no mínimo. Sua versão é %s. Atualize e tente novamente."
 
+#: image.php:24
+msgid "Previous Image"
+msgstr "Imagem anterior"
+
+#: image.php:24
+msgid "Next Image"
+msgstr "Próxima imagem"
+
 #: image.php:84
 msgctxt "Parent post link"
 msgid "<span class=\"meta-nav\">Published in</span><span class=\"post-title\">%title</span>"
@@ -170,46 +170,17 @@ msgstr "<span class=\"meta-nav\">Publicado em</span><span class=\"post-title\">%
 msgid "Menu and widgets"
 msgstr "Menu e widgets"
 
-#: comments.php:53
-msgid "Comments are closed."
-msgstr "Os comentários estão encerrados."
+#: functions.php:231
+msgid "expand child menu"
+msgstr "expandir submenu"
 
-#: content-link.php:36 content-page.php:25 content.php:38 image.php:59
-msgid "Pages:"
-msgstr "Páginas:"
-
-#: content-link.php:56 content-page.php:35 content-search.php:28
-#: content-search.php:33 content.php:57 image.php:71
-msgid "Edit"
-msgstr "Editar"
-
-#: footer.php:25
-msgid "Proudly powered by %s"
-msgstr "Orgulhosamente desenvolvido com %s"
-
-#: functions.php:85
-msgid "Primary Menu"
-msgstr "Menu principal"
+#: functions.php:232
+msgid "collapse child menu"
+msgstr "colapsar submenu"
 
 #: header.php:27
 msgid "Skip to content"
 msgstr "Pular para o conteúdo"
-
-#: content-none.php:15
-msgid "Nothing Found"
-msgstr "Nada encontrado"
-
-#: content-none.php:22
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr "Pronto para publicar seu primeiro post? <a href=\"%1$s\">Comece aqui</a>."
-
-#: content-none.php:26
-msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
-msgstr "Nada foi encontrado com os termos da sua pesquisa. Tente novamente com algumas palavras-chaves diferentes."
-
-#: content-none.php:31
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
-msgstr "Aparentemente não pudemos encontrar o que você está procurando. Talvez uma busca ajude."
 
 #. translators: To add an additional character subset specific to your
 #. language, translate this to 'greek', 'cyrillic', 'devanagari' or
@@ -251,9 +222,17 @@ msgstr "Adicione widgets aqui para aparecerem em sua barra lateral."
 msgid "Widget Area"
 msgstr "Área de widgets"
 
+#: functions.php:85
+msgid "Primary Menu"
+msgstr "Menu principal"
+
 #: functions.php:86
 msgid "Social Links Menu"
 msgstr "Menu de links sociais"
+
+#: footer.php:25
+msgid "Proudly powered by %s"
+msgstr "Orgulhosamente desenvolvido com %s"
 
 #. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.0)  #-#-#-#-#
 #. Author URI of the plugin/theme
@@ -261,10 +240,39 @@ msgstr "Menu de links sociais"
 msgid "https://wordpress.org/"
 msgstr "https://wordpress.org/"
 
+#: content-none.php:31
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Aparentemente não pudemos encontrar o que você está procurando. Talvez uma busca ajude."
+
+#: content-none.php:26
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Nada foi encontrado com os termos da sua pesquisa. Tente novamente com algumas palavras-chaves diferentes."
+
+#: content-none.php:22
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "Pronto para publicar seu primeiro post? <a href=\"%1$s\">Comece aqui</a>."
+
+#: content-none.php:15
+msgid "Nothing Found"
+msgstr "Nada encontrado"
+
+#: content-link.php:56 content-page.php:35 content-search.php:28
+#: content-search.php:33 content.php:57 image.php:71
+msgid "Edit"
+msgstr "Editar"
+
+#: content-link.php:36 content-page.php:25 content.php:38 image.php:59
+msgid "Pages:"
+msgstr "Páginas:"
+
 #. translators: %s: Name of current post
 #: content-link.php:31 content.php:33 inc/template-tags.php:237
 msgid "Continue reading %s"
 msgstr "Continuar lendo %s"
+
+#: comments.php:53
+msgid "Comments are closed."
+msgstr "Os comentários estão encerrados."
 
 #: comments.php:28
 msgctxt "comments title"
@@ -272,18 +280,6 @@ msgid "One thought on &ldquo;%2$s&rdquo;"
 msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
 msgstr[0] "Um comentário em &ldquo;%2$s&rdquo;"
 msgstr[1] "%1$s comentários em &ldquo;%2$s&rdquo;"
-
-#: functions.php:231
-msgid "expand child menu"
-msgstr "expandir submenu"
-
-#: functions.php:232
-msgid "collapse child menu"
-msgstr "colapsar submenu"
-
-#: 404.php:21
-msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr "Parece que nada foi encontrado por aqui. Tente uma busca talvez?"
 
 #: author-bio.php:34
 msgid "View all posts by %s"
@@ -305,6 +301,10 @@ msgstr "Próxima página"
 #: archive.php:49 index.php:46 search.php:38
 msgid "Previous page"
 msgstr "Página anterior"
+
+#: 404.php:21
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "Parece que nada foi encontrado por aqui. Tente uma busca talvez?"
 
 #: 404.php:17
 msgid "Oops! That page can&rsquo;t be found."

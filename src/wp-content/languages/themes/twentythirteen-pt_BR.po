@@ -58,6 +58,63 @@ msgstr "Resolução original"
 msgid "Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again."
 msgstr "O Twenty Thirteen necessita pelo menos a versão 3.6 do WordPress. A versão do seu WordPress é a %s. Atualize e tente novamente."
 
+#: 404.php:21
+msgid "This is somewhat embarrassing, isn&rsquo;t it?"
+msgstr "Isso é embaraçoso, não?"
+
+#: 404.php:22
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "Parece que nada foi encontrado neste endereço. Que tal tentar fazer uma pesquisa?"
+
+#: archive.php:29
+msgid "Daily Archives: %s"
+msgstr "Arquivos diários: %s"
+
+#: archive.php:31
+msgid "Monthly Archives: %s"
+msgstr "Arquivos mensais: %s"
+
+#: archive.php:31
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr "F Y"
+
+#: archive.php:33
+msgid "Yearly Archives: %s"
+msgstr "Arquivos anuais: %s"
+
+#: archive.php:33
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#: archive.php:35
+msgid "Archives"
+msgstr "Arquivos"
+
+#: author-bio.php:26
+msgid "About %s"
+msgstr "Sobre %s"
+
+#: author-bio.php:30
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Ver todos os posts de %s <span class=\"meta-nav\">&rarr;</span>"
+
+#: author.php:31
+msgid "All posts by %s"
+msgstr "Todos os posts de %s"
+
+#: category.php:19
+msgid "Category Archives: %s"
+msgstr "Arquivos da categoria: %s"
+
+#: comments.php:25
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "Um comentário sobre &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s comentários sobre &ldquo;%2$s&rdquo;"
+
 #: comments.php:45
 msgid "Comment navigation"
 msgstr "Navegação dos comentários"
@@ -122,66 +179,6 @@ msgstr "Nada correspondeu aos seus termos. Tente novamente com palavras-chaves d
 #: content-none.php:27
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 msgstr "Aparentemente não pudemos encontrar o que você está procurando. Talvez uma busca ajude."
-
-#: functions.php:343
-msgid "View all posts by %s"
-msgstr "Ver todos posts por %s"
-
-#: functions.php:363
-msgctxt "1: post format name. 2: date"
-msgid "%1$s on %2$s"
-msgstr "%1$s em %2$s"
-
-#: header.php:43
-msgid "Menu"
-msgstr "Menu"
-
-#: header.php:44
-msgid "Skip to content"
-msgstr "Pular para o conteúdo"
-
-#: image.php:22
-msgid "<span class=\"attachment-meta\">Published on <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> in <a href=\"%3$s\" title=\"Return to %4$s\" rel=\"gallery\">%5$s</a></span>"
-msgstr "<span class=\"attachment-meta\">Publicado em <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> em <a href=\"%3$s\" title=\"Voltar para %4$s\" rel=\"gallery\">%5$s</a></span>"
-
-#: image.php:51
-msgid "<span class=\"meta-nav\">&larr;</span> Previous"
-msgstr "<span class=\"meta-nav\">&larr;</span> Anterior"
-
-#: image.php:52
-msgid "Next <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Próxima <span class=\"meta-nav\">&rarr;</span>"
-
-#: inc/custom-header.php:49
-msgctxt "header image description"
-msgid "Circle"
-msgstr "Círculo"
-
-#: inc/custom-header.php:54
-msgctxt "header image description"
-msgid "Diamond"
-msgstr "Diamante"
-
-#: inc/custom-header.php:59
-msgctxt "header image description"
-msgid "Star"
-msgstr "Estrela"
-
-#: search.php:18
-msgid "Search Results for: %s"
-msgstr "Resultados da pesquisa por: %s"
-
-#: tag.php:21
-msgid "Tag Archives: %s"
-msgstr "Arquivo da tag: %s"
-
-#: taxonomy-post_format.php:23
-msgid "%s Archives"
-msgstr "Arquivo de %s"
-
-#. Theme Name of the plugin/theme
-msgid "Twenty Thirteen"
-msgstr "Twenty Thirteen"
 
 #. #-#-#-#-#  twentythirteen.pot (Twenty Thirteen 1.4)  #-#-#-#-#
 #. Author URI of the plugin/theme
@@ -256,63 +253,66 @@ msgstr "Fixo"
 msgid ", "
 msgstr ", "
 
+#: functions.php:343
+msgid "View all posts by %s"
+msgstr "Ver todos posts por %s"
+
+#: functions.php:363
+msgctxt "1: post format name. 2: date"
+msgid "%1$s on %2$s"
+msgstr "%1$s em %2$s"
+
+#: header.php:43
+msgid "Menu"
+msgstr "Menu"
+
+#: header.php:44
+msgid "Skip to content"
+msgstr "Pular para o conteúdo"
+
+#: image.php:22
+msgid "<span class=\"attachment-meta\">Published on <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> in <a href=\"%3$s\" title=\"Return to %4$s\" rel=\"gallery\">%5$s</a></span>"
+msgstr "<span class=\"attachment-meta\">Publicado em <time class=\"entry-date\" datetime=\"%1$s\">%2$s</time> em <a href=\"%3$s\" title=\"Voltar para %4$s\" rel=\"gallery\">%5$s</a></span>"
+
+#: image.php:51
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr "<span class=\"meta-nav\">&larr;</span> Anterior"
+
+#: image.php:52
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Próxima <span class=\"meta-nav\">&rarr;</span>"
+
+#: inc/custom-header.php:49
+msgctxt "header image description"
+msgid "Circle"
+msgstr "Círculo"
+
+#: inc/custom-header.php:54
+msgctxt "header image description"
+msgid "Diamond"
+msgstr "Diamante"
+
+#: inc/custom-header.php:59
+msgctxt "header image description"
+msgid "Star"
+msgstr "Estrela"
+
+#: search.php:18
+msgid "Search Results for: %s"
+msgstr "Resultados da pesquisa por: %s"
+
+#: tag.php:21
+msgid "Tag Archives: %s"
+msgstr "Arquivo da tag: %s"
+
+#: taxonomy-post_format.php:23
+msgid "%s Archives"
+msgstr "Arquivo de %s"
+
+#. Theme Name of the plugin/theme
+msgid "Twenty Thirteen"
+msgstr "Twenty Thirteen"
+
 #. Author of the plugin/theme
 msgid "the WordPress team"
 msgstr "a equipe do WordPress"
-
-#: 404.php:21
-msgid "This is somewhat embarrassing, isn&rsquo;t it?"
-msgstr "Isso é embaraçoso, não?"
-
-#: author-bio.php:26
-msgid "About %s"
-msgstr "Sobre %s"
-
-#: archive.php:35
-msgid "Archives"
-msgstr "Arquivos"
-
-#: archive.php:33
-msgid "Yearly Archives: %s"
-msgstr "Arquivos anuais: %s"
-
-#: archive.php:33
-msgctxt "yearly archives date format"
-msgid "Y"
-msgstr "Y"
-
-#: archive.php:29
-msgid "Daily Archives: %s"
-msgstr "Arquivos diários: %s"
-
-#: archive.php:31
-msgid "Monthly Archives: %s"
-msgstr "Arquivos mensais: %s"
-
-#: 404.php:22
-msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr "Parece que nada foi encontrado neste endereço. Que tal tentar fazer uma pesquisa?"
-
-#: archive.php:31
-msgctxt "monthly archives date format"
-msgid "F Y"
-msgstr "F Y"
-
-#: author-bio.php:30
-msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Ver todos os posts de %s <span class=\"meta-nav\">&rarr;</span>"
-
-#: author.php:31
-msgid "All posts by %s"
-msgstr "Todos os posts de %s"
-
-#: category.php:19
-msgid "Category Archives: %s"
-msgstr "Arquivos da categoria: %s"
-
-#: comments.php:25
-msgctxt "comments title"
-msgid "One thought on &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
-msgstr[0] "Um comentário sobre &ldquo;%2$s&rdquo;"
-msgstr[1] "%1$s comentários sobre &ldquo;%2$s&rdquo;"
