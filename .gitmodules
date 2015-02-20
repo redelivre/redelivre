@@ -100,3 +100,7 @@
 [submodule "src/wp-content/plugins/jaiminho-sms"]
 	path = src/wp-content/plugins/jaiminho-sms
 	url = git@github.com:ethymos/jaiminho-sms.git
+[submodule "src/wp-content/themes/meth"]
+	path = src/wp-content/themes/meth
+	url = git@gitlab.ethymos.com.br:ethymos/meth.git
+	branch = master

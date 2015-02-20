@@ -21,6 +21,7 @@ src/wp-content/blogs.dir
 # WordPress plugins
 src/wp-content/plugins/regenerate-thumbnails
 src/wp-content/plugins/monster-widget
+src/wp-content/plugins/bulk-delete
 
 # Sublime Text project files
 *.sublime-project
