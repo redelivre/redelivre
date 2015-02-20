@@ -3,7 +3,7 @@
 Plugin Name: Page Builder by SiteOrigin
 Plugin URI: http://siteorigin.com/page-builder/
 Description: A drag and drop, responsive page builder that simplifies building your website.
-Version: 2.0.5
+Version: 2.0.7
 Author: SiteOrigin
 Author URI: http://siteorigin.com
 License: GPL3
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: http://siteorigin.com/page-builder/#donate
 */
 
-define('SITEORIGIN_PANELS_VERSION', '2.0.5');
+define('SITEORIGIN_PANELS_VERSION', '2.0.7');
 define('SITEORIGIN_PANELS_BASE_FILE', __FILE__);
 
 require_once plugin_dir_path(__FILE__) . 'widgets/basic.php';
@@ -230,6 +230,7 @@ function siteorigin_panels_admin_enqueue_scripts($prefix) {
 		$widgets = siteorigin_panels_get_widgets();
 
 		wp_localize_script( 'so-panels-admin', 'soPanelsOptions', array(
+			'ajaxurl' => wp_nonce_url( admin_url('admin-ajax.php'), 'panels_action', '_panelsnonce' ),
 			'widgets' => $widgets,
 			'widget_dialog_tabs' => apply_filters( 'siteorigin_panels_widget_dialog_tabs', array(
 				array(
@@ -1010,7 +1011,7 @@ function siteorigin_panels_the_widget( $widget, $instance, $grid, $cell, $panel,
 	}
 	else {
 		// This gives themes a chance to display some sort of placeholder for missing widgets
-		echo apply_filters('siteorigin_panels_missing_widget', '', $widget, $args , $instance);
+		echo apply_filters('siteorigin_panels_missing_widget', $args['before_widget'] . $args['after_widget'], $widget, $args , $instance);
 	}
 }
 
