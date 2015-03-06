@@ -592,8 +592,19 @@ function custom_register_header()
 		if(class_exists('siCaptcha', false))
 		{
 			global $registro_captcha;
+			global $_SESSION;
+			
 			$registro_captcha = new siCaptcha;
-			$registro_captcha->si_captcha_start_session();
+			
+			if(!headers_sent())
+			{
+				$registro_captcha->si_captcha_start_session();
+			}
+			
+			if(!isset($_SESSION))
+			{
+				$_SESSION = array('setup_si' => true);
+			}
 		}
 		wp_enqueue_script('jquery_validate', WPMU_PLUGIN_URL . '/js/jquery.validate.min.js', array('jquery'));
 		wp_enqueue_script('jquery_validate_messages', WPMU_PLUGIN_URL . '/js/jquery.validate.messages_pt_BR.js', array('jquery', 'jquery_validate'));
