@@ -775,10 +775,15 @@ class Campaign {
         
         // Merge default settings com defined settings
         $opts = get_option('campanha_defined_settings_strings', array());
-        if(array_key_exists('value', $opts))
+        if(is_array($opts) && array_key_exists('value', $opts))
         {
         	$opts = $opts['value'];
         }
+        elseif(!is_array($opts))
+        {
+        	$opts = array();
+        }
+        
         $strings['value'] = array_merge($strings['value'], $opts);
         
     	if($id != '')
