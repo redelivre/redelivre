@@ -453,13 +453,13 @@ add_filter('menu_order', 'custom_menu_order', 20);
 * Filter used for correct the register URL
 */
 function custom_register_redirect($content){
-	if(!is_main_site()){
+	//if(!is_main_site()){
 		//die("chamou filtro");
 		unset($_REQUEST['action']);
 		return "registro-de-usuario/?".http_build_query($_REQUEST);
-	} else {
-		return $content;
-	}
+	//} else {
+		//return $content;
+	//}
 }
 
 add_filter('wp_signup_location', 'custom_register_redirect', 10, 3);
