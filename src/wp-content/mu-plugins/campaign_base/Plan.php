@@ -40,7 +40,7 @@ class Plan {
      */
     public static function getAll() {
         global $wpdb;
-        return $wpdb->get_results("SELECT * FROM `plans` ORDER BY `item_order` asc");
+        return $wpdb->get_results("SELECT * FROM `plans` ORDER BY `order` DESC");
     }
     
     /**

@@ -9,7 +9,7 @@ $plataformSettingsStrings = getPlataformSettings();
 foreach ($plataformSettingsStrings['label'] as $key => $label)
 {
 	$display = '';
-	if(array_key_exists($key, $plataformSettingsStrings['perm']) && $plataformSettingsStrings['perm'][$key] == 'S')
+	if(!is_super_admin() && array_key_exists($key, $plataformSettingsStrings['perm']) && $plataformSettingsStrings['perm'][$key] == 'S')
 	{
 		$display = 'display:none;';
 	}
