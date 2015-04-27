@@ -1,11 +1,11 @@
 <?PHP
 /*
-Plugin Name: WPML Widgets
-Plugin URI: http://www.jeroensormani.com
-Description: Easily select which widgets you want to show for which languages
-Version: 1.0.3
-Author: Jeroen Sormani
-Author URI: http://www.jeroensormani.com
+ * Plugin Name: 	WPML Widgets
+ * Plugin URI: 		http://www.jeroensormani.com
+ * Description: 	Easily select which widgets you want to show for which languages
+ * Version: 		1.0.4
+ * Author: 			Jeroen Sormani
+ * Author URI: 		http://www.jeroensormani.com
 */
 
 /*
@@ -205,7 +205,7 @@ class WPML_Widgets {
 			?><div class='updated'>
 				<p><?php
 					_e( 'Hey, I see WPML is not activated, please activate it before using WPML Widgets.', 'wpml-widgets' );
-					?><a class='alignright installer-dismiss-nag' href='<?php echo add_query_arg( 'dismiss_wpml_widgets_nag', true ); ?>' data-repository='wpml'><?php
+					?><a class='alignright installer-dismiss-nag' href='<?php echo esc_url( add_query_arg( 'dismiss_wpml_widgets_nag', true ) ); ?>' data-repository='wpml'><?php
 						_e( 'Dismiss', 'wpml-widgtes' );
 					?></a>
 				</p>

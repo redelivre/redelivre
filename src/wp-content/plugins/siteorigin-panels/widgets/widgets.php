@@ -26,18 +26,6 @@ function origin_widgets_enqueue($prefix){
 }
 add_action('admin_enqueue_scripts', 'origin_widgets_enqueue');
 
-function origin_widgets_display_css(){
-	if(is_admin()) return;
-	if(empty($_GET['action']) || $_GET['action'] != 'origin_widgets_css') return;
-	if(empty($_GET['class']) || empty($_GET['style']) || empty($_GET['preset'])) return;
-	if(strpos($_GET['class'], 'SiteOrigin_Panels_Widget_') !== 0) return;
-
-	header("Content-type: text/css");
-	echo origin_widgets_generate_css($_GET['class'], $_GET['style'], $_GET['preset'], $_GET['ver']);
-	exit();
-}
-add_action('init', 'origin_widgets_display_css');
-
 function origin_widgets_generate_css($class, $style, $preset, $version = null){
 	$widget = new $class();
 	if( !is_subclass_of($widget, 'SiteOrigin_Panels_Widget') ) return '';
@@ -49,9 +37,9 @@ function origin_widgets_generate_css($class, $style, $preset, $version = null){
 	$css = get_site_transient('origin_wcss:'.$key);
 	if($css === false || ( defined('SITEORIGIN_PANELS_NOCACHE') && SITEORIGIN_PANELS_NOCACHE ) ) {
 
-		echo "/* Regenerate Cache */\n\n";
 		// Recreate the CSS
-		$css = $widget->create_css($style, $preset);
+		$css = "/* Regenerate Cache */\n\n" ;
+		$css .= $widget->create_css($style, $preset);
 		$css = preg_replace('#/\*.*?\*/#s', '', $css);
 		$css = preg_replace('/\s*([{}|:;,])\s+/', '$1', $css);
 		$css = preg_replace('/\s\s+(.*)/', '$1', $css);
@@ -62,6 +50,21 @@ function origin_widgets_generate_css($class, $style, $preset, $version = null){
 
 	return $css;
 }
+
+function origin_widgets_footer_css(){
+	global $origin_widgets_generated_css;
+	if( !empty( $origin_widgets_generated_css ) ) {
+		echo '<style type="text/css">';
+		foreach( $origin_widgets_generated_css as $id => $css ) {
+			if( empty($css) ) continue;
+			echo $css;
+			$origin_widgets_generated_css[$id] = '';
+		}
+		echo '</style>';
+	}
+}
+add_action('wp_head', 'origin_widgets_footer_css');
+add_action('wp_footer', 'origin_widgets_footer_css');
 
 /**
  * Class SiteOrigin_Panels_Widget
@@ -296,21 +299,15 @@ abstract class SiteOrigin_Panels_Widget extends WP_Widget{
 		}
 
 		// Dynamically generate the CSS
+		global $origin_widgets_generated_css;
+		if( empty($origin_widgets_generated_css) ) {
+			$origin_widgets_generated_css = array();
+		}
+
 		if(!empty($instance['origin_style'])) {
 			$filename = $this->origin_id.'-'.$style.'-'.$preset;
-			if(siteorigin_panels_setting('inline-css')) {
-				static $inlined_css = array();
-				if(empty($inlined_css[$filename])) {
-					$inlined_css[$filename] = true;
-					?><style type="text/css" media="all"><?php echo origin_widgets_generate_css(get_class($this), $style, $preset) ?></style><?php
-				}
-			}
-			else {
-				wp_enqueue_style( 'origin-widget-'.$filename, add_query_arg(array(
-					'class' => get_class($this),
-					'style' => $style,
-					'preset' => $preset,
-				), site_url('?action=origin_widgets_css') ), array(), SITEORIGIN_PANELS_VERSION );
+			if( !isset($origin_widgets_generated_css[$filename]) ) {
+				$origin_widgets_generated_css[$filename] = origin_widgets_generate_css(get_class($this), $style, $preset);
 			}
 		}
 
@@ -632,7 +629,11 @@ abstract class SiteOrigin_Panels_Widget extends WP_Widget{
 		$this->form_args['query_additional'] = array(
 			'type' => 'text',
 			'label' => __('Additional Arguments', 'siteorigin-panels'),
-			'description' => sprintf(__('Additional query arguments. See <a href="%s" target="_blank">query_posts</a>.', 'siteorigin-panels'), 'http://codex.wordpress.org/Function_Reference/query_posts'),
+			'description' => preg_replace(
+				'/1\{ *(.*?) *\}/',
+				'<a href="http://codex.wordpress.org/Function_Reference/query_posts">$1</a>',
+				__('Additional query arguments. See 1{query_posts}.', 'siteorigin-panels')
+			)
 		);
 	}
 
@@ -734,7 +735,7 @@ class SiteOrigin_Panels_Widgets_Gallery extends WP_Widget {
 			<input type="text" class="widefat" value="<?php echo esc_attr($instance['ids']) ?>" name="<?php echo $this->get_field_name('ids') ?>" />
 		</p>
 		<p class="description">
-			<?php _e("Comma separated attachment IDs. Defaults to all current page's attachments.") ?>
+			<?php _e("Comma separated attachment IDs. Defaults to all current page's attachments.", 'siteorigin-panels') ?>
 		</p>
 
 		<p>
@@ -900,60 +901,27 @@ class SiteOrigin_Panels_Widgets_Video extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		if (empty($instance['url'])) return;
-		static $video_widget_id = 1;
+		if ( empty($instance['url']) ) return;
+		if ( !function_exists('wp_video_shortcode') ) return;
 
 		$instance = wp_parse_args($instance, array(
 			'url' => '',
 			'poster' => '',
-			'skin' => 'siteorigin',
-			'ratio' => 1.777,
 			'autoplay' => false,
 		));
 
-		// Enqueue jPlayer scripts and intializer
-		wp_enqueue_script( 'siteorigin-panels-video-jplayer', plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'video/jplayer/jquery.jplayer.min.js', array('jquery'), SITEORIGIN_PANELS_VERSION, true);
-		wp_enqueue_script( 'siteorigin-panels-video', plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'video/panels.video.jquery.js', array('jquery'), SITEORIGIN_PANELS_VERSION, true);
-
-		// Enqueue the SiteOrigin jPlayer skin
-		$skin = sanitize_file_name($instance['skin']);
-		wp_enqueue_style('siteorigin-panels-video-jplayer-skin', plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'video/jplayer/skins/'.$skin.'/jplayer.'.$skin.'.css', array(), SITEORIGIN_PANELS_VERSION);
-
-		$file = $instance['url'];
-		$poster = !empty($instance['poster']) ? $instance['poster'] :  plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'video/poster.jpg';
-		$instance['ratio'] = floatval($instance['ratio']);
-		if(empty($instance['ratio'])) $instance['ratio'] = 1.777;
-
 		echo $args['before_widget'];
-
-		?>
-		<div class="jp-video" id="jp_container_<?php echo $video_widget_id ?>">
-			<div class="jp-type-single" id="jp_interface_<?php echo $video_widget_id ?>">
-				<div id="jquery_jplayer_<?php echo $video_widget_id ?>" class="jp-jplayer"
-				     data-video="<?php echo esc_url($file) ?>"
-				     data-poster="<?php echo esc_url($poster) ?>"
-				     data-ratio="<?php echo floatval($instance['ratio']) ?>"
-				     data-autoplay="<?php echo esc_attr($instance['autoplay']) ?>"
-				     data-swfpath="<?php echo plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'video/jplayer/' ?>"
-				     data-mobile="<?php echo wp_is_mobile() ? 'true' : 'false' ?>"></div>
-
-				<?php $this->display_gui($instance['skin']) ?>
-			</div>
-		</div>
-		<?php
-
-		$video_widget_id++;
+		echo wp_video_shortcode( array(
+			'src' => $instance['url'],
+			'poster' => $instance['poster'],
+			'autoplay' => $instance['autoplay'],
+		) );
 		echo $args['after_widget'];
 	}
 
-	function display_gui($skin){
-		$file = plugin_dir_path(SITEORIGIN_PANELS_BASE_FILE).'video/jplayer/skins/'.$skin.'/gui.php';
-		if(file_exists($file)) include plugin_dir_path(SITEORIGIN_PANELS_BASE_FILE).'video/jplayer/skins/'.$skin.'/gui.php';
-	}
-
 	function update( $new, $old ) {
-		$new['skin'] = sanitize_file_name($new['skin']);
-		$new['ratio'] = floatval($new['ratio']);
+		$new['url'] = esc_url_raw( $new['url'] );
+		$new['poster'] = esc_url_raw( $new['poster'] );
 		$new['autoplay'] = !empty($new['autoplay']) ? 1 : 0;
 		return $new;
 	}
@@ -978,20 +946,8 @@ class SiteOrigin_Panels_Widgets_Video extends WP_Widget {
 			<small class="description"><?php _e('An image that displays before the video starts playing.', 'siteorigin-panels') ?></small>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id('skin') ?>"><?php _e('Skin', 'siteorigin-panels') ?></label>
-			<select id="<?php echo $this->get_field_id('skin') ?>" name="<?php echo $this->get_field_name('skin') ?>">
-				<option value="siteorigin" <?php selected($instance['skin'], 'siteorigin') ?>><?php esc_html_e('SiteOrigin', 'siteorigin-panels') ?></option>
-				<option value="premium" <?php selected($instance['skin'], 'premium') ?>><?php esc_html_e('Premium Pixels', 'siteorigin-panels') ?></option>
-			</select>
-		</p>
-		<p>
-			<label for="<?php echo $this->get_field_id('ratio') ?>"><?php _e('Aspect Ratio', 'siteorigin-panels') ?></label>
-			<input id="<?php echo $this->get_field_id('ratio') ?>" name="<?php echo $this->get_field_name('ratio') ?>" type="text" class="widefat" value="<?php echo esc_attr($instance['ratio']) ?>" />
-			<small class="description"><?php _e('1.777 is HD standard.', 'siteorigin-panels') ?></small>
-		</p>
-		<p>
 			<label for="<?php echo $this->get_field_id('autoplay') ?>">
-				<input id="<?php echo $this->get_field_id('autoplay') ?>" name="<?php echo $this->get_field_name('autoplay') ?>" type="checkbox" value="1" />
+				<input id="<?php echo $this->get_field_id('autoplay') ?>" name="<?php echo $this->get_field_name('autoplay') ?>" type="checkbox" value="1" <?php checked($instance['autoplay']) ?> />
 				<?php _e('Auto Play Video', 'siteorigin-panels') ?>
 			</label>
 		</p>

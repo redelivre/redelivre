@@ -5,6 +5,8 @@
  * @license GPL 3.0 http://www.gnu.org/licenses/gpl.html
  */
 
+/* global Backbone, _, jQuery, tinyMCE, soPanelsOptions, plupload, confirm, console */
+
 /**
  * Convert template into something compatible with Underscore.js templates
  *
@@ -26,8 +28,10 @@ String.prototype.panelsProcessTemplate = function(){
         collection : { },
         view : { },
         dialog : { },
-        fn : {}
+        fn : { }
     };
+
+    window.panels = panels;
 
     /**
      * Model for an instance of a widget
@@ -72,16 +76,26 @@ String.prototype.panelsProcessTemplate = function(){
         },
 
         /**
-         * Move this widget to a new cell
+         * Move this widget model to a new cell
          *
          * @param panels.model.cell newCell
+         *
+         * @return bool Indicating if the widget was moved into a different cell
          */
-        moveToCell: function(newCell){
-            if( this.cell.cid === newCell.cid ) { return false; }
+        moveToCell: function(newCell, options){
+            options = _.extend( {
+                silent: true
+            }, options );
+
+            if( this.cell.cid === newCell.cid ) {
+                return false;
+            }
 
             this.cell = newCell;
-            this.collection.remove(this, {silent:true});
-            newCell.widgets.add(this, {silent:true});
+            this.collection.remove(this, options );
+            newCell.widgets.add(this, options );
+
+            return true;
         },
 
         /**
@@ -174,13 +188,16 @@ String.prototype.panelsProcessTemplate = function(){
             }
 
             var values = this.get('values');
-            var thisModel = this;
 
             // Create a list of fields to check for a title
             var titleFields = ['title', 'text'];
+
             for (var k in values){
-                titleFields.push( k );
+                if( values.hasOwnProperty(k) ) {
+                    titleFields.push( k );
+                }
             }
+
             titleFields = _.uniq(titleFields);
 
             for( var i in titleFields ) {
@@ -737,8 +754,16 @@ String.prototype.panelsProcessTemplate = function(){
 
                 }
                 else if(cells.length < this.cells.length) {
+                    var newParentCell = this.cells.at( cells.length - 1 );
+
                     // We need to remove cells
                     _.each(this.cells.slice( cells.length, this.cells.length), function(cell){
+                        var widgetsToMove = cell.widgets.models.slice(0);
+                        for( var i = 0; i < widgetsToMove.length; i++ ) {
+                            widgetsToMove[i].moveToCell( newParentCell, {silent: false} );
+                        }
+
+                        // First move all the widgets to the new cell
                         cell.destroy();
                     });
                 }
@@ -1005,12 +1030,10 @@ String.prototype.panelsProcessTemplate = function(){
          */
         editSettingsHandler: function(){
             // Lets open up an instance of the settings dialog
-            var dialog = this.builder.dialogs.row;
-
-            if( this.dialog == null ) {
+            if( this.dialog === null ) {
                 // Create the dialog
                 this.dialog = new panels.dialog.row();
-                this.dialog.setBuilder( this.builder).setRowModel( this.model);
+                this.dialog.setBuilder( this.builder).setRowModel( this.model );
             }
 
             this.dialog.openDialog();
@@ -1083,13 +1106,17 @@ String.prototype.panelsProcessTemplate = function(){
          * @param weights
          */
         addRow: function( weights, options ){
-            options = _.extend({noAnimate : false}, options);
+            options = _.extend({
+                noAnimate : false
+            }, options);
             // Create the actual row
             var row = new panels.model.row( {
                 collection: this.rows
             } );
+
             row.setCells( weights );
             row.builder = this;
+
             this.rows.add(row, options);
 
             return row;
@@ -1110,7 +1137,10 @@ String.prototype.panelsProcessTemplate = function(){
             var cit = 0;
             var rows = [];
 
-            if( typeof data.grid_cells === 'undefined' ) { return; }
+            if( typeof data.grid_cells === 'undefined' ) {
+                this.trigger('load_panels_data');
+                return;
+            }
 
             var gi;
             for(var ci = 0; ci < data.grid_cells.length; ci++) {
@@ -1166,6 +1196,8 @@ String.prototype.panelsProcessTemplate = function(){
                 catch (err) {
                 }
             } );
+
+            this.trigger('load_panels_data');
         },
 
         /**
@@ -1307,7 +1339,7 @@ String.prototype.panelsProcessTemplate = function(){
             // Handle a content change
             this.on('content_change', this.handleContentChange, this);
             this.on('display_builder', this.handleDisplayBuilder, this);
-            this.model.on('change:data', this.toggleWelcomeDisplay, this);
+            this.model.on('change:data load_panels_data', this.toggleWelcomeDisplay, this);
         },
 
         /**
@@ -1406,15 +1438,20 @@ String.prototype.panelsProcessTemplate = function(){
                     .appendTo( $( '#wp-content-wrap .wp-editor-tabs' ) );
             }
 
-
-
             // Switch back to the standard editor
             metabox.find('.so-switch-to-standard').click(function(e){
                 e.preventDefault();
 
+                if( confirm(panelsOptions.loc.confirm_stop_builder) ) {
+                    // User is switching to the standard visual editor
+                    thisView.addHistoryEntry( 'back_to_editor' );
+                    thisView.model.loadPanelsData( false );
+                }
+
                 // Switch back to the standard editor
                 $( '#wp-content-wrap, #post-status-info' ).show();
                 metabox.hide();
+
                 // Resize to trigger reflow of WordPress editor stuff
                 $( window ).resize();
             }).show();
@@ -1437,13 +1474,33 @@ String.prototype.panelsProcessTemplate = function(){
                     newTop += $('#wpadminbar').outerHeight();
                 }
 
-                // Make sure this falls in an acceptible range.
-                newTop = Math.max( newTop, 0 );
-                newTop = Math.min( newTop, thisView.$el.outerHeight() - toolbar.outerHeight() + 20 ); // 20px extra to account for padding.
+                var limits = {
+                    top: 0,
+                    bottom: thisView.$el.outerHeight() - toolbar.outerHeight() + 20
+                };
 
-                // Position the toolbar
-                toolbar.css('top', newTop);
-                thisView.$el.css('padding-top', toolbar.outerHeight());
+                if( newTop > limits.top && newTop < limits.bottom ) {
+                    if( toolbar.css('position') !== 'fixed' ) {
+                        // The toolbar needs to stick to the top, over the interface
+                        toolbar.css({
+                            top: $('#wpadminbar').outerHeight(),
+                            left: thisView.$el.offset().left,
+                            width: thisView.$el.outerWidth(),
+                            position: 'fixed'
+                        });
+                    }
+                }
+                else {
+                    // The toolbar needs to be at the top or bottom of the interface
+                    toolbar.css({
+                        top: Math.min( Math.max( newTop, 0 ), thisView.$el.outerHeight() - toolbar.outerHeight() + 20 ),
+                        left: 0,
+                        width: '100%',
+                        position: 'absolute'
+                    });
+                }
+
+                thisView.$el.css('padding-top', toolbar.outerHeight() );
             };
 
             $( window ).resize( stickToolbar );
@@ -1465,6 +1522,7 @@ String.prototype.panelsProcessTemplate = function(){
                 appendTo: '#wpwrap',
                 items: '.so-row-container',
                 handle: '.so-row-move',
+                axis: 'y',
                 tolerance: 'pointer',
                 scroll: false,
                 stop: function (e) {
@@ -1516,7 +1574,7 @@ String.prototype.panelsProcessTemplate = function(){
         },
 
         /**
-         * Store the model data in the data field set in this.setDataField.
+         * Store the model data in the data html field set in this.setDataField.
          */
         storeModelData: function(){
             var data = JSON.stringify( this.model.get('data' ) );
@@ -1524,6 +1582,7 @@ String.prototype.panelsProcessTemplate = function(){
             if( $(this.dataField).val() !== data ) {
                 // If the data is different, set it and trigger a content_change event
                 $(this.dataField).val( data );
+                $(this.dataField).trigger( 'change' );
                 this.trigger('content_change');
             }
         },
@@ -1582,18 +1641,36 @@ String.prototype.panelsProcessTemplate = function(){
         },
 
         /**
-         * Get the model for the currently active cell
+         * Get the model for the currently selected cell
          */
-        getActiveCell: function(){
+        getActiveCell: function( options ){
+            console.log(options);
+            options = _.extend( {
+                createCell: true,
+                defaultPosition: 'first'
+            }, options );
+
             if( this.$('.so-cells .cell').length === 0 ) {
-                // Create a row with a single cell
-                this.model.addRow( [1], {noAnimate: true} );
+
+                if( options.createCell ) {
+                    // Create a row with a single cell
+                    this.model.addRow( [1], {noAnimate: true} );
+                }
+                else {
+                    return null;
+                }
+
             }
 
             var activeCell = this.$('.so-cells .cell.cell-selected');
 
             if(!activeCell.length) {
-                activeCell = this.$('.so-cells .cell').first();
+                if( options.defaultPosition === 'last' ){
+                    activeCell = this.$('.so-cells .cell').first();
+                }
+                else {
+                    activeCell = this.$('.so-cells .cell').last();
+                }
             }
 
             return activeCell.data('view').model;
@@ -1728,7 +1805,9 @@ String.prototype.panelsProcessTemplate = function(){
                     },
                     function(content){
 
-                        if( content === '' ) return;
+                        if( content === '' ) {
+                            return;
+                        }
 
                         // Strip all the known layout divs
                         var t = $('<div />').html( content );
@@ -2061,6 +2140,9 @@ String.prototype.panelsProcessTemplate = function(){
             this.bodyScrollTop = $('body').scrollTop();
             $('body').css({'overflow':'hidden'});
 
+            // Start listen for keyboard keypresses.
+            $(window).on('keyup', this.keyboardListen);
+
             this.$el.show();
 
             // This triggers once everything is visible
@@ -2089,11 +2171,25 @@ String.prototype.panelsProcessTemplate = function(){
                 $('body').css({'overflow':'auto'});
                 $('body').scrollTop( this.bodyScrollTop );
             }
+            
+            // Stop listen for keyboard keypresses.
+            $(window).off('keyup', this.keyboardListen);
 
             // This triggers once everything is hidden
             this.trigger('close_dialog_complete');
 
             return false;
+        },
+        
+        /**
+         * Keyboard events handler
+         */
+        keyboardListen: function(e) {
+        
+            // [Esc] to close
+            if (e.which === 27) {
+                $('.so-panels-dialog-wrapper .so-close').trigger('click');
+            }
         },
 
         /**
@@ -2316,12 +2412,13 @@ String.prototype.panelsProcessTemplate = function(){
 
             this.on('open_dialog', function(){
                 this.filter.search = '';
-                this.filterWidgets(this.filter);
+                this.filterWidgets( this.filter );
             }, this);
 
             this.on('open_dialog_complete', function(){
                 // Clear the search and re-filter the widgets when we open the dialog
                 this.$('.so-sidebar-search').val('').focus();
+                this.balanceWidgetHeights();
             });
 
             // We'll implement a custom tab click handler
@@ -2353,11 +2450,19 @@ String.prototype.panelsProcessTemplate = function(){
             // Add the sidebar tabs
             var tabs = this.$el.find('.so-sidebar-tabs');
             _.each(panelsOptions.widget_dialog_tabs, function(tab){
-                var $t = $( this.dialogTabTemplate( { 'title' : tab.title } )).data('filter', tab.filter).appendTo( tabs );
+                $( this.dialogTabTemplate( { 'title' : tab.title } )).data({
+                    'message' : tab.message,
+                    'filter' : tab.filter
+                }).appendTo( tabs );
             }, this);
 
             // We'll be using tabs, so initialize them
             this.initTabs();
+
+            var thisDialog = this;
+            $(window).resize(function(){
+                thisDialog.balanceWidgetHeights();
+            });
         },
 
         /**
@@ -2366,9 +2471,15 @@ String.prototype.panelsProcessTemplate = function(){
         tabClickHandler: function($t){
             // Get the filter from the tab, and filter the widgets
             this.filter = $t.parent().data('filter');
-            if( this.$el.find('.so-sidebar-search').val() !== '' ) {
-                this.filter.search = this.$el.find('.so-sidebar-search').val();
+            this.filter.search = this.$el.find('.so-sidebar-search').val();
+
+            var message = $t.parent().data('message');
+            if( _.isEmpty( message ) ) {
+                message = '';
             }
+
+            this.$('.so-toolbar .so-status').html( message );
+
             this.filterWidgets(this.filter);
 
             return false;
@@ -2433,6 +2544,9 @@ String.prototype.panelsProcessTemplate = function(){
                     $$.hide();
                 }
             });
+
+            // Balance the tags after filtering
+            this.balanceWidgetHeights();
         },
 
         /**
@@ -2455,6 +2569,51 @@ String.prototype.panelsProcessTemplate = function(){
             widget.cell.widgets.add( widget );
 
             this.closeDialog();
+        },
+
+        /**
+         * Balance widgets in a given row so they have enqual height.
+         * @param e
+         */
+        balanceWidgetHeights : function(e) {
+            var widgetRows = [ [] ];
+            var previousWidget = null;
+
+            // Work out how many widgets there are per row
+            var perRow = Math.round( this.$('.widget-type').parent().width() / this.$('.widget-type').width() );
+
+            // Add clears to create balanced rows
+            this.$('.widget-type')
+                .css('clear', 'none')
+                .filter(':visible')
+                .each( function(i, el) {
+                    if( i % perRow === 0 && i !== 0 ) {
+                        $(el).css('clear', 'both');
+                    }
+                } );
+
+            // Group the widgets into rows
+            this.$('.widget-type-wrapper')
+                .css( 'height', 'auto' )
+                .filter(':visible')
+                .each(function(i, el) {
+                    var $el = $(el);
+                    if( previousWidget !== null && previousWidget.position().top !== $el.position().top ) {
+                        widgetRows[widgetRows.length] = [];
+                    }
+                    previousWidget = $el;
+                    widgetRows[widgetRows.length - 1].push( $el );
+                });
+
+            // Balance the height of the widgets within the row.
+            _.each( widgetRows, function(row, i){
+                var maxHeight = _.max( row.map( function(el){ return el.height(); } ) );
+                // Set the height of each widget in the row
+                _.each(row, function(el){
+                    el.height(maxHeight);
+                });
+
+            } );
         }
     } );
 
@@ -2500,7 +2659,7 @@ String.prototype.panelsProcessTemplate = function(){
             // Now we need to attach the style window
             this.styles = new panels.view.styles();
             this.styles.model = this.model;
-            this.styles.render( 'widget' );
+            this.styles.render( 'widget', $('#post_ID').val() );
             this.styles.attach( this.$('.so-sidebar.so-right-sidebar') );
 
             // Handle the loading class
@@ -2604,10 +2763,12 @@ String.prototype.panelsProcessTemplate = function(){
             // Get the values from the form and assign the new values to the model
             var values = this.getFormValues();
             if(typeof values.widgets === 'undefined') {
-                return false;
+                values = { };
             }
-            values = values.widgets;
-            values = values[ Object.keys(values)[0] ];
+            else {
+                values = values.widgets;
+                values = values[ Object.keys(values)[0] ];
+            }
 
             this.model.setValues(values);
             this.model.set('raw', true); // We've saved from the widget form, so this is now raw
@@ -2714,13 +2875,17 @@ String.prototype.panelsProcessTemplate = function(){
             // Empty everything
             this.$('.so-content').empty();
 
-            this.currentTab = tab;
+            thisView.currentTab = tab;
 
-            if( typeof this.layoutCache[tab] === 'undefined' ) {
+            if( tab === 'import' ) {
+                // Display the import export
+                this.displayImportExport();
+            }
+            else if( typeof this.layoutCache[tab] === 'undefined' ) {
                 // We need to load the tab items from the server
                 this.$('.so-content').addClass('so-panels-loading');
 
-                $.post(
+                $.get(
                     panelsOptions.ajaxurl,
                     {
                         action: 'so_panels_prebuilt_layouts',
@@ -2728,8 +2893,12 @@ String.prototype.panelsProcessTemplate = function(){
                     },
                     function(layouts){
                         thisView.layoutCache[ tab ] = layouts;
-                        thisView.$( '.so-content' ).removeClass( 'so-panels-loading' );
-                        thisView.displayLayouts( tab, layouts );
+
+                        if( thisView.currentTab === tab ) {
+                            // If the current tab is selected
+                            thisView.$( '.so-content' ).removeClass( 'so-panels-loading' );
+                            thisView.displayLayouts( tab, layouts );
+                        }
                     }
                 );
             }
@@ -2756,22 +2925,24 @@ String.prototype.panelsProcessTemplate = function(){
 
             if( _.size(layouts) ) {
                 for (var lid in layouts) {
-                    // Exclude the current post if we have one
-                    if (type !== 'prebuilt' && lid === $('#post_ID').val()) {
-                        continue;
-                    }
-                    if (query !== '' && layouts[lid].name.toLowerCase().indexOf(query) === -1) {
-                        continue;
-                    }
+                    if( layouts.hasOwnProperty(lid) ) {
+                        // Exclude the current post if we have one
+                        if (type !== 'prebuilt' && lid === $('#post_ID').val()) {
+                            continue;
+                        }
+                        if (query !== '' && layouts[lid].name.toLowerCase().indexOf(query) === -1) {
+                            continue;
+                        }
 
-                    // Create the layout item to display in the list
-                    var $l = $(this.entryTemplate({
-                        name: layouts[lid].name,
-                        description: layouts[lid].description
-                    }));
+                        // Create the layout item to display in the list
+                        var $l = $(this.entryTemplate({
+                            name: layouts[lid].name,
+                            description: layouts[lid].description
+                        }));
 
-                    // Create and append the
-                    $l.appendTo(c).data({'type': type, 'lid': lid});
+                        // Create and append the
+                        $l.appendTo(c).data({'type': type, 'lid': lid});
+                    }
                 }
             }
         },
@@ -2818,6 +2989,89 @@ String.prototype.panelsProcessTemplate = function(){
                     thisView.closeDialog();
                 }
             );
+        },
+
+        /**
+         * Display and setup the import/export form
+         */
+        displayImportExport: function(){
+            var c = this.$( '.so-content').empty().removeClass( 'so-panels-loading' );
+            c.html( $('#siteorigin-panels-dialog-prebuilt-importexport').html() );
+
+            var thisView = this;
+            var uploadUi = thisView.$('.import-upload-ui').hide();
+
+            // Create the uploader
+            var uploader = new plupload.Uploader({
+                runtimes : 'html5,silverlight,flash,html4',
+
+                browse_button : uploadUi.find('.file-browse-button').get(0),
+                container : uploadUi.get(0),
+                drop_element : uploadUi.find('.drag-upload-area').get(0),
+
+                file_data_name : 'panels_import_data',
+                multiple_queues : false,
+                max_file_size : panelsOptions.plupload.max_file_size,
+                url : panelsOptions.plupload.url,
+                flash_swf_url : panelsOptions.plupload.flash_swf_url,
+                silverlight_xap_url : panelsOptions.plupload.silverlight_xap_url,
+                filters : [
+                    { title : panelsOptions.plupload.filter_title, extensions : 'json' }
+                ],
+
+                multipart_params : {
+                    action : 'so_panels_import_layout'
+                },
+
+                init: {
+                    PostInit: function(uploader){
+                        if( uploader.features.dragdrop ) {
+                            uploadUi.addClass('has-drag-drop');
+                        }
+                        uploadUi.show().find('.progress-precent').css('width', '0%');
+                    },
+                    FilesAdded: function(uploader){
+                        uploadUi.find('.file-browse-button').blur();
+                        uploadUi.find('.drag-upload-area').removeClass('file-dragover');
+                        uploadUi.find('.progress-bar').fadeIn('fast');
+                        uploader.start();
+                    },
+                    UploadProgress: function(uploader, file){
+                        uploadUi.find('.progress-precent').css('width', file.percent + '%');
+                    },
+                    FileUploaded : function(uploader, file, response){
+                        var layout = JSON.parse( response.response );
+                        if( typeof layout.widgets !== 'undefined' ) {
+                            thisView.builder.addHistoryEntry('prebuilt_loaded');
+                            thisView.builder.model.loadPanelsData(layout);
+                            thisView.closeDialog();
+                        }
+                        else {
+                            alert( panelsOptions.plupload.error_message );
+                        }
+                    },
+                    Error: function(){
+                        alert( panelsOptions.plupload.error_message );
+                    }
+                }
+            });
+            uploader.init();
+
+            // This is
+            uploadUi.find('.drag-upload-area')
+                .on('dragover', function(){
+                    $(this).addClass('file-dragover');
+                })
+                .on('dragleave', function(){
+                    $(this).removeClass('file-dragover');
+                });
+
+            // Handle exporting the file
+            c.find('.so-export').submit( function(e){
+                var $$ = $(this);
+                $$.find('input[name="panels_export_data"]').val( JSON.stringify( thisView.builder.model.getPanelsData() ) );
+            } );
+
         },
 
         /**
@@ -2906,7 +3160,7 @@ String.prototype.panelsProcessTemplate = function(){
                 // Now we need to attach the style window
                 this.styles = new panels.view.styles();
                 this.styles.model = this.model;
-                this.styles.render( 'row' );
+                this.styles.render( 'row', $('#post_ID').val() );
                 this.styles.attach( this.$('.so-sidebar.so-right-sidebar') );
 
                 // Handle the loading class
@@ -3313,11 +3567,21 @@ String.prototype.panelsProcessTemplate = function(){
             this.model = new panels.model.row();
             this.updateModel();
 
+            var activeCell = this.builder.getActiveCell({
+                createCell: false,
+                defaultPosition: 'last'
+            });
+
+            var options = {};
+            if( activeCell !== null ) {
+                options.at = this.builder.model.rows.indexOf( activeCell.row ) + 1;
+            }
+
             // Set up the model and add it to the builder
             this.model.collection = this.builder.model.rows;
-            this.builder.model.rows.add( this.model );
+            this.builder.model.rows.add( this.model, options );
 
-            this.closeDialog( );
+            this.closeDialog();
 
             return false;
         },
@@ -3417,8 +3681,8 @@ jQuery( function($){
 
         container.removeClass('so-panels-loading');
 
-        // Trigger a global jQuery event after we've setup the builder view
-        $(document).trigger( 'panels_setup', builderView );
+        // Trigger a global jQuery event after we've setup the builder view. Everything is accessible form there
+        $(document).trigger( 'panels_setup', builderView, window.panels );
     }
 } );
 
@@ -3448,7 +3712,6 @@ jQuery( function($){
 
             // Save panels data when we close the dialog, if we're in a dialog
             var dialog = $$.closest('.so-panels-dialog-wrapper').data('view');
-
             if( typeof dialog !== 'undefined' ) {
                 dialog.on('close_dialog', function(){
                     builderModel.refreshPanelsData();
@@ -3498,8 +3761,10 @@ jQuery( function($){
     });
 
     // Setup existing widgets on the page (for the widgets interface)
-    $(function(){
-        $('.siteorigin-page-builder-widget').soPanelsSetupBuilderWidget();
-    });
+    if(!$('body').hasClass('wp-customizer')) {
+        $(function(){
+            $('.siteorigin-page-builder-widget').soPanelsSetupBuilderWidget();
+        });
+    }
 
 })( jQuery );
