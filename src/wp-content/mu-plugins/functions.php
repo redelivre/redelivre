@@ -549,10 +549,9 @@ function custom_register_ajax_send(){
 		'user_login' => $_POST['username'],
 		'user_pass' => $_POST['password'],
 		'user_email' => $_POST['email'],
-		'first_name' => $_POST['realname'],
+		'first_name' => array_key_exists('realname', $_POST) ? $_POST['realname'] : $_POST['username'],
 		'captcha_code'  => $_POST['captcha_code']
 	);
-	
 	session_start();
 	if(class_exists('siCaptcha', false))
 	{

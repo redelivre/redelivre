@@ -66,7 +66,13 @@ function Custom_User_Register(){
 	*
 	*/
 	this.ajax_register = function(){
-		if(this.valida_form()){
+		if(this.valida_form())
+		{
+			var all_fields = jQuery("input[name*='custom-register-']").map(function()
+			{
+				return { name:jQuery(this).attr("name").replace("custom-register-",""), value:jQuery(this).val()};
+		    }).get();
+			
 			var data = {
 					action: 'custom_register_send',
 					username: jQuery("#custom-register-username").val(),
@@ -74,6 +80,7 @@ function Custom_User_Register(){
 					password: jQuery("#custom-register-password").val(),
 					email: jQuery("#custom-register-email").val(),
 					captcha_code: jQuery("#captcha_code").val(),
+					all_fields: all_fields
 			};
 						
 			jQuery("#custom-register-resposta").html("Enviando. Por favor, aguarde.");
