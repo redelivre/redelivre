@@ -10,7 +10,7 @@ if( $mostrar == 'S')
 {
 	?>
 	
-	<tr class="form-field">
+	<tr class="form-field" style="display: none;">
 		<th scope="row"><label for="plan_id">Selecione um plano</label></th>
 		<td>
 	

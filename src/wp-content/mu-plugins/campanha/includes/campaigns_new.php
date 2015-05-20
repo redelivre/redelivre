@@ -51,21 +51,21 @@ if (isset($_GET['noheader'])) {
         <table class="form-table">
             <tbody>
                 <tr class="form-field">
-                    <th scope="row"><label for="domain">Sub-domínio</label></th>
+                    <th scope="row"><label for="domain">Nome do site</label></th>
                     <td>
                         <input type="text" value="<?php if (isset($_POST['domain'])) echo $_POST['domain']; ?>" name="domain" style="display: block;">
                         <small>São recomendados apenas os caracteres a-z e 0-9.</small> <br />
                         <small>O sub-domínio será usado para acessar o seu site caso não possua um domínio próprio. Por exemplo, se preencher nesse campo "joao" o sub-domínio será joao.<?php echo get_blog_details(1)->domain; ?>.</small>
                     </td>
                 </tr>
-                <tr class="form-field">
+                <tr class="form-field" style="display: none;">
                     <th scope="row"><label for="own_domain">Domínio próprio (opcional)</label></th>
                     <td>
                         <input type="text" value="<?php if (isset($_POST['own_domain'])) echo $_POST['own_domain']; ?>" name="own_domain" style="display: block;">
                         <small>Caso possua informe aqui o domínio próprio do seu site (ele será usado no lugar do sub-domínio)</small>
                     </td>
                 </tr>
-                <tr class="form-field">
+                <tr class="form-field" style="display: none;">
                     <th scope="row"><label for="state">Localização</label></th>
                     <td>
                         <label for="state">Estado</label>
