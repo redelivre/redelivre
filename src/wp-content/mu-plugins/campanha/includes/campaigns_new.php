@@ -20,7 +20,7 @@ if (!empty($_POST)) {
         $campaign->create();
         
         if (switch_to_blog($campaign->blog_id)) {
-            wp_redirect(admin_url());
+            wp_redirect(home_url());
         } else {
             //TODO: improve error handling for campaign creation
             $errors = array('error' => Campaign::getStrings('NaoFoiPossivelCriar'));

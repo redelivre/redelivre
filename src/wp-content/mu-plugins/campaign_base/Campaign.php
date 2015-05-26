@@ -513,10 +513,20 @@ class Campaign {
         // allow search engine robots to index the campaign site
         update_blog_option($blogId, 'blog_public', 1);
         
-        // set defaut campaign theme
-        update_blog_option($blogId, 'current_theme', 'Blog 01');
-        update_blog_option($blogId, 'stylesheet', 'blog-01');
-        update_blog_option($blogId, 'template', 'blog-01');
+        // allow change of blog model
+        $model = get_user_meta(get_current_user_id(), 'blogmodel', true);
+        
+        if(empty($model))
+        {
+	        // set defaut campaign theme
+	        update_blog_option($blogId, 'current_theme', 'Blog 01');
+	        update_blog_option($blogId, 'stylesheet', 'blog-01');
+	        update_blog_option($blogId, 'template', 'blog-01');
+        }
+        elseif(file_exists(WPMU_PLUGIN_DIR."/campaign_base/models/".basename($model).".php")) 
+        {
+        	include WPMU_PLUGIN_DIR."/campaign_base/models/".basename($model).".php";
+        }
         
         // set upload limit
         $capabilities = Capability::getByPlanId($this->plan_id);
@@ -545,62 +555,68 @@ class Campaign {
         if (switch_to_blog($blogId)) {
             //$this->createPost('page', 'Biografia', 'Edite essa página para colocar sua biografia. Se não quiser utilizar esta página você precisará removê-la do menu também.');
             //$this->createPost('page', 'Propostas', 'Edite essa página para colocar suas propostas. Se não quiser utilizar esta página você precisará removê-la do menu também.');
-            
-            if (!is_nav_menu('main')) {
-                $menu_id = wp_create_nav_menu('main');
-
-                wp_update_nav_menu_item($menu_id, 0, array(
-                    'menu-item-title' => 'Capa',
-                    'menu-item-url' => home_url('/'),
-                    'menu-item-status' => 'publish')
-                );
-                /*
-                wp_update_nav_menu_item($menu_id, 0, array(
-                    'menu-item-title' => 'Biografia',
-                    'menu-item-url' => home_url('/biografia'), 
-                    'menu-item-status' => 'publish')
-                );
-                
-                wp_update_nav_menu_item($menu_id, 0, array(
-                    'menu-item-title' => 'Propostas',
-                    'menu-item-url' => home_url('/propostas'), 
-                    'menu-item-status' => 'publish')
-                );
-                */
-                wp_update_nav_menu_item($menu_id, 0, array(
-                    'menu-item-title' => 'Mobilização',
-                    'menu-item-url' => home_url('/mobilizacao'),
-                    'menu-item-status' => 'publish')
-                );
-                
-                wp_update_nav_menu_item($menu_id, 0, array(
-                    'menu-item-title' => 'Contato',
-                    'menu-item-url' => home_url('/contato'), 
-                    'menu-item-status' => 'publish')
-                );
-                
-                //TODO: couldn't make it work with as post_type so using custom menu items for now
-                /*
-                wp_update_nav_menu_item($menu_id, 0, array('menu-item-title' => 'Biografia',
-                    'menu-item-object' => 'page',
-                    'menu-item-object-id' => get_page_by_path('biografia')->ID,
-                    'menu-item-type' => 'post_type',
-                    'menu-item-status' => 'publish')
-                );
-                
-                wp_update_nav_menu_item($menu_id, 0, array('menu-item-title' => 'Propostas',
-                    'menu-item-object' => 'page',
-                    'menu-item-object-id' => get_page_by_path('propostas')->ID,
-                    'menu-item-type' => 'post_type',
-                    'menu-item-status' => 'publish')
-                );*/
-                
-                set_theme_mod( 'nav_menu_locations', array('main' => $menu_id) );
-                
-            }
-            
-            // remove default page
-            wp_delete_post(2, true);
+        	// allow change of blog model
+        	
+        	$model = get_user_meta(get_current_user_id(), 'blogmodel', true);
+        	
+        	if(empty($model))
+        	{
+	            if (!is_nav_menu('main')) {
+	                $menu_id = wp_create_nav_menu('main');
+	
+	                wp_update_nav_menu_item($menu_id, 0, array(
+	                    'menu-item-title' => 'Capa',
+	                    'menu-item-url' => home_url('/'),
+	                    'menu-item-status' => 'publish')
+	                );
+	                /*
+	                wp_update_nav_menu_item($menu_id, 0, array(
+	                    'menu-item-title' => 'Biografia',
+	                    'menu-item-url' => home_url('/biografia'), 
+	                    'menu-item-status' => 'publish')
+	                );
+	                
+	                wp_update_nav_menu_item($menu_id, 0, array(
+	                    'menu-item-title' => 'Propostas',
+	                    'menu-item-url' => home_url('/propostas'), 
+	                    'menu-item-status' => 'publish')
+	                );
+	                */
+	                wp_update_nav_menu_item($menu_id, 0, array(
+	                    'menu-item-title' => 'Mobilização',
+	                    'menu-item-url' => home_url('/mobilizacao'),
+	                    'menu-item-status' => 'publish')
+	                );
+	                
+	                wp_update_nav_menu_item($menu_id, 0, array(
+	                    'menu-item-title' => 'Contato',
+	                    'menu-item-url' => home_url('/contato'), 
+	                    'menu-item-status' => 'publish')
+	                );
+	                
+	                //TODO: couldn't make it work with as post_type so using custom menu items for now
+	                /*
+	                wp_update_nav_menu_item($menu_id, 0, array('menu-item-title' => 'Biografia',
+	                    'menu-item-object' => 'page',
+	                    'menu-item-object-id' => get_page_by_path('biografia')->ID,
+	                    'menu-item-type' => 'post_type',
+	                    'menu-item-status' => 'publish')
+	                );
+	                
+	                wp_update_nav_menu_item($menu_id, 0, array('menu-item-title' => 'Propostas',
+	                    'menu-item-object' => 'page',
+	                    'menu-item-object-id' => get_page_by_path('propostas')->ID,
+	                    'menu-item-type' => 'post_type',
+	                    'menu-item-status' => 'publish')
+	                );*/
+	                
+	                set_theme_mod( 'nav_menu_locations', array('main' => $menu_id) );
+	                
+	            }
+	            
+	            // remove default page
+	            wp_delete_post(2, true);
+        	}
             
             restore_current_blog();
         }
