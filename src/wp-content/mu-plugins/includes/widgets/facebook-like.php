@@ -21,6 +21,11 @@ class WidgetFacebookLikeBox extends WP_Widget {
             return;
         
         echo $before_widget;
+        
+        echo $before_title;
+        echo empty( $instance['title'] ) ? '&nbsp' : $instance['title'];
+        echo $after_title;
+        
         $show_faces = (isset($instance['fb-show-faces'])) ? $instance['fb-show-faces'] : 'true';
         
         $altura = ( array_key_exists('fb-height', $instance) && intval($instance['fb-height']) > 0 ) ? intval($instance['fb-height']) : (($show_faces == 'true') ? '285' : '80');
@@ -35,13 +40,14 @@ class WidgetFacebookLikeBox extends WP_Widget {
         $instance = array();
 		$instance['fb-show-faces'] = $new_instance['fb-show-faces'];
 		$instance['fb-height'] = $new_instance['fb-height'];
+		$instance['title'] = $new_instance['title'];
 
 		return $instance;
         //return $old_instance;
     }
     
     function form($instance) {
-    	
+    	$title = isset($instance['title']) ? $instance['title'] : '';
     	$fb_height = array_key_exists('fb-height', $instance) ? intval($instance['fb-height']) : 290;
         ?>
         <p>
@@ -49,6 +55,12 @@ class WidgetFacebookLikeBox extends WP_Widget {
         </p>
 
         <strong>Opções do widget</strong>
+        <p>
+            <label for="<?php echo $this->get_field_id('title'); ?>">
+                <?php _e('Título'); ?><br/>
+                <input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo isset($title) ? $title : '&nbsp;' ?>"/>
+            </label>
+        </p>
         <p>
         	<label for="<?php $this->get_field_id('fb-show-faces'); ?>">Exibir fotos</label>
         	<select name="<?php echo $this->get_field_name('fb-show-faces'); ?>" id="<?php echo $this->get_field_id('fb-show-faces'); ?>">
