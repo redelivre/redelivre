@@ -108,3 +108,6 @@
 	path = src/wp-content/themes/praticas-de-continuidade
 	url = git@github.com:redelivre/pontosdecultura.git
 	branch = praticas-de-continuidade
+[submodule "src/wp-content/themes/fluxo"]
+	path = src/wp-content/themes/fluxo
+	url = git@github.com:redelivre/fluxo.git
