@@ -111,3 +111,5 @@
 [submodule "src/wp-content/themes/fluxo"]
 	path = src/wp-content/themes/fluxo
 	url = git@github.com:redelivre/fluxo.git
+	branch = master
+
