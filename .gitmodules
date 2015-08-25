@@ -113,3 +113,7 @@
 	url = git@github.com:redelivre/fluxo.git
 	branch = master
 
+[submodule "src/wp-content/plugins/joomla-to-wordpress-joomdoc"]
+	path = src/wp-content/plugins/joomla-to-wordpress-joomdoc
+	url = git@gitlab.ethymos.com.br:ethymos/joomla-to-wordpress-joomdoc.git
+	branch = master
