@@ -329,7 +329,7 @@ add_action('campanha_body_header', function() {
  * in the options-general.php page.
  */
 function campanha_custom_options_strings() {
-    wp_enqueue_script('custom_general_options', WPMU_PLUGIN_URL . '/js/custom_general_options.js');
+    //wp_enqueue_script('custom_general_options', WPMU_PLUGIN_URL . '/js/custom_general_options.js');
 }
 
 
