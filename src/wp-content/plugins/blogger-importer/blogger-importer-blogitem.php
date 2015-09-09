@@ -11,6 +11,7 @@
 
 define('SIMPLEPIE_NAMESPACE_ATOMPUB', 'http://purl.org/atom/app#');
 define('SIMPLEPIE_NAMESPACE_GEOTAG', 'http://www.georss.org/georss');
+define('SIMPLEPIE_NAMESPACE_THREAD','http://purl.org/syndication/thread/1.0');
 
 /**
  * SimplePie Helper for AtomPub 
@@ -107,7 +108,7 @@ if (!class_exists('WP_SimplePie_Blog_Item'))
         }
 
         //Don't Sanitize the ID, the default get_id was cleaning our IDs and that meant that nested comments did not work
-        function get_id()
+        function get_id($hash = false)
         {
             if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'id'))
             {
@@ -116,10 +117,10 @@ if (!class_exists('WP_SimplePie_Blog_Item'))
         }
         
         //Prefiltered links
-        function get_links($linktypes) {
+        function get_links($rel = 'alternate') {
         
             $mylinks = array();
-            foreach ($linktypes as $type)
+            foreach ($rel as $type)
             {
                 $links =parent::get_links($type);
 
@@ -145,15 +146,19 @@ if (!class_exists('WP_SimplePie_Blog_Item'))
             return $mycats;
         }
         
+        //What is the source of this item e.g. a comment linked to a post
+        //10/3/2014 Added error handling for where the comment links to a post that no longer exists on blogger.
         function get_source() {
-            $temp = $this->get_item_tags('http://purl.org/syndication/thread/1.0', 'in-reply-to');
+            $temp = $this->get_item_tags(SIMPLEPIE_NAMESPACE_THREAD, 'in-reply-to');
 
-            foreach ($temp as $t) {
-                if (isset($t['attribs']['']['source'])) {
-                    $source = $t['attribs']['']['source'];
+            if (!is_null($temp)){
+                foreach ($temp as $t) {
+                    if (isset($t['attribs']['']['source'])) {
+                        $source = $t['attribs']['']['source'];
+                    }
                 }
+                return $source;
             }
-            return $source;
         }
 
     }

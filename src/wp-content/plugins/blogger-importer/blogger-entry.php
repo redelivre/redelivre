@@ -1,8 +1,5 @@
 <?php
-
 /**
- * @author Andy Clark
- * @copyright 2013
  * A data object representing the data to be added into Wordpress 
  */
 
@@ -44,22 +41,23 @@ if (!class_exists('BloggerEntry'))
                 $post_date = $this->published;
                 $post_content = $this->content;
                 $post_title = $this->title;
+                $post_author = $this->author;
                 $post_status = $this->isDraft ? 'draft' : 'publish';
         		//AGC:24/10/2013 Turn off the pingbacks
-        		$post_pingback = Blogger_Import::POST_PINGBACK;
+        		$post_pingback = Blogger_Importer::POST_PINGBACK;
 
                 // N.B. Clean up of $post_content is now part of the sanitize class
                 // Check for duplication part of calling function
-                $post = compact('post_date', 'post_content', 'post_title', 'post_status', 'post_pingback');
+                $post = compact('post_date', 'post_content', 'post_author', 'post_title', 'post_status', 'post_pingback');
 
                 $post_id = wp_insert_post($post);
                 if (is_wp_error($post_id))
                     return $post_id;
-                    
+		
                 wp_create_categories(array_map('addslashes', $this->categories), $post_id);
 
                 add_post_meta($post_id, 'blogger_blog', $this->blogurl, true);
-                add_post_meta($post_id, 'blogger_author', $this->author, true);
+                add_post_meta($post_id, 'blogger_author', $this->bloggerauthor, true);
 
                 if (!$this->isDraft && isset($this->bookmark))
                     add_post_meta($post_id, 'blogger_permalink', $this->bookmark, true);
