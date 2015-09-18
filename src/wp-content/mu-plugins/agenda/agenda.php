@@ -15,6 +15,11 @@ class Agenda {
     
     static function register()
     {
+    	if( defined('EM_VERSION') )
+    	{
+    		return ;
+    	}
+    	
     	load_muplugin_textdomain( 'redelivre', 'agenda/languages' );
     	
         register_post_type('agenda', array(
