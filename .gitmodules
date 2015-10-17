@@ -117,3 +117,9 @@
 	path = src/wp-content/plugins/joomla-to-wordpress-joomdoc
 	url = git@gitlab.ethymos.com.br:ethymos/joomla-to-wordpress-joomdoc.git
 	branch = master
+[submodule "src/wp-content/themes/voice"]
+	path = src/wp-content/themes/voice
+	url = git@gitlab.ethymos.com.br:ethymos/voice.git
+[submodule "src/wp-content/themes/voice-child"]
+	path = src/wp-content/themes/voice-child
+	url = git@gitlab.ethymos.com.br:ethymos/voice-child.git
