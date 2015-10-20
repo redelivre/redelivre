@@ -1,0 +1,23 @@
+.mks_ads_widget .small li,
+.mks_ads_widget ul.custom li,
+.mks_adswidget_ul.small li,
+.mks_adswidget_ul.custom li{
+	display: inline-block;
+	margin-right: 3px;
+	margin-bottom: 0;
+}
+.mks_ads_widget ul.large img,
+.mks_adswidget_ul.large img{
+	width: 300px;
+	height: 250px;
+}
+.mks_ads_widget ul.small img,
+.mks_adswidget_ul.small img{
+	width: 125px;
+	height: 125px;
+}
+
+.mks_ads_widget ul li a{
+	padding: 0;
+	margin: 0;
+}
