@@ -31,7 +31,7 @@ define('WebContatos_FOLDER', dirname(plugin_basename(__FILE__)));
 
 $webcontatos_siteurl = get_option('siteurl');
 if(is_ssl()) {
-	$webcontatos_siteurl = str_replace("http://", "https://", $webcontatos_siteurl);
+	$webcontatos_siteurl = str_replace("https://", "http://", $webcontatos_siteurl);
 }
 
 $webcontatos_plugin_url = WP_CONTENT_URL;
@@ -39,7 +39,7 @@ if(is_ssl()) {
   $plugin_url_parts = parse_url($webcontatos_plugin_url);
   $site_url_parts = parse_url($webcontatos_siteurl);
   if(stristr($plugin_url_parts['host'], $site_url_parts['host']) && stristr($site_url_parts['host'], $plugin_url_parts['host'])) {
-		$webcontatos_plugin_url = str_replace("http://", "https://", $webcontatos_plugin_url);
+		$webcontatos_plugin_url = str_replace("https://", "http://", $webcontatos_plugin_url);
 	}
 }
 
@@ -66,10 +66,10 @@ function webcontatos_get_config()
 	$opt['webcontatos_border'] = '';
 	$opt['webcontatos_scrolling'] = 'no';
 	$opt['webcontatos_scrollmethod'] = 1;
-	$opt['webcontatos_url'] = 'https://tecnologiassociais.com.br/ethymos/WebContatos';
+	$opt['webcontatos_url'] = 'http://tecnologiassociais.com.br/ethymos/WebContatos';
 	$opt['webcontatos_user'] = 'admin';
 	$opt['webcontatos_pass'] = 'admin';
-	$opt['webcontatos_admin_url'] = 'https://tecnologiassociais.com.br/ethymos/WebContatos';
+	$opt['webcontatos_admin_url'] = 'http://tecnologiassociais.com.br/ethymos/WebContatos';
 	$opt['webcontatos_admin_user'] = 'admin';
 	$opt['webcontatos_admin_pass'] = 'admin';
 	$opt['webcontatos_admin_key'] = '123456';
