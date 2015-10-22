@@ -31,7 +31,7 @@ define('WebContatos_FOLDER', dirname(plugin_basename(__FILE__)));
 
 $webcontatos_siteurl = get_option('siteurl');
 if(is_ssl()) {
-	$webcontatos_siteurl = str_replace("https://", "http://", $webcontatos_siteurl);
+	$webcontatos_siteurl = str_replace("http://", "https://", $webcontatos_siteurl);
 }
 
 $webcontatos_plugin_url = WP_CONTENT_URL;
@@ -39,7 +39,7 @@ if(is_ssl()) {
   $plugin_url_parts = parse_url($webcontatos_plugin_url);
   $site_url_parts = parse_url($webcontatos_siteurl);
   if(stristr($plugin_url_parts['host'], $site_url_parts['host']) && stristr($site_url_parts['host'], $plugin_url_parts['host'])) {
-		$webcontatos_plugin_url = str_replace("https://", "http://", $webcontatos_plugin_url);
+		$webcontatos_plugin_url = str_replace("http://", "https://", $webcontatos_plugin_url);
 	}
 }
 
@@ -86,6 +86,8 @@ function webcontatos_get_config()
 	{
 		$opt = apply_filters('webcontatos_get_config', $opt);
 	}
+	$opt['webcontatos_url'] = str_replace("https://", "http://", $opt['webcontatos_url']);
+	$opt['webcontatos_admin_url'] = str_replace("https://", "http://", $opt['webcontatos_admin_url']);
 	return $opt;
 } 
 
@@ -397,6 +399,7 @@ function webcontatos_Campaign_created($data)
 	}
 	
 	$webcontatos_options = webcontatos_get_config();
+	
 	$url = $opt['webcontatos_url'];
 	
 	$url = substr($url, 0, strrpos($url, 'WebContatos') -1);
