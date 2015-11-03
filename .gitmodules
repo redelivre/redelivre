@@ -117,3 +117,6 @@
 	path = src/wp-content/plugins/joomla-to-wordpress-joomdoc
 	url = git@gitlab.ethymos.com.br:ethymos/joomla-to-wordpress-joomdoc.git
 	branch = master
+[submodule "src/wp-content/themes/consultas-publicas"]
+	path = src/wp-content/themes/consultas-publicas
+	url = git@github.com:redelivre/wp-consultas-publicas.git
