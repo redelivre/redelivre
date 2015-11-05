@@ -34,5 +34,9 @@ cd $PWDAtual/src/wp-content/themes/praticas-de-continuidade
 git checkout praticas-de-continuidade
 git pull
 
+cd $PWDAtual/src/wp-content/themes/consultas-publicas
+git checkout redelivre
+git pull
+
 
 cd $PWDAtual
