@@ -117,3 +117,7 @@
 	path = src/wp-content/plugins/joomla-to-wordpress-joomdoc
 	url = git@gitlab.ethymos.com.br:ethymos/joomla-to-wordpress-joomdoc.git
 	branch = master
+[submodule "src/wp-content/themes/observatorio-de-remocoes"]
+	path = src/wp-content/themes/observatorio-de-remocoes
+	url = git@github.com:redelivre/pontosdecultura.git
+	branch = observatorio-de-remocoes
