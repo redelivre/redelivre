@@ -96,7 +96,7 @@
 	url = git@github.com:redelivre/flacso.git
 [submodule "src/wp-content/plugins/delibera"]
 	path = src/wp-content/plugins/delibera
-	url = git@github.com:ethymos/delibera.git
+	url = git@github.com:redelivre/delibera.git
 [submodule "src/wp-content/plugins/jaiminho-sms"]
 	path = src/wp-content/plugins/jaiminho-sms
 	url = git@github.com:ethymos/jaiminho-sms.git
@@ -120,6 +120,12 @@
 [submodule "src/wp-content/themes/voice"]
 	path = src/wp-content/themes/voice
 	url = git@gitlab.ethymos.com.br:ethymos/voice.git
+	branch = master
 [submodule "src/wp-content/themes/voice-child"]
 	path = src/wp-content/themes/voice-child
 	url = git@gitlab.ethymos.com.br:ethymos/voice-child.git
+	branch = master
+[submodule "src/wp-content/themes/observatorio-de-remocoes"]
+	path = src/wp-content/themes/observatorio-de-remocoes
+	url = git@github.com:redelivre/pontosdecultura.git
+	branch = observatorio-de-remocoes

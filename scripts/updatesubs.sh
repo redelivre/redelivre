@@ -30,4 +30,9 @@ cd $PWDAtual/src/wp-content/themes/recid
 git checkout recid
 git pull
 
+cd $PWDAtual/src/wp-content/themes/praticas-de-continuidade
+git checkout praticas-de-continuidade
+git pull
+
+
 cd $PWDAtual
