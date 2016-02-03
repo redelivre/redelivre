@@ -912,3 +912,27 @@ function custom_lost_password_rule(){
 }
 
 add_action('init', 'custom_lost_password_rule');
+
+function campanha_plugins_api_result($res )
+{
+	if(!is_super_admin())
+	{
+		$hides = array(
+			'blog-copier/blog-copier.php',
+			'bulk-delete/bulk-delete.php',
+			'delibera/delibera_fake_page.php',
+			'theme-check/theme-check.php',
+			'unfiltered-mu/unfiltered-mu.php',
+			'WPJaiminho/WPJaiminho.php',
+			'wordpress-xrds-simple/xrds-simple.php'
+		);
+		
+		foreach ($hides as $hide)
+		{
+			unset($res[$hide]);
+		}
+	}
+	//var_dump($res);die();
+	return $res;
+}
+add_filter('all_plugins', 'campanha_plugins_api_result', 1);
