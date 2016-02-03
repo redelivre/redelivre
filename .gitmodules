@@ -129,3 +129,6 @@
 	path = src/wp-content/themes/observatorio-de-remocoes
 	url = git@github.com:redelivre/pontosdecultura.git
 	branch = observatorio-de-remocoes
+[submodule "src/wp-content/plugins/wp-aedes-aegypti"]
+	path = src/wp-content/plugins/wp-aedes-aegypti
+	url = git@github.com:redelivre/wp-aedes-aegypti.git
