@@ -127,3 +127,6 @@
 [submodule "src/wp-content/plugins/wp-aedes-aegypti"]
 	path = src/wp-content/plugins/wp-aedes-aegypti
 	url = git@github.com:redelivre/wp-aedes-aegypti.git
+[submodule "src/wp-content/plugins/wpdialoga"]
+	path = src/wp-content/plugins/wpdialoga
+	url = git@github.com:redelivre/wpdialoga.git
