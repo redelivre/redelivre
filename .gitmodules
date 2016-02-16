@@ -127,6 +127,12 @@
 [submodule "src/wp-content/plugins/wp-aedes-aegypti"]
 	path = src/wp-content/plugins/wp-aedes-aegypti
 	url = git@github.com:redelivre/wp-aedes-aegypti.git
+	branch = master
 [submodule "src/wp-content/plugins/wpdialoga"]
 	path = src/wp-content/plugins/wpdialoga
 	url = git@github.com:redelivre/wpdialoga.git
+	branch = master
+[submodule "src/wp-content/themes/wp-logincidadao"]
+	path = src/wp-content/themes/wp-logincidadao
+	url = git@github.com:redelivre/wp-logincidadao.git
+	branch = master
