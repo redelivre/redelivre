@@ -34,5 +34,16 @@ cd $PWDAtual/src/wp-content/themes/praticas-de-continuidade
 git checkout praticas-de-continuidade
 git pull
 
+cd $PWDAtual/src/wp-content/themes/observatorio-de-remocoes
+git checkout observatorio-de-remocoes
+git pull
+
+if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
+	cd $PWDAtual/src/wp-content/themes/wp-logincidadao
+	git submodule update --init
+        cd login-cidadao
+        git checkout master
+        git pull
+fi
 
 cd $PWDAtual
