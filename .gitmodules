@@ -138,13 +138,13 @@
 	branch = master
 [submodule "src/wp-content/plugins/wpml-translation-management"]
 	path = src/wp-content/plugins/wpml-translation-management
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-translation-management
+	url = git@gitlab.ethymos.com.br:ethymos/wpml-translation-management.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-string-translation"]
 	path = src/wp-content/plugins/wpml-string-translation
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-string-translation
+	url = git@gitlab.ethymos.com.br:ethymos/wpml-string-translation.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-all-import"]
 	path = src/wp-content/plugins/wpml-all-import
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-all-import
+	url = git@gitlab.ethymos.com.br:ethymos/wpml-all-import.git
 	branch = master
