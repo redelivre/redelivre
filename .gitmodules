@@ -136,3 +136,7 @@
 	path = src/wp-content/themes/wp-logincidadao
 	url = git@github.com:redelivre/wp-logincidadao.git
 	branch = master
+[submodule "src/wp-content/plugins/wpml-translation-management"]
+	path = src/wp-content/plugins/wpml-translation-management
+	url = git@gitlab.ethymos.com.br:ethymos/wpml-translation-management
+	branch = master
