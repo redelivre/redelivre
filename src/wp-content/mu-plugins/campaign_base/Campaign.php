@@ -778,6 +778,8 @@ class Campaign {
     	$campaign_common_strings['value']['AdministrarProjetos'] = __('Administrar projetos', 'redelivre');
 
     	$opts_campaign_common = get_option('campanha_defined_settings_campaign_common_strings', array());
+    	if(!is_array($opts_campaign_common)) $opts_campaign_common = array();
+    	
     	if(array_key_exists('value', $opts_campaign_common))
     	{
     		$opts_campaign_common = $opts_campaign_common['value'];
