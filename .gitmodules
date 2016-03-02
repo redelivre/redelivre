@@ -148,3 +148,6 @@
 	path = src/wp-content/plugins/wpml-all-import
 	url = git@gitlab.ethymos.com.br:ethymos/wpml-all-import.git
 	branch = master
+[submodule "src/wp-content/themes/divi"]
+	path = src/wp-content/themes/divi
+	url = git@github.com:redelivre/wp-divi.git
