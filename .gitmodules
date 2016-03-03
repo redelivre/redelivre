@@ -148,3 +148,6 @@
 	path = src/wp-content/plugins/wpml-all-import
 	url = git@gitlab.ethymos.com.br:ethymos/wpml-all-import.git
 	branch = master
+[submodule "src/wp-content/plugins/comment-attachment"]
+	path = src/wp-content/plugins/comment-attachment
+	url = git@github.com:wp-plugins/comment-attachment.git
