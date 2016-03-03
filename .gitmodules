@@ -151,3 +151,9 @@
 [submodule "src/wp-content/themes/divi"]
 	path = src/wp-content/themes/divi
 	url = git@github.com:redelivre/wp-divi.git
+	branch = master
+[submodule "src/wp-content/plugins/comment-attachment"]
+	path = src/wp-content/plugins/comment-attachment
+	url = git@github.com:wp-plugins/comment-attachment.git
+        branch = master
+
