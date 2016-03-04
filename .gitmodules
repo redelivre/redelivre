@@ -157,3 +157,7 @@
 	url = git@github.com:wp-plugins/comment-attachment.git
         branch = master
 
+[submodule "src/wp-content/plugins/sendpress"]
+	path = src/wp-content/plugins/sendpress
+	url = https://github.com/brewlabs/sendpress.git
+	branch = master
