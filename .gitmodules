@@ -45,10 +45,6 @@
 	path = src/wp-content/plugins/jaiminho
 	url = git@github.com:redelivre/jaiminho.git
 	branch = master
-[submodule "src/wp-content/plugins/sendpress"]
-	path = src/wp-content/plugins/sendpress
-	url = https://github.com/brewlabs/sendpress.git
-	branch = master
 [submodule "src/wp-content/themes/mobilize"]
 	path = src/wp-content/themes/mobilize
 	url = git@github.com:redelivre/mobilize.git
