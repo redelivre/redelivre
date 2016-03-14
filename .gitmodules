@@ -161,3 +161,6 @@
 	path = src/wp-content/plugins/sendpress
 	url = https://github.com/brewlabs/sendpress.git
 	branch = master
+[submodule "src/wp-content/plugins/mention-comments-authors"]
+	path = src/wp-content/plugins/mention-comments-authors
+	url = git@github.com:wp-plugins/mention-comments-authors.git
