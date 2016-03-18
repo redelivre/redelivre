@@ -220,10 +220,10 @@ function getPlataformSettings($id = '')
 	$sets['value']['emailTipo'] = 'local';
 	//$sets['perm']['emailTipo'] = 'local';
 	$sets['label']['MostrarPlanos'] = __('Deve mostrar opções de planos', 'redelivre');
-	$sets['value']['MostrarPlanos'] = 'S';
+	$sets['value']['MostrarPlanos'] = 'N';
 	$sets['perm']['MostrarPlanos'] = 'S';
 	$sets['label']['defaultPlan'] = __('Plano Padrão', 'redelivre');
-	$sets['value']['defaultPlan'] = '5';
+	$sets['value']['defaultPlan'] = '1';
 	$sets['perm']['defaultPlan'] = 'S';
 	
 	// Merge default settings com defined settings
