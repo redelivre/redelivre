@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: SendPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sendpress\n"
 "POT-Creation-Date: 2015-07-07 23:04:28+00:00\n"
-"PO-Revision-Date: 2016-03-17 20:28-0300\n"
+"PO-Revision-Date: 2016-03-17 21:59-0300\n"
 "Last-Translator: Maurilio Atila Carvalho de Santana <cabelotaina@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "sendpress/language/pt_BR/)\n"
@@ -1073,9 +1073,8 @@ msgid ""
 msgstr ""
 
 #: classes/tag/class-sendpress-tag-footer-page.php:58
-#, fuzzy
 msgid "unsubscribe from this list"
-msgstr "O usuário não foi inscrito na lista."
+msgstr "desinscrever-se desta lista"
 
 #: classes/tag/class-sendpress-tag-unsubscribe-link-html.php:25
 #, fuzzy
