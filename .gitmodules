@@ -164,3 +164,6 @@
 [submodule "src/wp-content/plugins/mention-comments-authors"]
 	path = src/wp-content/plugins/mention-comments-authors
 	url = git@github.com:wp-plugins/mention-comments-authors.git
+[submodule "src/wp-content/themes/assineja"]
+	path = src/wp-content/themes/assineja
+	url = git@gitlab.ethymos.com.br:campanhacompleta/assineja.git
