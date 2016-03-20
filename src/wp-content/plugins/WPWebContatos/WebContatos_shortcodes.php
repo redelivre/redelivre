@@ -74,5 +74,5 @@ function webcontatos_incricoes_replace($args)
 
 	return $html; // Retornar código da representação
 }
-add_shortcode( 'numero-inscricoes-webcontatos', 'webcontatos_numero_incricoes_replace' );
+add_shortcode( 'inscricoes-webcontatos', 'webcontatos_incricoes_replace' );
 ?>
