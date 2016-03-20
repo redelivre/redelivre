@@ -74,7 +74,7 @@ function webcontatos_incricoes_replace($args)
 	$inscritos = webcontatos_incricoes($param['id'], $param['offset'], $param['limit']);
 	foreach($inscritos as $inscrito)
 	{
-		$html .= '<p class="inscricoes-webcontatos">'.$inscrito['nome'].'</><br/>';
+		$html .= '<p class="inscricoes-webcontatos">'.$inscrito->nome.'</p>';
 	}
 
 	return $html; // Retornar código da representação

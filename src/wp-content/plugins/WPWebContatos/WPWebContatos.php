@@ -670,7 +670,7 @@ function webcontatos_incricoes($id, $offset, $limit)
 	{
 		return array();
 	}
-	$inscritos = $client->__soapCall('getInscricoes', array('formulario_id' => id, 'offset' => $offset, 'limit' => $limit ) , array(), null, $output_headers);
+	$inscritos = $client->getInscricoes($id, $offset, $limit );
 
 	if(is_array($inscritos))
 	{
@@ -691,14 +691,9 @@ function webcontatos_numero_incricoes($id)
 	{
 		return 0;
 	}
-	$incricoes = $client->__soapCall('getNumeroInscricoes', array('formulario_id' => id) , array(), null, $output_headers);
+	$incricoes = $client->getNumeroInscricoes($id);
 	
-	if(is_nan($incricoes))
-	{
-		return $incricoes;
-	}
-	
-	return 0;
+	return intval($incricoes);
 }
 
 /**
