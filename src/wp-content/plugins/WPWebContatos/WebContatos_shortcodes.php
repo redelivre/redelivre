@@ -56,6 +56,7 @@ function webcontatos_numero_incricoes_replace($args)
 	$param = array_merge($param, $args);
 	
 	$numero = webcontatos_numero_incricoes($param['id']);
+	$html = '<p class="numero-inscricoes-webcontatos">'.$numero.'</p>';
 
 	return $html; // Retornar código da representação
 }
@@ -69,8 +70,12 @@ function webcontatos_incricoes_replace($args)
 	}
 	$param = array('id' => 2, 'offset' => 0, 'limit' => 10);
 	$param = array_merge($param, $args);
-
+	$html = "";
 	$inscritos = webcontatos_incricoes($param['id'], $param['offset'], $param['limit']);
+	foreach($inscritos as $inscrito)
+	{
+		$html .= '<p class="inscricoes-webcontatos">'.$inscrito['nome'].'</><br/>';
+	}
 
 	return $html; // Retornar código da representação
 }
