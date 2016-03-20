@@ -659,6 +659,48 @@ function webcontatos_get_grupos()
 	return array();
 }
 
+function webcontatos_incricoes($id, $offset, $limit)
+{
+	$opt = webcontatos_get_config();
+
+	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+
+	if(!$auth)
+	{
+		return array();
+	}
+	$inscritos = $client->__soapCall('getInscricoes', array('formulario_id' => id, 'offset' => $offset, 'limit' => $limit ) , array(), null, $output_headers);
+
+	if(is_array($inscritos))
+	{
+		return $inscritos;
+	}
+
+	return array();
+}
+
+function webcontatos_numero_incricoes($id)
+{
+	$opt = webcontatos_get_config();
+	
+	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+	
+	if(!$auth)
+	{
+		return 0;
+	}
+	$incricoes = $client->__soapCall('getNumeroInscricoes', array('formulario_id' => id) , array(), null, $output_headers);
+	
+	if(is_nan($incricoes))
+	{
+		return $incricoes;
+	}
+	
+	return 0;
+}
+
 /**
  * Atualiza dados do usuário no WebContatos
  * @param WP_User $user

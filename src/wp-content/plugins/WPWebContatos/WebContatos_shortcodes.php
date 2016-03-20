@@ -45,4 +45,34 @@ function webcontatos_formulario_replace($args)
 	return $html; // Retornar código da representação
 }
 add_shortcode( 'formulario-webcontatos', 'webcontatos_formulario_replace' );
+
+function webcontatos_numero_incricoes_replace($args)
+{
+	if(!is_array($args))
+	{
+		$args = array();
+	}
+	$param = array('id' => 2);
+	$param = array_merge($param, $args);
+	
+	$numero = webcontatos_numero_incricoes($param['id']);
+
+	return $html; // Retornar código da representação
+}
+add_shortcode( 'numero-inscricoes-webcontatos', 'webcontatos_numero_incricoes_replace' );
+
+function webcontatos_incricoes_replace($args)
+{
+	if(!is_array($args))
+	{
+		$args = array();
+	}
+	$param = array('id' => 2, 'offset' => 0, 'limit' => 10);
+	$param = array_merge($param, $args);
+
+	$inscritos = webcontatos_incricoes($param['id'], $param['offset'], $param['limit']);
+
+	return $html; // Retornar código da representação
+}
+add_shortcode( 'numero-inscricoes-webcontatos', 'webcontatos_numero_incricoes_replace' );
 ?>
