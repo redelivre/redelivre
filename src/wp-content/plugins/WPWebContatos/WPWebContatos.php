@@ -136,6 +136,8 @@ function webcontatos_config_menu()
 	add_submenu_page($base_page, __('Criar Contato','webcontatos'), __('Criar Contato','webcontatos'), 'manage_options', 'webcontatos-criar', 'webcontatos_CriarContato' );
 	add_submenu_page($base_page, __('Importar Contatos','webcontatos'), __('Importar Contatos','webcontatos'), 'manage_options', 'webcontatos-importar', 'webcontatos_ImportarContato' );
 	add_submenu_page($base_page, __('Exportar Contatos','webcontatos'), __('Exportar Contatos','webcontatos'), 'manage_options', 'webcontatos-exportar', 'webcontatos_ExportarContato' );
+	add_submenu_page($base_page, __('Pesquisar Formulários','webcontatos'), __('Pesquisar Formulários','webcontatos'), 'manage_options', 'webcontatos-formularios', 'webcontatos_GerenciarFormulariosWeb' );
+	add_submenu_page($base_page, __('Criar Formulário','webcontatos'), __('Criar Formulário','webcontatos'), 'manage_options', 'webcontatos-criar-formulario', 'webcontatos_NovoFormularioWeb' );
 	add_submenu_page($base_page, __('Configurações do Plugin','webcontatos'),__('Configurações do Plugin','webcontatos'), 'manage_options', 'webcontatos-config', 'webcontatos_conf_page');
 }
 
@@ -628,6 +630,16 @@ function webcontatos_ExportarContato()
 	echo webcontatos_GenerateIFrame('Arquivos/ExportarContatos');
 }
 
+function webcontatos_GerenciarFormulariosWeb()
+{
+	echo webcontatos_GenerateIFrame('Gerenciar/GerenciarFormulariosWeb');
+}
+
+function webcontatos_NovoFormularioWeb()
+{
+	echo webcontatos_GenerateIFrame('Criar/NovoFormularioWeb');
+}
+
 function webcontatos_enc_pass($opt)
 {
 	if(array_key_exists('webcontatos_pass', $_POST) && $opt['webcontatos_pass'] != md5($_POST['webcontatos_pass']) && $opt['webcontatos_pass'] != $_POST['webcontatos_pass'])
@@ -675,6 +687,27 @@ function webcontatos_incricoes($id, $offset, $limit)
 	if(is_array($inscritos))
 	{
 		return $inscritos;
+	}
+
+	return array();
+}
+
+function webcontatos_formularios()
+{
+	$opt = webcontatos_get_config();
+
+	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+
+	if(!$auth)
+	{
+		return array();
+	}
+	$formularios = $client->getFormularios();
+
+	if(is_array($formularios))
+	{
+		return $formularios;
 	}
 
 	return array();
