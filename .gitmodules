@@ -167,3 +167,7 @@
 [submodule "src/wp-content/themes/assineja"]
 	path = src/wp-content/themes/assineja
 	url = git@gitlab.ethymos.com.br:campanhacompleta/assineja.git
+[submodule "src/wp-content/plugins/BotaPressao"]
+	path = src/wp-content/plugins/BotaPressao
+	url = git@github.com:redelivre/BotaPressao.git
+	branch = master
