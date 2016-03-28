@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: SendPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sendpress\n"
 "POT-Creation-Date: 2015-07-07 23:04:28+00:00\n"
-"PO-Revision-Date: 2016-03-17 21:59-0300\n"
+"PO-Revision-Date: 2016-03-28 16:36-0300\n"
 "Last-Translator: Maurilio Atila Carvalho de Santana <cabelotaina@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "sendpress/language/pt_BR/)\n"
@@ -756,7 +756,7 @@ msgstr ""
 
 #: classes/class-sendpress-widget-signup.php:34
 msgid "SendPress Signup"
-msgstr "Cadastre-se no SendPress"
+msgstr "Cadastre-se no Jaiminho"
 
 #: classes/class-sendpress-widget-signup.php:77
 msgid "NO LIST HAS BEEN SELECTED IN SENDPRESS WIDGET SETTINGS"
@@ -1929,7 +1929,7 @@ msgstr "Email para teste"
 
 #: classes/views/class-sendpress-view-settings-account.php:129
 msgid "Where to send Test Email"
-msgstr "Para onde enviar teste de email"
+msgstr "Para onde enviar o teste de email"
 
 #: classes/views/class-sendpress-view-settings-account.php:134
 msgid "Send Test!"
@@ -1948,9 +1948,8 @@ msgid "Sending Account Setup"
 msgstr "Configuração da conta de envio"
 
 #: classes/views/class-sendpress-view-settings-account.php:191
-#, fuzzy
 msgid "Send Emails via"
-msgstr "Enviar Emails Agora"
+msgstr "Enviar Emails via"
 
 #: classes/views/class-sendpress-view-settings-account.php:236
 msgid "Currently Active"
@@ -1981,15 +1980,16 @@ msgid "Emails Per Hour"
 msgstr "Emails Por Hora"
 
 #: classes/views/class-sendpress-view-settings-account.php:266
-#, fuzzy
 msgid "Email Encoding"
-msgstr "Codificação"
+msgstr "Codificação de Email"
 
 #: classes/views/class-sendpress-view-settings-account.php:284
 msgid ""
 "Squares or weird characters displaying in your emails select the charset for "
 "your language"
 msgstr ""
+"Se há quadrados ou caracteres estranhos sendo exibidos em seus e-mails, "
+"selecione o conjunto de caracteres apropriado para o seu idioma"
 
 #: classes/views/class-sendpress-view-settings-account.php:286
 msgid "Encoding"
@@ -2113,7 +2113,7 @@ msgstr "Inscrição com confirmação"
 
 #: classes/views/class-sendpress-view-settings-activation.php:149
 msgid "Body"
-msgstr "do Corpo"
+msgstr "Corpo"
 
 #: classes/views/class-sendpress-view-settings-activation.php:161
 msgid "Send Double Opt-in Email"
@@ -2404,9 +2404,8 @@ msgid "Link to browser version"
 msgstr ""
 
 #: classes/views/class-sendpress-view-settings-styles.php:152
-#, fuzzy
 msgid "Use default"
-msgstr "Padrão"
+msgstr "Use o padrão"
 
 #: classes/views/class-sendpress-view-settings-styles.php:152
 msgid "Use custom"
