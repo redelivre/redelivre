@@ -1,0 +1,14 @@
+/* =Evaluation
+-------------------------------------------------------------- */
+
+#evaluation_bars > div { margin-bottom: 10px; }
+.evaluation_bar { min-width: 2px; height: 20px; box-shadow: -2px -2px 7px rgba(0, 0, 0, .2) inset; -moz-box-shadow: -2px -2px 7px rgba(0, 0, 0, .2) inset; -webkit-box-shadow: -2px -2px 7px rgba(0, 0, 0, .2) inset; }
+.evaluation_average_label { float: left; min-height: 60px; }
+.evaluation_average_label p { padding: 5px 10px; }
+#evaluation_scale {position: relative; }
+.evaluation_average_marker { position: absolute; top: -20px; height: 100%; width: 3px; border-left: 1px solid #CCCCCC; }
+.evaluation_average_min { position: absolute; left: 0px; }
+.evaluation_average_max { position: absolute; right: 0px; position: absolute; }
+#evaluation_bar_bg { background-color: #EBEBEB; height: 20px; width: 100%; box-shadow: 2px 2px 7px rgba(0, 0, 0, .1) inset; -moz-box-shadow: 2px 2px 7px rgba(0, 0, 0, .1) inset; -webkit-box-shadow: 2px 2px 7px rgba(0, 0, 0, .1) inset; }
+.list_object{ height: 30px; }
+.list_object input, .list_object label, .list_object img{ float: left; }

@@ -371,7 +371,7 @@ function fbfixhead() {
 				// If there is a post image...
 				if (has_post_thumbnail()) {
 				// Set '$featuredimg' variable for the featured image.
-				$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
+				$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "full");
 				$ftf_description = get_the_excerpt();
 				global $post;
 				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -440,7 +440,7 @@ function fbfixhead() {
 			// If there is a post image...
 			if (has_post_thumbnail()) {
 			// Set '$featuredimg' variable for the featured image.
-			$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
+			$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "full");
 			$ftf_description = get_the_excerpt();
 			global $post;
 			$ot = get_post_meta($post->ID, 'ftf_open_type', true);

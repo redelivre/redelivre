@@ -1,13 +1,13 @@
 <?php
 /*
-    Plugin Name: Mobilize
-    Plugin URI: http://www.ethymos.com.br
+    Plugin Name: Mobilize Todos
+    Plugin URI: https://github.com/redelivre/mobilize/
     Description: 
     Author: Ethymos
     Version: 1.0
     Author URI: http://ethymos.com.br
-    Text Domain: http://ethymos.com.br
-    Domain Path:
+    Text Domain: mobilize
+    Domain Path: 
  */
 
 ///////////////

@@ -6,7 +6,7 @@ function antispam_admin_notice() {
 		$user_id = get_current_user_id();
 		$antispam_info_visibility = get_user_meta($user_id, 'antispam_info_visibility', true);
 		if ($antispam_info_visibility == 1 OR $antispam_info_visibility == ''):
-			$antispam_stats = get_option('antispam_stats', array());
+			$antispam_stats = get_option('antispam_stats', array('blocked_total'=>0));
 			$blocked_total = $antispam_stats['blocked_total'];
 			?>
 			<div class="update-nag antispam-panel-info">
