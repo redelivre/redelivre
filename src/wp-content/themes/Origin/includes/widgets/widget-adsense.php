@@ -3,7 +3,7 @@
 	function AdsenseWidget(){
 		$widget_ops = array( 'description' => 'Displays Adsense Ads' );
 		$control_ops = array( 'width' => 400, 'height' => 500 );
-		parent::WP_Widget( false, $name='ET Adsense Widget', $widget_ops,$control_ops );
+		parent::__construct( false, $name='ET Adsense Widget', $widget_ops,$control_ops );
 	}
 
 	/* Displays the Widget in the front-end */

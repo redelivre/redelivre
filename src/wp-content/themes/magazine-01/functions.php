@@ -109,6 +109,7 @@ if(function_exists('register_sidebar')) {
         'after_widget' => '</div></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
+    	'id'            => 'sidebar-1'
     ) );
         register_sidebar( array(
         'name' =>  'Home',
@@ -117,6 +118,7 @@ if(function_exists('register_sidebar')) {
         'after_widget' => '</div></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
+        'id'            => 'sidebar-home'
     ) );
 }
 

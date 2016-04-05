@@ -3,7 +3,7 @@
     function AboutMeWidget(){
 		$widget_ops = array( 'description' => 'Displays About Me Information' );
 		$control_ops = array( 'width' => 400, 'height' => 300 );
-		parent::WP_Widget( false, $name='ET About Me Widget', $widget_ops, $control_ops );
+		parent::__construct( false, $name='ET About Me Widget', $widget_ops, $control_ops );
     }
 
 	/* Displays the Widget in the front-end */

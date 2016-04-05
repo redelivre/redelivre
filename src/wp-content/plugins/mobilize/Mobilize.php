@@ -1,6 +1,6 @@
 <?php
 /*
-    Plugin Name: Mobilize Todos
+    Plugin Name: MobilizeTodos
     Plugin URI: https://github.com/redelivre/mobilize/
     Description: 
     Author: Ethymos

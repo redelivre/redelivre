@@ -304,6 +304,12 @@ class WPCF7_Shortcode {
 	}
 
 	public function get_size_option( $default = '' ) {
+		$option = $this->get_option( 'size', 'int', true );
+
+		if ( $option ) {
+			return $option;
+		}
+
 		$matches_a = $this->get_all_match_options( '%^([0-9]*)/[0-9]*$%' );
 
 		foreach ( (array) $matches_a as $matches ) {
@@ -343,6 +349,12 @@ class WPCF7_Shortcode {
 	}
 
 	public function get_cols_option( $default = '' ) {
+		$option = $this->get_option( 'cols', 'int', true );
+
+		if ( $option ) {
+			return $option;
+		}
+
 		$matches_a = $this->get_all_match_options(
 			'%^([0-9]*)x([0-9]*)(?:/[0-9]+)?$%' );
 
@@ -355,6 +367,12 @@ class WPCF7_Shortcode {
 	}
 
 	public function get_rows_option( $default = '' ) {
+		$option = $this->get_option( 'rows', 'int', true );
+
+		if ( $option ) {
+			return $option;
+		}
+
 		$matches_a = $this->get_all_match_options(
 			'%^([0-9]*)x([0-9]*)(?:/[0-9]+)?$%' );
 
@@ -429,7 +447,7 @@ class WPCF7_Shortcode {
 						return $val;
 					}
 				}
-				
+
 			} elseif ( 'get' == $opt && isset( $_GET[$this->name] ) ) {
 				$vals = (array) $_GET[$this->name];
 				$vals = array_map( 'wpcf7_sanitize_query_var', $vals );
@@ -494,5 +512,3 @@ class WPCF7_Shortcode {
 		return $result;
 	}
 }
-
-?>

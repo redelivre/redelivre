@@ -23,6 +23,7 @@ class SiteOrigin_Panels_Settings {
 
 		// Default filters for fields and defaults
 		add_filter( 'siteorigin_panels_settings_defaults', array($this, 'settings_defaults') );
+		add_filter( 'siteorigin_panels_default_add_widget_class', array($this, 'add_widget_class') );
 		add_filter( 'siteorigin_panels_settings_fields', array($this, 'settings_fields') );
 	}
 
@@ -109,6 +110,7 @@ class SiteOrigin_Panels_Settings {
 
 		// Widgets fields
 		$defaults['title-html'] = '<h3 class="widget-title">{{title}}</h3>';
+		$defaults['add-widget-class'] = apply_filters( 'siteorigin_panels_default_add_widget_class', true );
 		$defaults['bundled-widgets'] = get_option( 'siteorigin_panels_is_using_bundled', false );
 		$defaults['recommended-widgets'] = true;
 
@@ -117,8 +119,11 @@ class SiteOrigin_Panels_Settings {
 
 		// The layout fields
 		$defaults['responsive'] = true;
+		$defaults['tablet-layout'] = false;
+		$defaults['tablet-width'] = 1024;
 		$defaults['mobile-width'] = 780;
 		$defaults['margin-bottom'] = 30;
+		$defaults['margin-bottom-last-row'] = false;
 		$defaults['margin-sides'] = 30;
 		$defaults['full-width-container'] = 'body';
 
@@ -126,6 +131,25 @@ class SiteOrigin_Panels_Settings {
 		$defaults['copy-content'] = true;
 
 		return $defaults;
+	}
+
+	/**
+	 * Set the option on whether to add widget classes for known themes
+	 *
+	 * @param $add_class
+	 *
+	 * @return bool
+	 */
+	function add_widget_class( $add_class ){
+
+		switch( get_option('stylesheet') ) {
+			case 'twentysixteen';
+				$add_class = false;
+				break;
+		}
+
+
+		return $add_class;
 	}
 
 	/**
@@ -207,6 +231,12 @@ class SiteOrigin_Panels_Settings {
 			'description' => __('The HTML used for widget titles. {{title}} is replaced with the widget title.', 'siteorigin-panels'),
 		);
 
+		$fields['widgets']['fields']['add-widget-class'] = array(
+			'type' => 'checkbox',
+			'label' => __('Add Widget Class', 'siteorigin-panels'),
+			'description' => __("Add the widget class to Page Builder widgets. Disable this if you're experiencing conflicts.", 'siteorigin-panels'),
+		);
+
 		$fields['widgets']['fields']['bundled-widgets'] = array(
 			'type' => 'checkbox',
 			'label' => __('Legacy Bundled Widgets', 'siteorigin-panels'),
@@ -234,6 +264,19 @@ class SiteOrigin_Panels_Settings {
 			'description' => __('Collapse widgets, rows and columns on mobile devices.', 'siteorigin-panels'),
 		);
 
+		$fields['layout']['fields']['tablet-layout'] = array(
+			'type' => 'checkbox',
+			'label' => __('Use Tablet Layout', 'siteorigin-panels'),
+			'description' => __('Collapses columns differently on tablet devices.', 'siteorigin-panels'),
+		);
+
+		$fields['layout']['fields']['tablet-width'] = array(
+			'type' => 'number',
+			'unit' => 'px',
+			'label' => __('Tablet Width', 'siteorigin-panels'),
+			'description' => __('Device width, in pixels, to collapse into a tablet view .', 'siteorigin-panels'),
+		);
+
 		$fields['layout']['fields']['mobile-width'] = array(
 			'type' => 'number',
 			'unit' => 'px',
@@ -246,6 +289,12 @@ class SiteOrigin_Panels_Settings {
 			'unit' => 'px',
 			'label' => __('Row Bottom Margin', 'siteorigin-panels'),
 			'description' => __('Default margin below rows.', 'siteorigin-panels'),
+		);
+
+		$fields['layout']['fields']['margin-bottom-last-row'] = array(
+			'type' => 'checkbox',
+			'label' => __('Last Row With Margin', 'siteorigin-panels'),
+			'description' => __('Allow margin in last row.', 'siteorigin-panels'),
 		);
 
 		$fields['layout']['fields']['margin-sides'] = array(
@@ -347,7 +396,7 @@ class SiteOrigin_Panels_Settings {
 		if( $screen->base != 'settings_page_siteorigin_panels' ) return;
 
 		if( !current_user_can('manage_options') ) return;
-		if( !wp_verify_nonce( filter_input(INPUT_POST, '_wpnonce') , 'panels-settings') ) return;
+		if( empty($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'panels-settings') ) return;
 		if( empty($_POST['panels_setting']) ) return;
 
 		$values = array();
@@ -450,6 +499,5 @@ SiteOrigin_Panels_Settings::single();
  * @return array|bool|mixed|null
  */
 function siteorigin_panels_setting($key = ''){
-	$settings = SiteOrigin_Panels_Settings::single();
-	return $settings->get($key);
+	return SiteOrigin_Panels_Settings::single()->get($key);
 }

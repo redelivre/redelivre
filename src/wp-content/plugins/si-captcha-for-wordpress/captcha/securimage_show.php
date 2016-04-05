@@ -1,4 +1,8 @@
 <?php
+//error_reporting(E_ALL); // Report all errors and warnings (very strict, use for testing only)
+//ini_set('display_errors', 1); // turn error reporting on
+//ini_set('log_errors', 1); // log errors
+//ini_set('error_log', dirname(__FILE__) . '/error_log.txt'); // where to log errors
 
 if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA-Z0-9]{15,17}$/',$_GET['prefix']) ){   
    // no session
@@ -24,8 +28,7 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
 	   $captcha_word .= $char;
    }
 
-   $img = new securimage_si();
-
+   $img = new Securimage_Captcha_si();
    $img->image_width   = 175;
    $img->image_height  = 60;
    $img->num_lines     = 3;
@@ -65,13 +68,14 @@ if ( isset($_GET['prefix']) && is_string($_GET['prefix']) && preg_match('/^[a-zA
        // session
    include 'securimage.php';
 
-   $img = new securimage_si();
-
+   $img = new Securimage_Captcha_si();
    $img->image_width   = 175;
    $img->image_height  = 60;
-      $img->num_lines  = 3;
+   $img->num_lines  = 3;
    $img->perturbation  = 0.2;
    $img->iscale        = 1;
+   //$img->code_length   = 4;
+   //$img->charset   = 'ABCDEFGHKLMNPRSTUVWYZabcdeghmnpsuvwyz23456789';
    if(isset($_GET['si_sm_captcha']) && $_GET['si_sm_captcha'] == 1) {
        $img->image_width   = 132;
 	   $img->image_height  = 45;

@@ -9,7 +9,7 @@ function check_main( $theme ) {
 		// This is a child theme, so we need to pull files from the parent, which HAS to be installed.
 		$parent = get_theme_root( $data[ 'Template' ] ) . '/' . $data['Template'];
 		if ( ! tc_get_theme_data( $parent . '/style.css' ) ) { // This should never happen but we will check while were here!
-			echo '<h2>' . sprintf(__('Parent theme <strong>%1$s</strong> not found! You have to have parent AND child-theme installed!', 'theme-check'), $data[ 'Template' ] ) . '</h2>';
+			echo '<h2>' . sprintf(__('Parent theme %1$s not found! You have to have parent AND child-theme installed!', 'theme-check'), '<strong>' . $data[ 'Template' ] . '</strong>' ) . '</h2>';
 			return;
 		}
 		$parent_data = tc_get_theme_data( $parent . '/style.css' );
@@ -19,10 +19,10 @@ function check_main( $theme ) {
 
 	if ( $files ) {
 		foreach( $files as $key => $filename ) {
-			if ( substr( $filename, -4 ) == '.php' ) {
+			if ( substr( $filename, -4 ) == '.php' && ! is_dir( $filename ) ) {
 				$php[$filename] = php_strip_whitespace( $filename );
 			}
-			else if ( substr( $filename, -4 ) == '.css' ) {
+			else if ( substr( $filename, -4 ) == '.css' && ! is_dir( $filename ) ) {
 				$css[$filename] = file_get_contents( $filename );
 			}
 			else {
@@ -56,9 +56,17 @@ function check_main( $theme ) {
 
 		if ( $data[ 'Template' ] ) {
 		if ( $data['Template Version'] > $parent_data['Version'] ) {
-			echo '<p>' . sprintf(__('This child theme requires at least version <strong>%1$s</strong> of theme <strong>%2$s</strong> to be installed. You only have <strong>%3$s</strong> please update the parent theme.', 'theme-check'), $data['Template Version'], $parent_data['Title'], $parent_data['Version'] ) . '</p>';
+			echo '<p>' . sprintf(
+				__('This child theme requires at least version %1$s of theme %2$s to be installed. You only have %3$s please update the parent theme.', 'theme-check'),
+				'<strong>' . $data['Template Version'] . '</strong>',
+				'<strong>' . $parent_data['Title'] . '</strong>',
+				'<strong>' . $parent_data['Version'] . '</strong>'
+			) . '</p>';
 		}
-			echo '<p>' . sprintf(__( 'This is a child theme. The parent theme is: <strong>%1$s</strong>. These files have been included automatically!', 'theme-check'), $data[ 'Template' ] ) . '</p>';
+			echo '<p>' . sprintf(
+				__( 'This is a child theme. The parent theme is: %s. These files have been included automatically!', 'theme-check'),
+				'<strong>' . $data[ 'Template' ] . '</strong>'
+			) . '</p>';
 			if ( empty( $data['Template Version'] ) ) {
 				echo '<p>' . __('Child theme does not have the <strong>Template Version</strong> tag in style.css.', 'theme-check') . '</p>';
 			} else {
@@ -69,7 +77,13 @@ function check_main( $theme ) {
 
 		$plugins = get_plugins( '/theme-check' );
 		$version = explode( '.', $plugins['theme-check.php']['Version'] );
-		echo '<p>' . sprintf(__(' Running <strong>%1$s</strong> tests against <strong>%2$s</strong> using Guidelines Version: <strong>%3$s</strong> Plugin revision: <strong>%4$s</strong>', 'theme-check'), $checkcount, $data[ 'Title' ], $version[0], $version[1] ) . '</p>';
+		echo '<p>' . sprintf(
+			__(' Running %1$s tests against %2$s using Guidelines Version: %3$s Plugin revision: %4$s', 'theme-check'),
+			'<strong>' . $checkcount . '</strong>',
+			'<strong>' . $data[ 'Title' ] . '</strong>',
+			'<strong>' . $version[0] . '</strong>',
+			'<strong>' . $version[1] . '</strong>'
+		) . '</p>';
 		$results = display_themechecks();
 		if ( !$success ) {
 			echo '<h2>' . sprintf(__('One or more errors were found for %1$s.', 'theme-check'), $data[ 'Title' ] ) . '</h2>';
@@ -77,7 +91,7 @@ function check_main( $theme ) {
 			echo '<h2>' . sprintf(__('%1$s passed the tests', 'theme-check'), $data[ 'Title' ] ) . '</h2>';
 			tc_success();
 		}
-		if ( !defined( 'WP_DEBUG' ) || WP_DEBUG == false ) echo '<div class="updated"><span class="tc-fail">' . __('WARNING','theme-check') . '</span> ' . __( '<strong>WP_DEBUG is not enabled!</strong> Please test your theme with <a href="http://codex.wordpress.org/Editing_wp-config.php">debug enabled</a> before you upload!', 'theme-check' ) . '</div>';
+		if ( !defined( 'WP_DEBUG' ) || WP_DEBUG == false ) echo '<div class="updated"><span class="tc-fail">' . __('WARNING','theme-check') . '</span> ' . __( '<strong>WP_DEBUG is not enabled!</strong> Please test your theme with <a href="https://codex.wordpress.org/Editing_wp-config.php">debug enabled</a> before you upload!', 'theme-check' ) . '</div>';
 		echo '<div class="tc-box">';
 		echo '<ul class="tc-result">';
 		echo $results;
@@ -89,33 +103,28 @@ function check_main( $theme ) {
 function tc_intro() {
 ?>
 	<h2><?php _e( 'About', 'theme-check' ); ?></h2>
-	<p><?php _e( "The theme check plugin is an easy way to test your theme and make sure it's up to spec with the latest theme review standards. With it, you can run all the same automated testing tools on your theme that WordPress.org uses for theme submissions.", 'theme-check' ); ?></p>
+	<p><?php _e( "The Theme Check plugin is an easy way to test your theme and make sure it's up to date with the latest theme review standards. With it, you can run all the same automated testing tools on your theme that WordPress.org uses for theme submissions.", 'theme-check' ); ?></p>
 	<h2><?php _e( 'Contact', 'theme-check' ); ?></h2>
-	<p><?php printf( __( 'Theme-Check is maintained by %1s and %2s.', 'theme-check' ),
-		'<a href="http://profiles.wordpress.org/users/pross/">Pross</a>',
-		'<a href="http://profiles.wordpress.org/users/otto42/">Otto42</a>'
+	<p><?php printf( __( 'Theme Check is maintained by %1$s and %2$s.', 'theme-check' ),
+		'<a href="https://profiles.wordpress.org/otto42/">Otto42</a>',
+		'<a href="https://profiles.wordpress.org/pross/">Pross</a>'
 		); ?></p>
-	<p><?php _e( 'If you have found a bug or would like to make a suggestion or contribution why not join the <a href="http://wordpress.org/extend/themes/contact/">theme-reviewers mailing list</a> or leave a post on the <a href="http://wordpress.org/tags/theme-check?forum_id=10">WordPress forums</a>.', 'theme-check' ); ?></p>
-	<h2><?php _e( 'Contributors', 'theme-check' ); ?></h2>
-	<h3><?php _e( 'Localization', 'theme-check' ); ?></h3>
-	<ul>
-	<li><a href="http://www.onedesigns.com/">Daniel Tara</a></li>
-	<li><a href="http://index56.com/">Emil Uzelac</a></li>
-	</ul>
+	<p><?php printf( __( 'If you have found a bug or would like to make a suggestion or contribution, please leave a post on the <a href="%1$s">WordPress forums</a>, or talk about it with the theme review team on <a href="%2$s">Make WordPress Themes</a> site.', 'theme-check' ), 'https://wordpress.org/tags/theme-check?forum_id=10', 'https://make.wordpress.org/themes/') ; ?></p>
+	<p><?php printf( __( 'The code for Theme Check can be contributed to on <a href="%s">GitHub</a>.', 'theme-check' ), 'https://github.com/Otto42/theme-check'); ?></p>
 	<h3><?php _e( 'Testers', 'theme-check' ); ?></h3>
-	<p><a href="http://make.wordpress.org/themes/"><?php _e( 'The WordPress Theme Review Team', 'theme-check' ); ?></a></p>
+	<p><a href="https://make.wordpress.org/themes/"><?php _e( 'The WordPress Theme Review Team', 'theme-check' ); ?></a></p>
 	<?php
 }
 
 function tc_success() {
 	?>
 	<div class="tc-success"><p><?php _e( 'Now your theme has passed the basic tests you need to check it properly using the test data before you upload to the WordPress Themes Directory.', 'theme-check' ); ?></p>
-	<p><?php _e( 'Make sure to review the guidelines at <a href="http://codex.wordpress.org/Theme_Review">Theme Review</a> before uploading a Theme.', 'theme-check' ); ?></p>
+	<p><?php _e( 'Make sure to review the guidelines at <a href="https://codex.wordpress.org/Theme_Review">Theme Review</a> before uploading a Theme.', 'theme-check' ); ?></p>
 	<h3><?php _e( 'Codex Links', 'theme-check' ); ?></h3>
 	<ul>
-	<li><a href="http://codex.wordpress.org/Theme_Development"><?php _e('Theme Development', 'theme-check' ); ?></a></li>
-	<li><a href="http://wordpress.org/support/forum/5"><?php _e('Themes and Templates forum', 'theme-check' ); ?></a></li>
-	<li><a href="http://codex.wordpress.org/Theme_Unit_Test"><?php _e('Theme Unit Tests', 'theme-check' ); ?></a></li>
+	<li><a href="https://codex.wordpress.org/Theme_Development"><?php _e('Theme Development', 'theme-check' ); ?></a></li>
+	<li><a href="https://wordpress.org/support/forum/5"><?php _e('Themes and Templates forum', 'theme-check' ); ?></a></li>
+	<li><a href="https://codex.wordpress.org/Theme_Unit_Test"><?php _e('Theme Unit Tests', 'theme-check' ); ?></a></li>
 	</ul></div>
 	<?php
 }
@@ -136,6 +145,6 @@ function tc_form() {
 	echo '</select>';
 	echo '<input class="button" type="submit" value="' . __( 'Check it!', 'theme-check' ) . '" />';
 	if ( defined( 'TC_PRE' ) || defined( 'TC_POST' ) ) echo ' <input name="trac" type="checkbox" /> ' . __( 'Output in Trac format.', 'theme-check' );
-	echo ' <input name="s_info" type="checkbox" /> ' . __( 'Suppress INFO.', 'theme-check' );
+	echo '<input name="s_info" type="checkbox" /> ' . __( 'Suppress INFO.', 'theme-check' );
 	echo '</form>';
 }

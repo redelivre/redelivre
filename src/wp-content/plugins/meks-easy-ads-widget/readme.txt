@@ -3,8 +3,8 @@ Contributors: mekshq
 Donate link: http://mekshq.com/
 Tags: ad, ads, affiliate, niche, advertising, advertisement, marketing, sidebar, widget
 Requires at least: 3.0
-Tested up to: 4.3
-Stable tag: 1.1.8
+Tested up to: 4.4
+Stable tag: 1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -24,9 +24,8 @@ With this plugin you can create unlimited number of ads inside your WordPress wi
 
 Meks Easy Ads Widget plugin is created by <a href="http://mekshq.com" target="_blank">MeksHQ</a>
 
-### Live preview?
-
-You can see Meks Easy Ads Widget live example on our <a href="http://mekshq.com/demo/sidewalk" target="_blank">Sidewalk theme demo website</a>
+><strong>Live preview?</strong><br>
+>You can see Meks Easy Ads Widget live example on our <a href="http://mekshq.com/demo/herald" target="_blank">Herald theme demo website</a>
 
 
 == Installation ==
@@ -46,6 +45,9 @@ For any questions, error reports and suggestions please email support@mekshq.com
 3. Widget in action example
 
 == Changelog ==
+
+= 1.2 =
+* Added an option to specify rotation speed
 
 = 1.1.8 =
 * Full compatibility with WordPress 4.3

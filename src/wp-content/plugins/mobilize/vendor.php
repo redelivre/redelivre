@@ -23,6 +23,15 @@ class Mobilize {
     	
     	add_action('add_meta_boxes_page', array('Mobilize', 'createPageTemplate'));
     	add_action('admin_init', array('Mobilize', 'savePage'));
+    	/** to avoid plugin name conflict **/
+    	add_action( 'plugins_loaded', function(){
+    		add_filter( 'site_transient_update_plugins', function ( $value )
+    		{
+    			if( isset( $value->response['mobilize/Mobilize.php'] ) )
+    				unset( $value->response['mobilize/Mobilize.php'] );
+    				return $value;
+    		});
+    	});
     }
     
 	/**

@@ -3,14 +3,14 @@
 Plugin Name: SI CAPTCHA Anti-Spam
 Plugin URI: http://www.642weather.com/weather/scripts-wordpress-captcha.php
 Description: Adds CAPTCHA anti-spam methods to WordPress forms for comments, registration, lost password, login, or all. This prevents spam from automated bots. WP, WPMU, and BuddyPress compatible. <a href="plugins.php?page=si-captcha-for-wordpress/si-captcha.php">Settings</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S">Donate</a>
-Version: 2.7.7.5
+Version: 2.7.7.7
 Author: Mike Challis
 Author URI: http://www.642weather.com/weather/scripts.php
 */
 
-$si_captcha_version = '2.7.7.5';
+$si_captcha_version = '2.7.7.7';
 
-/*  Copyright (C) 2008-2014 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
+/*  Copyright (C) 2008-2016 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -849,7 +849,7 @@ function si_captcha_validate_code($form_id = 'com', $unlink = 'unlink') {
       $captcha_code = trim(strip_tags($_POST['captcha_code']));
 
       require_once "$si_captcha_dir/securimage.php";
-      $img = new Securimage_si();
+      $img = new Securimage_Captcha_si();
       $img->form_id = $form_id; // makes compatible with multi-forms on same page
       $valid = $img->check("$captcha_code");
       // Check, that the right CAPTCHA password has been entered, display an error message otherwise.

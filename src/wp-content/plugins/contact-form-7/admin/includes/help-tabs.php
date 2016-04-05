@@ -24,15 +24,6 @@ class WPCF7_Help_Tabs {
 				$this->sidebar();
 
 				return;
-			case 'add_new':
-				$this->screen->add_help_tab( array(
-					'id' => 'add_new',
-					'title' => __( 'Adding A New Contact Form', 'contact-form-7' ),
-					'content' => $this->content( 'add_new' ) ) );
-
-				$this->sidebar();
-
-				return;
 			case 'edit':
 				$this->screen->add_help_tab( array(
 					'id' => 'edit_overview',
@@ -52,6 +43,15 @@ class WPCF7_Help_Tabs {
 				$this->sidebar();
 
 				return;
+			case 'integration':
+				$this->screen->add_help_tab( array(
+					'id' => 'integration_overview',
+					'title' => __( 'Overview', 'contact-form-7' ),
+					'content' => $this->content( 'integration_overview' ) ) );
+
+				$this->sidebar();
+
+				return;
 		}
 	}
 
@@ -63,8 +63,6 @@ class WPCF7_Help_Tabs {
 		$content['list_available_actions'] = '<p>' . __( "Hovering over a row in the contact forms list will display action links that allow you to manage your contact form. You can perform the following actions:", 'contact-form-7' ) . '</p>';
 		$content['list_available_actions'] .= '<p>' . __( "<strong>Edit</strong> - Navigates to the editing screen for that contact form. You can also reach that screen by clicking on the contact form title.", 'contact-form-7' ) . '</p>';
 		$content['list_available_actions'] .= '<p>' . __( "<strong>Duplicate</strong> - Clones that contact form. A cloned contact form inherits all content from the original, but has a different ID.", 'contact-form-7' ) . '</p>';
-
-		$content['add_new'] = '<p>' . __( "You can add a new contact form on this screen. You can create a contact form in your language, which is set WordPress local settings, or in a language that you select from available options.", 'contact-form-7' ) . '</p>';
 
 		$content['edit_overview'] = '<p>' . __( "On this screen, you can edit a contact form. A contact form is comprised of the following components:", 'contact-form-7' ) . '</p>';
 		$content['edit_overview'] .= '<p>' . __( "<strong>Title</strong> is the title of a contact form. This title is only used for labeling a contact form, and can be edited.", 'contact-form-7' ) . '</p>';
@@ -80,6 +78,10 @@ class WPCF7_Help_Tabs {
 		$content['edit_mail_tags'] = '<p>' . __( "A mail-tag is also a short code enclosed in square brackets that you can use in every Mail and Mail (2) field. A mail-tag represents a user input value through an input field of a corresponding form-tag.", 'contact-form-7' ) . '</p>';
 		$content['edit_mail_tags'] .= '<p>' . __( "There are also special mail-tags that have specific names, but don&#8217;t have corresponding form-tags. They are used to represent meta information of form submissions like the submitter&#8217;s IP address or the URL of the page.", 'contact-form-7' ) . '</p>';
 
+		$content['integration_overview'] = '<p>' . __( "On this screen, you can manage services that are available through Contact Form 7. Using API will allow you to collaborate with any services that are available.", 'contact-form-7' ) . '</p>';
+		$content['integration_overview'] .= '<p>' . __( "You may need to first sign up for an account with the service that you plan to use. When you do so, you would need to authorize Contact Form 7 to access the service with your account.", 'contact-form-7' ) . '</p>';
+		$content['integration_overview'] .= '<p>' . __( "Any information you provide will not be shared with service providers without your authorization.", 'contact-form-7' ) . '</p>';
+
 		if ( ! empty( $content[$name] ) ) {
 			return $content[$name];
 		}
@@ -87,12 +89,10 @@ class WPCF7_Help_Tabs {
 
 	public function sidebar() {
 		$content = '<p><strong>' . __( 'For more information:', 'contact-form-7' ) . '</strong></p>';
-		$content .= '<p>' . __( '<a href="http://contactform7.com/docs/" target="_blank">Docs</a>', 'contact-form-7' ) . '</p>';
-		$content .= '<p>' . __( '<a href="http://contactform7.com/faq/" target="_blank">FAQ</a>', 'contact-form-7' ) . '</p>';
-		$content .= '<p>' . __( '<a href="http://contactform7.com/support/" target="_blank">Support</a>', 'contact-form-7' ) . '</p>';
+		$content .= '<p>' . wpcf7_link( __( 'http://contactform7.com/docs/', 'contact-form-7' ), __( 'Docs', 'contact-form-7' ) ) . '</p>';
+		$content .= '<p>' . wpcf7_link( __( 'http://contactform7.com/faq/', 'contact-form-7' ), __( 'FAQ', 'contact-form-7' ) ) . '</p>';
+		$content .= '<p>' . wpcf7_link( __( 'http://contactform7.com/support/', 'contact-form-7' ), __( 'Support', 'contact-form-7' ) ) . '</p>';
 
 		$this->screen->set_help_sidebar( $content );
 	}
 }
-
-?>

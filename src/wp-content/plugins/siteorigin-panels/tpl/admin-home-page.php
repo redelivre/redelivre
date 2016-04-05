@@ -1,7 +1,7 @@
 <?php $settings = siteorigin_panels_setting(); ?>
 
 <div class="wrap" id="panels-home-page" data-post-id="<?php echo get_the_ID() ?>">
-	<form action="<?php echo add_query_arg('page', 'so_panels_home_page') ?>" class="hide-if-no-js" method="post" id="panels-home-page-form">
+	<form action="<?php echo add_query_arg('page', 'so_panels_home_page') ?>" class="hide-if-no-js siteorigin-panels-builder-form" method="post" id="panels-home-page-form" data-type="custom_home_page">
 		<div id="icon-index" class="icon32"><br></div>
 		<h2>
 			<label class="switch">
@@ -19,7 +19,7 @@
 			<?php endif; ?>
 		</h2>
 
-		<?php if( filter_input( INPUT_POST, '_sopanels_home_nonce' ) ) : global $post; ?>
+		<?php if( isset($_POST['_sopanels_home_nonce']) && wp_verify_nonce($_POST['_sopanels_home_nonce'], 'save') ) : global $post; ?>
 			<div id="message" class="updated">
 				<p>
 					<?php
@@ -33,18 +33,21 @@
 			</div>
 		<?php endif; ?>
 
-		<div class="siteorigin-panels-builder so-panels-loading">
+		<div class="siteorigin-panels-builder-container so-panels-loading">
 
 		</div>
 
-		<input name="panels_data" value="" type="hidden" class="siteorigin-panels-data-field" id="panels-data-field-home" />
 		<script type="text/javascript">
-			document.getElementById('panels-data-field-home').value = decodeURIComponent("<?php echo rawurlencode( json_encode($panels_data) ); ?>");
+			( function( builderId, panelsData ){
+				// Create the panels_data input
+				document.write( '<input name="panels_data" type="hidden" class="siteorigin-panels-data-field" id="panels-data-field-' + builderId + '" />' );
+				document.getElementById( 'panels-data-field-' + builderId ).value = JSON.stringify( panelsData );
+			} )( "home-page", <?php echo json_encode( $panels_data ); ?> );
 		</script>
 
 		<p><input type="submit" class="button button-primary" id="panels-save-home-page" value="<?php esc_attr_e('Save Home Page', 'siteorigin-panels') ?>" /></p>
-
+		<input type="hidden" id="post_content" name="post_content"/>
 		<?php wp_nonce_field('save', '_sopanels_home_nonce') ?>
 	</form>
 	<noscript><p><?php _e('This interface requires Javascript', 'siteorigin-panels') ?></p></noscript>
-</div> 
+</div>
