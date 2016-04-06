@@ -99,7 +99,7 @@ function jaiminho_init()
 			$jaiminho_plugin_url = str_replace("http://", "https://", $jaiminho_plugin_url);
 		}
 	}
-	define('JAIMINHO_URL', apply_filters('plugins_url', $jaiminho_plugin_url.'/plugins/'.JAIMINHO_FOLDER));
+	define('WPJAIMINHO_URL', apply_filters('plugins_url', $jaiminho_plugin_url.'/plugins/'.JAIMINHO_FOLDER));
 	
 	add_action('admin_menu', 'jaiminho_config_menu');
 }
@@ -108,7 +108,7 @@ function jaiminho_init()
 *
 */
 function jaiminho_scripts(){
-	wp_enqueue_script('jaiminho', JAIMINHO_URL.'/js/WPJaiminho.js',array('jquery','jquery-form'));
+	wp_enqueue_script('jaiminho', WPJAIMINHO_URL.'/js/WPJaiminho.js',array('jquery','jquery-form'));
 }
 
 // Registra actions
@@ -128,7 +128,7 @@ function jaiminho_config_menu(){
 	
 	$base_page = 'jaiminho-campanha';
 	if (function_exists('add_menu_page')) 
-		add_object_page( __('Email/SMS','Email/SMS'), __('Email/SMS','jaiminho'), 'manage_options', $base_page, array(), JAIMINHO_URL."/imagens/icon.png");
+		add_object_page( __('Email/SMS','Email/SMS'), __('Email/SMS','jaiminho'), 'manage_options', $base_page, array(), WPJAIMINHO_URL."/imagens/icon.png");
 		add_submenu_page($base_page, __('Criar lista','jaiminho', 'jaiminho'), __('Criar lista','jaiminho'), 'manage_options', 'jaiminho-criarlista', 'jaiminho_criarlista' );
 		add_submenu_page($base_page, __('Explorar listas','jaiminho'), __('Explorar listas','jaiminho'), 'manage_options', 'jaiminho-explorarlistas', 'jaiminho_explorarlistas' );
 		add_submenu_page($base_page, __('Campos personalizados','jaiminho'), __('Campos personalizados','jaiminho'), 'manage_options', 'jaiminho-campospersonalizados', 'jaiminho_campospersonalizados' );
@@ -693,7 +693,7 @@ add_action('wp_logout','jaiminho_closesession');
  */
 function jaiminho( $jaiminho_id, $mensagem = '' ) { ?>
 
-	<form id="jaiminho-form" method="post" action="<?php echo JAIMINHO_URL; ?>/jaiminho-request.php" >				
+	<form id="jaiminho-form" method="post" action="<?php echo WPJAIMINHO_URL; ?>/jaiminho-request.php" >				
 	    <input type="hidden" name="FormValue_MailListIDs[]" value="<?php echo $jaiminho_id; ?>" />					
 		<?php if ( !empty( $mensagem ) ) : ?>
 			<input type="text" class="jaiminho-text" name="FormValue_Email" value="<?php echo $mensagem; ?>" onblur="if (this.value == '') {this.value = '<?php echo $mensagem; ?>'};" onfocus="if(this.value == '<?php echo $mensagem; ?>') {this.value = ''};" />
