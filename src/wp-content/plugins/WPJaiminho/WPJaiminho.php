@@ -129,7 +129,7 @@ function jaiminho_config_menu(){
 	$base_page = 'jaiminho-campanha';
 	if (function_exists('add_menu_page')) 
 		add_object_page( __('Email/SMS','Email/SMS'), __('Email/SMS','jaiminho'), 'manage_options', $base_page, array(), WPJAIMINHO_URL."/imagens/icon.png");
-		add_submenu_page($base_page, __('Criar lista','jaiminho', 'jaiminho'), __('Criar lista','jaiminho'), 'manage_options', 'jaiminho-criarlista', 'jaiminho_criarlista' );
+		add_submenu_page($base_page, __('Criar lista','jaiminho'), __('Criar lista','jaiminho'), 'manage_options', 'jaiminho-criarlista', 'jaiminho_criarlista' );
 		add_submenu_page($base_page, __('Explorar listas','jaiminho'), __('Explorar listas','jaiminho'), 'manage_options', 'jaiminho-explorarlistas', 'jaiminho_explorarlistas' );
 		add_submenu_page($base_page, __('Campos personalizados','jaiminho'), __('Campos personalizados','jaiminho'), 'manage_options', 'jaiminho-campospersonalizados', 'jaiminho_campospersonalizados' );
 		add_submenu_page($base_page, __('Importar membros','jaiminho'), __('Importar membros','jaiminho'), 'manage_options', 'jaiminho-importarmembros', 'jaiminho_importarmembros' );
