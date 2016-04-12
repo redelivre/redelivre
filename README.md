@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/redelivre/redelivre.png?label=ready&title=Ready)](https://waffle.io/redelivre/redelivre)
-[![Build Status](http://jenkins.beta.redelivre.org.br:8081/buildStatus/icon?job=Beta%20Redelivre)](https://github.com/redelivre/delibera)
+[![Build Status](http://jenkins.beta.redelivre.org.br:8081/buildStatus/icon?job=Beta%20Redelivre)](https://github.com/redelivre/redelivre)
 redelivre
 =========
 
