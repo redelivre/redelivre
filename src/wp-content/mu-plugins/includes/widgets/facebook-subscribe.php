@@ -9,7 +9,7 @@ Author: HackLab
 class WidgetFacebookSubscribe extends WP_Widget {
     function WidgetFacebookSubscribe() {
         $widget_ops = array('classname' => 'FacebookSubscribe', 'description' => 'Adciona uma caixa de Subscribes do Facebook' );
-        parent::WP_Widget('facebookSubscribe', 'Facebook Assinantes', $widget_ops);
+        parent::__construct('facebookSubscribe', 'Facebook Assinantes', $widget_ops);
 
     }
     

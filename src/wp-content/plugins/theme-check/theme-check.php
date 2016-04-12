@@ -3,10 +3,12 @@
 Plugin Name: Theme Check
 Plugin URI: http://ottopress.com/wordpress-plugins/theme-check/
 Description: A simple and easy way to test your theme for all the latest WordPress standards and practices. A great theme development tool!
-Author: Pross, Otto42
+Author: Otto42, pross
 Author URI: http://ottopress.com
-Version: 20141222.1
+Version: 20151211.1
 Text Domain: theme-check
+License: GPLv2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 class ThemeCheckMain {
@@ -16,7 +18,7 @@ class ThemeCheckMain {
 	}
 
 	function tc_i18n() {
-		load_plugin_textdomain( 'theme-check', false, 'theme-check/lang' );
+		load_plugin_textdomain( 'theme-check', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/'  );
 	}
 
 	function load_styles() {
@@ -43,9 +45,11 @@ class ThemeCheckMain {
 		include 'checkbase.php';
 		include 'main.php';
 
-		echo '<div id="theme-check" class="wrap">';
-		echo '<div id="icon-themes" class="icon32"><br /></div><h2>Theme-Check</h2>';
-		echo '<div class="theme-check">';
+		?>
+		<div id="theme-check" class="wrap">
+		<h1><?php _ex( 'Theme Check', 'title of the main page', 'theme-check' ); ?></h1>
+		<div class="theme-check">
+		<?php
 			tc_form();
 		if ( !isset( $_POST[ 'themename' ] ) )  {
 			tc_intro();
@@ -59,8 +63,10 @@ class ThemeCheckMain {
 			}
 			check_main( $_POST[ 'themename' ] );
 		}
-		echo '</div> <!-- .theme-check-->';
-		echo '</div>';
+		?>
+		</div> <!-- .theme-check-->
+		</div>
+		<?php
 	}
 }
 new ThemeCheckMain;

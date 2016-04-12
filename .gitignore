@@ -22,6 +22,8 @@ src/wp-content/blogs.dir
 src/wp-content/plugins/regenerate-thumbnails
 src/wp-content/plugins/monster-widget
 src/wp-content/plugins/bulk-delete
+src/wp-content/plugins/debug-bar
+src/wp-content/plugins/debug-bar-console
 
 # Sublime Text project files
 *.sublime-project

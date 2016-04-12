@@ -2,7 +2,7 @@
 class Widget_Jaiminho extends WP_Widget {
 	function Widget_Jaiminho() {
 		$widget_ops = array( 'classname' => 'widget_jaiminho', 'description' => __('O formulário para cadastro no Jaiminho', 'jaiminho') );
-		$this->WP_Widget( 'jaiminho', 'Jaiminho', $widget_ops );
+		$this->__construct( 'jaiminho', 'Jaiminho', $widget_ops );
 		
 	}
  

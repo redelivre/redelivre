@@ -14,6 +14,7 @@ class WPCF7_ContactForm {
 	private $unit_tag;
 	private $responses_count = 0;
 	private $scanned_form_tags;
+	private $config_validator;
 
 	public static function count() {
 		return self::$found_items;
@@ -244,14 +245,14 @@ class WPCF7_ContactForm {
 
 	/* Generating Form HTML */
 
-	public function form_html( $atts = array() ) {
-		$atts = wp_parse_args( $atts, array(
+	public function form_html( $args = '' ) {
+		$args = wp_parse_args( $args, array(
 			'html_id' => '',
 			'html_name' => '',
 			'html_class' => '',
 			'output' => 'form' ) );
 
-		if ( 'raw_form' == $atts['output'] ) {
+		if ( 'raw_form' == $args['output'] ) {
 			return '<pre class="wpcf7-raw-form"><code>'
 				. esc_html( $this->prop( 'form' ) ) . '</code></pre>';
 		}
@@ -270,18 +271,19 @@ class WPCF7_ContactForm {
 
 		$url = wpcf7_get_request_uri();
 
-		if ( $frag = strstr( $url, '#' ) )
+		if ( $frag = strstr( $url, '#' ) ) {
 			$url = substr( $url, 0, -strlen( $frag ) );
+		}
 
 		$url .= '#' . $this->unit_tag;
 
 		$url = apply_filters( 'wpcf7_form_action_url', $url );
 
 		$id_attr = apply_filters( 'wpcf7_form_id_attr',
-			preg_replace( '/[^A-Za-z0-9:._-]/', '', $atts['html_id'] ) );
+			preg_replace( '/[^A-Za-z0-9:._-]/', '', $args['html_id'] ) );
 
 		$name_attr = apply_filters( 'wpcf7_form_name_attr',
-			preg_replace( '/[^A-Za-z0-9:._-]/', '', $atts['html_name'] ) );
+			preg_replace( '/[^A-Za-z0-9:._-]/', '', $args['html_name'] ) );
 
 		$class = 'wpcf7-form';
 
@@ -299,8 +301,8 @@ class WPCF7_ContactForm {
 			}
 		}
 
-		if ( $atts['html_class'] ) {
-			$class .= ' ' . $atts['html_class'];
+		if ( $args['html_class'] ) {
+			$class .= ' ' . $args['html_class'];
 		}
 
 		if ( $this->in_demo_mode() ) {
@@ -318,16 +320,24 @@ class WPCF7_ContactForm {
 
 		$novalidate = apply_filters( 'wpcf7_form_novalidate', wpcf7_support_html5() );
 
-		$html .= sprintf( '<form %s>',
-			wpcf7_format_atts( array(
-				'action' => esc_url( $url ),
-				'method' => 'post',
-				'id' => $id_attr,
-				'name' => $name_attr,
-				'class' => $class,
-				'enctype' => wpcf7_enctype_value( $enctype ),
-				'novalidate' => $novalidate ? 'novalidate' : '' ) ) ) . "\n";
+		$atts = array(
+			'action' => esc_url( $url ),
+			'method' => 'post',
+			'class' => $class,
+			'enctype' => wpcf7_enctype_value( $enctype ),
+			'novalidate' => $novalidate ? 'novalidate' : '' );
 
+		if ( '' !== $id_attr ) {
+			$atts['id'] = $id_attr;
+		}
+
+		if ( '' !== $name_attr ) {
+			$atts['name'] = $name_attr;
+		}
+
+		$atts = wpcf7_format_atts( $atts );
+
+		$html .= sprintf( '<form %s>', $atts ) . "\n";
 		$html .= $this->form_hidden_fields();
 		$html .= $this->form_elements();
 
@@ -348,15 +358,19 @@ class WPCF7_ContactForm {
 			'_wpcf7_locale' => $this->locale,
 			'_wpcf7_unit_tag' => $this->unit_tag );
 
-		if ( WPCF7_VERIFY_NONCE )
+		if ( WPCF7_VERIFY_NONCE ) {
 			$hidden_fields['_wpnonce'] = wpcf7_create_nonce( $this->id );
+		}
+
+		$hidden_fields += (array) apply_filters(
+			'wpcf7_form_hidden_fields', array() );
 
 		$content = '';
 
 		foreach ( $hidden_fields as $name => $value ) {
-			$content .= '<input type="hidden"'
-				. ' name="' . esc_attr( $name ) . '"'
-				. ' value="' . esc_attr( $value ) . '" />' . "\n";
+			$content .= sprintf(
+				'<input type="hidden" name="%1$s" value="%2$s" />',
+				esc_attr( $name ), esc_attr( $value ) ) . "\n";
 		}
 
 		return '<div style="display: none;">' . "\n" . $content . '</div>' . "\n";
@@ -499,11 +513,13 @@ class WPCF7_ContactForm {
 			$this->scanned_form_tags = $scanned;
 		}
 
-		if ( empty( $scanned ) )
-			return null;
+		if ( empty( $scanned ) ) {
+			return array();
+		}
 
-		if ( ! is_array( $cond ) || empty( $cond ) )
+		if ( ! is_array( $cond ) || empty( $cond ) ) {
 			return $scanned;
+		}
 
 		for ( $i = 0, $size = count( $scanned ); $i < $size; $i++ ) {
 
@@ -541,6 +557,58 @@ class WPCF7_ContactForm {
 
 	public function form_elements() {
 		return apply_filters( 'wpcf7_form_elements', $this->form_do_shortcode() );
+	}
+
+	public function collect_mail_tags( $args = '' ) {
+		$args = wp_parse_args( $args, array(
+			'include' => array(),
+			'exclude' => array(
+				'acceptance', 'captchac', 'captchar', 'quiz', 'count' ) ) );
+
+		$tags = $this->form_scan_shortcode();
+		$mailtags = array();
+
+		foreach ( (array) $tags as $tag ) {
+			$type = trim( $tag['type'], ' *' );
+
+			if ( empty( $type ) ) {
+				continue;
+			} elseif ( ! empty( $args['include'] ) ) {
+				if ( ! in_array( $type, $args['include'] ) ) {
+					continue;
+				}
+			} elseif ( ! empty( $args['exclude'] ) ) {
+				if ( in_array( $type, $args['exclude'] ) ) {
+					continue;
+				}
+			}
+
+			$mailtags[] = $tag['name'];
+		}
+
+		$mailtags = array_unique( array_filter( $mailtags ) );
+
+		return apply_filters( 'wpcf7_collect_mail_tags', $mailtags );
+	}
+
+	public function suggest_mail_tags( $for = 'mail' ) {
+		$mail = wp_parse_args( $this->prop( $for ), array(
+			'active' => false, 'recipient' => '', 'sender' => '',
+			'subject' => '', 'body' => '', 'additional_headers' => '',
+			'attachments' => '', 'use_html' => false, 'exclude_blank' => false ) );
+
+		$mail = array_filter( $mail );
+
+		foreach ( (array) $this->collect_mail_tags() as $mail_tag ) {
+			$pattern = sprintf( '/\[(_[a-z]+_)?%s([ \t]+[^]]+)?\]/',
+				preg_quote( $mail_tag, '/' ) );
+			$used = preg_grep( $pattern, $mail );
+
+			echo sprintf(
+				'<span class="%1$s">[%2$s]</span>',
+				'mailtag code ' . ( $used ? 'used' : 'unused' ),
+				esc_html( $mail_tag ) );
+		}
 	}
 
 	public function submit( $ajax = false ) {
@@ -587,6 +655,7 @@ class WPCF7_ContactForm {
 		$message = isset( $messages[$status] ) ? $messages[$status] : '';
 
 		if ( $filter ) {
+			$message = wp_strip_all_tags( $message );
 			$message = wpcf7_mail_replace_tags( $message, array( 'html' => true ) );
 			$message = apply_filters( 'wpcf7_display_message', $message, $status );
 		}
@@ -720,6 +789,63 @@ class WPCF7_ContactForm {
 
 		return false;
 	}
+
+	public function shortcode( $args = '' ) {
+		$args = wp_parse_args( $args, array(
+			'use_old_format' => false ) );
+
+		$title = str_replace( array( '"', '[', ']' ), '', $this->title );
+
+		if ( $args['use_old_format'] ) {
+			$old_unit_id = (int) get_post_meta( $this->id, '_old_cf7_unit_id', true );
+
+			if ( $old_unit_id ) {
+				$shortcode = sprintf( '[contact-form %1$d "%2$s"]', $old_unit_id, $title );
+			} else {
+				$shortcode = '';
+			}
+		} else {
+			$shortcode = sprintf( '[contact-form-7 id="%1$d" title="%2$s"]',
+				$this->id, $title );
+		}
+
+		return apply_filters( 'wpcf7_contact_form_shortcode', $shortcode, $args, $this );
+	}
+
+	public function validate_configuration() {
+		if ( ! $this->initial() ) {
+			if ( ! $this->config_validator ) {
+				$this->config_validator = new WPCF7_ConfigValidator( $this );
+			}
+
+			$this->config_validator->validate();
+		}
+	}
+
+	public function get_config_errors() {
+		if ( ! $this->initial() ) {
+			if ( ! $this->config_validator ) {
+				$this->config_validator = new WPCF7_ConfigValidator( $this );
+			}
+
+			return $this->config_validator->get_errors();
+		}
+
+		return array();
+	}
+
+	public function config_error( $section ) {
+		if ( ! $this->initial() ) {
+			if ( ! $this->config_validator ) {
+				$this->config_validator = new WPCF7_ConfigValidator( $this );
+			}
+
+			return $this->config_validator->get_error_message( $section );
+		}
+
+		return '';
+	}
+
 }
 
 function wpcf7_contact_form( $id ) {
@@ -732,15 +858,17 @@ function wpcf7_get_contact_form_by_old_id( $old_id ) {
 	$q = "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_old_cf7_unit_id'"
 		. $wpdb->prepare( " AND meta_value = %d", $old_id );
 
-	if ( $new_id = $wpdb->get_var( $q ) )
+	if ( $new_id = $wpdb->get_var( $q ) ) {
 		return wpcf7_contact_form( $new_id );
+	}
 }
 
 function wpcf7_get_contact_form_by_title( $title ) {
 	$page = get_page_by_title( $title, OBJECT, WPCF7_ContactForm::post_type );
 
-	if ( $page )
+	if ( $page ) {
 		return wpcf7_contact_form( $page->ID );
+	}
 
 	return null;
 }
@@ -752,8 +880,9 @@ function wpcf7_get_current_contact_form() {
 }
 
 function wpcf7_is_posted() {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
 		return false;
+	}
 
 	return $contact_form->is_posted();
 }
@@ -773,22 +902,25 @@ function wpcf7_get_hangover( $name, $default = null ) {
 }
 
 function wpcf7_get_validation_error( $name ) {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
 		return '';
+	}
 
 	return $contact_form->validation_error( $name );
 }
 
 function wpcf7_get_message( $status ) {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
 		return '';
+	}
 
 	return $contact_form->message( $status );
 }
 
 function wpcf7_scan_shortcode( $cond = null ) {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() )
-		return null;
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
+		return array();
+	}
 
 	return $contact_form->form_scan_shortcode( $cond );
 }
@@ -804,12 +936,48 @@ function wpcf7_form_controls_class( $type, $default = '' ) {
 
 	$classes[] = 'wpcf7-' . $typebase;
 
-	if ( $required )
+	if ( $required ) {
 		$classes[] = 'wpcf7-validates-as-required';
+	}
 
 	$classes = array_unique( $classes );
 
 	return implode( ' ', $classes );
 }
 
-?>
+function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
+	if ( is_feed() ) {
+		return '[contact-form-7]';
+	}
+
+	if ( 'contact-form-7' == $code ) {
+		$atts = shortcode_atts( array(
+			'id' => 0,
+			'title' => '',
+			'html_id' => '',
+			'html_name' => '',
+			'html_class' => '',
+			'output' => 'form' ), $atts );
+
+		$id = (int) $atts['id'];
+		$title = trim( $atts['title'] );
+
+		if ( ! $contact_form = wpcf7_contact_form( $id ) ) {
+			$contact_form = wpcf7_get_contact_form_by_title( $title );
+		}
+
+	} else {
+		if ( is_string( $atts ) ) {
+			$atts = explode( ' ', $atts, 2 );
+		}
+
+		$id = (int) array_shift( $atts );
+		$contact_form = wpcf7_get_contact_form_by_old_id( $id );
+	}
+
+	if ( ! $contact_form ) {
+		return '[contact-form-7 404 "Not Found"]';
+	}
+
+	return $contact_form->form_html( $atts );
+}

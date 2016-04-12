@@ -1,0 +1,3 @@
+.evaluation_bar { background-color: #00A0D0 }
+.toggle_evaluation { cursor: pointer; }
+.evaluation_average_marker { top: 0px !important; height: 75% !important; }

@@ -9,7 +9,7 @@ Author: HackLab
 class WidgetBanner extends WP_Widget {
     function WidgetBanner() {
         $widget_ops = array('classname' => 'Banner', 'description' => 'Adds a banner to the sidebar' );
-        parent::WP_Widget('banner', 'Banner', $widget_ops);
+        parent::__construct('banner', 'Banner', $widget_ops);
 
     }
  

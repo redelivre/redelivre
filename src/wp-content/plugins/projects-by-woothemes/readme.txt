@@ -1,10 +1,10 @@
 === Projects by WooThemes ===
-Contributors: woothemes, mattyza, jameskoster, tiagonoronha
+Contributors: woothemes, mattyza, jameskoster, tiagonoronha, jeffikus
 Donate link: http://woothemes.com/
 Tags: portfolio, projects, project, showcase, artwork, work, creative, photography, art, images, woocommerce
-Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.4.1
+Requires at least: 4.0
+Tested up to: 4.3.1
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,12 @@ You sure can! Read about how in the [documentation](http://docs.woothemes.com/do
 
 == Upgrade Notice ==
 
+= 1.5.0 =
+* Fixes projects page not loading - please resave permalinks after updating!
+
+= 1.4.2 =
+* Removes deprecated constructor call for WP_Widget
+
 = 1.4.0 =
 * The default permalink structure has been tweaked to remove the project category. So http://localhost/network/project/landscapes/the-barrow-downs/ becomes http://localhost/network/project/the-barrow-downs/. Any old links will automatically redirect to their newer counterparts. You may have to re-save your permalink settings after performing this update. You can use the `projects_post_type_rewrite` filter to adjust this.
 
@@ -117,6 +123,15 @@ You sure can! Read about how in the [documentation](http://docs.woothemes.com/do
 * Initial release. Woo!
 
 == Changelog ==
+
+= 1.5.0 =
+* 2015.12.07
+* New/Fix - Adds query class to modify the query to fix the Project page not loading.
+
+= 1.4.2 =
+* 2015.07.07
+* Tweak - Allow attribute for include_children inside taxonomy query.
+* Removes deprecated constructor call for WP_Widget
 
 = 1.4.1 =
 * 2014.12.05

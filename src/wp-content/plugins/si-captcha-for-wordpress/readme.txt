@@ -2,18 +2,18 @@
 Contributors: Mike Challis
 Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S
-Tags: akismet, captcha, comment, comments, login, anti-spam, spam, security, multilingual, buddypress, wpmu, wordpressmu
+Tags: akismet, captcha, comment, comments, login, anti-spam, spam, security, multilingual
 Requires at least: 2.9
-Tested up to: 4.1
+Tested up to: 4.4.2
 Stable tag: trunk
 
-Adds CAPTCHA anti-spam methods to WordPress on the forms for comments, registration, lost password, login, or all. For WP, WPMU, and BuddyPress.
+Adds CAPTCHA anti-spam methods to WordPress on the forms for comments, registration, lost password, login, or all.
 
 == Description ==
 
-Adds CAPTCHA anti-spam methods to WordPress forms for comments, registration, lost password, login, or all.
+Adds CAPTCHA anti-spam methods to WordPress forms for comments, registration, lost password, login page.
 In order to post comments or register, users will have to type in the code shown on the image.
-This prevents spam from automated bots. Adds security. Works great with Akismet. Also is fully WP, WPMU, and BuddyPress compatible.
+This prevents spam from automated bots. Adds security. Works great with Akismet.
 
 = Help Keep This Plugin Free =
 
@@ -36,12 +36,6 @@ Captcha Image Support:
  * Abstract background with multi colored, angled, and transparent text
  * Arched lines through text
  * Refresh button to reload captcha if you cannot read it
-
-Requirements/Restrictions:
--------------------------
- * Works with Wordpress 2.9+, WPMU, and BuddyPress (Wordpress 3.6+ is highly recommended)
- * PHP5+ is highly recommended
-
 
 
 == Installation ==
@@ -181,33 +175,33 @@ If one is not available, and you also speak good English, please consider doing 
 
 The following translations are included in the download zip file:
 
-* Albanian (sq_AL) - Translated by [Romeo Shuka](http://www.romeolab.com)
-* Arabic (ar) - Translated by [Amine Roukh](http://amine27.zici.fr/)
-* Belorussian (by_BY) - Translated by [Marcis Gasuns](http://www.comfi.com/)
-* Chinese (zh_CN) - Translated by [Awu](http://www.awuit.cn/) 
-* Czech (cs_CZ) - Translated by [Radovan](http://algymsa.cz)
-* Danish (da_DK) - Translated by [Parry](http://www.detheltnyestore.dk/)
-* Dutch (nl_NL) - Translated by [Robert Jan Lamers](http://www.salek.nl/)
-* French (fr_FR) - Translated by [Pierre Sudarovich](http://pierre.sudarovich.free.fr/)
-* German (de_DE) - Translated by [Sebastian Kreideweiss](http://sebastian.kreideweiss.info/)
-* Greek (el) - Translated by [Ioannis](http://www.jbaron.gr/)
-* Hungarian (hu_HU) - Translated by [Vil]
-* Indonesian (id_ID) - Translated by [Masino Sinaga](http://www.openscriptsolution.com)
-* Italian (it_IT) - Translated by [Gianni Diurno](http://gidibao.net/ "Gianni Diurno")
-* Japanese (ja) - Translated by [Chestnut](http://staff.blog.bng.net/)
-* Lithuanian (lt_LT) - Translated by [Vincent G](http://www.Host1Free.com)
-* Norwegian (nb_NO) - Translated by [Roger Sylte](http://roger.inro.net/)
-* Polish (pl_PL) - Translated by [Tomasz](http://www.ziolczynski.pl/)
-* Portuguese Brazil (pt_BR) - Translated by [Newton Dan Faoro]
-* Portuguese Portugal (pt_PT) - Translated by [PL Monteiro](http://thepatientcapacitor.com/)
-* Romanian (ro_RO) - Translated by [Laszlo SZOKE](http://www.naturaumana.ro)
-* Russian (ru_RU) - Translated by [Neponyatka](http://www.free-lance.ru/users/neponyatka)
-* Serbian (sr_SR) - Translated by [Milan Dinic]
-* Slovakian (sk_SK) - Translated by [Marek Chochol]
-* Spanish (en_ES) - Translated by [zinedine](http://www.informacioniphone.com/)
-* Swedish (sv_SE) - Translated by [Benct]
-* Traditional Chinese, Taiwan Language (zh_TW) - Translated by [Cjh]
-* Turkish (tr_TR) - Translated by [Burak Yavuz]
+* Albanian (sq_AL) - Romeo Shuka
+* Arabic (ar) - Amine Roukh
+* Belorussian (by_BY) - Marcis Gasuns
+* Chinese (zh_CN) - Awu
+* Czech (cs_CZ) - Radovan
+* Danish (da_DK) - Parry
+* Dutch (nl_NL) - Robert Jan Lamers
+* French (fr_FR) - Pierre Sudarovich
+* German (de_DE) - Sebastian Kreideweiss
+* Greek (el) - Ioannis
+* Hungarian (hu_HU) - Vil
+* Indonesian (id_ID) - Masino Sinaga
+* Italian (it_IT) - Gianni Diurno
+* Japanese (ja) - Chestnut
+* Lithuanian (lt_LT) - Vincent G
+* Norwegian (nb_NO) - Roger Sylte
+* Polish (pl_PL) - Tomasz
+* Portuguese Brazil (pt_BR) - Newton Dan Faoro
+* Portuguese Portugal (pt_PT) - PL Monteiro
+* Romanian (ro_RO) - Laszlo SZOKE
+* Russian (ru_RU) - Neponyatka
+* Serbian (sr_SR) - Milan Dinic
+* Slovakian (sk_SK) - Marek Chochol
+* Spanish (en_ES) - zinedine
+* Swedish (sv_SE) - Benct
+* Traditional Chinese, Taiwan Language (zh_TW) - Cjh
+* Turkish (tr_TR) - Burak Yavuz
 * More are needed... Please help translate.
 
 
@@ -223,6 +217,12 @@ Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](
 
 
 == Changelog ==
+
+= 2.7.7.7 =
+- (13 Feb 2016) - Fix: PHP Fatal error: Class 'securimage_si' not found 
+
+= 2.7.7.6 =
+- (12 Feb 2016) - Fix: Captcha did not show on some PHP7 installations
 
 = 2.7.7.5 =
 - (22 Dec 2014) - akismet 3.xx compatible.

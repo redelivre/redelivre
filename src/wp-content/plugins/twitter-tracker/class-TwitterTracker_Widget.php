@@ -30,7 +30,7 @@ class TwitterTracker_Widget extends TwitterTracker_SW_Widget {
     function TwitterTracker_Widget() {
 		$name = __( 'Twitter Search Tracker', 'twitter-tracker' );
 		$options = array( 'description' => __( 'A widget which displays results from Twitter Search.', 'twitter-tracker' ) );
-        $this->WP_Widget( 'twitter-tracker', $name, $options );	
+        $this->__construct( 'twitter-tracker', $name, $options );	
     }
 
     /** @see WP_Widget::widget */

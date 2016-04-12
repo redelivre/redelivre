@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') OR exit; // prevent full path disclosure
+
 function antispam_admin_notice() {
 	global $pagenow;
 	if ($pagenow == 'edit-comments.php'):
@@ -8,11 +10,14 @@ function antispam_admin_notice() {
 		if ($antispam_info_visibility == 1 OR $antispam_info_visibility == ''):
 			$antispam_stats = get_option('antispam_stats', array());
 			$blocked_total = $antispam_stats['blocked_total'];
+			if(empty($blocked_total)){
+				$blocked_total = 0;
+			}
 			?>
 			<div class="update-nag antispam-panel-info">
 				<p style="margin: 0;">
 					<?php echo $blocked_total; ?> spam comments were blocked by <a href="http://wordpress.org/plugins/anti-spam/">Anti-spam</a> plugin so far.
-					<a href="http://codecanyon.net/item/antispam-pro/6491169?ref=webvitaly" title="Anti-spam Pro">Upgrade to Pro</a>.
+					<a href="http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii" title="Anti-spam Pro">Upgrade to Pro</a> for more advanced protection.
 				</p>
 			</div>
 			<?php

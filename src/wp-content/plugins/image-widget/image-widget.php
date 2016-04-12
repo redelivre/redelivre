@@ -4,13 +4,14 @@ Plugin Name: Image Widget
 Plugin URI: http://wordpress.org/extend/plugins/image-widget/
 Description: A simple image widget that uses the native WordPress media manager to add image widgets to your site.
 Author: Modern Tribe, Inc.
-Version: 4.1
+Version: 4.2.2
 Author URI: http://m.tri.be/26
 */
 
 // Block direct requests
-if ( !defined('ABSPATH') )
+if ( !defined('ABSPATH') ) {
 	die('-1');
+}
 
 // Load the widget on widgets_init
 function tribe_load_image_widget() {
@@ -23,7 +24,7 @@ add_action('widgets_init', 'tribe_load_image_widget');
  **/
 class Tribe_Image_Widget extends WP_Widget {
 
-	const VERSION = '4.1';
+	const VERSION = '4.2.2';
 
 	const CUSTOM_IMAGE_SIZE_SLUG = 'tribe_image_widget_custom';
 
@@ -32,11 +33,12 @@ class Tribe_Image_Widget extends WP_Widget {
 	 *
 	 * @author Modern Tribe, Inc.
 	 */
-	function Tribe_Image_Widget() {
+	public function __construct() {
 		load_plugin_textdomain( 'image_widget', false, trailingslashit(basename(dirname(__FILE__))) . 'lang/');
 		$widget_ops = array( 'classname' => 'widget_sp_image', 'description' => __( 'Showcase a single image with a Title, URL, and a Description', 'image_widget' ) );
 		$control_ops = array( 'id_base' => 'widget_sp_image' );
-		$this->WP_Widget('widget_sp_image', __('Image Widget', 'image_widget'), $widget_ops, $control_ops);
+		parent::__construct('widget_sp_image', __('Image Widget', 'image_widget'), $widget_ops, $control_ops);
+
 		if ( $this->use_old_uploader() ) {
 			require_once( 'lib/ImageWidgetDeprecated.php' );
 			new ImageWidgetDeprecated( $this );
@@ -65,7 +67,7 @@ class Tribe_Image_Widget extends WP_Widget {
 	/**
 	 * Enqueue all the javascript.
 	 */
-	function admin_setup() {
+	public function admin_setup() {
 		wp_enqueue_media();
 		wp_enqueue_script( 'tribe-image-widget', plugins_url('resources/js/image-widget.js', __FILE__), array( 'jquery', 'media-upload', 'media-views' ), self::VERSION );
 
@@ -82,7 +84,7 @@ class Tribe_Image_Widget extends WP_Widget {
 	 * @param array $instance
 	 * @author Modern Tribe, Inc.
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		extract( $args );
 		$instance = wp_parse_args( (array) $instance, self::get_defaults() );
 		if ( !empty( $instance['imageurl'] ) || !empty( $instance['attachment_id'] ) ) {
@@ -90,6 +92,7 @@ class Tribe_Image_Widget extends WP_Widget {
 			$instance['title'] = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'] );
 			$instance['description'] = apply_filters( 'widget_text', $instance['description'], $args, $instance );
 			$instance['link'] = apply_filters( 'image_widget_image_link', esc_url( $instance['link'] ), $args, $instance );
+			$instance['linkid'] = apply_filters( 'image_widget_image_link_id', esc_attr( $instance['linkid'] ), $args, $instance );
 			$instance['linktarget'] = apply_filters( 'image_widget_image_link_target', esc_attr( $instance['linktarget'] ), $args, $instance );
 			$instance['width'] = apply_filters( 'image_widget_image_width', abs( $instance['width'] ), $args, $instance );
 			$instance['height'] = apply_filters( 'image_widget_image_height', abs( $instance['height'] ), $args, $instance );
@@ -97,6 +100,7 @@ class Tribe_Image_Widget extends WP_Widget {
 			$instance['maxheight'] = apply_filters( 'image_widget_image_maxheight', esc_attr( $instance['maxheight'] ), $args, $instance );
 			$instance['align'] = apply_filters( 'image_widget_image_align', esc_attr( $instance['align'] ), $args, $instance );
 			$instance['alt'] = apply_filters( 'image_widget_image_alt', esc_attr( $instance['alt'] ), $args, $instance );
+			$instance['rel'] = apply_filters( 'image_widget_image_rel', esc_attr( $instance['rel'] ), $args, $instance );
 
 			if ( !defined( 'IMAGE_WIDGET_COMPATIBILITY_TEST' ) ) {
 				$instance['attachment_id'] = ( $instance['attachment_id'] > 0 ) ? $instance['attachment_id'] : $instance['image'];
@@ -120,7 +124,7 @@ class Tribe_Image_Widget extends WP_Widget {
 	 * @return object
 	 * @author Modern Tribe, Inc.
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$new_instance = wp_parse_args( (array) $new_instance, self::get_defaults() );
 		$instance['title'] = strip_tags($new_instance['title']);
@@ -130,6 +134,7 @@ class Tribe_Image_Widget extends WP_Widget {
 			$instance['description'] = wp_filter_post_kses($new_instance['description']);
 		}
 		$instance['link'] = $new_instance['link'];
+		$instance['linkid'] = $new_instance['linkid'];
 		$instance['linktarget'] = $new_instance['linktarget'];
 		$instance['width'] = abs( $new_instance['width'] );
 		$instance['height'] =abs( $new_instance['height'] );
@@ -138,6 +143,7 @@ class Tribe_Image_Widget extends WP_Widget {
 		}
 		$instance['align'] = $new_instance['align'];
 		$instance['alt'] = $new_instance['alt'];
+		$instance['rel'] = $new_instance['rel'];
 
 		// Reverse compatibility with $image, now called $attachement_id
 		if ( !defined( 'IMAGE_WIDGET_COMPATIBILITY_TEST' ) && $new_instance['attachment_id'] > 0 ) {
@@ -161,7 +167,7 @@ class Tribe_Image_Widget extends WP_Widget {
 	 * @param object $instance Widget Instance
 	 * @author Modern Tribe, Inc.
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, self::get_defaults() );
 		if ( $this->use_old_uploader() ) {
 			include( $this->getTemplateHierarchy( 'widget-admin.deprecated' ) );
@@ -175,7 +181,7 @@ class Tribe_Image_Widget extends WP_Widget {
 	 *
 	 * @author Modern Tribe, Inc.
 	 */
-	function admin_head() {
+	public function admin_head() {
 		?>
 	<style type="text/css">
 		.uploader input.button {
@@ -212,6 +218,7 @@ class Tribe_Image_Widget extends WP_Widget {
 			'title' => '',
 			'description' => '',
 			'link' => '',
+			'linkid' => '',
 			'linktarget' => '',
 			'width' => 0,
 			'height' => 0,
@@ -221,6 +228,7 @@ class Tribe_Image_Widget extends WP_Widget {
 			'imageurl' => '', // reverse compatible.
 			'align' => 'none',
 			'alt' => '',
+			'rel' => '',
 		);
 
 		if ( !defined( 'IMAGE_WIDGET_COMPATIBILITY_TEST' ) ) {
@@ -250,9 +258,11 @@ class Tribe_Image_Widget extends WP_Widget {
 		if ( $include_link && !empty( $instance['link'] ) ) {
 			$attr = array(
 				'href' => $instance['link'],
+				'id' => $instance['linkid'],
 				'target' => $instance['linktarget'],
 				'class' => 	$this->widget_options['classname'].'-image-link',
 				'title' => ( !empty( $instance['alt'] ) ) ? $instance['alt'] : $instance['title'],
+				'rel' => $instance['rel'],
 			);
 			$attr = apply_filters('image_widget_link_attributes', $attr, $instance );
 			$attr = array_map( 'esc_attr', $attr );
@@ -321,6 +331,27 @@ class Tribe_Image_Widget extends WP_Widget {
 	}
 
 	/**
+	 * Get all possible image sizes to choose from
+	 *
+	 * @return array
+	 */
+	private function possible_image_sizes() {
+		$registered = get_intermediate_image_sizes();
+		// label other sizes with their image size "ID"
+		$registered = array_combine( $registered, $registered );
+
+		$possible_sizes = array_merge( $registered, array(
+			'full'                       => __('Full Size', 'image_widget'),
+			'thumbnail'                  => __('Thumbnail', 'image_widget'),
+			'medium'                     => __('Medium', 'image_widget'),
+			'large'                      => __('Large', 'image_widget'),
+			self::CUSTOM_IMAGE_SIZE_SLUG => __('Custom', 'image_widget'),
+		) );
+
+		return (array) apply_filters( 'image_size_names_choose', $possible_sizes );
+	}
+
+	/**
 	 * Assesses the image size in case it has not been set or in case there is a mismatch.
 	 *
 	 * @param $instance
@@ -368,7 +399,7 @@ class Tribe_Image_Widget extends WP_Widget {
 	 * @author Modern Tribe, Inc. (Matt Wiebe)
 	 **/
 
-	function getTemplateHierarchy($template) {
+	public function getTemplateHierarchy($template) {
 		// whether or not .php was added
 		$template_slug = rtrim($template, '.php');
 		$template = $template_slug . '.php';

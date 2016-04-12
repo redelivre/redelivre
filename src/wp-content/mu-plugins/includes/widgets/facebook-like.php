@@ -11,7 +11,7 @@ class WidgetFacebookLikeBox extends WP_Widget {
         $widget_ops = array('classname' => 'FacebookLikeBox', 'description' => 'Adciona uma caixa de likes de sua página no Facebook' );
         wp_register_script('facebook_like_form', network_site_url() . 'wp-content/mu-plugins/includes/widgets/js/facebook-like.js', array('jquery'));
         wp_enqueue_script('facebook_like_form');
-        parent::WP_Widget('facebookLikeBox', 'Facebook LikeBox', $widget_ops);
+        parent::__construct('facebookLikeBox', 'Facebook LikeBox', $widget_ops);
     }
     
     function widget($args, $instance) {

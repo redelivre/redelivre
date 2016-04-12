@@ -30,7 +30,7 @@ class TwitterTracker_Profile_Widget extends TwitterTracker_SW_Widget {
     function TwitterTracker_Profile_Widget() {
 		$name = __( 'Twitter Profile Tracker', 'twitter-tracker' );
 		$options = array( 'description' => __( 'A widget which displays the tweets from a specific Twitter user account.', 'twitter-tracker' ) );
-        $this->WP_Widget( 'twitter-profile-tracker', $name, $options );	
+        $this->__construct( 'twitter-profile-tracker', $name, $options );	
     }
 
     /** @see WP_Widget::widget */

@@ -5,19 +5,21 @@
  * Admin action for handling fetching the style fields
  */
 function siteorigin_panels_ajax_action_style_form(){
-	$type = filter_input( INPUT_POST, 'type', FILTER_SANITIZE_STRING );
-	if( !in_array($type, array('row', 'widget') ) ) wp_die();
+	$type = $_REQUEST['type'];
+	if( !in_array($type, array('row', 'widget') ) ) exit();
 
-	$current = filter_input( INPUT_POST, 'style', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY );
-	$post_id = filter_input( INPUT_POST, 'postId', FILTER_SANITIZE_NUMBER_INT );
+	$current = isset( $_REQUEST['style'] ) ? $_REQUEST['style'] : array();
+	$post_id = empty( $_REQUEST['postId'] ) ? 0 : $_REQUEST['postId'];
+
+	$args = !empty( $_POST['args'] ) ? json_decode( $_POST['args'], true) : array();
 
 	switch($type) {
 		case 'row':
-			siteorigin_panels_render_styles_fields('row', '<h3>' . __('Row Styles', 'siteorigin-panels') . '</h3>', '', $current, $post_id);
+			siteorigin_panels_render_styles_fields('row', '<h3>' . __('Row Styles', 'siteorigin-panels') . '</h3>', '', $current, $post_id, $args);
 			break;
 
 		case 'widget':
-			siteorigin_panels_render_styles_fields('widget', '<h3>' . __('Widget Styles', 'siteorigin-panels') . '</h3>', '', $current, $post_id);
+			siteorigin_panels_render_styles_fields('widget', '<h3>' . __('Widget Styles', 'siteorigin-panels') . '</h3>', '', $current, $post_id, $args);
 	}
 
 	wp_die();
@@ -32,9 +34,10 @@ add_action('wp_ajax_so_panels_style_form', 'siteorigin_panels_ajax_action_style_
  * @param string $after
  * @param array $current
  * @param int $post_id
+ * @param array $args Arguments passed by the builder
  */
-function siteorigin_panels_render_styles_fields( $section, $before = '', $after = '', $current = array(), $post_id = 0 ){
-	$fields = apply_filters('siteorigin_panels_' . $section . '_style_fields', array(), $post_id );
+function siteorigin_panels_render_styles_fields( $section, $before = '', $after = '', $current = array(), $post_id = 0, $args = array() ){
+	$fields = apply_filters('siteorigin_panels_' . $section . '_style_fields', array(), $post_id, $args );
 	if( empty($fields) ) return false;
 
 	$groups = array(
@@ -64,7 +67,7 @@ function siteorigin_panels_render_styles_fields( $section, $before = '', $after 
 			$fields[$field_id]['group'] = 'theme';
 		}
 	}
-	$groups = apply_filters('siteorigin_panels_' . $section . '_style_groups', $groups );
+	$groups = apply_filters('siteorigin_panels_' . $section . '_style_groups', $groups, $post_id, $args );
 
 	// Sort the style fields and groups by priority
 	uasort( $fields, 'siteorigin_panels_styles_sort_fields' );
@@ -89,21 +92,22 @@ function siteorigin_panels_render_styles_fields( $section, $before = '', $after 
 			</div>
 			<div class="style-section-fields" style="display: none">
 				<?php
-					foreach( $fields as $field_id => $field ) {
+				foreach( $fields as $field_id => $field ) {
+					$default = isset($field['default']) ? $field['default'] : false;
 
-						if($field['group'] == $group_id){
-							?>
-							<div class="style-field-wrapper">
-								<label><?php echo $field['name'] ?></label>
-								<div class="style-field style-field-<?php echo sanitize_html_class( $field['type'] ) ?>">
-									<?php siteorigin_panels_render_style_field( $field, isset( $current[$field_id] ) ? $current[$field_id] : false, $field_id ) ?>
-								</div>
+					if($field['group'] == $group_id){
+						?>
+						<div class="style-field-wrapper">
+							<label><?php echo $field['name'] ?></label>
+							<div class="style-field style-field-<?php echo sanitize_html_class( $field['type'] ) ?>">
+								<?php siteorigin_panels_render_style_field( $field, isset( $current[$field_id] ) ? $current[$field_id] : $default, $field_id ) ?>
 							</div>
-							<?php
-
-						}
+						</div>
+						<?php
 
 					}
+
+				}
 				?>
 			</div>
 		</div>
@@ -115,7 +119,7 @@ function siteorigin_panels_render_styles_fields( $section, $before = '', $after 
 
 /**
  * Get list of supported mesurements
- * 
+ *
  * @return array
  */
 function siteorigin_panels_style_get_measurements_list() {
@@ -129,8 +133,9 @@ function siteorigin_panels_style_get_measurements_list() {
 		'ex',
 		'pt',
 		'pc',
+		'rem'
 	);
-	
+
 	// Allow themes and plugins to trim or enhance the list.
 	return apply_filters('siteorigin_panels_style_get_measurements_list', $measurements);
 }
@@ -150,9 +155,9 @@ function siteorigin_panels_render_style_field( $field, $current, $field_id ){
 			?>
 			<input type="text" />
 			<select>
-			<?php foreach ( siteorigin_panels_style_get_measurements_list() as $measurement ):?>
-				<option value="<?php echo esc_html( $measurement ) ?>"><?php echo esc_html( $measurement ) ?></option>
-			<?php endforeach?>
+				<?php foreach ( siteorigin_panels_style_get_measurements_list() as $measurement ):?>
+					<option value="<?php echo esc_html( $measurement ) ?>"><?php echo esc_html( $measurement ) ?></option>
+				<?php endforeach?>
 			</select>
 			<input type="hidden" name="<?php echo esc_attr($field_name) ?>" value="<?php echo esc_attr( $current ) ?>" />
 			<?php
@@ -242,7 +247,6 @@ function siteorigin_panels_styles_sort_fields($a, $b){
  * @return mixed
  */
 function siteorigin_panels_styles_sanitize_all($panels_data){
-
 	if( !empty($panels_data['widgets']) ) {
 		// Sanitize the widgets
 		for ( $i = 0; $i < count( $panels_data['widgets'] ); $i ++ ) {
@@ -284,17 +288,25 @@ function siteorigin_panels_styles_sanitize_all($panels_data){
  *
  * @return Sanitized styles
  */
-function siteorigin_panels_sanitize_style_fields($section, $styles){
-	static $fields_cache = array();
-
+function siteorigin_panels_sanitize_style_fields( $section, $styles ){
 	// Use the filter to get the fields for this section.
 	if( empty($fields_cache[$section]) ) {
-		$fields_cache[$section] = apply_filters('siteorigin_panels_' . $section . '_style_fields', array() );
+		// This filter doesn't pass in the arguments $post_id and $args
+		// Plugins looking to extend fields, should always add their fields if these are empty
+		$fields_cache[$section] = apply_filters('siteorigin_panels_' . $section . '_style_fields', array(), false, false );
 	}
 	$fields = $fields_cache[$section];
 
 	$return = array();
 	foreach($fields as $k => $field) {
+		// Skip this if no field type is set
+		if( empty($field['type']) ) continue;
+
+		// Handle the special case of a checkbox
+		if( $field['type'] == 'checkbox' ) {
+			$return[$k] = !empty( $styles[$k] ) ? true : '';
+			continue;
+		}
 
 		// Ignore this if we don't even have a value for the style
 		if( !isset($styles[$k]) || $styles[$k] == '' ) continue;
@@ -310,9 +322,6 @@ function siteorigin_panels_sanitize_style_fields($section, $styles){
 				break;
 			case 'url' :
 				$return[$k] = esc_url_raw( $styles[$k] );
-				break;
-			case 'checkbox' :
-				$return[$k] = !empty( $styles[$k] );
 				break;
 			case 'measurement' :
 				$measurements = array_map('preg_quote', siteorigin_panels_style_get_measurements_list() );

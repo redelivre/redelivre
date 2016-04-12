@@ -140,6 +140,7 @@ if(function_exists('register_sidebar')) {
 		'after_widget' => '</div>',
 		'before_title' => '<h3 class="subtitulo">',
 		'after_title' => '</h3>',
+		'id'            => 'sidebar-1'
 	) );
 	
 }

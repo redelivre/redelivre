@@ -35,6 +35,7 @@ if(function_exists('register_sidebar')) {
 		'after_widget' => '</div></div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
+		'id'            => 'sidebar-1'
 	) );
     // sidebar 
     register_sidebar( array(
@@ -44,6 +45,7 @@ if(function_exists('register_sidebar')) {
 		'after_widget' => '</div></div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
+    	'id'            => 'sidebar-2'
 	) );
 }
 

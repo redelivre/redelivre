@@ -1,10 +1,10 @@
 === Image Widget ===
-Contributors: ModernTribe, peterchester
+Contributors: ModernTribe, peterchester, borkweb, zbtirrell
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4BSPTNFFY6AL6
 Tags: widget, image, ad, banner, simple, upload, sidebar, admin, thickbox, resize, arabic, brazilian portuguese, dutch, german, hebrew, italian, japanese, polish, spanish, swedish, widget-only
 Requires at least: 3.5
-Tested up to: 3.9
-Stable tag: 4.1
+Tested up to: 4.4.2
+Stable tag: 4.2.2
 
 == Description ==
 
@@ -19,29 +19,11 @@ A simple image widget that uses the native WordPress media manager to add image 
 * Supports override of template so that you can override the template for your theme!
 * Responsive
 
-Supported Languages:
-
-* Arabic
-* Brazilian Portuguese
-* Dutch
-* German
-* Hebrew
-* Italian
-* Japanese
-* Polish
-* Spanish
-* Swedish
-
-If you would like your own language to be supported, please contribute translations here:
-
-http://wordpress.org/support/topic/image-widget-40-translations-needed-2
-
 This plugin is actively supported and we will do our best to help you. In return we simply as 3 things:
 
 1. Help Out. If you see a question on the forum you can help with or have a great idea and want to code it up and submit a patch, that would be just plain awesome and we will shower your with praise. Might even be a good way to get to know us and lead to some paid work if you freelance.  Also, we are happy to post translations if you provide them.
-1. Donate - if this is generating enough revenue to support our time it makes all the difference in the world
-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4BSPTNFFY6AL6
-1. Support us by buying our Premium plugins. In particular, check out our Events Calendar Pro http://tri.be/wordpress-events-calendar-pro/?src=imagewidget
+1. [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4BSPTNFFY6AL6) - if this is generating enough revenue to support our time it makes all the difference in the world.
+1. Support us by buying our Premium plugins. In particular, check out [Events Calendar Pro](https://theeventscalendar.com/product/wordpress-events-calendar-pro/?src=imagewidget) and [Event Tickets Plus](https://theeventscalendar.com/product/wordpress-event-tickets-plus/?src=imagewidget).
 
 Note, we're also on github in case you want to add some pull requests or a fork!
 
@@ -169,9 +151,32 @@ If so, then THANK YOU! Also, feel free to add this line to your wp-config.php fi
 
 define( 'I_HAVE_SUPPORTED_THE_IMAGE_WIDGET', true );
 
-For more info on the philosophy here, check out our blog post: http://tri.be/define-i-have-donated-true/
+For more info on the philosophy here, check out our [blog post](http://tri.be/define-i-have-donated-true/)
 
 == Changelog ==
+
+= 4.2.2 =
+
+* Feature - Include registered image sizes in the list of selectable items (props to aaemnnosttv for the pull request!)
+
+= 4.2.1 =
+
+* Feature - Removing Freemius.  Interesting experiment, but ultimately, not our cup of tea.  Thanks for sticking with us!
+
+= 4.2 =
+
+* Security - Prevent direct access to directories (thank you @ramiy)
+* Translations - Remove po/mo files, migrate to translate.wordpress.org language packs
+* Feature - Add support for the rel attribute
+* Feature - Adding an opt-in integration with Freemius
+
+= 4.1.2 =
+
+* Tweak - Added support for an id attribute on links (Props to amyh for the work on this!)
+
+= 4.1.1 =
+
+* Tweak - Retiring the use of PHP 4 style constructors
 
 = 4.1 =
 
