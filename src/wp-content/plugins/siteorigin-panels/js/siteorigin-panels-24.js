@@ -20,12 +20,19 @@ module.exports = Backbone.Collection.extend( {
 		return totalWeight;
 	},
 
-	comparator: function ( item ) {
+	visualSortComparator: function ( item ) {
 		if ( ! _.isNull( item.indexes ) ) {
 			return item.indexes.builder;
 		} else {
 			return null;
 		}
+	},
+
+	visualSort: function(){
+		var oldComparator = this.comparator;
+		this.comparator = this.visualSortComparator;
+		this.sort();
+		this.comparator = oldComparator;
 	}
 } );
 
@@ -121,12 +128,19 @@ module.exports = Backbone.Collection.extend( {
 		} while ( true );
 	},
 
-	comparator: function ( item ) {
+	visualSortComparator: function ( item ) {
 		if ( ! _.isNull( item.indexes ) ) {
 			return item.indexes.builder;
 		} else {
 			return null;
 		}
+	},
+
+	visualSort: function(){
+		var oldComparator = this.comparator;
+		this.comparator = this.visualSortComparator;
+		this.sort();
+		this.comparator = oldComparator;
 	}
 } );
 
@@ -140,12 +154,19 @@ module.exports = Backbone.Collection.extend( {
 
 	},
 
-	comparator: function ( item ) {
+	visualSortComparator: function ( item ) {
 		if ( ! _.isNull( item.indexes ) ) {
 			return item.indexes.builder;
 		} else {
 			return null;
 		}
+	},
+
+	visualSort: function(){
+		var oldComparator = this.comparator;
+		this.comparator = this.visualSortComparator;
+		this.sort();
+		this.comparator = oldComparator;
 	}
 
 } );
@@ -3593,12 +3614,12 @@ module.exports = Backbone.View.extend( {
 
 
 		// Sort the rows by their visual index
-		this.model.rows.sort();
+		this.model.rows.visualSort();
 
 		// Sort the widget collections by their visual index
 		this.model.rows.each( function ( row ) {
 			row.cells.each( function ( cell ) {
-				cell.widgets.sort();
+				cell.widgets.visualSort();
 			} );
 		} );
 
@@ -5586,7 +5607,7 @@ module.exports = Backbone.View.extend( {
 
 		// Set up all the measurement fields
 		this.$( '.style-field-measurement' ).each( function () {
-			var $$ = jQuery( this );
+			var $$ = $( this );
 
 			var text = $$.find( 'input[type="text"]' );
 			var unit = $$.find( 'select' );
@@ -5599,7 +5620,7 @@ module.exports = Backbone.View.extend( {
 				var valueListValue = [];
 				for ( var i in valueList ) {
 					var match = re.exec( valueList[i] );
-					if ( _.isNull( match ) && ! _.isUndefined( match[1] ) && ! _.isUndefined( match[2] ) ) {
+					if ( ! _.isNull( match ) && ! _.isUndefined( match[1] ) && ! _.isUndefined( match[2] ) ) {
 						valueListValue.push( match[1] );
 						unit.val( match[2] );
 					}
@@ -5612,7 +5633,7 @@ module.exports = Backbone.View.extend( {
 					.val()
 					.split( ' ' )
 					.filter( function ( value ) {
-						return value !== ''
+						return value !== '';
 					} )
 					.map( function ( value ) {
 						return value + unit.val();
