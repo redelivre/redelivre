@@ -7,7 +7,7 @@ Description: Allows admins on a WordPress Multisite network to manage unactivate
 Author: Boone B Gorges
 Author URI: http://boone.gorg.es
 License: GPLv3
-Version: 1.3
+Version: 1.3.1
 */
 
 class BBG_Unconfirmed {
@@ -523,7 +523,7 @@ class BBG_Unconfirmed {
 				// If you're running BP on a non-multisite instance of WP, use the
 				// BP function to send the email
 				if ( function_exists( 'bp_core_signup_send_validation_email' ) ) {
-					bp_core_signup_send_validation_email( $user->ID, $user->user_email, $key );
+					bp_core_signup_send_validation_email( (int) $user->ID, $user->user_email, $key );
 				}
 			}
 

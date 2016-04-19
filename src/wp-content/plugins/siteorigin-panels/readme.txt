@@ -2,8 +2,8 @@
 Tags: page builder, responsive, widget, widgets, builder, page, admin, gallery, content, cms, pages, post, css, layout, grid
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 2.4.3
-Build time: 2016-04-08T07:28:03+02:00
+Stable tag: 2.4.6
+Build time: 2016-04-13T12:28:00+02:00
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: http://siteorigin.com/page-builder/#donate
@@ -96,6 +96,14 @@ We've tried to ensure that Page Builder is compatible with most plugin widgets. 
 
 == Changelog ==
 
+= 2.4.6 - April 13 2016 =
+* Fixed Javascript errors with layout builder widget.
+
+= 2.4.5 - April 13 2016 =
+* Only trigger contextual menu for topmost dialog.
+* Improved design of Live Editor preview.
+* Added Live Editor link in the admin menu bar.
+
 = 2.4.4 - April 6 2016 =
 * Fixed ordering of new rows, widgets and cells in builder interface.
 * Fixed Layout Builder widget sanitization error. Was causing fatal error on older versions of PHP.
@@ -150,115 +158,6 @@ We've tried to ensure that Page Builder is compatible with most plugin widgets. 
 * Minor performance enhancements.
 * Merged all separate JS files into a single Browserify compiled file.
 * Added version numbers to some JS files to ensure cache busting.
-
-= 2.2.2 - December 09 2015 =
-* Fix tab name for WordPress 4.4. Was displaying undefined.
-* Fix to ensure siteorigin-panels class is added to Page Builder pages.
-
-= 2.2.1 - October 22 2015 =
-* Various fixes to widget class names.
-* Added option to remove default `widget` class from Page Builder widgets.
-* Added action to saving home page.
-* Added support for defaults in widget and row styles.
-* Improve check for the homepage in sidebars simulator.
-* Changed parallax library to improve theme compatibility.
-* List privately published posts and pages under the prebuilt layout dialog Clone options.
-
-= 2.2 - September 7 2015 =
-* Added prebuilt layout directory.
-* Added contextual menu for quick actions.
-* Added parallax background images.
-* Properly handle missing widgets when saving forms.
-* Don't revert to default page template when using custom home page interface.
-* Various minor bug fixes and improvements.
-
-= 2.1.5 - August 19 2015 =
-* Fixed handling of checkboxes and array fields.
-* Properly position Page Builder tab in WordPress 4.3.
-
-= 2.1.4 =
-* Fixed handling of raw forms.
-
-= 2.1.3 =
-* Removed use of filter_input for compatibility with HHVM
-* Fixed checkbox handling in forms.
-* Removed unnecessary sprintf calls to lower chance of translations causing issues.
-* More generic handling of builder instances to allow them to be used in different places.
-* Use implicit check for whether editor is undefined or null.
-* Added optional $widget_id parameter to siteorigin_panels_render_form.
-* Improved checking for home page in sidebars emulator.
-* Added a builder "type" to allow more targetted instances.
-
-= 2.1.2 =
-* Removed rendered content cache introduced in 2.1.1
-
-= 2.1.1 =
-* Added translations for 16 additional languages
-* Modified strings to improve translatability.
-* Row and Widget style measurement fields now allow multiple values.
-* New rows now added below row of currently selected cell.
-* Orphaned widgets in edited rows are now moved into remaining cell.
-* Made panels javascript object globally accessible.
-* panels_info array now passed into widget rendering function.
-* Removed unnecessary action triggers from customizer that was breaking some themes.
-* Disabling Page Builder on a page now properly creates history entry.
-* Small fixes to sidebars emulator.
-* Fixed import/export on custom home page interface.
-* Removed call to filter_input from global space.
-* Fixed bundled widgets conflict with Yoast SEO.
-* Prevented double rendering issue with Yoast SEO.
-
-= 2.1 =
-* Improved Page Builder settings page.
-* Added sidebar emulation, which makes a Page Builder page appear to be a sidebar. Improves compatibility with other widgets.
-* Removed jPlayer. Self hosted widget (legacy) now uses MediaElement.
-* Small usability improvements.
-* Added legacy widget migration for gallery widget.
-* Layout file based import/export feature.
-* Added widget title setting to change widget title HTML.
-* Added setting to control full width container.
-* Fixed: Handling of namespaced widgets.
-* Fixed: Layout Builder widget now works in the Customizer.
-* Fixed: Custom home page interface now properly uses page_on_front.
-* Fixed: Page URL for home page in custom home page.
-* Fixed: Custom home page encoding.
-
-= 2.0.7 =
-* Fixed issue that prevented prebuilt layouts from showing up.
-
-= 2.0.6 =
-* Added nonce to all admin requests.
-* Fixed live editor for missing widgets.
-* Fixed handling of multi-line row/widget custom CSS.
-* Fixed issue with encoding of panels_data.
-
-= 2.0.5 =
-* Added proper escaping in widget form.
-
-= 2.0.4 =
-* Changed how data is json encoded to prevent malformed Page Builder data.
-* Fixed import/export.
-* Added layout widget notification (doesn't work in customizer).
-* Fixed translation domains.
-* Additional hooks and filters.
-
-= 2.0.3 =
-* Fixed issue with double calling sidebar_admin_setup that was breaking some widgets.
-* Fixed fetching content from TinyMCE in text mode.
-
-= 2.0.2 =
-* Fixed fatal error in validation for PHP < 5.5
-
-= 2.0.1 =
-* Fixed issue with preview causing content loss in standard editor.
-* Fixed issue with Black Studio TinyMCE
-* Changed templating tags in js-templates.php to prevent fatal errors with some server configurations.
-
-= 2.0 =
-* Complete rewrite of Page Builder Javascript using Backbone.
-* Complete UI redesign.
-* Grid Engine rewrite for more efficient CSS.
-* Various performance enhancements and bug fixes.
 
 == Upgrade Notice ==
 

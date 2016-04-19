@@ -2059,7 +2059,7 @@ jQuery.fn.soPanelsSetupBuilderWidget = require( './jquery/setup-builder-widget' 
 // Set up Page Builder if we're on the main interface
 jQuery( function ( $ ) {
 
-	var container, field, form, editorType, editorId, postId, builderType;
+	var container, field, form, editorType, editorId, postId, builderType, loadLiveEditor;
 
 	if ( $( '#siteorigin-panels-metabox' ).length && $( 'form#post' ).length ) {
 		// This is usually the case when we're in the post edit interface
@@ -2070,6 +2070,7 @@ jQuery( function ( $ ) {
 		editorId = '#content';
 		postId = $( '#post_ID' ).val();
 		builderType = 'editor_attached';
+		loadLiveEditor = $( '#siteorigin-panels-metabox' ).data('live-editor') == 1;
 	}
 	else if ( $( '.siteorigin-panels-builder-form' ).length ) {
 		// We're dealing with another interface like the custom home page interface
@@ -2080,6 +2081,7 @@ jQuery( function ( $ ) {
 		editorId = '#post_content';
 		postId = $( '#panels-home-page' ).data( 'post-id' );
 		builderType = $$.data( 'type' );
+		loadLiveEditor = false;
 	}
 
 	if ( ! _.isUndefined( container ) ) {
@@ -2095,12 +2097,13 @@ jQuery( function ( $ ) {
 			postId: postId,
 			editorId: editorId,
 			builderType: builderType,
+			loadLiveEditor: loadLiveEditor
 		};
 
 		// Now for the view to display the builder
 		var builderView = new panels.view.builder( {
 			model: builderModel,
-			config: builderConfig,
+			config: builderConfig
 		} );
 
 		// Set up the builder view
@@ -3171,6 +3174,12 @@ module.exports = Backbone.View.extend( {
 			this.editorId = options.config.editorId;
 			this.builderType = options.config.builderType;
 			this.postId = options.config.postId;
+
+			if( options.config.loadLiveEditor ) {
+				this.on( 'builder_live_editor_added', function(){
+					this.displayLiveEditor();
+				} );
+			}
 		}
 
 		// Now lets create all the dialog boxes that the main builder interface uses
@@ -3258,6 +3267,8 @@ module.exports = Backbone.View.extend( {
 
 		// Store the builder type
 		this.builderType = options.type;
+
+		this.trigger( 'builder_attached' );
 
 		return this;
 	},
@@ -3396,6 +3407,8 @@ module.exports = Backbone.View.extend( {
 		this.on( 'builder_resize', stickToolbar, this );
 		$( document ).scroll( stickToolbar );
 		stickToolbar();
+
+		this.trigger('builder_attached_to_editor');
 
 		return this;
 	},
@@ -3641,6 +3654,8 @@ module.exports = Backbone.View.extend( {
 		if ( this.liveEditor.hasPreviewUrl() ) {
 			this.$( '.so-builder-toolbar .so-live-editor' ).show();
 		}
+
+		this.trigger('builder_live_editor_added');
 
 		return this;
 	},
@@ -3892,8 +3907,22 @@ module.exports = Backbone.View.extend( {
 			} )
 			.last();
 
-		// Only run this if its element is the topmost builder
-		if ( builder.$el.is( topmostBuilder ) ) {
+		var topmostDialog = $( '.so-panels-dialog-wrapper:visible' )
+			.sort( function ( a, b ) {
+				return $( a ).zIndex() > $( b ).zIndex() ? 1 : - 1;
+			} )
+			.last();
+
+		var closestDialog = builder.$el.closest('.so-panels-dialog-wrapper');
+
+		// Only run this if its element is the topmost builder, in the topmost dialog
+		if (
+			builder.$el.is( topmostBuilder ) &&
+			(
+				topmostDialog.length === 0 ||
+				topmostDialog.is( closestDialog )
+			)
+		) {
 			// Get the element we're currently hovering over
 			var over = $( [] )
 				.add( builder.$( '.so-rows-container > .so-row-container' ) )
@@ -3930,7 +3959,10 @@ module.exports = Backbone.View.extend( {
 				'scroll-position': scrollPosition
 			} )
 			.css( 'overflow', 'hidden' );
-		window.scrollTo( scrollPosition[0], scrollPosition[1] );
+
+		if( ! _.isUndefined( scrollPosition ) ) {
+			window.scrollTo( scrollPosition[0], scrollPosition[1] );
+		}
 	},
 
 	/**
@@ -3945,7 +3977,10 @@ module.exports = Backbone.View.extend( {
 		if ( ! $( '.so-panels-dialog-wrapper' ).is( ':visible' ) && ! $( '.so-panels-live-editor' ).is( ':visible' ) ) {
 			$( 'body' ).css( 'overflow', 'visible' );
 			var scrollPosition = $( 'body' ).data( 'scroll-position' );
-			window.scrollTo( scrollPosition[0], scrollPosition[1] );
+
+			if( ! _.isUndefined( scrollPosition ) ) {
+				window.scrollTo( scrollPosition[0], scrollPosition[1] );
+			}
 		}
 	}
 

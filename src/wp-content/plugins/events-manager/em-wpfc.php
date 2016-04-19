@@ -135,12 +135,9 @@ function wpfc_em_ajax() {
     $_REQUEST['year'] = false;
     
     //get the year and month to show, which would be the month/year between start and end request params
-    $month_diff =  $_REQUEST['end'] - $_REQUEST['start'];
-    $month_ts = $_REQUEST['start'] + ($month_diff/2); //get a 'mid-month' timestamp to get year and month
-    $year = (int) date ( "Y", $month_ts );
-    $month = (int) date ( "m", $month_ts );
+    $scope = $_REQUEST['start'] .','. $_REQUEST['end']; 
 
-	$args = array ('month'=>$month, 'year'=>$year, 'owner'=>false, 'status'=>1, 'orderby'=>'event_start_time, event_name'); //since wpfc handles date sorting we only care about time and name ordering here
+	$args = array ('scope'=>$scope, 'owner'=>false, 'status'=>1, 'orderby'=>'event_start_time, event_name'); //since wpfc handles date sorting we only care about time and name ordering here
 	$args['number_of_weeks'] = 6; //WPFC always has 6 weeks
 	$limit = $args['limit'] = get_option('wpfc_limit',3);
 	$args['long_events'] = ( isset($_REQUEST['long_events']) && $_REQUEST['long_events'] == 0 ) ? 0:1; //long events are enabled, unless explicitly told not to in the shortcode
@@ -179,7 +176,7 @@ function wpfc_em_ajax() {
 		foreach( $cell_data['events'] as $EM_Event ){
 			$color = $borderColor = $orig_color;
 			$textColor = '#fff';
-			if ( !empty ( $EM_Event->get_categories()->categories )) {
+			if ( get_option('dbem_categories_enabled') && !empty ( $EM_Event->get_categories()->categories )) {
 				foreach($EM_Event->get_categories()->categories as $EM_Category){
 					/* @var $EM_Category EM_Category */
 					if( $EM_Category->get_color() != '' ){
