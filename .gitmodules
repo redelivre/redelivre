@@ -170,7 +170,5 @@
 [submodule "src/wp-content/plugins/BotaPressao"]
 	path = src/wp-content/plugins/BotaPressao
 	url = git@github.com:redelivre/BotaPressao.git
-	branch = master
-[submodule "src/wp-content/themes/wp-mapa-da-democracia"]
-	path = src/wp-content/themes/wp-mapa-da-democracia
-	url = git@github.com:redelivre/wp-mapa-da-democracia.git
+        branch = master
+
