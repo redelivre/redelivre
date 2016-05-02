@@ -4,19 +4,19 @@
 	branch = master
 [submodule "src/wp-content/themes/kaingang"]
 	path = src/wp-content/themes/kaingang
-	url = git@github.com:redelivre/kaingang.git
+	url = https://github.com/redelivre/kaingang.git
 	branch = master
 [submodule "src/wp-content/themes/guarani"]
 	path = src/wp-content/themes/guarani
-	url = git@github.com:redelivre/guarani.git
+	url = https://github.com/redelivre/guarani.git
 	branch = master
 [submodule "src/wp-content/themes/quizumba"]
 	path = src/wp-content/themes/quizumba
-	url = git@github.com:redelivre/quizumba.git
+	url = https://github.com/redelivre/quizumba.git
 	branch = master
 [submodule "src/wp-content/plugins/wp-opauth"]
 	path = src/wp-content/plugins/wp-opauth
-	url = git@github.com:redelivre/wp-opauth.git
+	url = https://github.com/redelivre/wp-opauth.git
 	branch = master
 [submodule "src/wp-content/plugins/wordpress-openid"]
 	path = src/wp-content/plugins/wordpress-openid
@@ -31,36 +31,36 @@
 	branch = master
 [submodule "src/wp-content/themes/minka"]
 	path = src/wp-content/themes/minka
-	url = git@github.com:redelivre/minka.git
+	url = https://github.com/redelivre/minka.git
 	branch = master
 [submodule "src/wp-content/themes/folia"]
 	path = src/wp-content/themes/folia
-	url = git@github.com:redelivre/folia.git
+	url = https://github.com/redelivre/folia.git
 	branch = master
 [submodule "src/wp-content/plugins/mapasdevista"]
 	path = src/wp-content/plugins/mapasdevista
-	url = git@github.com:redelivre/mapasdevista.git
+	url = https://github.com/redelivre/mapasdevista.git
 	branch = redelivre
 [submodule "src/wp-content/plugins/jaiminho"]
 	path = src/wp-content/plugins/jaiminho
-	url = git@github.com:redelivre/jaiminho.git
+	url = https://github.com/redelivre/jaiminho.git
 	branch = master
 [submodule "src/wp-content/themes/mobilize"]
 	path = src/wp-content/themes/mobilize
-	url = git@github.com:redelivre/mobilize.git
+	url = https://github.com/redelivre/mobilize.git
 	branch = master
 [submodule "src/wp-content/themes/pontosdecultura"]
 	path = src/wp-content/themes/pontosdecultura
-	url = git@github.com:redelivre/pontosdecultura.git
+	url = https://github.com/redelivre/pontosdecultura.git
 [submodule "src/wp-content/plugins/post-format-gallery-widget"]
 	path = src/wp-content/plugins/post-format-gallery-widget
-	url = git@github.com:redelivre/post-format-gallery-widget.git
+	url = https://github.com/redelivre/post-format-gallery-widget.git
 [submodule "src/wp-content/themes/educacaopopular"]
 	path = src/wp-content/themes/educacaopopular
-	url = git@github.com:redelivre/educacaopopular.git
+	url = https://github.com/redelivre/educacaopopular.git
 [submodule "src/wp-content/themes/recid"]
 	path = src/wp-content/themes/recid
-	url = git@github.com:redelivre/pontosdecultura.git
+	url = https://github.com/redelivre/pontosdecultura.git
 	branch = recid
 [submodule "src/wp-content/plugins/fg-joomla-to-wordpress-premium"]
 	path = src/wp-content/plugins/fg-joomla-to-wordpress-premium
@@ -88,24 +88,24 @@
 	branch = master
 [submodule "src/wp-content/themes/flacso"]
 	path = src/wp-content/themes/flacso
-	url = git@github.com:redelivre/flacso.git
+	url = https://github.com/redelivre/flacso.git
 [submodule "src/wp-content/plugins/delibera"]
 	path = src/wp-content/plugins/delibera
-	url = git@github.com:redelivre/delibera.git
+	url = https://github.com/redelivre/delibera.git
 [submodule "src/wp-content/plugins/jaiminho-sms"]
 	path = src/wp-content/plugins/jaiminho-sms
-	url = git@github.com:ethymos/jaiminho-sms.git
+	url = https://github.com/ethymos/jaiminho-sms.git
 [submodule "src/wp-content/themes/meth"]
 	path = src/wp-content/themes/meth
 	url = git@gitlab.ethymos.com.br:ethymos/meth.git
 	branch = master
 [submodule "src/wp-content/themes/praticas-de-continuidade"]
 	path = src/wp-content/themes/praticas-de-continuidade
-	url = git@github.com:redelivre/pontosdecultura.git
+	url = https://github.com/redelivre/pontosdecultura.git
 	branch = praticas-de-continuidade
 [submodule "src/wp-content/themes/fluxo"]
 	path = src/wp-content/themes/fluxo
-	url = git@github.com:redelivre/fluxo.git
+	url = https://github.com/redelivre/fluxo.git
 	branch = master
 
 [submodule "src/wp-content/plugins/joomla-to-wordpress-joomdoc"]
@@ -122,19 +122,19 @@
 	branch = master
 [submodule "src/wp-content/themes/observatorio-de-remocoes"]
 	path = src/wp-content/themes/observatorio-de-remocoes
-	url = git@github.com:redelivre/pontosdecultura.git
+	url = https://github.com/redelivre/pontosdecultura.git
 	branch = observatorio-de-remocoes
 [submodule "src/wp-content/plugins/wp-aedes-aegypti"]
 	path = src/wp-content/plugins/wp-aedes-aegypti
-	url = git@github.com:redelivre/wp-aedes-aegypti.git
+	url = https://github.com/redelivre/wp-aedes-aegypti.git
 	branch = master
 [submodule "src/wp-content/plugins/wpdialoga"]
 	path = src/wp-content/plugins/wpdialoga
-	url = git@github.com:redelivre/wpdialoga.git
+	url = https://github.com/redelivre/wpdialoga.git
 	branch = master
 [submodule "src/wp-content/themes/wp-logincidadao"]
 	path = src/wp-content/themes/wp-logincidadao
-	url = git@github.com:redelivre/wp-logincidadao.git
+	url = https://github.com/redelivre/wp-logincidadao.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-translation-management"]
 	path = src/wp-content/plugins/wpml-translation-management
@@ -150,11 +150,11 @@
 	branch = master
 [submodule "src/wp-content/themes/divi"]
 	path = src/wp-content/themes/divi
-	url = git@github.com:redelivre/wp-divi.git
+	url = https://github.com/redelivre/wp-divi.git
 	branch = master
 [submodule "src/wp-content/plugins/comment-attachment"]
 	path = src/wp-content/plugins/comment-attachment
-	url = git@github.com:wp-plugins/comment-attachment.git
+	url = https://github.com/wp-plugins/comment-attachment.git
         branch = master
 
 [submodule "src/wp-content/plugins/sendpress"]
@@ -163,12 +163,12 @@
 	branch = master
 [submodule "src/wp-content/plugins/mention-comments-authors"]
 	path = src/wp-content/plugins/mention-comments-authors
-	url = git@github.com:wp-plugins/mention-comments-authors.git
+	url = https://github.com/wp-plugins/mention-comments-authors.git
 [submodule "src/wp-content/themes/assineja"]
 	path = src/wp-content/themes/assineja
 	url = git@gitlab.ethymos.com.br:campanhacompleta/assineja.git
 [submodule "src/wp-content/plugins/BotaPressao"]
 	path = src/wp-content/plugins/BotaPressao
-	url = git@github.com:redelivre/BotaPressao.git
+	url = https://github.com/redelivre/BotaPressao.git
         branch = master
 
