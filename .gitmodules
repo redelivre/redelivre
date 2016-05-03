@@ -172,3 +172,6 @@
 	url = git@github.com:redelivre/BotaPressao.git
         branch = master
 
+[submodule "src/wp-content/themes/wp-divi-delibera"]
+	path = src/wp-content/themes/wp-divi-delibera
+	url = git@github.com:redelivre/wp-divi-delibera.git
