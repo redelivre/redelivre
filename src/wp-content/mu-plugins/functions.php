@@ -936,3 +936,32 @@ function campanha_plugins_api_result($res )
 	return $res;
 }
 add_filter('all_plugins', 'campanha_plugins_api_result', 1);
+
+function campanha_check_rewrite()
+{
+	$rules = get_option( 'rewrite_rules' );
+	$found1 = false;
+	$found2 = false;
+	if(is_array($rules))
+	{
+		foreach ($rules as $rule)
+		{
+			if(strpos($rule, 'materialgrafico') !== false)
+			{
+				$found1 = true;
+				if($found2) break;
+			}
+			if(strpos($rule, 'contato') !== false)
+			{
+				$found2 = true;
+				if($found1) break;
+			}
+		}
+		if ( ! $found1 || !$found2 )
+		{
+			global $wp_rewrite;
+			flush_rewrite_rules();
+		}
+	}
+}
+add_action('init', 'campanha_check_rewrite', 1000);
