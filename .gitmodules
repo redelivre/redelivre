@@ -178,3 +178,6 @@
 [submodule "src/wp-content/plugins/WP-API"]
 	path = src/wp-content/plugins/WP-API
 	url = https://github.com/WP-API/WP-API.git
+[submodule "src/wp-content/plugins/rest-api-enabler"]
+	path = src/wp-content/plugins/rest-api-enabler
+	url = https://github.com/MickeyKay/rest-api-enabler.git
