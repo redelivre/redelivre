@@ -175,3 +175,6 @@
 [submodule "src/wp-content/themes/wp-divi-delibera"]
 	path = src/wp-content/themes/wp-divi-delibera
 	url = git@github.com:redelivre/wp-divi-delibera.git
+[submodule "src/wp-content/plugins/WP-API"]
+	path = src/wp-content/plugins/WP-API
+	url = https://github.com/WP-API/WP-API.git
