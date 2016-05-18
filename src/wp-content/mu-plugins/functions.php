@@ -26,6 +26,7 @@ if (!is_main_site()) {
         require_once(__DIR__ . '/includes/admin-contact.php');
 
         $campaign = Campaign::getByBlogId($blog_id);
+        if(!is_object($campaign)) return;
         
         require_once(__DIR__ . '/includes/graphic_material/GraphicMaterialManager.php');
 
