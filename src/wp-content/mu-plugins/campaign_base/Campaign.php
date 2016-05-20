@@ -143,7 +143,8 @@ class Campaign {
         $result = $wpdb->get_row($wpdb->prepare("SELECT * FROM `campaigns` WHERE blog_id = %d", $blog_id), ARRAY_A);
 
         if (!$result) {
-            throw new Exception(self::getStrings('NaoExiste'));
+            //throw new Exception(self::getStrings('NaoExiste'));
+            return false;
         }
         
         return self::formatData($result);

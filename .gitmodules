@@ -181,3 +181,6 @@
 [submodule "src/wp-content/plugins/rest-api-enabler"]
 	path = src/wp-content/plugins/rest-api-enabler
 	url = https://github.com/MickeyKay/rest-api-enabler.git
+[submodule "src/wp-content/plugins/custom-post-type-ui"]
+	path = src/wp-content/plugins/custom-post-type-ui
+	url = git@github.com:WebDevStudios/custom-post-type-ui.git
