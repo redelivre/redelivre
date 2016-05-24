@@ -192,8 +192,8 @@ function wp_licences_inner_custom_box() {
 
 class wp_licences_plugin {
 	function post_meta_tags($id) {
-		$wplicense_edit = $_POST['wplicense_edit'];
-		if (isset($wplicense_edit) && !empty($wplicense_edit)) {
+		if (array_key_exists('wplicense_edit', $_POST) && !empty($_POST['wplicense_edit'])) {
+			$wplicense_edit = $_POST['wplicense_edit'];
 				
 			$direitos = $_POST['wplicense_direitos'];
 			$usocomercial = $_POST['wplicense_usocomercial'];
@@ -212,7 +212,7 @@ class wp_licences_plugin {
 
 /* ------------------------------------------------------ */ 
 
-function the_licenses() {
+function the_licenses($content) {
 	global $post;		
 	$direitos = stripslashes(get_post_meta($post->ID, "direitos", true));
 	$usocomercial = stripslashes(get_post_meta($post->ID, 'usocomercial', true));
@@ -307,6 +307,7 @@ function the_licenses() {
 		}
 		echo '</div>';
 	}
+	return $content;
 }
 
 $licensecontent = get_option('license-content');
