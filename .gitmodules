@@ -184,3 +184,6 @@
 [submodule "src/wp-content/plugins/custom-post-type-ui"]
 	path = src/wp-content/plugins/custom-post-type-ui
 	url = git@github.com:WebDevStudios/custom-post-type-ui.git
+[submodule "src/wp-content/plugins/wordpress-api-cors"]
+	path = src/wp-content/plugins/wordpress-api-cors
+	url = https://github.com/bjoernklose/wordpress-api-cors
