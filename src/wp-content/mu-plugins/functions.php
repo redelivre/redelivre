@@ -571,6 +571,19 @@ function custom_register_ajax_send(){
 		$url = array_key_exists('redirect_to', $_REQUEST) ? $_REQUEST['redirect_to'] : '';
 		echo _x('Cadastro efetuado com sucesso. <a href="' . wp_login_url($url) . '">Clique aqui</a> para fazer o login.', 'registro-de-usuario', 'campanha-completa');
 		echo '<script>jQuery(".formulario-de-registro-padrao .campos").slideUp();</script>';
+		
+		wpmu_welcome_user_notification( $usuario, $_POST['password']);
+		/**
+		 * Fires immediately after a new user is activated.
+		 *
+		 * @since MU
+		 *
+		 * @param int   $user_id  User ID.
+		 * @param int   $password User password.
+		 * @param array $meta     Signup meta data.
+		 */
+		do_action( 'wpmu_activate_user', $usuario, $_POST['password'], array() );
+		
 	} else {
 		$erros = $usuario->get_error_message();
 		echo "<div class='erro'>{$erros}</div>";
