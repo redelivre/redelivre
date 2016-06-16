@@ -187,3 +187,6 @@
 [submodule "src/wp-content/plugins/wordpress-api-cors"]
 	path = src/wp-content/plugins/wordpress-api-cors
 	url = https://github.com/bjoernklose/wordpress-api-cors
+[submodule "src/wp-content/plugins/wp-barra-brasil"]
+	path = src/wp-content/plugins/wp-barra-brasil
+	url = git@github.com:redelivre/wp-barra-brasil.git
