@@ -190,3 +190,9 @@
 [submodule "src/wp-content/plugins/wp-barra-brasil"]
 	path = src/wp-content/plugins/wp-barra-brasil
 	url = git@github.com:redelivre/wp-barra-brasil.git
+[submodule "src/wp-content/plugins/issuem"]
+	path = src/wp-content/plugins/issuem
+	url = https://github.com/zeen101/issuem
+[submodule "src/wp-content/themes/aspta"]
+	path = src/wp-content/themes/aspta
+	url = git@github.com:redelivre/aspta.git

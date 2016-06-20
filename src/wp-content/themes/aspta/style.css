@@ -1,0 +1,2090 @@
+/*   
+Theme Name: AS-PTA
+Description: O tema para o site da AS-PTA. 
+Author: Ethymos
+Author URI: http://ethymos.com.br
+Template: thematic
+Version: 0.1
+*/
+
+/* Reset */
+@import url('../thematic/library/styles/reset.css');
+
+/* Apply basic typography styles */
+@import url('../thematic/library/styles/typography.css');
+
+/* Apply a basic layout */
+@import url(../thematic/library/layouts/2c-r-fixed.css);
+
+/* Apply basic image styles */
+@import url('../thematic/library/styles/images.css');
+
+/* Apply default theme styles and colors */
+@import url('../thematic/library/styles/default.css');
+
+/* Prepare theme for plugins */
+@import url('../thematic/library/styles/plugins.css');
+
+/* Fontes */
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+
+@font-face {
+	font-family: 'FuturaMdBTBold';
+	src: url('fonts/tt0144m-webfont.eot');
+	src: local('☺'), url('fonts/tt0144m-webfont.woff') format('woff'),
+		url('fonts/tt0144m-webfont.ttf') format('truetype'),
+		url('fonts/tt0144m-webfont.svg#webfontgTQw04ZM') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'FuturaMdBTMedium';
+	src: url('fonts/tt0142m-webfont.eot');
+	src: local('☺'), url('fonts/tt0142m-webfont.woff') format('woff'),
+		url('fonts/tt0142m-webfont.ttf') format('truetype'),
+		url('fonts/tt0142m-webfont.svg#webfontVPlgERoM') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Geral */
+body {
+	background: url('images/fundo-body.jpg') center repeat-y #8CA468;
+	font-family: 'Droid Sans', arial, Verdana, Tahoma, sans-serif !important;
+	font-size: 13px;
+	color: #554000;
+}
+
+.clearfix {
+	clear: both;
+}
+
+input {
+	font-family: Arial, Verdana, Tahoma, sans-serif !important;
+}
+
+a {
+	text-decoration: none;
+	color: #436C54;
+}
+
+a:hover {
+	color: #436C54 !important;
+}
+
+a[href$='.pdf'] {
+	background: transparent url(images/icone-pdf.png) no-repeat center right;
+	border-bottom: 0;
+	padding: 2px 25px 2px 0;
+}
+
+a[href$='.doc'],a[href$='.odt'] {
+	background: transparent url(images/icone-text.png) no-repeat center
+		right;
+	border-bottom: 0;
+	padding: 2px 25px 2px 0;
+}
+
+#content {
+	width: 645px;
+}
+
+h2 {
+	font-weight: normal !important;
+	color: #627e0d;
+	font-family: helvetica, arial, sans-serif;
+	padding-top: 15px;
+	font-family: 'Droid Sans', helvetica, arial, sans-serif !important;
+}
+
+.home .entry-content {
+	padding-left: 0;
+}
+
+.entry-content {
+	padding: 20px 5px 10px 5px;
+}
+
+/* Cabeçalho */
+#header {
+	background: url('images/topo-interno.jpg') bottom no-repeat;
+	height: 313px;
+}
+
+#content {
+	padding-left: 20px;
+}
+
+#top-menu {
+	padding-top: 21px;
+	margin: 0 auto;
+	width: 940px;
+}
+
+#top-menu #servicos {
+	font-size: 12px;
+	float: left;
+	text-transform: uppercase;
+	width: 50%;
+}
+
+#top-menu #servicos a {
+	color: #088c49;
+	text-decoration: none;
+	padding: 5px 25px;
+}
+
+#top-menu #servicos a.contato {
+	background: url('images/icone-email.png') left center no-repeat;
+}
+
+#top-menu #servicos a.feed {
+	background: url('images/icone-rss.png') left center no-repeat;
+}
+
+#top-menu #pesquisa {
+	float: right;
+	text-align: right;
+	width: 50%;
+}
+
+#top-menu #pesquisa input {
+	font-size: 11px !important;
+	padding: 3px 10px;
+}
+
+#top-menu #pesquisa #s {
+	background: rgba(209, 225, 178, 0.9);
+	border: 1px solid #D1E1B2;
+	color: #7b9c3d;
+}
+
+#top-menu #pesquisa #searchsubmit {
+	background: url('images/botao-continuelendo.png') repeat-x bottom
+		#436C54;
+	border: 0;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+#top-menu #pesquisa #searchsubmit:hover {
+	cursor: pointer;
+}
+
+#branding {
+	text-indent: -9000px;
+}
+
+#blog-title a {
+	background: url('images/trinta-anos.png') no-repeat;
+	display: block;
+	height: 124px;
+	width: 413px;
+}
+
+#blog-description {
+	display: none;
+}
+
+/* Breadcrumbs*/
+.home #breadcrumbs {
+	display: none;
+}
+
+#breadcrumbs {
+	background: url('images/fundo-content.png') #ECEAC1;
+	margin: 0 auto;
+	width: 960px;
+}
+
+#breadcrumbs p {
+	font-family: helvetica, arial, sans-serif;
+	color: #627e0d;
+	font-size: 11px;
+	padding-left: 5px;
+	margin: 0 0 0 30px;
+}
+
+#breadcrumbs a {
+	color: #436C54;
+	text-decoration: none;
+}
+
+#breadcrumbs a:hover {
+	text-decoration: underline;
+}
+
+/* Menu */
+#access {
+	border: 0;
+	height: 65px;
+}
+
+.menu-aspta-container {
+	margin: 0 auto;
+	width: 960px;
+}
+
+ul#menu-aspta {
+	padding-left: 10px;
+	background: url('images/menu.png') left no-repeat;
+	line-height: 35px;
+	list-style-type: none;
+	height: 54px;
+	margin-top: -20px;
+}
+
+ul#menu-aspta li a {
+	font-family: 'Droid Sans', helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: #fff;
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	text-decoration: none;
+	text-transform: uppercase;
+	margin-top: 3px;
+}
+
+ul#menu-aspta li.current-menu-item a {
+	color: #d8e7de;
+}
+
+ul#menu-aspta li a:hover {
+	color: #BFCAC4 !important;
+}
+
+ul#menu-aspta li:last-child {
+	display: block;
+	margin-left: 30px;
+	float: left;
+}
+
+ul#menu-aspta li a:last-child:hover {
+	color: #ffc100;
+}
+
+/* Destaque da capa */
+#wrapper-destaque {
+	background: url('images/fundo-destaque.png') repeat-x transparent;
+	height: 321px;
+}
+
+#destaque {
+	font-size: 14px;
+	margin: 0 auto;
+	padding: 25px 15px;
+	width: 940px;
+	color: #616263;
+}
+
+#destaque  #wrapper-post {
+	float: left;
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 490px;
+}
+
+#destaque .entry-title a {
+	line-height: 1;
+	color: #436C54;
+	font-size: 25px;
+	font-weight: normal;
+}
+
+#destaque .post-thumbnail {
+	float: right;
+	text-align: right;
+	width: 380px;
+}
+
+#destaque .post-thumbnail img {
+	border: 4px solid #fff;
+	box-shadow: 0 0 7px #ccc;
+	-moz-box-shadow: 0 0 7px #ccc;
+	-webkit-box-shadow: 0 0 7px #ccc;
+}
+
+#destaque a.leia-mais {
+	background: url('images/botao-continuelendo.png') repeat-x bottom
+		#436C54;
+	color: #fff;
+	font-weight: bold;
+	padding: 7px 26px;
+	text-decoration: none;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#destaque a.leia-mais:hover {
+	color: #d8e7de !important;
+}
+/* Capa */
+.home .content {
+	float: left;
+	width: 730px;
+}
+
+.home .main-aside {
+	width: 220px;
+}
+
+.home #primary {
+	height: 230px;
+}
+
+.home .content h6 {
+	background: url('images/fundo-titulos.png') repeat-x bottom #FFC100;
+	color: #fff;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	font-size: 15px;
+	margin-bottom: 15px;
+	padding: 5px;
+	text-transform: uppercase;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#transgenicos h6 a,#revista h6 a {
+	color: #fff;
+}
+
+#transgenicos p {
+	font-size: 12px;
+}
+
+.home form#jaiminho-form {
+	float: right;
+	margin-right: 42px;
+}
+
+#revista h6 a {
+	font-size: 15px;
+}
+
+#transgenicos a {
+	
+}
+
+#transgenicos h6 a:hover,#revista h6 a:hover {
+	color: #eee !important;
+}
+
+#noticias {
+	height: 300px;
+	margin-bottom: 40px;
+	padding-left: 15px;
+}
+
+#noticias .box {
+	float: left;
+	margin: 0 2px;
+	width: 228px;
+	overflow: hidden;
+	font-size: 12px;
+}
+
+#noticias .box:first-child {
+	
+}
+
+#noticias .hentry:last-child {
+	border-right: 0;
+}
+
+#noticias .hentry {
+	height: 300px;
+	line-height: 1.7;
+	padding: 0 12px;
+	margin: 10px 0;
+}
+
+#noticias .entry-title {
+	line-height: 23px;
+	min-height: 20px;
+	display: block;
+}
+
+#noticias .entry-title a {
+	font-family: 'Droid Sans', helvetica, arial, sans-serif !important;
+	color: #436C54;
+	font-size: 19px;
+	font-weight: normal;
+	word-spacing: -1px;
+}
+
+#noticias .entry-content {
+	padding: 15px 0 0 0;
+	font-size: 12px;
+}
+
+#wrapper-transgenicos {
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	background: #F9FAEC;
+	float: left;
+	margin: 0 20px 0 10px;
+	width: 460px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#wrapper-revista {
+	background: url('images/pattern-revista.png') #fff center;
+	float: left;
+	width: 220px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#transgenicos,#revista {
+	padding: 15px 10px;
+}
+
+#transgenicos .entry-title {
+	line-height: 1.2;
+}
+
+#transgenicos .entry-title a {
+	color: #024822;
+	font-size: 14px;
+	font-weight: normal;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+}
+
+#transgenicos #boletim-transgenicos {
+	border-bottom: 1px solid #eee;
+	margin: 20px;
+	min-height: 150px;
+}
+
+#transgenicos #boletim-transgenicos img {
+	float: left;
+	margin-right: 20px;
+	height: 150px;
+}
+
+#transgenicos #boletim-transgenicos .entry-title {
+	clear: none;
+}
+
+#transgenicos #boletim-transgenicos .hentry {
+	padding-bottom: 0;
+}
+
+#transgenicos #noticias-transgenicos .hentry {
+	float: left;
+	padding: 5px 20px 20px;
+	width: 180px;
+}
+
+#transgenicos #noticias-transgenicos .entry-content {
+	font-size: 13px;
+}
+
+#revista img {
+	height: 253px;
+	width: 178px;
+	margin-left: 10px;
+	border: 2px solid #ffc100;
+}
+
+#revista a {
+	display: block;
+	font-size: 16px;
+	font-weight: normal;
+	font-family: 'Droid Sans', Helvetica, arial, sans-serif;
+	color: #024822;
+	text-decoration: none;
+	font-style: normal;
+	letter-spacing: -1px;
+}
+
+#revista h3 {
+	padding: 7px;
+	margin: 9px;
+	background: rgba(255, 255, 255, 0.5);
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#revista .hentry {
+	padding: 0;
+}
+
+/* Conteúdo */
+#main {
+	background: url('images/fundo-content.png') #ECEAC1;
+	padding: 10px 0 22px;
+}
+
+.entry-content .wp-post-image {
+	float: none;
+}
+
+.entry-meta abb {
+	color: #436C54;
+	text-transform: capitalize;
+}
+
+.entry-meta {
+	font-family: helvetica, arial, sans-serif;
+	padding: 10px 10px 10px 3px;
+	color: #627e0d;
+	font-weight: bold;
+	border-bottom: 1px dashed #ffc100;
+}
+
+.entry-programas a {
+	font-family: helvetica, arial, sans-serif;
+	font-weight: bold;
+	color: #F1A700 !important;
+}
+
+.entry-programas a:hover {
+	color: #000 !important;
+}
+
+.entry-content h1,.entry-content h2 a {
+	font-family: Helvetica, arial, sans-serif;
+	font-weight: normal;
+	font-size: 16px;
+	color: #436C54;
+	text-decoration: none;
+}
+
+.search-results h2.entry-title a,h1.entry-title,.archive h2.entry-title a
+	{
+	background: url('images/fundo-titulos.png') repeat-x bottom #FFC100;
+	color: #fff !important;
+	font-family: 'Droid Sans', helvetica, arial, sans-serif !important;
+	font-size: 25px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	letter-spacing: -1px;
+	padding: 5px 15px;
+	font-weight: normal;
+	display: block;
+}
+
+h2.entry-title a {
+	color: #436C54 !important;
+	font-family: helvetica, arial, sans-serif !important;
+	font-weight: normal;
+}
+
+.home h2.entry-title a:hover {
+	color: #139154 !important;
+}
+
+h2.entry-title a:hover {
+	color: #eee !important;
+}
+
+.page #programas {
+	width: 638px;
+	margin-top: 50px;
+}
+
+.page #programas .post-thumbnail {
+	float: left;
+}
+
+.page #programas .entry-content {
+	padding-top: 10px;
+}
+
+.page #programas h2 {
+	clear: none;
+	margin: 0;
+	padding: 0;
+}
+
+.page #programas .post-content {
+	padding-top: 5px;
+	margin-left: 185px;
+}
+
+.page #programas .wp-post-image {
+	border: 1px solid #eee;
+	margin: 15px 0 0 0;
+	background: #fff;
+	padding: 3px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+}
+
+.page  #programas p.veja-mais {
+	margin: 5px 0;
+	text-align: right;
+}
+
+.page  #programas p.veja-mais a {
+	color: #fff;
+	text-decoration: none;
+	padding: 5px;
+	background: url('images/botao-continuelendo.png') repeat-x bottom
+		#436C54;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.page  #programas p.veja-mais a:hover {
+	color: #d8e7de !important;
+}
+
+.page #programas .programa {
+	padding: 15px;
+	background: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	font-size: 11px;
+	margin-bottom: 35px;
+}
+
+.page #programas .programa a {
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+}
+
+.page-programa-de-agricultura-urbana #container p {
+	margin-bottom: 10px;
+}
+
+.page-programa-de-agricultura-urbana #container h2 {
+	font-size: 22px;
+	padding: 25 px 5px 10px;
+	border-bottom: 1px dashed #627E0D;
+	margin-bottom: 10px;
+	letter-spacing: -1px;
+}
+
+.page-programa-de-agricultura-urbana #container h3 {
+	font-style: normal;
+	padding: 20px 0;
+	margin: 0;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.page-programa-de-agricultura-urbana img,.page-programa-paraiba img,.page-programa-do-contestado img
+	{
+	text-align: center;
+	padding: 3px;
+	border: 1px solid #eee;
+	background: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	margin: 15px;
+}
+
+.page #temas {
+	padding-top: 25px;
+}
+
+.page #temas .box-tema {
+	background: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	float: left;
+	margin: 0 15px 15px 0;
+	min-height: 350px;
+	width: 280px;
+}
+
+.page #temas .tema img {
+	display: block;
+	width: 165px;
+	height: 165px;
+	margin: 0 auto;
+}
+
+.page #temas .tema {
+	padding: 10px;
+	font-size: 11px;
+}
+
+.page #temas .tema p {
+	padding: 20px 10px 5px;
+}
+
+.page #temas .tema h2 span {
+	display: block;
+	padding-bottom: 10px;
+}
+
+.page #temas .tema h2 {
+	height: 190px;
+	padding: 5px 0 10px 0;
+	margin: 0 0 10px 0;
+	text-align: center;
+}
+
+.page #temas .tema h2 a {
+	font-family: 'Droid Sans', helvetica, arial, sans-serif !important;
+	font-size: 22px;
+	font-weight: normal;
+	display: block;
+	height: 190px;
+}
+
+.page #temas .tema h2.saude-e-alimentacao a {
+	background: url('images/icone-saude.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.agrobiodiversidade a {
+	background: url('images/icone-agrobiodiversidade.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.monitoramento-da-transicao-agroecologica-2  a {
+	background: url('images/icone-monitoramento.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.manejo-da-agua  a {
+	background: url('images/icone-agua.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.manejo-ecologico-dos-solos a {
+	background: url('images/icone-solos.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.relacoes-sociais-de-genero-e-de-geracao a {
+	background: url('images/icone-genero.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.financiamento-da-transicao-agroecologica-2 a {
+	background: url('images/icone-financiamento.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.agrofloresta a {
+	background: url('images/icone-agrofloresta.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.acesso-a-mercados a {
+	background: url('images/icone-acesso.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.criacao-animal a {
+	background: url('images/icone-criacao.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.construcao-do-conhecimento-agroecologico a {
+	background: url('images/icone-conhecimento.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.infancia-e-juventude a {
+	background: url('images/icone adolescentes.png') bottom no-repeat;
+}
+
+.page #temas .tema h2.mulheres-relacoes-sociais-de-genero-e-de-geracao a
+	{
+	background: url('images/icone mulher.png') bottom no-repeat;
+}
+
+.entry-utility {
+	font-family: helvetica, arial, sans-serif;
+	margin-top: 15px;
+	font-size: 11px;
+	padding: 10px;
+	background: rgba(254, 194, 0, 0.1);
+	color: #627E0D;
+	border: 1px solid #F1A700;
+	margin: 0 auto;
+}
+
+.entry-utility .entry-programas {
+	font-size: 12px;
+}
+
+.entry-utility a {
+	color: #000;
+	font-style: normal;
+}
+
+.single .entry-utility {
+	clear: both;
+	padding: 10px;
+}
+
+.entry-utility .entry-aspta-taxonomies {
+	margin-bottom: 10px;
+}
+
+.entry-utility .entry-share {
+	min-height: 30px;
+}
+
+.entry-utility .entry-share a {
+	background: rgba(239, 241, 193, 0.5);
+}
+
+.entry-utility .tags {
+	margin-top: 15px;
+}
+
+.entry-utility  .entry-share a.comment-link {
+	background: url('images/icone-comments.png') no-repeat 5px center
+		rgba(254, 194, 0, 0.1);
+	text-align: center;
+}
+
+.entry-utility  .entry-share a.print-link {
+	background: url('images/printer_famfamfam.gif') no-repeat 5px center
+		rgba(254, 194, 0, 0.1);
+	text-align: center;
+}
+
+.entry-utility  .entry-share a.comment-link {
+	background-image: url('images/icone-comments.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+}
+
+.entry-utility .entry-share {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.entry-utility .entry-share a {
+	background: rgba(254, 194, 0, 0.1);
+	display: block;
+	font-size: 11px;
+	float: right;
+	margin-right: 4px;
+	padding: 5px 2px 5px 2px;
+	width: 145px;
+}
+
+.entry-utility .entry-share a.twitter_share_link {
+	background-image: url('images/icone-twitter.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	background-color: rgba(254, 194, 0, 0.1);
+	text-align: center;
+}
+
+.entry-utility .entry-share a.fb_share_link {
+	background-image: url('images/icone-facebook.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	background-color: rgba(254, 194, 0, 0.1);
+	text-align: center;
+	padding-left: 13px;
+}
+
+.entry-utility .entry-share a.twitter_share_link:hover,.entry-utility  .entry-share a.comment-link:hover,.entry-utility .entry-share a.fb_share_link:hover
+	{
+	background-color: rgba(254, 194, 0, 0.3);
+}
+
+h1.page-title {
+	font-family: 'Droid Sans', Helvetica, Arial, Verdana, sans-serif;
+	font-size: 16px;
+	color: #627e0d;
+	margin-bottom: 20px;
+	padding: 5px;
+}
+
+h1.page-title span {
+	color: #3e5008;
+	font-style: normal;
+}
+
+.archive-meta {
+	color: #430;
+}
+
+.archive .hentry {
+	border-bottom: 1px dashed #ccc;
+	margin-bottom: 35px;
+	padding: 0 0 10px;
+}
+
+.archive .entry-utility {
+	padding-left: 10px;
+	margin-bottom: 5px;
+}
+
+.comment-reply-link {
+	font-size: 11px;
+	padding: 0 0 18px 0;
+	text-align: right;
+	width: 45px;
+	float: right;
+}
+
+span.cat-links {
+	
+}
+
+.entry-related-posts {
+	border-top: 1px solid #F1A700;
+}
+
+.entry-related-posts p {
+	padding: 10px 10px 0 10px;
+	color: #627e0d;
+	font-family: 'Droid Sans', helvetica, arial, sans-serif;
+	margin-bottom: 10px;
+	font-size: 11px;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+.entry-related-posts ol li {
+	list-style-type: circle;
+	margin: 0 0 5px 0;
+	list-style-position: inside;
+}
+
+.entry-related-posts ol li a {
+	color: #436C54;
+	font-size: 11px;
+}
+
+.entry-related-posts ol {
+	margin: 0 0 20px 0;
+	padding: 0 10px;
+}
+
+.wp-pagenavi {
+	font-family: helvetica, arial, sans-serif;
+	font-size: 10px;
+	text-align: center;
+}
+
+.wp-pagenavi span.pages {
+	color: #627e0d !important;
+	font-weight: bold;
+	margin-right: 10px !important;
+	text-transform: uppercase;
+}
+
+.wp-pagenavi span.current {
+	background: #A1A81E;
+	border: none !important;
+	color: #fff !important;
+	padding: 5px !important;
+	moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.wp-pagenavi a,.wp-pagenavi a:link {
+	border: 0;
+	padding: 6px !important;
+}
+
+.wp-pagenavi a,.wp-pagenavi span {
+	width: 30px;
+	background: #EEE;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.wp-pagenavi a:hover {
+	color: #fff !important;
+	background: #C3BD1E;
+}
+
+.page-revista-agriculturas #revistas-anteriores a:hover {
+	background: #C3BD1E;
+}
+
+/* Sidebar */
+#primary {
+	background: transparent;
+	border: 0;
+	padding: 0;
+}
+
+#secondary {
+	margin-top: 60px;
+}
+
+.main-aside {
+	width: 250px;
+}
+
+.main-aside ul {
+	margin: 0;
+	padding: 0;
+}
+
+.aside ul ul {
+	margin: 0;
+}
+
+.aside ul ul li {
+	padding: 0;
+}
+
+.aside .current_page_item a {
+	padding-left: 10px;
+	background: url('images/fundo-titulos.png') repeat-x bottom #FFC100;
+	margin: 0;
+	color: #fff !important;
+}
+
+.aside .current_page_item ul.children a {
+	background: none;
+	display: block;
+	color: #D19D00 !important;
+	padding: 10px 0;
+	border-bottom: 1px dashed #FFC100;
+	text-decoration: none;
+}
+
+li.widgetcontainer {
+	margin-bottom: 20px !important;
+}
+
+h3.widgettitle {
+	font-style: normal;
+	padding: 10px;
+	background: url('images/pattern-revista.png') repeat-x bottom;
+	color: #627E0D;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	font-size: 15px;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-align: left;
+	margin-bottom: 0;
+	font-weight: normal;
+}
+
+.xoxo ul li ul {
+	margin: 0;
+	padding: 0;
+}
+
+.xoxo ul li ul li {
+	margin: 0;
+	padding: 0;
+}
+
+.home ul.xoxo {
+	width: 216px;
+}
+
+ul.xoxo {
+	width: 250px;
+}
+
+ul.xoxo li {
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+}
+
+ul.xoxo li a {
+	display: block;
+	color: #D19D00;
+	padding: 10px 0;
+	border-bottom: 1px dashed #FFC100;
+	text-decoration: none;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+ul.xoxo li a:hover {
+	border-bottom: 1px solid #436C54;
+}
+
+li.linkcat-slug-banners {
+	margin-top: 325px;
+}
+
+li.linkcat-slug-banners-rotativos {
+	min-height: 145px;
+	width: 143px;
+}
+
+.widget_paginasfilhas  ul li {
+	opacity: 0.8;
+	margin: 5px 0;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+}
+
+.widget_paginasfilhas ul li:hover {
+	opacity: 1;
+}
+
+.widget_paginasfilhas  ul li a {
+	background: url('images/botao-menuinterno.png') repeat-x bottom #436C54;
+	padding: 10px 15px;
+	color: #fff;
+	border: 0;
+}
+
+.widget_paginasfilhas  ul li a:hover {
+	color: #fff !important;
+	border: 0;
+}
+
+.widget_campanha  ul li {
+	opacity: 0.8;
+	margin: 5px 0;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+}
+
+.widget_campanha  ul li:hover {
+	opacity: 1;
+}
+
+.widget_campanha  ul li a {
+	background: url('images/botao-menuinterno.png') repeat-x bottom #436C54;
+	padding: 10px 15px;
+	color: #fff;
+	border: 0;
+}
+
+.widget_campanha  ul li a:hover {
+	color: #fff !important;
+	border: 0;
+}
+
+.widget_campanha .current_term_item a {
+	padding-left: 10px;
+	background: url('images/fundo-titulos.png') repeat-x bottom #FFC100;
+	margin: 0;
+	color: #fff !important;
+}
+
+.widget_ultimosprogramas p.veja-mais a {
+	display: block;
+	padding-top: 15px;
+	padding-left: 10px;
+	border: 0;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	background: rgba(255, 193, 0, 0.1);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#19FFC100,endColorstr=#19FFC100)";
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#19FFC100,
+		endColorstr=#19FFC100);
+	zoom: 1
+}
+
+.widget_ultimosprogramas p.veja-mais a:hover {
+	border: none;
+}
+
+.widget_links {
+	text-align: center;
+	margin: 0 auto !important;
+}
+
+.widget_links .widgettitle {
+	display: none;
+}
+
+ul.xoxo li.widget_links a {
+	border: 0;
+}
+
+body.page-campanha .widget_text .widgettitle,body.tax-itens-de-campanha .widget_text .widgettitle
+	{
+	display: none;
+}
+
+.widget_text a.assine {
+	background: url('images/assine-o-feed.png') left no-repeat;
+	display: block;
+	height: 100px;
+}
+
+.widget_text a.assine span {
+	display: block;
+	margin-left: 100px;
+}
+
+/*Jaiminho*/
+.home li.widget_jaiminho {
+	background: url('images/box-boletim.png') left no-repeat;
+	font-size: 12px;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	color: #fff;
+	padding: 16px 0 0 16px !important;
+	min-height: 102px;
+	margin-bottom: 0 !important;
+}
+
+li.widget_jaiminho {
+	background: url('images/box-boletim.png') left no-repeat;
+	font-size: 12px;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	color: #fff;
+	padding: 16px 0 0 16px !important;
+	height: 102px;
+}
+
+li.widget_jaiminho h3 {
+	color: #fff;
+	padding: 5px 0 0 0 !important;
+	font-style: normal !important;
+	background: none;
+	text-align: left;
+	margin: 0;
+	font-size: 14px;
+}
+
+.jaiminho-excerpt {
+	padding-bottom: 5px;
+}
+
+.home input.jaiminho-text {
+	width: 110px !important;
+	background: rgba(0, 0, 0, 0.3);
+	border: 0;
+	color: #fff;
+	padding: 5 px;
+}
+
+.home input.jaiminho-submit {
+	background: url('images/fundo-titulos.png') repeat-x bottom #FFC100;
+	text-transform: uppercase;
+	color: #fff;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif !important;
+	font-size: 11px;
+	border: 0;
+}
+
+input.jaiminho-text {
+	width: 105px !important;
+	background: rgba(0, 0, 0, 0.3);
+	border: 0;
+	color: #fff;
+	padding: 5 px;
+}
+
+input.jaiminho-submit {
+	background: url('images/fundo-titulos.png') repeat-x bottom #FFC100;
+	text-transform: uppercase;
+	color: #fff;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif !important;
+	font-size: 11px;
+	border: 0;
+}
+
+input.jaiminho-submit:hover {
+	cursor: pointer;
+	color: #000;
+}
+
+#jaiminho-output {
+	display: block;
+	height: 100px;
+	float: right;
+}
+
+#jaiminho-output p.jaiminho-error {
+	color: #FF213D;
+}
+
+#jaiminho-output p.jaiminho-sucesso {
+	color: #86B924;
+}
+
+/* Revista */
+#author-info {
+	margin-bottom: 10px;
+	padding-bottom: 30px;
+	background: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	padding: 20px;
+	width: 495px;
+}
+
+#author-info .avatar {
+	border: 2px solid #024822;
+	margin-right: 30px;
+}
+
+#author-email {
+	width: 300px;
+	float: left;
+	text-align: center;
+	background: url('images/botao-continuelendo.png') repeat-x top #436C54;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	font-size: 11px;
+}
+
+#author-email a {
+	color: #fff;
+}
+
+.author h2.entry-title {
+	margin-bottom: 15px;
+}
+
+#author-info {
+	
+}
+
+.author .page-title {
+	display: none;
+}
+
+.single-revista .entry-content .revista-issuu {
+	
+}
+
+.aside ul li.widget_ultimasrevistas ul li {
+	margin: 10px 9px 5px 5px;
+	width: 111px;
+	float: left;
+	display: block;
+}
+
+.aside ul li.widget_ultimasrevistas ul li a {
+	border: 2px solid #627E0D;
+	padding: 0;
+	width: 106px;
+	height: 149px;
+}
+
+.aside ul li.widget_ultimasrevistas a.veja-mais {
+	text-transform: uppercase;
+	text-align: center;
+	border: 0;
+	background: url('images/botao-menuinterno.png') repeat-x bottom #436C54;
+	padding: 5px;
+	width: 100px;
+	color: #fff;
+	border: 0;
+	font-size: 12px;
+	float: right;
+	margin: 10px 0;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	opacity: 0.8;
+}
+
+.aside ul li.widget_ultimasrevistas a.veja-mais:hover {
+	color: #eee !important;
+	opacity: 1;
+}
+
+.aside ul li.widget_ultimasrevistas ul {
+	width: 300px;
+	margin: 0 auto;
+}
+
+.aside ul li.widget_ultimasrevistas h3 {
+	background: transparent;
+}
+
+.aside ul li.widget_ultimasrevistas ul {
+	background: url('images/pattern-sidebar.png') repeat;
+	min-height: 350px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	width: 250px;
+	padding-left: 5px;
+}
+
+.page-revista-agriculturas h4 {
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	font-weight: normal;
+	padding: 0 0 10px 0;
+	color: #ffc100;
+}
+
+.page-revista-agriculturas h2.entry-title a:hover {
+	color: #139154 !important;
+}
+
+#ultima-revista .entry-thumbnail img {
+	border: 2px solid #627E0D;
+	float: left;
+	width: 185px;
+	margin: 0 !important;
+	clear: left;
+}
+
+.page-revista-agriculturas .entry-content h2 {
+	padding: 0;
+}
+
+.single-revista .entry-content {
+	background: #fff;
+	margin: 10px auto;
+	padding: 15px;
+	width: 610px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+}
+
+.single-revista .nesta-edicao ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.single-revista .nesta-edicao ul li {
+	display: block;
+	border: 1px dashed #FFC100;
+	padding: 10px 10px;
+	margin: 5px 0;
+}
+
+.single-revista .nesta-edicao ul li a {
+	color: #627E0D;
+	font-weight: bold;
+}
+
+.page-revista-agriculturas #revistas-anteriores a {
+	background: #eee;
+	height: 149px;
+	width: 108px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	float: left;
+	margin: 6px;
+	display: block;
+}
+
+.page-revista-agriculturas #revistas-anteriores img {
+	border: 3px solid #627E0D;
+	margin: 0px 5px 10px 5px;
+	padding: 0;
+	display: block;
+}
+
+.page-revista-agriculturas p {
+	margin-bottom: 5px;
+}
+
+.page-revista-agriculturas .entry-revista {
+	width: 400px;
+	float: right;
+	min-height: 300px;
+}
+
+.page-revista-agriculturas .entry-revista .entry-content {
+	margin-top: 0;
+	width: 100%;
+}
+
+.page-revista-agriculturas .entry-content {
+	background: #fff;
+	margin: 10px 0;
+	padding: 15px;
+	width: 610px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	overflow: auto;
+}
+
+.page-revista-agriculturas #revistas-anteriores {
+	width: 100%;
+}
+
+.page-revista-agriculturas #revistas-anteriores .wp-post-image {
+	margin-bottom: 0;
+}
+
+.page-revista-agriculturas #revistas h4 {
+	border-top: 1px dashed #D19D00;
+	padding-top: 20px;
+	width: 100%;
+}
+
+p.download-revista a {
+	color: #436C54;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+}
+
+p.download-revista {
+	margin: 0;
+	padding: 0;
+}
+
+/* Biblioteca */
+#biblioteca .box-biblioteca .item-biblioteca {
+	background: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	float: left;
+	margin: 0 15px 15px 0;
+	width: 180px;
+	text-align: center;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca img {
+	margin: 15px 0;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2 {
+	height: 160px;
+	margin-top: 10px;
+	display: block;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.fotos {
+	background: url('images/biblioteca-fotos.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.documentos {
+	background: url('images/biblioteca-documento.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.experiencias {
+	background: url('images/biblioteca-experiencias.png') top center
+		no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.audios {
+	background: url('images/biblioteca-audios.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.cartilhas {
+	background: url('images/biblioteca-cartilhas.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.livros {
+	background: url('images/biblioteca-livros.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.noticias {
+	background: url('images/biblioteca-noticias.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.videos {
+	background: url('images/biblioteca-videos.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2.historia {
+	background: url('images/30-anos.png') top center no-repeat;
+}
+
+#biblioteca .box-biblioteca .item-biblioteca h2 a {
+	display: block;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif !important;
+	font-size: 18px;
+	height: 150px;
+	line-height: 260px;
+	padding-top: 10px;
+}
+
+.widget_biblioteca {
+	overflow: hidden;
+}
+
+.widget_biblioteca p {
+	margin: 5px;
+	padding-left: 5px;
+	font-size: 11px;
+}
+
+.widget_biblioteca h3 {
+	padding-bottom: 10px;
+}
+
+li.widget_biblioteca ul li a {
+	width: 105px;
+	float: left;
+	height: 105px;
+	background: #fff;
+	margin: 10px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 0;;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	text-align: center;
+}
+
+li.widget_biblioteca ul li a:hover {
+	border: 0;
+}
+
+li.widget_biblioteca ul li.audios a {
+	background: url('images/biblioteca-audios-70.png') 18px 35px no-repeat
+		#fff;
+}
+
+li.widget_biblioteca ul li.cartilhas a {
+	background: url('images/biblioteca-cartilhas-70.png') 18px 35px
+		no-repeat #fff;
+}
+
+li.widget_biblioteca ul li.documentos a {
+	background: url('images/biblioteca-documento70.png') 18px 30px no-repeat
+		#fff;
+}
+
+li.widget_biblioteca ul li.experiencias a {
+	background: url('images/biblioteca-experiencias-70.png') 18px 35px
+		no-repeat #fff;
+}
+
+li.widget_biblioteca ul li.noticias a {
+	background: url('images/biblioteca-noticias-70.png') 18px 35px no-repeat
+		#fff
+}
+
+li.widget_biblioteca ul li.videos a {
+	background: url('images/biblioteca-videos-70.png') 18px 35px no-repeat
+		#fff
+}
+
+li.widget_biblioteca ul li.mimimi a {
+	background: url('images/30-anos.png') 18px 35px no-repeat #fff
+}
+
+li.widget_biblioteca ul li.30-anos a {
+	background: url('images/30-anos.png') 18px 35px no-repeat #fff
+}
+
+li.widget_biblioteca ul li.historia a {
+	background: url('images/30-anos.png') 18px 35px no-repeat #fff
+}
+
+/* Campanha */
+.page #campanha .box-campanha {
+	background: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 1px 3px #888;
+	-webkit-box-shadow: 0px 1px 3px #888;
+	box-shadow: 0px 1px 3px #888;
+	margin: 0 15px 15px 0;
+	min-height: 200px;
+}
+
+.page #campanha .item-campanha {
+	padding: 10px;
+	font-size: 11px;
+}
+
+.page #campanha .item-campanha p {
+	padding: 25px 10px 0;
+}
+
+.page #campanha .item-campanha h2 a {
+	height: 165px;
+	display: block;
+	padding: 5px 0 10px 0;
+	margin: 0 0 10px 0;
+	text-align: center;
+	font-family: 'Droid Sans', helvetica, arial, sans-serif !important;
+	font-size: 22px;
+	font-weight: normal;
+}
+
+.page #campanha .item-campanha h2.gm-free-brazil {
+	height: 150px;
+	background: url('images/icone-gm.png') bottom center no-repeat;
+}
+
+.page #campanha .item-campanha h2.monitoramento-ctnbio a {
+	background: url('images/icone-bio.png') bottom no-repeat;
+}
+
+.page #campanha .item-campanha h2.campanha-transgenicos a {
+	background: url('images/icone-trans.png') bottom no-repeat;
+}
+
+.page #campanha .item-campanha h2.materiais-de-campanha a {
+	background: url('images/icone-materiais.png') bottom no-repeat;
+}
+
+.page #campanha .item-campanha h2.boletim a {
+	height: 160px;
+	background: url('images/icone-boletim.png') bottom no-repeat;
+}
+
+.page-campanha.box-biblioteca .item-campanha img {
+	margin: 15px 0;
+}
+
+.page-campanha .box-campanha .item-campanha h2 {
+	height: 150px;
+	padding-top: 0px;
+}
+
+/* Comentários */
+#respond {
+	background: rgba(98, 126, 13, 0.1) !important;
+	border: 0 !important;
+	margin: 20px 0 13px 0;
+	color: #627e0d;
+	padding: 12px;
+	clear: both;
+}
+
+#respond h3 {
+	padding-top: 0px !important;
+	padding-left: 0px !important;
+}
+
+#respond p#login {
+	font-size: 10px;
+}
+
+.comment-navigation {
+	display: none;
+}
+
+#comments {
+	width: 643px;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+#comments h3 {
+	color: #627e0d;
+	font-family: helvetica, arial, sans-serif;
+	padding-top: 15px;
+	padding-left: 15px;
+	font-size: 10px;
+	text-transform: uppercase;
+	padding-bottom: 0;
+}
+
+#comments input,#comments textarea {
+	font-size: 16px;
+	border: 1px solid #FFC100;
+	padding: 5px;
+	width: 95%;
+	margin-top: 10px;
+	background: #f6fce1;
+	color: #627e0d;
+}
+
+#comments-list ol {
+	border: 0;
+}
+
+input#submit {
+	border: 0 !important;
+	width: 50%;
+	background: url('images/botao-continuelendo.png') repeat-x bottom
+		#436C54;
+	color: #fff;
+	float: left;
+}
+
+input#submit:hover {
+	color: #d8e7de;
+	cursor: pointer;
+}
+
+li.comment {
+	background: transparent !important;
+	border: 0 !important;
+	margin: 0 0 13px 0;
+	min-height: 50px;
+	color: #627e0d;
+	clear: both;
+}
+
+.comment-meta {
+	color: #4D660D !important;
+	font-size: 12px;
+	font-variant: small-caps;
+}
+
+.comment-author a {
+	text-decoration: none;
+	color: #436C54;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+#comments-list li .avatar {
+	border: 2px solid #ffc100 !important;
+}
+
+.comment-meta span.meta-sep {
+	display: none;
+}
+
+span.comments-link:before {
+	content: "| ";
+}
+
+#comments-list .comment-author {
+	font-weight: normal;
+}
+
+.comment-author,.comment-meta {
+	padding-left: 0px !important;
+	padding-top: 50px !important;
+	float: left;
+	width: 100px;
+	clear: left;
+	font-weight: normal;
+}
+
+.comment-meta {
+	padding-top: 0px !important;
+}
+
+.comment-content {
+	width: 480px;
+	padding-left: 25px;
+	clear: right;
+	margin-left: 105px;
+}
+
+.comment-reply-link a {
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background: url('images/botao-continuelendo.png') repeat-x bottom
+		#436C54;
+	color: #fff;
+	padding: 5px;
+	margin: 10px 0;
+	font-size: 10px;
+	float: right;
+}
+
+.comment-reply-link a:hover {
+	color: #d8e7de;
+}
+
+#trackbacks-list .comment-author,#trackbacks-list .comment-meta {
+	float: none;
+	width: 100%;
+	padding-top: 10px !important;
+	font-size: 11px;
+}
+
+#trackbacks-list h3 {
+	border-top: 1px solid #F1A700;
+	margin-top: 15px;
+}
+
+#comments-list {
+	padding: 0 0 30px 0;
+}
+
+/*Contato*/
+.wpcf7-form p {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
+	color: #627e0d;
+}
+
+.wpcf7-form input,.wpcf7-form textarea {
+	font-size: 16px;
+	border: 1px solid #FFC100;
+	padding: 5px;
+	width: 95%;
+	margin-top: 10px;
+	background: #f6fce1;
+	color: #627e0d;
+}
+
+.wpcf7-form input {
+	border: 0 !important;
+}
+
+input.wpcf7-submit {
+	width: 50%;
+	background: url('images/botao-continuelendo.png') repeat-x bottom
+		#436C54;
+	color: #fff;
+	float: left;
+}
+
+input.wpcf7-submit:hover {
+	color: #c5fc08;
+	cursor: pointer;
+}
+
+/* Footer */
+#footer {
+	border: 0;
+	margin: 0;
+}
+
+#siteinfo {
+	background: url('images/fundo-footer.jpg') top #C38F56;
+	color: #fff;
+	padding: 22px 0 45px;
+	width: 960px;
+	height: 410px;
+}
+
+.menu-aspta-footer-container {
+	width: 250px;
+	float: left;
+}
+
+ul#menu-aspta-footer {
+	padding: 15px;
+	list-style: none;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+}
+
+.menu-aspta-footer-container ul.menu {
+	width: 220px;
+}
+
+ul#menu-aspta-footer a {
+	display: block;
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
+	margin: 15px 0 10px 5px;
+	text-transform: uppercase;
+	width: 200px
+}
+
+ul#menu-aspta-footer a:hover {
+	color: #ddd !important;
+}
+
+#programas-footer {
+	background: rgba(0, 0, 0, 0.5);
+	width: 650px;
+	float: left;
+}
+
+#programas-footer h6 {
+	background: url('images/fundo-titulos.png') repeat-x bottom #FFC100;
+	text-transform: uppercase;
+	color: #fff;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif !important;
+	font-size: 16px;
+	width: 190px;
+	padding: 5px;
+	margin: 5px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#programas-footer div {
+	padding: 10px 10px 20px 10px;
+	width: 190px;
+	float: left;
+}
+
+#programas-footer h3 a {
+	display: block;
+	height: 40px;
+	font-style: normal;
+	color: #fff;
+	font-size: 13px;
+	text-decoration: none;
+	font-family: helvetica, arial, sans-serif;
+	font-weight: normal;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	border-bottom: 1px solid #eee;
+}
+
+#programas-footer h3 a:hover {
+	color: #ddd !important;
+}
+
+#programas-footer ul {
+	list-style-type: none;
+	margin: 10px 0 0;
+}
+
+#programas-footer ul li {
+	margin-bottom: 10px;
+}
+
+#programas-footer ul li a {
+	color: #fff;
+	text-decoration: none;
+	font-style: italic;
+}
+
+#programas-footer ul li a:hover {
+	color: #ddd !important;
+}
+
+#wrapper-siteinfo {
+	padding: 30px 20px 10px;
+}
+
+#sitecontents {
+	height: 300px;
+	clear: both;
+	border-bottom: 1px dashed #fff;
+	margin-bottom: 20px;
+}
+
+#sitename {
+	float: left;
+	text-indent: -9000px;
+	width: 50%;
+}
+
+#sitename a {
+	background: url('images/logo-footer.png') no-repeat center;
+	display: block;
+	height: 43px;
+	width: 207px;
+}
+
+#sitecredits {
+	font-weight: normal;
+	font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+	float: right;
+	line-height: 20px;
+	text-align: right;
+	width: 50%;
+}
+
+#sitecredits a {
+	font-weight: bold;
+	color: #fff;
+	text-decoration: none;
+}
+
+#sitecredits a:hover {
+	color: #ddd !important;
+}
+
+#sitecredits p {
+	padding-top: 10px;
+}
+
+.srr-meta {
+	display: none;
+}

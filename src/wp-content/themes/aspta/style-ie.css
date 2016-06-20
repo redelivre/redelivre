@@ -1,0 +1,10 @@
+ul#menu-aspta li.menu-item-3389 a, ul#menu-aspta li.menu-item-336 a { padding: 5px 30px;}
+ul#menu-aspta li {display:block; float:left;}
+#programas-footer { background:
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000,endColorstr=#7F000000)"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000,endColorstr=#7F000000);   /* IE6 & 7 */
+      zoom: 1;                 }
+.entry-utility {
+  background-color:#faf4b7;
+}     
+#revista h3 {background:#fff;}
