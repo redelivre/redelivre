@@ -190,3 +190,6 @@
 [submodule "src/wp-content/plugins/wp-barra-brasil"]
 	path = src/wp-content/plugins/wp-barra-brasil
 	url = git@github.com:redelivre/wp-barra-brasil.git
+[submodule "src/wp-content/plugins/consulta_publica"]
+	path = src/wp-content/plugins/consulta_publica
+	url = git@github.com:redelivre/consulta_publica.git
