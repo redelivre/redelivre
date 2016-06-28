@@ -196,3 +196,6 @@
 [submodule "src/wp-content/themes/aspta"]
 	path = src/wp-content/themes/aspta
 	url = git@github.com:redelivre/aspta.git
+[submodule "src/wp-content/themes/thematic"]
+	path = src/wp-content/themes/thematic
+	url = git@github.com:ethymos/Thematic.git
