@@ -175,3 +175,18 @@
 [submodule "src/wp-content/themes/wp-divi-delibera"]
 	path = src/wp-content/themes/wp-divi-delibera
 	url = git@github.com:redelivre/wp-divi-delibera.git
+[submodule "src/wp-content/plugins/WP-API"]
+	path = src/wp-content/plugins/WP-API
+	url = https://github.com/WP-API/WP-API.git
+[submodule "src/wp-content/plugins/rest-api-enabler"]
+	path = src/wp-content/plugins/rest-api-enabler
+	url = https://github.com/MickeyKay/rest-api-enabler.git
+[submodule "src/wp-content/plugins/custom-post-type-ui"]
+	path = src/wp-content/plugins/custom-post-type-ui
+	url = git@github.com:WebDevStudios/custom-post-type-ui.git
+[submodule "src/wp-content/plugins/wordpress-api-cors"]
+	path = src/wp-content/plugins/wordpress-api-cors
+	url = https://github.com/bjoernklose/wordpress-api-cors
+[submodule "src/wp-content/plugins/wp-barra-brasil"]
+	path = src/wp-content/plugins/wp-barra-brasil
+	url = git@github.com:redelivre/wp-barra-brasil.git
