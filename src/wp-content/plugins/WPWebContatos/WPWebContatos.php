@@ -654,18 +654,25 @@ function webcontatos_get_grupos()
 {
 	$opt = webcontatos_get_config();
 	
-	$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
-	$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
-	
-	if(!$auth)
+	try
 	{
-		return array();
+		$client=new SoapClient($opt['webcontatos_url'].'/index.php?servicos=ServicoContatos.wsdl');
+		$auth = $client->__soapCall('doLogin', array('nome' => $opt['webcontatos_user'], 'password' => $opt['webcontatos_pass']) , array(), null, $output_headers);
+		
+		if(!$auth)
+		{
+			return array();
+		}
+		$grupos = $client->__soapCall('getGrupos', array() , array(), null, $output_headers);
+		
+		if(is_array($grupos))
+		{
+			return $grupos;
+		}
 	}
-	$grupos = $client->__soapCall('getGrupos', array() , array(), null, $output_headers);
-	
-	if(is_array($grupos))
+	catch (Exception $e)
 	{
-		return $grupos;
+		
 	}
 	
 	return array();
