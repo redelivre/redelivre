@@ -24,7 +24,7 @@ jQuery(document).ready(function($){
 		open_close.text(EM.open_text);
 	});
 	$('.nav-tab-wrapper .nav-tab').click(function(){
-		$('.nav-tab-wrapper .nav-tab').removeClass('nav-tab-active');
+		$('.nav-tab-wrapper .nav-tab').removeClass('nav-tab-active').blur();
 		$(this).addClass('nav-tab-active');
 	});
 	var navUrl = document.location.toString();

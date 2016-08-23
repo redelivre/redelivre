@@ -826,7 +826,11 @@ function em_maps_load(){
 			script.type = "text/javascript";
 			script.id = "google-maps";
 			var proto = (EM.is_ssl) ? 'https:' : 'http:';
-			script.src = proto + '//maps.google.com/maps/api/js?v=3.23&libraries=places&callback=em_maps';
+			if( typeof EM.google_maps_api !== 'undefined' ){
+				script.src = proto + '//maps.google.com/maps/api/js?v=3.24&libraries=places&callback=em_maps&key='+EM.google_maps_api;
+			}else{
+				script.src = proto + '//maps.google.com/maps/api/js?v=3.24&libraries=places&callback=em_maps';
+			}
 			document.body.appendChild(script);
 		}else if( typeof google === 'object' && typeof google.maps === 'object' && !em_maps_loaded ){
 			em_maps();

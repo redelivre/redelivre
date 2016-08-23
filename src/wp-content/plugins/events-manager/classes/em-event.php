@@ -195,7 +195,7 @@ class EM_Event extends EM_Object{
 	var $post_date;
 	var $post_date_gmt;
 	var $post_title;
-	var $post_excerpt;
+	var $post_excerpt = '';
 	var $post_status;
 	var $comment_status;
 	var $ping_status;

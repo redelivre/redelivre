@@ -73,7 +73,7 @@ class EM_Location extends EM_Object {
 	var $post_date;
 	var $post_date_gmt;
 	var $post_title;
-	var $post_excerpt;
+	var $post_excerpt = '';
 	var $post_status;
 	var $comment_status;
 	var $ping_status;
@@ -317,6 +317,9 @@ class EM_Location extends EM_Object {
 			} 
 		}else{
 			$post_array['post_status'] = 'draft';
+		}
+		if( !empty($this->force_status) ){
+			$post_array['post_status'] = $this->force_status;
 		}
 		//Anonymous submission
 		if( !is_user_logged_in() && get_option('dbem_events_anonymous_submissions') && empty($this->location_id) ){

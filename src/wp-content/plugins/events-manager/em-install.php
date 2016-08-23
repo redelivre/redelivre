@@ -569,6 +569,7 @@ function em_add_options() {
 		'dbem_ical_location_format' => "#_LOCATION",
 		//Google Maps
 		'dbem_gmap_is_active'=> 1,
+		'dbem_google_maps_browser_key'=> '',
 		'dbem_map_default_width'=> '400px', //eventually will use %
 		'dbem_map_default_height'=> '300px',
 		'dbem_location_baloon_format' => '<strong>#_LOCATIONNAME</strong><br/>#_LOCATIONADDRESS - #_LOCATIONTOWN<br/><a href="#_LOCATIONPAGEURL">'.__('Events', 'events-manager').'</a>',

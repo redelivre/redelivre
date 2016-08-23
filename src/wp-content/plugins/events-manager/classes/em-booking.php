@@ -616,10 +616,28 @@ class EM_Booking extends EM_Object{
 				}
 			}
 			$this->person->user_email = ( !empty($this->booking_meta['registration']['user_email']) ) ? $this->booking_meta['registration']['user_email']:$this->person->user_email;
+			//if a full name is given, overwrite the first/last name values IF they are also not defined
 			if( !empty($this->booking_meta['registration']['user_name']) ){
-				$name_string = explode(' ',$this->booking_meta['registration']['user_name']); 
-				$this->booking_meta['registration']['first_name'] = array_shift($name_string);
-				$this->booking_meta['registration']['last_name'] = implode(' ', $name_string);
+				if( !empty($this->booking_meta['registration']['first_name']) ){
+					//first name is defined, so we remove it from full name in case we need the rest for surname
+					$last_name = trim(str_replace($this->booking_meta['registration']['first_name'], '', $this->booking_meta['registration']['user_name']));
+					//if last name isn't defined, provide the rest of the name minus the first name we just removed
+					if( empty($this->booking_meta['registration']['last_name']) ){
+						$this->booking_meta['registration']['last_name'] = $last_name;
+					}
+				}else{
+					//no first name defined, check for last name and act accordingly
+					if( !empty($this->booking_meta['registration']['last_name']) ){
+						//we do opposite of above, remove last name from full name and use the rest as first name
+						$first_name = trim(str_replace($this->booking_meta['registration']['last_name'], '', $this->booking_meta['registration']['user_name']));
+						$this->booking_meta['registration']['first_name'] = $first_name;
+					}else{
+						//no defined first or last name, so we use the name and take first string for first name, second part for surname
+						$name_string = explode(' ',$this->booking_meta['registration']['user_name']);
+						$this->booking_meta['registration']['first_name'] = array_shift($name_string);
+						$this->booking_meta['registration']['last_name'] = implode(' ', $name_string);
+					}
+				}
 			}
 			$this->person->user_firstname = ( !empty($this->booking_meta['registration']['first_name']) ) ? $this->booking_meta['registration']['first_name']:__('Guest User','events-manager');
 			$this->person->first_name = $this->person->user_firstname;
@@ -645,7 +663,7 @@ class EM_Booking extends EM_Object{
 	    $registration = true;
 	    if( empty($this->booking_meta['registration']) ) $this->booking_meta['registration'] = array();
 	    // Check the e-mail address
-	    $user_email = stripslashes($_REQUEST['user_email']); //apostrophes will not be allowed otherwise
+	    $user_email = trim(stripslashes($_REQUEST['user_email'])); //apostrophes will not be allowed otherwise
 	    if ( $user_email == '' ) {
 	    	$registration = false;
 	    	$this->add_error(__( '<strong>ERROR</strong>: Please type your e-mail address.', 'events-manager') );

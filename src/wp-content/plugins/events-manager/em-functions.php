@@ -354,7 +354,7 @@ function em_booking_add_registration( $EM_Booking ){
     $registration = true;
     if( ((!is_user_logged_in() && get_option('dbem_bookings_anonymous')) || EM_Bookings::is_registration_forced()) && !get_option('dbem_bookings_registration_disable') ){
     	//find random username - less options for user, less things go wrong
-    	$user_email = stripslashes($_REQUEST['user_email']); //otherwise may fail validation
+    	$user_email = trim(stripslashes($_REQUEST['user_email'])); //otherwise may fail validation
     	$username_root = explode('@', wp_kses_data($user_email));
     	$username_root = $username_rand = sanitize_user($username_root[0], true);
     	while( username_exists($username_rand) ) {

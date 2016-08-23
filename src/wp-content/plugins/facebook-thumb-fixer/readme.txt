@@ -2,7 +2,7 @@
 Contributors: mikeyott
 Tags: facebook, thumb, fixer, default, thumbnail, thumbnails, thumbs, og:image, og:description, og:title, open, graph, open graph
 Requires at least: 4.0
-Tested up to: 4.2.3
+Tested up to: 4.5.3
 Stable tag: trunk
 
 Fixes the problem of the missing (or wrong) thumbnail when a post is shared on Facebook.
@@ -14,8 +14,6 @@ This plug-in is for those who have the problem where sharing a post on Facebook 
 It works by making sure the thumbnail is derived from the featured image of your post. If your post doesn't have a featured image then it will use a fall-back image that you can specify.
 
 The plug-in inserts the open graph meta properties, which Facebook and other social services look for when someone shares your page. These properties contain information about the page and of course the image you specify.
-
-<strong>NEW!</strong> View a preview of how your page will look when shared on Facebook.
 
 == Installation ==
 
@@ -35,6 +33,12 @@ Go to 'Facebook Thumb Fixer' in WordPress admin for more information about how i
 
 Go to Settings -> General and scroll down until you find 'Default Facebook Thumb'. Put the path to your fall-back image there. Make sure it's at least 1200x630 or 600x315.
 
+== How to set a Facebook App ID ==
+
+If you have a Facebook App, you can get the App ID from <a href="https://developers.facebook.com/apps/" target="_blank">your developer dashboard</a>.
+
+Specify your Facebook App ID Settings -> General.
+
 == How to set an object type ==
 
 <strong>Posts and Pages</strong>
@@ -50,6 +54,14 @@ To specify what Object Type your homepage is, go to the Wordpress Settings -> Ge
 Note: If no selection is made for the home page then the Object Type will be 'webpage', which in most cases is probably what you want.
 
 == Changelog ==
+
+= 1.6 =
+
+Added Facebook App ID field.
+Added a convenient FB Debug button for easier troubleshooting.
+Preview of homepage for when shared on Facebook.
+Fixed some errors.
+Updated help topics.
 
 = 1.5.1 =
 
