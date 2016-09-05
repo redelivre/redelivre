@@ -80,7 +80,7 @@ jQuery(document).ready(function($){
 		}
 	}).trigger('change');
 	//For rewrite titles
-	$('input:radio[name=dbem_disable_title_rewrites]').live('change',function(){
+	$('input:radio[name=dbem_disable_title_rewrites]').on('change',function(){
 		checked_check = $('input:radio[name=dbem_disable_title_rewrites]:checked');
 		if( checked_check.val() == 1 ){
 			$('#dbem_title_html_row').show();

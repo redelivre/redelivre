@@ -363,16 +363,16 @@ class EM_Event extends EM_Object{
 		global $allowedposttags;
 		do_action('em_event_get_post_pre', $this);
 		//we need to get the post/event name and content.... that's it.
-		$this->post_content = isset($_POST['content']) ? wp_kses( stripslashes($_POST['content']), $allowedposttags):'';
+		$this->post_content = isset($_POST['content']) ? wp_kses( wp_unslash($_POST['content']), $allowedposttags):'';
 		$this->post_excerpt = !empty($this->post_excerpt) ? $this->post_excerpt:''; //fix null error
-		$this->event_name = !empty($_POST['event_name']) ? htmlspecialchars_decode(wp_kses_data(htmlspecialchars_decode(stripslashes($_POST['event_name'])))):'';
+		$this->event_name = !empty($_POST['event_name']) ? htmlspecialchars_decode(wp_kses_data(htmlspecialchars_decode(wp_unslash($_POST['event_name'])))):'';
 		$this->post_type = ($this->is_recurring() || !empty($_POST['recurring'])) ? 'event-recurring':EM_POST_TYPE_EVENT;
 		//don't forget categories!
 		if( get_option('dbem_categories_enabled') ) $this->get_categories()->get_post();
 		//anonymous submissions and guest basic info
 		if( !is_user_logged_in() && get_option('dbem_events_anonymous_submissions') && empty($this->event_id) ){
 			$this->event_owner_anonymous = 1;
-			$this->event_owner_name = !empty($_POST['event_owner_name']) ? wp_kses_data(stripslashes($_POST['event_owner_name'])):'';
+			$this->event_owner_name = !empty($_POST['event_owner_name']) ? wp_kses_data(wp_unslash($_POST['event_owner_name'])):'';
 			$this->event_owner_email = !empty($_POST['event_owner_email']) ? wp_kses_data($_POST['event_owner_email']):'';
 		}
 		//get the rest and validate (optional)
@@ -512,11 +512,11 @@ class EM_Event extends EM_Object{
 						$att_vals = isset($event_available_attributes['values'][$att_key]) ? count($event_available_attributes['values'][$att_key]) : 0;
 						if( !empty($att_value) ){
 							if( $att_vals <= 1 || ($att_vals > 1 && in_array($att_value, $event_available_attributes['values'][$att_key])) ){
-								$this->event_attributes[$att_key] = stripslashes($att_value);
+								$this->event_attributes[$att_key] = wp_unslash($att_value);
 							}
 						}
 						if( empty($att_value) && $att_vals > 1){
-							$this->event_attributes[$att_key] = stripslashes(wp_kses($event_available_attributes['values'][$att_key][0], $allowedtags));
+							$this->event_attributes[$att_key] = wp_unslash(wp_kses($event_available_attributes['values'][$att_key][0], $allowedtags));
 						}
 					}
 				}
@@ -1580,7 +1580,7 @@ class EM_Event extends EM_Object{
 				case '#_EVENTLINK': //HTML Link
 					$event_link = esc_url($this->get_permalink());
 					if($result == '#_LINKEDNAME' || $result == '#_EVENTLINK'){
-						$replace = '<a href="'.$event_link.'" title="'.esc_attr($this->event_name).'">'.esc_attr($this->event_name).'</a>';
+						$replace = '<a href="'.$event_link.'">'.esc_attr($this->event_name).'</a>';
 					}else{
 						$replace = $event_link;	
 					}
@@ -2345,7 +2345,7 @@ class EM_Event extends EM_Object{
 	function get_recurrence_description() {
 		$EM_Event_Recurring = $this->get_event_recurrence(); 
 		$recurrence = $this->to_array();
-		$weekdays_name = array(__('Sunday', 'events-manager'),__('Monday', 'events-manager'),__('Tuesday', 'events-manager'),__('Wednesday', 'events-manager'),__('Thursday', 'events-manager'),__('Friday', 'events-manager'),__('Saturday', 'events-manager'));
+		$weekdays_name = array( translate('Sunday'),translate('Monday'),translate('Tuesday'),translate('Wednesday'),translate('Thursday'),translate('Friday'),translate('Saturday'));
 		$monthweek_name = array('1' => __('the first %s of the month', 'events-manager'),'2' => __('the second %s of the month', 'events-manager'), '3' => __('the third %s of the month', 'events-manager'), '4' => __('the fourth %s of the month', 'events-manager'), '-1' => __('the last %s of the month', 'events-manager'));
 		$output = sprintf (__('From %1$s to %2$s', 'events-manager'),  $EM_Event_Recurring->event_start_date, $EM_Event_Recurring->event_end_date).", ";
 		if ($EM_Event_Recurring->recurrence_freq == 'daily')  {

@@ -22,9 +22,9 @@ function em_options_save(){
 				}else{
 					//TODO slashes being added?
 					if( is_array($postValue) ){
-					    foreach($postValue as $postValue_key=>$postValue_val) $postValue[$postValue_key] = stripslashes($postValue_val);
+					    foreach($postValue as $postValue_key=>$postValue_val) $postValue[$postValue_key] = wp_unslash($postValue_val);
 					}else{
-					    $postValue = stripslashes($postValue);
+					    $postValue = wp_unslash($postValue);
 					}
 					update_option($postKey, $postValue);
 				}

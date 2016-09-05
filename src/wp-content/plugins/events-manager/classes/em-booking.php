@@ -274,7 +274,7 @@ class EM_Booking extends EM_Object{
 					}
 				}
 			}
-			$this->booking_comment = (!empty($_REQUEST['booking_comment'])) ? wp_kses_data(stripslashes($_REQUEST['booking_comment'])):'';
+			$this->booking_comment = (!empty($_REQUEST['booking_comment'])) ? wp_kses_data(wp_unslash($_REQUEST['booking_comment'])):'';
 			//allow editing of tax rate
 			if( !empty($this->booking_id) && $this->can_manage() ){ 
 			    $this->booking_tax_rate = (!empty($_REQUEST['booking_tax_rate']) && is_numeric($_REQUEST['booking_tax_rate'])) ? $_REQUEST['booking_tax_rate']:$this->booking_tax_rate; 
@@ -663,7 +663,7 @@ class EM_Booking extends EM_Object{
 	    $registration = true;
 	    if( empty($this->booking_meta['registration']) ) $this->booking_meta['registration'] = array();
 	    // Check the e-mail address
-	    $user_email = trim(stripslashes($_REQUEST['user_email'])); //apostrophes will not be allowed otherwise
+	    $user_email = trim(wp_unslash($_REQUEST['user_email'])); //apostrophes will not be allowed otherwise
 	    if ( $user_email == '' ) {
 	    	$registration = false;
 	    	$this->add_error(__( '<strong>ERROR</strong>: Please type your e-mail address.', 'events-manager') );
@@ -679,7 +679,7 @@ class EM_Booking extends EM_Object{
 	    //Check the user name
 	    if( !empty($_REQUEST['user_name']) ){
 	    	//split full name up and save full, first and last names
-	    	$user_data['user_name'] = wp_kses(stripslashes($_REQUEST['user_name']), array());
+	    	$user_data['user_name'] = wp_kses(wp_unslash($_REQUEST['user_name']), array());
 	    	$name_string = explode(' ',$user_data['user_name']);
 	    	$user_data['first_name'] = array_shift($name_string);
 	    	$user_data['last_name'] = implode(' ', $name_string);
@@ -687,10 +687,10 @@ class EM_Booking extends EM_Object{
 		    //Check the first/last name
 		    $name_string = array();
 		    if( !empty($_REQUEST['first_name']) ){
-		    	$user_data['first_name'] = $name_string[] = wp_kses(stripslashes($_REQUEST['first_name']), array()); 
+		    	$user_data['first_name'] = $name_string[] = wp_kses(wp_unslash($_REQUEST['first_name']), array()); 
 		    }
 		    if( !empty($_REQUEST['last_name']) ){
-		    	$user_data['last_name'] = $name_string[] = wp_kses(stripslashes($_REQUEST['last_name']), array());
+		    	$user_data['last_name'] = $name_string[] = wp_kses(wp_unslash($_REQUEST['last_name']), array());
 		    }
 		    if( !empty($name_string) ) $user_data['user_name'] = implode(' ', $name_string);
 	    }
@@ -698,7 +698,7 @@ class EM_Booking extends EM_Object{
 	    if( !empty($user_data['first_name']) || !empty($user_data['last_name']) )
 	    //Check the phone
 	    if( !empty($_REQUEST['dbem_phone']) ){
-	    	$user_data['dbem_phone'] = wp_kses(stripslashes($_REQUEST['dbem_phone']), array());
+	    	$user_data['dbem_phone'] = wp_kses(wp_unslash($_REQUEST['dbem_phone']), array());
 	    }
 	    //Add booking meta
 	    if( $registration ){

@@ -4,8 +4,8 @@ Donate link: http://wp-events-plugin.com
 Tags: bookings, buddypress, calendar, event, event management, events, google maps, maps, locations, registration, registration, tickets
 Text Domain: events-manager
 Requires at least: 3.5
-Tested up to: 4.6
-Stable tag: 5.6.5
+Tested up to: 4.6.1
+Stable tag: 5.6.6.1
 
 Fully featured event registration management including recurring events, locations management, calendar, Google map integration, booking management
 
@@ -99,6 +99,27 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page, which is upd
 6. Manage attendees with various booking reports
 
 == Changelog ==
+= 5.6.6.1 =
+* fixed search forms disappearing in latest update when Styling Options for search forms are turned off (props @factchecker)
+
+= 5.6.6 =
+* improvements to ical formatting, including static/unique UIDs, more accurate locations with geo coordinates, categories and featured image
+* replaced code using stripslashes() with wp_unslash() (kudos @webaware)
+* removed use of jQuery.live() on settings page
+* tweaked event search form elements and events list table to be ADA compliant
+* added $EM_Ticket_Booking to em_tickets_bookings_add filter arguments
+* removed translations of weekdays within EM and using WP translations instead,
+* changed calendar templates to stop using ucfirst() to uppercase month first letters since it breaks some languages and the languages that need it don't capitalize their months anyway 
+* fixed anonymous event submitter info not showing in recurring event admin area
+* fixed wrong nav id in BuddyPress (kudos @lyevalley)
+* fixed 'no location' checkbox not remaining checked if event submission returns a validation error
+* tweaked templates/forms/event/location.php and added some extra output sanitization
+* fixed 404 errors in calendar links to eventful day list for a specific location
+* fixed syncing of tables when WP uses utf8mb4 collation which causes errors when saving emojis in post content
+* fixed WP 4.6 PHP warnings and featured image problems when using a theme that limits specific CPTs to use thumbnails
+* fixed action typo in EM_Ticket::get_post() from em_location_get_post_pre to em_ticket_get_post_pre
+* fixed location not showing up in admin area within dropdown if previously assigned to an event but not available to user due to permission changes
+
 = 5.6.5 =
 * added option to add Google Maps API key
 * fixed category image uploader not working properly on some specific setups
