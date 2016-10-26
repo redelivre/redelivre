@@ -202,7 +202,7 @@ function em_init_actions() {
 					$location_cond = " AND location_private=0";		    
 				}
 				$location_cond = apply_filters('em_actions_locations_search_cond', $location_cond);
-				$term = (isset($_REQUEST['term'])) ? '%'.$wpdb->esc_like(stripslashes($_REQUEST['term'])).'%' : '%'.$wpdb->esc_like(stripslashes($_REQUEST['q'])).'%';
+				$term = (isset($_REQUEST['term'])) ? '%'.$wpdb->esc_like(wp_unslash($_REQUEST['term'])).'%' : '%'.$wpdb->esc_like(wp_unslash($_REQUEST['q'])).'%';
 				$sql = $wpdb->prepare("
 					SELECT 
 						location_id AS `id`,
@@ -452,7 +452,7 @@ function em_init_actions() {
 			do_action('em_booking_modify_person', $EM_Event, $EM_Booking);
 		}elseif( $_REQUEST['action'] == 'bookings_add_note' && $EM_Booking->can_manage('manage_bookings','manage_others_bookings') ) {
 			em_verify_nonce('bookings_add_note');
-			if( $EM_Booking->add_note(stripslashes($_REQUEST['booking_note'])) ){
+			if( $EM_Booking->add_note(wp_unslash($_REQUEST['booking_note'])) ){
 				$EM_Notices->add_confirm($EM_Booking->feedback_message, true);
 				$redirect = !empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : em_wp_get_referer();
 				wp_redirect( $redirect );

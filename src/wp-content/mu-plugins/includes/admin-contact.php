@@ -17,11 +17,7 @@ function campanha_contact_init(){
 /**
  * Load up the menu page
  */
-function campanha_contact_add_page() {
-    
-    //Se o tema ativo não suportar, não damos essa opção:
-    if ( !file_exists(STYLESHEETPATH . '/tpl-contato.php') && !file_exists(TEMPLATEPATH . '/tpl-contato.php'))
-        return;
+function campanha_contact_add_page() { // TODO Better location for this option
     
     add_menu_page('Página de Contato', 'Página de Contato', 'read', 'campaign_contact', 'campanha_contact_do_page');
 }

@@ -58,6 +58,9 @@ if (!is_main_site()) {
             global $wp_rewrite;
             $wp_rewrite->flush_rules();
         }
+        
+        
+        
     });
 }
 
@@ -126,6 +129,31 @@ function campaign_base_custom_url_rewrites($rules) {
     return $new_rules + $rules;
 }
 
+function campaign_base_check_rewrite()
+{
+	global $wp_rewrite;
+
+	$rules = $wp_rewrite->wp_rewrite_rules();
+	$found = false;
+
+	if(is_array($rules))
+	{
+		foreach ($rules as $rule)
+		{
+			if(strpos($rule, 'contato') !== false)
+			{
+				$found = true;
+				break;
+			}
+		}
+		if ( ! $found )
+		{
+			$wp_rewrite->flush_rules();
+		}
+	}
+}
+add_action( 'init' , 'campaign_base_check_rewrite' );
+
 function campaign_base_template_redirect_intercept() {
     global $wp_query, $campaign;
 
@@ -156,9 +184,9 @@ function campaign_base_template_redirect_intercept() {
             } elseif (file_exists(TEMPLATEPATH . '/tpl-contato.php')) { // tema pai
                 require(TEMPLATEPATH . '/tpl-contato.php');
             }
-            //else { template generico ?
-            //    require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
-            //}
+            else { //template generico ?
+                require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
+            }
 
             die;
         default:

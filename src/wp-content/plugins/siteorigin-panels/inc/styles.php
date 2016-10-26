@@ -1,17 +1,17 @@
 <?php
 
-
 /**
  * Admin action for handling fetching the style fields
  */
 function siteorigin_panels_ajax_action_style_form(){
 	$type = $_REQUEST['type'];
 	if( !in_array($type, array('row', 'widget') ) ) exit();
+	if( empty( $_GET['_panelsnonce'] ) || !wp_verify_nonce( $_GET['_panelsnonce'], 'panels_action' ) ) exit();
 
 	$current = isset( $_REQUEST['style'] ) ? $_REQUEST['style'] : array();
 	$post_id = empty( $_REQUEST['postId'] ) ? 0 : $_REQUEST['postId'];
 
-	$args = !empty( $_POST['args'] ) ? json_decode( $_POST['args'], true) : array();
+	$args = !empty( $_POST['args'] ) ? json_decode( stripslashes( $_POST['args'] ), true) : array();
 
 	switch($type) {
 		case 'row':
@@ -35,6 +35,8 @@ add_action('wp_ajax_so_panels_style_form', 'siteorigin_panels_ajax_action_style_
  * @param array $current
  * @param int $post_id
  * @param array $args Arguments passed by the builder
+ *
+ * @return bool
  */
 function siteorigin_panels_render_styles_fields( $section, $before = '', $after = '', $current = array(), $post_id = 0, $args = array() ){
 	$fields = apply_filters('siteorigin_panels_' . $section . '_style_fields', array(), $post_id, $args );
@@ -124,16 +126,7 @@ function siteorigin_panels_render_styles_fields( $section, $before = '', $after 
  */
 function siteorigin_panels_style_get_measurements_list() {
 	$measurements = array(
-		'px',
-		'%',
-		'in',
-		'cm',
-		'mm',
-		'em',
-		'ex',
-		'pt',
-		'pc',
-		'rem'
+		'px', '%', 'in', 'cm', 'mm', 'em', 'ex', 'pt', 'pc', 'rem'
 	);
 
 	// Allow themes and plugins to trim or enhance the list.
@@ -150,11 +143,33 @@ function siteorigin_panels_render_style_field( $field, $current, $field_id ){
 	$field_name = 'style['.$field_id.']';
 
 	echo '<div class="style-input-wrapper">';
-	switch($field['type']) {
+	switch( $field['type'] ) {
 		case 'measurement' :
+			
+			if( !empty( $field['multiple'] ) ) {
+				?>
+				<div class="measurement-inputs">
+					<div class="measurement-wrapper">
+						<input type="text" class="measurement-value measurement-top" placeholder="<?php _e( 'Top', 'siteorigin-panels' ) ?>" />
+					</div>
+					<div class="measurement-wrapper">
+						<input type="text" class="measurement-value measurement-right" placeholder="<?php _e( 'Right', 'siteorigin-panels' ) ?>" />
+					</div>
+					<div class="measurement-wrapper">
+						<input type="text" class="measurement-value measurement-bottom" placeholder="<?php _e( 'Bottom', 'siteorigin-panels' ) ?>" />
+					</div>
+					<div class="measurement-wrapper">
+						<input type="text" class="measurement-value measurement-left" placeholder="<?php _e( 'Left', 'siteorigin-panels' ) ?>" />
+					</div>
+				</div>
+				<?php
+			}
+			else {
+				?><input type="text" class="measurement-value measurement-value-single" /><?php
+			}
+
 			?>
-			<input type="text" />
-			<select>
+			<select class="measurement-unit measurement-unit-<?php echo !empty( $field['multiple'] ) ? 'multiple' : 'single' ?>">
 				<?php foreach ( siteorigin_panels_style_get_measurements_list() as $measurement ):?>
 					<option value="<?php echo esc_html( $measurement ) ?>"><?php echo esc_html( $measurement ) ?></option>
 				<?php endforeach?>
@@ -326,7 +341,7 @@ function siteorigin_panels_sanitize_style_fields( $section, $styles ){
 			case 'measurement' :
 				$measurements = array_map('preg_quote', siteorigin_panels_style_get_measurements_list() );
 				if (!empty($field['multiple'])) {
-					if (preg_match_all('/(?:([0-9\.,]+).*?(' . implode('|', $measurements) . ')+)/', $styles[$k], $match)) {
+					if (preg_match_all('/(?:(-?[0-9\.,]+).*?(' . implode('|', $measurements) . ')+)/', $styles[$k], $match)) {
 						$return[$k] = $styles[$k];
 					}
 					else {
@@ -334,7 +349,7 @@ function siteorigin_panels_sanitize_style_fields( $section, $styles ){
 					}
 				}
 				else {
-					if (preg_match('/([0-9\.,]+).*?(' . implode('|', $measurements) . ')/', $styles[$k], $match)) {
+					if (preg_match('/([-?0-9\.,]+).*?(' . implode('|', $measurements) . ')/', $styles[$k], $match)) {
 						$return[$k] = $match[1] . $match[2];
 					}
 					else {

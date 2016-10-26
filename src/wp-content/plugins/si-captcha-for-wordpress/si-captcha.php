@@ -3,12 +3,12 @@
 Plugin Name: SI CAPTCHA Anti-Spam
 Plugin URI: http://www.642weather.com/weather/scripts-wordpress-captcha.php
 Description: Adds CAPTCHA anti-spam methods to WordPress forms for comments, registration, lost password, login, or all. This prevents spam from automated bots. WP, WPMU, and BuddyPress compatible. <a href="plugins.php?page=si-captcha-for-wordpress/si-captcha.php">Settings</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S">Donate</a>
-Version: 2.7.7.7
+Version: 2.7.7.8
 Author: Mike Challis
 Author URI: http://www.642weather.com/weather/scripts.php
 */
 
-$si_captcha_version = '2.7.7.7';
+$si_captcha_version = '2.7.7.8';
 
 /*  Copyright (C) 2008-2016 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 
@@ -48,10 +48,6 @@ function si_captcha_add_tabs() {
    if( $wpmu == 1 && version_compare($wp_version,'3','>=') && is_multisite() && is_super_admin() ) { // wp 3.0 +
      add_submenu_page('ms-admin.php', __('SI Captcha Options', 'si-captcha'), __('SI Captcha Options', 'si-captcha'), 'manage_options', __FILE__,array(&$this,'si_captcha_options_page'));
      add_options_page( __('SI Captcha Options', 'si-captcha'), __('SI Captcha Options', 'si-captcha'), 'manage_options', __FILE__,array(&$this,'si_captcha_options_page'));
-   }
-   else if ($wpmu == 1 && function_exists('is_site_admin') && is_site_admin()) {
-		add_submenu_page('wpmu-admin.php', __('SI Captcha Options', 'si-captcha'), __('SI Captcha Options', 'si-captcha'), 'manage_options', __FILE__,array(&$this,'si_captcha_options_page'));
-		add_options_page( __('SI Captcha Options', 'si-captcha'), __('SI Captcha Options', 'si-captcha'), 'manage_options', __FILE__,array(&$this,'si_captcha_options_page'));
    }
    else if ($wpmu != 1) {
 		add_submenu_page('plugins.php', __('SI Captcha Options', 'si-captcha'), __('SI Captcha Options', 'si-captcha'), 'manage_options', __FILE__,array(&$this,'si_captcha_options_page'));
@@ -197,7 +193,7 @@ function si_captcha_check_requires() {
        echo '<p>'.__('Contact your web host and ask them why imagepng function is not enabled for PHP.', 'si-captcha').'</p>';
       $ok = 'no';
   }
-  if ( !@strtolower(ini_get('safe_mode')) == 'on' && !file_exists("$si_captcha_dir/securimage.php") ) {
+  if ( !file_exists("$si_captcha_dir/securimage.php") ) {
        echo '<p style="color:maroon">'.__('ERROR: si-captcha.php plugin says captcha_library not found.', 'si-captcha').'</p>';
        $ok = 'no';
   }
@@ -917,9 +913,9 @@ function si_captcha_captcha_html($label = 'si_image', $form_id = 'com', $no_echo
   }
 
   $si_html .= '<img id="'.$label.'" class="si-captcha" src="'.$securimage_show_url.'" '.$securimage_size.' alt="';
-  $si_html .= ($si_captcha_opt['si_captcha_tooltip_captcha'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_captcha'] ) : esc_attr(__('CAPTCHA Image', 'si-captcha'));
+  $si_html .= ($si_captcha_opt['si_captcha_tooltip_captcha'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_captcha'] ) : esc_attr(__('CAPTCHA', 'si-captcha'));
   $si_html .= '" title="';
-  $si_html .= ($si_captcha_opt['si_captcha_tooltip_captcha'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_captcha'] ) : esc_attr(__('CAPTCHA Image', 'si-captcha'));
+  $si_html .= ($si_captcha_opt['si_captcha_tooltip_captcha'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_captcha'] ) : esc_attr(__('CAPTCHA', 'si-captcha'));
   $si_html .= '" />'."\n";
   if($capt_disable_sess) {
         $si_html .= '    <input id="si_code_'.$form_id.'" name="si_code_'.$form_id.'" type="hidden"  value="'.$prefix.'" />'."\n";
@@ -927,14 +923,14 @@ function si_captcha_captcha_html($label = 'si_image', $form_id = 'com', $no_echo
 
   $si_html .= '    <div id="si_refresh_'.$form_id.'">'."\n";
   $si_html .= '<a href="#" rel="nofollow" title="';
-  $si_html .= ($si_captcha_opt['si_captcha_tooltip_refresh'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_refresh'] ) : esc_attr(__('Refresh Image', 'si-captcha'));
+  $si_html .= ($si_captcha_opt['si_captcha_tooltip_refresh'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_refresh'] ) : esc_attr(__('Refresh', 'si-captcha'));
   if($capt_disable_sess) {
     $si_html .= '" onclick="si_captcha_refresh(\''.$label.'\',\''.$form_id.'\',\''.$securimage_url.'\',\''.$securimage_show_rf_url.'\'); return false;">'."\n";
   }else{
     $si_html .= '" onclick="document.getElementById(\''.$label.'\').src = \''.$securimage_show_url.'&amp;sid=\''.' + Math.random(); return false;">'."\n";
   }
   $si_html .= '      <img class="captchaImgRefresh" src="'.$si_captcha_url.'/images/refresh.png" width="22" height="20" alt="';
-  $si_html .= ($si_captcha_opt['si_captcha_tooltip_refresh'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_refresh'] ) : esc_attr(__('Refresh Image', 'si-captcha'));
+  $si_html .= ($si_captcha_opt['si_captcha_tooltip_refresh'] != '') ? esc_attr( $si_captcha_opt['si_captcha_tooltip_refresh'] ) : esc_attr(__('Refresh', 'si-captcha'));
   $si_html .= '" onclick="this.blur();" /></a>
   </div>
   ';
@@ -1191,21 +1187,6 @@ function get_captcha_url_si() {
 } // end of class
 } // end of if class
 
-// backwards compatibility
-
-// Pre-2.8 compatibility
-if ( ! function_exists( 'esc_html' ) ) {
-	function esc_html( $text ) {
-		return wp_specialchars( $text );
-	}
-}
-
-// Pre-2.8 compatibility
-if ( ! function_exists( 'esc_attr' ) ) {
-	function esc_attr( $text ) {
-		return attribute_escape( $text );
-	}
-}
 
 if (class_exists("siCaptcha")) {
  $si_image_captcha = new siCaptcha();

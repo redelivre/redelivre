@@ -14,7 +14,6 @@ class WPCF7_ContactForm {
 	private $unit_tag;
 	private $responses_count = 0;
 	private $scanned_form_tags;
-	private $config_validator;
 
 	public static function count() {
 		return self::$found_items;
@@ -259,12 +258,18 @@ class WPCF7_ContactForm {
 
 		$this->unit_tag = self::get_unit_tag( $this->id );
 
+		$lang_tag = str_replace( '_', '-', $this->locale );
+
+		if ( preg_match( '/^([a-z]+-[a-z]+)-/i', $lang_tag, $matches ) ) {
+			$lang_tag = $matches[1];
+		}
+
 		$html = sprintf( '<div %s>', wpcf7_format_atts( array(
 			'role' => 'form',
 			'class' => 'wpcf7',
 			'id' => $this->unit_tag,
 			( get_option( 'html_type' ) == 'text/html' ) ? 'lang' : 'xml:lang'
-				=> str_replace( '_', '-', $this->locale ),
+				=> $lang_tag,
 			'dir' => wpcf7_is_rtl( $this->locale ) ? 'rtl' : 'ltr' ) ) ) . "\n";
 
 		$html .= $this->screen_reader_response() . "\n";
@@ -317,14 +322,17 @@ class WPCF7_ContactForm {
 		$class = apply_filters( 'wpcf7_form_class_attr', $class );
 
 		$enctype = apply_filters( 'wpcf7_form_enctype', '' );
+		$autocomplete = apply_filters( 'wpcf7_form_autocomplete', '' );
 
-		$novalidate = apply_filters( 'wpcf7_form_novalidate', wpcf7_support_html5() );
+		$novalidate = apply_filters( 'wpcf7_form_novalidate',
+			wpcf7_support_html5() );
 
 		$atts = array(
 			'action' => esc_url( $url ),
 			'method' => 'post',
 			'class' => $class,
 			'enctype' => wpcf7_enctype_value( $enctype ),
+			'autocomplete' => $autocomplete,
 			'novalidate' => $novalidate ? 'novalidate' : '' );
 
 		if ( '' !== $id_attr ) {
@@ -811,41 +819,6 @@ class WPCF7_ContactForm {
 
 		return apply_filters( 'wpcf7_contact_form_shortcode', $shortcode, $args, $this );
 	}
-
-	public function validate_configuration() {
-		if ( ! $this->initial() ) {
-			if ( ! $this->config_validator ) {
-				$this->config_validator = new WPCF7_ConfigValidator( $this );
-			}
-
-			$this->config_validator->validate();
-		}
-	}
-
-	public function get_config_errors() {
-		if ( ! $this->initial() ) {
-			if ( ! $this->config_validator ) {
-				$this->config_validator = new WPCF7_ConfigValidator( $this );
-			}
-
-			return $this->config_validator->get_errors();
-		}
-
-		return array();
-	}
-
-	public function config_error( $section ) {
-		if ( ! $this->initial() ) {
-			if ( ! $this->config_validator ) {
-				$this->config_validator = new WPCF7_ConfigValidator( $this );
-			}
-
-			return $this->config_validator->get_error_message( $section );
-		}
-
-		return '';
-	}
-
 }
 
 function wpcf7_contact_form( $id ) {

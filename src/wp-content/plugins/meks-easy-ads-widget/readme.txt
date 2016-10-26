@@ -3,8 +3,8 @@ Contributors: mekshq
 Donate link: http://mekshq.com/
 Tags: ad, ads, affiliate, niche, advertising, advertisement, marketing, sidebar, widget
 Requires at least: 3.0
-Tested up to: 4.4
-Stable tag: 1.2
+Tested up to: 4.6
+Stable tag: 1.2.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -45,6 +45,12 @@ For any questions, error reports and suggestions please email support@mekshq.com
 3. Widget in action example
 
 == Changelog ==
+
+= 1.2.2 =
+* Option to disable opening links in new window
+
+= 1.2.1 =
+* Added width and height dimensions to img tags (for better page speed score)
 
 = 1.2 =
 * Added an option to specify rotation speed

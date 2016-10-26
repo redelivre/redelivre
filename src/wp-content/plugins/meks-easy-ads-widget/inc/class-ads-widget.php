@@ -26,7 +26,8 @@ class MKS_Ads_Widget extends WP_Widget {
 				'ad_height' => '',
 				'ads' => array(),
 				'nofollow' => 0,
-				'speed' => 5
+				'speed' => 5,
+				'no_target_blank' => 0
 		);
 
 		//Allow themes or plugins to modify default parameters
@@ -68,21 +69,24 @@ class MKS_Ads_Widget extends WP_Widget {
 				}
 
 				$show_ind = 0;
-				
-				if($instance['size'] == 'custom'){
-					$ad_size = 'style="width:'.$instance['ad_width'].'px; height:'.$instance['ad_height'].'px;"';
-				} else {
-					$ad_size = '';
+
+				if( $instance['size'] == 'custom' ){
+					$ad_size = 'style="width:'.$instance['ad_width'].'px; height:'.$instance['ad_height'].'px;" width="'.$instance['ad_width'].'"  height="'.$instance['ad_height'].'"';
+				} else if($instance['size'] == 'large'){
+					$ad_size = 'width="300"  height="250"';
+				} else if($instance['size'] == 'small'){
+					$ad_size = 'width="125"  height="125"';
 				}
 
 				$nofollow = $instance['nofollow'] ? 'rel="nofollow"' : '';
+				$target = $instance['no_target_blank'] ? '' : 'target="_blank"';
 
 			?>
 			
 			
 			<ul class="mks_adswidget_ul <?php echo $instance['size'];?>">
 	     		<?php foreach($instance['ads'] as $ind => $ad) : ?>
-	     		<li data-showind="<?php echo $show_ind; ?>"><a href="<?php echo $ad['link'];?>" target="_blank" <?php echo $nofollow; ?>><img src="<?php echo $ad['img'];?>" alt="<?php echo esc_attr(basename($ad['img'])); ?>" <?php echo $ad_size; ?>/></a></li>
+	     		<li data-showind="<?php echo $show_ind; ?>"><a href="<?php echo $ad['link'];?>" <?php echo $target; ?> <?php echo $nofollow; ?>><img src="<?php echo $ad['img'];?>" alt="<?php echo esc_attr(basename($ad['img'])); ?>" <?php echo $ad_size; ?>/></a></li>
 	     		<?php 
 	     			if( !(($ind+1) % $instance['num_per_view'])){
 	     				$show_ind++;
@@ -152,6 +156,7 @@ class MKS_Ads_Widget extends WP_Widget {
 		$instance['rotate'] = isset($new_instance['rotate']) ? 1 : 0;
 		$instance['randomize'] = isset($new_instance['randomize']) ? 1 : 0;
 		$instance['nofollow'] = isset($new_instance['nofollow']) ? 1 : 0;
+		$instance['no_target_blank'] = isset($new_instance['no_target_blank']) ? 1 : 0;
 		$instance['speed'] = absint($new_instance['speed']);
 		$instance['ad_width'] = absint($new_instance['ad_width']);
 		$instance['ad_height'] = absint($new_instance['ad_height']);
@@ -220,6 +225,11 @@ class MKS_Ads_Widget extends WP_Widget {
 	  	<p>
 			<input id="<?php echo $this->get_field_id( 'nofollow' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'nofollow' ); ?>" value="1" <?php checked(1,$instance['nofollow']);?> />
 			<label for="<?php echo $this->get_field_id( 'nofollow' ); ?>"><?php _e('Add "nofollow" to ad links', 'meks-easy-ads-widget'); ?>? </label>
+	  	</p>
+
+	  	<p>
+			<input id="<?php echo $this->get_field_id( 'no_target_blank' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'no_target_blank' ); ?>" value="1" <?php checked(1,$instance['no_target_blank']);?> />
+			<label for="<?php echo $this->get_field_id( 'no_target_blank' ); ?>"><?php _e('Do not open links in new window', 'meks-easy-ads-widget'); ?>? </label>
 	  	</p>
 		  
 		<p>

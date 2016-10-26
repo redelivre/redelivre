@@ -274,7 +274,7 @@ class EM_Booking extends EM_Object{
 					}
 				}
 			}
-			$this->booking_comment = (!empty($_REQUEST['booking_comment'])) ? wp_kses_data(stripslashes($_REQUEST['booking_comment'])):'';
+			$this->booking_comment = (!empty($_REQUEST['booking_comment'])) ? wp_kses_data(wp_unslash($_REQUEST['booking_comment'])):'';
 			//allow editing of tax rate
 			if( !empty($this->booking_id) && $this->can_manage() ){ 
 			    $this->booking_tax_rate = (!empty($_REQUEST['booking_tax_rate']) && is_numeric($_REQUEST['booking_tax_rate'])) ? $_REQUEST['booking_tax_rate']:$this->booking_tax_rate; 
@@ -616,10 +616,28 @@ class EM_Booking extends EM_Object{
 				}
 			}
 			$this->person->user_email = ( !empty($this->booking_meta['registration']['user_email']) ) ? $this->booking_meta['registration']['user_email']:$this->person->user_email;
+			//if a full name is given, overwrite the first/last name values IF they are also not defined
 			if( !empty($this->booking_meta['registration']['user_name']) ){
-				$name_string = explode(' ',$this->booking_meta['registration']['user_name']); 
-				$this->booking_meta['registration']['first_name'] = array_shift($name_string);
-				$this->booking_meta['registration']['last_name'] = implode(' ', $name_string);
+				if( !empty($this->booking_meta['registration']['first_name']) ){
+					//first name is defined, so we remove it from full name in case we need the rest for surname
+					$last_name = trim(str_replace($this->booking_meta['registration']['first_name'], '', $this->booking_meta['registration']['user_name']));
+					//if last name isn't defined, provide the rest of the name minus the first name we just removed
+					if( empty($this->booking_meta['registration']['last_name']) ){
+						$this->booking_meta['registration']['last_name'] = $last_name;
+					}
+				}else{
+					//no first name defined, check for last name and act accordingly
+					if( !empty($this->booking_meta['registration']['last_name']) ){
+						//we do opposite of above, remove last name from full name and use the rest as first name
+						$first_name = trim(str_replace($this->booking_meta['registration']['last_name'], '', $this->booking_meta['registration']['user_name']));
+						$this->booking_meta['registration']['first_name'] = $first_name;
+					}else{
+						//no defined first or last name, so we use the name and take first string for first name, second part for surname
+						$name_string = explode(' ',$this->booking_meta['registration']['user_name']);
+						$this->booking_meta['registration']['first_name'] = array_shift($name_string);
+						$this->booking_meta['registration']['last_name'] = implode(' ', $name_string);
+					}
+				}
 			}
 			$this->person->user_firstname = ( !empty($this->booking_meta['registration']['first_name']) ) ? $this->booking_meta['registration']['first_name']:__('Guest User','events-manager');
 			$this->person->first_name = $this->person->user_firstname;
@@ -645,7 +663,7 @@ class EM_Booking extends EM_Object{
 	    $registration = true;
 	    if( empty($this->booking_meta['registration']) ) $this->booking_meta['registration'] = array();
 	    // Check the e-mail address
-	    $user_email = stripslashes($_REQUEST['user_email']); //apostrophes will not be allowed otherwise
+	    $user_email = trim(wp_unslash($_REQUEST['user_email'])); //apostrophes will not be allowed otherwise
 	    if ( $user_email == '' ) {
 	    	$registration = false;
 	    	$this->add_error(__( '<strong>ERROR</strong>: Please type your e-mail address.', 'events-manager') );
@@ -661,7 +679,7 @@ class EM_Booking extends EM_Object{
 	    //Check the user name
 	    if( !empty($_REQUEST['user_name']) ){
 	    	//split full name up and save full, first and last names
-	    	$user_data['user_name'] = wp_kses(stripslashes($_REQUEST['user_name']), array());
+	    	$user_data['user_name'] = wp_kses(wp_unslash($_REQUEST['user_name']), array());
 	    	$name_string = explode(' ',$user_data['user_name']);
 	    	$user_data['first_name'] = array_shift($name_string);
 	    	$user_data['last_name'] = implode(' ', $name_string);
@@ -669,10 +687,10 @@ class EM_Booking extends EM_Object{
 		    //Check the first/last name
 		    $name_string = array();
 		    if( !empty($_REQUEST['first_name']) ){
-		    	$user_data['first_name'] = $name_string[] = wp_kses(stripslashes($_REQUEST['first_name']), array()); 
+		    	$user_data['first_name'] = $name_string[] = wp_kses(wp_unslash($_REQUEST['first_name']), array()); 
 		    }
 		    if( !empty($_REQUEST['last_name']) ){
-		    	$user_data['last_name'] = $name_string[] = wp_kses(stripslashes($_REQUEST['last_name']), array());
+		    	$user_data['last_name'] = $name_string[] = wp_kses(wp_unslash($_REQUEST['last_name']), array());
 		    }
 		    if( !empty($name_string) ) $user_data['user_name'] = implode(' ', $name_string);
 	    }
@@ -680,7 +698,7 @@ class EM_Booking extends EM_Object{
 	    if( !empty($user_data['first_name']) || !empty($user_data['last_name']) )
 	    //Check the phone
 	    if( !empty($_REQUEST['dbem_phone']) ){
-	    	$user_data['dbem_phone'] = wp_kses(stripslashes($_REQUEST['dbem_phone']), array());
+	    	$user_data['dbem_phone'] = wp_kses(wp_unslash($_REQUEST['dbem_phone']), array());
 	    }
 	    //Add booking meta
 	    if( $registration ){
