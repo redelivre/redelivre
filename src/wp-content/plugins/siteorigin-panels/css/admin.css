@@ -65,6 +65,13 @@
 .siteorigin-panels-builder .so-tool-button:hover span {
   color: #444444;
 }
+.siteorigin-panels-builder .so-tool-button.so-siteorigin-premium {
+  margin-left: 10px;
+  background: #FFFFFF;
+}
+.siteorigin-panels-builder .so-tool-button.so-siteorigin-premium:hover span {
+  color: #333;
+}
 .siteorigin-panels-builder .so-builder-toolbar {
   -ms-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -474,6 +481,10 @@
 .siteorigin-panels-builder .so-panels-welcome-message .so-tool-button .so-panels-icon {
   color: #777;
   font-size: 0.8em;
+}
+.siteorigin-panels-builder .so-panels-welcome-message .so-tip-wrapper {
+  margin-top: 15px;
+  font-size: 0.95em;
 }
 .siteorigin-panels-builder.so-display-narrow .so-builder-toolbar {
   padding: 10px;

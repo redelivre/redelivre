@@ -107,11 +107,13 @@ class SiteOrigin_Panels_Settings {
 		$defaults['home-page-default'] = false;
 		$defaults['home-template'] = 'home-panels.php';
 		$defaults['affiliate-id'] = apply_filters( 'siteorigin_panels_affiliate_id', false );
+		$defaults['display-teaser'] = true;
 
 		// The general fields
 		$defaults['post-types'] = array('page', 'post');
 		$defaults['live-editor-quick-link'] = true;
 		$defaults['parallax-motion'] = '';
+		$defaults['sidebars-emulator'] = true;
 
 		// Widgets fields
 		$defaults['title-html'] = '<h3 class="widget-title">{{title}}</h3>';
@@ -230,6 +232,22 @@ class SiteOrigin_Panels_Settings {
 			'type' => 'float',
 			'label' => __('Limit Parallax Motion', 'siteorigin-panels'),
 			'description' => __('How many pixels of scrolling result in a single pixel of parallax motion. 0 means automatic. Lower values give more noticeable effect.', 'siteorigin-panels'),
+		);
+
+		$fields['general']['fields']['sidebars-emulator'] = array(
+			'type' => 'checkbox',
+			'label' => __('Sidebars Emulator', 'siteorigin-panels'),
+			'description' => __('Page Builder will create an emulated sidebar, that contains all widgets in the page.', 'siteorigin-panels'),
+		);
+
+		$fields['general']['fields']['display-teaser'] = array(
+			'type' => 'checkbox',
+			'label' => __('Upgrade Teaser', 'siteorigin-panels'),
+			'description' => sprintf(
+				__('Display the %sSiteOrigin Premium%s upgrade teaser in the Page Builder toolbar.', 'siteorigin-panels'),
+				'<a href="siteorigin.com/downloads/premium/" target="_blank">',
+				'</a>'
+			)
 		);
 
 		// The widgets fields

@@ -3,7 +3,7 @@
 Plugin Name: Page Builder by SiteOrigin
 Plugin URI: https://siteorigin.com/page-builder/
 Description: A drag and drop, responsive page builder that simplifies building your website.
-Version: 2.4.13
+Version: 2.4.17
 Author: SiteOrigin
 Author URI: https://siteorigin.com
 License: GPL3
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: http://siteorigin.com/page-builder/#donate
 */
 
-define('SITEORIGIN_PANELS_VERSION', '2.4.13');
+define('SITEORIGIN_PANELS_VERSION', '2.4.17');
 if ( ! defined('SITEORIGIN_PANELS_JS_SUFFIX' ) ) {
 	define('SITEORIGIN_PANELS_JS_SUFFIX', '.min');
 }
@@ -32,7 +32,6 @@ require_once plugin_dir_path(__FILE__) . 'inc/default-styles.php';
 require_once plugin_dir_path(__FILE__) . 'inc/widgets.php';
 require_once plugin_dir_path(__FILE__) . 'inc/plugin-activation.php';
 require_once plugin_dir_path(__FILE__) . 'inc/admin-actions.php';
-require_once plugin_dir_path(__FILE__) . 'inc/sidebars-emulator.php';
 
 if( defined('SITEORIGIN_PANELS_DEV') && SITEORIGIN_PANELS_DEV ) include plugin_dir_path(__FILE__).'inc/debug.php';
 
@@ -48,12 +47,22 @@ register_activation_hook(__FILE__, 'siteorigin_panels_activate');
  * Initialize the Page Builder.
  */
 function siteorigin_panels_init(){
-	$bundled = siteorigin_panels_setting('bundled-widgets');
-	if( !$bundled ) return;
-
-	if( !defined('SITEORIGIN_PANELS_LEGACY_WIDGETS_ACTIVE') && ( !is_admin() || basename($_SERVER["SCRIPT_FILENAME"]) != 'plugins.php') ) {
+	if(
+		siteorigin_panels_setting('bundled-widgets') &&
+		! defined('SITEORIGIN_PANELS_LEGACY_WIDGETS_ACTIVE') &&
+		( ! is_admin() || basename( $_SERVER["SCRIPT_FILENAME"] ) != 'plugins.php' )
+	) {
 		// Include the bundled widgets if the Legacy Widgets plugin isn't active.
 		include plugin_dir_path(__FILE__).'widgets/widgets.php';
+	}
+
+	if(
+		! is_admin() &&
+		siteorigin_panels_setting( 'sidebars-emulator' ) &&
+		( ! get_option('permalink_structure') || get_option('rewrite_rules') )
+	) {
+		// Include the sidebars emulator
+		require_once plugin_dir_path(__FILE__) . 'inc/sidebars-emulator.php';
 	}
 }
 add_action('plugins_loaded', 'siteorigin_panels_init');
@@ -1058,7 +1067,7 @@ function siteorigin_panels_render( $post_id = false, $enqueue_css = true, $panel
 	echo apply_filters( 'siteorigin_panels_before_content', '', $panels_data, $post_id );
 
 	foreach ( $grids as $gi => $cells ) {
-		
+
 		$grid_classes = apply_filters( 'siteorigin_panels_row_classes', array( 'panel-grid' ), $panels_data['grids'][$gi] );
 		$grid_id = !empty($panels_data['grids'][$gi]['style']['id']) ? sanitize_html_class( $panels_data['grids'][$gi]['style']['id'] ) : false;
 
@@ -1600,6 +1609,24 @@ function siteorigin_panels_process_panels_data( $panels_data ){
 	return $panels_data;
 }
 add_filter( 'siteorigin_panels_data', 'siteorigin_panels_process_panels_data', 5 );
+
+function siteorigin_panels_display_premium_teaser(){
+	return
+		siteorigin_panels_setting( 'display-teaser' ) &&
+		apply_filters( 'siteorigin_premium_upgrade_teaser', true ) &&
+		! defined( 'SITEORIGIN_PREMIUM_VERSION' );
+}
+
+function siteorigin_panels_premium_url() {
+	$ref = apply_filters( 'siteorigin_premium_affiliate_id', '' );
+	$url = 'https://siteorigin.com/downloads/premium/?featured_plugin=siteorigin-panels';
+
+	if( $ref ) {
+		$url = add_query_arg( 'ref', urlencode( $ref ), $url );
+	}
+
+	return $url;
+}
 
 // Include the live editor file if we're in live editor mode.
 if( !empty($_GET['siteorigin_panels_live_editor']) ) require_once plugin_dir_path(__FILE__) . 'inc/live-editor.php';
