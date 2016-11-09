@@ -1,9 +1,9 @@
 === WooCommerce ===
-Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, woothemes, iCaleb
+Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, woothemes, icaleb
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront
 Requires at least: 4.4
 Tested up to: 4.6
-Stable tag: 2.6.4
+Stable tag: 2.6.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,59 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 6. A product archive (grid).
 
 == Changelog ==
+
+= 2.6.7 - 26/10/16 =
+* Fix - Use FLOOR and CEIL to get price filter values. Fixes the issue where max price is capped at 99.
+* Fix - Hide "Sales this month" information from Dashboard widget for users that don't have `view_woocommerce_reports` capability.
+* Fix - Remove notices only once on cart so subsequent notices do not remove older notices.
+* Tweak - Improve credit card fields for better mobile experience.
+
+= 2.6.6 - 20/10/16 =
+* Fix - Conflict with Local Pickup Plus extension due to 2.7.x code in has_shipping_method().
+* Fix - Shipping method display order on frontend.
+
+= 2.6.5 - 19/10/16 =
+* Fix - Shipping classes URL in admin.
+* Fix - Notice in reports when using custom date ranges.
+* Fix - When checking needs_shipping, ignore anything after : in the method ID.
+* Fix - Allow has_shipping_method to work with instances.
+* Fix - Potential notice in wc_add_to_cart_message().
+* Fix - Prevent notice in wpdb_table_fix if termmeta table is not used.
+* Fix - Payment method box fixes e.g. maintain previously selected payment method after update.
+* Fix - Prevent multiple password validation methods at once on my account page.
+* Fix - Ship to specific counties option had no effect.
+* Fix - Broken Webhook delivery due to use of post_date_gmt which does not exist for drafts.
+* Fix - Use method title in admin shipping dropdown.
+* Fix - Fixed downloadable variable product URL.
+* Fix - Handle object when generate_cart_id is used to prevent notices.
+* Fix - Set header link color in emails.
+* Fix - Rest of the world ID 0 zone handling when using CRUD classes.
+* Fix - Cast prices as decimal when querying prices in price filter widget.
+* Fix - API - Fix coupon description field.
+* Fix - API - ID needs to be capitalized to allow correct sorting.
+* Fix - API - Fixed undefined order ID.
+* Fix - API - Allow API to save refund reason.
+* Fix - API - Resolved encoding issues with attribute and variation slugs.
+* Fix - API - get_attributes should return term name, not slug.
+* Fix - API - Product "filter" and "sku" paramaters.
+* Fix - Handle info notices in cart, not just error messages.
+* Fix - Don't remove hyphens in attribute labels.
+* Fix - Start sales on variations after they are saved, if applicable.
+* Fix - Made the text showing max variations you can link match the actual filtered value.
+* Fix - Add missing tables to wpmu_drop_tables function.
+* Fix - When syncing variation stock, ensure post is a variation.
+* Fix - Resolved some sales by date sum issues.
+* Fix - Fix cart update in IE when enter key is pressed.
+* Fix - Variation is_on_backorder when parent manages stock.
+* Fix - Fix variation script malfunctioning when show_option_none arg is set to false.
+* Fix - Fire tokenisation event on load for pay page.
+* Fix - Populate attribute dropdown when empty.
+* Fix - Fix email check on my account page.
+* Fix - Send processing email on on-hold to processing transition.
+* Fix - Incompatibility with SQLite databases.
+* Fix - KGS and ISK currency symbols.
+* Tweak - Password reset now uses WP functions.
+* Tweak - Format US 9-digit postcodes.
 
 = 2.6.4 - 26/07/16 =
 * Fix - Security - Only allow image MIME type upload via REST APIs.

@@ -3,9 +3,9 @@
  * Plugin Name: WooCommerce
  * Plugin URI: https://woocommerce.com/
  * Description: An e-commerce toolkit that helps you sell anything. Beautifully.
- * Version: 2.6.4
+ * Version: 2.6.7
  * Author: WooThemes
- * Author URI: https://woothemes.com
+ * Author URI: https://woocommerce.com
  * Requires at least: 4.4
  * Tested up to: 4.6
  *
@@ -35,7 +35,7 @@ final class WooCommerce {
 	 *
 	 * @var string
 	 */
-	public $version = '2.6.4';
+	public $version = '2.6.7';
 
 	/**
 	 * The single instance of the class.
@@ -479,11 +479,14 @@ final class WooCommerce {
 	public function wpdb_table_fix() {
 		global $wpdb;
 		$wpdb->payment_tokenmeta    = $wpdb->prefix . 'woocommerce_payment_tokenmeta';
-		$wpdb->woocommerce_termmeta = $wpdb->prefix . 'woocommerce_termmeta';
 		$wpdb->order_itemmeta       = $wpdb->prefix . 'woocommerce_order_itemmeta';
 		$wpdb->tables[]             = 'woocommerce_payment_tokenmeta';
-		$wpdb->tables[]             = 'woocommerce_termmeta';
 		$wpdb->tables[]             = 'woocommerce_order_itemmeta';
+
+		if ( get_option( 'db_version' ) < 34370 ) {
+			$wpdb->woocommerce_termmeta = $wpdb->prefix . 'woocommerce_termmeta';
+			$wpdb->tables[]             = 'woocommerce_termmeta';
+		}
 	}
 
 	/**

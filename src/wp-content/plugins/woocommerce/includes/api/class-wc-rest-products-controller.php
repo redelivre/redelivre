@@ -195,8 +195,19 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 				'value'   => $request['sku'],
 				'compare' => '='
 			);
+		}
 
-			$args['post_type'] = array( 'product', 'product_variation' );
+		// Apply all WP_Query filters again.
+		if ( is_array( $request['filter'] ) ) {
+			$args = array_merge( $args, $request['filter'] );
+			unset( $args['filter'] );
+		}
+
+		// Force the post_type argument, since it's not a user input variable.
+		if ( ! empty( $request['sku'] ) ) {
+			$args['post_type'] = $this->get_post_types();
+		} else {
+			$args['post_type'] = $this->post_type;
 		}
 
 		return $args;
@@ -385,12 +396,17 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 			foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
 				$name = str_replace( 'attribute_', '', $attribute_name );
 
+				if ( ! $attribute ) {
+					continue;
+				}
+
 				// Taxonomy-based attributes are prefixed with `pa_`, otherwise simply `attribute_`.
 				if ( 0 === strpos( $attribute_name, 'attribute_pa_' ) ) {
+					$option_term  = get_term_by( 'slug', $attribute, $name );
 					$attributes[] = array(
 						'id'     => wc_attribute_taxonomy_id_by_name( $name ),
 						'name'   => $this->get_attribute_taxonomy_label( $name ),
-						'option' => $attribute,
+						'option' => $option_term && ! is_wp_error( $option_term ) ? $option_term->name : $attribute,
 					);
 				} else {
 					$attributes[] = array(
@@ -1546,15 +1562,20 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 					if ( isset( $_attribute['is_variation'] ) && $_attribute['is_variation'] ) {
 						$_attribute_key           = 'attribute_' . sanitize_title( $_attribute['name'] );
 						$updated_attribute_keys[] = $_attribute_key;
+						$attribute_value          = isset( $attribute['option'] ) ? wc_clean( stripslashes( $attribute['option'] ) ) : '';
 
-						if ( isset( $_attribute['is_taxonomy'] ) && $_attribute['is_taxonomy'] ) {
-							// Don't use wc_clean as it destroys sanitized characters
-							$_attribute_value = isset( $attribute['option'] ) ? sanitize_title( stripslashes( $attribute['option'] ) ) : '';
-						} else {
-							$_attribute_value = isset( $attribute['option'] ) ? wc_clean( stripslashes( $attribute['option'] ) ) : '';
+						if ( ! empty( $_attribute['is_taxonomy'] ) ) {
+							// If dealing with a taxonomy, we need to get the slug from the name posted to the API.
+							$term = get_term_by( 'name', $attribute_value, $attribute_name );
+
+							if ( $term && ! is_wp_error( $term ) ) {
+								$attribute_value = $term->slug;
+							} else {
+								$attribute_value = sanitize_title( $attribute_value );
+							}
 						}
 
-						update_post_meta( $variation_id, $_attribute_key, $_attribute_value );
+						update_post_meta( $variation_id, $_attribute_key, $attribute_value );
 					}
 				}
 
@@ -1600,14 +1621,16 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 					$_attribute = $attributes[ $attribute_name ];
 
 					if ( $_attribute['is_variation'] ) {
-						$value = '';
+						$value = isset( $attribute['option'] ) ? wc_clean( stripslashes( $attribute['option'] ) ) : '';
 
-						if ( isset( $attribute['option'] ) ) {
-							if ( $_attribute['is_taxonomy'] ) {
-								// Don't use wc_clean as it destroys sanitized characters.
-								$value = sanitize_title( trim( stripslashes( $attribute['option'] ) ) );
+						if ( ! empty( $_attribute['is_taxonomy'] ) ) {
+							// If dealing with a taxonomy, we need to get the slug from the name posted to the API.
+							$term = get_term_by( 'name', $value, $attribute_name );
+
+							if ( $term && ! is_wp_error( $term ) ) {
+								$value = $term->slug;
 							} else {
-								$value = wc_clean( trim( stripslashes( $attribute['option'] ) ) );
+								$value = sanitize_title( $value );
 							}
 						}
 

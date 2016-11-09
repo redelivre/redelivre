@@ -432,8 +432,8 @@ CREATE TABLE {$wpdb->prefix}woocommerce_sessions (
   session_key char(32) NOT NULL,
   session_value longtext NOT NULL,
   session_expiry bigint(20) NOT NULL,
-  UNIQUE KEY session_id (session_id),
-  PRIMARY KEY  (session_key)
+  PRIMARY KEY  (session_key),
+  UNIQUE KEY session_id (session_id)
 ) $collate;
 CREATE TABLE {$wpdb->prefix}woocommerce_api_keys (
   key_id bigint(20) NOT NULL auto_increment,
@@ -847,7 +847,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_termmeta (
 			$row_meta = array(
 				'docs'    => '<a href="' . esc_url( apply_filters( 'woocommerce_docs_url', 'https://docs.woocommerce.com/documentation/plugins/woocommerce/' ) ) . '" title="' . esc_attr( __( 'View WooCommerce Documentation', 'woocommerce' ) ) . '">' . __( 'Docs', 'woocommerce' ) . '</a>',
 				'apidocs' => '<a href="' . esc_url( apply_filters( 'woocommerce_apidocs_url', 'https://docs.woocommerce.com/wc-apidocs/' ) ) . '" title="' . esc_attr( __( 'View WooCommerce API Docs', 'woocommerce' ) ) . '">' . __( 'API Docs', 'woocommerce' ) . '</a>',
-				'support' => '<a href="' . esc_url( apply_filters( 'woocommerce_support_url', 'https://support.woothemes.com/' ) ) . '" title="' . esc_attr( __( 'Visit Premium Customer Support Forum', 'woocommerce' ) ) . '">' . __( 'Premium Support', 'woocommerce' ) . '</a>',
+				'support' => '<a href="' . esc_url( apply_filters( 'woocommerce_support_url', 'https://www.woocommerce.com/my-account/tickets/' ) ) . '" title="' . esc_attr( __( 'Visit Premium Customer Support Forum', 'woocommerce' ) ) . '">' . __( 'Premium Support', 'woocommerce' ) . '</a>',
 			);
 
 			return array_merge( $links, $row_meta );
@@ -873,6 +873,10 @@ CREATE TABLE {$wpdb->prefix}woocommerce_termmeta (
 		$tables[] = $wpdb->prefix . 'woocommerce_tax_rate_locations';
 		$tables[] = $wpdb->prefix . 'woocommerce_order_items';
 		$tables[] = $wpdb->prefix . 'woocommerce_order_itemmeta';
+		$tables[] = $wpdb->prefix . 'woocommerce_payment_tokens';
+		$tables[] = $wpdb->prefix . 'woocommerce_shipping_zones';
+		$tables[] = $wpdb->prefix . 'woocommerce_shipping_zone_locations';
+		$tables[] = $wpdb->prefix . 'woocommerce_shipping_zone_methods';
 
 		return $tables;
 	}

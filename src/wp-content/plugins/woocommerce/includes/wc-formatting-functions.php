@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function wc_sanitize_taxonomy_name( $taxonomy ) {
-	return apply_filters( 'sanitize_taxonomy_name', urldecode( sanitize_title( $taxonomy ) ), $taxonomy );
+	return apply_filters( 'sanitize_taxonomy_name', urldecode( sanitize_title( urldecode( $taxonomy ) ) ), $taxonomy );
 }
 
 /**
@@ -663,13 +663,17 @@ function wc_format_postcode( $postcode, $country ) {
 			$postcode = trim( substr_replace( $postcode, ' ', -3, 0 ) );
 			break;
 		case 'BR' :
-			$postcode = trim( substr_replace( $postcode, '-', -3, 0 ) );
+		case 'PL' :
+			$postcode = substr_replace( $postcode, '-', -3, 0 );
 			break;
 		case 'JP' :
-			$postcode = trim( substr_replace( $postcode, '-', 3, 0 ) );
+			$postcode = substr_replace( $postcode, '-', 3, 0 );
 			break;
 		case 'PT' :
-			$postcode = trim( substr_replace( $postcode, '-', 4, 0 ) );
+			$postcode = substr_replace( $postcode, '-', 4, 0 );
+			break;
+		case 'US' :
+			$postcode = rtrim( substr_replace( $postcode, '-', 5, 0 ), '-' );
 			break;
 	}
 
