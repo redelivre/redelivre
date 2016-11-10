@@ -4,7 +4,7 @@ Plugin Name: Facebook Thumb Fixer
 Plugin URI: https://wordpress.org/support/plugin/facebook-thumb-fixer
 Description: Fixes the problem of the missing (or wrong) thumbnail when a post is shared on Facebook and Google+.
 Author: Michael Ott
-Version: 1.5.1
+Version: 1.6
 Author URI: http://michaelott.id.au
 */
 
@@ -23,19 +23,18 @@ function admin_load_fbf_css(){
 }
 add_action('admin_enqueue_scripts', 'admin_load_fbf_css');
 
-// Add field into the general settings page
+// Add image path field into the general settings page
 $general_setting_default_fb_thumb = new general_setting_default_fb_thumb();
-
 class general_setting_default_fb_thumb {
     function general_setting_default_fb_thumb( ) {
         add_filter( 'admin_init' , array( &$this , 'register_fields' ) );
     }
     function register_fields() {
         register_setting( 'general', 'default_fb_thumb', 'esc_attr' );
-        add_settings_field('fav_color', '<label for="default_fb_thumb" id="dfb">'.__('Default Facebook Thumb' , 'default_fb_thumb' ).'</label>' , array(&$this, 'fields_html') , 'general' );
+        add_settings_field('dft', '<label for="default_fb_thumb" id="dfb">'.__('Default Facebook Thumb' , 'default_fb_thumb' ).'</label>' , array(&$this, 'fields_html') , 'general' );
     }
     function fields_html() {
-        $fbt_value = get_option( 'default_fb_thumb', '' );
+        $fbt_value = get_option( 'default_fb_thumb', 'medium' );
 		if ($fbt_value) { ?>
 
         <input type="text" id="default_fb_thumb" class="regular-text ltr" name="default_fb_thumb" value="<?php echo $fbt_value; ?>" />
@@ -47,24 +46,42 @@ class general_setting_default_fb_thumb {
 		<?php } ?>
 
 		<?php if ($fbt_value) {
-		echo '<span class="ftf-tick">&#10003;</span>';
+		list($width, $height) = @getimagesize($fbt_value);
+		echo '<span class="ftf-tick">&#10004;</span>';
 		}
 		echo '<p class="description">This is the full path to your default thumb. Facebook <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommends</a> your image be 1200x630 or 600x315. View help topics <a href="' . admin_url( '/options-general.php?page=facebook-thumb-fixer' ) . '">here</a>.</p>';
 		if ($fbt_value) {
 		echo '<a href="' . $fbt_value . '?TB_iframe=true&width=600&height=550" class="thickbox" title="Your default open graph image is ' . $width . ' x ' . $height . ' pixels."><img src="' . $fbt_value . '" title="Default Facebook Thumb" class="thickbox ftf-preview" /></a>';
 		echo '<p class="description">Note: The image shown above is scaled down. The real dimensions are actually ';
-		list($width, $height) = @getimagesize($fbt_value); echo $width . ' x ' . $height . '.</p>';
-		if ($image_width < 600 || $image_height < 315) {
+		echo $width . ' x ' . $height . '.</p>';
+		if ($width < 600 || $height < 315) {
 			echo '<p class="ftf-warning"><strong>WARNING:</strong> Your default Facebook thumbnail image dimensions are smaller than the minimum 600 x 315 <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommended</a> by Facebook.</p>';
 		}
 		}
     }
 }
 
+// Add Facebook App ID field into the general settings page
+$general_setting_fb_app_ID = new general_setting_fb_app_ID();
+class general_setting_fb_app_ID {
+    function general_setting_fb_app_ID( ) {
+        add_filter( 'admin_init' , array( &$this , 'register_fields' ) );
+    }
+    function register_fields() {
+        register_setting( 'general', 'fb_app_ID', 'esc_attr' );
+        add_settings_field('faid', '<label for="fb_app_ID" id="fb_app_ID">'.__('Facebook App ID' , 'fb_app_ID' ).'</label>' , array(&$this, 'fb_app_ID_field') , 'general' );
+    }
+    function fb_app_ID_field() {
+	$fbaid_value = get_option( 'fb_app_ID', '' ); ?>
+        
+    <input type="text" id="fb_app_ID" class="regular-text ltr" name="fb_app_ID" value="<?php echo $fbaid_value; ?>" />
+	<p class="description">Find your Facebook App ID <a href="https://developers.facebook.com/apps/" target="_blank">here</a>.</p>
+	<?php }
+}
+
 
 // Add object type selection into the general settings page
 $general_setting_object_type = new general_setting_object_type();
-
 class general_setting_object_type {
     function general_setting_object_type( ) {
         add_filter( 'admin_init' , array( &$this , 'register_object_type' ) );
@@ -164,6 +181,7 @@ class ftf_otmeta {
         <?php	// Object Types
 				// TODO: additional fields for specific object types (commented out below).
 		?>
+		<p><strong>Object Type</strong></p>
 		<select value="ftf_open_type_field" name="ftf_open_type_field" style="width:100%;">
         	<option></option>
             <option value="article"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "article") { echo " selected"; } ?>>article</option>
@@ -194,8 +212,7 @@ class ftf_otmeta {
             <option value="video.tv_show"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "video.tv_show") { echo " selected"; } ?>>video.tv_show</option>
             <option value="website"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "website") { echo " selected"; } ?>>website</option>
 		</select>
-        <p>Learn about Object Types <a href="https://developers.facebook.com/docs/reference/opengraph" target="_blank">here</a>.</p>
-        <p class="howto"><strong>Note: </strong>If no selction is made, the Object Type for this post/page will be 'article'.</p>
+        <p>If no selection is made, the Object Type for this post/page will be 'article'. Learn about Object Types <a href="https://developers.facebook.com/docs/reference/opengraph" target="_blank">here</a>.</p>
 
 		<?php require("inc-preview.php"); ?>
 
@@ -229,7 +246,7 @@ $ftf_otmeta = new ftf_otmeta;
 add_action( 'admin_menu', 'ftfixer_menu' );
 function ftfixer_menu() {
 	$icon_path = get_option('siteurl').'/wp-content/plugins/'.basename(dirname(__FILE__)).'/images/facebook-admin.png';
-	add_menu_page( __( 'Facebook Thumb' ), __( 'Facebook Thumb' ), 'manage_options', 'facebook-thumb-fixer', 'myfbft_plugin_options' ,$icon_path);
+	add_menu_page( __( 'FB Thumb Fixer' ), __( 'FB Thumb Fixer' ), 'manage_options', 'facebook-thumb-fixer', 'myfbft_plugin_options' ,$icon_path);
 }
 function myfbft_plugin_options() {
 	if ( !current_user_can( 'read' ) )  { // This help page is accessible to anyone
@@ -237,9 +254,9 @@ function myfbft_plugin_options() {
 } ?>
 
 <div class="task-rocket">
-    <h3>Introducing Task Rocket</h3>
-    <p style="color:#fff; text-align:center;">Task Rocket is a simple front-end task management tool built on Wordpress.</p>
-    <p><a href="http://taskrocket.info/" target="_blank">Take it for a test flight</a></p>
+    <h3>Task Rocket</h3>
+    <p style="color:#fff; text-align:center;">The awesomest front-end project management theme built on WordPress.</p>
+    <p><a href="https://taskrocket.info/?source=ftf" target="_blank">Take it for a test flight</a></p>
 </div>
 
 <div class="wrap ftf-wrap">
@@ -249,11 +266,34 @@ function myfbft_plugin_options() {
     if ($fbt_value) {
 	list($width, $height) = @getimagesize($fbt_value); ?>
     <p class="ftf-good">Well done! You have a default Facebook thumbnail set. This will be used when a page or post you share doesn't already have a featured image. You can change the default image <a href="<?php echo get_admin_url(); ?>/options-general.php#dfb">here</a>.</p>
-    <a href="<?php echo $fbt_value; ?>?TB_iframe=true&width=600&height=550" class="thickbox" title="Your default open graph image is <?php echo $width . " x " . $height; ?> pixels.">
-    <img src="<?php echo $fbt_value; ?>" alt="" class="ftf-preview thickbox" /></a>
+    
+	<h2>Homepage Preview</h2>
+	<p>This is an approximate preview of your homepage when shared on Facebook:</p>
+	
+	<div class="ftf-live-home-preview">
+		<img src="<?php echo get_option('siteurl').'/wp-content/plugins/'.basename(dirname(__FILE__)).'/images/preview-top.png'; ?>" />
+	
+		<div class="ftf-preview-details">
+	
+			<a href="<?php echo $fbt_value; ?>?TB_iframe=true&width=600&height=550" class="thickbox" title="Your default open graph image is <?php echo $width . " x " . $height; ?> pixels.">
+		    <img src="<?php echo $fbt_value; ?>" class="thickbox" /></a>
+	
+			<h1><?php echo get_bloginfo( 'name' ); ?> <a href="<?php echo get_admin_url(); ?>/options-general.php" class="edit">(edit)</a></h1>
+	
+			<p>
+				<?php
+					$tagline = get_bloginfo( 'description' );
+					$tagline_chars = substr($tagline, 0, 150);
+					echo strip_tags($tagline_chars);
+				?> <a href="<?php echo get_admin_url(); ?>/options-general.php" class="edit">(edit)</a>
+			</p>
+			<span class="ftf-domain"><?php echo $_SERVER['SERVER_NAME']; ?></span>
+		</div>
+	</div>
+	
     <p class="description">Note: Facebook <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommends</a> your image be 1200x630 or 600x315. Your image (show here scaled down) is <?php echo $width . " x " . $height; ?>.</p>
 	<?php
-	if ($image_width < 600 || $image_height < 315) {
+	if ($width < 600 || $height < 315) {
 		echo '<p class="ftf-warning"><strong>WARNING:</strong> Although you do have a default Facebook thumbnail, the dimensions are smaller than the minimum 600 x 315 <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommended</a> by Facebook.</p>';
 	}
 	?>
@@ -285,7 +325,7 @@ function myfbft_plugin_options() {
         <div class="help-answer">
         	<p>This plug-in will place the appropriate  <a href="http://ogp.me/" target="_blank">Open Graph</a> meta properties into the &lt;head&gt; of your web pages, so that when someone links to your page on Facebook (or any other service that utilises the Open Graph protocol) the correct thumbnail and other information will show.</p>
             <p>The thumbnail is derived from the featured image of your post (or page).</p>
-        	<p>If your post does not have a featured image, then the default thumbnail will take over.</p>
+        	<p>If your post does not have a featured image, then the <a href="<?php echo get_admin_url(); ?>/options-general.php#dfb">default thumbnail</a> will be used.</p>
         	<p>If someone links to your home page (which traditionally doesn't have a featured image) then the default image is used.</p>
         </div>
 
@@ -304,18 +344,29 @@ function myfbft_plugin_options() {
             <p>To specify what Object Type your homepage is, go to the Wordpress<strong> Settings -&gt; General</strong> page <a href="<?php echo get_admin_url(); ?>options-general.php">here</a> and make a selection from the 'Homepage Object Type' field.</p>
             <p><strong>Note: </strong>If no selection is made for the homepage then the Object Type will be 'webpage'.</p>
         </div>
+		
+		<p class="topic">Where can I find my Facebook App ID</p>
+        <div class="help-answer">
+            <p>If you have a Facebook App, you can get the App ID from <a href="https://developers.facebook.com/apps/" target="_blank">your developer dashboard</a>.</p>
+			<p>You can specify your Facebook App ID <a href="<?php echo get_admin_url(); ?>/options-general.php#fb_app_ID">here</a>.</p>
+        </div>
 
-        <p class="topic">How do I customise the description?</p>
+        <p class="topic">How do I customise the text shown when a post is shared on Facebook?</p>
         <div class="help-answer">
             <p>By default the description is derived from the content, but if you want to customise it then simply add content into the excerpt field.</p>
+        </div>
+		
+		<p class="topic">How do I customise the text shown when the homepage is shared on Facebook?</p>
+        <div class="help-answer">
+            <p>When your homepage is shared on Facebook, the content from the <a href="<?php echo get_admin_url(); ?>/options-general.php">tagline</a> is used.</p>
         </div>
 
         <p class="topic">How can I test a post/page without sharing it on Facebook first?</p>
         <div class="help-answer">
-            <p>Run the URL through the <a href='http://developers.facebook.com/tools/debug' target='_blank'>Facebook debugger</a> tool and examine the information that is returned.</p>
+            <p>Run the URL through the <a href='http://developers.facebook.com/tools/debug' target='_blank'>Facebook debugger</a> tool and examine the information that is returned. It's a good idea to hit the <strong>Scrape Again</strong> button to force Facebook to see the latest version of your page.</p>
         </div>
 
-        <p class="topic">What if you don't use Featured Images on your pages or posts?</p>
+        <p class="topic">What if I don't use Featured Images?</p>
         <div class="help-answer">
         	<p>If you don't have featured images attached to your posts, then you can still use this plug-in just to show a default thumbnail on Facebook (as opposed to no thumbnail). This plug-in has been engineered so that if you don't use a featured image on posts then a default thumbnail is used instead. You can set a <strong>Default Facebook Thumb</strong> in the Wordpress<strong> Settings -&gt; General</strong> page <a href="<?php echo get_admin_url(); ?>options-general.php">here</a>.</p>
         </div>
@@ -343,9 +394,9 @@ function myfbft_plugin_options() {
             <p>This is extremely rare, and won't prevent the plug-in from doing it's job. But the most likely cause is a server side setting in php.ini that needs to be changed: <code>allow_url_fopen = On</code></p>
         </div>
 
-        <p class="topic">Where can I get support and discuss this plug-in?</p>
+        <p class="topic">Where can I get support?</p>
         <div class="help-answer">
-        	<p>There are two places to discuss this plug-in and reach out to me for support: <a href="http://www.thatwebguyblog.com/post/facebook-thumb-fixer-for-wordpress/" target="_blank">my blog</a> or on the <a href="https://wordpress.org/support/plugin/facebook-thumb-fixer">Wordpress plug-in page</a>.</p>
+        	<p>Reach for support at the <a href="https://wordpress.org/support/plugin/facebook-thumb-fixer">Wordpress plug-in repo</a>.</p>
         </div>
 
     </div>
@@ -371,8 +422,8 @@ function fbfixhead() {
 				// If there is a post image...
 				if (has_post_thumbnail()) {
 				// Set '$featuredimg' variable for the featured image.
-				$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "full");
-				$ftf_description = get_the_excerpt();
+				$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
+				$ftf_description = get_the_excerpt($post);
 				global $post;
 				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -391,7 +442,7 @@ function fbfixhead() {
 				';
 				} //...otherwise, if there is no post image.
 				else {
-				$ftf_description = get_the_excerpt();
+				$ftf_description = get_the_excerpt($post);
 				global $post;
 				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -440,8 +491,8 @@ function fbfixhead() {
 			// If there is a post image...
 			if (has_post_thumbnail()) {
 			// Set '$featuredimg' variable for the featured image.
-			$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "full");
-			$ftf_description = get_the_excerpt();
+			$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
+			$ftf_description = get_the_excerpt($post);
 			global $post;
 			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -460,7 +511,7 @@ function fbfixhead() {
 			';
 			} //...otherwise, if there is no post image.
 			else {
-			$ftf_description = get_the_excerpt();
+			$ftf_description = get_the_excerpt($post);
 			global $post;
 			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -485,20 +536,26 @@ function fbfixhead() {
 			$ot = get_option( 'homepage_object_type', '');
 			if($ot == "") { $default = "website"; } else $default = get_option( 'homepage_object_type', '');
 			$ftf_head = '
-			<!--/ Facebook Thumb Fixer Open Graph /-->
-			<meta property="og:type" content="' . $default . '" />
-			<meta property="og:url" content="' . get_option('home') . '" />
-			<meta property="og:title" content="' . wp_kses($ftf_name, array ()) . '" />
-			<meta property="og:description" content="' . wp_kses_data($ftf_description, array ()) . '" />
-			<meta property="og:site_name" content="' . wp_kses($ftf_name, array ()) . '" />
-			<meta property="og:image" content="' . get_option('default_fb_thumb') . '" />
+				<!--/ Facebook Thumb Fixer Open Graph /-->
+				<meta property="og:type" content="' . $default . '" />
+				<meta property="og:url" content="' . get_option('home') . '" />
+				<meta property="og:title" content="' . wp_kses($ftf_name, array ()) . '" />
+				<meta property="og:description" content="' . wp_kses_data($ftf_description, array ()) . '" />
+				<meta property="og:site_name" content="' . wp_kses($ftf_name, array ()) . '" />
+				<meta property="og:image" content="' . get_option('default_fb_thumb') . '" />
 
-			<meta itemscope itemtype="'. $default . '" />
-			<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
-			<meta itemprop="image" content="' . get_option('default_fb_thumb') . '" />
+				<meta itemscope itemtype="'. $default . '" />
+				<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
+				<meta itemprop="image" content="' . get_option('default_fb_thumb') . '" />
 			';
 		}
 	}
+		
   echo $ftf_head;
+  print "\n";
+ $fbaid_value = get_option('fb_app_ID');
+ if (!empty($fbaid_value)) { ?>
+  				<meta property="fb:app_id" content="<?php echo get_option('fb_app_ID'); ?>" />
+  <?php }
   print "\n";
 }

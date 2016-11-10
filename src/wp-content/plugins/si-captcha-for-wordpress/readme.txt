@@ -3,8 +3,8 @@ Contributors: Mike Challis
 Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S
 Tags: akismet, captcha, comment, comments, login, anti-spam, spam, security, multilingual
-Requires at least: 2.9
-Tested up to: 4.4.2
+Requires at least: 3.0
+Tested up to: 4.6.1
 Stable tag: trunk
 
 Adds CAPTCHA anti-spam methods to WordPress on the forms for comments, registration, lost password, login, or all.
@@ -173,8 +173,9 @@ Translations are listed below -- if a translation for your language is available
 If one is not available, and you also speak good English, please consider doing a translation yourself (see the next question).
 
 
-The following translations are included in the download zip file:
+The following translations are included:
 
+= Translators =
 * Albanian (sq_AL) - Romeo Shuka
 * Arabic (ar) - Amine Roukh
 * Belorussian (by_BY) - Marcis Gasuns
@@ -217,6 +218,11 @@ Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](
 
 
 == Changelog ==
+
+= 2.7.7.8 =
+- (22 Oct 2016) - requires at least WP 3.0
+- fix deprecated errors.
+- Change alternative text "CAPTCHA image" and "Refresh image" to "CAPTCHA" and "Refresh".
 
 = 2.7.7.7 =
 - (13 Feb 2016) - Fix: PHP Fatal error: Class 'securimage_si' not found 

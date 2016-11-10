@@ -35,8 +35,7 @@ function siteorigin_panels_ajax_widget_form(){
 	$request = array_map('stripslashes_deep', $_REQUEST);
 
 	$widget = $request['widget'];
-
-	$instance = !empty($request['instance']) ? json_decode( $request['instance'] , true ) : array();
+	$instance = !empty($request['instance']) ? json_decode( $request['instance'], true ) : array();
 
 	$form = siteorigin_panels_render_form( $widget, $instance, $_REQUEST['raw'] == 'true' );
 	$form = apply_filters('siteorigin_panels_ajax_widget_form', $form, $widget, $instance);
@@ -91,7 +90,7 @@ function siteorigin_panels_ajax_get_prebuilt_layouts(){
 		if( !empty($search) ) $query['search'] = $search;
 		$query['page'] = $page;
 
-		$url = add_query_arg( $query, SITEORIGIN_PANELS_LAYOUT_URL . '/wp-admin/admin-ajax.php?action=query_layouts');
+		$url = add_query_arg( $query, SITEORIGIN_PANELS_LAYOUT_URL . 'wp-admin/admin-ajax.php?action=query_layouts');
 		$response = wp_remote_get( $url );
 
 		if( is_array($response) && $response['response']['code'] == 200 ) {
@@ -188,7 +187,7 @@ function siteorigin_panels_ajax_get_prebuilt_layout(){
 	}
 	if( $_REQUEST['type'] == 'directory' ) {
 		$response = wp_remote_get(
-			SITEORIGIN_PANELS_LAYOUT_URL . '/layout/' . urlencode($_REQUEST['lid']) . '/?action=download'
+			SITEORIGIN_PANELS_LAYOUT_URL . 'layout/' . urlencode($_REQUEST['lid']) . '/?action=download'
 		);
 
 		// var_dump($response['body']);
@@ -254,3 +253,15 @@ function siteorigin_panels_ajax_directory_enable(){
 	wp_die();
 }
 add_action('wp_ajax_so_panels_directory_enable', 'siteorigin_panels_ajax_directory_enable');
+
+/**
+ * Preview in the live editor when there is no public view of the item
+ */
+function siteorigin_panels_live_editor_preview(){
+	if( empty( $_REQUEST['_panelsnonce'] ) || !wp_verify_nonce($_REQUEST['_panelsnonce'], 'live-editor-preview') ) wp_die();
+
+	include plugin_dir_path( __FILE__ ) . '../tpl/live-editor-preview.php';
+
+	exit();
+}
+add_action('wp_ajax_so_panels_live_editor_preview', 'siteorigin_panels_live_editor_preview');
