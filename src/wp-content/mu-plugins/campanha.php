@@ -200,9 +200,21 @@ function campanha_redirect_to_campaign_home($user = null) {
     }
 }
 
+/**
+ * Return list of plataform settings
+ * @param string $id
+ * @return string
+ */
 function getPlataformSettings($id = '')
 {
 	$sets = array();
+	$strings = Campaign::getStrings();
+	
+	$sets['label'] = array();
+	$sets['value'] = array();
+	$sets['perm'] = array();
+	$sets['options'] = array();
+	$sets['type'] = array();
 	
 	$sets['label']['email'] = __('E-Mail de Origem', 'redelivre');
 	$sets['value']['email'] = 'noreply@redelivre.org';
@@ -216,15 +228,34 @@ function getPlataformSettings($id = '')
 	$sets['label']['emailPassword'] = __('E-Mail Password', 'redelivre');
 	$sets['value']['emailPassword'] = 'redelivre';
 	//$sets['perm']['emailPassword'] = 'redelivre';
-	$sets['label']['emailTipo'] = __('Tipo do E-mail (local ou gmail', 'redelivre');
+	$sets['type']['emailPassword'] = 'password';
+	$sets['label']['emailTipo'] = __('Tipo do servidor de E-mail', 'redelivre');
 	$sets['value']['emailTipo'] = 'local';
+	$sets['type']['emailTipo'] = 'dropdown';
+	$sets['options']['emailTipo'] = array(
+		'local' => __("envio usando o servidor local (php)", 'redelivre'),
+		'gmail' => __("envio usando uma conta do gmail", 'redelivre')
+	);
 	//$sets['perm']['emailTipo'] = 'local';
 	$sets['label']['MostrarPlanos'] = __('Deve mostrar opções de planos', 'redelivre');
 	$sets['value']['MostrarPlanos'] = 'N';
+	$sets['type']['MostrarPlanos'] = 'yesno';
 	$sets['perm']['MostrarPlanos'] = 'S';
+	$planos = array();
+	foreach (Plan::getAll() as $plan)
+	{
+		$planos[$plan->id] = $plan->name;
+	}
 	$sets['label']['defaultPlan'] = __('Plano Padrão', 'redelivre');
 	$sets['value']['defaultPlan'] = '1';
+	$sets['type']['defaultPlan'] = 'dropdown';
+	$sets['options']['defaultPlan'] = $planos;
 	$sets['perm']['defaultPlan'] = 'S';
+	$sets['label']['minPerm'] = __('Permissão Mínima para criação de ', 'redelivre').$strings['value']['singular'];
+	$sets['value']['minPerm'] = 'subscriber';
+	$sets['perm']['minPerm'] = 'S';
+	$sets['options']['minPerm'] = campanha_get_editable_roles();
+	$sets['type']['minPerm'] = 'dropdown';
 	
 	// Merge default settings com defined settings
 	$sets['value'] = array_merge($sets['value'], get_option('plataform_defined_settings', array()));
@@ -235,6 +266,20 @@ function getPlataformSettings($id = '')
 	}
 	
 	return $sets;
+}
+
+function campanha_get_editable_roles()
+{
+	// $this->security_check();
+	global $wp_roles;
+
+	if(! isset($wp_roles))
+		$wp_roles = new WP_Roles();
+
+	$all_roles = $wp_roles->get_names();
+	$editable_roles = apply_filters('editable_roles', $all_roles);
+
+	return $all_roles;
 }
 
 function editStringsStylesheets()
