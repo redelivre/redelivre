@@ -50,7 +50,7 @@
 				continue;
 			}
 
-			source.style.display = '';
+			source.removeAttribute( 'style' );
 
 			/* Resize the iframe on request. */
 			if ( 'height' === data.message ) {
@@ -86,30 +86,23 @@
 		if ( loaded ) {
 			return;
 		}
+
 		loaded = true;
 
 		var isIE10 = -1 !== navigator.appVersion.indexOf( 'MSIE 10' ),
 			isIE11 = !!navigator.userAgent.match( /Trident.*rv:11\./ ),
 			iframes = document.querySelectorAll( 'iframe.wp-embedded-content' ),
-			blockquotes = document.querySelectorAll( 'blockquote.wp-embedded-content' ),
 			iframeClone, i, source, secret;
-
-		for ( i = 0; i < blockquotes.length; i++ ) {
-			blockquotes[ i ].style.display = 'none';
-		}
 
 		for ( i = 0; i < iframes.length; i++ ) {
 			source = iframes[ i ];
-			source.style.display = '';
 
-			if ( source.getAttribute( 'data-secret' ) ) {
-				continue;
+			if ( ! source.getAttribute( 'data-secret' ) ) {
+				/* Add secret to iframe */
+				secret = Math.random().toString( 36 ).substr( 2, 10 );
+				source.src += '#?secret=' + secret;
+				source.setAttribute( 'data-secret', secret );
 			}
-
-			/* Add secret to iframe */
-			secret = Math.random().toString( 36 ).substr( 2, 10 );
-			source.src += '#?secret=' + secret;
-			source.setAttribute( 'data-secret', secret );
 
 			/* Remove security attribute from iframes in IE10 and IE11. */
 			if ( ( isIE10 || isIE11 ) ) {
