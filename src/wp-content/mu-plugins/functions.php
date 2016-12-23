@@ -971,3 +971,54 @@ function campanha_plugins_api_result($res )
 	return $res;
 }
 add_filter('all_plugins', 'campanha_plugins_api_result', 1);
+
+function user_can_create_campanha()
+{
+	if(is_super_admin()) return true;
+	
+	//TODO need to get it from current roles config not from a fixed array
+	$roles_array = array(
+		"subscriber" => 0,
+		"contributor" => 1,
+		"author" => 2,
+		"editor" => 3,
+		"administrator" => 4
+	);
+	
+	$get_users_obj = get_users(
+		array(
+			'blog_id' => 1,
+			'search' => get_current_user_id()
+		)
+	);
+	if(
+		is_array($get_users_obj) &&
+		count($get_users_obj) > 0 &&
+		is_array($get_users_obj[0]->roles) &&
+		count($get_users_obj[0]->roles) > 0
+	)
+	{
+		$user_role = $get_users_obj[0]->roles[0];
+		$minPerm = getPlataformSettings('minPerm');
+		
+		if(!array_key_exists($minPerm, $roles_array))
+		{
+			throw new Exception(__('Minimum permition not found on default array!', 'redelivre'));
+		}
+		
+		if($roles_array[$minPerm] == 0)
+		{
+			return true;
+		}
+		
+		if(
+			array_key_exists($user_role, $roles_array) &&
+			array_key_exists($minPerm, $roles_array) &&
+			$roles_array[$user_role] >= $roles_array[$minPerm]
+		)
+		{
+			return true;
+		}
+	}
+	return false;
+}
