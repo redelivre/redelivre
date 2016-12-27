@@ -12,22 +12,6 @@ define('CAMPAIGN_DELETE_URL', 'admin.php?page=campaigns&action=delete');
 define('CAMPAIGN_EDIT_URL',   'admin.php?page=campaigns&action=edit');
 define('CAMPAIGN_NEW_URL',    'admin.php?page=campaigns_new');
 
-if (is_admin() && get_current_blog_id() == 1) {
-    require MUCAMPANHAPATH . '/custom_admin.php';
-}
-elseif(is_admin())
-{
-	add_action('admin_menu', function() {
-	$base_page = 'platform-settings';
-	
-	add_object_page( Campaign::getStrings('MenuPlataforma'), Campaign::getStrings('MenuPlataforma'), 'manage_options', $base_page, array());
-	
-	add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
-			require MUCAMPANHAPATH.'/admin-settings-tpl.php';
-		});
-	});
-}
-
 function campanha_setup() {
     load_theme_textdomain('campanha', MUCAMPANHAPATH . '/languages' );
 
@@ -178,6 +162,28 @@ function campanha_change_admin_home() {
 
 add_action('admin_init', 'campanha_change_admin_home');
 
+function campanha_add_manage_menu()
+{
+	if (user_can_create_campanha() ) // && get_current_blog_id() == 1)
+	{
+		require MUCAMPANHAPATH . '/custom_admin.php';
+	}
+	
+	if(get_current_blog_id() != 1)
+	{
+		add_action('admin_menu', function() {
+			$base_page = 'platform-settings';
+	
+			add_object_page( Campaign::getStrings('MenuPlataforma'), Campaign::getStrings('MenuPlataforma'), 'manage_options', $base_page, array());
+	
+			add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
+				require MUCAMPANHAPATH.'/admin-settings-tpl.php';
+			});
+		});
+	}
+}
+add_action('init', 'campanha_add_manage_menu');
+
 /**
  * Return the link to the campaign admin home page for the user
  * depending whether he has campaigns or not.
@@ -321,3 +327,54 @@ function campanha_new_user_to_root($user_id)
 	add_user_to_blog('1', $user_id, 'subscriber');
 }
 add_action( 'wpmu_new_user', 'campanha_new_user_to_root', 10, 2);
+
+function user_can_create_campanha()
+{
+	if(is_super_admin()) return true;
+
+	//TODO need to get it from current roles config not from a fixed array
+	$roles_array = array(
+		"subscriber" => 0,
+		"contributor" => 1,
+		"author" => 2,
+		"editor" => 3,
+		"administrator" => 4
+	);
+
+	$get_users_obj = get_users(
+			array(
+				'blog_id' => 1,
+				'search' => get_current_user_id()
+			)
+			);
+	if(
+			is_array($get_users_obj) &&
+			count($get_users_obj) > 0 &&
+			is_array($get_users_obj[0]->roles) &&
+			count($get_users_obj[0]->roles) > 0
+			)
+	{
+		$user_role = $get_users_obj[0]->roles[0];
+		$minPerm = getPlataformSettings('minPerm');
+
+		if(!array_key_exists($minPerm, $roles_array))
+		{
+			throw new Exception(__('Minimum permition not found on default array!', 'redelivre'));
+		}
+
+		if($roles_array[$minPerm] == 0)
+		{
+			return true;
+		}
+
+		if(
+				array_key_exists($user_role, $roles_array) &&
+				array_key_exists($minPerm, $roles_array) &&
+				$roles_array[$user_role] >= $roles_array[$minPerm]
+				)
+		{
+			return true;
+		}
+	}
+	return false;
+}
