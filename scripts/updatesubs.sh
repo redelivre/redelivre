@@ -35,7 +35,7 @@ git checkout observatorio-de-remocoes
 git pull
 
 cd $PWDAtual/src/wp-content/jaiminho
-git checkout 1.7.3.19
+git checkout 1.7.12.15
 git pull
 
 if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
