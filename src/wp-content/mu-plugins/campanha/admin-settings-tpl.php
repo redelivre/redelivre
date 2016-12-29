@@ -18,7 +18,7 @@ foreach ($plataformSettingsStrings['label'] as $key => $label)
 	switch ($type)
 	{
 		case 'password':
-			echo '<p style="'.$display.'"><label>'.$label.'</label><br><input type="password" value="'.$value.'" name="plataform_settings_strings['.$key.']" size="80"></p>';
+			echo '<p style="'.$display.'"><label>'.$label.'</label><br><input type="password" value="" name="plataform_settings_strings['.$key.']" size="80"></p>';
 		break;
 		case 'dropdown':
 			if(array_key_exists($key, $plataformSettingsStrings['options']))
