@@ -295,11 +295,41 @@ function editStringsStylesheets()
 
 add_action('admin_enqueue_scripts', 'editStringsStylesheets');
 
-function savePlataformSettings()
+function savePlataformSettings($sets = false)
 {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['plataform_settings_strings'])) {
-        $_POST['plataform_settings_strings'] = array_merge(getPlataformSettings(), $_POST['plataform_settings_strings']);
-
+	$set_values = array();
+	if($sets && is_array($sets) && array_key_exists('value', $sets))
+	{
+		$set_values = $sets['value'];
+	}
+	elseif (is_array($sets))
+	{
+		$set_values = $sets;
+		$sets = getPlataformSettings();
+	}
+	else 
+	{
+		$sets = getPlataformSettings();
+		$set_values = $sets['value'];
+	}
+	
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['plataform_settings_strings']))
+    {
+        $_POST['plataform_settings_strings'] = array_merge($set_values, $_POST['plataform_settings_strings']);
+        foreach ($_POST['plataform_settings_strings'] as $set => $value)
+        {
+        	$value = sanitize_text_field($value);
+        	if(empty($value))
+        	{
+	        	if(array_key_exists($set, $sets['type']) && $sets['type'][$set] == 'password') // do not save not changed password
+	        	{
+	        		$_POST['plataform_settings_strings'][$set] = $sets['value'][$set];
+	        		continue;
+	        	}
+        	}
+        	$_POST['plataform_settings_strings'][$set] = $value;
+        }
+        
         if (update_option('plataform_defined_settings', $_POST['plataform_settings_strings']))
         {
             echo 'Dados atualizados com sucesso!';
