@@ -253,7 +253,11 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		global $siteorigin_panels_current_post;
 
 		if( !empty($siteorigin_panels_current_post) ){
-			if(!empty($query_args['post__not_in'])){
+			if( !empty( $query_args['post__not_in'] ) ){
+				if( !is_array( $query_args['post__not_in'] ) ){
+					$query_args['post__not_in'] = explode( ',', $query_args['post__not_in'] );
+					$query_args['post__not_in'] = array_map( 'intval', $query_args['post__not_in'] );
+				}
 				$query_args['post__not_in'][] = $siteorigin_panels_current_post;
 			}
 			else {
@@ -267,7 +271,7 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		}
 
 		// Create the query
-		query_posts($query_args);
+		query_posts( apply_filters( 'siteorigin_panels_postloop_query_args', $query_args ) );
 		echo $args['before_widget'];
 
 		// Filter the title
@@ -398,7 +402,7 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('more') ?>"><?php _e('More Link ', 'siteorigin-panels') ?></label>
+			<label for="<?php echo $this->get_field_id('more') ?>"><?php _e('More Link', 'siteorigin-panels') ?></label>
 			<input type="checkbox" class="widefat" id="<?php echo $this->get_field_id( 'more' ) ?>" name="<?php echo $this->get_field_name( 'more' ) ?>" <?php checked( $instance['more'] ) ?> /><br/>
 			<small><?php _e('If the template supports it, cut posts and display the more link.', 'siteorigin-panels') ?></small>
 		</p>
