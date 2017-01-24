@@ -3,8 +3,8 @@ Contributors: mekshq
 Donate link: http://mekshq.com/
 Tags: ad, ads, affiliate, niche, advertising, advertisement, marketing, sidebar, widget
 Requires at least: 3.0
-Tested up to: 4.6
-Stable tag: 1.2.2
+Tested up to: 4.7
+Stable tag: 2.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -45,6 +45,15 @@ For any questions, error reports and suggestions please email support@mekshq.com
 3. Widget in action example
 
 == Changelog ==
+
+= 2.0.1 =
+* Fixed: Rotate (slide) option not working properly with code ads
+
+= 2.0 =
+* Added a possibility to upload an image from media library
+* New ad type: you can paste code for ads instead of image ads
+* Added a possibility to reorder (drag and drop) ads
+* Added "remove" ad button
 
 = 1.2.2 =
 * Option to disable opening links in new window

@@ -30,6 +30,8 @@ class MKS_Ads_Widget extends WP_Widget {
 				'no_target_blank' => 0
 		);
 
+
+
 		//Allow themes or plugins to modify default parameters
 		$this->defaults = apply_filters('mks_ads_widget_modify_defaults', $this->defaults);
 		
@@ -41,14 +43,18 @@ class MKS_Ads_Widget extends WP_Widget {
     }
   
   	function enqueue_admin_scripts(){
-		wp_enqueue_script( 'meks-ads-widget-js', MKS_ADS_WIDGET_URL.'js/main.js', array( 'jquery'), MKS_ADS_WIDGET_VER );	
+  		wp_enqueue_media();
+  		wp_enqueue_style( 'meks-ads-widget-admin', MKS_ADS_WIDGET_URL.'css/admin-style.css', false, MKS_ADS_WIDGET_VER );
+		wp_enqueue_script( 'meks-ads-widget-js', MKS_ADS_WIDGET_URL.'js/main.js', array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-tabs'), MKS_ADS_WIDGET_VER );	
   	}
   
 	
 	function widget( $args, $instance ) {
 		
-		$instance = wp_parse_args( (array) $instance, $this->defaults );	
-		extract( $args );	
+		$instance = wp_parse_args( (array) $instance, $this->defaults );
+
+		extract( $args );
+
 		$title = apply_filters('widget_title', $instance['title'] );
 		
 		echo $before_widget;	
@@ -71,11 +77,12 @@ class MKS_Ads_Widget extends WP_Widget {
 				$show_ind = 0;
 
 				if( $instance['size'] == 'custom' ){
-					$ad_size = 'style="width:'.$instance['ad_width'].'px; height:'.$instance['ad_height'].'px;" width="'.$instance['ad_width'].'"  height="'.$instance['ad_height'].'"';
+					$height = $instance['ad_height'] ? $instance['ad_height'].'px' : 'auto';
+					$ad_size = 'style="width:'.$instance['ad_width'].'px; height:'.$height.';" width="'.$instance['ad_width'].'"  height="'.$instance['ad_height'].'"';
 				} else if($instance['size'] == 'large'){
-					$ad_size = 'width="300"  height="250"';
+					$ad_size = 'style="width:300px; height:250px;" width="300"  height="250"';
 				} else if($instance['size'] == 'small'){
-					$ad_size = 'width="125"  height="125"';
+					$ad_size = 'style="width:125px; height:125px;" width="125"  height="125"';
 				}
 
 				$nofollow = $instance['nofollow'] ? 'rel="nofollow"' : '';
@@ -86,7 +93,22 @@ class MKS_Ads_Widget extends WP_Widget {
 			
 			<ul class="mks_adswidget_ul <?php echo $instance['size'];?>">
 	     		<?php foreach($instance['ads'] as $ind => $ad) : ?>
-	     		<li data-showind="<?php echo $show_ind; ?>"><a href="<?php echo $ad['link'];?>" <?php echo $target; ?> <?php echo $nofollow; ?>><img src="<?php echo $ad['img'];?>" alt="<?php echo esc_attr(basename($ad['img'])); ?>" <?php echo $ad_size; ?>/></a></li>
+	     			<?php $ad['type'] = !isset( $ad['type'] ) ? 'image' : $ad['type']; ?>
+	     			<?php if( $ad['type'] === 'image' && !empty($ad['link']) && !empty($ad['img']) ) : ?>
+			     		<li data-showind="<?php echo $show_ind; ?>">
+			     			<a href="<?php echo esc_url($ad['link']);?>" <?php echo $target; ?> <?php echo $nofollow; ?>>
+			     				<img src="<?php echo esc_url($ad['img']);?>" alt="<?php echo esc_attr(basename($ad['img'])); ?>" <?php echo $ad_size; ?>/>
+			     			</a>
+			     		</li>
+		     		<?php else: ?>
+			     		<?php if( $ad['type'] === 'code' && !empty( $ad['code'] ) ) : ?>
+			     			<li data-showind="<?php echo $show_ind; ?>">
+				     			<div <?php echo $ad_size; ?>>
+				     				<?php echo do_shortcode($ad['code']); ?>	
+				     			</div>
+				     		</li>
+			     		<?php endif; ?>
+		     		<?php endif; ?>
 	     		<?php 
 	     			if( !(($ind+1) % $instance['num_per_view'])){
 	     				$show_ind++;
@@ -161,15 +183,15 @@ class MKS_Ads_Widget extends WP_Widget {
 		$instance['ad_width'] = absint($new_instance['ad_width']);
 		$instance['ad_height'] = absint($new_instance['ad_height']);
 		$instance['ads'] = array();
-		
-		if(!empty($new_instance['ad_img']) && !empty($new_instance['ad_link'])){
+
+		if(!empty($new_instance['ad_img']) && !empty($new_instance['ad_link']) && !empty($new_instance['ad_code']) ){
 			for($i=0; $i < (count($new_instance['ad_img']) - 1); $i++){
-				if(!empty($new_instance['ad_img'][$i]) && !empty($new_instance['ad_link'][$i])){
 					$ad = array();
-					$ad['img'] = esc_url($new_instance['ad_img'][$i]);
-					$ad['link'] = esc_url($new_instance['ad_link'][$i]);
+					$ad['link'] = !empty($new_instance['ad_link']) ? esc_url( $new_instance['ad_link'][$i] ) : '';
+					$ad['img'] = !empty($new_instance['ad_img']) ? esc_url( $new_instance['ad_img'][$i] ) : '';
+					$ad['code'] = !empty($new_instance['ad_img']) ? $new_instance['ad_code'][$i] : '';
+					$ad['type'] = !empty($new_instance['ad_type']) ? $new_instance['ad_type'][$i] : '';
 					$instance['ads'][] = $ad;
-				}
 			}	
 		}
 		
@@ -179,14 +201,14 @@ class MKS_Ads_Widget extends WP_Widget {
 	function form( $instance ) {
 
 		$instance = wp_parse_args( (array) $instance, $this->defaults ); ?>
-		
+			
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title', 'meks-easy-ads-widget'); ?>:</label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
 		</p>
 		
+		<h4><?php _e('Ads Size', 'meks-easy-ads-widget'); ?>:</h4>
 		<p>
-			<label><?php _e('Ads Size', 'meks-easy-ads-widget'); ?>:</label><br/>
 			<input type="radio" name="<?php echo $this->get_field_name( 'size' ); ?>" class="mks-ad-size" value="small" <?php checked($instance['size'],'small'); ?>/>
 			<label><?php _e('Small (125x125 px)', 'meks-easy-ads-widget'); ?></label><br/>
 			<input type="radio" name="<?php echo $this->get_field_name( 'size' ); ?>" class="mks-ad-size" value="large" <?php checked($instance['size'],'large'); ?>/>
@@ -241,38 +263,67 @@ class MKS_Ads_Widget extends WP_Widget {
 		
 	  <h4><?php _e('Ads', 'meks-easy-ads-widget'); ?>:</h4>
 	  <p>
-		  <ul class="mks_ads_container">
-		  <?php foreach($instance['ads'] as $ad) : ?>
-		  	<li style="margin-bottom: 15px;">
-					<label><?php _e('Ad Image URL', 'meks-easy-ads-widget'); ?>:</label>
-					<input type="text" name="<?php echo $this->get_field_name( 'ad_img' ); ?>[]" value="<?php echo $ad['img']; ?>" class="widefat" />
-					<label><?php _e('Ad Link', 'meks-easy-ads-widget'); ?>:</label>
-					<input type="text" name="<?php echo $this->get_field_name( 'ad_link' ); ?>[]" value="<?php echo $ad['link']; ?>" class="widefat" />
-			</li>
+		  <ul class="mks-ads-container mks-ads-sortable">
+		  <?php foreach( $instance['ads'] as $ad ) : ?>
+		  	<?php $this->generate_ad_field( $ad ); ?>
 		  <?php endforeach; ?>
 		 </ul>
 	  </p>
 	  
 	  <p>
-	  	<a href="#" class="mks_add_ad button"><?php _e('Add New', 'meks-easy-ads-widget'); ?></a>
+	  	<a href="#" class="mks-ads-add button"><?php _e('Add New', 'meks-easy-ads-widget'); ?></a>
 	  </p>
 	  
-		<div class="mks_ads_clone" style="display:none">
-			<label><?php _e('Ad Image URL', 'meks-easy-ads-widget'); ?>:</label>
-			<input type="text" name="<?php echo $this->get_field_name( 'ad_img' ); ?>[]" class="widefat" />
-			<label><?php _e('Ad Link URL', 'meks-easy-ads-widget'); ?>:</label>
-			<input type="text" name="<?php echo $this->get_field_name( 'ad_link' ); ?>[]" class="widefat" />
+		<div class="mks-ads-clone" style="display:none">
+			<?php $this->generate_ad_field(); ?>
 	  </div>
 	  
 	<?php
 	}
+
+	function generate_ad_field( $ad = array() ){
+
+		$ad = wp_parse_args( $ad, array('link' => '', 'img' => '', 'code' => '', 'type' => 'image' ) );
+		$tab_1 = $ad['type'] === 'image' ? "active" : ''; 
+		$tab_2 = $ad['type'] === 'code' ? "active" : '';
+		?>
+
+		<li>
+			<span class="mks-remove-ad dashicons dashicons-no-alt"></span>
+			<ul class="mks-tabs">
+			    <li class="mks-tab-link <?php echo $tab_1; ?>" data-tab="tab-1">Image</li>
+			    <li class="mks-tab-link <?php echo $tab_2; ?>" data-tab="tab-2">Code</li>
+			</ul>
+			<div class="mks-tabs-wrapper">
+				<div id="tab-1" class="mks-tab-content <?php echo $tab_1; ?>" data-type="image">
+					<label><?php _e('Link URL', 'meks-easy-ads-widget'); ?>:</label>
+					<input type="text" name="<?php echo $this->get_field_name( 'ad_link' ); ?>[]" value="<?php echo esc_url($ad['link']); ?>" class="widefat" />
+					<label><?php _e('Image URL', 'meks-easy-ads-widget'); ?>:</label>
+					<input type="text" name="<?php echo $this->get_field_name( 'ad_img' ); ?>[]" value="<?php echo esc_url($ad['img']); ?>" class="mks-ads-field-width"/>
+					<a href="#" class="mks-ads-select-image-btn button"><?php _e('Select image', 'meks-easy-ads-widget'); ?></a>
+					<small class="howto"><?php _e('Specify URLs to your image and link', 'meks-easy-ads-widget'); ?></small>
+				</div>
+				<div id="tab-2" class="mks-tab-content <?php echo $tab_2; ?>" data-type="code">	
+					<label class="mks-ads-code-label"><?php _e('Ad Code', 'meks-easy-ads-widget'); ?>:</label>
+					<textarea name="<?php echo $this->get_field_name( 'ad_code' ); ?>[]" rows="4" cols="50" class="widefat"><?php echo $ad['code']; ?></textarea>
+					<small class="howto"><?php _e('Paste your ad code here. Note: Scripts, HTML and shortcodes are supported.', 'meks-easy-ads-widget'); ?></small>
+				</div>
+				<input type="hidden" id="tab-type" type="text" name="<?php echo $this->get_field_name( 'ad_type' ); ?>[]" value="<?php echo $ad['type']; ?>"/>
+			</div>
+		</li>
+
+		<?php
+	}
+
 }
+
+
+add_action( 'plugins_loaded', 'mks_load_ads_widget_text_domain' );
 
 /* Load text domain */
 function mks_load_ads_widget_text_domain() {
   load_plugin_textdomain( 'meks-easy-ads-widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
-add_action( 'plugins_loaded', 'mks_load_ads_widget_text_domain' );
 
 ?>

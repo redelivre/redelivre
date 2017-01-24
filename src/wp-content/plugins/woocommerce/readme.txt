@@ -3,7 +3,7 @@ Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, code
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 2.6.11
+Stable tag: 2.6.13
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,7 +78,7 @@ And there’s plenty more where they came from. Visit our [extensions page](http
 
 When you download WooCommerce, you join a community of more than a million store owners, developers, and WordPress enthusiasts. We’re one of the fastest-growing open source communities online, and whether you’re a n00b or a Ninja, we’d love to have you!
 
-If you’re interested in contributing to WooCommerce we’ve got more than 350 contributors, and there’s always room for more. Head over to the [WooCommerce GitHub Repository](https://github.com/woothemes/woocommerce) to find out how you can pitch in.
+If you’re interested in contributing to WooCommerce we’ve got more than 350 contributors, and there’s always room for more. Head over to the [WooCommerce GitHub Repository](https://github.com/woocommerce/woocommerce) to find out how you can pitch in.
 
 Want to add a new language to WooCommerce? Swell! You can contribute via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/woocommerce).
 
@@ -125,7 +125,7 @@ For extending or theming WooCommerce, see our [codex](https://docs.woocommerce.c
 
 If you get stuck, you can ask for help in the [WooCommerce Plugin Forum](https://wordpress.org/support/plugin/woocommerce).
 
-For help with premium extensions from WooThemes, use [our helpdesk](https://support.woothemes.com/).
+For help with premium extensions from WooCommerce.com, use [our helpdesk](https://woocommerce.com/my-account/tickets/).
 
 = Will WooCommerce work with my theme? =
 
@@ -137,15 +137,15 @@ You can vote on and request new features and extensions in our [WooIdeas board](
 
 = Where can I report bugs or contribute to the project? =
 
-Bugs can be reported either in our support forum or preferably on the [WooCommerce GitHub repository](https://github.com/woothemes/woocommerce/issues).
+Bugs can be reported either in our support forum or preferably on the [WooCommerce GitHub repository](https://github.com/woocommerce/woocommerce/issues).
 
 = Where can I find the REST API documentation? =
 
-You can find the documentation of our REST API on the [WooCommerce REST API Docs](https://woothemes.github.io/woocommerce-rest-api-docs/).
+You can find the documentation of our REST API on the [WooCommerce REST API Docs](https://woocommerce.github.io/woocommerce-rest-api-docs/).
 
 = WooCommerce is awesome! Can I contribute? =
 
-Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/woocommerce/) :)
+Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/woocommerce/) :)
 
 == Screenshots ==
 
@@ -158,17 +158,30 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 
 == Changelog ==
 
+= 2.6.13 - 2017-01-18 =
+* Fix - Demo store banner styling in 2017.
+* Fix - Removed default instructions from COD, BACS and Cheque gateways so displayed messages can be unset.
+* Fix - Made variation options update on first load.
+* Localisation - Added Romanian locale to the installer.
+
+= 2.6.12 - 2017-01-12 =
+* Fix - Make images shown up on pageload when using ajax variations.
+* Fix - Allow variations options to be deselected in IE11.
+* Fix - Disabled-button and pagination styling in 2017.
+* Fix - PHP 7.1 compatibility issues with non-numeric math operations.
+* Fix - Fix notices in abstract class when price is empty.
+
 = 2.6.11 - 2016-12-22 =
 * Fix - Variation form compatibility with quotes in attribute values, and initial variation image fadeIn on certain configs.
 
 = 2.6.10 - 2016-12-22 =
-* Fix flat rate no class costs when no shipping classes exist.
-* Fix returned REST API coupon expiry date.
-* Fix reviews_allowed being set to false in Rest API.
-* Fix sales date series for some custom ranges.
-* Fix missing attributes when an option is chosen by default on variations. This was the result of a Firefox 50 compatibility fix. In order to support both Firefox, Chrome, IE, and Edge we've done some refactoring of the variation add to cart scripts.
-* Updated Geo IP API services.
-* Added support for WP VIP/VIP GO GEO IP headers.
+* Fix - Flat rate no class costs when no shipping classes exist.
+* Fix - Returned REST API coupon expiry date.
+* Fix - reviews_allowed being set to false in Rest API.
+* Fix - Sales date series for some custom ranges.
+* Fix - Missing attributes when an option is chosen by default on variations. This was the result of a Firefox 50 compatibility fix. In order to support both Firefox, Chrome, IE, and Edge we've done some refactoring of the variation add to cart scripts.
+* Tweak - Updated Geo IP API services.
+* Dev - Added support for WP VIP/VIP GO GEO IP headers.
 * Dev - API - Throw error messages when product image ID is not a valid WordPress attachment ID.
 
 = 2.6.9 - 2016-12-07 =
@@ -396,9 +409,9 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 * Tweak - Allow failed orders to be edited.
 * Tweak - If there are no shipping methods setup, don’t prompt for shipping at checkout.
 * Tweak - Allowed country exclusion, rather than just inclusion, in ‘sell to’ setting.
-* Lots, lots more - [see the comparison here](https://github.com/woothemes/woocommerce/compare/2.5.5...2.6.0).
+* Lots, lots more - [see the comparison here](https://github.com/woocommerce/woocommerce/compare/2.5.5...2.6.0).
 
-[See changelog for all versions](https://raw.githubusercontent.com/woothemes/woocommerce/master/CHANGELOG.txt).
+[See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce/master/CHANGELOG.txt).
 
 == Upgrade Notice ==
 
