@@ -197,3 +197,6 @@
 	path = src/wp-content/plugins/wooredelivre
 	url = git@github.com:redelivre/wooredelivre.git
 	branch = master
+[submodule "src/wp-content/plugins/wordpress-mu-domain-mapping"]
+	path = src/wp-content/plugins/wordpress-mu-domain-mapping
+	url = git@github.com:redelivre/wordpress-mu-domain-mapping.git
