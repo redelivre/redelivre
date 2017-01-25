@@ -190,3 +190,10 @@
 [submodule "src/wp-content/plugins/wp-barra-brasil"]
 	path = src/wp-content/plugins/wp-barra-brasil
 	url = git@github.com:redelivre/wp-barra-brasil.git
+[submodule "src/wp-content/themes/wp-divi-3"]
+	path = src/wp-content/themes/wp-divi-3
+	url = git@github.com:redelivre/wp-divi
+[submodule "src/wp-content/plugins/wooredelivre"]
+	path = src/wp-content/plugins/wooredelivre
+	url = git@github.com:redelivre/wooredelivre.git
+	branch = master

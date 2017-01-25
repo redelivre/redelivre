@@ -2,8 +2,8 @@
 Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, woothemes, icaleb
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront
 Requires at least: 4.4
-Tested up to: 4.6
-Stable tag: 2.6.7
+Tested up to: 4.7
+Stable tag: 2.6.13
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,7 +78,7 @@ And there’s plenty more where they came from. Visit our [extensions page](http
 
 When you download WooCommerce, you join a community of more than a million store owners, developers, and WordPress enthusiasts. We’re one of the fastest-growing open source communities online, and whether you’re a n00b or a Ninja, we’d love to have you!
 
-If you’re interested in contributing to WooCommerce we’ve got more than 350 contributors, and there’s always room for more. Head over to the [WooCommerce GitHub Repository](https://github.com/woothemes/woocommerce) to find out how you can pitch in.
+If you’re interested in contributing to WooCommerce we’ve got more than 350 contributors, and there’s always room for more. Head over to the [WooCommerce GitHub Repository](https://github.com/woocommerce/woocommerce) to find out how you can pitch in.
 
 Want to add a new language to WooCommerce? Swell! You can contribute via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/woocommerce).
 
@@ -125,7 +125,7 @@ For extending or theming WooCommerce, see our [codex](https://docs.woocommerce.c
 
 If you get stuck, you can ask for help in the [WooCommerce Plugin Forum](https://wordpress.org/support/plugin/woocommerce).
 
-For help with premium add-ons from WooThemes, use [our helpdesk](https://support.woothemes.com/).
+For help with premium extensions from WooCommerce.com, use [our helpdesk](https://woocommerce.com/my-account/tickets/).
 
 = Will WooCommerce work with my theme? =
 
@@ -137,15 +137,15 @@ You can vote on and request new features and extensions in our [WooIdeas board](
 
 = Where can I report bugs or contribute to the project? =
 
-Bugs can be reported either in our support forum or preferably on the [WooCommerce GitHub repository](https://github.com/woothemes/woocommerce/issues).
+Bugs can be reported either in our support forum or preferably on the [WooCommerce GitHub repository](https://github.com/woocommerce/woocommerce/issues).
 
 = Where can I find the REST API documentation? =
 
-You can find the documentation of our REST API on the [WooCommerce REST API Docs](https://woothemes.github.io/woocommerce-rest-api-docs/).
+You can find the documentation of our REST API on the [WooCommerce REST API Docs](https://woocommerce.github.io/woocommerce-rest-api-docs/).
 
 = WooCommerce is awesome! Can I contribute? =
 
-Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/woocommerce/) :)
+Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/woocommerce/) :)
 
 == Screenshots ==
 
@@ -158,17 +158,67 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 
 == Changelog ==
 
-= 2.6.7 - 26/10/16 =
+= 2.6.13 - 2017-01-18 =
+* Fix - Demo store banner styling in 2017.
+* Fix - Removed default instructions from COD, BACS and Cheque gateways so displayed messages can be unset.
+* Fix - Made variation options update on first load.
+* Localisation - Added Romanian locale to the installer.
+
+= 2.6.12 - 2017-01-12 =
+* Fix - Make images shown up on pageload when using ajax variations.
+* Fix - Allow variations options to be deselected in IE11.
+* Fix - Disabled-button and pagination styling in 2017.
+* Fix - PHP 7.1 compatibility issues with non-numeric math operations.
+* Fix - Fix notices in abstract class when price is empty.
+
+= 2.6.11 - 2016-12-22 =
+* Fix - Variation form compatibility with quotes in attribute values, and initial variation image fadeIn on certain configs.
+
+= 2.6.10 - 2016-12-22 =
+* Fix - Flat rate no class costs when no shipping classes exist.
+* Fix - Returned REST API coupon expiry date.
+* Fix - reviews_allowed being set to false in Rest API.
+* Fix - Sales date series for some custom ranges.
+* Fix - Missing attributes when an option is chosen by default on variations. This was the result of a Firefox 50 compatibility fix. In order to support both Firefox, Chrome, IE, and Edge we've done some refactoring of the variation add to cart scripts.
+* Tweak - Updated Geo IP API services.
+* Dev - Added support for WP VIP/VIP GO GEO IP headers.
+* Dev - API - Throw error messages when product image ID is not a valid WordPress attachment ID.
+
+= 2.6.9 - 2016-12-07 =
+* Theme - Added support for Twenty Seventeen Theme.
+* Fix - Excluded webhook delivery logs from comments count.
+* Fix - Included password strength meter in "Lost Password" page.
+* Fix - Order fee currency in admin screen.
+* Fix - Variation selection on Firefox 40.
+* Fix - Don't prevent submission when table is not found on cart.
+* Fix - Improved layered nav counts on attribute archives.
+* Fix - Fixed pagination when removing layered nav items via widget.
+* Fix - Default BE tax rate.
+* Fix - Downloads should store variation ID rather than product if set. Also fixes link on account page.
+* Fix - Use wp_list_sort instead of _usort_terms_by_ID to be compatible with 4.7.
+* Fix - Only return empty string if empty for weight and dimension functions.
+* Fix - Added correct fallbacks for logout/lost password URLs when endpoints are not defined.
+* Security - Wrapped admin tax rate table values in _escape to thwart evil CSVs an admin user could upload. Vulnerability was discovered by Fortinet’s FortiGuard Labs.
+* Dev - API - Only update categories menu order and display if defined.
+* Dev - Fixed when should deliver wp_trash_post webhooks.
+
+= 2.6.8 - 2016-11-10 =
+* Fix - REQUEST_URI was missing a trailing slash when being compared in the cache prevention functions.
+* Fix - Prevent issues when sending empty prices to PayPal.
+* Fix - Invalid email check.
+* Tweak - New extensions screen.
+
+= 2.6.7 - 2016-10-26 =
 * Fix - Use FLOOR and CEIL to get price filter values. Fixes the issue where max price is capped at 99.
 * Fix - Hide "Sales this month" information from Dashboard widget for users that don't have `view_woocommerce_reports` capability.
 * Fix - Remove notices only once on cart so subsequent notices do not remove older notices.
 * Tweak - Improve credit card fields for better mobile experience.
 
-= 2.6.6 - 20/10/16 =
+= 2.6.6 - 2016-10-20 =
 * Fix - Conflict with Local Pickup Plus extension due to 2.7.x code in has_shipping_method().
 * Fix - Shipping method display order on frontend.
 
-= 2.6.5 - 19/10/16 =
+= 2.6.5 - 2016-10-19 =
 * Fix - Shipping classes URL in admin.
 * Fix - Notice in reports when using custom date ranges.
 * Fix - When checking needs_shipping, ignore anything after : in the method ID.
@@ -211,7 +261,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 * Tweak - Password reset now uses WP functions.
 * Tweak - Format US 9-digit postcodes.
 
-= 2.6.4 - 26/07/16 =
+= 2.6.4 - 2016-07-26 =
 * Fix - Security - Only allow image MIME type upload via REST APIs.
 * Fix - Shipping method title display in COD settings.
 * Fix - Order date input in Edge browser.
@@ -224,7 +274,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 * Dev - CLI - Explode tags and category IDs to allow multiple comma separated values.
 * Dev - add $order arg to woocommerce_admin_order_item_class and woocommerce_admin_html_order_item_class filters.
 
-= 2.6.3 - 19/07/16 =
+= 2.6.3 - 2016-07-19 =
 * Fix - Security - Escape captions in product-thumbnail and product-image templates (template versions have been bumped).
 * Fix - Fixed how we calculate shipping tax rates when using more than one tax class.
 * Fix - When duplicating product variations, set title, name, and guid.
@@ -257,7 +307,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 * Tweak - Updated all URLs from WooThemes.com to WooCommerce.com.
 * Tweak - Cache the result of WC_Comments::wp_count_comments() in a transient (improves performance).
 
-= 2.6.2 - 30/06/16 =
+= 2.6.2 - 2016-06-30 =
 * Fix - Set max index length on woocommerce_payment_tokenmeta table for utf8mb4 support.
 * Fix - is_available check for legacy shipping methods.
 * Fix - wc_add_to_cart_message() when non-array is passed.
@@ -294,7 +344,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 * Tweak - Improve wc_orders_count() performance by running a query to count only posts of the given status.
 * Tweak - To allow my account page tabs to be disabled without code, you can now set the endpoint value to a blank string.
 
-= 2.6.1 - 16/06/16 =
+= 2.6.1 - 2016-06-16 =
 * Fix - Added missing localized format for line taxes in orders screen to prevent total miscalculation in manual orders.
 * Fix - Improved the hour and time fields validation pattern on the orders screen.
 * Fix - PayPal does not allow free products, but paid shipping. Workaround by sending shipping as a line item if it is the only cost.
@@ -314,7 +364,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 * Tweak - Allow max_fee in addition to min_fee in flat rate costs fields.
 * Tweak - Wrap order_schema_markup() output in hidden div in case script tag is stripped.
 
-= 2.6.0 - 14/06/16 =
+= 2.6.0 - 2016-06-14 =
 * Feature - Introduced Shipping Zone functionality, and re-usable instance based shipping methods.
 * Feature - Tabbed "My Account" area.
 * Feature - Cart operations now use ajax (item quantities/remove, coupon apply/remove, shipping options).
@@ -359,9 +409,9 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 * Tweak - Allow failed orders to be edited.
 * Tweak - If there are no shipping methods setup, don’t prompt for shipping at checkout.
 * Tweak - Allowed country exclusion, rather than just inclusion, in ‘sell to’ setting.
-* Lots, lots more - [see the comparison here](https://github.com/woothemes/woocommerce/compare/2.5.5...2.6.0).
+* Lots, lots more - [see the comparison here](https://github.com/woocommerce/woocommerce/compare/2.5.5...2.6.0).
 
-[See changelog for all versions](https://raw.githubusercontent.com/woothemes/woocommerce/master/CHANGELOG.txt).
+[See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce/master/CHANGELOG.txt).
 
 == Upgrade Notice ==
 

@@ -2,12 +2,14 @@
 /*
 Plugin Name: Meks Smart Social Widget
 Plugin URI: http://mekshq.com
-Description: Easily display up to 40 social icons inside WordPress widget. Choose from different icon shapes and sizes and quickly connect your website with your social profiles. Aim, Apple, Behance, Blogger, Cargo, 
+Description: Easily display more than social icons inside WordPress widget. Choose from different icon shapes and sizes and quickly connect your website with your social profiles. Aim, Apple, Behance, Blogger, Cargo, 
 Delicious, DeviantArt, Digg, Dribbble, Envato, Evernote, Facebook, Flickr, Forrst, Github, Google, GooglePlus, GrooveShark, Icloud, Instagram, LastFM, LinkedIN, MySpace, Picasa, 
 Pinterest, ReddIt, Rss, Skype, Spotify, StumbleUpon, Tumblr, Twitter, Vimeo, Vine, WordPress, Xing, Youtube, Zerply, 500px...
-Author: MeksHQ
-Version: 1.2.5
+Author: Meks
+Version: 1.3
 Author URI: http://mekshq.com
+Text Domain: meks-smart-social-widget
+Domain Path: /languages
 */
 
 
@@ -30,7 +32,7 @@ Author URI: http://mekshq.com
 
 define ('MKS_SOCIAL_WIDGET_URL', trailingslashit(plugin_dir_url(__FILE__)));
 define ('MKS_SOCIAL_WIDGET_DIR', trailingslashit(plugin_dir_path(__FILE__)));
-define ('MKS_SOCIAL_WIDGET_VER', '1.2.5');
+define ('MKS_SOCIAL_WIDGET_VER', '1.3');
 
 /* Initialize Widget */
 if(!function_exists('mks_social_widget_init')):
@@ -45,7 +47,7 @@ add_action('widgets_init','mks_social_widget_init');
 
 /* Load text domain */
 function mks_load_social_widget_text_domain() {
-  load_plugin_textdomain( 'meks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+  load_plugin_textdomain( 'meks-smart-social-widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 add_action( 'plugins_loaded', 'mks_load_social_widget_text_domain' );

@@ -871,6 +871,7 @@ class WC_Product {
 		if ( $price === '' ) {
 			$price = $this->get_price();
 		}
+		$price = (float) $price;
 
 		if ( $this->is_taxable() ) {
 
@@ -931,6 +932,7 @@ class WC_Product {
 		if ( $price === '' ) {
 			$price = $this->get_price();
 		}
+		$price = (float) $price;
 
 		if ( $this->is_taxable() && 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) {
 			$tax_rates  = WC_Tax::get_base_tax_rates( $this->tax_class );
@@ -1462,7 +1464,7 @@ class WC_Product {
 	 * @return string
 	 */
 	public function get_length() {
-		return apply_filters( 'woocommerce_product_length', $this->length ? $this->length : '', $this );
+		return apply_filters( 'woocommerce_product_length', '' === $this->length ? '' : wc_format_decimal( $this->length ), $this );
 	}
 
 	/**
@@ -1470,7 +1472,7 @@ class WC_Product {
 	 * @return string
 	 */
 	public function get_width() {
-		return apply_filters( 'woocommerce_product_width', $this->width ? $this->width : '', $this );
+		return apply_filters( 'woocommerce_product_width', '' === $this->width ? '' : wc_format_decimal( $this->width ), $this );
 	}
 
 	/**
@@ -1478,7 +1480,7 @@ class WC_Product {
 	 * @return string
 	 */
 	public function get_height() {
-		return apply_filters( 'woocommerce_product_height', $this->height ? $this->height : '', $this );
+		return apply_filters( 'woocommerce_product_height', '' === $this->height ? '' : wc_format_decimal( $this->height ), $this );
 	}
 
 	/**
@@ -1487,7 +1489,7 @@ class WC_Product {
 	 * @return string
 	 */
 	public function get_weight() {
-		return apply_filters( 'woocommerce_product_weight', apply_filters( 'woocommerce_product_get_weight', $this->weight ? $this->weight : '' ), $this );
+		return apply_filters( 'woocommerce_product_weight', apply_filters( 'woocommerce_product_get_weight', '' === $this->weight ? '' : wc_format_decimal( $this->weight ) ), $this );
 	}
 
 	/**

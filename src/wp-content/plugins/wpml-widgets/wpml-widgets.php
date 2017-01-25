@@ -1,12 +1,13 @@
-<?PHP
+<?php
 /*
  * Plugin Name: 	WPML Widgets
- * Plugin URI: 		http://www.jeroensormani.com
+ * Plugin URI: 		http://jeroensormani.com
  * Description: 	Easily select which widgets you want to show for which languages
- * Version: 		1.0.4
+ * Version: 		1.0.6
  * Author: 			Jeroen Sormani
- * Author URI: 		http://www.jeroensormani.com
-*/
+ * Author URI: 		http://jeroensormani.com
+ * Text domain:     wpml-widgets
+ */
 
 /*
  * Copyright Jeroen Sormani
@@ -45,11 +46,10 @@ class WPML_Widgets {
 
 
 	/**
-	 * Instace of WPML_Widgets.
+	 * Instance of WPML_Widgets.
 	 *
 	 * @since 1.0.0
-	 * @access private
-	 * @var object $instance The instance of WPML_Widgets.
+	 * @var WPML_Widgets $instance The instance of WPML_Widgets.
 	 */
 	private static $instance;
 
@@ -63,7 +63,7 @@ class WPML_Widgets {
 
 		// check if WPML is activated
 		if ( ! function_exists( 'is_plugin_active_for_network' ) ) :
-		    require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		endif;
 
 		if ( ! in_array( 'sitepress-multilingual-cms/sitepress.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) :
@@ -74,13 +74,13 @@ class WPML_Widgets {
 		endif;
 
 		// Add dropdown to widgets
-		add_action( 'in_widget_form', array( $this, 'ww_widget_dropdown' ), 10, 3 );
+		add_action( 'in_widget_form', array( $this, 'widget_dropdown' ), 10, 3 );
 
 		// Update dropdown value on widget update
-		add_filter( 'widget_update_callback', array( $this, 'ww_widget_update' ), 10, 4 );
+		add_filter( 'widget_update_callback', array( $this, 'widget_update' ), 10, 4 );
 
 		// Filter widgets by language
-		add_filter( 'widget_display_callback', array( $this, 'ww_display_widget' ), 10, 3 );
+		add_filter( 'widget_display_callback', array( $this, 'display_widget' ), 10, 3 );
 
 	}
 
@@ -117,24 +117,24 @@ class WPML_Widgets {
 	 * @param 	null	$form		Return null if new fields are added.
 	 * @param	array	$instance	An array of the widget's settings.
 	 */
-	public function ww_widget_dropdown( $widget, $form, $instance ) {
+	public function widget_dropdown( $widget, $form, $instance ) {
 
-		$languages = icl_get_languages();
+		$languages = apply_filters( 'wpml_active_languages', array() );
 
 		?><p>
 			<label for='wpml_language'><?php _e( 'Display on language:', 'wpml-widgets' ); ?> </label>
 			<select id='wpml_language' name='wpml_language'><?php
-			foreach ( $languages as $language ) :
+				foreach ( $languages as $language ) :
 
-				$wpml_language = isset( $instance['wpml_language'] ) ? $instance['wpml_language'] : null;
-				?><option <?php selected( $language['language_code'], $wpml_language ); ?> value='<?php echo $language['language_code']; ?>'><?php
-					echo $language['native_name'];
-				?></option><?php
+					$wpml_language = isset( $instance['wpml_language'] ) ? $instance['wpml_language'] : null;
+					?><option <?php selected( $language['code'], $wpml_language ); ?> value='<?php echo $language['code']; ?>'><?php
+						echo $language['native_name'];
+					?></option><?php
 
-			endforeach;
+				endforeach;
 
-			$selected = ( ! isset( $instance['wpml_language'] ) || 'all' == $instance['wpml_language'] ) ? true : false;
-			?><option <?php selected( $selected ); ?> value='all'><?php _e( 'All Languages', 'wpml-widgets' ); ?></option>
+				$selected = ( ! isset( $instance['wpml_language'] ) || 'all' == $instance['wpml_language'] ) ? true : false;
+				?><option <?php selected( $selected ); ?> value='all'><?php _e( 'All Languages', 'wpml-widgets' ); ?></option>
 
 			</select>
 		</p><?php
@@ -155,7 +155,7 @@ class WPML_Widgets {
 	 * @param 	array	$this2			Class of ..?.
 	 * @return	array					List of modified instance.
 	 */
-	public function ww_widget_update( $instance, $new_instance, $old_instance, $this2 ) {
+	public function widget_update( $instance, $new_instance, $old_instance, $this2 ) {
 
 		$instance['wpml_language'] = $_POST['wpml_language'];
 
@@ -176,7 +176,7 @@ class WPML_Widgets {
 	 * @param 	array	$args		List of args.
 	 * @return	array				List of modified widget instance.
 	 */
-	public function ww_display_widget( $instance, $widget, $args ) {
+	public function display_widget( $instance, $widget, $args ) {
 
 		if ( isset( $instance['wpml_language'] ) && $instance['wpml_language'] != ICL_LANGUAGE_CODE && $instance['wpml_language'] != 'all' ) :
 			return false;
@@ -190,7 +190,7 @@ class WPML_Widgets {
 	/**
 	 * Nag message.
 	 *
-	 * Display a nag message when WPML is not actiavted.
+	 * Display a nag message when WPML is not activated.
 	 *
 	 * @since 1.0.3
 	 */
@@ -231,7 +231,7 @@ class WPML_Widgets {
  */
 if ( ! function_exists( 'WPML_Widgets' ) ) :
 
- 	function WPML_Widgets() {
+	function WPML_Widgets() {
 		return WPML_Widgets::instance();
 	}
 

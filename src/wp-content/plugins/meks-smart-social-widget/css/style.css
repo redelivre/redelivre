@@ -1,326 +1,1273 @@
-ul.mks_social_widget_ul li a{
-	display: block;
-	height: 48px;
-	width: 48px;
-	float: left;
-	margin-right: 5px;
-	text-indent: -9999px;
-	margin-bottom: 5px;
-	position: relative;
-	border: none !important;
-	padding: 0;
+@font-face {
+    font-family: "socicon";
+    src: url("fonts/socicon.eot");
+    src: url("fonts/socicon.eot?#iefix") format("embedded-opentype"), url("fonts/socicon.woff") format("woff"), url("fonts/socicon.ttf") format("truetype"), url("fonts/socicon.svg#socicon") format("svg");
+    font-weight: normal;
+    font-style: normal;
 }
-ul.mks_social_widget_ul li a.soc_rounded{
-	border-radius: 20%;	
+
+ul.mks_social_widget_ul li a:before {
+    font-family: "socicon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
-ul.mks_social_widget_ul li a.soc_circle{
-	border-radius: 50%;	
+
+ul.mks_social_widget_ul li a {
+    display: block;
+    height: 48px;
+    width: 48px;
+    float: left;
+    margin-right: 5px;
+    font-size: 0px;
+    margin-bottom: 5px;
+    position: relative;
+    border: none !important;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-ul.mks_social_widget_ul li:hover a{
-	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-	filter: alpha(opacity=70);
-	opacity: 0.7;
+
+ul.mks_social_widget_ul li a span {
+    margin: 0;
+    padding: 0;
+    font-size: 0px;
 }
-ul.mks_social_widget_ul li{
-	display: inline-block;
-	vertical-align: top;
-	border: none !important;
-	padding: 0;
+
+ul.mks_social_widget_ul li a:before {
+    color: #FFF;
 }
+
+ul.mks_social_widget_ul li a.soc_rounded {
+    border-radius: 20%;
+}
+
+ul.mks_social_widget_ul li a.soc_circle {
+    border-radius: 50%;
+}
+
+ul.mks_social_widget_ul li:hover a {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+}
+
+ul.mks_social_widget_ul li {
+    display: inline-block;
+    vertical-align: top;
+    border: none !important;
+    padding: 0;
+}
+
 
 /*--------------------------------------------------
 					SOCIAL ICONS STYLES
 ---------------------------------------------------*/
-ul.mks_social_widget_ul .aim_ico{
-	background: url('../img/social_icons/aim_ico.png') no-repeat 0 0;
+
+
+ul.mks_social_widget_ul .aim_ico {
+    background-color: #e95a00;
+}
+
+ul.mks_social_widget_ul .apple_ico {
+    background-color: #606060;
+}
+
+ul.mks_social_widget_ul .behance_ico {
+    background-color: #18a3fe;
+}
+
+ul.mks_social_widget_ul .blogger_ico {
+    background-color: #fb913f;
+}
+
+ul.mks_social_widget_ul .cargo_ico {
+    background-color: #00c462;
+}
+
+ul.mks_social_widget_ul .envato_ico {
+    background-color: #a9cf58;
+}
+
+ul.mks_social_widget_ul .delicious_ico {
+    background-color: #3274d1;
+}
+
+ul.mks_social_widget_ul .deviantart_ico {
+    background-color: #d0de21;
+}
+
+ul.mks_social_widget_ul .digg_ico {
+    background-color: #2882c6;
+}
+
+ul.mks_social_widget_ul .dribbble_ico {
+    background-color: #ef5b92;
+}
+
+ul.mks_social_widget_ul .evernote_ico {
+    background-color: #77ba2f;
+}
+
+ul.mks_social_widget_ul .facebook_ico {
+    background-color: #3b5998;
+}
+
+ul.mks_social_widget_ul .flickr_ico {
+    background-color: #f1628b;
+}
+
+ul.mks_social_widget_ul .forrst_ico {
+    background-color: #5b9a68;
+}
+
+ul.mks_social_widget_ul .github_ico {
+    background-color: #7292a2;
+}
+
+ul.mks_social_widget_ul .google_ico {
+    background-color: #dd4b39;
+}
+
+ul.mks_social_widget_ul .googleplus_ico {
+    background-color: #d94a39;
+}
+
+ul.mks_social_widget_ul .grooveshark_ico {
+    background-color: #f88e00;
+}
+
+ul.mks_social_widget_ul .icloud_ico {
+    background-color: #fb913f;
+}
+
+ul.mks_social_widget_ul .lastfm_ico {
+    background-color: #d21309;
+}
+
+ul.mks_social_widget_ul .linkedin_ico {
+    background-color: #71b2d0;
+}
+
+.myspace_ico {
+    background-color: #003398;
+}
+
+ul.mks_social_widget_ul .picasa_ico {
+    background-color: #444;
+}
+
+ul.mks_social_widget_ul .pinterest_ico {
+    background-color: #cb2027;
+}
+
+ul.mks_social_widget_ul .posterous_ico {
+    background-color: #f9d560;
+}
+
+ul.mks_social_widget_ul .reddit_ico {
+    background-color: #e74a1e;
 }
-ul.mks_social_widget_ul .apple_ico{
-	background: url('../img/social_icons/apple_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .rss_ico {
+    background-color: #fe9900;
 }
-ul.mks_social_widget_ul .behance_ico{
-	background: url('../img/social_icons/behance_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .skype_ico {
+    background-color: #18b7f1;
 }
-ul.mks_social_widget_ul .blogger_ico{
-	background: url('../img/social_icons/blogger_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .stumbleupon_ico {
+    background-color: #eb4924;
 }
-ul.mks_social_widget_ul .cargo_ico{
-	background: url('../img/social_icons/cargo_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .soundcloud_ico {
+    background-color: #ff8800;
 }
-ul.mks_social_widget_ul .envato_ico{
-	background: url('../img/social_icons/envato_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .tumblr_ico {
+    background-color: #3a5976;
 }
-ul.mks_social_widget_ul .delicious_ico{
-	background: url('../img/social_icons/delicious_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .twitter_ico {
+    background-color: #48c4d2;
 }
-ul.mks_social_widget_ul .deviantart_ico{
-	background: url('../img/social_icons/deviantart_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .vimeo_ico {
+    background-color: #51b5e7;
 }
-ul.mks_social_widget_ul .digg_ico{
-	background: url('../img/social_icons/digg_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .wordpress_ico {
+    background-color: #464646;
 }
-ul.mks_social_widget_ul .dribbble_ico{
-	background: url('../img/social_icons/dribbble_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .yahoo_ico {
+    background-color: #ab64bc;
 }
-ul.mks_social_widget_ul .evernote_ico{
-	background: url('../img/social_icons/evernote_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .youtube_ico {
+    background-color: #f45750;
 }
-ul.mks_social_widget_ul .facebook_ico{
-	background: url('../img/social_icons/facebook_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .zerply_ico {
+    background-color: #9DBC7A;
 }
-ul.mks_social_widget_ul .flickr_ico{
-	background: url('../img/social_icons/flickr_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .instagram_ico {
+    background-color: #306088;
 }
-ul.mks_social_widget_ul .forrst_ico{
-	background: url('../img/social_icons/forrst_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .vine_ico {
+    background-color: #00bf8f;
 }
-ul.mks_social_widget_ul .github_ico{
-	background: url('../img/social_icons/github_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .spotify_ico {
+    background-color: #95ba1a;
 }
-ul.mks_social_widget_ul .google_ico{
-	background: url('../img/social_icons/google_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .fh_px_ico {
+    background-color: #58a9de;
 }
-ul.mks_social_widget_ul .googleplus_ico{
-	background: url('../img/social_icons/googleplus_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .xing_ico {
+    background-color: #126567;
 }
-ul.mks_social_widget_ul .grooveshark_ico{
-	background: url('../img/social_icons/grooveshark_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .weibo_ico {
+    background-color: #E6162C;
 }
-ul.mks_social_widget_ul .icloud_ico{
-	background: url('../img/social_icons/icloud_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .tencent_ico {
+    background-color: #389FDA;
 }
-ul.mks_social_widget_ul .lastfm_ico{
-	background: url('../img/social_icons/lastfm_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .me2day_ico {
+    background-color: #4e28ac;
 }
-ul.mks_social_widget_ul .linkedin_ico{
-	background: url('../img/social_icons/linkedin_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .twitch_ico {
+    background-color: #6441A5;
 }
-ul.mks_social_widget_ul .myspace_ico{
-	background: url('../img/social_icons/myspace_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .itunes_ico {
+    background-color: #ff5e51;
 }
-ul.mks_social_widget_ul .picasa_ico{
-	background: url('../img/social_icons/picasa_ico.png') no-repeat 0 0;
+
+ul.mks_social_widget_ul .vk_ico {
+    background-color: #45668e;
 }
-ul.mks_social_widget_ul .pinterest_ico{
-	background: url('../img/social_icons/pinterest_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .posterous_ico{
-	background: url('../img/social_icons/posterous_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .reddit_ico{
-	background: url('../img/social_icons/reddit_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .rss_ico{
-	background: url('../img/social_icons/rss_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .skype_ico{
-	background: url('../img/social_icons/skype_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .stumbleupon_ico{
-	background: url('../img/social_icons/stumbleupon_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .soundcloud_ico{
-	background: url('../img/social_icons/soundcloud_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .tumblr_ico{
-	background: url('../img/social_icons/tumblr_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .twitter_ico{
-	background: url('../img/social_icons/twitter_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .vimeo_ico{
-	background: url('../img/social_icons/vimeo_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .wordpress_ico{
-	background: url('../img/social_icons/wordpress_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .yahoo_ico{
-	background: url('../img/social_icons/yahoo_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .youtube_ico{
-	background: url('../img/social_icons/youtube_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .zerply_ico{
-	background: url('../img/social_icons/zerply_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .instagram_ico{
-	background: url('../img/social_icons/instagram_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .vine_ico{
-	background: url('../img/social_icons/vine_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .spotify_ico{
-	background: url('../img/social_icons/spotify_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .fh_px_ico{
-	background: url('../img/social_icons/fh_px_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .xing_ico{
-	background: url('../img/social_icons/xing_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .weibo_ico{
-	background: url('../img/social_icons/weibo_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .tencent_ico{
-	background: url('../img/social_icons/tencent_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .me2day_ico{
-	background: url('../img/social_icons/me2day_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .twitch_ico{
-	background: url('../img/social_icons/twitch_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .itunes_ico{
-	background: url('../img/social_icons/itunes_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .vk_ico{
-	background: url('../img/social_icons/vk_ico.png') no-repeat 0 0;
-}
-ul.mks_social_widget_ul .aim_ico{
-	background-color: #e95a00;
-}
-ul.mks_social_widget_ul .apple_ico{
-	background-color: #606060;
-}
-ul.mks_social_widget_ul .behance_ico{
-	background-color: #18a3fe;
-}
-ul.mks_social_widget_ul .blogger_ico{
-	background-color: #fb913f;
-}
-ul.mks_social_widget_ul .cargo_ico{
-	background-color: #00c462;
-}
-ul.mks_social_widget_ul .envato_ico{
-	background-color: #a9cf58;
-}
-ul.mks_social_widget_ul .delicious_ico{
-	background-color: #3274d1;
-}
-ul.mks_social_widget_ul .deviantart_ico{
-	background-color: #d0de21;
-}
-ul.mks_social_widget_ul .digg_ico{
-	background-color: #2882c6;
-}
-ul.mks_social_widget_ul .dribbble_ico{
-	background-color: #ef5b92;
-}
-ul.mks_social_widget_ul .evernote_ico{
-	background-color: #77ba2f;
-}
-ul.mks_social_widget_ul .facebook_ico{
-	background-color: #3b5998;
-}
-ul.mks_social_widget_ul .flickr_ico{
-	background-color: #f1628b;
-}
-ul.mks_social_widget_ul .forrst_ico{
-	background-color: #5b9a68;
-}
-ul.mks_social_widget_ul .github_ico{
-	background-color: #7292a2; 
-}
-ul.mks_social_widget_ul .google_ico{
-	background-color: #dd4b39; 
-}
-ul.mks_social_widget_ul .googleplus_ico{
-	background-color: #d94a39; 
-}
-ul.mks_social_widget_ul .grooveshark_ico{
-	background-color: #f88e00; 
-}
-ul.mks_social_widget_ul .icloud_ico{
-	background-color: #fb913f; 
-}
-ul.mks_social_widget_ul .lastfm_ico{
-	background-color: #d21309;
-}
-ul.mks_social_widget_ul .linkedin_ico{
-	background-color: #71b2d0; 
-}
-.myspace_ico{
-	background-color: #003398; 
-}
-ul.mks_social_widget_ul .picasa_ico{
-	background-color: #444; 
-}
-ul.mks_social_widget_ul .pinterest_ico{
-	background-color: #cb2027; 
-}
-ul.mks_social_widget_ul .posterous_ico{
-	background-color: #f9d560; 
-}
-ul.mks_social_widget_ul .reddit_ico{
-	background-color: #bfd0e2;
-}
-ul.mks_social_widget_ul .rss_ico{
-	background-color: #fe9900; 
-}
-ul.mks_social_widget_ul .skype_ico{
-	background-color: #18b7f1; 
-}
-ul.mks_social_widget_ul .stumbleupon_ico{
-	background-color: #eb4924; 
-}
-ul.mks_social_widget_ul .soundcloud_ico{
-	background-color: #ff8800; 
-}
-ul.mks_social_widget_ul .tumblr_ico{
-	background-color: #3a5976; 
-}
-ul.mks_social_widget_ul .twitter_ico{
-	background-color: #48c4d2; 
-}
-ul.mks_social_widget_ul .vimeo_ico{
-	background-color: #62a0ad; 
-}
-ul.mks_social_widget_ul .wordpress_ico{
-	background-color: #464646;
-}
-ul.mks_social_widget_ul .yahoo_ico{
-	background-color: #ab64bc; 
-}
-ul.mks_social_widget_ul .youtube_ico{
-	background-color: #f45750; 
-}
-ul.mks_social_widget_ul .zerply_ico{
-	background-color: #8db259; 
-}
-ul.mks_social_widget_ul .instagram_ico{
-	background-color: #306088; 
-}
-ul.mks_social_widget_ul .vine_ico{
-	background-color: #00bf8f; 
-}
-ul.mks_social_widget_ul .spotify_ico{
-	background-color: #95ba1a; 
-}
-ul.mks_social_widget_ul .fh_px_ico{
-	background-color: #02adea; 
-}
-ul.mks_social_widget_ul .xing_ico{
-	background-color: #126567; 
-}
-ul.mks_social_widget_ul .weibo_ico{
-	background-color: #E6162C;  
-}
-ul.mks_social_widget_ul .tencent_ico{
-	background-color: #389FDA;
-}
-ul.mks_social_widget_ul .me2day_ico{
-	background-color: #4e28ac;
-}
-ul.mks_social_widget_ul .twitch_ico{
-	background-color: #6441A5;
-}
-ul.mks_social_widget_ul .itunes_ico{
-	background-color: #FA332F;
-}
-ul.mks_social_widget_ul .vk_ico{
-	background-color: #45668e;
-}
+
 ul.mks_social_widget_ul .soc_square,
 ul.mks_social_widget_ul .soc_rounded,
-ul.mks_social_widget_ul .soc_circle{
-	background-position: center center;
+ul.mks_social_widget_ul .soc_circle {
+    background-position: center center;
+}
+
+
+/* From version 2.0 */
+
+ul.mks_social_widget_ul .airbnb_ico {
+    background-color: #ff5a5f;
+}
+
+ul.mks_social_widget_ul .amazon_ico {
+    background-color: #ff9900;
+}
+
+ul.mks_social_widget_ul .amplement_ico {
+    background-color: #0996c3;
+}
+
+ul.mks_social_widget_ul .android_ico {
+    background-color: #8ec047;
+}
+
+ul.mks_social_widget_ul .angellist_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .sociconapp_ico {
+    background-color: #494949;
+}
+
+ul.mks_social_widget_ul .baidu_ico {
+    background-color: #2629d9;
+}
+
+ul.mks_social_widget_ul .bandcamp_ico {
+    background-color: #619aa9;
+}
+
+ul.mks_social_widget_ul .bebo_ico {
+    background-color: #EF1011;
+}
+
+ul.mks_social_widget_ul .buffer_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .coderwall_ico {
+    background-color: #3E8DCC;
+}
+
+ul.mks_social_widget_ul .dailymotion_ico {
+    background-color: #004e72;
+}
+
+ul.mks_social_widget_ul .deezer_ico {
+    background-color: #004e72;
+}
+
+ul.mks_social_widget_ul .disqus_ico {
+    background-color: #2e9fff;
+}
+
+ul.mks_social_widget_ul .douban_ico {
+    background-color: #3ca353;
+}
+
+ul.mks_social_widget_ul .draugiem_ico {
+    background-color: #ffa32b;
+}
+
+ul.mks_social_widget_ul .drupal_ico {
+    background-color: #00598e;
+}
+
+ul.mks_social_widget_ul .ebay_ico {
+    background-color: #333333;
+}
+
+ul.mks_social_widget_ul .ello_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .eight-tracks_ico {
+    background-color: #122c4b;
+}
+
+ul.mks_social_widget_ul .endomondo_ico {
+    background-color: #86ad00;
+}
+
+ul.mks_social_widget_ul .feedburner_ico {
+    background-color: #ffcc00;
+}
+
+ul.mks_social_widget_ul .filmweb_ico {
+    background-color: #ffc404;
+}
+
+ul.mks_social_widget_ul .flattr_ico {
+    background-color: #F67C1A;
+}
+
+ul.mks_social_widget_ul .foursquare_ico {
+    background-color: #f94877;
+}
+
+ul.mks_social_widget_ul .friendfeed_ico {
+    background-color: #2F72C4;
+}
+
+ul.mks_social_widget_ul .goodreads_ico {
+    background-color: #463020;
+}
+
+ul.mks_social_widget_ul .google-play_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .houzz_ico {
+    background-color: #7CC04B;
+}
+
+ul.mks_social_widget_ul .icq_ico {
+    background-color: #7EBD00;
+}
+
+ul.mks_social_widget_ul .identica_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .imdb_ico {
+    background-color: #E8BA00;
+}
+
+ul.mks_social_widget_ul .istock_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .lanyrd_ico {
+    background-color: #3c80c9;
+}
+
+ul.mks_social_widget_ul .mail_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .medium_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .meetup_ico {
+    background-color: #e2373c;
+}
+
+ul.mks_social_widget_ul .mixcloud_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .model-mayhem_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .mozilla-persona_ico {
+    background-color: #e6753d;
+}
+
+ul.mks_social_widget_ul .mumble_ico {
+    background-color: #5AB5D1;
+}
+
+ul.mks_social_widget_ul .newsvine_ico {
+    background-color: #5AB5D1;
+}
+
+ul.mks_social_widget_ul .odnoklassniki_ico {
+    background-color: #f48420;
+}
+
+ul.mks_social_widget_ul .openid_ico {
+    background-color: #f78c40;
+}
+
+ul.mks_social_widget_ul .outlook_ico {
+    background-color: #0072C6;
+}
+
+ul.mks_social_widget_ul .patreon_ico {
+    background-color: #E44727;
+}
+
+ul.mks_social_widget_ul .paypal_ico {
+    background-color: #009cde;
+}
+
+ul.mks_social_widget_ul .periscope_ico {
+    background-color: #3AA4C6;
+}
+
+ul.mks_social_widget_ul .playstation_ico {
+    background-color: #000;
+}
+
+ul.mks_social_widget_ul .play-store_ico {
+    background-color: #000;
+}
+
+ul.mks_social_widget_ul .pocket_ico {
+    background-color: #ED4055;
+}
+
+ul.mks_social_widget_ul .qq_ico {
+    background-color: #4297d3;
+}
+
+ul.mks_social_widget_ul .quora_ico {
+    background-color: #cb202d;
+}
+
+ul.mks_social_widget_ul .raidcall_ico {
+    background-color: #073558;
+}
+
+ul.mks_social_widget_ul .ravelry_ico {
+    background-color: #B6014C;
+}
+
+ul.mks_social_widget_ul .renren_ico {
+    background-color: #2266b0;
+}
+
+ul.mks_social_widget_ul .resident-advisor_ico {
+    background-color: #B3BE1B;
+}
+
+ul.mks_social_widget_ul .sharethis_ico {
+    background-color: #01bf01;
+}
+
+ul.mks_social_widget_ul .slideshare_ico {
+    background-color: #4ba3a6;
+}
+
+ul.mks_social_widget_ul .smugmug_ico {
+    background-color: #ACFD32;
+}
+
+ul.mks_social_widget_ul .snapchat_ico {
+    background-color: #fffa37;
+}
+
+ul.mks_social_widget_ul .stackexchange_ico {
+    background-color: #2f2f2f;
+}
+
+ul.mks_social_widget_ul .stackoverflow_ico {
+    background-color: #FD9827;
+}
+
+ul.mks_social_widget_ul .stayfriends_ico {
+    background-color: #F08A1C;
+}
+
+ul.mks_social_widget_ul .steam_ico {
+    background-color: #171a21;
+}
+
+ul.mks_social_widget_ul .storehouse_ico {
+    background-color: #25B0E6;
+}
+
+ul.mks_social_widget_ul .swarm_ico {
+    background-color: #FC9D3C;
+}
+
+ul.mks_social_widget_ul .teamspeak_ico {
+    background-color: #465674;
+}
+
+ul.mks_social_widget_ul .teamviewer_ico {
+    background-color: #168EF4;
+}
+
+ul.mks_social_widget_ul .technorati_ico {
+    background-color: #5cb030;
+}
+
+ul.mks_social_widget_ul .telegram_ico {
+    background-color: #0088cc;
+}
+
+ul.mks_social_widget_ul .tripadvisor_ico {
+    background-color: #4B7E37;
+}
+
+ul.mks_social_widget_ul .tripit_ico {
+    background-color: #1982C3;
+}
+
+ul.mks_social_widget_ul .triplej_ico {
+    background-color: #E53531;
+}
+
+ul.mks_social_widget_ul .ventrilo_ico {
+    background-color: #77808A;
+}
+
+ul.mks_social_widget_ul .viadeo_ico {
+    background-color: #e4a000;
+}
+
+ul.mks_social_widget_ul .viber_ico {
+    background-color: #7b519d;
+}
+
+ul.mks_social_widget_ul .whatsapp_ico {
+    background-color: #20B038;
+}
+
+ul.mks_social_widget_ul .wikipedia_ico {
+    background-color: #000000;
+}
+
+ul.mks_social_widget_ul .windows_ico {
+    background-color: #00BDF6;
+}
+
+ul.mks_social_widget_ul .wykop_ico {
+    background-color: #328efe;
+}
+
+ul.mks_social_widget_ul .xbox_ico {
+    background-color: #92C83E;
+}
+
+ul.mks_social_widget_ul .yammer_ico {
+    background-color: #1175C4;
+}
+
+ul.mks_social_widget_ul .yandex_ico {
+    background-color: #FF0000;
+}
+
+ul.mks_social_widget_ul .yelp_ico {
+    background-color: #c83218;
+}
+
+ul.mks_social_widget_ul .younow_ico {
+    background-color: #61C03E;
+}
+
+ul.mks_social_widget_ul .zomato_ico {
+    background-color: #cb202d;
+}
+
+ul.mks_social_widget_ul .zynga_ico {
+    background-color: #DC0606;
+}
+
+
+
+/* Social icons fonts */
+
+/* A */
+
+ul.mks_social_widget_ul .airbnb_ico:before {
+    content: "\e00e";
+}
+
+ul.mks_social_widget_ul .amazon_ico:before {
+    content: "\e05c";
+}
+
+ul.mks_social_widget_ul .amplement_ico:before {
+    content: "\e070";
+}
+
+ul.mks_social_widget_ul .android_ico:before {
+    content: "\e03e";
+}
+
+ul.mks_social_widget_ul .angellist_ico:before {
+    content: "\e062";
+}
+
+ul.mks_social_widget_ul .sociconapp_ico:before {
+    content: "\e013";
+}
+
+ul.mks_social_widget_ul .apple_ico:before {
+    content: "\e02e";
+}
+
+
+/* B */
+
+ul.mks_social_widget_ul .baidu_ico:before {
+    content: "\e061";
+}
+
+ul.mks_social_widget_ul .bandcamp_ico:before {
+    content: "\e06a";
+}
+
+ul.mks_social_widget_ul .bebo_ico:before {
+    content: "\e035";
+}
+
+ul.mks_social_widget_ul .behance_ico:before {
+    content: "\e027";
+}
+
+ul.mks_social_widget_ul .blogger_ico:before {
+    content: "\e020";
+}
+
+ul.mks_social_widget_ul .buffer_ico:before {
+    content: "\e018";
+}
+
+
+/* C */
+
+ul.mks_social_widget_ul .coderwall_ico:before {
+    content: "\e011";
+}
+
+
+/* D */
+
+ul.mks_social_widget_ul .dailymotion_ico::before {
+    content: "\e053";
+}
+
+ul.mks_social_widget_ul .deezer_ico::before {
+    content: "\e06c";
+}
+
+ul.mks_social_widget_ul .delicious_ico:before {
+    content: "\e028";
+}
+
+ul.mks_social_widget_ul .deviantart_ico:before {
+    content: "\e029";
+}
+
+ul.mks_social_widget_ul .digg_ico:before {
+    content: "\e025";
+}
+
+ul.mks_social_widget_ul .disqus_ico:before {
+    content: "\e019";
+}
+
+ul.mks_social_widget_ul .douban_ico:before {
+    content: "\e03b";
+}
+
+ul.mks_social_widget_ul .draugiem_ico:before {
+    content: "\e074";
+}
+
+ul.mks_social_widget_ul .dribbble_ico:before {
+    content: "\e023";
+}
+
+ul.mks_social_widget_ul .drupal_ico:before {
+    content: "\e002";
+}
+
+
+/* E */
+
+ul.mks_social_widget_ul .ebay_ico:before {
+    content: "\e063";
+}
+
+ul.mks_social_widget_ul .ello_ico:before {
+    content: "\e006";
+}
+
+ul.mks_social_widget_ul .eight-tracks_ico::before {
+    content: "\e05b";
+}
+
+ul.mks_social_widget_ul .endomondo_ico:before {
+    content: "\e075";
+}
+
+ul.mks_social_widget_ul .envato_ico:before {
+    content: "\e026";
+}
+
+
+/* F */
+
+ul.mks_social_widget_ul .facebook_ico:before {
+    content: "\e041";
+}
+
+ul.mks_social_widget_ul .feedburner_ico:before {
+    content: "\e048";
+}
+
+ul.mks_social_widget_ul .filmweb_ico:before {
+    content: "\e076";
+}
+
+ul.mks_social_widget_ul .fh_px_ico:before {
+    content: "\e056";
+}
+
+ul.mks_social_widget_ul .flattr_ico:before {
+    content: "\e02f";
+}
+
+ul.mks_social_widget_ul .flickr_ico:before {
+    content: "\e055";
+}
+
+ul.mks_social_widget_ul .forrst_ico:before {
+    content: "\e02a";
+}
+
+ul.mks_social_widget_ul .foursquare_ico:before {
+    content: "\e044";
+}
+
+ul.mks_social_widget_ul .friendfeed_ico:before {
+    content: "\e032";
+}
+
+
+/* G */
+
+ul.mks_social_widget_ul .github_ico:before {
+    content: "\e030";
+}
+
+ul.mks_social_widget_ul .goodreads_ico:before {
+    content: "\e014";
+}
+
+ul.mks_social_widget_ul .google_ico:before {
+    content: "\e067";
+}
+
+ul.mks_social_widget_ul .google-play_ico:before {
+    content: "\e02b";
+}
+
+ul.mks_social_widget_ul .googleplus_ico:before {
+    content: "\e042";
+}
+
+ul.mks_social_widget_ul .google-play-2_ico:before {
+    content: "\e02b";
+}
+
+ul.mks_social_widget_ul .grooveshark_ico:before {
+    content: "\e04f";
+}
+
+
+/* H */
+
+ul.mks_social_widget_ul .houzz_ico:before {
+    content: "\e00a";
+}
+
+
+/* I */
+
+ul.mks_social_widget_ul .icq_ico:before {
+    content: "\e05d";
+}
+
+ul.mks_social_widget_ul .identica_ico:before {
+    content: "\e034";
+}
+
+ul.mks_social_widget_ul .imdb_ico:before {
+    content: "\e064";
+}
+
+ul.mks_social_widget_ul .instagram_ico:before {
+    content: "\e057";
+}
+
+ul.mks_social_widget_ul .istock_ico:before {
+    content: "\e004";
+}
+
+ul.mks_social_widget_ul .itunes_ico:before {
+    content: "\e06b";
+}
+
+
+/* J */
+
+
+/* K */
+
+
+/* L */
+
+ul.mks_social_widget_ul .lanyrd_ico:before {
+    content: "\e016";
+}
+
+ul.mks_social_widget_ul .lastfm_ico:before {
+    content: "\e050";
+}
+
+ul.mks_social_widget_ul .linkedin_ico:before {
+    content: "\e049";
+}
+
+
+/* M */
+
+ul.mks_social_widget_ul .mail_ico:before {
+    content: "\e01f";
+}
+
+ul.mks_social_widget_ul .medium_ico:before {
+    content: "\e06d";
+}
+
+ul.mks_social_widget_ul .meetup_ico:before {
+    content: "\e03c";
+}
+
+ul.mks_social_widget_ul .mixcloud_ico:before {
+    content: "\e001";
+}
+
+ul.mks_social_widget_ul .model-mayhem_ico:before {
+    content: "\e000";
+}
+
+ul.mks_social_widget_ul .mozilla-persona_ico:before {
+    content: "\e008";
+}
+
+ul.mks_social_widget_ul .mumble_ico:before {
+    content: "\e07e";
+}
+
+ul.mks_social_widget_ul .myspace_ico:before {
+    content: "\e04c";
+}
+
+
+/* N */
+
+ul.mks_social_widget_ul .newsvine_ico:before {
+    content: "\e033";
+}
+
+
+/* O */
+
+ul.mks_social_widget_ul .odnoklassniki_ico:before {
+    content: "\e00d";
+}
+
+ul.mks_social_widget_ul .openid_ico:before {
+    content: "\e06f";
+}
+
+ul.mks_social_widget_ul .outlook_ico:before {
+    content: "\e010";
+}
+
+
+/* P */
+
+ul.mks_social_widget_ul .patreon_ico:before {
+    content: "\e01c";
+}
+
+ul.mks_social_widget_ul .paypal_ico:before {
+    content: "\e00c";
+}
+
+ul.mks_social_widget_ul .periscope_ico:before {
+    content: "\e00f";
+}
+
+ul.mks_social_widget_ul .pinterest_ico:before {
+    content: "\e043";
+}
+
+ul.mks_social_widget_ul .playstation_ico:before {
+    content: "\e03d";
+}
+
+ul.mks_social_widget_ul .play-store_ico:before {
+    content: "\e02b";
+}
+
+ul.mks_social_widget_ul .pocket_ico:before {
+    content: "\e01e";
+}
+
+
+/* Q */
+
+ul.mks_social_widget_ul .qq_ico:before {
+    content: "\e03a";
+}
+
+ul.mks_social_widget_ul .quora_ico:before {
+    content: "\e073";
+}
+
+
+/* R */
+
+ul.mks_social_widget_ul .raidcall_ico:before {
+    content: "\e07d";
+}
+
+ul.mks_social_widget_ul .ravelry_ico:before {
+    content: "\e05f";
+}
+
+ul.mks_social_widget_ul .reddit_ico:before {
+    content: "\e022";
+}
+
+ul.mks_social_widget_ul .renren_ico:before {
+    content: "\e031";
+}
+
+ul.mks_social_widget_ul .resident-advisor_ico:before {
+    content: "\e066";
+}
+
+ul.mks_social_widget_ul .rss_ico:before {
+    content: "\e00b";
+}
+
+
+/* S */
+
+ul.mks_social_widget_ul .sharethis_ico:before {
+    content: "\e069";
+}
+
+ul.mks_social_widget_ul .skype_ico:before {
+    content: "\e046";
+}
+
+ul.mks_social_widget_ul .slideshare_ico:before {
+    content: "\e017";
+}
+
+ul.mks_social_widget_ul .smugmug_ico:before {
+    content: "\e05e";
+}
+
+ul.mks_social_widget_ul .snapchat_ico:before {
+    content: "\e03f";
+}
+
+ul.mks_social_widget_ul .soundcloud_ico:before {
+    content: "\e04d";
+}
+
+ul.mks_social_widget_ul .spotify_ico:before {
+    content: "\e04e";
+}
+
+ul.mks_social_widget_ul .stackexchange_ico:before {
+    content: "\e077";
+}
+
+ul.mks_social_widget_ul .stackoverflow_ico:before {
+    content: "\e007";
+}
+
+ul.mks_social_widget_ul .stayfriends_ico:before {
+    content: "\e065 ";
+}
+
+ul.mks_social_widget_ul .steam_ico:before {
+    content: "\e037";
+}
+
+ul.mks_social_widget_ul .storehouse_ico:before {
+    content: "\e01d";
+}
+
+ul.mks_social_widget_ul .stumbleupon_ico:before {
+    content: "\e024";
+}
+
+ul.mks_social_widget_ul .swarm_ico:before {
+    content: "\e003";
+}
+
+
+/* T */
+
+ul.mks_social_widget_ul .teamspeak_ico:before {
+    content: "\e079";
+}
+
+ul.mks_social_widget_ul .teamviewer_ico:before {
+    content: "\e07a";
+}
+
+ul.mks_social_widget_ul .technorati_ico:before {
+    content: "\e021";
+}
+
+ul.mks_social_widget_ul .telegram_ico:before {
+    content: "\e06e";
+}
+
+ul.mks_social_widget_ul .tripadvisor_ico:before {
+    content: "\e012";
+}
+
+ul.mks_social_widget_ul .tripit_ico:before {
+    content: "\e015";
+}
+
+ul.mks_social_widget_ul .triplej_ico:before {
+    content: "\e009";
+}
+
+ul.mks_social_widget_ul .tumblr_ico:before {
+    content: "\e059";
+}
+
+ul.mks_social_widget_ul .twitch_ico:before {
+    content: "\e05a";
+}
+
+ul.mks_social_widget_ul .twitter_ico:before {
+    content: "\e040";
+}
+
+
+/* U */
+
+
+/* V */
+
+ul.mks_social_widget_ul .ventrilo_ico:before {
+    content: "\e07b";
+}
+
+ul.mks_social_widget_ul .viadeo_ico:before {
+    content: "\e04a";
+}
+
+ul.mks_social_widget_ul .vimeo_ico:before {
+    content: "\e052";
+}
+
+ul.mks_social_widget_ul .vine_ico:before {
+    content: "\e054";
+}
+
+ul.mks_social_widget_ul .viber_ico:before {
+    content: "\e071";
+}
+
+ul.mks_social_widget_ul .vk_ico:before {
+    content: "\e01a";
+}
+
+
+/* W */
+
+ul.mks_social_widget_ul .weibo_ico:before {
+    content: "\e060";
+}
+
+ul.mks_social_widget_ul .whatsapp_ico:before {
+    content: "\e01b";
+}
+
+ul.mks_social_widget_ul .wikipedia_ico:before {
+    content: "\e02d";
+}
+
+ul.mks_social_widget_ul .windows_ico:before {
+    content: "\e039";
+}
+
+ul.mks_social_widget_ul .wordpress_ico:before {
+    content: "\e058";
+}
+
+ul.mks_social_widget_ul .wykop_ico:before {
+    content: "\e078";
+}
+
+
+/* X */
+
+ul.mks_social_widget_ul .xbox_ico:before {
+    content: "\e038";
+}
+
+ul.mks_social_widget_ul .xing_ico:before {
+    content: "\e04b";
+}
+
+
+/* Y */
+
+ul.mks_social_widget_ul .yahoo_ico:before {
+    content: "\e045";
+}
+
+ul.mks_social_widget_ul .yammer_ico:before {
+    content: "\e005";
+}
+
+ul.mks_social_widget_ul .yandex_ico:before {
+    content: "\e068";
+}
+
+ul.mks_social_widget_ul .yelp_ico:before {
+    content: "\e047";
+}
+
+ul.mks_social_widget_ul .younow_ico:before {
+    content: "\e07c";
+}
+
+ul.mks_social_widget_ul .youtube_ico:before {
+    content: "\e051";
+}
+
+
+/* Z */
+
+ul.mks_social_widget_ul .zerply_ico:before {
+    content: "\e02c";
+}
+
+ul.mks_social_widget_ul .zomato_ico:before {
+    content: "\e072";
+}
+
+ul.mks_social_widget_ul .zynga_ico:before {
+    content: "\e036";
+}
+
+
+/* Old social icons that don't have font */
+ul.mks_social_widget_ul .aim_ico {
+    background-image: url('../img/social_icons/aim_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul.mks_social_widget_ul .cargo_ico {
+    background-image: url('../img/social_icons/cargo_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul.mks_social_widget_ul .evernote_ico {
+    background-image: url('../img/social_icons/evernote_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul.mks_social_widget_ul .icloud_ico {
+    background-image: url('../img/social_icons/icloud_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul.mks_social_widget_ul .picasa_ico {
+    background-image: url('../img/social_icons/picasa_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul.mks_social_widget_ul .posterous_ico {
+    background-image: url('../img/social_icons/posterous_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul.mks_social_widget_ul .tencent_ico {
+    background-image: url('../img/social_icons/tencent_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul.mks_social_widget_ul .me2day_ico {
+    background-image: url('../img/social_icons/me2day_ico.png');
+    background-repeat: no-repeat;
+    background-position: center;
 }

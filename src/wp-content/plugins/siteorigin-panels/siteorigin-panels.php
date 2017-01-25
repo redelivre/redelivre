@@ -3,7 +3,7 @@
 Plugin Name: Page Builder by SiteOrigin
 Plugin URI: https://siteorigin.com/page-builder/
 Description: A drag and drop, responsive page builder that simplifies building your website.
-Version: 2.4.17
+Version: 2.4.21
 Author: SiteOrigin
 Author URI: https://siteorigin.com
 License: GPL3
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: http://siteorigin.com/page-builder/#donate
 */
 
-define('SITEORIGIN_PANELS_VERSION', '2.4.17');
+define('SITEORIGIN_PANELS_VERSION', '2.4.21');
 if ( ! defined('SITEORIGIN_PANELS_JS_SUFFIX' ) ) {
 	define('SITEORIGIN_PANELS_JS_SUFFIX', '.min');
 }
@@ -1473,8 +1473,13 @@ function siteorigin_panels_render_form($widget, $instance = array(), $raw = fals
  */
 function siteorigin_panels_plugin_action_links($links) {
 	unset( $links['edit'] );
-	$links[] = '<a href="http://siteorigin.com/threads/plugin-page-builder/">' . __('Support Forum', 'siteorigin-panels') . '</a>';
+	$links[] = '<a href="http://siteorigin.com/threads/plugin-page-builder/">' . __('Support', 'siteorigin-panels') . '</a>';
 	$links[] = '<a href="http://siteorigin.com/page-builder/#newsletter">' . __('Newsletter', 'siteorigin-panels') . '</a>';
+
+	if( siteorigin_panels_display_premium_teaser() ) {
+		$links[] = '<a href="' . esc_url( siteorigin_panels_premium_url() ) . '" style="color: #3db634" target="_blank">' . __('Addons', 'siteorigin-panels') . '</a>';
+	}
+
 	return $links;
 }
 add_action('plugin_action_links_' . plugin_basename(__FILE__), 'siteorigin_panels_plugin_action_links');
@@ -1610,11 +1615,15 @@ function siteorigin_panels_process_panels_data( $panels_data ){
 }
 add_filter( 'siteorigin_panels_data', 'siteorigin_panels_process_panels_data', 5 );
 
+/**
+ * Should we display premium addon messages
+ *
+ * @return bool
+ */
 function siteorigin_panels_display_premium_teaser(){
-	return
-		siteorigin_panels_setting( 'display-teaser' ) &&
-		apply_filters( 'siteorigin_premium_upgrade_teaser', true ) &&
-		! defined( 'SITEORIGIN_PREMIUM_VERSION' );
+	return siteorigin_panels_setting( 'display-teaser' ) &&
+	       apply_filters( 'siteorigin_premium_upgrade_teaser', true ) &&
+	       ! defined( 'SITEORIGIN_PREMIUM_VERSION' );
 }
 
 function siteorigin_panels_premium_url() {

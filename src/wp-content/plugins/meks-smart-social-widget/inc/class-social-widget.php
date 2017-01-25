@@ -8,18 +8,19 @@ class MKS_Social_Widget extends WP_Widget {
 	var $defaults;
 
 	function __construct() {
-		$widget_ops = array( 'classname' => 'mks_social_widget', 'description' => __('Display your social icons with this widget', 'meks') );
+		$widget_ops = array( 'classname' => 'mks_social_widget', 'description' => __('Display your social icons with this widget', 'meks-smart-social-widget') );
 		$control_ops = array( 'id_base' => 'mks_social_widget' );
-		parent::__construct('mks_social_widget', __('Meks Social Widget', 'meks'), $widget_ops, $control_ops );
+		parent::__construct('mks_social_widget', __('Meks Social Widget', 'meks-smart-social-widget'), $widget_ops, $control_ops );
 		
 		add_action( 'wp_enqueue_scripts', array($this,'enqueue_scripts'));
 		add_action( 'admin_enqueue_scripts', array($this,'enqueue_admin_scripts'));
 
 		$this->defaults = array( 
-			'title' => __('Follow Me', 'meks'),
+			'title' => __('Follow Me', 'meks-smart-social-widget'),
 			'content' => '',
 			'style' => 'square',
 			'size' => 48,
+			'font_size' => 16,
 			'target' => '_blank',
 			'social' => array()
 		);
@@ -60,19 +61,21 @@ class MKS_Social_Widget extends WP_Widget {
 		
 		<?php if(!empty($instance['social'])): ?>
 		<?php 
-			$size_style = 'style="width: '.$instance['size'].'px; height: '.$instance['size'].'px;"'; 
-			$target = 'target="'.$instance['target'].'"';
+			$size_style = 'style="width: '.esc_attr($instance['size']).'px; height: '.esc_attr($instance['size']).'px; font-size: '.esc_attr($instance['font_size']).'px;"'; 
+			$target = 'target="'.esc_attr($instance['target']).'"';
 		?>
 			<ul class="mks_social_widget_ul">
 		  	<?php foreach($instance['social'] as $item) : ?>
-		  		<li><a href="<?php echo $item['url']; ?>" class="<?php echo $item['icon'].'_ico soc_'.$instance['style'];?>" <?php echo $target; ?> <?php echo $size_style; ?>><?php echo $item['icon']; ?></a></li>
+		  		<li><a href="<?php echo $item['url']; ?>" class="<?php echo esc_attr($item['icon'].'_ico soc_'.$instance['style']); ?>" <?php echo $target; ?> <?php echo $size_style; ?>><span><?php echo $item['icon']; ?></span></a></li>
 		  	<?php endforeach; ?>
 		  </ul>
 		<?php endif; ?>
-		
+
+
 		<?php
 		echo $after_widget;
 	}
+	
 
 	
 	function update( $new_instance, $old_instance ) {
@@ -81,6 +84,7 @@ class MKS_Social_Widget extends WP_Widget {
 		$instance['content'] = $new_instance['content'];
 		$instance['style'] = $new_instance['style'];
 		$instance['size'] = absint($new_instance['size']);
+		$instance['font_size'] = absint($new_instance['font_size']);
 		$instance['target'] = $new_instance['target'];
 		$instance['social'] = array();
 		if(!empty($new_instance['social_icon'])){
@@ -102,38 +106,44 @@ class MKS_Social_Widget extends WP_Widget {
 		?>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title', 'meks'); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title', 'meks-smart-social-widget'); ?>:</label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'content' ); ?>"><?php _e('Introduction text (optional)', 'meks'); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'content' ); ?>"><?php _e('Introduction text (optional)', 'meks-smart-social-widget'); ?>:</label>
 			<textarea id="<?php echo $this->get_field_id( 'content' ); ?>" rows="5" name="<?php echo $this->get_field_name( 'content' ); ?>" class="widefat"><?php echo $instance['content']; ?></textarea>
 		</p>
-		<h4><?php _e('Options', 'meks'); ?>:</h4>
+		<h4><?php _e('Options', 'meks-smart-social-widget'); ?>:</h4>
 		<p>
-			<label><?php _e('Icon shape', 'meks'); ?>:</label><br/>
+			<label><?php _e('Icon shape', 'meks-smart-social-widget'); ?>:</label><br/>
 			<input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="square" <?php checked($instance['style'],'square'); ?>/>
-			<label><?php _e('Square', 'meks'); ?></label><br/>
+			<label><?php _e('Square', 'meks-smart-social-widget'); ?></label><br/>
 			<input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="circle" <?php checked($instance['style'],'circle'); ?>/>
-			<label><?php _e('Circle', 'meks'); ?></label><br/>
+			<label><?php _e('Circle', 'meks-smart-social-widget'); ?></label><br/>
 			<input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="rounded" <?php checked($instance['style'],'rounded'); ?>/>
-			<label><?php _e('Rounded corners', 'meks'); ?></label>
+			<label><?php _e('Rounded corners', 'meks-smart-social-widget'); ?></label>
 		</p>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e('Icon size', 'meks'); ?>: </label>
+			<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e('Icon size', 'meks-smart-social-widget'); ?>: </label>
 			<input id="<?php echo $this->get_field_id( 'size' ); ?>" type="text" name="<?php echo $this->get_field_name( 'size' ); ?>" value="<?php echo absint($instance['size']); ?>" class="small-text" /> px
 		</p>
+
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'target' ); ?>"><?php _e('Open links in', 'meks'); ?>: </label>
+			<label for="<?php echo $this->get_field_id( 'font_size' ); ?>"><?php _e('Icon font size', 'meks-smart-social-widget'); ?>: </label>
+			<input id="<?php echo $this->get_field_id( 'font_size' ); ?>" type="text" name="<?php echo $this->get_field_name( 'font_size' ); ?>" value="<?php echo absint($instance['font_size']); ?>" class="small-text" /> px
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'target' ); ?>"><?php _e('Open links in', 'meks-smart-social-widget'); ?>: </label>
 			<select id="<?php echo $this->get_field_id( 'target' ); ?>" name="<?php echo $this->get_field_name( 'target' ); ?>">
-				<option value="_blank" <?php selected('_blank',$instance['target']); ?>><?php _e('New Window', 'meks'); ?></option>
-				<option value="_self" <?php selected('_self',$instance['target']); ?>><?php _e('Same Window', 'meks'); ?></option>
+				<option value="_blank" <?php selected('_blank',$instance['target']); ?>><?php _e('New Window', 'meks-smart-social-widget'); ?></option>
+				<option value="_self" <?php selected('_self',$instance['target']); ?>><?php _e('Same Window', 'meks-smart-social-widget'); ?></option>
 			</select>
 		</p>
 		
-		<h4><?php _e('Icons', 'meks'); ?>:</h4>
+		<h4><?php _e('Icons', 'meks-smart-social-widget'); ?>:</h4>
 		<p>
 		 <ul class="mks_social_container">
 		  <?php foreach($instance['social'] as $link) : ?>
@@ -145,7 +155,7 @@ class MKS_Social_Widget extends WP_Widget {
 	  </p>
 		
 		<p>
-	  	<a href="#" class="mks_add_social button"><?php _e('Add Icon', 'meks'); ?></a>
+	  	<a href="#" class="mks_add_social button"><?php _e('Add Icon', 'meks-smart-social-widget'); ?></a>
 	  </p>
 	  
 	  <div class="mks_social_clone" style="display:none">
@@ -158,65 +168,154 @@ class MKS_Social_Widget extends WP_Widget {
 	}
 	
 	function draw_social($widget, $social_links, $selected = array('icon' => '', 'url' => '') ){ ?>
-				<?php _e('Icon', 'meks'); ?>: <select type="text" name="<?php echo $widget->get_field_name('social_icon'); ?>[]" value="<?php echo $selected['icon']; ?>" style="width: 80%">
+				<?php _e('Icon', 'meks-smart-social-widget'); ?>: <select type="text" name="<?php echo $widget->get_field_name('social_icon'); ?>[]" value="<?php echo $selected['icon']; ?>" style="width: 80%">
 				<?php foreach($social_links as $key => $link) : ?>
 					<option value="<?php echo $key; ?>" <?php selected($key,$selected['icon']); ?>><?php echo $link; ?></option>
 				<?php endforeach; ?>
 				</select><br />
-				<?php _e('Url', 'meks'); ?>: &nbsp;&nbsp;&nbsp;<input type="text" name="<?php echo $widget->get_field_name('social_url'); ?>[]" value="<?php echo $selected['url']; ?>" style="width: 80%">
-				<a href="#" class="mks_remove_social" title="<?php _e('Remove', 'meks'); ?>"><?php _e('x', 'meks'); ?></a>
+				<?php _e('Url', 'meks-smart-social-widget'); ?>: &nbsp;&nbsp;&nbsp;<input type="text" name="<?php echo $widget->get_field_name('social_url'); ?>[]" value="<?php echo $selected['url']; ?>" style="width: 80%">
+				<a href="#" class="mks_remove_social" title="<?php _e('Remove', 'meks-smart-social-widget'); ?>"><?php _e('x', 'meks-smart-social-widget'); ?></a>
 	<?php }
+
+
 	
 	function get_social() {
 		$social = array(
 			'aim' => 'Aim',
+			'airbnb' => 'Airbnb',
+			'amazon' => 'Amazon',
+			'amplement' => 'Amplement',
+			'android' => 'Android',
+			'angellist' => 'Angellist',
 			'apple' => 'Apple',
+			'baidu' => 'Baidu',
+			'bandcamp' => 'Bandcamp',
+			'bebo' => 'Bebo',
 			'behance' => 'Behance',
 			'blogger' => 'Blogger',
+			'buffer' => 'Buffer',
 			'cargo' => 'Cargo',
+			'coderwall' => 'Coderwall',
+			'dailymotion' => 'Dailymotion',
+			'deezer' => 'Deezer',
 			'delicious' => 'Delicious',
-			'deviantart' => 'DeviantArt',
+			'deviantart' => 'Deviantart',
 			'digg' => 'Digg',
+			'disqus' => 'Disqus',
+			'douban' => 'Douban',
+			'draugiem' => 'Draugiem',
 			'dribbble' => 'Dribbble',
+			'ebay' => 'Ebay',
+			'eight-tracks' => 'Eight Tracks',
+			'ello' => 'Ello',
+			'endomondo' => 'Endomondo',
 			'envato' => 'Envato',
 			'evernote' => 'Evernote',
 			'facebook' => 'Facebook',
+			'feedburner' => 'Feedburner',
+			'fh_px'=> '500px',
+			'filmweb' => 'Filmweb',
+			'flattr' => 'Flattr',
 			'flickr' => 'Flickr',
 			'forrst' => 'Forrst',
+			'foursquare' => 'Foursquare',
+			'friendfeed' => 'Friendfeed',
 			'github' => 'Github',
+			'goodreads' => 'Goodreads',
 			'google' => 'Google',
-			'googleplus' => 'GooglePlus',
-			'grooveshark' => 'GrooveShark',
-			'icloud' => 'Icloud',
+			'google-play' => 'Google Play',
+			'google-plus' => 'Google Plus',
+			'grooveshark' => 'Grooveshark',
+			'houzz' => 'Houzz',
+			'icloud' => 'iCloud',
+			'icq' => 'Icq',
+			'identica' => 'Identica',
+			'imdb' => 'Imdb',
 			'instagram' => 'Instagram',
-			'itunes' => 'iTunes',
-			'lastfm' => 'LastFM',
-			'linkedin' => 'LinkedIN',
-			'myspace' => 'MySpace',
+			'istock' => 'Istock',
+			'itunes' => 'Itunes',
+			'lanyrd' => 'Lanyrd',
+			'lastfm' => 'Lastfm',
+			'linkedin' => 'Linkedin',
+			'mail' => 'Mail',
 			'me2day' => 'Me2Day',
+			'medium' => 'Medium',
+			'meetup' => 'Meetup',
+			'mixcloud' => 'Mixcloud',
+			'model-mayhem' => 'Model Mayhem',
+			'mozilla-persona' => 'Mozilla Persona',
+			'mumble' => 'Mumble',
+			'myspace' => 'Myspace',
+			'newsvine' => 'Newsvine',
+			'odnoklassniki' => 'Odnoklassniki',
+			'openid' => 'Openid',
+			'outlook' => 'Outlook',
+			'patreon' => 'Patreon',
+			'paypal' => 'Paypal',
+			'periscope' => 'Periscope',
 			'picasa' => 'Picasa',
 			'pinterest' => 'Pinterest',
+			'play-store' => 'Play Store',
+			'playstation' => 'Playstation',
+			'pocket'=> 'Pocket',
 			'posterous' => 'Posterous',
-			'reddit' => 'ReddIT',
-			'rss' => 'Rss',
-			'skype' => 'Skype',
-			'spotify' => 'Spotify',
-			'soundcloud' => 'Soundcloud',
-			'stumbleupon' => 'StumbleUpon',
-			'tumblr' => 'Tumblr',
-			'twitter' => 'Twitter',
-			'tencent' => 'Tencent',
-			'twitch' => 'Twitch',
-			'vimeo' => 'Vimeo',
-			'vine' => 'Vine',
-			'vk' => 'vKontakte',
-			'wordpress' => 'WordPress',
-			'weibo' => 'Sina Weibo',
-			'xing' => 'Xing',
-			'yahoo' => 'Yahoo',
-			'youtube' => 'Youtube',
-			'zerply' => 'Zerply',
-			'fh_px' => '500px',
+			'qq'=> 'Qq',
+			'quora'=> 'Quora',
+			'raidcall'=> 'Raidcall',
+			'ravelry'=> 'Ravelry',
+			'reddit'=> 'Reddit',
+			'renren'=> 'Renren',
+			'resident-advisor' => 'Resident Advisor',
+			'rss'=> 'RSS',
+			'sharethis'=> 'Sharethis',
+			'skype'=> 'Skype',
+			'slideshare'=> 'Slideshare',
+			'smugmug'=> 'Smugmug',
+			'snapchat'=> 'Snapchat',
+			'sociconapp' => 'App NET',
+			'soundcloud'=> 'Soundcloud',
+			'spotify'=> 'Spotify',
+			'stackexchange'=> 'Stackexchange',
+			'stackoverflow'=> 'Stackoverflow',
+			'stayfriends'=> 'Stayfriends',
+			'steam'=> 'Steam',
+			'storehouse'=> 'Storehouse',
+			'stumbleupon'=> 'Stumbleupon',
+			'swarm'=> 'Swarm',
+			'teamspeak'=> 'Teamspeak',
+			'teamviewer'=> 'Teamviewer',
+			'technorati'=> 'Technorati',
+			'telegram' => 'Telegram',
+			'tencent' => 'TenCent',
+			'tripadvisor'=> 'Tripadvisor',
+			'tripit'=> 'Tripit',
+			'triplej'=> 'Triplej',
+			'tumblr'=> 'Tumblr',
+			'twitch'=> 'Twitch',
+			'twitter'=> 'Twitter',
+			'ventrilo'=> 'Ventrilo',
+			'viadeo'=> 'Viadeo',
+			'viber'=> 'Viber',
+			'vimeo'=> 'Vimeo',
+			'vine'=> 'Vine',
+			'vk'=> 'Vk',
+			'weibo'=> 'Weibo',
+			'whatsapp'=> 'Whatsapp',
+			'wikipedia'=> 'Wikipedia',
+			'windows'=> 'Windows',
+			'wordpress'=> 'WordPress',
+			'wykop'=> 'Wykop',
+			'xbox'=> 'Xbox',
+			'xing'=> 'Xing',
+			'yahoo'=> 'Yahoo',
+			'yammer'=> 'Yammer',
+			'yandex'=> 'Yandex',
+			'yelp'=> 'Yelp',
+			'younow'=> 'Younow',
+			'youtube'=> 'Youtube',
+			'zerply'=> 'Zerply',
+			'zomato'=> 'Zomato',
+			'zynga'=> 'Zynga'
 		);
 										
 		return $social;
