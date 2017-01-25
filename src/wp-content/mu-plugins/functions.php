@@ -971,3 +971,4 @@ function campanha_plugins_api_result($res )
 	return $res;
 }
 add_filter('all_plugins', 'campanha_plugins_api_result', 1);
+
