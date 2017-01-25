@@ -3,7 +3,7 @@
 add_action('admin_menu', function() {
 	$base_page = 'platform-strings';
 
-	add_object_page( __(Campaign::getStrings('MenuPlataforma'),'redelivre'), __(Campaign::getStrings('MenuPlataforma'),'redelivre'), 'manage_options', $base_page, array());
+	add_menu_page( __(Campaign::getStrings('MenuPlataforma'),'redelivre'), __(Campaign::getStrings('MenuPlataforma'),'redelivre'), 'manage_options', $base_page, array());
 
 	add_submenu_page($base_page, __('Strings','redelivre'), __('Strings','redelivre'), 'manage_options', $base_page, function(){
 		require MUCAMPANHAPATH.'/admin-strings-tpl.php';
