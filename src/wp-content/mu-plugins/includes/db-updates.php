@@ -83,6 +83,12 @@ if( is_multisite() && !get_blog_option(1, 'db-create-1'))
 		);
 	}
 	update_blog_option(1, 'db-create-1', true);
+	
+	if(!get_blog_option(1, 'db-create-2'))
+	{
+		$wpdb->query('ALTER TABLE `plans` CHANGE `item` `item_order` INT(11) NULL DEFAULT NULL;');
+		update_blog_option(1, 'db-create-2', true);
+	}
 }
 
 if( is_multisite() && !get_blog_option(1, 'db-sample-1') )
