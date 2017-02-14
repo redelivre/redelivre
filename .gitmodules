@@ -1,3 +1,7 @@
+[submodule "src/wp-content/plugins/redevent"]
+	path = src/wp-content/plugins/redevent
+	url = https://github.com/redelivre/redevent.git
+	branch = master
 [submodule "src/wp-content/plugins/contribua"]
 	path = src/wp-content/plugins/contribua
 	url = https://github.com/redelivre/contribua.git
