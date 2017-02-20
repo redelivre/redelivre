@@ -1,11 +1,3 @@
-[submodule "src/wp-content/plugins/facebook-instant-articles-wp"]
-	path = src/wp-content/plugins/facebook-instant-articles-wp
-	url = https://github.com/Automattic/facebook-instant-articles-wp.git
-	branch = master
-[submodule "src/wp-content/plugins/redevent"]
-	path = src/wp-content/plugins/redevent
-	url = https://github.com/redelivre/redevent.git
-	branch = master
 [submodule "src/wp-content/plugins/contribua"]
 	path = src/wp-content/plugins/contribua
 	url = https://github.com/redelivre/contribua.git
