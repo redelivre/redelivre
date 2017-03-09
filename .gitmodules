@@ -200,3 +200,16 @@
 [submodule "src/wp-content/plugins/wordpress-mu-domain-mapping"]
 	path = src/wp-content/plugins/wordpress-mu-domain-mapping
 	url = git@github.com:redelivre/wordpress-mu-domain-mapping.git
+	branch = master
+[submodule "src/wp-content/plugins/facebook-instant-articles-wp"]
+	path = src/wp-content/plugins/facebook-instant-articles-wp
+	url = https://github.com/Automattic/facebook-instant-articles-wp.git
+	branch = master
+[submodule "src/wp-content/plugins/redevent"]
+	path = src/wp-content/plugins/redevent
+	url = https://github.com/redelivre/redevent.git
+	branch = master
+[submodule "src/wp-content/themes/tema-coletivo"]
+	path = src/wp-content/themes/tema-coletivo
+	url = https://github.com/redelivre/tema-coletivo
+	branch = master
