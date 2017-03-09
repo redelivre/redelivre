@@ -3,7 +3,7 @@
 Plugin Name: Page Builder by SiteOrigin
 Plugin URI: https://siteorigin.com/page-builder/
 Description: A drag and drop, responsive page builder that simplifies building your website.
-Version: 2.4.21
+Version: 2.4.25
 Author: SiteOrigin
 Author URI: https://siteorigin.com
 License: GPL3
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: http://siteorigin.com/page-builder/#donate
 */
 
-define('SITEORIGIN_PANELS_VERSION', '2.4.21');
+define('SITEORIGIN_PANELS_VERSION', '2.4.25');
 if ( ! defined('SITEORIGIN_PANELS_JS_SUFFIX' ) ) {
 	define('SITEORIGIN_PANELS_JS_SUFFIX', '.min');
 }
@@ -32,6 +32,7 @@ require_once plugin_dir_path(__FILE__) . 'inc/default-styles.php';
 require_once plugin_dir_path(__FILE__) . 'inc/widgets.php';
 require_once plugin_dir_path(__FILE__) . 'inc/plugin-activation.php';
 require_once plugin_dir_path(__FILE__) . 'inc/admin-actions.php';
+require_once plugin_dir_path(__FILE__) . 'inc/learn.php';
 
 if( defined('SITEORIGIN_PANELS_DEV') && SITEORIGIN_PANELS_DEV ) include plugin_dir_path(__FILE__).'inc/debug.php';
 
@@ -282,7 +283,7 @@ function siteorigin_panels_admin_enqueue_scripts( $prefix = '', $force = false )
 	if ( $force || siteorigin_panels_is_admin_page() ) {
 		// Media is required for row styles
 		wp_enqueue_media();
-		wp_enqueue_script( 'so-panels-admin', plugin_dir_url(__FILE__) . 'js/siteorigin-panels' . SITEORIGIN_PANELS_VERSION_SUFFIX . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array( 'jquery', 'jquery-ui-resizable', 'jquery-ui-sortable', 'jquery-ui-draggable', 'underscore', 'backbone', 'plupload', 'plupload-all' ), SITEORIGIN_PANELS_VERSION, true );
+		wp_enqueue_script( 'so-panels-admin', plugin_dir_url(__FILE__) . 'js/siteorigin-panels' . SITEORIGIN_PANELS_VERSION_SUFFIX . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array( 'jquery', 'jquery-ui-resizable', 'jquery-ui-sortable', 'jquery-ui-draggable', 'underscore', 'backbone', 'plupload', 'plupload-all', 'wp-color-picker'  ), SITEORIGIN_PANELS_VERSION, true );
 		add_action( 'admin_footer', 'siteorigin_panels_js_templates' );
 
 		$widgets = siteorigin_panels_get_widgets();
@@ -737,7 +738,6 @@ function siteorigin_panels_get_current_admin_panels_data( ){
  * @return string
  */
 function siteorigin_panels_generate_css($post_id, $panels_data = false){
-	// Exit if we don't have panels data
 	if( empty($panels_data) ) {
 		$panels_data = get_post_meta( $post_id, 'panels_data', true );
 		$panels_data = apply_filters( 'siteorigin_panels_data', $panels_data, $post_id );
@@ -757,7 +757,7 @@ function siteorigin_panels_generate_css($post_id, $panels_data = false){
 	foreach ( $panels_data['grids'] as $gi => $grid ) {
 
 		$cell_count = intval( $grid['cells'] );
-		$grid_id = !empty( $grid['style']['id'] ) ? (string) sanitize_html_class( $grid['style']['id'] ) : intval( $gi );
+		$grid_id = intval( $gi );
 
 		// Add the cell sizing
 		for ( $i = 0; $i < $cell_count; $i++ ) {
@@ -854,7 +854,7 @@ function siteorigin_panels_generate_css($post_id, $panels_data = false){
 
 	// Let other plugins customize various aspects of the rows (grids)
 	foreach ( $panels_data['grids'] as $gi => $grid ) {
-		$grid_id = !empty( $grid['style']['id'] ) ? (string) sanitize_html_class( $grid['style']['id'] ) : intval( $gi );
+		$grid_id = intval( $gi );
 
 		// Let other themes and plugins change the gutter.
 		$gutter = apply_filters('siteorigin_panels_css_row_gutter', $settings['margin-sides'].'px', $grid, $gi, $panels_data);
@@ -902,19 +902,18 @@ function siteorigin_panels_generate_css($post_id, $panels_data = false){
  */
 function siteorigin_panels_filter_content( $content ) {
 	global $post;
-
 	if ( empty( $post ) ) return $content;
-	if ( !apply_filters( 'siteorigin_panels_filter_content_enabled', true ) ) return $content;
+	if ( ! apply_filters( 'siteorigin_panels_filter_content_enabled', true ) ) return $content;
 
 	// Check if this post has panels_data
 	$panels_data = get_post_meta( $post->ID, 'panels_data', true );
-	if ( !empty( $panels_data ) ) {
+	if ( ! empty( $panels_data ) ) {
 		$panel_content = siteorigin_panels_render( $post->ID );
 
 		if ( !empty( $panel_content ) ) {
 			$content = $panel_content;
 
-			if( !is_singular() ) {
+			if( ! is_singular() ) {
 				// This is an archive page, so try strip out anything after the more text
 
 				if ( preg_match( '/<!--more(.*?)?-->/', $content, $matches ) ) {
@@ -989,26 +988,6 @@ function siteorigin_panels_render( $post_id = false, $enqueue_css = true, $panel
 	$panels_data = apply_filters( 'siteorigin_panels_data', $panels_data, $post_id );
 	if( empty( $panels_data ) || empty( $panels_data['grids'] ) ) return '';
 
-	// Filter the widgets to add indexes
-	if ( !empty( $panels_data['widgets'] ) ) {
-		$last_gi = 0;
-		$last_ci = 0;
-		$last_wi = 0;
-		foreach ( $panels_data['widgets'] as $wid => &$widget_info ) {
-
-			if ( $widget_info['panels_info']['grid'] != $last_gi ) {
-				$last_gi = $widget_info['panels_info']['grid'];
-				$last_ci = 0;
-				$last_wi = 0;
-			}
-			elseif ( $widget_info['panels_info']['cell'] != $last_ci ) {
-				$last_ci = $widget_info['panels_info']['cell'];
-				$last_wi = 0;
-			}
-			$widget_info['panels_info']['cell_index'] = $last_wi++;
-		}
-	}
-
 	// Create the skeleton of the grids
 	$grids = array();
 	if( !empty( $panels_data['grids'] ) && !empty( $panels_data['grids'] ) ) {
@@ -1069,11 +1048,10 @@ function siteorigin_panels_render( $post_id = false, $enqueue_css = true, $panel
 	foreach ( $grids as $gi => $cells ) {
 
 		$grid_classes = apply_filters( 'siteorigin_panels_row_classes', array( 'panel-grid' ), $panels_data['grids'][$gi] );
-		$grid_id = !empty($panels_data['grids'][$gi]['style']['id']) ? sanitize_html_class( $panels_data['grids'][$gi]['style']['id'] ) : false;
 
 		$grid_attributes = apply_filters( 'siteorigin_panels_row_attributes', array(
 			'class' => implode( ' ', $grid_classes ),
-			'id' => !empty($grid_id) ? $grid_id : 'pg-' . $post_id . '-' . $gi,
+			'id' => 'pg-' . $post_id . '-' . $gi,
 		), $panels_data['grids'][$gi] );
 
 		// This allows other themes and plugins to add html before the row
@@ -1112,7 +1090,7 @@ function siteorigin_panels_render( $post_id = false, $enqueue_css = true, $panel
 			$cell_classes = apply_filters( 'siteorigin_panels_row_cell_classes', $cell_classes, $panels_data );
 			$cell_attributes = apply_filters( 'siteorigin_panels_row_cell_attributes', array(
 				'class' => implode( ' ', $cell_classes ),
-				'id' => 'pgc-' . $post_id . '-' . ( !empty($grid_id) ? $grid_id : $gi )  . '-' . $ci
+				'id' => 'pgc-' . $post_id . '-' . $gi  . '-' . $ci
 			), $panels_data );
 
 			echo '<div ';
@@ -1565,7 +1543,7 @@ function siteorigin_panels_process_panels_data( $panels_data ){
 			// Filter the widgets to add indexes
 			if ( $widget['panels_info']['grid'] != $last_gi ) {
 				$last_gi = $widget['panels_info']['grid'];
-				$last_ci = 0;
+				$last_ci = $widget['panels_info']['cell'];
 				$last_wi = 0;
 			}
 			elseif ( $widget['panels_info']['cell'] != $last_ci ) {
@@ -1580,33 +1558,6 @@ function siteorigin_panels_process_panels_data( $panels_data ){
 				$grid['style'] = array(
 
 				);
-			}
-		}
-	}
-
-	// Process the IDs of the grids. Make sure that each is unique.
-
-	if( !empty($panels_data['grids']) && is_array($panels_data['grids']) ) {
-		$unique_grid_ids = array();
-		foreach( $panels_data['grids'] as &$grid ) {
-			// Make sure that the row ID is unique and non-numeric
-			if( !empty( $grid['style']['id'] ) ) {
-				if( is_numeric($grid['style']['id']) ) {
-					// Numeric IDs will cause problems, so we'll ignore them
-					$grid['style']['id'] = false;
-				}
-				else if( isset( $unique_grid_ids[ $grid['style']['id'] ] ) ) {
-					// This ID already exists, so add a suffix to make sure it's unique
-					$original_id = $grid['style']['id'];
-					$i = 1;
-					do {
-						$grid['style']['id'] = $original_id . '-' . (++$i);
-					} while( isset( $unique_grid_ids[ $grid['style']['id'] ] ) );
-				}
-
-				if( !empty( $grid['style']['id'] ) ) {
-					$unique_grid_ids[ $grid['style']['id'] ] = true;
-				}
 			}
 		}
 	}
@@ -1638,4 +1589,4 @@ function siteorigin_panels_premium_url() {
 }
 
 // Include the live editor file if we're in live editor mode.
-if( !empty($_GET['siteorigin_panels_live_editor']) ) require_once plugin_dir_path(__FILE__) . 'inc/live-editor.php';
+if( !empty( $_GET['siteorigin_panels_live_editor'] ) ) require_once plugin_dir_path(__FILE__) . 'inc/live-editor.php';

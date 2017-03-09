@@ -17,8 +17,14 @@ ul.mks_social_widget_ul li a:before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+ul.mks_social_widget_ul li:before,
+ul.mks_social_widget_ul li:after{
+    display: none;
+}
+
 
 ul.mks_social_widget_ul li a {
+    background: none;
     display: block;
     height: 48px;
     width: 48px;
@@ -33,6 +39,7 @@ ul.mks_social_widget_ul li a {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }
 
 ul.mks_social_widget_ul li a span {
@@ -57,6 +64,7 @@ ul.mks_social_widget_ul li:hover a {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
     filter: alpha(opacity=70);
     opacity: 0.7;
+    text-decoration: none;
 }
 
 ul.mks_social_widget_ul li {
@@ -136,7 +144,7 @@ ul.mks_social_widget_ul .google_ico {
     background-color: #dd4b39;
 }
 
-ul.mks_social_widget_ul .googleplus_ico {
+ul.mks_social_widget_ul .google-plus_ico {
     background-color: #d94a39;
 }
 
@@ -156,7 +164,7 @@ ul.mks_social_widget_ul .linkedin_ico {
     background-color: #71b2d0;
 }
 
-.myspace_ico {
+ul.mks_social_widget_ul .myspace_ico {
     background-color: #003398;
 }
 
@@ -817,7 +825,7 @@ ul.mks_social_widget_ul .google-play_ico:before {
     content: "\e02b";
 }
 
-ul.mks_social_widget_ul .googleplus_ico:before {
+ul.mks_social_widget_ul .google-plus_ico:before {
     content: "\e042";
 }
 
