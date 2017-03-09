@@ -5,20 +5,21 @@
 ** 	[range] and [range*]		# Range
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_number' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_number' );
 
-function wpcf7_add_shortcode_number() {
-	wpcf7_add_shortcode( array( 'number', 'number*', 'range', 'range*' ),
-		'wpcf7_number_shortcode_handler', true );
+function wpcf7_add_form_tag_number() {
+	wpcf7_add_form_tag( array( 'number', 'number*', 'range', 'range*' ),
+		'wpcf7_number_form_tag_handler', array( 'name-attr' => true ) );
 }
 
-function wpcf7_number_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+function wpcf7_number_form_tag_handler( $tag ) {
+	$tag = new WPCF7_FormTag( $tag );
 
-	if ( empty( $tag->name ) )
+	if ( empty( $tag->name ) ) {
 		return '';
+	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
@@ -26,8 +27,9 @@ function wpcf7_number_shortcode_handler( $tag ) {
 
 	$class .= ' wpcf7-validates-as-number';
 
-	if ( $validation_error )
+	if ( $validation_error ) {
 		$class .= ' wpcf7-not-valid';
+	}
 
 	$atts = array();
 
@@ -38,11 +40,13 @@ function wpcf7_number_shortcode_handler( $tag ) {
 	$atts['max'] = $tag->get_option( 'max', 'signed_int', true );
 	$atts['step'] = $tag->get_option( 'step', 'int', true );
 
-	if ( $tag->has_option( 'readonly' ) )
+	if ( $tag->has_option( 'readonly' ) ) {
 		$atts['readonly'] = 'readonly';
+	}
 
-	if ( $tag->is_required() )
+	if ( $tag->is_required() ) {
 		$atts['aria-required'] = 'true';
+	}
 
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -85,7 +89,7 @@ add_filter( 'wpcf7_validate_range', 'wpcf7_number_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_range*', 'wpcf7_number_validation_filter', 10, 2 );
 
 function wpcf7_number_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$name = $tag->name;
 
@@ -149,7 +153,7 @@ function wpcf7_tag_generator_number( $contact_form, $args = '' ) {
 
 	$description = __( "Generate a form-tag for a field for numeric value input. For more details, see %s.", 'contact-form-7' );
 
-	$desc_link = wpcf7_link( __( 'http://contactform7.com/number-fields/', 'contact-form-7' ), __( 'Number Fields', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'https://contactform7.com/number-fields/', 'contact-form-7' ), __( 'Number Fields', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">

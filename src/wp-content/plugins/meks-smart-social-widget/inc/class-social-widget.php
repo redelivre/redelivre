@@ -35,11 +35,10 @@ class MKS_Social_Widget extends WP_Widget {
     	wp_enqueue_style( 'meks-social-widget' );
   	}
   
- 
-  
-  function enqueue_admin_scripts(){
-		wp_enqueue_script( 'meks-social-widget-js', MKS_SOCIAL_WIDGET_URL.'js/main.js', array( 'jquery'), MKS_SOCIAL_WIDGET_VER );	
-  }
+  	function enqueue_admin_scripts(){
+		wp_enqueue_script( 'meks-social-widget-js', MKS_SOCIAL_WIDGET_URL.'js/main.js', array( 'jquery', 'jquery-ui-sortable' ), MKS_SOCIAL_WIDGET_VER );
+		wp_enqueue_style( 'mks-social-widget-css', MKS_SOCIAL_WIDGET_URL . 'css/admin.css', false, MKS_SOCIAL_WIDGET_VER );
+  	}
   
 	function widget( $args, $instance ) {
 		
@@ -113,46 +112,46 @@ class MKS_Social_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'content' ); ?>"><?php _e('Introduction text (optional)', 'meks-smart-social-widget'); ?>:</label>
 			<textarea id="<?php echo $this->get_field_id( 'content' ); ?>" rows="5" name="<?php echo $this->get_field_name( 'content' ); ?>" class="widefat"><?php echo $instance['content']; ?></textarea>
 		</p>
-		<h4><?php _e('Options', 'meks-smart-social-widget'); ?>:</h4>
+		
 		<p>
-			<label><?php _e('Icon shape', 'meks-smart-social-widget'); ?>:</label><br/>
-			<input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="square" <?php checked($instance['style'],'square'); ?>/>
-			<label><?php _e('Square', 'meks-smart-social-widget'); ?></label><br/>
-			<input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="circle" <?php checked($instance['style'],'circle'); ?>/>
-			<label><?php _e('Circle', 'meks-smart-social-widget'); ?></label><br/>
-			<input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="rounded" <?php checked($instance['style'],'rounded'); ?>/>
-			<label><?php _e('Rounded corners', 'meks-smart-social-widget'); ?></label>
+			<span class="mks-option-label mks-option-fl"><?php _e('Icon shape', 'meks-smart-social-widget'); ?>:</span><br/>
+			<div class="mks-option-radio-wrapper">
+				
+			<label class="mks-option-radio"><input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="square" <?php checked($instance['style'],'square'); ?>/><?php _e('Square', 'meks-smart-social-widget'); ?></label><br/>
+			<label class="mks-option-radio"><input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="circle" <?php checked($instance['style'],'circle'); ?>/><?php _e('Circle', 'meks-smart-social-widget'); ?></label><br/>
+			<label class="mks-option-radio"><input type="radio" name="<?php echo $this->get_field_name( 'style' ); ?>" value="rounded" <?php checked($instance['style'],'rounded'); ?>/><?php _e('Rounded corners', 'meks-smart-social-widget'); ?></label>
+			</div>
 		</p>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e('Icon size', 'meks-smart-social-widget'); ?>: </label>
+			<label class="mks-option-label" for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e('Icon size', 'meks-smart-social-widget'); ?>: </label>
 			<input id="<?php echo $this->get_field_id( 'size' ); ?>" type="text" name="<?php echo $this->get_field_name( 'size' ); ?>" value="<?php echo absint($instance['size']); ?>" class="small-text" /> px
 		</p>
 
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'font_size' ); ?>"><?php _e('Icon font size', 'meks-smart-social-widget'); ?>: </label>
+			<label class="mks-option-label" for="<?php echo $this->get_field_id( 'font_size' ); ?>"><?php _e('Icon font size', 'meks-smart-social-widget'); ?>: </label>
 			<input id="<?php echo $this->get_field_id( 'font_size' ); ?>" type="text" name="<?php echo $this->get_field_name( 'font_size' ); ?>" value="<?php echo absint($instance['font_size']); ?>" class="small-text" /> px
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'target' ); ?>"><?php _e('Open links in', 'meks-smart-social-widget'); ?>: </label>
+			<label class="mks-option-label" for="<?php echo $this->get_field_id( 'target' ); ?>"><?php _e('Open links in', 'meks-smart-social-widget'); ?>: </label>
 			<select id="<?php echo $this->get_field_id( 'target' ); ?>" name="<?php echo $this->get_field_name( 'target' ); ?>">
 				<option value="_blank" <?php selected('_blank',$instance['target']); ?>><?php _e('New Window', 'meks-smart-social-widget'); ?></option>
 				<option value="_self" <?php selected('_self',$instance['target']); ?>><?php _e('Same Window', 'meks-smart-social-widget'); ?></option>
 			</select>
 		</p>
 		
-		<h4><?php _e('Icons', 'meks-smart-social-widget'); ?>:</h4>
-		<p>
-		 <ul class="mks_social_container">
+		<h4 class="mks-icons-title"><?php _e('Icons', 'meks-smart-social-widget'); ?>:</h4>
+		
+		<ul class="mks_social_container mks-social-sortable">
 		  <?php foreach($instance['social'] as $link) : ?>
 			  <li>
 			  	<?php $this->draw_social($this, $social_links, $link); ?>
 			  </li>
 			<?php endforeach; ?>
-		 </ul>
-	  </p>
+		</ul>
+	  
 		
 		<p>
 	  	<a href="#" class="mks_add_social button"><?php _e('Add Icon', 'meks-smart-social-widget'); ?></a>
@@ -168,13 +167,20 @@ class MKS_Social_Widget extends WP_Widget {
 	}
 	
 	function draw_social($widget, $social_links, $selected = array('icon' => '', 'url' => '') ){ ?>
-				<?php _e('Icon', 'meks-smart-social-widget'); ?>: <select type="text" name="<?php echo $widget->get_field_name('social_icon'); ?>[]" value="<?php echo $selected['icon']; ?>" style="width: 80%">
-				<?php foreach($social_links as $key => $link) : ?>
-					<option value="<?php echo $key; ?>" <?php selected($key,$selected['icon']); ?>><?php echo $link; ?></option>
-				<?php endforeach; ?>
-				</select><br />
-				<?php _e('Url', 'meks-smart-social-widget'); ?>: &nbsp;&nbsp;&nbsp;<input type="text" name="<?php echo $widget->get_field_name('social_url'); ?>[]" value="<?php echo $selected['url']; ?>" style="width: 80%">
-				<a href="#" class="mks_remove_social" title="<?php _e('Remove', 'meks-smart-social-widget'); ?>"><?php _e('x', 'meks-smart-social-widget'); ?></a>
+
+				<label class="mks-sw-icon"><?php _e('Icon', 'meks-smart-social-widget'); ?> :</label>
+				<select type="text" name="<?php echo $widget->get_field_name('social_icon'); ?>[]" value="<?php echo $selected['icon']; ?>" style="width: 82%">
+					<?php foreach($social_links as $key => $link) : ?>
+						<option value="<?php echo $key; ?>" <?php selected($key,$selected['icon']); ?>><?php echo $link; ?></option>
+					<?php endforeach; ?>
+				</select>
+
+				<label class="mks-sw-icon"><?php _e('Url', 'meks-smart-social-widget'); ?> :</label>
+				<input type="text" name="<?php echo $widget->get_field_name('social_url'); ?>[]" value="<?php echo $selected['url']; ?>" style="width: 82%">
+
+				
+				<span class="mks-remove-social dashicons dashicons-no-alt"></span>
+			
 	<?php }
 
 
@@ -319,7 +325,7 @@ class MKS_Social_Widget extends WP_Widget {
 		);
 										
 		return $social;
-}
+	}
 }
 
 ?>

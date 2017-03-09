@@ -99,6 +99,15 @@ class SiteOrigin_Panels_Default_Styling {
 			'multiple' => true
 		);
 
+		$fields['mobile_padding'] = array(
+			'name' => __('Mobile Padding', 'siteorigin-panels'),
+			'type' => 'measurement',
+			'group' => 'layout',
+			'description' => __('Padding when on mobile devices.', 'siteorigin-panels'),
+			'priority' => 8,
+			'multiple' => true
+		);
+
 		$fields['row_stretch'] = array(
 			'name' => __('Row Layout', 'siteorigin-panels'),
 			'type' => 'select',
@@ -194,6 +203,15 @@ class SiteOrigin_Panels_Default_Styling {
 			'multiple' => true
 		);
 
+		$fields['mobile_padding'] = array(
+			'name' => __('Mobile Padding', 'siteorigin-panels'),
+			'type' => 'measurement',
+			'group' => 'layout',
+			'description' => __('Padding when on mobile devices.', 'siteorigin-panels'),
+			'priority' => 8,
+			'multiple' => true
+		);
+
 		// How lets add the design fields
 
 		$fields['background'] = array(
@@ -276,10 +294,6 @@ class SiteOrigin_Panels_Default_Styling {
 			}
 		}
 
-		if( !empty( $args['padding'] ) ) {
-			$attributes['style'] .= 'padding: ' . esc_attr($args['padding']) . ';';
-		}
-
 		if( !empty( $args['background'] ) ) {
 			$attributes['style'] .= 'background-color:' . $args['background']. ';';
 		}
@@ -325,8 +339,17 @@ class SiteOrigin_Panels_Default_Styling {
 			}
 		}
 
+		// We need the style wrapper if there is padding or mobile padding
+		if( ! empty( $args[ 'padding' ] ) || ! empty( $args[ 'mobile_padding' ] ) ) {
+			$attributes['class'][] = 'panel-row-style';
+		}
+
 		if( !empty( $args['border_color'] ) ) {
 			$attributes['style'] .= 'border: 1px solid ' . $args['border_color']. ';';
+		}
+
+		if( !empty( $args['id'] ) ) {
+			$attributes[ 'id' ] = sanitize_html_class( $args[ 'id' ] );
 		}
 
 		return $attributes;
@@ -355,10 +378,6 @@ class SiteOrigin_Panels_Default_Styling {
 					$attributes['style'] .= $matches[1][$i] . ':' . $matches[2][$i] . ';';
 				}
 			}
-		}
-
-		if( !empty( $args['padding'] ) ) {
-			$attributes['style'] .= 'padding: ' . esc_attr($args['padding']) . ';';
 		}
 
 		if( !empty( $args['background'] ) ) {
@@ -406,6 +425,11 @@ class SiteOrigin_Panels_Default_Styling {
 			}
 		}
 
+		// We need the style wrapper if there is padding or mobile padding
+		if( ! empty( $args[ 'padding' ] ) || ! empty( $args[ 'mobile_padding' ] ) ) {
+			$attributes['class'][] = 'panel-widget-style';
+		}
+
 		if( !empty( $args['border_color'] ) ) {
 			$attributes['style'] .= 'border: 1px solid ' . $args['border_color']. ';';
 		}
@@ -417,7 +441,49 @@ class SiteOrigin_Panels_Default_Styling {
 		return $attributes;
 	}
 
+	/**
+	 * @param SiteOrigin_Panels_Css_Builder $css
+	 * @param $panels_data
+	 * @param $post_id
+	 *
+	 * @return mixed
+	 */
 	static function filter_css_object( $css, $panels_data, $post_id ) {
+
+		$mobile_width = siteorigin_panels_setting( 'mobile-width' );
+
+		// Add in the widget padding styling
+		foreach( $panels_data[ 'widgets' ] as $i => $widget ) {
+			if( empty( $widget[ 'panels_info' ] ) ) continue;
+
+			if( ! empty( $widget[ 'panels_info' ][ 'style' ][ 'padding' ] ) ) {
+				$css->add_widget_css( $post_id, $widget['panels_info']['grid'], $widget['panels_info']['cell'], $widget['panels_info']['cell_index'], '> .panel-widget-style', array(
+					'padding' => $widget[ 'panels_info' ][ 'style' ][ 'padding' ]
+				) );
+			}
+			if( ! empty( $widget[ 'panels_info' ][ 'style' ][ 'mobile_padding' ] ) ) {
+				$css->add_widget_css( $post_id, $widget['panels_info']['grid'], $widget['panels_info']['cell'], $widget['panels_info']['cell_index'], '> .panel-widget-style', array(
+					'padding' => $widget[ 'panels_info' ][ 'style' ][ 'mobile_padding' ]
+				), $mobile_width );
+			}
+		}
+
+		// Add in the row padding styling
+		foreach( $panels_data[ 'grids' ] as $i => $row ) {
+			if( empty( $row[ 'style' ] ) ) continue;
+
+			if( ! empty( $row['style']['padding'] ) ) {
+				$css->add_row_css( $post_id, $i, '> .panel-row-style', array(
+					'padding' => $row['style']['padding']
+				) );
+			}
+			if( ! empty( $row['style'][ 'mobile_padding' ] ) ) {
+				$css->add_row_css( $post_id, $i, '> .panel-row-style', array(
+					'padding' => $row['style'][ 'mobile_padding' ]
+				), $mobile_width );
+			}
+		}
+
 		return $css;
 	}
 

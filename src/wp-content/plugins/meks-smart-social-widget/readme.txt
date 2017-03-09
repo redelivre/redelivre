@@ -4,7 +4,7 @@ Donate link: http://mekshq.com/
 Tags: social, icons, widget, linkedin, reddit, vimeo, dribble, instagram, pinterest
 Requires at least: 3.0
 Tested up to: 4.7
-Stable tag: 1.3
+Stable tag: 1.3.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -47,6 +47,18 @@ For any questions, error reports and suggestions please email support@mekshq.com
 4. Widget in action - example 3
 
 == Changelog ==
+
+= 1.3.3 =
+
+* Fixed: JavaScript error breaking several functionalities in admin panel in specific cases
+
+= 1.3.2 =
+
+* Added: Possibility to reorder (drag and drop) social icons in admin panel
+
+= 1.3.1 =
+
+* Fixed: Google+ icon not displaying
 
 = 1.3 =
 

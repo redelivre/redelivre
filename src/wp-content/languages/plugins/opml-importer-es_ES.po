@@ -1,0 +1,89 @@
+# Translation of Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2014-04-16 11:03:40+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/1.0-alpha-1000\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/opml-importer/"
+msgstr "http://wordpress.org/extend/plugins/opml-importer/"
+
+#: opml-importer.php:47 opml-importer.php:99
+msgid "Cheatin&#8217; uh?"
+msgstr "¿Haciendo trampas?"
+
+#: opml-importer.php:154
+msgid "You need to supply your OPML url. Press back on your browser and try again"
+msgstr "Tienes que facilitar la url de tu OPML. Vuelve atrás en tu navegador e inténtalo de nuevo."
+
+#. Author of the plugin/theme
+msgid "wordpressdotorg"
+msgstr "wordpresspuntoorg"
+
+#: opml-importer.php:148
+msgid "Inserted %1$d links into category %2$s. All done! Go <a href=\"%3$s\">manage those links</a>."
+msgstr "Insertados %1$d enlaces en la categoría %2$s. ¡Todo hecho! Ve a <a href=\"%3$s\">gestionar esos enlaces</a>."
+
+#: opml-importer.php:144
+msgid "Inserted <strong>%s</strong>"
+msgstr "Insertado <strong>%s</strong>"
+
+#. Plugin Name of the plugin/theme
+msgid "OPML Importer"
+msgstr "Importador OPML"
+
+#. #-#-#-#-#  opml-importer.pot (OPML Importer 0.2)  #-#-#-#-#
+#. Description of the plugin/theme
+#: opml-importer.php:173
+msgid "Import links in OPML format."
+msgstr "Importa enlaces en formato OPML"
+
+#: opml-importer.php:173
+msgid "Blogroll"
+msgstr "Sitios de interés"
+
+#: opml-importer.php:68
+msgid "Or choose from your local disk:"
+msgstr "O elige desde tu disco local:"
+
+#: opml-importer.php:63
+msgid "Specify an OPML URL:"
+msgstr "Especifica una URL OPML:"
+
+#: opml-importer.php:58
+msgid "If a program or website you use allows you to export your links or subscriptions as OPML you may import them here."
+msgstr "Si un programa o web que usas te permite exportar tus enlaces o suscripciones como OPML puedes importarlos aquí: "
+
+#: opml-importer.php:54
+msgid "Import your blogroll from another system"
+msgstr "Importa tus sitios de interés desde otro sistema"
+
+#: opml-importer.php:103
+msgid "Importing..."
+msgstr "Importando..."
+
+#: opml-importer.php:86
+msgid "Import OPML File"
+msgstr "Importar fichero OPML"
+
+#: opml-importer.php:75
+msgid "Category:"
+msgstr "Categoría:"
+
+#: opml-importer.php:74
+msgid "Now select a category you want to put these links in."
+msgstr "Ahora elige una categoría donde quieres que se pongan estos enlaces."
+
+#: opml-importer.php:28
+msgid "Import Blogroll"
+msgstr "Importar sitios de interés"
+
+#. Author URI of the plugin/theme
+msgid "http://wordpress.org/"
+msgstr "http://es.wordpress.org/"

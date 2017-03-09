@@ -72,6 +72,12 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 		) );
 
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
+			'args' => array(
+				'id' => array(
+					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'type'        => 'integer',
+				),
+			),
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_item' ),
@@ -94,8 +100,8 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 					'force' => array(
 						'default'     => false,
 						'description' => __( 'Whether to bypass trash and force deletion.', 'woocommerce' ),
+						'type'        => 'boolean',
 					),
-					'reassign' => array(),
 				),
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
@@ -766,10 +772,10 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 				}
 
 				if ( ! wp_attachment_is_image( $attachment_id ) ) {
-					throw new WC_REST_Exception( 'woocommerce_product_ĩnvalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'woocommerce' ), $attachment_id ), 400 );
+					throw new WC_REST_Exception( 'woocommerce_product_invalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'woocommerce' ), $attachment_id ), 400 );
 				}
 
-				if ( isset( $image['position'] ) && 0 === $image['position'] ) {
+				if ( isset( $image['position'] ) && 0 === absint( $image['position'] ) ) {
 					set_post_thumbnail( $product_id, $attachment_id );
 				} else {
 					$gallery[] = $attachment_id;
@@ -965,7 +971,9 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 				if ( ! empty( $new_sku ) ) {
 					$unique_sku = wc_product_has_unique_sku( $product->id, $new_sku );
 					if ( ! $unique_sku ) {
-						throw new WC_REST_Exception( 'woocommerce_rest_product_sku_already_exists', __( 'The SKU already exists on another product.', 'woocommerce' ), 400 );
+						$sku_found = wc_get_product_id_by_sku( $sku );
+
+						throw new WC_REST_Exception( 'woocommerce_rest_product_sku_already_exists', __( 'The SKU already exists on another product.', 'woocommerce' ), 400, array( 'resource_id' => $sku_found ) );
 					} else {
 						update_post_meta( $product->id, '_sku', $new_sku );
 					}
@@ -1387,7 +1395,7 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 			if ( isset( $variation['image'] ) && is_array( $variation['image'] ) ) {
 				$image = current( $variation['image'] );
 				if ( $image && is_array( $image ) ) {
-					if ( isset( $image['position'] ) && 0 === $image['position'] ) {
+					if ( isset( $image['position'] ) && 0 === absint( $image['position'] ) ) {
 						$attachment_id = isset( $image['id'] ) ? absint( $image['id'] ) : 0;
 
 						if ( 0 === $attachment_id && isset( $image['src'] ) ) {
@@ -1677,7 +1685,7 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 
 			return true;
 		} catch ( WC_REST_Exception $e ) {
-			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
+			return new WP_Error( $e->getErrorCode(), $e->getMessage(), $e->getErrorData() );
 		}
 	}
 
@@ -1713,7 +1721,7 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 
 			return true;
 		} catch ( WC_REST_Exception $e ) {
-			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
+			return new WP_Error( $e->getErrorCode(), $e->getMessage(), $e->getErrorData() );
 		}
 	}
 
@@ -2173,17 +2181,26 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 				'related_ids' => array(
 					'description' => __( 'List of related products IDs.', 'woocommerce' ),
 					'type'        => 'array',
+					'items'       => array(
+						'type'    => 'integer',
+					),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'upsell_ids' => array(
 					'description' => __( 'List of up-sell products IDs.', 'woocommerce' ),
 					'type'        => 'array',
+					'items'       => array(
+						'type'    => 'integer',
+					),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'cross_sell_ids' => array(
 					'description' => __( 'List of cross-sell products IDs.', 'woocommerce' ),
 					'type'        => 'array',
+					'items'       => array(
+						'type'    => 'integer',
+					),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'parent_id' => array(
@@ -2657,6 +2674,9 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 				'grouped_products' => array(
 					'description' => __( 'List of grouped products ID.', 'woocommerce' ),
 					'type'        => 'array',
+					'items'       => array(
+						'type'    => 'integer',
+					),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
