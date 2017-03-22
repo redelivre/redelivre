@@ -8,10 +8,10 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Text Domain: si-captcha
 Domain Path: /languages
 License: GPLv2 or later
-Version: 3.0.0.7
+Version: 3.0.0.8
 */
 
-$si_captcha_version = '3.0.0.7';
+$si_captcha_version = '3.0.0.8';
 
 /*  Copyright (C) 2008-2017 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 
@@ -761,7 +761,7 @@ echo '</div>
 function si_captcha_inline_login_form() {
   global $si_captcha_opt;
 
-   if ($si_captcha_opt['si_captcha_login'] != 'true') {
+   if ($si_captcha_opt['login'] != 'true') {
         return true; // captcha setting is disabled for login
    }
 
@@ -1295,7 +1295,7 @@ $('head').append(si_captcha_styles);
 } // end function si_captcha_add_css
 
 
-// only load this javascript on the blog pages where recaptcha needs to display
+// only load this javascript on the blog pages where captcha needs to display
 function si_captcha_add_script(){
    global $si_captcha_opt, $si_captcha_url, $si_captcha_add_script;
 

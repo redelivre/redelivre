@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.7.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-12-24 20:21:23+0000\n"
+"PO-Revision-Date: 2017-03-16 03:50:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5331,7 +5331,7 @@ msgstr "Digite o endereço de e-mail de um usuário existente nesta rede para co
 
 #: wp-admin/plugin-editor.php:279
 msgid "<strong>Warning:</strong> Making changes to active plugins is not recommended. If your changes cause a fatal error, the plugin will be automatically deactivated."
-msgstr "<strong>Cuidado:</strong>Não é recomendado fazer alterações em plugins enquanto ativos. Se as alterações causarem um erro fatal, o plugin será automaticamente desativado."
+msgstr "<strong>Cuidado:</strong> Não é recomendado fazer alterações em plugins enquanto ativos. Se as alterações causarem um erro fatal, o plugin será automaticamente desativado."
 
 #: wp-admin/options-discussion.php:175
 msgid "An avatar is an image that follows you from weblog to weblog appearing beside your name when you comment on avatar enabled sites. Here you can enable the display of avatars for people who comment on your site."
@@ -5754,7 +5754,7 @@ msgid ""
 msgstr ""
 "Olá,\n"
 "\n"
-"Você foi convidade para participar '%1$s' at\n"
+"Você foi convidado(a) para participar de '%1$s' em\n"
 "%2$s na função de %3$s.\n"
 "\n"
 "Clique no seguinte link para confirmar o convite:\n"

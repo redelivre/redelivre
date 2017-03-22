@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-02-21 15:29:14+0000\n"
+"PO-Revision-Date: 2017-03-17 18:15:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -77,7 +77,7 @@ msgstr "ID para reatribuir os posts."
 
 #: includes/api/class-wc-rest-customers-controller.php:67
 msgid "New user password."
-msgstr "Nova senha do usuário."
+msgstr "Nova senha de usuário."
 
 #: includes/api/class-wc-rest-customers-controller.php:62
 msgid "New user username."
@@ -85,7 +85,7 @@ msgstr "Novo nome de usuário."
 
 #: includes/api/class-wc-rest-customers-controller.php:58
 msgid "New user email address."
-msgstr "Novo endereço de e-mail do usuário."
+msgstr "Novo e-mail de usuário."
 
 #: includes/abstracts/abstract-wc-rest-terms-controller.php:49
 #: includes/api/class-wc-rest-product-attribute-terms-controller.php:63
@@ -186,7 +186,7 @@ msgstr "Não há métodos de entrega para esta área."
 
 #: includes/admin/settings/class-wc-settings-accounts.php:110
 msgid "Endpoints are appended to your page URLs to handle specific actions on the accounts pages. They should be unique and can be left blank to disable the endpoint."
-msgstr "Endpoints são anexados as URLs de páginas para lidar com ações específicas sobre as páginas de contas. Deve ser um valor único e pode ser deixado em branco para desativar o endpoint."
+msgstr "Os pontos de extremidade (endpoints) são anexados às URLs de páginas para executar ações específicas das páginas de contas. Devem ter um valor único e para desativá-los basta deixar o valor em branco."
 
 #: includes/wc-core-functions.php:355
 msgid "North Korean won"
@@ -1112,7 +1112,7 @@ msgstr "Este método de pagamento foi definido como padrão com sucesso."
 
 #: includes/class-wc-form-handler.php:424
 msgid "Payment method deleted."
-msgstr "Método de pagamento deletado."
+msgstr "Método de pagamento excluído."
 
 #: includes/class-wc-form-handler.php:408
 #: includes/class-wc-form-handler.php:413
@@ -1260,7 +1260,7 @@ msgstr "ID de webhook inválido."
 
 #: includes/api/class-wc-rest-taxes-controller.php:700
 msgid "Sort by tax class."
-msgstr "Ordenar por classe de imposto."
+msgstr "Ordenar por classe de taxa."
 
 #: includes/api/class-wc-rest-taxes-controller.php:629
 msgid "Indicates the order that will appear in queries."
@@ -1268,7 +1268,7 @@ msgstr "Indica a ordem que irá aparecer nas consultas."
 
 #: includes/api/class-wc-rest-taxes-controller.php:623
 msgid "Whether or not this tax rate also gets applied to shipping."
-msgstr "Se é ou não uma taxa de imposto que deve ser aplicar a entrega."
+msgstr "Se é ou não uma taxa que deve ser aplicada a entrega."
 
 #: includes/api/class-wc-rest-taxes-controller.php:617
 msgid "Whether or not this is a compound rate."
@@ -1280,11 +1280,11 @@ msgstr "Prioridade da taxa."
 
 #: includes/api/class-wc-rest-taxes-controller.php:606
 msgid "Tax rate name."
-msgstr "Nome da taxa de imposto."
+msgstr "Nome da taxa."
 
 #: includes/api/class-wc-rest-taxes-controller.php:601
 msgid "Tax rate."
-msgstr "Taxa de imposto."
+msgstr "Taxa."
 
 #: includes/api/class-wc-rest-taxes-controller.php:591
 msgid "Postcode/ZIP."
@@ -1300,7 +1300,7 @@ msgstr "Código do pais em ISO 3166."
 
 #: includes/api/class-wc-rest-tax-classes-controller.php:338
 msgid "Tax class name."
-msgstr "Nome da classe de imposto."
+msgstr "Nome da classe de taxa."
 
 #: includes/api/class-wc-rest-tax-classes-controller.php:223
 #: includes/api/class-wc-rest-taxes-controller.php:456
@@ -2011,7 +2011,7 @@ msgstr "Status da taxa."
 
 #: includes/api/class-wc-rest-orders-controller.php:1695
 msgid "Tax class of fee."
-msgstr "Classe de imposto da taxa."
+msgstr "Classe da taxa."
 
 #: includes/api/class-wc-rest-orders-controller.php:1690
 msgid "Fee name."
@@ -2043,15 +2043,15 @@ msgstr "Total de taxas (não incluindo taxas de envio)."
 
 #: includes/api/class-wc-rest-orders-controller.php:1596
 msgid "Show if is a compound tax rate."
-msgstr "Mostra se a taxa de imposto é composta."
+msgstr "Mostra se a taxa é composta."
 
 #: includes/api/class-wc-rest-orders-controller.php:1590
 msgid "Tax rate label."
-msgstr "Nome da taxa de imposto."
+msgstr "Nome da taxa."
 
 #: includes/api/class-wc-rest-orders-controller.php:1578
 msgid "Tax rate code."
-msgstr "Código da taxa de imposto."
+msgstr "Código da taxa."
 
 #: includes/api/class-wc-rest-orders-controller.php:1564
 msgid "Tax lines data."
@@ -2340,7 +2340,7 @@ msgstr "Preço do produto."
 #: includes/api/class-wc-rest-order-refunds-controller.php:425
 #: includes/api/class-wc-rest-orders-controller.php:1471
 msgid "Tax class of product."
-msgstr "Classe de imposto do produto."
+msgstr "Classe de taxa do produto."
 
 #: includes/api/class-wc-rest-order-refunds-controller.php:420
 #: includes/api/class-wc-rest-orders-controller.php:1466
@@ -2728,7 +2728,7 @@ msgstr "Lista de IDs de categorias em que o cupom pode ser aplicado."
 
 #: includes/api/class-wc-rest-coupons-controller.php:532
 msgid "Define if can be applied for free shipping."
-msgstr "Define se pode ser aplicado para entrega grátis."
+msgstr "Define se pode ser aplicado para frete grátis."
 
 #: includes/api/class-wc-rest-coupons-controller.php:527
 msgid "Max number of items in the cart the coupon can be applied to."
@@ -3333,7 +3333,7 @@ msgstr "As seguintes taxas de impostos serão importadas automaticamente para vo
 
 #: includes/admin/class-wc-admin-setup-wizard.php:416
 msgid "If you will be charging sales tax, or shipping physical goods to customers, you can enable these below. This is optional and can be changed later."
-msgstr "Se você cobrará impostos sobre vendas ou envio de mercadorias a seus clientes, habilite as informações abaixo. Isto é opcional e pode ser alterado posteriormente."
+msgstr "Se você cobrará taxas sobre vendas ou envio de mercadorias a seus clientes, habilite as informações abaixo. Isto é opcional e pode ser alterado posteriormente."
 
 #: includes/admin/class-wc-admin-post-types.php:2287
 msgid "Ready to start selling something awesome?"
@@ -3399,7 +3399,7 @@ msgstr "Transferência bancária"
 #: includes/admin/settings/views/html-admin-page-shipping-zones.php:8
 #: includes/admin/views/html-notice-legacy-shipping.php:13
 msgid "Shipping Zones"
-msgstr "Áreas de entrega"
+msgstr "Zonas de entrega"
 
 #: includes/admin/class-wc-admin-assets.php:287
 msgid "Are you sure you wish to delete this note? This action cannot be undone."
@@ -3546,7 +3546,7 @@ msgstr "Limitar resposta para recursos publicados depois de uma data especifica 
 #: includes/api/class-wc-rest-products-controller.php:1831
 #: includes/api/class-wc-rest-webhooks-controller.php:327
 msgid "The %s cannot be deleted."
-msgstr "O %s não pode ser deletado."
+msgstr "O %s não pode ser excluído."
 
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:451
 #: includes/api/class-wc-rest-products-controller.php:1822
@@ -3902,24 +3902,24 @@ msgstr "Estado"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:681
 msgid "You do not have permission to read the tax classes count"
-msgstr "Você não tem permissão para ler a contagem de classes de imposto"
+msgstr "Você não tem permissão para ler a contagem de classes de taxa"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:647
 msgid "Could not delete the tax class"
-msgstr "Não foi possível deletar a classe de imposto"
+msgstr "Não foi possível deletar a classe de taxa"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:631
 msgid "You do not have permission to delete tax classes"
-msgstr "Você não tem permissão para deletar classes de imposto"
+msgstr "Você não tem permissão para deletar classes de taxa"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:593
 #: includes/cli/class-wc-cli-tax.php:148
 msgid "Tax class already exists"
-msgstr "Classe de imposto já existe"
+msgstr "Classe de taxa já existe"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:569
 msgid "You do not have permission to create tax classes"
-msgstr "Você não tem permissão para criar classes de imposto"
+msgstr "Você não tem permissão para criar classes de taxa"
 
 #: includes/api/class-wc-rest-tax-classes-controller.php:136
 #: includes/api/legacy/v3/class-wc-api-taxes.php:534
@@ -3929,7 +3929,7 @@ msgstr "Taxa padrão"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:526
 msgid "You do not have permission to read tax classes"
-msgstr "Você não tem permissão para ler classes de imposto"
+msgstr "Você não tem permissão para ler classes de taxa"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:373
 msgid "You do not have permission to read the taxes count"
@@ -3937,27 +3937,27 @@ msgstr "Você não tem permissão para ler a contagem de taxas"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:351
 msgid "Could not delete the tax rate"
-msgstr "Não foi possível deletar a taxa de imposto"
+msgstr "Não foi possível deletar a taxa"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:343
 msgid "You do not have permission to delete tax rates"
-msgstr "Você não tem permissão para deletar taxas de imposto"
+msgstr "Você não tem permissão para deletar taxas"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:259
 msgid "You do not have permission to edit tax rates"
-msgstr "Você não tem permissão para editar taxas de imposto"
+msgstr "Você não tem permissão para editar taxas"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:189
 msgid "You do not have permission to create tax rates"
-msgstr "Você não tem permissão para criar taxas de impostos"
+msgstr "Você não tem permissão para criar taxas"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:135
 msgid "A tax rate with the provided ID could not be found"
-msgstr "Não foi possível encontrar uma taxa de imposto com o ID informado"
+msgstr "Não foi possível encontrar uma taxa com o ID informado"
 
 #: includes/api/legacy/v3/class-wc-api-taxes.php:128
 msgid "You do not have permission to read tax rate"
-msgstr "Você não tem permissão para ver taxas de impostos"
+msgstr "Você não tem permissão para ver taxas"
 
 #: includes/api/legacy/v3/class-wc-api-products.php:3482
 msgid "Could not delete the shipping class"
@@ -4134,7 +4134,7 @@ msgstr "Nenhuma taxa de imposto correspondente foi encontrada."
 
 #: includes/admin/settings/views/html-settings-tax.php:48
 msgid "Tax rate ID: %s"
-msgstr "ID de taxa de imposto: %s"
+msgstr "ID da taxa: %s"
 
 #: includes/admin/settings/views/html-settings-tax.php:42
 msgid "Loading&hellip;"
@@ -4893,7 +4893,7 @@ msgstr "Desculpe, parece que não existem métodos de pagamento disponíveis par
 
 #: templates/checkout/form-login.php:35
 msgid "If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing &amp; Shipping section."
-msgstr "Se você já comprou conosco antes, informe seus dados nos campos abaixo. Se você é um cliente novo, por favor, siga para a seção Cobrança e Entrega."
+msgstr "Se você já comprou conosco antes, informe seus dados nos campos abaixo. Se você é um cliente novo, por favor, siga para a seção de \"Cobrança e Entrega\"."
 
 #: templates/checkout/form-login.php:28
 msgid "Click here to login"
@@ -5833,7 +5833,7 @@ msgstr "Países selecionados"
 #: includes/shipping/free-shipping/class-wc-shipping-free-shipping.php:97
 #: includes/shipping/legacy-free-shipping/class-wc-shipping-legacy-free-shipping.php:133
 msgid "Users will need to spend this amount to get free shipping (if enabled above)."
-msgstr "Os usuários terão que gastar este montante para obter frete grátis (caso esteja habilitado acima)."
+msgstr "Os usuários terão que gastar este montante para poder utilizar frete grátis (caso esteja habilitado acima)."
 
 #: includes/shipping/free-shipping/class-wc-shipping-free-shipping.php:94
 #: includes/shipping/legacy-free-shipping/class-wc-shipping-legacy-free-shipping.php:130
@@ -5857,7 +5857,7 @@ msgstr "Quantidade mínima para pedido (definido abaixo)"
 #: includes/shipping/free-shipping/class-wc-shipping-free-shipping.php:87
 #: includes/shipping/legacy-free-shipping/class-wc-shipping-legacy-free-shipping.php:123
 msgid "A valid free shipping coupon"
-msgstr "Um cupom válido com entrega gratuita"
+msgstr "Um cupom válido com frete grátis"
 
 #: includes/shipping/free-shipping/class-wc-shipping-free-shipping.php:81
 #: includes/shipping/legacy-free-shipping/class-wc-shipping-legacy-free-shipping.php:117
@@ -5954,7 +5954,7 @@ msgstr "Suporta os seguites substituidores: <code>[qty]</code> = número de iten
 #: includes/shipping/flat-rate/includes/settings-flat-rate.php:7
 #: includes/shipping/legacy-flat-rate/includes/settings-flat-rate.php:7
 msgid "Enter a cost (excl. tax) or sum, e.g. <code>10.00 * [qty]</code>."
-msgstr "Digite o custo (excluindo imposto) ou a soma, exemplo. <code>10.00 * [qty]</code>."
+msgstr "Digite o custo (excluindo taxas) ou a soma, exemplo. <code>10.00 * [qty]</code>."
 
 #: includes/shipping/flat-rate/class-wc-shipping-flat-rate.php:25
 #: includes/shipping/flat-rate/includes/settings-flat-rate.php:17
@@ -6405,7 +6405,7 @@ msgstr "PayPal"
 
 #: includes/gateways/paypal/class-wc-gateway-paypal.php:35
 msgid "Proceed to PayPal"
-msgstr "ir para o PayPal"
+msgstr "Fechar compra no PayPal"
 
 #: includes/gateways/cod/class-wc-gateway-cod.php:203
 msgid "Payment to be made upon delivery."
@@ -7898,7 +7898,7 @@ msgstr "Nome da empresa"
 
 #: includes/class-wc-countries.php:363
 msgid "(ex. tax)"
-msgstr "(ex. imposto)"
+msgstr "(ex. taxa)"
 
 #: includes/class-wc-countries.php:363
 msgid "(ex. VAT)"
@@ -8124,19 +8124,19 @@ msgstr "O %s escopo é inválido"
 
 #: includes/class-wc-auth.php:117
 msgid "View and manage products"
-msgstr "Visualizar e gerenciar produtos"
+msgstr "Ver e gerenciar produtos"
 
 #: includes/class-wc-auth.php:116
 msgid "View and manage orders and sales reports"
-msgstr "Visualizar e gerenciar pedidos e relatórios de vendas"
+msgstr "Ver e gerenciar pedidos e relatórios de vendas"
 
 #: includes/class-wc-auth.php:115
 msgid "View and manage customers"
-msgstr "Visualizar e gerenciar clientes"
+msgstr "Ver e gerenciar clientes"
 
 #: includes/class-wc-auth.php:114
 msgid "View and manage coupons"
-msgstr "Visualizar e gerenciar cupons"
+msgstr "Ver e gerenciar cupons"
 
 #: includes/class-wc-auth.php:110
 msgid "Create products"
@@ -9795,7 +9795,7 @@ msgstr "Exibição do total de taxas"
 
 #: includes/admin/settings/views/settings-tax.php:97
 msgid "Define text to show after your product prices. This could be, for example, \"inc. Vat\" to explain your pricing. You can also have prices substituted here using one of the following: {price_including_tax}, {price_excluding_tax}."
-msgstr "Defina um texto a exibir após os preços dos produtos. Pode ser, por exemplo, \"incl. impostos\" para explicar seu preço. Você também pode substituir os preços usando: {price_including_tax} ou {price_excluding_tax}."
+msgstr "Defina um texto a exibir após os preços dos produtos. Pode ser, por exemplo, \"incl. taxas\" para explicar seu preço. Você também pode substituir os preços usando: {price_including_tax} ou {price_excluding_tax}."
 
 #: includes/admin/settings/views/settings-tax.php:92
 msgid "Price Display Suffix"
@@ -9808,12 +9808,12 @@ msgstr "Exibição dos preços no carrinho e na finalização"
 #: includes/admin/settings/views/settings-tax.php:74
 #: includes/admin/settings/views/settings-tax.php:86
 msgid "Excluding tax"
-msgstr "Excluindo imposto"
+msgstr "Excluindo taxa"
 
 #: includes/admin/settings/views/settings-tax.php:73
 #: includes/admin/settings/views/settings-tax.php:85
 msgid "Including tax"
-msgstr "Incluindo imposto."
+msgstr "Incluindo taxa"
 
 #: includes/admin/settings/views/settings-tax.php:67
 msgid "Display Prices in the Shop"
@@ -9833,7 +9833,7 @@ msgstr "Classes de impostos adicionais"
 
 #: includes/admin/settings/views/settings-tax.php:51
 msgid "Round tax at subtotal level, instead of rounding per line"
-msgstr "Arrendondar taxa de imposto sobre o subtotal, ao invés de arrendondar por cada linha."
+msgstr "Arrendondar taxa sobre o subtotal, ao invés de arrendondar por cada linha."
 
 #: includes/admin/settings/views/settings-tax.php:50
 msgid "Rounding"
@@ -9845,7 +9845,7 @@ msgstr "Classe fiscal de transporte com base em itens do carrinho"
 
 #: includes/admin/settings/views/settings-tax.php:39
 msgid "Optionally control which tax class shipping gets, or leave it so shipping tax is based on the cart items themselves."
-msgstr "Opcionalmente você pode controlar os impostos sobre os tipos de entrega ou deixá-lo para calcular o imposto do transporte com base nos itens do carrinho."
+msgstr "Opcionalmente você pode controlar as classes de taxas sobre os tipos de entrega ou deixá-lo para calcular o taxas do transporte com base nos itens do carrinho."
 
 #: includes/admin/settings/views/settings-tax.php:38
 msgid "Shipping Tax Class"
@@ -9861,7 +9861,7 @@ msgstr "Endereço de entrega do cliente"
 
 #: includes/admin/settings/views/settings-tax.php:26
 msgid "This option determines which address is used to calculate tax."
-msgstr "Esta opção determina qual endereço é usado para calcular o imposto."
+msgstr "Esta opção determina qual endereço é usado para calcular taxas."
 
 #: includes/admin/settings/views/settings-tax.php:24
 msgid "Calculate Tax Based On"
@@ -9869,11 +9869,11 @@ msgstr "Calcular o imposto com base em"
 
 #: includes/admin/settings/views/settings-tax.php:19
 msgid "No, I will enter prices exclusive of tax"
-msgstr "Não, eu informarei os valores sem as taxas de impostos"
+msgstr "Não, eu informarei os valores sem as taxas"
 
 #: includes/admin/settings/views/settings-tax.php:18
 msgid "Yes, I will enter prices inclusive of tax"
-msgstr "Sim, eu incluirei valores com as taxas de impostos"
+msgstr "Sim, eu incluirei valores com as taxas"
 
 #: includes/admin/settings/views/settings-tax.php:16
 msgid "This option is important as it will affect how you input prices. Changing it will not update existing products."
@@ -9885,7 +9885,7 @@ msgstr "Preços inseridos com imposto"
 
 #: includes/admin/settings/class-wc-settings-general.php:138
 msgid "Enable taxes and tax calculations"
-msgstr "Habilitar cálculo de taxas e impostos"
+msgstr "Habilitar cálculo de taxas"
 
 #: includes/admin/settings/class-wc-settings-general.php:137
 msgid "Enable Taxes"
@@ -10076,11 +10076,11 @@ msgstr "Inserir linha"
 #: includes/api/class-wc-rest-orders-controller.php:1659
 #: includes/api/class-wc-rest-orders-controller.php:1723
 msgid "Tax rate ID."
-msgstr "ID da taxa de imposto."
+msgstr "ID da taxa."
 
 #: includes/admin/settings/views/html-settings-tax.php:27
 msgid "Choose whether or not this tax rate also gets applied to shipping."
-msgstr "Escolha se esta taxa de imposto será aplicada ou não a entrega."
+msgstr "Escolha se esta taxa será aplicada ou não a entrega."
 
 #: includes/admin/settings/views/html-settings-tax.php:26
 msgid "Choose whether or not this is a compound rate. Compound tax rates are applied on top of other tax rates."
@@ -10093,7 +10093,7 @@ msgstr "Composto"
 
 #: includes/admin/settings/views/html-settings-tax.php:25
 msgid "Choose a priority for this tax rate. Only 1 matching rate per priority will be used. To define multiple tax rates for a single area you need to specify a different priority per rate."
-msgstr "Escolha uma prioridade para esta taxa de imposto. Apenas 1 taxa de correspondência pode ser usada. Para definir alíquotas múltiplas para uma única área que você precisa especificar uma prioridade diferente por taxa."
+msgstr "Escolha uma prioridade para esta taxa. Apenas 1 taxa de correspondência pode ser usada. Para definir alíquotas múltiplas para uma única área que você precisa especificar uma prioridade diferente por taxa."
 
 #: includes/admin/settings/class-wc-settings-tax.php:183
 #: includes/admin/settings/views/html-settings-tax.php:25
@@ -10102,7 +10102,7 @@ msgstr "Prioridade"
 
 #: includes/admin/settings/views/html-settings-tax.php:24
 msgid "Enter a name for this tax rate."
-msgstr "Digite um nome para esta taxa de imposto."
+msgstr "Digite um nome para esta taxa."
 
 #: includes/admin/settings/views/html-settings-tax.php:24
 msgid "Tax&nbsp;Name"
@@ -10620,7 +10620,7 @@ msgstr "Locais de venda"
 
 #: includes/admin/settings/class-wc-settings-general.php:54
 msgid "This is the base location for your business. Tax rates will be based on this country."
-msgstr "Esta é localização base do seu negócio. Taxas de imposto serão baseadas neste país."
+msgstr "Esta é localização base do seu negócio. Taxas serão baseadas neste país."
 
 #: includes/admin/settings/class-wc-settings-general.php:53
 msgid "Base Location"
@@ -10734,7 +10734,7 @@ msgstr "Pagar"
 
 #: includes/admin/settings/class-wc-settings-checkout.php:175
 msgid "Endpoints are appended to your page URLs to handle specific actions during the checkout process. They should be unique."
-msgstr "Os endpoints são anexados as suas URLs de páginas para lidar com ações específicas nas páginas de finalização de compra. Eles devem ser únicos."
+msgstr "Os pontos de extremidade (endpoints) são anexados às URLs de páginas para executar ações específicas das páginas de finalização de compra. Devem ter um valor único. "
 
 #: includes/admin/settings/class-wc-settings-checkout.php:175
 msgid "Checkout Endpoints"
@@ -10854,7 +10854,7 @@ msgstr "Habilitar registro"
 
 #: includes/admin/settings/class-wc-settings-accounts.php:177
 msgid "Endpoint for the triggering logout. You can add this to your menus via a custom link: yoursite.com/?customer-logout=true"
-msgstr "Endpoint para a ação de sair da conta. Você pode adicionar este aos seus menus através de um link personalizado: yoursite.com/?customer-logout=true"
+msgstr "Ponto de extremidade para a ação de sair da conta. Você pode adicionar este aos seus menus através de um link personalizado: yoursite.com/?customer-logout=true"
 
 #: includes/admin/settings/class-wc-settings-accounts.php:176
 #: includes/wc-account-functions.php:96 templates/auth/form-grant-access.php:39
@@ -10924,7 +10924,7 @@ msgstr "Total"
 
 #: includes/admin/reports/class-wc-report-taxes-by-date.php:157
 msgid "Total sales minus shipping and tax."
-msgstr "Total de vendas menos frete e impostos"
+msgstr "Total de vendas menos frete e taxas."
 
 #: includes/admin/reports/class-wc-report-taxes-by-date.php:157
 msgid "Net profit"
@@ -11369,7 +11369,7 @@ msgstr "Descrição da variação"
 #: includes/api/class-wc-rest-products-controller.php:2523
 #: includes/api/class-wc-rest-taxes-controller.php:634
 msgid "Tax class."
-msgstr "Classe de imposto."
+msgstr "Classe da taxa."
 
 #: includes/admin/meta-boxes/views/html-variation-admin.php:211
 #: includes/admin/meta-boxes/views/html-variation-admin.php:225
@@ -11516,7 +11516,7 @@ msgstr "Opcional"
 
 #: includes/admin/meta-boxes/views/html-order-items.php:363
 msgid "Or, enter tax rate ID:"
-msgstr "Ou, adicione o ID da taxa de imposto:"
+msgstr "Ou, adicione o ID da taxa:"
 
 #: includes/admin/meta-boxes/views/html-order-items.php:342
 #: includes/admin/settings/class-wc-settings-tax.php:181
@@ -11654,7 +11654,7 @@ msgstr "Cupom(ns) usados"
 #: includes/admin/settings/class-wc-settings-tax.php:33
 #: includes/class-wc-countries.php:343 includes/class-wc-tax.php:659
 msgid "Tax"
-msgstr "Imposto"
+msgstr "Taxa"
 
 #: includes/admin/meta-boxes/views/html-order-items.php:53
 #: templates/checkout/form-pay.php:30
@@ -12103,7 +12103,7 @@ msgstr "Gerenciar estoque?"
 
 #: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:263
 msgid "Choose a tax class for this product. Tax classes are used to apply different tax rates specific to certain types of product."
-msgstr "Escolha uma classe de imposto para este produto. Classes de impostos são usadas para aplicar diferentes taxas de imposto para certos tipos de produtos."
+msgstr "Escolha uma classe de taxa para este produto. Classes de taxa são usadas para aplicar diferentes taxas para certos tipos de produtos."
 
 #: includes/admin/settings/class-wc-settings-tax.php:186
 #: includes/admin/views/html-bulk-edit-product.php:89
@@ -12732,11 +12732,11 @@ msgstr "Antes de poder realizar o upload do arquivo de importação, você deve 
 
 #: includes/admin/importers/class-wc-tax-rate-importer.php:232
 msgid "Tax rates need to be defined with columns in a specific order (10 columns). <a href=\"%s\">Click here to download a sample</a>."
-msgstr "As taxas de impostos precisam ser definidas com colunas numa ordem específica (10 colunas).  <a href=\"%s\">Clique aqui para fazer download de um exemplo</a>."
+msgstr "As taxas precisam ser definidas com colunas numa ordem específica (10 colunas).  <a href=\"%s\">Clique aqui para fazer download de um exemplo</a>."
 
 #: includes/admin/importers/class-wc-tax-rate-importer.php:230
 msgid "Hi there! Upload a CSV file containing tax rates to import the contents into your shop. Choose a .csv file to upload, then click \"Upload file and import\"."
-msgstr "Olá! Faça upload de um arquivo CSV contendo os impostos a serem aplicados em sua loja. Escolha um arquivo .csv para fazer upload, então clique em \"Fazer upload de arquivo e importar\"."
+msgstr "Olá! Envie um arquivo CSV contendo as taxas que serão aplicadas em sua loja. Escolha um arquivo .csv para fazer o envio, então clique em \"Enviar arquivo e importar\"."
 
 #: includes/admin/importers/class-wc-tax-rate-importer.php:214
 msgid "Import Tax Rates"
@@ -12990,11 +12990,11 @@ msgstr "<strong class=\"red\">Nota:</strong> Esta opção irá deletar TODAS as 
 
 #: includes/admin/class-wc-admin-status.php:182
 msgid "Delete ALL tax rates"
-msgstr "Deletar TODAS as taxas de imposto"
+msgstr "Deletar TODAS as taxas"
 
 #: includes/admin/class-wc-admin-status.php:181
 msgid "Delete all WooCommerce tax rates"
-msgstr "Deletar todas as taxas de imposto do WooCommerce"
+msgstr "Deletar todas as taxas do WooCommerce"
 
 #: includes/admin/class-wc-admin-status.php:178
 msgid "<strong class=\"red\">Note:</strong> This tool will install all the missing WooCommerce pages. Pages already defined and set up will not be replaced."
@@ -13082,7 +13082,7 @@ msgstr "Configurações de rastreamento reiniciadas com sucesso."
 
 #: includes/admin/class-wc-admin-status.php:114
 msgid "Tax rates successfully deleted"
-msgstr "Taxas de imposto excluídas com sucesso"
+msgstr "Taxas excluídas com sucesso"
 
 #: includes/admin/class-wc-admin-status.php:106
 msgid "All missing WooCommerce pages was installed successfully."
@@ -13185,11 +13185,11 @@ msgstr "Estado"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:436
 msgid "I will enter prices exclusive of tax"
-msgstr "Eu informarei os valores sem as taxas de impostos"
+msgstr "Eu informarei os valores sem as taxas"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:435
 msgid "I will enter prices inclusive of tax"
-msgstr "Eu informarei os valores com as taxas de impostos"
+msgstr "Eu informarei os valores com as taxas"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:433
 msgid "How will you enter product prices?"
@@ -13491,15 +13491,15 @@ msgstr "Suas configurações foram salvas."
 
 #: includes/admin/class-wc-admin-reports.php:126
 msgid "Taxes by date"
-msgstr "Impostos por data"
+msgstr "Taxas por data"
 
 #: includes/admin/class-wc-admin-reports.php:120
 msgid "Taxes by code"
-msgstr "Impostos por código"
+msgstr "Taxas por código"
 
 #: includes/admin/class-wc-admin-reports.php:117
 msgid "Taxes"
-msgstr "Impostos"
+msgstr "Taxas"
 
 #: includes/admin/class-wc-admin-reports.php:106
 msgid "Most Stocked"
@@ -14320,7 +14320,7 @@ msgstr "Você pode opcionalmente adicionar etiquetas para o seu produto aqui. Et
 #: includes/class-wc-post-types.php:99 includes/class-wc-post-types.php:101
 #: includes/widgets/class-wc-widget-product-tag-cloud.php:29
 msgid "Product Tags"
-msgstr "Etiquetas de produto"
+msgstr "Etiqueta de produto"
 
 #: includes/admin/class-wc-admin-pointers.php:169
 msgid "Upload or assign an image to your product here. This image will be shown in your store's catalog."
@@ -14561,11 +14561,11 @@ msgstr "Relatórios de venda"
 #: includes/admin/settings/views/html-admin-page-shipping-classes.php:8
 #: includes/class-wc-post-types.php:136 includes/class-wc-post-types.php:138
 msgid "Shipping Classes"
-msgstr "Classes de entrega"
+msgstr "Classe de entrega"
 
 #: includes/admin/class-wc-admin-importers.php:34
 msgid "Import <strong>tax rates</strong> to your store via a csv file."
-msgstr "Importe as <strong>taxas de imposto</strong> para sua loja com um arquivo csv."
+msgstr "Importe as <strong>taxas</strong> para sua loja com um arquivo csv."
 
 #: includes/admin/class-wc-admin-importers.php:34
 msgid "WooCommerce Tax Rates (CSV)"
@@ -14707,11 +14707,11 @@ msgstr "Configurações de conta"
 
 #: includes/admin/class-wc-admin-help.php:69
 msgid "Checkout Settings"
-msgstr "Configurações da finalização de compra"
+msgstr "Configurações de finalização de compra"
 
 #: includes/admin/class-wc-admin-help.php:53
 msgid "Tax Settings"
-msgstr "Configurações de imposto"
+msgstr "Configurações de taxas"
 
 #: includes/admin/class-wc-admin-help.php:49
 msgid "Product Settings"
@@ -14981,7 +14981,7 @@ msgstr "Seu produto tem variações! Antes de alterar o tipo do produto, seria u
 
 #: includes/admin/class-wc-admin-assets.php:285
 msgid "You cannot add the same tax rate twice!"
-msgstr "Você não pode adicionar duas vezes as mesma taxa de imposto!"
+msgstr "Você não pode adicionar duas vezes as mesma taxa!"
 
 #: includes/admin/class-wc-admin-assets.php:284
 msgid "Are you sure you want to revoke access to this download?"
@@ -15017,7 +15017,7 @@ msgstr "Copiar Informações de faturamento para o endereço de entrega? Isto ir
 
 #: includes/admin/class-wc-admin-assets.php:251
 msgid "Calculate line taxes? This will calculate taxes based on the customers country. If no billing/shipping is set it will use the store base country."
-msgstr "Calcular linha de impostos? Isto irá calcular os impostos com base no país dos clientes. Se não houver cobrança/transporte será definido o país sede da loja."
+msgstr "Calcular linha de taxas? Isto irá calcular as taxas com base no país dos clientes. Se não houver cobrança/transporte será definido o país sede da loja."
 
 #: includes/admin/class-wc-admin-assets.php:250
 msgid "Calculate totals based on order items, discounts, and shipping?"
@@ -15315,7 +15315,7 @@ msgstr "Adicionar chave"
 #: includes/admin/class-wc-admin-api-keys.php:61
 #: includes/admin/settings/class-wc-settings-api.php:46
 msgid "Keys/Apps"
-msgstr "Chaves/Apps"
+msgstr "Chaves/apps"
 
 #: includes/admin/class-wc-admin-api-keys-table-list.php:159
 #: includes/admin/settings/views/html-keys-edit.php:79

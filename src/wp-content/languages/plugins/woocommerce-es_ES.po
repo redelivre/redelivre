@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-02-26 03:00:32+0000\n"
+"PO-Revision-Date: 2017-03-18 08:48:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14320,7 +14320,7 @@ msgstr "Opcionalmente puedes “etiquetar” aquí tus productos. Las etiquetas 
 #: includes/class-wc-post-types.php:99 includes/class-wc-post-types.php:101
 #: includes/widgets/class-wc-widget-product-tag-cloud.php:29
 msgid "Product Tags"
-msgstr "Etiquetas del producto"
+msgstr "Etiquetas de producto"
 
 #: includes/admin/class-wc-admin-pointers.php:169
 msgid "Upload or assign an image to your product here. This image will be shown in your store's catalog."

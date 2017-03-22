@@ -4,8 +4,8 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S
 Tags: captcha, recaptcha, buddypress, bbpress, woocommerce, wpforo, multisite, jetpack, comment, comments, login, register, anti-spam, spam, security
 Requires at least: 3.6.0
-Tested up to: 4.7.2
-Stable tag: 3.0.0.6
+Tested up to: 4.7.3
+Stable tag: 3.0.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -248,6 +248,9 @@ Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](
 
 
 == Changelog ==
+
+= 3.0.0.8 =
+* (21 Mar 2017) - Fixed error caused by uninitialized value si_captcha_login on line 764.
 
 = 3.0.0.7 =
 * (03 Mar 2017) - Fixed CAPTCHA not loading on register form on BuddyPress when Extended Profiles is disabled.
