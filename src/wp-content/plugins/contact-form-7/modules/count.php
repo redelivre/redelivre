@@ -8,8 +8,7 @@
 add_action( 'wpcf7_init', 'wpcf7_add_form_tag_count' );
 
 function wpcf7_add_form_tag_count() {
-	wpcf7_add_form_tag( 'count',
-		'wpcf7_count_form_tag_handler', array( 'name-attr' => true ) );
+	wpcf7_add_form_tag( 'count', 'wpcf7_count_form_tag_handler', true );
 }
 
 function wpcf7_count_form_tag_handler( $tag ) {

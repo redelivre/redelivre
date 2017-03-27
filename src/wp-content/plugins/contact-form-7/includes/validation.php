@@ -8,8 +8,7 @@ class WPCF7_Validation implements ArrayAccess {
 		$this->container = array(
 			'valid' => true,
 			'reason' => array(),
-			'idref' => array(),
-		);
+			'idref' => array() );
 	}
 
 	public function invalidate( $context, $message ) {
@@ -37,8 +36,7 @@ class WPCF7_Validation implements ArrayAccess {
 
 			$this->invalid_fields[$name] = array(
 				'reason' => (string) $message,
-				'idref' => $id,
-			);
+				'idref' => $id );
 		}
 	}
 

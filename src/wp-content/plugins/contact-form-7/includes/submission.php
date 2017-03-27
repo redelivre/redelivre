@@ -137,9 +137,8 @@ class WPCF7_Submission {
 			'url' => preg_replace( '%(?<!:|/)/.*$%', '',
 				untrailingslashit( home_url() ) ) . wpcf7_get_request_uri(),
 			'timestamp' => current_time( 'timestamp' ),
-			'unit_tag' =>
-				isset( $_POST['_wpcf7_unit_tag'] ) ? $_POST['_wpcf7_unit_tag'] : '',
-		);
+			'unit_tag' => isset( $_POST['_wpcf7_unit_tag'] )
+				? $_POST['_wpcf7_unit_tag'] : '' );
 
 		$contact_form = $this->contact_form;
 
@@ -193,8 +192,8 @@ class WPCF7_Submission {
 		$tags = $this->contact_form->scan_form_tags();
 
 		foreach ( $tags as $tag ) {
-			$type = $tag['type'];
-			$result = apply_filters( "wpcf7_validate_{$type}", $result, $tag );
+			$result = apply_filters( 'wpcf7_validate_' . $tag['type'],
+				$result, $tag );
 		}
 
 		$result = apply_filters( 'wpcf7_validate', $result, $tags );

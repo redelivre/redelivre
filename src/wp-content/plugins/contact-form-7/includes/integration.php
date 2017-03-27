@@ -55,8 +55,7 @@ class WPCF7_Integration {
 
 	public function list_services( $args = '' ) {
 		$args = wp_parse_args( $args, array(
-			'include' => array(),
-		) );
+			'include' => array() ) );
 
 		$singular = false;
 		$services = (array) $this->services;
