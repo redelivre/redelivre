@@ -28,3 +28,5 @@ function wpcf7_listo( $data, $options, $args ) {
 
 	return $data;
 }
+
+?>

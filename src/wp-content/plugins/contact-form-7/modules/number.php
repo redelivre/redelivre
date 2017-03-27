@@ -5,21 +5,20 @@
 ** 	[range] and [range*]		# Range
 **/
 
-/* form_tag handler */
+/* Shortcode handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_number' );
+add_action( 'wpcf7_init', 'wpcf7_add_shortcode_number' );
 
-function wpcf7_add_form_tag_number() {
-	wpcf7_add_form_tag( array( 'number', 'number*', 'range', 'range*' ),
-		'wpcf7_number_form_tag_handler', true );
+function wpcf7_add_shortcode_number() {
+	wpcf7_add_shortcode( array( 'number', 'number*', 'range', 'range*' ),
+		'wpcf7_number_shortcode_handler', true );
 }
 
-function wpcf7_number_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+function wpcf7_number_shortcode_handler( $tag ) {
+	$tag = new WPCF7_Shortcode( $tag );
 
-	if ( empty( $tag->name ) ) {
+	if ( empty( $tag->name ) )
 		return '';
-	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
@@ -27,9 +26,8 @@ function wpcf7_number_form_tag_handler( $tag ) {
 
 	$class .= ' wpcf7-validates-as-number';
 
-	if ( $validation_error ) {
+	if ( $validation_error )
 		$class .= ' wpcf7-not-valid';
-	}
 
 	$atts = array();
 
@@ -40,13 +38,11 @@ function wpcf7_number_form_tag_handler( $tag ) {
 	$atts['max'] = $tag->get_option( 'max', 'signed_int', true );
 	$atts['step'] = $tag->get_option( 'step', 'int', true );
 
-	if ( $tag->has_option( 'readonly' ) ) {
+	if ( $tag->has_option( 'readonly' ) )
 		$atts['readonly'] = 'readonly';
-	}
 
-	if ( $tag->is_required() ) {
+	if ( $tag->is_required() )
 		$atts['aria-required'] = 'true';
-	}
 
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -89,7 +85,7 @@ add_filter( 'wpcf7_validate_range', 'wpcf7_number_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_range*', 'wpcf7_number_validation_filter', 10, 2 );
 
 function wpcf7_number_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+	$tag = new WPCF7_Shortcode( $tag );
 
 	$name = $tag->name;
 

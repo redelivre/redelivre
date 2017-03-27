@@ -3,17 +3,17 @@
 ** A base module for [textarea] and [textarea*]
 **/
 
-/* form_tag handler */
+/* Shortcode handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_textarea' );
+add_action( 'wpcf7_init', 'wpcf7_add_shortcode_textarea' );
 
-function wpcf7_add_form_tag_textarea() {
-	wpcf7_add_form_tag( array( 'textarea', 'textarea*' ),
-		'wpcf7_textarea_form_tag_handler', true );
+function wpcf7_add_shortcode_textarea() {
+	wpcf7_add_shortcode( array( 'textarea', 'textarea*' ),
+		'wpcf7_textarea_shortcode_handler', true );
 }
 
-function wpcf7_textarea_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+function wpcf7_textarea_shortcode_handler( $tag ) {
+	$tag = new WPCF7_Shortcode( $tag );
 
 	if ( empty( $tag->name ) ) {
 		return '';
@@ -87,7 +87,7 @@ add_filter( 'wpcf7_validate_textarea', 'wpcf7_textarea_validation_filter', 10, 2
 add_filter( 'wpcf7_validate_textarea*', 'wpcf7_textarea_validation_filter', 10, 2 );
 
 function wpcf7_textarea_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+	$tag = new WPCF7_Shortcode( $tag );
 
 	$type = $tag->type;
 	$name = $tag->name;
@@ -98,7 +98,7 @@ function wpcf7_textarea_validation_filter( $result, $tag ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 
-	if ( '' !== $value ) {
+	if ( ! empty( $value ) ) {
 		$maxlength = $tag->get_maxlength_option();
 		$minlength = $tag->get_minlength_option();
 
