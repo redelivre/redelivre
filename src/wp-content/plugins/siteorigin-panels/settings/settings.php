@@ -107,15 +107,20 @@ class SiteOrigin_Panels_Settings {
 		$defaults['home-page-default'] = false;
 		$defaults['home-template'] = 'home-panels.php';
 		$defaults['affiliate-id'] = apply_filters( 'siteorigin_panels_affiliate_id', false );
+		$defaults['display-teaser'] = true;
+		$defaults['display-learn'] = true;
+
+		// The general fields
+		$defaults['post-types'] = array('page', 'post');
+		$defaults['live-editor-quick-link'] = true;
+		$defaults['parallax-motion'] = '';
+		$defaults['sidebars-emulator'] = true;
 
 		// Widgets fields
 		$defaults['title-html'] = '<h3 class="widget-title">{{title}}</h3>';
 		$defaults['add-widget-class'] = apply_filters( 'siteorigin_panels_default_add_widget_class', true );
 		$defaults['bundled-widgets'] = get_option( 'siteorigin_panels_is_using_bundled', false );
 		$defaults['recommended-widgets'] = true;
-
-		// Post types
-		$defaults['post-types'] = array('page', 'post');
 
 		// The layout fields
 		$defaults['responsive'] = true;
@@ -159,8 +164,8 @@ class SiteOrigin_Panels_Settings {
 	 */
 	function admin_scripts($prefix){
 		if( $prefix != 'settings_page_siteorigin_panels' ) return;
-		wp_enqueue_style( 'siteorigin-panels-settings', plugin_dir_url(__FILE__) . '/admin-settings.css', array(), SITEORIGIN_PANELS_VERSION );
-		wp_enqueue_script( 'siteorigin-panels-settings', plugin_dir_url(__FILE__) . '/admin-settings' . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array(), SITEORIGIN_PANELS_VERSION );
+		wp_enqueue_style( 'siteorigin-panels-settings', plugin_dir_url(__FILE__) . 'admin-settings.css', array(), SITEORIGIN_PANELS_VERSION );
+		wp_enqueue_script( 'siteorigin-panels-settings', plugin_dir_url(__FILE__) . 'admin-settings' . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array(), SITEORIGIN_PANELS_VERSION );
 	}
 
 	/**
@@ -216,6 +221,40 @@ class SiteOrigin_Panels_Settings {
 			'label' => __('Post Types', 'siteorigin-panels'),
 			'options' => $this->get_post_types(),
 			'description' => __('The post types to use Page Builder on.', 'siteorigin-panels'),
+		);
+
+		$fields['general']['fields']['live-editor-quick-link'] = array(
+			'type' => 'checkbox',
+			'label' => __('Live Editor Quick Link', 'siteorigin-panels'),
+			'description' => __('Display a Live Editor button in the admin bar.', 'siteorigin-panels'),
+		);
+
+		$fields['general']['fields']['parallax-motion'] = array(
+			'type' => 'float',
+			'label' => __('Limit Parallax Motion', 'siteorigin-panels'),
+			'description' => __('How many pixels of scrolling result in a single pixel of parallax motion. 0 means automatic. Lower values give more noticeable effect.', 'siteorigin-panels'),
+		);
+
+		$fields['general']['fields']['sidebars-emulator'] = array(
+			'type' => 'checkbox',
+			'label' => __('Sidebars Emulator', 'siteorigin-panels'),
+			'description' => __('Page Builder will create an emulated sidebar, that contains all widgets in the page.', 'siteorigin-panels'),
+		);
+
+		$fields['general']['fields']['display-teaser'] = array(
+			'type' => 'checkbox',
+			'label' => __('Upgrade Teaser', 'siteorigin-panels'),
+			'description' => sprintf(
+				__('Display the %sSiteOrigin Premium%s upgrade teaser in the Page Builder toolbar.', 'siteorigin-panels'),
+				'<a href="siteorigin.com/downloads/premium/" target="_blank">',
+				'</a>'
+			)
+		);
+
+		$fields['general']['fields']['display-learn'] = array(
+			'type' => 'checkbox',
+			'label' => __( 'Page Builder Learning', 'siteorigin-panels' ),
+			'description' => __( 'Display buttons for Page Builder learning.', 'siteorigin-panels' )
 		);
 
 		// The widgets fields
@@ -274,14 +313,14 @@ class SiteOrigin_Panels_Settings {
 			'type' => 'number',
 			'unit' => 'px',
 			'label' => __('Tablet Width', 'siteorigin-panels'),
-			'description' => __('Device width, in pixels, to collapse into a tablet view .', 'siteorigin-panels'),
+			'description' => __('Device width, in pixels, to collapse into a tablet view.', 'siteorigin-panels'),
 		);
 
 		$fields['layout']['fields']['mobile-width'] = array(
 			'type' => 'number',
 			'unit' => 'px',
 			'label' => __('Mobile Width', 'siteorigin-panels'),
-			'description' => __('Device width, in pixels, to collapse into a mobile view .', 'siteorigin-panels'),
+			'description' => __('Device width, in pixels, to collapse into a mobile view.', 'siteorigin-panels'),
 		);
 
 		$fields['layout']['fields']['margin-bottom'] = array(
@@ -341,6 +380,7 @@ class SiteOrigin_Panels_Settings {
 
 		switch ($field['type'] ) {
 			case 'text':
+			case 'float':
 				?><input name="<?php echo esc_attr($field_name) ?>" class="panels-setting-<?php echo esc_attr($field['type']) ?>" type="text" value="<?php echo esc_attr($value) ?>" /> <?php
 				break;
 
@@ -418,6 +458,18 @@ class SiteOrigin_Panels_Settings {
 					case 'number':
 						if( $post[$field_id] != '' ) {
 							$values[$field_id] = !empty($post[$field_id]) ? intval( $post[$field_id] ) : 0;
+						}
+						else {
+							$values[$field_id] = '';
+						}
+						break;
+
+					case 'float':
+						if( $post[$field_id] != '' ) {
+							$values[$field_id] = !empty($post[$field_id]) ? floatval( $post[$field_id] ) : 0;
+						}
+						else {
+							$values[$field_id] = '';
 						}
 						break;
 

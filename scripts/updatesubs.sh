@@ -34,6 +34,10 @@ cd $PWDAtual/src/wp-content/themes/observatorio-de-remocoes
 git checkout observatorio-de-remocoes
 git pull
 
+cd $PWDAtual/src/wp-content/plugins/sendpress
+git checkout 1.7.12.15
+git pull
+
 if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
 	cd $PWDAtual/src/wp-content/themes/wp-logincidadao
 	git submodule update --init

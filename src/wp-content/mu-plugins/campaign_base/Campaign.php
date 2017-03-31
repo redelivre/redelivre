@@ -384,7 +384,10 @@ class Campaign {
      */
     public function create() {
         global $wpdb;
-         
+        
+        if( !function_exists('user_can_create_campanha') || !user_can_create_campanha())
+        	return false;
+        
         $location = $this->formatLocation($this->state, $this->city);
 
         $this->blog_id = $this->createNewBlog();

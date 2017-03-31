@@ -455,6 +455,9 @@ class EM_Event_Recurring_Post_Admin{
 		if( empty($EM_Event) && !empty($post) ){
 			$EM_Event = em_get_event($post->ID, 'post_id');
 		}
+		if( !empty($EM_Event->event_owner_anonymous) ){
+			add_meta_box('em-event-anonymous', __('Anonymous Submitter Info','events-manager'), array('EM_Event_Post_Admin','meta_box_anonymous'),'event-recurring', 'side','high');
+		}
 		add_meta_box('em-event-recurring', __('Recurrences','events-manager'), array('EM_Event_Recurring_Post_Admin','meta_box_recurrence'),'event-recurring', 'normal','high');
 		//add_meta_box('em-event-meta', 'Event Meta (debugging only)', array('EM_Event_Post_Admin','meta_box_metadump'),'event-recurring', 'normal','high');
 		add_meta_box('em-event-where', __('Where','events-manager'), array('EM_Event_Post_Admin','meta_box_location'),'event-recurring', 'normal','high');

@@ -19,7 +19,7 @@ nbproject/
 src/wp-content/blogs.dir
 
 # WordPress plugins
-src/wp-content/plugins/regenerate-thumbnails
+#src/wp-content/plugins/regenerate-thumbnails
 src/wp-content/plugins/monster-widget
 src/wp-content/plugins/bulk-delete
 src/wp-content/plugins/debug-bar

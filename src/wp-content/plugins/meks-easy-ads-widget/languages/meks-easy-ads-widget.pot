@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-03-04 12:50+0100\n"
-"PO-Revision-Date: 2016-03-04 12:50+0100\n"
+"POT-Creation-Date: 2017-01-04 11:55+0100\n"
+"PO-Revision-Date: 2017-01-04 11:55+0100\n"
 "Last-Translator: MeksHQ <support@mekshq.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.7\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
@@ -25,82 +25,99 @@ msgstr ""
 msgid "Advertisement"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:179
+#: ../inc/class-ads-widget.php:203
 msgid "Title"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:184
+#: ../inc/class-ads-widget.php:207
 msgid "Ads Size"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:186
+#: ../inc/class-ads-widget.php:210
 msgid "Small (125x125 px)"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:188
+#: ../inc/class-ads-widget.php:212
 msgid "Large (300x250 px)"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:190
+#: ../inc/class-ads-widget.php:214
 msgid "Custom"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:196
+#: ../inc/class-ads-widget.php:220
 msgid "Width"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:198
+#: ../inc/class-ads-widget.php:222
 msgid "Height"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:202
+#: ../inc/class-ads-widget.php:226
 msgid "Options"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:205
+#: ../inc/class-ads-widget.php:229
 msgid "Rotate (slide) Ads"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:210
+#: ../inc/class-ads-widget.php:234
 msgid "Rotation speed"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:212
+#: ../inc/class-ads-widget.php:236
 msgid "Number of seconds between ads rotation"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:217
+#: ../inc/class-ads-widget.php:241
 msgid "Randomize Ads"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:222
+#: ../inc/class-ads-widget.php:246
 msgid "Add \"nofollow\" to ad links"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:226
+#: ../inc/class-ads-widget.php:251
+msgid "Do not open links in new window"
+msgstr ""
+
+#: ../inc/class-ads-widget.php:255
 msgid "Number of Ads per view"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:228
+#: ../inc/class-ads-widget.php:257
 msgid "Means how many ads to display per page load or slide"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:232
+#: ../inc/class-ads-widget.php:261
 msgid "Ads"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:237 ../inc/class-ads-widget.php:251
-msgid "Ad Image URL"
-msgstr ""
-
-#: ../inc/class-ads-widget.php:239
-msgid "Ad Link"
-msgstr ""
-
-#: ../inc/class-ads-widget.php:247
+#: ../inc/class-ads-widget.php:271
 msgid "Add New"
 msgstr ""
 
-#: ../inc/class-ads-widget.php:253
-msgid "Ad Link URL"
+#: ../inc/class-ads-widget.php:296
+msgid "Link URL"
+msgstr ""
+
+#: ../inc/class-ads-widget.php:298
+msgid "Image URL"
+msgstr ""
+
+#: ../inc/class-ads-widget.php:300
+msgid "Select image"
+msgstr ""
+
+#: ../inc/class-ads-widget.php:301
+msgid "Specify URLs to your image and link"
+msgstr ""
+
+#: ../inc/class-ads-widget.php:304
+msgid "Ad Code"
+msgstr ""
+
+#: ../inc/class-ads-widget.php:306
+msgid ""
+"Paste your ad code here. Note: Scripts, HTML and shortcodes are supported."
 msgstr ""

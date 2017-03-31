@@ -900,7 +900,7 @@ class EM_Object {
 				if(is_array($post_value)){
 					$post_value = implode(',',$post_value);
 				}else{
-				    $post_value =  stripslashes($post_value);
+				    $post_value =  wp_unslash($post_value);
 				}
 				if($post_value != ',' ){
 					$args[$post_key] = $post_value;
@@ -1088,9 +1088,9 @@ class EM_Object {
 			foreach ( array_keys($this->fields) as $key ) {
 				if(array_key_exists($key, $array)){
 					if( !is_object($array[$key]) && !is_array($array[$key]) ){
-						$array[$key] = ($addslashes) ? stripslashes($array[$key]):$array[$key];
+						$array[$key] = ($addslashes) ? wp_unslash($array[$key]):$array[$key];
 					}elseif( is_array($array[$key]) ){
-						$array[$key] = ($addslashes) ? stripslashes_deep($array[$key]):$array[$key];
+						$array[$key] = ($addslashes) ? wp_unslash_deep($array[$key]):$array[$key];
 					}
 					$this->$key = $array[$key];
 				}
@@ -1170,7 +1170,7 @@ class EM_Object {
 	 */
 	function sanitize( $value ) {
 		if( get_magic_quotes_gpc() ) 
-	      $value = stripslashes( $value );
+	      $value = wp_unslash( $value );
 	
 		//check if this function exists
 		if( function_exists( "mysql_real_escape_string" ) ) {

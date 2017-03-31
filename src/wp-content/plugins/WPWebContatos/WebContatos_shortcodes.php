@@ -23,7 +23,16 @@ function webcontatos_formulario_replace($args)
 	{
 		$args = array();
 	}
-	$param = $args;
+	
+	$defaults = array(
+		'id'=>1,
+		'opcoes'=>'',
+		'height'=>480,
+		'topo'=>true
+	);
+	
+	$param = array_merge($defaults, $args);
+	
 	if(!array_key_exists('id', $args))
 	{
 		$param['opcoes'] .= '&id=1';

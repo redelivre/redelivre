@@ -1,0 +1,67 @@
+# Translation of Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2014-04-16 11:03:12+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/1.0-alpha-1000\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/rss-importer/"
+msgstr "http://wordpress.org/extend/plugins/rss-importer/"
+
+#. Author of the plugin/theme
+msgid "wordpressdotorg"
+msgstr "wordpresspuntoorg"
+
+#. Description of the plugin/theme
+msgid "Import posts from an RSS feed. This plugin depends on the WP_Importer base class."
+msgstr "Importa entradas de una fuente RSS. Este plugin depende de la clase base WP_Importer."
+
+#. Plugin Name of the plugin/theme
+msgid "RSS Importer"
+msgstr "Importador RSS"
+
+#: rss-importer.php:219
+msgid "Import posts from an RSS feed."
+msgstr "Importa entradas de una fuente RSS."
+
+#: rss-importer.php:219
+msgid "RSS"
+msgstr "RSS"
+
+#: rss-importer.php:160
+msgid "Done!"
+msgstr "¡Hecho!"
+
+#: rss-importer.php:154
+msgid "Couldn&#8217;t get post ID"
+msgstr "No se pudo obtener ID de la entrada"
+
+#: rss-importer.php:148
+msgid "Post already imported"
+msgstr "Entrada ya importada"
+
+#: rss-importer.php:143
+msgid "Importing post..."
+msgstr "Importando entrada..."
+
+#: rss-importer.php:50
+msgid "Import RSS"
+msgstr "Importar RSS"
+
+#: rss-importer.php:59
+msgid "Howdy! This importer allows you to extract posts from an RSS 2.0 file into your WordPress site. This is useful if you want to import your posts from a system that is not handled by a custom import tool. Pick an RSS file to upload and click Import."
+msgstr "¡Hola! Este importador te permite extraer entradas de un archivo RSS 2.0 en tu sitio WordPress. Esto es útil si quieres importar las entradas de un sistema que no se controla mediante una herramienta de importación personalizada. Elige un archivo RSS a subir y haz clic en Importar."
+
+#: rss-importer.php:185
+msgid "All done. <a href=\"%s\">Have fun!</a>"
+msgstr "Todo hecho. <a href=\"%s\">¡Pásalo bien!</a>"
+
+#. Author URI of the plugin/theme
+msgid "http://wordpress.org/"
+msgstr "http://es.wordpress.org/"

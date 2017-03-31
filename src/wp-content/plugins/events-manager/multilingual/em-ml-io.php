@@ -124,8 +124,8 @@ class EM_ML_IO {
 			// We need to save ticket translations here as well to the ticket objects
 			foreach( $EM_Event->get_tickets()->tickets as $EM_Ticket ){ /* @var $EM_Ticket EM_Ticket */
 			    $ticket_translation = array();
-			    if( !empty($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_name'] ) ) $ticket_translation['ticket_name'] = wp_kses_data(stripslashes($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_name']));
-			    if( !empty($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_description'] ) ) $ticket_translation['ticket_description'] = wp_kses_post(stripslashes($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_description']));
+			    if( !empty($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_name'] ) ) $ticket_translation['ticket_name'] = wp_kses_data(wp_unslash($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_name']));
+			    if( !empty($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_description'] ) ) $ticket_translation['ticket_description'] = wp_kses_post(wp_unslash($_REQUEST['ticket_translations'][$EM_Ticket->ticket_id]['ticket_description']));
 			    if( !empty($ticket_translation) ) $EM_Ticket->ticket_meta['langs'][EM_ML::$current_language] = $ticket_translation;
 			}
         }elseif( !empty($EM_Event->location_id) ){

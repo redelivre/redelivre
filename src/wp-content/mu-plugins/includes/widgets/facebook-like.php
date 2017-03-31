@@ -76,7 +76,9 @@ class WidgetFacebookLikeBox extends WP_Widget {
         <script type="text/javascript">
 		<!--
 			jQuery(document).ready(function() {
-				facebook_like_form_auto_height_init("<?php echo $this->get_field_id('fb-show-faces'); ?>", "<?php echo $this->get_field_id( 'fb-height' ); ?>");
+				if (typeof facebook_like_form_auto_height_init === "function") {
+					facebook_like_form_auto_height_init("<?php echo $this->get_field_id('fb-show-faces'); ?>", "<?php echo $this->get_field_id( 'fb-height' ); ?>");
+				}
 			});
 		//-->
 		</script>

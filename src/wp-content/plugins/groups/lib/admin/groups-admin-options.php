@@ -1,0 +1,361 @@
+<?php
+/**
+ * groups-admin-options.php
+ *
+ * Copyright (c) "kento" Karim Rahimpur www.itthinx.com
+ *
+ * This code is released under the GNU General Public License.
+ * See COPYRIGHT.txt and LICENSE.txt.
+ *
+ * This code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This header and all notices must be kept intact.
+ *
+ * @author Karim Rahimpur
+ * @package groups
+ * @since groups 1.0.0
+ */
+
+if ( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * @var string options form nonce name
+ */
+define( 'GROUPS_ADMIN_OPTIONS_NONCE', 'groups-admin-nonce' );
+
+/**
+ * Options admin screen.
+ */
+function groups_admin_options() {
+
+	global $wpdb, $wp_roles;
+
+	if ( !current_user_can( GROUPS_ADMINISTER_OPTIONS ) ) {
+		wp_die( __( 'Access denied.', 'groups' ) );
+	}
+
+	$is_sitewide_plugin = false;
+	if ( is_multisite() ) {
+		$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins', array() );
+		$active_sitewide_plugins = array_keys( $active_sitewide_plugins );
+		$is_sitewide_plugin = in_array( 'groups/groups.php', $active_sitewide_plugins );
+	}
+
+	$caps = array(
+		GROUPS_ACCESS_GROUPS	  => __( 'Access Groups', 'groups' ),
+		GROUPS_ADMINISTER_GROUPS  => __( 'Administer Groups', 'groups' ),
+		GROUPS_ADMINISTER_OPTIONS => __( 'Administer Groups plugin options', 'groups' ),
+		GROUPS_RESTRICT_ACCESS    => __( 'Restrict Access', 'groups' )
+	);
+
+	$previous_legacy_enable =  Groups_Options::get_option( GROUPS_LEGACY_ENABLE, GROUPS_LEGACY_ENABLE_DEFAULT );
+
+	//
+	// handle options form submission
+	//
+	if ( isset( $_POST['submit'] ) ) {
+		if ( wp_verify_nonce( $_POST[GROUPS_ADMIN_OPTIONS_NONCE], 'admin' ) ) {
+
+			// admin override
+			if ( empty( $_POST[GROUPS_ADMINISTRATOR_ACCESS_OVERRIDE] ) ) {
+				$admin_override = false;
+			} else {
+				$admin_override = true;
+			}
+			// Don't move this to the plugin options, access will be faster
+			add_option( GROUPS_ADMINISTRATOR_ACCESS_OVERRIDE, $admin_override ); // WP 3.3.1 : update alone wouldn't create the option when value is false
+			update_option( GROUPS_ADMINISTRATOR_ACCESS_OVERRIDE, $admin_override );
+
+			$post_types_option = Groups_Options::get_option( Groups_Post_Access::POST_TYPES, array() );
+			$post_types = get_post_types( array( 'public' => true ) );
+			$selected_post_types = is_array( $_POST['add_meta_boxes'] ) ? $_POST['add_meta_boxes'] : array();
+			foreach( $post_types as $post_type ) {
+				$post_types_option[$post_type]['add_meta_box'] = in_array( $post_type, $selected_post_types );
+			}
+			Groups_Options::update_option( Groups_Post_Access::POST_TYPES, $post_types_option );
+
+			// tree view
+			if ( !empty( $_POST[GROUPS_SHOW_TREE_VIEW] ) ) {
+				Groups_Options::update_option( GROUPS_SHOW_TREE_VIEW, true );
+			} else {
+				Groups_Options::update_option( GROUPS_SHOW_TREE_VIEW, false );
+			}
+
+			// show in user profiles
+			Groups_Options::update_option( GROUPS_SHOW_IN_USER_PROFILE, !empty( $_POST[GROUPS_SHOW_IN_USER_PROFILE] ) );
+
+			// roles & capabilities
+			$rolenames = $wp_roles->get_names();
+			foreach ( $rolenames as $rolekey => $rolename ) {
+				$role = $wp_roles->get_role( $rolekey );
+				foreach ( $caps as $capkey => $capname ) {
+					$role_cap_id = $rolekey.'-'.$capkey;
+					if ( !empty($_POST[$role_cap_id] ) ) {
+						$role->add_cap( $capkey );
+					} else {
+						$role->remove_cap( $capkey );
+					}
+				}
+			}
+			Groups_Controller::assure_capabilities();
+
+			if ( !$is_sitewide_plugin ) {
+				// delete data
+				if ( !empty( $_POST['delete-data'] ) ) {
+					Groups_Options::update_option( 'groups_delete_data', true );
+				} else {
+					Groups_Options::update_option( 'groups_delete_data', false );
+				}
+			}
+
+			// legacy enable ?
+			if ( !empty( $_POST[GROUPS_LEGACY_ENABLE] ) ) {
+				Groups_Options::update_option( GROUPS_LEGACY_ENABLE, true );
+			} else {
+				Groups_Options::update_option( GROUPS_LEGACY_ENABLE, false );
+			}
+
+			Groups_Admin::add_message( __( 'Options saved.', 'groups' ) );
+		}
+	}
+
+	echo '<div class="groups-options wrap">';
+
+	echo
+		'<h1>' .
+		__( 'Groups Options', 'groups' ) .
+		'</h1>';
+
+	echo Groups_Admin::render_messages();
+
+	$admin_override = get_option( GROUPS_ADMINISTRATOR_ACCESS_OVERRIDE, GROUPS_ADMINISTRATOR_ACCESS_OVERRIDE_DEFAULT );
+
+	$show_tree_view = Groups_Options::get_option( GROUPS_SHOW_TREE_VIEW, GROUPS_SHOW_TREE_VIEW_DEFAULT );
+	$show_in_user_profile = Groups_Options::get_option( GROUPS_SHOW_IN_USER_PROFILE, GROUPS_SHOW_IN_USER_PROFILE_DEFAULT );
+
+	$rolenames = $wp_roles->get_names();
+	$caps_table = '<table class="groups-permissions">';
+	$caps_table .= '<thead>';
+	$caps_table .= '<tr>';
+	$caps_table .= '<td class="role">';
+	$caps_table .= __( 'Role', 'groups' );
+	$caps_table .= '</td>';
+	foreach ( $caps as $cap ) {
+		$caps_table .= '<td class="cap">';
+		$caps_table .= $cap;
+		$caps_table .= '</td>';
+	}
+
+	$caps_table .= '</tr>';
+	$caps_table .= '</thead>';
+	$caps_table .= '<tbody>';
+	foreach ( $rolenames as $rolekey => $rolename ) {
+		$role = $wp_roles->get_role( $rolekey );
+		$caps_table .= '<tr>';
+		$caps_table .= '<td>';
+		$caps_table .= translate_user_role( $rolename );
+		$caps_table .= '</td>';
+		foreach ( $caps as $capkey => $capname ) {
+
+			if ( $role->has_cap( $capkey ) ) {
+				$checked = ' checked="checked" ';
+			} else {
+				$checked = '';
+			}
+
+			$caps_table .= '<td class="checkbox">';
+			$role_cap_id = $rolekey.'-'.$capkey;
+			$caps_table .= '<input type="checkbox" name="' . $role_cap_id . '" id="' . $role_cap_id . '" ' . $checked . '/>';
+			$caps_table .= '</td>';
+		}
+		$caps_table .= '</tr>';
+	}
+	$caps_table .= '</tbody>';
+	$caps_table .= '</table>';
+
+	$delete_data = Groups_Options::get_option( 'groups_delete_data', false );
+
+	if ( isset( $_GET['dismiss-groups-extensions-box'] ) && isset( $_GET['groups-extensions-box-nonce'] ) && wp_verify_nonce( $_GET['groups-extensions-box-nonce'], 'dismiss-box' ) ) {
+		Groups_Options::update_user_option( 'show-extensions-box', false );
+	}
+	$extensions_box = '';
+	if ( Groups_Options::get_user_option( 'show-extensions-box', true ) ) {
+		$dismiss_url = wp_nonce_url( add_query_arg( 'dismiss-groups-extensions-box', '1', admin_url( 'admin.php?page=groups-admin-options' ) ), 'dismiss-box', 'groups-extensions-box-nonce' );
+		$extensions_box =
+			'<div id="groups-extensions-box">' .
+			__( 'Enhanced functionality is available via official <a href="http://www.itthinx.com/shop/">Extensions</a> for Groups.', 'groups' ) .
+			sprintf( '<a class="close" href="%s">x</a>', esc_url( $dismiss_url ) ) .
+			'</div>';
+	}
+
+	//
+	// print the options form
+	//
+	echo
+		'<form action="" name="options" method="post">' .
+
+		'<p>' .
+		'<input class="button button-primary" type="submit" name="submit" value="' . __( 'Save', 'groups' ) . '"/>' .
+		$extensions_box .
+		'</p>' .
+
+		'<div>' .
+		'<h2>' . __( 'Administrator Access Override', 'groups' ) . '</h2>' .
+		'<p>' .
+		'<label>' .
+		'<input name="' . GROUPS_ADMINISTRATOR_ACCESS_OVERRIDE . '" type="checkbox" ' . ( $admin_override ? 'checked="checked"' : '' ) . '/>' .
+		 __( 'Administrators override all access permissions derived from Groups capabilities.', 'groups' ) .
+		 '</label>' .
+		'</p>';
+
+	echo '<h2>' . __( 'Access restricions', 'groups' ) . '</h2>';
+
+	echo '<h3>' . __( 'Post types', 'groups' ) . '</h3>';
+
+	echo
+		'<p class="description">' .  __( 'Show access restrictions for these post types.', 'groups' ) . '</p>';
+
+	$post_types_option = Groups_Options::get_option( Groups_Post_Access::POST_TYPES, array() );
+	$post_types = get_post_types( array( 'public' => true ) );
+	echo '<ul>';
+	foreach( $post_types as $post_type ) {
+		$post_type_object = get_post_type_object( $post_type );
+		echo '<li>';
+		echo '<label>';
+		$label = $post_type;
+		$labels = isset( $post_type_object->labels ) ? $post_type_object->labels : null;
+		if ( ( $labels !== null ) && isset( $labels->singular_name ) ) {
+			$label = __( $labels->singular_name );
+		}
+		$checked = ( !isset( $post_types_option[$post_type]['add_meta_box'] ) || $post_types_option[$post_type]['add_meta_box'] ) ? ' checked="checked" ' : '';
+		echo '<input name="add_meta_boxes[]" type="checkbox" value="' . esc_attr( $post_type ) . '" ' . $checked . '/>';
+		echo $label;
+		echo '</label>';
+		echo '</li>';
+	}
+	echo '<ul>';
+	echo
+		'<p class="description">' .
+		__( 'This determines for which post types access restriction settings are offered.', 'groups' ) . '<br/>' .
+		__( 'Disabling this setting for a post type does not remove existing access restrictions on individual posts of that type.', 'groups' ) . '<br/>' .
+		'</p>';
+
+	echo
+		'<h2>' . __( 'User profiles', 'groups' ) . '</h2>' .
+		'<p>' .
+		'<label>' .
+		'<input name="' . GROUPS_SHOW_IN_USER_PROFILE . '" type="checkbox" ' . ( $show_in_user_profile ? 'checked="checked"' : '' ) . '/>' .
+		__( 'Show groups in user profiles.', 'groups' ) .
+		'</label>' .
+		'</p>';
+
+	echo
+		'<h2>' . __( 'Tree view', 'groups' ) . '</h2>' .
+		'<p>' .
+		'<label>' .
+		'<input name="' . GROUPS_SHOW_TREE_VIEW . '" type="checkbox" ' . ( $show_tree_view ? 'checked="checked"' : '' ) . '/>' .
+		__( 'Show the Groups tree view.', 'groups' ) .
+		'</label>' .
+		'</p>';
+
+	echo
+		'<h2>' . __( 'Permissions', 'groups' ) . '</h2>' .
+		'<p>' . __( 'These permissions apply to Groups management. They do not apply to access permissions derived from Groups capabilities.', 'groups' ) . '</p>' .
+		$caps_table .
+		'<p class="description">' .
+		__( 'A minimum set of permissions will be preserved.', 'groups' ) .
+		'<br/>' .
+		__( 'If you lock yourself out, please ask an administrator to help.', 'groups' ) .
+		'</p>';
+	if ( !$is_sitewide_plugin ) {
+		echo
+			'<h2>' . __( 'Deactivation and data persistence', 'groups' ) . '</h2>' .
+			'<p>' .
+			'<label>' .
+			'<input name="delete-data" type="checkbox" ' . ( $delete_data ? 'checked="checked"' : '' ) . '/>' .
+			__( 'Delete all Groups plugin data on deactivation', 'groups' ) .
+			'</label>' .
+			'</p>' .
+			'<p class="description warning">' .
+			__( 'CAUTION: If this option is active while the plugin is deactivated, ALL plugin settings and data will be DELETED. If you are going to use this option, now would be a good time to make a backup. By enabling this option you agree to be solely responsible for any loss of data or any other consequences thereof.', 'groups' ) .
+			'</p>';
+	}
+
+	$groups_legacy_enable = Groups_Options::get_option( GROUPS_LEGACY_ENABLE, GROUPS_LEGACY_ENABLE_DEFAULT );
+	echo '<h2>' . __( 'Legacy Settings', 'groups' ) . '</h2>';
+	echo '<p>' .
+		'<label>' .
+		'<input name="' . GROUPS_LEGACY_ENABLE . '" type="checkbox" ' . ( $groups_legacy_enable ? 'checked="checked"' : '' ) . '/>' .
+		__( 'Enable legacy access control based on capabilities.', 'groups' ) .
+		'</label>' .
+		'</p>';
+	if ( $groups_legacy_enable ) {
+		require_once GROUPS_LEGACY_LIB . '/admin/groups-admin-options-legacy.php';
+		do_action( 'groups_admin_options_legacy', $groups_legacy_enable !== $previous_legacy_enable );
+	}
+
+	echo
+		'<p>' .
+		wp_nonce_field( 'admin', GROUPS_ADMIN_OPTIONS_NONCE, true, false ) .
+		'<input class="button button-primary" type="submit" name="submit" value="' . __( 'Save', 'groups' ) . '"/>' .
+		'</p>' .
+		'</div>' .
+		'</form>';
+
+	echo '</div>'; // .groups-options
+}
+
+/**
+ * Network administration options.
+ */
+function groups_network_admin_options() {
+
+	if ( !current_user_can( GROUPS_ADMINISTER_OPTIONS ) ) {
+		wp_die( __( 'Access denied.', 'groups' ) );
+	}
+
+	echo
+		'<div>' .
+		'<h1>' .
+		__( 'Groups network options', 'groups' ) .
+		'</h1>' .
+		'</div>';
+
+	// handle options form submission
+	if ( isset( $_POST['submit'] ) ) {
+		if ( wp_verify_nonce( $_POST[GROUPS_ADMIN_OPTIONS_NONCE], 'admin' ) ) {
+			// delete data
+			if ( !empty( $_POST['delete-data'] ) ) {
+				Groups_Options::update_option( 'groups_network_delete_data', true );
+			} else {
+				Groups_Options::update_option( 'groups_network_delete_data', false );
+			}
+		}
+	}
+
+	$delete_data = Groups_Options::get_option( 'groups_network_delete_data', false );
+
+	// options form
+	echo
+		'<form action="" name="options" method="post">' .
+		'<div>' .
+		'<h2>' . __( 'Network deactivation and data persistence', 'groups' ) . '</h2>' .
+		'<p>' .
+		'<input name="delete-data" type="checkbox" ' . ( $delete_data ? 'checked="checked"' : '' ) . '/>' .
+		'<label for="delete-data">' . __( 'Delete all Groups plugin data for ALL sites on network deactivation', 'groups' ) . '</label>' .
+		'</p>' .
+		'<p class="description warning">' .
+		__( 'CAUTION: If this option is active while the plugin is deactivated, ALL plugin settings and data will be DELETED for <strong>all sites</strong>. If you are going to use this option, now would be a good time to make a backup. By enabling this option you agree to be solely responsible for any loss of data or any other consequences thereof.', 'groups' ) .
+		'</p>' .
+		'<p>' .
+		wp_nonce_field( 'admin', GROUPS_ADMIN_OPTIONS_NONCE, true, false ) .
+		'<input type="submit" name="submit" value="' . __( 'Save', 'groups' ) . '"/>' .
+		'</p>' .
+		'</div>' .
+		'</form>';
+}

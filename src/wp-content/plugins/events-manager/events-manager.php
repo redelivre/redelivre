@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Events Manager
-Version: 5.6.3
+Version: 5.6.6.1
 Plugin URI: http://wp-events-plugin.com
 Description: Event registration and booking management for WordPress. Recurring events, locations, google maps, rss, ical, booking registration and more!
 Author: Marcus Sykes
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 // Setting constants
-define('EM_VERSION', 5.63); //self expanatory
+define('EM_VERSION', 5.6624); //self expanatory
 define('EM_PRO_MIN_VERSION', 2.392); //self expanatory
 define('EM_PRO_MIN_VERSION_CRITICAL', 2.377); //self expanatory
 define('EM_DIR', dirname( __FILE__ )); //an absolute path to this directory
@@ -320,6 +320,10 @@ class EM_Scripts_and_Styles {
 			'show24hours' => get_option('dbem_time_24h'),
 			'is_ssl' => is_ssl(),
 		);
+		//maps api key
+		if( get_option('dbem_gmap_is_active') && get_option('dbem_google_maps_browser_key') ){
+			$em_localized_js['google_maps_api'] = get_option('dbem_google_maps_browser_key');
+		}
 		//debug mode
 		if( defined('WP_DEBUG') && WP_DEBUG ) $em_localized_js['ui_css'] = plugins_url('includes/css/jquery-ui.css', __FILE__);
 		//booking-specific stuff
