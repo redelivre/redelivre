@@ -3,17 +3,16 @@
 ** A base module for [quiz]
 **/
 
-/* form_tag handler */
+/* Shortcode handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_quiz' );
+add_action( 'wpcf7_init', 'wpcf7_add_shortcode_quiz' );
 
-function wpcf7_add_form_tag_quiz() {
-	wpcf7_add_form_tag( 'quiz',
-		'wpcf7_quiz_form_tag_handler', array( 'name-attr' => true ) );
+function wpcf7_add_shortcode_quiz() {
+	wpcf7_add_shortcode( 'quiz', 'wpcf7_quiz_shortcode_handler', true );
 }
 
-function wpcf7_quiz_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+function wpcf7_quiz_shortcode_handler( $tag ) {
+	$tag = new WPCF7_Shortcode( $tag );
 
 	if ( empty( $tag->name ) ) {
 		return '';
@@ -78,7 +77,7 @@ function wpcf7_quiz_form_tag_handler( $tag ) {
 add_filter( 'wpcf7_validate_quiz', 'wpcf7_quiz_validation_filter', 10, 2 );
 
 function wpcf7_quiz_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+	$tag = new WPCF7_Shortcode( $tag );
 
 	$name = $tag->name;
 
@@ -108,7 +107,7 @@ function wpcf7_quiz_ajax_refill( $items ) {
 	if ( ! is_array( $items ) )
 		return $items;
 
-	$fes = wpcf7_scan_form_tags( array( 'type' => 'quiz' ) );
+	$fes = wpcf7_scan_shortcode( array( 'type' => 'quiz' ) );
 
 	if ( empty( $fes ) )
 		return $items;
@@ -172,7 +171,7 @@ function wpcf7_tag_generator_quiz( $contact_form, $args = '' ) {
 
 	$description = __( "Generate a form-tag for a question-answer pair. For more details, see %s.", 'contact-form-7' );
 
-	$desc_link = wpcf7_link( __( 'https://contactform7.com/quiz/', 'contact-form-7' ), __( 'Quiz', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'http://contactform7.com/quiz/', 'contact-form-7' ), __( 'Quiz', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">

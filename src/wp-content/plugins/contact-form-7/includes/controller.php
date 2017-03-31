@@ -52,8 +52,7 @@ function wpcf7_ajax_json_echo() {
 			$items = array(
 				'mailSent' => false,
 				'into' => '#' . $unit_tag,
-				'captcha' => null,
-			);
+				'captcha' => null );
 
 			$result = $contact_form->submit( true );
 
@@ -73,8 +72,7 @@ function wpcf7_ajax_json_echo() {
 						'into' => 'span.wpcf7-form-control-wrap.'
 							. sanitize_html_class( $name ),
 						'message' => $field['reason'],
-						'idref' => $field['idref'],
-					);
+						'idref' => $field['idref'] );
 				}
 
 				$items['invalids'] = $invalids;
@@ -110,17 +108,15 @@ function wpcf7_ajax_json_echo() {
 }
 
 function wpcf7_is_xhr() {
-	if ( ! isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ) {
+	if ( ! isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) )
 		return false;
-	}
 
 	return $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
 }
 
 function wpcf7_submit_nonajax() {
-	if ( ! isset( $_POST['_wpcf7'] ) ) {
+	if ( ! isset( $_POST['_wpcf7'] ) )
 		return;
-	}
 
 	if ( $contact_form = wpcf7_contact_form( (int) $_POST['_wpcf7'] ) ) {
 		$contact_form->submit();
@@ -130,11 +126,8 @@ function wpcf7_submit_nonajax() {
 add_filter( 'widget_text', 'wpcf7_widget_text_filter', 9 );
 
 function wpcf7_widget_text_filter( $content ) {
-	$pattern = '/\[[\r\n\t ]*contact-form(-7)?[\r\n\t ].*?\]/';
-
-	if ( ! preg_match( $pattern, $content ) ) {
+	if ( ! preg_match( '/\[[\r\n\t ]*contact-form(-7)?[\r\n\t ].*?\]/', $content ) )
 		return $content;
-	}
 
 	$content = do_shortcode( $content );
 
@@ -172,13 +165,12 @@ function wpcf7_enqueue_scripts() {
 		array( 'jquery', 'jquery-form' ), WPCF7_VERSION, $in_footer );
 
 	$_wpcf7 = array(
+		'loaderUrl' => wpcf7_ajax_loader(),
 		'recaptcha' => array(
 			'messages' => array(
-				'empty' =>
-					__( 'Please verify that you are not a robot.', 'contact-form-7' ),
-			),
-		),
-	);
+				'empty' => __( 'Please verify that you are not a robot.',
+					'contact-form-7' ) ) ),
+		'sending' => __( 'Sending ...', 'contact-form-7' ) );
 
 	if ( defined( 'WP_CACHE' ) && WP_CACHE ) {
 		$_wpcf7['cached'] = 1;

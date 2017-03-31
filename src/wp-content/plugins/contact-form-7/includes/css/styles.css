@@ -42,7 +42,6 @@ div.wpcf7-validation-errors {
 span.wpcf7-not-valid-tip {
 	color: #f00;
 	font-size: 1em;
-	font-weight: normal;
 	display: block;
 }
 
@@ -57,33 +56,17 @@ span.wpcf7-not-valid-tip {
 }
 
 span.wpcf7-list-item {
-	display: inline-block;
-	margin: 0 0 0 1em;
-}
-
-span.wpcf7-list-item-label::before,
-span.wpcf7-list-item-label::after {
-	content: " ";
+	margin-left: 0.5em;
 }
 
 .wpcf7-display-none {
 	display: none;
 }
 
-div.wpcf7 .ajax-loader {
-	visibility: hidden;
-	display: inline-block;
-	background-image: url('../../images/ajax-loader.gif');
-	width: 16px;
-	height: 16px;
+div.wpcf7 img.ajax-loader {
 	border: none;
-	padding: 0;
-	margin: 0 0 0 4px;
 	vertical-align: middle;
-}
-
-div.wpcf7 .ajax-loader.is-active {
-	visibility: visible;
+	margin-left: 4px;
 }
 
 div.wpcf7 div.ajax-error {

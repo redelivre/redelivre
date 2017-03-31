@@ -3,32 +3,27 @@
 ** A base module for [checkbox], [checkbox*], and [radio]
 **/
 
-/* form_tag handler */
+/* Shortcode handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_checkbox' );
+add_action( 'wpcf7_init', 'wpcf7_add_shortcode_checkbox' );
 
-function wpcf7_add_form_tag_checkbox() {
-	wpcf7_add_form_tag( array( 'checkbox', 'checkbox*', 'radio' ),
-		'wpcf7_checkbox_form_tag_handler', array(
-			'name-attr' => true,
-			'selectable-values' => true,
-		 	'multiple-controls-container' => true ) );
+function wpcf7_add_shortcode_checkbox() {
+	wpcf7_add_shortcode( array( 'checkbox', 'checkbox*', 'radio' ),
+		'wpcf7_checkbox_shortcode_handler', true );
 }
 
-function wpcf7_checkbox_form_tag_handler( $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+function wpcf7_checkbox_shortcode_handler( $tag ) {
+	$tag = new WPCF7_Shortcode( $tag );
 
-	if ( empty( $tag->name ) ) {
+	if ( empty( $tag->name ) )
 		return '';
-	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
 	$class = wpcf7_form_controls_class( $tag->type );
 
-	if ( $validation_error ) {
+	if ( $validation_error )
 		$class .= ' wpcf7-not-valid';
-	}
 
 	$label_first = $tag->has_option( 'label_first' );
 	$use_label_element = $tag->has_option( 'use_label_element' );
@@ -36,15 +31,13 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 	$free_text = $tag->has_option( 'free_text' );
 	$multiple = false;
 
-	if ( 'checkbox' == $tag->basetype ) {
+	if ( 'checkbox' == $tag->basetype )
 		$multiple = ! $exclusive;
-	} else { // radio
+	else // radio
 		$exclusive = false;
-	}
 
-	if ( $exclusive ) {
+	if ( $exclusive )
 		$class .= ' wpcf7-exclusive-checkbox';
-	}
 
 	$atts = array();
 
@@ -53,9 +46,8 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 
 	$tabindex = $tag->get_option( 'tabindex', 'int', true );
 
-	if ( false !== $tabindex ) {
+	if ( false !== $tabindex )
 		$tabindex = absint( $tabindex );
-	}
 
 	$html = '';
 	$count = 0;
@@ -130,11 +122,11 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 
 		if ( $label_first ) { // put label first, input last
 			$item = sprintf(
-				'<span class="wpcf7-list-item-label">%1$s</span><input %2$s />',
+				'<span class="wpcf7-list-item-label">%1$s</span>&nbsp;<input %2$s />',
 				esc_html( $label ), $item_atts );
 		} else {
 			$item = sprintf(
-				'<input %2$s /><span class="wpcf7-list-item-label">%1$s</span>',
+				'<input %2$s />&nbsp;<span class="wpcf7-list-item-label">%1$s</span>',
 				esc_html( $label ), $item_atts );
 		}
 
@@ -196,7 +188,7 @@ add_filter( 'wpcf7_validate_checkbox*', 'wpcf7_checkbox_validation_filter', 10, 
 add_filter( 'wpcf7_validate_radio', 'wpcf7_checkbox_validation_filter', 10, 2 );
 
 function wpcf7_checkbox_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_FormTag( $tag );
+	$tag = new WPCF7_Shortcode( $tag );
 
 	$type = $tag->type;
 	$name = $tag->name;
@@ -216,7 +208,7 @@ function wpcf7_checkbox_validation_filter( $result, $tag ) {
 add_filter( 'wpcf7_posted_data', 'wpcf7_checkbox_posted_data' );
 
 function wpcf7_checkbox_posted_data( $posted_data ) {
-	$tags = wpcf7_scan_form_tags(
+	$tags = wpcf7_scan_shortcode(
 		array( 'type' => array( 'checkbox', 'checkbox*', 'radio' ) ) );
 
 	if ( empty( $tags ) ) {
@@ -224,7 +216,7 @@ function wpcf7_checkbox_posted_data( $posted_data ) {
 	}
 
 	foreach ( $tags as $tag ) {
-		$tag = new WPCF7_FormTag( $tag );
+		$tag = new WPCF7_Shortcode( $tag );
 
 		if ( ! isset( $posted_data[$tag->name] ) ) {
 			continue;
@@ -292,7 +284,7 @@ function wpcf7_tag_generator_checkbox( $contact_form, $args = '' ) {
 		$description = __( "Generate a form-tag for a group of radio buttons. For more details, see %s.", 'contact-form-7' );
 	}
 
-	$desc_link = wpcf7_link( __( 'https://contactform7.com/checkboxes-radio-buttons-and-menus/', 'contact-form-7' ), __( 'Checkboxes, Radio Buttons and Menus', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'http://contactform7.com/checkboxes-radio-buttons-and-menus/', 'contact-form-7' ), __( 'Checkboxes, Radio Buttons and Menus', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">
