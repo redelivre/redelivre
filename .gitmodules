@@ -208,3 +208,7 @@
 [submodule "src/wp-content/themes/tema-coletivo"]
 	path = src/wp-content/themes/tema-coletivo
 	url = https://github.com/redelivre/tema-coletivo
+[submodule "src/wp-content/themes/cultural"]
+	path = src/wp-content/themes/cultural
+	url = https://github.com/hacklabr/cultural
+	branch = master
