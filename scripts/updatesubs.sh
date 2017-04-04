@@ -42,6 +42,9 @@ cd $PWDAtual/src/wp-content/themes/wp-divi-3
 git checkout divi-3.0-version
 git pull
 
+cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
+composer install
+
 
 if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
 	cd $PWDAtual/src/wp-content/themes/wp-logincidadao
