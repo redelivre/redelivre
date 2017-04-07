@@ -449,7 +449,7 @@ function webcontatos_setupMessageWidget()
 {
 	$opt = webcontatos_get_config();
 	$webcontatos_error_log = $opt['webcontatos_error_log'];
-	if ( $webcontatos_error_log != false ) {
+	if ( $webcontatos_error_log != false && is_super_admin() ) {
 		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'webcontatos_displayMessageWidget');	
 	}
 }
