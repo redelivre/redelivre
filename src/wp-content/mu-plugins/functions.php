@@ -44,7 +44,12 @@ if (!is_main_site()) {
         add_action('load-ms-delete-site.php',  'campanha_remove_exclude_site_page_content');
         add_action('wp_dashboard_setup',       'campanha_dashboard_widget');
         add_action('load-options-general.php', 'campanha_custom_options_strings');
-        add_action('wp_print_scripts',         'campanha_uservoice_js');
+        $sets = getPlataformSettings();
+        
+        if($sets['value']['ShowUserVoice'] == 'S' && !empty($sets['value']['UserVoiceKey']))
+        {
+        	add_action('wp_print_scripts',         'campanha_uservoice_js');
+        }
 
         add_filter('query_vars',                              'campaign_base_custom_query_vars');
         add_filter('rewrite_rules_array',                     'campaign_base_custom_url_rewrites', 10, 1);
@@ -299,9 +304,11 @@ function campanha_uservoice_js() {
     global $campaign;
     
     $capabilities = Capability::getByPlanId($campaign->plan_id);
+    $key = getPlataformSettings('UserVoiceKey');
 
     if (is_user_logged_in() && !is_super_admin() && $capabilities->support->value) {
         wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery', false, true);
+        wp_localize_script('uservoice', 'redelivre_uservoice', array('key' => $key));
     }
 }
 

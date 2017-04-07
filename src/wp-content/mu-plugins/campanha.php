@@ -250,8 +250,28 @@ function getPlataformSettings($id = '')
 	$sets['options']['minPerm'] = campanha_get_editable_roles();
 	$sets['type']['minPerm'] = 'dropdown';
 	
+	$sets['label']['ShowUserVoice'] = __('Deve mostrar Link para suporte do Uservoice', 'redelivre');
+	$sets['value']['ShowUserVoice'] = 'N';
+	$sets['type']['ShowUserVoice'] = 'yesno';
+	$sets['perm']['ShowUserVoice'] = 'S';
+	
+	$sets['label']['UserVoiceKey'] = __('Chave do Uservoice', 'redelivre');
+	$sets['value']['UserVoiceKey'] = '';
+	$sets['perm']['UserVoiceKey'] = 'S';
+	
 	// Merge default settings com defined settings
 	$sets['value'] = array_merge($sets['value'], get_option('plataform_defined_settings', array()));
+	$globals = get_blog_option(1, 'plataform_defined_settings', array());
+	foreach ($sets['perm'] as $key => $value)
+	{
+		if($value != 'S') // not global or superadmin option
+		{
+			unset($globals[$key]);
+		}
+	}
+	$globals = array_intersect_key($globals, $sets['value']);
+	
+	$sets['value'] = array_merge($sets['value'], $globals);
 	
 	if($id != '')
 	{
