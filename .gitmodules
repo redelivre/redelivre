@@ -216,3 +216,7 @@
 	path = src/wp-content/themes/cultural
 	url = https://github.com/hacklabr/cultural
 	branch = master
+[submodule "src/wp-content/plugins/eletro-widgets"]
+	path = src/wp-content/plugins/eletro-widgets
+	url = git@github.com:redelivre/eletro-widgets.git
+	branch = master
