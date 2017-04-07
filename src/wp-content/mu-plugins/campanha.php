@@ -164,22 +164,9 @@ add_action('admin_init', 'campanha_change_admin_home');
 
 function campanha_add_manage_menu()
 {
-	if (user_can_create_campanha() ) // && get_current_blog_id() == 1)
+	if (user_can_create_campanha() )
 	{
 		require MUCAMPANHAPATH . '/custom_admin.php';
-	}
-	
-	if(get_current_blog_id() != 1)
-	{
-		add_action('admin_menu', function() {
-			$base_page = 'platform-settings';
-	
-			add_menu_page( Campaign::getStrings('MenuPlataforma'), Campaign::getStrings('MenuPlataforma'), 'manage_options', $base_page, array());
-	
-			add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
-				require MUCAMPANHAPATH.'/admin-settings-tpl.php';
-			});
-		});
 	}
 }
 add_action('init', 'campanha_add_manage_menu');

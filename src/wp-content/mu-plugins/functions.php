@@ -59,7 +59,7 @@ if (!is_main_site()) {
             $wp_rewrite->flush_rules();
         }
         
-        
+        load_muplugin_textdomain('redelivre', 'languages');
         
     });
 }
