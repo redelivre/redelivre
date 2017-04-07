@@ -1,0 +1,121 @@
+@font-face {
+	font-family:'ETmonarch';
+	src:url('fonts/monarch.eot');
+	src:url('fonts/monarch.eot?#iefix') format('embedded-opentype'),
+		url('fonts/monarch.ttf') format('truetype'),
+		url('fonts/monarch.woff') format('woff'),
+		url('fonts/monarch.svg#ETmonarch') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#et_monarch_settings.postbox h2:before, #et_monarch_sharing_stats.postbox h2:before, #et_monarch_settings.postbox h3:before, #et_monarch_sharing_stats.postbox h3:before { font-family: 'ETmonarch'; speak: none; font-style: normal; font-size: 16px; line-height: 16px; font-weight: normal; font-variant: normal; text-transform: none; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-align: center; display: block; }
+
+#et_monarch_settings.postbox h2, #et_monarch_sharing_stats.postbox h2, #et_monarch_settings.postbox h3, #et_monarch_sharing_stats.postbox h3 { background-color: #ff6e07; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; color: #fff; }
+#et_monarch_settings.postbox .handlediv, #et_monarch_sharing_stats.postbox .handlediv, div#et_monarch_sharing_stats.postbox .handlediv:before { color: #fff; }
+#et_monarch_settings.postbox h2, #et_monarch_sharing_stats.postbox h2, #et_monarch_settings.postbox h3, #et_monarch_sharing_stats.postbox h3 { padding-left: 35px; }
+#et_monarch_settings.postbox h2:before, #et_monarch_sharing_stats.postbox h2:before, #et_monarch_settings.postbox h3:before, #et_monarch_sharing_stats.postbox h3:before { content: "\e600"; position: absolute; left: 10px; top: 10px; }
+
+/* -------------------------- */
+/* -------- Tabs Styles ----- */
+/* -------------------------- */
+.et_monarch_hidden_tab_content { display: none; }
+.et_monarch_tab_content { background-color: #fdfdfd; }
+.et_monarch_stats_tabs { margin-bottom: -1px; }
+	a.et_monarch_stats_tab { text-decoration: none !important; border: 1px solid transparent; border-bottom: none; padding: 5px; margin-right: -5px; margin-top: 5px; display: inline-block; }
+	a.et_monarch_stats_tab.et_monarch_active_tab { border-color: #dfdfdf; color: #000; background: #fdfdfd; }
+	a.et_monarch_stats_tab:focus { -webkit-box-shadow: none; box-shadow: none; }
+
+.stats_tabs_content { border: 1px solid #dfdfdf; }
+	.et_monarch_total { border-bottom: 1px solid #dfdfdf; padding: 20px 13px 15px; }
+		.et_monarch_total p { font-size: 16px; line-height: 16px; margin-bottom: 15px; margin-top: 0; }
+		.et_monarch_total p span, .et_monarch_stats_label span.total_shares_count { font-style: italic; color: #999999; font-size: 12px; font-weight: normal; }
+	.et_monarch_graph_container { padding: 30px 13px 0; }
+
+/* -------------------------- */
+/* ---- Week Graph Styles --- */
+/* -------------------------- */
+.et_social_meta_info { display: none; }
+ul.et_social_graph_alltime.et_social_graph { margin: 0 !important; }
+
+ul.et_social_graph_7 { height: 300px; margin: 0; padding: 0 0 30px 0; display: block; width: 100%; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; }
+ul.et_social_graph_7 li { background-color: #e0e4e9; height: 300px; position: relative; color: #fff; display: block; float: left; padding: 0; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; }
+ul.et_social_graph_7 li { width: 11.7%; margin-right: 3%; }
+ul li.et_social_graph_last { margin-right: 0; }
+ul.et_social_graph_7 li > div { bottom: 0; position: absolute; color: #fff; width: 100%; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; }
+		ul.et_social_graph_7 li > div > div { width: 100%; }
+		ul.et_social_graph_7 li > div > div:first-of-type { -webkit-border-radius: 2px 2px 0 0; -moz-border-radius: 2px 2px 0 0; border-radius: 2px 2px 0 0;}
+	ul.et_social_graph_7 li span { color: #939AAA; position: absolute; top: -30px; left: 30%; }
+
+.et_social_graph li div > div { position: relative; }
+	.et_social_graph li div > div:before { display: none; }
+.et_social_tooltip { -webkit-animation: tooltip .2s ease-in-out; animation: tooltip .2s ease-in-out; left: 50%; top: -110px; margin-left: -70px; position: absolute; padding: 20px; background-color: rgba(0,0,0,.5); width: 100px; z-index: 99; border-radius: 3px; }
+.et_social_tooltip:after { border-left:10px solid rgba(0,0,0,0); border-top:10px solid rgba(0,0,0,.5); border-bottom:10px solid rgba(0,0,0,0); border-right:10px solid rgba(0,0,0,0); content: ''; width: 0; height: 0; left:50%; margin-left: -5px; bottom: -20px; position: absolute; }
+
+/* -------------------------- */
+/* - All Time Graph Styles -- */
+/* -------------------------- */
+ul.et_social_graph_alltime.et_social_graph { height: auto; }
+.et_social_graph_alltime li { width: 100%; clear: both; }
+.et_social_tab_content_header_stats ul.et_social_graph_alltime li > div { height: 30px; width: 0; padding-top: 10px; padding-left: 120px; }
+span.total_shares_count { z-index: 99; font-style: normal; font-size: 13px; font-weight: bold; }
+.et_social_graph_alltime div:before { position: absolute; left: 10px; }
+span.et_social_thin { position: relative !important; top: 0 !important; left: 0 !important; font-style: normal; font-weight: normal; }
+
+.et_social_graph_alltime li { height: 10px !important; position: relative; margin-bottom: 30px; margin-top: 20px; background-color: #f0f0f0; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.et_social_graph_alltime .et_monarch_stats_label { top: -32px; position: absolute; }
+.et_social_graph_alltime > li > div { height: 10px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; width: 0; }
+.et_monarch_past_week_content .et_social_graph li { background-color: #f0f0f0; }
+
+/*---------------[NETWORK COLORS]----------------*/
+.et_social_twitter		{ background-color: #00abf0; }
+.et_social_pinterest	{ background-color: #cd1c1f; }
+.et_social_googleplus	{ background-color: #df4a32; }
+.et_social_email		{ background-color: #666666; }
+.et_social_wordpress	{ background-color: #267697; }
+.et_social_vimeo		{ background-color: #45bbfc; }
+.et_social_skype		{ background-color: #1ba5f4; }
+.et_social_tumblr		{ background-color: #32506d; }
+.et_social_dribbble		{ background-color: #ea4c8d; }
+.et_social_flickr		{ background-color: #fc1684; }
+.et_social_stumbleupon	{ background-color: #ea4b24; }
+.et_social_deviantart	{ background-color: #566c68; }
+.et_social_rss			{ background-color: #f59038; }
+.et_social_blogger		{ background-color: #f59038; }
+.et_social_picassa		{ background-color: #9864ae; }
+.et_social_spotify		{ background-color: #aecf29; }
+.et_social_instagram	{ background-color: #517fa4; }
+.et_social_myspace		{ background-color: #3a5998; }
+.et_social_delicious	{ background-color: #3398fc; }
+.et_social_linkedin		{ background-color: #127bb6; }
+.et_social_yahoo		{ background-color: #511295; }
+.et_social_yahoomail	{ background-color: #511295; }
+.et_social_yahoobookmark{ background-color: #511295; }
+.et_social_amazon		{ background-color: #222222; }
+.et_social_aol			{ background-color: #222222; }
+.et_social_buffer		{ background-color: #222222; }
+.et_social_printfriendly{ background-color: #75aa33; }
+.et_social_youtube		{ background-color: #a8240f; }
+.et_social_google		{ background-color: #3b7ae0; }
+.et_social_gmail		{ background-color: #dd4b39; }
+.et_social_reddit		{ background-color: #fc461e; }
+.et_social_vkontakte	{ background-color: #4c75a3; }
+.et_social_newsvine		{ background-color: #0d642e; }
+.et_social_netvibes		{ background-color: #5dbc22; }
+.et_social_hackernews	{ background-color: #f08641; }
+.et_social_evernote		{ background-color: #7cbf4b; }
+.et_social_digg			{ background-color: #546b9f; }
+.et_social_box			{ background-color: #1482c3; }
+.et_social_baidu		{ background-color: #2b3bdd; }
+.et_social_livejournal	{ background-color: #336697; }
+.et_social_friendfeed	{ background-color: #5989c0; }
+.et_social_github		{ background-color: #4183c4; }
+.et_social_outlook		{ background-color: #1174c3; }
+.et_social_blinklist	{ background-color: #fc6d21; }
+.et_social_aweber		{ background-color: #127bbf; }
+.et_social_mailchimp	{ background-color: #3283bf; }
+.et_social_soundcloud	{ background-color: #f0601e; }
+.et_social_print		{ background-color: #333333; }
+.et_social_like			{ background-color: #dd4b39; }
+.et_social_behance		{ background-color: #1769ff; }
+.et_social_facebook		{ background-color: #3a579a; }
