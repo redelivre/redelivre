@@ -23,11 +23,11 @@ add_action('admin_menu', function() {
 	});
 
 
-    add_menu_page(Campaign::getStrings('MenuPrincipal'), Campaign::getStrings('MenuPrincipal'), 'manage_options', 'campaigns', function() {
+    add_menu_page(Campaign::getStrings('MenuPrincipal'), Campaign::getStrings('MenuPrincipal'), 'read', 'campaigns', function() {
         require MUCAMPANHAPATH.'/includes/campaigns.php';
     });
     
-    add_submenu_page('campaigns', Campaign::getStrings('NovoProjeto'), Campaign::getStrings('NovoProjeto'), 'manage_options', 'campaigns_new', function() {
+    add_submenu_page('campaigns', Campaign::getStrings('NovoProjeto'), Campaign::getStrings('NovoProjeto'), 'read', 'campaigns_new', function() {
         require MUCAMPANHAPATH.'/includes/campaigns_new.php';
     });
     	
