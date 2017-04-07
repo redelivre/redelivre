@@ -181,7 +181,7 @@ class WPCF7_RECAPTCHA extends WPCF7_Service {
 
 <p><a href="<?php echo esc_url( $this->menu_page_url( 'action=setup' ) ); ?>" class="button"><?php echo esc_html( __( "Configure Keys", 'contact-form-7' ) ); ?></a></p>
 
-<p><?php echo sprintf( esc_html( __( "For more details, see %s.", 'contact-form-7' ) ), wpcf7_link( __( 'http://contactform7.com/recaptcha/', 'contact-form-7' ), __( 'reCAPTCHA', 'contact-form-7' ) ) ); ?></p>
+<p><?php echo sprintf( esc_html( __( "For more details, see %s.", 'contact-form-7' ) ), wpcf7_link( __( 'https://contactform7.com/recaptcha/', 'contact-form-7' ), __( 'reCAPTCHA', 'contact-form-7' ) ) ); ?></p>
 <?php
 		}
 	}
@@ -292,20 +292,24 @@ var recaptchaCallback = function() {
 <?php
 }
 
-add_action( 'wpcf7_init', 'wpcf7_recaptcha_add_shortcode_recaptcha' );
+add_action( 'wpcf7_init', 'wpcf7_recaptcha_add_form_tag_recaptcha' );
 
-function wpcf7_recaptcha_add_shortcode_recaptcha() {
+function wpcf7_recaptcha_add_form_tag_recaptcha() {
 	$recaptcha = WPCF7_RECAPTCHA::get_instance();
 
 	if ( $recaptcha->is_active() ) {
-		wpcf7_add_shortcode( 'recaptcha', 'wpcf7_recaptcha_shortcode_handler' );
+		wpcf7_add_form_tag( 'recaptcha', 'wpcf7_recaptcha_form_tag_handler' );
 	}
 }
 
-function wpcf7_recaptcha_shortcode_handler( $tag ) {
+function wpcf7_recaptcha_form_tag_handler( $tag ) {
+	if ( ! wp_script_is( 'google-recaptcha', 'registered' ) ) {
+		wpcf7_recaptcha_enqueue_scripts();
+	}
+
 	wp_enqueue_script( 'google-recaptcha' );
 
-	$tag = new WPCF7_Shortcode( $tag );
+	$tag = new WPCF7_FormTag( $tag );
 
 	$atts = array();
 
@@ -376,7 +380,7 @@ function wpcf7_recaptcha_check_with_google( $spam ) {
 		return $spam;
 	}
 
-	$tags = $contact_form->form_scan_shortcode( array( 'type' => 'recaptcha' ) );
+	$tags = $contact_form->scan_form_tags( array( 'type' => 'recaptcha' ) );
 
 	if ( empty( $tags ) ) {
 		return $spam;
@@ -411,7 +415,7 @@ function wpcf7_tag_generator_recaptcha( $contact_form, $args = '' ) {
 ?>
 <div class="control-box">
 <fieldset>
-<legend><?php echo sprintf( esc_html( __( "To use reCAPTCHA, first you need to install an API key pair. For more details, see %s.", 'contact-form-7' ) ), wpcf7_link( __( 'http://contactform7.com/recaptcha/', 'contact-form-7' ), __( 'reCAPTCHA', 'contact-form-7' ) ) ); ?></legend>
+<legend><?php echo sprintf( esc_html( __( "To use reCAPTCHA, first you need to install an API key pair. For more details, see %s.", 'contact-form-7' ) ), wpcf7_link( __( 'https://contactform7.com/recaptcha/', 'contact-form-7' ), __( 'reCAPTCHA', 'contact-form-7' ) ) ); ?></legend>
 </fieldset>
 </div>
 <?php
@@ -421,7 +425,7 @@ function wpcf7_tag_generator_recaptcha( $contact_form, $args = '' ) {
 
 	$description = __( "Generate a form-tag for a reCAPTCHA widget. For more details, see %s.", 'contact-form-7' );
 
-	$desc_link = wpcf7_link( __( 'http://contactform7.com/recaptcha/', 'contact-form-7' ), __( 'reCAPTCHA', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'https://contactform7.com/recaptcha/', 'contact-form-7' ), __( 'reCAPTCHA', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">

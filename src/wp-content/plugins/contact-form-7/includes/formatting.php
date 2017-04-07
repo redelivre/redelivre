@@ -13,8 +13,9 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	$pee = preg_replace( '!(<' . $allblocks . '[^>]*>)!', "\n$1", $pee );
 	$pee = preg_replace( '!(</' . $allblocks . '>)!', "$1\n\n", $pee );
 
-	/* wpcf7: take care of [response] and [recaptcha] tag */
-	$pee = preg_replace( '!(\[(?:response|recaptcha)[^]]*\])!',
+	/* wpcf7: take care of [response], [recaptcha], and [hidden] tags */
+	$block_hidden_form_tags = '(?:response|recaptcha|hidden)';
+	$pee = preg_replace( '!(\[' . $block_hidden_form_tags . '[^]]*\])!',
 		"\n$1\n\n", $pee );
 
 	$pee = str_replace( array( "\r\n", "\r" ), "\n", $pee ); // cross-platform newlines
@@ -42,10 +43,10 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	$pee = preg_replace( '!<p>\s*(</?' . $allblocks . '[^>]*>)!', "$1", $pee );
 	$pee = preg_replace( '!(</?' . $allblocks . '[^>]*>)\s*</p>!', "$1", $pee );
 
-	/* wpcf7: take care of [response] and [recaptcha] tag */
-	$pee = preg_replace( '!<p>\s*(\[(?:response|recaptcha)[^]]*\])!',
+	/* wpcf7: take care of [response], [recaptcha], and [hidden] tag */
+	$pee = preg_replace( '!<p>\s*(\[' . $block_hidden_form_tags . '[^]]*\])!',
 		"$1", $pee );
-	$pee = preg_replace( '!(\[(?:response|recaptcha)[^]]*\])\s*</p>!',
+	$pee = preg_replace( '!(\[' . $block_hidden_form_tags . '[^]]*\])\s*</p>!',
 		"$1", $pee );
 
 	if ( $br ) {
@@ -53,11 +54,20 @@ function wpcf7_autop( $pee, $br = 1 ) {
 		$pee = preg_replace_callback( '/<(script|style|textarea).*?<\/\\1>/s', create_function( '$matches', 'return str_replace("\n", "<WPPreserveNewline />", $matches[0]);' ), $pee );
 		$pee = preg_replace( '|(?<!<br />)\s*\n|', "<br />\n", $pee ); // optionally make line breaks
 		$pee = str_replace( '<WPPreserveNewline />', "\n", $pee );
+
+		/* wpcf7: remove extra <br /> just added before [response], [recaptcha], and [hidden] tags */
+		$pee = preg_replace( '!<br />\n(\[' . $block_hidden_form_tags . '[^]]*\])!',
+			"\n$1", $pee );
 	}
+
 	$pee = preg_replace( '!(</?' . $allblocks . '[^>]*>)\s*<br />!', "$1", $pee );
 	$pee = preg_replace( '!<br />(\s*</?(?:p|li|div|dl|dd|dt|th|pre|td|ul|ol)[^>]*>)!', '$1', $pee );
-	if ( strpos( $pee, '<pre' ) !== false )
-		$pee = preg_replace_callback( '!(<pre[^>]*>)(.*?)</pre>!is', 'clean_pre', $pee );
+
+	if ( strpos( $pee, '<pre' ) !== false ) {
+		$pee = preg_replace_callback( '!(<pre[^>]*>)(.*?)</pre>!is',
+			'clean_pre', $pee );
+	}
+
 	$pee = preg_replace( "|\n</p>$|", '</p>', $pee );
 
 	return $pee;
@@ -82,36 +92,41 @@ function wpcf7_sanitize_query_var( $text ) {
 function wpcf7_strip_quote( $text ) {
 	$text = trim( $text );
 
-	if ( preg_match( '/^"(.*)"$/', $text, $matches ) )
+	if ( preg_match( '/^"(.*)"$/s', $text, $matches ) ) {
 		$text = $matches[1];
-	elseif ( preg_match( "/^'(.*)'$/", $text, $matches ) )
+	} elseif ( preg_match( "/^'(.*)'$/s", $text, $matches ) ) {
 		$text = $matches[1];
+	}
 
 	return $text;
 }
 
 function wpcf7_strip_quote_deep( $arr ) {
-	if ( is_string( $arr ) )
+	if ( is_string( $arr ) ) {
 		return wpcf7_strip_quote( $arr );
+	}
 
 	if ( is_array( $arr ) ) {
 		$result = array();
 
-		foreach ( $arr as $key => $text )
+		foreach ( $arr as $key => $text ) {
 			$result[$key] = wpcf7_strip_quote_deep( $text );
+		}
 
 		return $result;
 	}
 }
 
 function wpcf7_normalize_newline( $text, $to = "\n" ) {
-	if ( ! is_string( $text ) )
+	if ( ! is_string( $text ) ) {
 		return $text;
+	}
 
 	$nls = array( "\r\n", "\r", "\n" );
 
-	if ( ! in_array( $to, $nls ) )
+	if ( ! in_array( $to, $nls ) ) {
 		return $text;
+	}
 
 	return str_replace( $nls, $to, $text );
 }
@@ -120,8 +135,9 @@ function wpcf7_normalize_newline_deep( $arr, $to = "\n" ) {
 	if ( is_array( $arr ) ) {
 		$result = array();
 
-		foreach ( $arr as $key => $text )
+		foreach ( $arr as $key => $text ) {
 			$result[$key] = wpcf7_normalize_newline_deep( $text, $to );
+		}
 
 		return $result;
 	}
@@ -135,13 +151,18 @@ function wpcf7_strip_newline( $str ) {
 	return trim( $str );
 }
 
-function wpcf7_canonicalize( $text ) {
+function wpcf7_canonicalize( $text, $strto = 'lower' ) {
 	if ( function_exists( 'mb_convert_kana' )
 	&& 'UTF-8' == get_option( 'blog_charset' ) ) {
 		$text = mb_convert_kana( $text, 'asKV', 'UTF-8' );
 	}
 
-	$text = strtolower( $text );
+	if ( 'lower' == $strto ) {
+		$text = strtolower( $text );
+	} elseif ( 'upper' == $strto ) {
+		$text = strtoupper( $text );
+	}
+
 	$text = trim( $text );
 	return $text;
 }
@@ -189,15 +210,25 @@ function wpcf7_is_number( $number ) {
 function wpcf7_is_date( $date ) {
 	$result = preg_match( '/^([0-9]{4,})-([0-9]{2})-([0-9]{2})$/', $date, $matches );
 
-	if ( $result )
+	if ( $result ) {
 		$result = checkdate( $matches[2], $matches[3], $matches[1] );
+	}
 
 	return apply_filters( 'wpcf7_is_date', $result, $date );
 }
 
 function wpcf7_is_mailbox_list( $mailbox_list ) {
 	if ( ! is_array( $mailbox_list ) ) {
-		$mailbox_list = explode( ',', (string) $mailbox_list );
+		$mailbox_text = (string) $mailbox_list;
+		$mailbox_text = wp_unslash( $mailbox_text );
+
+		$mailbox_text = preg_replace( '/\\\\(?:\"|\')/', 'esc-quote',
+			$mailbox_text );
+
+		$mailbox_text = preg_replace( '/(?:\".*?\"|\'.*?\')/', 'quoted-string',
+			$mailbox_text );
+
+		$mailbox_list = explode( ',', $mailbox_text );
 	}
 
 	$addresses = array();
@@ -292,8 +323,9 @@ function wpcf7_antiscript_file_name( $filename ) {
 	$filename = basename( $filename );
 	$parts = explode( '.', $filename );
 
-	if ( count( $parts ) < 2 )
+	if ( count( $parts ) < 2 ) {
 		return $filename;
+	}
 
 	$script_pattern = '/^(php|phtml|pl|py|rb|cgi|asp|aspx)\d?$/i';
 
@@ -301,16 +333,18 @@ function wpcf7_antiscript_file_name( $filename ) {
 	$extension = array_pop( $parts );
 
 	foreach ( (array) $parts as $part ) {
-		if ( preg_match( $script_pattern, $part ) )
+		if ( preg_match( $script_pattern, $part ) ) {
 			$filename .= '.' . $part . '_';
-		else
+		} else {
 			$filename .= '.' . $part;
+		}
 	}
 
-	if ( preg_match( $script_pattern, $extension ) )
+	if ( preg_match( $script_pattern, $extension ) ) {
 		$filename .= '.' . $extension . '_.txt';
-	else
+	} else {
 		$filename .= '.' . $extension;
+	}
 
 	return $filename;
 }
