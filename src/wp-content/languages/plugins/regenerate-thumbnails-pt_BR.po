@@ -1,0 +1,144 @@
+# Translation of Development (trunk) in Portuguese (Brazil)
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-06-11 04:43:44+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/2.1.0-alpha\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#. Author of the plugin/theme
+msgid "Alex Mills (Viper007Bond)"
+msgstr "Alex Mills (Viper007Bond)"
+
+#. #-#-#-#-#  tmp-regenerate-thumbnails.pot (Regenerate Thumbnails 2.2.6) 
+#. #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: regenerate-thumbnails.php:56 regenerate-thumbnails.php:81
+#: regenerate-thumbnails.php:95 regenerate-thumbnails.php:112
+#: regenerate-thumbnails.php:146
+msgid "Regenerate Thumbnails"
+msgstr "Regenerate Thumbnails"
+
+#: regenerate-thumbnails.php:56
+msgid "Regen. Thumbnails"
+msgstr "Regen. Thumbnails"
+
+#: regenerate-thumbnails.php:81
+msgid "Regenerate the thumbnails for this single image"
+msgstr "Gerar novamente as miniaturas para esta única imagem."
+
+#: regenerate-thumbnails.php:154
+msgid "Cheatin&#8217; uh?"
+msgstr "Trapaceando&#8217; hein?"
+
+#: regenerate-thumbnails.php:168
+msgid "Unable to find any images. Are you sure <a href='%s'>some exist</a>?"
+msgstr "Incapaz de encontrar alguma imagem. Tem certeza que <a href='%s'>existem</a>?"
+
+#: regenerate-thumbnails.php:179
+msgid "Please be patient while the thumbnails are regenerated. This can take a while if your server is slow (inexpensive hosting) or if you have many images. Do not navigate away from this page until this script is done or the thumbnails will not be resized. You will be notified via this page when the regenerating is completed."
+msgstr "Por favor, seja paciente enquanto as miniaturas são regeneradas. Isso pode levar algum tempo se o servidor é lento (hospedagem barata) ou se você tiver muitas imagens. Não saia desta página até que esse script seja finalizado ou as miniaturas não serão redimensionadas. Você será notificado por esta página quando a regeneração estiver concluída."
+
+#: regenerate-thumbnails.php:183
+msgid "To go back to the previous page, <a href=\"%s\">click here</a>."
+msgstr "<a href=\"%s\">Clique aqui</a> para voltar para a página anterior."
+
+#: regenerate-thumbnails.php:184
+msgid "All done! %1$s image(s) were successfully resized in %2$s seconds and there were %3$s failure(s). To try regenerating the failed images again, <a href=\"%4$s\">click here</a>. %5$s"
+msgstr "Tudo feito! %1$s Imagem(ns) foram redimensionadas com sucesso em %2$s segundos e houve %3$s falha(s). Para tentar regenerar novamente as imagens que falharam, <a href=\"%4$s\">clique aqui</a>. %5$s"
+
+#: regenerate-thumbnails.php:185
+msgid "All done! %1$s image(s) were successfully resized in %2$s seconds and there were 0 failures. %3$s"
+msgstr "Tudo feito! %1$s Imagem(ns) foram redimensionadas com sucesso em %2$s segundos e houve 0 falhas. %3$s"
+
+#: regenerate-thumbnails.php:189 regenerate-thumbnails.php:338
+msgid "You must enable Javascript in order to proceed!"
+msgstr "Você deve habilitar o JavaScript para continuar!"
+
+#: regenerate-thumbnails.php:195
+msgid "Abort Resizing Images"
+msgstr "Parar o redimensionamento de imagens"
+
+#: regenerate-thumbnails.php:197
+msgid "Debugging Information"
+msgstr "Informações de depuração"
+
+#: regenerate-thumbnails.php:200
+msgid "Total Images: %s"
+msgstr "Total de imagens: %s"
+
+#: regenerate-thumbnails.php:201
+msgid "Images Resized: %s"
+msgstr "Imagens redimensionadas: %s"
+
+#: regenerate-thumbnails.php:202
+msgid "Resize Failures: %s"
+msgstr "Falhas no redimensionamento: %s"
+
+#: regenerate-thumbnails.php:233
+msgid "Stopping..."
+msgstr "Parando..."
+
+#: regenerate-thumbnails.php:285
+msgid "The resize request was abnormally terminated (ID %s). This is likely due to the image exceeding available memory or some other type of fatal error."
+msgstr "O pedido de redimensionamento foi encerrado de forma anormal (ID %s). Isto pode ser devido à imagem exceder a memória disponível ou algum outro tipo de erro fatal."
+
+#: regenerate-thumbnails.php:328
+msgid "Use this tool to regenerate thumbnails for all images that you have uploaded to your blog. This is useful if you've changed any of the thumbnail dimensions on the <a href='%s'>media settings page</a>. Old thumbnails will be kept to avoid any broken images due to hard-coded URLs."
+msgstr "Utilize esta ferramenta para regenerar as miniaturas de todas as imagens que você enviou para o seu blog. Isso é útil se você mudou qualquer uma das dimensões em miniatura na <a href='%s'>página de configurações de mídia</a>. Miniaturas antigas serão mantidas para evitar quaisquer imagens quebradas devido a URLs hard-coded."
+
+#: regenerate-thumbnails.php:330
+msgid "You can regenerate specific images (rather than all images) from the <a href='%s'>Media</a> page. Hover over an image's row and click the link to resize just that one image or use the checkboxes and the &quot;Bulk Actions&quot; dropdown to resize multiple images (WordPress 3.1+ only)."
+msgstr "Você pode regenerar imagens específicas (ao invés de todas as imagens) a partir da página <a href='%s'>Mídia</a>. Passe o mouse sobre a linha de uma imagem e clique no link para redimensionar apenas aquela imagem ou utilize as caixas de seleção junto com &quot;ações em massa&quot; para redimensionar múltiplas imagens (apenas para WordPress 3.1+)."
+
+#: regenerate-thumbnails.php:332
+msgid "Thumbnail regeneration is not reversible, but you can just change your thumbnail dimensions back to the old values and click the button again if you don't like the results."
+msgstr "A regeneração das miniaturas é irreversível, mas você pode voltar suas dimensões para os valores antigos e clicar no botão novamente, caso não goste dos resultados."
+
+#: regenerate-thumbnails.php:334
+msgid "To begin, just press the button below."
+msgstr "Para começar, basta pressionar o botão abaixo."
+
+#: regenerate-thumbnails.php:336
+msgid "Regenerate All Thumbnails"
+msgstr "Regenerar todas as miniaturas"
+
+#: regenerate-thumbnails.php:360
+msgid "Failed resize: %s is an invalid image ID."
+msgstr "Redimensionamento falhou: %s é um ID de imagem inválido."
+
+#: regenerate-thumbnails.php:363
+msgid "Your user account doesn't have permission to resize images"
+msgstr "Sua conta de usuário não tem permissão para redimensionar imagens"
+
+#: regenerate-thumbnails.php:368
+msgid "The originally uploaded image file cannot be found at %s"
+msgstr "O arquivo de imagem originalmente carregado não pode ser encontrado em %s"
+
+#: regenerate-thumbnails.php:377
+msgid "Unknown failure reason."
+msgstr "Motivo da falha desconhecida."
+
+#: regenerate-thumbnails.php:382
+msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
+msgstr "&quot;%1$s&quot; (ID %2$s) foi redimensionada com sucesso em %3$s segundos."
+
+#: regenerate-thumbnails.php:388
+msgid "&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
+msgstr "&quot;%1$s&quot; (ID %2$s) falha ao redimensionar. A mensagem de erro foi: %3$s"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.viper007bond.com/wordpress-plugins/regenerate-thumbnails/"
+msgstr "http://www.viper007bond.com/wordpress-plugins/regenerate-thumbnails/"
+
+#. Description of the plugin/theme
+msgid "Allows you to regenerate all thumbnails after changing the thumbnail sizes."
+msgstr "Permite regenerar todas as miniaturas depois de mudar os tamanhos."
+
+#. Author URI of the plugin/theme
+msgid "http://www.viper007bond.com/"
+msgstr "http://www.viper007bond.com/"

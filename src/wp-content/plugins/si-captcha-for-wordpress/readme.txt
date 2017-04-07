@@ -4,8 +4,8 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S
 Tags: captcha, recaptcha, buddypress, bbpress, woocommerce, wpforo, multisite, jetpack, comment, comments, login, register, anti-spam, spam, security
 Requires at least: 3.6.0
-Tested up to: 4.7.2
-Stable tag: 3.0.0.6
+Tested up to: 4.7.3
+Stable tag: 3.0.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,7 +146,6 @@ If you need to adjust the captcha input form colors, [See this FAQ](http://www.f
 
 
 = Troubleshooting the CAPTCHA image or form field does not display, or it does not block the form properly =
-
 Another plugin could be causing a conflict. 
 Temporarily deactivate other plugins to see if the CAPTCHA starts working. 
 
@@ -163,8 +162,17 @@ You may have a theme that has an improperly coded comments.php
 When diagnosing missing CAPTCHA field on comment form....
 
 Make sure your theme has `<?php comment_form(); ?>`
-inside `/wp-content/themes/[your_theme]/comments.php`. (look inside the Twenty Ten theme's comments.php for proper example)
+inside `/wp-content/themes/[your_theme]/comments.php`. (look inside the Twenty Ten theme's comments.php for proper example.
 
+Make sure that the theme comments.php file contains at least one or more of the standard hooks: 
+`do_action ( 'comment_form_logged_in_after' );`
+`do_action ( 'comment_form_after_fields' );` 
+`do_action ( 'comment_form' );` 
+If you didn't find one of these hooks, then put this string in the comment form: 
+`<?php do_action( 'comment_form', $post->ID ); ?>` 
+
+= The CAPTCHA and input field does not display on JetPack comments form =
+If you have JetPack comments module enabled then captcha/recaptca/anti-spam plugins will not work on your comments form because the comments are then loaded in an iFrame from WordPress.com The solution is to disable the comments module in JetPack, then the CAPTCHA plugin will work correctly on your comments form.
 
 = Troubleshooting if the CAPTCHA image itself is not being shown on the comment form: =
 
@@ -248,6 +256,9 @@ Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](
 
 
 == Changelog ==
+
+= 3.0.0.8 =
+* (21 Mar 2017) - Fixed error caused by uninitialized value si_captcha_login on line 764.
 
 = 3.0.0.7 =
 * (03 Mar 2017) - Fixed CAPTCHA not loading on register form on BuddyPress when Extended Profiles is disabled.

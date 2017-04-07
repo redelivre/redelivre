@@ -13,19 +13,16 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.0.0
+ * @version     3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 global $product;
 
 if ( get_option( 'woocommerce_enable_review_rating' ) === 'no' )
 	return;
-?>
 
-<?php if ( $rating_html = $product->get_rating_html() ) : ?>
-	<?php echo $rating_html; ?>
-<?php endif; ?>
+echo wc_get_rating_html( $product->get_average_rating() );
