@@ -35,7 +35,7 @@ git checkout observatorio-de-remocoes
 git pull
 
 cd $PWDAtual/src/wp-content/plugins/sendpress
-git checkout 1.7.12.15
+git checkout 1.8.3.30
 git pull
 
 cd $PWDAtual/src/wp-content/themes/wp-divi-3
