@@ -42,7 +42,7 @@ if (!is_main_site()) {
         add_action('admin_notices',            'campanha_admin_messages');
         add_action('admin_init',               'campanha_remove_menu_pages');
         add_action('load-ms-delete-site.php',  'campanha_remove_exclude_site_page_content');
-        add_action('wp_dashboard_setup',       'campannha_dashboard_widget');
+        add_action('wp_dashboard_setup',       'campanha_dashboard_widget');
         add_action('load-options-general.php', 'campanha_custom_options_strings');
         add_action('wp_print_scripts',         'campanha_uservoice_js');
 
@@ -326,7 +326,7 @@ function campanha_disable_welcome_panel($userId) {
     update_user_meta($userId, 'show_welcome_panel', 0);
 }
 
-function campannha_dashboard_widget() {
+function campanha_dashboard_widget() {
     global $wp_meta_boxes;
     
     add_meta_box('campanha_dashboard_widget', 'Ajuda', function() {
