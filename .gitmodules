@@ -212,3 +212,6 @@
 	path = src/wp-content/themes/cultural
 	url = https://github.com/hacklabr/cultural
 	branch = master
+[submodule "src/wp-content/themes/redeninja"]
+	path = src/wp-content/themes/redeninja
+	url = git@github.com:ForaDoEixo/redeninja.git
