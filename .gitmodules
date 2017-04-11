@@ -215,6 +215,3 @@
 [submodule "src/wp-content/themes/redeninja"]
 	path = src/wp-content/themes/redeninja
 	url = git@github.com:ForaDoEixo/redeninja.git
-[submodule "src/wp-content/theme/tainacan"]
-	path = src/wp-content/theme/tainacan
-	url = git@github.com:redelivre/tainacan.git
