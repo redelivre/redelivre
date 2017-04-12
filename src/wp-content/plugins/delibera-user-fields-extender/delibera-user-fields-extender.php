@@ -75,9 +75,21 @@ class UserFieldsExtender
 			$s = str_replace('-', '', str_replace('.', '', $_REQUEST['s']));
 			if(strlen($s) == 11 && is_numeric($s))
 			{
-				$wp_user_query->set('meta_key', 'cpf');
-				$wp_user_query->set('meta_value', $s);
-				$wp_user_query->set('meta_compare', 'LIKE');
+				$meta_query = array(
+					'relation' => 'OR',
+					'cpf_clause' => array(
+						'key' => 'cpf',
+						'value' => $s,
+						'compare' => 'LIKE',
+					),
+					'cpf_clause2' => array(
+						'key' => 'cpf',
+						'compare' => 'LIKE',
+						'value' => vsprintf('%s%s%s.%s%s%s.%s%s%s-%s%s', $s)
+					),
+				);
+				
+				$wp_user_query->set('meta_query', $meta_query);
 				$wp_user_query->set('search', false);
 			}
 		}
