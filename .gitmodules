@@ -224,3 +224,6 @@
 	path = src/wp-content/themes/redeninja
         url = git@github.com:ForaDoEixo/redeninja.git
         branch = master
+[submodule "src/wp-content/themes/tainacan"]
+	path = src/wp-content/themes/tainacan
+	url = git@github.com:redelivre/tainacan.git
