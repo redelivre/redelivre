@@ -22,18 +22,6 @@ if [ ! -e PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
 	git submodule update --init
 fi
 
-cd $PWDAtual/src/wp-content/themes/recid
-git checkout recid
-git pull
-
-cd $PWDAtual/src/wp-content/themes/praticas-de-continuidade
-git checkout praticas-de-continuidade
-git pull
-
-cd $PWDAtual/src/wp-content/themes/observatorio-de-remocoes
-git checkout observatorio-de-remocoes
-git pull
-
 cd $PWDAtual/src/wp-content/plugins/sendpress
 git checkout 1.7.12.15
 git pull
@@ -44,14 +32,5 @@ git pull
 
 cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
 composer install
-
-
-if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
-	cd $PWDAtual/src/wp-content/themes/wp-logincidadao
-	git submodule update --init
-        cd login-cidadao
-        git checkout master
-        git pull
-fi
 
 cd $PWDAtual
