@@ -76,17 +76,11 @@ class UserFieldsExtender
 			if(strlen($s) == 11 && is_numeric($s))
 			{
 				$meta_query = array(
-					'relation' => 'OR',
-					'cpf_clause' => array(
+					array(
 						'key' => 'cpf',
-						'value' => $s,
-						'compare' => 'LIKE',
-					),
-					'cpf_clause2' => array(
-						'key' => 'cpf',
-						'compare' => 'LIKE',
-						'value' => vsprintf('%s%s%s.%s%s%s.%s%s%s-%s%s', $s)
-					),
+						'value' => array($s, vsprintf('%s%s%s.%s%s%s.%s%s%s-%s%s', str_split($s))),
+						'compare' => 'IN'
+					)
 				);
 				
 				$wp_user_query->set('meta_query', $meta_query);
