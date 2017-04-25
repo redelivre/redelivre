@@ -1,0 +1,8 @@
+<wpml-config>
+	<admin-texts>
+		<key name="addtoany_options">
+			<key name="button_text" />
+			<key name="header" />
+		</key>
+	</admin-texts>
+</wpml-config>

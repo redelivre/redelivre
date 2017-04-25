@@ -1,0 +1,547 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: add-to-any\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-08 23:42-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Pat <pat@example.com>\n"
+"Language-Team: \n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: __assets/addtoany.admin.snippet.php:35
+#: __assets/addtoany.admin.snippet.php:58
+#: __assets/addtoany.admin.snippet.php:71 addtoany.admin.php:24
+msgid "Show sharing buttons."
+msgstr ""
+
+#: add-to-any.php:561 addtoany.admin.php:296 addtoany.admin.php:489
+#: addtoany.admin.php:491 addtoany.admin.php:494 addtoany.admin.php:496
+#: addtoany.admin.php:525
+msgid "Share"
+msgstr "Paylaş"
+
+#: add-to-any.php:562
+msgid "Save"
+msgstr "Kaydet"
+
+#: add-to-any.php:563
+msgid "Subscribe"
+msgstr "Üye ol"
+
+#: add-to-any.php:564
+#, fuzzy
+msgid "Email"
+msgstr "E-posta"
+
+#: add-to-any.php:565
+msgid "Bookmark"
+msgstr "Yer imi"
+
+#: add-to-any.php:566
+msgid "Show all"
+msgstr "Hepsini göster"
+
+#: add-to-any.php:567
+msgid "Show less"
+msgstr "Özet göster"
+
+#: add-to-any.php:568
+msgid "Find service(s)"
+msgstr "Servis(leri) bul"
+
+#: add-to-any.php:569
+msgid "Instantly find any service to add to"
+msgstr "Hemen eklemek için her hangi bir servis bul"
+
+#: add-to-any.php:570
+msgid "Powered by"
+msgstr "Destekçi :"
+
+#: add-to-any.php:571
+#, fuzzy
+msgid "Share via email"
+msgstr "E-Posta ile paylaş"
+
+#: add-to-any.php:572
+#, fuzzy
+msgid "Subscribe via email"
+msgstr "E-posta ile üye ol"
+
+#: add-to-any.php:573
+msgid "Bookmark in your browser"
+msgstr "Yer imlerine ekle"
+
+#: add-to-any.php:574
+#, fuzzy
+msgid "Press Ctrl+D or \\u2318+D to bookmark this page"
+msgstr "Ctrl+D ya da &#8984;+D ile yer imlerine ekle"
+
+#: add-to-any.php:575
+msgid "Add to your favorites"
+msgstr "Favorilere ekle"
+
+#: add-to-any.php:576
+#, fuzzy
+msgid "Send from any email address or email program"
+msgstr "Her hangi bir e-posta adresi ya da e-posta programından yolla"
+
+#: add-to-any.php:577
+#, fuzzy
+msgid "Email program"
+msgstr "E-posta programı"
+
+#: add-to-any.php:578
+msgid "More&#8230;"
+msgstr ""
+
+#: add-to-any.php:1053
+#, php-format
+msgid ""
+"Unable to create directory %s. Is its parent directory writable by the "
+"server?"
+msgstr ""
+"%s dizini oluşturulamadı. Bir üst dizinin yazılabilir olduğuna emin misiniz ?"
+
+#: add-to-any.php:1096
+msgid "Share/Save"
+msgstr "Paylaş / Kaydet"
+
+#: add-to-any.php:1096 add-to-any.php:1130
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: add-to-any.php:1097 addtoany.admin.php:10
+msgid "AddToAny"
+msgstr ""
+
+#: addtoany.admin.php:346
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: addtoany.admin.php:367
+msgid "bottom"
+msgstr "Alt"
+
+#: addtoany.admin.php:371
+msgid "top"
+msgstr "Üst"
+
+#: addtoany.admin.php:375
+msgid "top &amp; bottom"
+msgstr "Üst ve Alt"
+
+#: addtoany.admin.php:402
+#, fuzzy
+msgid "AddToAny Share Settings"
+msgstr "AddToAny: Paylaş / Kaydet"
+
+#: addtoany.admin.php:417
+msgid "Icon Size"
+msgstr ""
+
+#: addtoany.admin.php:419
+msgid "Large"
+msgstr ""
+
+#: addtoany.admin.php:421
+msgid "Small"
+msgstr ""
+
+#: addtoany.admin.php:423
+msgid "Custom"
+msgstr ""
+
+#: addtoany.admin.php:430
+#, fuzzy
+msgid "Standalone Buttons"
+msgstr "AddToAny Paylaş / Kaydet Butonları"
+
+#: addtoany.admin.php:435
+msgid ""
+"Choose the services you want below. &nbsp;Click a chosen service again to "
+"remove. &nbsp;Reorder services by dragging and dropping as they appear above."
+msgstr ""
+"Aşağıda ki menüden  istediğiniz servisleri seçebilirsiniz. Seçilen bir "
+"servisi tekrar üzerine tıklayarak iptal edebilir ve seçilen servisleri fare "
+"ile taşıyarak sıralandırabilirsiniz."
+
+#: addtoany.admin.php:476
+msgid "Universal Button"
+msgstr ""
+
+#: addtoany.admin.php:517
+msgid "Image URL"
+msgstr "Resim URL'si"
+
+#: addtoany.admin.php:523
+msgid "Text only"
+msgstr "Sadece yazı"
+
+#: addtoany.admin.php:528
+msgid ""
+"This option will disable universal sharing. Are you sure you want to disable "
+"universal sharing?"
+msgstr ""
+
+#: addtoany.admin.php:529 addtoany.admin.php:713 addtoany.admin.php:749
+msgid "None"
+msgstr ""
+
+#: addtoany.admin.php:542
+msgid "Sharing Header"
+msgstr ""
+
+#: addtoany.admin.php:551 addtoany.admin.php:707 addtoany.admin.php:743
+msgid "Placement"
+msgstr "Yerleşim"
+
+#: addtoany.admin.php:556
+#, php-format
+msgid "Display at the %s of posts"
+msgstr "Yazıların %s kısmında göster."
+
+#: addtoany.admin.php:564
+#, php-format
+msgid "Display at the %s of posts on the front page"
+msgstr "Anasayfada ki yazıların %s kısmında göster."
+
+#: addtoany.admin.php:572
+#, fuzzy, php-format
+msgid "Display at the %s of posts on archive pages"
+msgstr "Anasayfada ki yazıların %s kısmında göster."
+
+#: addtoany.admin.php:580
+#, php-format
+msgid "Display at the %s of posts in the feed"
+msgstr "Besleme içerisinde ki yazıların %s kısmında göster."
+
+#: addtoany.admin.php:587
+#, fuzzy, php-format
+msgid "Display at the %s of excerpts"
+msgstr "Yazı özetlerinin %s kısmında göster."
+
+#: addtoany.admin.php:592
+#, php-format
+msgid "Display at the %s of pages"
+msgstr "Sayfaların %s kısmında göster"
+
+#: addtoany.admin.php:604
+#, fuzzy, php-format
+msgid "Display at the %s of %s"
+msgstr "Yazıların %s kısmında göster."
+
+#: addtoany.admin.php:610
+msgid ""
+"See <a href=\"widgets.php\" title=\"Theme Widgets\">Widgets</a> and <a href="
+"\"options-general.php?page=add-to-any.php&action=floating\" title=\"AddToAny "
+"Floating Share Buttons\">Floating</a> for additional placement options. For "
+"advanced placement, see <a href=\"http://wordpress.org/plugins/add-to-any/"
+"faq/\">the FAQs</a>."
+msgstr ""
+
+#: addtoany.admin.php:616
+msgid "Menu Options"
+msgstr "Menü özellikleri"
+
+#: addtoany.admin.php:620
+#, fuzzy
+msgid ""
+"Only show the universal share menu when the user <em>clicks</em> the "
+"universal share button"
+msgstr "Menüyü sadece Paylaş / Kaydet butonuna basıldığında göster"
+
+#: addtoany.admin.php:625
+#, fuzzy
+msgid "Show the title of the page within the universal share menu"
+msgstr "Menü içerisinde yazı (ya da sayfa) başlığını göster"
+
+#: addtoany.admin.php:628
+#, fuzzy
+msgid ""
+"You can use AddToAny's Menu Styler to customize the colors of your universal "
+"share menu. When you're done, be sure to paste the generated code in the <a "
+"href=\"#\" onclick=\"document."
+"getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false"
+"\">Additional JavaScript</a> box below."
+msgstr ""
+"AddToAny menü stilcisini kullanarak Paylaş / Kaydet menünüzün rengini "
+"kişiselleştirebilirsiniz.İşleminiz sonlandığında oluşturulan kodu aşağıda ki "
+"<a href=\"#\" onclick=\"document."
+"getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false"
+"\">Ek ayarlar</a> kutusuna yapıştırdığınıza emin olunuz."
+
+#: addtoany.admin.php:631
+msgid "Open the AddToAny Menu Styler in a new window"
+msgstr "AddToAny menü stillendiriciyi ayrı pencerede aç"
+
+#: addtoany.admin.php:631
+msgid "Open Menu Styler"
+msgstr "Menü stilcisini aç"
+
+#: addtoany.admin.php:637
+#, fuzzy
+msgid "Additional JavaScript"
+msgstr "Ek seçenekler"
+
+#: addtoany.admin.php:641
+msgid "Paste the code from AddToAny's Menu Styler in the box below!"
+msgstr ""
+"AddToAny menü stilcisinden aldığınız kodu aşağıda ki kutuya yapıştırın."
+
+#: addtoany.admin.php:645
+#, fuzzy
+msgid "Below you can add special JavaScript code for AddToAny."
+msgstr ""
+"Aşağıda bulunan Paylaş / Kaydet menüsüne özel javaScript değişkenleri "
+"ekleyebilirsiniz."
+
+#: addtoany.admin.php:646 addtoany.admin.php:658
+#, fuzzy
+msgid ""
+"Advanced users should explore AddToAny's <a href=\"https://www.addtoany.com/"
+"buttons/customize/wordpress\" target=\"_blank\">additional options</a>."
+msgstr ""
+"İleri düzey kullanıcılar AddToAny'nin <a href=\"http://www.addtoany.com/"
+"buttons/customize/\" target=\"_blank\">ek ayarlarını</a> inceleyebilirler."
+
+#: addtoany.admin.php:654
+#, fuzzy
+msgid "Additional CSS"
+msgstr "Ek seçenekler"
+
+#: addtoany.admin.php:657
+msgid "Below you can add special CSS code for AddToAny."
+msgstr ""
+
+#: addtoany.admin.php:666
+msgid "Advanced Options"
+msgstr "Gelişmiş ayarlar"
+
+#: addtoany.admin.php:670
+msgid "Use custom icons. URL:"
+msgstr ""
+
+#: addtoany.admin.php:675
+msgid ""
+"Specify the URL of the directory containing your custom icons. For example, "
+"a URL of <code>//example.com/blog/uploads/addtoany/icons/custom/</code> "
+"containing <code>facebook.png</code> and <code>twitter.png</code>. Be sure "
+"that custom icon filenames match the icon filenames in <code>plugins/add-to-"
+"any/icons</code>. For AddToAny's Universal Button, select Image URL and "
+"specify the URL of your AddToAny universal share icon (<a href=\"#\" onclick="
+"\"document.getElementsByName('A2A_SHARE_SAVE_button_custom')[0].focus();"
+"return false\">above</a>)."
+msgstr ""
+
+#: addtoany.admin.php:680
+msgid "Use default CSS"
+msgstr ""
+
+#: addtoany.admin.php:683
+msgid ""
+"Only disable AddToAny's default stylesheet if you already have the necessary "
+"CSS code applied to your AddToAny buttons."
+msgstr ""
+
+#: addtoany.admin.php:688
+msgid "Cache AddToAny locally with daily cache updates"
+msgstr ""
+"AddToAny dosyalarını günlük güncellemeler ile birlikte yerel önbelleğe al"
+
+#: addtoany.admin.php:691
+#, fuzzy
+msgid ""
+"Most sites should not use this option. By default, AddToAny loads "
+"asynchronously and most efficiently. Since many visitors will have AddToAny "
+"cached in their browser already, serving AddToAny locally from your site "
+"will be slower for those visitors. If local caching is enabled, be sure to "
+"set far future cache/expires headers for image files in your <code>uploads/"
+"addtoany</code> directory."
+msgstr ""
+"Sadece ziyaretçileri çok sık dönüş yapan bir site iseniz tercih edin. "
+"Ziyaretçilerin çoğu AddToAny dosyalarını internet tarayıcılarının "
+"önbelleğinde zaten bulunduruyor olacaklardır. Bu dosyaları sitenizden sunmak "
+"ziyaretçilerin sitenizi daha yavaş görüntülemelerine sebep olabilir. "
+"<code>uploads/addtoany</code> içerisinde ki resim dosyalarına ait önbellek/"
+"süredolum başlıklarının (cache ve expire headerları) uzun tutulduğundan emin "
+"olun."
+
+#: addtoany.admin.php:701
+msgid ""
+"AddToAny &quot;floating&quot; share buttons stay in a fixed position even "
+"when the user scrolls."
+msgstr ""
+
+#: addtoany.admin.php:702
+msgid ""
+"Large icons from your currently selected buttons are displayed in your "
+"floating bar(s). 3rd party buttons (Like, Tweet, etc.) are not displayed."
+msgstr ""
+
+#: addtoany.admin.php:704
+msgid "Vertical Buttons"
+msgstr ""
+
+#: addtoany.admin.php:709 addtoany.admin.php:745
+msgid "Left docked"
+msgstr ""
+
+#: addtoany.admin.php:711 addtoany.admin.php:747
+msgid "Right docked"
+msgstr ""
+
+#: addtoany.admin.php:717 addtoany.admin.php:753
+msgid "Responsiveness"
+msgstr ""
+
+#: addtoany.admin.php:727 addtoany.admin.php:763
+msgid "Position"
+msgstr ""
+
+#: addtoany.admin.php:733 addtoany.admin.php:769
+msgid "Offset"
+msgstr ""
+
+#: addtoany.admin.php:740
+msgid "Horizontal Buttons"
+msgstr ""
+
+#: addtoany.admin.php:781
+msgid "Save Changes"
+msgstr "Değişiklikleri kaydet"
+
+#: addtoany.admin.php:782
+msgid "Are you sure you want to delete all AddToAny options?"
+msgstr "Tüm AddToAny ayarlarını silmek istediğinize emin misiniz ?"
+
+#: addtoany.admin.php:782
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: addtoany.admin.php:787
+msgid "Like this plugin?"
+msgstr "Bu eklentiyi beğendiniz mi ?"
+
+#: addtoany.admin.php:788
+#, fuzzy
+msgid ""
+"<a href=\"https://wordpress.org/support/view/plugin-reviews/add-to-"
+"any#postform\" target=\"_blank\">Give it a 5 star rating</a> on WordPress."
+"org."
+msgstr ""
+"WordPress.org üzerinde <a href=\"http://wordpress.org/extend/plugins/add-to-"
+"any/\">Oy ver</a> "
+
+#: addtoany.admin.php:789
+msgid ""
+"<a href=\"https://www.addtoany.com/share_save#title=WordPress%20Share"
+"%20Plugin%20by%20AddToAny.com&amp;url=http%3A%2F%2Fwordpress.org%2Fplugins"
+"%2Fadd-to-any%2F\">Share it</a> and follow <a href=\"https://www.addtoany."
+"com/\">AddToAny</a> on <a href=\"https://www.facebook.com/AddToAny\" target="
+"\"_blank\">Facebook</a> &amp; <a href=\"https://twitter.com/AddToAny\" "
+"target=\"_blank\">Twitter</a>."
+msgstr ""
+
+#: addtoany.admin.php:791
+msgid "Need support?"
+msgstr "Yardıma mı ihtiyacınız var ?"
+
+#: addtoany.admin.php:792
+msgid ""
+"See the <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/"
+"\">FAQs</a>."
+msgstr ""
+"<a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">Sık Sorulan "
+"Sorular</a>'da ara."
+
+#: addtoany.admin.php:793
+msgid ""
+"Search the <a href=\"http://wordpress.org/tags/add-to-any\">support forums</"
+"a>."
+msgstr ""
+"<a href=\"http://wordpress.org/tags/add-to-any\">Destek forumu</a>'nda ara."
+
+#: addtoany.admin.php:1094
+msgid "Add/Remove Services"
+msgstr "Servis Ekle / Kaldır"
+
+#: addtoany.widgets.php:75 addtoany.widgets.php:173
+msgid "Title:"
+msgstr ""
+
+#: addtoany.widgets.php:79 addtoany.widgets.php:189
+#, fuzzy
+msgid "AddToAny Settings"
+msgstr "Ayarlar"
+
+#: addtoany.widgets.php:179
+#, php-format
+msgid "%s URL:"
+msgstr ""
+
+#: addtoany.widgets.php:179
+#, php-format
+msgid "%s ID:"
+msgstr ""
+
+#~ msgid ""
+#~ "Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-"
+#~ "editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;"
+#~ "</code> just before the <code>&lt;/body&gt;</code> line of your theme's "
+#~ "<code>footer.php</code> file."
+#~ msgstr ""
+#~ "Temanızın onarılması gerekmektedir. Temanızı onarmak için <a href=\"theme-"
+#~ "editor.php\">Tema Editörü</a>'nü kullanarak tema klasörünüzde bulunan "
+#~ "<code>footer.php</code> isimli dosyanız içerisinde ki <code>&lt;/body&gt;"
+#~ "</code> kod satırından hemen önce <code>&lt;?php wp_footer(); ?&gt;</"
+#~ "code> kodunu ekleyebilirsiniz."
+
+#~ msgid "Share/Bookmark"
+#~ msgstr "Paylaş / Yer imi"
+
+#~ msgid "Standalone Services"
+#~ msgstr "Bağımsız hizmetler"
+
+#~ msgid "Button"
+#~ msgstr "Buton"
+
+#~ msgid ""
+#~ "If unchecked, be sure to place the following code in <a href=\"theme-"
+#~ "editor.php\">your template pages</a> (within <code>index.php</code>, "
+#~ "<code>single.php</code>, and/or <code>page.php</code>)"
+#~ msgstr ""
+#~ "Bu özellik seçili değil ise aşağıda ki kodları <a href=\"theme-editor.php"
+#~ "\">tema sayfalarınız</a>'a eklediğinizden emin olunuz. ( <code>index.php</"
+#~ "code>, <code>single.php</code>, ve / ya da <code>page.php</code> "
+#~ "dosyaları içerisine)"
+
+#~ msgid "Menu Style"
+#~ msgstr "Menü stili"
+
+#~ msgid ""
+#~ "<strong>Note</strong>: If you're adding new code, be careful not to "
+#~ "accidentally overwrite any previous code.</label>"
+#~ msgstr ""
+#~ "<strong>Not</strong>: Eğer yeni bir kod ekliyorsanız, her hangi eski bir "
+#~ "kodun üzerine yanlışlıkla yazmamaya dikkat edin. </label>"
+
+#~ msgid "Use CSS stylesheet"
+#~ msgstr "CSS stil tablosu kullan"
+
+#~ msgid ""
+#~ "<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share"
+#~ "%20%2F%20Bookmark%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F"
+#~ "%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Share it</a> with "
+#~ "your friends."
+#~ msgstr ""
+#~ "Arkadaşların ile <a href=\"http://www.addtoany.com/share_save?"
+#~ "linkname=WordPress%20Share%20%2F%20Bookmark%20Plugin%20by%20AddToAny."
+#~ "com&amp;linkurl=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fadd-to-any"
+#~ "%2F\">Paylaş</a>"

@@ -33,4 +33,13 @@ git pull
 cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
 composer install
 
+APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
+if [ ! -z "$APACHEUSER" ]; then
+    if ( id -u $APACHEUSER >/dev/null 2>&1 ) ; then
+        mkdir -p $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+        chown -R $APACHEUSER $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+    fi
+fi
+
 cd $PWDAtual
+
