@@ -54,4 +54,13 @@ if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
         git pull
 fi
 
+APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
+if [ ! -z "$APACHEUSER" ]; then
+    if ( id -u $APACHEUSER >/dev/null 2>&1 ) ; then
+        mkdir -p $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+        chown -R $APACHEUSER $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+    fi
+fi
+
 cd $PWDAtual
+
