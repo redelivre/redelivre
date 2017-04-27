@@ -223,7 +223,7 @@ class ftf_otmeta {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
             return;
 
-        if ( !wp_verify_nonce( $_POST['ftf_open_type__nounce'], plugin_basename( __FILE__ ) ) )
+        if ( !array_key_exists('ftf_open_type__nounce', $_POST) || !wp_verify_nonce( $_POST['ftf_open_type__nounce'], plugin_basename( __FILE__ ) ) )
             return;
 
         // Check permissions
