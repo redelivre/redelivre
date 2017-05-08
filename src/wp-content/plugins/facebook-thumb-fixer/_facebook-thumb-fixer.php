@@ -423,7 +423,7 @@ function fbfixhead() {
 				if (has_post_thumbnail()) {
 				// Set '$featuredimg' variable for the featured image.
 				$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
-				$ftf_description = get_the_excerpt($post);
+				$ftf_description = get_the_excerpt();
 				global $post;
 				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -442,7 +442,7 @@ function fbfixhead() {
 				';
 				} //...otherwise, if there is no post image.
 				else {
-				$ftf_description = get_the_excerpt($post);
+				$ftf_description = get_the_excerpt();
 				global $post;
 				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -492,7 +492,7 @@ function fbfixhead() {
 			if (has_post_thumbnail()) {
 			// Set '$featuredimg' variable for the featured image.
 			$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
-			$ftf_description = get_the_excerpt($post);
+			$ftf_description = get_the_excerpt();
 			global $post;
 			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -511,7 +511,7 @@ function fbfixhead() {
 			';
 			} //...otherwise, if there is no post image.
 			else {
-			$ftf_description = get_the_excerpt($post);
+			$ftf_description = get_the_excerpt();
 			global $post;
 			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
