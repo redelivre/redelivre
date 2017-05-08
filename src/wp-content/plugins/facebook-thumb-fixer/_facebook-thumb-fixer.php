@@ -223,7 +223,7 @@ class ftf_otmeta {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
             return;
 
-        if ( !wp_verify_nonce( $_POST['ftf_open_type__nounce'], plugin_basename( __FILE__ ) ) )
+        if ( !array_key_exists('ftf_open_type__nounce', $_POST) || !wp_verify_nonce( $_POST['ftf_open_type__nounce'], plugin_basename( __FILE__ ) ) )
             return;
 
         // Check permissions
@@ -423,7 +423,7 @@ function fbfixhead() {
 				if (has_post_thumbnail()) {
 				// Set '$featuredimg' variable for the featured image.
 				$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
-				$ftf_description = get_the_excerpt($post);
+				$ftf_description = get_the_excerpt();
 				global $post;
 				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -442,7 +442,7 @@ function fbfixhead() {
 				';
 				} //...otherwise, if there is no post image.
 				else {
-				$ftf_description = get_the_excerpt($post);
+				$ftf_description = get_the_excerpt();
 				global $post;
 				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -492,7 +492,7 @@ function fbfixhead() {
 			if (has_post_thumbnail()) {
 			// Set '$featuredimg' variable for the featured image.
 			$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
-			$ftf_description = get_the_excerpt($post);
+			$ftf_description = get_the_excerpt();
 			global $post;
 			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
@@ -511,7 +511,7 @@ function fbfixhead() {
 			';
 			} //...otherwise, if there is no post image.
 			else {
-			$ftf_description = get_the_excerpt($post);
+			$ftf_description = get_the_excerpt();
 			global $post;
 			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
 			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
