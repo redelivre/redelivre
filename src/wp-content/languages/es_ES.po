@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.7.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-02-17 15:41:04+0000\n"
+"PO-Revision-Date: 2017-03-15 12:53:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2230,7 +2230,7 @@ msgid "Install Failed!"
 msgstr "¡Fallo en la instalación!"
 
 #. translators: %s: user name
-#: wp-includes/pluggable.php:1715
+#: wp-includes/pluggable.php:1731
 msgid "Password changed for user: %s"
 msgstr "Contraseña modificada para el usuario %s"
 
@@ -2258,7 +2258,7 @@ msgid "Search results for &#8220;%s&#8221;"
 msgstr "Resultados de búsqueda para &#8220;%s&#8221;"
 
 #. translators: %s: site title
-#: wp-includes/pluggable.php:1720
+#: wp-includes/pluggable.php:1736
 msgid "[%s] Password Changed"
 msgstr "[%s] Contraseña cambiada"
 
@@ -2697,46 +2697,46 @@ msgid "Term meta cannot be added to terms that are shared between taxonomies."
 msgstr "Los términos meta no pueden añadirse a los términos que estén compartidos entre taxonomías."
 
 #. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:183
+#: wp-includes/class-wp-locale.php:177
 msgctxt "genitive"
-msgid "December"
-msgstr "Diciembre"
-
-#. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:182
-msgctxt "genitive"
-msgid "November"
-msgstr "Noviembre"
-
-#. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:181
-msgctxt "genitive"
-msgid "October"
-msgstr "Octubre"
-
-#. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:180
-msgctxt "genitive"
-msgid "September"
-msgstr "Septiembre"
-
-#. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:179
-msgctxt "genitive"
-msgid "August"
-msgstr "Agosto"
+msgid "June"
+msgstr "junio"
 
 #. translators: month name, genitive
 #: wp-includes/class-wp-locale.php:178
 msgctxt "genitive"
 msgid "July"
-msgstr "Julio"
+msgstr "julio"
 
 #. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:177
+#: wp-includes/class-wp-locale.php:179
 msgctxt "genitive"
-msgid "June"
-msgstr "Junio"
+msgid "August"
+msgstr "agosto"
+
+#. translators: month name, genitive
+#: wp-includes/class-wp-locale.php:180
+msgctxt "genitive"
+msgid "September"
+msgstr "septiembre"
+
+#. translators: month name, genitive
+#: wp-includes/class-wp-locale.php:181
+msgctxt "genitive"
+msgid "October"
+msgstr "octubre"
+
+#. translators: month name, genitive
+#: wp-includes/class-wp-locale.php:182
+msgctxt "genitive"
+msgid "November"
+msgstr "noviembre"
+
+#. translators: month name, genitive
+#: wp-includes/class-wp-locale.php:183
+msgctxt "genitive"
+msgid "December"
+msgstr "diciembre"
 
 #. translators: If months in your language require a genitive case, translate
 #. this to 'on'. Do not translate into your own language.
@@ -2746,34 +2746,34 @@ msgid "off"
 msgstr "off"
 
 #. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:176
+#: wp-includes/class-wp-locale.php:172
 msgctxt "genitive"
-msgid "May"
-msgstr "Mayo"
-
-#. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:175
-msgctxt "genitive"
-msgid "April"
-msgstr "Abril"
-
-#. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:174
-msgctxt "genitive"
-msgid "March"
-msgstr "Marzo"
+msgid "January"
+msgstr "enero"
 
 #. translators: month name, genitive
 #: wp-includes/class-wp-locale.php:173
 msgctxt "genitive"
 msgid "February"
-msgstr "Febrero"
+msgstr "febrero"
 
 #. translators: month name, genitive
-#: wp-includes/class-wp-locale.php:172
+#: wp-includes/class-wp-locale.php:174
 msgctxt "genitive"
-msgid "January"
-msgstr "Enero"
+msgid "March"
+msgstr "marzo"
+
+#. translators: month name, genitive
+#: wp-includes/class-wp-locale.php:175
+msgctxt "genitive"
+msgid "April"
+msgstr "abril"
+
+#. translators: month name, genitive
+#: wp-includes/class-wp-locale.php:176
+msgctxt "genitive"
+msgid "May"
+msgstr "mayo"
 
 #: wp-includes/embed.php:992
 msgid "Sharing options"
@@ -3457,7 +3457,7 @@ msgstr "Su enlace de restablecimiento de contraseña no es válido. Por favor, s
 msgid "Username may not be longer than 60 characters."
 msgstr "El nombre de usuario no puede ser superior a 60 caracteres."
 
-#: wp-includes/pluggable.php:1790
+#: wp-includes/pluggable.php:1806
 msgid "To set your password, visit the following address:"
 msgstr "Para establecer tu contraseña visita la siguiente dirección:"
 
@@ -4213,15 +4213,15 @@ msgstr "j de F, Y @ H:i:s"
 
 #. translators: 1: Trackback/pingback website name, 2: website IP, 3: website
 #. hostname
-#: wp-includes/pluggable.php:1436 wp-includes/pluggable.php:1447
-#: wp-includes/pluggable.php:1597 wp-includes/pluggable.php:1607
+#: wp-includes/pluggable.php:1452 wp-includes/pluggable.php:1463
+#: wp-includes/pluggable.php:1613 wp-includes/pluggable.php:1623
 msgid "Website: %1$s (IP: %2$s, %3$s)"
 msgstr "Sitio web: %1$s (IP: %2$s, %3$s)"
 
 #. translators: 1: comment author, 2: author IP, 3: author domain
 #. translators: 1: Comment author name, 2: comment author's IP, 3: comment
 #. author IP's hostname
-#: wp-includes/pluggable.php:1457 wp-includes/pluggable.php:1617
+#: wp-includes/pluggable.php:1473 wp-includes/pluggable.php:1633
 msgid "Author: %1$s (IP: %2$s, %3$s)"
 msgstr "Autor: %1$s (IP: %2$s, %3$s)"
 
@@ -4375,23 +4375,23 @@ msgid "Trash"
 msgstr "Papelera"
 
 #. translators: 1: Comment text
-#: wp-includes/pluggable.php:1438 wp-includes/pluggable.php:1449
-#: wp-includes/pluggable.php:1460 wp-includes/pluggable.php:1623
+#: wp-includes/pluggable.php:1454 wp-includes/pluggable.php:1465
+#: wp-includes/pluggable.php:1476 wp-includes/pluggable.php:1639
 msgid "Comment: %s"
 msgstr "Comentario: %s"
 
 #. translators: 1: Trackback/pingback/comment author URL
-#: wp-includes/pluggable.php:1437 wp-includes/pluggable.php:1448
-#: wp-includes/pluggable.php:1459 wp-includes/pluggable.php:1599
-#: wp-includes/pluggable.php:1609 wp-includes/pluggable.php:1621
+#: wp-includes/pluggable.php:1453 wp-includes/pluggable.php:1464
+#: wp-includes/pluggable.php:1475 wp-includes/pluggable.php:1615
+#: wp-includes/pluggable.php:1625 wp-includes/pluggable.php:1637
 msgid "URL: %s"
 msgstr "URL: %s"
 
-#: wp-includes/pluggable.php:1461
+#: wp-includes/pluggable.php:1477
 msgid "You can see all comments on this post here:"
 msgstr "Puedes ver todos los comentarios de esta entrada aquí:"
 
-#: wp-includes/pluggable.php:1450
+#: wp-includes/pluggable.php:1466
 msgid "You can see all pingbacks on this post here:"
 msgstr "Puedes ver todos los pingbacks de esta entrada aquí:"
 
@@ -4405,7 +4405,7 @@ msgctxt "translations"
 msgid "Installed"
 msgstr "Instalada"
 
-#: wp-includes/pluggable.php:1439
+#: wp-includes/pluggable.php:1455
 msgid "You can see all trackbacks on this post here:"
 msgstr "Puedes ver todos los trackbacks de esta entrada aquí:"
 
@@ -5848,10 +5848,6 @@ msgstr "Actualizaciones de traducción"
 msgid "The theme directory \"%s\" does not exist."
 msgstr "La carpeta de temas \"%s\" no existe."
 
-#: wp-includes/functions.php:1225
-msgid "ERROR: This is not a valid feed template."
-msgstr "ERROR: Esta no es una plantilla de agregador válida."
-
 #: wp-includes/post-template.php:1601
 msgid "This content is password protected. To view it please enter your password below:"
 msgstr "Este contenido está protegido por contraseña. Para verlo introduce tu contraseña a continuación:"
@@ -5865,6 +5861,10 @@ msgstr "Este contenido está protegido por contraseña. Para verlo introduce tu 
 msgctxt "Comma-separated list of search stopwords in your language"
 msgid "about,an,are,as,at,be,by,com,for,from,how,in,is,it,of,on,or,that,the,this,to,was,what,when,where,who,will,with,www"
 msgstr "un, una, para, como, en, ser, por, com, cómo, para, desde, como, es, de, en, o, eso, el, esto, a, hacía, que, qué, cuando, cuándo, donde, dónde, quien, quién, será, con, www, y, entre, la, lo, este, ese, esa, eso, es, está, esta, asi, así"
+
+#: wp-includes/functions.php:1225
+msgid "ERROR: This is not a valid feed template."
+msgstr "ERROR: Esta no es una plantilla de feed válida."
 
 #: wp-includes/class-wp-http-curl.php:257
 #: wp-includes/class-wp-http-streams.php:256
@@ -7165,7 +7165,7 @@ msgctxt "add new from admin bar"
 msgid "User"
 msgstr "Usuario"
 
-#: wp-includes/pluggable.php:1043 wp-includes/pluggable.php:1086
+#: wp-includes/pluggable.php:1059 wp-includes/pluggable.php:1102
 msgid "You should specify a nonce action to be verified by using the first parameter."
 msgstr "Debes especificar una acción \"nonce\" a verificar mediante el primer parámetro."
 
@@ -7275,7 +7275,7 @@ msgstr "%1$s se llamó <strong>incorrectamente</strong>. %2$s %3$s"
 msgid "(This message was added in version %s.)"
 msgstr "(Este mensaje se añadió en la versión %s.)"
 
-#: wp-includes/pluggable.php:1467
+#: wp-includes/pluggable.php:1483
 msgid "Permalink: %s"
 msgstr "Enlace permanente: %s"
 
@@ -7769,7 +7769,7 @@ msgstr "Disculpa, este nombre de sitio está reservado"
 msgid "That site is currently reserved but may be available in a couple days."
 msgstr "Este nombre de sitio está reservado, pero puede estar libre en un par de días."
 
-#: wp-includes/pluggable.php:1758
+#: wp-includes/pluggable.php:1774
 msgid "New user registration on your site %s:"
 msgstr "Registrado un nuevo usuario en tu sitio %s:"
 
@@ -7999,7 +7999,7 @@ msgid "If your site does not display, please contact the owner of this network."
 msgstr "Si no se muestra tu sitio, por favor, contacta con el dueño de esta red."
 
 #. translators: 1: Post title
-#: wp-includes/pluggable.php:1594
+#: wp-includes/pluggable.php:1610
 msgid "A new trackback on the post \"%s\" is waiting for your approval"
 msgstr "Un nuevo trackback en la entrada \"%s\" espera tu aprobación."
 
@@ -8053,26 +8053,26 @@ msgid "Site Name:"
 msgstr "Nombre del sitio:"
 
 #. translators: 1: Post title
-#: wp-includes/pluggable.php:1445
+#: wp-includes/pluggable.php:1461
 msgid "New pingback on your post \"%s\""
 msgstr "Nuevo pingback en tu entrada \"%s\""
 
 #. translators: 1: Post title
-#: wp-includes/pluggable.php:1604
+#: wp-includes/pluggable.php:1620
 msgid "A new pingback on the post \"%s\" is waiting for your approval"
 msgstr "Un nuevo pingback en la entrada \"%s\" está esperando tu aprobación"
 
 #. translators: 1: Post title
-#: wp-includes/pluggable.php:1614
+#: wp-includes/pluggable.php:1630
 msgid "A new comment on the post \"%s\" is waiting for your approval"
 msgstr "Un nuevo comentario en la entrada \"%s\" está esperando tu aprobación"
 
 #. translators: 1: Post title
-#: wp-includes/pluggable.php:1434
+#: wp-includes/pluggable.php:1450
 msgid "New trackback on your post \"%s\""
 msgstr "Nuevo trackback en tu entrada \"%s\""
 
-#: wp-includes/pluggable.php:1455
+#: wp-includes/pluggable.php:1471
 msgid "New comment on your post \"%s\""
 msgstr "Nuevo comentario en tu entrada \"%s\""
 
@@ -8730,50 +8730,50 @@ msgid "PM"
 msgstr "PM"
 
 #. translators: 1: blog name, 2: post title
-#: wp-includes/pluggable.php:1463
+#: wp-includes/pluggable.php:1479
 msgid "[%1$s] Comment: \"%2$s\""
 msgstr "[%1$s] Comentario: \"%2$s\""
 
 #. translators: 1: blog name, 2: post title
-#: wp-includes/pluggable.php:1441
+#: wp-includes/pluggable.php:1457
 msgid "[%1$s] Trackback: \"%2$s\""
 msgstr "[%1$s] Trackback: \"%2$s\""
 
 #. translators: 1: blog name, 2: post title
-#: wp-includes/pluggable.php:1452
+#: wp-includes/pluggable.php:1468
 msgid "[%1$s] Pingback: \"%2$s\""
 msgstr "[%1$s] Pingback: \"%2$s\""
 
 #. translators: Comment moderation. 1: Comment action URL
-#: wp-includes/pluggable.php:1473 wp-includes/pluggable.php:1635
+#: wp-includes/pluggable.php:1489 wp-includes/pluggable.php:1651
 msgid "Delete it: %s"
 msgstr "Borrarlo: %s"
 
 #. translators: Comment moderation. 1: Comment action URL
-#: wp-includes/pluggable.php:1475 wp-includes/pluggable.php:1639
+#: wp-includes/pluggable.php:1491 wp-includes/pluggable.php:1655
 msgid "Spam it: %s"
 msgstr "Marcarlo como spam: %s"
 
-#: wp-includes/pluggable.php:1600
+#: wp-includes/pluggable.php:1616
 msgid "Trackback excerpt: "
 msgstr "Extracto del trackback:"
 
-#: wp-includes/pluggable.php:1610
+#: wp-includes/pluggable.php:1626
 msgid "Pingback excerpt: "
 msgstr "Extracto del pingback:"
 
 #. translators: Comment moderation. 1: Comment action URL
-#: wp-includes/pluggable.php:1628
+#: wp-includes/pluggable.php:1644
 msgid "Approve it: %s"
 msgstr "Aprobarlo: %s"
 
 #. translators: Comment moderation notification email subject. 1: Site name, 2:
 #. Post title
-#: wp-includes/pluggable.php:1647
+#: wp-includes/pluggable.php:1663
 msgid "[%1$s] Please moderate: \"%2$s\""
 msgstr "[%1$s] Pendientes de moderación: \"%2$s\""
 
-#: wp-includes/pluggable.php:1759 wp-includes/pluggable.php:1789
+#: wp-includes/pluggable.php:1775 wp-includes/pluggable.php:1805
 #: wp-login.php:329
 msgid "Username: %s"
 msgstr "Nombre de usuario: %s"
@@ -9194,11 +9194,11 @@ msgid "What do I do now?"
 msgstr "¿Qué hago ahora?"
 
 #. translators: Comment moderation. 1: Comment action URL
-#: wp-includes/pluggable.php:1471 wp-includes/pluggable.php:1632
+#: wp-includes/pluggable.php:1487 wp-includes/pluggable.php:1648
 msgid "Trash it: %s"
 msgstr "Enviar a la papelera: %s"
 
-#: wp-includes/pluggable.php:1762
+#: wp-includes/pluggable.php:1778
 msgid "[%s] New User Registration"
 msgstr "[%s] Registro de nuevo usuario"
 
@@ -9491,10 +9491,6 @@ msgstr "Nuevo %1$s usuario: %2$s"
 msgid "(Must be at least 4 characters, letters and numbers only.)"
 msgstr "(Deben tener como mínimo 4 caracteres, solo letras y números.)"
 
-#: wp-signup.php:555
-msgid "Just a username, please."
-msgstr "Solo el nombre de usuario, gracias."
-
 #: wp-includes/ms-functions.php:445
 msgid "You cannot use that email address to signup. We are having problems with them blocking some of our email. Please use another email provider."
 msgstr "No puedes usar este correo electrónico para registrarte. Estamos teniendo problemas con él, bloquea nuestros correos electrónicos. Por favor, usa otro proveedor."
@@ -9528,7 +9524,7 @@ msgid "<strong>ERROR</strong>: The email address isn&#8217;t correct."
 msgstr "<strong>ERROR</strong>: La dirección de correo electrónico no es correcta."
 
 #. translators: Comment moderation. 1: Number of comments awaiting approval
-#: wp-includes/pluggable.php:1642
+#: wp-includes/pluggable.php:1658
 msgid "Currently %s comment is waiting for approval. Please visit the moderation panel:"
 msgid_plural "Currently %s comments are waiting for approval. Please visit the moderation panel:"
 msgstr[0] "Actualmente hay %s comentario en espera de aprobación. Por favor visita el panel de moderación:"
@@ -9639,7 +9635,7 @@ msgstr "Ese nombre de usuario ya está activado."
 msgid "Remove From Bulk Edit"
 msgstr "Borrar desde la edición múltiple"
 
-#: wp-includes/pluggable.php:1795
+#: wp-includes/pluggable.php:1811
 msgid "[%s] Your username and password info"
 msgstr "[%s] Información de tu usuario y contraseña"
 
@@ -9780,6 +9776,10 @@ msgstr "%s [autoguardado]"
 #: wp-includes/ms-functions.php:241
 msgid "That user does not exist."
 msgstr "Ese usuario no existe."
+
+#: wp-signup.php:555
+msgid "Just a username, please."
+msgstr "Solo un nombre de usuario, por favor."
 
 #: wp-includes/class-wp-theme.php:784
 msgid "Blue"
@@ -10537,8 +10537,8 @@ msgid "Search Results for &#8220;%s&#8221;"
 msgstr "Resultados de búsqueda para &#8220;%s&#8221;"
 
 #. translators: 1: Comment author URL
-#: wp-includes/pluggable.php:1458 wp-includes/pluggable.php:1619
-#: wp-includes/pluggable.php:1760
+#: wp-includes/pluggable.php:1474 wp-includes/pluggable.php:1635
+#: wp-includes/pluggable.php:1776
 msgid "Email: %s"
 msgstr "Correo electrónico: %s"
 

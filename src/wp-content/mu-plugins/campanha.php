@@ -174,7 +174,7 @@ function campanha_add_manage_menu()
 		add_action('admin_menu', function() {
 			$base_page = 'platform-settings';
 	
-			add_object_page( Campaign::getStrings('MenuPlataforma'), Campaign::getStrings('MenuPlataforma'), 'manage_options', $base_page, array());
+			add_menu_page( Campaign::getStrings('MenuPlataforma'), Campaign::getStrings('MenuPlataforma'), 'manage_options', $base_page, array());
 	
 			add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
 				require MUCAMPANHAPATH.'/admin-settings-tpl.php';

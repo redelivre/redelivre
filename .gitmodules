@@ -133,7 +133,6 @@
 	path = src/wp-content/plugins/comment-attachment
 	url = git@github.com:wp-plugins/comment-attachment.git
         branch = master
-
 [submodule "src/wp-content/plugins/sendpress"]
 	path = src/wp-content/plugins/sendpress
 	url = https://github.com/brewlabs/sendpress.git
@@ -168,6 +167,10 @@
 [submodule "src/wp-content/themes/wp-divi-3"]
 	path = src/wp-content/themes/wp-divi-3
 	url = git@github.com:redelivre/wp-divi
+[submodule "src/wp-content/plugins/wordpress-mu-domain-mapping"]
+	path = src/wp-content/plugins/wordpress-mu-domain-mapping
+	url = git@github.com:redelivre/wordpress-mu-domain-mapping.git
+	branch = master
 [submodule "src/wp-content/plugins/facebook-instant-articles-wp"]
 	path = src/wp-content/plugins/facebook-instant-articles-wp
 	url = https://github.com/Automattic/facebook-instant-articles-wp.git
