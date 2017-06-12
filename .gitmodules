@@ -148,18 +148,10 @@
 	path = src/wp-content/themes/divi
 	url = git@github.com:redelivre/wp-divi.git
 	branch = master
-[submodule "src/wp-content/plugins/comment-attachment"]
-	path = src/wp-content/plugins/comment-attachment
-	url = git@github.com:wp-plugins/comment-attachment.git
-        branch = master
-
 [submodule "src/wp-content/plugins/sendpress"]
 	path = src/wp-content/plugins/sendpress
 	url = https://github.com/brewlabs/sendpress.git
 	branch = master
-[submodule "src/wp-content/plugins/mention-comments-authors"]
-	path = src/wp-content/plugins/mention-comments-authors
-	url = git@github.com:wp-plugins/mention-comments-authors.git
 [submodule "src/wp-content/themes/assineja"]
 	path = src/wp-content/themes/assineja
 	url = git@gitlab.ethymos.com.br:campanhacompleta/assineja.git
