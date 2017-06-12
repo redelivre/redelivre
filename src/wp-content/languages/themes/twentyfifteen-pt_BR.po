@@ -160,13 +160,13 @@ msgstr "Menu e widgets"
 msgid "Skip to content"
 msgstr "Pular para o conteúdo"
 
-#: functions.php:282
-msgid "expand child menu"
-msgstr "expandir submenu"
-
 #: functions.php:283
 msgid "collapse child menu"
 msgstr "fechar submenu"
+
+#: functions.php:282
+msgid "expand child menu"
+msgstr "expandir submenu"
 
 #. Translators: To add an additional character subset specific to your
 #. language, translate this to 'greek', 'cyrillic', 'devanagari' or
