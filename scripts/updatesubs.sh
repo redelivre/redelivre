@@ -45,13 +45,14 @@ git pull
 cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
 composer install
 
-
-if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
+if [ -d PWDAtual/src/wp-content/themes/wp-logincidadao ] ; then
+    if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
 	cd $PWDAtual/src/wp-content/themes/wp-logincidadao
 	git submodule update --init
         cd login-cidadao
         git checkout master
         git pull
+    fi
 fi
 
 cd $PWDAtual
