@@ -694,7 +694,7 @@ function wc_get_tax_class_by_tax_id( $tax_id ) {
  */
 function wc_get_payment_gateway_by_order( $order ) {
 	if ( WC()->payment_gateways() ) {
-		$payment_gateways = WC()->payment_gateways->payment_gateways();
+		$payment_gateways = WC()->payment_gateways()->payment_gateways();
 	} else {
 		$payment_gateways = array();
 	}
@@ -704,7 +704,7 @@ function wc_get_payment_gateway_by_order( $order ) {
 		$order    = wc_get_order( $order_id );
 	}
 
-	return isset( $payment_gateways[ $order->get_payment_method() ] ) ? $payment_gateways[ $order->get_payment_method() ] : false;
+	return is_a( $order, 'WC_Order' ) && isset( $payment_gateways[ $order->get_payment_method() ] ) ? $payment_gateways[ $order->get_payment_method() ] : false;
 }
 
 /**

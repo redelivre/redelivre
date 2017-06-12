@@ -4,8 +4,8 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXJWLPPWZG83S
 Tags: captcha, recaptcha, buddypress, bbpress, woocommerce, wpforo, multisite, jetpack, comment, comments, login, register, anti-spam, spam, security
 Requires at least: 3.6.0
-Tested up to: 4.7.3
-Stable tag: 3.0.0.8
+Tested up to: 4.7
+Stable tag: 3.0.0.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -256,6 +256,39 @@ Please read [How to update a translation of SI Captcha Anti-Spam for WordPress](
 
 
 == Changelog ==
+
+= 3.0.0.19 =
+* (05 Jun 2017) - Fix duplicate si_captcha_code ID.
+
+= 3.0.0.18 =
+* (05 Jun 2017) - Fix possible empty needle error.
+
+= 3.0.0.17 =
+* (13 May 2017) - Fix possible Catchable fatal error on WooCommerce password reset.
+
+= 3.0.0.16 =
+* (09 May 2017) - Fix typo in code causing validation error on WooCommerce checkout. Sorry for any inconvenience.
+
+= 3.0.0.15 =
+* (04 May 2017) - Revert changes to last update to fix missing CAPTCHA on JetPack Contact form.
+
+= 3.0.0.14 =
+* (04 May 2017) - Fix rare but possible double CAPTCHA on JetPack Contact form.
+
+= 3.0.0.13 =
+* (02 May 2017) - Fix "You have selected an incorrect CAPTCHA value" error on WooCommerce checkout page if "Create an account" is checked and Enable CAPTCHA on WooCommerce checkout is disabled.
+
+= 3.0.0.12 =
+* (21 Apr 2017) - Fix "You have selected an incorrect CAPTCHA value" error on WooCommerce checkout page if "Create an account" is checked.
+
+= 3.0.0.11 =
+* (20 Apr 2017) - Fix WooCommerce /my-account/lost-password/ page validation error causes cannot click "Reset password".
+
+= 3.0.0.10 =
+* (10 Apr 2017) - Fix double CAPTCHA WooCommerce register My Account forms WooCommerce 2.x
+
+= 3.0.0.9 =
+* (10 Apr 2017) - Fix CAPTCHA did not work on WooCommerce register My Account forms since WooCommerce 3.
 
 = 3.0.0.8 =
 * (21 Mar 2017) - Fixed error caused by uninitialized value si_captcha_login on line 764.

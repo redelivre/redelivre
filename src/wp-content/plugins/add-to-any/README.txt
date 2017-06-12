@@ -2,8 +2,8 @@
 Contributors: micropat, addtoany
 Tags: AddToAny, share, sharing, social, share buttons, share button, social media, media, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, like, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed, icons
 Requires at least: 3.7
-Tested up to: 4.7
-Stable tag: 1.7.8
+Tested up to: 4.8
+Stable tag: 1.7.11
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -104,7 +104,7 @@ To further customize AddToAny, see the <a href="https://www.addtoany.com/buttons
 
 = Something is wrong. What should I try first? =
 
-Try temporarily switching themes and deactivating other plugins to identify a potential conflict. If you find a conflict, try contacting that theme or plugin author. If an issue persists on a default theme with all other plugins deactivated, perform a google search across the WordPress forums using a query such as: <a href="https://www.google.com/#q=site:wordpress.org%2Fsupport+-reviews+addtoany+">site:wordpress.org/support -reviews addtoany [your issue issue here]</a>
+Try temporarily switching themes and deactivating other plugins to identify a potential conflict. If you find a conflict, try contacting that theme or plugin author. If an issue persists on a default theme with all other plugins deactivated, search the WordPress plugin's <a href="https://wordpress.org/support/plugin/add-to-any/">support forum</a>.
 
 Feel free to <a href="https://wordpress.org/support/plugin/add-to-any">post here</a>, where the community can hopefully help you. Describe the issue, what troubleshooting you have already done, provide a link to your site, and any other potentially relevant information.
 
@@ -216,17 +216,17 @@ See the [supported follow services](https://www.addtoany.com/buttons/customize/f
 = How can I add a custom standalone share button? =
 You can create a plugin or customize the following example PHP code to add to your theme's functions.php file:
 
-`function addtoany_add_services( $services ) {
+`function addtoany_add_share_services( $services ) {
 	$services['example_share_service'] = array(
 		'name'        => 'Example Share Service',
-		'icon_url'    => 'https://www.google.com/favicon.ico',
+		'icon_url'    => 'https://www.example.com/my-icon.svg',
 		'icon_width'  => 32,
 		'icon_height' => 32,
-		'href'        => 'https://www.example.com/share?url=A2A_LINKURL&amp;title=A2A_LINKNAME',
+		'href'        => 'https://www.example.com/share?url=A2A_LINKURL&title=A2A_LINKNAME',
 	);
 	return $services;
 }
-add_filter( 'A2A_SHARE_SAVE_services', 'addtoany_add_services', 10, 1 );`
+add_filter( 'A2A_SHARE_SAVE_services', 'addtoany_add_share_services', 10, 1 );`
 
 = How can I add a custom follow button? =
 You can create a plugin or customize the following example PHP code to add to your theme's functions.php file:
@@ -234,7 +234,7 @@ You can create a plugin or customize the following example PHP code to add to yo
 `function addtoany_add_follow_services( $services ) {
 	$services['example_follow_service'] = array(
 		'name'        => 'Example Follow Service',
-		'icon_url'    => 'https://www.google.com/favicon.ico',
+		'icon_url'    => 'https://www.example.com/my-icon.svg',
 		'icon_width'  => 32,
 		'icon_height' => 32,
 		'href'        => 'https://www.example.com/ID',
@@ -324,15 +324,11 @@ Yes, this plugin outputs 100% W3C valid HTML5 and W3C valid CSS 3 by default.
 
 AddToAny supports the <a href="https://codex.wordpress.org/AJAX_in_Plugins#The_post-load_JavaScript_Event">standard `post-load` event</a>.
 
-Ajax and infinite scroll plugins should always fire the `post-load` event after content insertion, so request <a href="https://codex.wordpress.org/AJAX_in_Plugins#The_post-load_JavaScript_Event">standard `post-load` support</a> from plugin authors as needed.
+Ajax and infinite scroll plugins/themes should always fire the `post-load` event after content insertion, so request <a href="https://codex.wordpress.org/AJAX_in_Plugins#The_post-load_JavaScript_Event">standard `post-load` support</a> from plugin & theme authors as needed.
 
 Use the following line to dispatch the `post-load` event for AddToAny and other plugins:
 
 `jQuery( 'body' ).trigger( 'post-load' );`
-
-= Why does the menu appear behind embedded objects (like Flash)? =
-
-Please read <a href="https://www.addtoany.com/buttons/customize/show_over_embeds">this document</a> for an explanation and possible fix. For WordPress, an easier fix is to have the plugin <a href="https://www.addtoany.com/buttons/customize/wordpress/hide_embeds">hide intersecting embedded objects</a>.
 
 = How can I set the plugin as a "Must-Use" plugin that is autoloaded and activated for all sites? =
 
@@ -342,13 +338,28 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 
 == Screenshots ==
 
-1. AddToAny vector share buttons (SVG icons) are pixel-perfect on Retina and high-PPI dispays
+1. AddToAny vector share buttons (SVG icons) are pixel-perfect and customizable
 2. Mini share menu that drops down when visitors use the universal share button
 3. Full universal share menu modal that includes all services
-4. Standard Settings
-5. Floating Settings
+4. Settings for Standard Share Buttons
+5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.11 =
+* Add icon size option to Follow buttons widget
+* Replace "Large" and "Small" icon size options with single field
+* Replace old universal buttons with custom button URLs
+* Update CSS to apply style to custom icon sizes
+* Always use HTTPS script and endpoints
+
+= 1.7.10 =
+* Fix vertical floating bar's class name and media query from the previous release
+
+= 1.7.9 =
+* Show optional meta box ("Show sharing buttons") below the WordPress editor by default, without having to save AddToAny settings first
+* Enable the `shortcode_atts_addtoany` hook to filter the default attributes of the `[addtoany]` shortcode
+* Accept `kit_additional_classes` argument in Floating and Follow button output functions (thanks Rocco Marco)
 
 = 1.7.8 =
 * AddToAny Follow widgets will now use full URLs when specified for a service ID

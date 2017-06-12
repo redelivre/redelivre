@@ -1,0 +1,141 @@
+#siteorigin-learn {
+
+	#siteorigin-learn-overlay {
+		z-index: 100005;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba( 0,0,0,0.6 );
+	}
+
+	#siteorigin-learn-dialog {
+		z-index: 100006;
+		box-sizing: border-box;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+
+		padding: 30px;
+		max-width: 640px + 60px;
+		margin-left: -( 640px + 60px ) / 2;
+
+		min-height: 400px;
+		margin-top: -200px;
+
+		background-color: #fff;
+
+		.poster-wrapper {
+			cursor: pointer;
+			display: block;
+			position: relative;
+
+			&, .main-poster {
+				width: 640px;
+				height: 360px;
+				display: block;
+			}
+
+			.play-button {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 640px;
+				height: 38px;
+
+				transition: opacity 0.35s;
+
+				opacity: 0.90;
+			}
+
+			&:hover .play-button {
+				opacity: 1;
+			}
+		}
+
+		.video-iframe {
+			&, iframe {
+				width: 640px;
+				height: 360px;
+				display: block;
+			}
+		}
+
+		.learn-description {
+			color: #666;
+			font-weight: 300;
+			margin: 25px auto;
+			text-align: center;
+		}
+
+		.signup-form {
+			display: flex;
+			align-items: flex-end;
+			padding: 15px 20px;
+			background-color: #f8f8f8;
+			border: 1px solid #e0e0e0;
+			margin-top: 25px;
+
+			.form-field {
+				flex: 2.5;
+				margin-right: 20px;
+
+				label{
+					color: #777;
+					display: block;
+					margin-bottom: 8px;
+					text-align: center;
+					font-size: 0.85em;
+					font-weight: 500;
+					
+					@media (max-height: 900px)  {
+						display: none;
+					}
+				}
+				
+				input {
+					padding: 6px 8px;
+					font-weight: 500;
+					color: #555;
+				}
+			}
+			.form-submit {
+				flex: 1.5;
+
+				input {
+					margin-bottom: 1px;
+					padding: 3px 8px;
+					height: auto;
+				}
+			}
+
+			input {
+				width: 100%;
+				display: block;
+			}
+
+		}
+
+		.form-description {
+			color: #777;
+			font-weight: 300;
+			margin-top: 15px;
+			text-align: center;
+			font-style: italic;
+			font-size: 0.95em;
+			line-height: 1em;
+		}
+
+		.learn-close {
+			margin: 20px auto 0 auto;
+			text-align: center;
+			display: block;
+			cursor: pointer;
+			font-weight: bold;
+			font-size: 0.9em;
+			color: #666;
+		}
+	}
+
+}

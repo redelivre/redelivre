@@ -8,10 +8,10 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Text Domain: si-captcha
 Domain Path: /languages
 License: GPLv2 or later
-Version: 3.0.0.8
+Version: 3.0.0.19
 */
 
-$si_captcha_version = '3.0.0.8';
+$si_captcha_version = '3.0.0.19';
 
 /*  Copyright (C) 2008-2017 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 
@@ -43,8 +43,11 @@ class siCaptcha {
 
     public $si_captcha_version;
     public $si_captcha_add_script = false;
+    private $si_captcha_add_reg = false;
+    private $si_captcha_add_jetpack = false;
     private $si_captcha_networkwide = false;
     private $si_captcha_on_comments = false;
+    private $si_captcha_checkout_validated = false;
 
 function si_captcha_admin_menu() {
 
@@ -119,6 +122,8 @@ function si_captcha_init() {
      // register form
      // if ($si_captcha_opt['register'] == 'true' && isset($this->is_reg)) { // was not working on bbPress [bbp-register] shortcode 
      if ($si_captcha_opt['register'] == 'true' ) {
+        add_action('woocommerce_register_form', array($this, 'si_captcha_register_form'), 70);
+        add_filter('woocommerce_registration_errors', array($this, 'si_captcha_register_post'), 10, 3);
         add_action('register_form', array($this, 'si_captcha_register_form'), 99);
         add_filter('registration_errors', array($this, 'si_captcha_register_post'), 10, 3);
         add_action('login_footer', array($this, 'si_captcha_add_script'), 10);
@@ -128,22 +133,22 @@ function si_captcha_init() {
      if ($si_captcha_opt['login'] == 'true' ) {
         add_action('login_form', array($this, 'si_captcha_login_form' ), 99);
         add_filter('login_form_middle', array($this, 'si_captcha_inline_login_form'), 99);
-        add_action('login_footer', array($this, 'si_captcha_add_script'), 10);
+        add_action('woocommerce_login_form' ,array($this, 'si_captcha_wc_login_form' ), 99);		
 	    add_filter('authenticate', array($this, 'si_captcha_check_login_captcha'), 15);
-        add_action('woocommerce_login_form' ,array($this, 'si_captcha_wc_login_form' ), 99 );
+        add_action('login_footer', array($this, 'si_captcha_add_script'), 10);
      }
 
      // lost passwordform
      if ($si_captcha_opt['lostpwd'] == 'true' && isset($this->is_lostpassword)) {
  	    add_action('lostpassword_form', array( $this, 'si_captcha_lostpassword_form'), 99);
         add_action('woocommerce_lostpassword_form', array($this, 'si_captcha_lostpassword_form'), 99);
-        add_action('login_footer', array($this, 'si_captcha_add_script'), 10);
-	    add_action('lostpassword_post', array($this, 'si_captcha_lostpassword_post'), 10);
+	    add_action('lostpassword_post', array($this, 'si_captcha_lostpassword_post'), 10);		
+        add_action('login_footer', array($this, 'si_captcha_add_script'), 10);		
      }
 
      // woocommerce checkout form
-     if ( ! is_user_logged_in() && $si_captcha_opt['wc_checkout'] == 'true' ) {
-           // show recaptcha for woocommerce checkout but only when the setting is enabled and not logged in
+     if ( ! is_user_logged_in() ) {
+           // show captcha for woocommerce checkout but only when the setting is enabled and not logged in
  		   add_action('woocommerce_checkout_after_order_review', array($this, 'si_captcha_wc_checkout_form'), 99);
            add_action('woocommerce_after_checkout_validation', array($this, 'si_captcha_wc_checkout_post') );
      }
@@ -276,7 +281,7 @@ function si_captcha_get_options() {
   }
 
   if ( defined('XMLRPC_REQUEST') && XMLRPC_REQUEST )
-      $si_captcha_opt['login'] = 'false'; // always disable recaptcha on xmlrpc login connections
+      $si_captcha_opt['login'] = 'false'; // always disable captcha on xmlrpc login connections
 
 } // end function si_captcha_get_options
 
@@ -491,13 +496,13 @@ $styles = $this->si_captcha_get_styles();
 } // end function si_captcha_head
 
 
-// this function adds the recaptcha to the comment form
+// this function adds the captcha to the comment form
 function si_captcha_comment_form() {
     global $si_captcha_opt, $si_captcha_on_comments;
 
     // skip the captcha if user is logged in and the settings allow
     if (is_user_logged_in() && $si_captcha_opt['bypass_comment'] == 'true')
-               // logged in user can bypass recaptcha
+               // logged in user can bypass captcha
                return;
 
     if ($si_captcha_on_comments)
@@ -516,7 +521,7 @@ $this->si_captcha_captcha_html('si_image_com','com');
 echo '</div>
 
 ';
-echo '<p id="si_captcha_code">
+echo '<p id="si_captcha_code_p">
 ';
 echo $this->si_captcha_comment_label_html();
 echo '</p>
@@ -529,13 +534,13 @@ echo '</p>
     return true;
 } // end function si_captcha_comment_form
 
-// this function adds the recaptcha to the comment form on old themes
+// this function adds the captcha to the comment form on old themes
 function si_captcha_comment_form_legacy() {
     global $si_captcha_opt, $si_captcha_on_comments;
 
     // skip the captcha if user is logged in and the settings allow
     if (is_user_logged_in() && $si_captcha_opt['bypass_comment'] == 'true')
-               // logged in user can bypass recaptcha
+               // logged in user can bypass captcha
                return;
 
     if ($si_captcha_on_comments)
@@ -557,7 +562,7 @@ $this->si_captcha_captcha_html('si_image_com','com');
 echo '</div>
 
 ';
-echo '<p id="si_captcha_code">
+echo '<p id="si_captcha_code_p">
 ';
 echo $this->si_captcha_comment_label_html();
 echo '</p>
@@ -592,13 +597,13 @@ EOT;
     return true;
 } // end function si_captcha_comment_form_legacy
 
-// this function adds the recaptcha to the comment form when user is logged in
+// this function adds the captcha to the comment form when user is logged in
 function si_captcha_comment_form_logged_in($comment_field) {
     global $si_captcha_opt, $si_captcha_on_comments;
 
     // skip the captcha if user is logged in and the settings allow
     if (is_user_logged_in() && $si_captcha_opt['bypass_comment'] == 'true')
-               // logged in user can bypass recaptcha
+               // logged in user can bypass captcha
                return $comment_field;
 
     if ($si_captcha_on_comments)
@@ -657,26 +662,26 @@ $html = '';
 } // end function si_captcha_comment_label_html
 
 
-// this function checks the recaptcha posted with comments
+// this function checks the captcha posted with comments
 function si_captcha_comment_post($comment) {
     global $si_captcha_opt;
 
     // skip the captcha if user is logged in and the settings allow
     if (is_user_logged_in() && $si_captcha_opt['bypass_comment'] == 'true') {
-           // skip recaptcha
+           // skip captcha
            return $comment;
     }
 
-    // skip recaptcha for comment replies from admin menu
+    // skip captcha for comment replies from admin menu
     if ( isset($_POST['action']) && $_POST['action'] == 'replyto-comment' &&
     ( check_ajax_referer( 'replyto-comment', '_ajax_nonce', false ) || check_ajax_referer( 'replyto-comment', '_ajax_nonce-replyto-comment', false )) ) {
-          // skip recaptcha
+          // skip captcha
           return $comment;
     }
 
     // Skip captcha for trackback or pingback
     if ( $comment['comment_type'] != '' && $comment['comment_type'] != 'comment' ) {
-               // skip recaptcha
+               // skip captcha
                return $comment;
     }
 
@@ -691,7 +696,7 @@ function si_captcha_comment_post($comment) {
 } // end function si_captcha_comment_post
 
 
-// this function adds the recaptcha to the login form
+// this function adds the captcha to the login form
 function si_captcha_login_form() {
    global $si_captcha_opt;
 
@@ -725,7 +730,7 @@ echo '</div>
 } //  end function si_captcha_login_form
 
 
-// this function adds the recaptcha to the login form
+// this function adds the captcha to the login form
 function si_captcha_wc_login_form() {
    global $si_captcha_opt;
 
@@ -790,13 +795,13 @@ $html .= '
 } //  end function si_captcha_inline_login_form
 
 
-// this is checking login post for recaptcha validation on WP and woocommerce
+// this is checking login post for captcha validation on WP and woocommerce
 function si_captcha_check_login_captcha($user) {
     global $si_captcha_opt;
 
      if ( isset($this->is_login) && empty($_POST['log']) && empty($_POST['pwd'])) {
             // woocommerce uses 'logon' and 'password' post vars instead of 'log' and 'pwd', so check this on main wp login page only
-            // this is main wp login page and the page just loaded, or form not filled out, don't bother trying to validate recaptcha now
+            // this is main wp login page and the page just loaded, or form not filled out, don't bother trying to validate captcha now
 	 		return $user;
      }
 
@@ -810,7 +815,7 @@ function si_captcha_check_login_captcha($user) {
             $print_error = ($si_captcha_opt['error_error'] != '') ? $si_captcha_opt['error_error'] : __('ERROR', 'si-captcha');
 			$errors->add('sicaptcha-error', "<strong>$print_error</strong>: $validate_result");
 
-			// invalid recaptcha detected, the returned $user object should be a WP_Error object
+			// invalid captcha detected, the returned $user object should be a WP_Error object
 			$user = is_wp_error($user) ? $user : $errors;
 
 			// do not allow WordPress to try authenticating the user, either using cookie or username/password pair
@@ -819,13 +824,15 @@ function si_captcha_check_login_captcha($user) {
 		}
 
 		return $user;
-} // end function si_captcha_check_login_recaptcha
+} // end function si_captcha_check_login_captcha
 
 
 
 // this function adds the captcha to the woocommerce checkout form
 function si_captcha_wc_checkout_form() {
     global $si_captcha_opt;
+
+if ($si_captcha_opt['wc_checkout'] == 'true' ) {
 
 // Test for some required things, print error message right here if not OK.
 if ($this->si_captcha_check_requires()) {
@@ -848,17 +855,25 @@ echo '</div>
 ';
 }
 
+}
+
 return true;
 } // end function si_captcha_wc_checkout_form
 
 
-// this function checks the recaptcha posted with woocommerce checkout page
+// this function checks the captcha posted with woocommerce checkout page
 function si_captcha_wc_checkout_post() {
-    global $si_captcha_dir, $si_captcha_dir_ns, $si_captcha_opt;
+    global $si_captcha_dir, $si_captcha_dir_ns, $si_captcha_opt, $si_captcha_checkout_validated;
 
-   $validate_result = $this->si_captcha_validate_code('checkout', 'unlink');
-   if($validate_result != 'valid') {
-       wc_add_notice( $validate_result, 'error' );
+   if ($si_captcha_opt['wc_checkout'] == 'true' ) {
+      $validate_result = $this->si_captcha_validate_code('checkout', 'unlink');
+      if($validate_result != 'valid') {
+               wc_add_notice( $validate_result, 'error' );
+      }  else {
+               $si_captcha_checkout_validated = true;
+      }
+   } else {
+           $si_captcha_checkout_validated = true;   // always allow registering during checkot
    }
    return;
 } // function si_captcha_wc_checkout_post
@@ -866,7 +881,10 @@ function si_captcha_wc_checkout_post() {
 
 // this function adds the captcha to the register form
 function si_captcha_register_form() {
-   global $si_captcha_opt;
+   global $si_captcha_opt, $si_captcha_add_reg;
+
+  if ( $si_captcha_add_reg )     // prevent double reg captcha fields woocommerce 2
+          return true;
 
 // Test for some required things, print error message right here if not OK.
 if ($this->si_captcha_check_requires()) {
@@ -887,15 +905,25 @@ echo '</div>
 </p>
 
 ';
+      // prevent double captcha fields woocommerce 2
+  $si_captcha_add_reg = true;
 }
+
 
   return true;
 } // end function si_captcha_register_form
 
 
-// this function checks the recaptcha posted with registration page
-function si_captcha_register_post(WP_Error $errors) {
-   global $si_captcha_dir, $si_captcha_dir_ns, $si_captcha_opt;
+// this function checks the captcha posted with registration page
+function si_captcha_register_post( $errors = '' ) {
+   global $si_captcha_dir, $si_captcha_dir_ns, $si_captcha_opt, $si_captcha_checkout_validated;
+
+   if ( ! is_wp_error( $errors ) )
+          $errors = new WP_Error();
+
+   if ($si_captcha_checkout_validated)
+       return $errors; // skip because already validated a captcha at woocommerce checkout, checked the box "Create an account"
+
 
    $validate_result = $this->si_captcha_validate_code('reg', 'unlink');
    if($validate_result != 'valid') {
@@ -915,7 +943,7 @@ function si_captcha_bp_register_form() {
    }
 
 
-// the recaptcha html - bp register form
+// the captcha html - bp register form
 if (!empty($bp->signup->errors['si_captcha_field']))
     echo '<div class="error">'. $bp->signup->errors['si_captcha_field']. '</div>';
 
@@ -945,7 +973,7 @@ echo '</div>
 } // end function si_captcha_bp_register_form
 
 
-// this function checks the recaptcha posted with BuddyPress registration page
+// this function checks the captcha posted with BuddyPress registration page
 function si_captcha_bp_signup_validate() {
    global $bp, $si_captcha_opt;
 
@@ -967,7 +995,7 @@ function si_captcha_ms_register_form( $errors ) {
    if ( $errmsg = $errors->get_error_message('si_captcha_error') )
 			echo '<p class="error">' . $errmsg . '</p>';
 
-// the recaptcha html - ms register form
+// the captcha html - ms register form
 // Test for some required things, print error message right here if not OK.
 if ($this->si_captcha_check_requires()) {
 // the captcha html - register form
@@ -1022,25 +1050,36 @@ echo '</div>
 } // end function si_captcha_lostpassword_form
 
 
-// this function checks the recaptcha posted with lost password page
-function si_captcha_lostpassword_post() {
+// this function checks the captcha posted with lost password page
+function si_captcha_lostpassword_post($errors = '') {
   global $si_captcha_dir, $si_captcha_dir_ns, $si_captcha_opt;
+
+ if ( ! is_wp_error( $errors ) )
+        $errors = new WP_Error();
 
    $validate_result = $this->si_captcha_validate_code('reg', 'unlink');
    if($validate_result != 'valid') {
        $error = ($si_captcha_opt['error_error'] != '') ? $si_captcha_opt['error_error'] : __('ERROR', 'si-captcha');
-       wp_die( "<strong>$error</strong>: $validate_result", $error, array( 'back_link' => true ) ); // back link makes go back link
+
+       if ( isset($_POST['wc_reset_password']) && isset($_POST['_wp_http_referer']) ) {
+               // woocommerce  /my-account/lost-password/ needs in page error
+               $errors->add('si_captcha_error', "<strong>$error</strong>: $validate_result");
+               return $errors;
+       } else {
+               // wp-login.php needs >> Back link
+               wp_die( "<strong>$error</strong>: $validate_result", $error, array( 'back_link' => true ) ); // back link makes go back link
+       }
    }
    return;
 } // function si_captcha_lostpassword_post
 
 
-  // this function checks the recaptcha posted with multisite registration page
+  // this function checks the captcha posted with multisite registration page
 function si_captcha_mu_signup_validate( $result ) {
   global $si_captcha_dir, $si_captcha_dir_ns, $si_captcha_opt;
 
    if (isset($_POST['stage']) && 'validate-blog-signup' == $_POST['stage'])
-		// user is registering a new blog, recaptcha is not required at this stage
+		// user is registering a new blog, captcha is not required at this stage
 		return $result;
 
    $validate_result = $this->si_captcha_validate_code('reg', 'unlink');
@@ -1092,7 +1131,7 @@ echo '</div>
 } // end function si_captcha_bbpress_topic_form
 
 
-  // this function checks the recaptcha posted with bbPress New Topic and Reply form
+  // this function checks the captcha posted with bbPress New Topic and Reply form
 function si_captcha_bbpress_topic_validate() {
    global $si_captcha_opt;
 
@@ -1123,6 +1162,13 @@ function si_captcha_jetpack_validate($bool) {
 
 // append field to jetpack contact form shortcode
 function si_captcha_jetpack_form($content) {
+  global $si_captcha_add_jetpack;
+
+  //if ( $si_captcha_add_jetpack )     // prevent double captcha fields jetpack
+  //        return $content;
+
+   $si_captcha_add_jetpack = true;
+
    return preg_replace_callback( '/\[contact-form(.*?)?\](.*?)?\[\/contact-form\]/si',
    array($this, 'si_captcha_jetpack_append_field_callback'),
    $content );
@@ -1253,7 +1299,7 @@ function si_captcha_get_styles(){
     'div#si_captcha_input { display:block; padding-top:15px; padding-bottom:5px; }',
     'label#si_captcha_code_label { margin:0; }',
     'input#si_captcha_code_input { width:65px; }',
-    'p#si_captcha_code { clear: left; padding-top:10px; }',
+    'p#si_captcha_code_p { clear: left; padding-top:10px; }',
     '.si-captcha-jetpack-error { color:#DC3232; }',
       );
       return $styles;
@@ -1325,7 +1371,7 @@ function si_captcha_activated_notice() {
         <div class="notice notice-warning is-dismissible">
             <p><?php
 			printf(
-				__( '<strong>SI CAPTCHA needs your attention:</strong> To make it work, you need to configure the settings. <br />You can do so at the <a href="%s">SI CAPTCHA settings page</a>.' , 'fast-secure-recaptcha' ),
+				__( '<strong>SI CAPTCHA needs your attention:</strong> To make it work, you need to configure the settings. <br />You can do so at the <a href="%s">SI CAPTCHA settings page</a>.' , 'si-captcha' ),
 				admin_url( add_query_arg( 'page' , 'si-captcha-for-wordpress/si-captcha.php' , 'options-general.php' ) )
 			);
 		?></p></div>
@@ -1354,11 +1400,11 @@ function si_captcha_determine_current_page() {
 		global $pagenow;
 
 		$request_uri = ltrim($_SERVER['REQUEST_URI'], '/');
-        if (strpos($request_uri, $lostpassword_path) === 0) {
+        if (!empty($lostpassword_path) && strpos($request_uri, $lostpassword_path) === 0) {
 			// user is requesting lost password page
 			$this->is_lostpassword = true;
 		}
-		elseif (strpos($request_uri, $register_path) === 0) {
+		elseif (!empty($register_path) && strpos($request_uri, $register_path) === 0) {
 			// user is requesting regular user registration page
 			$this->is_reg = true;
 		}
@@ -1366,7 +1412,7 @@ function si_captcha_determine_current_page() {
             // user is requesting woocommerce registration page
 			$this->is_reg = true;
         }
-		elseif (strpos($request_uri, $login_path) === 0) {
+		elseif (!empty($login_path) && strpos($request_uri, $login_path) === 0) {
 			// user is requesting the wp-login page
 			$this->is_login = true;
 		}
