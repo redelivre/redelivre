@@ -4,7 +4,7 @@ Plugin Name: Mention comment's Authors
 Plugin URI: http://wabeo.fr
 Description: "Mention comment's authors" is a plugin that improves the WordPress comments fonctionality, adding a response system between authors.
 When adding a comment, your readers can directly mentioning the author of another comment, like facebook or twitter do,using the "@" symbol.
-Version: 0.9.7
+Version: 0.9.8
 Author: Willy Bahuaud
 Author URI: http://wabeo.fr
 License: GPLv2 or later
@@ -15,7 +15,7 @@ INIT CONSTANT & LANGS
 */
 DEFINE( 'MCA_PLUGIN_URL', trailingslashit( WP_PLUGIN_URL ) . basename( dirname( __FILE__ ) ) );
 DEFINE( 'MCA_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-DEFINE( 'MCA_PLUGIN_VERSION', '0.9.7' );
+DEFINE( 'MCA_PLUGIN_VERSION', '0.9.8' );
 
 add_action( 'init', 'mca_lang_init' );
 function mca_lang_init() {
@@ -30,8 +30,8 @@ LOAD JS ON FRONT OFFICE
 
 * @uses mca-load-styles FILTER HOOK to allow/disallow css enqueue
 * @uses mcaajaxenable FILTER HOOK to turn plugin into ajax mod (another script is loaded, different functions are used)
-* @since 0.9.7 No need to enqueue dependancies anymore
-* @since 0.9.7 include minified version for scripts
+* @since 0.9.7 No need to enqueue jQuery anymore
+* @since 0.9.7 include minified version for scripts and stylesheets
 */
 add_action( 'wp_enqueue_scripts', 'mca_enqueue_comments_scripts' );
 function mca_enqueue_comments_scripts() {
@@ -56,7 +56,7 @@ function mca_enqueue_comments_scripts() {
 
 /**
 LOAD JS ON BACK OFFICE
-* a classic admin-script enqueue
+* a classic script enqueue
 
 */
 add_action( 'admin_enqueue_scripts', 'mca_enqueue_admin_comments_scripts' );
@@ -68,9 +68,12 @@ function mca_enqueue_admin_comments_scripts() {
 
         wp_register_script( 'jquery-mention', MCA_PLUGIN_URL . '/js/jquery-mention' . $suffix . '.js', array( 'jquery' ), MCA_PLUGIN_VERSION, true );
         wp_register_script( 'mca-admin-comment-script', MCA_PLUGIN_URL . '/js/mca-admin-comment-script' . $suffix . '.js', array( 'jquery', 'jquery-mention', 'admin-comments' ), MCA_PLUGIN_VERSION, true );
-        wp_enqueue_script( 'mca-admin-comment-script' );
 
         $screen = get_current_screen();
+        if ( in_array( $screen->base, array( 'comment', 'post', 'edit-comments', 'dashboard' ) ) 
+          && current_user_can( 'moderate_comments' ) ) {
+            wp_enqueue_script( 'mca-admin-comment-script' );
+        }
         if ( 'comment' == $screen->base && current_user_can( 'moderate_comments' ) ) {
             $comment = get_comment( intval( $_GET['c'] ) );
             $old_authors = mca_get_previous_commentators( $comment->comment_post_ID, $comment->comment_ID );
@@ -243,7 +246,7 @@ SEND EMAILS TO POKED ONES
 */
 add_action( 'comment_post', 'mca_email_poked_ones', 90, 2 ); // Launching after spam test
 function mca_email_poked_ones( $comment_id, $approved ) {
-    if( add_filter( 'mca_send_email_on_mention', true ) && 1 == $approved ) {
+    if( add_filter( 'mca_send_email_on_mention', true ) && in_array( array( 1, 'approve' ), $approved ) ) {
         $comment = get_comment( $comment_id );
         $prev_authors = mca_get_previous_commentators( $comment->comment_post_ID, $comment_id, true );
         $prev_authors = apply_filters( 'mca_filter_recipient', $prev_authors, $comment );

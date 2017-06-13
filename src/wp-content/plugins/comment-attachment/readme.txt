@@ -3,10 +3,10 @@ Contributors: latorante
 Donate link: http://donate.latorante.name/
 Tags: comments, comment, image, attachment, images, files
 Requires at least: 3.0
-Tested up to: 4.4
+Tested up to: 4.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.5.5
+Stable tag: 1.5.7
 
 Allow your visitors to attach files with their comments!
 
@@ -46,6 +46,16 @@ and for inner comment elements:
 
 It should be easy peasy for you to style it! :)
 
+= Language translations thanks to:
+
+* DE = Johannes Bouchain
+* PT = Nomada (rodrigo)
+* BR = Treed Box
+* ES = Clara Roldan
+* DK = Johan Michaelsen
+
+Thank you all for contributing.
+
 == Installation ==
 
 1. Go to your admin area and select Plugins -> Add new from the menu.
@@ -62,6 +72,9 @@ It should be easy peasy for you to style it! :)
 5. Wordpress 3.6.x audio player
 
 == Upgrade Notice ==
+
+= 1.5.7 =
+* Adding translations I've had for a while
 
 = 1.5.5 =
 * Wrong operator bugfix

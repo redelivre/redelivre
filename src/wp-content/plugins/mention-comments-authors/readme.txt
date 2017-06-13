@@ -3,8 +3,8 @@ Contributors: willybahuaud
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=A4P2WCN4TZK26&lc=FR&item_name=Wabeo&item_number=3
 Tags: mention, twitter, facebook, poke, comments, authors, cite, quote, comment, response, answer, commentator, reply, mentions
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 0.9.7
+Tested up to: 4.5.2
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,49 +86,14 @@ function dont_send_user_who_already_subscribe( $recipients, $comment ) {
     return $recipients;
 }`
 
-= How to customize mail subject ? =
-
-You can use the `mca-email-subject` filter.
-
-For example:
-
-`add_filter( 'mca-email-subject', 'my_mail_subject', 10, 5 );
-function my_mail_subject( $subject, $comment, $name, $mail, $title ) {
-    // $subject is actual text
-    // $comment is the comment object
-    // $name and $mail of the comment author
-    // $title is the post title
-    return sprintf( 'Hello, %s answer to you on %s !', $name, $title );
-}`
-
-= How to customize mail content ? =
-
-You can use the `mca-email-subject` filter.
-
-For example:
-
-`add_filter( 'mca-email-message', 'my_mail_content', 10, 5 );
-function my_mail_content( $content, $comment, $name, $mail, $title ) {
-    // $content is actual text
-    // $comment is the comment object
-    // $name and $mail of the comment author
-    // $title is the post title
-    $out = array( sprintf( '<p>%s just answer to you !<br> Her is his message:</p>', $name ) );
-    $out[] = '<blockquote>' . wp_trim_words( $comment->comment_content, 80 ) . '...</blockquote>'; 
-    $out[] = '<a href="' . get_comment_link( $comment->comment_id ) . '">Read more</a>';
-    return implode ( $out );
-}`
-
 == Screenshots ==
 
 1. Screen capture of Mention comment's Authors in action
-2. Screen capture of Mention comment's Authors on the admin side
 
 == Changelog ==
 
-= 0.9.7 =
-* You can now create mentions on admin side
-* Update jQuery.sew (lib improvement)
+= 0.9.8 =
+* fix bug reported by [@G3r0nimo](http://sadler-jerome.fr), (plugin conflict with plugins uninstall page)
 
 = 0.9.6 =
 * Regex improvement (preserve spaces and commas around mentions)
