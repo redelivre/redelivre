@@ -19,6 +19,7 @@ div#em-loading { position:absolute; width:100%; height:100%; background:#FFFFFF 
 		div.css-search input, div.css-search select, div.css-search option, div.css-search div, div.css-search span, div.css-search button { 
 			width:auto; height:auto; margin:0; padding:0; float:none; display:inline-block; font-size:14px; /* reset everything */
 		}
+		div.css-search option { display:block; }
 		div.css-search input, div.css-search select { padding:5px; }
 		div.css-search { background:#fff; border:1px solid #dedede; border-radius:3px; padding:5px; min-height:40px; position:relative; -moz-border-radius:3px; -webkit-border-radius:3px; }	
 		/* Main Search */

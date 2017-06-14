@@ -424,39 +424,39 @@ class EM_Event extends EM_Object{
 			$this->post_type = 'event-recurring';
 		}
 		
-		//Dates and Times - ignored if event is recurring being updated (not new) and not specifically chosen to reschedule event
+		//Dates and Times - dates ignored if event is recurring being updated (not new) and not specifically chosen to reschedule event
 		if( !$this->is_recurring() || (empty($this->event_id) || !empty($_REQUEST['event_reschedule'])) ){
 			//Event Dates
 			$this->event_start_date = ( !empty($_POST['event_start_date']) ) ? wp_kses_data($_POST['event_start_date']) : '';
 			$this->event_end_date = ( !empty($_POST['event_end_date']) ) ? wp_kses_data($_POST['event_end_date']) : $this->event_start_date;
-			//Sort out time
-			$this->event_all_day = ( !empty($_POST['event_all_day']) ) ? 1 : 0;
-			if( $this->event_all_day ){
-				$times_array = array('event_rsvp_time');
-				$this->event_start_time = '00:00:00';
-				$this->event_end_time = '23:59:59';
-			}else{
-				$times_array = array('event_start_time','event_end_time', 'event_rsvp_time');
-			}
-			foreach( $times_array as $timeName ){
-				$match = array();
-				if( !empty($_POST[$timeName]) && preg_match ( '/^([01]\d|[0-9]|2[0-3])(:([0-5]\d))? ?(AM|PM)?$/', $_POST[$timeName], $match ) ){
-					if( empty($match[3]) ) $match[3] = '00';
-					if( strlen($match[1]) == 1 ) $match[1] = '0'.$match[1];
-					if( !empty($match[4]) && $match[4] == 'PM' && $match[1] != 12 ){
-						$match[1] = 12+$match[1];
-					}elseif( !empty($match[4]) && $match[4] == 'AM' && $match[1] == 12 ){
-						$match[1] = '00';
-					}
-					$this->$timeName = $match[1].":".$match[3].":00";
-				}else{
-					$this->$timeName = ($timeName == 'event_start_time') ? "00:00:00":$this->event_start_time;
-				}
-			}
-			//Start/End times should be available as timestamp
-			$this->start = strtotime($this->event_start_date." ".$this->event_start_time);
-			$this->end = strtotime($this->event_end_date." ".$this->event_end_time);
 		}
+		//Sort out time
+		$this->event_all_day = ( !empty($_POST['event_all_day']) ) ? 1 : 0;
+		if( $this->event_all_day ){
+			$times_array = array('event_rsvp_time');
+			$this->event_start_time = '00:00:00';
+			$this->event_end_time = '23:59:59';
+		}else{
+			$times_array = array('event_start_time','event_end_time', 'event_rsvp_time');
+		}
+		foreach( $times_array as $timeName ){
+			$match = array();
+			if( !empty($_POST[$timeName]) && preg_match ( '/^([01]\d|[0-9]|2[0-3])(:([0-5]\d))? ?(AM|PM)?$/', $_POST[$timeName], $match ) ){
+				if( empty($match[3]) ) $match[3] = '00';
+				if( strlen($match[1]) == 1 ) $match[1] = '0'.$match[1];
+				if( !empty($match[4]) && $match[4] == 'PM' && $match[1] != 12 ){
+					$match[1] = 12+$match[1];
+				}elseif( !empty($match[4]) && $match[4] == 'AM' && $match[1] == 12 ){
+					$match[1] = '00';
+				}
+				$this->$timeName = $match[1].":".$match[3].":00";
+			}else{
+				$this->$timeName = ($timeName == 'event_start_time') ? "00:00:00":$this->event_start_time;
+			}
+		}
+		//Start/End times should be available as timestamp
+		$this->start = strtotime($this->event_start_date." ".$this->event_start_time);
+		$this->end = strtotime($this->event_end_date." ".$this->event_end_time);
 		
 		//Get Location info
 		if( !get_option('dbem_locations_enabled') || (!empty($_POST['no_location']) && !get_option('dbem_require_location',true)) || (empty($_POST['location_id']) && !get_option('dbem_require_location',true) && get_option('dbem_use_select_for_locations')) ){
@@ -2184,6 +2184,10 @@ class EM_Event extends EM_Object{
 		global $wpdb;
 		$event_ids = $post_ids = array();
 		if( $this->can_manage('edit_events','edit_others_events') && ($this->is_published() || 'future' == $this->post_status) ){
+			//check if there's any events already created, if not (such as when an event is first submitted for approval and then published), force a reschedule.
+			if( $wpdb->get_var('SELECT COUNT(event_id) FROM '.EM_EVENTS_TABLE.' WHERE recurrence_id='. absint($this->event_id)) == 0 ){
+				$this->recurring_reschedule = true;
+			}
 			do_action('em_event_save_events_pre', $this); //actions/filters only run if event is recurring
 			//Make template event index, post, and meta (we change event dates, timestamps, rsvp dates and other recurrence-relative info whilst saving each event recurrence)
 			$event = $this->to_array(true); //event template - for index
@@ -2278,7 +2282,7 @@ class EM_Event extends EM_Object{
 				//we go through all event main data and meta data, we delete and recreate all meta data
 				$meta_inserts = array();
 				//now unset some vars we don't need to deal with since we're just updating data in the wp_em_events and posts table
-				unset( $event['event_date_created'], $event['recurrence_id'], $event['recurrence'], $event['event_start_date'], $event['event_end_date'], $event['event_start_time'], $event['event_end_time'] );
+				unset( $event['event_date_created'], $event['recurrence_id'], $event['recurrence'], $event['event_start_date'], $event['event_end_date'] );
 				$event['event_date_modified'] = current_time('mysql'); //since the recurrences are modified but not recreated
 				unset( $post_fields['comment_count'], $post_fields['guid'], $post_fields['menu_order']);
 				//now we go through the recurrences and check whether things relative to dates need to be changed
@@ -2301,8 +2305,8 @@ class EM_Event extends EM_Object{
 			 		//add meta fields we deleted and are specific to this event
 			 		$meta_fields['_event_start_date'] = $EM_Event->event_start_date;
 			 		$meta_fields['_event_end_date'] = $EM_Event->event_end_date;
-			 		$meta_fields['_start_ts'] = $EM_Event->start;
-			 		$meta_fields['_end_ts'] = $EM_Event->end;
+			 		$meta_fields['_start_ts'] = strtotime($EM_Event->event_start_date." ".$this->event_start_time);
+			 		$meta_fields['_end_ts'] = strtotime($EM_Event->event_end_date." ".$this->event_end_time);
 			 		//overwrite event and post tables
 			 		$wpdb->update(EM_EVENTS_TABLE, $event, array('event_id' => $EM_Event->event_id));
 			 		$wpdb->update($wpdb->posts, $post_fields, array('ID' => $EM_Event->post_id));
@@ -2313,7 +2317,7 @@ class EM_Event extends EM_Object{
 			 	}
 			 	//delete all meta
 			 	if( !empty($post_ids) ){
-			 		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id IN (".implode(',', array_keys($post_ids)).")");
+			 		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id IN (".implode(',', $post_ids).")");
 			 	}
 			 	//insert the metas in one go, faster than one by one
 			 	if( count($meta_inserts) > 0 ){
@@ -2528,10 +2532,19 @@ class EM_Event extends EM_Object{
 						$current_week_day = ($current_week_day < 6) ? $current_week_day+1 : 0;							
 					}
 					//Now grab from the array the x day of the month
-					$matching_day = ($this->recurrence_byweekno > 0) ? $matching_month_days[$this->recurrence_byweekno-1] : array_pop($matching_month_days);
-					$matching_date = strtotime(date('Y-m',$current_date).'-'.$matching_day);
-					if($matching_date >= $start_date && $matching_date <= $end_date){
-						$matching_days[] = $matching_date;
+					$matching_day = false;
+					if( $this->recurrence_byweekno > 0 ){
+						if( !empty($matching_month_days[$this->recurrence_byweekno-1]) ){
+							$matching_day = $matching_month_days[$this->recurrence_byweekno-1];
+						}
+					}else{
+						$matching_day = array_pop($matching_month_days);
+					}
+					if( !empty($matching_day) ){
+						$matching_date = strtotime(date('Y-m',$current_date).'-'.$matching_day);
+						if($matching_date >= $start_date && $matching_date <= $end_date){
+							$matching_days[] = $matching_date;
+						}
 					}
 					//add the number of days in this month to make start of next month
 					$current_arr['mon'] += $this->recurrence_interval;
@@ -2583,7 +2596,7 @@ class EM_Event extends EM_Object{
 		$EM_Event_Recurring = $this->get_event_recurrence(); 
 		$recurrence = $this->to_array();
 		$weekdays_name = array( translate('Sunday'),translate('Monday'),translate('Tuesday'),translate('Wednesday'),translate('Thursday'),translate('Friday'),translate('Saturday'));
-		$monthweek_name = array('1' => __('the first %s of the month', 'events-manager'),'2' => __('the second %s of the month', 'events-manager'), '3' => __('the third %s of the month', 'events-manager'), '4' => __('the fourth %s of the month', 'events-manager'), '-1' => __('the last %s of the month', 'events-manager'));
+		$monthweek_name = array('1' => __('the first %s of the month', 'events-manager'),'2' => __('the second %s of the month', 'events-manager'), '3' => __('the third %s of the month', 'events-manager'), '4' => __('the fourth %s of the month', 'events-manager'), '5' => __('the fifth %s of the month', 'events-manager'), '-1' => __('the last %s of the month', 'events-manager'));
 		$output = sprintf (__('From %1$s to %2$s', 'events-manager'),  $EM_Event_Recurring->event_start_date, $EM_Event_Recurring->event_end_date).", ";
 		if ($EM_Event_Recurring->recurrence_freq == 'daily')  {
 			$freq_desc =__('everyday', 'events-manager');

@@ -5,12 +5,19 @@ $days_names = em_get_days_names();
 $hours_format = em_get_hour_format();
 $classes = array();
 ?>
-<!-- START recurrence postbox -->
-<div id="em-form-recurrence" class="event-form-recurrence event-form-when <?php if( !empty($EM_Event->event_id) ) echo 'em-recurrence-reschedule'; ?>">
+<div id="em-form-recurrence" class="event-form-recurrence event-form-when">
+	<p class="em-time-range">
+		<?php _e('Events start from','events-manager'); ?>
+		<input id="start-time" class="em-time-input em-time-start" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo date( $hours_format, $EM_Event->start ); ?>" />
+		<?php _e('to','events-manager'); ?>
+		<input id="end-time" class="em-time-input em-time-end" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo date( $hours_format, $EM_Event->end ); ?>" />
+		<?php _e('All day','events-manager'); ?> <input type="checkbox" class="em-time-allday" name="event_all_day" id="em-time-all-day" value="1" <?php if(!empty($EM_Event->event_all_day)) echo 'checked="checked"'; ?> />
+	</p>
+	<div class="<?php if( !empty($EM_Event->event_id) ) echo 'em-recurrence-reschedule'; ?>">
 	<?php if( !empty($EM_Event->event_id) ): ?>
 	<div class="recurrence-reschedule-warning">
 	    <p><em><?php echo sprintf(esc_html__('Current Recurrence Pattern: %s', 'events-manager'), $EM_Event->get_recurrence_description()); ?></em></p>
-	    <p><strong><?php esc_html_e( 'Modifications to event times will cause all recurrences of this event to be deleted and recreated, previous bookings will be deleted.', 'events-manager'); ?></strong></p>
+	    <p><strong><?php esc_html_e( 'Modifications to event dates will cause all recurrences of this event to be deleted and recreated, previous bookings will be deleted.', 'events-manager'); ?></strong></p>
 	    <p>
 	       <a href="<?php echo esc_url( add_query_arg(array('scope'=>'all', 'recurrence_id'=>$EM_Event->event_id), em_get_events_admin_url()) ); ?>">
                 <strong><?php esc_html_e('You can edit individual recurrences and disassociate them with this recurring event.', 'events-manager'); ?></strong>
@@ -45,7 +52,7 @@ $classes = array();
 		<p class="alternate-selector" id="monthly-selector" style="display:inline;">
 			<select id="monthly-modifier" name="recurrence_byweekno">
 				<?php
-					$weekno_options = array ("1" => __ ( 'first', 'events-manager'), '2' => __ ( 'second', 'events-manager'), '3' => __ ( 'third', 'events-manager'), '4' => __ ( 'fourth', 'events-manager'), '-1' => __ ( 'last', 'events-manager') ); 
+					$weekno_options = array ("1" => __ ( 'first', 'events-manager'), '2' => __ ( 'second', 'events-manager'), '3' => __ ( 'third', 'events-manager'), '4' => __ ( 'fourth', 'events-manager'), '5' => __ ( 'fifth', 'events-manager'), '-1' => __ ( 'last', 'events-manager') ); 
 					em_option_items ( $weekno_options, $EM_Event->recurrence_byweekno  ); 
 				?>
 			</select>
@@ -64,13 +71,6 @@ $classes = array();
 				<input class="em-date-end em-date-input-loc" type="text" />
 				<input class="em-date-input" type="hidden" name="event_end_date" value="<?php echo $EM_Event->event_end_date ?>" />
 			</p>
-			<p class="em-time-range">
-				<?php _e('Events start from','events-manager'); ?>
-				<input id="start-time" class="em-time-input em-time-start" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo date( $hours_format, $EM_Event->start ); ?>" />
-				<?php _e('to','events-manager'); ?>
-				<input id="end-time" class="em-time-input em-time-end" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo date( $hours_format, $EM_Event->end ); ?>" />
-				<?php _e('All day','events-manager'); ?> <input type="checkbox" class="em-time-allday" name="event_all_day" id="em-time-all-day" value="1" <?php if(!empty($EM_Event->event_all_day)) echo 'checked="checked"'; ?> />
-			</p>
 			<p class="em-duration-range">
 				<?php echo sprintf(__('Each event spans %s day(s)','events-manager'), '<input id="end-days" type="text" size="8" maxlength="8" name="recurrence_days" value="'. $EM_Event->recurrence_days .'" />'); ?>
 			</p>
@@ -88,4 +88,5 @@ $classes = array();
 	    <input type="hidden" name="event_reschedule" class="em-reschedule-value" value="<?php echo empty($_REQUEST['reschedule']) ? 0:1 ?>" />
 	</div>
 	<?php endif; ?>
+	</div>
 </div>

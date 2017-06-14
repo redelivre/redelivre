@@ -39,7 +39,7 @@ class EM_Categories_Taxonomy{
 	
 	public static function form($tag){ 
 		$category_color = '#FFFFFF';
-		$category_image = '';
+		$category_image = $category_image_id = '';
 		if( $tag != EM_TAXONOMY_CATEGORY ){ //not an add new tag form
 			$EM_Category = new EM_Category($tag);
 			$category_color = $EM_Category->get_color();

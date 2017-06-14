@@ -4,8 +4,8 @@ Donate link: http://wp-events-plugin.com
 Tags: bookings, calendar, tickets, events, buddypress, event management, google maps, maps, locations, registration
 Text Domain: events-manager
 Requires at least: 3.5
-Tested up to: 4.7.4
-Stable tag: 5.7.2
+Tested up to: 4.8
+Stable tag: 5.7.3
 
 Fully featured event registration management including recurring events, locations management, calendar, Google map integration, booking management
 
@@ -99,6 +99,17 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page, which is upd
 6. Manage attendees with various booking reports
 
 == Changelog ==
+= 5.7.3 =
+* fixed previous meta not getting deleted from recurrences resulting in non-saved information such as a changed featured image or location
+* fixed newly submitted recurrences first saved in draft or pending mode not creating new events without a reschedule
+* fixed export settings button not working in MultiSite
+* fixed CSS issue in search form advanced field dropdowns on firefox
+* fixed PHP warning when displaying locations and events map via shortcode (kudos @Beee) 
+* fixed minor PHP warning on category admin pages where image isn't defined (kudos @Beee)
+* fixed booking admin 'Add Note' button not being translatable
+* added fifth day of month in recurrences pattern
+* added ability to change event times on recurring events without recreating recurrences
+
 = 5.7.2 =
 * fixed subsite events in MS Global mode not being able to save new events and resulting in orphaned entries in wp_em_events table
 * added admin tool to allow removal of orphaned events in wp_em_events database table

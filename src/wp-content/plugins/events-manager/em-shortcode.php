@@ -39,6 +39,8 @@ function em_get_locations_map_shortcode($args){
 	$args['height'] = $height;
 	//assign random number for element id reference
 	$args['random_id'] = substr(md5(rand().rand()),0,5);
+	//add JSON style to map
+	$style = '';
 	if( !empty($args['map_style']) ){
 		$style= base64_decode($args['map_style']);
 		$style_json= json_decode($style);
@@ -74,6 +76,8 @@ function em_get_events_map_shortcode($args){
 	$args['height'] = $height;
 	//assign random number for element id reference
 	$args['random_id'] = substr(md5(rand().rand()),0,5);
+	//add JSON style to map
+	$style = '';
 	if( !empty($args['map_style']) ){
 		$style= base64_decode($args['map_style']);
 		$style_json= json_decode($style);

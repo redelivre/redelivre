@@ -472,7 +472,7 @@ function em_bookings_single(){
 								<textarea class="widefat" rows="5" name="booking_note"></textarea>
 								<input type="hidden" name="action" value="bookings_add_note" />
 								<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('bookings_add_note'); ?>" />
-								<input type="submit" class="em-button button-primary" value="Add Note" />
+								<input type="submit" class="em-button button-primary" value="<?php esc_html_e('Add Note', 'events-manager'); ?>" />
 							</form>
 						</div>
 					</div> 
