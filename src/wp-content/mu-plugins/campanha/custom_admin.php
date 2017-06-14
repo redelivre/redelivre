@@ -27,8 +27,20 @@ add_action('admin_menu', function() {
         require MUCAMPANHAPATH.'/includes/campaigns.php';
     });
     
-    add_submenu_page('campaigns', Campaign::getStrings('NovoProjeto'), Campaign::getStrings('NovoProjeto'), 'read', 'campaigns_new', function() {
-        require MUCAMPANHAPATH.'/includes/campaigns_new.php';
-    });
-    	
 });
+
+add_action('admin_menu', function() {
+	if(is_main_site())
+	{
+		add_submenu_page('campaigns', Campaign::getStrings('NovoProjeto'), Campaign::getStrings('NovoProjeto'), 'read', 'campaigns_new', function() {
+			require MUCAMPANHAPATH.'/includes/campaigns_new.php';
+		});
+	}
+	else
+	{
+		global $submenu, $menu;
+		$url = network_site_url('wp-admin/admin.php?page=campaigns_new');
+		$submenu['campaigns'][] = array(Campaign::getStrings('MenuPrincipal'), 'read', 'campaigns', Campaign::getStrings('MenuPrincipal'));
+		$submenu['campaigns'][] = array(Campaign::getStrings('NovoProjeto'), 'manage_options', $url, Campaign::getStrings('NovoProjeto'));
+	}
+}, 20);		
