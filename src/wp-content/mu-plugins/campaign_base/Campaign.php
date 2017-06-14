@@ -781,13 +781,13 @@ class Campaign {
     	$campaign_common_strings['label']['AdministrarProjetos'] = __('', 'redelivre');
     	$campaign_common_strings['value']['AdministrarProjetos'] = __('Administrar projetos', 'redelivre');
 
-    	$opts_campaign_common = get_option('campanha_defined_settings_campaign_common_strings', array());
+    	$opts_campaign_common = get_site_option('campanha_defined_settings_campaign_common_strings', array());
     	if(!is_array($opts_campaign_common)) $opts_campaign_common = array();
     	
     	if(array_key_exists('value', $opts_campaign_common))
     	{
     		$opts_campaign_common = $opts_campaign_common['value'];
-    		update_option('campanha_defined_settings_campaign_common_strings', $opts_campaign_common);
+    		update_site_option('campanha_defined_settings_campaign_common_strings', $opts_campaign_common);
     	}
     	$campaign_common_strings['value'] = array_merge($campaign_common_strings['value'], $opts_campaign_common);
     	
@@ -796,7 +796,7 @@ class Campaign {
     	//END javascritps
         
         // Merge default settings com defined settings
-        $opts = get_option('campanha_defined_settings_strings', array());
+    	$opts = get_site_option('campanha_defined_settings_strings', array());
         if(is_array($opts) && array_key_exists('value', $opts))
         {
         	$opts = $opts['value'];
@@ -825,7 +825,7 @@ class Campaign {
         	$strings = self::getStrings();
             $_POST['settings_strings'] = array_merge($strings['value'], $_POST['settings_strings']);
 
-            if (update_option('campanha_defined_settings_strings', $_POST['settings_strings']))
+            if (update_site_option('campanha_defined_settings_strings', $_POST['settings_strings']))
             {
                 echo 'Dados atualizados com sucesso!';
             }
@@ -840,7 +840,7 @@ class Campaign {
             	{
             		$merge = array_merge($strings[$knowKey]['value'], $_POST[$knowKey.'settings_strings']);
 
-            		if (update_option('campanha_defined_settings_'.$knowKey.'_strings', $merge))
+            		if (update_site_option('campanha_defined_settings_'.$knowKey.'_strings', $merge))
             		{
             			echo 'Dados '.$knowKey.' atualizados com sucesso!';
             		}
