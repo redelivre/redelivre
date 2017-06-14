@@ -1,0 +1,60 @@
+# Translation of Plugins - Post Type Switcher - Development (trunk) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - Post Type Switcher - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2017-01-29 13:06:33+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/2.3.0-alpha\n"
+"Language: pt_BR\n"
+"Project-Id-Version: Plugins - Post Type Switcher - Development (trunk)\n"
+
+#: post-type-switcher.php:279
+msgid "&mdash; No Change &mdash;"
+msgstr "&mdash; Sem alterações &mdash;"
+
+#. Author URI of the plugin/theme
+msgid "https://profiles.wordpress.org/johnjamesjacoby/"
+msgstr "https://profiles.wordpress.org/johnjamesjacoby/"
+
+#. Author of the plugin/theme
+msgid "John James Jacoby"
+msgstr "John James Jacoby"
+
+#. Description of the plugin/theme
+msgid "Allow switching of a post type while editing a post (in post publish section)"
+msgstr "Permite trocar o tipo de post enquanto editando o post e também em edição em massa"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/post-type-switcher/"
+msgstr "https://wordpress.org/plugins/post-type-switcher/"
+
+#. Plugin Name of the plugin/theme
+msgid "Post Type Switcher"
+msgstr "Post Type Switcher"
+
+#: post-type-switcher.php:201 post-type-switcher.php:226
+msgid "Post Type"
+msgstr "Post Type"
+
+#: post-type-switcher.php:167
+msgid "Type"
+msgstr "Tipo"
+
+#: post-type-switcher.php:149
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: post-type-switcher.php:148
+msgid "OK"
+msgstr "Está bem"
+
+#: post-type-switcher.php:133
+msgid "Edit"
+msgstr "Editar"
+
+#: post-type-switcher.php:128
+msgid "Post Type:"
+msgstr "tipo de envio"
