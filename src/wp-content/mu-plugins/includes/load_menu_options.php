@@ -47,8 +47,24 @@ add_action('admin_menu', function() {
         });
         add_action('admin_print_styles-' . $page, array('GraphicMaterialManager', 'scriptsAndStyles'));
 
-        add_menu_page('Redes Sociais', 'Redes Sociais', 'read', 'campaign_social_networks', function() {
-            require(WPMU_PLUGIN_DIR . '/includes/admin-social-networks.php');
-        });
+        if(defined('REDELIVRE_ADMIN_MENU_BASE_PAGE'))
+        {
+        	add_submenu_page(
+        		REDELIVRE_ADMIN_MENU_BASE_PAGE,
+        		__('Social Network','redelivre'),
+        		__('Social Network','redelivre'),
+        		'manage_options',
+        		'campaign_social_networks',
+        		function() {
+            		require(WPMU_PLUGIN_DIR . '/includes/admin-social-networks.php');
+        		}
+        	);
+        }
+        else
+        {
+        	add_menu_page(__('Social Network','redelivre'), __('Social Network','redelivre'), 'manage_options', 'campaign_social_networks', function() {
+        		require(WPMU_PLUGIN_DIR . '/includes/admin-social-networks.php');
+        	});
+        }
     }
 });

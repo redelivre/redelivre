@@ -1225,7 +1225,7 @@ class WC_API_Products extends WC_API_Resource {
 		foreach ( $product->get_children() as $child_id ) {
 			$variation = wc_get_product( $child_id );
 
-			if ( ! $variation->exists() ) {
+			if ( ! $variation || ! $variation->exists() ) {
 				continue;
 			}
 
@@ -1751,6 +1751,7 @@ class WC_API_Products extends WC_API_Resource {
 		global $wpdb;
 
 		$id         = $product->get_id();
+		$variations = $request['variations'];
 		$attributes = $product->get_attributes();
 
 		foreach ( $variations as $menu_order => $data ) {

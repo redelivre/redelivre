@@ -168,7 +168,6 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		// Only update the post when the post data changes.
 		if ( array_intersect( array( 'description', 'short_description', 'name', 'parent_id', 'reviews_allowed', 'status', 'menu_order', 'date_created', 'date_modified', 'slug' ), array_keys( $changes ) ) ) {
 			$post_data = array(
-				'ID'             => $product->get_id(),
 				'post_content'   => $product->get_description( 'edit' ),
 				'post_excerpt'   => $product->get_short_description( 'edit' ),
 				'post_title'     => $product->get_name( 'edit' ),
@@ -189,7 +188,21 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				$post_data['post_modified']     = current_time( 'mysql' );
 				$post_data['post_modified_gmt'] = current_time( 'mysql', 1 );
 			}
-			wp_update_post( $post_data );
+
+			/**
+			 * When updating this object, to prevent infinite loops, use $wpdb
+			 * to update data, since wp_update_post spawns more calls to the
+			 * save_post action.
+			 *
+			 * This ensures hooks are fired by either WP itself (admin screen save),
+			 * or an update purely from CRUD.
+			 */
+			if ( doing_action( 'save_post' ) ) {
+				$GLOBALS['wpdb']->update( $GLOBALS['wpdb']->posts, $post_data, array( 'ID' => $product->get_id() ) );
+				clean_post_cache( $product->get_id() );
+			} else {
+				wp_update_post( array_merge( array( 'ID' => $product->get_id() ), $post_data ) );
+			}
 			$product->read_meta_data( true ); // Refresh internal meta data, in case things were hooked into `save_post` or another WP hook.
 		}
 
@@ -220,12 +233,16 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			'force_delete' => false,
 		) );
 
+		if ( ! $id ) {
+			return;
+		}
+
 		if ( $args['force_delete'] ) {
-			wp_delete_post( $product->get_id() );
+			wp_delete_post( $id );
 			$product->set_id( 0 );
 			do_action( 'woocommerce_delete_' . $post_type, $id );
 		} else {
-			wp_trash_post( $product->get_id() );
+			wp_trash_post( $id );
 			$product->set_status( 'trash' );
 			do_action( 'woocommerce_trash_' . $post_type, $id );
 		}
@@ -353,19 +370,33 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 	protected function read_attributes( &$product ) {
 		$meta_values = get_post_meta( $product->get_id(), '_product_attributes', true );
 
-		if ( $meta_values ) {
+		if ( ! empty( $meta_values ) && is_array( $meta_values ) ) {
 			$attributes = array();
 			foreach ( $meta_values as $meta_value ) {
+				$id         = 0;
+				$meta_value = array_merge( array(
+					'name'         => '',
+					'value'        => '',
+					'position'     => 0,
+					'is_visible'   => 0,
+					'is_variation' => 0,
+					'is_taxonomy'  => 0,
+				), (array) $meta_value );
+
+				// Check if is a taxonomy attribute.
 				if ( ! empty( $meta_value['is_taxonomy'] ) ) {
 					if ( ! taxonomy_exists( $meta_value['name'] ) ) {
 						continue;
 					}
+					$id      = wc_attribute_taxonomy_id_by_name( $meta_value['name'] );
 					$options = wc_get_object_terms( $product->get_id(), $meta_value['name'], 'term_id' );
 				} else {
 					$options = wc_get_text_attributes( $meta_value['value'] );
 				}
+
 				$attribute = new WC_Product_Attribute();
-				$attribute->set_id( wc_attribute_taxonomy_id_by_name( $meta_value['name'] ) );
+
+				$attribute->set_id( $id );
 				$attribute->set_name( $meta_value['name'] );
 				$attribute->set_options( $options );
 				$attribute->set_position( $meta_value['position'] );
@@ -389,6 +420,9 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		if ( $meta_values ) {
 			$downloads = array();
 			foreach ( $meta_values as $key => $value ) {
+				if ( ! isset( $value['name'], $value['file'] ) ) {
+					continue;
+				}
 				$download    = new WC_Product_Download();
 				$download->set_id( $key );
 				$download->set_name( $value['name'] ? $value['name'] : wc_get_filename_from_url( $value['file'] ) );
@@ -576,8 +610,11 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				$terms[] = 'outofstock';
 			}
 
-			$rating  = max( array( 5, min( array( 1, round( $product->get_average_rating(), 0 ) ) ) ) );
-			$terms[] = 'rated-' . $rating;
+			$rating = min( 5, round( $product->get_average_rating(), 0 ) );
+
+			if ( $rating > 0 ) {
+				$terms[] = 'rated-' . $rating;
+			}
 
 			switch ( $product->get_catalog_visibility() ) {
 				case 'hidden' :
@@ -626,7 +663,6 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 
 					} elseif ( $attribute->is_taxonomy() ) {
 						wp_set_object_terms( $product->get_id(), wp_list_pluck( $attribute->get_terms(), 'term_id' ), $attribute->get_name() );
-
 					} else {
 						$value = wc_implode_text_attributes( $attribute->get_options() );
 					}
@@ -789,7 +825,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			FROM $wpdb->posts
 			LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id )
 			WHERE $wpdb->posts.post_type IN ( 'product', 'product_variation' )
-			AND $wpdb->posts.post_status = 'publish'
+			AND $wpdb->posts.post_status != 'trash'
 			AND $wpdb->postmeta.meta_key = '_sku' AND $wpdb->postmeta.meta_value = '%s'
 			AND $wpdb->postmeta.post_id <> %d LIMIT 1
 		 ", wp_slash( $sku ), $product_id ) );
@@ -809,7 +845,9 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			FROM $wpdb->posts AS posts
 			LEFT JOIN $wpdb->postmeta AS postmeta ON ( posts.ID = postmeta.post_id )
 			WHERE posts.post_type IN ( 'product', 'product_variation' )
-			AND postmeta.meta_key = '_sku' AND postmeta.meta_value = '%s'
+			AND posts.post_status != 'trash'
+			AND postmeta.meta_key = '_sku'
+			AND postmeta.meta_value = '%s'
 			LIMIT 1
 		 ", $sku ) );
 	}
@@ -966,50 +1004,46 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 	public function get_related_products_query( $cats_array, $tags_array, $exclude_ids, $limit ) {
 		global $wpdb;
 
-		// Arrays to string.
-		$exclude_ids = implode( ',', array_map( 'absint', $exclude_ids ) );
-		$cats_array  = implode( ',', array_map( 'absint', $cats_array ) );
-		$tags_array  = implode( ',', array_map( 'absint', $tags_array ) );
-
-		$limit           = absint( $limit );
-		$query           = array();
-		$query['fields'] = "SELECT DISTINCT ID FROM {$wpdb->posts} p";
-		$query['join']   = " INNER JOIN {$wpdb->term_relationships} tr ON (p.ID = tr.object_id)";
-		$query['join']  .= " INNER JOIN {$wpdb->term_taxonomy} tt ON (tr.term_taxonomy_id = tt.term_taxonomy_id)";
-		$query['join']  .= " INNER JOIN {$wpdb->terms} t ON (t.term_id = tt.term_id)";
-		$query['where']  = ' WHERE 1=1';
-		$query['where'] .= " AND p.post_status = 'publish'";
-		$query['where'] .= " AND p.post_type = 'product'";
-		$query['where'] .= " AND p.ID NOT IN ( {$exclude_ids} )";
-
+		$include_term_ids            = array_merge( $cats_array, $tags_array );
+		$exclude_term_ids            = array();
 		$product_visibility_term_ids = wc_get_product_visibility_term_ids();
 
 		if ( $product_visibility_term_ids['exclude-from-catalog'] ) {
-			$query['where'] .= " AND t.term_id !=" . $product_visibility_term_ids['exclude-from-catalog'];
+			$exclude_term_ids[] = $product_visibility_term_ids['exclude-from-catalog'];
 		}
 
 		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && $product_visibility_term_ids['outofstock'] ) {
-			$query['where'] .= " AND t.term_id !=" . $product_visibility_term_ids['outofstock'];
+			$exclude_term_ids[] = $product_visibility_term_ids['outofstock'];
 		}
 
-		if ( $cats_array || $tags_array ) {
-			$query['where'] .= ' AND (';
+		$query = array(
+			'fields' => "
+				SELECT DISTINCT ID FROM {$wpdb->posts} p
+			",
+			'join'   => '',
+			'where'  => "
+				WHERE 1=1
+				AND p.post_status = 'publish'
+				AND p.post_type = 'product'
 
-			if ( $cats_array ) {
-				$query['where'] .= " ( tt.taxonomy = 'product_cat' AND t.term_id IN ( {$cats_array} ) ) ";
-				if ( $tags_array ) {
-					$query['where'] .= ' OR ';
-				}
-			}
+			",
+			'limits' => "
+				LIMIT " . absint( $limit ) . "
+			",
+		);
 
-			if ( $tags_array ) {
-				$query['where'] .= " ( tt.taxonomy = 'product_tag' AND t.term_id IN ( {$tags_array} ) ) ";
-			}
-
-			$query['where'] .= ')';
+		if ( count( $exclude_term_ids ) ) {
+			$query['join']  .= " LEFT JOIN ( SELECT object_id FROM {$wpdb->term_relationships} WHERE term_taxonomy_id IN ( " . implode( ',', array_map( 'absint', $exclude_term_ids ) ) . " ) ) AS exclude_join ON exclude_join.object_id = p.ID";
+			$query['where'] .= " AND exclude_join.object_id IS NULL";
 		}
 
-		$query['limits'] = " LIMIT {$limit} ";
+		if ( count( $include_term_ids ) ) {
+			$query['join']  .= " INNER JOIN ( SELECT object_id FROM {$wpdb->term_relationships} INNER JOIN {$wpdb->term_taxonomy} using( term_taxonomy_id ) WHERE term_id IN ( " . implode( ',', array_map( 'absint', $include_term_ids ) ) . " ) ) AS include_join ON include_join.object_id = p.ID";
+		}
+
+		if ( count( $exclude_ids ) ) {
+			$query['where'] .= " AND p.ID NOT IN ( " . implode( ',', array_map( 'absint', $exclude_ids ) ) . " )";
+		}
 
 		return $query;
 	}
@@ -1210,7 +1244,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		$products = new WP_Query( $wp_query_args );
 
 		if ( 'objects' === $args['return'] ) {
-			$return = array_map( 'wc_get_product', $products->posts );
+			$return = array_filter( array_map( 'wc_get_product', $products->posts ) );
 		} else {
 			$return = $products->posts;
 		}

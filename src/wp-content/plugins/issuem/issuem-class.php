@@ -23,7 +23,7 @@ if ( ! class_exists( 'IssueM' ) ) {
 		 * @todo Move the the_author filter to a more appopriate place
 		 * @todo Move the pre_get_posts filter to a more appopriate place
 		 */
-		function IssueM() {
+		function __construct() {
 			
 			$settings = $this->get_settings();
 			
@@ -749,7 +749,12 @@ if ( ! class_exists( 'IssueM' ) ) {
 
 	                        <p>This controls the article output of the [issuem_articles] shortcode on the Current Issue page.</p>
 	                        
+	                        <?php do_action( 'issuem_before_default_article_format', $settings ); ?>
+
 	                        <textarea id="article_format" class="code" cols="75" rows="8" name="article_format"><?php echo htmlspecialchars( stripcslashes( $settings['article_format'] ) ); ?></textarea>
+	                        
+	                        <?php do_action( 'issuem_after_default_article_format', $settings ); ?>
+
 	                        <p>Available template tags:<br> %CATEGORY%, %TAG%, %TEASER%, %EXCERPT%, %CONTENT%, %FEATURE_IMAGE%, %ISSUEM_FEATURE_THUMB%, %BYLINE%, and %DATE%</p>
 	                                                  
 	                        <p class="submit">

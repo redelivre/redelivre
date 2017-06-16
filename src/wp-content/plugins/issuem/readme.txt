@@ -2,8 +2,8 @@
 Contributors: layotte, pericson, endocreative
 Tags: issue management, issue manager, magazine management, magazine manager, news management, news manager, periodical manager, periodicial management, publishing, magazine publishing, issue publisher, wordpress magazine
 Requires at least: 3.3
-Tested up to: 4.6
-Stable tag: 2.6.0
+Tested up to: 4.8
+Stable tag: 2.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,18 @@ You must have:
 14. IssueM - help
 
 == Changelog ==
+
+= 2.7.1 =
+* Fixing bug caused by using specialy characters in content/excerpts
+* Adding arguments to new settings hooks (HT: pressupinc)
+
+= 2.7.0 =
+* Updating constructor for PHP7
+
+= 2.6.1 =
+* Two action hooks to allow multiple article formats
+* Switching split() for explode() for PHP7 Compat
+* Fixing typo in issue order check
 
 = 2.6.0 =
 * Fixing bug preventing uploads in Issue Taxonomy

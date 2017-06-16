@@ -1026,9 +1026,7 @@ class WC_AJAX {
 		// Grab the order and recalc taxes
 		$order = wc_get_order( $order_id );
 		$order->calculate_taxes( $calculate_tax_args );
-
-		// Return HTML items
-		$order = wc_get_order( $order_id );
+		$order->calculate_totals( false );
 		include( 'admin/meta-boxes/views/html-order-items.php' );
 		wp_die();
 	}
@@ -1193,7 +1191,7 @@ class WC_AJAX {
 		}
 
 		if ( ! empty( $_GET['include'] ) ) {
-			$ids = array_intersect( $ids, (array) $_GET['exclude'] );
+			$ids = array_intersect( $ids, (array) $_GET['include'] );
 		}
 
 		if ( ! empty( $_GET['limit'] ) ) {
@@ -1224,13 +1222,9 @@ class WC_AJAX {
 
 		$term    = wc_clean( stripslashes( $_GET['term'] ) );
 		$exclude = array();
+		$limit   = '';
 
 		if ( empty( $term ) ) {
-			wp_die();
-		}
-
-		// Stop if it is not numeric and smaller than 3 characters.
-		if ( ! is_numeric( $term ) && 2 >= strlen( $term ) ) {
 			wp_die();
 		}
 
@@ -1246,7 +1240,13 @@ class WC_AJAX {
 			$ids = array( $customer->get_id() );
 		} else {
 			$data_store = WC_Data_Store::load( 'customer' );
-			$ids        = $data_store->search_customers( $term );
+
+			// If search is smaller than 3 characters, limit result set to avoid
+			// too many rows being returned.
+			if ( 3 > strlen( $term ) ) {
+				$limit = 20;
+			}
+			$ids = $data_store->search_customers( $term, $limit );
 		}
 
 		$found_customers = array();
@@ -1823,7 +1823,7 @@ class WC_AJAX {
 			}
 
 			if ( 'false' !== $data['date_to'] ) {
-				$variation->set_date_on_sale_from( wc_clean( $data['date_to'] ) );
+				$variation->set_date_on_sale_to( wc_clean( $data['date_to'] ) );
 			}
 
 			$variation->save();

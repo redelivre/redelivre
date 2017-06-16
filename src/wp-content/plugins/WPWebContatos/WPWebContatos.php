@@ -131,7 +131,7 @@ if(get_current_blog_id() != 1) //TODO Painel do usuário
 function webcontatos_config_menu()
 {
 	$base_page = 'webcontatos-gerenciar';
-	add_object_page( __('Webcontatos','webcontatos'), __('WebContatos','webcontatos'), 'manage_options', $base_page, array(), WebContatos_URL."/imagens/icon.png");
+	add_menu_page(__('Webcontatos','webcontatos'), __('WebContatos','webcontatos'), 'manage_options', $base_page, array(), WebContatos_URL."/imagens/icon.png");
 	add_submenu_page($base_page, __('Pesquisar Contatos','webcontatos'), __('Pesquisar Contatos','webcontatos'), 'manage_options', $base_page, 'webcontatos_GerenciarContato' );
 	add_submenu_page($base_page, __('Criar Contato','webcontatos'), __('Criar Contato','webcontatos'), 'manage_options', 'webcontatos-criar', 'webcontatos_CriarContato' );
 	add_submenu_page($base_page, __('Importar Contatos','webcontatos'), __('Importar Contatos','webcontatos'), 'manage_options', 'webcontatos-importar', 'webcontatos_ImportarContato' );
@@ -449,7 +449,7 @@ function webcontatos_setupMessageWidget()
 {
 	$opt = webcontatos_get_config();
 	$webcontatos_error_log = $opt['webcontatos_error_log'];
-	if ( $webcontatos_error_log != false ) {
+	if ( $webcontatos_error_log != false && is_super_admin() ) {
 		wp_add_dashboard_widget('dashboard-message', __('Mensagem do administrador','WPWebContatos'), 'webcontatos_displayMessageWidget');	
 	}
 }

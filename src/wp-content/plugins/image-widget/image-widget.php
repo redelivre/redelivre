@@ -2,10 +2,10 @@
 /*
 Plugin Name: Image Widget
 Plugin URI: http://wordpress.org/plugins/image-widget/
-Description: A simple image widget that uses the native WordPress media manager to add image widgets to your site.
+Description: A simple image widget that uses the native WordPress media manager to add image widgets to your site. <strong><a href="http://m.tri.be/19my">Image Widget Plus</a> - Multiple images, slider and more.</strong>
 Author: Modern Tribe, Inc.
-Version: 4.3.1
-Author URI: http://m.tri.be/26
+Version: 4.4.4
+Author URI: http://m.tri.be/iwpdoc
 Text Domain: image-widget
 Domain Path: /lang
 */
@@ -26,9 +26,11 @@ add_action( 'widgets_init', 'tribe_load_image_widget' );
  **/
 class Tribe_Image_Widget extends WP_Widget {
 
-	const VERSION = '4.3';
+	const VERSION = '4.4.4';
 
 	const CUSTOM_IMAGE_SIZE_SLUG = 'tribe_image_widget_custom';
+
+	const VERSION_KEY = '_image_widget_version';
 
 	/**
 	 * Tribe Image Widget constructor
@@ -47,7 +49,9 @@ class Tribe_Image_Widget extends WP_Widget {
 		} else {
 			add_action( 'sidebar_admin_setup', array( $this, 'admin_setup' ) );
 		}
-		add_action( 'admin_head-widgets.php', array( $this, 'admin_head' ) );
+
+		// fire admin_setup if we are in the customizer
+		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_admin_setup' ) );
 
 		add_action( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
@@ -55,6 +59,7 @@ class Tribe_Image_Widget extends WP_Widget {
 			add_action( 'admin_notices', array( $this, 'post_upgrade_nag' ) );
 
 		add_action( 'network_admin_notices', array( $this, 'post_upgrade_nag' ) );
+		add_action( 'wp_ajax_dismissed_image_widget_notice_handler', array( $this, 'ajax_notice_handler' ) );
 	}
 
 	/**
@@ -67,16 +72,30 @@ class Tribe_Image_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Enqueue all the javascript.
+	 * Enqueue all the javascript and CSS.
 	 */
 	public function admin_setup() {
 		wp_enqueue_media();
+
+		wp_enqueue_style( 'tribe-image-widget', plugins_url( 'resources/css/admin.css', __FILE__ ), array(), self::VERSION );
+
 		wp_enqueue_script( 'tribe-image-widget', plugins_url( 'resources/js/image-widget.js', __FILE__ ), array( 'jquery', 'media-upload', 'media-views' ), self::VERSION );
 
 		wp_localize_script( 'tribe-image-widget', 'TribeImageWidget', array(
 			'frame_title' => __( 'Select an Image', 'image-widget' ),
 			'button_title' => __( 'Insert Into Widget', 'image-widget' ),
 		) );
+	}
+
+	public function maybe_admin_setup() {
+		// Only load on widget admin page and in the "Customizer" view.
+		$screen = get_current_screen();
+
+		if ( 'customize' !== $screen->base ) {
+			return;
+		}
+
+		$this->admin_setup();
 	}
 
 	/**
@@ -179,37 +198,6 @@ class Tribe_Image_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Admin header css
-	 *
-	 * @author Modern Tribe, Inc.
-	 */
-	public function admin_head() {
-		?>
-	<style type="text/css">
-		.uploader input.button {
-			width: 100%;
-			height: 34px;
-			line-height: 33px;
-			margin-top: 15px;
-		}
-		.tribe_preview .aligncenter {
-			display: block;
-			margin-left: auto !important;
-			margin-right: auto !important;
-		}
-		.tribe_preview {
-			overflow: hidden;
-			max-height: 300px;
-		}
-		.tribe_preview img {
-			margin: 10px 0;
-			height: auto;
-		}
-	</style>
-	<?php
-	}
-
-	/**
 	 * Render an array of default values.
 	 *
 	 * @return array default values
@@ -270,7 +258,9 @@ class Tribe_Image_Widget extends WP_Widget {
 			$attr = array_map( 'esc_attr', $attr );
 			$output = '<a';
 			foreach ( $attr as $name => $value ) {
-				$output .= sprintf( ' %s="%s"', $name, $value );
+				if ( ! empty( $value ) ) {
+					$output .= sprintf( ' %s="%s"', $name, $value );
+				}
 			}
 			$output .= '>';
 		}
@@ -287,26 +277,57 @@ class Tribe_Image_Widget extends WP_Widget {
 				$instance['width'] = $image_details[1];
 				$instance['height'] = $image_details[2];
 			}
+
+			$image_srcset = function_exists( 'wp_get_attachment_image_srcset' )
+				? wp_get_attachment_image_srcset( $instance['attachment_id'], $size )
+				: false;
+			if ( $image_srcset ) {
+				$instance['srcset'] = $image_srcset;
+
+				$image_sizes = function_exists( 'wp_get_attachment_image_sizes' )
+					? wp_get_attachment_image_sizes( $instance['attachment_id'], $size )
+					: false;
+	 			if ( $image_sizes ) {
+					$instance['sizes'] = $image_sizes;
+				}
+			}
 		}
 		$instance['width'] = abs( $instance['width'] );
 		$instance['height'] = abs( $instance['height'] );
 
 		$attr = array();
-		$attr['alt'] = ( ! empty( $instance['alt'] ) ) ? $instance['alt'] : $instance['title'];
+
+		if ( ! empty( $instance['alt'] ) ) {
+			$attr['alt'] = $instance['alt'];
+		} elseif ( ! empty( $instance['title'] ) ) {
+			$attr['alt'] = $instance['title'];
+		}
+
 		if ( is_array( $size ) ) {
 			$attr['class'] = 'attachment-' . join( 'x', $size );
 		} else {
 			$attr['class'] = 'attachment-' . $size;
 		}
+
 		$attr['style'] = '';
 		if ( ! empty( $instance['maxwidth'] ) ) {
 			$attr['style'] .= "max-width: {$instance['maxwidth']};";
 		}
+
 		if ( ! empty( $instance['maxheight'] ) ) {
 			$attr['style'] .= "max-height: {$instance['maxheight']};";
 		}
+
 		if ( ! empty( $instance['align'] ) && $instance['align'] != 'none' ) {
 			$attr['class'] .= " align{$instance['align']}";
+		}
+
+		if ( ! empty( $instance['srcset'] ) ) {
+			$attr['srcset'] = $instance['srcset'];
+		}
+
+		if ( ! empty( $instance['sizes'] ) ) {
+			$attr['sizes'] = $instance['sizes'];
 		}
 		$attr = apply_filters( 'image_widget_image_attributes', $attr, $instance );
 
@@ -418,24 +439,100 @@ class Tribe_Image_Widget extends WP_Widget {
 	 * Display a thank you nag when the plugin has been upgraded.
 	 */
 	public function post_upgrade_nag() {
-		if ( ! current_user_can( 'install_plugins' ) ) return;
+		
+		if ( 
+			! current_user_can( 'install_plugins' ) 
+			|| class_exists( 'Tribe__Image__Plus__Main' )
+		) {
+			return;
+		}
 
-		$version_key = '_image_widget_version';
-		if ( get_site_option( $version_key ) == self::VERSION ) return;
+		global $pagenow;
+		$msg = false;
+		switch ( $pagenow ) {
+			case 'plugins.php' :
+				$msg = $this->upgrade_nag_plugins_admin_msg();
+				break;
+			case 'widgets.php' :
+				$msg = $this->upgrade_nag_widget_admin_msg();
+				break;
+		}
 
-		?>
-		<div class="update-nag">
-			<?php esc_html_e( 'Thanks for using the Image Widget by Modern Tribe! If you like these features, you\'ll love what we\'re working on next.', 'image-widget' );?>
-			<br>
-			<?php printf(
-				esc_html__( 'Check out the new %1$sImage Widget Plus%2$s!', 'image-widget' ),
-				'<a href="http://m.tri.be/19mb" target="_blank">',
-				'</a>'
-			); ?>
-		</div>
-		<?php
+		if ( ! $msg ) return;
 
-		update_site_option( $version_key, self::VERSION );
+		echo $msg;
+		?><script>
+			jQuery(document).ready(function($){
+				// Dismiss our admin notice
+				$( document ).on( 'click', '.image-widget-notice .notice-dismiss', function () {
+					var key = $( this ).closest( '.image-widget-notice' ).data( 'key' );
+					$.ajax( ajaxurl,
+						{
+							type: 'POST',
+							data: {
+								action: 'dismissed_image_widget_notice_handler',
+								key: key
+							}
+						} );
+				} );
+			} );
+		</script><?php
+	}
+
+	/**
+	 * AJAX handler to store the state of dismissible notices.
+	 */
+	public function ajax_notice_handler() {
+		if ( empty( $_POST['key'] ) ) return;
+		$key = $this->generate_key( sanitize_text_field( $_POST['key'] ) );
+		update_site_option( $key, self::VERSION );
+	}
+
+	/**
+	 * Generate version key for admin notice options
+	 *
+	 * @param string $key
+	 * @return string option key
+	 */
+	private function generate_key( $key ) {
+		$option_key = join( '_', array(
+			self::VERSION_KEY,
+			$key,
+		) );
+		return $option_key;
+	}
+
+	/**
+	 * Upgrade nag: Plugins Admin
+	 *
+	 * @return string alert message.
+	 */
+	private function upgrade_nag_plugins_admin_msg() {
+		$key = 'plugin';
+		$option_key = $this->generate_key( $key );
+		if ( get_site_option( $option_key ) == self::VERSION ) return;
+		$msg = sprintf(
+			__( '<p class="dashicons-before dashicons-format-gallery"><strong>Image Widget Plus</strong> - Add lightbox, slideshow, and random image widgets. <strong><a href="%s" target="_blank">Find out how!</a></strong></p>', 'image-widget' ),
+			'http://m.tri.be/19my',
+			'http://m.tri.be/19my'
+		);
+		return "<div class='notice notice-info is-dismissible image-widget-notice' data-key='$key'>$msg</div>";
+	}
+
+	/**
+	 * Upgrade nag: Widget Admin
+	 *
+	 * @return string alert message.
+	 */
+	private function upgrade_nag_widget_admin_msg() {
+		$key = 'widget';
+		$option_key = $this->generate_key( $key );
+		if ( get_site_option( $option_key ) == self::VERSION ) return;
+		$msg = sprintf(
+			__( '<p class="dashicons-before dashicons-star-filled"><strong>Image Widget Plus</strong> - Add lightbox, slideshow, and random image widgets. <strong><a href="%s" target="_blank">Find out how!</a></strong></p>', 'image-widget' ),
+			'http://m.tri.be/19mx'
+		);
+		return "<div class='notice notice-info is-dismissible image-widget-notice' data-key='$key'>$msg</div>";
 	}
 
 	/**
@@ -447,7 +544,7 @@ class Tribe_Image_Widget extends WP_Widget {
 	 */
 	public function plugin_row_meta( $meta, $file ) {
 		if ( $file == plugin_basename( dirname( __FILE__ ) . '/image-widget.php' ) ) {
-			$meta[] = '<strong>' . esc_html__( 'Coming Soon:', 'image-widget' ) . '</strong> <a href="http://m.tri.be/19ma" target="_blank">' . esc_html__( 'Image Widget Plus', 'image-widget' ) . '</a>';
+			$meta[] = '<strong><a href="http://m.tri.be/19ma" target="_blank">' . esc_html__( 'Image Widget Plus', 'image-widget' ) . '</a></strong>';
 		}
 		return $meta;
 	}

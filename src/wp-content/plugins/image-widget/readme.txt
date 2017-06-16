@@ -1,18 +1,19 @@
 === Image Widget ===
-Contributors: ModernTribe, peterchester, borkweb, zbtirrell
+Contributors: ModernTribe, peterchester, borkweb, zbtirrell, aguseo, barry.hughes, cliffpaulick, courane01, GeoffBel, ggwicz, jentheo, neillmcshea, nicosantos, shelbelliott, tribecari, trishasalas, vicskf
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4BSPTNFFY6AL6
-Tags: widget, image, ad, banner, simple, upload, sidebar, admin, thickbox, resize, arabic, brazilian portuguese, dutch, german, hebrew, italian, japanese, polish, spanish, swedish, widget-only
+Tags: widget, image, ad, banner, simple, upload, sidebar, retina, admin, thickbox, resize, arabic, brazilian portuguese, dutch, german, hebrew, italian, japanese, polish, spanish, swedish, widget-only
 Requires at least: 3.5
-Tested up to: 4.4.2
-Stable tag: 4.3.1
+Tested up to: 4.7.5
+Stable tag: 4.4.4
 
 A simple image widget that uses the native WordPress media manager to add image widgets to your site.
 
 == Description ==
 
-Join over 500,000 sites running our classic Image Widget plugin!
-
 Image Widget is a simple plugin that uses the native WordPress media manager to add image widgets to your site.
+
+Need to add slideshows, lightboxes, or random images?
+<strong>Check out [Image Widget Plus](http://m.tri.be/19mc)!</strong>
 
 = Image Widget Features =
 
@@ -32,9 +33,7 @@ Image Widget is developed and maintained by [Modern Tribe](http://m.tri.be/19md)
 
 This plugin is actively supported by our team and contributions from community members. If you see a question in the forum you can help with or have a great idea and want to code it up or submit a patch, that would be awesome! Not only will we shower you with praise and thanks, it’s also a good way to get to know us and lead into options for paid work if you freelance.
 
-= Coming Soon - Image Widget Plus =
-
-Looking for more features? Our [new Image Widget Plus plugin](http://m.tri.be/19mf) is coming soon!
+= Image Widget Plus! =
 
 Image Widget Plus features include:
 
@@ -60,7 +59,7 @@ Getting started with Image Widget is a breeze!
 1. Download and install the Image Widget plugin
 1. From your WordPress admin screen, select Plugins from the menu
 1. Activate the Image Widget plugin
-1. Go to Appearance > Widget to place the widget
+1. Go to Appearance > Widget to place the widget in your sidebar in the Design
 
 If you run into any questions or have suggestions, please visit the forum to post questions or comments.
 
@@ -93,7 +92,7 @@ Though we do not have a demo available, we do have [screenshots available here](
 
 = How can I add lightbox, slider, or random image capabilities?  =
 
-These features are part of our Image Widget Plus plugin. You can learn more about Image Widget Plus [on our website](http://m.tri.be/19mh).
+These features are part of our Image Widget Plus plugin. You can learn more about [Image Widget Plus](http://m.tri.be/19mh) on our website.
 
 = Where do I go to file a bug or ask a question? =
 
@@ -207,9 +206,34 @@ For more info on the philosophy here, check out our [blog post](http://tri.be/de
 
 == Changelog ==
 
+= [4.4.4] 2017-06-01 =
+
+* Tweak - Improve upsell notices display logic [78676]
+
+= 4.4.3 =
+
+* Fix - Fixed bug where selecting an image failed to trigger a Save & Publish in the Customizer (props to dsaric-dev for the fix)
+* Tweak - Roll-back to sidebar_admin_setup to enqueue resources for optimal plugin compatibility (props to megamenu for the heads up)
+
+= 4.4.2 =
+
+* Fix - fixed compatibility with WordPress versions prior to 4.4
+* Fix - proportional scaling of image within the widget editor
+* Fix - fix validation by avoiding empty attributes and only specifying sizes with srcset (thanks Zodiak1978)
+
+= 4.4.1 =
+
+* Fix - fixed some broken links
+
+= 4.4 =
+
+* Feature - Add srcset and size attribute support (props @philwp)
+* Tweak - Readme adjustments
+* Tweak - Additional refinements to notice code.
+
 = 4.3.1 =
 
-* Tweak - adjusted promotional text
+* Tweak - Upgrade admin notice code
 
 = 4.3 =
 

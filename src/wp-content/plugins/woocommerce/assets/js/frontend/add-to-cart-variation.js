@@ -197,13 +197,13 @@
 		}
 
 		if ( variation.weight ) {
-			$weight.wc_set_content( variation.weight );
+			$weight.wc_set_content( variation.weight_html );
 		} else {
 			$weight.wc_reset_content();
 		}
 
 		if ( variation.dimensions ) {
-			$dimensions.wc_set_content( variation.dimensions );
+			$dimensions.wc_set_content( variation.dimensions_html );
 		} else {
 			$dimensions.wc_reset_content();
 		}
@@ -566,7 +566,7 @@
 			$product_img.wc_set_variation_attr( 'data-large_image_width', variation.image.full_src_w );
 			$product_img.wc_set_variation_attr( 'data-large_image_height', variation.image.full_src_h );
 			$product_img_wrap.wc_set_variation_attr( 'data-thumb', variation.image.src );
-			$gallery_img.wc_set_variation_attr( 'src', variation.image.src );
+			$gallery_img.wc_set_variation_attr( 'src', variation.image.thumb_src );
 			$product_link.wc_set_variation_attr( 'href', variation.image.full_src );
 		} else {
 			$product_img.wc_reset_variation_attr( 'src' );

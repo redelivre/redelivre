@@ -1,5 +1,5 @@
 <?php
-	error_reporting( E_NOTICE );
+	//error_reporting( E_NOTICE );
 
 	function valid_email( $str )
 	{

@@ -1,0 +1,830 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Redelivre\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-07 00:50-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jacson Passold <jacson@ethymos.com.br>\n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: ../admin_user_edit.php:45 ../admin_user_edit.php:49
+msgid "You do not have permission to edit this user."
+msgstr ""
+
+#: ../admin_user_edit.php:53
+msgid "You do not have permission to edit this user password."
+msgstr ""
+
+#: ../agenda/agenda.php:28
+msgctxt "post type general name"
+msgid "Evento"
+msgstr ""
+
+#: ../agenda/agenda.php:29
+msgctxt "post type singular name"
+msgid "Evento"
+msgstr ""
+
+#: ../agenda/agenda.php:30
+msgctxt "image"
+msgid "Adicionar novo"
+msgstr ""
+
+#: ../agenda/agenda.php:31
+msgid "Adicionar novo evento"
+msgstr ""
+
+#: ../agenda/agenda.php:32
+msgid "Editar evento"
+msgstr ""
+
+#: ../agenda/agenda.php:33
+msgid "Novo evento"
+msgstr ""
+
+#: ../agenda/agenda.php:34
+msgid "Ver evento"
+msgstr ""
+
+#: ../agenda/agenda.php:35
+msgid "Buscar eventos"
+msgstr ""
+
+#: ../agenda/agenda.php:36
+msgid "Nenhum evento encontrado"
+msgstr ""
+
+#: ../agenda/agenda.php:37
+msgid "Nenhum evento encontrado na lixeira"
+msgstr ""
+
+#: ../agenda/agenda.php:65
+msgid "Dados do Evento"
+msgstr ""
+
+#: ../agenda/agenda.php:95 ../agenda/agenda.php:406
+msgid "Data Inicial"
+msgstr ""
+
+#: ../agenda/agenda.php:97
+msgid "ex.: 01/01/2011"
+msgstr ""
+
+#: ../agenda/agenda.php:103 ../agenda/agenda.php:407
+msgid "Data Final"
+msgstr ""
+
+#: ../agenda/agenda.php:109 ../agenda/agenda.php:408
+msgid "Horário"
+msgstr ""
+
+#: ../agenda/agenda.php:115
+msgid "Link Externo"
+msgstr ""
+
+#: ../agenda/agenda.php:121
+msgid "Onde"
+msgstr ""
+
+#: ../agenda/agenda.php:131
+msgid "Fechar"
+msgstr ""
+
+#: ../agenda/agenda.php:132
+msgid "Anterior"
+msgstr ""
+
+#: ../agenda/agenda.php:133
+msgid "Próximo"
+msgstr ""
+
+#: ../agenda/agenda.php:134
+msgid "Hoje"
+msgstr ""
+
+#: ../agenda/agenda.php:136
+msgid "Janeiro"
+msgstr ""
+
+#: ../agenda/agenda.php:137
+msgid "Fevereiro"
+msgstr ""
+
+#: ../agenda/agenda.php:138
+msgid "Março"
+msgstr ""
+
+#: ../agenda/agenda.php:139
+msgid "Abril"
+msgstr ""
+
+#: ../agenda/agenda.php:140
+msgid "Maio"
+msgstr ""
+
+#: ../agenda/agenda.php:141
+msgid "Junho"
+msgstr ""
+
+#: ../agenda/agenda.php:142
+msgid "Julho"
+msgstr ""
+
+#: ../agenda/agenda.php:143
+msgid "Agosto"
+msgstr ""
+
+#: ../agenda/agenda.php:144
+msgid "Setembro"
+msgstr ""
+
+#: ../agenda/agenda.php:145
+msgid "Outubro"
+msgstr ""
+
+#: ../agenda/agenda.php:146
+msgid "Novembro"
+msgstr ""
+
+#: ../agenda/agenda.php:147
+msgid "Dezembro"
+msgstr ""
+
+#: ../agenda/agenda.php:150
+msgid "Jan"
+msgstr ""
+
+#: ../agenda/agenda.php:151
+msgid "Fev"
+msgstr ""
+
+#: ../agenda/agenda.php:152
+msgid "Mar"
+msgstr ""
+
+#: ../agenda/agenda.php:153
+msgid "Abr"
+msgstr ""
+
+#: ../agenda/agenda.php:154
+msgid "Mai"
+msgstr ""
+
+#: ../agenda/agenda.php:155
+msgid "Jun"
+msgstr ""
+
+#: ../agenda/agenda.php:156
+msgid "Jul"
+msgstr ""
+
+#: ../agenda/agenda.php:157
+msgid "Ago"
+msgstr ""
+
+#: ../agenda/agenda.php:158
+msgid "Set"
+msgstr ""
+
+#: ../agenda/agenda.php:159
+msgid "Out"
+msgstr ""
+
+#: ../agenda/agenda.php:160
+msgid "Nov"
+msgstr ""
+
+#: ../agenda/agenda.php:161
+msgid "Dez"
+msgstr ""
+
+#: ../agenda/agenda.php:164
+msgid "Domingo"
+msgstr ""
+
+#: ../agenda/agenda.php:165
+msgid "Segunda-feira"
+msgstr ""
+
+#: ../agenda/agenda.php:166
+msgid "Ter&ccedil;a-feira"
+msgstr ""
+
+#: ../agenda/agenda.php:167
+msgid "Quarta-feira"
+msgstr ""
+
+#: ../agenda/agenda.php:168
+msgid "Quinta-feira"
+msgstr ""
+
+#: ../agenda/agenda.php:169
+msgid "Sexta-feira"
+msgstr ""
+
+#: ../agenda/agenda.php:170
+msgid "S&aacute;bado"
+msgstr ""
+
+#: ../agenda/agenda.php:173
+msgid "Dom"
+msgstr ""
+
+#: ../agenda/agenda.php:174
+msgid "Seg"
+msgstr ""
+
+#: ../agenda/agenda.php:175
+msgid "Ter"
+msgstr ""
+
+#: ../agenda/agenda.php:176
+msgid "Qua"
+msgstr ""
+
+#: ../agenda/agenda.php:177
+msgid "Qui"
+msgstr ""
+
+#: ../agenda/agenda.php:178
+msgid "Sex"
+msgstr ""
+
+#: ../agenda/agenda.php:179
+msgid "S&aacute;b"
+msgstr ""
+
+#: ../agenda/agenda.php:183
+msgctxt "week header"
+msgid "Sm"
+msgstr ""
+
+#: ../agenda/agenda.php:335
+msgid "Inserir no menu"
+msgstr ""
+
+#: ../agenda/agenda.php:335
+msgid "Inserir link no menu"
+msgstr ""
+
+#: ../agenda/agenda.php:360 ../agenda/widgets/widget-agenda.php:44
+#: ../agenda/widgets/widget-agenda.php:89
+msgid "Agenda"
+msgstr ""
+
+#: ../agenda/agenda.php:364
+msgid "Entrada no menu inserida com sucesso!"
+msgstr ""
+
+#: ../agenda/agenda.php:366
+msgid "Já existe este item no menu!"
+msgstr ""
+
+#: ../agenda/agenda.php:385
+msgid "Sua agenda de eventos pode ser acessada através do endereço"
+msgstr ""
+
+#: ../agenda/agenda.php:404
+msgid "Informações do Evento"
+msgstr ""
+
+#: ../agenda/agenda.php:409
+msgid "Local"
+msgstr ""
+
+#: ../agenda/agenda.php:410
+msgid "Site"
+msgstr ""
+
+#: ../agenda/widgets/widget-agenda.php:9
+msgid "adiciona uma lista dos eventos"
+msgstr ""
+
+#: ../agenda/widgets/widget-agenda.php:10
+msgid "Agenda - Lista"
+msgstr ""
+
+#: ../agenda/widgets/widget-agenda.php:68
+msgid "veja o calendário completo"
+msgstr ""
+
+#: ../agenda/widgets/widget-agenda.php:88
+#: ../includes/widgets/facebook-like.php:60
+msgid "Título"
+msgstr ""
+
+#: ../agenda/widgets/widget-agenda.php:94
+msgid "Número de eventos na lista"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:706
+msgid "Nome <b>singular</b>, em letras minúsculas, dado a cada blog dentro da rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:707
+msgid "projeto"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:708
+msgid "Nome <b>plural</b>, em letras minúsculas, dado a cada blog dentro da rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:709
+msgid "projetos"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:710
+msgid "Alerta sobre a impossibilidade de recuperação de dados após a remoção de um blog da rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:711
+msgid "Você tem certeza de que deseja remover permanentemente este projeto? Não será possível desfazer esta ação e todos os dados serão perdidos."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:715
+msgid "Não existe um projeto associado a este blog. Verifique se você não selecionou um tema de projeto para o site principal."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:716
+msgid "Alerta sobre projeto não localizado pelo sistema"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:717
+msgid "Desculpe, não foi possível encontrar este projeto."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:719
+msgid "Um projeto para este usuário já foi criado no sistema."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:720
+msgid "Aviso de que o usuário não tem permissão para remover um blog da rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:721
+msgid "Desculpe, seu usuário não tem permissão para remover este projeto."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:722 ../campaign_base/Campaign.php:724
+msgid "Confirmação da criação de blog com domínio próprio na rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:723
+msgid "Um novo projeto foi criado com seu domínio próprio."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:725
+msgid "Um novo projeto foi criado no sub-domínio."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:728
+msgid "Aviso de que o usuário não tem permissão para editar blogs da rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:729
+msgid "Desculpe, seu usuário não tem permissão para editar projetos."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:732
+msgid "Texto da pesquisa por blogs na rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:733
+msgid "Procurar Projeto"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:735
+msgid "Você ainda não criou nenhum projeto. Para isso vá para a"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:737
+msgid "página de criação de projetos"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:740
+msgid "Alerta sobre falha na criação de novo blog na rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:741
+msgid "Desculpe, não foi possível criar o projeto."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:742
+msgid "Texto do campo para criação de novo blog na rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:743
+msgid "Novo projeto"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:746
+msgid "Aviso sobre o blog não estar visível por não ter sido ativado ainda"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:747
+msgid "Por enquanto, este projeto está visível somente para o criador pois ainda não foi ativado."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:749
+msgid "Este projeto está visível somente para o criador pois foi selecionado um tema não disponível para o seu plano. O seu plano permite o uso apenas dos temas da família \\\"Blog 01\\\". Mude o tema ou atualize o plano."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:751
+msgid "Este projeto ainda não está disponível."
+msgstr ""
+
+#: ../campaign_base/Campaign.php:754
+msgid "Nome dado aos blogs, no <b>plural</b>, presente no menu administrativo da raiz da rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:755
+msgid "Projetos"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:756
+msgid "Nome dado à rede na barra superior administrativa"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:757
+msgid "Rede Livre"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:760
+msgid "Resposta do sistema quando o administrador conclui a edição de um blog na rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:761
+msgid "Projeto atualizado com sucesso!"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:762
+msgid "Texto que vem antes do nome do blog na tela de edição de cada um deles na rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:763
+msgid "Editar projeto:"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:766
+msgid "Título da página que lista os blogs da rede, visíveis de acordo com o nível de permissão do usuário"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:767
+msgid "Seus projetos"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:768
+msgid "Confirmação de remoção de blog na rede"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:769
+msgid "Projeto {domain} removido com sucesso!"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:773
+msgid "Sobre o Projeto"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:779
+msgid "Nome de listagem dos blogs por usuário na barra superior administrativa"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:780
+msgid "Meus projetos"
+msgstr ""
+
+#: ../campaign_base/Campaign.php:782
+msgid "Administrar projetos"
+msgstr ""
+
+#: ../campanha.php:96
+msgid "Principal"
+msgstr ""
+
+#: ../campanha.php:98
+msgid "Informações Legais"
+msgstr ""
+
+#: ../campanha.php:112 ../campanha/parts/loop-single.php:8
+#: ../campanha/parts/loop.php:8 ../campanha/precos-tpl.php:12
+#: ../includes/tpl-contato.php:28
+msgid "Edit"
+msgstr ""
+
+#: ../campanha.php:115
+#, php-format
+msgid "By %s on %s at %s."
+msgstr ""
+
+#: ../campanha.php:116
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../campanha.php:212
+msgid "E-Mail de Origem"
+msgstr ""
+
+#: ../campanha.php:215
+msgid "E-Mail de Reposta"
+msgstr ""
+
+#: ../campanha.php:218
+msgid "E-Mail do formulário de contato"
+msgstr ""
+
+#: ../campanha.php:221
+msgid "E-Mail Password"
+msgstr ""
+
+#: ../campanha.php:225
+msgid "Tipo do servidor de E-mail"
+msgstr ""
+
+#: ../campanha.php:229
+msgid "envio usando o servidor local (php)"
+msgstr ""
+
+#: ../campanha.php:230
+msgid "envio usando uma conta do gmail"
+msgstr ""
+
+#: ../campanha.php:233
+msgid "Deve mostrar opções de planos"
+msgstr ""
+
+#: ../campanha.php:242
+msgid "Plano Padrão"
+msgstr ""
+
+#: ../campanha.php:247
+msgid "Permissão Mínima para criação de "
+msgstr ""
+
+#: ../campanha.php:379
+msgid "Minimum permition not found on default array!"
+msgstr ""
+
+#: ../campanha/admin-settings-tpl.php:42
+msgid "Sim"
+msgstr ""
+
+#: ../campanha/admin-settings-tpl.php:43
+msgid "Não"
+msgstr ""
+
+#: ../campanha/custom_admin.php:17
+msgid "Strings"
+msgstr ""
+
+#: ../campanha/custom_admin.php:21
+msgid "Settings"
+msgstr ""
+
+#: ../campanha/includes/theme-options/theme-options.php:53
+msgid "Theme Options"
+msgstr ""
+
+#: ../campanha/includes/theme-options/theme-options.php:63
+msgid "Social Networks"
+msgstr ""
+
+#: ../campanha/includes/theme-options/theme-options.php:68
+msgid "Facebook"
+msgstr ""
+
+#: ../campanha/includes/theme-options/theme-options.php:71
+msgid "Twitter"
+msgstr ""
+
+#: ../campanha/includes/theme-options/theme-options.php:74
+msgid "RSS"
+msgstr ""
+
+#: ../campanha/includes/theme-options/theme-options.php:85
+msgid "Save Changes"
+msgstr ""
+
+#: ../campanha/parts/loop-single.php:6 ../campanha/parts/loop.php:6
+msgid "By"
+msgstr ""
+
+#: ../campanha/parts/loop-single.php:6 ../campanha/parts/loop.php:6
+msgid "on"
+msgstr ""
+
+#: ../campanha/parts/loop-single.php:13 ../campanha/parts/loop.php:16
+#: ../includes/tpl-contato.php:27
+msgid "Pages:"
+msgstr ""
+
+#: ../campanha/parts/loop-single.php:18 ../campanha/parts/loop.php:21
+msgid "Categories"
+msgstr ""
+
+#: ../campanha/precos-tpl.php:33
+msgid "No results found."
+msgstr ""
+
+#: ../functions.php:592
+msgid "Wrong CAPTCHA"
+msgstr ""
+
+#: ../functions.php:600
+msgctxt "registro-de-usuario"
+msgid "Cadastro efetuado com sucesso. <a href=\""
+msgstr ""
+
+#: ../functions.php:697
+msgid "<strong>ERROR</strong>: There is no user registered with that email address."
+msgstr ""
+
+#: ../functions.php:702
+msgid "<strong>ERROR</strong>: Invalid username or e-mail."
+msgstr ""
+
+#: ../functions.php:733
+msgid "Someone has requested a password reset for the following account:"
+msgstr ""
+
+#: ../functions.php:735
+#, php-format
+msgid "Username: %s"
+msgstr ""
+
+#: ../functions.php:736
+msgid "If this was a mistake, just ignore this email and nothing will happen."
+msgstr ""
+
+#: ../functions.php:737
+msgid "To reset your password, visit the following address:"
+msgstr ""
+
+#: ../functions.php:749
+#, php-format
+msgid "[%s] Password Reset"
+msgstr ""
+
+#: ../functions.php:777
+msgid "The email could not be sent."
+msgstr ""
+
+#: ../functions.php:777
+msgid "Possible reason: your host may have disabled the mail() function."
+msgstr ""
+
+#: ../functions.php:782
+msgctxt "custom-lost-password"
+msgid "Foi enviada uma mensagem para seu email com uma chave de validação e os próximos passos para recuperar sua senha"
+msgstr ""
+
+#: ../functions.php:786
+msgctxt "custom-lost-password"
+msgid "Nenhum usuário encontrado com este email"
+msgstr ""
+
+#: ../functions.php:903
+msgid "The passwords do not match."
+msgstr ""
+
+#: ../functions.php:909
+msgid "Your password has been reset."
+msgstr ""
+
+#: ../functions.php:909
+msgid "Log in"
+msgstr ""
+
+#: ../includes/admin-contact.php:26 ../includes/admin-contact.php:27
+#: ../includes/admin-contact.php:35
+msgid "Contact Page"
+msgstr ""
+
+#: ../includes/admin-social-networks.php:5
+msgid "Settings saved."
+msgstr ""
+
+#: ../includes/custom-lost-password.php:3
+msgctxt "custom-lost-password"
+msgid "Recuperar minha senha"
+msgstr ""
+
+#: ../includes/custom-lost-password.php:11
+msgctxt "custom-lost-password"
+msgid "Digite seu nome de usuário ou endereço de email. Você receberá um link para criar uma nova senha via email."
+msgstr ""
+
+#: ../includes/custom-lost-password.php:15
+msgid "Digite seu email utilizado no cadastro"
+msgstr ""
+
+#: ../includes/custom-lost-password.php:36
+msgid "New password"
+msgstr ""
+
+#: ../includes/custom-lost-password.php:40
+msgid "Confirm new password"
+msgstr ""
+
+#: ../includes/custom-lost-password.php:44
+msgid "Strength indicator"
+msgstr ""
+
+#: ../includes/custom-lost-password.php:45
+msgid "Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers and symbols like ! \" ? $ % ^ &amp; )."
+msgstr ""
+
+#: ../includes/custom-lost-password.php:48
+msgid "Reset Password"
+msgstr ""
+
+#: ../includes/custom-register-form.php:13
+msgctxt "registro-de-usuario"
+msgid "Cadastre-se"
+msgstr ""
+
+#: ../includes/custom-register-form.php:19
+msgctxt "registro-de-usuario"
+msgid "Nome de usuário"
+msgstr ""
+
+#: ../includes/custom-register-form.php:24
+msgctxt "registro-de-usuario"
+msgid "Nome completo"
+msgstr ""
+
+#: ../includes/custom-register-form.php:29
+msgctxt "registro-de-usuario"
+msgid "Senha"
+msgstr ""
+
+#: ../includes/custom-register-form.php:34
+msgctxt "registro-de-usuario"
+msgid "Repita sua senha"
+msgstr ""
+
+#: ../includes/custom-register-form.php:39
+msgctxt "registro-de-usuario"
+msgid "Email"
+msgstr ""
+
+#: ../includes/custom-register-form.php:62
+msgctxt "registro-de-usuario"
+msgid "Você está logado neste momento, para efetuar um novo registro será preciso fazer <a href=\""
+msgstr ""
+
+#: ../includes/graphic_material/CandidatePhoto.php:129
+msgid "The uploaded file exceeds the <code>upload_max_filesize</code> directive in <code>php.ini</code>."
+msgstr ""
+
+#: ../includes/graphic_material/CandidatePhoto.php:130
+msgid "The uploaded file exceeds the <em>MAX_FILE_SIZE</em> directive that was specified in the HTML form."
+msgstr ""
+
+#: ../includes/graphic_material/CandidatePhoto.php:131
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#: ../includes/graphic_material/CandidatePhoto.php:132
+msgid "No file was uploaded."
+msgstr ""
+
+#: ../includes/graphic_material/CandidatePhoto.php:134
+msgid "Missing a temporary folder."
+msgstr ""
+
+#: ../includes/graphic_material/CandidatePhoto.php:135
+msgid "Failed to write file to disk."
+msgstr ""
+
+#: ../includes/graphic_material/CandidatePhoto.php:136
+msgid "File upload stopped by extension."
+msgstr ""
+
+#: ../includes/load_menu_options.php:54 ../includes/load_menu_options.php:55
+#: ../includes/load_menu_options.php:65
+msgid "Social Network"
+msgstr ""
+
+#: ../includes/tpl-contato.php:14
+msgid "Entre em contato"
+msgstr ""
+
+#: ../includes/widgets/facebook-like.php:72
+msgid "Altura do Widget"
+msgstr ""
+
+#: ../includes/widgets/facebook-like.php:74
+msgid "Obs.: use 0 para configuração padrão"
+msgstr ""

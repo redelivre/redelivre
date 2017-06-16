@@ -164,22 +164,9 @@ add_action('admin_init', 'campanha_change_admin_home');
 
 function campanha_add_manage_menu()
 {
-	if (user_can_create_campanha() ) // && get_current_blog_id() == 1)
+	if (user_can_create_campanha() )
 	{
 		require MUCAMPANHAPATH . '/custom_admin.php';
-	}
-	
-	if(get_current_blog_id() != 1)
-	{
-		add_action('admin_menu', function() {
-			$base_page = 'platform-settings';
-	
-			add_object_page( Campaign::getStrings('MenuPlataforma'), Campaign::getStrings('MenuPlataforma'), 'manage_options', $base_page, array());
-	
-			add_submenu_page($base_page, __('Settings','redelivre'), __('Settings','redelivre'), 'manage_options', 'platform-settings', function(){
-				require MUCAMPANHAPATH.'/admin-settings-tpl.php';
-			});
-		});
 	}
 }
 add_action('init', 'campanha_add_manage_menu');
@@ -263,8 +250,28 @@ function getPlataformSettings($id = '')
 	$sets['options']['minPerm'] = campanha_get_editable_roles();
 	$sets['type']['minPerm'] = 'dropdown';
 	
+	$sets['label']['ShowUserVoice'] = __('Deve mostrar Link para suporte do Uservoice', 'redelivre');
+	$sets['value']['ShowUserVoice'] = 'N';
+	$sets['type']['ShowUserVoice'] = 'yesno';
+	$sets['perm']['ShowUserVoice'] = 'S';
+	
+	$sets['label']['UserVoiceKey'] = __('Chave do Uservoice', 'redelivre');
+	$sets['value']['UserVoiceKey'] = '';
+	$sets['perm']['UserVoiceKey'] = 'S';
+	
 	// Merge default settings com defined settings
 	$sets['value'] = array_merge($sets['value'], get_option('plataform_defined_settings', array()));
+	$globals = get_blog_option(1, 'plataform_defined_settings', array());
+	foreach ($sets['perm'] as $key => $value)
+	{
+		if($value != 'S') // not global or superadmin option
+		{
+			unset($globals[$key]);
+		}
+	}
+	$globals = array_intersect_key($globals, $sets['value']);
+	
+	$sets['value'] = array_merge($sets['value'], $globals);
 	
 	if($id != '')
 	{

@@ -132,10 +132,6 @@
 	path = src/wp-content/plugins/wpdialoga
 	url = git@github.com:redelivre/wpdialoga.git
 	branch = master
-[submodule "src/wp-content/themes/wp-logincidadao"]
-	path = src/wp-content/themes/wp-logincidadao
-	url = git@github.com:redelivre/wp-logincidadao.git
-	branch = master
 [submodule "src/wp-content/plugins/wpml-translation-management"]
 	path = src/wp-content/plugins/wpml-translation-management
 	url = git@gitlab.ethymos.com.br:ethymos/wpml-translation-management.git
@@ -152,18 +148,10 @@
 	path = src/wp-content/themes/divi
 	url = git@github.com:redelivre/wp-divi.git
 	branch = master
-[submodule "src/wp-content/plugins/comment-attachment"]
-	path = src/wp-content/plugins/comment-attachment
-	url = git@github.com:wp-plugins/comment-attachment.git
-        branch = master
-
 [submodule "src/wp-content/plugins/sendpress"]
 	path = src/wp-content/plugins/sendpress
 	url = https://github.com/brewlabs/sendpress.git
 	branch = master
-[submodule "src/wp-content/plugins/mention-comments-authors"]
-	path = src/wp-content/plugins/mention-comments-authors
-	url = git@github.com:wp-plugins/mention-comments-authors.git
 [submodule "src/wp-content/themes/assineja"]
 	path = src/wp-content/themes/assineja
 	url = git@gitlab.ethymos.com.br:campanhacompleta/assineja.git
@@ -197,6 +185,10 @@
 	path = src/wp-content/plugins/wooredelivre
 	url = git@github.com:redelivre/wooredelivre.git
 	branch = master
+[submodule "src/wp-content/plugins/wordpress-mu-domain-mapping"]
+	path = src/wp-content/plugins/wordpress-mu-domain-mapping
+	url = git@github.com:redelivre/wordpress-mu-domain-mapping.git
+	branch = master
 [submodule "src/wp-content/plugins/facebook-instant-articles-wp"]
 	path = src/wp-content/plugins/facebook-instant-articles-wp
 	url = https://github.com/Automattic/facebook-instant-articles-wp.git
@@ -212,9 +204,14 @@
 	path = src/wp-content/themes/cultural
 	url = https://github.com/hacklabr/cultural
 	branch = master
+[submodule "src/wp-content/plugins/eletro-widgets"]
+	path = src/wp-content/plugins/eletro-widgets
+	url = git@github.com:redelivre/eletro-widgets.git
+	branch = master
 [submodule "src/wp-content/themes/redeninja"]
 	path = src/wp-content/themes/redeninja
-	url = git@github.com:ForaDoEixo/redeninja.git
+        url = git@github.com:ForaDoEixo/redeninja.git
+        branch = master
 [submodule "src/wp-content/themes/tainacan"]
 	path = src/wp-content/themes/tainacan
 	url = git@github.com:redelivre/tainacan.git

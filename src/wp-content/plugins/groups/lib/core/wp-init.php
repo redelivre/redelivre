@@ -101,6 +101,7 @@ require_once( GROUPS_ACCESS_LIB . '/class-groups-post-access.php' );
 if ( $groups_legacy_enable ) {
 	require_once GROUPS_LEGACY_LIB . '/access/class-groups-post-access-legacy.php';
 }
+require_once GROUPS_ACCESS_LIB . '/class-groups-comment-access.php';
 
 if ( is_admin() ) {
 	require_once( GROUPS_ACCESS_LIB . '/class-groups-access-meta-boxes.php' );
@@ -116,6 +117,11 @@ require_once( GROUPS_VIEWS_LIB . '/class-groups-shortcodes.php' );
  */
 require_once( GROUPS_WP_LIB . '/class-groups-wordpress.php' );
 
+/**
+ * Extras ...
+ */
+require_once GROUPS_EXTRA_LIB . '/class-groups-extra.php';
+
 // widgets
 // include_once( GROUPS_CORE_LIB . '/class-groups-widgets.php' );
 // add_action( 'widgets_init', 'groups_widgets_init' );
@@ -126,9 +132,6 @@ require_once( GROUPS_WP_LIB . '/class-groups-wordpress.php' );
 // function groups_widgets_init() {
 //	 register_widget( 'Groups_Widget' );
 // }
-
-
-
 
 /**
  * Returns the prefixed DB table name.

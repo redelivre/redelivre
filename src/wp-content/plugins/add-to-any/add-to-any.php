@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.8
+Version: 1.7.11
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -24,22 +24,32 @@ $A2A_SHARE_SAVE_plugin_url_path = is_ssl() ? str_replace( 'http:', 'https:', $A2
 // Set AddToAny locale (JavaScript)
 $A2A_locale = ! isset ( $A2A_locale ) ? '' : $A2A_locale;
 // Set plugin options
-$A2A_SHARE_SAVE_options = get_option( 'addtoany_options' );
+$A2A_SHARE_SAVE_options = get_option( 'addtoany_options', array() );
 
-include_once( $A2A_SHARE_SAVE_plugin_dir . '/addtoany.compat.php' );
-include_once( $A2A_SHARE_SAVE_plugin_dir . '/addtoany.services.php' );
+include_once $A2A_SHARE_SAVE_plugin_dir . '/addtoany.compat.php';
+include_once $A2A_SHARE_SAVE_plugin_dir . '/addtoany.services.php';
 
 function A2A_SHARE_SAVE_init() {
-	global $A2A_SHARE_SAVE_plugin_url_path,
+	global $A2A_SHARE_SAVE_plugin_dir,
 		$A2A_SHARE_SAVE_plugin_basename, 
 		$A2A_SHARE_SAVE_options;
 	
-	if ( get_option( 'A2A_SHARE_SAVE_button' ) ) {
-		A2A_SHARE_SAVE_migrate_options();
-		$A2A_SHARE_SAVE_options = get_option( 'addtoany_options' );
-	}
-	
+	// Load the textdomain for translations
 	load_plugin_textdomain( 'add-to-any', false, $A2A_SHARE_SAVE_plugin_basename . '/languages/' );
+	
+	// Update plugin options	
+	$options = $A2A_SHARE_SAVE_options;
+	$old_buttons = array( 
+		'share_save_256_24.gif|256|24', 'share_save_171_16.gif|171|16', 'share_save_120_16.gif|120|16',
+		'share_save_256_24.png|256|24', 'share_save_171_16.png|171|16', 'share_save_120_16.png|120|16',
+		'share_16_16.png|16|16', 'favicon.png|16|16',
+	);
+	
+	// If old button enabled
+	if ( ! empty( $options['button'] ) && in_array( $options['button'], $old_buttons ) ) {
+		include_once $A2A_SHARE_SAVE_plugin_dir . '/addtoany.update.php';
+		addtoany_update_options();
+	}
 }
 add_filter( 'init', 'A2A_SHARE_SAVE_init' );
 
@@ -80,7 +90,7 @@ function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmed
 
 // Combine ADDTOANY_SHARE_SAVE_ICONS and ADDTOANY_SHARE_SAVE_BUTTON
 function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
-	$options = get_option( 'addtoany_options' );
+	$options = get_option( 'addtoany_options', array() );
 	
 	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
 	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
@@ -93,7 +103,6 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 		'output_later'     => false,
 		'icon_size'        => isset( $options['icon_size'] ) ? $options['icon_size'] : '32',
 	);
-	
 	
 	$args = wp_parse_args( $args, $defaults );
 	extract( $args );
@@ -120,7 +129,7 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 		$kit_additional_classes .= ' ' . $args['kit_additional_classes'];
 	}
 	
-	// Set a2a_kit_size_## class name unless "icon_size" is set to '16'
+	// Set a2a_kit_size_## class name
 	if ( $custom_icons ) {
 		// If vertical style (.a2a_vertical_style)
 		if ( strpos( $kit_additional_classes, 'a2a_vertical_style' ) !== false ) {
@@ -182,7 +191,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 		$A2A_FOLLOW_services,
 		$A2A_SHARE_SAVE_amp_icons_css;
 	
-	$options = get_option( 'addtoany_options' );
+	$options = get_option( 'addtoany_options', array() );
 	
 	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
 	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
@@ -211,7 +220,6 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 	extract( $args );
 	
-	$https_or_http = is_ssl() ? 'https' : 'http';
 	$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ? true : false;
 	$amp_css = '.a2a_dd img{background-color:#0166FF;}';
 	
@@ -227,9 +235,9 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 		$icons_height = ( isset( $options['custom_icons_height'] ) ) ? $options['custom_icons_height'] : '';
 		$custom_icons = true;
 	} else {
-		// Packaged 16px icons
+		// Default to local SVGs (not an option currently)
 		$icons_dir = $A2A_SHARE_SAVE_plugin_url_path . '/icons/';
-		$icons_type = 'png';
+		$icons_type = 'svg';
 	}
 	
 	// If Follow kit
@@ -328,7 +336,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			
 			$amp_css .= $is_amp && ! empty( $service['color'] ) ? '.a2a_button_' . $safe_name . ' img{background-color:#' . $service['color'] . ';}' : '';
 			
-			$url = ( isset( $href ) ) ? $href : $https_or_http . '://www.addtoany.com/add_to/' . $safe_name . '?linkurl=' . $linkurl_enc .'&amp;linkname=' . $linkname_enc;
+			$url = ( isset( $href ) ) ? $href : 'https://www.addtoany.com/add_to/' . $safe_name . '?linkurl=' . $linkurl_enc .'&amp;linkname=' . $linkname_enc;
 			$src = ( $icon_url ) ? $icon_url : $icons_dir . $icon . '.' . $icons_type;
 			$counter = ( $counter_enabled ) ? ' a2a_counter' : '';
 			$class_attr = ( $custom_service ) ? '' : ' class="a2a_button_' . $safe_name . $counter . '"';
@@ -373,7 +381,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 
 	global $A2A_SHARE_SAVE_plugin_url_path;
 	
-	$options = get_option( 'addtoany_options' );
+	$options = get_option( 'addtoany_options', array() );
 	
 	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
 	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
@@ -398,7 +406,6 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		'html_content' => '',
 		'button_additional_classes' => '',
 		'icon_size'	=> isset( $options['icon_size'] ) ? $options['icon_size'] : '32',
-		'no_small_icons' => false,
 		'no_universal_button' => false,
 	);
 	
@@ -416,67 +423,46 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	
 	// If universal button is enabled
 	if ( ! $args['no_universal_button'] ) {
-	
-		if ( ! isset( $options['button'] ) || 'A2A_SVG_32' == $options['button'] 
-			// Or, no_small_icons is true and a custom universal icon is not enabled (permitting a custom universal button in floating bar) 
-			|| isset( $no_small_icons ) && true == $no_small_icons && ( ! isset( $options['button'] ) || 'CUSTOM' != $options['button'] )
-		) {
-			// If AMP (Accelerated Mobile Page)
-			if ( $is_amp ) {
-				$button_src    = 'https://static.addtoany.com/buttons/a2a.svg';
-				$button_width  = ! empty( $icon_size ) ? ' width="' . $icon_size .'"'  : ' width="32"';
-				$button_height = ! empty( $icon_size ) ? ' height="' . $icon_size .'"'  : ' height="32"';
-			} else {
-				// Skip button IMG for A2A icon insertion
-				$button_text = '';	
-			}
-		} else if ( isset( $options['button'] ) && 'CUSTOM' == $options['button'] ) {
+		
+		if ( isset( $options['button'] ) && 'CUSTOM' == $options['button'] ) {
+			// Custom button
 			$button_src		= $options['button_custom'];
 			$button_width	= '';
 			$button_height	= '';
 		} else if ( isset( $options['button'] ) && 'TEXT' == $options['button'] ) {
+			// Text-only button
 			$button_text	= stripslashes( $options[ 'button_text'] );
-			// Do not display universal icon (when large icons are used)
+			// Do not display universal icon
 			$button_class  .= ' addtoany_no_icon';
 		} else {
-			$button_attrs	= explode( '|', $options['button'] );
-			$button_fname	= $button_attrs[0];
-			$button_width	= ' width="' . $button_attrs[1] . '"';
-			$button_height	= ' height="' . $button_attrs[2] . '"';
-			$button_src		= $A2A_SHARE_SAVE_plugin_url_path . '/' . $button_fname;
-			$button_text	= ( isset( $options['button_text'] ) ) ? stripslashes( $options['button_text'] ) : 'Share' ;
-		}
-		
-		// Add additional classNames to .a2a_dd
-		$button_additional_classes = ! empty( $args['button_additional_classes'] ) ? ' ' . $args['button_additional_classes'] : '';
-		
-		$style = '';
-		
-		if ( isset( $button_fname ) && ( $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png' ) ) {
-			if ( ! $is_feed ) {
-				$style_bg	= 'background:url(' . $A2A_SHARE_SAVE_plugin_url_path . '/' . $button_fname . ') no-repeat scroll 4px 0px;';
-				$style		= ' style="' . $style_bg . 'padding:0 0 0 25px;display:inline-block;height:16px;vertical-align:middle"'; // padding-left:21+4 (4=other icons padding)
-				
-				// Wrap in <span> to avoid showing the core-AddToAny Kit icon in addition to plugin's icon
-				$button_text = ( isset( $button_text ) ) ? '<span>' . $button_text . '</span>' : '<span></span>';
+			// Default AddToAny button
+			if ( $is_amp ) {
+				// AMP (Accelerated Mobile Page)
+				$button_src    = 'https://static.addtoany.com/buttons/a2a.svg';
+				$button_width  = ! empty( $icon_size ) ? ' width="' . $icon_size .'"'  : ' width="32"';
+				$button_height = ! empty( $icon_size ) ? ' height="' . $icon_size .'"'  : ' height="32"';
 			}
 		}
 		
 		if ( ! empty( $html_content ) ) {
 			$button = $html_content;
-		} elseif ( isset( $button_text ) && ( ! isset( $button_fname) || ! $button_fname || $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png' ) ) {
+		} elseif ( ! empty( $button_text ) ) {
 			$button = $button_text;
+		} elseif ( ! empty( $button_src ) ) {
+			$button	= '<img src="' . $button_src . '"' . $button_width . $button_height . ' alt="Share">';
 		} else {
-			$style = '';
-			$button	= '<img src="' . $button_src . '"' . $button_width . $button_height . ' alt="Share"/>';
+			$button = '';
 		}
+		
+		// Add additional classNames to .a2a_dd
+		$button_additional_classes = ! empty( $args['button_additional_classes'] ) ? ' ' . $args['button_additional_classes'] : '';
 		
 		if ( isset( $options['button_show_count'] ) && $options['button_show_count'] == '1' ) {
 			$button_class .= ' a2a_counter';
 		}
 		
 		$button_html = $html_container_open . $html_wrap_open . '<a class="a2a_dd' . $button_class . $button_additional_classes . ' addtoany_share_save" href="https://www.addtoany.com/share' .$button_href_querystring . '"'
-			. $button_data_url . $button_data_title . $button_data_media . $style . $button_target
+			. $button_data_url . $button_data_title . $button_data_media . $button_target
 			. '>' . $button . '</a>';
 	
 	} else {
@@ -500,7 +486,7 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 		return;
 	}
 	
-	$options = get_option( 'addtoany_options' );
+	$options = get_option( 'addtoany_options', array() );
 	
 	$linkname = ( isset( $args['linkname'] ) ) ? $args['linkname'] : false;
 	$linkurl = ( isset( $args['linkurl'] ) ) ? $args['linkurl'] : false;
@@ -582,6 +568,8 @@ if ( ! function_exists( 'A2A_menu_locale' ) ) {
 }
 
 function ADDTOANY_FOLLOW_KIT( $args = array() ) {
+	$options = get_option( 'addtoany_options', array() );
+	
 	// Args are passed on to ADDTOANY_SHARE_SAVE_KIT
 	$defaults = array(
 		'buttons' => array(),
@@ -595,16 +583,16 @@ function ADDTOANY_FOLLOW_KIT( $args = array() ) {
 		'is_kit' => true,
 		'no_special_services' => true,
 		'no_universal_button' => true,
-		//'no_small_icons' => true,
 		'kit_additional_classes' => '',
 		'kit_style' => '',
+		'icon_size'	=> isset( $options['icon_size'] ) ? $options['icon_size'] : '32',
 		'services' => array(),
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
 	
 	// Add a2a_follow className to Kit classes
-	$args['kit_additional_classes'] = 'a2a_follow';
+	$args['kit_additional_classes'] = trim( $args['kit_additional_classes'] . ' a2a_follow' );
 	
 	// If $args['buttons']['feed']['id'] is set
 	$buttons = $args['buttons'];
@@ -622,7 +610,7 @@ function ADDTOANY_FOLLOW_KIT( $args = array() ) {
 }
 
 function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
-	$options = get_option( 'addtoany_options' );
+	$options = get_option( 'addtoany_options', array() );
 	
 	$floating_html = '';
 
@@ -654,7 +642,6 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 		'is_kit' => true,
 		'no_addtoany_list_classname' => true,
 		'no_special_services' => true,
-		'no_small_icons' => true,
 		'kit_additional_classes' => '',
 		'kit_style' => '',
 	);
@@ -674,46 +661,52 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 	if ( $vertical_type || $horizontal_type ) {
 		// Vertical type?
 		if ( $vertical_type ) {
+			// Prevent overwriting of $args
+			$vertical_args = $args;
+			
 			// Top position
 			$position = ( isset( $options['floating_vertical_position'] ) ) ? $options['floating_vertical_position'] . 'px' : '100px';
 			// Left or right offset
 			$offset = ( isset( $options['floating_vertical_offset'] ) ) ? $options['floating_vertical_offset'] . 'px' : '0px';
 			// Icon size
-			$args['icon_size'] = ( isset( $options['floating_vertical_icon_size'] ) ) ? $options['floating_vertical_icon_size'] : '32';
+			$vertical_args['icon_size'] = ( isset( $options['floating_vertical_icon_size'] ) ) ? $options['floating_vertical_icon_size'] : '32';
 		
 			// Add a2a_vertical_style className to Kit classes
-			$args['kit_additional_classes'] = 'a2a_floating_style a2a_vertical_style';
+			$vertical_args['kit_additional_classes'] = trim( $args['kit_additional_classes'] . ' a2a_floating_style a2a_vertical_style' );
 			
 			// Add declarations to Kit style attribute
 			if ( 'left_docked' === $vertical_type ) {
-				$args['kit_style'] = 'left:' . $offset . ';top:' . $position . ';';
+				$vertical_args['kit_style'] = 'left:' . $offset . ';top:' . $position . ';';
 			} elseif ( 'right_docked' === $vertical_type ) {
-				$args['kit_style'] = 'right:' . $offset . ';top:' . $position . ';';
+				$vertical_args['kit_style'] = 'right:' . $offset . ';top:' . $position . ';';
 			}
 			
-			$floating_html .= ADDTOANY_SHARE_SAVE_KIT( $args );
+			$floating_html .= ADDTOANY_SHARE_SAVE_KIT( $vertical_args );
 		}
 		
 		// Horizontal type?
 		if ( $horizontal_type ) {
+			// Prevent overwriting of $args values
+			$horizontal_args = $args;
+			
 			// Left or right position
 			$position = ( isset( $options['floating_horizontal_position'] ) ) ? $options['floating_horizontal_position'] . 'px' : '0px';
 			// Bottom offset
 			$offset = ( isset( $options['floating_horizontal_offset'] ) ) ? $options['floating_horizontal_offset'] . 'px' : '0px';
 			// Icon size
-			$args['icon_size'] = ( isset( $options['floating_horizontal_icon_size'] ) ) ? $options['floating_horizontal_icon_size'] : '32';
+			$horizontal_args['icon_size'] = ( isset( $options['floating_horizontal_icon_size'] ) ) ? $options['floating_horizontal_icon_size'] : '32';
 
 			// Add a2a_default_style className to Kit classes
-			$args['kit_additional_classes'] = 'a2a_floating_style a2a_default_style';
+			$horizontal_args['kit_additional_classes'] = trim( $args['kit_additional_classes'] . ' a2a_floating_style a2a_default_style' );
 			
 			// Add declarations to Kit style attribute
 			if ( 'left_docked' === $horizontal_type ) {
-				$args['kit_style'] = 'bottom:' . $offset . ';left:' . $position . ';';
+				$horizontal_args['kit_style'] = 'bottom:' . $offset . ';left:' . $position . ';';
 			} elseif ( 'right_docked' === $horizontal_type ) {
-				$args['kit_style'] = 'bottom:' . $offset . ';right:' . $position . ';';
+				$horizontal_args['kit_style'] = 'bottom:' . $offset . ';right:' . $position . ';';
 			}
 			
-			$floating_html .= ADDTOANY_SHARE_SAVE_KIT( $args );
+			$floating_html .= ADDTOANY_SHARE_SAVE_KIT( $horizontal_args );
 		}
 	}
 	
@@ -732,14 +725,12 @@ function A2A_SHARE_SAVE_head_script() {
 	if ( is_admin() || is_feed() || $script_disabled )
 		return;
 		
-	$options = get_option( 'addtoany_options' );
-	
-	$https_or_http = is_ssl() ? 'https' : 'http';
+	$options = get_option( 'addtoany_options', array() );
 
 	// Use local cache?
 	$cache = ( isset( $options['cache'] ) && '1' == $options['cache'] ) ? true : false;
 	$upload_dir = wp_upload_dir();
-	$static_server = ( $cache ) ? $upload_dir['baseurl'] . '/addtoany' : $https_or_http . '://static.addtoany.com/menu';
+	$static_server = ( $cache ) ? $upload_dir['baseurl'] . '/addtoany' : 'https://static.addtoany.com/menu';
 	
 	// Enternal script call + initial JS + set-once variables
 	$additional_js = ( isset( $options['additional_js_variables'] ) ) ? $options['additional_js_variables'] : '' ;
@@ -800,7 +791,7 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 	}
 	
 	$is_feed = is_feed();
-	$options = get_option( 'addtoany_options' );
+	$options = get_option( 'addtoany_options', array() );
 	$post_type = get_post_type( get_the_ID() );
 	
 	if ( 
@@ -892,19 +883,19 @@ function A2A_SHARE_SAVE_pre_get_posts( $query ) {
 add_action( 'pre_get_posts', 'A2A_SHARE_SAVE_pre_get_posts' );
 
 
-// [addtoany url="http://example.com/page.html" title="Some Example Page"]
+// [addtoany url="https://www.example.com/page.html" title="Example Page"]
 function A2A_SHARE_SAVE_shortcode( $attributes ) {
-	extract( shortcode_atts( array(
-		'url'     => 'something',
-		'title'   => 'something else',
+	$attributes = shortcode_atts( array(
+		'url'     => '',
+		'title'   => '',
 		'media'   => '',
 		'buttons' => '',
-	), $attributes ) );
+	), $attributes, 'addtoany' );
 	
-	$linkname = isset( $attributes['title'] ) ? $attributes['title'] : false;
-	$linkurl = isset( $attributes['url'] ) ? $attributes['url'] : false;
+	$linkname =  ! empty( $attributes['title'] ) ? $attributes['title'] : false;
+	$linkurl =  ! empty( $attributes['url'] ) ? $attributes['url'] : false;
 	$linkmedia = ! empty( $attributes['media'] ) ? $attributes['media'] : false;
-	$buttons = ! empty( $buttons ) ? explode ( ',', $buttons ) : array();
+	$buttons = ! empty( $buttons ) ? explode( ',', $buttons ) : array();
 	
 	$output_later = true;
 
@@ -924,7 +915,7 @@ function A2A_SHARE_SAVE_stylesheet() {
 	// Use stylesheet?
 	if ( ! isset( $options['inline_css'] ) || $options['inline_css'] != '-1' && ! is_admin() ) {
 	
-		wp_enqueue_style( 'A2A_SHARE_SAVE', $A2A_SHARE_SAVE_plugin_url_path . '/addtoany.min.css', false, '1.13' );
+		wp_enqueue_style( 'A2A_SHARE_SAVE', $A2A_SHARE_SAVE_plugin_url_path . '/addtoany.min.css', false, '1.14' );
 	
 		// wp_add_inline_style requires WP 3.3+
 		if ( '3.3' <= get_bloginfo( 'version' ) ) {
@@ -1062,7 +1053,7 @@ function A2A_SHARE_SAVE_unschedule_cache() {
  */
 
 if ( is_admin() ) {
-	include_once( $A2A_SHARE_SAVE_plugin_dir . '/addtoany.admin.php' );
+	include_once $A2A_SHARE_SAVE_plugin_dir . '/addtoany.admin.php';
 }
 
 function A2A_SHARE_SAVE_add_menu_link() {
@@ -1083,7 +1074,7 @@ add_filter( 'admin_menu', 'A2A_SHARE_SAVE_add_menu_link' );
 function A2A_SHARE_SAVE_widgets_init() {
 	global $A2A_SHARE_SAVE_plugin_dir;
 	
-	include_once( $A2A_SHARE_SAVE_plugin_dir . '/addtoany.widgets.php' );
+	include_once $A2A_SHARE_SAVE_plugin_dir . '/addtoany.widgets.php';
 	register_widget( 'A2A_SHARE_SAVE_Widget' );
 	register_widget( 'A2A_Follow_Widget' );
 }

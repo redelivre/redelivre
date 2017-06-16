@@ -372,6 +372,10 @@ table.variations {
 		margin: 0;
 	}
 
+	.zoomImg {
+		background-color: #fff;
+	}
+
 	.woocommerce-product-gallery__image:nth-child(n+2) {
 		width: 25%;
 		display: inline-block;
@@ -403,17 +407,26 @@ table.variations {
 	.flex-control-thumbs li {
 		width: 33.3333%;
 	}
+	.flex-control-thumbs li:nth-child(3n+1) {
+		clear: left;
+	}
 }
 
 .woocommerce-product-gallery--columns-4 {
 	.flex-control-thumbs li {
 		width: 25%;
 	}
+	.flex-control-thumbs li:nth-child(4n+1) {
+		clear: left;
+	}
 }
 
 .woocommerce-product-gallery--columns-5 {
 	.flex-control-thumbs li {
 		width: 20%;
+	}
+	.flex-control-thumbs li:nth-child(5n+1) {
+		clear: left;
 	}
 }
 
@@ -976,6 +989,42 @@ button.pswp__button--zoom:hover {
 		&:checked + label {
 			&:before {
 				background: black;
+			}
+		}
+	}
+}
+
+.colors-dark {
+	.checkout-button {
+		border: 2px solid #555;
+
+		&:hover {
+			border-color: #fff;
+		}
+	}
+
+	.wc_payment_method {
+		.payment_box {
+			background: #333;
+		}
+	}
+
+	.select2-container--default {
+		.select2-results {
+			.select2-results__options {
+				background:#333;
+			}
+			.select2-results__option[aria-selected="true"]{
+				color: #333;
+			}
+		}
+
+		.select2-selection--single {
+			background-color: #333;
+			border: 1px solid #555;
+
+			.select2-selection__rendered {
+				color: #ccc;
 			}
 		}
 	}

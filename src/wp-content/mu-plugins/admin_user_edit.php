@@ -36,7 +36,7 @@ function rl_edit_permission_check() {
 
 	$screen = get_current_screen();
 
-	get_currentuserinfo();
+	wp_get_current_user();
 
 	if( ! is_super_admin( $current_user->ID ) && in_array( $screen->base, array( 'user-edit', 'user-edit-network' ) ) ) // editing a user profile
 	{

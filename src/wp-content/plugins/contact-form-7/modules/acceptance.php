@@ -3,30 +3,36 @@
 ** A base module for [acceptance]
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_acceptance' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_acceptance' );
 
-function wpcf7_add_shortcode_acceptance() {
-	wpcf7_add_shortcode( 'acceptance',
-		'wpcf7_acceptance_shortcode_handler', true );
+function wpcf7_add_form_tag_acceptance() {
+	wpcf7_add_form_tag( 'acceptance',
+		'wpcf7_acceptance_form_tag_handler',
+		array(
+			'name-attr' => true,
+			'do-not-store' => true,
+		)
+	);
 }
 
-function wpcf7_acceptance_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
-
-	if ( empty( $tag->name ) )
+function wpcf7_acceptance_form_tag_handler( $tag ) {
+	if ( empty( $tag->name ) ) {
 		return '';
+	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
 	$class = wpcf7_form_controls_class( $tag->type );
 
-	if ( $validation_error )
+	if ( $validation_error ) {
 		$class .= ' wpcf7-not-valid';
+	}
 
-	if ( $tag->has_option( 'invert' ) )
+	if ( $tag->has_option( 'invert' ) ) {
 		$class .= ' wpcf7-invert';
+	}
 
 	$atts = array();
 
@@ -34,8 +40,9 @@ function wpcf7_acceptance_shortcode_handler( $tag ) {
 	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 
-	if ( $tag->has_option( 'default:on' ) )
+	if ( $tag->has_option( 'default:on' ) ) {
 		$atts['checked'] = 'checked';
+	}
 
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
@@ -58,10 +65,9 @@ function wpcf7_acceptance_shortcode_handler( $tag ) {
 add_filter( 'wpcf7_validate_acceptance', 'wpcf7_acceptance_validation_filter', 10, 2 );
 
 function wpcf7_acceptance_validation_filter( $result, $tag ) {
-	if ( ! wpcf7_acceptance_as_validation() )
+	if ( ! wpcf7_acceptance_as_validation() ) {
 		return $result;
-
-	$tag = new WPCF7_Shortcode( $tag );
+	}
 
 	$name = $tag->name;
 	$value = ( ! empty( $_POST[$name] ) ? 1 : 0 );
@@ -81,24 +87,27 @@ function wpcf7_acceptance_validation_filter( $result, $tag ) {
 add_filter( 'wpcf7_acceptance', 'wpcf7_acceptance_filter' );
 
 function wpcf7_acceptance_filter( $accepted ) {
-	if ( ! $accepted )
+	if ( ! $accepted ) {
 		return $accepted;
+	}
 
-	$fes = wpcf7_scan_shortcode( array( 'type' => 'acceptance' ) );
+	$fes = wpcf7_scan_form_tags( array( 'type' => 'acceptance' ) );
 
 	foreach ( $fes as $fe ) {
 		$name = $fe['name'];
 		$options = (array) $fe['options'];
 
-		if ( empty( $name ) )
+		if ( empty( $name ) ) {
 			continue;
+		}
 
 		$value = ( ! empty( $_POST[$name] ) ? 1 : 0 );
 
 		$invert = (bool) preg_grep( '%^invert$%', $options );
 
-		if ( $invert && $value || ! $invert && ! $value )
+		if ( $invert && $value || ! $invert && ! $value ) {
 			$accepted = false;
+		}
 	}
 
 	return $accepted;
@@ -107,15 +116,17 @@ function wpcf7_acceptance_filter( $accepted ) {
 add_filter( 'wpcf7_form_class_attr', 'wpcf7_acceptance_form_class_attr' );
 
 function wpcf7_acceptance_form_class_attr( $class ) {
-	if ( wpcf7_acceptance_as_validation() )
+	if ( wpcf7_acceptance_as_validation() ) {
 		return $class . ' wpcf7-acceptance-as-validation';
+	}
 
 	return $class;
 }
 
 function wpcf7_acceptance_as_validation() {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() )
+	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
 		return false;
+	}
 
 	return $contact_form->is_true( 'acceptance_as_validation' );
 }
@@ -137,7 +148,7 @@ function wpcf7_tag_generator_acceptance( $contact_form, $args = '' ) {
 
 	$description = __( "Generate a form-tag for an acceptance checkbox. For more details, see %s.", 'contact-form-7' );
 
-	$desc_link = wpcf7_link( __( 'http://contactform7.com/acceptance-checkbox/', 'contact-form-7' ), __( 'Acceptance Checkbox', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'https://contactform7.com/acceptance-checkbox/', 'contact-form-7' ), __( 'Acceptance Checkbox', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">

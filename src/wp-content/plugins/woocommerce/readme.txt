@@ -2,8 +2,8 @@
 Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, claudiulodro, woothemes, iCaleb
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront, woo commerce
 Requires at least: 4.4
-Tested up to: 4.7
-Stable tag: 3.0.1
+Tested up to: 4.8
+Stable tag: 3.0.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -161,6 +161,190 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 
 == Changelog ==
 
+= 3.0.8 - 2017-06-06 =
+* Fix - Include multi-dimensional array support in oAuth1.0.
+* Fix - Stock/backorder notice when stock management is disabled.
+* Fix - Handle shipping item taxes if set to avoid the legacy fallback.
+* Fix - Variations should inherit purchase_note from parent.
+* Fix - Check if subtotal is blank, not empty, before setting for order items.
+* Fix - Cancelled email should be send for processing orders, not pending.
+* Fix - Missing variable in legacy API.
+* Fix - Correct price query when on a post type archive.
+* Fix - Missing $ip Variable in geolocation class.
+* Fix - A single multi-word attribute is fine for variation titles.
+* Fix - Gallery should be updated even if empty in REST API.
+* Fix - Fix saving of text attributes with special chars.
+* Fix - Undefined index warning when saving variations with stock management disabled.
+* Fix - Use meta id instead of key in WC_Order_Item::offsetGet.
+* Fix - Format parent stock qty on read.
+* Fix - Hide replies from recent reviews widgets.
+* Fix - Use formatted weight and dimensions for variations.
+* Fix - Ensure we have child before getting price to fix a notice in grouped products.
+* Fix - Fixed unicode characters when saving webhook delivery logs.
+* Fix - Avoid deprecated ID in legacy API.
+* Fix - Add correct args to woocommerce_shipping_zone_method_deleted and woocommerce_shortcode_products_query hooks.
+* Fix - Correctly append cache in product widget.
+* Fix - Add ability to invalidate cache by object ID.
+* Fix - Notice in structured data class.
+* Fix - Only delete if an object has an ID in CRUD to avoid wp_delete_post using global ID.
+* Fix - Avoid notices on checkout by ensuring all legacy data is correctly set.
+* Fix - Add failed to processing event for the processing email.
+* Fix - Store user ID and use that to determine if the session should be loaded or not. Ensures user data is correct and shipping calculator data is stored.
+
+= 3.0.7 - 2017-05-16 =
+* Fix - Display of grouped product permalinks + names.
+* Fix - Ensure `wc_get_payment_gateway_by_order` has a valid order ID to avoid errors.
+* Fix - Ensure `get_plugin_updates` exists in API.
+* Fix - Correctly set rating term after updating product visibility.
+* Fix - `is_ip_address` should be static.
+* Fix - Handle clearing for 3, 4, and 5 columns in the product gallery.
+* Fix - Some added protection against notices/errors in the assets and variation data-store files.
+* Fix - If backorders are enabled, do not make variable products out of stock.
+* Fix - Undefined function in `class-wc-embed.php`.
+* Fix - Fix 'base location' not being returned via the settings API.
+* Fix - When re-filling fields on checkout, only change the empty ones to avoid conflicts with gateway plugins and hidden fields.
+* Fix - Make calculate tax function clear taxes if taxes are disabled on recalculation.
+* Fix - Update all customer session address fields when updating via checkout.
+* Fix - Support customer searches < 3 characters long, but with result limiting.
+
+= 3.0.6 - 2017-05-09 =
+* Fix - Fixed conflict between global attributes and custom attributes with the same names.
+* Fix - Added missing "id" to API for shipping zone methods to support the CLI.
+* Fix - Incorrect use of `wc_format_price_range` in `get_price_html_from_to`.
+* Fix - Clone each meta object when cloning WC_Data object to avoid modifying original meta stdClass objects.
+* Fix - Fix non numeric warning for some order data.
+* Fix - Fixed a warning when no customer country is defined for state input.
+* Fix - Use term name when reordering so correct data is passed to the new order.
+* Fix - Formatting issues in wc_display_item_meta.
+* Fix - Check if IP address is valid in IP address detection code.
+* Fix - wc_attribute_taxonomy_id_by_name should use wc_sanitize_taxonomy_name to prevent breaking special chars.
+* Fix - Correct variable name in order structured data.
+* Fix - Prepend new item keys with `$items_key` to make them unique.
+* Fix - Hide offers from structured markup when blank.
+* Fix - Fixed "Process to checkout" button color in Twenty seventeen dark theme.
+* Fix - Only set reply-to if the email + name is set.
+* Fix - Correctly exclude terms in wc_get_related_products.
+* Fix - Reset post data prevents grouped products working in shortcodes.
+* Fix - Fix min price range comparisons.
+* Fix - Properly save order items in legacy REST API.
+* Fix - Use correct full size for variation images.
+* Fix - Add noscript style for gallery.
+* Fix - Fix/duplicate potential stock reduction with paypal.
+* Tweak - Improve _wc_term_recount performance.
+* Tweak - Improve plugin update detection in system status report to reduce timeouts.
+* Tweak - Improve "Save Order" button to reproduce WordPress post/page behavior.
+* Tweak - Added zipcode validation for France.
+* Dev - Added woocommerce_shop_order_search_results filter.
+
+= 3.0.5 - 2017-04-28 =
+* Fix - Tooltip display within shipping zone modals.
+* Fix - Fix missing title for actions column on mobile.
+* Fix - Allow forward slash in telephone field.
+* Fix - Sort grouped products by menu order when displaying.
+* Fix - Fix term exclusion in term count queries.
+* Fix - Filter invalid products before returning them for wc_get_products.
+* Fix - Prevent orders being their own parent (causes errors).
+* Fix - Correctly migrate legacy shipping taxes data.
+* Fix - Make sure the meta data cache is not shared among instances.
+* Fix - Correct the stock display notice when a variable product manages stock for it's children.
+* Fix - On multisite, add user to blog during checkout if not a user to prevent errors.
+* Fix - Correct sale price date handling with some timezone setups.
+* Fix - wc_attribute_taxonomy_id_by_name needs to use lowercase attribute slug to work.
+* Fix - Make changes to the buyer's company name in the shipping section of checkout persist.
+* Tweak - Add required placeholder for meta fields in backend.
+* Tweak - Don't strtolower address strings on checkout validation messages.
+* REST API - Prevent password change notification when creating a customer.
+* REST API - Removed duplicated items returned in shipping and checkout endpoints.
+* CLI - Fixed missing shipping zones route.
+* Dev - Make get_price_html handling match 2.6 and pass all values through woocommerce_get_price_html filter.
+* Dev - Legacy customer class missing get_address / get_address_2 functions.
+* Dev - Restored filter `woocommerce_checkout_customer_id` during checkout validation.
+* Dev - Adds missing `$this` argument for all `woocommerce_payment_complete_order_status` filters.
+
+= 3.0.4 - 2017-04-20 =
+* Fix - Variations were not inheriting the product image and shipping class ID.
+* Fix - Prevent rating/review counts being duplicated when duplicating products.
+* Fix - Fixed gallery navigation between images with long captions.
+* Fix - Support transparent PNG in the gallery by setting a background color.
+* Fix - Removed name/company from the shipping address Google map links.
+* Fix - Fixed the address field sorting script on the checkout.
+* Fix - Fixed the upgrade routine for grouped products so that parents are unset.
+* Fix - Fixed support for WordPress 4.7 user locale settings.
+* Fix - Fixed default option filter for product types in the product meta box.
+* Fix - Improved the css in Twenty Seventeen for dark color schemes.
+* Fix - Fixed display of refunds in sales report.
+* Fix - Updated `single-product/add-to-cart/variable.php` template version to 3.0.0 since it had changes since 2.6.
+* Fix - Fixed warnings when product attribute do not exists.
+* Fix - Used a div for comment-form-rating to prevent invalid nested markup.
+* Fix - Fixed some logic that checks if order taxes are compound.
+* Fix - Fixed SKU checks to only exclude products that are trashed.
+* Fix - Fixed display of download permissions in first email sent after checkout.
+* Fix - Hidden the backorder notification stock text when notification is disabled.
+* Fix - Fixed incorrect stock numbers in low stock emails.
+* Tweak - Removed the non-functional order total input box, and combined the recalculation buttons into one working button.
+* Tweak - Updated Guided Tour videos.
+* Tweak - Updated js-cookie.js to 2.1.4.
+* Tweak - Updated schema.org URLs to use HTTPS.
+* Tweak - Status report request timeouts.
+* REST API - Fixed an issue that prevented deleting a term if errors were thrown during creation.
+* REST API - Fixed reports endpoint when querying by date.
+* REST API - Fixed ignored order parameters when changing order status.
+* Dev - Support guest orders in `wc_get_orders` function.
+* Dev - Fixed downloadable variation filters for download URLs.
+* Dev - Added safeguards to prevent infinite loops while saving coupons, products and orders in admin.
+* Dev - Added a fallback for `queue_transactional_email` if background sending is disabled.
+* Dev - Added `has_shipping_address` helper method.
+* Dev - Introduced `woocommerce_order_item_get_formatted_meta_data` filter.
+* Dev - Made wc_add_order_item pass correct values to woocommerce_new_order_item.
+* Dev - Fixed `legacy_posted_data` access in checkout class.
+* Dev - Fixed undefined property notice in `WC_Order_Item::offsetGet`.
+* Dev - Fixed PHP 7.1 warnings when using non-float values to `wc_get_weight()`.
+* Dev - Fixed incorrect variable name in `wc_add_order_item()`.
+
+= 3.0.3 - 2017-04-13 =
+* Fix - Fixed an issue with variation tax-classes when set to 'parent'. This made taxes apply on top of the tax inclusive price in certain setups.
+* Fix - Escaped attribute translations in the `cart.php` template and bumped the template version to match.
+* Fix - Corrected the display of refund dates on the order screen.
+* Fix - Fixed the grouped product visibility check in the grouped.php template and bumped the template version to match.
+* Fix - Fixed the sale badge display for grouped products.
+* Fix - Added the `itemReviewed` structured data for product reviews to make it validate.
+* Fix - Made the `get_attribute` method work on variation objects.
+* Tweak - Turned off the deferred email sending by default which was added in 3.0. Whilst it does improve performance, there were compatibility problems on some servers. It can be enabled with a filter if desired.
+* Dev - Added backtrace information to the deprecation messages to help find problem plugins.
+
+= 3.0.2 - 2017-04-12 =
+* Fix - Removed required states for GP, GF, KW, LB, MQ, RE and YT countries.
+* Fix - Made cache in the [products] shortcode respect filters from plugins.
+* Fix - Added missing `woocommerce_cross_sells_columns` filter.
+* Fix - Fixed shortcode rendering on the shop page.
+* Fix - Fixed incorrect sale dates when bulk editing variations.
+* Fix - Fixed calls to wc_reduce_stock_levels in PayPal and Simplify gateways.
+* Fix - Exclude "location" meta when reading customer meta data.
+* Fix - Updated `emails/email-addresses.php`, `emails/email-order-details.php`, `content-single-product.php`, `checkout/form-shipping.php`, `myaccount/form-add-payment-method.php`, `myaccount/form-edit-address.php`, `myaccount/form-lost-password.php`, `myaccount/form-reset-password.php`, `myaccount/orders.php` and `myaccount/view-order.php` template version to 3.0.0 since they had changes since 2.6.
+* Fix - Fixed default behavior of variation tax classes when originally set to "parent".
+* Fix - When duplicating products, do not copy slug, append "(Copy)" to the product name, correctly copy all meta data, and prevent children of grouped products being duplicated too.
+* Fix - Removed duplicated items when outputting cross sells on the cart page.
+* Fix - Fixed output of default "add to cart" text of external products in loops.
+* Fix - Fixed backwards compatibility of guest checkout rules when being altered by plugins directly.
+* Fix - Use correct thumbnail sizes for variation images in the new gallery.
+* Fix - Fixed captions on thumbnails and main image in the new gallery.
+* Fix - Trigger wc_fragments_loaded after add to cart fragment refresh.
+* Fix - Download permissions; Convert dates to timestamp on read so UTC is preserved.
+* Fix - Fixed notices under PHP 7.1 when sorting products by name (numeric).
+* Fix - Added additional checks to ensure objects are read before using class methods to avoid errors.
+* Fix - Removed legacy suggest.js code which was causing JS error on bulk edit.
+* Fix - Fixed warnings on the "Lost password" page and when loading a product with invalid attributes.
+* Fix - Made background emailer update the queue after a successful send so duplicate mails are less likely.
+* Fix - Typo in flexslider_enabled option in new gallery script.
+* Fix - woocommerce_notify_low_stock and woocommerce_notify_no_stock options had no effect.
+* Tweak - For downloadable files, only validate file type when dealing with relative paths.
+* Tweak - Improved automatic variation name generation.
+* Dev - Added product visibility terms to system status report to help debug.
+* Dev - Introduced `woocommerce_admin_order_date_format` filter to replace missing `post_date_column_time`.
+* Dev - Introduced `woocommerce_update_customer_args` filter to prevent updates to user objects if needed.
+* REST API - Fixed saving of variations in legacy REST API v3.
+* REST API - Fixed backwards compatibility of line_items meta in legacy REST API.
+
 = 3.0.1 - 2017-04-06 =
 * Fix - Show catalog hidden products within grouped products.
 * Fix - Fade in the gallery in if no images are set or it's custom.
@@ -275,5 +459,5 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 
 == Upgrade Notice ==
 
-= 3.0.1 =
-3.0 is a major update. It is important that you make backups and ensure themes and extensions are 3.0 compatible before upgrading.
+= 3.0.8 =
+3.0 is a major update. Make a full site backup, update your theme and extensions, and [review update best practices](https://docs.woocommerce.com/document/how-to-update-your-site) before upgrading.
