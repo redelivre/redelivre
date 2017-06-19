@@ -261,17 +261,21 @@ function getPlataformSettings($id = '')
 	
 	// Merge default settings com defined settings
 	$sets['value'] = array_merge($sets['value'], get_option('plataform_defined_settings', array()));
-	$globals = get_blog_option(1, 'plataform_defined_settings', array());
-	foreach ($sets['perm'] as $key => $value)
+	if(! is_main_site() )
 	{
-		if($value != 'S') // not global or superadmin option
-		{
-			unset($globals[$key]);
-		}
+		$globals = get_blog_option(1, 'plataform_defined_settings', array());
+		//Lets clear globals array, it only need to store values
+		if(array_key_exists('label', $globals)) unset($globals['label']);
+		if(array_key_exists('perm', $globals)) unset($globals['perm']);
+		if(array_key_exists('value', $globals)) unset($globals['value']);
+		if(array_key_exists('type', $globals)) unset($globals['type']);
+		
+		$globals = array_intersect_key($globals, $sets['perm']);
+		
+		$globals = array_intersect_key($globals, $sets['value']);
+		
+		$sets['value'] = array_merge($sets['value'], $globals);
 	}
-	$globals = array_intersect_key($globals, $sets['value']);
-	
-	$sets['value'] = array_merge($sets['value'], $globals);
 	
 	if($id != '')
 	{
