@@ -3,7 +3,7 @@ Contributors: micropat, addtoany
 Tags: AddToAny, share, sharing, social, share buttons, share button, social media, media, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, like, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed, icons
 Requires at least: 3.7
 Tested up to: 4.8
-Stable tag: 1.7.11
+Stable tag: 1.7.12
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -86,17 +86,20 @@ In WordPress:
 1. Press `Install Now` for the AddToAny plugin
 1. Press `Activate Plugin`
 
-To install manually instead:
+Manual installation:
 
 1. Upload the `add-to-any` directory to the `/wp-content/plugins/` directory
 1. Activate the plugin through the `Plugins` menu in WordPress
-1. Optional settings are available in `Settings` > `AddToAny`
+
+WP-CLI installation:
+
+1. `wp plugin install add-to-any --activate`
 
 == Frequently Asked Questions ==
 
 = Where are the options, and how can I customize the sharing plugin? =
 
-In your Admin panel, go to `Settings` > `AddToAny`.
+In WordPress, go to `Settings` > `AddToAny`.
 
 Setup Follow buttons (like Instagram, YouTube, etc.) using the AddToAny Follow widget in `Appearance` > `Widgets` (or `Appearance` > `Customize`).
 
@@ -148,7 +151,7 @@ Since 2006, AddToAny is trusted across the web to always route to each service's
 
 = How can I use custom icons? =
 
-Upload sharing icons in a single directory to a public location, and make sure the icon filenames match the icon filenames packaged in the AddToAny plugin. In your Admin panel, go to `Settings` > `AddToAny` > `Advanced Options` > check the "Use custom icons" checkbox and specify the URL to your custom icons directory (including the trailing `/`). For AddToAny's universal button, go to Universal Button, select `Image URL` and specify the exact location of your AddToAny universal share icon (including the filename).
+Upload sharing icons in a single directory to a public location, and make sure the icon filenames match the icon filenames packaged in the AddToAny plugin. In WordPress, go to `Settings` > `AddToAny` > `Advanced Options` > check the "Use custom icons" checkbox and specify the URL to your custom icons directory (including the trailing `/`). For AddToAny's universal button, go to Universal Button, select `Image URL` and specify the exact location of your AddToAny universal share icon (including the filename).
 
 = How can I place the share buttons in a specific area of my site? =
 
@@ -345,6 +348,10 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.12 =
+* Fix the `[addtoany]` shortcode's `buttons` attribute
+* Use `rel="noopener"` on links that open in a new tab/window for site JavaScript performance in some browsers
 
 = 1.7.11 =
 * Add icon size option to Follow buttons widget

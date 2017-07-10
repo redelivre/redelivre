@@ -57,7 +57,7 @@ class WC_Meta_Box_Product_Data {
 				'id'            => '_virtual',
 				'wrapper_class' => 'show_if_simple',
 				'label'         => __( 'Virtual', 'woocommerce' ),
-				'description'   => __( 'Virtual products are intangible and aren\'t shipped.', 'woocommerce' ),
+				'description'   => __( 'Virtual products are intangible and are not shipped.', 'woocommerce' ),
 				'default'       => 'no',
 			),
 			'downloadable' => array(
@@ -75,43 +75,76 @@ class WC_Meta_Box_Product_Data {
 	 * @return array
 	 */
 	private static function get_product_data_tabs() {
-		return apply_filters( 'woocommerce_product_data_tabs', array(
+		$tabs = apply_filters( 'woocommerce_product_data_tabs', array(
 			'general' => array(
-				'label'  => __( 'General', 'woocommerce' ),
-				'target' => 'general_product_data',
-				'class'  => array( 'hide_if_grouped' ),
+				'label'    => __( 'General', 'woocommerce' ),
+				'target'   => 'general_product_data',
+				'class'    => array( 'hide_if_grouped' ),
+				'priority' => 10,
 			),
 			'inventory' => array(
-				'label'  => __( 'Inventory', 'woocommerce' ),
-				'target' => 'inventory_product_data',
-				'class'  => array( 'show_if_simple', 'show_if_variable', 'show_if_grouped', 'show_if_external' ),
+				'label'    => __( 'Inventory', 'woocommerce' ),
+				'target'   => 'inventory_product_data',
+				'class'    => array( 'show_if_simple', 'show_if_variable', 'show_if_grouped', 'show_if_external' ),
+				'priority' => 20,
 			),
 			'shipping' => array(
-				'label'  => __( 'Shipping', 'woocommerce' ),
-				'target' => 'shipping_product_data',
-				'class'  => array( 'hide_if_virtual', 'hide_if_grouped', 'hide_if_external' ),
+				'label'    => __( 'Shipping', 'woocommerce' ),
+				'target'   => 'shipping_product_data',
+				'class'    => array( 'hide_if_virtual', 'hide_if_grouped', 'hide_if_external' ),
+				'priority' => 30,
 			),
 			'linked_product' => array(
-				'label'  => __( 'Linked Products', 'woocommerce' ),
-				'target' => 'linked_product_data',
-				'class'  => array(),
+				'label'    => __( 'Linked Products', 'woocommerce' ),
+				'target'   => 'linked_product_data',
+				'class'    => array(),
+				'priority' => 40,
 			),
 			'attribute' => array(
-				'label'  => __( 'Attributes', 'woocommerce' ),
-				'target' => 'product_attributes',
-				'class'  => array(),
+				'label'    => __( 'Attributes', 'woocommerce' ),
+				'target'   => 'product_attributes',
+				'class'    => array(),
+				'priority' => 50,
 			),
 			'variations' => array(
-				'label'  => __( 'Variations', 'woocommerce' ),
-				'target' => 'variable_product_options',
-				'class'  => array( 'variations_tab', 'show_if_variable' ),
+				'label'    => __( 'Variations', 'woocommerce' ),
+				'target'   => 'variable_product_options',
+				'class'    => array( 'variations_tab', 'show_if_variable' ),
+				'priority' => 60,
 			),
 			'advanced' => array(
-				'label'  => __( 'Advanced', 'woocommerce' ),
-				'target' => 'advanced_product_data',
-				'class'  => array(),
+				'label'    => __( 'Advanced', 'woocommerce' ),
+				'target'   => 'advanced_product_data',
+				'class'    => array(),
+				'priority' => 70,
 			),
 		) );
+
+		// Sort tabs based on priority.
+		uasort( $tabs, array( __CLASS__, 'product_data_tabs_sort' ) );
+
+		return $tabs;
+	}
+
+	/**
+	 * Callback to sort product data tabs on priority.
+	 *
+	 * @since 3.1.0
+	 * @param int $a First item.
+	 * @param int $b Second item.
+	 *
+	 * @return bool
+	 */
+	private static function product_data_tabs_sort( $a, $b ) {
+		if ( ! isset( $a['priority'], $b['priority'] ) ) {
+			return -1;
+		}
+
+		if ( $a['priority'] == $b['priority'] ) {
+			return 0;
+		}
+
+		return $a['priority'] < $b['priority'] ? -1 : 1;
 	}
 
 	/**
@@ -140,6 +173,11 @@ class WC_Meta_Box_Product_Data {
 
 	/**
 	 * Prepare downloads for save.
+	 *
+	 * @param array $file_names
+	 * @param array $file_urls
+	 * @param array $file_hashes
+	 *
 	 * @return array
 	 */
 	private static function prepare_downloads( $file_names, $file_urls, $file_hashes ) {
@@ -171,6 +209,9 @@ class WC_Meta_Box_Product_Data {
 
 	/**
 	 * Prepare attributes for save.
+	 *
+	 * @param array $data
+	 *
 	 * @return array
 	 */
 	public static function prepare_attributes( $data = false ) {
@@ -259,6 +300,9 @@ class WC_Meta_Box_Product_Data {
 
 	/**
 	 * Save meta box data.
+	 *
+	 * @param int $post_id
+	 * @param $post
 	 */
 	public static function save( $post_id, $post ) {
 		// Process product type first so we have the correct class to run setters.

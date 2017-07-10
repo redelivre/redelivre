@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * WC API to WC CLI Bridge.
  *
@@ -108,15 +113,10 @@ class WC_CLI_Runner {
 
 		// Get a list of supported commands for each route.
 		foreach ( $route_data['endpoints'] as $endpoint ) {
-			$parsed_args   = preg_match_all( '#\([^\)]+\)#', $route, $matches );
-			$first_match   = $matches[0];
+			preg_match_all( '#\([^\)]+\)#', $route, $matches );
 			$resource_id   = ! empty( $matches[0] ) ? array_pop( $matches[0] ) : null;
 			$trimmed_route = rtrim( $route );
 			$is_singular   = substr( $trimmed_route, - strlen( $resource_id ) ) === $resource_id;
-			if ( ! $is_singular ) {
-				$resource_id = $first_match;
-			}
-			$command = '';
 
 			// List a collection
 			if ( array( 'GET' ) == $endpoint['methods'] && ! $is_singular ) {
@@ -143,6 +143,7 @@ class WC_CLI_Runner {
 		foreach ( $supported_commands as $command => $endpoint_args ) {
 			$synopsis = array();
 			$arg_regs = array();
+			$ids      = array();
 
 			foreach ( $supported_ids as $id_name => $id_desc ) {
 				if ( strpos( $route, '<' . $id_name . '>' ) !== false ) {
@@ -152,10 +153,10 @@ class WC_CLI_Runner {
 						'description' => $id_desc,
 						'optional'    => false,
 					);
+					$ids[] = $id_name;
 				}
 			}
-
-			if ( in_array( $command, array( 'delete', 'get', 'update' ) ) ) {
+			if ( in_array( $command, array( 'delete', 'get', 'update' ) ) && ! in_array( 'id', $ids )  ) {
 				$synopsis[] = array(
 					'name'		  => 'id',
 					'type'		  => 'positional',
@@ -165,7 +166,7 @@ class WC_CLI_Runner {
 			}
 
 			foreach ( $endpoint_args as $name => $args ) {
-				if ( ! in_array( $name, $positional_args ) ) {
+				if ( ! in_array( $name, $positional_args ) || strpos( $route, '<' . $id_name . '>' ) === false ) {
 					$arg_regs[] = array(
 						'name'		  => $name,
 						'type'		  => 'assoc',

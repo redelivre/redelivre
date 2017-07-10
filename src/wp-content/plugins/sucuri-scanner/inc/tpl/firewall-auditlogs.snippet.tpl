@@ -1,5 +1,5 @@
 
-<tr class="%%SUCURI.AccessLog.CssClass%%">
+<tr>
     <td>
         <div class="sucuriscan-firewall-accesslog sucuriscan-monospace">
             <div class="sucuriscan-accesslog-origin">
@@ -38,6 +38,6 @@
                 <span class="sucuriscan-accesslog-label">Referer:</span>
                 <span>%%SUCURI.AccessLog.HttpReferer%%</span>
             </div>
-        </span>
+        </div>
     </td>
 </tr>

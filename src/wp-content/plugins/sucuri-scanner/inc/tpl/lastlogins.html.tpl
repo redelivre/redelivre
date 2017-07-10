@@ -1,41 +1,31 @@
 
 <div class="sucuriscan-tabs">
-    <ul>
-        <li>
-            <a href="#lastlogins-allusers" data-tabname="lastlogins-allusers">All Users</a>
-        </li>
-        <li>
-            <a href="#lastlogins-admins" data-tabname="lastlogins-admins">Admin Users</a>
-        </li>
-        <li>
-            <a href="#loggedin-users" data-tabname="loggedin-users">Logged In Users</a>
-        </li>
-        <li>
-            <a href="#failed-logins" data-tabname="failed-logins">Failed Logins</a>
-        </li>
-        <li>
-            <a href="#blocked-users" data-tabname="blocked-users">Blocked Users</a>
-        </li>
+    <ul class="sucuriscan-clearfix sucuriscan-tabs-buttons">
+        <li><a href="%%SUCURI.URL.Lastlogins%%#allusers">@@SUCURI.AllUsers@@</a></li>
+        <li><a href="%%SUCURI.URL.Lastlogins%%#admins">@@SUCURI.Admins@@</a></li>
+        <li><a href="%%SUCURI.URL.Lastlogins%%#loggedin">@@SUCURI.LoggedInUsers@@</a></li>
+        <li><a href="%%SUCURI.URL.Lastlogins%%#failed">@@SUCURI.FailedLogins@@</a></li>
+        <li><a href="%%SUCURI.URL.Lastlogins%%#blocked">@@SUCURI.BlockedUsers@@</a></li>
     </ul>
 
-    <div class="sucuriscan-tab-containers">
-        <div id="sucuriscan-lastlogins-allusers">
+    <div class="sucuriscan-tabs-containers">
+        <div id="sucuriscan-tabs-allusers">
             %%%SUCURI.LastLogins.AllUsers%%%
         </div>
 
-        <div id="sucuriscan-lastlogins-admins">
+        <div id="sucuriscan-tabs-admins">
             %%%SUCURI.LastLogins.Admins%%%
         </div>
 
-        <div id="sucuriscan-loggedin-users">
+        <div id="sucuriscan-tabs-loggedin">
             %%%SUCURI.LoggedInUsers%%%
         </div>
 
-        <div id="sucuriscan-failed-logins">
+        <div id="sucuriscan-tabs-failed">
             %%%SUCURI.FailedLogins%%%
         </div>
 
-        <div id="sucuriscan-blocked-users">
+        <div id="sucuriscan-tabs-blocked">
             %%%SUCURI.BlockedUsers%%%
         </div>
     </div>

@@ -23,7 +23,7 @@ class SiteOrigin_Panels_Admin {
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'admin_init', array( $this, 'save_home_page' ) );
-		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
+		add_action( 'save_post', array( $this, 'save_post' ) );
 
 		add_action( 'after_switch_theme', array( $this, 'update_home_on_theme_change' ) );
 
@@ -59,6 +59,7 @@ class SiteOrigin_Panels_Admin {
 		SiteOrigin_Panels_Admin_Widget_Dialog::single();
 		SiteOrigin_Panels_Admin_Widgets_Bundle::single();
 		SiteOrigin_Panels_Admin_Layouts::single();
+		SiteOrigin_Panels_Admin_Tutorials::single();
 
 		$this->in_save_post = false;
 	}
@@ -118,6 +119,10 @@ class SiteOrigin_Panels_Admin {
 		unset( $links['edit'] );
 		$links[] = '<a href="http://siteorigin.com/threads/plugin-page-builder/">' . __( 'Support Forum', 'siteorigin-panels' ) . '</a>';
 		$links[] = '<a href="http://siteorigin.com/page-builder/#newsletter">' . __( 'Newsletter', 'siteorigin-panels' ) . '</a>';
+		
+		if( SiteOrigin_Panels::display_premium_teaser() ) {
+			$links[] = '<a href="' . esc_url( SiteOrigin_Panels::premium_url() ) . '" style="color: #3db634" target="_blank">' . __('Addons', 'siteorigin-panels') . '</a>';
+		}
 
 		return $links;
 	}
@@ -156,7 +161,7 @@ class SiteOrigin_Panels_Admin {
 	 *
 	 * @action save_post
 	 */
-	function save_post( $post_id, $post ) {
+	function save_post( $post_id ) {
 		// Check that everything is valid with this save.
 		if(
 			$this->in_save_post ||
@@ -169,8 +174,10 @@ class SiteOrigin_Panels_Admin {
 			return;
 		}
 		$this->in_save_post     = true;
-		$old_panels_data        = get_post_meta( $post_id, 'panels_data', true );
-		$panels_data            = json_decode( wp_unslash( $_POST['panels_data'] ), true );
+		// Get post from db as it might have been changed and saved by other plugins.
+		$post = get_post( $post_id );
+		$old_panels_data = get_post_meta( $post_id, 'panels_data', true );
+		$panels_data = json_decode( wp_unslash( $_POST['panels_data'] ), true );
 
 		$panels_data['widgets'] = $this->process_raw_widgets(
 			$panels_data['widgets'],
@@ -241,6 +248,7 @@ class SiteOrigin_Panels_Admin {
 
 			$widgets = $this->get_widgets();
 			$directory_enabled = get_user_meta( get_current_user_id(), 'so_panels_directory_enabled', true );
+			$tutorials_enabled = get_user_meta( get_current_user_id(), 'so_panels_tutorials_enabled', true );
 
 			// This is the widget we'll use for default text
 			if( ! empty( $widgets[ 'SiteOrigin_Widget_Editor_Widget' ] ) ) $text_widget = 'SiteOrigin_Widget_Editor_Widget';
@@ -265,7 +273,9 @@ class SiteOrigin_Panels_Admin {
 				) ),
 				'row_layouts'               => apply_filters( 'siteorigin_panels_row_layouts', array() ),
 				'directory_enabled'         => ! empty( $directory_enabled ),
+				'tutorials_enabled'         => ! empty( $tutorials_enabled ),
 				'copy_content'              => siteorigin_panels_setting( 'copy-content' ),
+				'cache'						=> array(),
 
 				// Settings for the contextual menu
 				'contextual'                => array(

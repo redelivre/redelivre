@@ -62,6 +62,65 @@
 .siteorigin-panels-builder .so-tool-button:hover span {
   color: #444444;
 }
+.siteorigin-panels-builder .so-tool-button-wrapper {
+  float: left;
+  position: relative;
+}
+.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  z-index: 100;
+  width: 300px;
+  margin-left: -140px;
+  box-sizing: border-box;
+  min-height: 114px;
+  white-space: normal;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul {
+  margin: 0 0 20px 0;
+}
+.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul li {
+  line-height: 1.4em;
+  margin-bottom: 0.8em;
+  font-size: 0.925em;
+}
+.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul li a {
+  display: block;
+  font-weight: 500;
+  text-decoration: none;
+}
+.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul li small {
+  font-size: 0.95em;
+  display: block;
+  line-height: 1.4em;
+  max-height: 2.8em;
+  overflow: hidden;
+  color: #777;
+}
+.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown.so-loading {
+  background-image: url("images/wpspin_light.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown.so-loading {
+    background-image: url(images/wpspin_light-2x.gif);
+    background-size: 16px 16px;
+  }
+}
+.siteorigin-panels-builder .so-tool-button-wrapper:hover .so-tool-button-dropdown {
+  display: block;
+}
 .siteorigin-panels-builder .so-builder-toolbar {
   -ms-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -72,7 +131,6 @@
   line-height: 1em;
   z-index: 101;
   white-space: nowrap;
-  overflow-x: hidden;
   position: relative;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   top: 0;
@@ -111,7 +169,8 @@
 .siteorigin-panels-builder .so-builder-toolbar .so-tool-button:hover .so-panels-icon {
   color: #444444;
 }
-.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn {
+.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn,
+.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-premium {
   background: #e5e5e5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e5e5e5), color-stop(1, #f6f6f6));
   background: -ms-linear-gradient(bottom, #e5e5e5, #f6f6f6);
@@ -119,7 +178,8 @@
   background: -o-linear-gradient(#f6f6f6, #e5e5e5);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#e5e5e5', GradientType=0);
 }
-.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn:hover {
+.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn:hover,
+.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-premium:hover {
   background: #FFFFFF;
 }
 .siteorigin-panels-builder .so-builder-toolbar .so-switch-to-standard {
@@ -600,8 +660,9 @@
 .siteorigin-panels-builder.so-display-narrow .so-builder-toolbar > .so-tool-button span.so-button-text {
   display: none;
 }
-.siteorigin-panels-builder.so-display-narrow .so-builder-toolbar > .so-tool-button.so-learn {
-  display: none;
+.siteorigin-panels-builder.so-display-narrow .so-builder-toolbar .so-learn-wrapper,
+.siteorigin-panels-builder.so-display-narrow .so-builder-toolbar .so-premium {
+  display: none !important;
 }
 .siteorigin-panels-builder.so-display-narrow .so-builder-toolbar .so-switch-to-standard {
   display: none !important;

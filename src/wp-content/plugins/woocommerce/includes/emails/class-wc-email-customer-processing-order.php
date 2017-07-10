@@ -25,10 +25,9 @@ class WC_Email_Customer_Processing_Order extends WC_Email {
 	public function __construct() {
 		$this->id               = 'customer_processing_order';
 		$this->customer_email   = true;
+
 		$this->title            = __( 'Processing order', 'woocommerce' );
 		$this->description      = __( 'This is an order notification sent to customers containing order details after payment.', 'woocommerce' );
-		$this->heading          = __( 'Thank you for your order', 'woocommerce' );
-		$this->subject          = __( 'Your {site_title} order receipt from {order_date}', 'woocommerce' );
 		$this->template_html    = 'emails/customer-processing-order.php';
 		$this->template_plain   = 'emails/plain/customer-processing-order.php';
 
@@ -39,6 +38,26 @@ class WC_Email_Customer_Processing_Order extends WC_Email {
 
 		// Call parent constructor
 		parent::__construct();
+	}
+
+	/**
+	 * Get email subject.
+	 *
+	 * @since  3.1.0
+	 * @return string
+	 */
+	public function get_default_subject() {
+		return __( 'Your {site_title} order receipt from {order_date}', 'woocommerce' );
+	}
+
+	/**
+	 * Get email heading.
+	 *
+	 * @since  3.1.0
+	 * @return string
+	 */
+	public function get_default_heading() {
+		return __( 'Thank you for your order', 'woocommerce' );
 	}
 
 	/**
@@ -67,7 +86,9 @@ class WC_Email_Customer_Processing_Order extends WC_Email {
 			return;
 		}
 
+		$this->setup_locale();
 		$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+		$this->restore_locale();
 	}
 
 	/**

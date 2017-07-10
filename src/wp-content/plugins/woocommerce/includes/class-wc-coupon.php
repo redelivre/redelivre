@@ -632,7 +632,7 @@ class WC_Coupon extends WC_Legacy_Coupon {
 	 * @throws WC_Data_Exception
 	 */
 	public function set_email_restrictions( $emails = array() ) {
-		$emails = array_filter( array_map( 'sanitize_email', (array) $emails ) );
+		$emails = array_filter( array_map( 'sanitize_email', array_map( 'strtolower', (array) $emails ) ) );
 		foreach ( $emails as $email ) {
 			if ( ! is_email( $email ) ) {
 				$this->error( 'coupon_invalid_email_address', __( 'Invalid email address restriction', 'woocommerce' ) );
@@ -789,7 +789,6 @@ class WC_Coupon extends WC_Legacy_Coupon {
 			$user_id = get_current_user_id();
 		}
 		if ( $this->get_usage_limit_per_user() > 0 && is_user_logged_in() && $this->get_id() && $this->data_store ) {
-			global $wpdb;
 			$usage_count = $this->data_store->get_usage_by_user_id( $this, $user_id );
 			if ( $usage_count >= $this->get_usage_limit_per_user() ) {
 				throw new Exception( self::E_WC_COUPON_USAGE_LIMIT_REACHED );
@@ -861,6 +860,9 @@ class WC_Coupon extends WC_Legacy_Coupon {
 			$valid_for_cart = false;
 			if ( ! WC()->cart->is_empty() ) {
 				foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+					if ( $this->get_exclude_sale_items() && $cart_item['data'] && $cart_item['data']->is_on_sale() ) {
+						continue;
+					}
 					$product_cats = wc_get_product_cat_ids( $cart_item['product_id'] );
 
 					// If we find an item with a cat in our allowed cat list, the coupon is valid
@@ -964,7 +966,11 @@ class WC_Coupon extends WC_Legacy_Coupon {
 			$valid_for_cart = true;
 			if ( ! WC()->cart->is_empty() ) {
 				foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+					if ( $this->get_exclude_sale_items() && $cart_item['data'] && $cart_item['data']->is_on_sale() ) {
+						continue;
+					}
 					$product_cats = wc_get_product_cat_ids( $cart_item['product_id'] );
+
 					if ( sizeof( array_intersect( $product_cats, $this->get_excluded_product_categories() ) ) > 0 ) {
 						$valid_for_cart = false;
 					}
@@ -1019,8 +1025,10 @@ class WC_Coupon extends WC_Legacy_Coupon {
 	/**
 	 * Check if a coupon is valid for a product.
 	 *
-	 * @param  WC_Product  $product
-	 * @return boolean
+	 * @param  WC_Product $product
+	 * @param array $values
+	 *
+	 * @return bool
 	 */
 	public function is_valid_for_product( $product, $values = array() ) {
 		if ( ! $this->is_type( wc_get_product_coupon_types() ) ) {

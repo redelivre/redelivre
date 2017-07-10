@@ -246,7 +246,7 @@ SEND EMAILS TO POKED ONES
 */
 add_action( 'comment_post', 'mca_email_poked_ones', 90, 2 ); // Launching after spam test
 function mca_email_poked_ones( $comment_id, $approved ) {
-    if( add_filter( 'mca_send_email_on_mention', true ) && in_array( array( 1, 'approve' ), $approved ) ) {
+	if( add_filter( 'mca_send_email_on_mention', true ) && in_array( $approved, array( 1, 'approve' )) ) {
         $comment = get_comment( $comment_id );
         $prev_authors = mca_get_previous_commentators( $comment->comment_post_ID, $comment_id, true );
         $prev_authors = apply_filters( 'mca_filter_recipient', $prev_authors, $comment );

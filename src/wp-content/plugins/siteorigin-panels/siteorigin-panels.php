@@ -3,7 +3,7 @@
 Plugin Name: Page Builder by SiteOrigin
 Plugin URI: https://siteorigin.com/page-builder/
 Description: A drag and drop, responsive page builder that simplifies building your website.
-Version: 2.5.6
+Version: 2.5.8
 Author: SiteOrigin
 Author URI: https://siteorigin.com
 License: GPL3
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: http://siteorigin.com/page-builder/#donate
 */
 
-define( 'SITEORIGIN_PANELS_VERSION', '2.5.6' );
+define( 'SITEORIGIN_PANELS_VERSION', '2.5.8' );
 if ( ! defined( 'SITEORIGIN_PANELS_JS_SUFFIX' ) ) {
 	define( 'SITEORIGIN_PANELS_JS_SUFFIX', '.min' );
 }
@@ -263,7 +263,7 @@ class SiteOrigin_Panels {
 	}
 
 	/**
-	 * Filter the content of the panel, adding all the widgets.
+	 * Generate post content for the current post.
 	 *
 	 * @param $content
 	 *
@@ -314,15 +314,30 @@ class SiteOrigin_Panels {
 
 		return $content;
 	}
-
+	
+	/**
+	 * Generate CSS for the current post
+	 */
 	public function generate_post_css() {
 		if( is_singular() && get_post_meta( get_the_ID(), 'panels_data', true ) ) {
 			$renderer = SiteOrigin_Panels::renderer();
 			$renderer->add_inline_css( get_the_ID(), $renderer->generate_css( get_the_ID() ) );
 		}
 	}
-
+	
+	/**
+	 * Get cached post content for the current post
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
 	public function cached_post_content( $content ){
+		if( post_password_required( get_the_ID() ) ) {
+			// Don't use cache for password protected
+			return $this->generate_post_content( $content );
+		}
+		
 		if (
 			! in_the_loop() ||
 			! apply_filters( 'siteorigin_panels_filter_content_enabled', true ) ||
@@ -330,16 +345,26 @@ class SiteOrigin_Panels {
 		) {
 			return $content;
 		}
-
+		
 		$cache = SiteOrigin_Panels_Cache_Renderer::single();
-		return $cache->get( 'html', get_the_ID() );
+		$html = $cache->get( 'html', get_the_ID() );
+		
+		return $html;
 	}
-
+	
+	/**
+	 * Add cached CSS for the current post
+	 */
 	public function cached_post_css(){
+		if( post_password_required( get_the_ID() ) ) {
+			// Don't use cache for password protected
+			return $this->generate_post_css();
+		}
+		
 		if( is_singular() && get_post_meta( get_the_ID(), 'panels_data', true ) ) {
 			$cache = SiteOrigin_Panels_Cache_Renderer::single();
-			$stored = $cache->get( 'css', get_the_ID() );
-			SiteOrigin_Panels::renderer()->add_inline_css( get_the_ID(), $stored );
+			$css = $cache->get( 'css', get_the_ID() );
+			SiteOrigin_Panels::renderer()->add_inline_css( get_the_ID(), $css );
 		}
 	}
 
@@ -516,6 +541,31 @@ class SiteOrigin_Panels {
 	 */
 	public function strip_before_js(){
 		?><script type="text/javascript">document.body.className = document.body.className.replace("siteorigin-panels-before-js","");</script><?php
+	}
+	
+	/**
+	 * Should we display premium addon messages
+	 *
+	 * @return bool
+	 */
+	public static function display_premium_teaser(){
+		return siteorigin_panels_setting( 'display-teaser' ) &&
+			   apply_filters( 'siteorigin_premium_upgrade_teaser', true ) &&
+			   ! defined( 'SITEORIGIN_PREMIUM_VERSION' );
+	}
+	
+	/**
+	 * Get the premium upgrade URL
+	 *
+	 * @return string
+	 */
+	public static function premium_url() {
+		$ref = apply_filters( 'siteorigin_premium_affiliate_id', '' );
+		$url = 'https://siteorigin.com/downloads/premium/?featured_plugin=siteorigin-panels';
+		if( $ref ) {
+			$url = add_query_arg( 'ref', urlencode( $ref ), $url );
+		}
+		return $url;
 	}
 }
 

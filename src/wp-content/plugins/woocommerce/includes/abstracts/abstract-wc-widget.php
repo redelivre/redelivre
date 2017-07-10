@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Abstract Widget Class
  *
@@ -115,6 +119,8 @@ abstract class WC_Widget extends WP_Widget {
 	 * Output the html at the start of a widget.
 	 *
 	 * @param  array $args
+	 * @param array $instance
+	 *
 	 * @return string
 	 */
 	public function widget_start( $args, $instance ) {
@@ -196,6 +202,7 @@ abstract class WC_Widget extends WP_Widget {
 	 * Outputs the settings update form.
 	 *
 	 * @see   WP_Widget->form
+	 *
 	 * @param array $instance
 	 */
 	public function form( $instance ) {

@@ -1,42 +1,42 @@
 
-<table class="wp-list-table widefat sucuriscan-table sucuriscan-table-double-title sucuriscan-last-logins">
-    <thead>
-        <tr>
-            <th colspan="6" class="thead-with-button">
-                <span>User last logins (%%SUCURI.UserList.Total%%)</span>
-                <span class="thead-topright-action">
-                    <form action="%%SUCURI.URL.Lastlogins%%" method="post">
-                        <input type="hidden" name="sucuriscan_page_nonce" value="%%SUCURI.PageNonce%%" />
-                        <button type="submit" name="sucuriscan_reset_lastlogins" class="button button-primary">Reset logs</button>
-                    </form>
-                </span>
-            </th>
-        </tr>
-        <tr>
-            <th class="manage-column">&nbsp;</th>
-            <th class="manage-column">User</th>
-            <th class="manage-column">IP Address</th>
-            <th class="manage-column">Hostname</th>
-            <th class="manage-column">Date/Time</th>
-            <th class="manage-column">&nbsp;</th>
-        </tr>
-    </thead>
+<div class="sucuriscan-panel">
+    <h3 class="sucuriscan-title">@@SUCURI.LoginsAll@@</h3>
 
-    <tbody>
-        %%%SUCURI.UserList%%%
+    <div class="inside">
+        <p>@@SUCURI.LoginsAllInfo@@</p>
 
-        <tr class="sucuriscan-%%SUCURI.UserList.NoItemsVisibility%%">
-            <td colspan="6">
-                <em>No logs so far.</em>
-            </td>
-        </tr>
+        <table class="wp-list-table widefat sucuriscan-table sucuriscan-table-double-title sucuriscan-last-logins">
+            <thead>
+                <tr>
+                    <th colspan="5">@@SUCURI.LoginsAll@@</th>
+                </tr>
 
-        <tr class="sucuriscan-%%SUCURI.UserList.PaginationVisibility%%">
-            <td colspan="6">
-                <ul class="sucuriscan-pagination">
-                    %%%SUCURI.UserList.Pagination%%%
-                </ul>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                <tr>
+                    <th class="manage-column">@@SUCURI.Username@@</th>
+                    <th class="manage-column">@@SUCURI.RemoteAddr@@</th>
+                    <th class="manage-column">@@SUCURI.Hostname@@</th>
+                    <th class="manage-column">@@SUCURI.Datetime@@</th>
+                    <th class="manage-column">&nbsp;</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                %%%SUCURI.UserList%%%
+
+                <tr class="sucuriscan-%%SUCURI.UserList.NoItemsVisibility%%">
+                    <td colspan="5">
+                        <em>@@SUCURI.NoData@@</em>
+                    </td>
+                </tr>
+
+                <tr class="sucuriscan-%%SUCURI.UserList.PaginationVisibility%%">
+                    <td colspan="5">
+                        <ul class="sucuriscan-pagination">
+                            %%%SUCURI.UserList.Pagination%%%
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

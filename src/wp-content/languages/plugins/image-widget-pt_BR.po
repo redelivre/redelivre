@@ -1,0 +1,162 @@
+# Translation of Plugins - Image Widget - Stable (latest release) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - Image Widget - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2017-07-02 17:13:20+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: pt_BR\n"
+"Project-Id-Version: Plugins - Image Widget - Stable (latest release)\n"
+
+#. Description of the plugin/theme
+msgid "A simple image widget that uses the native WordPress media manager to add image widgets to your site. <strong>COMING SOON: <a href=\"http://m.tri.be/19m-\">Image Widget Plus</a> - Multiple images, slider and more.</strong>"
+msgstr "Um widget de imagem simples que usa o gerenciador de mídias nativo do WordPress para adicionar widgets de imagem no seu site. <strong>EM BREVE: <a href=\"http://m.tri.be/19m-\">Image Widget Plus</a> - Várias imagens, sliders e muito mais.</strong>"
+
+#. Author URI of the plugin/theme
+msgid "http://m.tri.be/iwpdoc"
+msgstr "http://m.tri.be/iwpdoc"
+
+#: image-widget.php:524
+msgid "<p class=\"dashicons-before dashicons-star-filled\"><strong>Image Widget Plus</strong> - Add lightbox, slideshow, and random image widgets. <strong><a href=\"%s\" target=\"_blank\">Find out how!</a></strong></p>"
+msgstr "<p class=\"dashicons-before dashicons-star-filled\"><strong>Image Widget Plus</strong> - Adicione widgets com lightbox, slideshows e imagens aleatórias. <strong><a href=\"%s\" target=\"_blank\">Descubra como!</a></strong></p>"
+
+#: image-widget.php:507
+msgid "<p class=\"dashicons-before dashicons-format-gallery\"><strong><a href=\"%s\" target=\"_blank\">Image Widget Plus</a></strong> is coming soon! Add random images, lightbox, and slider - <strong><a href=\"%s\">Sign up now for early access.</a></strong></p>"
+msgstr "<p class=\"dashicons-before dashicons-format-gallery\"><strong><a href=\"%s\" target=\"_blank\">Image Widget Plus</a></strong> está chegando em breve! Adicione imagens aleatórias, lightbox e sliders - <strong><a href=\"%s\">Cadastre-se agora para ter acesso antecipado.</a></strong></p>"
+
+#: image-widget.php:539
+msgid "Image Widget Plus"
+msgstr "Image Widget Plus"
+
+#: image-widget.php:539
+msgid "Coming Soon:"
+msgstr "Em breve:"
+
+#: views/widget-admin.php:31
+msgid "A recommended HTML5 related terms list is available <a href=\"http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions\" target=\"_blank\">here</a>."
+msgstr "Existe <a href=\"http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions\" target=\"_blank\"> aqui</a> uma lista disponível de termos relacionados de HTML5 recomendados."
+
+#: views/widget-admin.php:29
+msgid "Related"
+msgstr "Relacionado"
+
+#. Author of the plugin/theme
+msgid "Modern Tribe, Inc."
+msgstr "Modern Tribe, Inc."
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/plugins/image-widget/"
+msgstr "http://br.wordpress.org/plugins/image-widget/"
+
+#: image-widget.php:369
+msgid "Custom"
+msgstr "Personalizado"
+
+#: image-widget.php:368
+msgid "Large"
+msgstr "Grande"
+
+#: image-widget.php:367
+msgid "Medium"
+msgstr "Médio"
+
+#: image-widget.php:366
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: image-widget.php:365
+msgid "Full Size"
+msgstr "Tamanho máximo"
+
+#: views/widget-admin.php:49
+msgid "Size"
+msgstr "Tamanho"
+
+#: views/widget-admin.php:38
+msgid "Link ID"
+msgstr "ID do link"
+
+#: views/widget-admin.deprecated.php:49 views/widget-admin.php:26
+msgid "Alternate Text"
+msgstr "Texto alternativo"
+
+#: views/widget-admin.deprecated.php:46 views/widget-admin.php:74
+msgid "right"
+msgstr "direita"
+
+#: views/widget-admin.deprecated.php:45 views/widget-admin.php:73
+msgid "center"
+msgstr "centro"
+
+#: views/widget-admin.deprecated.php:44 views/widget-admin.php:72
+msgid "left"
+msgstr "esquerda"
+
+#: views/widget-admin.deprecated.php:43 views/widget-admin.php:71
+msgid "none"
+msgstr "nenhum"
+
+#: views/widget-admin.deprecated.php:41 views/widget-admin.php:69
+msgid "Align"
+msgstr "Alinhamento"
+
+#: views/widget-admin.deprecated.php:38 views/widget-admin.php:64
+msgid "Height"
+msgstr "Altura"
+
+#: views/widget-admin.deprecated.php:35 views/widget-admin.php:61
+msgid "Width"
+msgstr "Largura"
+
+#: views/widget-admin.deprecated.php:32 views/widget-admin.php:42
+msgid "Open New Window"
+msgstr "Abrir numa nova janela"
+
+#: views/widget-admin.deprecated.php:31 views/widget-admin.php:41
+msgid "Stay in Window"
+msgstr "Abrir na mesma janela"
+
+#: views/widget-admin.deprecated.php:28 views/widget-admin.php:36
+msgid "Link"
+msgstr "Link"
+
+#: views/widget-admin.deprecated.php:25 views/widget-admin.php:33
+msgid "Caption"
+msgstr "Legenda"
+
+#: views/widget-admin.deprecated.php:17
+msgid "Add Image"
+msgstr "Adicionar imagem"
+
+#: views/widget-admin.deprecated.php:17
+msgid "Change Image"
+msgstr "Trocar imagem"
+
+#: views/widget-admin.deprecated.php:13
+msgid "Image"
+msgstr "Imagem"
+
+#: views/widget-admin.deprecated.php:10 views/widget-admin.php:23
+msgid "Title"
+msgstr "Título"
+
+#: image-widget.php:81 lib/ImageWidgetDeprecated.php:66
+msgid "Insert Into Widget"
+msgstr "Inserir no widget"
+
+#: image-widget.php:80 views/widget-admin.php:13
+msgid "Select an Image"
+msgstr "Selecione uma imagem"
+
+#. #-#-#-#-#  tmp-image-widget.pot (Image Widget 4.4.1)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: image-widget.php:44
+msgid "Image Widget"
+msgstr "Image Widget"
+
+#: image-widget.php:42
+msgid "Showcase a single image with a Title, URL, and a Description"
+msgstr "Apresente uma imagem única com um Título, URL e uma Descrição"
