@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PWDAtual=`pwd`
+APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
 
 git pull;
 
@@ -42,8 +43,19 @@ cd $PWDAtual/src/wp-content/themes/wp-divi-3
 git checkout divi-3.0-version
 git pull
 
-cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
-composer install
+if [ -d PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp ] ; then
+    cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
+    if [[ $EUID -ne 0 ]]; then
+        composer install
+    else
+        if [ ! -z "$APACHEUSER" ]; then
+            mkdir 
+            sudo -i -u $APACHEUSER composer install
+        else
+            echo composer need to be run by apache user or other
+        fi
+    fi
+fi
 
 if [ -d PWDAtual/src/wp-content/themes/wp-logincidadao ] ; then
     if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
@@ -55,7 +67,6 @@ if [ -d PWDAtual/src/wp-content/themes/wp-logincidadao ] ; then
     fi
 fi
 
-APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
 if [ ! -z "$APACHEUSER" ]; then
     if ( id -u $APACHEUSER >/dev/null 2>&1 ) ; then
         mkdir -p $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
