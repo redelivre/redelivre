@@ -219,3 +219,7 @@
 [submodule "src/wp-content/plugins/rest-api-oauth1"]
 	path = src/wp-content/plugins/rest-api-oauth1
 	url = https://github.com/WP-API/OAuth1
+[submodule "src/wp-content/plugins/assineja"]
+	path = src/wp-content/plugins/assineja
+	url = git@github.com:redelivre/assineja.git
+	branch = master
