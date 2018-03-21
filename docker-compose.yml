@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile      
+    env_file:
+     - ./Docker/.wp_env
+    environment:
+      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_TABLE_PREFIX=wp_
+      - WORDPRESS_DOMAIN_CURRENT_SITE=redelivre.localhost
+    volumes:
+      - ./volumes/wp-config.d:/var/www/html/wp-config.d
+      - ./volumes/wp-content/uploads:/var/www/html/wp-content/uploads
+    depends_on:
+      - mariadb
+    ports:
+      - "80:80"
+  mariadb:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpasswd
+      - MYSQL_USER=wordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_PASSWORD=wordpress
+      - TERM=xterm
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
