@@ -1,0 +1,79 @@
+.mks-ads-field-width {
+	width: 70%;
+}
+
+.mks-ads-select-image-btn{
+	width: 28%;
+    text-align: center;
+    min-width: 90px;
+}
+    
+
+.mks-ads-code-label {
+	display: block;
+}
+
+.mks-ads-container li {
+	margin-bottom: 20px; 
+	padding: 0; 
+	background: transparent;
+	position: relative;
+	cursor: move !important;
+}
+.mks-ads-container li span {
+	position: absolute;
+    right: -5px;
+    top: -4px;
+    padding: 6px;
+    color: #a00;
+    font-size: 22px;
+    cursor: pointer;
+
+}
+.mks-ads-container li span:hover {
+	color: red;
+}
+.mks-ads-container li label {
+	display: block;
+	padding-left: 3px;
+    padding-bottom: 2px;
+    padding-top: 5px;
+}
+
+/* Sortable style */
+.mks-ads-container li.mks-ads-sortable-drop {
+	background: transparent !important;
+	height: 198px;
+	border: 1px dashed #aba9a9;
+}
+
+.mks-ads-container li.ui-sortable-helper {
+	opacity: 0.8;
+}
+
+
+/* tabs */
+.mks-tabs-wrapper {
+	background: rgba(0,0,0,0.05);
+	padding: 5px 15px 10px; 
+}
+.mks-tabs-wrapper .mks-tab-content {
+	display: none;
+}
+.mks-tabs-wrapper .mks-tab-content.active {
+	display: block;
+}
+.mks-tabs li {
+	display: inline-block;
+    margin: 0;
+    padding: 7px 19px 7px ;
+    background: rgba(0,0,0,0.1);
+    border: 0;
+	margin-right: -3px;
+	cursor: pointer !important;
+	color: #444;
+	font-weight: 600;
+}
+.mks-tabs li.active {
+	background: rgba(0,0,0,0.05);
+}

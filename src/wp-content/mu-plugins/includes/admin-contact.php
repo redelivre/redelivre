@@ -17,13 +17,23 @@ function campanha_contact_init(){
 /**
  * Load up the menu page
  */
-function campanha_contact_add_page() {
-    
-    //Se o tema ativo não suportar, não damos essa opção:
-    if ( !file_exists(STYLESHEETPATH . '/tpl-contato.php') && !file_exists(TEMPLATEPATH . '/tpl-contato.php'))
-        return;
-    
-    add_menu_page('Página de Contato', 'Página de Contato', 'read', 'campaign_contact', 'campanha_contact_do_page');
+function campanha_contact_add_page()
+{
+    if(defined('REDELIVRE_ADMIN_MENU_BASE_PAGE'))
+    {
+	    add_submenu_page(
+	    	REDELIVRE_ADMIN_MENU_BASE_PAGE,
+	    	__('Contact Page','redelivre'),
+	    	__('Contact Page','redelivre'),
+	    	'manage_options',
+	    	'campaign_contact',
+	    	'campanha_contact_do_page'
+	    );
+    }
+    else
+    {
+    	add_menu_page(__('Contact Page','redelivre'), __('Contact Page','redelivre'), 'manage_options', 'campaign_contact', 'campanha_contact_do_page');
+    }
 }
 
 /**

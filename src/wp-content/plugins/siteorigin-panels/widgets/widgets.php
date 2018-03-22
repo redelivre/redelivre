@@ -22,7 +22,7 @@ function origin_widgets_init(){
 add_action('widgets_init', 'origin_widgets_init');
 
 function origin_widgets_enqueue($prefix){
-	if($prefix == 'widgets.php') wp_enqueue_script('origin-widgets-admin-script', plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'/widgets/js/admin.js', array('jquery'), SITEORIGIN_PANELS_VERSION);
+	if($prefix == 'widgets.php') wp_enqueue_script('origin-widgets-admin-script', plugin_dir_url( __FILE__ ).'js/admin.js', array('jquery'), SITEORIGIN_PANELS_VERSION);
 }
 add_action('admin_enqueue_scripts', 'origin_widgets_enqueue');
 
@@ -114,7 +114,7 @@ abstract class SiteOrigin_Panels_Widget extends WP_Widget{
 	function update($new, $old) {
 
 		// We wont clear cache if this is a preview
-		if(!siteorigin_panels_is_preview()){
+		if( !is_preview() ){
 			// Remove the old CSS file
 			if(!empty($old['origin_style'])) {
 				list($style, $preset) = explode(':', $old['origin_style']);
@@ -153,6 +153,19 @@ abstract class SiteOrigin_Panels_Widget extends WP_Widget{
 	 * @return string|void
 	 */
 	public function form($instance){
+
+		?>
+		<div style="margin-bottom: 20px;">
+			<strong>
+				<?php
+				_e( 'This is a legacy widget. ', 'siteorigin-panels' );
+				_e( 'Ideally you should move to using widgets from the SiteOrigin Widgets Bundle instead. ', 'siteorigin-panels' );
+				_e( "It'll be moved to a separate plugin after Page Builder 2.6 is released. ", 'siteorigin-panels' );
+				echo '<a href="https://siteorigin.com/widgets-bundle/" target="_blank">' . __( 'Widgets Bundle', 'siteorigin-panels' ) . '</a>';
+				?>
+			</strong>
+		</div>
+		<?php
 
 		foreach($this->form_args as $field_id => $field_args) {
 			if(isset($field_args['default']) && !isset($instance[$field_id])) {
@@ -449,7 +462,7 @@ abstract class SiteOrigin_Panels_Widget extends WP_Widget{
 			$folders = array(
 				get_stylesheet_directory().'/widgets' => get_stylesheet_directory_uri().'/widgets/widgets',
 				get_template_directory().'/widgets' => get_template_directory_uri().'/widgets',
-				plugin_dir_path(SITEORIGIN_PANELS_BASE_FILE).'widgets/widgets' => plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'widgets/widgets',
+				plugin_dir_path( __FILE__ ) . 'widgets' => plugin_dir_url( __FILE__ ).'widgets',
 			);
 			$folders = apply_filters('siteorigin_widget_folders', $folders);
 		}
@@ -468,7 +481,7 @@ abstract class SiteOrigin_Panels_Widget extends WP_Widget{
 			$folders = array(
 				get_stylesheet_directory().'/widgets/img' => get_stylesheet_directory_uri().'/widgets/img',
 				get_template_directory().'/widgets/img' => get_template_directory_uri().'/widgets/img',
-				plugin_dir_path(SITEORIGIN_PANELS_BASE_FILE).'widgets/img' => plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'widgets/img',
+				plugin_dir_path( __FILE__ ) . 'img' => plugin_dir_url( __FILE__ ) . 'img',
 			);
 			$folders = apply_filters('siteorigin_widget_image_folders', $folders);
 		}
@@ -854,10 +867,10 @@ class SiteOrigin_Panels_Widgets_EmbeddedVideo extends WP_Widget {
 		$embed = new WP_Embed();
 
 		if(!wp_script_is('fitvids'))
-			wp_enqueue_script('fitvids', plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'widgets/js/jquery.fitvids.js', array('jquery'), SITEORIGIN_PANELS_VERSION);
+			wp_enqueue_script('fitvids', plugin_dir_url( __FILE__ ) . 'js/jquery.fitvids.js', array('jquery'), SITEORIGIN_PANELS_VERSION);
 
 		if(!wp_script_is('siteorigin-panels-embedded-video'))
-			wp_enqueue_script('siteorigin-panels-embedded-video', plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'widgets/js/embedded-video.js', array('jquery', 'fitvids'), SITEORIGIN_PANELS_VERSION);
+			wp_enqueue_script('siteorigin-panels-embedded-video', plugin_dir_url( __FILE__ ).'js/embedded-video.js', array('jquery', 'fitvids'), SITEORIGIN_PANELS_VERSION);
 
 		echo $args['before_widget'];
 		?><div class="siteorigin-fitvids"><?php echo $embed->run_shortcode( '[embed]' . $instance['video'] . '[/embed]' ) ?></div><?php
@@ -970,7 +983,7 @@ function siteorigin_panels_video_shortcode($atts){
 	$instance = shortcode_atts( array(
 		'url' => '',
 		'src' => '',
-		'poster' => plugin_dir_url(SITEORIGIN_PANELS_BASE_FILE).'video/poster.jpg',
+		'poster' => '',
 		'skin' => 'siteorigin',
 		'ratio' => 1.777,
 		'autoplay' => 0,

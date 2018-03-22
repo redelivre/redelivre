@@ -3,27 +3,32 @@
 ** A base module for [select] and [select*]
 **/
 
-/* Shortcode handler */
+/* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_shortcode_select' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_select' );
 
-function wpcf7_add_shortcode_select() {
-	wpcf7_add_shortcode( array( 'select', 'select*' ),
-		'wpcf7_select_shortcode_handler', true );
+function wpcf7_add_form_tag_select() {
+	wpcf7_add_form_tag( array( 'select', 'select*' ),
+		'wpcf7_select_form_tag_handler',
+		array(
+			'name-attr' => true,
+			'selectable-values' => true,
+		)
+	);
 }
 
-function wpcf7_select_shortcode_handler( $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
-
-	if ( empty( $tag->name ) )
+function wpcf7_select_form_tag_handler( $tag ) {
+	if ( empty( $tag->name ) ) {
 		return '';
+	}
 
 	$validation_error = wpcf7_get_validation_error( $tag->name );
 
 	$class = wpcf7_form_controls_class( $tag->type );
 
-	if ( $validation_error )
+	if ( $validation_error ) {
 		$class .= ' wpcf7-not-valid';
+	}
 
 	$atts = array();
 
@@ -31,14 +36,27 @@ function wpcf7_select_shortcode_handler( $tag ) {
 	$atts['id'] = $tag->get_id_option();
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
 
-	if ( $tag->is_required() )
+	if ( $tag->is_required() ) {
 		$atts['aria-required'] = 'true';
+	}
 
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
 	$multiple = $tag->has_option( 'multiple' );
 	$include_blank = $tag->has_option( 'include_blank' );
 	$first_as_label = $tag->has_option( 'first_as_label' );
+
+	if ( $tag->has_option( 'size' ) ) {
+		$size = $tag->get_option( 'size', 'int', true );
+
+		if ( $size ) {
+			$atts['size'] = $size;
+		} elseif ( $multiple ) {
+			$atts['size'] = 4;
+		} else {
+			$atts['size'] = 1;
+		}
+	}
 
 	$values = $tag->values;
 	$labels = $tag->labels;
@@ -98,7 +116,8 @@ function wpcf7_select_shortcode_handler( $tag ) {
 
 		$item_atts = array(
 			'value' => $value,
-			'selected' => $selected ? 'selected' : '' );
+			'selected' => $selected ? 'selected' : '',
+		);
 
 		$item_atts = wpcf7_format_atts( $item_atts );
 
@@ -108,8 +127,9 @@ function wpcf7_select_shortcode_handler( $tag ) {
 			$item_atts, esc_html( $label ) );
 	}
 
-	if ( $multiple )
+	if ( $multiple ) {
 		$atts['multiple'] = 'multiple';
+	}
 
 	$atts['name'] = $tag->name . ( $multiple ? '[]' : '' );
 
@@ -129,14 +149,13 @@ add_filter( 'wpcf7_validate_select', 'wpcf7_select_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_select*', 'wpcf7_select_validation_filter', 10, 2 );
 
 function wpcf7_select_validation_filter( $result, $tag ) {
-	$tag = new WPCF7_Shortcode( $tag );
-
 	$name = $tag->name;
 
 	if ( isset( $_POST[$name] ) && is_array( $_POST[$name] ) ) {
 		foreach ( $_POST[$name] as $key => $value ) {
-			if ( '' === $value )
+			if ( '' === $value ) {
 				unset( $_POST[$name][$key] );
+			}
 		}
 	}
 
@@ -165,7 +184,7 @@ function wpcf7_tag_generator_menu( $contact_form, $args = '' ) {
 
 	$description = __( "Generate a form-tag for a drop-down menu. For more details, see %s.", 'contact-form-7' );
 
-	$desc_link = wpcf7_link( __( 'http://contactform7.com/checkboxes-radio-buttons-and-menus/', 'contact-form-7' ), __( 'Checkboxes, Radio Buttons and Menus', 'contact-form-7' ) );
+	$desc_link = wpcf7_link( __( 'https://contactform7.com/checkboxes-radio-buttons-and-menus/', 'contact-form-7' ), __( 'Checkboxes, Radio Buttons and Menus', 'contact-form-7' ) );
 
 ?>
 <div class="control-box">

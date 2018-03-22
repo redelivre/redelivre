@@ -43,6 +43,23 @@ function em_init_actions() {
 			echo EM_Object::json_encode($json_locations);
 		 	die();   
 	 	}
+		if(isset($_REQUEST['query']) && $_REQUEST['query'] == 'GlobalEventsMapData') {
+			$_REQUEST['has_location'] = true; //we're looking for locations in this context, so locations necessary
+			$EM_Events = EM_Events::get( $_REQUEST );
+			$json_locations = array();
+			$locations = array();
+			foreach($EM_Events as $EM_Event) {
+				if( !empty($EM_Event->location_id) && empty($locations[$EM_Event->location_id]) ){
+					$EM_Location = $EM_Event->get_location();
+					$location_array = $EM_Event->get_location()->to_array();
+					$location_array['location_balloon'] = $EM_Location->output(get_option('dbem_map_text_format'));
+					$json_locations[] = $location_array;
+					$locations[$EM_Event->location_id] = true;
+				}
+			}
+			echo EM_Object::json_encode($json_locations);
+		 	die();   
+	 	}
 	
 		if(isset($_REQUEST['ajaxCalendar']) && $_REQUEST['ajaxCalendar']) {
 			//FIXME if long events enabled originally, this won't show up on ajax call
@@ -91,7 +108,7 @@ function em_init_actions() {
 				$EM_Notices->add_error($EM_Event->errors, true);
 				wp_redirect( em_wp_get_referer() );
 			}else{
-				$EM_Notices->add_confirm($EM_Event->feedback_message, true);
+				$EM_Notices->add_confirm($event->feedback_message, true);
 				wp_redirect( $event->get_edit_url() );
 			}
 			exit();
@@ -202,7 +219,7 @@ function em_init_actions() {
 					$location_cond = " AND location_private=0";		    
 				}
 				$location_cond = apply_filters('em_actions_locations_search_cond', $location_cond);
-				$term = (isset($_REQUEST['term'])) ? '%'.$wpdb->esc_like(stripslashes($_REQUEST['term'])).'%' : '%'.$wpdb->esc_like(stripslashes($_REQUEST['q'])).'%';
+				$term = (isset($_REQUEST['term'])) ? '%'.$wpdb->esc_like(wp_unslash($_REQUEST['term'])).'%' : '%'.$wpdb->esc_like(wp_unslash($_REQUEST['q'])).'%';
 				$sql = $wpdb->prepare("
 					SELECT 
 						location_id AS `id`,
@@ -250,7 +267,7 @@ function em_init_actions() {
 		if ( $_REQUEST['action'] == 'booking_add') {
 			//ADD/EDIT Booking
 			ob_start();
-			if( !defined('WP_CACHE') || !WP_CACHE ) em_verify_nonce('booking_add');
+			if( (!defined('WP_CACHE') || !WP_CACHE) && !isset($GLOBALS["wp_fastest_cache"]) ) em_verify_nonce('booking_add');
 			if( !is_user_logged_in() || get_option('dbem_bookings_double') || !$EM_Event->get_bookings()->has_booking(get_current_user_id()) ){
 			    $EM_Booking->get_post();
 				$post_validation = $EM_Booking->validate();
@@ -434,9 +451,8 @@ function em_init_actions() {
 			em_verify_nonce('booking_modify_person_'.$EM_Booking->booking_id);
 			if( $EM_Booking->can_manage('manage_bookings','manage_others_bookings') ){
 			    global $wpdb;
-			    $no_user = get_option('dbem_bookings_registration_disable') && $EM_Booking->get_person()->ID == get_option('dbem_bookings_registration_user');
 				if( //save just the booking meta, avoid extra unneccesary hooks and things to go wrong
-					$no_user && $EM_Booking->get_person_post() && 
+					$EM_Booking->is_no_user() && $EM_Booking->get_person_post() && 
 			    	$wpdb->update(EM_BOOKINGS_TABLE, array('booking_meta'=> serialize($EM_Booking->booking_meta)), array('booking_id'=>$EM_Booking->booking_id))
 				){
 					$EM_Notices->add_confirm( $EM_Booking->feedback_message, true );
@@ -452,7 +468,7 @@ function em_init_actions() {
 			do_action('em_booking_modify_person', $EM_Event, $EM_Booking);
 		}elseif( $_REQUEST['action'] == 'bookings_add_note' && $EM_Booking->can_manage('manage_bookings','manage_others_bookings') ) {
 			em_verify_nonce('bookings_add_note');
-			if( $EM_Booking->add_note(stripslashes($_REQUEST['booking_note'])) ){
+			if( $EM_Booking->add_note(wp_unslash($_REQUEST['booking_note'])) ){
 				$EM_Notices->add_confirm($EM_Booking->feedback_message, true);
 				$redirect = !empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : em_wp_get_referer();
 				wp_redirect( $redirect );

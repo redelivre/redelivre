@@ -1,51 +1,102 @@
 === Image Widget ===
-Contributors: ModernTribe, peterchester, borkweb, zbtirrell
+Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4BSPTNFFY6AL6
-Tags: widget, image, ad, banner, simple, upload, sidebar, admin, thickbox, resize, arabic, brazilian portuguese, dutch, german, hebrew, italian, japanese, polish, spanish, swedish, widget-only
+Tags: widget, image, ad, banner, simple, upload, sidebar, retina, admin, thickbox, resize, arabic, brazilian portuguese, dutch, german, hebrew, italian, japanese, polish, spanish, swedish, widget-only
 Requires at least: 3.5
-Tested up to: 4.4.2
-Stable tag: 4.2.2
-
-== Description ==
+Tested up to: 4.8
+Stable tag: 4.4.5
 
 A simple image widget that uses the native WordPress media manager to add image widgets to your site.
 
+== Description ==
+
+Image Widget is a simple plugin that uses the native WordPress media manager to add image widgets to your site.
+
+Need to add slideshows, lightboxes, or random images?
+<strong>Check out [Image Widget Plus](http://m.tri.be/19mc)!</strong>
+
+= Image Widget Features =
+
+* Responsive
 * MU Compatible
 * Handles image resizing and alignment
 * Link the image
-* Title and Description
-* Very versatile.  All fields are optional.
-* Upload, link to external image, or select an image from your media collection using the built in thickbox browser.
-* Supports override of template so that you can override the template for your theme!
-* Responsive
+* Add title and description
+* Versatile - all fields are optional
+* Upload, link to external image, or select an image from your media collection
+* Customize the look & feel with filter hooks or theme overrides
+* Additional features available with [Image Widget Plus](http://m.tri.be/19mc)
 
-This plugin is actively supported and we will do our best to help you. In return we simply as 3 things:
+= Quality You Can Trust =
 
-1. Help Out. If you see a question on the forum you can help with or have a great idea and want to code it up and submit a patch, that would be just plain awesome and we will shower your with praise. Might even be a good way to get to know us and lead to some paid work if you freelance.  Also, we are happy to post translations if you provide them.
-1. [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4BSPTNFFY6AL6) - if this is generating enough revenue to support our time it makes all the difference in the world.
-1. Support us by buying our Premium plugins. In particular, check out [Events Calendar Pro](https://theeventscalendar.com/product/wordpress-events-calendar-pro/?src=imagewidget) and [Event Tickets Plus](https://theeventscalendar.com/product/wordpress-event-tickets-plus/?src=imagewidget).
+Image Widget is developed and maintained by [Modern Tribe](http://m.tri.be/19md), the same folks behind [The Events Calendar, Event Tickets, and a full suite of premium plugins](http://m.tri.be/19me).
 
-Note, we're also on github in case you want to add some pull requests or a fork!
+This plugin is actively supported by our team and contributions from community members. If you see a question in the forum you can help with or have a great idea and want to code it up or submit a patch, that would be awesome! Not only will we shower you with praise and thanks, it’s also a good way to get to know us and lead into options for paid work if you freelance.
 
-https://github.com/moderntribe/image-widget
+= Image Widget Plus! =
+
+Image Widget Plus features include:
+
+* Multiple image support
+* Random image
+* Slideshow
+* Lightbox
+
+[Check out Image Widget Plus now!](http://m.tri.be/19mg)
+
+= Pull Requests & Translations =
+
+[Check us out on GitHub](https://github.com/moderntribe/image-widget) to pull request changes.
+
+Translations can be submitted [here on WordPress.org](https://translate.wordpress.org/projects/wp-plugins/image-widget).
 
 == Installation ==
 
 = Install =
 
-1. In your WordPress administration, go to the Plugins page
-1. Activate the Image Widget plugin and a subpage for the plugin will appear
-   in your Manage menu.
-1. Go to the Appearance > Widget page and place the widget in your sidebar in the Design
+Getting started with Image Widget is a breeze!
 
-If you find any bugs or have any ideas, please mail us.
+1. Download and install the Image Widget plugin
+1. From your WordPress admin screen, select Plugins from the menu
+1. Activate the Image Widget plugin
+1. Go to Appearance > Widget to place the widget in your sidebar in the Design
 
-Please visit the forum for questions or comments: http://wordpress.org/tags/image-widget/
+If you run into any questions or have suggestions, please visit the forum to post questions or comments.
 
 = Requirements =
 
-* PHP 5.1 or above
+* PHP 5.2 or above
 * WordPress 3.5 or above
+
+== Screenshots ==
+
+1. Image Widget admin screen.
+1. Media manager integration.
+1. Image Widget on the front of a plain WordPress install.
+
+== Frequently Asked Questions ==
+
+= How do I log into my site to install this plugin? =
+
+Visit [the WordPress codex](https://codex.wordpress.org/Login_Trouble) for help with login troubles.
+
+= Can I display Image Widget on only one page? =
+
+Yes you can, however, this is not controlled through the Image Widget plugin directly - it is usually managed through a page-specific sidebar display.
+
+There are several solutions available to accomplish this. A quick search for “WordPress page-specific sidebar display” can help you find the best option for your site.
+
+= Is there a demo available?  =
+
+Though we do not have a demo available, we do have [screenshots available here](https://wordpress.org/plugins/image-widget/screenshots/).
+
+= How can I add lightbox, slider, or random image capabilities?  =
+
+These features are part of our Image Widget Plus plugin. You can learn more about [Image Widget Plus](http://m.tri.be/19mh) on our website.
+
+= Where do I go to file a bug or ask a question? =
+
+Please [visit the forum to post questions or comments](https://wordpress.org/support/plugin/image-widget/).
 
 == Documentation ==
 
@@ -154,6 +205,46 @@ define( 'I_HAVE_SUPPORTED_THE_IMAGE_WIDGET', true );
 For more info on the philosophy here, check out our [blog post](http://tri.be/define-i-have-donated-true/)
 
 == Changelog ==
+
+= [4.4.5] 2017-06-14 =
+
+* Fix issue with image URLs in the widget admin interface [80659]
+
+= [4.4.4] 2017-06-01 =
+
+* Tweak - Improve upsell notices display logic [78676]
+
+= 4.4.3 =
+
+* Fix - Fixed bug where selecting an image failed to trigger a Save & Publish in the Customizer (props to dsaric-dev for the fix)
+* Tweak - Roll-back to sidebar_admin_setup to enqueue resources for optimal plugin compatibility (props to megamenu for the heads up)
+
+= 4.4.2 =
+
+* Fix - fixed compatibility with WordPress versions prior to 4.4
+* Fix - proportional scaling of image within the widget editor
+* Fix - fix validation by avoiding empty attributes and only specifying sizes with srcset (thanks Zodiak1978)
+
+= 4.4.1 =
+
+* Fix - fixed some broken links
+
+= 4.4 =
+
+* Feature - Add srcset and size attribute support (props @philwp)
+* Tweak - Readme adjustments
+* Tweak - Additional refinements to notice code.
+
+= 4.3.1 =
+
+* Tweak - Upgrade admin notice code
+
+= 4.3 =
+
+* Translations - fixed compatibility with translate.wordpress.org
+* Translations - restored the pot file for easier community translations
+* Tweak - fixed a typo
+* Tweak - Minor code cleanup
 
 = 4.2.2 =
 
@@ -447,14 +538,3 @@ Also, several languages will no longer be supported until new translations are s
 
 http://wordpress.org/support/topic/image-widget-40-translations-needed-2
 
-== Screenshots ==
-
-1. Image Widget admin screen.
-1. Media manager integration.
-1. Image Widget on the front of a plain Wordpress install.
-
-== Frequently Asked Questions ==
-
-= Where do I go to file a bug or ask a question? =
-
-Please visit the forum for questions or comments: http://wordpress.org/tags/image-widget/

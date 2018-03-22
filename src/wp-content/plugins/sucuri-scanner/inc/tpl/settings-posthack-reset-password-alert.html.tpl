@@ -1,0 +1,2 @@
+
+@@SUCURI.PasswordChangeAlert@@

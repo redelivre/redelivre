@@ -132,10 +132,6 @@
 	path = src/wp-content/plugins/wpdialoga
 	url = https://github.com/redelivre/wpdialoga.git
 	branch = master
-[submodule "src/wp-content/themes/wp-logincidadao"]
-	path = src/wp-content/themes/wp-logincidadao
-	url = https://github.com/redelivre/wp-logincidadao.git
-	branch = master
 [submodule "src/wp-content/plugins/wpml-translation-management"]
 	path = src/wp-content/plugins/wpml-translation-management
 	url = git@gitlab.ethymos.com.br:ethymos/wpml-translation-management.git
@@ -156,7 +152,6 @@
 	path = src/wp-content/plugins/comment-attachment
 	url = https://github.com/wp-plugins/comment-attachment.git
         branch = master
-
 [submodule "src/wp-content/plugins/sendpress"]
 	path = src/wp-content/plugins/sendpress
 	url = https://github.com/brewlabs/sendpress.git
@@ -171,22 +166,62 @@
 	path = src/wp-content/plugins/BotaPressao
 	url = https://github.com/redelivre/BotaPressao.git
         branch = master
-
 [submodule "src/wp-content/themes/wp-divi-delibera"]
 	path = src/wp-content/themes/wp-divi-delibera
-	url = git@github.com:redelivre/wp-divi-delibera.git
-[submodule "src/wp-content/plugins/WP-API"]
-	path = src/wp-content/plugins/WP-API
-	url = https://github.com/WP-API/WP-API.git
+	url = https://github.com/redelivre/wp-divi-delibera.git
 [submodule "src/wp-content/plugins/rest-api-enabler"]
 	path = src/wp-content/plugins/rest-api-enabler
 	url = https://github.com/MickeyKay/rest-api-enabler.git
 [submodule "src/wp-content/plugins/custom-post-type-ui"]
 	path = src/wp-content/plugins/custom-post-type-ui
-	url = git@github.com:WebDevStudios/custom-post-type-ui.git
+	url = https://github.com/WebDevStudios/custom-post-type-ui.git
 [submodule "src/wp-content/plugins/wordpress-api-cors"]
 	path = src/wp-content/plugins/wordpress-api-cors
 	url = https://github.com/bjoernklose/wordpress-api-cors
 [submodule "src/wp-content/plugins/wp-barra-brasil"]
 	path = src/wp-content/plugins/wp-barra-brasil
-	url = git@github.com:redelivre/wp-barra-brasil.git
+	url = https://github.com/redelivre/wp-barra-brasil.git
+[submodule "src/wp-content/themes/wp-divi-3"]
+	path = src/wp-content/themes/wp-divi-3
+	url = https://github.com/redelivre/wp-divi
+[submodule "src/wp-content/plugins/wooredelivre"]
+	path = src/wp-content/plugins/wooredelivre
+	url = https://github.com/redelivre/wooredelivre.git
+	branch = master
+[submodule "src/wp-content/plugins/wordpress-mu-domain-mapping"]
+	path = src/wp-content/plugins/wordpress-mu-domain-mapping
+	url = https://github.com/redelivre/wordpress-mu-domain-mapping.git
+	branch = master
+[submodule "src/wp-content/plugins/facebook-instant-articles-wp"]
+	path = src/wp-content/plugins/facebook-instant-articles-wp
+	url = https://github.com/Automattic/facebook-instant-articles-wp.git
+	branch = master
+[submodule "src/wp-content/plugins/redevent"]
+	path = src/wp-content/plugins/redevent
+	url = https://github.com/redelivre/redevent.git
+	branch = master
+[submodule "src/wp-content/themes/tema-coletivo"]
+	path = src/wp-content/themes/tema-coletivo
+	url = https://github.com/redelivre/tema-coletivo
+[submodule "src/wp-content/themes/cultural"]
+	path = src/wp-content/themes/cultural
+	url = https://github.com/hacklabr/cultural
+	branch = master
+[submodule "src/wp-content/plugins/eletro-widgets"]
+	path = src/wp-content/plugins/eletro-widgets
+	url = https://github.com/redelivre/eletro-widgets.git
+	branch = master
+[submodule "src/wp-content/themes/redeninja"]
+	path = src/wp-content/themes/redeninja
+        url = https://github.com/ForaDoEixo/redeninja.git
+        branch = master
+[submodule "src/wp-content/themes/tainacan"]
+	path = src/wp-content/themes/tainacan
+	url = https://github.com/redelivre/tainacan.git
+[submodule "src/wp-content/themes/aspta_sage"]
+	path = src/wp-content/themes/aspta_sage
+	url = https://github.com/redelivre/aspta_sage
+	branch = master
+[submodule "src/wp-content/plugins/rest-api-oauth1"]
+	path = src/wp-content/plugins/rest-api-oauth1
+	url = https://github.com/WP-API/OAuth1

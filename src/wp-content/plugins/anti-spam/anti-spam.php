@@ -3,7 +3,7 @@
 Plugin Name: Anti-spam
 Plugin URI: http://wordpress.org/plugins/anti-spam/
 Description: No spam in comments. No captcha.
-Version: 4.2
+Version: 4.3
 Author: webvitaly
 Text Domain: anti-spam
 Author URI: http://web-profile.com.ua/wordpress/plugins/
@@ -20,7 +20,7 @@ $antispam_allow_trackbacks = false; // if true, than trackbacks will be allowed
 // trackbacks almost not used by users, but mostly used by spammers; pingbacks are always enabled
 // more about the difference between trackback and pingback - http://web-profile.com.ua/web/trackback-vs-pingback/
 
-define('ANTISPAM_PLUGIN_VERSION', '4.2');
+define('ANTISPAM_PLUGIN_VERSION', '4.3');
 
 $antispam_settings = array(
 	'send_spam_comment_to_admin' => $antispam_send_spam_comment_to_admin,
@@ -35,7 +35,7 @@ include('anti-spam-info.php');
 
 function antispam_enqueue_script() {
 	if (is_singular() && comments_open()) { // load script only for pages with comments form
-		wp_enqueue_script('anti-spam-script', plugins_url('/js/anti-spam-4.2.js', __FILE__), null, null, true);
+		wp_enqueue_script('anti-spam-script', plugins_url('/js/anti-spam-4.3.js', __FILE__), null, null, true);
 	}
 }
 add_action('wp_enqueue_scripts', 'antispam_enqueue_script');
@@ -104,21 +104,34 @@ function antispam_check_comment($commentdata) {
 
 	if ( ! is_user_logged_in() && $comment_type != 'pingback' && $comment_type != 'trackback') { // logged in user is not a spammer
 		$spam_flag = false;
-
-		if ( trim($_POST['antspm-q']) != date('Y') ) { // year-answer is wrong - it is spam
-			if ( trim($_POST['antspm-d']) != date('Y') ) { // extra js-only check: there is no js added input - it is spam
+		
+		$antspm_q = '';
+		if (isset($_POST['antspm-q'])) {
+			$antspm_q = trim($_POST['antspm-q']);
+		}
+		$antspm_d = '';
+		if (isset($_POST['antspm-d'])) {
+			$antspm_d = trim($_POST['antspm-d']);
+		}
+		$antspm_e = '';
+		if (isset($_POST['antspm-e-email-url-website'])) {
+			$antspm_e = trim($_POST['antspm-e-email-url-website']);
+		}
+		
+		if ( $antspm_q != date('Y') ) { // year-answer is wrong - it is spam
+			if ( $antspm_d != date('Y') ) { // extra js-only check: there is no js added input - it is spam
 				$spam_flag = true;
-				if (empty($_POST['antspm-q'])) { // empty answer - it is spam
-					$antispam_error_message .= 'Error: empty answer. ['.esc_attr( $_POST['antspm-q'] ).']<br> '.$rn;
+				if (empty($antspm_q)) { // empty answer - it is spam
+					$antispam_error_message .= 'Error: empty answer. ['.esc_attr( $antspm_q ).']<br> '.$rn;
 				} else {
-					$antispam_error_message .= 'Error: answer is wrong. ['.esc_attr( $_POST['antspm-q'] ).']<br> '.$rn;
+					$antispam_error_message .= 'Error: answer is wrong. ['.esc_attr( $antspm_q ).']<br> '.$rn;
 				}
 			}
 		}
 
-		if ( ! empty($_POST['antspm-e-email-url-website'])) { // trap field is not empty - it is spam
+		if ( ! empty($antspm_e)) { // trap field is not empty - it is spam
 			$spam_flag = true;
-			$antispam_error_message .= 'Error: field should be empty. ['.esc_attr( $_POST['antspm-e-email-url-website'] ).']<br> '.$rn;
+			$antispam_error_message .= 'Error: field should be empty. ['.esc_attr( $antspm_e ).']<br> '.$rn;
 		}
 
 		if ($spam_flag) { // it is spam

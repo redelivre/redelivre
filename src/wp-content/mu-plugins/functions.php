@@ -42,9 +42,14 @@ if (!is_main_site()) {
         add_action('admin_notices',            'campanha_admin_messages');
         add_action('admin_init',               'campanha_remove_menu_pages');
         add_action('load-ms-delete-site.php',  'campanha_remove_exclude_site_page_content');
-        add_action('wp_dashboard_setup',       'campannha_dashboard_widget');
+        add_action('wp_dashboard_setup',       'campanha_dashboard_widget');
         add_action('load-options-general.php', 'campanha_custom_options_strings');
-        add_action('wp_print_scripts',         'campanha_uservoice_js');
+        $sets = getPlataformSettings();
+        
+        if($sets['value']['ShowUserVoice'] == 'S' && !empty($sets['value']['UserVoiceKey']))
+        {
+        	add_action('wp_print_scripts',         'campanha_uservoice_js');
+        }
 
         add_filter('query_vars',                              'campaign_base_custom_query_vars');
         add_filter('rewrite_rules_array',                     'campaign_base_custom_url_rewrites', 10, 1);
@@ -58,6 +63,9 @@ if (!is_main_site()) {
             global $wp_rewrite;
             $wp_rewrite->flush_rules();
         }
+        
+        load_muplugin_textdomain('redelivre', 'languages');
+        
     });
 }
 
@@ -126,6 +134,31 @@ function campaign_base_custom_url_rewrites($rules) {
     return $new_rules + $rules;
 }
 
+function campaign_base_check_rewrite()
+{
+	global $wp_rewrite;
+
+	$rules = $wp_rewrite->wp_rewrite_rules();
+	$found = false;
+
+	if(is_array($rules))
+	{
+		foreach ($rules as $rule)
+		{
+			if(strpos($rule, 'contato') !== false)
+			{
+				$found = true;
+				break;
+			}
+		}
+		if ( ! $found )
+		{
+			$wp_rewrite->flush_rules();
+		}
+	}
+}
+add_action( 'init' , 'campaign_base_check_rewrite' );
+
 function campaign_base_template_redirect_intercept() {
     global $wp_query, $campaign;
 
@@ -156,9 +189,9 @@ function campaign_base_template_redirect_intercept() {
             } elseif (file_exists(TEMPLATEPATH . '/tpl-contato.php')) { // tema pai
                 require(TEMPLATEPATH . '/tpl-contato.php');
             }
-            //else { template generico ?
-            //    require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
-            //}
+            else { //template generico ?
+                require(WPMU_PLUGIN_DIR . '/includes/tpl-contato.php');
+            }
 
             die;
         default:
@@ -271,9 +304,11 @@ function campanha_uservoice_js() {
     global $campaign;
     
     $capabilities = Capability::getByPlanId($campaign->plan_id);
+    $key = getPlataformSettings('UserVoiceKey');
 
     if (is_user_logged_in() && !is_super_admin() && $capabilities->support->value) {
         wp_enqueue_script('uservoice', site_url() . '/wp-content/mu-plugins/js/uservoice.js', 'jquery', false, true);
+        wp_localize_script('uservoice', 'redelivre_uservoice', array('key' => $key));
     }
 }
 
@@ -298,7 +333,7 @@ function campanha_disable_welcome_panel($userId) {
     update_user_meta($userId, 'show_welcome_panel', 0);
 }
 
-function campannha_dashboard_widget() {
+function campanha_dashboard_widget() {
     global $wp_meta_boxes;
     
     add_meta_box('campanha_dashboard_widget', 'Ajuda', function() {
@@ -944,31 +979,3 @@ function campanha_plugins_api_result($res )
 }
 add_filter('all_plugins', 'campanha_plugins_api_result', 1);
 
-function campanha_check_rewrite()
-{
-	$rules = get_option( 'rewrite_rules' );
-	$found1 = false;
-	$found2 = false;
-	if(is_array($rules))
-	{
-		foreach ($rules as $rule)
-		{
-			if(strpos($rule, 'materialgrafico') !== false)
-			{
-				$found1 = true;
-				if($found2) break;
-			}
-			if(strpos($rule, 'contato') !== false)
-			{
-				$found2 = true;
-				if($found1) break;
-			}
-		}
-		if ( ! $found1 || !$found2 )
-		{
-			global $wp_rewrite;
-			flush_rewrite_rules();
-		}
-	}
-}
-add_action('init', 'campanha_check_rewrite', 1000);

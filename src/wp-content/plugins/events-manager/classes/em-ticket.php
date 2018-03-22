@@ -157,11 +157,11 @@ class EM_Ticket extends EM_Object{
 		if( empty($post) ){
 		    $post = $_REQUEST;
 		}
-		do_action('em_location_get_post_pre', $this, $post);
+		do_action('em_ticket_get_post_pre', $this, $post);
 		$this->ticket_id = ( !empty($post['ticket_id']) && is_numeric($post['ticket_id']) ) ? $post['ticket_id']:'';
 		$this->event_id = ( !empty($post['event_id']) && is_numeric($post['event_id']) ) ? $post['event_id']:'';
-		$this->ticket_name = ( !empty($post['ticket_name']) ) ? wp_kses_data(stripslashes($post['ticket_name'])):'';
-		$this->ticket_description = ( !empty($post['ticket_description']) ) ? wp_kses(stripslashes($post['ticket_description']), $allowedposttags):'';
+		$this->ticket_name = ( !empty($post['ticket_name']) ) ? wp_kses_data(wp_unslash($post['ticket_name'])):'';
+		$this->ticket_description = ( !empty($post['ticket_description']) ) ? wp_kses(wp_unslash($post['ticket_description']), $allowedposttags):'';
 		//spaces and limits
 		$this->ticket_min = ( !empty($post['ticket_min']) && is_numeric($post['ticket_min']) ) ? $post['ticket_min']:'';
 		$this->ticket_max = ( !empty($post['ticket_max']) && is_numeric($post['ticket_max']) ) ? $post['ticket_max']:'';
@@ -249,16 +249,16 @@ class EM_Ticket extends EM_Object{
 		return apply_filters('em_ticket_validate', count($this->errors) == 0, $this );
 	}
 	
-	function is_available( $include_members_only = false, $include_guests_only = false ){
+	function is_available( $ignore_member_restrictions = false, $ignore_guest_restrictions = false ){
 		$timestamp = current_time('timestamp');
-		if( isset($this->is_available) && !$include_members_only && !$include_guests_only ) return apply_filters('em_ticket_is_available',  $this->is_available, $this); //save extra queries if doing a standard check
+		if( isset($this->is_available) && !$ignore_member_restrictions && !$ignore_guest_restrictions ) return apply_filters('em_ticket_is_available',  $this->is_available, $this); //save extra queries if doing a standard check
 		$is_available = false;
 		$EM_Event = $this->get_event();
 		$available_spaces = $this->get_available_spaces();
 		$condition_1 = (empty($this->ticket_start) || $this->start_timestamp <= $timestamp);
 		$condition_2 = $this->end_timestamp >= $timestamp || empty($this->ticket_end);
 		$condition_3 = (empty($EM_Event->event_rsvp_date) && $EM_Event->start > $timestamp) || $EM_Event->rsvp_end > $timestamp;
-		$condition_4 = !$this->ticket_members || ($this->ticket_members && is_user_logged_in()) || $include_members_only;
+		$condition_4 = !$this->ticket_members || ($this->ticket_members && is_user_logged_in()) || $ignore_member_restrictions;
 		$condition_5 = true;
 		if( !EM_Bookings::$disable_restrictions && $this->ticket_members && !empty($this->ticket_members_roles) ){
 			//check if user has the right role to use this ticket
@@ -270,26 +270,26 @@ class EM_Ticket extends EM_Object{
 				}
 			}
 		}
-		$condition_6 = !$this->ticket_guests || ($this->ticket_guests && !is_user_logged_in()) || $include_guests_only;
+		$condition_6 = !$this->ticket_guests || ($this->ticket_guests && !is_user_logged_in()) || $ignore_guest_restrictions;
 		if( $condition_1 && $condition_2 && $condition_3 && $condition_4 && $condition_5 && $condition_6 ){
 			//Time Constraints met, now quantities
 			if( $available_spaces > 0 && ($available_spaces >= $this->ticket_min || empty($this->ticket_min)) ){
 				$is_available = true;
 			}
 		}
-		if( !$include_members_only && !$include_guests_only ){ //$this->is_available is only stored for the viewing user
+		if( !$ignore_member_restrictions && !$ignore_guest_restrictions ){ //$this->is_available is only stored for the viewing user
 			$this->is_available = $is_available;
 		}
-		return apply_filters('em_ticket_is_available', $is_available, $this);
+		return apply_filters('em_ticket_is_available', $is_available, $this, $ignore_guest_restrictions, $ignore_member_restrictions);
 	}
 	
 	/**
 	 * Returns whether or not this ticket should be displayed based on availability and other ticket properties and general settings
 	 * @return boolean
 	 */
-	function is_displayable(){
+	function is_displayable( $ignore_member_restrictions = false, $ignore_guest_restrictions = false ){
 		$return = false;
-		if( $this->is_available() ){
+		if( $this->is_available($ignore_member_restrictions, $ignore_guest_restrictions) ){
 			$return = true;
 		}else{
 			if( get_option('dbem_bookings_tickets_show_unavailable') ){
@@ -299,7 +299,7 @@ class EM_Ticket extends EM_Object{
 				}
 			}
 		}
-		return apply_filters('em_ticket_is_displayable', $return, $this);;
+		return apply_filters('em_ticket_is_displayable', $return, $this, $ignore_guest_restrictions, $ignore_member_restrictions);
 	}
 	
 	/**
@@ -325,7 +325,7 @@ class EM_Ticket extends EM_Object{
 	 * @param boolean $format
 	 */
 	function get_price_with_tax( $format = false ){
-	    $price = $this->get_price_without_tax() * (1 + $this->get_event()->get_tax_rate()/100);
+	    $price = $this->get_price_without_tax() * (1 + $this->get_event()->get_tax_rate( true ));
 	    if( $format ) return $this->format_price($price);
 	    return $price; 
 	}

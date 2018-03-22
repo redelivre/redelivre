@@ -73,7 +73,7 @@ class EM_Location extends EM_Object {
 	var $post_date;
 	var $post_date_gmt;
 	var $post_title;
-	var $post_excerpt;
+	var $post_excerpt = '';
 	var $post_status;
 	var $comment_status;
 	var $ping_status;
@@ -203,8 +203,8 @@ class EM_Location extends EM_Object {
 	function get_post($validate = true){
 	    global $allowedtags;
 		do_action('em_location_get_post_pre', $this);
-		$this->location_name = ( !empty($_POST['location_name']) ) ? htmlspecialchars_decode(wp_kses_data(htmlspecialchars_decode(stripslashes($_POST['location_name'])))):'';
-		$this->post_content = ( !empty($_POST['content']) ) ? wp_kses( stripslashes($_POST['content']), $allowedtags):'';
+		$this->location_name = ( !empty($_POST['location_name']) ) ? htmlspecialchars_decode(wp_kses_data(htmlspecialchars_decode(wp_unslash($_POST['location_name'])))):'';
+		$this->post_content = ( !empty($_POST['content']) ) ? wp_kses( wp_unslash($_POST['content']), $allowedtags):'';
 		$this->get_post_meta(false);
 		$result = $validate ? $this->validate():true; //validate both post and meta, otherwise return true
 		$this->compat_keys();
@@ -218,12 +218,12 @@ class EM_Location extends EM_Object {
 	function get_post_meta($validate = true){
 		//We are getting the values via POST or GET
 		do_action('em_location_get_post_meta_pre', $this);
-		$this->location_address = ( !empty($_POST['location_address']) ) ? wp_kses(stripslashes($_POST['location_address']), array()):'';
-		$this->location_town = ( !empty($_POST['location_town']) ) ? wp_kses(stripslashes($_POST['location_town']), array()):'';
-		$this->location_state = ( !empty($_POST['location_state']) ) ? wp_kses(stripslashes($_POST['location_state']), array()):'';
-		$this->location_postcode = ( !empty($_POST['location_postcode']) ) ? wp_kses(stripslashes($_POST['location_postcode']), array()):'';
-		$this->location_region = ( !empty($_POST['location_region']) ) ? wp_kses(stripslashes($_POST['location_region']), array()):'';
-		$this->location_country = ( !empty($_POST['location_country']) ) ? wp_kses(stripslashes($_POST['location_country']), array()):'';
+		$this->location_address = ( !empty($_POST['location_address']) ) ? wp_kses(wp_unslash($_POST['location_address']), array()):'';
+		$this->location_town = ( !empty($_POST['location_town']) ) ? wp_kses(wp_unslash($_POST['location_town']), array()):'';
+		$this->location_state = ( !empty($_POST['location_state']) ) ? wp_kses(wp_unslash($_POST['location_state']), array()):'';
+		$this->location_postcode = ( !empty($_POST['location_postcode']) ) ? wp_kses(wp_unslash($_POST['location_postcode']), array()):'';
+		$this->location_region = ( !empty($_POST['location_region']) ) ? wp_kses(wp_unslash($_POST['location_region']), array()):'';
+		$this->location_country = ( !empty($_POST['location_country']) ) ? wp_kses(wp_unslash($_POST['location_country']), array()):'';
 		$this->location_latitude = ( !empty($_POST['location_latitude']) && is_numeric($_POST['location_latitude']) ) ? $_POST['location_latitude']:'';
 		$this->location_longitude = ( !empty($_POST['location_longitude']) && is_numeric($_POST['location_longitude']) ) ? $_POST['location_longitude']:'';
 		//Sort out event attributes - note that custom post meta now also gets inserted here automatically (and is overwritten by these attributes)
@@ -236,9 +236,9 @@ class EM_Location extends EM_Object {
 					if( (in_array($att_key, $location_available_attributes['names']) || array_key_exists($att_key, $this->location_attributes) ) ){
 						$att_vals = count($location_available_attributes['values'][$att_key]);
 						if( $att_vals == 0 || ($att_vals > 0 && in_array($att_value, $location_available_attributes['values'][$att_key])) ){
-							$this->location_attributes[$att_key] = stripslashes($att_value);
+							$this->location_attributes[$att_key] = wp_unslash($att_value);
 						}elseif($att_vals > 0){
-							$this->location_attributes[$att_key] = stripslashes(wp_kses($location_available_attributes['values'][$att_key][0], $allowedtags));
+							$this->location_attributes[$att_key] = wp_unslash(wp_kses($location_available_attributes['values'][$att_key][0], $allowedtags));
 						}
 					}
 				}
@@ -317,6 +317,9 @@ class EM_Location extends EM_Object {
 			} 
 		}else{
 			$post_array['post_status'] = 'draft';
+		}
+		if( !empty($this->force_status) ){
+			$post_array['post_status'] = $this->force_status;
 		}
 		//Anonymous submission
 		if( !is_user_logged_in() && get_option('dbem_events_anonymous_submissions') && empty($this->location_id) ){
@@ -462,38 +465,47 @@ class EM_Location extends EM_Object {
 	
 	/**
 	 * Change the status of the location. This will save to the Database too. 
-	 * @param int $status
-	 * @param boolean $set_post_status
+	 * @param int $status 				A number to change the status to, which may be -1 for trash, 1 for publish, 0 for pending or null if draft.
+	 * @param boolean $set_post_status 	If set to true the wp_posts table status will also be changed to the new corresponding status.
 	 * @return string
 	 */
 	function set_status($status, $set_post_status = false){
 		global $wpdb;
+		//decide on what status to set and update wp_posts in the process
 		if($status === null){ 
-			$set_status='NULL'; 
+			$set_status='NULL'; //draft post
 			if($set_post_status){
+				//if the post is trash, don't untrash it!
 				$wpdb->update( $wpdb->posts, array( 'post_status' => 'draft' ), array( 'ID' => $this->post_id ) );
 			} 
 			$this->post_status = 'draft';
 		}elseif( $status == -1 ){ //trashed post
 			$set_status = -1;
 			if($set_post_status){
+				//set the post status of the location in wp_posts too
 				$wpdb->update( $wpdb->posts, array( 'post_status' => 'trash' ), array( 'ID' => $this->post_id ) );
 			}
 			$this->post_status = 'trash'; //set post status in this instance
 		}else{
-			$set_status = $status ? 1:0;
+			$set_status = $status ? 1:0; //published or pending post
 			$post_status = $set_status ? 'publish':'pending';
+			if( empty($this->post_name) ){
+				//published or pending posts should have a valid post slug
+				$this->post_name = sanitize_title($this->post_title);
+				$set_post_name = true;
+			}
 			if($set_post_status){
-				if($this->post_status == 'pending' && empty($this->post_name)){
-					$this->post_name = sanitize_title($this->post_title);
-				}
 				$wpdb->update( $wpdb->posts, array( 'post_status' => $post_status, 'post_name' => $this->post_name ), array( 'ID' => $this->post_id ) );
+			}elseif( $set_post_name ){
+				//if we've added a post slug then update wp_posts anyway
+				$wpdb->update( $wpdb->posts, array( 'post_name' => $this->post_name ), array( 'ID' => $this->post_id ) );
 			}
 			$this->post_status = $post_status;
 		}
+		//save in the wp_em_locations table
 		$this->previous_status = $wpdb->get_var('SELECT location_status FROM '.EM_LOCATIONS_TABLE.' WHERE location_id='.$this->location_id); //get status from db, not post_status, as posts get saved quickly
 		$result = $wpdb->query($wpdb->prepare("UPDATE ".EM_LOCATIONS_TABLE." SET location_status=$set_status, location_slug=%s WHERE location_id=%d", array($this->post_name, $this->location_id)));
-		$this->get_status();
+		$this->get_status(); //reload status
 		return apply_filters('em_location_set_status', $result !== false, $status, $this);
 	}	
 	
@@ -615,6 +627,22 @@ class EM_Location extends EM_Object {
 			$return = em_add_get_params($this->get_permalink(), array('feed'=>1));
 		}
 		return apply_filters('em_location_get_rss_url', $return);
+	}
+	
+	/*
+	 * Extends the default EM_Object function by switching blogs as needed if in MS Global mode
+	 * @param string $size
+	 * @return string
+	 * @see EM_Object::get_image_url()
+	 */
+	function get_image_url($size = 'full'){
+		if( EM_MS_GLOBAL && get_current_blog_id() != $this->blog_id ){
+			switch_to_blog($this->blog_id);
+			$switch_back = true;
+		}
+		$return = parent::get_image_url($size);
+		if( !empty($switch_back) ){ restore_current_blog(); }
+		return $return;
 	}
 	
 	function get_edit_url(){
@@ -749,20 +777,11 @@ class EM_Location extends EM_Object {
 					$replace = $this->get_country();
 					break;
 				case '#_LOCATIONFULLLINE':
-					$replace = $this->location_address;
-					$replace .= empty($this->location_town) ? '':', '.$this->location_town;
-					$replace .= empty($this->location_state) ? '':', '.$this->location_state;
-					$replace .= empty($this->location_postcode) ? '':', '.$this->location_postcode;
-					$replace .= empty($this->location_region) ? '':', '.$this->location_region;
-					break;
 				case '#_LOCATIONFULLBR':
-					$replace = $this->location_address;
-					$replace .= empty($this->location_town) ? '':'<br />'.$this->location_town;
-					$replace .= empty($this->location_state) ? '':'<br />'.$this->location_state;
-					$replace .= empty($this->location_postcode) ? '':'<br />'.$this->location_postcode;
-					$replace .= empty($this->location_region) ? '':'<br />'.$this->location_region;
+					$glue = $result == '#_LOCATIONFULLLINE' ? ', ':'<br />';
+					$replace = $this->get_full_address($glue);
 					break;
-				case '#_MAP': //Depricated (but will remain)
+				case '#_MAP': //Deprecated (but will remain)
 				case '#_LOCATIONMAP':
 					ob_start();
 					$args = array();
@@ -812,10 +831,11 @@ class EM_Location extends EM_Object {
 					break;
 				case '#_LOCATIONIMAGEURL':
 				case '#_LOCATIONIMAGE':
-	        		if($this->get_image_url() != ''){
-	        			$image_url = esc_url($this->get_image_url());
+					$image_url = $this->get_image_url();
+	        		if( $image_url != ''){
+	        			$image_url = esc_url($image_url);
 	        			if($result == '#_LOCATIONIMAGEURL'){
-		        			$replace =  $this->get_image_url();
+		        			$replace =  $image_url;
 						}else{
 							if( empty($placeholders[3][$key]) ){
 								$replace = "<img src='".$image_url."' alt='".esc_attr($this->location_name)."'/>";
@@ -861,7 +881,7 @@ class EM_Location extends EM_Object {
 				case '#_LOCATIONLINK':
 				case '#_LOCATIONPAGEURL': //Depricated
 					$link = esc_url($this->get_permalink());
-					$replace = ($result == '#_LOCATIONURL' || $result == '#_LOCATIONPAGEURL') ? $link : '<a href="'.$link.'" title="'.esc_attr($this->location_name).'">'.esc_html($this->location_name).'</a>';
+					$replace = ($result == '#_LOCATIONURL' || $result == '#_LOCATIONPAGEURL') ? $link : '<a href="'.$link.'">'.esc_html($this->location_name).'</a>';
 					break;
 				case '#_LOCATIONEDITURL':
 				case '#_LOCATIONEDITLINK':
@@ -952,5 +972,15 @@ class EM_Location extends EM_Object {
 		}
 		return apply_filters('em_location_get_country', false, $this);
 			
+	}
+	
+	function get_full_address($glue = ', '){
+		$location_array = array();
+		if( !empty($this->location_address) ) $location_array[] = $this->location_address;
+		if( !empty($this->location_town) ) $location_array[] = $this->location_town;
+		if( !empty($this->location_state) ) $location_array[] = $this->location_state;
+		if( !empty($this->location_postcode) ) $location_array[] = $this->location_postcode;
+		if( !empty($this->location_region) ) $location_array[] = $this->location_region;
+		return implode($glue, $location_array);
 	}
 }

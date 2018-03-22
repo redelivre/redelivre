@@ -4,6 +4,7 @@ if( !class_exists('EM_Permalinks') ){
 	class EM_Permalinks {
 		static $em_queryvars = array(
 			'event_id','event_slug', 'em_redirect',
+		    'recurrence_id',
 			'location_id','location_slug',
 			'person_id',
 			'booking_id',
@@ -159,6 +160,22 @@ if( !class_exists('EM_Permalinks') ){
 					}
 				}
 			}
+			//Check the event category and tags pages, because if we're overriding the pages and they're not within the Events page hierarchy it may 404
+			//if taxonomy base permalink is same as page permalink
+			foreach( array('tags','categories') as $taxonomy_name ){
+				if( get_option('dbem_'.$taxonomy_name.'_enabled') ){
+					$taxonomy_page_id = get_option ( 'dbem_'.$taxonomy_name.'_page' );
+					$taxonomy_page = get_post($taxonomy_page_id);
+					if( is_object($taxonomy_page) ){
+						//we are using a categories page, so we add it to permalinks if it's not a parent of the events page
+						if( !is_object($events_page) || !in_array($events_page->ID, get_post_ancestors($taxonomy_page_id)) ){
+							$taxonomy_slug = urldecode(preg_replace('/\/$/', '', str_replace( trailingslashit(home_url()), '', get_permalink($taxonomy_page_id)) ));
+							$taxonomy_slug = ( !empty($taxonomy_slug) ) ? trailingslashit($taxonomy_slug) : $taxonomy_slug;
+							$em_rules[trim($taxonomy_slug,'/').'/?$'] = 'index.php?pagename='.trim($taxonomy_slug,'/') ;
+						}
+					}
+				}
+			}
 			$em_rules = apply_filters('em_rewrite_rules_array_events', $em_rules, $events_slug);
 			//make sure there's no page with same name as archives, that should take precedence as it can easily be deleted wp admin side
 			$em_query = new WP_Query(array('pagename'=>EM_POST_TYPE_EVENT_SLUG));
@@ -271,6 +288,7 @@ if( !class_exists('EM_Permalinks') ){
  */
 function em_get_my_bookings_url(){
 	global $bp, $wp_rewrite;
+	// @todo add filter for bookings url, remove bp condition and add it to bp-em-core.php
 	if( !empty($bp->events->link) ){
 		//get member url
 		return $bp->events->link.'attending/';
@@ -283,4 +301,18 @@ function em_get_my_bookings_url(){
 			return preg_match('/\?/',EM_URI) ? EM_URI.'&bookings_page=1':EM_URI.'?bookings_page=1';
 		}
 	}
+}
+
+/**
+ * Gets the admin URL for editing events. If called from front-end and there's a front-end edit events page, that will be
+ * returned, otherwise a url to the dashboard will be returned.
+ */
+function em_get_events_admin_url(){
+    $admin_url = admin_url('edit.php?post_type=event');
+    if( !is_admin() ){
+        if( get_option('dbem_edit_events_page') ){
+            $admin_url = get_permalink(get_option( 'dbem_edit_events_page' ));
+        }
+    }
+    return apply_filters('em_get_events_admin_url', $admin_url);
 }

@@ -1,0 +1,9 @@
+<svg width="640px" height="38px" viewBox="0 682 640 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>Created with Sketch.</desc>
+	<defs></defs>
+	<g id="Player" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(0.000000, 682.000000)">
+		<rect id="progress" fill-opacity="0.658599411" fill="#6E6E6E" x="0" y="0" width="640" height="37.9424018"></rect>
+		<rect id="button-wrapper" fill="#3B3B3B" x="0" y="0" width="50" height="38"></rect>
+		<path d="M19.7849533,11.1423787 C19.3514356,10.8439879 19,11.0303603 19,11.5542487 L19,26.4636798 C19,26.9895403 19.3523673,27.1732993 19.7849533,26.87555 L30.2707614,19.658156 C30.7916651,19.2996173 30.7917378,18.7183613 30.2707614,18.3597726 L19.7849533,11.1423787 Z" id="button" fill="#FFFFFF"></path>
+	</g>
+</svg>
