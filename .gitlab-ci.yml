@@ -1,0 +1,35 @@
+---
+image: docker:18.01.0-ce-git
+services:
+  - docker:18.01.0-ce-dind
+stages:
+  - build
+  - deploy
+
+variables:
+  REDELIVRE_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+
+## Homolog
+
+build to homolog:
+  stage: build
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build -t $REDELIVRE_RELEASE_IMAGE .
+    - docker push $REDELIVRE_RELEASE_IMAGE
+  only:
+    - /develop/
+  environment: homolog
+  tags:
+    - docker
+
+deploy to homolog:
+  stage: deploy
+  image: cdrx/rancher-gitlab-deploy
+  script:
+    - upgrade --environment RedeLivre --stack beta-redelivre-dev --service wordpress --no-finish-upgrade --debug
+  only:
+    - /develop/
+  environment: homolog
+  tags:
+    - docker
