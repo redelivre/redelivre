@@ -1,0 +1,1 @@
+[05-Jan-2018 00:22:12 America/Chicago] PHP Fatal error:  Call to undefined function get_option() in /home/cineteatro/public_html/wp-content/plugins/fortaleza-events/includes/function/fucntions.php on line 7

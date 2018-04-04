@@ -1,0 +1,154 @@
+.message.center.pmpro_message.message_success {
+    color: green;
+    margin-top: 10px;
+}
+.space_id{
+    float:left;
+    width: 28%;
+    margin-right: 22px;
+}
+label {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 5px;
+    max-width: 100%;
+}
+input[type="date"], input[type="time"], input[type="datetime-local"], input[type="week"], input[type="month"], input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], input[type="tel"], input[type="number"], textarea {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d1d1d1;
+    border-radius: 2px;
+    color: #686868;
+    padding: 0.625em 0.4375em;
+    /*width: 100%;*/
+}
+input {
+    line-height: normal;
+}
+.form_get_event, .event_all_data {
+    float: left;
+    width: 100%;
+    margin-top: 23px;
+}
+.submit_btn {
+    float: left;
+    width: 10%;
+    margin-left: 20px;
+}
+.submit_btn p {
+    margin: 0;
+    padding: 0px 0 0 0;
+}
+input#filter_res {
+    background: #c0392b;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 5px 20px 5px 20px;
+    line-height: 21px;
+    height: 35px;
+}
+.inner_event_all_data table tr td {
+    text-align: center;
+}
+button#get_event {
+    background: #167F92;
+    color: #fff;
+    border: none;
+    padding: 5px 18px 5px 17px;
+    cursor: pointer;
+}
+button#delete_event{
+    background: #167F92;
+    color: #fff;
+    border: none;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+}
+.save_all_btn{
+    width:100%;
+    float:left;
+    text-align:right;
+}
+.save_all_btn button{
+    background-color: #c0392b;
+    color: #fff;
+    border: 0;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+
+// table css
+
+.responstable {
+  margin: 1em 0;
+  width: 100%;
+  overflow: hidden;
+  background: #FFF;
+  color: #024457;
+  border-radius: 10px;
+  border: 1px solid #167F92;
+}
+.responstable tr {
+  border: 1px solid #D9E4E6;
+}
+.responstable tr:nth-child(odd) {
+  background-color: #EAF3F3;
+}
+.responstable th {
+    border: 1px solid #FFF;
+    background-color: #c0392b;
+    color: #FFF;
+    padding: 9px 15px 9px 15px;
+    font-size: 15px;
+    font-weight: normal;
+}
+.responstable th:first-child {
+  display: table-cell;
+  text-align: center;
+}
+.responstable th:nth-child(2) {
+  display: table-cell;
+}
+.responstable th:nth-child(2) span {
+  display: none;
+}
+.responstable th:nth-child(2):after {
+  content: attr(data-th);
+}
+table.responstable td:nth-child(2) {
+    text-align: left;
+}
+.responstable {
+    margin: 1em 0;
+    width: 100%;
+    overflow: hidden;
+    background: #FFF;
+    color: #024457;
+   // border-radius: 10px;
+    border: 1px solid #167F92;
+}
+.ajax_loader_img img {
+    position: relative;
+    top: 30%;
+}
+.ajax_loader_img{
+    display:none;
+    text-align: center;
+    float:left;
+    width: 100%;
+    position: absolute;
+    background: #fff;
+    height: 100%;
+    opacity: 0.6;
+}
+.daterangepicker td.available, .daterangepicker th.available{
+    background:#eee;
+}
+th.prev.available:after{
+    content:'<';
+}
+th.next.available:after {
+    content: ">";
+}

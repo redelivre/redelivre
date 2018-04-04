@@ -1,0 +1,477 @@
+/** @wordpress-plugin
+ * Plugin Name:       KAR.GE Catalogue
+ * Description:       This Plugin is developed to manage KAR.GE Catalogue.
+ * Version:           1.0.0(new)1
+ * Author:            cWebco WP Plugin Team
+ * Author URI:        http://www.cwebconsultants.com/
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       karge-catalogue
+ * Domain Path:       /languages
+ */
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px)  {
+    .inner_agenda .row .one_half{
+        width: 100% !Important;
+        margin-bottom: 15px;
+        padding: 10px;
+        margin-left:0 !important;
+    }
+    .inner_agenda .row .one_Third {
+        width: 100% !important;
+        padding: 10px;
+        margin-left: 0 !important;
+    }
+    .inner_agenda {
+        width: 90%;
+    }
+    .content-agenda{
+        width: 100% !important;
+    }
+    .short-detals{
+        width: 100% !important;
+    }
+    .single-inner-page{
+        width:85% !important;
+    }
+    .classofication {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+    .start_time {
+        width: 100% !important;
+    }
+    .event_title{
+        width:47% !important;
+    }
+}
+
+
+/*  Second Form Css */
+footer{
+    float:left;
+    width:100%;
+}
+.all_agenda {
+    float: left;
+    width: 100%;
+    margin: 30px 0px;
+}
+.inner_agenda {
+    width: 100%;
+    float: left;
+} 
+.agenda_title {
+    float: left;
+    width: 100%;
+    font-size: 15px;
+    color: #c0392b;
+    padding: 20px 0px 0px 2px;
+    text-align: left;
+}
+.agenda_details {
+    float: left;
+    width: 100%;
+}
+span.lang_label {
+    font-size: 15px;
+    color: #c0392b;
+    float: left;
+}
+span.lang_value {
+    font-size: 14px;
+    float: left;
+    padding-left: 5px;
+} 
+.lang_details {
+    float: left;
+    width: 50%;
+}
+.author_details{
+    float: left;
+    width: 100%;
+}
+span.author_label{
+    font-size: 15px;
+    color: #c0392b;
+    float: left;
+}
+span.author_value{
+    font-size: 15px;
+    float: left; 
+}
+
+.classification_details {
+    float: left;
+    text-align: right;
+    width: 50%;
+    font-size: 14px;
+    /* margin-top: 5px; */
+    /* margin-bottom: 5px; */
+}
+.inner_rows .row .one_half {
+    float: left;
+    width: 48%;
+    margin-left: 4%;
+}
+.one_half.first {
+    margin-left: 0px !important;
+}
+span.class_label {
+    background: #27ae60;
+    color: #fff;
+    padding: 0px 8px 2px 8px;
+}
+.inner_agenda .row {
+    float: left;
+    width: 100%;
+    margin-bottom: 45px;
+}
+.thumbnail-image img {
+    width: 100%;
+}
+.inner_agenda .row .one_Third {
+    float: left;
+    width: 31%;
+    margin-left: 3.4%;
+}
+footer#colophon {
+    float: left;
+    width: 100%;
+}
+.one_Third.first {
+    margin-left: 0 !important;
+}
+.one_Third.one-third-fisrt {
+    margin-right: 4%;
+}
+.one_Third.one-third-last {
+    margin-left: 4%;
+}
+/***************************/
+
+#container_hover {
+  position: relative;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay_custom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(87, 88, 90, 0.83);
+  overflow: hidden;
+  width: 0;
+  height: 100%;
+  transition: .5s ease;
+}
+
+#container_hover:hover .overlay_custom {
+  width: 100%;
+}
+
+.text_hover {
+  white-space: nowrap; 
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.text_hover i {
+    color: #fff;
+}
+.classofication i {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #bbb -moz-use-text-color #bbb #bbb;
+    border-image: none;
+    border-radius: 1px;
+    border-style: solid none solid solid;
+    border-width: 1px 0 1px 1px;
+    margin-top: 0;
+    padding: 5px;
+    border-color: #bbb;
+    color: #888888;
+}
+.agenda_image img {
+    vertical-align: middle;
+    width: 100%;
+}
+.agenda_image {
+    //height: 180px;
+    //display: table-cell;
+    //vertical-align: middle;
+    text-align: center;
+    
+}
+.agenda_title h1 {
+    font-size: 14px;
+    text-align: Center;
+    line-height: 20px;
+
+}
+
+.filter_agenda {
+    float: left;
+    width: 100%;
+    padding: 10px 10px;
+    background: #eee;
+    margin-bottom: 40px;
+}
+.filter_filed {
+    float: left;
+    width: 100%;
+}
+.first_row_filed {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.second_row_filed {
+    float: left;
+    width: 100%;
+}
+.classofication {
+    display: inline-flex;
+    float: left;
+    margin-right: 2%;
+    width: 53%;
+}
+.start_time {
+    float: left;
+    width: 45%;
+    display: inline-flex;
+}
+.start_time i{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #bbb -moz-use-text-color #bbb #bbb;
+    border-image: none;
+    border-radius: 1px;
+    border-style: solid none solid solid;
+    border-width: 1px 0 1px 1px;
+    margin-top: 0;
+    padding: 5px;
+    border-color: #bbb;
+    color: #888888;
+}
+div#classification_chosen {
+    width: 100% !important;
+}
+div#start_time_chosen {
+    width: 100% !important;
+}
+.start_on_date {
+    float: left;
+    width: 51%;
+    margin-right: 2%;
+    display:inline-flex;
+}
+.start_on_date i{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #bbb -moz-use-text-color #bbb #bbb;
+    border-image: none;
+    border-radius: 1px;
+    border-style: solid none solid solid;
+    border-width: 1px 0 1px 1px;
+    margin-top: 0;
+    padding: 5px;
+    border-color: #bbb;
+    color: #888888;
+}
+.event_title {
+    float: left;
+    width: 47%;
+    display:inline-flex;
+}
+.event_title i{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #bbb -moz-use-text-color #bbb #bbb;
+    border-image: none;
+    border-radius: 1px;
+    border-style: solid none solid solid;
+    border-width: 1px 0 1px 1px;
+    margin-top: 0;
+    padding: 5px;
+    border-color: #bbb;
+    color: #888888;
+}
+.inner_rows {
+    float: left;
+    width: 100%;
+}
+.single-agenda-main-page {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.single-inner-page {
+    margin: auto;
+    width: 70%;
+}
+.thumbnail-image {
+    float: left;
+    width: 100%;
+}
+.agenda-title {
+    float: left;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+.agenda-title h2 {
+    font-size: 26px;
+    color: #000;
+    margin-top: 10px;
+    text-transform: lowercase;
+}
+.site-branding{
+    display:none;
+}
+.content-agenda {
+    float: left;
+    width: 60%;
+    text-align: left;
+    font-size: 15px;
+    line-height: 27px;
+}
+.site-content {
+    padding: 2.5em 0 0 !important;
+}
+.data_start_on {
+    float: left;
+    width: 100%; 
+    margin-bottom: 10px;
+}
+.data_start_on .label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #A9A9A9;
+}
+
+.data_start_on .value {
+    font-size: 13px;
+    color: #808080;
+}
+.data_startAt {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.data_startAt .label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #A9A9A9;
+}
+
+.data_startAt .value {
+    font-size: 13px;
+    color: #808080;
+}
+.agenda_price {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.agenda_price .label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #A9A9A9;
+}
+
+.agenda_price .value {
+    font-size: 13px;
+    color: #808080;
+}
+
+.classification {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.classification .label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #A9A9A9;
+}
+
+.classification .value {
+    font-size: 13px;
+    color: #808080;
+}
+.language_agendas {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.language_agendas .label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #A9A9A9;
+}
+
+.language_agendas .value {
+    font-size: 13px;
+    color: #808080;
+}
+.local_space {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.local_space .label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #A9A9A9;
+}
+
+.local_space .value {
+    font-size: 13px;
+    color: #808080;
+}
+
+.short-detals {
+   float: left;
+    width: 33%;
+    margin-left: 7%;
+}
+.filter_filed input[type="text"], .filter_filed input[type="email"], .filter_filed input[type="url"], .filter_filed input[type="password"], .filter_filed input[type="search"], .filter_filed input[type="number"], .filter_filed input[type="tel"], .filter_filed input[type="range"], .filter_filed input[type="date"], .filter_filed input[type="month"], .filter_filed input[type="week"], .filter_filed input[type="time"], .filter_filed input[type="datetime"], .filter_filed input[type="datetime-local"], .filter_filed input[type="color"], .filter_filed textarea {
+    color: #666;
+    background: #fff;
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+    border: 1px solid #aaa;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    display: block;
+    padding: 0.7em;
+    width: 100%;
+}
+
+.single-agenda #main-footer{
+    width:100%;
+    float:left;
+}

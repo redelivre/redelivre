@@ -1,0 +1,43 @@
+/* Reset */
+
+input, select { vertical-align: middle; }
+
+
+ul li { list-style: disc; margin-left: 1em; margin-bottom: 1.25em; }
+ol li { margin-left: 1.25em; }
+ol ul, ul ul { margin: .25em 0 0; }
+ol ul li, ul ul li { list-style-type: circle; margin: 0 0 .25em 1em; }
+
+li > p { margin-top: .25em; }
+
+div.side-by-side { width: 100%; margin-bottom: 1em; }
+div.side-by-side > div { float: left; width: 49%; }
+div.side-by-side > div > em { margin-bottom: 10px; display: block; }
+
+.faqs em { display: block; }
+
+.clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+}
+ul.credits li { margin-bottom: .25em; }
+
+strong { font-weight: bold; }
+i { font-style: italic; }
+.select,
+.chosen-select,
+.chosen-select-no-single,
+.chosen-select-no-results,
+.chosen-select-deselect,
+.chosen-select-rtl,
+.chosen-select-width {
+  width: 350px;
+}
+.jquery-version-refer {
+  margin-top: 40px;
+  font-style: italic;
+}
