@@ -215,3 +215,7 @@
 [submodule "src/wp-content/themes/tainacan"]
 	path = src/wp-content/themes/tainacan
 	url = git@github.com:redelivre/tainacan.git
+[submodule "src/wp-content/plugins/divi-post-type-blog"]
+	path = src/wp-content/plugins/divi-post-type-blog
+	url = git@github.com:redelivre/divi-post-type-blog.git
+	branch = master
