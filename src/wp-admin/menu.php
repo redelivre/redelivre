@@ -28,16 +28,20 @@ if ( is_multisite() ) {
 	$submenu[ 'index.php' ][5] = array( __('My Sites'), 'read', 'my-sites.php' );
 }
 
-if ( ! is_multisite() || is_super_admin() )
+if ( ! is_multisite() || current_user_can( 'update_core' ) ) {
 	$update_data = wp_get_update_data();
+}
 
 if ( ! is_multisite() ) {
-	if ( current_user_can( 'update_core' ) )
+	if ( current_user_can( 'update_core' ) ) {
 		$cap = 'update_core';
-	elseif ( current_user_can( 'update_plugins' ) )
+	} elseif ( current_user_can( 'update_plugins' ) ) {
 		$cap = 'update_plugins';
-	else
+	} elseif ( current_user_can( 'update_themes' ) ) {
 		$cap = 'update_themes';
+	} else {
+		$cap = 'update_languages';
+	}
 	$submenu[ 'index.php' ][10] = array( sprintf( __('Updates %s'), "<span class='update-plugins count-{$update_data['counts']['total']}'><span class='update-count'>" . number_format_i18n($update_data['counts']['total']) . "</span></span>" ), $cap, 'update-core.php');
 	unset( $cap );
 }
@@ -243,7 +247,7 @@ $menu[75] = array( __('Tools'), 'edit_posts', 'tools.php', '', 'menu-top menu-ic
 	if ( is_multisite() && !is_main_site() )
 		$submenu['tools.php'][25] = array( __('Delete Site'), 'delete_site', 'ms-delete-site.php' );
 	if ( ! is_multisite() && defined('WP_ALLOW_MULTISITE') && WP_ALLOW_MULTISITE )
-		$submenu['tools.php'][50] = array(__('Network Setup'), 'manage_options', 'network.php');
+		$submenu['tools.php'][50] = array(__('Network Setup'), 'setup_network', 'network.php');
 
 $menu[80] = array( __('Settings'), 'manage_options', 'options-general.php', '', 'menu-top menu-icon-settings', 'menu-settings', 'dashicons-admin-settings' );
 	$submenu['options-general.php'][10] = array(_x('General', 'settings screen'), 'manage_options', 'options-general.php');

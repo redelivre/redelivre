@@ -3,7 +3,7 @@
  * As configurações básicas do WordPress
  *
  * O script de criação wp-config.php usa esse arquivo durante a instalação.
- * Você não precisa user o site, você pode copiar este arquivo
+ * Você não precisa usar o site, você pode copiar este arquivo
  * para "wp-config.php" e preencher os valores.
  *
  * Este arquivo contém as seguintes configurações:
@@ -18,8 +18,7 @@
  * @package WordPress
  */
 
-// ** Configurações do MySQL - Você pode pegar estas informações
-// com o serviço de hospedagem ** //
+// ** Configurações do MySQL - Você pode pegar estas informações com o serviço de hospedagem ** //
 /** O nome do banco de dados do WordPress */
 define('DB_NAME', 'nome_do_banco_de_dados_aqui');
 
@@ -45,7 +44,7 @@ define('DB_COLLATE', '');
  * Você pode gerá-las
  * usando o {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org
  * secret-key service}
- * Você pode alterá-las a qualquer momento para desvalidar quaisquer
+ * Você pode alterá-las a qualquer momento para invalidar quaisquer
  * cookies existentes. Isto irá forçar todos os
  * usuários a fazerem login novamente.
  *
@@ -66,12 +65,12 @@ define('NONCE_SALT',       'coloque a sua frase única aqui');
  * Prefixo da tabela do banco de dados do WordPress.
  *
  * Você pode ter várias instalações em um único banco de dados se você der
- * para cada um um único prefixo. Somente números, letras e sublinhados!
+ * um prefixo único para cada um. Somente números, letras e sublinhados!
  */
 $table_prefix  = 'wp_';
 
 /**
- * Para desenvolvedores: Modo debugging WordPress.
+ * Para desenvolvedores: Modo de debug do WordPress.
  *
  * Altere isto para true para ativar a exibição de avisos
  * durante o desenvolvimento. É altamente recomendável que os

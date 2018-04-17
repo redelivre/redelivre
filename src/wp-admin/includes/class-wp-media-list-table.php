@@ -21,7 +21,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 *
 	 * @since 4.4.0
 	 * @var array
-	 * @access protected
 	 */
 	protected $comment_pending_count = array();
 
@@ -33,7 +32,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Constructor.
 	 *
 	 * @since 3.1.0
-	 * @access public
 	 *
 	 * @see WP_List_Table::__construct() for more information on default arguments.
 	 *
@@ -172,12 +170,12 @@ class WP_Media_List_Table extends WP_List_Table {
 			}
 
 			/** This action is documented in wp-admin/includes/class-wp-posts-list-table.php */
-			do_action( 'restrict_manage_posts', $this->screen->post_type );
+			do_action( 'restrict_manage_posts', $this->screen->post_type, $which );
 
 			submit_button( __( 'Filter' ), '', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 		}
 
-		if ( $this->is_trash && current_user_can( 'edit_others_posts' ) ) {
+		if ( $this->is_trash && current_user_can( 'edit_others_posts' ) && $this->has_items() ) {
 			submit_button( __( 'Empty Trash' ), 'apply', 'delete_all', false );
 		} ?>
 		</div>
@@ -210,7 +208,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @access public
 	 */
 	public function no_items() {
 		_e( 'No media files found.' );
@@ -219,7 +216,7 @@ class WP_Media_List_Table extends WP_List_Table {
 	/**
 	 * Override parent views so we can use the filter bar display.
 	 *
-	 * @global string $mode
+	 * @global string $mode List table view mode.
 	 */
 	public function views() {
 		global $mode;
@@ -341,7 +338,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles the checkbox column output.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post The current WP_Post object.
 	 */
@@ -358,7 +354,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles the title column output.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post The current WP_Post object.
 	 */
@@ -405,7 +400,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles the author column output.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post The current WP_Post object.
 	 */
@@ -420,7 +414,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles the description column output.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post The current WP_Post object.
 	 */
@@ -432,7 +425,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles the date column output.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post The current WP_Post object.
 	 */
@@ -460,7 +452,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles the parent column output.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post The current WP_Post object.
 	 */
@@ -521,7 +512,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles the comments column output.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post The current WP_Post object.
 	 */
@@ -543,7 +533,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Handles output for the default column.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 *
 	 * @param WP_Post $post        The current WP_Post object.
 	 * @param string  $column_name Current column name.
@@ -629,7 +618,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Gets the name of the default primary column.
 	 *
 	 * @since 4.3.0
-	 * @access protected
 	 *
 	 * @return string Name of the default primary column, in this case, 'title'.
 	 */
@@ -678,7 +666,7 @@ class WP_Media_List_Table extends WP_List_Table {
 				}
 			}
 			$actions['view'] = sprintf(
-				'<a href="%s" aria-label="%s" rel="permalink">%s</a>',
+				'<a href="%s" aria-label="%s" rel="bookmark">%s</a>',
 				get_permalink( $post->ID ),
 				/* translators: %s: attachment title */
 				esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $att_title ) ),
@@ -737,7 +725,7 @@ class WP_Media_List_Table extends WP_List_Table {
 			}
 			if ( ! $this->is_trash ) {
 				$actions['view'] = sprintf(
-					'<a href="%s" aria-label="%s" rel="permalink">%s</a>',
+					'<a href="%s" aria-label="%s" rel="bookmark">%s</a>',
 					get_permalink( $post->ID ),
 					/* translators: %s: attachment title */
 					esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $att_title ) ),
@@ -764,7 +752,6 @@ class WP_Media_List_Table extends WP_List_Table {
 	 * Generates and displays row action links.
 	 *
 	 * @since 4.3.0
-	 * @access protected
 	 *
 	 * @param object $post        Attachment being acted upon.
 	 * @param string $column_name Current column name.
