@@ -1,10 +1,10 @@
 === Meks Smart Social Widget ===
 Contributors: mekshq
-Donate link: http://mekshq.com/
+Donate link: https://mekshq.com/
 Tags: social, icons, widget, linkedin, reddit, vimeo, dribble, instagram, pinterest
 Requires at least: 3.0
-Tested up to: 4.7
-Stable tag: 1.3.3
+Tested up to: 4.9
+Stable tag: 1.3.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -12,22 +12,21 @@ Easily display more than 100 social icons inside your WordPress widget.
 
 == Description ==
 
-Choose from different icon shapes and sizes and quickly connect your website with your social profiles. There are 40 social icons provided: Aim, Apple, Behance, Blogger, Cargo, 
-Delicious, DeviantArt, Digg, Dribbble, Envato, Evernote, Facebook, Flickr, Forrst, Github, Google, GooglePlus, GrooveShark, iCloud, Instagram, LastFM, LinkedIN, MySpace, Picasa, 
-Pinterest, ReddIt, Rss, Skype, Soundcloud, Spotify, StumbleUpon, Tumblr, Twitter, Vimeo, Vine, WordPress, Xing, Youtube, Zerply, 500px, vKontakte,  Sina Weibo, Tencent Weibo, Me2Day, Twitch...
+Choose from different icon shapes and sizes and quickly connect your website with your social profiles. There aare more than 100 social icons provided: Aim, Apple, Behance, Blogger, Cargo, Delicious, DeviantArt, Digg, Dribbble, Envato, Evernote, Facebook, Flickr,Forrst, Github, Google, GooglePlus, GrooveShark, iCloud, Instagram, LastFM, LinkedIN, MySpace, Picasa, Pinterest, ReddIt, Rss, Skype, Soundcloud, Spotify, StumbleUpon, Tumblr, Twitter, Vimeo, Vine, WordPress, Xing, Youtube, Zerply, 500px, vKontakte, Sina Weibo, Tencent Weibo, Me2Day, Twitch...
 
-### Features
+== Features ==
 
 * Choose from more than 100 social icons
 * Choose from 3 different icon shapes (square, circle or rounded corners)
 * Define custom size for your icons
 
-Smart Social Widget plugin is created by <a href="http://mekshq.com" target="_blank">Meks</a>
+Smart Social Widget plugin is created by [Meks](https://mekshq.com)
 
-><strong>Live preview?</strong><br>
->You can see Smart Social Widget live example on our <a href="http://mekshq.com/demo/voice" target="_blank">Voice theme demo website</a>
+== Live example? ==
 
-Social icons font is made by <a href="http://www.socicon.com" target="_blank" alt="Free social icons font" title="the social icons font">socicon</a>.
+You can see Meks Easy Ads Widget live example on our [Gridlove theme demo website](https://mekshq.com/demo/gridlove)
+
+Social icons font is made by [socicon](http://www.socicon.com)
 
 == Installation ==
 
@@ -37,7 +36,7 @@ Social icons font is made by <a href="http://www.socicon.com" target="_blank" al
 
 == Frequently Asked Questions ==
 
-For any questions, error reports and suggestions please email support@mekshq.com or visit http://mekshq.com
+For any questions, error reports and suggestions please visit https://mekshq.com
 
 == Screenshots ==
 
@@ -47,6 +46,11 @@ For any questions, error reports and suggestions please email support@mekshq.com
 4. Widget in action - example 3
 
 == Changelog ==
+
+= 1.3.4 =
+
+* Improved: Social links now dislay social network titles on link hover
+* Tested with WP 4.9
 
 = 1.3.3 =
 

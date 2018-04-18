@@ -3,9 +3,15 @@
 /**
  * Code related to the globals.php interface.
  *
- * @package Sucuri Security
- * @subpackage globals.php
- * @copyright Since 2010 Sucuri Inc.
+ * PHP version 5
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2017 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 
 if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
@@ -37,20 +43,6 @@ if (defined('SUCURISCAN')) {
     $sucuriscan_action_prefix = SucuriScan::isMultiSite() ? 'network_' : '';
 
     /**
-     * Settings options.
-     *
-     * The following global variables are mostly associative arrays where the
-     * key is linked to an option that will be stored in the database, and their
-     * correspondent values are the description of the option. These variables
-     * will be used in the settings page to offer the user a way to configure
-     * the behaviour of the plugin.
-     *
-     * @var string
-     */
-    $sucuriscan_date_format = get_option('date_format');
-    $sucuriscan_time_format = get_option('time_format');
-
-    /**
      * Remove the WordPress generator meta-tag from the source code.
      */
     remove_action('wp_head', 'wp_generator');
@@ -76,7 +68,6 @@ if (defined('SUCURISCAN')) {
     if (SucuriScan::runAdminInit()) {
         add_action('admin_init', 'SucuriScanInterface::handleOldPlugins');
         add_action('admin_init', 'SucuriScanInterface::createStorageFolder');
-        add_action('admin_init', 'SucuriScanInterface::noticeAfterUpdate');
     }
 
     /**
@@ -84,77 +75,14 @@ if (defined('SUCURISCAN')) {
      *
      * @return array List of sub-pages of this plugin.
      */
-    function sucuriscan_pages()
+    function sucuriscanMainPages()
     {
         return array(
-            'sucuriscan' => __('Dashboard', SUCURISCAN_TEXTDOMAIN),
-            'sucuriscan_firewall' => __('Firewall', SUCURISCAN_TEXTDOMAIN),
-            'sucuriscan_lastlogins' => __('LastLogins', SUCURISCAN_TEXTDOMAIN),
-            'sucuriscan_settings' => __('Settings', SUCURISCAN_TEXTDOMAIN),
+            'sucuriscan' => 'Dashboard',
+            'sucuriscan_firewall' => 'Firewall (WAF)',
+            'sucuriscan_lastlogins' => 'Last Logins',
+            'sucuriscan_settings' => 'Settings',
         );
-    }
-
-    if (function_exists('load_plugin_textdomain')) {
-        /**
-         * Loads the language files for the entire interface.
-         *
-         * Internationalization is the process of developing your plugin so it
-         * can be translated into other languages. Localization describes the
-         * process of translating an internationalized plugin. Internationaliza-
-         * tion is often abbreviated as i18n (there are 18 letters between the
-         * i and the n) and localization is abbreviated as l10n (there are 10
-         * letters between the l and the n).
-         *
-         * @see https://codex.wordpress.org/I18n_for_WordPress_Developers
-         */
-        function sucuriscan_load_plugin_textdomain()
-        {
-            global $locale;
-
-            $pofile = sprintf(
-                '%s/languages/%s-%s.po',
-                SUCURISCAN_PLUGIN_PATH,
-                SUCURISCAN_TEXTDOMAIN,
-                $locale
-            );
-            $mofile = sprintf(
-                '%s/languages/%s-%s.mo',
-                SUCURISCAN_PLUGIN_PATH,
-                SUCURISCAN_TEXTDOMAIN,
-                $locale
-            );
-
-            /* attempt to import the English POT file into LOCALE */
-            if (!file_exists($pofile) || !file_exists($mofile)) {
-                $en_pofile = sprintf(
-                    '%s/languages/%s-en_US.po',
-                    SUCURISCAN_PLUGIN_PATH,
-                    SUCURISCAN_TEXTDOMAIN
-                );
-                $en_mofile = sprintf(
-                    '%s/languages/%s-en_US.mo',
-                    SUCURISCAN_PLUGIN_PATH,
-                    SUCURISCAN_TEXTDOMAIN
-                );
-
-                @copy($en_pofile, $pofile);
-                @copy($en_mofile, $mofile);
-            }
-
-            /* fallback to English on language import failure */
-            if (!file_exists($pofile) || !file_exists($mofile)) {
-                $locale = 'en_US';
-                setlocale(LC_ALL, 'en_US');
-            }
-
-            load_plugin_textdomain(
-                SUCURISCAN_TEXTDOMAIN,
-                false, /* deprecated */
-                SUCURISCAN_PLUGIN_FOLDER . '/languages/'
-            );
-        }
-
-        add_action('init', 'sucuriscan_load_plugin_textdomain');
     }
 
     if (function_exists('add_action')) {
@@ -166,10 +94,12 @@ if (defined('SUCURISCAN')) {
          * administration panel of the subsites.
          *
          * @codeCoverageIgnore
+         *
+         * @return void
          */
-        function sucuriscan_add_menu_page()
+        function sucuriscanAddMenuPage()
         {
-            $pages = sucuriscan_pages();
+            $pages = sucuriscanMainPages();
 
             add_menu_page(
                 'Sucuri Security',
@@ -193,7 +123,7 @@ if (defined('SUCURISCAN')) {
         }
 
         /* Attach HTTP request handlers for the internal plugin pages */
-        add_action($sucuriscan_action_prefix . 'admin_menu', 'sucuriscan_add_menu_page');
+        add_action($sucuriscan_action_prefix . 'admin_menu', 'sucuriscanAddMenuPage');
 
         /* Attach HTTP request handlers for the AJAX requests */
         add_action('wp_ajax_sucuriscan_ajax', 'sucuriscan_ajax');
@@ -247,15 +177,4 @@ if (defined('SUCURISCAN')) {
             add_action('admin_init', 'SucuriScanHook::hookWidgetDelete');
         }
     }
-
-    /**
-     * Clear the firewall cache if necessary.
-     *
-     * Every time a page or post is modified and saved into the database the
-     * plugin will send a HTTP request to the firewall API service and except
-     * that, if the API key is valid, the cache is reset. Notice that the cache
-     * of certain files is going to stay as it is due to the configuration on the
-     * edge of the servers.
-     */
-    add_action('save_post', 'SucuriScanFirewall::clearCacheHook');
 }

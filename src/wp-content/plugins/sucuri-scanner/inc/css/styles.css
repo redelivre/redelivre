@@ -46,7 +46,7 @@ body.sucuri-security_page_sucuriscan_hardening {
     height: 30px;
     line-height: normal;
 }
-.sucuriscan-container input[type=text] {
+.sucuriscan-container input[type='text'] {
     margin: 0;
     padding: 0 7px;
     line-height: 28px;
@@ -62,6 +62,7 @@ body.sucuri-security_page_sucuriscan_hardening {
     text-transform: uppercase;
     line-height: 30px;
     font-weight: 700;
+    cursor: initial;
 }
 .sucuriscan-container fieldset span {
     line-height: 30px;
@@ -71,8 +72,8 @@ body.sucuri-security_page_sucuriscan_hardening {
 .sucuriscan-container fieldset label,
 .sucuriscan-container fieldset select,
 .sucuriscan-container fieldset button,
-.sucuriscan-container fieldset input[type=text],
-.sucuriscan-container fieldset input[type=checkbox],
+.sucuriscan-container fieldset input[type='text'],
+.sucuriscan-container fieldset input[type='checkbox'],
 .wp-core-ui .sucuriscan-container fieldset .button,
 .wp-core-ui .sucuriscan-container fieldset .button-primary,
 .wp-core-ui .sucuriscan-container fieldset .button-secondary {
@@ -83,13 +84,13 @@ body.sucuri-security_page_sucuriscan_hardening {
 .sucuriscan-container fieldset label {
     margin-left: 0;
 }
-.sucuriscan-container fieldset input[type=checkbox] {
+.sucuriscan-container fieldset input[type='checkbox'] {
     margin-top: 7px;
     margin-bottom: 7px;
 }
 .sucuriscan-container .sucuriscan-full-textarea {
     width: 100%;
-    min-height: 300px;
+    min-height: 400px;
     background: #efefef;
     word-break: break-all;
     padding: 20px;
@@ -224,6 +225,7 @@ body.sucuri-security_page_sucuriscan_hardening {
     padding: 20px;
     font-size: 12px;
     color: #fff;
+    z-index: 10;
 }
 .sucuriscan-tooltip-object::before {
     left: 50%;
@@ -775,13 +777,11 @@ body.sucuri-security_page_sucuriscan_hardening {
     text-overflow: ellipsis;
 }
 .sucuriscan-auditlog-entry-time {
-    width: 6.5111%;
+    width: 45px;
     color: #808080;
-    margin-right: 20px;
 }
 .sucuriscan-auditlog-entry-event {
-    width: 3.2811%;
-    margin-right: 20px;
+    width: 28px;
 }
 .sucuriscan-auditlog-entry-message {
     width: 64.3111%;
@@ -844,4 +844,71 @@ body.sucuri-security_page_sucuriscan_hardening {
 }
 .sucuriscan-accesslog-label {
     font-weight: 700;
+}
+.sucuriscan-ipaccess-form,
+.sucuriscan-ipaccess-table {
+    margin-top: 20px;
+}
+.sucuriscan-ipaccess-table tbody td + td {
+    text-align: right;
+}
+.sucuriscan-ipaccess-table .sucuriscan-monospace {
+    line-height: 30px;
+}
+.sucuriscan-settings-alerts .dashicons-before::before {
+    padding-right: 10px;
+}
+#firewall-clear-cache-auto {
+    margin-bottom: 15px;
+}
+.sucuriscan-firewall-accesslog {
+    word-break: break-all;
+}
+.rtl .sucuriscan-header .sucuriscan-pull-left {
+    float: right;
+}
+.rtl .sucuriscan-header .sucuriscan-pull-right {
+    float: left;
+}
+.rtl .sucuriscan-header .sucuriscan-navbar li {
+    float: right;
+}
+.rtl .sucuriscan-tabs .sucuriscan-tabs-buttons li {
+    float: right;
+}
+.rtl .sucuriscan-tabs .sucuriscan-tabs-buttons li:first-child {
+    margin-left: 0;
+    margin-right: 12px;
+}
+.rtl .sucuriscan-tabs .sucuriscan-tabs-buttons a {
+    border-right: 1px solid #dfdfdf;
+    border-left: 0;
+}
+.rtl .sucuriscan-tabs .sucuriscan-tabs-buttons li:first-child a {
+    border-top-right-radius: 6px;
+}
+.rtl .sucuriscan-tabs .sucuriscan-tabs-buttons li:last-child a {
+    border-left: 1px solid #ccc;
+    border-top-left-radius: 6px;
+}
+.rtl .sucuriscan-hstatus form {
+    left: 20px;
+    right: initial;
+}
+.rtl .sucuriscan-container fieldset span,
+.rtl .sucuriscan-container fieldset label,
+.rtl .sucuriscan-container fieldset select,
+.rtl .sucuriscan-container fieldset button,
+.rtl .sucuriscan-container fieldset input[type='text'],
+.rtl .sucuriscan-container fieldset input[type='checkbox'],
+.rtl .wp-core-ui .sucuriscan-container fieldset .button,
+.rtl .wp-core-ui .sucuriscan-container fieldset .button-primary,
+.rtl .wp-core-ui .sucuriscan-container fieldset .button-secondary {
+    float: right !important;
+    margin-left: 0;
+    margin-right: 5px;
+}
+.rtl .wrap .sucuriscan-alert > .close {
+    right: initial;
+    left: 20px;
 }

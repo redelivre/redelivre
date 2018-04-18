@@ -2,18 +2,32 @@
 # This file is distributed under the same license as the Themes - Twenty Fourteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-18 11:27:20+0000\n"
+"PO-Revision-Date: 2018-01-11 16:25:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.0-alpha\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: es\n"
 "Project-Id-Version: Themes - Twenty Fourteen\n"
 
 #. Description of the plugin/theme
 msgid "In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with WordPress has never been easier."
 msgstr "En 2014 nuestro tema por defecto permite crear una revista digital adaptable con  un diseño moderno y limpio. Destaca tu contenido favorito en la portada en modo rejilla o carrusel. Usa las tres áreas de widges para personalizar tu web, y cambia la disposición de tu contenido gracias a la plantilla de página de ancho completo, o la de colaborador, que muestra los autores de tu sitio. Crear una revista digital con WordPress nunca ha sido más fácil."
+
+#. translators: 1: number of comments, 2: post title
+#: comments.php:34
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s comentario sobre &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s comentarios sobre &ldquo;%2$s&rdquo;"
+
+#. translators: %s: post title
+#: comments.php:30
+msgctxt "comments title"
+msgid "One thought on &ldquo;%s&rdquo;"
+msgstr "Un comentario sobre &ldquo;%s&rdquo;"
 
 #. Template Name of the plugin/theme
 msgid "Full Width Page"
@@ -31,86 +45,86 @@ msgstr "Archivo de la etiqueta: %s"
 msgid "Search Results for: %s"
 msgstr "Resultados de la búsqueda para: %s"
 
-#: inc/widgets.php:282
+#: inc/widgets.php:283
 msgid "Post format to show:"
 msgstr "Formato de entrada a mostrar:"
 
-#: inc/widgets.php:279
+#: inc/widgets.php:280
 msgid "Number of posts to show:"
 msgstr "Número de entradas a mostrar:"
 
-#: inc/widgets.php:276
+#: inc/widgets.php:277
 msgid "Title:"
 msgstr "Título:"
 
 #. translators: used with More archives link
-#: inc/widgets.php:227
+#: inc/widgets.php:228
 msgid "%s <span class=\"meta-nav\">&rarr;</span>"
 msgstr "%s <span class=\"meta-nav\">&rarr;</span>"
 
-#: inc/widgets.php:183
+#: inc/widgets.php:184
 msgid "This gallery contains <a href=\"%1$s\" rel=\"bookmark\">%2$s photo</a>."
 msgid_plural "This gallery contains <a href=\"%1$s\" rel=\"bookmark\">%2$s photos</a>."
 msgstr[0] "Esta galería contiene <a href=\"%1$s\" rel=\"bookmark\">%2$s foto</a>."
 msgstr[1] "Esta galería contiene <a href=\"%1$s\" rel=\"bookmark\">%2$s fotos</a>."
 
-#: inc/widgets.php:148 inc/widgets.php:193
+#: inc/widgets.php:149 inc/widgets.php:194
 msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Sigue leyendo <span class=\"meta-nav\">&rarr;</span>"
 
-#: inc/widgets.php:101
+#: inc/widgets.php:102
 msgid "More asides"
 msgstr "Más minientradas"
 
-#: inc/widgets.php:100 taxonomy-post_format.php:30
+#: inc/widgets.php:101 taxonomy-post_format.php:30
 msgid "Asides"
 msgstr "Minientradas"
 
-#: inc/widgets.php:96
+#: inc/widgets.php:97
 msgid "More galleries"
 msgstr "Más galerías"
 
-#: inc/widgets.php:95 taxonomy-post_format.php:48
+#: inc/widgets.php:96 taxonomy-post_format.php:48
 msgid "Galleries"
 msgstr "Galerías"
 
-#: inc/widgets.php:92
+#: inc/widgets.php:93
 msgid "More links"
 msgstr "Más enlaces"
 
-#: inc/widgets.php:91 taxonomy-post_format.php:45
+#: inc/widgets.php:92 taxonomy-post_format.php:45
 msgid "Links"
 msgstr "Enlaces"
 
-#: inc/widgets.php:88
+#: inc/widgets.php:89
 msgid "More quotes"
 msgstr "Más citas"
 
-#: inc/widgets.php:87 taxonomy-post_format.php:42
+#: inc/widgets.php:88 taxonomy-post_format.php:42
 msgid "Quotes"
 msgstr "Citas"
 
-#: inc/widgets.php:84
+#: inc/widgets.php:85
 msgid "More audio"
 msgstr "Más audios"
 
-#: inc/widgets.php:83 taxonomy-post_format.php:39
+#: inc/widgets.php:84 taxonomy-post_format.php:39
 msgid "Audio"
 msgstr "Audio"
 
-#: inc/widgets.php:80
+#: inc/widgets.php:81
 msgid "More videos"
 msgstr "Más vídeos"
 
-#: inc/widgets.php:79 taxonomy-post_format.php:36
+#: inc/widgets.php:80 taxonomy-post_format.php:36
 msgid "Videos"
 msgstr "Vídeos"
 
-#: inc/widgets.php:76
+#: inc/widgets.php:77
 msgid "More images"
 msgstr "Más imágenes"
 
-#: inc/widgets.php:75 taxonomy-post_format.php:33
+#: inc/widgets.php:76 taxonomy-post_format.php:33
 msgid "Images"
 msgstr "Imágenes"
 
@@ -174,7 +188,7 @@ msgstr "Mejora el diseño de tu sitio usando <a href=\"%s\">Imágenes destacadas
 msgid "The home page features your choice of up to 6 posts prominently displayed in a grid or slider, controlled by a <a href=\"%1$s\">tag</a>; you can change the tag and layout in <a href=\"%2$s\">Appearance &rarr; Customize</a>. If no posts match the tag, <a href=\"%3$s\">sticky posts</a> will be displayed instead."
 msgstr "La página de inicio te ofrece la elección de hasta 6 entradas destacadas en una rejilla o carrusel, controlados por una <a href=\"%1$s\">etiqueta</a>. Puedes cambiar la etiqueta y el diseño en <a href=\"%2$s\">Apariencia &rarr; Personalizar</a>. Si ninguna entrada coincide con la etiqueta, se mostrarán las <a href=\"%3$s\">entradas fijas</a> en su lugar."
 
-#. #-#-#-#-#  twentyfourteen.pot (Twenty Fourteen 1.9)  #-#-#-#-#
+#. #-#-#-#-#  twentyfourteen.pot (Twenty Fourteen 2.1)  #-#-#-#-#
 #. Theme Name of the plugin/theme
 #: inc/customizer.php:142
 msgid "Twenty Fourteen"
@@ -345,19 +359,19 @@ msgstr "Editar"
 
 #: content-aside.php:37 content-audio.php:37 content-gallery.php:37
 #: content-image.php:37 content-link.php:37 content-quote.php:37
-#: content-video.php:37 content.php:38 inc/widgets.php:215
+#: content-video.php:37 content.php:38 inc/widgets.php:216
 msgid "% Comments"
 msgstr "% comentarios"
 
 #: content-aside.php:37 content-audio.php:37 content-gallery.php:37
 #: content-image.php:37 content-link.php:37 content-quote.php:37
-#: content-video.php:37 content.php:38 inc/widgets.php:215
+#: content-video.php:37 content.php:38 inc/widgets.php:216
 msgid "1 Comment"
 msgstr "1 comentario"
 
 #: content-aside.php:37 content-audio.php:37 content-gallery.php:37
 #: content-image.php:37 content-link.php:37 content-quote.php:37
-#: content-video.php:37 content.php:38 inc/widgets.php:215
+#: content-video.php:37 content.php:38 inc/widgets.php:216
 msgid "Leave a comment"
 msgstr "Deja un comentario"
 
@@ -368,27 +382,21 @@ msgctxt "Used between list items, there is a space after the comma."
 msgid ", "
 msgstr ", "
 
-#: comments.php:59
+#: comments.php:75
 msgid "Comments are closed."
 msgstr "Los comentarios están cerrados."
 
-#: comments.php:36 comments.php:54
+#: comments.php:52 comments.php:70
 msgid "Newer Comments &rarr;"
 msgstr "Comentarios más recientes &rarr;"
 
-#: comments.php:35 comments.php:53
+#: comments.php:51 comments.php:69
 msgid "&larr; Older Comments"
 msgstr "&larr; Comentarios más antiguos"
 
-#: comments.php:34 comments.php:52
+#: comments.php:50 comments.php:68
 msgid "Comment navigation"
 msgstr "Navegación de comentarios"
-
-#: comments.php:27
-msgid "One thought on &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
-msgstr[0] "Un pensamiento en &ldquo;%2$s&rdquo;"
-msgstr[1] "%1$s pensamientos en &ldquo;%2$s&rdquo;"
 
 #: category.php:20
 msgid "Category Archives: %s"
@@ -432,7 +440,7 @@ msgstr "Parece que no hay nada en este lugar. ¿Y si pruebas una búsqueda?"
 msgid "Not Found"
 msgstr "No encontrado"
 
-#. #-#-#-#-#  twentyfourteen.pot (Twenty Fourteen 1.9)  #-#-#-#-#
+#. #-#-#-#-#  twentyfourteen.pot (Twenty Fourteen 2.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 #: footer.php:21
 msgid "https://wordpress.org/"

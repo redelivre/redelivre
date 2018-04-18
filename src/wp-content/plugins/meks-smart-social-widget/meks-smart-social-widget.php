@@ -1,12 +1,12 @@
 <?php 
 /*
 Plugin Name: Meks Smart Social Widget
-Plugin URI: http://mekshq.com
+Plugin URI: https://mekshq.com
 Description: Easily display more than 100 social icons inside WordPress widget. Choose from different icon shapes and sizes and quickly connect your website with your social profiles. Aim, Apple, Behance, Blogger, Cargo, 
 Delicious, DeviantArt, Digg, Dribbble, Envato, Evernote, Facebook, Flickr, Forrst, Github, Google, GooglePlus, GrooveShark, Icloud, Instagram, LastFM, LinkedIN, MySpace, Picasa, 
 Pinterest, ReddIt, Rss, Skype, Spotify, StumbleUpon, Tumblr, Twitter, Vimeo, Vine, WordPress, Xing, Youtube, Zerply, 500px...
 Author: Meks
-Version: 1.3.3
+Version: 1.3.4
 Author URI: http://mekshq.com
 Text Domain: meks-smart-social-widget
 Domain Path: /languages
@@ -32,7 +32,7 @@ Domain Path: /languages
 
 define ('MKS_SOCIAL_WIDGET_URL', trailingslashit(plugin_dir_url(__FILE__)));
 define ('MKS_SOCIAL_WIDGET_DIR', trailingslashit(plugin_dir_path(__FILE__)));
-define ('MKS_SOCIAL_WIDGET_VER', '1.3.3');
+define ('MKS_SOCIAL_WIDGET_VER', '1.3.4');
 
 /* Initialize Widget */
 if(!function_exists('mks_social_widget_init')):

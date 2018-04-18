@@ -17,7 +17,7 @@
 		top: 50%;
 		left: 50%;
 
-		padding: 30px;
+		padding: 20px 30px;
 		max-width: 640px + 60px;
 		margin-left: -( 640px + 60px ) / 2;
 
@@ -25,6 +25,15 @@
 		margin-top: -200px;
 
 		background-color: #fff;
+
+		.video-title {
+			font-weight: 300;
+			text-align: center;
+			line-height: 1.2em;
+			font-size: 22px;
+			color: #555;
+			margin: 0 0 20px 0;
+		}
 
 		.poster-wrapper {
 			cursor: pointer;
@@ -42,15 +51,42 @@
 				bottom: 0;
 				left: 0;
 				width: 640px;
-				height: 38px;
-
-				transition: opacity 0.35s;
-
-				opacity: 0.90;
+				height: 58px;
 			}
 
-			&:hover .play-button {
-				opacity: 1;
+			.video-play-info {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: rgba( 0,0,0,0.75 );
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				opacity: 0;
+				transition: 0.25s;
+
+				.video-play-info-text {
+					text-align: center;
+					font-size: 1.8em;
+					color: rgba( 255,255,255,0.95 );
+
+					small {
+						display: block;
+						margin-top: 0.8em;
+						font-size: 0.65em;
+						font-weight: 200;
+					}
+
+				}
+			}
+
+			&:hover {
+				.video-play-info {
+					opacity: 1;
+				}
 			}
 		}
 
@@ -88,12 +124,12 @@
 					text-align: center;
 					font-size: 0.85em;
 					font-weight: 500;
-					
+
 					@media (max-height: 900px)  {
 						display: none;
 					}
 				}
-				
+
 				input {
 					padding: 6px 8px;
 					font-weight: 500;
@@ -128,13 +164,15 @@
 		}
 
 		.learn-close {
-			margin: 20px auto 0 auto;
-			text-align: center;
-			display: block;
+			display: inline-block;
 			cursor: pointer;
 			font-weight: bold;
 			font-size: 0.9em;
+			padding: 4px;
 			color: #666;
+			position: absolute;
+			top: 4px;
+			right: 8px;
 		}
 	}
 

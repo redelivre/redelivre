@@ -3,10 +3,10 @@ Contributors: latorante
 Donate link: http://donate.latorante.name/
 Tags: comments, comment, image, attachment, images, files
 Requires at least: 3.0
-Tested up to: 4.6.1
+Tested up to: 4.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.5.7
+Stable tag: 1.5.8
 
 Allow your visitors to attach files with their comments!
 
@@ -73,6 +73,9 @@ Thank you all for contributing.
 
 == Upgrade Notice ==
 
+= 1.5.8 =
+* Text changes only
+
 = 1.5.7 =
 * Adding translations I've had for a while
 
@@ -92,8 +95,8 @@ Thank you all for contributing.
 
 = 1.5 =
 * Tested on latest WordPress 4.4
-* Added languages support (thanks to Johannes Bouchain)
-* Added German translation (thanks to Johannes Bouchain)
+* Added languages support (thanks to winnewoerp)
+* Added German translation (thanks to winnewoerp)
 * Added new plugin icon
 
 = 1.3.5 =

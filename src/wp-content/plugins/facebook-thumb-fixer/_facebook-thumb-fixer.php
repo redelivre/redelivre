@@ -2,18 +2,24 @@
 /*
 Plugin Name: Facebook Thumb Fixer
 Plugin URI: https://wordpress.org/support/plugin/facebook-thumb-fixer
-Description: Fixes the problem of the missing (or wrong) thumbnail when a post is shared on Facebook and Google+.
+Description: Control how your thumbnails are viewed when a post is shared on Facebook, Twitter and Google+.
 Author: Michael Ott
-Version: 1.6
+Version: 1.7.5
 Author URI: http://michaelott.id.au
+Text Domain: facebook-thumb-fixer
+Domain Path: /languages/
 */
 
-// Additional contribution by MutebiRoy for Google+ full bleed image support (http://profiles.wordpress.org/mutebiroy/)
+// Look for translation file.
+function load_fbtf_textdomain() {
+    load_plugin_textdomain( 'facebook-thumb-fixer', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'load_fbtf_textdomain' );
 
 // Add HELP link from the plugin page
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'link_action_on_plugin' );
 function link_action_on_plugin( $links ) {
-	return array_merge(array('settings' => '<a href="' . admin_url( '/options-general.php' ) . '">' . __( 'Settings', 'domain' ) . '</a> | <a href="' . admin_url( '/options-general.php?page=facebook-thumb-fixer' ) . '">' . __( 'Help', 'domain' ) . '</a>'), $links);
+	return array_merge(array('settings' => '<a href="' . admin_url( '/options-general.php' ) . '">' . __( 'Settings', 'facebook-thumb-fixer' ) . '</a> | <a href="' . admin_url( '/options-general.php?page=facebook-thumb-fixer' ) . '">' . __( 'Help', 'facebook-thumb-fixer' ) . '</a>'), $links);
 }
 
 // Include custom CSS
@@ -23,40 +29,105 @@ function admin_load_fbf_css(){
 }
 add_action('admin_enqueue_scripts', 'admin_load_fbf_css');
 
+// Show message upon plugin activation
+register_activation_hook( __FILE__, 'ftf_admin_notice_activation_hook' );
+ 
+// Runs only when the plugin is activated
+function ftf_admin_notice_activation_hook() {
+ 
+    /* Create transient data */
+    set_transient( 'ftf-admin-notice', true, 1000 );
+}
+
+/* Add admin notice */
+add_action( 'admin_notices', 'ftf_admin_notice' );
+ 
+// Admin Notice on Activation
+function ftf_admin_notice(){
+ 
+    /* Check transient, if available display notice */
+    if( get_transient( 'ftf-admin-notice' ) ){
+        ?>
+        <div class="updated notice is-dismissible ir-admin-message">
+            <?php $presentation_options_url = admin_url() . 'options-general.php#dfb'; ?>
+            <p><?php printf( __( "Awesome! Don't forget to set a default facebook thumbnail  <a href='%s'>here</a>.", "facebook-thumb-fixer" ), $presentation_options_url); ?></p>
+        </div>
+        <?php
+        /* Delete transient, only display this notice once. */
+        delete_transient( 'ftf-admin-notice' );
+    }
+}
+
 // Add image path field into the general settings page
-$general_setting_default_fb_thumb = new general_setting_default_fb_thumb();
+$setting_default_fb_thumb = new general_setting_default_fb_thumb();
 class general_setting_default_fb_thumb {
     function general_setting_default_fb_thumb( ) {
         add_filter( 'admin_init' , array( &$this , 'register_fields' ) );
     }
     function register_fields() {
         register_setting( 'general', 'default_fb_thumb', 'esc_attr' );
-        add_settings_field('dft', '<label for="default_fb_thumb" id="dfb">'.__('Default Facebook Thumb' , 'default_fb_thumb' ).'</label>' , array(&$this, 'fields_html') , 'general' );
+        add_settings_field('dft', '<label for="default_fb_thumb" id="dfb">' . __('Default Facebook Thumb' , 'facebook-thumb-fixer' ) . '</label>' , array(&$this, 'fields_html') , 'general' );
     }
     function fields_html() {
-        $fbt_value = get_option( 'default_fb_thumb', 'medium' );
-		if ($fbt_value) { ?>
+		$fbt_value 			= get_option( 'default_fb_thumb');
+		$fb_URL 	  		= 'https://developers.facebook.com/docs/sharing/best-practices#images';
+		$settings_URL 		= admin_url( '/options-general.php?page=facebook-thumb-fixer' );
+		$home_image_ID 		= attachment_url_to_postid( $fbt_value ); 									// Get the ID of the default image
+		$image_attributes	= wp_get_attachment_image_src( $attachment_id = $home_image_ID, 'full' ); 	// Get the image attributes of the default image
+		$width				= $image_attributes[1];														// Get the width
+		$height				= $image_attributes[2];														// Get the height
+		?>
 
-        <input type="text" id="default_fb_thumb" class="regular-text ltr" name="default_fb_thumb" value="<?php echo $fbt_value; ?>" />
+		<input id="default_fb_thumb" name="default_fb_thumb" type="text" value="<?php if($fbt_value) { esc_attr_e( $fbt_value ); } ?>" />
+    	<input id="default_fb_thumb_button" class="upload-button button" name="default_fb_thumb_button" type="text" value="<?php _e( 'Browse', 'facebook-thumb-fixer' ); ?>" />
+		<script>
+			// Media uploader
+			jQuery(document).ready(function($) {
+			var _custom_media = true,
+			_orig_send_attachment = wp.media.editor.send.attachment;
 
+			$('.upload-button').click(function(e) {
+				var send_attachment_bkp = wp.media.editor.send.attachment;
+				var button = $(this);
+				var id = button.attr('id').replace('_button', '');
+				_custom_media = true;
+				wp.media.editor.send.attachment = function(props, attachment){
+					if ( _custom_media ) {
+						$("#"+id).val(attachment.url);
+					} else {
+						return _orig_send_attachment.apply( this, [props, attachment] );
+					};
+				}
+
+				wp.media.editor.open(button);
+				return false;
+			});
+
+			$('.add_media').on('click', function(){
+				_custom_media = false;
+			});
+		});
+		</script>
+		<?php wp_enqueue_media(); ?>
+
+		<p class="description">
+			<?php echo sprintf( __( 'Browse to the preferred Facebook image for your homepage. Facebook <a href="%1$s" target="_blank">recommends</a> your image be 1200 x 630 or 600 x 315.', 'facebook-thumb-fixer' ), $fb_URL) ?>
+		</p>
+		
+		<?php if ($fbt_value) { ?>
+
+		<a href="<?php echo $fbt_value; ?>?TB_iframe=true&width=600&height=550" class="thickbox">
+		<img src="<?php echo $fbt_value; ?>" class="thickbox ftf-preview" /></a>
+
+		<?php if ($width < 600 || $height < 315) { ?>
+			<p class="ftf-warning">
+				<?php echo sprintf( __( '<strong>Oops! </strong>Your default Facebook image is smaller than the minimum 600 x 315 <a href="%1$s" target="_blank">recommended</a> by Facebook.', 'facebook-thumb-fixer' ), $fb_URL) ?>
+			</p>
 		<?php } else { ?>
-
-		<input type="text" id="default_fb_thumb" class="regular-text no-fb-thumb ltr" name="default_fb_thumb" value="<?php echo $fbt_value; ?>" />
-
-		<?php } ?>
-
-		<?php if ($fbt_value) {
-		list($width, $height) = @getimagesize($fbt_value);
-		echo '<span class="ftf-tick">&#10004;</span>';
-		}
-		echo '<p class="description">This is the full path to your default thumb. Facebook <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommends</a> your image be 1200x630 or 600x315. View help topics <a href="' . admin_url( '/options-general.php?page=facebook-thumb-fixer' ) . '">here</a>.</p>';
-		if ($fbt_value) {
-		echo '<a href="' . $fbt_value . '?TB_iframe=true&width=600&height=550" class="thickbox" title="Your default open graph image is ' . $width . ' x ' . $height . ' pixels."><img src="' . $fbt_value . '" title="Default Facebook Thumb" class="thickbox ftf-preview" /></a>';
-		echo '<p class="description">Note: The image shown above is scaled down. The real dimensions are actually ';
-		echo $width . ' x ' . $height . '.</p>';
-		if ($width < 600 || $height < 315) {
-			echo '<p class="ftf-warning"><strong>WARNING:</strong> Your default Facebook thumbnail image dimensions are smaller than the minimum 600 x 315 <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommended</a> by Facebook.</p>';
-		}
+			<p class="description good">
+				<span>&#10004</span> <?php echo sprintf( __( 'Your default Facebook image has dimensions of at least 600 x 315 (actual dimensions are %1$s x %2$s).', 'facebook-thumb-fixer' ), $width, $height) ?>
+			</p>
+		<?php }
 		}
     }
 }
@@ -69,13 +140,15 @@ class general_setting_fb_app_ID {
     }
     function register_fields() {
         register_setting( 'general', 'fb_app_ID', 'esc_attr' );
-        add_settings_field('faid', '<label for="fb_app_ID" id="fb_app_ID">'.__('Facebook App ID' , 'fb_app_ID' ).'</label>' , array(&$this, 'fb_app_ID_field') , 'general' );
+        add_settings_field('faid', '<label for="fb_app_ID" id="fb_app_ID">' . __('Facebook App ID' , 'facebook-thumb-fixer' ).'</label>' , array(&$this, 'fb_app_ID_field') , 'general' );
     }
     function fb_app_ID_field() {
 	$fbaid_value = get_option( 'fb_app_ID', '' ); ?>
         
     <input type="text" id="fb_app_ID" class="regular-text ltr" name="fb_app_ID" value="<?php echo $fbaid_value; ?>" />
-	<p class="description">Find your Facebook App ID <a href="https://developers.facebook.com/apps/" target="_blank">here</a>.</p>
+	<?php $fb_app_ID_URL = 'https://developers.facebook.com/apps/'; ?>
+	<p class="description"><?php echo sprintf( __( 'Find your Facebook App ID <a href="%1$s" target="_blank">here</a>.', 'facebook-thumb-fixer' ), $fb_app_ID_URL); ?></p>
+	
 	<?php }
 }
 
@@ -88,50 +161,48 @@ class general_setting_object_type {
     }
     function register_object_type() {
         register_setting( 'general', 'homepage_object_type', 'esc_attr' );
-        add_settings_field('object_type', '<label for="homepage_object_type">'.__('Homepage Object Type' , 'homepage_object_type' ).'</label>' , array(&$this, 'ot_fields_html') , 'general' );
+        add_settings_field('object_type', '<label for="homepage_object_type">' . __('Homepage Object Type' , 'facebook-thumb-fixer' ) . '</label>' , array(&$this, 'ot_fields_html') , 'general' );
     }
     function ot_fields_html() { ?>
 
-        <?php	// Object Types
-				// TODO: additional fields for specific object types (commented out below).
+        <?php
+			 $hpot = get_option( 'homepage_object_type', '');
 		?>
-		<select value="homepage_object_type" name="homepage_object_type"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "") { echo " class='no-object-type'"; } ?>>
+		<select value="homepage_object_type" name="homepage_object_type"<?php if($hpot == "") { echo " class='no-object-type'"; } ?>>
         	<option></option>
-            <option value="article"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "article") { echo " selected"; } ?>>article</option>
-            <option value="book"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "book") { echo " selected"; } ?>>book</option>
-            <option value="books.author"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "books.author") { echo " selected"; } ?>>books.author</option>
-            <!--option value="books.book"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "books.book") { echo " selected"; } ?>>books.book</option-->
-            <!--option value="books.genre"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "books.genre") { echo " selected"; } ?>>books.genre</option-->
-            <!--option value="business.business"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "business.business") { echo " selected"; } ?>>business.business</option-->
-            <option value="fitness.course"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "fitness.course") { echo " selected"; } ?>>fitness.course</option>
-            <option value="fitness.unit"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "fitness.unit") { echo " selected"; } ?>>fitness.unit</option>
-            <option value="music.album"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "music.album") { echo " selected"; } ?>>music.album</option>
-            <option value="music.playlist"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "music.playlist") { echo " selected"; } ?>>music.playlist</option>
-            <option value="music.radio_station"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "music.radio_station") { echo " selected"; } ?>>music.radio_station</option>
-            <option value="music.song"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "music.song") { echo " selected"; } ?>>music.song</option>
-            <option value="object"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "object") { echo " selected"; } ?>>object</option>
-            <!--option value="place"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "place") { echo " selected"; } ?>>place</option-->
-            <option value="product"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "product") { echo " selected"; } ?>>product</option>
-            <option value="product.group"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "product.group") { echo " selected"; } ?>>product.group</option>
-            <!--option value="product.item"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "product.item") { echo " selected"; } ?>>product.item</option-->
-            <option value="profile"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "profile") { echo " selected"; } ?>>profile</option>
-            <!--option value="restaurant.menu"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "restaurant.menu") { echo " selected"; } ?>>restaurant.menu</option-->
-            <!--option value="restaurant.menu_item"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "restaurant.menu_item") { echo " selected"; } ?>>restaurant.menu_item</option-->
-            <!--option value="restaurant.menu_section"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "restaurant.menu_section") { echo " selected"; } ?>>restaurant.menu_section</option-->
-            <option value="restaurant.restaurant"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "restaurant.restaurant") { echo " selected"; } ?>>restaurant.restaurant</option>
-            <option value="video.episode"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "video.episode") { echo " selected"; } ?>>video.episode</option>
-            <option value="video.movie"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "video.movie") { echo " selected"; } ?>>video.movie</option>
-            <option value="video.other"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "video.other") { echo " selected"; } ?>>video.other</option>
-            <option value="video.tv_show"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "video.tv_show") { echo " selected"; } ?>>video.tv_show</option>
-            <option value="website"<?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "website") { echo " selected"; } ?>>website</option>
+            <option value="article"<?php if($hpot == "article") { echo " selected"; } ?>>article</option>
+            <option value="book"<?php if($hpot == "book") { echo " selected"; } ?>>book</option>
+            <option value="books.author"<?php if($hpot == "books.author") { echo " selected"; } ?>>books.author</option>
+			<option value="business.business"<?php if($hpot == "business.business") { echo " selected"; } ?>>business.business</option>
+            <option value="fitness.course"<?php if($hpot == "fitness.course") { echo " selected"; } ?>>fitness.course</option>
+            <option value="fitness.unit"<?php if($hpot == "fitness.unit") { echo " selected"; } ?>>fitness.unit</option>
+            <option value="music.album"<?php if($hpot == "music.album") { echo " selected"; } ?>>music.album</option>
+            <option value="music.playlist"<?php if($hpot == "music.playlist") { echo " selected"; } ?>>music.playlist</option>
+            <option value="music.radio_station"<?php if($hpot == "music.radio_station") { echo " selected"; } ?>>music.radio_station</option>
+            <option value="music.song"<?php if($hpot == "music.song") { echo " selected"; } ?>>music.song</option>
+            <option value="place"<?php if($hpot == "place") { echo " selected"; } ?>>place</option>
+            <option value="product"<?php if($hpot == "product") { echo " selected"; } ?>>product</option>
+            <option value="product.group"<?php if($hpot == "product.group") { echo " selected"; } ?>>product.group</option>
+            <option value="profile"<?php if($hpot == "profile") { echo " selected"; } ?>>profile</option>
+            <option value="restaurant.restaurant"<?php if($hpot == "restaurant.restaurant") { echo " selected"; } ?>>restaurant.restaurant</option>
+            <option value="video.episode"<?php if($hpot == "video.episode") { echo " selected"; } ?>>video.episode</option>
+            <option value="video.movie"<?php if($hpot == "video.movie") { echo " selected"; } ?>>video.movie</option>
+            <option value="video.other"<?php if($hpot == "video.other") { echo " selected"; } ?>>video.other</option>
+            <option value="video.tv_show"<?php if($hpot == "video.tv_show") { echo " selected"; } ?>>video.tv_show</option>
+            <option value="website"<?php if($hpot == "website") { echo " selected"; } ?>>website</option>
 		</select>
-        <p>Learn about Object Types <a href="https://developers.facebook.com/docs/reference/opengraph" target="_blank">here</a>.</p>
-        <?php $hpot = get_option( 'homepage_object_type', ''); if($hpot == "") { ?>
-        	<p class="howto"><strong>Note:</strong> When no selction is made, the Object Type for your home page will be 'website'.</p>
 
-			<?php require("inc-preview.php"); ?>
-
-        <?php } ?>
+		<?php $fb_object_types_URL = 'https://developers.facebook.com/docs/reference/opengraph'; ?>
+		<p><?php echo sprintf( __( 'Learn about Object Types <a href="%1$s" target="_blank">here</a>.', 'facebook-thumb-fixer' ), $fb_object_types_URL); ?></p>
+    
+		<?php 
+			$fbt_value = get_option( 'default_fb_thumb'); 
+			list($width, $height) = @getimagesize($fbt_value);
+			if($fbt_value && ($width >= 600 || $height >= 315)) { ?>
+			<?php include(locate_template(plugin_basename( __FILE__ ))) . 'home-preview.php'; ?>
+        <?php } else {  ?>
+			<p class="howto"><?php _e( '<strong>Note: </strong>If no selection is made, the Object Type for your home page will be "website".', 'facebook-thumb-fixer' ); ?></p>
+		<?php } ?>
 
 <?php }
 }
@@ -178,127 +249,180 @@ class ftf_otmeta {
         // Use nonce for verification
         wp_nonce_field( plugin_basename( __FILE__ ), 'ftf_open_type__nounce' ); ?>
 
-        <?php	// Object Types
-				// TODO: additional fields for specific object types (commented out below).
+        <?php
+			$ot  	= get_post_meta($post->ID, "ftf_open_type", TRUE);
+			$dog 	= get_post_meta($post->ID, "disable_open_graph", TRUE);
+			$current_screen = get_current_screen();
+
+			if ($current_screen ->id === 'post') {
+				$post_type_label = 'post';
+			} else if ($current_screen ->id === 'page') {
+				$post_type_label = 'page';
+			} else {
+				$post_type_label = '';
+			}
 		?>
 		<p><strong>Object Type</strong></p>
-		<select value="ftf_open_type_field" name="ftf_open_type_field" style="width:100%;">
+		<select name="ftf_open_type_field" style="width:100%;">
         	<option></option>
-            <option value="article"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "article") { echo " selected"; } ?>>article</option>
-            <option value="book"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "book") { echo " selected"; } ?>>book</option>
-            <option value="books.author"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "books.author") { echo " selected"; } ?>>books.author</option>
-            <!--option value="books.book"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "books.book") { echo " selected"; } ?>>books.book</option-->
-            <!--option value="books.genre"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "books.genre") { echo " selected"; } ?>>books.genre</option-->
-            <!--option value="business.business"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "business.business") { echo " selected"; } ?>>business.business</option-->
-            <option value="fitness.course"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "fitness.course") { echo " selected"; } ?>>fitness.course</option>
-            <option value="fitness.unit"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "fitness.unit") { echo " selected"; } ?>>fitness.unit</option>
-            <option value="music.album"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "music.album") { echo " selected"; } ?>>music.album</option>
-            <option value="music.playlist"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "music.playlist") { echo " selected"; } ?>>music.playlist</option>
-            <option value="music.radio_station"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "music.radio_station") { echo " selected"; } ?>>music.radio_station</option>
-            <option value="music.song"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "music.song") { echo " selected"; } ?>>music.song</option>
-            <option value="object"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "object") { echo " selected"; } ?>>object</option>
-            <!--option value="place"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "place") { echo " selected"; } ?>>place</option-->
-            <option value="product"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "product") { echo " selected"; } ?>>product</option>
-            <option value="product.group"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "product.group") { echo " selected"; } ?>>product.group</option>
-            <!--option value="product.item"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "product.item") { echo " selected"; } ?>>product.item</option-->
-            <option value="profile"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "profile") { echo " selected"; } ?>>profile</option>
-            <!--option value="restaurant.menu"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "restaurant.menu") { echo " selected"; } ?>>restaurant.menu</option-->
-            <!--option value="restaurant.menu_item"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "restaurant.menu_item") { echo " selected"; } ?>>restaurant.menu_item</option-->
-            <!--option value="restaurant.menu_section"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "restaurant.menu_section") { echo " selected"; } ?>>restaurant.menu_section</option-->
-            <option value="restaurant.restaurant"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "restaurant.restaurant") { echo " selected"; } ?>>restaurant.restaurant</option>
-            <option value="video.episode"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "video.episode") { echo " selected"; } ?>>video.episode</option>
-            <option value="video.movie"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "video.movie") { echo " selected"; } ?>>video.movie</option>
-            <option value="video.other"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "video.other") { echo " selected"; } ?>>video.other</option>
-            <option value="video.tv_show"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "video.tv_show") { echo " selected"; } ?>>video.tv_show</option>
-            <option value="website"<?php $ot = get_post_meta($post->ID, "ftf_open_type", TRUE); if($ot == "website") { echo " selected"; } ?>>website</option>
+            <option value="article"<?php if($ot == "article") { echo " selected"; } ?>>article</option>
+            <option value="book"<?php if($ot == "book") { echo " selected"; } ?>>book</option>
+            <option value="books.author"<?php if($ot == "books.author") { echo " selected"; } ?>>books.author</option>
+			<option value="business.business"<?php if($ot == "business.business") { echo " selected"; } ?>>business.business</option>
+            <option value="fitness.course"<?php if($ot == "fitness.course") { echo " selected"; } ?>>fitness.course</option>
+            <option value="fitness.unit"<?php if($ot == "fitness.unit") { echo " selected"; } ?>>fitness.unit</option>
+            <option value="music.album"<?php if($ot == "music.album") { echo " selected"; } ?>>music.album</option>
+            <option value="music.playlist"<?php if($ot == "music.playlist") { echo " selected"; } ?>>music.playlist</option>
+            <option value="music.radio_station"<?php if($ot == "music.radio_station") { echo " selected"; } ?>>music.radio_station</option>
+            <option value="music.song"<?php if($ot == "music.song") { echo " selected"; } ?>>music.song</option>
+            <option value="place"<?php if($ot == "place") { echo " selected"; } ?>>place</option>
+            <option value="product"<?php if($ot == "product") { echo " selected"; } ?>>product</option>
+            <option value="product.group"<?php if($ot == "product.group") { echo " selected"; } ?>>product.group</option>
+            <option value="profile"<?php if($ot == "profile") { echo " selected"; } ?>>profile</option>
+            <option value="restaurant.restaurant"<?php if($ot == "restaurant.restaurant") { echo " selected"; } ?>>restaurant.restaurant</option>
+            <option value="video.episode"<?php if($ot == "video.episode") { echo " selected"; } ?>>video.episode</option>
+            <option value="video.movie"<?php if($ot == "video.movie") { echo " selected"; } ?>>video.movie</option>
+            <option value="video.other"<?php if($ot == "video.other") { echo " selected"; } ?>>video.other</option>
+            <option value="video.tv_show"<?php if($ot == "video.tv_show") { echo " selected"; } ?>>video.tv_show</option>
+            <option value="website"<?php if($ot == "website") { echo " selected"; } ?>>website</option>
 		</select>
-        <p>If no selection is made, the Object Type for this post/page will be 'article'. Learn about Object Types <a href="https://developers.facebook.com/docs/reference/opengraph" target="_blank">here</a>.</p>
 
-		<?php require("inc-preview.php"); ?>
+		<?php $fb_object_types_URL = 'https://developers.facebook.com/docs/reference/opengraph/'; ?>
+		<p><?php echo sprintf( __( 'If no selection is made, the Object Type for this %1$s will be "article". Learn about Object Types <a href="%2$s" target="_blank">here</a>.', 'facebook-thumb-fixer' ), $post_type_label, $fb_object_types_URL); ?></p>
+	
+	
+		<div class="preview-container <?php if($dog == "1") { echo 'hide'; } ?>">
+		<?php include(locate_template(plugin_basename( __FILE__ ))) . 'post-preview.php'; ?>
+		</div>
+
+		<p class="disabled-container <?php if($dog !== "1") { echo 'hide'; } ?>"><?php _e( 'Preview and debugging are not possible when open graph tags are disabled.', 'facebook-thumb-fixer' ); ?></p>
+
+		<p>
+			<input type="checkbox" name="disable_open_graph" class="disable_open_graph" value="1" <?php if($dog == "1") { echo " checked"; } ?>>
+			<label for="disable_open_graph"><?php echo sprintf( __( "Disable for this %s", "facebook-thumb-fixer" ), $post_type_label); ?></label>
+		</p>
+
+		<script type="text/javascript">
+			jQuery(".disable_open_graph").click(function() {
+				if(jQuery(this).is(":checked")) {
+					jQuery(".preview-container").fadeOut();
+					jQuery(".disabled-container").fadeIn();
+				} else {
+					jQuery(".preview-container").fadeIn();
+					jQuery(".disabled-container").fadeOut();
+				}
+			});
+		</script>
 
 <?php  }
 
 
-    function save_data($post_id){
+    function save_data($post_id) {
+		
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
             return;
 
-        if ( !array_key_exists('ftf_open_type__nounce', $_POST) || !wp_verify_nonce( $_POST['ftf_open_type__nounce'], plugin_basename( __FILE__ ) ) )
+        if ( !wp_verify_nonce( $_POST['ftf_open_type__nounce'], plugin_basename( __FILE__ ) ) )
             return;
 
         // Check permissions
         if ( 'page' == $_POST['post_type'] ){
             if ( !current_user_can( 'edit_page', $post_id ) )
                 return;
-        }else{
+        } else {
             if ( !current_user_can( 'edit_post', $post_id ) )
                 return;
         }
-        $data = $_POST['ftf_open_type_field'];
-        update_post_meta($post_id, 'ftf_open_type', $data, get_post_meta($post_id, 'ftf_open_type', TRUE));
-        return $data;
+		
+        $ftf_open_type_field_data = $_POST['ftf_open_type_field'];
+        update_post_meta($post_id, 'ftf_open_type', $ftf_open_type_field_data, $ot);
+        //return $ftf_open_type_field_data;
+
+		$disable_open_graph_data = $_POST['disable_open_graph'];
+		update_post_meta($post_id, 'disable_open_graph', $disable_open_graph_data, $dog);
+		//return $disable_open_graph_data;
     }
+
 }
 $ftf_otmeta = new ftf_otmeta;
-
 
 // Add page into the SETTINGS menu
 add_action( 'admin_menu', 'ftfixer_menu' );
 function ftfixer_menu() {
-	$icon_path = get_option('siteurl').'/wp-content/plugins/'.basename(dirname(__FILE__)).'/images/facebook-admin.png';
+	$icon_path = plugins_url('images/', __FILE__ ) . 'facebook-admin.png';
 	add_menu_page( __( 'FB Thumb Fixer' ), __( 'FB Thumb Fixer' ), 'manage_options', 'facebook-thumb-fixer', 'myfbft_plugin_options' ,$icon_path);
 }
 function myfbft_plugin_options() {
 	if ( !current_user_can( 'read' ) )  { // This help page is accessible to anyone
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+		wp_die( __( 'You do not have sufficient permissions to access this page.', 'facebook-thumb-fixer' ) );
 } ?>
 
-<div class="task-rocket">
-    <h3>Task Rocket</h3>
-    <p style="color:#fff; text-align:center;">The awesomest front-end project management theme built on WordPress.</p>
-    <p><a href="https://taskrocket.info/?source=ftf" target="_blank">Take it for a test flight</a></p>
-</div>
+<a href="https://taskrocket.info/?source=ftf" target="_blank" class="task-rocket">Try</a></p>
 
 <div class="wrap ftf-wrap">
     <h2>Facebook Thumb Fixer</h2>
 	<?php
-    $fbt_value = get_option( 'default_fb_thumb', '' );
+    $fbt_value = get_option( 'default_fb_thumb');
     if ($fbt_value) {
 	list($width, $height) = @getimagesize($fbt_value); ?>
-    <p class="ftf-good">Well done! You have a default Facebook thumbnail set. This will be used when a page or post you share doesn't already have a featured image. You can change the default image <a href="<?php echo get_admin_url(); ?>/options-general.php#dfb">here</a>.</p>
+
+	<?php $settings_URL = get_admin_url() . 'options-general.php#dfb'; ?>
+	<p class="ftf-good"><?php echo sprintf( __( 'Well done! You have a default Facebook thumbnail set. You can change it any time <a href="%1$s">here</a>.', 'facebook-thumb-fixer' ), $settings_URL); ?></p>
     
-	<h2>Homepage Preview</h2>
-	<p>This is an approximate preview of your homepage when shared on Facebook:</p>
-	
+	<h2><?php _e( 'Homepage Preview', 'facebook-thumb-fixer' ); ?></h2>
+	<p><?php _e( 'This is an approximate preview of your homepage when shared on Facebook:', 'facebook-thumb-fixer' ); ?></p>
+
 	<div class="ftf-live-home-preview">
-		<img src="<?php echo get_option('siteurl').'/wp-content/plugins/'.basename(dirname(__FILE__)).'/images/preview-top.png'; ?>" />
-	
+		<img src="<?php echo plugins_url('images/', __FILE__ ) . 'preview-top.png'; ?>" />
+
 		<div class="ftf-preview-details">
-	
-			<a href="<?php echo $fbt_value; ?>?TB_iframe=true&width=600&height=550" class="thickbox" title="Your default open graph image is <?php echo $width . " x " . $height; ?> pixels.">
-		    <img src="<?php echo $fbt_value; ?>" class="thickbox" /></a>
-	
-			<h1><?php echo get_bloginfo( 'name' ); ?> <a href="<?php echo get_admin_url(); ?>/options-general.php" class="edit">(edit)</a></h1>
-	
+
+			<div class="overflow home-thumb-image">
+				<img src="<?php if($fbt_value) { esc_attr_e( $fbt_value ); } ?>" />
+			</div>
+
+			<h1><?php echo get_bloginfo( 'name' ); ?></h1>
+
 			<p>
 				<?php
-					$tagline = get_bloginfo( 'description' );
-					$tagline_chars = substr($tagline, 0, 150);
-					echo strip_tags($tagline_chars);
-				?> <a href="<?php echo get_admin_url(); ?>/options-general.php" class="edit">(edit)</a>
+					$description = get_bloginfo( 'description' );
+					if ( $description ) {
+						$excerpt_chars = substr($description, 0, 150);
+						echo strip_tags($excerpt_chars);
+					}
+				?>
 			</p>
 			<span class="ftf-domain"><?php echo $_SERVER['SERVER_NAME']; ?></span>
 		</div>
 	</div>
 	
-    <p class="description">Note: Facebook <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommends</a> your image be 1200x630 or 600x315. Your image (show here scaled down) is <?php echo $width . " x " . $height; ?>.</p>
-	<?php
-	if ($width < 600 || $height < 315) {
-		echo '<p class="ftf-warning"><strong>WARNING:</strong> Although you do have a default Facebook thumbnail, the dimensions are smaller than the minimum 600 x 315 <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommended</a> by Facebook.</p>';
-	}
+	<?php 
+		$fbt_value 			= get_option( 'default_fb_thumb');
+		$fb_URL 	  		= 'https://developers.facebook.com/docs/sharing/best-practices#images';
+		$home_image_ID 		= attachment_url_to_postid( $fbt_value ); 									// Get the ID of the default image
+		$image_attributes	= wp_get_attachment_image_src( $attachment_id = $home_image_ID, 'full' ); 	// Get the image attributes of the default image
+		$width				= $image_attributes[1];														// Get the width
+		$height				= $image_attributes[2];														// Get the height
 	?>
-    <?php } else { ?>
-    <p class="ftf-bad">You currently do not have a Default Facebook Thumbnail set. Set one <a href="<?php echo get_admin_url(); ?>/options-general.php#dfb">here</a>. Facebook <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">recommends</a> your image be 1200x630 or 600x315.</p>
+	<p class="description">
+		<?php echo sprintf( __( '<strong>Note: </strong>Facebook <a href="%1$s" target="_blank">recommends</a> your image be 1200 x 630 or 600 x 315.', 'facebook-thumb-fixer' ), $fb_URL); ?>
+		<?php if ($width >= 600 && $height >= 315) { ?>
+		<?php echo sprintf( __( 'Your image (shown here scaled down) appears to be good at %1$s x %2$s.', 'facebook-thumb-fixer' ), $width, $height); ?>
+		<?php } ?>
+	</p>
+
+	<?php
+	if ($width < 600 || $height < 315) { ?>
+		<p class="ftf-warning">
+			<?php echo sprintf( __('<strong>Oops! </strong>Although you do have a default Facebook thumbnail, the dimensions are smaller than the minimum 600 x 315 <a href="%1$s" target="_blank">recommended</a> by Facebook.', 'facebook-thumb-fixer' ), $fb_URL); ?>
+		</p>
+	<?php } 
+	} else { 
+		$settings_URL = get_admin_url() . 'options-general.php#dfb';
+	?>
+
+		<p class="ftf-bad"><?php echo sprintf( __( 'You currently do not have a Default Facebook Thumbnail set. Set one <a href="%1$s">here</a>.', 'facebook-thumb-fixer' ), $settings_URL); ?></p>
+
     <?php } ?>
 
     <script>
@@ -319,87 +443,9 @@ function myfbft_plugin_options() {
 
 	});
     </script>
-    <div class="ftf-help">
-    <h3 class="ftf-header">Help Topics</h3>
-    	<p class="topic">What does this plug-in do?</p>
-        <div class="help-answer">
-        	<p>This plug-in will place the appropriate  <a href="http://ogp.me/" target="_blank">Open Graph</a> meta properties into the &lt;head&gt; of your web pages, so that when someone links to your page on Facebook (or any other service that utilises the Open Graph protocol) the correct thumbnail and other information will show.</p>
-            <p>The thumbnail is derived from the featured image of your post (or page).</p>
-        	<p>If your post does not have a featured image, then the <a href="<?php echo get_admin_url(); ?>/options-general.php#dfb">default thumbnail</a> will be used.</p>
-        	<p>If someone links to your home page (which traditionally doesn't have a featured image) then the default image is used.</p>
-        </div>
-
-        <p class="topic">How does it work?</p>
-        <div class="help-answer">
-        	<p>Whenever anyone posts a website link to Facebook, the Facebook system searches the source code for the <a href="https://developers.facebook.com/docs/concepts/opengraph/" target="_blank">Open Graph</a>  meta properties. If they are not found, then it will instead pull (several) images (if any) contained within the web page. If there are multiple images pulled then the user can select one of the many presented (though the one they choose might not be the one you are happy to have as the primary image shown on Facebook, hence this plug-in).</p>
-    		<p>This plug-in gets around that problem but taking  that choice away from the Facebook user, so only the thumbnail you want is displayed. This is also good in a situation where - for example - many different Facebook users share your web page,  you can trust the same thumbnail will always be used (the thumbnail might be of your brand for example).</p>
-        </div>
-
-        <p class="topic">How do I specify Object Types?</p>
-        <div class="help-answer">
-        	<h4>Posts and Pages</h4>
-            <p>On each page or post you edit there is an 'Open Graph Object Type' meta box. Simply make a section from there to specify what Object Type the page or post is. Example: If the it's an article, then choose 'article'. If it's a product, choose 'product'. To help you decide what Object Type to choose, go <a href="https://developers.facebook.com/docs/reference/opengraph" target="_blank">here</a> to learn the differences between them all.</p>
-            <p><strong>Note: </strong>If no selection is made for posts or pages then the Object Type will be 'article'.</p>
-            <h4>Homepage</h4>
-            <p>To specify what Object Type your homepage is, go to the Wordpress<strong> Settings -&gt; General</strong> page <a href="<?php echo get_admin_url(); ?>options-general.php">here</a> and make a selection from the 'Homepage Object Type' field.</p>
-            <p><strong>Note: </strong>If no selection is made for the homepage then the Object Type will be 'webpage'.</p>
-        </div>
-		
-		<p class="topic">Where can I find my Facebook App ID</p>
-        <div class="help-answer">
-            <p>If you have a Facebook App, you can get the App ID from <a href="https://developers.facebook.com/apps/" target="_blank">your developer dashboard</a>.</p>
-			<p>You can specify your Facebook App ID <a href="<?php echo get_admin_url(); ?>/options-general.php#fb_app_ID">here</a>.</p>
-        </div>
-
-        <p class="topic">How do I customise the text shown when a post is shared on Facebook?</p>
-        <div class="help-answer">
-            <p>By default the description is derived from the content, but if you want to customise it then simply add content into the excerpt field.</p>
-        </div>
-		
-		<p class="topic">How do I customise the text shown when the homepage is shared on Facebook?</p>
-        <div class="help-answer">
-            <p>When your homepage is shared on Facebook, the content from the <a href="<?php echo get_admin_url(); ?>/options-general.php">tagline</a> is used.</p>
-        </div>
-
-        <p class="topic">How can I test a post/page without sharing it on Facebook first?</p>
-        <div class="help-answer">
-            <p>Run the URL through the <a href='http://developers.facebook.com/tools/debug' target='_blank'>Facebook debugger</a> tool and examine the information that is returned. It's a good idea to hit the <strong>Scrape Again</strong> button to force Facebook to see the latest version of your page.</p>
-        </div>
-
-        <p class="topic">What if I don't use Featured Images?</p>
-        <div class="help-answer">
-        	<p>If you don't have featured images attached to your posts, then you can still use this plug-in just to show a default thumbnail on Facebook (as opposed to no thumbnail). This plug-in has been engineered so that if you don't use a featured image on posts then a default thumbnail is used instead. You can set a <strong>Default Facebook Thumb</strong> in the Wordpress<strong> Settings -&gt; General</strong> page <a href="<?php echo get_admin_url(); ?>options-general.php">here</a>.</p>
-        </div>
-
-        <p class="topic">Conflicts with other plug-ins</p>
-        <div class="help-answer">
-            <p>Any other plug-in that inserts the open graph properties into the &lt;head&gt; of your website may cause a conflict and failure to work properly.</p>
-            <p>To test if you have a conflict, simply view the source code of your home page and search for any instances of <strong>og:</strong> within. Typically a plug-in will output the meta tags into it's own group. For this plug-in, they will be directly below the comment <strong>&lt;!--/ Facebook Thumb Fixer Open Graph /--&gt;</strong> but other plug-ins will output differently.</p>
-            <p>The only solution to resolve a conflict is to disable one of the plug-ins.</p>
-        </div>
-
-        <p class="topic">What if some posts use featured images and some don't?</p>
-        <div class="help-answer">
-            <p>The <strong>Default Facebook Thumb</strong> is used  to fall back on in the event your post doesn't have a featured image. Ideally the <strong>Default Facebook Thumb</strong> image would be of your logo or brand. You can set a <strong>Default Facebook Thumb</strong> in the Wordpress <strong>Settings -&gt; General</strong> page <a href="<?php echo get_admin_url(); ?>options-general.php">here</a>.</p>
-        </div>
-
-        <p class="topic">Occasionally it doesn't work. What's going on?</p>
-        <div class="help-answer">
-            <p>Blame Facebook for that. Even though their system searches for the og:image meta property, for different reasons (outside the control of this plug-in) sometimes  the thumbnail doesn't load on the Facebook post.</p>
-            <p>But don't fret, it's easy to get around. Using the official <a href='http://developers.facebook.com/tools/debug' target='_blank'>Facebook debugger</a> tool, paste in the URL of your post, hit the <strong>Debug</strong> button and see if the image thumb loads (scroll down to <strong>Object Properties</strong>). If it doesn't try hitting the <strong>Fetch new scrape information</strong> button.</p>
-        </div>
-
-        <p class="topic">The settings page isn't showing the dimensions of my image. What's up with that?</p>
-        <div class="help-answer">
-            <p>This is extremely rare, and won't prevent the plug-in from doing it's job. But the most likely cause is a server side setting in php.ini that needs to be changed: <code>allow_url_fopen = On</code></p>
-        </div>
-
-        <p class="topic">Where can I get support?</p>
-        <div class="help-answer">
-        	<p>Reach for support at the <a href="https://wordpress.org/support/plugin/facebook-thumb-fixer">Wordpress plug-in repo</a>.</p>
-        </div>
-
-    </div>
+    <h3><?php _e( 'Where can I get support?', 'facebook-thumb-fixer' ); ?></h3>
+	<?php $support_URL = 'https://wordpress.org/support/plugin/facebook-thumb-fixer'; ?>
+	<p><?php echo sprintf( __( 'Reach for support at the <a href="%1$s" target="_blank">Wordpress plug-in repo</a>.', 'facebook-thumb-fixer' ), $support_URL) ?></p>
 
 </div>
 
@@ -411,151 +457,25 @@ function fbfixhead() {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 	 // If BuddyPress is active
-	if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) {
+	if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) {			
 
 		// If not on a BuddyPress members page
 		if (!bp_current_component('members')) {
-
-			 // If not the homepage
-			if ( !is_home() ) {
-
-				// If there is a post image...
-				if (has_post_thumbnail()) {
-				// Set '$featuredimg' variable for the featured image.
-				$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
-				$ftf_description = get_the_excerpt();
-				global $post;
-				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
-				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
-				$ftf_head = '
-				<!--/ Facebook Thumb Fixer Open Graph /-->
-				<meta property="og:type" content="'. $default . '" />
-				<meta property="og:url" content="' . get_permalink() . '" />
-				<meta property="og:title" content="' . wp_kses_data(get_the_title($post->ID)) . '" />
-				<meta property="og:description" content="' . wp_kses($ftf_description, array ()) . '" />
-				<meta property="og:site_name" content="' . wp_kses_data(get_bloginfo('name')) . '" />
-				<meta property="og:image" content="' . $featuredimg[0] . '" />
-
-				<meta itemscope itemtype="'. $default . '" />
-				<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
-				<meta itemprop="image" content="' . $featuredimg[0] . '" />
-				';
-				} //...otherwise, if there is no post image.
-				else {
-				$ftf_description = get_the_excerpt();
-				global $post;
-				$ot = get_post_meta($post->ID, 'ftf_open_type', true);
-				if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
-				$ftf_head = '
-				<!--/ Facebook Thumb Fixer Open Graph /-->
-				<meta property="og:type" content="'. $default . '" />
-				<meta property="og:url" content="' . get_permalink() . '" />
-				<meta property="og:title" content="' . wp_kses_data(get_the_title($post->ID)) . '" />
-				<meta property="og:description" content="' . wp_kses($ftf_description, array ()) . '" />
-				<meta property="og:site_name" content="' . wp_kses_data(get_bloginfo('name')) . '" />
-				<meta property="og:image" content="' . get_option('default_fb_thumb') . '" />
-
-				<meta itemscope itemtype="'. $default . '" />
-				<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
-				<meta itemprop="image" content="' . get_option('default_fb_thumb') . '" />
-				';
-				}
-				} //...otherwise, it must be the homepage so do this:
-				else {
-				$ftf_name = get_bloginfo('name');
-				$ftf_description = get_bloginfo('description');
-				$ot = get_option( 'homepage_object_type', '');
-				if($ot == "") { $default = "website"; } else $default = get_option( 'homepage_object_type', '');
-				$ftf_head = '
-				<!--/ Facebook Thumb Fixer Open Graph /-->
-				<meta property="og:type" content="' . $default . '" />
-				<meta property="og:url" content="' . get_option('home') . '" />
-				<meta property="og:title" content="' . wp_kses($ftf_name, array ()) . '" />
-				<meta property="og:description" content="' . wp_kses_data($ftf_description, array ()) . '" />
-				<meta property="og:site_name" content="' . wp_kses($ftf_name, array ()) . '" />
-				<meta property="og:image" content="' . get_option('default_fb_thumb') . '" />
-
-				<meta itemscope itemtype="'. $default . '" />
-				<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
-				<meta itemprop="image" content="' . get_option('default_fb_thumb') . '" />
-				';
-			}
+			require('output-logic.php');
 		}
-  	} // Otherwie, if BuddyPress is NOT active...
+		
+  	} 
+	
+	// Otherwie, if BuddyPress is NOT active...
 	else if ( !is_plugin_active( 'buddypress/bp-loader.php' ) ) {
-
-		// If not the homepage
-		global $post;
-		if ( !is_home() ) {
-
-			// If there is a post image...
-			if (has_post_thumbnail()) {
-			// Set '$featuredimg' variable for the featured image.
-			$featuredimg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), "Full");
-			$ftf_description = get_the_excerpt();
-			global $post;
-			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
-			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
-			$ftf_head = '
-			<!--/ Facebook Thumb Fixer Open Graph /-->
-			<meta property="og:type" content="'. $default . '" />
-			<meta property="og:url" content="' . get_permalink() . '" />
-			<meta property="og:title" content="' . wp_kses_data(get_the_title($post->ID)) . '" />
-			<meta property="og:description" content="' . wp_kses($ftf_description, array ()) . '" />
-			<meta property="og:site_name" content="' . wp_kses_data(get_bloginfo('name')) . '" />
-			<meta property="og:image" content="' . $featuredimg[0] . '" />
-
-			<meta itemscope itemtype="'. $default . '" />
-			<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
-			<meta itemprop="image" content="' . $featuredimg[0] . '" />
-			';
-			} //...otherwise, if there is no post image.
-			else {
-			$ftf_description = get_the_excerpt();
-			global $post;
-			$ot = get_post_meta($post->ID, 'ftf_open_type', true);
-			if($ot == "") { $default = "article"; } else $default = get_post_meta($post->ID, 'ftf_open_type', true);
-			$ftf_head = '
-			<!--/ Facebook Thumb Fixer Open Graph /-->
-			<meta property="og:type" content="'. $default . '" />
-			<meta property="og:url" content="' . get_permalink() . '" />
-			<meta property="og:title" content="' . wp_kses_data(get_the_title($post->ID)) . '" />
-			<meta property="og:description" content="' . wp_kses($ftf_description, array ()) . '" />
-			<meta property="og:site_name" content="' . wp_kses_data(get_bloginfo('name')) . '" />
-			<meta property="og:image" content="' . get_option('default_fb_thumb') . '" />
-
-			<meta itemscope itemtype="'. $default . '" />
-			<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
-			<meta itemprop="image" content="' . get_option('default_fb_thumb') . '" />
-			';
-			}
-			} //...otherwise, it must be the homepage so do this:
-			else {
-			$ftf_name = get_bloginfo('name');
-			$ftf_description = get_bloginfo('description');
-			$ot = get_option( 'homepage_object_type', '');
-			if($ot == "") { $default = "website"; } else $default = get_option( 'homepage_object_type', '');
-			$ftf_head = '
-				<!--/ Facebook Thumb Fixer Open Graph /-->
-				<meta property="og:type" content="' . $default . '" />
-				<meta property="og:url" content="' . get_option('home') . '" />
-				<meta property="og:title" content="' . wp_kses($ftf_name, array ()) . '" />
-				<meta property="og:description" content="' . wp_kses_data($ftf_description, array ()) . '" />
-				<meta property="og:site_name" content="' . wp_kses($ftf_name, array ()) . '" />
-				<meta property="og:image" content="' . get_option('default_fb_thumb') . '" />
-
-				<meta itemscope itemtype="'. $default . '" />
-				<meta itemprop="description" content="' . wp_kses($ftf_description, array ()) . '" />
-				<meta itemprop="image" content="' . get_option('default_fb_thumb') . '" />
-			';
-		}
+		require('output-logic.php');
 	}
 		
-  echo $ftf_head;
-  print "\n";
- $fbaid_value = get_option('fb_app_ID');
- if (!empty($fbaid_value)) { ?>
-  				<meta property="fb:app_id" content="<?php echo get_option('fb_app_ID'); ?>" />
-  <?php }
-  print "\n";
+	echo $ftf_head;
+	print "\n";
+	$fbaid_value = get_option('fb_app_ID');
+	if (!empty($fbaid_value)) { ?>
+	<meta property="fb:app_id" content="<?php echo get_option('fb_app_ID'); ?>" />
+	<?php }
+	print "\n";
 }

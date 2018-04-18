@@ -289,6 +289,18 @@ class WPCF7_ContactForm {
 				. esc_html( $this->prop( 'form' ) ) . '</code></pre>';
 		}
 
+		if ( $this->is_true( 'subscribers_only' )
+		&& ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
+			$notice = __(
+				"This contact form is available only for logged in users.",
+				'contact-form-7' );
+			$notice = sprintf(
+				'<p class="wpcf7-subscribers-only">%s</p>',
+				esc_html( $notice ) );
+
+			return apply_filters( 'wpcf7_subscribers_only_notice', $notice, $this );
+		}
+
 		$this->unit_tag = self::get_unit_tag( $this->id );
 
 		$lang_tag = str_replace( '_', '-', $this->locale );
@@ -331,14 +343,29 @@ class WPCF7_ContactForm {
 		if ( $this->is_posted() ) {
 			$submission = WPCF7_Submission::get_instance();
 
-			if ( $submission->is( 'validation_failed' ) ) {
-				$class .= ' invalid';
-			} elseif ( $submission->is( 'spam' ) ) {
-				$class .= ' spam';
-			} elseif ( $submission->is( 'mail_sent' ) ) {
-				$class .= ' sent';
-			} elseif ( $submission->is( 'mail_failed' ) ) {
-				$class .= ' failed';
+			switch ( $submission->get_status() ) {
+				case 'validation_failed':
+					$class .= ' invalid';
+					break;
+				case 'acceptance_missing':
+					$class .= ' unaccepted';
+					break;
+				case 'spam':
+					$class .= ' spam';
+					break;
+				case 'aborted':
+					$class .= ' aborted';
+					break;
+				case 'mail_sent':
+					$class .= ' sent';
+					break;
+				case 'mail_failed':
+					$class .= ' failed';
+					break;
+				default:
+					$class .= sprintf( ' custom-%s',
+						preg_replace( '/[^0-9a-z]+/i', '-', $submission->get_status() )
+					);
 			}
 		}
 
@@ -409,8 +436,8 @@ class WPCF7_ContactForm {
 			$hidden_fields['_wpcf7_container_post'] = (int) get_the_ID();
 		}
 
-		if ( WPCF7_VERIFY_NONCE ) {
-			$hidden_fields['_wpcf7_nonce'] = wpcf7_create_nonce( $this->id );
+		if ( $this->nonce_is_active() ) {
+			$hidden_fields['_wpnonce'] = wpcf7_create_nonce();
 		}
 
 		$hidden_fields += (array) apply_filters(
@@ -438,14 +465,29 @@ class WPCF7_ContactForm {
 			$submission = WPCF7_Submission::get_instance();
 			$content = $submission->get_response();
 
-			if ( $submission->is( 'validation_failed' ) ) {
-				$class .= ' wpcf7-validation-errors';
-			} elseif ( $submission->is( 'spam' ) ) {
-				$class .= ' wpcf7-spam-blocked';
-			} elseif ( $submission->is( 'mail_sent' ) ) {
-				$class .= ' wpcf7-mail-sent-ok';
-			} elseif ( $submission->is( 'mail_failed' ) ) {
-				$class .= ' wpcf7-mail-sent-ng';
+			switch ( $submission->get_status() ) {
+				case 'validation_failed':
+					$class .= ' wpcf7-validation-errors';
+					break;
+				case 'acceptance_missing':
+					$class .= ' wpcf7-acceptance-missing';
+					break;
+				case 'spam':
+					$class .= ' wpcf7-spam-blocked';
+					break;
+				case 'aborted':
+					$class .= ' wpcf7-aborted';
+					break;
+				case 'mail_sent':
+					$class .= ' wpcf7-mail-sent-ok';
+					break;
+				case 'mail_failed':
+					$class .= ' wpcf7-mail-sent-ng';
+					break;
+				default:
+					$class .= sprintf( ' wpcf7-custom-%s',
+						preg_replace( '/[^0-9a-z]+/i', '-', $submission->get_status() )
+					);
 			}
 		} else {
 			$class .= ' wpcf7-display-none';
@@ -544,7 +586,7 @@ class WPCF7_ContactForm {
 		$manager = WPCF7_FormTagsManager::get_instance();
 		$form = $this->prop( 'form' );
 
-		if ( WPCF7_AUTOP ) {
+		if ( wpcf7_autop_or_not() ) {
 			$form = $manager->normalize( $form );
 			$form = wpcf7_autop( $form );
 		}
@@ -587,10 +629,11 @@ class WPCF7_ContactForm {
 	}
 
 	public function collect_mail_tags( $args = '' ) {
+		$manager = WPCF7_FormTagsManager::get_instance();
+
 		$args = wp_parse_args( $args, array(
 			'include' => array(),
-			'exclude' =>
-				array( 'acceptance', 'captchac', 'captchar', 'quiz', 'count' ),
+			'exclude' => $manager->collect_tag_types( 'not-for-mail' ),
 		) );
 
 		$tags = $this->scan_form_tags();
@@ -616,7 +659,7 @@ class WPCF7_ContactForm {
 
 		$mailtags = array_unique( array_filter( $mailtags ) );
 
-		return apply_filters( 'wpcf7_collect_mail_tags', $mailtags );
+		return apply_filters( 'wpcf7_collect_mail_tags', $mailtags, $args, $this );
 	}
 
 	public function suggest_mail_tags( $for = 'mail' ) {
@@ -648,8 +691,30 @@ class WPCF7_ContactForm {
 		}
 	}
 
-	public function submit() {
-		$submission = WPCF7_Submission::get_instance( $this );
+	public function submit( $args = '' ) {
+		$args = wp_parse_args( $args, array(
+			'skip_mail' =>
+				( $this->in_demo_mode()
+				|| $this->is_true( 'skip_mail' )
+				|| ! empty( $this->skip_mail ) ),
+		) );
+
+		if ( $this->is_true( 'subscribers_only' )
+		&& ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
+			$result = array(
+				'contact_form_id' => $this->id(),
+				'status' => 'error',
+				'message' => __(
+					"This contact form is available only for logged in users.",
+					'contact-form-7' ),
+			);
+
+			return $result;
+		}
+
+		$submission = WPCF7_Submission::get_instance( $this, array(
+			'skip_mail' => $args['skip_mail'],
+		) );
 
 		$result = array(
 			'contact_form_id' => $this->id(),
@@ -660,22 +725,6 @@ class WPCF7_ContactForm {
 
 		if ( $submission->is( 'validation_failed' ) ) {
 			$result['invalid_fields'] = $submission->get_invalid_fields();
-		}
-
-		if ( $submission->is( 'mail_sent' ) ) {
-			$on_sent_ok = $this->additional_setting( 'on_sent_ok', false );
-
-			if ( ! empty( $on_sent_ok ) ) {
-				$result['scripts_on_sent_ok'] = array_map(
-					'wpcf7_strip_quote', $on_sent_ok );
-			}
-		}
-
-		$on_submit = $this->additional_setting( 'on_submit', false );
-
-		if ( ! empty( $on_submit ) ) {
-			$result['scripts_on_submit'] = array_map(
-				'wpcf7_strip_quote', $on_submit );
 		}
 
 		do_action( 'wpcf7_submit', $this, $result );
@@ -690,10 +739,16 @@ class WPCF7_ContactForm {
 		$message = isset( $messages[$status] ) ? $messages[$status] : '';
 
 		if ( $filter ) {
-			$message = wp_strip_all_tags( $message );
-			$message = wpcf7_mail_replace_tags( $message, array( 'html' => true ) );
-			$message = apply_filters( 'wpcf7_display_message', $message, $status );
+			$message = $this->filter_message( $message, $status );
 		}
+
+		return $message;
+	}
+
+	public function filter_message( $message, $status = '' ) {
+		$message = wp_strip_all_tags( $message );
+		$message = wpcf7_mail_replace_tags( $message, array( 'html' => true ) );
+		$message = apply_filters( 'wpcf7_display_message', $message, $status );
 
 		return $message;
 	}
@@ -737,6 +792,16 @@ class WPCF7_ContactForm {
 
 	public function in_demo_mode() {
 		return $this->is_true( 'demo_mode' );
+	}
+
+	public function nonce_is_active() {
+		$is_active = WPCF7_VERIFY_NONCE;
+
+		if ( $this->is_true( 'subscribers_only' ) ) {
+			$is_active = true;
+		}
+
+		return (bool) apply_filters( 'wpcf7_verify_nonce', $is_active, $this );
 	}
 
 	/* Upgrade */

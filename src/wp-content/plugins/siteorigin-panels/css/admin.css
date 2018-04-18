@@ -62,65 +62,6 @@
 .siteorigin-panels-builder .so-tool-button:hover span {
   color: #444444;
 }
-.siteorigin-panels-builder .so-tool-button-wrapper {
-  float: left;
-  position: relative;
-}
-.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  padding: 15px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  z-index: 100;
-  width: 300px;
-  margin-left: -140px;
-  box-sizing: border-box;
-  min-height: 114px;
-  white-space: normal;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul {
-  margin: 0 0 20px 0;
-}
-.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul li {
-  line-height: 1.4em;
-  margin-bottom: 0.8em;
-  font-size: 0.925em;
-}
-.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul li a {
-  display: block;
-  font-weight: 500;
-  text-decoration: none;
-}
-.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown ul li small {
-  font-size: 0.95em;
-  display: block;
-  line-height: 1.4em;
-  max-height: 2.8em;
-  overflow: hidden;
-  color: #777;
-}
-.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown p {
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-.siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown.so-loading {
-  background-image: url("images/wpspin_light.gif");
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .siteorigin-panels-builder .so-tool-button-wrapper .so-tool-button-dropdown.so-loading {
-    background-image: url(images/wpspin_light-2x.gif);
-    background-size: 16px 16px;
-  }
-}
-.siteorigin-panels-builder .so-tool-button-wrapper:hover .so-tool-button-dropdown {
-  display: block;
-}
 .siteorigin-panels-builder .so-builder-toolbar {
   -ms-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -131,6 +72,7 @@
   line-height: 1em;
   z-index: 101;
   white-space: nowrap;
+  overflow-x: hidden;
   position: relative;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   top: 0;
@@ -169,8 +111,7 @@
 .siteorigin-panels-builder .so-builder-toolbar .so-tool-button:hover .so-panels-icon {
   color: #444444;
 }
-.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn,
-.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-premium {
+.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn {
   background: #e5e5e5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e5e5e5), color-stop(1, #f6f6f6));
   background: -ms-linear-gradient(bottom, #e5e5e5, #f6f6f6);
@@ -178,8 +119,7 @@
   background: -o-linear-gradient(#f6f6f6, #e5e5e5);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#e5e5e5', GradientType=0);
 }
-.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn:hover,
-.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-premium:hover {
+.siteorigin-panels-builder .so-builder-toolbar .so-tool-button.so-learn:hover {
   background: #FFFFFF;
 }
 .siteorigin-panels-builder .so-builder-toolbar .so-switch-to-standard {
@@ -660,9 +600,8 @@
 .siteorigin-panels-builder.so-display-narrow .so-builder-toolbar > .so-tool-button span.so-button-text {
   display: none;
 }
-.siteorigin-panels-builder.so-display-narrow .so-builder-toolbar .so-learn-wrapper,
-.siteorigin-panels-builder.so-display-narrow .so-builder-toolbar .so-premium {
-  display: none !important;
+.siteorigin-panels-builder.so-display-narrow .so-builder-toolbar > .so-tool-button.so-learn {
+  display: none;
 }
 .siteorigin-panels-builder.so-display-narrow .so-builder-toolbar .so-switch-to-standard {
   display: none !important;
@@ -1027,6 +966,12 @@
 .so-panels-dialog .so-toolbar .so-status.so-panels-loading {
   padding-left: 26px;
   background-position: left center;
+}
+.so-panels-dialog .so-toolbar .so-status .dashicons-warning {
+  color: #aa0000;
+  vertical-align: middle;
+  margin-right: 7px;
+  margin-top: -1px;
 }
 .so-panels-dialog .so-toolbar .so-buttons {
   float: right;
@@ -1500,17 +1445,9 @@
   padding: 15px;
   font-weight: bold;
 }
-.so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items {
-  zoom: 1;
-}
-.so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items:before {
-  content: '';
-  display: block;
-}
-.so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items:after {
-  content: '';
-  display: table;
-  clear: both;
+.so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items-wrapper {
+  display: flex;
+  flex-flow: row wrap;
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-no-results {
   margin: 20px 0;
@@ -1521,10 +1458,13 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  float: left;
   padding: 6px;
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item .so-directory-item-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  box-sizing: border-box;
   padding: 15px 10px;
   background: #F7F7F7;
   border: 1px solid #d0d0d0;
@@ -1537,9 +1477,8 @@
   margin: 0 0 13px 0;
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item .so-screenshot {
-  background: #ffffff;
+  flex: 3 auto;
   margin-bottom: 10px;
-  border: 1px solid #d0d0d0;
   cursor: pointer;
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item .so-screenshot.so-loading {
@@ -1561,14 +1500,21 @@
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item .so-screenshot .so-screenshot-wrapper {
   display: block;
   min-height: 40px;
+  background: #808080;
+  border: 1px solid #d0d0d0;
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item .so-description {
+  flex: 1 auto;
   font-size: 0.9em;
   color: #666;
   margin-bottom: 10px;
+  max-height: 60px;
+  overflow: hidden;
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item .so-bottom {
+  flex: 1 auto;
   position: relative;
+  max-height: 50px;
   margin: 10px -10px -15px -10px;
   background: #fcfcfc;
   border-top: 1px solid #d0d0d0;
@@ -1577,6 +1523,8 @@
   margin: 0;
   padding: 16px 10px;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item .so-bottom .so-buttons {
   position: absolute;
@@ -1622,32 +1570,20 @@
   .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item {
     width: 20%;
   }
-  .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item:nth-of-type(5n+1) {
-    clear: both;
-  }
 }
 @media only screen and (max-width: 1679px) and (min-width: 1280px) {
   .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item {
     width: 25%;
-  }
-  .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item:nth-of-type(4n+1) {
-    clear: both;
   }
 }
 @media only screen and (max-width: 1279px) and (min-width: 1140px) {
   .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item {
     width: 33.333%;
   }
-  .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item:nth-of-type(3n+1) {
-    clear: both;
-  }
 }
 @media only screen and (max-width: 1139px) {
   .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item {
     width: 50%;
-  }
-  .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-items .so-directory-item:nth-of-type(2n+1) {
-    clear: both;
   }
 }
 .so-panels-dialog.so-panels-dialog-prebuilt-layouts .so-content .so-directory-pages {

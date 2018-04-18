@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Events Manager and WPML Compatibility
-Version: 1.0.1
+Version: 1.1
 Plugin URI: http://wp-events-plugin.com
 Description: Integrates the Events Manager and WPML plugins together to provide a smoother multilingual experience (EM and WPML also needed)
 Author: Marcus Sykes
@@ -9,7 +9,7 @@ Author URI: http://wp-events-plugin.com
 */
 
 /*
-Copyright (c) 2015, Marcus Sykes
+Copyright (c) 2017, Marcus Sykes
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -64,7 +64,7 @@ To close some gaps, extra steps are needed
 
 //TODO what happens if you create a language first in a second languge?
 
-define('EM_WPML_VERSION','0.3.3');
+define('EM_WPML_VERSION','1.1');
 
 //stores all master event info within a script run, to save repetitive db calls e.g. within an event format output operation.
 $em_wpml_translation_index = array();
@@ -97,11 +97,10 @@ class EM_WPML{
 	    //continue initialization
 	    if( is_admin() ){
 	        include('em-wpml-admin.php');
-	        include('em-wpml-permalinks.php'); //don't think we need this outside of admin, only when permalinks are rewritten
 	    }
+	    include('em-wpml-permalinks.php');
 	    include('em-wpml-io.php');
 	    include('em-wpml-search.php');
-	    if( get_option('dbem_categories_enabled') || get_option('dbem_tags_enabled') ) include('em-wpml-taxonomies.php');
 		
 		//force disable recurring events
 		if( !defined('EM_WMPL_FORCE_RECURRENCES') || !EM_WMPL_FORCE_RECURRENCES ){
@@ -247,8 +246,13 @@ class EM_WPML{
     	if( is_admin() ){
     	    //check we are adding a new translation belonging to a trid set
     	    if( $pagenow == 'post-new.php' && !empty($_REQUEST['trid']) ) return false;
-            //check if a translation is being submitted
+            //if this is a translation being edited (not first time), WPML submits this variable
             if( $pagenow == 'post.php' && !empty($_REQUEST['icl_translation_of']) ) return false;
+            //if this is a translation submitted, we have a trid and post ID we can use to check out
+            if( $pagenow == 'post.php' && !empty($_REQUEST['icl_trid']) && $object->post_id == $_REQUEST['post_ID'] ){
+            	$original_post_id = SitePress::get_original_element_id_by_trid($_REQUEST['icl_trid']);
+				return $original_post_id == $object->post_id || $original_post_id === false;
+            }
 		}
 		//if we got this far, check that $object has a post_id as EM_Event and EM_Location would have, and get the original translation via WPML
 		if( !empty($object->post_id) ){
@@ -280,9 +284,10 @@ class EM_WPML{
             $original_post_id = SitePress::get_original_element_id($object->post_id, 'post_'.$object->post_type);
             //check a few admin specific stuff if a standard check didn't work, in case we're in the admin area translating via WPML
             if( empty($original_post_id) && is_admin() ){
-                if( !empty($_REQUEST['trid']) ){
+                if( !empty($_REQUEST['trid']) || !empty($_REQUEST['icl_trid']) ){
+                	$trid = !empty($_REQUEST['trid']) ? $_REQUEST['trid'] : $_REQUEST['icl_trid'];
         			//we are adding a new translation belonging to a trid set
-        			$original_post_id = SitePress::get_original_element_id_by_trid($_REQUEST['trid']);
+        			$original_post_id = SitePress::get_original_element_id_by_trid($trid);
                 }elseif( !empty($_REQUEST['icl_translation_of']) ){
                     //a new translation has just been submitted
                     $translation_of = $_REQUEST['icl_translation_of']; //could be a translation from another translation, e.g. try adding a translation from a second language
@@ -345,6 +350,9 @@ class EM_WPML{
 	    global $sitepress;
 		$sitepress_langs = $sitepress->get_active_languages();
 		$sitepress_lang = $sitepress->get_current_language();
+		if( empty($sitepress_langs[$sitepress_lang]['default_locale']) ){
+			return $sitepress_langs[$sitepress->get_default_language()]['default_locale'];
+		}
 		return $sitepress_langs[$sitepress_lang]['default_locale'];
 	}
 }

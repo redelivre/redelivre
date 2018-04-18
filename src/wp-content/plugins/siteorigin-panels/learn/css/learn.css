@@ -13,12 +13,19 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  padding: 30px;
+  padding: 20px 30px;
   max-width: 700px;
   margin-left: -350px;
   min-height: 400px;
   margin-top: -200px;
   background-color: #fff; }
+  #siteorigin-learn #siteorigin-learn-dialog .video-title {
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.2em;
+    font-size: 22px;
+    color: #555;
+    margin: 0 0 20px 0; }
   #siteorigin-learn #siteorigin-learn-dialog .poster-wrapper {
     cursor: pointer;
     display: block;
@@ -32,10 +39,29 @@
       bottom: 0;
       left: 0;
       width: 640px;
-      height: 38px;
-      transition: opacity 0.35s;
-      opacity: 0.90; }
-    #siteorigin-learn #siteorigin-learn-dialog .poster-wrapper:hover .play-button {
+      height: 58px; }
+    #siteorigin-learn #siteorigin-learn-dialog .poster-wrapper .video-play-info {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: 0.25s; }
+      #siteorigin-learn #siteorigin-learn-dialog .poster-wrapper .video-play-info .video-play-info-text {
+        text-align: center;
+        font-size: 1.8em;
+        color: rgba(255, 255, 255, 0.95); }
+        #siteorigin-learn #siteorigin-learn-dialog .poster-wrapper .video-play-info .video-play-info-text small {
+          display: block;
+          margin-top: 0.8em;
+          font-size: 0.65em;
+          font-weight: 200; }
+    #siteorigin-learn #siteorigin-learn-dialog .poster-wrapper:hover .video-play-info {
       opacity: 1; }
   #siteorigin-learn #siteorigin-learn-dialog .video-iframe, #siteorigin-learn #siteorigin-learn-dialog .video-iframe iframe {
     width: 640px;
@@ -88,10 +114,12 @@
     font-size: 0.95em;
     line-height: 1em; }
   #siteorigin-learn #siteorigin-learn-dialog .learn-close {
-    margin: 20px auto 0 auto;
-    text-align: center;
-    display: block;
+    display: inline-block;
     cursor: pointer;
     font-weight: bold;
     font-size: 0.9em;
-    color: #666; }
+    padding: 4px;
+    color: #666;
+    position: absolute;
+    top: 4px;
+    right: 8px; }

@@ -12,7 +12,7 @@ return array(
 		'title'   => __( 'Enable/Disable', 'woocommerce' ),
 		'type'    => 'checkbox',
 		'label'   => __( 'Enable PayPal Standard', 'woocommerce' ),
-		'default' => 'yes',
+		'default' => 'no',
 	),
 	'title' => array(
 		'title'       => __( 'Title', 'woocommerce' ),
@@ -36,6 +36,11 @@ return array(
 		'desc_tip'    => true,
 		'placeholder' => 'you@youremail.com',
 	),
+	'advanced' => array(
+		'title'       => __( 'Advanced options', 'woocommerce' ),
+		'type'        => 'title',
+		'description' => '',
+	),
 	'testmode' => array(
 		'title'       => __( 'PayPal sandbox', 'woocommerce' ),
 		'type'        => 'checkbox',
@@ -50,10 +55,12 @@ return array(
 		'default'     => 'no',
 		'description' => sprintf( __( 'Log PayPal events, such as IPN requests, inside %s', 'woocommerce' ), '<code>' . WC_Log_Handler_File::get_log_file_path( 'paypal' ) . '</code>' ),
 	),
-	'advanced' => array(
-		'title'       => __( 'Advanced options', 'woocommerce' ),
-		'type'        => 'title',
-		'description' => '',
+	'ipn_notification' => array(
+		'title'       => __( 'IPN Email Notifications', 'woocommerce' ),
+		'type'        => 'checkbox',
+		'label'       => __( 'Enable IPN email notifications', 'woocommerce' ),
+		'default'     => 'yes',
+		'description' => __( 'Send notifications when an IPN is received from PayPal indicating refunds, chargebacks and cancellations.', 'woocommerce' ),
 	),
 	'receiver_email' => array(
 		'title'       => __( 'Receiver email', 'woocommerce' ),
@@ -126,7 +133,7 @@ return array(
 		'description' => sprintf( __( 'Enter your PayPal API credentials to process refunds via PayPal. Learn how to access your <a href="%s">PayPal API Credentials</a>.', 'woocommerce' ), 'https://developer.paypal.com/webapps/developer/docs/classic/api/apiCredentials/#creating-an-api-signature' ),
 	),
 	'api_username' => array(
-		'title'       => __( 'API username', 'woocommerce' ),
+		'title'       => __( 'Live API username', 'woocommerce' ),
 		'type'        => 'text',
 		'description' => __( 'Get your API credentials from PayPal.', 'woocommerce' ),
 		'default'     => '',
@@ -134,7 +141,7 @@ return array(
 		'placeholder' => __( 'Optional', 'woocommerce' ),
 	),
 	'api_password' => array(
-		'title'       => __( 'API password', 'woocommerce' ),
+		'title'       => __( 'Live API password', 'woocommerce' ),
 		'type'        => 'password',
 		'description' => __( 'Get your API credentials from PayPal.', 'woocommerce' ),
 		'default'     => '',
@@ -142,7 +149,31 @@ return array(
 		'placeholder' => __( 'Optional', 'woocommerce' ),
 	),
 	'api_signature' => array(
-		'title'       => __( 'API signature', 'woocommerce' ),
+		'title'       => __( 'Live API signature', 'woocommerce' ),
+		'type'        => 'text',
+		'description' => __( 'Get your API credentials from PayPal.', 'woocommerce' ),
+		'default'     => '',
+		'desc_tip'    => true,
+		'placeholder' => __( 'Optional', 'woocommerce' ),
+	),
+	'sandbox_api_username' => array(
+		'title'       => __( 'Sandbox API username', 'woocommerce' ),
+		'type'        => 'text',
+		'description' => __( 'Get your API credentials from PayPal.', 'woocommerce' ),
+		'default'     => '',
+		'desc_tip'    => true,
+		'placeholder' => __( 'Optional', 'woocommerce' ),
+	),
+	'sandbox_api_password' => array(
+		'title'       => __( 'Sandbox API password', 'woocommerce' ),
+		'type'        => 'password',
+		'description' => __( 'Get your API credentials from PayPal.', 'woocommerce' ),
+		'default'     => '',
+		'desc_tip'    => true,
+		'placeholder' => __( 'Optional', 'woocommerce' ),
+	),
+	'sandbox_api_signature' => array(
+		'title'       => __( 'Sandbox API signature', 'woocommerce' ),
 		'type'        => 'text',
 		'description' => __( 'Get your API credentials from PayPal.', 'woocommerce' ),
 		'default'     => '',

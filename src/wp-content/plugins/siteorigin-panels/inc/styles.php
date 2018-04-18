@@ -45,8 +45,18 @@ class SiteOrigin_Panels_Styles {
 	}
 
 	static function register_scripts() {
-		wp_register_script( 'siteorigin-panels-front-styles', plugin_dir_url( __FILE__ ) . '../js/styling' . SITEORIGIN_PANELS_VERSION_SUFFIX . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array( 'jquery' ), SITEORIGIN_PANELS_VERSION );
-		wp_register_script( 'siteorigin-parallax', plugin_dir_url( __FILE__ ) . '../js/siteorigin-parallax' . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array( 'jquery' ), SITEORIGIN_PANELS_VERSION );
+		wp_register_script(
+			'siteorigin-panels-front-styles',
+			siteorigin_panels_url( 'js/styling' . SITEORIGIN_PANELS_VERSION_SUFFIX . SITEORIGIN_PANELS_JS_SUFFIX . '.js' ),
+			array( 'jquery' ),
+			SITEORIGIN_PANELS_VERSION
+		);
+		wp_register_script(
+			'siteorigin-parallax',
+			siteorigin_panels_url( 'js/siteorigin-parallax' . SITEORIGIN_PANELS_JS_SUFFIX . '.js' ),
+			array( 'jquery' ),
+			SITEORIGIN_PANELS_VERSION
+		);
 		wp_localize_script( 'siteorigin-panels-front-styles', 'panelsStyles', array(
 			'fullContainer' => apply_filters( 'siteorigin_panels_full_width_container', siteorigin_panels_setting( 'full-width-container' ) )
 		) );
@@ -233,18 +243,20 @@ class SiteOrigin_Panels_Styles {
 			'priority' => 16,
 		);
 
-		$fields['cell_alignment'] = array(
-			'name'     => __( 'Cell Vertical Alignment', 'siteorigin-panels' ),
-			'type'     => 'select',
-			'group'    => 'layout',
-			'options'  => array(
-				'flex-start' => __( 'Top', 'siteorigin-panels' ),
-				'center'     => __( 'Center', 'siteorigin-panels' ),
-				'flex-end'   => __( 'Bottom', 'siteorigin-panels' ),
-				'stretch'    => __( 'Stretch', 'siteorigin-panels' ),
-			),
-			'priority' => 17,
-		);
+		if ( siteorigin_panels_setting( 'legacy-layout' ) != 'always'  ) {
+			$fields['cell_alignment'] = array(
+				'name'     => __( 'Cell Vertical Alignment', 'siteorigin-panels' ),
+				'type'     => 'select',
+				'group'    => 'layout',
+				'options'  => array(
+					'flex-start' => __( 'Top', 'siteorigin-panels' ),
+					'center'     => __( 'Center', 'siteorigin-panels' ),
+					'flex-end'   => __( 'Bottom', 'siteorigin-panels' ),
+					'stretch'    => __( 'Stretch', 'siteorigin-panels' ),
+				),
+				'priority' => 17,
+			);
+		}
 
 		return $fields;
 	}
@@ -474,6 +486,10 @@ class SiteOrigin_Panels_Styles {
 		if( ! empty( $style['mobile_padding'] ) ) {
 			$css['padding'] = $style[ 'mobile_padding' ];
 		}
+		
+		if ( ! empty( $style['background_display'] ) && ! empty( $style['background_image_attachment'] ) && $style['background_display'] == 'fixed' ) {
+			$css[ 'background-attachment' ] = 'scroll';
+		}
 
 		if ( ! empty( $style[ 'mobile_css' ] ) ) {
 			preg_match_all( '/^([A-Za-z0-9\-]+?):(.+?);?$/m', $style[ 'mobile_css' ], $matches );
@@ -526,7 +542,7 @@ class SiteOrigin_Panels_Styles {
 			}
 
 			// Add in flexbox alignment to the main row element
-			if ( ! empty( $row['style']['cell_alignment'] ) ) {
+			if ( siteorigin_panels_setting( 'legacy-layout' ) != 'always' && ! SiteOrigin_Panels::is_legacy_browser() && ! empty( $row['style']['cell_alignment'] ) ) {
 				$css->add_row_css(
 					$post_id,
 					$ri,

@@ -67,6 +67,11 @@ add_action( 'woocommerce_archive_description', 'woocommerce_taxonomy_archive_des
 add_action( 'woocommerce_archive_description', 'woocommerce_product_archive_description', 10 );
 
 /**
+ * Product loop start.
+ */
+add_filter( 'woocommerce_product_loop_start', 'woocommerce_maybe_show_product_subcategories' );
+
+/**
  * Products Loop.
  *
  * @see woocommerce_result_count()
@@ -248,6 +253,13 @@ add_action( 'wp_footer', 'woocommerce_demo_store' );
 add_action( 'woocommerce_view_order', 'woocommerce_order_details_table', 10 );
 add_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
 add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_again_button' );
+
+/**
+ * Order downloads.
+ *
+ * @see woocommerce_order_downloads_table()
+ */
+add_action( 'woocommerce_available_downloads', 'woocommerce_order_downloads_table', 10 );
 
 /**
  * Auth.

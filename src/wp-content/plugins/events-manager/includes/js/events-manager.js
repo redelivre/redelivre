@@ -925,22 +925,17 @@ function em_maps_load_location(el){
 	var map_id = el.attr('id').replace('em-location-map-','');
 	em_LatLng = new google.maps.LatLng( jQuery('#em-location-map-coords-'+map_id+' .lat').text(), jQuery('#em-location-map-coords-'+map_id+' .lng').text());
 	//extend map and markers via event triggers
-	var is_touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 	var map_options = {
 	    zoom: 14,
 	    center: em_LatLng,
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    mapTypeControl: false,
-	    scrollwheel: is_touch
+	    gestureHandling: 'cooperative'
 	};
 	if( typeof EM.google_map_id_styles == 'object' && typeof EM.google_map_id_styles[map_id] !== 'undefined' ){ console.log(EM.google_map_id_styles[map_id]); map_options.styles = EM.google_map_id_styles[map_id]; }
 	else if( typeof EM.google_maps_styles !== 'undefined' ){ map_options.styles = EM.google_maps_styles; }
 	jQuery(document).triggerHandler('em_maps_location_map_options', map_options);
 	maps[map_id] = new google.maps.Map( document.getElementById('em-location-map-'+map_id), map_options);
-	if( !is_touch ){
-		maps[map_id].addListener('click', function(){ maps[map_id].setOptions({ scrollwheel:true }); });
-		maps[map_id].addListener('mouseout', function(){ maps[map_id].setOptions({ scrollwheel:false }); });
-	}
 	var marker_options = {
 	    position: em_LatLng,
 	    map: maps[map_id]
@@ -983,7 +978,9 @@ function em_maps() {
 			if( !(location_latitude == 0 && location_longitude == 0) ){
 				var position = new google.maps.LatLng(location_latitude, location_longitude); //the location coords
 				marker.setPosition(position);
-				var mapTitle = (jQuery('input#location-name').length > 0) ? jQuery('input#location-name').val():jQuery('input#title').val();
+				var mapTitle = (jQuery('input#location-name').length > 0) ? jQuery(jQuery.parseHTML(jQuery('input#location-name').val())).text():jQuery('input#title').val();
+				var mapAddress = jQuery('#location-address').val();
+				var mapTown = jQuery('#location-town').val();
 				marker.setTitle( jQuery('input#location-name input#title, #location-select-id').first().val() );
 				jQuery('#em-map').show();
 				jQuery('#em-map-404').hide();
@@ -993,9 +990,9 @@ function em_maps() {
 				infoWindow.setContent( 
 					'<div id="location-balloon-content"><strong>' + 
 					mapTitle + 
-					'</strong><br/>' + 
-					jQuery('#location-address').val() + 
-					'<br/>' + jQuery('#location-town').val()+ 
+					'</strong><br>' + 
+					jQuery(jQuery.parseHTML(mapAddress)).text() + 
+					'<br>' + jQuery(jQuery.parseHTML(mapTown)).text() + 
 					'</div>'
 				);
 				infoWindow.open(map, marker);
@@ -1063,20 +1060,15 @@ function em_maps() {
 		//Load map
 		if(jQuery('#em-map').length > 0){
 			var em_LatLng = new google.maps.LatLng(0, 0);
-			var is_touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 			var map_options = {
 				    zoom: 14,
 				    center: em_LatLng,
 				    mapTypeId: google.maps.MapTypeId.ROADMAP,
 				    mapTypeControl: false,
-				    scrollwheel: is_touch
+				    gestureHandling: 'cooperative'
 			};
 			if( typeof EM.google_maps_styles !== 'undefined' ){ map_options.styles = EM.google_maps_styles; }
 			map = new google.maps.Map( document.getElementById('em-map'), map_options);
-			if( !is_touch ){
-				map.addListener('click', function(){ map.setOptions({ scrollwheel:true }); });
-				map.addListener('mouseout', function(){ map.setOptions({ scrollwheel:false }); });
-			}
 			var marker = new google.maps.Marker({
 			    position: em_LatLng,
 			    map: map,

@@ -23,29 +23,31 @@ class WC_Data_Store {
 	 * Format of object name => class name.
 	 * Example: 'product' => 'WC_Product_Data_Store_CPT'
 	 * You can also pass something like product_<type> for product stores and
-	 * that type will be used first when avaiable, if a store is requested like
+	 * that type will be used first when available, if a store is requested like
 	 * this and doesn't exist, then the store would fall back to 'product'.
 	 * Ran through `woocommerce_data_stores`.
 	 */
 	private $stores = array(
-		'coupon'              => 'WC_Coupon_Data_Store_CPT',
-		'customer'            => 'WC_Customer_Data_Store',
-		'customer-download'   => 'WC_Customer_Download_Data_Store',
-		'customer-session'    => 'WC_Customer_Data_Store_Session',
-		'order'               => 'WC_Order_Data_Store_CPT',
-		'order-refund'        => 'WC_Order_Refund_Data_Store_CPT',
-		'order-item'          => 'WC_Order_Item_Data_Store',
-		'order-item-coupon'   => 'WC_Order_Item_Coupon_Data_Store',
-		'order-item-fee'      => 'WC_Order_Item_Fee_Data_Store',
-		'order-item-product'  => 'WC_Order_Item_Product_Data_Store',
-		'order-item-shipping' => 'WC_Order_Item_Shipping_Data_Store',
-		'order-item-tax'      => 'WC_Order_Item_Tax_Data_Store',
-		'payment-token'       => 'WC_Payment_Token_Data_Store',
-		'product'             => 'WC_Product_Data_Store_CPT',
-		'product-grouped'     => 'WC_Product_Grouped_Data_Store_CPT',
-		'product-variable'    => 'WC_Product_Variable_Data_Store_CPT',
-		'product-variation'   => 'WC_Product_Variation_Data_Store_CPT',
-		'shipping-zone'       => 'WC_Shipping_Zone_Data_Store',
+		'coupon'                => 'WC_Coupon_Data_Store_CPT',
+		'customer'              => 'WC_Customer_Data_Store',
+		'customer-download'     => 'WC_Customer_Download_Data_Store',
+		'customer-download-log' => 'WC_Customer_Download_Log_Data_Store',
+		'customer-session'      => 'WC_Customer_Data_Store_Session',
+		'order'                 => 'WC_Order_Data_Store_CPT',
+		'order-refund'          => 'WC_Order_Refund_Data_Store_CPT',
+		'order-item'            => 'WC_Order_Item_Data_Store',
+		'order-item-coupon'     => 'WC_Order_Item_Coupon_Data_Store',
+		'order-item-fee'        => 'WC_Order_Item_Fee_Data_Store',
+		'order-item-product'    => 'WC_Order_Item_Product_Data_Store',
+		'order-item-shipping'   => 'WC_Order_Item_Shipping_Data_Store',
+		'order-item-tax'        => 'WC_Order_Item_Tax_Data_Store',
+		'payment-token'         => 'WC_Payment_Token_Data_Store',
+		'product'               => 'WC_Product_Data_Store_CPT',
+		'product-grouped'       => 'WC_Product_Grouped_Data_Store_CPT',
+		'product-variable'      => 'WC_Product_Variable_Data_Store_CPT',
+		'product-variation'     => 'WC_Product_Variation_Data_Store_CPT',
+		'shipping-zone'         => 'WC_Shipping_Zone_Data_Store',
+		'webhook'               => 'WC_Webhook_Data_Store',
 	);
 
 	/**

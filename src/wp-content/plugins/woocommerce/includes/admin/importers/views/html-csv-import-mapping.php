@@ -1,7 +1,10 @@
 <?php
 /**
  * Admin View: Importer - CSV mapping
+ *
+ * @package WooCommerce/Admin
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -15,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<table class="widefat wc-importer-mapping-table">
 			<thead>
 				<tr>
-					<th><?php _e( 'Column name', 'woocommerce' ); ?></th>
-					<th><?php _e( 'Map to field', 'woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Column name', 'woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Map to field', 'woocommerce' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,11 +29,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<td class="wc-importer-mapping-table-name">
 							<?php echo esc_html( $name ); ?>
 							<?php if ( ! empty( $sample[ $index ] ) ) : ?>
-								<span class="description"><?php _e( 'Sample:', 'woocommerce' ); ?> <code><?php echo esc_html( $sample[ $index ] ); ?></code></span>
+								<span class="description"><?php esc_html_e( 'Sample:', 'woocommerce' ); ?> <code><?php echo esc_html( $sample[ $index ] ); ?></code></span>
 							<?php endif; ?>
 						</td>
 						<td class="wc-importer-mapping-table-field">
-							<select name="map_to[<?php echo esc_attr( $name ); ?>]">
+							<input type="hidden" name="map_from[<?php echo esc_attr( $index ); ?>]" value="<?php echo esc_attr( $name ); ?>" />
+							<select name="map_to[<?php echo esc_attr( $index ); ?>]">
 								<option value=""><?php esc_html_e( 'Do not import', 'woocommerce' ); ?></option>
 								<option value="">--------------</option>
 								<?php foreach ( $this->get_mapping_options( $mapped_value ) as $key => $value ) : ?>
@@ -52,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</table>
 	</section>
 	<div class="wc-actions">
-		<input type="submit" class="button button-primary button-next" value="<?php esc_attr_e( 'Run the importer', 'woocommerce' ); ?>" name="save_step" />
+		<button type="submit" class="button button-primary button-next" value="<?php esc_attr_e( 'Run the importer', 'woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Run the importer', 'woocommerce' ); ?></button>
 		<input type="hidden" name="file" value="<?php echo esc_attr( $this->file ); ?>" />
 		<input type="hidden" name="delimiter" value="<?php echo esc_attr( $this->delimiter ); ?>" />
 		<input type="hidden" name="update_existing" value="<?php echo (int) $this->update_existing; ?>" />

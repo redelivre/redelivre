@@ -96,7 +96,7 @@ class WPCF7_FormTagsManager {
 		return false;
 	}
 
-	public function collect_tag_types( $feature = null ) {
+	public function collect_tag_types( $feature = null, $invert = false ) {
 		$tag_types = array_keys( $this->tag_types );
 
 		if ( empty( $feature ) ) {
@@ -106,7 +106,8 @@ class WPCF7_FormTagsManager {
 		$output = array();
 
 		foreach ( $tag_types as $tag ) {
-			if ( $this->tag_type_supports( $tag, $feature ) ) {
+			if ( ! $invert && $this->tag_type_supports( $tag, $feature )
+			|| $invert && ! $this->tag_type_supports( $tag, $feature ) ) {
 				$output[] = $tag;
 			}
 		}
@@ -213,27 +214,38 @@ class WPCF7_FormTagsManager {
 			'feature' => '',
 		) );
 
-		$cond['type'] = array_filter( (array) $cond['type'] );
-		$cond['name'] = array_filter( (array) $cond['name'] );
-		$cond['feature'] = is_string( $cond['feature'] )
-			? trim( $cond['feature'] ) : '';
+		$type = array_filter( (array) $cond['type'] );
+		$name = array_filter( (array) $cond['name'] );
+		$feature = is_string( $cond['feature'] ) ? trim( $cond['feature'] ) : '';
+
+		if ( '!' == substr( $feature, 0, 1 ) ) {
+			$feature_negative = true;
+			$feature = trim( substr( $feature, 1 ) );
+		} else {
+			$feature_negative = false;
+		}
 
 		$output = array();
 
 		foreach ( $tags as $tag ) {
 			$tag = new WPCF7_FormTag( $tag );
 
-			if ( $cond['type'] && ! in_array( $tag->type, $cond['type'], true ) ) {
+			if ( $type && ! in_array( $tag->type, $type, true ) ) {
 				continue;
 			}
 
-			if ( $cond['name'] && ! in_array( $tag->name, $cond['name'], true ) ) {
+			if ( $name && ! in_array( $tag->name, $name, true ) ) {
 				continue;
 			}
 
-			if ( $cond['feature']
-			&& ! $this->tag_type_supports( $tag->type, $cond['feature'] ) ) {
-				continue;
+			if ( $feature ) {
+				if ( ! $this->tag_type_supports( $tag->type, $feature )
+				&& ! $feature_negative ) {
+					continue;
+				} elseif ( $this->tag_type_supports( $tag->type, $feature )
+				&& $feature_negative ) {
+					continue;
+				}
 			}
 
 			$output[] = $tag;

@@ -1,0 +1,228 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Facebook Thumb Fixer\n"
+"POT-Creation-Date: 2017-08-07 19:56+0800\n"
+"PO-Revision-Date: 2017-08-07 19:56+0800\n"
+"Last-Translator: Michael Ott <hello@michaelott.id.au>\n"
+"Language-Team: Michael Ott <hello@michaelott.id.au>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: _facebook-thumb-fixer.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: _facebook-thumb-fixer.php:22
+msgid "Settings"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:22
+msgid "Help"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:53
+#, php-format
+msgid ""
+"Awesome! Don't forget to set a default facebook thumbnail  <a "
+"href='%s'>here</a>."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:69
+msgid "Default Facebook Thumb"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:82
+msgid "Browse"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:114
+#, php-format
+msgid ""
+"Browse to the preferred Facebook image for your homepage. Facebook <a href="
+"\"%1$s\" target=\"_blank\">recommends</a> your image be 1200 x 630 or 600 x "
+"315."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:124
+#, php-format
+msgid ""
+"<strong>Oops! </strong>Your default Facebook image is smaller than the "
+"minimum 600 x 315 <a href=\"%1$s\" target=\"_blank\">recommended</a> by "
+"Facebook."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:128
+#, php-format
+msgid ""
+"Your default Facebook image has dimensions of at least 600 x 315 (actual "
+"dimensions are %1$s x %2$s)."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:143
+msgid "Facebook App ID"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:150
+#, php-format
+msgid "Find your Facebook App ID <a href=\"%1$s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:164
+msgid "Homepage Object Type"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:196
+#, php-format
+msgid "Learn about Object Types <a href=\"%1$s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:204
+msgid ""
+"<strong>Note: </strong>If no selection is made, the Object Type for your "
+"home page will be \"website\"."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:291
+#, php-format
+msgid ""
+"If no selection is made, the Object Type for this %1$s will be \"article\". "
+"Learn about Object Types <a href=\"%2$s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:298
+msgid ""
+"Preview and debugging are not possible when open graph tags are disabled."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:302
+#, php-format
+msgid "Disable for this %s"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:353
+msgid "FB Thumb Fixer"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:357
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:370
+#, php-format
+msgid ""
+"Well done! You have a default Facebook thumbnail set. You can change it any "
+"time <a href=\"%1$s\">here</a>."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:372 home-preview.php:2
+msgid "Homepage Preview"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:373
+msgid ""
+"This is an approximate preview of your homepage when shared on Facebook:"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:408
+#, php-format
+msgid ""
+"<strong>Note: </strong>Facebook <a href=\"%1$s\" target=\"_blank"
+"\">recommends</a> your image be 1200 x 630 or 600 x 315."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:410
+#, php-format
+msgid "Your image (shown here scaled down) appears to be good at %1$s x %2$s."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:417
+#, php-format
+msgid ""
+"<strong>Oops! </strong>Although you do have a default Facebook thumbnail, "
+"the dimensions are smaller than the minimum 600 x 315 <a href=\"%1$s\" "
+"target=\"_blank\">recommended</a> by Facebook."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:424
+#, php-format
+msgid ""
+"You currently do not have a Default Facebook Thumbnail set. Set one <a href="
+"\"%1$s\">here</a>."
+msgstr ""
+
+#: _facebook-thumb-fixer.php:446
+msgid "Where can I get support?"
+msgstr ""
+
+#: _facebook-thumb-fixer.php:448
+#, php-format
+msgid ""
+"Reach for support at the <a href=\"%1$s\" target=\"_blank\">Wordpress plug-"
+"in repo</a>."
+msgstr ""
+
+#: home-preview.php:2 post-preview.php:15
+msgid "Debug"
+msgstr ""
+
+#: home-preview.php:3
+msgid "View an approximate preview of your homepage when shared on Facebook."
+msgstr ""
+
+#: post-preview.php:9
+msgid "View an approximate preview of your post when shared on Facebook."
+msgstr ""
+
+#: post-preview.php:14
+msgid ""
+"If in doubt, try forcing Facebook to fetch your page with their debugging "
+"tool."
+msgstr ""
+
+#: post-preview.php:18
+#, php-format
+msgid ""
+"<strong>Oops! </strong>Your featured image dimensions are %1$s x %2$s which "
+"is smaller than the minimum 600 x 315 <a href=\"%3$s\" target=\"_blank"
+"\">recommended</a> by Facebook."
+msgstr ""
+
+#: post-preview.php:23
+msgid "Preview Not Available"
+msgstr ""
+
+#: post-preview.php:24
+msgid ""
+"You can't preview until you set a featured image and update this post/page."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Facebook Thumb Fixer"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/support/plugin/facebook-thumb-fixer"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Control how your thumbnails are viewed when a post is shared on Facebook, "
+"Twitter and Google+."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Michael Ott"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://michaelott.id.au"
+msgstr ""

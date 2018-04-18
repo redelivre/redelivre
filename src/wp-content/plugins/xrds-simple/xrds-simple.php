@@ -1,13 +1,13 @@
 <?php
-/*
-Plugin Name: XRDS-Simple
-Plugin URI: https://github.com/diso/wordpress-xrds-simple
-Description: Provides framework for other plugins to advertise services via XRDS.
-Version: 1.2
-Author: DiSo Development Team
-Author URI: http://diso-project.org/
-License: MIT license (http://www.opensource.org/licenses/mit-license.php)
-*/
+/**
+ * Plugin Name: XRDS-Simple
+ * Plugin URI: https://github.com/diso/wordpress-xrds-simple
+ * Description: Provides framework for other plugins to advertise services via XRDS.
+ * Version: 1.2.1
+ * Author: DiSo Development Team
+ * Author URI: http://diso-project.org/
+ * License: MIT license (http://www.opensource.org/licenses/mit-license.php)
+ */
 
 
 // Public Functions

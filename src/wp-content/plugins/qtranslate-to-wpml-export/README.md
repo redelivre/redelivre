@@ -4,7 +4,7 @@ Donate link: http://wpml.org
 Tags: qTranslatex, wpml, multilingual, i18n, conversion, import, uninstall, cleanup
 Requires at least: 3.0
 Tested up to: 4.7.3
-Stable tag: 1.8
+Stable tag: 1.9.1
 License: GPLv2 or later
 
 Allows a complete uninstall and cleanup of qTranslate X meta-tags or importing translations into WPML
@@ -74,6 +74,18 @@ Upload the plugin to your blog, activate it.
 1. Import screen
 
 == Changelog ==
+
+= 1.9.1 = 
+* Fixed warnings (wpmlbridge-139)
+
+= 1.9 =
+* Better handling uppercased language codes (wpmlbridge-136)
+* Handling empty titles (wpmlbridge-138)
+* Fixed missing language information about primary language (wpmlbridge-137)
+* Removed notices during metadata import (wpmlbridge-139)
+
+= 1.8.1 =
+* Fixed issue with uppercased language codes (wpmlbridge-103)
 
 = 1.8 =
 * Added support for legacy qTranslate (without X) syntax

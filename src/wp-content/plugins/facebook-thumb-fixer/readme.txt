@@ -2,10 +2,10 @@
 Contributors: mikeyott
 Tags: facebook, thumb, fixer, default, thumbnail, thumbnails, thumbs, og:image, og:description, og:title, open, graph, open graph
 Requires at least: 4.0
-Tested up to: 4.5.3
+Tested up to: 4.8.1
 Stable tag: trunk
 
-Fixes the problem of the missing (or wrong) thumbnail when a post is shared on Facebook.
+Control how your thumbnails are viewed when a post is shared on Facebook, Twitter and Google+.
 
 == Description ==
 
@@ -13,7 +13,7 @@ This plug-in is for those who have the problem where sharing a post on Facebook 
 
 It works by making sure the thumbnail is derived from the featured image of your post. If your post doesn't have a featured image then it will use a fall-back image that you can specify.
 
-The plug-in inserts the open graph meta properties, which Facebook and other social services look for when someone shares your page. These properties contain information about the page and of course the image you specify.
+The plug-in inserts the open graph meta properties which Facebook and other social services look for when someone shares your page. These properties specific information about the page and of course the image you specify.
 
 == Installation ==
 
@@ -27,33 +27,71 @@ Deactivate the plugin, delete if desired.
 
 <a href="https://wordpress.org/support/plugin/facebook-thumb-fixer">Facebook Thumb Fixer Support</a> at the official Wordpress repository.
 
-Go to 'Facebook Thumb Fixer' in WordPress admin for more information about how it works, what it does, and how to resolve common problems.
-
 == How to set a fall-back image ==
 
-Go to Settings -> General and scroll down until you find 'Default Facebook Thumb'. Put the path to your fall-back image there. Make sure it's at least 1200x630 or 600x315.
+Go to Settings -> General and scroll down until you find 'Default Facebook Thumb'. Choose or upload a fall-back image. Make sure it's at least 1200x630 or 600x315.
 
 == How to set a Facebook App ID ==
 
 If you have a Facebook App, you can get the App ID from <a href="https://developers.facebook.com/apps/" target="_blank">your developer dashboard</a>.
 
-Specify your Facebook App ID Settings -> General.
+Specify your Facebook App ID Settings -> General and scroll down until you find 'Facebook App ID'.
 
 == How to set an object type ==
 
-<strong>Posts and Pages</strong>
+<strong>Posts and pages</strong>
 
-On each page or post you edit there is an 'Open Graph Object Type' meta box. Simply make a section from there to specify what Object Type the page or post is. Example: If the it's an article, then choose 'article'. If it's a product, choose 'product'. To help you decide what Object Type to choose, go <a href-"https://developers.facebook.com/docs/reference/opengraph" target="_blank">here</a> to learn the differences between them all.
+On each page or post you edit there is an 'Open Graph Object Type' meta box. Simply make a section from there to specify what Object Type the page or post is. Example: If the it's an article, then choose 'article'. If it's a product, choose 'product'. To help you decide what Object Type to choose, go <a href="https://developers.facebook.com/docs/reference/opengraph" target="_blank">here</a> to learn the differences between them all.
 
 Note: If no selection is made for posts or pages then the Object Type will be 'article', which in most cases is fine.
 
 <strong>Home page</strong>
 
-To specify what Object Type your homepage is, go to the Wordpress Settings -> General page and make a selection from the 'Home page Object Type' field.
+To specify what Object Type your homepage is, go to Settings -> General, scroll down until you find 'Homepage Object Type' and make a selection. After you've specified a Default Facebook Thumb, Homepage Object Type and saved the options, you'll then be able to view an approximate preview of your homepage when shared on Facebook.
 
-Note: If no selection is made for the home page then the Object Type will be 'webpage', which in most cases is probably what you want.
+Note: If no selection is made for the home page then the Object Type will default to 'webpage', which in most cases is probably what you want.
+
+<strong>Known issues</strong>
+
+Divi theme is not houring the WordPress strip_shortcodes() function, and so if you have a shortcode early on in a post you may see unexpected results when sharing on social media.
 
 == Changelog ==
+
+= 1.7.5 =
+
+Added new object types: business.business
+Added new object types: place
+Removed incorrect object type: object
+Fixed malformed anchor in readme
+Fixed typos
+
+= 1.7.4 =
+
+Added option to disable meta tags for specific posts and pages.
+Fixed issue related to shortcodes in the content.
+Fixed incorrect text domain.
+
+= 1.7.3 =
+
+POT file renamed.
+
+= 1.7.2 =
+
+Fixed incorrect text domain.
+
+= 1.7.1 =
+
+Employed more reliable method for determining image dimensions.
+Added debug button for homepage testing.
+Added missing translation strings.
+
+= 1.7 =
+
+Fixed Facebook scraping issue caused by double quotes in excerpts.
+Pages now use truncated main content when excerpt does not exist.
+Added media galley browsing button for when choosing a default image.
+Added plugin activation message prompting users to set default thumbnail image.
+Added translation support.
 
 = 1.6 =
 

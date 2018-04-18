@@ -1,9 +1,9 @@
 === WooCommerce ===
-Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, claudiulodro, woothemes, iCaleb
+Contributors: automattic, mikejolley, jameskoster, claudiosanches, claudiulodro, kloon, rodrigosprimo, jshreve, coderkevin
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront, woo commerce
-Requires at least: 4.4
-Tested up to: 4.8
-Stable tag: 3.1.0
+Requires at least: 4.7
+Tested up to: 4.9
+Stable tag: 3.3.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,9 +112,9 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 If on the off-chance you do encounter issues with the shop/category pages after an update you simply need to flush the permalinks by going to WordPress > Settings > Permalinks and hitting 'save'. That should return things to normal.
 
-= Dummy data =
+= Sample data =
 
-WooCommerce comes with some dummy data you can use to see how products look; either import dummy_data.xml via the [WordPress importer](https://wordpress.org/plugins/wordpress-importer/) or use our [CSV Import Suite plugin](https://woocommerce.com/products/product-csv-import-suite/) to import dummy_data.csv and dummy_data_variations.csv.
+WooCommerce comes with some sample data you can use to see how products look; import sample_products.xml via the [WordPress importer](https://wordpress.org/plugins/wordpress-importer/). You can also use the core CSV importer or our [CSV Import Suite plugin](https://woocommerce.com/products/product-csv-import-suite/) to import sample_products.csv.
 
 == Frequently Asked Questions ==
 
@@ -128,7 +128,7 @@ For extending or theming WooCommerce, see our [codex](https://docs.woocommerce.c
 
 If you get stuck, you can ask for help in the [WooCommerce Plugin Forum](https://wordpress.org/support/plugin/woocommerce).
 
-For help with premium extensions from WooThemes, use [our helpdesk](https://support.woothemes.com/).
+For help with premium extensions from WooCommerce.com, use [our helpdesk](https://woocommerce.com/my-account/tickets/).
 
 = Will WooCommerce work with my theme? =
 
@@ -136,7 +136,7 @@ Yes; WooCommerce will work with any theme, but may require some styling to make 
 
 = Where can I request new features, eCommerce themes and extensions? =
 
-You can vote on and request new features and extensions in our [WooIdeas board](http://ideas.woothemes.com/forums/133476-woocommerce)
+You can vote on and request new features and extensions in our [WooIdeas board](http://ideas.woocommerce.com/forums/133476-woocommerce)
 
 = Where can I report bugs or contribute to the project? =
 
@@ -161,71 +161,150 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 
 == Changelog ==
 
-= 3.1.0 - 2017-06-28 =
-* Feature - Built-in product CSV importer and exporter for products.
-* Feature - Display (toggle-able) terms inline on the checkout rather than showing a link.
-* Feature - On the "pay for order" page, if logged out show a login form rather than an error message.
-* Feature - Enabled oembed support for product short descriptions.
-* Feature - Added bulk variation update for stock status.
-* Feature - On customer profiles: added a button to copy billing address to shipping address.
-* Feature - Setup Wizard - Automatic Shipping Zone Creation In Setup Wizard for the base location.
-* Feature - Setup Wizard - Added a new optional Storefront Theme step if you're using a non-WooCommerce compatible theme.
-* Feature - Made it possible to manage extension licenses purchased from WooCommerce.com on the extensions screen.
-* Tweak - Gallery - Added a data-caption for captions to support both captions and titles for SEO.
-* Tweak - Gallery - Used smoothHeight setting to better support images of different heights.
-* Tweak - UI - Added blank states for API keys & webhooks.
-* Tweak - UI - Made Product submenu labels consistent in admin.
-* Tweak - UI - Changed street address field label and placeholder to minimize user error on checkout.
-* Tweak - UI - Added a confirmation before deleting log files.
-* Tweak - If prices are the same for all variations, use price not priceSpecification in structured data.
-* Tweak - Added variable so shipping calculator is shown on first row only when showing multiple shipping packages.
-* Tweak - Updated mini-cart HTML to use a list.
-* Tweak - Allow linking to single product additional_information tab from url hash.
-* Tweak - Re-included WooCommerce endpoints on the appearance > menus screens.
-* Tweak - Always sync incorrect titles on variation read regardless of version.
-* Tweak - Standardize rating HTML in all templates.
-* Tweak - When searching, disable WC sort order so results are sorted by relevance.
-* Tweak - Update price sorting code to use min or max for variable products depending on sorting direction.
-* Tweak - Utilize $product method to get thumbnail in loops.
-* Tweak - Check for an existing display name before updating a user on checkout. Adds display_name prop to the CRUD.
-* Tweak - Adapt variable product price used in sorting based on direction of sort.
-* Tweak - Made state validation less strict for keys.
-* Tweak - For COD orders, force payment complete status to be completed.
-* Fix - Use get_max_purchase_quantity in cart template and fix logic when stock management is off.
-* Fix - Added log_id as the secondary sorting column to log list so log entries sort correctly.
-* Fix - Fix shop page when using shop base and UTF8 shop page slug.
-* Fix - Added handles so drag and drop does not break edit on mobile when sorting categories.
-* Fix - Added ABSPATH checks to all files.
-* Fix - Fixed how to flush rewrite rules after saving the shop main page.
-* Fix - Emails sent via admin should switch to global locale.
-* Fix - Set and restore wp_query so product page functions think it's a real product page.
-* Fix - Variation default value of '0' fails to save on product.
-* Fix - Prevent locations being added to the "Rest Of The World" shipping zone via the API.
-* Dev - Allow date created to be set in wc_create_refund.
-* Dev - Introduced a [WC_Order_Query class](https://github.com/woocommerce/woocommerce/wiki/wc_get_orders-and-WC_Order_Query) for finding/searching orders.
-* Dev - Added "restored" webhook.
-* Dev - Support floats for the custom attribute name sorting function.
-* Dev - Updated Emogrifier to version 1.2.
-* Dev - Sort product data tabs by priority in admin screen.
-* Dev - Added new hooks for: dashboard reviews widget, product and category sorting events, woocommerce_add_to_cart_sold_individually_found_in_cart, cart empty messages.
-* Dev - Added filters for zoom / flexslider / photoswipe enabling.
-* Dev - Added filter for cookie name.
-* Dev - Added ability to filter Photoswipe lightbox options.
-* Dev - Added new filter for product thumbnail size.
-* Dev - Added action for displaying custom data for fees in admin.
-* Dev - Changed build_payload from private to public in webhook system.
-* Dev - Added deprecated notice to WC_Order_Item_Meta (deprecated in 3.0).
-* Dev - Added namespace to jQuery events that are removed in VariationForm.
-* Dev - Made WC_Checkout::get_posted_data() public.
-* Dev - Add custom message for custom system status tools.
-* Dev - Added filters to change which order items are created and loaded to support custom item types.
-* Dev - Updated jQuery payment and serializejson libraries.
-* Localization - Added Bolivian states.
-* Localization - Use VAT for Norway instead of Tax.
+= 3.3.3 - 2018-02-21 =
+* Fix - Fixed is_numeric check which was affecting order subtotals/totals when using comma decimal separator.
+* Fix - Add missing direct script access checks to loop templates.
+* Fix - Added wp-post-image class to main image so variation images are swapped correctly.
+* Fix - API - Adjusted schema for products shipping_class_id to integer.
+* Fix - Made init tooltips event more specific to avoid conflict with Product Invoices extension.
+
+= 3.3.2 - 2018-02-20 =
+* Fix - Fixed admin product SKU searching and searching non-published products.
+* Fix - PHP7.1 notice when image height is empty.
+* Fix - Prevent repeated update_option calls on page load due to php type juggling.
+* Fix - Only do unsupported template rendering in the loop to prevent conflicts with other shortcodes on the shop page.
+* Fix - Don't prepend regular shortcodes with categories.
+* Fix - If using get_catalog_ordering_args. remove the args when finished.
+* Fix - Remove "Type" column on attributes table by default unless custom types are defined.
+* Fix - Use verbose page rules when shop is in the URL, including shop base with category, to prevent 404s.
+* Fix - Set woocommerce_hide_invisible_variations to true so disabled variation attributes are hidden on product pages.
+* Fix - Help tip for webhook status.
+* Fix - Shipping zone documentation help link was printing wrong.
+* Fix - Stop background processing images when disabled via the filter.
+* Fix - Only search when a search term is provided. Ignore empty strings.
+* Fix - Fix check for external resources.
+* Fix - Show full date for future orders.
+* Fix - Prevent JS error is 'orders' row is disabled on order screen.
+* Fix - Fix save of tax settings when no changes have been made.
+* Fix - Add nonce to logout link on my account page so you do not need to confirm the action.
+* Fix - Fix plain text entity replacement so currency symbols are included.
+* Fix - API - Set status after order is created/updated so triggered emails are current.
+* Fix - API - Fix single webhook endpoint.
+* Tweak - Added help text for background image processing.
+* Tweak - Added notice when background image processing is running, with cancel button.
+* Tweak - Run background image processing less often by tracking changes.
+* Tweak - Added system status tool to run background image processing manually.
+* Tweak - If using Jetpack Photon, use that instead of background image processing.
+* Tweak - Gallery thumbnail image size to handle small, square cropped images.
+* Tweak - Helper function (and template version bump for image templates) to render gallery images.
+* Tweak - Add help text for the default category to explain usage.
+* Tweak - Allow changing the default product category.
+* Tweak - Tweak mobile view of order preview to improve layout in non-english.
+* Tweak - If selecting text, don't link to order on row click.
+* Localization - Remove isle of man state.
+
+= 3.3.1 - 2018-02-06 =
+* Fix - Added `woocommerce_output_product_categories` to replace `woocommerce_product_subcategories` function to prevent outdated theme template files from outputting categories on the shop and category pages in err.
+* Fix - Prevented columns from being set to anything lower than 1.
+* Fix - Added extra error checking in Webhooks API to prevent notices when deleting Webhooks.
+* Fix - Prevented list table classes being loaded multiple times. This also fixes compatibility with Smart Coupons extension.
+* Fix - Removed stray debug string from order email template and fixed some typos.
+* Fix - Set up the loop when calling wc_get_loop_prop. Fixes compatibility with some themes.
+* Fix - Remove multiple application of filter 'woocommerce_order_item_product'.
+* Fix - Protect against theme support being defined too late. Fixes some issues with custom themes defining WooCommerce support incorrectly.
+* Fix - Add fallback for themes that just get the pagination template.
+* Fix - Made the on-the-fly image regen also regenerate missing sizes.
+* Fix - Fixed missing user_id in webhook migration script.
+* Fix - Allow uncategorized category to be sorted like the others.
+* Fix - If theme support changes, we may need to flush permalinks since some are changed based on this flag.
+* Fix - Fire hooks for pagination etc only when pagination is enabled.
+* Fix - Default HTML in end wrapper template.
+* Fix - Prevent regular pagination showing on archives for unsupported themes.
+* Fix - Fix shop when shown as homepage in unsupported themes.
+* Fix - Fix SKU mapping for placeholders during CSV import.
+* Fix - Use CRUD search helper in admin products table so partial SKU search works.
+* Fix - Fix bulk sale/regular price percentage handling.
+* Fix - More specificity on smallscreen style override for columns.
+* Tweak - Add notice for moved store notice setting.
+* Tweak - Allow removing coupons on editable orders only.
+* Tweak - Extended the background processing library to avoid changing methods in the library.
+* Tweak - Do not show row settings if something is managing the number of products per page.
+* Tweak - Allow devs to add 'no-link' class to elements to prevent order view link being triggered on row click.
+* Tweak - Made woocommerce_resize_images filter more useful by calling it later.
+* Tweak - Revert default columns back to 4 so it's consistent with 3.2.
+
+= 3.3.0 - 2018-01-30 =
+* Feature - Improved default appearance in themes which do not support WooCommerce, making the shop page shortcode based.
+* Feature - Products shortcodes; improved random sorting, with some caching.
+* Feature - Products shortcodes; support for pagination.
+* Feature - Added new options to the WordPress Appearance Customizer; control the product grid (rows and columns), and image sizes.
+* Feature - Improved how image sizes are defined and calculated. Set an aspect ratio (custom, 1:1, uncropped) and image sizes will be automagically calculated based on widths.
+* Feature - Changing image sizes will trigger automatic thumbnail regeneration in the background.
+* Feature - Improved how downloads are stored within products, and added new reporting/logging features to track who downloaded what, when.
+* Feature - Improved the overall appearance of the backend orders list, and added a new 'preview' button to quickly see order details.
+* Feature - New default sample data and placeholders.
+* Feature - Added sandbox and live API details to the PayPal standard data, as well as an indication on the checkout to what mode is currently active. PayPal IPN email notifications are also now optional.
+* Feature - Introduced product category threshold filter (`woocommerce_product_category_filter_threshold`). AJAX powered select will kick in when you have over 100 categories.
+* Feature - Added `add_to_cart_description` method and aria-labels to cart buttons in the loop for accessibility.
+* Feature - Ability to search in logs when the database logger is used.
+* Performance - Adjusted how permalinks are retrieved and saved to avoid switching locales on each page load.
+* Performance - Added cache when loading product variation attributes.
+* Fix - Fix wc_notice_count logic.
+* Fix - Correct bulk edit price formatting.
+* Fix - Ajax add-to-cart button shortcode fix for variations.
+* Tweak - Update billing if account form changes.
+* Tweak - Remove videos from help sections.
+* Tweak - Preserve seconds when saving order date.
+* Tweak - Allow quantities less than 1, but not 0, in admin.
+* Tweak - Post types with no archives should not show in breadcrumb.
+* Tweak - Only load session handler class on frontend not during cron.
+* Tweak - Moved the 'Store Notice" option into the customizer.
+* Tweak - Checkout Postcode / Zip validation error message was missing Billing / Shipping Identification.
+* Tweak - Added Iris color picker validation.
+* Tweak - Use scrollIntoView on checkout.
+* Tweak - Converted input submit elements to button submit elements across the entire codebase for consistency.
+* Tweak - Added `{site_title}` replacement for email footers.
+* Tweak - Added delete product confirmation if a product has had sales.
+* Tweak - Improved when "incl. VAT" is displayed in cart totals.
+* Tweak - Use base text color for links in email templates.
+* Tweak - Show theme overrides that are done through the wc_get_template filter in the system status report.
+* Tweak - Added nofollow tags in layered nav to prevent duplicate indexed content.
+* Tweak - Hide "incl. VAT" when no rates are defined in "single total" display mode.
+* Tweak - Added replay protection for refunds.
+* Tweak - GeoDB empty file handling.
+* Tweak - Let wp_signon handle email to username conversion.
+* Tweak - Made email field wider on checkout.
+* Tweak - Post entire shipping selection when showing multiple packages.
+* Dev - REST API - Orders should be created for users who exist on the site only.
+* Dev - REST API - Fixed default value of "dp" on orders and refunds endpoints.
+* Dev - Theming - Added theme support variables to declare image sizes used for products.
+* Dev - Theming - Added support for single-product-postname.php template files.
+* Dev - Added actions before calculations order totals and taxes and is_vat_excempt support.
+* Dev - Add filter 'woocommerce_coupon_get_apply_quantity'.
+* Dev - Grouped products; added filters to allow custom columns and changes to values.
+* Dev - Allow for cloning the WC_Cart object
+* Dev - Apply filters to registration-error-email-exists error.
+* Dev - Added `woocommerce_cross_sells_order` filter.
+* Dev - Add order-details `before` hooks to complement existing hooks.
+* Dev - WC_CHUNK_SIZE constant for controlling readfile.
+* Dev - Add short circuit to customer bought product function.
+* Dev - Added a `wc_caught_exception` method to aid with logging.
+* Dev - Added Data stores and CRUD for working with Webhooks.
+* Dev - Bumped minimum WP version requirement to 4.5 and removed legacy API files.
+* Dev - New actions - `woocommerce_order_details_before_order_table_items`,  `woocommerce_order_details_after_order_table_items` and `woocommerce_order_details_before_order_table`
+* Dev - Passed `widget_id` to `content-widget-product.php` so actions can be ran conditionally, and added sanitisation to `woocommerce_before_widget_product_list` and `woocommerce_after_widget_product_list`.
+* Dev - Improved the `is_internal_meta_key` checks to consider getters and setters.
+* Dev - Cleaned up the Order Customer Details template.
+* Dev - JavaScript payment_method_selected events on checkout.
+* Dev - Add new `$order->get_edit_order_url()` method.
+* Dev - Pass through options to zoom, flexslider, and photoswipe.
+* Dev - Added actions before and after scheduled sales initiation and completion.
+* Localization - Add direction character to currency output.
+* Localization - States for Tanzania and Moldova.
 
 [See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce/master/CHANGELOG.txt).
 
 == Upgrade Notice ==
 
-= 3.1 =
-3.1 is a minor update. If you are upgrading from 3.0 things should continue to work as expected. If upgrading from 2.6.x, please ensure your plugin and theme is compatible with 3.x beforehand. To be safe, make a full site backup, update your theme and extensions, and [review update best practices](https://docs.woocommerce.com/document/how-to-update-your-site) before upgrading.
+= 3.0 =
+3.0 is a major update. Make a full site backup, update your theme and extensions, and [review update best practices](https://docs.woocommerce.com/document/how-to-update-your-site) before upgrading.

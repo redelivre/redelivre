@@ -378,6 +378,26 @@ return array(
 			),
 		),
 	),
+	'MD' => array(
+		'currency_code'  => 'MDL',
+		'currency_pos'   => 'right_space',
+		'thousand_sep'   => '.',
+		'decimal_sep'    => ',',
+		'num_decimals'   => 2,
+		'weight_unit'    => 'kg',
+		'dimension_unit' => 'cm',
+		'tax_rates'      => array(
+			'' => array(
+				array(
+					'country'  => 'MD',
+					'state'    => '',
+					'rate'     => '20.0000',
+					'name'     => 'TVA',
+					'shipping' => true,
+				),
+			),
+		),
+	),
 	'NL' => array(
 		'currency_code'  => 'EUR',
 		'currency_pos'   => 'left',
@@ -524,7 +544,7 @@ return array(
 		'thousand_sep'	=> ',',
 		'decimal_sep'	 => '.',
 		'num_decimals'	=> 2,
-		'weight_unit'	 => 'lbs',
+		'weight_unit'	 => 'oz',
 		'dimension_unit' => 'in',
 		'tax_rates'		=> array(
 			'AL' => array(
@@ -774,7 +794,7 @@ return array(
 				array(
 					'country'  => 'US',
 					'state'    => 'NJ',
-					'rate'     => '7.0000',
+					'rate'     => '6.8750',
 					'name'     => 'State Tax',
 					'shipping' => true,
 				),

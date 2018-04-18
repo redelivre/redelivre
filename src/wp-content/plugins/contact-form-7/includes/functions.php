@@ -19,7 +19,8 @@ function wpcf7_upload_dir( $type = false ) {
 
 	$uploads = apply_filters( 'wpcf7_upload_dir', array(
 		'dir' => $uploads['basedir'],
-		'url' => $uploads['baseurl'] ) );
+		'url' => $uploads['baseurl'],
+	) );
 
 	if ( 'dir' == $type ) {
 		return $uploads['dir'];
@@ -30,16 +31,12 @@ function wpcf7_upload_dir( $type = false ) {
 	return $uploads;
 }
 
-function wpcf7_verify_nonce( $nonce, $action = -1 ) {
-	if ( substr( wp_hash( $action, 'nonce' ), -12, 10 ) == $nonce ) {
-		return true;
-	}
-
-	return false;
+function wpcf7_verify_nonce( $nonce, $action = 'wp_rest' ) {
+	return wp_verify_nonce( $nonce, $action );
 }
 
-function wpcf7_create_nonce( $action = -1 ) {
-	return substr( wp_hash( $action, 'nonce' ), -12, 10 );
+function wpcf7_create_nonce( $action = 'wp_rest' ) {
+	return wp_create_nonce( $action );
 }
 
 function wpcf7_blacklist_check( $target ) {
@@ -109,6 +106,10 @@ function wpcf7_use_really_simple_captcha() {
 function wpcf7_validate_configuration() {
 	return apply_filters( 'wpcf7_validate_configuration',
 		WPCF7_VALIDATE_CONFIGURATION );
+}
+
+function wpcf7_autop_or_not() {
+	return (bool) apply_filters( 'wpcf7_autop_or_not', WPCF7_AUTOP );
 }
 
 function wpcf7_load_js() {
@@ -191,7 +192,8 @@ function wpcf7_register_post_types() {
 function wpcf7_version( $args = '' ) {
 	$defaults = array(
 		'limit' => -1,
-		'only_major' => false );
+		'only_major' => false,
+	);
 
 	$args = wp_parse_args( $args, $defaults );
 
@@ -251,13 +253,13 @@ function wpcf7_enctype_value( $enctype ) {
 
 function wpcf7_rmdir_p( $dir ) {
 	if ( is_file( $dir ) ) {
-		if ( ! $result = @unlink( $dir ) ) {
-			$stat = @stat( $dir );
+		if ( ! $result = unlink( $dir ) ) {
+			$stat = stat( $dir );
 			$perms = $stat['mode'];
-			@chmod( $dir, $perms | 0200 ); // add write for owner
+			chmod( $dir, $perms | 0200 ); // add write for owner
 
-			if ( ! $result = @unlink( $dir ) ) {
-				@chmod( $dir, $perms );
+			if ( ! $result = unlink( $dir ) ) {
+				chmod( $dir, $perms );
 			}
 		}
 
@@ -268,7 +270,7 @@ function wpcf7_rmdir_p( $dir ) {
 		return false;
 	}
 
-	if ( $handle = @opendir( $dir ) ) {
+	if ( $handle = opendir( $dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
 			if ( $file == "." || $file == ".." ) {
 				continue;
@@ -280,7 +282,12 @@ function wpcf7_rmdir_p( $dir ) {
 		closedir( $handle );
 	}
 
-	return @rmdir( $dir );
+	if ( false !== ( $files = scandir( $dir ) )
+	&& ! array_diff( $files, array( '.', '..' ) ) ) {
+		return rmdir( $dir );
+	}
+
+	return false;
 }
 
 /* From _http_build_query in wp-includes/functions.php */
@@ -330,6 +337,7 @@ function wpcf7_count_code_units( $string ) {
 	}
 
 	$string = (string) $string;
+	$string = str_replace( "\r\n", "\n", $string );
 
 	$encoding = mb_detect_encoding( $string, mb_detect_order(), true );
 

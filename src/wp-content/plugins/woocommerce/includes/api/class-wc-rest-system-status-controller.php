@@ -629,6 +629,17 @@ class WC_REST_System_Status_Controller extends WC_REST_Controller {
 	}
 
 	/**
+	 * Add prefix to table.
+	 *
+	 * @param string $table table name
+	 * @return stromg
+	 */
+	protected function add_db_table_prefix( $table ) {
+		global $wpdb;
+		return $wpdb->prefix . $table;
+	}
+
+	/**
 	 * Get array of database information. Version, prefix, and table existence.
 	 *
 	 * @return array
@@ -636,8 +647,18 @@ class WC_REST_System_Status_Controller extends WC_REST_Controller {
 	public function get_database_info() {
 		global $wpdb;
 
+		$database_table_sizes = $wpdb->get_results( $wpdb->prepare( "
+			SELECT
+			    table_name AS 'name',
+			    round( ( data_length / 1024 / 1024 ), 2 ) 'data',
+			    round( ( index_length / 1024 / 1024 ), 2 ) 'index'
+			FROM information_schema.TABLES
+			WHERE table_schema = %s
+			ORDER BY name ASC;
+		", DB_NAME ) );
+
 		// WC Core tables to check existence of
-		$tables = apply_filters( 'woocommerce_database_tables', array(
+		$core_tables = apply_filters( 'woocommerce_database_tables', array(
 			'woocommerce_sessions',
 			'woocommerce_api_keys',
 			'woocommerce_attribute_taxonomies',
@@ -651,14 +672,45 @@ class WC_REST_System_Status_Controller extends WC_REST_Controller {
 			'woocommerce_shipping_zone_methods',
 			'woocommerce_payment_tokens',
 			'woocommerce_payment_tokenmeta',
+			'woocommerce_log',
 		) );
 
 		if ( get_option( 'db_version' ) < 34370 ) {
-			$tables[] = 'woocommerce_termmeta';
+			$core_tables[] = 'woocommerce_termmeta';
 		}
-		$table_exists = array();
-		foreach ( $tables as $table ) {
-			$table_exists[ $table ] = ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s;", $wpdb->prefix . $table ) ) === $wpdb->prefix . $table );
+
+		/**
+		 * Adding the prefix to the tables array, for backwards compatibility.
+		 *
+		 * If we changed the tables above to include the prefix, then any filters against that table could break.
+		 */
+		$core_tables = array_map( array( $this, 'add_db_table_prefix' ), $core_tables );
+
+		/**
+		 * Organize WooCommerce and non-WooCommerce tables separately for display purposes later.
+		 *
+		 * To ensure we include all WC tables, even if they do not exist, pre-populate the WC array with all the tables.
+		 */
+		$tables = array(
+			'woocommerce' => array_fill_keys( $core_tables, false ),
+			'other' => array()
+		);
+
+		$database_size = array(
+			'data' => 0,
+			'index' => 0
+		);
+
+		foreach ( $database_table_sizes as $table ) {
+			$table_type = in_array( $table->name, $core_tables ) ? 'woocommerce' : 'other';
+
+			$tables[ $table_type ][ $table->name ] = array(
+				'data'  => $table->data,
+				'index' => $table->index
+			);
+
+			$database_size[ 'data' ] += $table->data;
+			$database_size[ 'index' ] += $table->index;
 		}
 
 		// Return all database info. Described by JSON Schema.
@@ -666,8 +718,22 @@ class WC_REST_System_Status_Controller extends WC_REST_Controller {
 			'wc_database_version'    => get_option( 'woocommerce_db_version' ),
 			'database_prefix'        => $wpdb->prefix,
 			'maxmind_geoip_database' => WC_Geolocation::get_local_database_path(),
-			'database_tables'        => $table_exists,
+			'database_tables'        => $tables,
+			'database_size'          => $database_size,
 		);
+	}
+
+	/**
+	 * Get array of counts of objects. Orders, products, etc.
+	 *
+	 * @return array
+	 */
+	public function get_post_type_counts() {
+		global $wpdb;
+
+		$post_type_counts = $wpdb->get_results( "SELECT post_type AS 'type', count(1) AS 'count' FROM {$wpdb->posts} GROUP BY post_type;" );
+
+		return is_array( $post_type_counts ) ? $post_type_counts : array();
 	}
 
 	/**
@@ -770,7 +836,11 @@ class WC_REST_System_Status_Controller extends WC_REST_Controller {
 		$outdated_templates = false;
 		$scan_files         = WC_Admin_Status::scan_template_files( WC()->plugin_path() . '/templates/' );
 		foreach ( $scan_files as $file ) {
-			if ( file_exists( get_stylesheet_directory() . '/' . $file ) ) {
+			$located = apply_filters( 'wc_get_template', $file, $file, array(), WC()->template_path(), WC()->plugin_path() . '/templates/' );
+
+			if ( file_exists( $located ) ) {
+				$theme_file = $located;
+			} elseif ( file_exists( get_stylesheet_directory() . '/' . $file ) ) {
 				$theme_file = get_stylesheet_directory() . '/' . $file;
 			} elseif ( file_exists( get_stylesheet_directory() . '/' . WC()->template_path() . $file ) ) {
 				$theme_file = get_stylesheet_directory() . '/' . WC()->template_path() . $file;
@@ -804,7 +874,7 @@ class WC_REST_System_Status_Controller extends WC_REST_Controller {
 			'version_latest'          => WC_Admin_Status::get_latest_theme_version( $active_theme ),
 			'author_url'              => esc_url_raw( $active_theme->{'Author URI'} ),
 			'is_child_theme'          => is_child_theme(),
-			'has_woocommerce_support' => ( current_theme_supports( 'woocommerce' ) || in_array( $active_theme->template, wc_get_core_supported_themes() ) ),
+			'has_woocommerce_support' => current_theme_supports( 'woocommerce' ),
 			'has_woocommerce_file'    => ( file_exists( get_stylesheet_directory() . '/woocommerce.php' ) || file_exists( get_template_directory() . '/woocommerce.php' ) ),
 			'has_outdated_templates'  => $outdated_templates,
 			'overrides'               => $override_files,
@@ -887,6 +957,10 @@ class WC_REST_System_Status_Controller extends WC_REST_Controller {
 			_x( 'My account', 'Page setting', 'woocommerce' ) => array(
 				'option'    => 'woocommerce_myaccount_page_id',
 				'shortcode' => '[' . apply_filters( 'woocommerce_my_account_shortcode_tag', 'woocommerce_my_account' ) . ']',
+			),
+			_x( 'Terms and conditions', 'Page setting', 'woocommerce' ) => array(
+				'option'    => 'woocommerce_terms_page_id',
+				'shortcode' => '',
 			),
 		);
 

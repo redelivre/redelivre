@@ -2,21 +2,17 @@
 Contributors: singpolyma, wnorris, pfefferle
 Tags: xrds, xrds-simple, discovery
 Requires at least: 2.1
-Tested up to: 4.3
-Stable tag: 1.2
+Tested up to: 4.9.4
+Stable tag: 1.2.1
 
 Provides framework for other plugins to advertise services via XRDS.
 
 
 == Description ==
 
-[XRDS-Simple][] is a profile of XRDS, a service discovery protocol which used
-in the [OpenID][] authentication specification as well as [OAuth][].  This
-plugin provides a generic framework to allow other plugins to contribute their
-own service endpoints to be included in the XRDS service document for the
-domain.
+[XRDS-Simple][] is a profile of XRDS, a service discovery protocol which used in the [OpenID][] authentication specification as well as [OAuth][].  This plugin provides a generic framework to allow other plugins to contribute their own service endpoints to be included in the XRDS service document for the domain.
 
-[XRDS-Simple]: https://de.wikipedia.org/wiki/XRDS#XRDS_Simple
+[XRDS-Simple]: https://en.wikipedia.org/wiki/XRDS#XRDS_Simple
 [OpenID]: http://openid.net/
 [OAuth]: http://oauth.net/
 
@@ -35,20 +31,21 @@ This plugin follows the [standard WordPress installation method][]:
 
 = How do I contribute services to the XRDS document =
 
-Implement the filter 'xrds_simple', and see the public functions at the top of
-the file.
+Implement the filter 'xrds_simple', and see the public functions at the top of the file.
 
 
 == Changelog ==
 
-Project maintined on github at
-[diso/wordpress-xrds-simple](https://github.com/diso/wordpress-xrds-simple).
+Project maintined on github at [diso/wordpress-xrds-simple](https://github.com/diso/wordpress-xrds-simple).
 
-= version 1.2 (Jul 17, 2015)=
+= version 1.2.1 (Feb 19, 2018) =
+ - compatibility update
+
+= version 1.2 (Jul 17, 2015) =
  - allow 'xri://$xrds*simple' Type to be filtered out
  - check if $_SERVER['HTTP_ACCEPT'] exist to avoid notice that break the xrds file
 
-= version 1.1 (Nov 16, 2012)=
+= version 1.1 (Nov 16, 2012) =
  - fix various PHP and WordPress errors and warnings
  - add ability to fetch plain text XRDS document (mainly for debugging.  see [example](http://willnorris.com/?xrds=1&format=text))
 

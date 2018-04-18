@@ -2,8 +2,8 @@
 Contributors: willnorris, factoryjoe, pfefferle
 Tags: openid, authentication, login, comments
 Requires at least: 2.8
-Tested up to: 4.6.1
-Stable tag: 3.4.2
+Tested up to: 4.9.1
+Stable tag: 3.4.4
 License: Apache 2.0
 License URI: https://www.apache.org/licenses/LICENSE-2.0
 
@@ -11,16 +11,9 @@ Allows WordPress to provide and consumer OpenIDs for authentication of users and
 
 == Description ==
 
-OpenID is an [open standard][] that allows users to authenticate to websites
-without having to create a new password. This plugin allows users to login to
-their local WordPress account using an OpenID, as well as enabling commenters
-to leave authenticated comments with OpenID. The plugin also includes an OpenID
-provider, enabling users to login to OpenID-enabled sites using their
-own personal WordPress account. [XRDS-Simple][] is required for the OpenID
-Provider and some features of the OpenID Consumer.
+OpenID is an [open standard][] that allows users to authenticate to websites without having to create a new password. This plugin allows users to login to their local WordPress account using an OpenID, as well as enabling commenters to leave authenticated comments with OpenID. The plugin also includes an OpenID provider, enabling users to login to OpenID-enabled sites using their own personal WordPress account. [XRDS-Simple][] is required for the OpenID Provider and some features of the OpenID Consumer.
 
-Developer documentation, which includes all of the public methods and hooks for
-integrating with and extending the plugin, can be found [here][dev-doc].
+Developer documentation, which includes all of the public methods and hooks for integrating with and extending the plugin, can be found [here][dev-doc].
 
 [open standard]: http://openid.net/
 [XRDS-Simple]: http://wordpress.org/plugins/xrds-simple/
@@ -104,6 +97,12 @@ report at <http://code.google.com/p/diso/issues/list>.
 
 Project maintined on github at
 [diso/wordpress-openid](https://github.com/diso/wordpress-openid).
+
+= version 3.4.4 (Jan 12, 2018) =
+ - fixed bug with latest OpenID library
+
+= version 3.4.3 (Jan 12, 2018) =
+ - update to latest OpenID library
 
 = version 3.4.2 (Nov 20, 2016) =
  - update to latest OpenID library

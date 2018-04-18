@@ -100,9 +100,15 @@ jQuery( function( $ ) {
 			this.photoswipe_enabled = false === args.photoswipe_enabled ? false : this.photoswipe_enabled;
 		}
 
+		// ...and what is in the gallery.
+		if ( 1 === this.$images.length ) {
+			this.flexslider_enabled = false;
+		}
+
 		// Bind functions to this.
 		this.initFlexslider       = this.initFlexslider.bind( this );
 		this.initZoom             = this.initZoom.bind( this );
+		this.initZoomForTarget    = this.initZoomForTarget.bind( this );
 		this.initPhotoswipe       = this.initPhotoswipe.bind( this );
 		this.onResetSlidePosition = this.onResetSlidePosition.bind( this );
 		this.getGalleryItems      = this.getGalleryItems.bind( this );
@@ -129,19 +135,38 @@ jQuery( function( $ ) {
 	 * Initialize flexSlider.
 	 */
 	ProductGallery.prototype.initFlexslider = function() {
-		var $target = this.$target;
+		var $target = this.$target,
+			gallery = this;
 
-		$target.flexslider( {
-			selector:       '.woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image',
-			animation:      wc_single_product_params.flexslider.animation,
-			smoothHeight:   wc_single_product_params.flexslider.smoothHeight,
-			directionNav:   wc_single_product_params.flexslider.directionNav,
-			controlNav:     wc_single_product_params.flexslider.controlNav,
-			slideshow:      wc_single_product_params.flexslider.slideshow,
-			animationSpeed: wc_single_product_params.flexslider.animationSpeed,
-			animationLoop:  wc_single_product_params.flexslider.animationLoop, // Breaks photoswipe pagination if true.
+		var options = $.extend( {
+			selector: '.woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image',
 			start: function() {
 				$target.css( 'opacity', 1 );
+			},
+			after: function( slider ) {
+				gallery.initZoomForTarget( gallery.$images.eq( slider.currentSlide ) );
+			}
+		}, wc_single_product_params.flexslider );
+
+		$target.flexslider( options );
+
+		// Trigger resize after main image loads to ensure correct gallery size.
+		$( '.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:eq(0) .wp-post-image' ).one( 'load', function() {
+			var $image = $( this );
+
+			if ( $image ) {
+				setTimeout( function() {
+					var setHeight = $image.closest( '.woocommerce-product-gallery__image' ).height();
+					var $viewport = $image.closest( '.flex-viewport' );
+
+					if ( setHeight && $viewport ) {
+						$viewport.height( setHeight );
+					}
+				}, 100 );
+			}
+		} ).each( function() {
+			if ( this.complete ) {
+				$( this ).trigger( 'load' );
 			}
 		} );
 	};
@@ -150,13 +175,19 @@ jQuery( function( $ ) {
 	 * Init zoom.
 	 */
 	ProductGallery.prototype.initZoom = function() {
-		var zoomTarget   = this.$images,
-			galleryWidth = this.$target.width(),
-			zoomEnabled  = false;
+		this.initZoomForTarget( this.$images.first() );
+	};
 
-		if ( ! this.flexslider_enabled ) {
-			zoomTarget = zoomTarget.first();
+	/**
+	 * Init zoom.
+	 */
+	ProductGallery.prototype.initZoomForTarget = function( zoomTarget ) {
+		if ( ! this.zoom_enabled ) {
+			return false;
 		}
+
+		var galleryWidth = this.$target.width(),
+			zoomEnabled  = false;
 
 		$( zoomTarget ).each( function( index, target ) {
 			var image = $( target ).find( 'img' );
@@ -169,9 +200,9 @@ jQuery( function( $ ) {
 
 		// But only zoom if the img is larger than its container.
 		if ( zoomEnabled ) {
-			var zoom_options = {
+			var zoom_options = $.extend( {
 				touch: false
-			};
+			}, wc_single_product_params.zoom_options );
 
 			if ( 'ontouchstart' in window ) {
 				zoom_options.on = 'click';
@@ -237,10 +268,10 @@ jQuery( function( $ ) {
 			eventTarget = $( e.target ),
 			clicked;
 
-		if ( ! eventTarget.is( '.woocommerce-product-gallery__trigger' ) ) {
-			clicked = eventTarget.closest( '.woocommerce-product-gallery__image' );
-		} else {
+		if ( eventTarget.is( '.woocommerce-product-gallery__trigger' ) || eventTarget.is( '.woocommerce-product-gallery__trigger img' ) ) {
 			clicked = this.$target.find( '.flex-active-slide' );
+		} else {
+			clicked = eventTarget.closest( '.woocommerce-product-gallery__image' );
 		}
 
 		var options = $.extend( {

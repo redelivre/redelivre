@@ -3,7 +3,7 @@
 Plugin Name: qTranslate X Importer
 Plugin URI: http://wpml.org/documentation/related-projects/qtranslate-importer/
 Description: Imports qTranslate X content to WPML, or just cleans up qTranslate meta tags
-Version: 1.8
+Version: 1.9.1
 Author: OntheGoSystems
 Author URI: http://wpml.org
 Tags: wpml, qtranslate, multilingual, translations
@@ -18,8 +18,12 @@ class QT_Importer{
     const BATCH_SIZE = 10;
         
     function __construct(){
-        $this->default_language = get_option('qtranslate_default_language');
+        $this->default_language = strtolower(get_option('qtranslate_default_language'));
         $this->active_languages = get_option('qtranslate_enabled_languages');
+        foreach( $this->active_languages as $key =>$l ){
+            $l = strtolower($l);
+            $this->active_languages[$key] = $l;
+        }
         $this->url_mode         = get_option('qtranslate_url_mode');
         
         add_action('init', array($this, 'init'), 100);
@@ -414,10 +418,9 @@ class QT_Importer{
 
             <?php 
                 $language_names = get_option('qtranslate_language_names');
-                if(empty($language_names)){
-                    $language_names = get_option('qtranslate_enabled_languages');
-                    $language_names = @array_combine($language_names, $language_names);
-                }
+                $languages_enabled = get_option('qtranslate_enabled_languages');
+                $language_names = (array) @array_combine($language_names, $languages_enabled);
+                $language_names = array_change_key_case($language_names = array_map('strtolower', $language_names),CASE_LOWER);
 
                 if(empty($language_names)){
                     ?>
@@ -425,7 +428,9 @@ class QT_Importer{
                     return;
                 }
                 foreach($this->active_languages as $code){
-                    $active_languages[$code] = $language_names[$code];
+                    if (isset($language_names[$code])) {
+                        $active_languages[$code] = $language_names[$code];
+                    }
                 }
                 //unset($language_names);
             ?>
@@ -808,6 +813,10 @@ class QT_Importer{
             array_shift($exp);
             preg_match_all('#\[:([a-z]{2})\]#',$post['post_title'],$matches);
             $languages = $matches['1'];
+            foreach( $languages as $key =>$l ){
+                $l = strtolower($l);
+                $languages[$key] = $l;
+            }
             foreach( $exp as $key => $e ){
                 $langs[ $languages[$key] ]['title'] = $e;
             };
@@ -820,6 +829,10 @@ class QT_Importer{
             array_shift($exp);
             preg_match_all('#\[:([a-z]{2})\]#',$post['post_content'],$matches);
             $languages = $matches['1'];
+            foreach( $languages as $key =>$l ){
+                $l = strtolower($l);
+                $languages[$key] = $l;
+            }
             foreach( $exp as $key => $e ){
                 $langs[ $languages[$key] ]['content'] = $e;
             };
@@ -832,6 +845,10 @@ class QT_Importer{
             array_shift($exp);
             preg_match_all('#\[:([a-z]{2})\]#',$post['post_excerpt'],$matches);
             $languages = $matches['1'];
+            foreach( $languages as $key =>$l ){
+                $l = strtolower($l);
+                $languages[$key] = $l;
+            }
             foreach( $exp as $key => $e ){
                 $langs[ $languages[$key] ]['excerpt'] = $e;
             };
@@ -849,8 +866,14 @@ class QT_Importer{
                     array_shift($exp);
                     preg_match_all('#\[:([a-z]{2})\]#',$cf->meta_value,$matches);
                     $languages = $matches['1'];
+                    foreach( $languages as $key =>$l ){
+                        $l = strtolower($l);
+                        $languages[$key] = $l;
+                    }
                     foreach( $exp as $key => $e ){
-                        $langs[$lang]['custom_fields'][$cf->meta_key] = $matches[2];
+                        if (isset($matches[2])) {
+                            $langs[$lang]['custom_fields'][$cf->meta_key] = $matches[2];
+                        }
                     }
                 }else{
                     // copying all the other custom fields
@@ -872,7 +895,7 @@ class QT_Importer{
             // handle empty titles
             foreach($active_languages as $language){
                 if(empty($langs[$language]['title']) && !empty($langs[$language]['content'])){
-                    $langs[$language]['title'] = $langs[$this->default_language]['title'].' (' . $language. ')';
+                    $langs[$language]['title'] = $post['post_title'];
                 }
             }    
             

@@ -79,10 +79,13 @@ class MKS_Ads_Widget extends WP_Widget {
 				if( $instance['size'] == 'custom' ){
 					$height = $instance['ad_height'] ? $instance['ad_height'].'px' : 'auto';
 					$ad_size = 'style="width:'.$instance['ad_width'].'px; height:'.$height.';" width="'.$instance['ad_width'].'"  height="'.$instance['ad_height'].'"';
+					$ad_code_size = 'style="width:'.$instance['ad_width'].'px; height:'.$height.';"';
 				} else if($instance['size'] == 'large'){
 					$ad_size = 'style="width:300px; height:250px;" width="300"  height="250"';
+					$ad_code_size = 'style="width:300px; height:250px;"';
 				} else if($instance['size'] == 'small'){
 					$ad_size = 'style="width:125px; height:125px;" width="125"  height="125"';
+					$ad_code_size = 'style="width:125px; height:125px;"';
 				}
 
 				$nofollow = $instance['nofollow'] ? 'rel="nofollow"' : '';
@@ -94,7 +97,7 @@ class MKS_Ads_Widget extends WP_Widget {
 			<ul class="mks_adswidget_ul <?php echo $instance['size'];?>">
 	     		<?php foreach($instance['ads'] as $ind => $ad) : ?>
 	     			<?php $ad['type'] = !isset( $ad['type'] ) ? 'image' : $ad['type']; ?>
-	     			<?php if( $ad['type'] === 'image' && !empty($ad['link']) && !empty($ad['img']) ) : ?>
+	     			<?php if( $ad['type'] === 'image' && !empty($ad['img']) ) : ?>
 			     		<li data-showind="<?php echo $show_ind; ?>">
 			     			<a href="<?php echo esc_url($ad['link']);?>" <?php echo $target; ?> <?php echo $nofollow; ?>>
 			     				<img src="<?php echo esc_url($ad['img']);?>" alt="<?php echo esc_attr(basename($ad['img'])); ?>" <?php echo $ad_size; ?>/>
@@ -103,7 +106,7 @@ class MKS_Ads_Widget extends WP_Widget {
 		     		<?php else: ?>
 			     		<?php if( $ad['type'] === 'code' && !empty( $ad['code'] ) ) : ?>
 			     			<li data-showind="<?php echo $show_ind; ?>">
-				     			<div <?php echo $ad_size; ?>>
+				     			<div <?php echo $ad_code_size; ?>>
 				     				<?php echo do_shortcode($ad['code']); ?>	
 				     			</div>
 				     		</li>
@@ -152,8 +155,6 @@ class MKS_Ads_Widget extends WP_Widget {
 					 <?php echo $li_ind; ?> = 0;
 					}
 					
-					//alert(<?php echo $li_ind; ?>);
-					
 				 	setTimeout('slide_ads_<?php echo $slide_func_id; ?>()', <?php echo absint( $instance['speed'] * 1000 ); ?> );
 				}
 				/* ]]> */
@@ -189,7 +190,7 @@ class MKS_Ads_Widget extends WP_Widget {
 					$ad = array();
 					$ad['link'] = !empty($new_instance['ad_link']) ? esc_url( $new_instance['ad_link'][$i] ) : '';
 					$ad['img'] = !empty($new_instance['ad_img']) ? esc_url( $new_instance['ad_img'][$i] ) : '';
-					$ad['code'] = !empty($new_instance['ad_img']) ? $new_instance['ad_code'][$i] : '';
+					$ad['code'] = !empty($new_instance['ad_code']) ? wptexturize($new_instance['ad_code'][$i]) : '';
 					$ad['type'] = !empty($new_instance['ad_type']) ? $new_instance['ad_type'][$i] : '';
 					$instance['ads'][] = $ad;
 			}	

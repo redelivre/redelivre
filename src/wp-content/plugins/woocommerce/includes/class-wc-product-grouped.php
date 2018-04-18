@@ -44,6 +44,17 @@ class WC_Product_Grouped extends WC_Product {
 	}
 
 	/**
+	 * Get the add to cart button text description - used in aria tags.
+	 *
+	 * @since 3.3.0
+	 * @return string
+	 */
+	public function add_to_cart_description() {
+		/* translators: %s: Product title */
+		return apply_filters( 'woocommerce_product_add_to_cart_description', sprintf( __( 'View products in the &ldquo;%s&rdquo; group', 'woocommerce' ), $this->get_name() ), $this );
+	}
+
+	/**
 	 * Returns whether or not the product is on sale.
 	 *
 	 * @param  string $context What the value is for. Valid values are view and edit.
@@ -101,8 +112,13 @@ class WC_Product_Grouped extends WC_Product {
 		}
 
 		if ( '' !== $min_price ) {
-			$price   = $min_price !== $max_price ? sprintf( _x( '%1$s&ndash;%2$s', 'Price range: from-to', 'woocommerce' ), wc_price( $min_price ), wc_price( $max_price ) ) : wc_price( $min_price );
-			$is_free = ( 0 == $min_price && 0 == $max_price );
+			if ( $min_price !== $max_price ) {
+				$price = wc_format_price_range( $min_price, $max_price );
+			} else {
+				$price = wc_price( $min_price );
+			}
+
+			$is_free = 0 === $min_price && 0 === $max_price;
 
 			if ( $is_free ) {
 				$price = apply_filters( 'woocommerce_grouped_free_price_html', __( 'Free!', 'woocommerce' ), $this );
@@ -162,7 +178,7 @@ class WC_Product_Grouped extends WC_Product {
 	 * upwards (from child to parent) when the variation is saved.
 	 *
 	 * @param WC_Product|int $product Product object or ID for which you wish to sync.
-	 * @param bool $save If true, the prouduct object will be saved to the DB before returning it.
+	 * @param bool $save If true, the product object will be saved to the DB before returning it.
 	 * @return WC_Product Synced product object.
 	 */
 	public static function sync( $product, $save = true ) {

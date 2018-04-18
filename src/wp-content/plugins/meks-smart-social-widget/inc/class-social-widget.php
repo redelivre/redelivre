@@ -65,7 +65,7 @@ class MKS_Social_Widget extends WP_Widget {
 		?>
 			<ul class="mks_social_widget_ul">
 		  	<?php foreach($instance['social'] as $item) : ?>
-		  		<li><a href="<?php echo $item['url']; ?>" class="<?php echo esc_attr($item['icon'].'_ico soc_'.$instance['style']); ?>" <?php echo $target; ?> <?php echo $size_style; ?>><span><?php echo $item['icon']; ?></span></a></li>
+		  		<li><a href="<?php echo $item['url']; ?>" title="<?php echo esc_attr($this->get_social_title($item['icon'])); ?>" class="<?php echo esc_attr($item['icon'].'_ico soc_'.$instance['style']); ?>" <?php echo $target; ?> <?php echo $size_style; ?>><span><?php echo $item['icon']; ?></span></a></li>
 		  	<?php endforeach; ?>
 		  </ul>
 		<?php endif; ?>
@@ -184,6 +184,10 @@ class MKS_Social_Widget extends WP_Widget {
 	<?php }
 
 
+	protected function get_social_title( $social_name ) {
+		$items = $this->get_social();
+		return $items[$social_name];
+	}
 	
 	function get_social() {
 		$social = array(
