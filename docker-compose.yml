@@ -17,6 +17,10 @@ services:
     volumes:
       - ./volumes/wp-config.d:/var/www/html/wp-config.d
       - ./volumes/wp-content/uploads:/var/www/html/wp-content/uploads
+      - ./volumes/wp-content/blogs.dir:/var/www/html/wp-content/blogs.dir
+      - ./volumes/wp-content/cache:/var/www/html/wp-content/cache
+      - ./volumes/wp-content/plugins/si-captcha-for-wordpress/captcha/cache:/var/www/html/wp-content/plugins/si-captcha-for-wordpress/captcha/cache
+      - ./volumes/wp-content/plugins/si-captcha-for-wordpress/captcha/temp:/var/www/html/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
     depends_on:
       - mariadb
     ports:
