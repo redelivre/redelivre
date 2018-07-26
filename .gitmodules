@@ -64,27 +64,27 @@
 	branch = recid
 [submodule "src/wp-content/plugins/fg-joomla-to-wordpress-premium"]
 	path = src/wp-content/plugins/fg-joomla-to-wordpress-premium
-	url = git@gitlab.ethymos.com.br:ethymos/fg-joomla-to-wordpress-premium.git
+	url = git@gitlab.com:ethymos/fg-joomla-to-wordpress-premium.git
 	branch = master
 [submodule "src/wp-content/plugins/fg-joomla-to-wordpress-premium-k2-module"]
 	path = src/wp-content/plugins/fg-joomla-to-wordpress-premium-k2-module
-	url = git@gitlab.ethymos.com.br:ethymos/fg-joomla-to-wordpress-premium-k2-module.git
+	url = git@gitlab.com:ethymos/fg-joomla-to-wordpress-premium-k2-module.git
 	branch = master
 [submodule "src/wp-content/plugins/sitepress-multilingual-cms"]
 	path = src/wp-content/plugins/sitepress-multilingual-cms
-	url = git@gitlab.ethymos.com.br:ethymos/sitepress-multilingual-cms.git
+	url = git@gitlab.com:ethymos/sitepress-multilingual-cms.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-cms-nav"]
 	path = src/wp-content/plugins/wpml-cms-nav
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-cms-nav.git
+	url = git@gitlab.com:ethymos/wpml-cms-nav.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-media"]
 	path = src/wp-content/plugins/wpml-media
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-media.git
+	url = git@gitlab.com:ethymos/wpml-media.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-sticky-links"]
 	path = src/wp-content/plugins/wpml-sticky-links
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-sticky-links.git
+	url = git@gitlab.com:ethymos/wpml-sticky-links.git
 	branch = master
 [submodule "src/wp-content/themes/flacso"]
 	path = src/wp-content/themes/flacso
@@ -97,7 +97,7 @@
 	url = https://github.com/ethymos/jaiminho-sms.git
 [submodule "src/wp-content/themes/meth"]
 	path = src/wp-content/themes/meth
-	url = git@gitlab.ethymos.com.br:ethymos/meth.git
+	url = git@gitlab.com:ethymos/meth.git
 	branch = master
 [submodule "src/wp-content/themes/praticas-de-continuidade"]
 	path = src/wp-content/themes/praticas-de-continuidade
@@ -110,15 +110,15 @@
 
 [submodule "src/wp-content/plugins/joomla-to-wordpress-joomdoc"]
 	path = src/wp-content/plugins/joomla-to-wordpress-joomdoc
-	url = git@gitlab.ethymos.com.br:ethymos/joomla-to-wordpress-joomdoc.git
+	url = git@gitlab.com:ethymos/joomla-to-wordpress-joomdoc.git
 	branch = master
 [submodule "src/wp-content/themes/voice"]
 	path = src/wp-content/themes/voice
-	url = git@gitlab.ethymos.com.br:ethymos/voice.git
+	url = git@gitlab.com:ethymos/voice.git
 	branch = master
 [submodule "src/wp-content/themes/voice-child"]
 	path = src/wp-content/themes/voice-child
-	url = git@gitlab.ethymos.com.br:ethymos/voice-child.git
+	url = git@gitlab.com:ethymos/voice-child.git
 	branch = master
 [submodule "src/wp-content/themes/observatorio-de-remocoes"]
 	path = src/wp-content/themes/observatorio-de-remocoes
@@ -134,15 +134,15 @@
 	branch = master
 [submodule "src/wp-content/plugins/wpml-translation-management"]
 	path = src/wp-content/plugins/wpml-translation-management
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-translation-management.git
+	url = git@gitlab.com:ethymos/wpml-translation-management.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-string-translation"]
 	path = src/wp-content/plugins/wpml-string-translation
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-string-translation.git
+	url = git@gitlab.com:ethymos/wpml-string-translation.git
 	branch = master
 [submodule "src/wp-content/plugins/wpml-all-import"]
 	path = src/wp-content/plugins/wpml-all-import
-	url = git@gitlab.ethymos.com.br:ethymos/wpml-all-import.git
+	url = git@gitlab.com:ethymos/wpml-all-import.git
 	branch = master
 [submodule "src/wp-content/themes/divi"]
 	path = src/wp-content/themes/divi
@@ -161,7 +161,7 @@
 	url = https://github.com/wp-plugins/mention-comments-authors.git
 [submodule "src/wp-content/themes/assineja"]
 	path = src/wp-content/themes/assineja
-	url = git@gitlab.ethymos.com.br:campanhacompleta/assineja.git
+	url = git@gitlab.com:campanhacompleta/assineja.git
 [submodule "src/wp-content/plugins/BotaPressao"]
 	path = src/wp-content/plugins/BotaPressao
 	url = https://github.com/redelivre/BotaPressao.git
