@@ -50,6 +50,7 @@ RUN if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 	&& if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 		apt -y remove expect openssh-client \
 		&& apt -y autoremove \
+		&& rm /var/www/scripts/rlpass \
 	;fi
 
 RUN	mkdir -p src/wp-content/uploads \
