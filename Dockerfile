@@ -35,18 +35,22 @@ RUN if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 	&& chmod 600 /root/.ssh/* \
 	&& chmod 700 /root/.ssh \
 	&& ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
-	&& echo '#!/usr/bin/expect -f' > /tmp/rlpass \
-	&& echo 'spawn ssh-add /root/.ssh/id_rsa' >> /tmp/rlpass \
-	&& echo 'expect "Enter passphrase for /root/.ssh/id_rsa:"' >> /tmp/rlpass \
-	&& echo "send \"$REDELIVRE_SSH_PASSPHRASE\n\";" >> /tmp/rlpass \
-	&& echo 'expect "Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)"' >> /tmp/rlpass \
-	&& echo 'interact' >> /tmp/rlpass \
-	&& chmod 700 /tmp/rlpass \
-	&& apt install -y openssh-server expect \
+	&& echo '#!/usr/bin/expect -f' > /var/www/scripts/rlpass \
+	&& echo 'spawn ssh-add /root/.ssh/id_rsa' >> /var/www/scripts/rlpass \
+	&& echo 'expect "Enter passphrase for /root/.ssh/id_rsa:"' >> /var/www/scripts/rlpass \
+	&& echo "send \"$REDELIVRE_SSH_PASSPHRASE\n\";" >> /var/www/scripts/rlpass \
+	&& echo 'expect "Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)"' >> /var/www/scripts/rlpass \
+	&& echo 'interact' >> /var/www/scripts/rlpass \
+	&& chmod 700 /var/www/scripts/rlpass \
+	&& apt install -y openssh-client expect \
 	&& eval `ssh-agent -s` \
-	&& /tmp/rlpass \
+	&& /var/www/scripts/rlpass \
 	;fi \
-	&& sh scripts/updatesubs.sh
+	&& sh scripts/updatesubs.sh \
+	&& if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
+		apt -y remove expect openssh-client \
+		&& apt -y autoremove \
+	;fi
 
 RUN	mkdir -p src/wp-content/uploads \
 	&& mkdir -p src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache \
@@ -60,3 +64,4 @@ RUN	mkdir -p src/wp-content/uploads \
 	src/wp-content/cache \
 	src/wp-content/w3tc-config \
 	src/wp-content/blogs.dir
+	
