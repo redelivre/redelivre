@@ -27,6 +27,8 @@ services:
       - "80:80"
   mariadb:
     image: mariadb:10
+    env_file:
+     - ./Docker/.db_env
     environment:
       - MYSQL_ROOT_PASSWORD=rootpasswd
       - MYSQL_USER=wordpress
