@@ -25,6 +25,11 @@ services:
       - mariadb
     ports:
       - "80:80"
+      - "443:443"
+    restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
   mariadb:
     image: mariadb:10
     env_file:
@@ -37,3 +42,7 @@ services:
       - TERM=xterm
     volumes:
       - ./volumes/mysql:/var/lib/mysql
+    restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
