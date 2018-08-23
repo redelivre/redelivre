@@ -37,7 +37,7 @@ if (!is_main_site()) {
         }
 
         add_action('template_redirect',        'campanha_check_payment_status');
-        add_action('template_redirect',        'campanha_check_plan_and_theme');
+        //add_action('template_redirect',        'campanha_check_plan_and_theme');
         add_action('template_redirect',        'campaign_base_template_redirect_intercept');
         add_action('admin_notices',            'campanha_admin_messages');
         add_action('admin_init',               'campanha_remove_menu_pages');
@@ -111,8 +111,8 @@ function campanha_check_plan_and_theme() {
     $theme = wp_get_theme();
 
     // if plan is "blog" and theme is not 'blog-01' or one of its child
-    // mark the campaign as private
-    if ($campaign->plan_id == 6 && strpos($theme->get_stylesheet(), 'blog-01') === false
+    // redirect to panel for customize
+    if (strpos($theme->get_stylesheet(), 'wp-divi-3') === false // Como tiramos o tema simples, isso não faz mais sentido
         && $campaign->campaignOwner->ID !== $user_id && !is_super_admin()) {
         wp_redirect(wp_login_url());
     }
