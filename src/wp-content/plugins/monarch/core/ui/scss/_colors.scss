@@ -1,0 +1,160 @@
+// Basic Colors
+$black: #000000;
+$white: #FFFFFF;
+
+// Colors
+$default: #F1F5F9;
+$default-hover: null;
+
+$success: #29C4A9;
+$success-hover: darken(#29C4A9, 6);
+
+$primary: #6C2EB9;
+$primary-hover: darken(#6C2EB9, 6);
+
+$primary-alt: #7D3BCF;
+$primary-alt-hover: darken(#7D3BCF, 6);
+
+$info: #2B87DA;
+$info-hover: darken(#2B87DA, 6);
+
+$info-alt: #00B9DC;
+$info-alt-hover: darken(#00B9DC, 6);
+
+$danger: #EF5555;
+$danger-hover: darken(#EF5555, 6);
+
+$danger-alt: #EB3D00;
+$danger-alt-hover: darken(#EB3D00, 6);
+
+$inverse: #4C5866;
+$inverse-hover: darken(#4C5866, 6);
+
+$warning: #FF9232;
+$warning-hover: darken(#FF9232, 6);
+
+$warning-alt: #F3CB57;
+$warning-alt-hover: darken(#F3CB57, 6);
+
+$globalitem: #97d000;
+$globalitem-hover: darken(#97d000, 6);
+
+$colors-map: (
+  success: $success,
+  primary: $primary,
+  primary-alt: $primary-alt,
+  info: $info,
+  info-alt: $info-alt,
+  danger: $danger,
+  danger-alt: $danger-alt,
+  inverse: $inverse,
+  warning: $warning,
+  globalitem: $globalitem
+);
+
+// Text Color
+$text-primary: #4C5866;
+$text-secondary: null;
+
+// Module colors
+$button: #a3b0c2;
+$input-focus: #e0e5ea;
+
+// Button Color
+$button-align-background: #F3F6FA;
+
+// AB Testing
+$ab-testing-subject-background: #F3CB57;
+$ab-testing-goal-background: #00B9DC;
+$ab-subjects-rank-color: (
+  1: $ab-testing-subject-background,
+  2: #F8B852,
+  3: #F8A653,
+  4: #F88F55,
+  5: #F87356,
+  6: #F95A57,
+  7: #EA5552,
+  8: #DB514F,
+  9: #CE4441,
+  10: #BF2F2C,
+  11: #AA201C,
+  12: #920E08,
+  13: #7E0000,
+);
+$ab-testing-report-color: #373D40;
+$ab-testing-report-total: #48BCA7;
+$ab-testing-pie-legend: #5D6166;
+
+// Preset Control
+$preset-control-background: #bec9d6;
+
+// Option tabs colors
+$active-option-tab-text: #2B96E1;
+$option-tab-text: #BEC9D5;
+$toggle-label-text: #32373C;
+$tabs-background: #8E42EB;
+$tabs-background-light: #7E3BD0;
+$tabs-background-dark: #7435C1;
+
+// Composite Control
+$control-tab-active: #2B87DA;
+
+// Advanced Select Menu
+$item-background-hover: #168ADE;
+
+// Hint Text in Font Uploader
+$hint-grey-text: #9EA7B1;
+
+// Links
+$link-color: #2EA3F2;
+
+// CSS Filter input range sliders
+// Variable names via http://chir.ag/projects/name-that-color/
+$catskill-white: #f1f5f9;
+$catskill-white-2: #e6ecf2;
+$catskill-white-3: #e8eef5;
+$mystic: #e0e5ea;
+$silver-chalice: #aaa9a9;
+$gray-olive: #aeac99;
+$bay-leaf: #88b28c;
+$neptune: #77a3b7;
+$blue-marguerite: #7368bd;
+$fuchsia-pink: #c358bd;
+$fuzzy-wuzzy-brown: #ca4b4e;
+$old-gold: #cfc73c;
+$malachite: #2fd940;
+$curious-blue: #22abdb;
+$persian-blue: #2f21ea;
+$cadet-blue: #a2b0c1;
+$magenta-fuchsia: #f50be9;
+$red: #ff0000;
+$shuttle-gray: #5c6978;
+$catskill-white-2: #e7eef5;
+$silver-chalice-2: #aaaaaa;
+$edward: #aaabab;
+$oslo-gray: #989a9c;
+$bombay: #afb1b2;
+$oslo-gray-2: #898c90;
+$gull-gray: #98a7b8;
+$athens-gray: #eaedf0;
+$bombay-2: #b1b4b7;
+$rolling-stone: #7c8187;
+$silver-sand: #bbbec2;
+$rolling-stone-2: #717980;
+$silver-sand-2: #bfc4c9;
+$nevada: #68707a;
+$iron: #cfd5da;
+$shuttle-gray-2: #5d6873;
+$geyser: #dce2e8;
+$shuttle-gray-3: #54616e;
+$catskill-white-transparent: rgba(231, 238, 245, 0);
+$shuttle-gray-4: #5d6a79;
+$catskill-white-3: #e6edf5;
+$turbo: #ffed00;
+$green-ish: #00ff17;
+$caribbean-green: #00c3aa;
+$dodger-blue: #00b4ff;
+$blue-ish: #2100ff;
+$magenta-fuchsia-2: #ff00f7;
+$chalky: #edcf92;
+$heather: #B0BCC9;

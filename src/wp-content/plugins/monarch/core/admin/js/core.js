@@ -1,4 +1,4 @@
-( function( $ ) {
+(function($) {
 
 	"use strict";
 
@@ -8,6 +8,32 @@
 		init: function() {
 			this.tabs();
 			this.listen();
+		},
+
+		applyMaxHeight: function() {
+			var $et_core_modal_overlay = $( '.et-core-modal-overlay' ),
+				$et_core_modal = $et_core_modal_overlay.find( '.et-core-modal' ),
+				overlay_height = $et_core_modal_overlay.innerHeight(),
+				disabled_scrollbar_class = 'et-core-modal-disabled-scrollbar',
+				et_core_modal_height;
+
+			if ( ! $et_core_modal_overlay.length || ! $et_core_modal_overlay.hasClass('et-core-active') ) {
+				return;
+			}
+
+			$et_core_modal_overlay.addClass( disabled_scrollbar_class );
+
+			et_core_modal_height = $et_core_modal.innerHeight();
+
+			if ( et_core_modal_height > ( overlay_height * 0.6 ) ) {
+				$et_core_modal_overlay.removeClass( disabled_scrollbar_class );
+
+				$et_core_modal.css( 'marginTop', '0' );
+
+				return;
+			}
+
+			$et_core_modal.css( 'marginTop', '-' + ( et_core_modal_height / 2 ) + 'px' );
 		},
 
 		listen: function() {
@@ -25,19 +51,7 @@
 
 				$overlay.addClass( 'et-core-active' );
 				$( 'body' ).addClass( 'et-core-nbfc');
-
-				// Wait until it has been displayed but still transitioned
-				setTimeout( function() {
-					var $modal = $overlay.find('.et-core-modal'),
-						modal_height = $modal.outerHeight(),
-						modal_height_adjustment = 0 - ( modal_height / 2 );
-
-					$modal.css({
-						top : '50%',
-						bottom : 'auto',
-						marginTop : modal_height_adjustment
-					});
-				}, 100 );
+				$( window ).trigger( 'et-core-modal-active' );
 			} );
 
 			$( document ).on( 'click', '[data-et-core-modal="close"], .et-core-modal-overlay', function( e ) {
@@ -137,8 +151,16 @@
 
 	} );
 
+	$( window ).on( 'et-core-modal-active', function() {
+		etCore.applyMaxHeight();
+	} );
+
 	$( document ).ready( function() {
 		etCore.init();
 	});
 
-} )( jQuery );
+	$( window ).resize( function() {
+		etCore.applyMaxHeight();
+	} );
+
+})(jQuery);

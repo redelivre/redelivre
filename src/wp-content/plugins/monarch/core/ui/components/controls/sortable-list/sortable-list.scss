@@ -1,0 +1,206 @@
+@import '../../../scss/base';
+
+.et-core-control-sortable-list {
+  textarea {
+    display: none !important;
+  }
+}
+
+.et-core-control-sortable-list__row {
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+
+  > * {
+    flex-basis: auto;
+  }
+
+  > input,
+  > span {
+    flex-grow: 2;
+    padding-left: 10px;
+  }
+
+  & + & { margin-top: 10px; }
+
+  &.et-core-control-sortable-list__row--checkbox,
+  &.et-core-control-sortable-list__row--radio {
+    //padding-left: 21px;
+  }
+
+  &.et-core-control-sortable-list__row--dragged {
+    opacity: 0.3;
+  }
+
+  a {
+    width: 16px;
+    height: 16px;
+    margin: 12px 0;
+    margin-right: 7px;
+    cursor: pointer;
+    position: relative;
+
+    &.et-core-control-sortable-list__move {
+      cursor: move;
+    }
+
+    &.et-core-control-sortable-list__delete:after {
+      content: none;
+    }
+
+    &.et-core-control-sortable-list__check {
+      border-radius: 50%;
+      border: 2px solid $button;
+      box-sizing: border-box;
+
+      &:before,
+      &:after {
+        content: none;
+      }
+
+      &.et-core-control-sortable-list--checked:before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: $button;
+      }
+    }
+  }
+
+  &.et-core-control-sortable-list__row--checkbox {
+    .et-core-control-sortable-list__check {
+      border-radius: 0;
+
+      &.et-core-control-sortable-list--checked:before {
+        content: "\f147";
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        color: $caribbean-green;
+        font: 400 14px/1 dashicons;
+        background: transparent;
+      }
+    }
+  }
+
+  input[type="text"],
+  > span {
+    display: inline-block;
+    vertical-align: top;
+    width: auto !important;
+    background: $default;
+    height: 40px;
+    border: 0;
+    border-radius: $border-radius;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 11px 10px;
+    box-sizing: border-box;
+    transition: background $transition-duration $transition-timing-function;
+    color: $text-primary;
+    font-family: $body-font;
+    font-size: $modal-fontsize-content;
+    font-weight: $font-semibold;
+    line-height: normal;
+    box-shadow: none;
+
+    &:focus,
+    &:focus + .et-core-control-sortable-list__actions--right {
+      background: $input-focus !important;
+      box-shadow: none;
+    }
+  }
+
+  .et-core-control-sortable-list__actions--right,
+  .et-core-control-sortable-list__actions--left {
+    background: $default;
+    height: 40px;
+    transition: background $transition-duration $transition-timing-function;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    display: flex;
+  }
+
+  .et-core-control-sortable-list__actions--left {
+    border-top-right-radius: initial;
+    border-bottom-right-radius: initial;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+
+    a:last-child {
+      margin-left: 10px;
+    }
+  }
+
+  .et-core-control-sortable-list__actions--right a:last-child {
+    margin-right: 10px;
+  }
+}
+
+html .et-core-control-sortable-list-editing-link {
+  .et-fb-form__group {
+    position: initial !important;
+  }
+
+  .et-fb-option-container {
+    .et-core-control-sortable-list__link-settings {
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      background: $white;
+      box-shadow: 0 5px 30px rgba(43, 135, 218, 0.2);
+      border-radius: 3px;
+      width: calc(100% - 60px);
+      height: 275px;
+      position: absolute;
+      margin: auto;
+      top: 197px;
+      bottom: initial;
+      left: 0;
+      right: 0;
+      z-index: 13;
+      justify-content: space-between;
+      align-items: center;
+
+      .et-fb-settings-option-input {
+        margin-bottom: 20px;
+      }
+
+      h4 {
+        width: calc(100% - 60px);
+        font-weight: $font-regular;
+        margin-bottom: 10px;
+        margin-top: 30px;
+        font-size: $modal-fontsize-groups !important;
+        color: $info;
+        font-style: normal;
+        text-decoration: none;
+        text-transform: none;
+        line-height: $modal-line-height;
+        letter-spacing: 0;
+        font-weight: $font-regular;
+        font-family: $body-font;
+      }
+
+      > div {
+        width: calc(100% - 60px);
+
+        &.et-fb-button-group {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+
+      button {
+        margin-top: 0;
+      }
+    }
+  }
+}
+

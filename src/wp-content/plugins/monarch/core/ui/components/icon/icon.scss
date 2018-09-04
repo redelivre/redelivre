@@ -1,0 +1,108 @@
+@import '../../scss/base';
+
+// Icon Component
+.et-fb-icon {
+  display: inline-block;
+  vertical-align: middle;
+  transition: fill $transition-duration $transition-timing-function;
+
+  svg {
+    display: block;
+    width: 100%;
+  }
+
+  &--loading {
+    svg {
+      transform-origin: center;
+      animation: icon-loading-rotate 1s infinite linear;
+      fill: rgba($white, 0.8);
+    }
+  }
+
+  &--page-settings-main-buttons {
+    > .et-fb-icon__child {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &,
+      &:before,
+      &:after {
+        position: absolute;
+        display: block;
+        background: $white;
+        width: 6px;
+        height: 6px;
+        border-radius: 10px;
+      }
+
+      &:before,
+      &:after {
+        content: '';
+      }
+
+      &:before {
+        left: -11px;
+        transform: translateX(-50%);
+      }
+
+      &:after {
+        right: -11px;
+        transform: translateX(50%);
+      }
+
+      &--animate {
+        > .et-fb-icon__child {
+          transition: background 0.3s ease;
+        }
+
+        &:before,
+        &:after {
+          transition: right 100ms $transition-timing-function, left 100ms $transition-timing-function;
+        }
+
+        &.et-fb-icon__child--active {
+          transition: background $transition-duration $transition-timing-function;
+
+          &:before,
+          &:after {
+            transition: width 100ms 100ms $transition-timing-function, transform 100ms 200ms cubic-bezier(0.28, 0.55, 0.385, 1.65);
+          }
+        }
+      }
+
+      &--active {
+        background: transparent;
+        transition: background $transition-duration $transition-timing-function;
+
+        &,
+        &:before,
+        &:after {
+          height: 3px;
+        }
+
+        &:before,
+        &:after {
+          width: 20px;
+          transform-origin: 50% 50%;
+        }
+
+        &:before {
+          left: 50%;
+          transform: translateX(-50%) rotate(45deg);
+        }
+
+        &:after {
+          right: 50%;
+          transform: translateX(50%) rotate(-45deg);
+        }
+      }
+    }
+  }
+}
+
+@keyframes icon-loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

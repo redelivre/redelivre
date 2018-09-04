@@ -1,0 +1,72 @@
+@import '../../../scss/base';
+
+
+.et-core-control-toggle {
+  position: relative;
+  display: inline-block;
+  background: $catskill-white;
+  width: 70px;
+  border-radius: $border-radius;
+  padding: 5px;
+  box-sizing: border-box;
+  transition: background-color $transition-duration $transition-timing-function, color $transition-duration $transition-timing-function;
+  color: $cadet-blue;
+  vertical-align: top;
+  cursor: pointer;
+
+  &[disabled],
+  &[disabled] * {
+    cursor: not-allowed;
+  }
+
+  // Handle
+  &__handle {
+    z-index: map-get($z-index, basic);
+    position: relative;
+    background: $white;
+    width: 30px;
+    height: 20px;
+    border-radius: $border-radius;
+    box-shadow: 0 1px 3px rgba($black, 0.1);
+    margin: 0 50% 0 0;
+    transition: margin $transition-duration $transition-timing-function;
+    cursor: pointer;
+  }
+
+  // Label
+  &__label {
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    transform: translateY(-50%);
+    color: inherit;
+    font-family: $body-font;
+    font-size: $modal-fontsize-content-allcaps;
+    font-weight: $font-bold;
+    text-align: center;
+    text-transform: uppercase;
+
+    &--on {
+      left: 2.5px;
+    }
+
+    &--off {
+      right: 2.5px;
+    }
+  }
+
+  // On State
+  &--on {
+    background: $info;
+    color: $white;
+
+    .et-core-control-toggle__handle {
+      margin: 0 0 0 50%;
+    }
+  }
+
+  &--equal.et-core-control-toggle--on {
+    background: $catskill-white;
+    color: $cadet-blue;
+  }
+}

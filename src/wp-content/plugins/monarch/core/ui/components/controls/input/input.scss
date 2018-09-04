@@ -1,0 +1,49 @@
+@import '../../../scss/base';
+
+
+input.et-core-control-input {
+  display: inline-block;
+  background: $catskill-white;
+  max-height: 30px;
+  border: 0;
+  border-radius: $border-radius;
+  padding: 7px 10px;
+  box-sizing: border-box;
+  transition: background $transition-duration $transition-timing-function;
+  color: $text-primary;
+  font-family: $body-font;
+  font-size: $modal-fontsize-content;
+  font-weight: $font-semibold;
+  line-height: normal;
+
+  &:focus {
+    background: $catskill-white-2;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $gull-gray;
+  }
+
+  &:-moz-placeholder {
+    color: $gull-gray;
+  }
+
+  &::-moz-placeholder {
+    color: $gull-gray;
+  }
+
+  &:-ms-input-placeholder {
+    color: $gull-gray;
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+
+  &[readonly] {
+    background: $white;
+    border: 1px solid $athens-gray;
+    cursor: not-allowed;
+  }
+}

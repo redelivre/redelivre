@@ -33,6 +33,7 @@ $monarch_sections = array(
 	),
 	'header'  => array(
 		'contents' => array(
+			'settings'     => esc_html__( 'Monarch Settings', 'Monarch' ),
 			'updates'      => esc_html__( 'Monarch Updates', 'Monarch' ),
 			'importexport' => esc_html__( 'Import & Export', 'Monarch' ),
 			'stats'        => esc_html__( 'Social Sharing Stats', 'Monarch' ),
@@ -820,7 +821,7 @@ $monarch_options_all = array(
 			'title'        => esc_html__( 'Post Type Settings', 'Monarch' ),
 			'name'         => 'post_types',
 			'include_home' => false,
-			'value'        => array( 'post', 'product' ),
+			'value'        => array( 'post', 'product', 'project' ),
 			'default'      => array( 'post' ),
 		),
 	),
@@ -835,7 +836,6 @@ $monarch_options_all = array(
 			'digg'          => esc_html__( 'Digg', 'Monarch' ),
 			'evernote'      => esc_html__( 'Evernote', 'Monarch' ),
 			'pinterest'     => esc_html__( 'Pinterest', 'Monarch' ),
-			'friendfeed'    => esc_html__( 'FriendFeed', 'Monarch' ),
 			'hackernews'    => esc_html__( 'Hacker News', 'Monarch' ),
 			'livejournal'   => esc_html__( 'LiveJournal', 'Monarch' ),
 			'newsvine'      => esc_html__( 'Newsvine', 'Monarch' ),
@@ -878,7 +878,6 @@ $monarch_options_all = array(
 			'box'         => esc_html__( 'Box', 'Monarch' ),
 			'digg'        => esc_html__( 'Digg', 'Monarch' ),
 			'evernote'    => esc_html__( 'Evernote', 'Monarch' ),
-			'friendfeed'  => esc_html__( 'FriendFeed', 'Monarch' ),
 			'hackernews'  => esc_html__( 'Hacker News', 'Monarch' ),
 			'livejournal' => esc_html__( 'LiveJournal', 'Monarch' ),
 			'newsvine'    => esc_html__( 'Newsvine', 'Monarch' ),
@@ -996,6 +995,10 @@ $monarch_options_all = array(
 	'updates' => array(
 		'type'  => 'updates',
 		'title' => esc_html__( 'Monarch Updates', 'Monarch' ),
+	),
+	'settings' => array(
+		'type'  => 'settings',
+		'title' => esc_html__( 'Monarch Settings', 'Monarch' ),
 	),
 );
 
@@ -1289,6 +1292,10 @@ $general_main_options = array(
 	$monarch_options_all[ 'custom_css' ][ 'section_start' ],
 			$monarch_options_all[ 'custom_css' ][ 'option' ],
 			$monarch_options_all[ 'end_of_section' ],
+);
+
+$header_settings_options = array(
+	$monarch_options_all[ 'settings' ]
 );
 
 $header_updates_options = array(

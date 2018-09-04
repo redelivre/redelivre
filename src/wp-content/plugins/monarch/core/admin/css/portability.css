@@ -11,10 +11,6 @@
 /*-----------------------------------------------------------------------------
   1.0 - Modal
 ------------------------------------------------------------------------------*/
-[data-et-core-portability] .et-core-modal {
-	top: 25%;
-}
-
 [data-et-core-portability-cancel] {
 	opacity: 0;
 	display: none;
@@ -47,6 +43,10 @@
 	overflow: hidden;
 }
 
+.rtl .et-core-portability-import-placeholder {
+	float: right;
+}
+
 .et-core-portability-import-form input[type="file"] {
 	position: absolute;
 	left: 0;
@@ -55,13 +55,25 @@
 	opacity: 0;
 }
 
-.et-core-portability-import-placeholder,
+.rtl .et-core-portability-import-form input[type="file"] {
+	left: auto;
+	right: 0;
+}
+
+.et-core-portability-import-placeholder {
+	width: 166px;
+}
+
 .et-core-portability-import-form input[type="file"] {
-	width: 183px;
+	width: 178px;
 }
 
 .et-core-portability-import-form .et-core-button {
 	float: left;
+}
+
+.rtl .et-core-portability-import-form .et-core-button {
+	float: right;
 }
 
 /*-----------------------------------------------------------------------------
@@ -109,21 +121,57 @@
 	-webkit-font-smoothing: antialiased;
 }
 
-.customize-controls-close[data-et-core-modal*="data-et-core-portability"] {
+.et-core-customize-controls-close[data-et-core-modal*="data-et-core-portability"] {
+	display: none;
+	height: 41px;
+	padding: 0 2px 0 0;
+	background: #eee;
+	border-top: 4px solid #eee;
+	border-right: 1px solid #ddd;
+	color: #444;
+	text-align: left;
+	cursor: pointer;
+	transition: color .15s ease-in-out, border-color .15s ease-in-out, background .15s ease-in-out;
+	box-sizing: content-box;
+	line-height: 45px;
 	position: absolute;
-	left: -252px;
+	top: 0;
+	left: 48px;
 	z-index: 9999;
 	width: 48px;
 }
 
-.customize-controls-close[data-et-core-modal*="data-et-core-portability"]:hover,
-.customize-controls-close[data-et-core-modal*="data-et-core-portability"]:focus {
+body.rtl .et-core-customize-controls-close[data-et-core-modal*="data-et-core-portability"] {
+	border-right: none;
+	border-left: 1px solid #ddd;
+	right: 48px;
+}
+
+#customize-header-actions .et-core-customize-controls-close[data-et-core-modal*="data-et-core-portability"] {
+	display: block;
+}
+
+.et-core-customize-controls-close[data-et-core-modal*="data-et-core-portability"]:hover,
+.et-core-customize-controls-close[data-et-core-modal*="data-et-core-portability"]:focus {
+	background: #fff;
+	color: #0073aa;
+	border-top-color: #0073aa;
+	outline: none;
+	box-shadow: none;
 	border-left: 1px solid #ccc;
 	margin-left: -1px;
 }
 
-.customize-controls-close[data-et-core-modal*="data-et-core-portability"]:before {
+.et-core-customize-controls-close[data-et-core-modal*="data-et-core-portability"]:before {
+	position: relative;
+	top: -3px;
 	font-size: 13px;
 	left: 15px;
-	top: 2px;
+}
+
+@media screen and ( max-width: 640px ) {
+	/* Overwriting WordPress' default mobile preview button positioning due to portability position */
+	#customize-header-actions .customize-controls-preview-toggle {
+		left: 99px;
+	}
 }

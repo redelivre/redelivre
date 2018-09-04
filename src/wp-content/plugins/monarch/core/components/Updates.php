@@ -1,10 +1,12 @@
 <?php
+
+if ( ! class_exists( 'ET_Core_Updates' ) ):
 /**
  * Handles the updates workflow.
  *
  * @private
  *
- * @package Core\Updates
+ * @package ET\Core\Updates
  */
 final class ET_Core_Updates {
 	protected $core_url;
@@ -20,7 +22,7 @@ final class ET_Core_Updates {
 	function __construct( $core_url, $product_version ) {
 		// Don't allow more than one instance of the class
 		if ( isset( self::$_this ) ) {
-			wp_die( sprintf( esc_html__( '%s is a singleton class and you cannot create a second instance.', 'et-core' ),
+			wp_die( sprintf( esc_html__( '%s: You cannot create a second instance of this class.', 'et-core' ),
 				get_class( $this ) )
 			);
 		}
@@ -120,9 +122,13 @@ final class ET_Core_Updates {
 	 * @return void
 	 */
 	function get_options() {
-		$this->options = get_option( 'et_automatic_updates_options' );
+		if ( ! $this->options = get_site_option( 'et_automatic_updates_options' ) ) {
+			$this->options = get_option( 'et_automatic_updates_options' );
+		}
 
-		$this->account_status = get_option( 'et_account_status' );
+		if ( ! $this->account_status = get_site_option( 'et_account_status' ) ) {
+			$this->account_status = get_option( 'et_account_status' );
+		}
 	}
 
 	function load_scripts_styles( $hook ) {
@@ -139,7 +145,7 @@ final class ET_Core_Updates {
 	 * @return void
 	 */
 	function maybe_update_account_status() {
-		$last_checked = get_option( 'et_account_status_last_checked' );
+		$last_checked = get_site_option( 'et_account_status_last_checked' );
 
 		$timeout = 12 * HOUR_IN_SECONDS;
 
@@ -177,6 +183,10 @@ final class ET_Core_Updates {
 
 		$request = wp_remote_post( 'https://www.elegantthemes.com/api/api_downloads.php', $options );
 
+		if ( is_wp_error( $request ) ) {
+			$request = wp_remote_post( 'https://cdn.elegantthemes.com/api/api_downloads.php', $options );
+		}
+
 		if ( ! is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) == 200 ){
 			$response = wp_remote_retrieve_body( $request );
 
@@ -184,8 +194,8 @@ final class ET_Core_Updates {
 				if ( in_array( $response, array( 'expired', 'active', 'not_found' ) ) ) {
 					$this->account_status = $response;
 
-					update_option( 'et_account_status', $this->account_status );
-					update_option( 'et_account_status_last_checked', time() );
+					update_site_option( 'et_account_status', $this->account_status );
+					update_site_option( 'et_account_status_last_checked', time() );
 				}
 			}
 		}
@@ -220,6 +230,11 @@ final class ET_Core_Updates {
 		$last_update = new stdClass();
 
 		$plugins_request = wp_remote_post( 'https://www.elegantthemes.com/api/api.php', $options );
+
+		if ( is_wp_error( $plugins_request ) ) {
+			$options['body']['failed_request'] = 'true';
+			$plugins_request = wp_remote_post( 'https://cdn.elegantthemes.com/api/api.php', $options );
+		}
 
 		if ( ! is_wp_error( $plugins_request ) && wp_remote_retrieve_response_code( $plugins_request ) == 200 ){
 			$plugins_response = unserialize( wp_remote_retrieve_body( $plugins_request ) );
@@ -315,6 +330,11 @@ final class ET_Core_Updates {
 
 		$theme_request = wp_remote_post( 'https://www.elegantthemes.com/api/api.php', $options );
 
+		if ( is_wp_error( $theme_request ) ) {
+			$options['body']['failed_request'] = 'true';
+			$theme_request = wp_remote_post( 'https://cdn.elegantthemes.com/api/api.php', $options );
+		}
+
 		if ( ! is_wp_error( $theme_request ) && wp_remote_retrieve_response_code( $theme_request ) == 200 ){
 			$theme_response = unserialize( wp_remote_retrieve_body( $theme_request ) );
 
@@ -327,7 +347,7 @@ final class ET_Core_Updates {
 						$this->account_status = 'active';
 					}
 
-					update_option( 'et_account_status', $this->account_status );
+					update_site_option( 'et_account_status', $this->account_status );
 
 					break;
 				}
@@ -396,9 +416,10 @@ final class ET_Core_Updates {
 		$theme_plugin_updates_unavailable = array_merge( $messages['theme_updates_unavailable'], $messages['plugin_updates_unavailable'] );
 
 		if ( is_admin() ) {
-			if ( in_array( $original_text, $messages['update_package_unavailable'] ) ) {
-				$message = et_get_safe_localization( __( '<em>Before you can receive product updates, you must first authenticate your Elegant Themes subscription. To do this, you need to enter both your Elegant Themes Username and your Elegant Themes API Key into the Updates Tab in your theme and plugin settings. To locate your API Key, <a href="https://www.elegantthemes.com/members-area/api-key.php" target="_blank">log in</a> to your Elegant Themes account and navigate to the <strong>Account > API Key</strong> page. <a href="http://www.elegantthemes.com/gallery/divi/documentation/update/" target="_blank">Learn more here</a></em>. If you still get this message, please make sure that your Username and API Key have been entered correctly', 'et-core' ) );
-			} else if ( in_array( $original_text, $theme_plugin_updates_unavailable ) ) {
+			// Use in_array() with $strict=true to avoid adding our messages to wrong places. It may happen if $original_text = 0 for example.
+			if ( in_array( $original_text, $messages['update_package_unavailable'], true ) ) {
+				$message = et_get_safe_localization( __( '<em>Before you can receive product updates, you must first authenticate your Elegant Themes subscription. To do this, you need to enter both your Elegant Themes Username and your Elegant Themes API Key into the Updates Tab in your theme and plugin settings. To locate your API Key, <a href="https://www.elegantthemes.com/members-area/api/" target="_blank">log in</a> to your Elegant Themes account and navigate to the <strong>Account > API Key</strong> page. <a href="http://www.elegantthemes.com/gallery/divi/documentation/update/" target="_blank">Learn more here</a></em>. If you still get this message, please make sure that your Username and API Key have been entered correctly', 'et-core' ) );
+			} else if ( in_array( $original_text, $theme_plugin_updates_unavailable, true ) ) {
 				$message = et_get_safe_localization( __( 'Automatic updates currently unavailable. For all Elegant Themes products, please <a href="http://www.elegantthemes.com/gallery/divi/documentation/update/" target="_blank">authenticate your subscription</a> via the Updates tab in your theme & plugin settings to enable product updates. Make sure that your Username and API Key have been entered correctly.', 'et-core' ) );
 			}
 
@@ -427,3 +448,25 @@ final class ET_Core_Updates {
 		);
 	}
 }
+endif;
+
+if ( ! function_exists( 'et_core_enable_automatic_updates' ) ) :
+function et_core_enable_automatic_updates( $deprecated, $version ) {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	if ( isset( $GLOBALS['et_core_updates'] ) ) {
+		return;
+	}
+
+	if ( defined( 'ET_CORE_URL' ) ) {
+		$url = ET_CORE_URL;
+	} else {
+		$url = trailingslashit( $deprecated ) . 'core/';
+	}
+
+	$GLOBALS['et_core_updates'] = new ET_Core_Updates( $url, $version );
+
+}
+endif;
