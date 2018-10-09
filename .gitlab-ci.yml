@@ -15,10 +15,10 @@ build to homolog:
   stage: build
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker build -t $REDELIVRE_RELEASE_IMAGE .
+    - docker build -t $REDELIVRE_RELEASE_IMAGE --build-arg REDELIVRE_SSH_PASSPHRASE=$REDELIVRE_SSH_PASSPHRASE .
     - docker push $REDELIVRE_RELEASE_IMAGE
   only:
-    - /develop/
+    - /docker/
   environment: homolog
   tags:
     - docker
@@ -27,9 +27,9 @@ deploy to homolog:
   stage: deploy
   image: cdrx/rancher-gitlab-deploy
   script:
-    - upgrade --environment RedeLivre --stack beta-redelivre-dev --service wordpress --no-finish-upgrade --debug
+    - upgrade --environment RedeLivre --stack redelivre-site-beta --service wordpress --no-finish-upgrade --debug
   only:
-    - /develop/
+    - /docker/
   environment: homolog
   tags:
     - docker
