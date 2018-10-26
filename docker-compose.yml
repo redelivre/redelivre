@@ -4,7 +4,10 @@ services:
   wordpress:
     build:
       context: .
-      dockerfile: Dockerfile      
+      dockerfile: Dockerfile
+      args:
+       - REDELIVRE_SSH_PASSPHRASE=some_key_pass
+       - REDELIVRE_SSH_PRIVATE=some_ssh_key
     env_file:
      - ./Docker/.wp_env
     environment:
