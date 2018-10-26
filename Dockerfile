@@ -1,6 +1,7 @@
 FROM  hacklab/php:7.0-apache
 LABEL mantainer "Redelivre <contato@redelivre.org>"
 ARG REDELIVRE_SSH_PASSPHRASE=some_key_pass
+ARG REDELIVRE_SSH_PRIVATE=some_ssh_key
 
 WORKDIR /var/www/html/
 #COPY ["src", "/var/www/html"]
@@ -52,6 +53,17 @@ RUN if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 		&& apt -y autoremove \
 		&& rm /var/www/scripts/rlpass \
 	;fi
+	&& if [ "$REDELIVRE_SSH_PRIVATE" != "some_ssh_key" ] ; then \
+	chown root:root /root/.ssh \
+	&& chmod 600 /root/.ssh/* \
+	&& chmod 700 /root/.ssh \
+	&& ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
+	&& echo "-----BEGIN OPENSSH PRIVATE KEY-----" > /root/.ssh/id_rsa \
+	&& echo $REDELIVRE_SSH_PRIVATE >> /root/.ssh/id_rsa \
+	&& echo "-----END OPENSSH PRIVATE KEY-----" >> /root/.ssh/id_rsa \
+	&& rm /root/.ssh/id_rsa.pub \
+	;fi \
+	&& sh scripts/updatesubs.sh
 
 RUN	mkdir -p src/wp-content/uploads \
 	&& mkdir -p src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache \
@@ -65,4 +77,4 @@ RUN	mkdir -p src/wp-content/uploads \
 	src/wp-content/cache \
 	src/wp-content/w3tc-config \
 	src/wp-content/blogs.dir
-	
+

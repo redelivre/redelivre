@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   wordpress:
@@ -28,8 +28,12 @@ services:
       - mariadb
     ports:
       - "80:80"
+      - "443:443"
+    restart: unless-stopped
   mariadb:
     image: mariadb:10
+    env_file:
+     - ./Docker/.db_env
     environment:
       - MYSQL_ROOT_PASSWORD=rootpasswd
       - MYSQL_USER=wordpress
@@ -38,3 +42,4 @@ services:
       - TERM=xterm
     volumes:
       - ./volumes/mysql:/var/lib/mysql
+    restart: unless-stopped

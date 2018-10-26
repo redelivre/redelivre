@@ -28,3 +28,5 @@ src/wp-content/plugins/debug-bar-console
 # Sublime Text project files
 *.sublime-project
 *.sublime-workspace
+
+.wp_env
