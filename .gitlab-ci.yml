@@ -8,6 +8,8 @@ stages:
 
 variables:
   REDELIVRE_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+  REDELIVRE_SSH_PASSPHRASE: "some_key_pass"
+  REDELIVRE_SSH_PRIVATE: "some_ssh_key"
 
 ## Homolog
 
@@ -15,7 +17,7 @@ build to homolog:
   stage: build
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker build -t $REDELIVRE_RELEASE_IMAGE --build-arg REDELIVRE_SSH_PASSPHRASE=$REDELIVRE_SSH_PASSPHRASE .
+    - docker build -t $REDELIVRE_RELEASE_IMAGE --build-arg REDELIVRE_SSH_PASSPHRASE=$REDELIVRE_SSH_PASSPHRASE --build-arg REDELIVRE_SSH_PRIVATE=$REDELIVRE_SSH_PRIVATE .
     - docker push $REDELIVRE_RELEASE_IMAGE
   only:
     - /docker/
