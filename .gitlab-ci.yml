@@ -8,8 +8,6 @@ stages:
 
 variables:
   REDELIVRE_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
-  REDELIVRE_SSH_PASSPHRASE: "some_key_pass"
-  REDELIVRE_SSH_PRIVATE: "some_ssh_key"
 
 ## Homolog
 
