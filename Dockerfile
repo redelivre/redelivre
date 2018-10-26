@@ -47,12 +47,11 @@ RUN if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 	&& eval `ssh-agent -s` \
 	&& /var/www/scripts/rlpass \
 	;fi \
-	&& sh scripts/updatesubs.sh \
 	&& if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 		apt -y remove expect openssh-client \
 		&& apt -y autoremove \
 		&& rm /var/www/scripts/rlpass \
-	;fi
+	;fi \
 	&& if [ "$REDELIVRE_SSH_PRIVATE" != "some_ssh_key" ] ; then \
 	chown root:root /root/.ssh \
 	&& chmod 600 /root/.ssh/* \
