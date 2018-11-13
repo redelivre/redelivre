@@ -221,3 +221,7 @@
 [submodule "src/wp-content/plugins/rest-api-oauth1"]
 	path = src/wp-content/plugins/rest-api-oauth1
 	url = https://github.com/WP-API/OAuth1
+[submodule "src/wp-content/plugins/facebook-instant-articles-wp"]
+	path = src/wp-content/plugins/facebook-instant-articles-wp
+	url = https://github.com/Automattic/facebook-instant-articles-wp.git
+	branch = master
