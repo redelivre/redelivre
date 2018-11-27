@@ -90,6 +90,10 @@ define( 'PATH_CURRENT_SITE', '/' );
  */
 define('NOBLOGREDIRECT', 'http://' . getenv('WORDPRESS_DOMAIN_CURRENT_SITE'));
 
+foreach(glob(dirname(__FILE__) . '/' . 'wp-config.d/*.php') as $config) {
+	include($config);
+}
+
 /* Isto é tudo, pode parar de editar! :) */
 
 /** Caminho absoluto para o diretório WordPress. */
