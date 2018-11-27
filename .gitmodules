@@ -225,3 +225,7 @@
 	path = src/wp-content/plugins/facebook-instant-articles-wp
 	url = https://github.com/Automattic/facebook-instant-articles-wp.git
 	branch = master
+[submodule "src/wp-content/plugins/divi-post-type-blog"]
+	path = src/wp-content/plugins/divi-post-type-blog
+	url = http://github.com/redelivre/divi-post-type-blog.git
+	branch = master
