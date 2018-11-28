@@ -17,6 +17,7 @@ services:
       - WORDPRESS_DB_NAME=wordpress
       - WORDPRESS_TABLE_PREFIX=wp_
       - WORDPRESS_DOMAIN_CURRENT_SITE=redelivre.localhost
+      - WORDPRESS_DEBUG=true
     volumes:
       - ./volumes/wp-config.d:/var/www/html/wp-config.d
       - ./volumes/wp-content/uploads:/var/www/html/wp-content/uploads

@@ -72,7 +72,7 @@ $table_prefix  = getenv('WORDPRESS_TABLE_PREFIX');
  * é altamente recomendável que os desenvolvedores de plugins e temas usem o WP_DEBUG
  * em seus ambientes de desenvolvimento.
  */
-define('WP_DEBUG', true);
+define('WP_DEBUG', getenv('WORDPRESS_DEBUG'));
 
 define('WP_ALLOW_MULTISITE', true);
 
