@@ -29,7 +29,7 @@ RUN apt-get update \
 	libcurl4-gnutls-dev \
     && docker-php-ext-install -j$(nproc) iconv mcrypt mysqli pdo pdo_mysql mbstring curl xml\
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd
+    && docker-php-ext-install -j$(nproc) gd soap
 
 RUN if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 	chown root:root /root/.ssh \
