@@ -25,27 +25,25 @@ RUN apt-get update \
         libmcrypt-dev \
         libpng-dev \
         git\
-	libxml2-dev \
-	libcurl4-gnutls-dev \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt mysqli pdo pdo_mysql mbstring curl xml\
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd soap
-
-RUN if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
-	chown root:root /root/.ssh \
-	&& chmod 600 /root/.ssh/* \
-	&& chmod 700 /root/.ssh \
-	&& ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
-	&& echo '#!/usr/bin/expect -f' > /var/www/scripts/rlpass \
-	&& echo 'spawn ssh-add /root/.ssh/id_rsa' >> /var/www/scripts/rlpass \
-	&& echo 'expect "Enter passphrase for /root/.ssh/id_rsa:"' >> /var/www/scripts/rlpass \
-	&& echo "send \"$REDELIVRE_SSH_PASSPHRASE\n\";" >> /var/www/scripts/rlpass \
-	&& echo 'expect "Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)"' >> /var/www/scripts/rlpass \
-	&& echo 'interact' >> /var/www/scripts/rlpass \
-	&& chmod 700 /var/www/scripts/rlpass \
-	&& apt install -y openssh-client expect \
-	&& eval `ssh-agent -s` \
-	&& /var/www/scripts/rlpass \
+		libxml2-dev \
+		libcurl4-gnutls-dev \
+	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt mysqli pdo pdo_mysql mbstring curl xml gd soap \ 
+	&& if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
+		chown root:root /root/.ssh \
+		&& chmod 600 /root/.ssh/* \
+		&& chmod 700 /root/.ssh \
+		&& ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
+		&& echo '#!/usr/bin/expect -f' > /var/www/scripts/rlpass \
+		&& echo 'spawn ssh-add /root/.ssh/id_rsa' >> /var/www/scripts/rlpass \
+		&& echo 'expect "Enter passphrase for /root/.ssh/id_rsa:"' >> /var/www/scripts/rlpass \
+		&& echo "send \"$REDELIVRE_SSH_PASSPHRASE\n\";" >> /var/www/scripts/rlpass \
+		&& echo 'expect "Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)"' >> /var/www/scripts/rlpass \
+		&& echo 'interact' >> /var/www/scripts/rlpass \
+		&& chmod 700 /var/www/scripts/rlpass \
+		&& apt install -y openssh-client expect \
+		&& eval `ssh-agent -s` \
+		&& /var/www/scripts/rlpass \
 	;fi \
 	&& if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 		apt -y remove expect openssh-client \
@@ -53,18 +51,17 @@ RUN if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
 		&& rm /var/www/scripts/rlpass \
 	;fi \
 	&& if [ "$REDELIVRE_SSH_PRIVATE" != "some_ssh_key" ] ; then \
-	chown root:root /root/.ssh \
-	&& chmod 600 /root/.ssh/* \
-	&& chmod 700 /root/.ssh \
-	&& ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
-	&& echo "-----BEGIN OPENSSH PRIVATE KEY-----" > /root/.ssh/id_rsa \
-	&& echo $REDELIVRE_SSH_PRIVATE >> /root/.ssh/id_rsa \
-	&& echo "-----END OPENSSH PRIVATE KEY-----" >> /root/.ssh/id_rsa \
-	&& rm /root/.ssh/id_rsa.pub \
+		chown root:root /root/.ssh \
+		&& chmod 600 /root/.ssh/* \
+		&& chmod 700 /root/.ssh \
+		&& ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
+		&& echo "-----BEGIN OPENSSH PRIVATE KEY-----" > /root/.ssh/id_rsa \
+		&& echo $REDELIVRE_SSH_PRIVATE >> /root/.ssh/id_rsa \
+		&& echo "-----END OPENSSH PRIVATE KEY-----" >> /root/.ssh/id_rsa \
+		&& rm /root/.ssh/id_rsa.pub \
 	;fi \
-	&& sh scripts/updatesubs.sh
-
-RUN	mkdir -p src/wp-content/uploads \
+	&& sh scripts/updatesubs.sh \
+	&& mkdir -p src/wp-content/uploads \
 	&& mkdir -p src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache \
 	&& mkdir -p src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp \
 	&& mkdir -p src/wp-content/cache \
