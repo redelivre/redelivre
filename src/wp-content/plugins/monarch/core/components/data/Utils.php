@@ -45,7 +45,7 @@ class ET_Core_Data_Utils {
 		$output = '';
 
 		foreach ( $members as $name => $value ) {
-			$output .= sprintf( '<member><name>%1$s</name>%2$s</member>', $name, $this->_create_xmlrpc_value( $value ) );
+			$output .= sprintf( '<member><name>%1$s</name>%2$s</member>', esc_html( $name ), $this->_create_xmlrpc_value( $value ) );
 		}
 
 		return "<struct>{$output}</struct>";
@@ -62,6 +62,7 @@ class ET_Core_Data_Utils {
 		$output = '';
 
 		if ( is_string( $value ) ) {
+			$value = esc_html( wp_strip_all_tags( $value ) );
 			$output = "<string>{$value}</string>";
 		} else if ( is_bool( $value ) ) {
 			$value  = (int) $value;
@@ -369,6 +370,8 @@ class ET_Core_Data_Utils {
 			$output .= "<param>{$value}</param>";
 		}
 
+		$method_name = esc_html( $method_name );
+
 		return
 			"<?xml version='1.0' encoding='UTF-8'?>
 			<methodCall>
@@ -380,6 +383,31 @@ class ET_Core_Data_Utils {
 	}
 
 	/**
+	 * Disable XML entity loader.
+	 *
+	 * @param bool $disable
+	 *
+	 * @return void
+	 */
+	public function libxml_disable_entity_loader( $disable ) {
+		if ( function_exists( 'libxml_disable_entity_loader' ) ) {
+			libxml_disable_entity_loader( $disable );
+		}
+	}
+
+	/**
+	 * Securely use simplexml_load_string.
+	 *
+	 * @param string $data XML data string.
+	 *
+	 * @return SimpleXMLElement
+	 */
+	public function simplexml_load_string( $data ) {
+		$this->libxml_disable_entity_loader( true );
+		return simplexml_load_string( $data );
+	}
+
+	/**
 	 * Process an XML-RPC response string.
 	 *
 	 * @param $response
@@ -387,7 +415,7 @@ class ET_Core_Data_Utils {
 	 * @return mixed
 	 */
 	public function process_xmlrpc_response( $response, $skip_processing = false ) {
-		$response = simplexml_load_string( $response );
+		$response = $this->simplexml_load_string( $response );
 		$result   = array();
 
 		if ( $skip_processing ) {
@@ -471,7 +499,7 @@ class ET_Core_Data_Utils {
 
 	public function sanitize_text_fields( $fields ) {
 		if ( ! is_array( $fields ) ) {
-			return $fields;
+			return sanitize_text_field( $fields );
 		}
 
 		$result = array();
@@ -486,6 +514,39 @@ class ET_Core_Data_Utils {
 			}
 
 			$result[ $field_id ] = $field_value;
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Recursively traverses an array and escapes the keys and values according to passed escaping function.
+	 *
+	 * @since ??
+	 *
+	 * @param array  $values            The array to be recursively escaped.
+	 * @param string $escaping_function The escaping function to be used on keys and values. Default 'esc_html'. Optional.
+	 *
+	 * @return array
+	 */
+
+	public function esc_array( $values, $escaping_function = 'esc_html' ) {
+		if ( ! is_array( $values ) ) {
+			return $escaping_function( $values );
+		}
+
+		$result = array();
+
+		foreach ( $values as $key => $value ) {
+			$key = $escaping_function( $key );
+
+			if ( is_array( $value ) ) {
+				$value = $this->esc_array( $value, $escaping_function );
+			} else {
+				$value = $escaping_function( $value );
+			}
+
+			$result[ $key ] = $value;
 		}
 
 		return $result;
@@ -560,15 +621,55 @@ class ET_Core_Data_Utils {
 	 *
 	 * @return array
 	 */
-	function xml_to_array( $xml_data ) {
+	public function xml_to_array( $xml_data ) {
 		if ( is_string( $xml_data ) ) {
-			$xml_data = simplexml_load_string( $xml_data );
+			$xml_data = $this->simplexml_load_string( $xml_data );
 		}
 
-		$json = json_encode( $xml_data );
+		$json = wp_json_encode( $xml_data );
 		return json_decode( $json, true );
 	}
 
+	/**
+	 * Make sure that in provided selector do not exist sub-selectors that targets inputs placeholders
+	 *
+	 * If they exist they should be split in an apart selector.
+	 *
+	 * @param string $selector
+	 *
+	 * @return array Return a list of selectors
+	 */
+	public function sanitize_css_placeholders( $selector ) {
+		$selectors     = explode( ',', $selector );
+		$selectors     = array_map( 'trim', $selectors );
+		$selectors     = array_filter( $selectors );
+		$main_selector = array();
+		$exceptions    = array();
+		$placeholders  = array(
+			'::-webkit-input-placeholder',
+			'::-moz-placeholder',
+			':-ms-input-placeholder',
+		);
+
+		// No need to sanitize if is a single selector or even no selectors at all
+		// Also if selectors do not contain placeholder meta-selector
+		if ( count( $selectors ) < 2 || ! preg_match( '/' . implode( '|', $placeholders ) . '/', $selector ) ) {
+			return array( $selector );
+		}
+
+		foreach ( $selectors as $selector ) {
+			foreach ( $placeholders as $placeholder ) {
+				if ( strpos( $selector, $placeholder ) !== false ) {
+					$exceptions[] = $selector;
+					continue 2;
+				}
+			}
+
+			$main_selector[] = $selector;
+		}
+
+		return array_merge( array( implode( ', ', $main_selector ) ), $exceptions );
+	}
 }
 
 

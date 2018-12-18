@@ -33,17 +33,22 @@
 
 .et-core-portability-import-placeholder {
 	text-align: center;
-	height: 26px;
-	border: 2px dashed #E0E5EA;
-	color: #B1B7BD;
-	line-height: 26px;
+	height: 16px;
+	border: 2px dashed #e6ecf2;
+	border-radius: 3px;
+	color: #a3b0c2;
+	font-weight: 700;
+	text-transform: uppercase;
+	line-height: 16px;
 	float: left;
 	padding: 5px;
-	font-size: 11px;
-	overflow: hidden;
+	font-size: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.rtl .et-core-portability-import-placeholder {
+body.rtl .et-core-portability-import-placeholder {
 	float: right;
 }
 
@@ -51,11 +56,11 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	height: 40px;
+	height: 30px;
 	opacity: 0;
 }
 
-.rtl .et-core-portability-import-form input[type="file"] {
+body.rtl .et-core-portability-import-form input[type="file"] {
 	left: auto;
 	right: 0;
 }
@@ -72,8 +77,9 @@
 	float: left;
 }
 
-.rtl .et-core-portability-import-form .et-core-button {
+body.rtl .et-core-portability-import-form .et-core-button {
 	float: right;
+	margin-right: 10px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -119,6 +125,8 @@
 	font-size: 16px;
 	content: '\e900';
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-weight: 400;
 }
 
 .et-core-customize-controls-close[data-et-core-modal*="data-et-core-portability"] {

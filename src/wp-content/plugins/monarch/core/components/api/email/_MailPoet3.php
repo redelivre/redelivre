@@ -126,7 +126,7 @@ class ET_Core_API_Email_MailPoet3 extends ET_Core_API_Email_Provider {
 
 		if ( ! empty( $data ) ) {
 			$this->data['lists'] = $this->_process_subscriber_lists( $data );
-			
+
 			$list                        = is_array( $data ) ? array_shift( $data ) : array();
 			$this->data['custom_fields'] = $this->_fetch_custom_fields( '', $list );
 		}
@@ -148,8 +148,9 @@ class ET_Core_API_Email_MailPoet3 extends ET_Core_API_Email_Provider {
 			return esc_html__( 'An error occurred. Please try again later.', 'et_core' );
 		}
 
-		$args            = et_sanitized_previously( $args );
+		$args            = et_core_sanitized_previously( $args );
 		$subscriber_data = $this->transform_data_to_provider_format( $args, 'subscriber' );
+		$subscriber_data = $this->_process_custom_fields( $subscriber_data );
 		$subscriber_data = self::$_->array_flatten( $subscriber_data );
 		$result          = 'success';
 		$lists           = array( $args['list_id'] );

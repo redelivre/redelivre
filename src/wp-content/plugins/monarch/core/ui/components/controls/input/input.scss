@@ -42,8 +42,8 @@ input.et-core-control-input {
   }
 
   &[readonly] {
-    background: $white;
-    border: 1px solid $athens-gray;
+    background: $white !important;
+    border: 1px solid $athens-gray !important;
     cursor: not-allowed;
   }
 }

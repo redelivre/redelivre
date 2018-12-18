@@ -1,3 +1,60 @@
+version 1.4.10 ( updated 12-12-2018 )
+- Updated core to the latest version.
+	* core/components/data/Utils.php
+
+version 1.4.9 ( updated 12-05-2018 )
+- Various security hardening fixes.
+- Added i18n support for visual builder toggle buttons.
+- Fixed post_max_size megabytes conversion.
+- Fixed a issue where Your Save Has Failed Modal Hides Wordfence's Blocked Request Notification.
+- Fixed Monarch metabox styles in Gutenberg Editor.
+- Removed LinkedIn share count API integration since it was deprecated and no longer supported by LinkedIn.
+- Various security hardening fixes.
+	* core/admin/css/core.css
+	* core/admin/css/portability.css
+	* core/admin/js/core.js
+	* core/components/PageResource.php
+	* core/components/Portability.php
+	* core/components/Updates.php
+	* core/components/VersionRollback.php
+	* core/components/api/OAuthHelper.php
+	* core/components/api/Service.php
+	* core/components/api/email/HubSpot.php
+	* core/components/api/email/Provider.php
+	* core/components/api/email/Providers.php
+	* core/components/api/email/_MailPoet2.php
+	* core/components/api/email/_MailPoet3.php
+	* core/components/data/Utils.php
+	* core/components/data/init.php
+	* core/components/init.php
+	* core/components/lib/WPHttp.php
+	* core/components/post/Query.php
+	* core/functions.php
+	* core/ui/utils/attribute-binder.js
+	* core/ui/utils/frames.js
+	* css/stats-meta-styles.css
+	* monarch.php
+
+version 1.4.8 ( updated 10-30-2018 )
+	- Applied some minor security hardening improvements.
+
+version 1.4.7 ( updated 10-05-2018 )
+- Fixed the Facebook follower count.
+	* monarch.php
+
+version 1.4.6 ( updated 10-04-2018 )
+- Fixed a slightly outdated React version being loaded.
+- Updated custom fields retrieval and processing functions for Mailchimp to make it work with custom field names.
+- Fixed the Subscription error shown when using Custom fields in the Email Optin module with MailPoet service provider.
+- Fixed "et_social_stats" table missing error.
+	* .github/PULL_REQUEST_TEMPLATE.md
+	* core/admin/js/react-dom.production.min.js
+	* core/admin/js/react.production.min.js
+	* core/components/api/email/MailChimp.php
+	* core/components/api/email/_MailPoet3.php
+	* core/components/data/Utils.php
+	* monarch.php
+
 version 1.4.5 ( updated 08-13-2018 )
 - Fixed WSOD that occurred in some cases.
 	* monarch.php

@@ -229,15 +229,15 @@ class ET_Core_API_Email_HubSpot extends ET_Core_API_Email_Provider {
 			'properties' => array(
 				array(
 					'property' => 'email',
-					'value'    => et_sanitized_previously( $args['email'] ),
+					'value'    => et_core_sanitized_previously( $args['email'] ),
 				),
 				array(
 					'property' => 'firstname',
-					'value'    => et_sanitized_previously( $args['name'] ),
+					'value'    => et_core_sanitized_previously( $args['name'] ),
 				),
 				array(
 					'property' => 'lastname',
-					'value'    => et_sanitized_previously( $args['last_name'] ),
+					'value'    => et_core_sanitized_previously( $args['last_name'] ),
 				),
 			),
 		);

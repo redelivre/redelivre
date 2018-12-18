@@ -229,7 +229,9 @@ class ETCoreSortableList extends PureComponent {
       defaults(this.link_settings_backup, {link_url: '', link_text: ''});
     }
 
-    $('body').toggleClass('et-core-control-sortable-list-editing-link', false !== index);
+    const $body = window.top ? window.top.jQuery('body') : $('body');
+
+    $body.toggleClass('et-core-control-sortable-list-editing-link', false !== index);
 
     this.setState({ editing_link: index });
 

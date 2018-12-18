@@ -518,6 +518,7 @@ function et_core_security_check( $user_can = 'manage_options', $nonce_action = '
 		$nonce_key = $nonce_action;
 	}
 
+	// phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification
 	switch( $nonce_location ) {
 		case '_POST':
 			$nonce_location = $_POST;
@@ -531,10 +532,13 @@ function et_core_security_check( $user_can = 'manage_options', $nonce_action = '
 		default:
 			return $die ? et_core_die() : false;
 	}
+	// phpcs:enable
 
 	$passed = true;
 
-	if ( '' === $user_can && '' === $nonce_action ) {
+	if ( '' !== $nonce_action && ! isset( $nonce_location[ $nonce_key ] ) ) {
+		$passed = false;
+	} else if ( '' === $user_can && '' === $nonce_action ) {
 		$passed = false;
 	} else if ( '' !== $user_can && ! current_user_can( $user_can ) ) {
 		$passed = false;
@@ -598,7 +602,7 @@ function et_core_setup( $deprecated = '' ) {
 
 	register_shutdown_function( 'ET_Core_PageResource::shutdown' );
 
-	if ( is_admin() || ! empty( $_GET['et_fb'] ) ) {
+	if ( is_admin() || ! empty( $_GET['et_fb'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
 		add_action( 'admin_enqueue_scripts', 'et_core_load_main_styles' );
 	}
 
@@ -658,6 +662,19 @@ function et_get_safe_localization( $string ) {
 }
 endif;
 
+if ( ! function_exists( 'et_get_theme_version' ) ) :
+function et_get_theme_version() {
+	$theme_info = wp_get_theme();
+
+	if ( is_child_theme() ) {
+		$theme_info = wp_get_theme( $theme_info->parent_theme );
+	}
+
+	$theme_version = $theme_info->display( 'Version' );
+
+	return $theme_version;
+}
+endif;
 
 if ( ! function_exists( 'et_new_core_setup') ):
 function et_new_core_setup() {
@@ -686,7 +703,7 @@ function et_core_add_crossorigin_attribute( $tag, $handle, $src ) {
 		return $tag;
 	}
 
-	return sprintf( '<script src="%1$s" crossorigin></script>', esc_attr( $src ) );
+	return sprintf( '<script src="%1$s" crossorigin></script>', esc_attr( $src ) ); // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 }
 endif;
 
@@ -780,7 +797,7 @@ function et_core_load_component( $components ) {
 
 	$is_jetpack = isset( $_SERVER['HTTP_USER_AGENT'] ) && false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'Jetpack' );
 
-	if ( ! $is_jetpack && ! is_admin() && empty( $_GET['et_fb'] ) ) {
+	if ( ! $is_jetpack && ! is_admin() && empty( $_GET['et_fb'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
 		return true;
 	}
 

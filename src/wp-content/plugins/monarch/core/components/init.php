@@ -214,6 +214,7 @@ if ( ! function_exists( 'et_core_page_resource_fallback' ) ):
  * Handles page resource fallback requests.
  */
 function et_core_page_resource_fallback() {
+	// phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification
 	if ( ! isset( $_GET['et_core_page_resource'] ) ) {
 		return;
 	}
@@ -238,6 +239,7 @@ function et_core_page_resource_fallback() {
 	status_header( 404 );
 	nocache_headers();
 	die();
+	// phpcs:enable
 }
 add_action( 'init', 'et_core_page_resource_fallback', 0 );
 endif;
@@ -290,7 +292,11 @@ function et_core_page_resource_maybe_output_fallback_script() {
 	$SITE_URL = get_site_url();
 	$SCRIPT   = file_get_contents( ET_CORE_PATH . 'admin/js/page-resource-fallback.min.js' );
 
-	print( "<script>var et_site_url='{$SITE_URL}';var et_post_id='{$POST_ID}';{$SCRIPT}</script>" );
+	printf( "<script>var et_site_url='%s';var et_post_id='%d';%s</script>",
+		et_core_esc_previously( $SITE_URL ),
+		et_core_esc_previously( $POST_ID ),
+		et_core_esc_previously( $SCRIPT )
+	);
 }
 add_action( 'wp_head', 'et_core_page_resource_maybe_output_fallback_script', 0 );
 endif;

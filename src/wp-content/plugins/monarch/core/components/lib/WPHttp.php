@@ -133,7 +133,7 @@ class ET_Core_LIB_WPHttp extends WP_Http {
 		$args = wp_parse_args( $args );
 
 		// By default, Head requests do not cause redirections.
-		if ( isset( $args['method'] ) && 'HEAD' == $args['method'] ) {
+		if ( isset( $args['method'] ) && 'HEAD' === $args['method'] ) {
 			$defaults['redirection'] = 0;
 		}
 

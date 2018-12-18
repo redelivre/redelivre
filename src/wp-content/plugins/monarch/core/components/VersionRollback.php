@@ -199,19 +199,17 @@ class ET_Core_VersionRollback {
 	 * @return void
 	 */
 	public function ajax_rollback() {
-		$nonce = isset( $_GET['nonce'] ) ? $_GET['nonce'] : '';
+		if ( ! isset( $_GET['nonce'] ) || ! wp_verify_nonce( $_GET['nonce'], $this->_get_ajax_action() ) ) {
+			wp_send_json_error( array(
+				'errorCode' => 'et_unknown',
+				'error'     => esc_html__( 'Security check failed. Please refresh and try again.', 'et-core' ),
+			), 400 );
+		}
 
 		if ( ! current_user_can( 'install_themes' ) ) {
 			wp_send_json_error( array(
 				'errorCode' => 'et_unknown',
 				'error'     => esc_html__( 'You don\'t have sufficient permissions to access this page.', 'et-core' ),
-			), 400 );
-		}
-
-		if ( ! wp_verify_nonce( $nonce, $this->_get_ajax_action() ) ) {
-			wp_send_json_error( array(
-				'errorCode' => 'et_unknown',
-				'error'     => esc_html__( 'Security check failed. Please refresh and try again.', 'et-core' ),
 			), 400 );
 		}
 
@@ -444,7 +442,7 @@ class ET_Core_VersionRollback {
 							<?php
 							printf(
 								esc_html__( 'The previously used version of %1$s does not support version rollback.', 'et-core' ),
-								$this->product_name
+								esc_html( $this->product_name )
 							);
 							?>
 						</p>

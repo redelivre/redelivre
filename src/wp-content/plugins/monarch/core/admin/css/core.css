@@ -98,14 +98,13 @@
 .et-core-form input[type="url"],
 .et-core-form select,
 .et-core-form textarea {
-	border-radius: 4px;
-	background: #F1F5F9;
-	padding: 13px;
-	font-size: 14px;
-	color: #32373C;
-	height: 40px;
+	border-radius: 3px;
+	background: #f1f5f9;
+	padding: 7px 10px;
+	color: #4c5866;
+	height: 30px;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
+	font-size: 13px;
 	width: 100%;
 }
 
@@ -114,7 +113,7 @@
 }
 
 .et-core-form input[type]:focus {
-	background: #E0E5EA;
+	background: #e6ecf2;
 }
 
 .et-core-form input[type=checkbox] {
@@ -142,14 +141,14 @@ body button.et-core-button {
 	float: left;
 	box-sizing: border-box;
 	color: #FFF;
-	background-color: #32373C;
+	background-color: #4c5866;
 	padding: 0 20px;
 	margin: 0;
 	font-size: 12px !important;
-	font-weight: 600;
+	font-weight: 700;
 	font-family: inherit;
-	line-height: 40px;
-	height: 40px;
+	line-height: 30px;
+	height: 30px;
 	margin-right: 0;
 	margin-left: 7px;
 	cursor: pointer;
@@ -168,8 +167,8 @@ body button.et-core-button {
 	font-family: 'Open Sans', sans-serif !important;
 }
 
-.rtl:not(.et-fb-no-rtl) .et-core-button,
-body.rtl:not(.et-fb-no-rtl) button.et-core-button {
+body.rtl.et-db:not(.et-fb-no-rtl) .et-core-button,
+body.rtl.et-db:not(.et-fb-no-rtl) button.et-core-button {
 	margin-right: 7px;
 	margin-left: 0;
 }
@@ -207,10 +206,16 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 20%,rgba(255,255,255,0.7) 100%);
 	background: radial-gradient(ellipse at center, rgba(255,255,255,1) 20%,rgba(255,255,255,0.7) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 );
-	z-index: 1000000000;
+	z-index: 10000000;
 	-moz-transition: opacity .5s .2s;
 	-webkit-transition: opacity .5s .2s;
 	transition: opacity .5s .2s;
+}
+
+.et-core-modal-overlay--library {
+	/* 100025 = Library Modal z-index */
+	z-index: 100024;
+	animation: et-core-fade-in .5s linear;
 }
 
 .et-core-modal-overlay.et-core-active {
@@ -243,10 +248,16 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	-moz-box-shadow: 0px 0px 100px rgba(0, 160, 210, 0.20);
 	-webkit-box-shadow: 0px 0px 100px rgba(0, 160, 210, 0.20);
 	box-shadow: 0px 0px 100px rgba(0, 160, 210, 0.20);
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 	overflow: hidden;
+}
+
+.et-core-modal,
+.et-core-modal * {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .et-core-modal-overlay.et-core-active .et-core-modal {
@@ -262,17 +273,17 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 }
 
 .et-core-modal-header {
-	background-color: rgb(108, 46, 185);
+	background-color: #6c2eb9;
 	margin: 0;
-	padding: 21px 40px 20px;
+	padding: 21px 40px 20px 26px;
 	box-sizing: border-box;
 	display: block;
 }
 
 .et-core-modal .et-core-modal-title {
-	font-weight: 300;
-	font-size: 22px;
-	line-height: 27px;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 17px;
 	color: rgb(255, 255, 255);
 	margin: 0px;
 	padding: 0;
@@ -284,11 +295,8 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	font-weight: 600;
 }
 
-.et_pb_pagebuilder_layout .et-core-modal .et-core-modal-title {
-	font-weight: 500;
-}
-
-.et-core-modal-close {
+.et-core-modal-close,
+.et-core-modal-close:hover {
 	text-decoration: none;
 	font-size: 23px;
 	color: #fff;
@@ -298,23 +306,24 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	top: 0;
 	right: 0;
 	z-index: 10;
-	padding: 22px 22px 23px;
-	background-color: #622aa9;
-	-webkit-transition: background .5s;
-	transition: background .5s;
+	padding: 17px 17px 18px
 }
 
-.rtl:not(.et-fb-no-rtl) .et-core-modal-close {
+body.rtl .et-core-modal-close,
+body.rtl .et-core-modal-close:hover {
+	top: 0;
 	right: auto;
 	left: 0;
 }
 
-.et-core-modal-close:hover,
-.et-core-modal-close:focus,
-.et-core-modal-close:active {
-	background-color: #552592;
+.et-core-modal-close:focus {
 	color: #fff;
 	box-shadow: none;
+}
+
+body.rtl.et-db:not(.et-fb-no-rtl) .et-core-modal-close {
+	right: auto;
+	left: 0;
 }
 
 .et-core-modal-close:before {
@@ -322,6 +331,7 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	font-weight: 800;
 	content: '\4d';
 	speak: none;
+	color: #fff;
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
@@ -331,21 +341,33 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 
 .et-core-modal-temp-content,
 .et-core-modal-content {
-	padding: 40px;
+	padding: 30px;
 	overflow: scroll;
 	position: absolute;
-	top: 67px;
-    bottom: 50px;
+	top: 58px;
+    bottom: 25px;
 	width: 100%;
 	box-sizing: border-box;
-	color: #32373c;
-	font-size: 14px;
+	color: #4c5866;
+	font-weight: 600;
+	font-size: 13px;
 	line-height: 1.5em;
-	font-size: 14px;
+}
+
+.et-core-modal-temp-content p:first-of-type,
+.et-core-modal-content p:first-of-type {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+.et-core-modal-temp-content p:last-of-type,
+.et-core-modal-content p:last-of-type {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
 }
 
 .et-core-modal-tabs-enabled .et-core-modal-content {
-	top: 128px;
+	top: 98px;
 }
 
 .et-core-modal-disabled-scrollbar .et-core-modal {
@@ -358,7 +380,7 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	top: 0 !important;
 	position: relative;
 	overflow: hidden;
-	padding-bottom: 107px;
+	padding-bottom: 70px;
 }
 
 .et-core-modal-actionless.et-core-modal-disabled-scrollbar .et-core-modal-content,
@@ -392,7 +414,7 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	background: #f05555 !important;
 	font-weight: 600;
 	text-transform: uppercase;
-	border-radius: 4px;
+	border-radius: 3px;
 	font-size: 12px;
 	color: #fff !important;
 	padding: 10px 20px;
@@ -443,11 +465,11 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	right: 0;
 }
 
-.rtl:not(.et-fb-no-rtl) .et-core-modal-two-buttons .et-core-modal-action {
+body.rtl.et-db:not(.et-fb-no-rtl) .et-core-modal-two-buttons .et-core-modal-action {
 	right: 0;
 }
 
-.rtl:not(.et-fb-no-rtl) .et-core-modal-two-buttons .et-core-modal-action:last-child {
+body.rtl.et-db:not(.et-fb-no-rtl) .et-core-modal-two-buttons .et-core-modal-action:last-child {
 	right: auto;
 	left: 0;
 }
@@ -455,7 +477,7 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 .et-core-modal-temp-content h3,
 .et-core-modal-content h3 {
 	color: #32373c;
-	font-size: 16px;
+	font-size: 14px;
 }
 
 .et-core-modal-remove-temp-content,
@@ -468,12 +490,12 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 .et-core-modal-action {
 	display: block;
 	color: white;
-	font-size: 18px;
-	line-height: 68px;
+	font-size: 14px;
+	line-height: 40px;
 	width: 100%;
 	border: none;
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 600;
+	font-weight: 700;
 	box-sizing: border-box;
 	text-align: center;
 	margin: 0;
@@ -543,15 +565,15 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	float: left;
 	display: inline-block;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 18px;
-	font-weight: 400;
+	font-size: 14px;
+	font-weight: 600;
 	margin: 0;
 	border: none;
 	background: none;
 }
 
-.rtl:not(.et-fb-no-rtl) .et-core-tabs li,
-.rtl:not(.et-fb-no-rtl) .et-core-tabs li.ui-state-default {
+body.rtl.et-db:not(.et-fb-no-rtl) .et-core-tabs li,
+body.rtl.et-db:not(.et-fb-no-rtl) .et-core-tabs li.ui-state-default {
 	float: right;
 }
 
@@ -560,15 +582,18 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	color: #fff;
 }
 
-.et-core-tabs a:hover,
 .et-core-tabs li.ui-state-active a {
 	background-color: #8F42ED;
+}
+
+.et-core-tabs a:hover {
+	background-color: #7435c1;
 }
 
 .et-core-tabs a {
 	box-sizing: border-box;
 	color: white;
-	padding: 18px 40px 17px;
+	padding: 11px 26px;
 	display: inline-block;
 	transition: all 0.3s;
 	text-decoration: none;
@@ -627,6 +652,7 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	font-family: 'ETmodules';
 	font-weight: 600;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	font-size: 30px;
 	line-height: 53px;
 }
@@ -658,7 +684,7 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	margin-bottom: 15px;
 	background: #F1F5F9;
 	line-height: 20px;
-	border-radius: 4px;
+	border-radius: 3px;
 }
 
 * + .et-core-progress {
@@ -688,7 +714,7 @@ body.rtl:not(.et-fb-no-rtl) button.et-core-button {
 	font-size: 12px;
 	color: #fff;
 	text-align: center;
-	border-radius: 4px;
+	border-radius: 3px;
 	background: #00c3aa;
 }
 

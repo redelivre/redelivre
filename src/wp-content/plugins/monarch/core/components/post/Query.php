@@ -251,6 +251,7 @@ class ET_Core_Post_Query {
 
 		if ( $args ) {
 			$this->_wp_query_args = array_merge_recursive( $this->_wp_query_args, $args );
+			et_debug($this->_wp_query_args);
 		}
 
 		/**

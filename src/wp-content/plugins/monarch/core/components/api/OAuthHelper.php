@@ -115,9 +115,11 @@ class ET_Core_API_OAuthHelper {
 	}
 
 	protected function _get_oauth2_parameters( $args ) {
+		et_core_nonce_verified_previously();
+
 		return wp_parse_args( $args, array(
 			'grant_type'    => 'authorization_code',
-			'code'          => $_GET['code'],
+			'code'          => sanitize_text_field( $_GET['code'] ),
 			'client_id'     => $this->consumer_key,
 			'client_secret' => $this->consumer_secret,
 			'redirect_uri'  => $this->REDIRECT_URL,
@@ -182,6 +184,8 @@ class ET_Core_API_OAuthHelper {
 	 * Finish the OAuth2 authorization process if needed.
 	 */
 	public static function finish_oauth2_authorization() {
+		et_core_nonce_verified_previously();
+
 		if ( ! isset( $_GET['state'] ) || 0 !== strpos( $_GET['state'], 'ET_Core' ) ) {
 			return;
 		}
@@ -209,7 +213,7 @@ class ET_Core_API_OAuthHelper {
 		$result = $provider->fetch_subscriber_lists();
 
 		// Display the authorization results
-		echo ET_Bloom::generate_modal_warning( $result );
+		echo et_core_esc_previously( ET_Bloom::generate_modal_warning( $result ) );
 	}
 
 	/**
@@ -230,6 +234,7 @@ class ET_Core_API_OAuthHelper {
 	 * @return ET_Core_HTTPRequest
 	 */
 	public function prepare_access_token_request( $args = array() ) {
+		et_core_nonce_verified_previously();
 		$oauth2        = ! empty( $_GET['code'] );
 		$request       = new ET_Core_HTTPRequest( $this->ACCESS_TOKEN_URL, 'POST', '', true );
 		$request->BODY = $oauth2 ? $this->_get_oauth2_parameters( $args ) : $args;

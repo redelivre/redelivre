@@ -17,6 +17,10 @@
     flex-basis: auto;
   }
 
+  > input {
+      margin: 0;
+  }
+
   > input,
   > span {
     flex-grow: 2;

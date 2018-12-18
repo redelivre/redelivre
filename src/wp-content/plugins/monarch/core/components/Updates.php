@@ -23,8 +23,8 @@ final class ET_Core_Updates {
 		// Don't allow more than one instance of the class
 		if ( isset( self::$_this ) ) {
 			wp_die( sprintf( esc_html__( '%s: You cannot create a second instance of this class.', 'et-core' ),
-				get_class( $this ) )
-			);
+				esc_html( get_class( $this ) )
+			) );
 		}
 
 		self::$_this = $this;
@@ -165,7 +165,7 @@ final class ET_Core_Updates {
 	function check_is_active_account() {
 		global $wp_version;
 
-		if ( ! isset( $this->options['username'] ) || '' == trim( $this->options['username'] ) ) {
+		if ( ! isset( $this->options['username'] ) || '' === trim( $this->options['username'] ) ) {
 			return;
 		}
 
@@ -187,7 +187,7 @@ final class ET_Core_Updates {
 			$request = wp_remote_post( 'https://cdn.elegantthemes.com/api/api_downloads.php', $options );
 		}
 
-		if ( ! is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) == 200 ){
+		if ( ! is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) === 200 ){
 			$response = wp_remote_retrieve_body( $request );
 
 			if ( ! empty( $response ) ) {
@@ -236,7 +236,7 @@ final class ET_Core_Updates {
 			$plugins_request = wp_remote_post( 'https://cdn.elegantthemes.com/api/api.php', $options );
 		}
 
-		if ( ! is_wp_error( $plugins_request ) && wp_remote_retrieve_response_code( $plugins_request ) == 200 ){
+		if ( ! is_wp_error( $plugins_request ) && wp_remote_retrieve_response_code( $plugins_request ) === 200 ){
 			$plugins_response = unserialize( wp_remote_retrieve_body( $plugins_request ) );
 
 			if ( ! empty( $plugins_response ) ) {
@@ -335,7 +335,7 @@ final class ET_Core_Updates {
 			$theme_request = wp_remote_post( 'https://cdn.elegantthemes.com/api/api.php', $options );
 		}
 
-		if ( ! is_wp_error( $theme_request ) && wp_remote_retrieve_response_code( $theme_request ) == 200 ){
+		if ( ! is_wp_error( $theme_request ) && wp_remote_retrieve_response_code( $theme_request ) === 200 ){
 			$theme_response = unserialize( wp_remote_retrieve_body( $theme_request ) );
 
 			if ( ! empty( $theme_response ) ) {

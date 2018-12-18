@@ -174,6 +174,7 @@ class ET_Core_Portability {
 	 */
 	public function export() {
 		$this->prevent_failure();
+		et_core_nonce_verified_previously();
 
 		$timestamp = $this->get_timestamp();
 		$filesystem = $this->set_filesystem();
@@ -234,6 +235,7 @@ class ET_Core_Portability {
 	 */
 	public function download_export() {
 		$this->prevent_failure();
+		et_core_nonce_verified_previously();
 
 		// Retrieve data.
 		$timestamp = isset( $_GET['timestamp'] ) ? sanitize_text_field( $_GET['timestamp'] ) : null;
@@ -247,7 +249,7 @@ class ET_Core_Portability {
 		header( 'Pragma: no-cache' );
 
 		if ( file_exists( $temp_file ) ) {
-			echo $filesystem->get_contents( $temp_file );
+			echo et_core_esc_previously( $filesystem->get_contents( $temp_file ) );
 		}
 
 		$this->delete_temp_files( 'et_core_export' );
@@ -281,6 +283,8 @@ class ET_Core_Portability {
 	 * @since 2.7.0
 	 */
 	protected function export_posts_query() {
+		et_core_nonce_verified_previously();
+
 		$args = array(
 			'post_type'      => $this->instance->target,
 			'posts_per_page' => -1,
@@ -327,7 +331,7 @@ class ET_Core_Portability {
 
 			// Order terms to make sure children are after the parents.
 			while ( $term = array_shift( $get_terms ) ) {
-				if ( 0 == $term->parent || isset( $terms[$term->parent] ) ) {
+				if ( 0 === $term->parent || isset( $terms[$term->parent] ) ) {
 					$terms[$term->term_id] = $term;
 				} else {
 					// if parent category is also exporting then add the term to the end of the list and process it later
@@ -447,13 +451,13 @@ class ET_Core_Portability {
 	protected static function layout_exists( $title, $slug ) {
 		global $wpdb;
 
-		$query = "SELECT ID FROM $wpdb->posts WHERE post_title = %s AND post_name = %s";
-		$args  = array(
-			wp_unslash( sanitize_post_field( 'post_title', $title, 0, 'db' ) ),
-			wp_unslash( sanitize_post_field( 'post_name', $slug, 0, 'db' ) ),
-		);
-
-		return (int) $wpdb->get_var( $wpdb->prepare( $query, $args ) );
+		return (int) $wpdb->get_var( $wpdb->prepare(
+			"SELECT ID FROM $wpdb->posts WHERE post_title = %s AND post_name = %s",
+			array(
+				wp_unslash( sanitize_post_field( 'post_title', $title, 0, 'db' ) ),
+				wp_unslash( sanitize_post_field( 'post_name', $slug, 0, 'db' ) ),
+			)
+		) );
 	}
 
 	/**
@@ -497,7 +501,7 @@ class ET_Core_Portability {
 
 			$layout_exists = self::layout_exists( $post['post_title'], $post['post_name'] );
 
-			if ( $layout_exists && get_post_type( $layout_exists ) == $post['post_type'] ) {
+			if ( $layout_exists && get_post_type( $layout_exists ) === $post['post_type'] ) {
 				// Make sure the post is published.
 				if ( 'publish' !== get_post_status( $layout_exists ) ) {
 					wp_update_post( array(
@@ -657,6 +661,8 @@ class ET_Core_Portability {
 	 * @internal param array $data Array of images.
 	 */
 	protected function maybe_paginate_images( $images, $method, $timestamp ) {
+		et_core_nonce_verified_previously();
+
 		/**
 		 * Filters whether or not images in the file being imported should be paginated.
 		 *
@@ -1073,6 +1079,8 @@ class ET_Core_Portability {
 	 * @since 2.7.0
 	 */
 	public function get_timestamp() {
+		et_core_nonce_verified_previously();
+
 		return isset( $_POST['timestamp'] ) && ! empty( $_POST['timestamp'] ) ? sanitize_text_field( $_POST['timestamp'] ) : current_time( 'timestamp' );
 	}
 
@@ -1099,7 +1107,7 @@ class ET_Core_Portability {
 				'export' => wp_create_nonce( 'et_core_portability_export' ),
 				'cancel' => wp_create_nonce( 'et_core_portability_cancel' ),
 			),
-			'postMaxSize'   => (int) @ini_get( 'post_max_size' ),
+			'postMaxSize'   => $this->to_megabytes( @ini_get( 'post_max_size' ) ),
 			'uploadMaxSize' => $this->to_megabytes( @ini_get( 'upload_max_filesize' ) ),
 			'text'          => array(
 				'browserSupport'      => esc_html__( 'The browser version you are currently using is outdated. Please update to the newest version.', ET_CORE_TEXTDOMAIN ),
@@ -1130,7 +1138,7 @@ class ET_Core_Portability {
 		), admin_url() );
 
 		?>
-		<div class="et-core-modal-overlay et-core-form" data-et-core-portability="<?php echo $this->instance->context; ?>">
+		<div class="et-core-modal-overlay et-core-form" data-et-core-portability="<?php echo esc_attr( $this->instance->context ); ?>">
 			<div class="et-core-modal">
 				<div class="et-core-modal-header">
 					<h3 class="et-core-modal-title"><?php esc_html_e( 'Portability', ET_CORE_TEXTDOMAIN ); ?></h3><a href="#" class="et-core-modal-close" data-et-core-modal="close"></a>
@@ -1142,7 +1150,7 @@ class ET_Core_Portability {
 					</ul>
 					<div id="et-core-portability-export">
 						<div class="et-core-modal-content">
-							<?php printf( esc_html__( 'Exporting your %s will create a JSON file that can be imported into a different website.', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+							<?php printf( esc_html__( 'Exporting your %s will create a JSON file that can be imported into a different website.', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<h3><?php esc_html_e( 'Export File Name', ET_CORE_TEXTDOMAIN ); ?></h3>
 							<form class="et-core-portability-export-form">
 								<input type="text" name="" value="<?php echo esc_attr( $this->instance->name ); ?>">
@@ -1152,17 +1160,17 @@ class ET_Core_Portability {
 								<?php endif; ?>
 							</form>
 						</div>
-						<a class="et-core-modal-action" href="#" data-et-core-portability-export="<?php echo esc_url( $export_url ); ?>"><?php printf( esc_html__( 'Export %s', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?></a>
+						<a class="et-core-modal-action" href="#" data-et-core-portability-export="<?php echo esc_url( $export_url ); ?>"><?php printf( esc_html__( 'Export %s', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?></a>
 						<a class="et-core-modal-action et-core-button-danger" href="#" data-et-core-portability-cancel><?php esc_html_e( 'Cancel Export', ET_CORE_TEXTDOMAIN ); ?></a>
 					</div>
 					<div id="et-core-portability-import">
 						<div class="et-core-modal-content">
 							<?php if ( 'post' === $this->instance->type ) : ?>
-								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all content currently on this page.', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all content currently on this page.', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<?php elseif ( 'post_type' === $this->instance->type ) : ?>
-								<?php printf( esc_html__( 'Select a previously-exported Divi Builder Layouts file to begin importing items. Large collections of image-heavy exports may take several minutes to upload.', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+								<?php printf( esc_html__( 'Select a previously-exported Divi Builder Layouts file to begin importing items. Large collections of image-heavy exports may take several minutes to upload.', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<?php else : ?>
-								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all current data. Please proceed with caution!', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all current data. Please proceed with caution!', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<?php endif; ?>
 							<h3><?php esc_html_e( 'Select File To Import', ET_CORE_TEXTDOMAIN ); ?></h3>
 							<form class="et-core-portability-import-form">
@@ -1175,7 +1183,7 @@ class ET_Core_Portability {
 								<?php endif; ?>
 							</form>
 						</div>
-						<a class="et-core-modal-action et-core-portability-import" href="#"><?php printf( esc_html__( 'Import %s', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?></a>
+						<a class="et-core-modal-action et-core-portability-import" href="#"><?php printf( esc_html__( 'Import %s', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?></a>
 						<a class="et-core-modal-action et-core-button-danger" href="#" data-et-core-portability-cancel><?php esc_html_e( 'Cancel Import', ET_CORE_TEXTDOMAIN ); ?></a>
 					</div>
 				</div>
@@ -1284,6 +1292,7 @@ function et_core_portability_link( $context, $attributes = array() ) {
 
 	// Forced attributes.
 	$attributes['href'] = '#';
+	$context = esc_attr( $context );
 	$attributes['data-et-core-modal'] = "[data-et-core-portability='{$context}']";
 
 	$string = '';

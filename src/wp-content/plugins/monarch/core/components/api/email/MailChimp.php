@@ -149,8 +149,12 @@ class ET_Core_API_Email_MailChimp extends ET_Core_API_Email_Provider {
 		}
 
 		$fields = $args['custom_fields'];
+		$list_id = self::$_->array_get( $args, 'list_id', '' );
 
-		unset( $args['custom_fields'] );
+		unset( $args['custom_fields'] );		
+		unset( $args['list_id'] );
+
+		$custom_fields_data = self::$_->array_get( $this->data, "lists.{$list_id}.custom_fields", array() );
 
 		foreach ( $fields as $field_id => $value ) {
 			if ( is_array( $value ) && $value ) {
@@ -158,7 +162,11 @@ class ET_Core_API_Email_MailChimp extends ET_Core_API_Email_Provider {
 					self::$_->array_set( $args, "interests.{$id}", true );
 				}
 			} else {
-				self::$_->array_set( $args, "merge_fields.MMERGE{$field_id}", $value );
+				// In previous version of Mailchimp implementation we only supported default field tag, but it can be customized and our code fails.
+				// Added `field_tag` attribute which is actual field tag. Fallback to default field tag if `field_tag` doesn't exist for backward compatibility.
+				$custom_field_tag = self::$_->array_get( $custom_fields_data, "{$field_id}.field_tag", "MMERGE{$field_id}" );
+				
+				self::$_->array_set( $args, "merge_fields.{$custom_field_tag}", $value );
 			}
 		}
 
@@ -233,11 +241,12 @@ class ET_Core_API_Email_MailChimp extends ET_Core_API_Email_Provider {
 				'error_message' => 'detail',
 			),
 			'custom_field'      => array(
-				'field_id' => 'merge_id',
-				'name'     => 'name',
-				'type'     => 'type',
-				'hidden'   => '!public',
-				'options'  => 'options.choices',
+				'field_id'  => 'merge_id',
+				'field_tag' => 'tag',
+				'name'      => 'name',
+				'type'      => 'type',
+				'hidden'    => '!public',
+				'options'   => 'options.choices',
 			),
 			'custom_field_type' => array(
 				// Us <=> Them
@@ -288,6 +297,7 @@ class ET_Core_API_Email_MailChimp extends ET_Core_API_Email_Provider {
 
 		$args['ip_signup'] = $ip_address;
 		$args['status']    = $dbl_optin ? 'pending' : 'subscribed';
+		$args['list_id']   = $list_id;
 
 		$args = $this->_process_custom_fields( $args );
 

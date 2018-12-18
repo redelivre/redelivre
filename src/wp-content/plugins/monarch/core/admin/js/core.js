@@ -10,12 +10,16 @@
 			this.listen();
 		},
 
+		$selector: function(selector) {
+			return window.top ? window.top.jQuery(selector) : jQuery(selector);
+		},		
+
 		applyMaxHeight: function() {
-			var $et_core_modal_overlay = $( '.et-core-modal-overlay' ),
-				$et_core_modal = $et_core_modal_overlay.find( '.et-core-modal' ),
-				overlay_height = $et_core_modal_overlay.innerHeight(),
-				disabled_scrollbar_class = 'et-core-modal-disabled-scrollbar',
-				et_core_modal_height;
+			var $et_core_modal_overlay = this.$selector('.et-core-modal-overlay');
+			var $et_core_modal = $et_core_modal_overlay.find('.et-core-modal');
+			var overlay_height = $et_core_modal_overlay.innerHeight();
+			var disabled_scrollbar_class = 'et-core-modal-disabled-scrollbar';
+			var et_core_modal_height;
 
 			if ( ! $et_core_modal_overlay.length || ! $et_core_modal_overlay.hasClass('et-core-active') ) {
 				return;
@@ -49,9 +53,7 @@
 					return;
 				}
 
-				$overlay.addClass( 'et-core-active' );
-				$( 'body' ).addClass( 'et-core-nbfc');
-				$( window ).trigger( 'et-core-modal-active' );
+				$this.modalOpen($overlay);
 			} );
 
 			$( document ).on( 'click', '[data-et-core-modal="close"], .et-core-modal-overlay', function( e ) {
@@ -60,6 +62,12 @@
 
 			// Distroy listener to make sure it is only called once.
 			$this.listen = function() {};
+		},
+
+		modalOpen: function($overlay) {
+			$overlay.addClass('et-core-active');
+			$('body').addClass('et-core-nbfc');
+			$(window).trigger('et-core-modal-active');
 		},
 
 		modalClose: function( e, self ) {

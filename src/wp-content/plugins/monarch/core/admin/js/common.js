@@ -21,7 +21,7 @@
 			if ('standalone' in window.navigator && !window.navigator.standalone) {
 				browser_name = 'uiwebview';
 			} else {
-				browser_name = '' !== browser[0] ? browser[0] : navigator.appName;
+				browser_name = browser[0] && '' !== browser[0] ? browser[0] : navigator.appName;
 			}
 		}
 

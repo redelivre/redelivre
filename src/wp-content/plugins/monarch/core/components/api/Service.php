@@ -357,6 +357,8 @@ abstract class ET_Core_API_Service {
 	 * @return array|bool
 	 */
 	public function authenticate() {
+		et_core_nonce_verified_previously();
+
 		if ( '1.0a' === $this->oauth_version || ( '2.0' === $this->oauth_version && ! empty( $_GET['code'] ) ) ) {
 			$authenticated = $this->_do_oauth_access_token_request();
 

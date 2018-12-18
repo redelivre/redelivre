@@ -61,7 +61,7 @@ abstract class ET_Core_API_Email_Provider extends ET_Core_API_Service  {
 	/**
 	 * Type of support for custom fields offered by provider.
 	 *
-	 * @since ??
+	 * @since 3.17.2
 	 *
 	 * @var bool|string Accepts `dynamic`, `predefined`, `false`. Default `predefined`.
 	 */
@@ -70,7 +70,7 @@ abstract class ET_Core_API_Email_Provider extends ET_Core_API_Service  {
 	/**
 	 * Type of support for custom fields offered by provider.
 	 *
-	 * @since ??
+	 * @since 3.17.2
 	 *
 	 * @var string Accepts `list`, `account`.
 	 */
@@ -104,7 +104,7 @@ abstract class ET_Core_API_Email_Provider extends ET_Core_API_Service  {
 		/**
 		 * Filters the max number of results returned from email API provider per request.
 		 *
-		 * @since ??
+		 * @since 3.17.2
 		 *
 		 * @param int $max_results_count
 		 */

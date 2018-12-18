@@ -363,7 +363,7 @@ class ET_Core_PageResource {
 			wp_enqueue_script( $resource->slug, set_url_scheme( $resource->URL ), array(), ET_CORE_VERSION, true );
 		} else {
 			printf(
-				'<script id="%1$s" src="%2$s"></script>',
+				'<script id="%1$s" src="%2$s"></script>', // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 				esc_attr( $resource->slug ),
 				esc_url( set_url_scheme( $resource->URL ) )
 			);
@@ -388,11 +388,11 @@ class ET_Core_PageResource {
 			wp_enqueue_style( $resource->slug, set_url_scheme( $resource->URL ) );
 		} else {
 			printf(
-				'<link rel="stylesheet" id="%1$s" href="%2$s" onerror="%3$s" onload="%4$s" />',
+				'<link rel="stylesheet" id="%1$s" href="%2$s" onerror="%3$s" onload="%4$s" />', // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
 				esc_attr( $resource->slug ),
 				esc_url( set_url_scheme( $resource->URL ) ),
-				self::$_onerror,
-				self::$_onload
+				et_core_esc_previously( self::$_onerror ),
+				et_core_esc_previously( self::$_onload )
 			);
 		}
 
@@ -573,7 +573,7 @@ class ET_Core_PageResource {
 					'<%1$s id="%2$s">%3$s</%1$s>',
 					esc_html( $resource->type ),
 					esc_attr( $resource->slug ),
-					wp_strip_all_tags( $data )
+					et_core_esc_previously( wp_strip_all_tags( $data ) )
 				);
 
 				if ( $same_write_file_location ) {

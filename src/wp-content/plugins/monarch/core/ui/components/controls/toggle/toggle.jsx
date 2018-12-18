@@ -16,8 +16,9 @@ class ETCoreControlToggle extends PureComponent {
   };
 
   _onChange = () => {
-    const { name, value, _onChange, readonly } = this.props;
-    const newValue                             = value === 'on' ? 'off' : 'on';
+    const { name, value, _onChange, readonly, defaultValue } = this.props;
+    const toggleFrom = !value && defaultValue ? defaultValue : value;
+    const newValue                             = toggleFrom === 'on' ? 'off' : 'on';
 
     if (! readonly) {
       _onChange(name, newValue);
@@ -25,15 +26,16 @@ class ETCoreControlToggle extends PureComponent {
   };
 
   render() {
-    let { className, onClick, value, name, id } = this.props;
+    let { className, onClick, value, name, id, defaultValue } = this.props;
 
     let isEqual = ! isUndefined(this.props.button_options) && 'equal' === this.props.button_options.button_type;
+    const visualValue = !value && defaultValue ? defaultValue : value;
 
     let classes = classnames({
       'et-core-control-toggle':        true,
       'et-core-control-toggle--equal': isEqual,
-      'et-core-control-toggle--on':    value === 'on',
-      'et-core-control-toggle--off':   ! value || value === 'off',
+      'et-core-control-toggle--on':    visualValue === 'on',
+      'et-core-control-toggle--off':   ! visualValue || visualValue === 'off',
     }, className);
 
     if ( ! id ) {
@@ -48,10 +50,15 @@ class ETCoreControlToggle extends PureComponent {
 
     return (
       <div className={classes} onClick={onClick || this._onChange} {...additional_attrs}>
-        <div className="et-core-control-toggle__label et-core-control-toggle__label--on">{this.props.options.on}</div>
-        <div className="et-core-control-toggle__label et-core-control-toggle__label--off">{this.props.options.off}</div>
-        <div className="et-core-control-toggle__handle"/>
-        <input type="hidden" id={id} name={name} value={value} />
+        <div className="et-core-control-toggle__label et-core-control-toggle__label--on">
+          <div className="et-core-control-toggle__text">{this.props.options.on}</div>
+          <div className="et-core-control-toggle__handle"/>
+        </div>
+        <div className="et-core-control-toggle__label et-core-control-toggle__label--off">
+          <div className="et-core-control-toggle__text">{this.props.options.off}</div>
+          <div className="et-core-control-toggle__handle"/>
+        </div>
+        <input type="hidden" id={id} name={name} value={value}/>
       </div>
     );
   }
