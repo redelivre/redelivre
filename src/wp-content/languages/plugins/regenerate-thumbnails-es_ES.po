@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Regenerate Thumbnails - Development (trunk) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-10 17:29:19+0000\n"
+"PO-Revision-Date: 2017-08-12 11:38:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,11 +29,11 @@ msgstr "http://www.viper007bond.com/wordpress-plugins/regenerate-thumbnails/"
 
 #: regenerate-thumbnails.php:388
 msgid "&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
-msgstr "&quot;%1$s&quot; (ID %2$s) error de redimensionado. El mensaje de error fue: %3$s"
+msgstr "&quot;%1$s&quot; (ID %2$s) no se pudo redimensionar. El mensaje de error fue: %3$s"
 
 #: regenerate-thumbnails.php:382
 msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
-msgstr "&quot;%1$s&quot; (ID %2$s) fue redimensionada con éxito en %3$s segundoss."
+msgstr "&quot;%1$s&quot; (ID %2$s) fue redimensionada con éxito en %3$s segundos."
 
 #: regenerate-thumbnails.php:377
 msgid "Unknown failure reason."
@@ -45,11 +45,11 @@ msgstr "La imagen originalmente subida no se encuentra en %s"
 
 #: regenerate-thumbnails.php:363
 msgid "Your user account doesn't have permission to resize images"
-msgstr "Tu perfil de usuario no tiene permisos para redimensionar imágenes"
+msgstr "Tu cuenta de usuario no tiene permisos para redimensionar imágenes"
 
 #: regenerate-thumbnails.php:360
 msgid "Failed resize: %s is an invalid image ID."
-msgstr "Redimensionado erróneo: %s no es una ID de imagen válida."
+msgstr "Redimensionado fallido: %s no es un ID de imagen válido."
 
 #: regenerate-thumbnails.php:336
 msgid "Regenerate All Thumbnails"
@@ -57,15 +57,15 @@ msgstr "Regenerar todas las miniaturas"
 
 #: regenerate-thumbnails.php:334
 msgid "To begin, just press the button below."
-msgstr "Para comenzar, pulsa el botón de abajo."
+msgstr "Para empezar, simplemente pulsa el botón de abajo."
 
 #: regenerate-thumbnails.php:332
 msgid "Thumbnail regeneration is not reversible, but you can just change your thumbnail dimensions back to the old values and click the button again if you don't like the results."
-msgstr "La regeneración de miniaturas no es reversible, pero puedes volver a cambiar las dimensiones de tus miniaturas a los valores antiguos y volver a hacer click en el botón de nuevo si los resultados obtenidos no te han gustado."
+msgstr "La regeneración de miniaturas no es reversible, pero puedes volver a cambiar las dimensiones de tus miniaturas a los valores antiguos y volver a hacer clic en el botón de nuevo si los resultados obtenidos no te han gustado."
 
 #: regenerate-thumbnails.php:330
 msgid "You can regenerate specific images (rather than all images) from the <a href='%s'>Media</a> page. Hover over an image's row and click the link to resize just that one image or use the checkboxes and the &quot;Bulk Actions&quot; dropdown to resize multiple images (WordPress 3.1+ only)."
-msgstr "Puedes regenerar imágenes específicas (en lugar de todas las imágenes) desde la página de <a href='%s'>Medios</a>. Sitúate sobre la línea de una imagen y haz click en el enlace para redimensionar solamente una imagen o usa las casillas y la opción desplegable &quot;Bulk Actions&quot; para redimensionar varias imágenes (solamente a partir de WordPress 3.1+)."
+msgstr "Puedes regenerar imágenes específicas (en lugar de todas las imágenes) desde la página de <a href='%s'>Medios</a>. Sitúate sobre la línea de una imagen y haz clic en el enlace para redimensionar solamente una imagen o usa las casillas y la opción desplegable &quot;Acciones en lote&quot; para redimensionar varias imágenes (solamente a partir de WordPress 3.1+)."
 
 #: regenerate-thumbnails.php:328
 msgid "Use this tool to regenerate thumbnails for all images that you have uploaded to your blog. This is useful if you've changed any of the thumbnail dimensions on the <a href='%s'>media settings page</a>. Old thumbnails will be kept to avoid any broken images due to hard-coded URLs."
@@ -73,7 +73,7 @@ msgstr "Utiliza esta herramienta para regenerar las miniaturas de todas las imá
 
 #: regenerate-thumbnails.php:285
 msgid "The resize request was abnormally terminated (ID %s). This is likely due to the image exceeding available memory or some other type of fatal error."
-msgstr "La petición de redimensionado fue finalizada de manera inusual (ID %s). Probablemente se deba a que la imagen excede la memoria disponible o algún otro tipo de error fatal."
+msgstr "La petición de redimensionado finalizó de manera inusual (ID %s). Probablemente se deba a que la imagen excede la memoria disponible o algún otro tipo de error fatal."
 
 #: regenerate-thumbnails.php:233
 msgid "Stopping..."
@@ -117,7 +117,7 @@ msgstr "Para volver a la página anterior, <a href=\"%s\">haz click aquí</a>."
 
 #: regenerate-thumbnails.php:179
 msgid "Please be patient while the thumbnails are regenerated. This can take a while if your server is slow (inexpensive hosting) or if you have many images. Do not navigate away from this page until this script is done or the thumbnails will not be resized. You will be notified via this page when the regenerating is completed."
-msgstr "Por favor, ten paciencia mientras las miniaturas están siendo regeneradas. Este proceso puede llevar un tiempo si tu servidor es algo lento (hosting barato) o si tienes muchas imágenes. No salgas de esta página hasta que el proceso haya finalizado o las miniaturas no serán redimensionadas. Aparecerá una notificación en esta página cuando el proceso haya sido completado."
+msgstr "Por favor, ten paciencia mientras se regeneran las miniaturas. Este proceso puede llevar un tiempo si tu servidor es algo lento (hosting barato) o si tienes muchas imágenes. No salgas de esta página hasta que el proceso haya finalizado o las miniaturas no serán redimensionadas. Aparecerá un aviso en esta página cuando el proceso haya sido completado."
 
 #: regenerate-thumbnails.php:168
 msgid "Unable to find any images. Are you sure <a href='%s'>some exist</a>?"
@@ -125,7 +125,7 @@ msgstr "No ha sido posible encontrar ninguna imagen. ¿Estás seguro de que <a h
 
 #: regenerate-thumbnails.php:154
 msgid "Cheatin&#8217; uh?"
-msgstr "Haciendo trampas, ¿eh?"
+msgstr "¿Haciendo trampas?"
 
 #: regenerate-thumbnails.php:81
 msgid "Regenerate the thumbnails for this single image"

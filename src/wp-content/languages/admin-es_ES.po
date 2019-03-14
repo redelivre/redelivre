@@ -6154,91 +6154,91 @@ msgstr "Escalar imagen"
 msgid "Image data does not exist. Please re-upload the image."
 msgstr "No existen datos de la imagen. Por favor, vuelve a subir la imagen."
 
-#: wp-admin/includes/file.php:1264
+#: wp-admin/includes/file.php:1279
 msgid "Proceed"
 msgstr "Ejecutar"
 
-#: wp-admin/includes/file.php:1252
+#: wp-admin/includes/file.php:1266
 msgid "Enter the location on the server where the public and private keys are located. If a passphrase is needed, enter that in the password field above."
 msgstr "Introduce la ubicación del servidor de las claves públicas y privadas. Si fuese necesaria una contraseña introdúcela arriba, en el campo de contraseña."
 
-#: wp-admin/includes/file.php:1249
+#: wp-admin/includes/file.php:1263
 msgid "Private Key:"
 msgstr "Clave privada:"
 
-#: wp-admin/includes/file.php:1245
+#: wp-admin/includes/file.php:1259
 msgid "Public Key:"
 msgstr "Clave pública:"
 
-#: wp-admin/includes/file.php:1243
+#: wp-admin/includes/file.php:1257
 msgid "Authentication Keys"
 msgstr "Claves de autentificación"
 
-#: wp-admin/includes/file.php:1223
+#: wp-admin/includes/file.php:1237
 msgid "Connection Type"
 msgstr "Tipo de conexión"
 
-#: wp-admin/includes/file.php:1219
+#: wp-admin/includes/file.php:1233
 msgid "This password will not be stored on the server."
 msgstr "Esta contraseña no se almacenará en el servidor."
 
-#: wp-admin/includes/file.php:1207
+#: wp-admin/includes/file.php:1221
 msgid "example: www.wordpress.org"
 msgstr "ejemplo: www.wordpress.org"
 
-#: wp-admin/includes/file.php:1206
+#: wp-admin/includes/file.php:1220
 msgid "Hostname"
 msgstr "Servidor"
 
-#: wp-admin/includes/file.php:1203
+#: wp-admin/includes/file.php:1217
 msgid "If you do not remember your credentials, you should contact your web host."
 msgstr "Si no recuerdas tus datos de acceso deberías contactar con tu proveedor de alojamiento."
 
-#: wp-admin/includes/file.php:1199
+#: wp-admin/includes/file.php:1213
 msgid "FTP Password"
 msgstr "Contraseña FTP"
 
-#: wp-admin/includes/file.php:1198
+#: wp-admin/includes/file.php:1212
 msgid "FTP Username"
 msgstr "Usuario FTP"
 
-#: wp-admin/includes/file.php:1197
+#: wp-admin/includes/file.php:1211
 msgid "Please enter your FTP credentials to proceed."
 msgstr "Por favor, introduce tus datos de acceso FTP para proceder."
 
-#: wp-admin/includes/file.php:1195
+#: wp-admin/includes/file.php:1209
 msgid "FTP/SSH Password"
 msgstr "Contraseña FTP/SSH"
 
-#: wp-admin/includes/file.php:1194
+#: wp-admin/includes/file.php:1208
 msgid "FTP/SSH Username"
 msgstr "Usuario FTP/SSH"
 
-#: wp-admin/includes/file.php:1193
+#: wp-admin/includes/file.php:1207
 msgid "Please enter your FTP or SSH credentials to proceed."
 msgstr "Por favor, introduce tus datos de acceso FTP o SSH para proceder."
 
-#: wp-admin/includes/file.php:1189
+#: wp-admin/includes/file.php:1203
 msgid "To perform the requested action, WordPress needs to access your web server."
 msgstr "Para realizar la operación que has solicitado WordPress necesita tener acceso a tu servidor web."
 
-#: wp-admin/includes/file.php:1184
+#: wp-admin/includes/file.php:1198
 msgid "Connection Information"
 msgstr "Datos de conexión"
 
-#: wp-admin/includes/file.php:1158
+#: wp-admin/includes/file.php:1172
 msgid "SSH2"
 msgstr "SSH2"
 
-#: wp-admin/includes/file.php:1156
+#: wp-admin/includes/file.php:1170
 msgid "FTPS (SSL)"
 msgstr "FTPS (SSL)"
 
-#: wp-admin/includes/file.php:1154
+#: wp-admin/includes/file.php:1168
 msgid "FTP"
 msgstr "FTP"
 
-#: wp-admin/includes/file.php:1146
+#: wp-admin/includes/file.php:1160
 msgid "<strong>ERROR:</strong> There was an error connecting to the server, Please verify the settings are correct."
 msgstr "<strong>Error:</strong> Se ha producido un error en la conexión con el servidor. Por favor, verifica que la configuración es correcta."
 
@@ -10690,220 +10690,221 @@ msgstr "Gracias por crear con <a href=\"%s\">WordPress</a>."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:280
+#: wp-admin/about.php:284
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "La <strong>versión %1$s</strong> soluciona un problema de seguridad y soluciona el fallo %2$s."
 msgstr[1] "La <strong>versión %1$s</strong> soluciona un problema de seguridad y soluciona %2$s fallos."
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:271
+#: wp-admin/about.php:275
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>Versión %s</strong> mostr&oacute; un problema de seguridad."
 
-#: wp-admin/about.php:267
+#: wp-admin/about.php:271
 msgid "Maintenance and Security Release"
 msgstr "Versión de mantenimiento y seguridad"
 
-#: wp-admin/about.php:265
+#: wp-admin/about.php:269
 msgid "Security Releases"
 msgstr "Versiones de seguridad"
 
-#: wp-admin/about.php:264
+#: wp-admin/about.php:268
 msgid "Security Release"
 msgstr "Versión de seguridad"
 
-#: wp-admin/about.php:262
+#: wp-admin/about.php:266
 msgid "Maintenance Releases"
 msgstr "Versiones de mantenimiento"
 
-#: wp-admin/about.php:261
+#: wp-admin/about.php:265
 msgid "Maintenance Release"
 msgstr "Versión de mantenimiento"
 
-#: wp-admin/about.php:250
+#: wp-admin/about.php:254
 msgid "Go to Dashboard"
 msgstr "Ir al Escritorio"
 
-#: wp-admin/about.php:250
+#: wp-admin/about.php:254
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Ve a Escritorio &rarr; Inicio"
 
-#: wp-admin/about.php:247
+#: wp-admin/about.php:251
 msgid "Return to Dashboard &rarr; Updates"
 msgstr "Vuelve a Escritorio &rarr; Actualizaciones"
 
-#: wp-admin/about.php:247
+#: wp-admin/about.php:251
 msgid "Return to Updates"
 msgstr "Volver a las actualizaciones"
 
-#: wp-admin/about.php:236
+#: wp-admin/about.php:240
 msgid "Customize changesets make changes in the customizer persistent, like autosave drafts. They also make exciting new features like starter content possible."
 msgstr "Los conjuntos de cambios personalizados hacen que los cambios en el personalizador sean persistentes, como los autoguardados automáticos. También hay nuevas características como el contenido inicial."
 
-#: wp-admin/about.php:235
+#: wp-admin/about.php:239
 msgid "Customize Changesets"
 msgstr "Personaliza grupos de cambios"
 
 #. translators: 1: register_setting(), 2:
 #. https://make.wordpress.org/core/2016/10/26/registering-your-settings-in-wordpress-4-7/
-#: wp-admin/about.php:228
+#: wp-admin/about.php:232
 msgid "%1$s <a href=\"%2$s\">has been enhanced</a> to include type, description, and REST API visibility."
 msgstr "%1$s <a href=\"%2$s\"> se ha mejorado </a> para incluir el tipo, la descripción y la visibilidad de REST API."
 
-#: wp-admin/about.php:224
+#: wp-admin/about.php:228
 msgid "Settings Registration API"
 msgstr "Ajustes de registro de la API"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/
-#: wp-admin/about.php:218
+#: wp-admin/about.php:222
 msgid "The code that lies beneath actions and filters has been overhauled and modernized, fixing bugs along the way."
 msgstr "El código que se subyace en acciones y filtros se ha revisado y modernizado, y de paso se han corregido errores."
 
-#: wp-admin/about.php:208
+#: wp-admin/about.php:212
 msgid "List tables, now with more than bulk edit and delete."
 msgstr "Lista de tablas, ahora con más que simplemente editar y eliminar en masa."
 
-#: wp-admin/about.php:207
+#: wp-admin/about.php:211
 msgid "Custom Bulk Actions"
 msgstr "Acciones en lote personalizadas"
 
 #. translators: %s:
 #. https://make.wordpress.org/core/2016/09/09/new-functions-hooks-and-behaviour-for-theme-developers-in-wordpress-4-7/
-#: wp-admin/about.php:201
+#: wp-admin/about.php:205
 msgid "WordPress 4.7 includes <a href=\"%s\">new functions, hooks, and behavior</a> for theme developers."
 msgstr "WordPress 4.7 incluye <a href=\"%s\">nuevas funciones, ganchos y comportamiento</a> para desarrolladores de temas."
 
-#: wp-admin/about.php:197
+#: wp-admin/about.php:201
 msgid "More Theme API Goodies"
 msgstr "Más mejoras de la API de temas"
 
-#: wp-admin/about.php:194
+#: wp-admin/about.php:198
 msgid "By opening up the page template functionality to all post types, theme developers have even more flexibility with the WordPress template hierarchy."
 msgstr "Al abrir la funcionalidad de plantilla de página a todos los tipos de contenido, los desarrolladores de temas tienen aún más flexibilidad con la jerarquía de plantillas de WordPress."
 
-#: wp-admin/about.php:193
+#: wp-admin/about.php:197
 msgid "Post Type Templates"
 msgstr "Plantillas de tipos de contenido"
 
 #. translators: %s: smiling face with smiling eyes emoji
-#: wp-admin/about.php:186
+#: wp-admin/about.php:190
 msgid "Even More Developer Happiness %s"
 msgstr "Aún más felicidad para el desarrollador %s"
 
 #. translators: %s: https://developer.wordpress.org/rest-api/
-#: wp-admin/about.php:174
+#: wp-admin/about.php:178
 msgid "Content endpoints provide machine-readable external access to your WordPress site with a clear, standards-driven interface, paving the way for new and innovative methods of interacting with sites through plugins, themes, apps, and beyond. Ready to get started with development? <a href=\"%s\">Check out the REST API reference.</a>"
 msgstr "Los endpoints de contenido ofrecen acceso externo \"legible por máquinas\" a tu sitio WordPress con una interfaz limpia y que cumple los estándares, allanando el camino para nuevos e innovadores métodos de interactuar con sitios mediante plugins, temas, aplicaciones y mucho más. ¿Estás preparado para empezar a desarrollar? <a href=\"%s\">Revisa la documentación de la REST API.</a>"
 
-#: wp-admin/about.php:169
+#: wp-admin/about.php:173
 msgid "WordPress 4.7 comes with REST API endpoints for posts, comments, terms, users, meta, and settings."
 msgstr "WordPress 4.7 incorpora los endpoints de la REST API para entradas, comentarios, términos, usuarios, meta y ajustes."
 
-#: wp-admin/about.php:168
+#: wp-admin/about.php:172
 msgid "Introducing REST API Content Endpoints"
 msgstr "Presentando los endpoints de contenido de la REST API"
 
-#: wp-admin/about.php:161
+#: wp-admin/about.php:165
 msgid "Just because your site is in one language doesn&#8217;t mean that everybody helping manage it prefers that language for their admin. Add more languages to your site and a user language option will show up in your user&#8217;s profiles."
 msgstr "Solo porque tu sitio esté en  un idioma no implica que todo el que ayude a gestionarlo prefiera ese idioma para su administración. Añade más idiomas a tu sitio y se mostrará una opción de idioma de usuario en tus perfiles de usuario."
 
-#: wp-admin/about.php:159
+#: wp-admin/about.php:163
 msgid "Dashboard in your language"
 msgstr "El escritorio en tu idioma"
 
-#: wp-admin/about.php:156
+#: wp-admin/about.php:160
 msgid "Managing your document collection is easier with WordPress 4.7. Uploading PDFs will generate thumbnail images so you can more easily distinguish between all your documents."
 msgstr "Gestionar tu colección de documentos es más fácil con WordPress 4.7. La subida de PDF generará imágenes en miniatura para que puedas distinguir fácilmente entre todos tus documentos."
 
-#: wp-admin/about.php:154
+#: wp-admin/about.php:158
 msgid "PDF Thumbnail Previews"
 msgstr "Vistas previas de miniaturas de PDF"
 
-#: wp-admin/about.php:146
+#: wp-admin/about.php:150
 msgid "Sometimes you just need a few visual tweaks to make your site perfect. WordPress 4.7 allows you to add custom CSS and instantly see how your changes affect your site. The live preview allows you to work quickly without page refreshes slowing you down."
 msgstr "A veces sólo necesitas algunos pequeños ajustes visuales para hacer tu sitio perfecto. WordPress 4.7 te permite añadir CSS personalizado e, instantáneamente, ver cómo afectan tus cambios a tu sitio. La vista previa en directo te permite trabajar rápidamente sin refrescos de página que te ralenticen."
 
-#: wp-admin/about.php:141
+#: wp-admin/about.php:145
 msgid "Many menus for sites contain links to the pages of your site, but what happens when you don&#8217;t have any pages yet? Now you can add new pages while building menus instead of leaving the customizer and abandoning your changes. Once you&#8217;ve published your customizations, you&#8217;ll have new pages ready for you to fill with content."
 msgstr "Muchos menús para sitios contienen enlaces a las páginas de tu sitio, pero ¿qué pasa cuando aún no tienes ninguna página? Ahora puede añadir nuevas páginas mientras creas menús en vez de salir del personalizador y perder tus cambios. Una vez hayas publicado tus personalizaciones tendrás listas tus nuevas páginas para poder rellenarlas de contenido."
 
-#: wp-admin/about.php:139
+#: wp-admin/about.php:143
 msgid "Smoother Menu Building"
 msgstr "Construcción de menús más cómodo"
 
-#: wp-admin/about.php:133
+#: wp-admin/about.php:137
 msgid "Sometimes a big atmospheric video as a moving header image is just what you need to showcase your wares; go ahead and try it out with Twenty Seventeen. Need some video inspiration? Try searching for sites with video headers available for download and use."
 msgstr "A veces un gran video atmosférico, como una imagen de cabecera en movimiento, es justo lo que necesitas para mostrar sus mercancías; anímate y pruébalo con Twenty Seventeen. ¿Necesitas alguna inspiración en video? Busca sitios que tengan vídeos de cabecera disponibles para descargar y utilizar."
 
-#: wp-admin/about.php:123
+#: wp-admin/about.php:127
 msgid "Video Headers"
 msgstr "Cabeceras con vídeo"
 
-#: wp-admin/about.php:120
+#: wp-admin/about.php:124
 msgid "Visible icons appear to show you which parts of your site can be customized while live previewing. Click on a shortcut and get straight to editing. Paired with starter content, getting started with customizing your site is faster than ever."
 msgstr "Verás iconos visibles que muestran qué partes de tu sitio se pueden personalizar mientras haces la vista previa en directo. Haz clic en un acceso directo y v directamente a la edición. Si lo sumas al contenido de inicio, empezar a personalizar tu sitio nunca fue más rápido."
 
-#: wp-admin/about.php:110
+#: wp-admin/about.php:114
 msgid "Edit Shortcuts"
 msgstr "Atajos de edición"
 
-#: wp-admin/about.php:93
+#: wp-admin/about.php:97
 msgid "To help give you a solid base to build from, individual themes can provide starter content that appears when you go to customize your brand new site. This can range from placing a business information widget in the best location to providing a sample menu with social icon links to a static front page complete with beautiful images. Don&#8217;t worry - nothing new will appear on the live site until you&#8217;re ready to save and publish your initial theme setup."
 msgstr "Para ayudarte con una base sólida de la que partir, los temas pueden ofrecer contenido de inicio que se mostrará cuando personalices tu sitio recién creado. Puede ser desde un widget de información de negocios en la mejor ubicación posible a ofrecer un menú de muestra con enlaces e iconos sociales, o una página frontal estática completa con bonitas imágenes. No te preocupes - no aparecerá nada en el sitio real hasta que estés listo para guardar y publicar tu configuración inicial del tema."
 
-#: wp-admin/about.php:92
+#: wp-admin/about.php:96
 msgid "Theme Starter Content"
 msgstr "Contenido de inicio del sitio"
 
-#: wp-admin/about.php:87
+#: wp-admin/about.php:91
 msgid "WordPress 4.7 adds new features to the customizer to help take you through the initial setup of a theme, with non-destructive live previews of all your changes in one uninterrupted workflow."
 msgstr "WordPress 4.7 añade nuevas funcionalidades al personalizador para ayudarte con la instalación inicial de un tema, con vista previas no destructivas de todos tus cambios en un flujo de trabajo sin interrupción."
 
-#: wp-admin/about.php:86
+#: wp-admin/about.php:90
 msgid "Your Site, Your Way"
 msgstr "Tu sitio, tus reglas"
 
-#: wp-admin/about.php:80
+#: wp-admin/about.php:84
 msgid "Twenty Seventeen focuses on business sites and features a customizable front page with multiple sections. Personalize it with widgets, navigation, social menus, a logo, custom colors, and more. Our default theme for 2017 works great in many languages, on any device, and for a wide range of users."
 msgstr "Twenty Seventeen está orientado a sitios de negocio e incorpora una portada personalizable con varias secciones. Personalízalo con widgets, menús de navegación, menús sociales, un logotipo, colores personalizados y mucho más. Nuestro tema por defecto para 2017 funciona de maravilla en muchos idiomas, en cualquier dispositivo, y para una gran mayoría de usuarios."
 
-#: wp-admin/about.php:74
+#: wp-admin/about.php:78
 msgid "A brand new default theme brings your site to life with immersive featured images and video headers."
 msgstr "Un tema por defecto totalmente nuevo da vida a tu sitio mediante imágenes destacadas cautivadoras y cabeceras de vídeo. "
 
-#: wp-admin/about.php:73
+#: wp-admin/about.php:77
 msgid "Presenting Twenty Seventeen"
 msgstr "Presentando Twenty Seventeen"
 
 #. translators: %s: WordPress version number
-#: wp-admin/about.php:56 wp-admin/about.php:273
+#: wp-admin/about.php:60 wp-admin/about.php:277
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>La versión %s</strong> soluciona algunos problemas de seguridad."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:52 wp-admin/about.php:59 wp-admin/about.php:284
+#: wp-admin/about.php:48 wp-admin/about.php:56 wp-admin/about.php:63
+#: wp-admin/about.php:288
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "La <strong>versión %1$s</strong> soluciona algunos problemas de seguridad y soluciona %2$s fallo."
 msgstr[1] "La <strong>versión %1$s</strong> soluciona algunos problemas de seguridad y soluciona %2$s fallos."
 
 #. translators: %s: Codex URL
-#: wp-admin/about.php:50 wp-admin/about.php:54 wp-admin/about.php:57
-#: wp-admin/about.php:61 wp-admin/about.php:288
+#: wp-admin/about.php:50 wp-admin/about.php:54 wp-admin/about.php:58
+#: wp-admin/about.php:61 wp-admin/about.php:65 wp-admin/about.php:292
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Para más información, lee <a href=\"%s\">las notas de la versión</a>."
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
-#: wp-admin/about.php:48 wp-admin/about.php:276
+#: wp-admin/about.php:52 wp-admin/about.php:280
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Versión %1$s</strong> soluciona el fallo %2$s."
 msgstr[1] "<strong>Versión %1$s</strong> soluciona %2$s fallos."
 
-#: wp-admin/about.php:47 wp-admin/about.php:268
+#: wp-admin/about.php:47 wp-admin/about.php:272
 msgid "Maintenance and Security Releases"
 msgstr "Versiones de mantenimiento y seguridad"
 

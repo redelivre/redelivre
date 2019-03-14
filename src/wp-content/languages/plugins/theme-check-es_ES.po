@@ -1,0 +1,804 @@
+# Translation of Plugins - Theme Check - Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Theme Check - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-06-24 14:49:02+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Theme Check - Development (trunk)\n"
+
+#: checks/style_tags.php:55
+msgid "See Theme Tags"
+msgstr "Ver etiquetas del tema"
+
+#: checks/style_tags.php:55
+msgid "A maximum of 3 subject tags are allowed. The theme has %1$u subjects tags ( %2$s ). Please remove the subject tags, which do not directly apply to the theme."
+msgstr "Solo se permite un m&aacute;ximo de 3 subject tags. El tema tiene %1$u subjects tags ( %2$s ). Por favor, quita las subject tags que no sean estrictamente aplicables al tema."
+
+#: checks/style_tags.php:47
+msgid "The tag %s is being used more than once, please remove it from your style.css header."
+msgstr "Se ha usado la etiqueta %s m&aacute;s de una vez. Por favor, qu&iacute;tala de la cabecera de tu style.css."
+
+#: checks/navmenu.php:21
+msgid "Reference to %1$s was found in the theme. This should be removed and %2$s used instead."
+msgstr "Se ha encontrado una referencia a %1$s en el tema. Deber&iacute;a ser eliminada y usar %2$s en su lugar."
+
+#: checks/adminbar.php:32
+msgid "The theme is using `#wpadminbar`. Hiding the admin bar is not allowed."
+msgstr "El tema usa `#wpadminbar`. No se permite ocultar la barra de administraci&oacute;n."
+
+#: checks/title.php:35
+msgid "The theme must not call to <strong>wp_title()</strong>."
+msgstr "El tema no debe llamar a <strong>wp_title()</strong>."
+
+#: checks/title.php:28
+msgid "The theme must not used the <strong>&lt;title&gt;</strong> tags."
+msgstr "El tema no debe utilizar las etiquetas <strong>&lt;title&gt;</strong>."
+
+#: checks/title.php:20
+msgid "No reference to <strong>add_theme_support( \"title-tag\" )</strong> was found in the theme."
+msgstr "No se ha encontrado ninguna referencia a <strong>add_theme_support( \"title-tag\" )</strong> en el tema."
+
+#: checks/textdomain.php:143
+msgid "Warning"
+msgstr "ADVERTENCIA"
+
+#: checks/textdomain.php:137
+msgid "This theme's correct slug and text-domain is %s."
+msgstr "El slug y text-domain correcto del tema es %s."
+
+#: checks/textdomain.php:136
+msgid "This theme text domain does not match the theme's slug. The text domain used: %s"
+msgstr "El text-domain no coincide con el slug del tema. Se ha usado el text-domain: %s"
+
+#: checks/style_tags.php:33
+msgid "The tag %s has been deprecated, please remove it from your style.css header."
+msgstr "La etiqueta %s est&aacute; en desuso. Por favor, qu&iacute;tala de la cabecera de tu style.css."
+
+#: checks/style_tags.php:28
+msgid "See <a href=\"https://make.wordpress.org/themes/handbook/review/accessibility/\">https://make.wordpress.org/themes/handbook/review/accessibility/</a>"
+msgstr "Ver <a href=\"https://make.wordpress.org/themes/handbook/review/accessibility/\">https://make.wordpress.org/themes/handbook/review/accessibility/</a>"
+
+#: checks/style_tags.php:28
+msgid "Themes that use the tag accessibility-ready will need to undergo an accessibility review."
+msgstr "Los temas que usan la etiqueta accessibility-ready deben pasar una revisi&oacute;n de accesibilidad."
+
+#: checks/included-plugins.php:23
+msgid "<strong>Zip file found.</strong> Plugins are not allowed in themes. The zip file found was <em>%s</em>."
+msgstr "<strong>Se ha encontrado un archivo zip.</strong> No se permiten plugins dentro de los temas. El archivo zip encontrado ha sido <em>%s</em>."
+
+#: checks/included-plugins.php:15
+msgid "Zipped Plugin"
+msgstr "Plugin comprimido"
+
+#: checks/filenames.php:33
+msgid "Lubith theme generator file"
+msgstr "Archivo de Lubith theme generator"
+
+#: checks/favicon.php:17
+msgid "Possible Favicon found in %1$s. Favicons are handled by the Site Icon setting in the customizer since version 4.3."
+msgstr "Se ha encontrado un posible favicon en %1$s. Los favicon se gestionan desde el Personalizador desde la versi&oacute;n 4.3."
+
+#: checks/deregister.php:19
+msgid "Found wp_deregister_script in %1$s. Themes must not deregister core scripts."
+msgstr "Se ha encontrado un wp_deregister_script en %1$s. Los temas no deben deshabilitar los scripts del n&uacute;cleo."
+
+#: checks/adminbar.php:20
+msgid "You are not allowed to hide the admin bar."
+msgstr "No tienes permisos para deshabilitar la barra de administraci&oacute;n."
+
+#. Author of the plugin/theme
+msgid "Otto42, pross"
+msgstr "Otto42, pross"
+
+#: checks/textdomain.php:133
+msgid "(If this is a child theme, you can ignore this error.)"
+msgstr "(si este es un tema hijo, puedes ignorar este error)."
+
+#: main.php:82
+msgid " Running %1$s tests against %2$s using Guidelines Version: %3$s Plugin revision: %4$s"
+msgstr "Ejecutando %1$s pruebas contra %2$s usando la versi&oacute;n de gu&iacute;as de revisi&oacute;n: %3$s Revisi&oacute;n del plugin: %4$s"
+
+#: main.php:61
+msgid "This child theme requires at least version %1$s of theme %2$s to be installed. You only have %3$s please update the parent theme."
+msgstr "Este tema hijo requiere al menos la versi&oacute;n %1$s del tema %2$s para ser instalado. Tu tienes la %3$s. Por favor, actualiza el tema padre."
+
+#: checks/time_date.php:22
+msgid "At least one hard coded date was found in the file %1$s. Consider %2$s instead."
+msgstr "Se ha encontrado al menos una fecha predefinida en el archivo %1$s. Considera %2$s en su lugar."
+
+#: checks/textdomain.php:151
+msgid "The domain found is %s"
+msgstr "El text-domain encontrado es %s"
+
+#: checks/textdomain.php:146
+msgid "The domains found are %s"
+msgstr "Los text-domain encontrados son %s"
+
+#: checks/textdomain.php:109
+msgid "Found a translation function that is missing a text-domain. Function %1$s, with the arguments %2$s"
+msgstr "Se ha encontrado una funci&oacute;n de traducci&oacute;n sin text-domain. Funci&oacute;n %1$s, con argumentos %2$s."
+
+#: checks/textdomain.php:79
+msgid "Found a translation function that has an incorrect number of arguments. Function %1$s, with the arguments %2$s"
+msgstr "Se ha encontrado una funci&oacute;n de traducci&oacute;n con un n&uacute;mero de argumentos no v&aacute;lido. Funci&oacute;n %1$s, con argumentos %2$s."
+
+#: checks/style_tags.php:35
+msgid "Found wrong tag, remove %s from your style.css header."
+msgstr "Se ha encontrado una etiqueta incorrecta. Quita %s de la cabecera de tu style.css."
+
+#: checks/style_suggested.php:20
+msgid "%s is missing from your style.css header."
+msgstr "%s no se encuentra en la cabecera de tu style.css."
+
+#: checks/searchform.php:16
+msgid "%1$s %2$s%3$s"
+msgstr "%1$s %2$s%3$s"
+
+#: checks/post-formats.php:27
+msgid "%1$s was found in the file %2$s. However get_post_format and/or has_post_format were not found, and no use of formats in the CSS was detected."
+msgstr "Se ha encontrado %1$s en el archivo %2$s. Sin embargo, no se han encontrado get_post_format y/o has_post_format, y no se ha detectado el uso de formatos en las CSS."
+
+#: checks/phpshort.php:14
+msgid "Found PHP short tags in file %1$s.%2$s"
+msgstr "Se han encontrado etiquetas cortas PHP en el archivo %1$s.%2$s"
+
+#: checks/links.php:26
+msgid "Possible hard-coded links were found in the file %1$s.%2$s"
+msgstr "Se han encontrado posibles enlaces predefinidos en el archivo %1$s.%2$s"
+
+#: checks/include.php:19
+msgid "%1$s %2$s %3$s"
+msgstr "%1$s %2$s %3$s"
+
+#: checks/iframes.php:20 checks/malware.php:23
+msgid "%1$s was found in the file %2$s %3$s.%4$s"
+msgstr "Se ha encontrado %1$s en el archivo %2$s %3$s.%4$s"
+
+#: checks/i18n.php:53
+msgid "Possible variable %1$s found in translation function in %2$s. Translation function calls must NOT contain PHP variables. %3$s"
+msgstr "Se ha encontrado una posible variable %1$s en la funci&oacute;n de traducci&oacute;n en %2$s. Las llamadas a funciones de traducci&oacute;n NO deben contener variables PHP. %3$s"
+
+#: checks/filenames.php:58
+msgid "Could not find the file %1$s in the theme. %2$s"
+msgstr "No se podido encontrar el archivo %1$s en el tema. %2$s"
+
+#: checks/filenames.php:51
+msgid "Could not find the file %s in the theme."
+msgstr "No se podido encontrar el archivo %s en el tema."
+
+#: checks/filenames.php:44
+msgid "%1$s %2$s found."
+msgstr "%1$s %2$s encontrado."
+
+#: checks/constants.php:31 checks/more_deprecated.php:52
+msgid "%1$s was found in the file %2$s. Use %3$s instead.%4$s"
+msgstr "Se ha encontrado %1$s en el archivo %2$s. Usa %3$s en su lugar. %4$s"
+
+#: checks/basic.php:34
+msgid "Could not find %1$s. %2$s"
+msgstr "No se ha podido encontrar %1$s. %2$s"
+
+#: checks/badthings.php:29
+msgid "Found %1$s in the file %2$s. %3$s. %4$s"
+msgstr "Se ha encontrado %1$s en el archivo %2$s. %3$s. %4$s"
+
+#: theme-check.php:50
+msgctxt "title of the main page"
+msgid "Theme Check"
+msgstr "Theme Check"
+
+#: main.php:137
+msgid "The code for Theme Check can be contributed to on <a href=\"%s\">GitHub</a>."
+msgstr "Puedes contribuir al c&oacute;digo de Theme Check en <a href=\"%s\">GitHub</a>."
+
+#: main.php:136
+msgid "If you have found a bug or would like to make a suggestion or contribution, please leave a post on the <a href=\"%1$s\">WordPress forums</a>, or talk about it with the theme review team on <a href=\"%2$s\">Make WordPress Themes</a> site."
+msgstr "Si has encontrado un error o deseas hacer alguna sugerencia o contribuci&oacute;n, deja un mensaje en los <a href=\"%1$s\">foros de WordPress</a>, o contacta con el equipo de revisi&oacute;n de temas en el sitio de <a href=\"%2$s\">revisi&oacute;n de temas de WordPress</a>."
+
+#: checks/textdomain.php:149
+msgid "Only one text-domain is being used in this theme. Make sure it matches the theme's slug correctly so that the theme will be compatible with WordPress.org language packs."
+msgstr "Se ha encontrado un text-domain en el tema. Aseg&uacute;rate de que coincide con el slug del tema para que el tema sea compatible con los paquetes de idiomas de WordPress.org."
+
+#: checks/textdomain.php:144
+msgid "More than one text-domain is being used in this theme. This means the theme will not be compatible with WordPress.org language packs."
+msgstr "Se ha encontrado m&aacute;s de un text-domain en el tema. Por lo tanto, el tema no ser&aacute; compatible con los paquetes de idiomas de WordPress.org."
+
+#: checks/textdomain.php:132
+msgid "Your theme appears to be in the wrong directory for the theme name. The directory name must match the slug of the theme. This theme's correct slug and text-domain is %s."
+msgstr "Parece que el tema est&aacute; en la carpeta incorrecta seg&uacute;n el nombre del tema. El nombre de la carpeta debe coincidir con el slug del tema. El slug y el text-domain correcto de este tema es %s."
+
+#: checks/style_needed.php:26
+msgid "<strong>.screen-reader-text</strong> css class is needed in your theme css. See See: <a href=\"http://codex.wordpress.org/CSS#WordPress_Generated_Classes\">the Codex</a> for an example implementation."
+msgstr "Se necesita la clase CSS <strong>.screen-reader-text</strong> en tu theme css. Ver: <a href=\"http://codex.wordpress.org/CSS#WordPress_Generated_Classes\">Codex</a> para un ejemplo de implementaci&oacute;n."
+
+#: main.php:151
+msgid "Theme Unit Tests"
+msgstr "Pruebas Unitaria de Temas"
+
+#: main.php:172
+msgid "Suppress INFO."
+msgstr "Omitir INFO."
+
+#: main.php:171
+msgid "Output in Trac format."
+msgstr "Salida en formato Trac."
+
+#: main.php:170
+msgid "Check it!"
+msgstr "&iexcl;Comprobar!"
+
+#. Plugin Name of the plugin/theme
+msgid "Theme Check"
+msgstr "Theme Check"
+
+#: theme-check.php:40
+msgid "You do not have sufficient permissions to access this page."
+msgstr "No tienes permisos suficientes para acceder a esta p&aacute;gina."
+
+#. Plugin URI of the plugin/theme
+msgid "http://ottopress.com/wordpress-plugins/theme-check/"
+msgstr "http://ottopress.com/wordpress-plugins/theme-check/"
+
+#. Description of the plugin/theme
+msgid "A simple and easy way to test your theme for all the latest WordPress standards and practices. A great theme development tool!"
+msgstr "Una forma r&aacute;pida y sencilla de comprobar que tu tema cumple con los &uacute;ltimos est&aacute;ndares y buenas pr&aacute;cticas de WordPress. &iexcl;Una gran herramienta de desarrollo de temas!"
+
+#. Author URI of the plugin/theme
+msgid "http://ottopress.com"
+msgstr "http://ottopress.com"
+
+#: checkbase.php:94 checkbase.php:119
+msgid "Line "
+msgstr "L&iacute;nea "
+
+#: checkbase.php:263
+msgid "Anonymous"
+msgstr "An&oacute;nimo"
+
+#: checkbase.php:260
+msgid "Visit author homepage"
+msgstr "Visitar el sitio del autor"
+
+#: checks/admin_menu.php:13 checks/admin_menu.php:14
+msgid "User levels were deprecated in <strong>2.0</strong>. Please see <a href=\"https://codex.wordpress.org/Roles_and_Capabilities\">Roles_and_Capabilities</a>"
+msgstr "Los niveles de usuario est&aacute;n en desuso desde <strong>2.0</strong>. Ver: <a href=\"https://codex.wordpress.org/es:Roles_y_Capacidades\">Roles y capacidades</a>"
+
+#: checks/admin_menu.php:23 checks/adminbar.php:32 checks/badthings.php:29
+#: checks/deregister.php:19 checks/filenames.php:44 checks/filenames.php:51
+#: checks/generated.php:33 checks/lineendings.php:11 checks/lineendings.php:20
+#: checks/lineendings.php:31 checks/malware.php:23 checks/phpshort.php:14
+#: checks/plugin-territory.php:32 checks/screenshot.php:35
+#: checks/style_tags.php:33 checks/style_tags.php:35 checks/textdomain.php:77
+#: checks/textdomain.php:107 checks/textdomain.php:131 checks/worms.php:23
+#: main.php:95
+msgid "WARNING"
+msgstr "ADVERTENCIA"
+
+#. translators: 1: function found, 2: function to be used
+#: checks/admin_menu.php:49 checks/adminbar.php:20 checks/basic.php:34
+#: checks/comment_reply.php:15 checks/commpage.php:17 checks/constants.php:31
+#: checks/content-width.php:14 checks/customizer.php:26
+#: checks/customizer.php:31 checks/deprecated.php:296 checks/directories.php:27
+#: checks/gravatar.php:15 checks/included-plugins.php:23
+#: checks/more_deprecated.php:52 checks/navmenu.php:21
+#: checks/plugin-territory.php:24 checks/post-formats.php:27
+#: checks/postsnav.php:19 checks/searchform.php:16 checks/style_needed.php:32
+#: checks/style_tags.php:47 checks/style_tags.php:55 checks/tags.php:13
+#: checks/textdomain.php:135 checks/title.php:20 checks/title.php:28
+#: checks/title.php:35 checks/title.php:49 checks/widgets.php:21
+#: checks/widgets.php:26 checks/widgets.php:34
+msgid "REQUIRED"
+msgstr "OBLIGATORIO"
+
+#: checks/admin_menu.php:34
+msgid "Themes should use <strong>add_theme_page()</strong> for adding admin pages."
+msgstr "Los temas deben usar <strong>add_theme_page()</strong> para a&ntilde;adir p&aacute;ginas de administraci&oacute;n."
+
+#: checks/badthings.php:9
+msgid "eval() is not allowed."
+msgstr "No se permite eval()"
+
+#: checks/generated.php:33
+msgid "This theme appears to have been auto-generated. Generated themes are not allowed in the themes directory."
+msgstr "Parece que este tema ha sido generado autom&aacute;ticamente. No se permiten temas generados en el directorio de temas."
+
+#: checks/badthings.php:12
+msgid "base64_decode() is not allowed"
+msgstr "No se permite base64_decode()"
+
+#: checks/badthings.php:11
+msgid "Themes should not change server PHP settings"
+msgstr "Los temas no deben cambiar los ajustes del servidor PHP"
+
+#: checks/badthings.php:10
+msgid "PHP system calls are often disabled by server admins and should not be in themes"
+msgstr "Las llamadas al sistema PHP suelen estar deshabilitadas por los administradores de los servidores y no se deber&iacute;an usaren los temas"
+
+#: checks/badthings.php:16 checks/badthings.php:37
+msgid "Google search code detected"
+msgstr "Se ha detectado c&oacute;digo de rastreo de Google"
+
+#: checks/badthings.php:15
+msgid "str_rot13() is not allowed"
+msgstr "No se permite str_rot13()"
+
+#: checks/badthings.php:14
+msgid "uudecode() is not allowed"
+msgstr "No se permite uudecode()"
+
+#: checks/badthings.php:13
+msgid "base64_encode() is not allowed"
+msgstr "No se permite base64_encode()"
+
+#: checks/badthings.php:17 checks/badthings.php:38
+msgid "Google advertising code detected"
+msgstr "Se ha detectado c&oacute;digo de publicidad de Google"
+
+#: checks/badthings.php:48
+msgid "<span class=\"tc-lead tc-warning\">WARNING</span>: Found <strong>%1$s</strong> in the file <strong>%2$s</strong>. %3$s.%4$s"
+msgstr "<span class=\"tc-lead tc-warning\">ADVERTENCIA</span>: Se ha encontrado <strong>%1$s</strong> en el archivo <strong>%2$s</strong>. %3$s.%4$s"
+
+#: checks/basic.php:14
+msgid "See: <a href=\"https://codex.wordpress.org/HTML_to_XHTML\">https://codex.wordpress.org/HTML_to_XHTML</a><pre>&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"<br />\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/HTML_to_XHTML\">https://codex.wordpress.org/HTML_to_XHTML</a><pre>&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"<br />\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"?&gt;</pre>"
+
+#: checks/basic.php:15
+msgid "See: <a href=\"https://codex.wordpress.org/Function_Reference/wp_footer\">wp_footer</a><pre> &lt;?php wp_footer(); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Function_Reference/wp_footer\">wp_footer</a><pre> &lt;?php wp_footer(); ?&gt;</pre>"
+
+#: checks/basic.php:17
+msgid "See: <a href=\"https://codex.wordpress.org/Function_Reference/language_attributes\">language_attributes</a><pre>&lt;html &lt;?php language_attributes(); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Function_Reference/language_attributes\">language_attributes</a><pre>&lt;html &lt;?php language_attributes(); ?&gt;</pre>"
+
+#: checks/basic.php:16
+msgid "See: <a href=\"https://codex.wordpress.org/Function_Reference/wp_head\">wp_head</a><pre> &lt;?php wp_head(); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Function_Reference/wp_head\">wp_head</a><pre> &lt;?php wp_head(); ?&gt;</pre>"
+
+#: checks/basic.php:18
+msgid "There must be a charset defined in the Content-Type or the meta charset tag in the head."
+msgstr "Debes definir un charset en el Content-Type o usar la etiqueta 'meta charset' en la cabecera."
+
+#: checks/basic.php:20
+msgid "See: <a href=\"https://codex.wordpress.org/Template_Tags/comments_template\">comments_template</a><pre> &lt;?php comments_template( $file, $separate_comments ); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Template_Tags/comments_template\">comments_template</a><pre> &lt;?php comments_template( $file, $separate_comments ); ?&gt;</pre>"
+
+#: checks/basic.php:19
+msgid "See: <a href=\"https://codex.wordpress.org/Function_Reference/add_theme_support\">add_theme_support</a><pre> &lt;?php add_theme_support( $feature ); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Function_Reference/add_theme_support\">add_theme_support</a><pre> &lt;?php add_theme_support( $feature ); ?&gt;</pre>"
+
+#: checks/basic.php:21
+msgid "See: <a href=\"https://codex.wordpress.org/Template_Tags/wp_list_comments\">wp_list_comments</a><pre> &lt;?php wp_list_comments( $args ); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Template_Tags/wp_list_comments\">wp_list_comments</a><pre> &lt;?php wp_list_comments( $args ); ?&gt;</pre>"
+
+#: checks/basic.php:22
+msgid "See: <a href=\"https://codex.wordpress.org/Template_Tags/comment_form\">comment_form</a><pre> &lt;?php comment_form(); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Template_Tags/comment_form\">comment_form</a><pre> &lt;?php comment_form(); ?&gt;</pre>"
+
+#: checks/basic.php:24
+msgid "See: <a href=\"https://codex.wordpress.org/Function_Reference/wp_link_pages\">wp_link_pages</a><pre> &lt;?php wp_link_pages( $args ); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Function_Reference/wp_link_pages\">wp_link_pages</a><pre> &lt;?php wp_link_pages( $args ); ?&gt;</pre>"
+
+#: checks/basic.php:23
+msgid "See: <a href=\"https://codex.wordpress.org/Template_Tags/body_class\">body_class</a><pre> &lt;?php body_class( $class ); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Template_Tags/body_class\">body_class</a><pre> &lt;?php body_class( $class ); ?&gt;</pre>"
+
+#: checks/basic.php:25
+msgid "See: <a href=\"https://codex.wordpress.org/Template_Tags/post_class\">post_class</a><pre> &lt;div id=\"post-&lt;?php the_ID(); ?&gt;\" &lt;?php post_class(); ?&gt;&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Template_Tags/post_class\">post_class</a><pre> &lt;div id=\"post-&lt;?php the_ID(); ?&gt;\" &lt;?php post_class(); ?&gt;&gt;</pre>"
+
+#: checks/basic.php:31
+msgid "add_theme_support( 'automatic-feed-links' )"
+msgstr "add_theme_support( 'automatic-feed-links' )"
+
+#: checks/basic.php:32
+msgid "body_class call in body tag"
+msgstr "Llamada a body_class en el cuerpo de la etiqueta."
+
+#: checks/cdn.php:34 checks/customs.php:14 checks/customs.php:18
+#: checks/dep_recommend.php:58 checks/editorstyle.php:13
+#: checks/filenames.php:58 checks/i18n.php:53 checks/navmenu.php:14
+#: checks/postthumb.php:15 checks/postthumb.php:19 checks/screenshot.php:24
+#: checks/screenshot.php:27 checks/screenshot.php:30
+#: checks/style_suggested.php:20 checks/style_tags.php:16 checks/widgets.php:16
+msgid "RECOMMENDED"
+msgstr "RECOMENDADO"
+
+#: checks/cdn.php:34
+msgid "Found the URL of a CDN in the code: %s. You should not load CSS or Javascript resources from a CDN, please bundle them with the theme."
+msgstr "Se ha encontrado una URL de un CDN en el c&oacute;digo: %s. No se debe cargar recursos de CSS o Javascript desde un CDN, por favor, a&ntilde;adelos al tema."
+
+#: checks/comment_reply.php:14
+msgid "See: <a href=\"https://codex.wordpress.org/Migrating_Plugins_and_Themes_to_2.7/Enhanced_Comment_Display\">Migrating Plugins and Themes to 2.7/Enhanced Comment Display</a><pre> &lt;?php if ( is_singular() ) wp_enqueue_script( \"comment-reply\" ); ?&gt;</pre>"
+msgstr "Ver: <a href=\"https://codex.wordpress.org/Migrating_Plugins_and_Themes_to_2.7/Enhanced_Comment_Display\">Migraci&oacute;n de plugins y temas a 2.7/Visualizaci&oacute;n de comentarios mejorada</a><pre> &lt;?php if ( is_singular() ) wp_enqueue_script( \"comment-reply\" ); ?&gt;</pre>"
+
+#: checks/comment_reply.php:18 checks/favicon.php:17 checks/iframes.php:20
+#: checks/include.php:19 checks/links.php:26 checks/nonprintable.php:16
+#: checks/style_tags.php:28 checks/textdomain.php:148 checks/time_date.php:22
+msgid "INFO"
+msgstr "INFO"
+
+#: checks/comment_reply.php:15
+msgid "Could not find the <strong>comment-reply</strong> script enqueued. %1$s"
+msgstr "No se ha podido encontrar el script <strong>comment-reply</strong> en la cola. %1$s"
+
+#: checks/comment_reply.php:18
+msgid "Could not find the <strong>comment-reply</strong> script enqueued, however a reference to 'comment-reply' was found. Make sure that the comment-reply script is being enqueued properly on singular pages."
+msgstr "No se ha podido encontrar el script <strong>comment-reply</strong> en la cola. Sin embargo, se ha encontrado una referencia a 'comment-reply'. Aseg&uacute;rate de que el script comment-reply est&aacute; siendo cargado."
+
+#: checks/commpage.php:17
+msgid "The theme doesn't have comment pagination code in it. Use <strong>paginate_comments_links()</strong> or <strong>the_comments_navigation</strong> or <strong>the_comments_pagination</strong> or <strong>next_comments_link()</strong> and <strong>previous_comments_link()</strong> to add comment pagination."
+msgstr "El tema no tiene c&oacute;digo de paginaci&oacute;n de los comentarios. Usa <strong>paginate_comments_links()</strong> o <strong>the_comments_navigation</strong> o <strong>the_comments_pagination</strong> o <strong>next_comments_link()</strong> y <strong>previous_comments_link()</strong> para a&ntilde;adir esta funci&oacute;n."
+
+#: checks/content-width.php:14
+msgid "No content width has been defined. Example: <pre>if ( ! isset( $content_width ) ) $content_width = 900;</pre>"
+msgstr "No se ha definido un ancho para el contenido. Ej.: <pre>if ( ! isset( $content_width ) ) $content_width = 900;</pre>"
+
+#: checks/customizer.php:26
+msgid "Found a Customizer setting that did not have a sanitization callback function. Every call to the <strong>add_setting()</strong> method needs to have a sanitization callback function passed."
+msgstr "Se ha encontrado una configuraci&oacute;n del Personalizador que no ten&iacute;a una funci&oacute;n de retorno de saneamiento. Cada llamada al m&eacute;todo <strong>add_setting()</strong> debe tener una funci&oacute;n de retorno de saneamiento."
+
+#: checks/customizer.php:31
+msgid "Found a Customizer setting that had an empty value passed as sanitization callback. You need to pass a function name as sanitization callback."
+msgstr "Se ha encontrado una configuraci&oacute;n del Personalizador que ten&iacute;a un valor vac&iacute;o pasado como sanitization callback. Debes pasar el nombre de funci&oacute;n como sanitization callback."
+
+#: checks/customs.php:14
+msgid "No reference to <strong>add_theme_support( \"custom-header\", $args )</strong> was found in the theme. It is recommended that the theme implement this functionality if using an image for the header."
+msgstr "No se ha encontrado ninguna referencia a <strong>add_theme_support( \"custom-header\", $args )</strong> en el tema. Se recomienda que el tema tenga esta funcionalidad si se usa una imagen en la cabecera."
+
+#: checks/customs.php:18
+msgid "No reference to <strong>add_theme_support( \"custom-background\", $args )</strong> was found in the theme. If the theme uses background images or solid colors for the background, then it is recommended that the theme implement this functionality."
+msgstr "No se ha encontrado ninguna referencia a <strong>add_theme_support( \"custom-background\", $args )</strong> en el tema. Se recomienda que el tema tenga esta funcionalidad si se usan im&aacute;genes o colores s&oacute;lidos como fondo."
+
+#: checks/dep_recommend.php:51 checks/deprecated.php:289
+msgid "Use %s instead."
+msgstr "Utiliza %s en su lugar."
+
+#: checks/dep_recommend.php:43 checks/deprecated.php:281
+msgid "%1$s found in the file %2$s. Deprecated since version %3$s."
+msgstr "Se ha encontrado %1$s en el archivo %2$s. En desuso desde la versi&oacute;n %3$s."
+
+#: checks/directories.php:27
+msgid "Please remove any extraneous directories like .git or .svn from the ZIP file before uploading it."
+msgstr "Por favor, elimina cualquier directorio extra&ntilde;o como .git o .svn del archivo ZIP antes de subirlo."
+
+#: checks/editorstyle.php:13
+msgid "No reference to <strong>add_editor_style()</strong> was found in the theme. It is recommended that the theme implement editor styling, so as to make the editor content match the resulting post output in the theme, for a better user experience."
+msgstr "No se ha encontrado ninguna referencia a <strong>add_theme_support( \"custom-background\", $args )</strong> en el tema. Para una mejor experiencia del usuario, se recomienda que el tema tenga un editor de estilo, para hacer que el contenido del editor coincida con el contenido resultante en el tema."
+
+#: checks/filenames.php:21
+msgid "Windows thumbnail store"
+msgstr "Almacenamiento de miniaturas de Windows"
+
+#: checks/filenames.php:23 checks/filenames.php:24
+msgid "NetBeans Project File"
+msgstr "Archivo de proyecto NetBeans"
+
+#: checks/filenames.php:22
+msgid "windows system file"
+msgstr "Archivo del sistema Windows"
+
+#: checks/filenames.php:27
+msgid "PHP server settings file"
+msgstr "Archivo de ajustes de servidor PHP"
+
+#: checks/filenames.php:26
+msgid "Hidden Files or Folders"
+msgstr "Carpetas o archivos ocultos"
+
+#: checks/filenames.php:25
+msgid "Komodo Project File"
+msgstr "Archivo de proyecto Komodo"
+
+#: checks/filenames.php:30
+msgid "Server settings file"
+msgstr "Archivo de ajustes de servidor"
+
+#: checks/filenames.php:29
+msgid "PHP error log"
+msgstr "Log de errores PHP"
+
+#: checks/filenames.php:28
+msgid "Dreamweaver project file"
+msgstr "Archivo de proyecto Dreamweaver"
+
+#: checks/filenames.php:31
+msgid "SQL dump file"
+msgstr "Archivo de volcado SQL"
+
+#: checks/filenames.php:32
+msgid "OSX system file"
+msgstr "Archivo del sistema OSX"
+
+#: checks/filenames.php:37
+msgid "Please see <a href=\"https://codex.wordpress.org/Theme_Review#Theme_Documentation\">Theme_Documentation</a> for more information."
+msgstr "Por favor, mira la <a href=\"https://codex.wordpress.org/Theme_Review#Theme_Documentation\">documentaci&oacute;n de los temas</a> para m&aacute;s informaci&oacute;n."
+
+#: checks/gravatar.php:15
+msgid "This theme doesn't seem to support the standard avatar functions. Use <strong>get_avatar</strong> or <strong>wp_list_comments</strong> to add this support."
+msgstr "Parece que este tema no es compatible con las funciones de avatares est&aacute;ndar. Usa <strong>get_avatar</strong> o <strong>wp_list_comments</strong> para hacerlo compatible."
+
+#: checks/iframes.php:9
+msgid "iframes are sometimes used to load unwanted adverts and code on your site"
+msgstr "Los iframes suelen ser utilizados para cargar anuncios y c&oacute;digo no deseado en tu sitio"
+
+#: checks/include.php:10
+msgid "The theme appears to use include or require. If these are being used to include separate sections of a template from independent files, then <strong>get_template_part()</strong> should be used instead."
+msgstr "Parece que este tema usa include o require. Si se usan para incluir secciones separadas de una plantilla de archivos independientes, entonces se debe usar <strong>get_template_part()</strong>."
+
+#: checks/lineendings.php:11 checks/lineendings.php:20
+#: checks/lineendings.php:31
+msgid "Both DOS and UNIX style line endings were found in the file %1$s. This causes a problem with SVN repositories and must be corrected before the theme can be accepted. Please change the file to use only one style of line endings."
+msgstr "Se han encontrado terminaciones de l&iacute;nea DOS y UNIX en el archivo%1$s. Esto puede causar problemas con los repositorios SVN y debe corregirse antes de que el tema pueda ser aceptado. Cambia el archivo para usar solo un estilo de terminaciones de l&iacute;nea."
+
+#: checks/navmenu.php:14
+msgid "No reference to nav_menu's was found in the theme. Note that if your theme has a menu bar, it is required to use the WordPress nav_menu functionality for it."
+msgstr "No se ha encontrado ninguna referencia a nav_menu en el tema. Ten en cuenta que si tu tema tiene una barra de men&uacute;, es necesario usar la funcionalidad nav_menu de WordPress."
+
+#: checks/malware.php:9
+msgid "File operations should use the WP_Filesystem methods instead of direct PHP filesystem calls"
+msgstr "Las operaciones de archivos deben usar los m&eacute;todos WP_Filesystem en lugar de las llamadas directas al sistema de archivos PHP"
+
+#: checks/nonprintable.php:16
+msgid "Non-printable characters were found in the %1$s file. You may want to check this file for errors.%2$s"
+msgstr "Se han encontrado caracteres no imprimibles en el archivo %1$s. Es posible que desees comprobar este archivo en busca de errores.%2$s"
+
+#: checks/plugin-territory.php:24
+msgid "The theme uses the %s function, which is plugin-territory functionality."
+msgstr "El tema usa la funci&oacute;n %s, que es una funcionalidad propia de plugins."
+
+#: checks/plugin-territory.php:32
+msgid "The theme uses the %s function. Custom post-content shortcodes are plugin-territory functionality."
+msgstr "El tema usa la funci&oacute;n %s. Los shortcodes personalizados para el contenido de las publicaciones es una funcionalidad propia de plugins."
+
+#: checks/postsnav.php:19
+msgid "The theme doesn't have post pagination code in it. Use <strong>posts_nav_link()</strong> or <strong>paginate_links()</strong> or <strong>the_posts_pagination()</strong> or <strong>the_posts_navigation()</strong> or <strong>next_posts_link()</strong> and <strong>previous_posts_link()</strong> to add post pagination."
+msgstr "El tema no tiene c&oacute;digo de paginaci&oacute;n del contenido. Usa <strong>posts_nav_link()</strong> o <strong>paginate_links()</strong> o <strong>the_posts_pagination()</strong> o <strong>the_posts_navigation()</strong> o <strong>next_posts_link()</strong> y <strong>previous_posts_link()</strong> para a&ntilde;adir esta funci&oacute;n."
+
+#: checks/postthumb.php:15
+msgid "No reference to <strong>the_post_thumbnail()</strong> was found in the theme. It is recommended that the theme implement this functionality instead of using custom fields for thumbnails."
+msgstr "No se ha encontrado ninguna referencia a <strong>the_post_thumbnail()</strong> en el tema. Se recomienda que el tema tenga esta funcionalidad en lugar de usar campos personalizados para miniaturas."
+
+#: checks/screenshot.php:24
+msgid "Screenshot is wrong size! Detected: %1$sx%2$spx. Maximum allowed size is 1200x900px."
+msgstr "&iexcl;La captura de pantalla del tema tiene un tama&ntilde;o no v&aacute;lido! Se ha detectado: %1$sx%2$spx. El m&aacute;ximo permitido es 1200x900px."
+
+#: checks/postthumb.php:19
+msgid "No reference to post-thumbnails was found in the theme. If the theme has a thumbnail like functionality, it should be implemented with <strong>add_theme_support( \"post-thumbnails\" )</strong>in the functions.php file."
+msgstr "No se ha encontrado ninguna referencia a post-thumbnails en el tema. Si el tema tiene una funcionalidad de tipo miniatura, debe implementarse con <strong>add_theme_support( \"post-thumbnails\" )</strong> en el archivo functions.php."
+
+#: checks/screenshot.php:27
+msgid "Screenshot dimensions are wrong! Ratio of width to height should be 4:3."
+msgstr "&iexcl;La captura de pantalla del tema tiene un tama&ntilde;o no v&aacute;lido! El ratio del ancho por el alto debe ser 4:3."
+
+#: checks/screenshot.php:30
+msgid "Screenshot size should be 1200x900, to account for HiDPI displays. Any 4:3 image size is acceptable, but 1200x900 is preferred."
+msgstr "El tama&ntilde;o de la captura de pantalla del tema debe ser de 1200x900, para considerar los dispositivos HiDPI. Cualquier tama&ntilde;ode imagen 4:3 es aceptable, pero es preferible 1200x900."
+
+#: checks/style_needed.php:11
+msgid "<strong>Theme name:</strong> is missing from your style.css header."
+msgstr "<strong>Theme name:</strong> no se encuentra en la cabecera de tu style.css."
+
+#: checks/searchform.php:9
+msgid "Please use <strong>get_search_form()</strong> instead of including searchform.php directly."
+msgstr "Por favor, usa<strong>get_search_form()</strong> en lugar de incluir directamente searchform.php."
+
+#: checks/screenshot.php:35
+msgid "No screenshot detected! Please include a screenshot.png or screenshot.jpg."
+msgstr "&iexcl;No se ha detectado ninguna captura de pantalla del tema! Por favor, incluye un archivo screenshot.png o screenshot.jpg."
+
+#: checks/style_needed.php:12
+msgid "<strong>Description:</strong> is missing from your style.css header."
+msgstr "<strong>Description:</strong> no se encuentra en la cabecera de tu style.css."
+
+#: checks/style_needed.php:15
+msgid "<strong>License:</strong> is missing from your style.css header."
+msgstr "<strong>License:</strong> no se encuentra en la cabecera de tu style.css."
+
+#: checks/style_needed.php:14
+msgid "<strong>Version:</strong> is missing from your style.css header."
+msgstr "<strong>Version:</strong> no se encuentra en la cabecera de tu style.css."
+
+#: checks/style_needed.php:13
+msgid "<strong>Author:</strong> is missing from your style.css header."
+msgstr "<strong>Author:</strong> no se encuentra en la cabecera de tu style.css."
+
+#: checks/style_needed.php:18
+msgid "<strong>.sticky</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.sticky</strong> en tu theme css."
+
+#: checks/style_needed.php:19
+msgid "<strong>.bypostauthor</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.bypostauthor</strong> en tu theme css."
+
+#: checks/style_needed.php:16
+msgid "<strong>License URI:</strong> is missing from your style.css header."
+msgstr "<strong>License URI:</strong> no se encuentra en la cabecera de tu style.css."
+
+#: checks/style_needed.php:21
+msgid "<strong>.alignright</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.alignright</strong> en tu theme css."
+
+#: checks/style_needed.php:20
+msgid "<strong>.alignleft</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.alignleft</strong> en tu theme css."
+
+#: checks/style_needed.php:23
+msgid "<strong>.wp-caption</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.wp-caption</strong> en tu theme css."
+
+#: checks/style_needed.php:22
+msgid "<strong>.aligncenter</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.aligncenter</strong> en tu theme css."
+
+#: checks/style_needed.php:24
+msgid "<strong>.wp-caption-text</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.wp-caption-text</strong> en tu theme css."
+
+#: checks/style_needed.php:25
+msgid "<strong>.gallery-caption</strong> css class is needed in your theme css."
+msgstr "Se necesita la clase CSS <strong>.gallery-caption</strong> en tu theme css."
+
+#: checks/style_tags.php:16
+msgid "<strong>Tags:</strong> is either empty or missing in style.css header."
+msgstr "<strong>Tags:</strong> no se encuentra o est&aacute; vac&iacuteo; en la cabecera de tu style.css."
+
+#: checks/style_needed.php:17
+msgid "<strong>Text Domain:</strong> is missing from your style.css header."
+msgstr "<strong>Text Domain:</strong> no se encuentra en la cabecera de tu style.css."
+
+#: checks/tags.php:13
+msgid "This theme doesn't seem to display tags. Modify it to display tags in appropriate locations."
+msgstr "Parece que este tema no muestra etiquetas. Modif&iacute;qualo para que muestre las etiquetas en las ubicaciones apropiadas."
+
+#: checks/title.php:49
+msgid "The <strong>&lt;title&gt;</strong> tags can only contain a call to <strong>wp_title()</strong>. Use the  <strong>wp_title filter</strong> to modify the output"
+msgstr "La etiqueta<strong>&lt;title&gt;</strong> solo puede contener una llamada a <strong>wp_title()</strong>. Usa el filtro<strong>wp_title</strong> para modificar la salida"
+
+#: checks/widgets.php:16
+msgid "This theme contains no sidebars/widget areas. See <a href='https://codex.wordpress.org/Widgets_API'>Widgets API</a>"
+msgstr "Este tema no contiene barras laterales/&aacute;reas de widgets. Ver: <a href='https://codex.wordpress.org/es:API_de_Widget'>Widgets API</a>"
+
+#: checks/widgets.php:21
+msgid "The theme appears to use <strong>register_sidebar()</strong> but no <strong>dynamic_sidebar()</strong> was found. See: <a href='https://codex.wordpress.org/Function_Reference/dynamic_sidebar'>dynamic_sidebar</a><pre> &lt;?php dynamic_sidebar( $index ); ?&gt;</pre>"
+msgstr "Parece que este tema usa <strong>register_sidebar()</strong>, pero no se ha encontrado <strong>dynamic_sidebar()</strong>. Ver: <a href='https://codex.wordpress.org/Function_Reference/dynamic_sidebar'>dynamic_sidebar</a><pre> &lt;?php dynamic_sidebar( $index ); ?&gt;</pre>"
+
+#: checks/widgets.php:26
+msgid "The theme appears to use <strong>dynamic_sidebars()</strong> but no <strong>register_sidebar()</strong> was found. See: <a href='https://codex.wordpress.org/Function_Reference/register_sidebar'>register_sidebar</a><pre> &lt;?php register_sidebar( $args ); ?&gt;</pre>"
+msgstr "Parece que este tema usa <strong>dynamic_sidebar()</strong>, pero no se ha encontrado <strong>register_sidebar()</strong>. Ver: <a href='https://codex.wordpress.org/Function_Reference/register_sidebar'>register_sidebar</a><pre> &lt;?php register_sidebar( $args ); ?&gt;</pre>"
+
+#: checks/widgets.php:34
+msgid "Sidebars need to be registered in a custom function hooked to the <strong>widgets_init</strong> action. See: %s."
+msgstr "Las barras laterales deben ser registradas en una funci&oacute;n personalizada asociada a la acci&oacute;n <strong>widgets_init</strong>. Ver: %s."
+
+#: checks/worms.php:9
+msgid "This may be a script used by hackers to get control of your server!"
+msgstr "&iexcl;Este podr&iacute;a ser un c&oacute;digo usado por hackers para hacerse con el control de tu servidor!"
+
+#: checks/worms.php:10
+msgid "This may be a script used by hackers to get control of your server"
+msgstr "&iexcl;Este podr&iacute;a ser un c&oacute;digo usado por hackers para hacerse con el control de tu servidor!"
+
+#: checks/worms.php:11
+msgid "Tells a hacker what operating system your server is running"
+msgstr "Indica al hacker qu&acute; sistema operativo usa tu servidor"
+
+#: checks/worms.php:12 checks/worms.php:13
+msgid "Symptom of the \"Pharma Hack\" <a href=\"http://blog.sucuri.net/2010/07/understanding-and-cleaning-the-pharma-hack-on-wordpress.html\">[1]</a>"
+msgstr "S&iacute;ntoma de \"Pharma Hack\" <a href=\"http://blog.sucuri.net/2010/07/understanding-and-cleaning-the-pharma-hack-on-wordpress.html\">[1]</a>"
+
+#: main.php:12
+msgid "Parent theme %1$s not found! You have to have parent AND child-theme installed!"
+msgstr "&iexcl;No se ha encontrado el tema padre %1$s! &iexcl;DEBES un tema padre y un tema hijo instalados!"
+
+#: main.php:50
+msgid "Author"
+msgstr "Autor"
+
+#: main.php:49
+msgid "Version"
+msgstr "Versi&oacute;n"
+
+#: main.php:48
+msgid "Title"
+msgstr "T&iacute;tulo"
+
+#: main.php:40
+msgid "Theme Info"
+msgstr "Informaci&oacute;n del tema"
+
+#: main.php:52
+msgid "Theme URI"
+msgstr "URI del tema"
+
+#: main.php:51
+msgid "Author URI"
+msgstr "URI del autor"
+
+#: main.php:56
+msgid "Description"
+msgstr "Descripci&oacute;n"
+
+#: main.php:55
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: main.php:54
+msgid "License URI"
+msgstr "URI de la licencia"
+
+#: main.php:53
+msgid "License"
+msgstr "Licencia"
+
+#: main.php:68
+msgid "This is a child theme. The parent theme is: %s. These files have been included automatically!"
+msgstr "Es un tema hijo de %s. &iexcl;Se han incluido autom&aacute;ticamente las archivos del tema padre!"
+
+#: main.php:72
+msgid "Child theme does not have the <strong>Template Version</strong> tag in style.css."
+msgstr "El tema hijo no tiene la etiqueta <strong>Template Version</strong> en style.css."
+
+#: main.php:74
+msgid "Child theme is only tested up to version %1$s of %2$s breakage may occur! %3$s installed version is %4$s"
+msgstr "El tema hijo solo se ha probado hasta la versi&oacute;n %1$s de %2$s. &iexcl;Pueden ocurrir errores! %3$s La versi&oacute;n instalada es %4$s"
+
+#: main.php:90
+msgid "One or more errors were found for %1$s."
+msgstr "Se han encontrado uno a m&aacute;s errores en %1$s:"
+
+#: main.php:95
+msgid "<strong>WP_DEBUG is not enabled!</strong> Please test your theme with <a href=\"https://codex.wordpress.org/Editing_wp-config.php\">debug enabled</a> before you upload!"
+msgstr "<strong>&iexcl;WP_DEBUG no esta habilitado!</strong> &iexcl;Por favor, comprueba tu tema <a href=\"https://codex.wordpress.org/Editing_wp-config.php\">habilitando la depuraci&oacute;n</a> antes de subirlo!"
+
+#: main.php:92
+msgid "%1$s passed the tests"
+msgstr "%1$s ha pasado las pruebas"
+
+#: main.php:130
+msgid "The Theme Check plugin is an easy way to test your theme and make sure it's up to date with the latest theme review standards. With it, you can run all the same automated testing tools on your theme that WordPress.org uses for theme submissions."
+msgstr "El plugin Theme Check es una manera sencilla de probar tu tema y asegurarte de que cumple con los &uacute;ltimos est&aacute;ndares de revisi&oacute;n de temas. Te permite ejecutar las mismas pruebas automatizadas que se usan para la comprobaci&oacute;n de los temas enviados al directorio de WordPress.org."
+
+#: main.php:129
+msgid "About"
+msgstr "Acerca de"
+
+#: main.php:131
+msgid "Contact"
+msgstr "Contacto"
+
+#: main.php:132
+msgid "Theme Check is maintained by %1$s and %2$s."
+msgstr "Theme Check es mantenido por %1$s y %2$s."
+
+#: main.php:149
+msgid "Theme Development"
+msgstr "Desarrollo de temas"
+
+#: main.php:147
+msgid "Codex Links"
+msgstr "Enlaces del Codex"
+
+#: main.php:150
+msgid "Themes and Templates forum"
+msgstr "Foro de temas y plantillas"
+
+#: main.php:146
+msgid "Make sure to review the guidelines at <a href=\"https://codex.wordpress.org/Theme_Review\">Theme Review</a> before uploading a Theme."
+msgstr "Aseg&uacute;rate de comprobar las gu&iacute;as de <a href=\"https://codex.wordpress.org/Theme_Review\">revisi&oacute;n de temas</a> antes de subir un tema."
+
+#: main.php:145
+msgid "Now your theme has passed the basic tests you need to check it properly using the test data before you upload to the WordPress Themes Directory."
+msgstr "Ahora que tu tema ha pasado las pruebas b&aacute;sicas, hay que hacer una comprobaci&oacute;n con datos de prueba antes de subirlo al Directorio de temas de WordPress."
+
+#: main.php:139
+msgid "The WordPress Theme Review Team"
+msgstr "El equipo de revisi&oacute;n de temas de WordPress"
+
+#: main.php:138
+msgid "Testers"
+msgstr "Probado por"
