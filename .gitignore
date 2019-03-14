@@ -30,3 +30,5 @@ src/wp-content/plugins/debug-bar-console
 *.sublime-workspace
 
 .wp_env
+*.local
+volumes/
