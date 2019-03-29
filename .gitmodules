@@ -169,9 +169,6 @@
 [submodule "src/wp-content/themes/wp-divi-delibera"]
 	path = src/wp-content/themes/wp-divi-delibera
 	url = https://github.com/redelivre/wp-divi-delibera.git
-[submodule "src/wp-content/plugins/rest-api-enabler"]
-	path = src/wp-content/plugins/rest-api-enabler
-	url = https://github.com/MickeyKay/rest-api-enabler.git
 [submodule "src/wp-content/plugins/custom-post-type-ui"]
 	path = src/wp-content/plugins/custom-post-type-ui
 	url = https://github.com/WebDevStudios/custom-post-type-ui.git
@@ -218,9 +215,6 @@
 	path = src/wp-content/themes/aspta_sage
 	url = https://github.com/redelivre/aspta_sage
 	branch = master
-[submodule "src/wp-content/plugins/rest-api-oauth1"]
-	path = src/wp-content/plugins/rest-api-oauth1
-	url = https://github.com/WP-API/OAuth1
 [submodule "src/wp-content/plugins/facebook-instant-articles-wp"]
 	path = src/wp-content/plugins/facebook-instant-articles-wp
 	url = https://github.com/Automattic/facebook-instant-articles-wp.git
