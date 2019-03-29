@@ -1,0 +1,104 @@
+# Translation of Plugins - Meks Smart Social Widget - Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Meks Smart Social Widget - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-08-26 15:02:52+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Meks Smart Social Widget - Development (trunk)\n"
+
+#. Plugin URI of the plugin
+msgid "https://mekshq.com"
+msgstr "https://mekshq.com"
+
+#: inc/class-social-widget.php:133
+msgid "Icon font size"
+msgstr "Tamaño de fuente del icono"
+
+#. Author of the plugin
+msgid "Meks"
+msgstr "Meks"
+
+#. Description of the plugin
+msgid "Easily display more than 100 social icons inside WordPress widget. Choose from different icon shapes and sizes and quickly connect your website with your social profiles. Aim, Apple, Behance, Blogger, Cargo,"
+msgstr "Muestra fácilmente más de 100 iconos de redes sociales en un widget de WordPress. Elige entre diferentes formas y tamaños y conecta rápidamente tu web con tus perfiles sociales. Aim, Apple, Behance, Blogger, Cargo,"
+
+#. Author URI of the plugin
+msgid "http://mekshq.com"
+msgstr "http://mekshq.com"
+
+#. Plugin Name of the plugin
+msgid "Meks Smart Social Widget"
+msgstr "Meks Smart Social Widget"
+
+#: inc/class-social-widget.php:178
+msgid "Url"
+msgstr "URL"
+
+#: inc/class-social-widget.php:171
+msgid "Icon"
+msgstr "Icono"
+
+#: inc/class-social-widget.php:157
+msgid "Add Icon"
+msgstr "Añadir icono"
+
+#: inc/class-social-widget.php:145
+msgid "Icons"
+msgstr "Iconos"
+
+#: inc/class-social-widget.php:141
+msgid "Same Window"
+msgstr "Misma ventana"
+
+#: inc/class-social-widget.php:140
+msgid "New Window"
+msgstr "Nueva ventana"
+
+#: inc/class-social-widget.php:138
+msgid "Open links in"
+msgstr "Abrir enlaces en"
+
+#: inc/class-social-widget.php:127
+msgid "Icon size"
+msgstr "Tamaño del icono"
+
+#: inc/class-social-widget.php:122
+msgid "Rounded corners"
+msgstr "Esquinas redondeadas"
+
+#: inc/class-social-widget.php:121
+msgid "Circle"
+msgstr "Círculo"
+
+#: inc/class-social-widget.php:120
+msgid "Square"
+msgstr "Cuadrado"
+
+#: inc/class-social-widget.php:117
+msgid "Icon shape"
+msgstr "Forma del icono"
+
+#: inc/class-social-widget.php:112
+msgid "Introduction text (optional)"
+msgstr "Texto de introducción (opcional)"
+
+#: inc/class-social-widget.php:108
+msgid "Title"
+msgstr "Título"
+
+#: inc/class-social-widget.php:19
+msgid "Follow Me"
+msgstr "Sígueme"
+
+#: inc/class-social-widget.php:13
+msgid "Meks Social Widget"
+msgstr "Meks Social Widget"
+
+#: inc/class-social-widget.php:11
+msgid "Display your social icons with this widget"
+msgstr "Muestra iconos de tus redes sociales con este widget"

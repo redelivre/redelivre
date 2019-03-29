@@ -1,0 +1,124 @@
+# Translation of Plugins - Classic Editor - Stable (latest release) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - Classic Editor - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-02-02 15:00:27+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: pt_BR\n"
+"Project-Id-Version: Plugins - Classic Editor - Stable (latest release)\n"
+
+#: classic-editor.php:828
+msgctxt "Editor Name"
+msgid "Edit (Classic Editor)"
+msgstr "Editar (Editor clássico)"
+
+#: classic-editor.php:821
+msgctxt "Editor Name"
+msgid "Edit (Block Editor)"
+msgstr "Editar (Editor de blocos)"
+
+#: classic-editor.php:457
+msgid "Change settings"
+msgstr "Mudar configurações"
+
+#: classic-editor.php:444
+msgid "Default editor for all sites"
+msgstr "Editor padrão para todos os sites"
+
+#: classic-editor.php:440
+msgid "Editor Settings"
+msgstr "Configurações do editor"
+
+#: classic-editor.php:375 classic-editor.php:452 classic-editor.php:858
+#: classic-editor.php:869
+msgctxt "Editor Name"
+msgid "Block Editor"
+msgstr "Editor de blocos"
+
+#: classic-editor.php:371 classic-editor.php:448 classic-editor.php:855
+#: classic-editor.php:869
+msgctxt "Editor Name"
+msgid "Classic Editor"
+msgstr "Editor clássico"
+
+#. translators: %s: post title
+#: classic-editor.php:823
+msgid "Edit &#8220;%s&#8221; in the Block Editor"
+msgstr "Editar &#8220;%s&#8221; no editor de blocos"
+
+#: classic-editor.php:663
+msgid "Switch to Block Editor"
+msgstr "Mudar para o editor de blocos"
+
+#: classic-editor.php:687
+msgid "Switch to Classic Editor"
+msgstr "Mudar para o editor clássico"
+
+#: classic-editor.php:513
+msgid "Change the %1$sClassic Editor settings%2$s."
+msgstr "Alterar as %1$sconfigurações do editor clássico%2$s."
+
+#: classic-editor.php:504
+msgid "The Classic Editor plugin prevents use of the new Block Editor."
+msgstr "O plugin do editor clássico previne o uso do novo editor de blocos."
+
+#: classic-editor.php:461
+msgid "By default the Block Editor is replaced with the Classic Editor and users cannot switch editors."
+msgstr "Por padrão o editor de blocos é substituído pelo editor clássico e os usuários não poderão mudar entre editores."
+
+#: classic-editor.php:460
+msgid "Allow site admins to change settings"
+msgstr "Permitir que os administradores do site alterem as configurações"
+
+#: classic-editor.php:644
+msgid "Editor"
+msgstr "Editor"
+
+#: classic-editor.php:399
+msgid "No"
+msgstr "Não"
+
+#: classic-editor.php:395
+msgid "Yes"
+msgstr "Sim"
+
+#: classic-editor.php:322
+msgid "Allow users to switch editors"
+msgstr "Permitir que os usuários alternem entre editores"
+
+#: classic-editor.php:321
+msgid "Default editor for all users"
+msgstr "Editor padrão para todos os usuários"
+
+#. Author URI of the plugin
+msgid "https://github.com/WordPress/classic-editor/"
+msgstr "https://github.com/WordPress/classic-editor/"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/classic-editor/"
+msgstr "https://br.wordpress.org/plugins/classic-editor/"
+
+#. Author of the plugin
+msgid "WordPress Contributors"
+msgstr "Colaboradores do WordPress"
+
+#. Description of the plugin
+msgid "Enables the WordPress classic editor and the old-style Edit Post screen with TinyMCE, Meta Boxes, etc. Supports the older plugins that extend this screen."
+msgstr "Ativa o editor clássico do WordPress e o antigo estilo da tela de edição de posts com TinyMCE, meta boxes e etc. Suporta plugins antigos que estendem a tela antiga de edição de posts."
+
+#. Plugin Name of the plugin
+msgid "Classic Editor"
+msgstr "Editor clássico"
+
+#. translators: %s: post title
+#: classic-editor.php:830
+msgid "Edit &#8220;%s&#8221; in the Classic Editor"
+msgstr "Editar &#8220;%s&#8221; com o editor clássico"
+
+#: classic-editor.php:706
+msgid "Settings"
+msgstr "Configurações"

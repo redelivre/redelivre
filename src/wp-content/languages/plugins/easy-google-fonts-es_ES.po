@@ -1,0 +1,771 @@
+# Translation of Plugins - Easy Google Fonts - Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Easy Google Fonts - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-07-29 08:34:19+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Easy Google Fonts - Development (trunk)\n"
+
+#. Author URI of the plugin
+msgid "http://www.titaniumthemes.com"
+msgstr "http://www.titaniumthemes.com"
+
+#. Author of the plugin
+msgid "Titanium Themes"
+msgstr "Titanium Themes"
+
+#. Description of the plugin
+msgid "A simple and easy way to add google fonts to your WordPress theme."
+msgstr "Una manera simple y fácil de añadir google fonts a tu tema de WordPress."
+
+#: views/customizer/control/styles/text-transform.php:21
+msgid "Text Transform"
+msgstr "Transformación de texto"
+
+#: views/customizer/control/styles/text-decoration.php:21
+msgid "Text Decoration"
+msgstr "Decoración del texto"
+
+#: views/customizer/control/styles/subsets.php:22
+msgid "Script/Subset"
+msgstr "Script/subconjuto"
+
+#: views/customizer/control/styles/font-weight.php:23
+msgid "Font Weight/Style"
+msgstr "Ancho y estilo de la fuente"
+
+#: views/customizer/control/styles/font-family.php:31
+msgid "Font Family"
+msgstr "Familia de fuente"
+
+#: views/customizer/control/positioning/padding/start.php:19
+msgid "Padding"
+msgstr "Padding"
+
+#: views/customizer/control/positioning/margin/start.php:19
+msgid "Margin"
+msgstr "Margen"
+
+#: views/customizer/control/positioning/display.php:23
+#: views/customizer/control/positioning/display.php:26
+msgid "Display"
+msgstr "Mostrar"
+
+#: views/customizer/control/positioning/border-radius/top.php:23
+msgid "Top Left"
+msgstr "Superior izquierdo"
+
+#: views/customizer/control/positioning/border-radius/start.php:19
+msgid "Border Radius"
+msgstr "Radio del borde"
+
+#: views/customizer/control/positioning/border-radius/right.php:23
+msgid "Bottom Right"
+msgstr "Abajo a la derecha"
+
+#: views/customizer/control/positioning/border-radius/left.php:23
+msgid "Bottom Left"
+msgstr "Abajo a la izquierda"
+
+#: views/customizer/control/positioning/border-radius/bottom.php:23
+msgid "Top Right"
+msgstr "Superior derecho"
+
+#: views/customizer/control/positioning/border/top.php:53
+msgid "Top Color"
+msgstr "Color superior"
+
+#: views/customizer/control/positioning/border/top.php:41
+msgid "Top Width"
+msgstr "Anchura mayor"
+
+#: views/customizer/control/positioning/border/top.php:28
+msgid "Top Style"
+msgstr "Estilo máximo"
+
+#: views/customizer/control/positioning/padding/right.php:23
+#: views/customizer/control/positioning/margin/right.php:23
+#: views/customizer/control/positioning/border/start.php:27
+msgid "Right"
+msgstr "Derecha"
+
+#: views/customizer/control/positioning/padding/left.php:23
+#: views/customizer/control/positioning/margin/left.php:23
+#: views/customizer/control/positioning/border/start.php:26
+msgid "Left"
+msgstr "Izquierda"
+
+#: views/customizer/control/positioning/padding/bottom.php:23
+#: views/customizer/control/positioning/margin/bottom.php:23
+#: views/customizer/control/positioning/border/start.php:25
+msgid "Bottom"
+msgstr "inferior"
+
+#: views/customizer/control/positioning/padding/top.php:23
+#: views/customizer/control/positioning/margin/top.php:23
+#: views/customizer/control/positioning/border/start.php:24
+msgid "Top"
+msgstr "Arriba"
+
+#: views/customizer/control/positioning/border/start.php:22
+msgid "Select Border to Control"
+msgstr "Elige qué borde controlar"
+
+#: views/customizer/control/positioning/border/start.php:19
+msgid "Border"
+msgstr "Borde"
+
+#: views/customizer/control/positioning/border/right.php:53
+msgid "Right Color"
+msgstr "Color a la derecha"
+
+#: views/customizer/control/positioning/border/right.php:41
+msgid "Right Width"
+msgstr "Ancho derecha"
+
+#: views/customizer/control/positioning/border/right.php:28
+msgid "Right Style"
+msgstr "Estilo derecho"
+
+#: views/customizer/control/positioning/border/left.php:53
+msgid "Left Color"
+msgstr "Color izquierdo"
+
+#: views/customizer/control/positioning/border/left.php:41
+msgid "Left Width"
+msgstr "Ancho izquierda"
+
+#: views/customizer/control/positioning/border/left.php:28
+msgid "Left Style"
+msgstr "Estilo Izquierdo"
+
+#: views/customizer/control/positioning/border/bottom.php:53
+msgid "Bottom Color"
+msgstr "Color inferior"
+
+#: views/customizer/control/positioning/border/bottom.php:41
+msgid "Bottom Width"
+msgstr "Ancho Inferior"
+
+#: views/customizer/control/positioning/border/bottom.php:28
+msgid "Bottom Style"
+msgstr "Estilo inferior"
+
+#: views/customizer/control/appearance/line-height.php:23
+msgid "Line Height"
+msgstr "Alto de línea"
+
+#: views/customizer/control/appearance/letter-spacing.php:23
+msgid "Letter Spacing"
+msgstr "Separación entre letras"
+
+#: views/customizer/control/control-title.php:19
+#: views/customizer/control/positioning/padding/top.php:25
+#: views/customizer/control/positioning/padding/bottom.php:25
+#: views/customizer/control/positioning/padding/left.php:25
+#: views/customizer/control/positioning/padding/right.php:25
+#: views/customizer/control/positioning/margin/top.php:25
+#: views/customizer/control/positioning/margin/bottom.php:25
+#: views/customizer/control/positioning/margin/left.php:25
+#: views/customizer/control/positioning/margin/right.php:25
+#: views/customizer/control/positioning/border-radius/top.php:25
+#: views/customizer/control/positioning/border-radius/bottom.php:25
+#: views/customizer/control/positioning/border-radius/left.php:25
+#: views/customizer/control/positioning/border-radius/right.php:25
+#: views/customizer/control/positioning/border/top.php:43
+#: views/customizer/control/positioning/border/bottom.php:43
+#: views/customizer/control/positioning/border/left.php:43
+#: views/customizer/control/positioning/border/right.php:43
+#: views/customizer/control/appearance/line-height.php:25
+#: views/customizer/control/appearance/letter-spacing.php:25
+#: views/customizer/control/appearance/font-size.php:26
+msgid "Reset"
+msgstr "Limpiar"
+
+#: views/customizer/control/appearance/font-size.php:23
+msgid "Font Size"
+msgstr "Tamaño de fuente"
+
+#: views/customizer/control/appearance/font-color.php:22
+msgid "Font Color"
+msgstr "Color de fuente"
+
+#: views/customizer/control/positioning/border/top.php:55
+#: views/customizer/control/positioning/border/bottom.php:55
+#: views/customizer/control/positioning/border/left.php:55
+#: views/customizer/control/positioning/border/right.php:55
+#: views/customizer/control/appearance/font-color.php:24
+#: views/customizer/control/appearance/background-color.php:24
+msgid "Hex Value"
+msgstr "Valor HEX"
+
+#: views/customizer/control/appearance/background-color.php:22
+msgid "Background Color"
+msgstr "Color de fondo"
+
+#: views/admin-page/tabs.php:11
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: views/admin-page/page-start.php:33
+msgid "Cheatin&#8217; uh?"
+msgstr "¿Haciendo trampas?"
+
+#: views/admin-page/manage-screen.php:107
+msgid "Delete All Controls"
+msgstr "Eliminar todos los controles"
+
+#: views/admin-page/manage-screen.php:88
+msgid "Delete"
+msgstr "Borrar"
+
+#: views/admin-page/manage-screen.php:88
+msgid "Edit"
+msgstr "Editar"
+
+#: views/admin-page/manage-screen.php:51
+msgid "Force Styles"
+msgstr "Forzar estilos"
+
+#: views/admin-page/manage-screen.php:50
+msgid "CSS Selectors"
+msgstr "Selectores CSS"
+
+#: views/admin-page/manage-screen.php:49
+msgid "Font Control Name"
+msgstr "Nombre de control de la fuente"
+
+#: views/admin-page/manage-screen.php:41
+msgid "Manage your custom font controls here or:"
+msgstr "Administrar los controles de fuente personalizados aquí o en:"
+
+#: views/admin-page/manage-screen.php:29 views/admin-page/manage-screen.php:43
+msgid "Create a New Font Control"
+msgstr "Crear un nuevo Control de fuente"
+
+#: views/admin-page/manage-screen.php:28 views/admin-page/manage-screen.php:42
+msgid "Create a new font control for your theme:"
+msgstr "Crear un nuevo control de fuente para tu tema:"
+
+#: views/admin-page/form-manage-control.php:34
+msgid "Create a new Font Control. "
+msgstr "Crear un nuevo Control de la fuente."
+
+#: views/admin-page/form-manage-control.php:31
+msgid "create a new font control"
+msgstr "crear un nuevo control de fuente"
+
+#: views/admin-page/form-manage-control.php:29
+msgid "Select"
+msgstr "Selección"
+
+#: views/admin-page/form-manage-control.php:23
+msgid "Select a font control to edit:"
+msgstr "Seleccionar un control de fuente para editar:"
+
+#: views/admin-page/edit-screen.php:73
+msgid "Please check the box below if you wish to override all of the styles for the selectors above that are forced in your theme's stylesheet."
+msgstr "Consulte el cuadro a continuación si desea reemplazar todos los estilos para los selectores que ven en la hoja de estilo de su tema."
+
+#: views/admin-page/edit-screen.php:72
+msgid "Force Styles Override (Optional)"
+msgstr "Anulación de estilos de fuerza (opcional)"
+
+#: views/admin-page/edit-screen.php:59
+msgid "Type each CSS selector that you would like this font control to manage in the box below. Use the tab key to separate each selector."
+msgstr "Escriba cada selector CSS que quieres que este control de la fuente para administrar en el cuadro siguiente. Utilice la tecla tab para separar cada selector."
+
+#: views/admin-page/edit-screen.php:57
+msgid "Add CSS Selectors"
+msgstr "Añadir selectores CSS"
+
+#: views/admin-page/edit-screen.php:38 views/admin-page/edit-screen.php:134
+msgid "Save Font Control"
+msgstr "Guardar control de fuentes"
+
+#: views/admin-page/dialog-updated.php:22
+msgid "%1$s has been updated. Please visit the %2$s to manage this control."
+msgstr "%1$s ha sido actualizado. Visita el %2$s para la gestión de este control."
+
+#: views/admin-page/dialog-deleted.php:21
+msgid "%1$s has been deleted."
+msgstr "%1$s ha sido eliminado."
+
+#: views/admin-page/create-screen.php:65 views/admin-page/edit-screen.php:105
+msgid "Delete Control"
+msgstr "Control de borrado"
+
+#: views/admin-page/create-screen.php:56
+msgid "Give your font control a name above, then click Create Font Control."
+msgstr "Dar el control de la fuente un nombre arriba, y haga clic en crear Control de fuente."
+
+#: views/admin-page/create-screen.php:38 views/admin-page/create-screen.php:93
+msgid "Create Font Control"
+msgstr "Crear Control de fuente"
+
+#: views/admin-page/create-screen.php:10 views/admin-page/edit-screen.php:9
+msgid "Enter control name here"
+msgstr "Escriba aquí el nombre del control"
+
+#: views/admin-page/create-screen.php:9 views/admin-page/edit-screen.php:8
+msgid "Control Name"
+msgstr "Nombre de control"
+
+#: views/admin-page/advanced-screen.php:61
+msgid "Your theme will update itself with the latest google fonts automatically."
+msgstr "E l tema se actualizará automáticamente con las últimas google fonts."
+
+#: views/admin-page/advanced-screen.php:60
+msgid "What happens after I enter a valid Google API key?"
+msgstr "¿Qué sucede después de Introduzca una clave válida de la API de Google?"
+
+#: views/admin-page/advanced-screen.php:45
+msgid "Save Google API Key"
+msgstr "Clave API de Google"
+
+#: views/admin-page/advanced-screen.php:24
+msgid "Please enter a valid Google API Key"
+msgstr "Por favor, introduce una clave válida de la API de Google"
+
+#: views/admin-page/advanced-screen.php:23
+msgid "Your Google API Key is valid and automatic font updates are enabled."
+msgstr "Su clave de API de Google es válida y se habilitan las actualizaciones automática de tipografías."
+
+#: views/admin-page/advanced-screen.php:18
+msgid "Please enter your google fonts api key in the box below and click the Save Google API Key button."
+msgstr "Escribe tu clave de api de google fonts en el siguiente campo y haz clic en el botón Guardar clave de API de Google."
+
+#: views/admin-page/advanced-screen.php:17
+msgid "Google Fonts API Key"
+msgstr "Clave de API de Google fonts"
+
+#: includes/customizer/class-egf-customize-manager.php:380
+msgid "Theme Default"
+msgstr "Predeterminado del tema"
+
+#: includes/controls/class-egf-font-control.php:373
+msgid "Double"
+msgstr "Doble"
+
+#: includes/controls/class-egf-font-control.php:372
+msgid "Dotted"
+msgstr "Punteado"
+
+#: includes/controls/class-egf-font-control.php:371
+msgid "Dashed"
+msgstr "Guiones"
+
+#: includes/controls/class-egf-font-control.php:370
+msgid "Solid"
+msgstr "Solido"
+
+#: includes/controls/class-egf-font-control.php:352
+msgid "Inline Block"
+msgstr "Inline Block"
+
+#: includes/controls/class-egf-font-control.php:351
+msgid "Block"
+msgstr "Block"
+
+#: includes/controls/class-egf-font-control.php:334
+msgid "Capitalize"
+msgstr "Capitalizar"
+
+#: includes/controls/class-egf-font-control.php:333
+msgid "Lowercase"
+msgstr "Minúsculas"
+
+#: includes/controls/class-egf-font-control.php:332
+msgid "Uppercase"
+msgstr "Mayúsculas"
+
+#: includes/controls/class-egf-font-control.php:314
+msgid "Overline"
+msgstr "Suprarayado"
+
+#: includes/controls/class-egf-font-control.php:313
+msgid "Line-through"
+msgstr "Tachado"
+
+#: includes/controls/class-egf-font-control.php:312
+msgid "Underline"
+msgstr "Subrayado"
+
+#: includes/controls/class-egf-font-control.php:311
+#: includes/controls/class-egf-font-control.php:331
+#: includes/controls/class-egf-font-control.php:369
+msgid "None"
+msgstr "Ninguno"
+
+#: includes/controls/class-egf-font-control.php:285
+msgid "Vietnamese"
+msgstr "Vietnamita"
+
+#: includes/controls/class-egf-font-control.php:284
+msgid "Telugu"
+msgstr "Télugu"
+
+#: includes/controls/class-egf-font-control.php:283
+msgid "Khmer"
+msgstr "Camboyano"
+
+#: includes/controls/class-egf-font-control.php:282
+msgid "Greek Extended"
+msgstr "Griego extendido"
+
+#: includes/controls/class-egf-font-control.php:281
+msgid "Greek"
+msgstr "Griego"
+
+#: includes/controls/class-egf-font-control.php:280
+msgid "Devanagari"
+msgstr "Devanagari"
+
+#: includes/controls/class-egf-font-control.php:279
+msgid "Cyrillic Extended"
+msgstr "Cirílico extendido"
+
+#: includes/controls/class-egf-font-control.php:278
+msgid "Cyrillic"
+msgstr "Cirílico"
+
+#: includes/controls/class-egf-font-control.php:277
+msgid "Arabic"
+msgstr "Árabe"
+
+#: includes/controls/class-egf-font-control.php:276
+msgid "Latin Extended"
+msgstr "Latín extendido"
+
+#: includes/controls/class-egf-font-control.php:275
+msgid "Latin"
+msgstr "Latin"
+
+#: includes/controls/class-egf-font-control.php:274
+msgid "All Subsets"
+msgstr "Todos los subconjuntos"
+
+#: includes/controls/class-egf-font-control.php:72
+msgid "Positioning"
+msgstr "Posicionamiento"
+
+#: includes/controls/class-egf-font-control.php:71
+msgid "Appearance"
+msgstr "Aspecto"
+
+#: includes/controls/class-egf-font-control.php:70
+msgid "Styles"
+msgstr "Estilos"
+
+#: includes/class-egf-register-options.php:741
+msgid "Please select a font for the theme's heading 6 styles"
+msgstr "Elige una fuente para los encabezados 6 del tema"
+
+#: includes/class-egf-register-options.php:740
+msgid "Heading 6"
+msgstr "Cabecera 6"
+
+#: includes/class-egf-register-options.php:734
+msgid "Please select a font for the theme's heading 5 styles"
+msgstr "Elige una fuente para los encabezados 5 del tema"
+
+#: includes/class-egf-register-options.php:733
+msgid "Heading 5"
+msgstr "Cabecera 5"
+
+#: includes/class-egf-register-options.php:727
+msgid "Please select a font for the theme's heading 4 styles"
+msgstr "Elige una fuente para los encabezados 4 del tema"
+
+#: includes/class-egf-register-options.php:726
+msgid "Heading 4"
+msgstr "Cabecera 4"
+
+#: includes/class-egf-register-options.php:720
+msgid "Please select a font for the theme's heading 3 styles"
+msgstr "Elige una fuente para los encabezados 3 del tema"
+
+#: includes/class-egf-register-options.php:719
+msgid "Heading 3"
+msgstr "Cabecera 3"
+
+#: includes/class-egf-register-options.php:713
+msgid "Please select a font for the theme's heading 2 styles"
+msgstr "Elige una fuente para los encabezados 2 del tema"
+
+#: includes/class-egf-register-options.php:712
+msgid "Heading 2"
+msgstr "Cabecera 2"
+
+#: includes/class-egf-register-options.php:706
+msgid "Please select a font for the theme's heading 1 styles"
+msgstr "Elige una fuente para los encabezados 1 del tema"
+
+#: includes/class-egf-register-options.php:705
+msgid "Heading 1"
+msgstr "Cabecera 1"
+
+#: includes/class-egf-register-options.php:699
+msgid "Please select a font for the theme's body and paragraph text"
+msgstr "Elige una fuente para el cuerpo y los párrafos del tema"
+
+#: includes/class-egf-register-options.php:698
+msgid "Paragraphs"
+msgstr "Párrafos"
+
+#: includes/class-egf-register-options.php:653
+msgid "Your theme has typography support. You can create custom font controls on the Google Fonts screen in the Settings section."
+msgstr "Tu puede incluye compatibilidad con tipografía. Puedes crear controles de fuentes personalizados en la pantalla google fonts de la sección de ajustes."
+
+#: includes/class-egf-register-options.php:540
+#: views/customizer/control/control-toggle.php:19
+msgid "Edit Font"
+msgstr "Editar fuente"
+
+#: includes/class-egf-register-options.php:482
+#: includes/class-egf-register-options.php:650
+msgid "Typography"
+msgstr "Tipografía"
+
+#: includes/class-egf-register-options.php:450
+msgid "Custom theme font options"
+msgstr "Opciones de fuente de tema personalizado"
+
+#: includes/class-egf-register-options.php:449
+msgid "Custom Theme Fonts"
+msgstr "Fuentes de tema personalizadas"
+
+#: includes/class-egf-register-options.php:444
+msgid "Any custom font controls that you have created for your website will appear below. To create more controls visit the google fonts screen in the settings section."
+msgstr "Cualquier control de fuentes personalizados que hayas creado para tu web aparecerá abajo. Para crear más controles visita la pantalla google fonts de la sección de ajustes."
+
+#: includes/class-egf-register-options.php:442
+msgid "Theme Typography"
+msgstr "Tipografía del tema"
+
+#: includes/class-egf-register-options.php:435
+msgid "Default theme font options"
+msgstr "Opciones de fuente de tema por defecto"
+
+#: includes/class-egf-register-options.php:434
+msgid "Default Theme Fonts"
+msgstr "Fuentes de tema por defecto"
+
+#: includes/class-egf-register-options.php:429
+#: includes/class-egf-register-options.php:485
+msgid "Your theme has typography support. You can create custom font controls on the google fonts screen in the settings section."
+msgstr "Tu puede incluye compatibilidad con tipografía. Puedes crear controles de fuentes personalizados en la pantalla google fonts de la sección de ajustes."
+
+#: includes/class-egf-register-options.php:427
+msgid "Default Typography"
+msgstr "Tipografía por defecto"
+
+#: includes/class-egf-posttype.php:195 includes/class-egf-posttype.php:271
+#: includes/class-egf-register-options.php:538
+#: views/admin-page/dialog-updated.php:19
+#: views/admin-page/dialog-deleted.php:19
+msgid "Font Control"
+msgstr "Control de fuente"
+
+#: includes/class-egf-posttype.php:124
+msgid "Google Font Control"
+msgstr "Control de fuente de Google"
+
+#: includes/class-egf-posttype.php:123
+msgid "Google Font Controls"
+msgstr "Controles de fuente de Google"
+
+#: includes/class-egf-ajax.php:203 includes/class-egf-ajax.php:254
+msgid "Custom Font Control"
+msgstr "Control de fuente personalizado"
+
+#: includes/class-easy-google-fonts-admin.php:436
+msgid "Get Google Fonts API Key"
+msgstr "Obtener la clave de API de Google Fonts"
+
+#: includes/class-easy-google-fonts-admin.php:435
+msgid "Documentation on Google Fonts"
+msgstr "Documentación de Google Fonts"
+
+#: includes/class-easy-google-fonts-admin.php:434
+msgid "For more information:"
+msgstr "Para más información:"
+
+#: includes/class-easy-google-fonts-admin.php:429
+msgid "Google API Key Instructions"
+msgstr "Instrucciones de la clave de Google API"
+
+#: includes/class-easy-google-fonts-admin.php:425
+msgid "Once you have entered a valid Google API key this plugin will automatically update itself with the latest fonts from google."
+msgstr "Una vez que ha ingresado una clave válida de la API de Google este plugin se actualizará automáticamente con las últimas fuentes de google."
+
+#: includes/class-easy-google-fonts-admin.php:422
+msgid "Once you have an API key, you can enter it in the Google Fonts API Key text field on the \"Advanced\" settings page."
+msgstr "Una vez que tengas una clave de API puedes añadirla en el campo Clave de API de Google Fonts de página de ajustes \"Avanzado\"."
+
+#: includes/class-easy-google-fonts-admin.php:421
+msgid "Create a new browser key and <strong>leave the referrer box empty</strong>."
+msgstr "Crear una nueva clave de explorador y <strong>deje vacío el cuadro de referencia</strong>."
+
+#: includes/class-easy-google-fonts-admin.php:420
+msgid "Select Credentials under the APIs & auth menu."
+msgstr "Elige Credentials en el menú APIs & auth."
+
+#: includes/class-easy-google-fonts-admin.php:419
+msgid "Turn on Web Fonts Developer API."
+msgstr "Encienda las fuentes Web Developer API."
+
+#: includes/class-easy-google-fonts-admin.php:418
+msgid "Select APIs Under the APIs & auth menu."
+msgstr "Elige APIs en el menú APIs & auth."
+
+#: includes/class-easy-google-fonts-admin.php:417
+msgid "Create a new project."
+msgstr "Crear un nuevo proyecto"
+
+#: includes/class-easy-google-fonts-admin.php:416
+msgid "Visit the <a href=\"https://code.google.com/apis/console\" target=\"_blank\">Google APIs Console</a>."
+msgstr "Visita a la <a href=\"https://code.google.com/apis/console\" target=\"_blank\">Consola de APIs de Google</a>."
+
+#: includes/class-easy-google-fonts-admin.php:413
+msgid "How to get your Google API Key:"
+msgstr "Cómo obtener su clave de API de Google:"
+
+#: includes/class-easy-google-fonts-admin.php:409 views/admin-page/tabs.php:8
+msgid "Manage Font Controls"
+msgstr "Gestionar controles de fuente"
+
+#: includes/class-easy-google-fonts-admin.php:401
+msgid "Delete any/all custom font controls."
+msgstr "Eliminar controles personalizados de cualquier fuente."
+
+#: includes/class-easy-google-fonts-admin.php:400
+msgid "View all of your custom font controls and the CSS selectors they are managing."
+msgstr "Ver todos tus controles de fuentes personalizados y los selectores CSS que están gestionando."
+
+#: includes/class-easy-google-fonts-admin.php:393 views/admin-page/tabs.php:5
+msgid "Edit Font Controls"
+msgstr "Editar fuente controles"
+
+#: includes/class-easy-google-fonts-admin.php:385
+#: includes/class-easy-google-fonts-admin.php:402
+msgid "Force Styles Override (Optional): If your theme is forcing any styles in it's stylesheet for any styles managed by this control then check this option to force a stylesheet override."
+msgstr "Forzar la sobreescritura de estilos (Opcional): Si tu tema está forzando los estilos en su hoja de estilo para cualquier estilo gestionado por este control marca esta opción para forzar una sobreescritura de la hoja de estilos."
+
+#: includes/class-easy-google-fonts-admin.php:384
+msgid "Add CSS Selectors: Add any CSS selectors/styles that you want this custom font control to manage."
+msgstr "Añadi selectores CSS: añade cualquier selector/estilo CSS que desees que este control de fuente personalizado administre."
+
+#: includes/class-easy-google-fonts-admin.php:376
+msgid "Overview"
+msgstr "Vista previa"
+
+#: includes/class-easy-google-fonts-admin.php:371
+#: includes/class-easy-google-fonts-admin.php:388
+#: includes/class-easy-google-fonts-admin.php:405
+msgid "customizer"
+msgstr "personalizador"
+
+#: includes/class-easy-google-fonts-admin.php:370
+#: includes/class-easy-google-fonts-admin.php:387
+#: includes/class-easy-google-fonts-admin.php:404
+msgid "This screen is used to manage/create new font controls. To preview fonts for each control please visit the typography section in the "
+msgstr "Esta pantalla se utiliza para gestionar/crear nuevos controles de fuentes. Para previsualizar las fuentes de cada control visita la sección tipografía del "
+
+#: includes/class-easy-google-fonts-admin.php:369
+#: includes/class-easy-google-fonts-admin.php:386
+#: includes/class-easy-google-fonts-admin.php:403
+msgid "Please Note: "
+msgstr "Ten en cuenta:"
+
+#: includes/class-easy-google-fonts-admin.php:368
+msgid "Add a Google API key in order to enable automatic font updates."
+msgstr "Agregar una clave de API de Google para permitir actualizaciones automática de tipografías."
+
+#: includes/class-easy-google-fonts-admin.php:367
+msgid "Manage all of your custom font controls."
+msgstr "Gestiona todos los controles de fuente personalizadas."
+
+#: includes/class-easy-google-fonts-admin.php:366
+#: includes/class-easy-google-fonts-admin.php:383
+msgid "Create, edit, and delete custom font controls."
+msgstr "Crear, editar y eliminar controles de fuente personalizado."
+
+#: includes/class-easy-google-fonts-admin.php:365
+#: includes/class-easy-google-fonts-admin.php:382
+#: includes/class-easy-google-fonts-admin.php:399
+msgid "From this screen you can:"
+msgstr "Desde esta pantalla usted puede:"
+
+#: includes/class-easy-google-fonts-admin.php:364
+msgid "This screen is used for managing your custom font controls. It provides a way to create a custom font controls for any type of content in your theme."
+msgstr "Esta pantalla se utiliza para gestionar tus controles de fuentes personalizados. Te proporciona una forma de crear controles de fuentes personalizados para cualquier contenido de tu tema."
+
+#: includes/class-easy-google-fonts-admin.php:311
+msgid "Settings"
+msgstr "Configurar"
+
+#. Plugin Name of the plugin
+#: includes/class-easy-google-fonts-admin.php:268
+msgid "Easy Google Fonts"
+msgstr "Easy Google Fonts"
+
+#: includes/class-easy-google-fonts-admin.php:236
+msgid "&mdash; Theme Default &mdash;"
+msgstr "&mdash; Theme por defecto &mdash;"
+
+#: includes/class-easy-google-fonts-admin.php:235
+#: includes/customizer/class-egf-customize-manager.php:379
+msgid "Standard Web Fonts"
+msgstr "Fuentes Web estándar"
+
+#: includes/class-easy-google-fonts-admin.php:234
+#: includes/customizer/class-egf-customize-manager.php:378
+msgid "Google Sans Serif Fonts"
+msgstr "Fuentes Sans Serif de Google"
+
+#: includes/class-easy-google-fonts-admin.php:233
+#: includes/customizer/class-egf-customize-manager.php:377
+msgid "Google Serif Fonts"
+msgstr "Fuentes Serif de Google"
+
+#: includes/class-easy-google-fonts-admin.php:232
+#: includes/customizer/class-egf-customize-manager.php:376
+msgid "Google Monospace Fonts"
+msgstr "Fuentes Google Monospace"
+
+#: includes/class-easy-google-fonts-admin.php:231
+#: includes/customizer/class-egf-customize-manager.php:375
+msgid "Google Handwriting Fonts"
+msgstr "Fuentes manuscritas de Google"
+
+#: includes/class-easy-google-fonts-admin.php:230
+#: includes/class-easy-google-fonts-admin.php:269
+#: includes/customizer/class-egf-customize-manager.php:374
+msgid "Google Fonts"
+msgstr "Google Fonts"
+
+#: includes/class-easy-google-fonts-admin.php:229
+#: includes/customizer/class-egf-customize-manager.php:373
+msgid "Google Display Fonts"
+msgstr "Fuentes de pantalla de Google"
+
+#: includes/class-easy-google-fonts-admin.php:228
+#: includes/customizer/class-egf-customize-manager.php:372
+msgid "You are about to permanently delete this font control. 'Cancel' to stop, 'OK' to delete."
+msgstr "Estás a punto de borrar permanentemente este control de fuentes personalizado. 'Cancelar' para parar, 'Aceptar' para borrar."
+
+#: includes/class-easy-google-fonts-admin.php:227
+#: includes/customizer/class-egf-customize-manager.php:371
+msgid "Warning! You are about to permanently delete all font controls. 'Cancel' to stop, 'OK' to delete."
+msgstr "¡Atención! Estás a punto de eliminar de manera permanente todos los controles de fuente. 'Cancelar' para parar, 'OK' para borrar."
+
+#: includes/class-easy-google-fonts-admin.php:226
+#: includes/customizer/class-egf-customize-manager.php:370
+msgid "This page is asking you to confirm that you want to leave - data you have entered may not be saved."
+msgstr "Esta página te está pidiendo que confirmes que te quieres ir - puede que no se hayan guardado los datos que has introducido."
