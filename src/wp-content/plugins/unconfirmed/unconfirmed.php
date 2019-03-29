@@ -5,9 +5,11 @@ Plugin Name: Unconfirmed
 Plugin URI: http://github.com/boonebgorges/unconfirmed
 Description: Allows admins on a WordPress Multisite network to manage unactivated users, by either activating them manually or resending the activation email.
 Author: Boone B Gorges
-Author URI: http://boone.gorg.es
+Author URI: https://boone.gorg.es
 License: GPLv3
-Version: 1.3.1
+Version: 1.3.3
+Text Domain: unconfirmed
+Domain Path: /languages/
 */
 
 class BBG_Unconfirmed {
@@ -52,6 +54,8 @@ class BBG_Unconfirmed {
 	 *    goes in the Site Admin or Network Admin
 	 */
 	function __construct() {
+		$this->load_textdomain();
+
 		add_filter( 'bbg_cpt_pag_add_args', array( $this, 'add_args' ) );
 
 		add_filter( 'boones_sortable_columns_keys_to_remove', array( $this, 'sortable_keys_to_remove' ) );
@@ -78,6 +82,15 @@ class BBG_Unconfirmed {
 	}
 
 	/**
+	 * Load textdomain.
+	 *
+	 * @since 1.3.2
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'unconfirmed', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	}
+
+	/**
 	 * Adds the admin panel and detects incoming admin actions
 	 *
 	 * When the admin submits an action like "activate" or "resend activation email", it will
@@ -98,21 +111,23 @@ class BBG_Unconfirmed {
 		$page = add_submenu_page( 'users.php', __( 'Unconfirmed', 'unconfirmed' ), __( 'Unconfirmed', 'unconfirmed' ), 'moderate_signups', 'unconfirmed', array( $this, 'admin_panel_main' ) );
 		add_action( "admin_print_styles-$page", array( $this, 'add_admin_styles' ) );
 
-		if ( isset( $_REQUEST['performed_search'] ) && $_REQUEST['performed_search'] == '1' ) return;
+		if ( isset( $_REQUEST['performed_search'] ) && '1' == $_REQUEST['performed_search'] ) {
+			return;
+		}
 
 		// Look for actions first
 		if ( isset( $_REQUEST['unconfirmed_action'] ) ) {
 			switch ( $_REQUEST['unconfirmed_action'] ) {
-				case 'delete' :
+				case 'delete':
 					$this->delete_user();
 					break;
 
-				case 'activate' :
+				case 'activate':
 					$this->activate_user();
 					break;
 
-				case 'resend' :
-				default :
+				case 'resend':
+				default:
 					$this->resend_email();
 					break;
 			}
@@ -178,14 +193,14 @@ class BBG_Unconfirmed {
 		/**
 		 * Override the $defaults with the following parameters:
 		 *   - 'orderby': Which column should determine the sort? Accepts:
-		 *	  - 'registered' (MS) / 'user_registered' (non-MS) - These are translated to
-		 *	  	each other accordingly, depending on is_multisite(), so you don't
-		 *		have to be too careful about which one you pass
-		 *	  - 'user_login'
-		 *	  - 'user_email'
-		 *	  - 'activation_key' (MS) / 'user_activation_key' (non-MS) - As in the case
-		 *		of 'registered', this will be switched to the appropriate version
-		 *		automatically
+		 *    - 'registered' (MS) / 'user_registered' (non-MS) - These are translated to
+		 *      each other accordingly, depending on is_multisite(), so you don't
+		 *      have to be too careful about which one you pass
+		 *    - 'user_login'
+		 *    - 'user_email'
+		 *    - 'activation_key' (MS) / 'user_activation_key' (non-MS) - As in the case
+		 *      of 'registered', this will be switched to the appropriate version
+		 *      automatically
 		 *   - 'order': In conjunction with 'orderby', how should users be sorted? Accepts:
 		 *     'desc', 'asc'
 		 *   - 'offset': Which user are we starting with? Eg for the third page of 10, use
@@ -196,65 +211,71 @@ class BBG_Unconfirmed {
 			'orderby' => 'registered',
 			'order'   => 'desc',
 			'offset'  => 0,
-			'number'  => 10
+			'number'  => 10,
 		);
 
 		$r = wp_parse_args( $args, $defaults );
-		extract( $r );
+
+		$orderby = $r['orderby'];
+		$order   = $r['order'];
+		$offset  = $r['offset'];
+		$number  = $r['number'];
 
 		$search = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
 
 		// Our query will be different for multisite and for non-multisite
 		if ( $this->is_multisite ) {
-			$sql['select'] 	= "SELECT * FROM $wpdb->signups";
-			$sql['where'] 	= "WHERE active = 0";
+			$sql['select'] = "SELECT * FROM $wpdb->signups";
+			$sql['where']  = 'WHERE active = 0';
 
 			if ( ! empty( $search ) ) {
 				if ( method_exists( $wpdb, 'esc_like' ) ) { // WP >= 4.0.0
-					$search_text = "%" . $wpdb->esc_like( $search ) . "%";
+					$search_text = '%' . $wpdb->esc_like( $search ) . '%';
 				} else {
-					$search_text = "%" . like_escape( $search ) . "%";
+					$search_text = '%' . like_escape( $search ) . '%';
 				}
-				$sql['where'] .= $wpdb->prepare( " AND ( user_login LIKE %s OR user_email LIKE %s )", $search_text, $search_text );
+				$sql['where'] .= $wpdb->prepare( ' AND ( user_login LIKE %s OR user_email LIKE %s )', $search_text, $search_text );
 			}
 
 			// Switch the non-MS orderby keys to their MS counterparts
-			if ( 'user_registered' == $orderby )
+			if ( 'user_registered' == $orderby ) {
 				$orderby = 'registered';
-			else if ( 'user_activation_key' == $orderby )
+			} elseif ( 'user_activation_key' == $orderby ) {
 				$orderby = 'activation_key';
+			}
 
 			$sql['orderby'] = "ORDER BY $orderby";
-			$sql['order']	= strtoupper( $order );
-			$sql['limit']	= $wpdb->prepare( "LIMIT %d, %d", $offset, $number );
+			$sql['order']   = strtoupper( $order );
+			$sql['limit']   = $wpdb->prepare( 'LIMIT %d, %d', $offset, $number );
 		} else {
 			// Stinky WP_User_Query doesn't allow filtering by user_status, so we must
 			// query wp_users directly. I should probably send a patch upstream to WP
-			$sql['select']  = "SELECT u.*, um.meta_value AS activation_key FROM $wpdb->users u INNER JOIN $wpdb->usermeta um ON ( u.ID = um.user_id )";
+			$sql['select'] = "SELECT u.*, um.meta_value AS activation_key FROM $wpdb->users u INNER JOIN $wpdb->usermeta um ON ( u.ID = um.user_id )";
 
 			// The convention of using user_status = 2 for an unactivated user comes (I
 			// think) from BuddyPress. This will probably do nothing if you're not
 			// running BP.
-			$sql['where']   = "WHERE u.user_status = 2 AND um.meta_key = 'activation_key'";
+			$sql['where'] = "WHERE u.user_status = 2 AND um.meta_key = 'activation_key'";
 
 			if ( ! empty( $search ) ) {
 				if ( method_exists( $wpdb, 'esc_like' ) ) { // WP >= 4.0.0
-					$search_text = "%" . $wpdb->esc_like( $search ) . "%";
+					$search_text = '%' . $wpdb->esc_like( $search ) . '%';
 				} else {
-					$search_text = "%" . like_escape( $search ) . "%";
+					$search_text = '%' . like_escape( $search ) . '%';
 				}
-				$sql['where'] .= $wpdb->prepare( " AND ( u.user_login LIKE %s OR u.user_email LIKE %s OR u.display_name LIKE %s )", $search_text, $search_text, $search_text );
+				$sql['where'] .= $wpdb->prepare( ' AND ( u.user_login LIKE %s OR u.user_email LIKE %s OR u.display_name LIKE %s )', $search_text, $search_text, $search_text );
 			}
 
 			// Switch the MS orderby keys to their non-MS counterparts
-			if ( 'registered' == $orderby )
+			if ( 'registered' == $orderby ) {
 				$orderby = 'user_registered';
-			else if ( 'activation_key' == $orderby )
+			} elseif ( 'activation_key' == $orderby ) {
 				$orderby = 'um.activation_key';
+			}
 
-			$sql['orderby'] = $wpdb->prepare( "ORDER BY %s", $orderby );
-			$sql['order']	= strtoupper( $order );
-			$sql['limit']	= $wpdb->prepare( "LIMIT %d, %d", $offset, $number );
+			$sql['orderby'] = $wpdb->prepare( 'ORDER BY %s', $orderby );
+			$sql['order']   = strtoupper( $order );
+			$sql['limit']   = $wpdb->prepare( 'LIMIT %d, %d', $offset, $number );
 		}
 
 		// Get the resent counts
@@ -267,11 +288,11 @@ class BBG_Unconfirmed {
 		// Now loop through the users and unserialize their metadata for nice display
 		// Probably only necessary with BuddyPress
 		// We'll also use this opportunity to add the resent counts to the user objects
-		foreach( (array)$users as $key => $user ) {
+		foreach ( (array) $users as $key => $user ) {
 
-			$meta = !empty( $user->meta ) ? maybe_unserialize( $user->meta ) : false;
+			$meta = ! empty( $user->meta ) ? maybe_unserialize( $user->meta ) : false;
 
-			foreach( (array)$meta as $mkey => $mvalue ) {
+			foreach ( (array) $meta as $mkey => $mvalue ) {
 				$user->$mkey = $mvalue;
 			}
 
@@ -282,23 +303,24 @@ class BBG_Unconfirmed {
 				// Non-multisite
 				$akey = $user->activation_key;
 
-				if ( $user->user_registered )
+				if ( $user->user_registered ) {
 					$user->registered = $user->user_registered;
+				}
 			}
 
 			$akey = isset( $user->activation_key ) ? $user->activation_key : $user->user_activation_key;
 
-			$user->resent_count = isset( $resent_counts[$akey] ) ? $resent_counts[$akey] : 0;
+			$user->resent_count = isset( $resent_counts[ $akey ] ) ? $resent_counts[ $akey ] : 0;
 
-			$users[$key] = $user;
+			$users[ $key ] = $user;
 		}
 
 		$this->users = $users;
 
 		// Gotta run a second query to get the overall pagination data
 		unset( $sql['limit'] );
-		$sql['select'] = preg_replace( "/SELECT.*?FROM/", "SELECT COUNT(*) FROM", $sql['select'] );
-		$total_query = apply_filters( 'unconfirmed_total_query', join( ' ', $sql ), $sql, $args, $r );
+		$sql['select'] = preg_replace( '/SELECT.*?FROM/', 'SELECT COUNT(*) FROM', $sql['select'] );
+		$total_query   = apply_filters( 'unconfirmed_total_query', join( ' ', $sql ), $sql, $args, $r );
 
 		$this->total_users = $wpdb->get_var( $total_query );
 	}
@@ -312,7 +334,7 @@ class BBG_Unconfirmed {
 			'updated_activated',
 			'error_couldntactivate',
 			'error_nouser',
-			'error_nokey'
+			'error_nokey',
 		);
 
 		$keys = array_merge( $keys, $unconfirmed_keys );
@@ -334,11 +356,15 @@ class BBG_Unconfirmed {
 	function get_userdata_from_key( $key ) {
 		global $wpdb;
 
-		if ( $user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->users WHERE user_activation_key = %s", $key ) ) ) {
+		$user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->users WHERE user_activation_key = %s", $key ) );
+		if ( $user ) {
 			$key_loc = 'users';
-		} else if ( $user_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'activation_key' AND meta_value = %s", $key ) ) ) {
-			$key_loc = 'usermeta';
-			$user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->users WHERE ID = %d", (int)$user_id ) );
+		} else {
+			$user_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'activation_key' AND meta_value = %s", $key ) );
+			if ( $user_id ) {
+				$key_loc = 'usermeta';
+				$user    = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->users WHERE ID = %d", (int) $user_id ) );
+			}
 		}
 
 		return $user;
@@ -359,23 +385,24 @@ class BBG_Unconfirmed {
 		global $wpdb;
 
 		// Did you mean to do this? HMMM???
-		if ( isset( $_REQUEST['unconfirmed_bulk'] ) )
+		if ( isset( $_REQUEST['unconfirmed_bulk'] ) ) {
 			check_admin_referer( 'unconfirmed_bulk_action' );
-		else
+		} else {
 			check_admin_referer( 'unconfirmed_activate_user' );
+		}
 
 		// Get the activation key(s) out of the URL params
-		if ( !isset( $_REQUEST['unconfirmed_key'] ) ) {
+		if ( ! isset( $_REQUEST['unconfirmed_key'] ) ) {
 			$this->record_status( 'error_nokey' );
 			return;
 		}
 
 		$keys = $_REQUEST['unconfirmed_key'];
 
-		foreach( (array)$keys as $key ) {
+		foreach ( (array) $keys as $key ) {
 			if ( $this->is_multisite ) {
-				$result = wpmu_activate_signup( $key );
-				$user_id = !is_wp_error( $result ) && isset( $result['user_id'] ) ? $result['user_id'] : 0;
+				$result  = wpmu_activate_signup( $key );
+				$user_id = ! is_wp_error( $result ) && isset( $result['user_id'] ) ? $result['user_id'] : 0;
 			} else {
 				$user = $this->get_userdata_from_key( $key );
 
@@ -386,12 +413,14 @@ class BBG_Unconfirmed {
 					$user_id = $user->ID;
 				}
 
-				if ( empty( $user_id ) )
+				if ( empty( $user_id ) ) {
 					return new WP_Error( 'invalid_key', __( 'Invalid activation key', 'unconfirmed' ) );
+				}
 
 				// Change the user's status so they become active
-				if ( !$result = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->users SET user_status = 0 WHERE ID = %d", $user_id ) ) )
+				if ( ! $result = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->users SET user_status = 0 WHERE ID = %d", $user_id ) ) ) {
 					return new WP_Error( 'invalid_key', __( 'Invalid activation key', 'unconfirmed' ) );
+				}
 			}
 
 			if ( is_wp_error( $result ) ) {
@@ -413,26 +442,27 @@ class BBG_Unconfirmed {
 		global $wpdb;
 
 		// Don't go there
-		if ( isset( $_REQUEST['unconfirmed_bulk'] ) )
+		if ( isset( $_REQUEST['unconfirmed_bulk'] ) ) {
 			check_admin_referer( 'unconfirmed_bulk_action' );
-		else
+		} else {
 			check_admin_referer( 'unconfirmed_delete_user' );
+		}
 
 		// Get the activation key(s) out of the URL params
-		if ( !isset( $_REQUEST['unconfirmed_key'] ) ) {
+		if ( ! isset( $_REQUEST['unconfirmed_key'] ) ) {
 			$this->record_status( 'error_nokey' );
 			return;
 		}
 
 		$keys = $_REQUEST['unconfirmed_key'];
 
-		foreach ( (array)$keys as $key ) {
+		foreach ( (array) $keys as $key ) {
 			if ( $this->is_multisite ) {
 				// Ensure the user exists before deleting, and pass the data along
 				// to a hook
 				$check = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = %s", $key ) );
 
-				if ( !$check ) {
+				if ( ! $check ) {
 					$this->record_status( 'error_nouser' );
 					return;
 				} else {
@@ -440,13 +470,13 @@ class BBG_Unconfirmed {
 				}
 
 				$delete_sql = apply_filters( 'unconfirmed_delete_sql', $wpdb->prepare( "DELETE FROM $wpdb->signups WHERE activation_key = %s", $key ), $key, $this->is_multisite );
-				$result = $wpdb->query( $delete_sql );
+				$result     = $wpdb->query( $delete_sql );
 			} else {
 				// Ensure the user exists before deleting, and pass the data along
 				// to a hook
 				$check = $this->get_userdata_from_key( $key );
 
-				if ( !$check ) {
+				if ( ! $check ) {
 					$this->record_status( 'error_nouser' );
 					return;
 				} else {
@@ -458,8 +488,9 @@ class BBG_Unconfirmed {
 				$result = wp_delete_user( $user_id );
 			}
 
-			if ( !$key )
+			if ( ! $key ) {
 				$key = 0;
+			}
 
 			if ( $result ) {
 				do_action( 'unconfirmed_user_deleted', $key, $check );
@@ -486,13 +517,14 @@ class BBG_Unconfirmed {
 		global $wpdb;
 
 		// Hubba hubba
-		if ( isset( $_REQUEST['unconfirmed_bulk'] ) )
+		if ( isset( $_REQUEST['unconfirmed_bulk'] ) ) {
 			check_admin_referer( 'unconfirmed_bulk_action' );
-		else
+		} else {
 			check_admin_referer( 'unconfirmed_resend_email' );
+		}
 
 		// Get the user's activation key out of the URL params
-		if ( !isset( $_REQUEST['unconfirmed_key'] ) ) {
+		if ( ! isset( $_REQUEST['unconfirmed_key'] ) ) {
 			$this->record_status( 'error_nokey' );
 			return;
 		}
@@ -501,20 +533,21 @@ class BBG_Unconfirmed {
 
 		$keys = $_REQUEST['unconfirmed_key'];
 
-		foreach( (array)$keys as $key ) {
-			if ( $this->is_multisite )
+		foreach ( (array) $keys as $key ) {
+			if ( $this->is_multisite ) {
 				$user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = %s", $key ) );
-			else
+			} else {
 				$user = $this->get_userdata_from_key( $key );
+			}
 
-			if ( !$user ) {
+			if ( ! $user ) {
 				$this->record_status( 'error_nouser', $key );
 				continue;
 			}
 
 			if ( $this->is_multisite ) {
 				// We use a different email function depending on whether they registered with blog
-				if ( !empty( $user->domain ) ) {
+				if ( ! empty( $user->domain ) ) {
 					wpmu_signup_blog_notification( $user->domain, $user->path, $user->title, $user->user_login, $user->user_email, $user->activation_key, maybe_unserialize( $user->meta ) );
 				} else {
 					wpmu_signup_user_notification( $user->user_login, $user->user_email, $user->activation_key, maybe_unserialize( $user->meta ) );
@@ -527,10 +560,10 @@ class BBG_Unconfirmed {
 				}
 			}
 
-			if ( isset( $resent_counts[$key] ) ) {
-				$resent_counts[$key] = $resent_counts[$key] + 1;
+			if ( isset( $resent_counts[ $key ] ) ) {
+				$resent_counts[ $key ] = $resent_counts[ $key ] + 1;
 			} else {
-				$resent_counts[$key] = 1;
+				$resent_counts[ $key ] = 1;
 			}
 
 			// I can't do a true/false check on whether the email was sent because of
@@ -552,7 +585,7 @@ class BBG_Unconfirmed {
 	 * @param str $key The activation key of the affected user, if available
 	 */
 	function record_status( $status, $key = false ) {
-		$this->results[$status][] = $key;
+		$this->results[ $status ][] = $key;
 	}
 
 	/**
@@ -567,8 +600,8 @@ class BBG_Unconfirmed {
 	function do_redirect() {
 		$query_vars = array( 'unconfirmed_complete' => '1' );
 
-		foreach( (array)$this->results as $status => $keys ) {
-			$query_vars[$status] = implode( ',', $keys );
+		foreach ( (array) $this->results as $status => $keys ) {
+			$query_vars[ $status ] = implode( ',', $keys );
 		}
 
 		$redirect_url = add_query_arg( $query_vars, $this->base_url );
@@ -577,11 +610,11 @@ class BBG_Unconfirmed {
 	}
 
 	function add_args( $add_args ) {
-		if ( !empty( $_REQUEST['s'] ) ) {
-			$search_text = urlencode( $_REQUEST['s'] );
-			$add_args[ 's' ] = $search_text;
+		if ( ! empty( $_REQUEST['s'] ) ) {
+			$search_text   = urlencode( $_REQUEST['s'] );
+			$add_args['s'] = $search_text;
 		} else {
-			$add_args[ 's' ] = '';
+			$add_args['s'] = '';
 		}
 		return $add_args;
 	}
@@ -595,26 +628,26 @@ class BBG_Unconfirmed {
 	function setup_get_users() {
 		global $wpdb;
 
-		foreach( $_REQUEST as $get_key => $activation_keys ) {
+		foreach ( $_REQUEST as $get_key => $activation_keys ) {
 			$get_key = explode( '_', $get_key );
 
 			if ( 'updated' == $get_key[0] || 'error' == $get_key[0] ) {
 				$activation_keys = explode( ',', $activation_keys );
 
 				if ( $this->is_multisite ) {
-					foreach( (array)$activation_keys as $ak_index => $activation_key ) {
-						$activation_keys[$ak_index] = '"' . sanitize_text_field( $activation_key ) . '"';
+					foreach ( (array) $activation_keys as $ak_index => $activation_key ) {
+						$activation_keys[ $ak_index ] = '"' . sanitize_text_field( $activation_key ) . '"';
 					}
 					$activation_keys = implode( ',', $activation_keys );
 
 					$registrations = $wpdb->get_results( "SELECT user_email, activation_key FROM $wpdb->signups WHERE activation_key IN ({$activation_keys})" );
 				} else {
 					$registrations = array();
-					foreach ( (array)$activation_keys as $akey ) {
+					foreach ( (array) $activation_keys as $akey ) {
 						$user = $this->get_userdata_from_key( $akey );
 
-						$registration = new stdClass;
-						$registration->user_email = isset( $user->user_email ) ? $user->user_email : '';
+						$registration                 = new stdClass();
+						$registration->user_email     = isset( $user->user_email ) ? $user->user_email : '';
 						$registration->activation_key = isset( $user->user_activation_key ) ? $user->user_activation_key : ''; // todo: usermeta compat
 
 						$registrations[] = $registration;
@@ -622,9 +655,9 @@ class BBG_Unconfirmed {
 				}
 
 				$updated_or_error = $get_key[0];
-				$message_type = $get_key[1];
+				$message_type     = $get_key[1];
 
-				$this->results_emails[$updated_or_error][$message_type] = $registrations;
+				$this->results_emails[ $updated_or_error ][ $message_type ] = $registrations;
 			}
 		}
 	}
@@ -638,15 +671,15 @@ class BBG_Unconfirmed {
 	function setup_messages() {
 		global $wpdb;
 
-		if ( !empty( $this->results_emails ) ) {
+		if ( ! empty( $this->results_emails ) ) {
 
 			// Cycle through the successful actions first
-			if ( !empty( $this->results_emails['updated'] ) ) {
-				foreach( $this->results_emails['updated'] as $message_type => $registrations ) {
-					if ( !empty( $registrations ) ) {
+			if ( ! empty( $this->results_emails['updated'] ) ) {
+				foreach ( $this->results_emails['updated'] as $message_type => $registrations ) {
+					if ( ! empty( $registrations ) ) {
 						$emails = array();
 
-						foreach( $registrations as $registration ) {
+						foreach ( $registrations as $registration ) {
 							$emails[] = $registration->user_email;
 						}
 
@@ -657,22 +690,25 @@ class BBG_Unconfirmed {
 					$message = '';
 
 					switch ( $message_type ) {
-						case 'activated' :
+						case 'activated':
+							/* translators: list of email addresses */
 							$message = sprintf( __( 'You successfully activated the following users: %s', 'unconfirmed' ), $emails );
 							break;
 
-						case 'resent' :
+						case 'resent':
+							/* translators: list of email addresses */
 							$message = sprintf( __( 'You successfully resent activation emails to the following users: %s', 'unconfirmed' ), $emails );
 							break;
 
-						case 'deleted' :
-							if ( count( $registrations ) > 1 )
+						case 'deleted':
+							if ( count( $registrations ) > 1 ) {
 								$message = __( 'Registrations successfully deleted.', 'unconfirmed' );
-							else
+							} else {
 								$message = __( 'Registration successfully deleted.', 'unconfirmed' );
+							}
 							break;
 
-						default :
+						default:
 							break;
 					}
 				}
@@ -681,12 +717,12 @@ class BBG_Unconfirmed {
 			}
 
 			// Now cycle through the failures
-			if ( !empty( $this->results_emails['error'] ) ) {
-				foreach( $this->results_emails['error'] as $message_type => $registrations ) {
-					if ( !empty( $registrations ) ) {
+			if ( ! empty( $this->results_emails['error'] ) ) {
+				foreach ( $this->results_emails['error'] as $message_type => $registrations ) {
+					if ( ! empty( $registrations ) ) {
 						$emails = array();
 
-						foreach( $registrations as $registration ) {
+						foreach ( $registrations as $registration ) {
 							$emails[] = $registration->user_email;
 						}
 
@@ -694,31 +730,31 @@ class BBG_Unconfirmed {
 					}
 
 					switch ( $message_type ) {
-						case 'nokey' :
+						case 'nokey':
 							$message = __( 'You didn\'t provide an activation key.', 'unconfirmed' );
 							break;
 
-						case 'couldntactivate' :
+						case 'couldntactivate':
+							/* translators: list of email addresses */
 							$message = sprintf( __( 'The following users could not be activated: %s', 'unconfirmed' ), $emails );
 							break;
 
-						case 'nouser' :
+						case 'nouser':
 							$message = __( 'You provided invalid activation keys.', 'unconfirmed' );
 							break;
 
-						case 'unsent' :
+						case 'unsent':
+							/* translators: list of email addresses */
 							$message = sprintf( __( 'Activations emails could not be resent to the following email addresses: %s', 'unconfirmed' ), $emails );
 							break;
 
-						default :
+						default:
 							break;
 					}
-
 				}
 
 				$this->message['error'] = $message;
 			}
-
 		}
 	}
 
@@ -735,16 +771,16 @@ class BBG_Unconfirmed {
 	function render_messages() {
 		$this->setup_messages();
 
-		if ( !empty( $this->message ) ) {
-		?>
+		if ( ! empty( $this->message ) ) {
+			?>
 
-		<?php foreach( (array)$this->message as $message_type => $text ) : ?>
-			<div id="message" class="<?php echo $message_type ?>">
-				<p><?php echo $text ?></p>
+			<?php foreach ( (array) $this->message as $message_type => $text ) : ?>
+			<div id="message" class="<?php echo esc_attr( $message_type ); ?>">
+				<p><?php echo esc_html( $text ); ?></p>
 			</div>
 		<?php endforeach ?>
 
-		<?php
+			<?php
 		}
 	}
 
@@ -760,60 +796,62 @@ class BBG_Unconfirmed {
 	 */
 	function admin_panel_main() {
 
-		if ( !class_exists( 'BBG_CPT_Pag' ) )
-			require_once( dirname( __FILE__ ) . '/lib/boones-pagination.php' );
-		$pagination = new BBG_CPT_Pag;
+		if ( ! class_exists( 'BBG_CPT_Pag' ) ) {
+			require_once dirname( __FILE__ ) . '/lib/boones-pagination.php';
+		}
+		$pagination = new BBG_CPT_Pag();
 
 		// Load the sortable helper
-		if ( !class_exists( 'BBG_CPT_Sort' ) )
-			require_once( dirname( __FILE__ ) . '/lib/boones-sortable-columns.php' );
+		if ( ! class_exists( 'BBG_CPT_Sort' ) ) {
+			require_once dirname( __FILE__ ) . '/lib/boones-sortable-columns.php';
+		}
 
 		$cols = array(
 			array(
-				'name'		=> 'user_login',
-				'title'		=> __( 'User Login', 'unconfirmed' ),
-				'css_class'	=> 'login'
+				'name'      => 'user_login',
+				'title'     => __( 'User Login', 'unconfirmed' ),
+				'css_class' => 'login',
 			),
 			array(
-				'name'		=> 'user_email',
-				'title'		=> __( 'Email Address', 'unconfirmed' ),
-				'css_class'	=> 'email'
+				'name'      => 'user_email',
+				'title'     => __( 'Email Address', 'unconfirmed' ),
+				'css_class' => 'email',
 			),
 			array(
-				'name'		=> 'registered',
-				'title'		=> 'Registered',
-				'css_class'	=> 'registered',
-				'default_order'	=> 'desc',
-				'is_default'	=> true
-			),
-			array(
-				'name'		=> 'activation_key',
-				'title'		=> __( 'Activation Key', 'unconfirmed' ),
-				'css_class'	=> 'activation-key'
-			),
-			array(
-				'name'		=> 'resent_count',
-				'title'		=> __( '# of Times Resent', 'unconfirmed' ),
-				'css_class'	=> 'resent-count',
+				'name'          => 'registered',
+				'title'         => 'Registered',
+				'css_class'     => 'registered',
 				'default_order' => 'desc',
-				'is_sortable'	=> false
-			)
+				'is_default'    => true,
+			),
+			array(
+				'name'      => 'activation_key',
+				'title'     => __( 'Activation Key', 'unconfirmed' ),
+				'css_class' => 'activation-key',
+			),
+			array(
+				'name'          => 'resent_count',
+				'title'         => __( '# of Times Resent', 'unconfirmed' ),
+				'css_class'     => 'resent-count',
+				'default_order' => 'desc',
+				'is_sortable'   => false,
+			),
 		);
 
 		// On non-multisite installations, we have the display name available. Show it.
-		if ( !$this->is_multisite ) {
+		if ( ! $this->is_multisite ) {
 			$non_ms_cols = array(
 				array(
-					'name'	=> 'display_name',
-					'title'	=> __( 'Display Name', 'unconfirmed' )
-				)
+					'name'  => 'display_name',
+					'title' => __( 'Display Name', 'unconfirmed' ),
+				),
 			);
 
 			// Can't get array_splice to work right for this multi-d array, so I'm
 			// hacking around it
-			$col0 = array( $cols[0] );
+			$col0      = array( $cols[0] );
 			$cols_rest = array_slice( $cols, 1 );
-			$cols = array_merge( $col0, $non_ms_cols, $cols_rest );
+			$cols      = array_merge( $col0, $non_ms_cols, $cols_rest );
 		}
 
 		$sortable = new BBG_CPT_Sort( $cols );
@@ -821,63 +859,65 @@ class BBG_Unconfirmed {
 		$offset = $pagination->get_per_page * ( $pagination->get_paged - 1 );
 
 		$args = array(
-			'orderby'	=> $sortable->get_orderby,
-			'order'		=> $sortable->get_order,
-			'number'	=> $pagination->get_per_page,
-			'offset'	=> $offset,
+			'orderby' => $sortable->get_orderby,
+			'order'   => $sortable->get_order,
+			'number'  => $pagination->get_per_page,
+			'offset'  => $offset,
 		);
 
 		$this->setup_users( $args );
 
 		// Setting this up a certain way to make pagination/sorting easier
-		$query = new stdClass;
+		$query        = new stdClass();
 		$query->users = $this->users;
 
 		// In order for Boone's Pagination to work, this stuff must be set manually
-		$query->found_posts = $this->total_users;
+		$query->found_posts   = $this->total_users;
 		$query->max_num_pages = ceil( $query->found_posts / $pagination->get_per_page );
 
 		// Complete the pagination setup
 		$pagination->setup_query( $query );
 
+		$search_value = isset( $_REQUEST['s'] ) ? wp_unslash( $_REQUEST['s'] ) : '';
+
 		?>
 		<div class="wrap">
 
-		<h2><?php _e( 'Unconfirmed', 'unconfirmed' ) ?></h2>
+		<h2><?php esc_html_e( 'Unconfirmed', 'unconfirmed' ); ?></h2>
 
-		<?php $this->render_messages() ?>
+		<?php $this->render_messages(); ?>
 
-		<form action="<?php echo $this->base_url ?>" method="post">
+		<form action="<?php echo esc_attr( $this->base_url ); ?>" method="post">
 
 		<p class="search-box">
-			<label class="screen-reader-text" for="unconfirmed-search-input">Search:</label>
-			<input type="search" id="unconfirmed-search-input" name="s" value="<?php if ( !empty( $_REQUEST['s'] ) ) echo esc_attr( $_REQUEST['s'] ); ?>">
+			<label class="screen-reader-text" for="unconfirmed-search-input"><?php esc_html_e( 'Search:', 'unconfirmed' ); ?></label>
+			<input type="search" id="unconfirmed-search-input" name="s" value="<?php echo esc_attr( $search_value ); ?>">
 			<input type="hidden" id="unconfirmed-performed-search-input" name="performed_search" value="0">
 			<input type="submit" name="search_submit" id="search-submit" class="button" value="Search" onclick="document.getElementById('unconfirmed-performed-search-input').value = '1';">
 		</p>
 
-		<?php if ( !empty( $this->users ) ) : ?>
+		<?php if ( ! empty( $this->users ) ) : ?>
 			<div class="tablenav top">
 				<div class="alignleft actions">
 					<select name="unconfirmed_action">
-						<option value="resend"><?php _e( 'Resend Activation Email', 'unconfirmed' ) ?>&nbsp;&nbsp;</option>
-						<option value="activate"><?php _e( 'Activate', 'unconfirmed' ) ?></option>
-						<option value="delete"><?php _e( 'Delete', 'unconfirmed' ) ?></option>
+						<option value="resend"><?php esc_html_e( 'Resend Activation Email', 'unconfirmed' ); ?>&nbsp;&nbsp;</option>
+						<option value="activate"><?php esc_html_e( 'Activate', 'unconfirmed' ); ?></option>
+						<option value="delete"><?php esc_html_e( 'Delete', 'unconfirmed' ); ?></option>
 					</select>
 
-					<input id="doaction" class="button-secondary action" type="submit" value="<?php _e( 'Apply', 'unconfirmed' ) ?>" />
+					<input id="doaction" class="button-secondary action" type="submit" value="<?php esc_html_e( 'Apply', 'unconfirmed' ); ?>" />
 					<input type="hidden" name="unconfirmed_bulk" value="1" />
 
-					<?php wp_nonce_field( 'unconfirmed_bulk_action' ) ?>
+					<?php wp_nonce_field( 'unconfirmed_bulk_action' ); ?>
 				</div>
 
 				<div class="tablenav-pages unconfirmed-pagination">
 					<div class="currently-viewing alignleft">
-						<?php $pagination->currently_viewing_text() ?>
+						<?php $pagination->currently_viewing_text(); ?>
 					</div>
 
 					<div class="pag-links alignright">
-						<?php $pagination->paginate_links() ?>
+						<?php $pagination->paginate_links(); ?>
 					</div>
 				</div>
 			</div>
@@ -890,9 +930,14 @@ class BBG_Unconfirmed {
 						<input type="checkbox" />
 					</th>
 
-					<?php if ( $sortable->have_columns() ) : while ( $sortable->have_columns() ) : $sortable->the_column() ?>
-						<?php $sortable->the_column_th() ?>
-					<?php endwhile; endif ?>
+					<?php
+					if ( $sortable->have_columns() ) {
+						while ( $sortable->have_columns() ) {
+							$sortable->the_column();
+							$sortable->the_column_th();
+						}
+					}
+					?>
 
 				</tr>
 			</thead>
@@ -901,44 +946,76 @@ class BBG_Unconfirmed {
 				<?php foreach ( $this->users as $user ) : ?>
 				<tr>
 					<th scope="row" class="check-column">
-						<input type="checkbox" name="unconfirmed_key[]" value="<?php echo $user->activation_key ?>" />
+						<input type="checkbox" name="unconfirmed_key[]" value="<?php echo esc_attr( $user->activation_key ); ?>" />
 					</th>
 
 					<td class="login">
-						<?php echo $user->user_login ?>
+						<?php echo esc_html( $user->user_login ); ?>
 
 						<div class="row-actions">
-							<span class="edit"><a class="confirm" href="<?php echo wp_nonce_url( add_query_arg( array( 'unconfirmed_action' => 'resend', 'unconfirmed_key' => $user->activation_key ), $this->base_url ), 'unconfirmed_resend_email' ) ?>"><?php _e( 'Resend Activation Email', 'unconfirmed' ) ?></a></span>
+							<?php
+							$resend_url = wp_nonce_url(
+								add_query_arg(
+									array(
+										'unconfirmed_action' => 'resend',
+										'unconfirmed_key' => $user->activation_key,
+									), $this->base_url
+								), 'unconfirmed_resend_email'
+							);
+							?>
+							<span class="edit"><a class="confirm" href="<?php echo esc_attr( $resend_url ); ?>"><?php esc_html_e( 'Resend Activation Email', 'unconfirmed' ); ?></a></span>
 
 							&nbsp;&nbsp;
-							<span class="edit"><a class="confirm" href="<?php echo wp_nonce_url( add_query_arg( array( 'unconfirmed_action' => 'activate', 'unconfirmed_key' => $user->activation_key ), $this->base_url ), 'unconfirmed_activate_user' ) ?>"><?php _e( 'Activate', 'unconfirmed' ) ?></a></span>
+							<?php
+							$activate_url = wp_nonce_url(
+								add_query_arg(
+									array(
+										'unconfirmed_action' => 'activate',
+										'unconfirmed_key' => $user->activation_key,
+									), $this->base_url
+								), 'unconfirmed_activate_user'
+							);
+							?>
+							<span class="edit"><a class="confirm" href="<?php echo esc_attr( $activate_url ); ?>"><?php esc_html_e( 'Activate', 'unconfirmed' ); ?></a></span>
 
 							&nbsp;&nbsp;
-							<span class="delete"><a title="<?php _e( 'Deleting a registration means that it will be removed from the database, and the user will be unable to activate his account. Proceed with caution!', 'unconfirmed' ) ?>" class="confirm" href="<?php echo wp_nonce_url( add_query_arg( array( 'unconfirmed_action' => 'delete', 'unconfirmed_key' => $user->activation_key ), $this->base_url ), 'unconfirmed_delete_user' ) ?>"><?php _e( 'Delete', 'unconfirmed' ) ?></a></span>
+							<?php
+							$delete_url = wp_nonce_url(
+								add_query_arg(
+									array(
+										'unconfirmed_action' => 'delete',
+										'unconfirmed_key' => $user->activation_key,
+									),
+									$this->base_url
+								),
+								'unconfirmed_delete_user'
+							);
+							?>
+							<span class="delete"><a title="<?php esc_html_e( 'Deleting a registration means that it will be removed from the database, and the user will be unable to activate his account. Proceed with caution!', 'unconfirmed' ); ?>" class="confirm" href="<?php echo esc_attr( $delete_url ); ?>"><?php esc_html_e( 'Delete', 'unconfirmed' ); ?></a></span>
 
 						</div>
 					</td>
 
-					<?php if ( !$this->is_multisite ) : ?>
+					<?php if ( ! $this->is_multisite ) : ?>
 						<td class="display_name">
-							<?php echo $user->display_name ?>
+							<?php echo esc_html( $user->display_name ); ?>
 						</td>
 					<?php endif ?>
 
 					<td class="email">
-						<?php echo $user->user_email ?>
+						<?php echo esc_html( $user->user_email ); ?>
 					</td>
 
 					<td class="registered">
-						<?php echo $user->registered ?>
+						<?php echo esc_html( $user->registered ); ?>
 					</td>
 
 					<td class="activation_key">
-						<?php echo $user->activation_key ?>
+						<?php echo esc_html( $user->activation_key ); ?>
 					</td>
 
 					<td class="activation_key">
-						<?php echo (int)$user->resent_count ?>
+						<?php echo esc_html( (int) $user->resent_count ); ?>
 					</td>
 
 				</tr>
@@ -949,18 +1026,18 @@ class BBG_Unconfirmed {
 			<div class="tablenav bottom">
 				<div class="unconfirmed-pagination alignright tablenav-pages">
 					<div class="currently-viewing alignleft">
-						<?php $pagination->currently_viewing_text() ?>
+						<?php $pagination->currently_viewing_text(); ?>
 					</div>
 
 					<div class="pag-links alignright">
-						<?php $pagination->paginate_links() ?>
+						<?php $pagination->paginate_links(); ?>
 					</div>
 				</div>
 			</div>
 
 		<?php else : ?>
 
-			<p><?php _e( 'No unactivated members were found.', 'unconfirmed' ) ?></p>
+			<p><?php esc_html_e( 'No unactivated members were found.', 'unconfirmed' ); ?></p>
 
 		<?php endif ?>
 
@@ -975,7 +1052,7 @@ function BBG_Unconfirmed() {
 	global $bbg_unconfirmed;
 
 	if ( empty( $bbg_unconfirmed ) ) {
-		$bbg_unconfirmed = new BBG_Unconfirmed;
+		$bbg_unconfirmed = new BBG_Unconfirmed();
 	}
 
 	return $bbg_unconfirmed;

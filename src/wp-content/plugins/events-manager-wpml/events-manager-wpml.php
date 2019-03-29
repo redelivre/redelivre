@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Events Manager and WPML Compatibility
-Version: 1.0.1
+Version: 1.2
 Plugin URI: http://wp-events-plugin.com
 Description: Integrates the Events Manager and WPML plugins together to provide a smoother multilingual experience (EM and WPML also needed)
 Author: Marcus Sykes
@@ -9,7 +9,7 @@ Author URI: http://wp-events-plugin.com
 */
 
 /*
-Copyright (c) 2015, Marcus Sykes
+Copyright (c) 2018, Marcus Sykes
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -33,12 +33,8 @@ Certain things can't happen without twaks or just can't happen at all
 - Recurring events
 	- Recurring Events can't be translated when editing the recurrence template, they must be done one by one i.e. at single event level
 	- Recurring events are disabled by default due to the above
-- Bookings
-	- customn booking forms aren't translated
 - Location Searching
 	- currently autocompleter forces searches for current languages, we may want to change this in the future to search all languages but give precedence to showing the translated version if available
-- Slugs
-	- not translated, but this might not be something we should control
 - More unforseen issues
 	- Both Events Manager and WPML are very complex plugin which hook into loads of places within WordPress to make things happen. That means a big combination of things to test, therefore many combinations may have been missed which result in unexpected behaviour. Please let us know of any other nuances you come across and we'll do our best to fix them as time permits.
 
@@ -56,15 +52,9 @@ To close some gaps, extra steps are needed
 		- my bookings page
  */
 
-//TODO booking form override for translated languages
-//TODO remove meta boxes on translations, times, locations, ect. remain the same across events
-//TODO think about what to do with booking form content r.e. translations
-
 //TODO better way of linking translated events to translations of locations
 
-//TODO what happens if you create a language first in a second languge?
-
-define('EM_WPML_VERSION','0.3.3');
+define('EM_WPML_VERSION','1.2');
 
 //stores all master event info within a script run, to save repetitive db calls e.g. within an event format output operation.
 $em_wpml_translation_index = array();
@@ -97,11 +87,10 @@ class EM_WPML{
 	    //continue initialization
 	    if( is_admin() ){
 	        include('em-wpml-admin.php');
-	        include('em-wpml-permalinks.php'); //don't think we need this outside of admin, only when permalinks are rewritten
 	    }
+	    include('em-wpml-permalinks.php');
 	    include('em-wpml-io.php');
 	    include('em-wpml-search.php');
-	    if( get_option('dbem_categories_enabled') || get_option('dbem_tags_enabled') ) include('em-wpml-taxonomies.php');
 		
 		//force disable recurring events
 		if( !defined('EM_WMPL_FORCE_RECURRENCES') || !EM_WMPL_FORCE_RECURRENCES ){
@@ -247,8 +236,13 @@ class EM_WPML{
     	if( is_admin() ){
     	    //check we are adding a new translation belonging to a trid set
     	    if( $pagenow == 'post-new.php' && !empty($_REQUEST['trid']) ) return false;
-            //check if a translation is being submitted
+            //if this is a translation being edited (not first time), WPML submits this variable
             if( $pagenow == 'post.php' && !empty($_REQUEST['icl_translation_of']) ) return false;
+            //if this is a translation submitted, we have a trid and post ID we can use to check out
+            if( $pagenow == 'post.php' && !empty($_REQUEST['icl_trid']) && $object->post_id == $_REQUEST['post_ID'] ){
+            	$original_post_id = SitePress::get_original_element_id_by_trid($_REQUEST['icl_trid']);
+				return $original_post_id == $object->post_id || $original_post_id === false;
+            }
 		}
 		//if we got this far, check that $object has a post_id as EM_Event and EM_Location would have, and get the original translation via WPML
 		if( !empty($object->post_id) ){
@@ -280,9 +274,10 @@ class EM_WPML{
             $original_post_id = SitePress::get_original_element_id($object->post_id, 'post_'.$object->post_type);
             //check a few admin specific stuff if a standard check didn't work, in case we're in the admin area translating via WPML
             if( empty($original_post_id) && is_admin() ){
-                if( !empty($_REQUEST['trid']) ){
+                if( !empty($_REQUEST['trid']) || !empty($_REQUEST['icl_trid']) ){
+                	$trid = !empty($_REQUEST['trid']) ? $_REQUEST['trid'] : $_REQUEST['icl_trid'];
         			//we are adding a new translation belonging to a trid set
-        			$original_post_id = SitePress::get_original_element_id_by_trid($_REQUEST['trid']);
+        			$original_post_id = SitePress::get_original_element_id_by_trid($trid);
                 }elseif( !empty($_REQUEST['icl_translation_of']) ){
                     //a new translation has just been submitted
                     $translation_of = $_REQUEST['icl_translation_of']; //could be a translation from another translation, e.g. try adding a translation from a second language
@@ -345,6 +340,9 @@ class EM_WPML{
 	    global $sitepress;
 		$sitepress_langs = $sitepress->get_active_languages();
 		$sitepress_lang = $sitepress->get_current_language();
+		if( empty($sitepress_langs[$sitepress_lang]['default_locale']) ){
+			return $sitepress_langs[$sitepress->get_default_language()]['default_locale'];
+		}
 		return $sitepress_langs[$sitepress_lang]['default_locale'];
 	}
 }

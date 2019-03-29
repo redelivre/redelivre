@@ -3,9 +3,15 @@
 /**
  * Code related to the sitecheck.lib.php interface.
  *
- * @package Sucuri Security
- * @subpackage sitecheck.lib.php
- * @copyright Since 2010 Sucuri Inc.
+ * PHP version 5
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 
 if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
@@ -28,31 +34,50 @@ if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
  * operation to finish, otherwise the scanner will return innacurate
  * information.
  *
- * @see https://sitecheck.sucuri.net/
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
+ * @see        https://sitecheck.sucuri.net/
  */
 class SucuriScanSiteCheck extends SucuriScanAPI
 {
+    /**
+     * Returns the URL that will be scanned by SiteCheck.
+     *
+     * @return string URL to be scanned.
+     */
+    private static function targetURL()
+    {
+        /* allow to set a custom URL for the scans */
+        $custom = SucuriScanOption::getOption(':sitecheck_target');
+
+        if ($custom) {
+            return $custom;
+        }
+
+        return SucuriScan::getDomain();
+    }
+
     /**
      * Executes a malware scan against the specified website.
      *
      * @see https://sitecheck.sucuri.net/
      *
-     * @param string $domain The clean version of the website's domain.
-     * @param bool $clear Request the results from a fresh scan or not.
-     * @return array|bool JSON encoded website scan results.
+     * @param  bool $clear Request the results from a fresh scan or not.
+     * @return array|bool  JSON encoded website scan results.
      */
-    public static function runMalwareScan($domain = '', $clear = true)
+    public static function runMalwareScan($clear = false)
     {
-        if (empty($domain)) {
-            return false;
-        }
-
         $params = array();
-        $params['scan'] = $domain;
-        $params['fromwp'] = 2;
         $params['json'] = 1;
+        $params['fromwp'] = 2;
+        $params['scan'] = self::targetURL();
 
-        // Request a fresh scan or not.
+        /* force clear scan */
         if ($clear === true) {
             $params['clear'] = 1;
         }
@@ -86,33 +111,25 @@ class SucuriScanSiteCheck extends SucuriScanAPI
      */
     public static function scanAndCollectData()
     {
-        $tld = SucuriScan::getDomain();
         $cache = new SucuriScanCache('sitecheck');
-        $results = $cache->get('scan_results', SUCURISCAN_SITECHECK_LIFETIME, 'array');
 
-        /**
-         * Allow the user to scan foreign domains.
-         *
-         * This condition allows for the execution of the malware scanner on a
-         * website different than the one where the plugin is installed. This is
-         * basically the same as scanning any domain on the SiteCheck website.
-         * In this case, this is mostly used to allow the development execute
-         * tests and to troubleshoot issues reported by other users.
-         *
-         * @var boolean
-         */
-        if ($custom = SucuriScanRequest::get('s')) {
-            $tld = SucuriScan::escape($custom);
-            $results = false /* invalid cache */;
+        if (SucuriScanRequest::post(':sitecheck_refresh') === 'true') {
+            /* user requested to reset the sitecheck cache */
+            $cache->delete('scan_results');
         }
+
+        $results = $cache->get('scan_results', SUCURISCAN_SITECHECK_LIFETIME, 'array');
 
         /* return cached malware scan results. */
         if ($results && !empty($results)) {
             return $results;
         }
 
+        /* delete expired cache */
+        $cache->delete('scan_results');
+
         /* send HTTP request to SiteCheck's API service. */
-        $results = self::runMalwareScan($tld);
+        $results = self::runMalwareScan();
 
         /* check for error in the request's response. */
         if (is_string($results) || isset($results['SYSTEM']['ERROR'])) {
@@ -124,10 +141,24 @@ class SucuriScanSiteCheck extends SucuriScanAPI
         }
 
         /* cache the results for some time. */
-        $cache = new SucuriScanCache('sitecheck');
         $cache->add('scan_results', $results);
 
         return $results;
+    }
+
+    /**
+     * Returns the amount of time left before the SiteCheck cache expires.
+     *
+     * @return string Time left before the SiteCheck cache expires.
+     */
+    private static function cacheLifetime()
+    {
+        $current = time();
+        $cache = new SucuriScanCache('sitecheck');
+        $timeDiff = $current - $cache->updatedAt();
+        $timeLeft = SUCURISCAN_SITECHECK_LIFETIME - $timeDiff;
+
+        return self::humanTime($current + $timeLeft);
     }
 
     /**
@@ -142,8 +173,10 @@ class SucuriScanSiteCheck extends SucuriScanAPI
         $data['details'] = array();
 
         $params['SiteCheck.Metadata'] = '';
-        $data['details'][] = 'PHP Version: ' . phpversion();
-        $data['details'][] = 'Version: ' . SucuriScan::siteVersion();
+        $params['SiteCheck.Lifetime'] = self::cacheLifetime();
+
+        $data['details'][] = sprintf(__('PHP Version: %s', 'sucuri-scanner'), phpversion());
+        $data['details'][] = sprintf(__('Version: %s', 'sucuri-scanner'), SucuriScan::siteVersion());
 
         if (isset($data['SCAN']['SITE'])) {
             $params['SiteCheck.Website'] = $data['SCAN']['SITE'][0];
@@ -154,11 +187,11 @@ class SucuriScanSiteCheck extends SucuriScanAPI
         }
 
         if (isset($data['SCAN']['HOSTING'])) {
-            $data['details'][] = 'Hosting: ' . $data['SCAN']['HOSTING'][0];
+            $data['details'][] = sprintf(__('Hosting: %s', 'sucuri-scanner'), apply_filters( 'sucuriscan_sitecheck_details_hosting', $data['SCAN']['HOSTING'][0] ));
         }
 
         if (isset($data['SCAN']['CMS'])) {
-            $data['details'][] = 'CMS: ' . $data['SCAN']['CMS'][0];
+            $data['details'][] = sprintf(__('CMS: %s', 'sucuri-scanner'), $data['SCAN']['CMS'][0]);
         }
 
         if (isset($data['SYSTEM']['NOTICE'])) {
@@ -211,11 +244,13 @@ class SucuriScanSiteCheck extends SucuriScanAPI
                     continue;
                 }
 
-                $params['SiteCheck.Metadata'] .=
-                SucuriScanTemplate::getSnippet('sitecheck-details', array(
-                    'SiteCheck.Title' => trim($parts[0]),
-                    'SiteCheck.Value' => trim($parts[1]),
-                ));
+                $params['SiteCheck.Metadata'] .= SucuriScanTemplate::getSnippet(
+                    'sitecheck-details',
+                    array(
+                        'SiteCheck.Title' => trim($parts[0]),
+                        'SiteCheck.Value' => trim($parts[1]),
+                    )
+                );
             }
         }
 
@@ -234,26 +269,30 @@ class SucuriScanSiteCheck extends SucuriScanAPI
 
         $params['Malware.Content'] = '';
         $params['Malware.Color'] = 'green';
-        $params['Malware.Title'] = __('SiteClean', SUCURISCAN_TEXTDOMAIN);
+        $params['Malware.Title'] = __('Site is Clean', 'sucuri-scanner');
         $params['Malware.CleanVisibility'] = 'visible';
         $params['Malware.InfectedVisibility'] = 'hidden';
 
         if (isset($data['MALWARE']['WARN']) && !empty($data['MALWARE']['WARN'])) {
             $params['Malware.Color'] = 'red';
-            $params['Malware.Title'] = __('SiteNotClean', SUCURISCAN_TEXTDOMAIN);
+            $params['Malware.Title'] = __('Site is not Clean', 'sucuri-scanner');
             $params['Malware.CleanVisibility'] = 'hidden';
             $params['Malware.InfectedVisibility'] = 'visible';
 
             foreach ($data['MALWARE']['WARN'] as $mal) {
-                if ($info = self::malwareDetails($mal)) {
-                    $params['Malware.Content'] .=
-                    SucuriScanTemplate::getSnippet('sitecheck-malware', array(
-                        'Malware.InfectedURL' => $info['infected_url'],
-                        'Malware.MalwareType' => $info['malware_type'],
-                        'Malware.MalwareDocs' => $info['malware_docs'],
-                        'Malware.AlertMessage' => $info['alert_message'],
-                        'Malware.MalwarePayload' => $info['malware_payload'],
-                    ));
+                $info = self::malwareDetails($mal);
+
+                if ($info) {
+                    $params['Malware.Content'] .= SucuriScanTemplate::getSnippet(
+                        'sitecheck-malware',
+                        array(
+                            'Malware.InfectedURL' => $info['infected_url'],
+                            'Malware.MalwareType' => $info['malware_type'],
+                            'Malware.MalwareDocs' => $info['malware_docs'],
+                            'Malware.AlertMessage' => $info['alert_message'],
+                            'Malware.MalwarePayload' => $info['malware_payload'],
+                        )
+                    );
                 }
             }
         }
@@ -275,7 +314,7 @@ class SucuriScanSiteCheck extends SucuriScanAPI
             return ''; /* there is not enough information to render */
         }
 
-        $params['Blacklist.Title'] = __('NotBlacklisted', SUCURISCAN_TEXTDOMAIN);
+        $params['Blacklist.Title'] = __('Not Blacklisted', 'sucuri-scanner');
         $params['Blacklist.Color'] = 'green';
         $params['Blacklist.Content'] = '';
 
@@ -288,17 +327,19 @@ class SucuriScanSiteCheck extends SucuriScanAPI
                     substr($info[0], 0, strrpos($info[0], ':'))
                 );
 
-                $params['Blacklist.Content'] .=
-                SucuriScanTemplate::getSnippet('sitecheck-blacklist', array(
-                    'Blacklist.URL' => $url,
-                    'Blacklist.Status' => $type,
-                    'Blacklist.Service' => $title,
-                ));
+                $params['Blacklist.Content'] .= SucuriScanTemplate::getSnippet(
+                    'sitecheck-blacklist',
+                    array(
+                        'Blacklist.URL' => $url,
+                        'Blacklist.Status' => $type,
+                        'Blacklist.Service' => $title,
+                    )
+                );
             }
         }
 
         if (isset($data['BLACKLIST']['WARN'])) {
-            $params['Blacklist.Title'] = __('Blacklisted', SUCURISCAN_TEXTDOMAIN);
+            $params['Blacklist.Title'] = __('Blacklisted', 'sucuri-scanner');
             $params['Blacklist.Color'] = 'red';
         }
 
@@ -314,9 +355,14 @@ class SucuriScanSiteCheck extends SucuriScanAPI
     {
         $params = array();
         $data = self::scanAndCollectData();
+        $sechead = array(
+            'x-content-type-options' => 'X-Content-Type-Options Header',
+            'x-frame-options' => 'X-Frame-Options Security Header',
+            'x-xss-protection' => 'X-XSS-Protection Security Header',
+        );
 
         $params['Recommendations.Content'] = '';
-        $params['Recommendations.Visibility'] = 'hidden';
+        $params['Recommendations.Color'] = 'green';
 
         if (isset($data['RECOMMENDATIONS'])) {
             foreach ($data['RECOMMENDATIONS'] as $recommendation) {
@@ -324,14 +370,34 @@ class SucuriScanSiteCheck extends SucuriScanAPI
                     continue;
                 }
 
-                $params['Recommendations.Visibility'] = 'visible';
-                $params['Recommendations.Content'] .=
-                SucuriScanTemplate::getSnippet('sitecheck-recommendations', array(
-                    'Recommendations.Title' => $recommendation[0],
-                    'Recommendations.Value' => $recommendation[1],
-                    'Recommendations.URL' => $recommendation[2],
-                ));
+                if (stripos($recommendation[0], 'x-content-type')) {
+                    unset($sechead['x-content-type-options']);
+                }
+
+                if (stripos($recommendation[0], 'x-frame-options')) {
+                    unset($sechead['x-frame-options']);
+                }
+
+                if (stripos($recommendation[0], 'x-xss-protection')) {
+                    unset($sechead['x-xss-protection']);
+                }
+
+                $params['Recommendations.Color'] = 'blue';
+                $params['Recommendations.Content'] .= SucuriScanTemplate::getSnippet(
+                    'sitecheck-recommendations',
+                    array(
+                        'Recommendations.Title' => $recommendation[0],
+                        'Recommendations.Value' => $recommendation[1],
+                        'Recommendations.URL' => $recommendation[2],
+                    )
+                );
             }
+        }
+
+        foreach ($sechead as $header => $message) {
+            $params['Recommendations.Content'] .=
+                '<li class="sucuriscan-sitecheck-list-INFO">'
+                . $message . '</li>';
         }
 
         return SucuriScanTemplate::getSection('sitecheck-recommendations', $params);
@@ -346,10 +412,7 @@ class SucuriScanSiteCheck extends SucuriScanAPI
     {
         $data = self::scanAndCollectData();
 
-        return sprintf(
-            __('iFramesNum', SUCURISCAN_TEXTDOMAIN),
-            @count($data['LINKS']['IFRAME'])
-        );
+        return sprintf(__('iFrames: %d', 'sucuri-scanner'), @count($data['LINKS']['IFRAME']));
     }
 
     /**
@@ -361,10 +424,7 @@ class SucuriScanSiteCheck extends SucuriScanAPI
     {
         $data = self::scanAndCollectData();
 
-        return sprintf(
-            __('LinksNum', SUCURISCAN_TEXTDOMAIN),
-            @count($data['LINKS']['URL'])
-        );
+        return sprintf(__('Links: %d', 'sucuri-scanner'), @count($data['LINKS']['URL']));
     }
 
     /**
@@ -385,10 +445,7 @@ class SucuriScanSiteCheck extends SucuriScanAPI
             $total += count($data['LINKS']['JSEXTERNAL']);
         }
 
-        return sprintf(
-            __('ScriptsNum', SUCURISCAN_TEXTDOMAIN),
-            $total
-        );
+        return sprintf(__('Scripts: %d', 'sucuri-scanner'), $total);
     }
 
     /**
@@ -398,23 +455,8 @@ class SucuriScanSiteCheck extends SucuriScanAPI
      */
     public static function iFramesContent()
     {
-        $params = array();
         $data = self::scanAndCollectData();
-
-        if (!isset($data['LINKS']['IFRAME'])) {
-            return ''; /* empty content */
-        }
-
-        $params['SiteCheck.Resources'] = '';
-
-        foreach ($data['LINKS']['IFRAME'] as $url) {
-            $params['SiteCheck.Resources'] .=
-            SucuriScanTemplate::getSnippet('sitecheck-links', array(
-                'SiteCheck.URL' => $url,
-            ));
-        }
-
-        return SucuriScanTemplate::getSection('sitecheck-links', $params);
+        return isset($data['LINKS']['IFRAME']) ? $data['LINKS']['IFRAME'] : array();
     }
 
     /**
@@ -424,71 +466,36 @@ class SucuriScanSiteCheck extends SucuriScanAPI
      */
     public static function linksContent()
     {
-        $params = array();
         $data = self::scanAndCollectData();
-
-        if (!isset($data['LINKS']['URL'])) {
-            return ''; /* empty content */
-        }
-
-        $params['SiteCheck.Resources'] = '';
-
-        foreach ($data['LINKS']['URL'] as $url) {
-            $params['SiteCheck.Resources'] .=
-            SucuriScanTemplate::getSnippet('sitecheck-links', array(
-                'SiteCheck.URL' => $url,
-            ));
-        }
-
-        return SucuriScanTemplate::getSection('sitecheck-links', $params);
+        return isset($data['LINKS']['URL']) ? $data['LINKS']['URL'] : array();
     }
 
     /**
      * Returns the content for the scripts section.
      *
-     * @return string Content for the scripts section.
+     * @return array Content for the scripts section.
      */
     public static function scriptsContent()
     {
-        $total = 0;
-        $params = array();
+        $links = array();
         $data = self::scanAndCollectData();
 
-        $params['SiteCheck.Resources'] = '';
-
         if (isset($data['LINKS']['JSLOCAL'])) {
-            foreach ($data['LINKS']['JSLOCAL'] as $url) {
-                $total++;
-
-                $params['SiteCheck.Resources'] .=
-                SucuriScanTemplate::getSnippet('sitecheck-links', array(
-                    'SiteCheck.URL' => $url,
-                ));
-            }
+            $links = array_merge($links, $data['LINKS']['JSLOCAL']);
         }
 
         if (isset($data['LINKS']['JSEXTERNAL'])) {
-            foreach ($data['LINKS']['JSEXTERNAL'] as $url) {
-                $total++;
-                $params['SiteCheck.Resources'] .=
-                SucuriScanTemplate::getSnippet('sitecheck-links', array(
-                    'SiteCheck.URL' => $url,
-                ));
-            }
+            $links = array_merge($links, $data['LINKS']['JSEXTERNAL']);
         }
 
-        if ($total === 0) {
-            return ''; /* empty content */
-        }
-
-        return SucuriScanTemplate::getSection('sitecheck-links', $params);
+        return $links;
     }
 
     /**
      * Extract detailed information from a SiteCheck malware payload.
      *
-     * @param array $malware Array with two entries with basic malware information.
-     * @return array Detailed information of the malware found by SiteCheck.
+     * @param  array $malware Array with two entries with basic malware information.
+     * @return array          Detailed information of the malware found by SiteCheck.
      */
     public static function malwareDetails($malware = array())
     {
@@ -513,12 +520,14 @@ class SucuriScanSiteCheck extends SucuriScanAPI
         }
 
         // Extract the information from the malware message.
-        $malware_parts = explode("\n", $malware[1]);
+        $malware_parts = explode("\n", $malware[1], 2);
 
         if (isset($malware_parts[1])) {
-            if (@preg_match('/(.+)\. Details: (.+)/', $malware_parts[0], $match)) {
-                $data['malware_type'] = $match[1];
-                $data['malware_docs'] = $match[2];
+            $pattern = ".\x20Details:\x20";
+            if (strpos($malware_parts[0], $pattern) !== false) {
+                $offset = strpos($malware_parts[0], $pattern);
+                $data['malware_type'] = substr($malware_parts[0], 0, $offset);
+                $data['malware_docs'] = substr($malware_parts[0], $offset + 11);
             }
 
             $data['malware_payload'] = trim($malware_parts[1]);
@@ -535,6 +544,8 @@ class SucuriScanSiteCheck extends SucuriScanAPI
      * output it means that XDebug cannot cover the next line, leaving a report
      * with a missing line in the coverage. Since the test case takes care of
      * the functionality of this code we will assume that it is fully covered.
+     *
+     * @return void
      */
     public static function ajaxMalwareScan()
     {
@@ -572,5 +583,26 @@ class SucuriScanSiteCheck extends SucuriScanAPI
         }
 
         wp_send_json($response, 200);
+    }
+
+    /**
+     * Returns the HTML to configure the API SiteCheck service.
+     *
+     * @return string HTML for the API SiteCheck service option.
+     */
+    public static function targetURLOption()
+    {
+        $params = array();
+
+        if (SucuriScanInterface::checkNonce()) {
+            $custom = SucuriScanRequest::post(':sitecheck_target');
+            if ($custom !== false) {
+                SucuriScanOption::updateOption(':sitecheck_target', $custom);
+            }
+        }
+
+        $params['SiteCheck.Target'] = self::targetURL();
+
+        return SucuriScanTemplate::getSection('sitecheck-target', $params);
     }
 }

@@ -3,8 +3,8 @@ Contributors: OnTheGoSystems
 Donate link: http://wpml.org
 Tags: qTranslatex, wpml, multilingual, i18n, conversion, import, uninstall, cleanup
 Requires at least: 3.0
-Tested up to: 4.7.3
-Stable tag: 1.8
+Tested up to: 5.0
+Stable tag: 1.9.7.2
 License: GPLv2 or later
 
 Allows a complete uninstall and cleanup of qTranslate X meta-tags or importing translations into WPML
@@ -74,6 +74,44 @@ Upload the plugin to your blog, activate it.
 1. Import screen
 
 == Changelog ==
+
+= 1.9.7.2 =
+* added information about WP tested version
+
+= 1.9.7 =
+* added support for Greek language import (wpmlbridge-184)
+
+= 1.9.6 = 
+* Fixed accidental cutting last three letters from titles if the titles are not translated (wpmlbridge-180)
+
+= 1.9.5 =
+* Fixed migration when qTranslate uses default url structure (wpmlbridge-178)
+
+= 1.9.4.1 = 
+* Fixed the issue with import containing <!--more--> tags (wpmlbridge-172)
+
+= 1.9.4 = 
+* Fixed the issue with import containing <!--more--> tags (wpmlbridge-172)
+
+= 1.9.3 =
+* Fixed PHP warning about invalid argument for join() (wpmlbridge-153)
+
+= 1.9.2 =
+* Fixed issues with empty language names (wpmlbridge-146)
+* More descriptive instructions how to update qTranslate settings before migration (wpmlbridge-145)
+
+
+= 1.9.1 = 
+* Fixed warnings (wpmlbridge-139)
+
+= 1.9 =
+* Better handling uppercased language codes (wpmlbridge-136)
+* Handling empty titles (wpmlbridge-138)
+* Fixed missing language information about primary language (wpmlbridge-137)
+* Removed notices during metadata import (wpmlbridge-139)
+
+= 1.8.1 =
+* Fixed issue with uppercased language codes (wpmlbridge-103)
 
 = 1.8 =
 * Added support for legacy qTranslate (without X) syntax

@@ -1,10 +1,9 @@
 <?php
 
-add_action( 'wp_loaded', 'wpcf7_control_init' );
+add_action( 'parse_request', 'wpcf7_control_init', 20, 0 );
 
 function wpcf7_control_init() {
-	if ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] )
-	&& 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'] ) {
+	if ( WPCF7_Submission::is_restful() ) {
 		return;
 	}
 
@@ -17,21 +16,7 @@ function wpcf7_control_init() {
 	}
 }
 
-add_filter( 'widget_text', 'wpcf7_widget_text_filter', 9 );
-
-function wpcf7_widget_text_filter( $content ) {
-	$pattern = '/\[[\r\n\t ]*contact-form(-7)?[\r\n\t ].*?\]/';
-
-	if ( ! preg_match( $pattern, $content ) ) {
-		return $content;
-	}
-
-	$content = do_shortcode( $content );
-
-	return $content;
-}
-
-add_action( 'wp_enqueue_scripts', 'wpcf7_do_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'wpcf7_do_enqueue_scripts', 10, 0 );
 
 function wpcf7_do_enqueue_scripts() {
 	if ( wpcf7_load_js() ) {
@@ -56,18 +41,12 @@ function wpcf7_enqueue_scripts() {
 
 	$wpcf7 = array(
 		'apiSettings' => array(
-			'root' => esc_url_raw( get_rest_url() ),
+			'root' => esc_url_raw( rest_url( 'contact-form-7/v1' ) ),
 			'namespace' => 'contact-form-7/v1',
-		),
-		'recaptcha' => array(
-			'messages' => array(
-				'empty' =>
-					__( 'Please verify that you are not a robot.', 'contact-form-7' ),
-			),
 		),
 	);
 
-	if ( defined( 'WP_CACHE' ) && WP_CACHE ) {
+	if ( defined( 'WP_CACHE' ) and WP_CACHE ) {
 		$wpcf7['cached'] = 1;
 	}
 
@@ -104,7 +83,7 @@ function wpcf7_style_is() {
 
 /* HTML5 Fallback */
 
-add_action( 'wp_enqueue_scripts', 'wpcf7_html5_fallback', 20 );
+add_action( 'wp_enqueue_scripts', 'wpcf7_html5_fallback', 20, 0 );
 
 function wpcf7_html5_fallback() {
 	if ( ! wpcf7_support_html5_fallback() ) {

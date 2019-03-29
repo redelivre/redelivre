@@ -72,7 +72,8 @@ table.events-table .category { color:#888; }
 	.em-booking-form label { display:block; float:left; }
 	.em-booking-form span.input-group input { margin-left:-20px; }
 	.em-booking-form span.input-group { display:block; margin-left:120px; }
-	.em-booking-form label  { display:inline-block; width:100px; }	
+	.em-booking-form label  { display:inline-block; width:100px; }
+	.em-booking-form p.input-field-data_privacy_consent label { display:block; width:100%; }
 	.em-booking-form-details .em-booking-submit { width:auto; }	
 	/* Tickets */
 		.em-tickets { margin-bottom:20px; }
@@ -92,6 +93,10 @@ table.events-table .category { color:#888; }
 	.em-tablenav-pagination.tablenav-pages .current { font-size:16px; }
 	/* Ticket table info */
 	table.em-tickets-bookings-table { width:100%; border:1px #efefef solid; margin:10px 0px; }
+	table.em-tickets-bookings-table tr.em-hr th { border-top: 1px solid #bbb; }
+	table.em-tickets-bookings-table tfoot th:first-child { text-align:right; }
+	table.em-tickets-bookings-table tfoot th:last-child { text-align:right; padding-right:20px; vertical-align:top; }
+	table.em-tickets-bookings-table tfoot th em { font-size:12px; font-weight:normal; }	
 	table.em-tickets-bookings-table th, table.em-tickets-bookings-table td { padding:5px 5px; margin:0px; }
 	table.em-tickets-bookings-table thead th, table.em-tickets-bookings-table tfoot th { background:#cdcdcd; text-align:center }
 	table.em-tickets-bookings-table tbody td.ticket-type { text-align:left; padding-left:10px; }
@@ -129,6 +134,7 @@ table.events-table .category { color:#888; }
 #em-options-form tr.em-subheader h5 { font-style:normal; margin:10px 0; padding:0 0 5px; font-weight:bold; font-size:15px; border-bottom: 1px solid #efefef; color:#000; }
 #em-options-form tbody.em-subsection th { padding-left:35px; }
 table.em-caps-table th, table.em-caps-table td { width:auto !important; }
+#em-options-form textarea, #em-options-form input[type="text"] { width:95%; }
 .em-translatable { display:inline-block; width:20px; height:20px; font-size:20px; padding:0px 5px 0px 0px; cursor:pointer; }
 .em-ml-options { display:none; }
 .em-ml-options table { width:95%; }

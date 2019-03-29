@@ -6,24 +6,33 @@ jQuery( function( $ ) {
 		return false;
 	}
 
-	var locale_json = wc_address_i18n_params.locale.replace( /&quot;/g, '"' ),
-		locale = $.parseJSON( locale_json );
+	var locale_json = wc_address_i18n_params.locale.replace( /&quot;/g, '"' ), locale = $.parseJSON( locale_json );
 
 	function field_is_required( field, is_required ) {
 		if ( is_required ) {
-			field.find( 'label' ).append( ' <abbr class="required" title="' + wc_address_i18n_params.i18n_required_text + '">*</abbr>' );
+			field.find( 'label .optional' ).remove();
 			field.addClass( 'validate-required' );
+
+			if ( field.find( 'label .required' ).length === 0 ) {
+				field.find( 'label' ).append(
+					'&nbsp;<abbr class="required" title="' +
+					wc_address_i18n_params.i18n_required_text +
+					'">*</abbr>'
+				);
+			}
 		} else {
-			field.find( 'label abbr' ).remove();
+			field.find( 'label .required' ).remove();
 			field.removeClass( 'validate-required' );
+
+			if ( field.find( 'label .optional' ).length === 0 ) {
+				field.find( 'label' ).append( '&nbsp;<span class="optional">(' + wc_address_i18n_params.i18n_optional_text + ')</span>' );
+			}
 		}
 	}
 
+	// Handle locale
 	$( document.body )
-
-		// Handle locale
 		.bind( 'country_to_state_changing', function( event, country, wrapper ) {
-
 			var thisform = wrapper, thislocale;
 
 			if ( typeof locale[ country ] !== 'undefined' ) {
@@ -46,74 +55,60 @@ jQuery( function( $ ) {
 
 			$.each( locale_fields, function( key, value ) {
 
-				var field = thisform.find( value );
+				var field       = thisform.find( value ),
+					fieldLocale = $.extend( true, {}, locale['default'][ key ], thislocale[ key ] );
 
-				if ( thislocale[ key ] ) {
-
-					if ( thislocale[ key ].label ) {
-						field.find( 'label' ).html( thislocale[ key ].label );
-					}
-
-					if ( thislocale[ key ].placeholder ) {
-						field.find( 'input' ).attr( 'placeholder', thislocale[ key ].placeholder );
-					}
-
-					field_is_required( field, false );
-
-					if ( typeof thislocale[ key ].required === 'undefined' && locale['default'][ key ].required === true ) {
-						field_is_required( field, true );
-					} else if ( thislocale[ key ].required === true ) {
-						field_is_required( field, true );
-					}
-
-					if ( key !== 'state' ) {
-						if ( thislocale[ key ].hidden === true ) {
-							field.hide().find( 'input' ).val( '' );
-						} else {
-							field.show();
-						}
-					}
-
-					if ( thislocale[ key ].priority ) {
-						field.data( 'priority', thislocale[ key ].priority );
-					} else if ( locale['default'][ key ].priority ) {
-						field.data( 'priority', locale['default'][ key ].priority );
-					}
-
-				} else if ( locale['default'][ key ] ) {
-
-					if ( 'state' !== key ) {
-						if ( typeof locale['default'][ key ].hidden === 'undefined' || locale['default'][ key ].hidden === false ) {
-							field.show();
-						} else if ( locale['default'][ key ].hidden === true ) {
-							field.hide().find( 'input' ).val( '' );
-						}
-					}
-
-					if ( 'postcode' === key || 'city' === key || 'state' === key ) {
-						if ( locale['default'][ key ].label ) {
-							field.find( 'label' ).html( locale['default'][ key ].label );
-						}
-
-						if ( locale['default'][ key ].placeholder ) {
-							field.find( 'input' ).attr( 'placeholder', locale['default'][ key ].placeholder );
-						}
-					}
-
-					if ( locale['default'][ key ].required === true ) {
-						if ( field.find( 'label abbr' ).length === 0 ) {
-							field_is_required( field, true );
-						}
-					}
-
-					if ( locale['default'][ key ].priority ) {
-						field.data( 'priority', locale['default'][ key ].priority );
-					}
+				// Labels.
+				if ( typeof fieldLocale.label !== 'undefined' ) {
+					field.find( 'label' ).html( fieldLocale.label );
 				}
 
+				// Placeholders.
+				if ( typeof fieldLocale.placeholder !== 'undefined' ) {
+					field.find( ':input' ).attr( 'placeholder', fieldLocale.placeholder );
+					field.find( ':input' ).attr( 'data-placeholder', fieldLocale.placeholder );
+					field.find( '.select2-selection__placeholder' ).text( fieldLocale.placeholder );
+				}
+
+				// Use the i18n label as a placeholder if there is no label element and no i18n placeholder.
+				if (
+					typeof fieldLocale.placeholder === 'undefined' &&
+					typeof fieldLocale.label !== 'undefined' &&
+					! field.find( 'label' ).length
+				) {
+					field.find( ':input' ).attr( 'placeholder', fieldLocale.label );
+					field.find( ':input' ).attr( 'data-placeholder', fieldLocale.label );
+					field.find( '.select2-selection__placeholder' ).text( fieldLocale.label );
+				}
+
+				// Required.
+				if ( typeof fieldLocale.required !== 'undefined' ) {
+					field_is_required( field, fieldLocale.required );
+				} else {
+					field_is_required( field, false );
+				}
+
+				// Priority.
+				if ( typeof fieldLocale.priority !== 'undefined' ) {
+					field.data( 'priority', fieldLocale.priority );
+				}
+
+				// Hidden fields.
+				if ( 'state' !== key ) {
+					if ( typeof fieldLocale.hidden !== 'undefined' && true === fieldLocale.hidden ) {
+						field.hide().find( ':input' ).val( '' );
+					} else {
+						field.show();
+					}
+				}
 			});
 
-			var fieldsets = $('.woocommerce-billing-fields__field-wrapper, .woocommerce-shipping-fields__field-wrapper, .woocommerce-address-fields__field-wrapper, .woocommerce-additional-fields__field-wrapper .woocommerce-account-fields');
+			var fieldsets = $(
+				'.woocommerce-billing-fields__field-wrapper,' +
+				'.woocommerce-shipping-fields__field-wrapper,' +
+				'.woocommerce-address-fields__field-wrapper,' +
+				'.woocommerce-additional-fields__field-wrapper .woocommerce-account-fields'
+			);
 
 			fieldsets.each( function( index, fieldset ) {
 				var rows    = $( fieldset ).find( '.form-row' );
@@ -124,15 +119,15 @@ jQuery( function( $ ) {
 
 				rows.each( function() {
 					if ( ! $( this ).data( 'priority' ) ) {
-						 $( this ).data( 'priority', last_priority + 1 );
+							$( this ).data( 'priority', last_priority + 1 );
 					}
 					last_priority = $( this ).data( 'priority' );
 				} );
 
 				// Sort the fields.
 				rows.sort( function( a, b ) {
-					var asort = $( a ).data( 'priority' ),
-						bsort = $( b ).data( 'priority' );
+					var asort = parseInt( $( a ).data( 'priority' ), 10 ),
+						bsort = parseInt( $( b ).data( 'priority' ), 10 );
 
 					if ( asort > bsort ) {
 						return 1;
@@ -144,6 +139,7 @@ jQuery( function( $ ) {
 				});
 
 				rows.detach().appendTo( wrapper );
-			} );
-		});
+			});
+		})
+		.trigger( 'wc_address_i18n_ready' );
 });

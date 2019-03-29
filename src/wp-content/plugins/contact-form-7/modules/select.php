@@ -5,7 +5,7 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_select' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_select', 10, 0 );
 
 function wpcf7_add_form_tag_select() {
 	wpcf7_add_form_tag( array( 'select', 'select*' ),
@@ -34,7 +34,7 @@ function wpcf7_select_form_tag_handler( $tag ) {
 
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
-	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
+	$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 
 	if ( $tag->is_required() ) {
 		$atts['aria-required'] = 'true';
@@ -58,38 +58,23 @@ function wpcf7_select_form_tag_handler( $tag ) {
 		}
 	}
 
+	if ( $data = (array) $tag->get_data_option() ) {
+		$tag->values = array_merge( $tag->values, array_values( $data ) );
+		$tag->labels = array_merge( $tag->labels, array_values( $data ) );
+	}
+
 	$values = $tag->values;
 	$labels = $tag->labels;
 
-	if ( $data = (array) $tag->get_data_option() ) {
-		$values = array_merge( $values, array_values( $data ) );
-		$labels = array_merge( $labels, array_values( $data ) );
-	}
+	$default_choice = $tag->get_default_option( null, array(
+		'multiple' => $multiple,
+		'shifted' => $include_blank,
+	) );
 
-	$defaults = array();
-
-	$default_choice = $tag->get_default_option( null, 'multiple=1' );
-
-	foreach ( $default_choice as $value ) {
-		$key = array_search( $value, $values, true );
-
-		if ( false !== $key ) {
-			$defaults[] = (int) $key + 1;
-		}
-	}
-
-	if ( $matches = $tag->get_first_match_option( '/^default:([0-9_]+)$/' ) ) {
-		$defaults = array_merge( $defaults, explode( '_', $matches[1] ) );
-	}
-
-	$defaults = array_unique( $defaults );
-
-	$shifted = false;
-
-	if ( $include_blank || empty( $values ) ) {
+	if ( $include_blank
+	or empty( $values ) ) {
 		array_unshift( $labels, '---' );
 		array_unshift( $values, '' );
-		$shifted = true;
 	} elseif ( $first_as_label ) {
 		$values[0] = '';
 	}
@@ -98,20 +83,10 @@ function wpcf7_select_form_tag_handler( $tag ) {
 	$hangover = wpcf7_get_hangover( $tag->name );
 
 	foreach ( $values as $key => $value ) {
-		$selected = false;
-
 		if ( $hangover ) {
-			if ( $multiple ) {
-				$selected = in_array( esc_sql( $value ), (array) $hangover );
-			} else {
-				$selected = ( $hangover == esc_sql( $value ) );
-			}
+			$selected = in_array( $value, (array) $hangover, true );
 		} else {
-			if ( ! $shifted && in_array( (int) $key + 1, (array) $defaults ) ) {
-				$selected = true;
-			} elseif ( $shifted && in_array( (int) $key, (array) $defaults ) ) {
-				$selected = true;
-			}
+			$selected = in_array( $value, (array) $default_choice, true );
 		}
 
 		$item_atts = array(
@@ -151,7 +126,8 @@ add_filter( 'wpcf7_validate_select*', 'wpcf7_select_validation_filter', 10, 2 );
 function wpcf7_select_validation_filter( $result, $tag ) {
 	$name = $tag->name;
 
-	if ( isset( $_POST[$name] ) && is_array( $_POST[$name] ) ) {
+	if ( isset( $_POST[$name] )
+	and is_array( $_POST[$name] ) ) {
 		foreach ( $_POST[$name] as $key => $value ) {
 			if ( '' === $value ) {
 				unset( $_POST[$name][$key] );
@@ -161,7 +137,7 @@ function wpcf7_select_validation_filter( $result, $tag ) {
 
 	$empty = ! isset( $_POST[$name] ) || empty( $_POST[$name] ) && '0' !== $_POST[$name];
 
-	if ( $tag->is_required() && $empty ) {
+	if ( $tag->is_required() and $empty ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 
@@ -171,7 +147,7 @@ function wpcf7_select_validation_filter( $result, $tag ) {
 
 /* Tag generator */
 
-add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_menu', 25 );
+add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_menu', 25, 0 );
 
 function wpcf7_add_tag_generator_menu() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();

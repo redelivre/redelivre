@@ -11,6 +11,7 @@ class SiteOrigin_Panels_Renderer {
 
 	public static function single() {
 		static $single;
+
 		return empty( $single ) ? $single = new self() : $single;
 	}
 
@@ -22,6 +23,7 @@ class SiteOrigin_Panels_Renderer {
 	 */
 	public function add_inline_css( $post_id, $css ) {
 		if ( is_null( $this->inline_css ) ) {
+			// Initialize the inline CSS array and add actions to handle printing.
 			$this->inline_css = array();
 			add_action( 'wp_head', array( $this, 'print_inline_css' ), 12 );
 			add_action( 'wp_footer', array( $this, 'print_inline_css' ) );
@@ -30,7 +32,7 @@ class SiteOrigin_Panels_Renderer {
 		$this->inline_css[ $post_id ] = $css;
 
 		// Enqueue the front styles, if they haven't already been enqueued
-		if( ! wp_style_is( 'siteorigin-panels-front', 'enqueued' ) ) {
+		if ( ! wp_style_is( 'siteorigin-panels-front', 'enqueued' ) ) {
 			wp_enqueue_style( 'siteorigin-panels-front' );
 		}
 	}
@@ -44,11 +46,12 @@ class SiteOrigin_Panels_Renderer {
 	 *
 	 * @return string
 	 */
-	public function generate_css( $post_id, $panels_data = false, $layout_data = false) {
+	public function generate_css( $post_id, $panels_data = false, $layout_data = false ) {
 		// Exit if we don't have panels data
 		if ( empty( $panels_data ) ) {
 			$panels_data = get_post_meta( $post_id, 'panels_data', true );
-			if( empty( $panels_data ) ) {
+			$panels_data = apply_filters( 'siteorigin_panels_data', $panels_data, $post_id );
+			if ( empty( $panels_data ) ) {
 				return '';
 			}
 		}
@@ -58,17 +61,19 @@ class SiteOrigin_Panels_Renderer {
 		}
 
 		// Get some of the default settings
-		$settings                      = siteorigin_panels_setting();
-		$panels_tablet_width           = $settings['tablet-width'];
-		$panels_mobile_width           = $settings['mobile-width'];
-		$panels_margin_bottom          = $settings['margin-bottom'];
+		$settings = siteorigin_panels_setting();
+		$panels_tablet_width = $settings['tablet-width'];
+		$panels_mobile_width = $settings['mobile-width'];
+		$panels_margin_bottom = $settings['margin-bottom'];
 		$panels_margin_bottom_last_row = $settings['margin-bottom-last-row'];
 
 		$css = new SiteOrigin_Panels_Css_Builder();
 
 		$ci = 0;
 		foreach ( $layout_data as $ri => $row ) {
-			if( empty( $row['cells'] ) ) continue;
+			if ( empty( $row['cells'] ) ) {
+				continue;
+			}
 
 			// Let other themes and plugins change the gutter.
 			$gutter = apply_filters( 'siteorigin_panels_css_row_gutter', $settings['margin-sides'] . 'px', $row, $ri, $panels_data );
@@ -77,21 +82,55 @@ class SiteOrigin_Panels_Renderer {
 			$cell_count = count( $row['cells'] );
 
 			// Add the cell sizing
-			foreach( $row['cells'] as $ci => $cell ) {
+			foreach ( $row['cells'] as $ci => $cell ) {
 				$weight = apply_filters( 'siteorigin_panels_css_cell_weight', $cell['weight'], $row, $ri, $cell, $ci - 1, $panels_data, $post_id );
+				$rounded_width = round( $weight * 100, 4 ) . '%';
+				$calc_width = 'calc(' . $rounded_width . ' - ( ' . ( 1 - $weight ) . ' * ' . $gutter . ' ) )';
 
 				// Add the width and ensure we have correct formatting for CSS.
 				$css->add_cell_css( $post_id, $ri, $ci, '', array(
 					'width' => array(
-						round( $weight * 100, 4 ) . '%',
-						'calc(' . round( $weight * 100, 4 ) . '% - ( ' . ( 1 - $weight ) . ' * ' . $gutter . ' ) )',
+						// For some locales PHP uses ',' for decimal separation.
+						// This seems to happen when a plugin calls `setlocale(LC_ALL, 'de_DE');` or `setlocale(LC_NUMERIC, 'de_DE');`
+						// This should prevent issues with column sizes in these cases.
+						str_replace( ',', '.', $rounded_width ),
+						str_replace( ',', '.', intval($gutter) ? $calc_width : '' ), // Exclude if there's a zero gutter
 					)
 				) );
+				
+				// Add in any widget specific CSS
+				foreach ( $cell['widgets'] as $wi => $widget ) {
+					$widget_style_data = ! empty( $widget['panels_info']['style'] ) ? $widget['panels_info']['style'] : array();
+					$widget_css = apply_filters(
+						'siteorigin_panels_css_widget_css',
+						array(),
+						$widget_style_data,
+						$row,
+						$ri,
+						$cell,
+						$ci - 1,
+						$widget,
+						$wi,
+						$panels_data,
+						$post_id
+					);
+
+					$css->add_widget_css(
+						$post_id,
+						$ri,
+						$ci,
+						$wi,
+						'',
+						$widget_css,
+						1920,
+						true
+					);
+				}
 			}
 
-			if(
+			if (
 				$ri != count( $layout_data ) - 1 ||
-				! empty( $row[ 'style' ][ 'bottom_margin' ] ) ||
+				! empty( $row['style']['bottom_margin'] ) ||
 				! empty( $panels_margin_bottom_last_row )
 			) {
 				// Filter the bottom margin for this row with the arguments
@@ -104,42 +143,44 @@ class SiteOrigin_Panels_Renderer {
 
 			if ( $settings['responsive'] ) {
 
-			    // The default collapse behaviour
-				if( empty( $row[ 'style' ][ 'collapse_behaviour' ] ) ) {
+				// The default collapse behaviour
+				if ( empty( $row['style']['collapse_behaviour'] ) ) {
 
 					if (
-						$settings[ 'tablet-layout' ] &&
+						$settings['tablet-layout'] &&
 						$cell_count >= 3 &&
 						$panels_tablet_width > $panels_mobile_width
 					) {
 						// Tablet responsive css for the row
 
-						$css->add_row_css( $post_id, $ri, array( '.panel-no-style', '.panel-has-style > .panel-row-style' ), array(
-							'-ms-flex-wrap' => $collapse_order == 'left-top' ? 'wrap' : 'wrap-reverse',
+						$css->add_row_css( $post_id, $ri, array(
+							'.panel-no-style',
+							'.panel-has-style > .panel-row-style'
+						), array(
+							'-ms-flex-wrap'     => $collapse_order == 'left-top' ? 'wrap' : 'wrap-reverse',
 							'-webkit-flex-wrap' => $collapse_order == 'left-top' ? 'wrap' : 'wrap-reverse',
-							'flex-wrap' => $collapse_order == 'left-top' ? 'wrap' : 'wrap-reverse',
+							'flex-wrap'         => $collapse_order == 'left-top' ? 'wrap' : 'wrap-reverse',
 						), $panels_tablet_width . ':' . ( $panels_mobile_width + 1 ) );
 
 						$css->add_cell_css( $post_id, $ri, false, '', array(
-							'-ms-flex' => '0 1 50%',
-							'-webkit-flex' => '0 1 50%',
-							'flex' => '0 1 50%',
-							'margin-right' => '0',
+							'-ms-flex'      => '0 1 50%',
+							'-webkit-flex'  => '0 1 50%',
+							'flex'          => '0 1 50%',
+							'margin-right'  => '0',
 							'margin-bottom' => $panels_margin_bottom . 'px',
 						), $panels_tablet_width . ':' . ( $panels_mobile_width + 1 ) );
 
 
 						$remove_bottom_margin = ':nth-';
-						if( $collapse_order == 'left-top' ) {
-							$remove_bottom_margin .= 'last-child(' . ( count( $row[ 'cells' ] ) % 2 == 0 ? '-n+2' : '1' ) . ')';
-						}
-						else {
+						if ( $collapse_order == 'left-top' ) {
+							$remove_bottom_margin .= 'last-child(' . ( count( $row['cells'] ) % 2 == 0 ? '-n+2' : '1' ) . ')';
+						} else {
 							$remove_bottom_margin .= 'child(-n+2)';
 						}
 
 						$css->add_cell_css( $post_id, $ri, false, $remove_bottom_margin, array(
 							'margin-bottom' => 0,
-							), $panels_tablet_width . ':' . ( $panels_mobile_width + 1 )
+						), $panels_tablet_width . ':' . ( $panels_mobile_width + 1 )
 						);
 
 						if ( ! empty( $gutter_parts[1] ) ) {
@@ -157,9 +198,12 @@ class SiteOrigin_Panels_Renderer {
 					}
 
 					// Mobile Responsive
-					$css->add_row_css( $post_id, $ri, array( '.panel-no-style', '.panel-has-style > .panel-row-style' ), array(
+					$css->add_row_css( $post_id, $ri, array(
+						'.panel-no-style',
+						'.panel-has-style > .panel-row-style'
+					), array(
 						'-webkit-flex-direction' => $collapse_order == 'left-top' ? 'column' : 'column-reverse',
-						'-ms-flex-direction' => $collapse_order == 'left-top' ? 'column' : 'column-reverse',
+						'-ms-flex-direction'     => $collapse_order == 'left-top' ? 'column' : 'column-reverse',
 						'flex-direction'         => $collapse_order == 'left-top' ? 'column' : 'column-reverse',
 					), $panels_mobile_width );
 
@@ -172,7 +216,7 @@ class SiteOrigin_Panels_Renderer {
 					'width' => '100%',
 				), $panels_mobile_width );
 
-				foreach( $row['cells'] as $ci => $cell ) {
+				foreach ( $row['cells'] as $ci => $cell ) {
 					if ( ( $collapse_order == 'left-top' && $ci != $cell_count - 1 ) || ( $collapse_order == 'right-top' && $ci !== 0 ) ) {
 						$css->add_cell_css( $post_id, $ri, $ci, '', array(
 							'margin-bottom' => $panels_margin_bottom . 'px',
@@ -223,14 +267,18 @@ class SiteOrigin_Panels_Renderer {
 	 *
 	 * @return string
 	 */
-	function render( $post_id = false, $enqueue_css = true, $panels_data = false, & $layout_data = array() ) {
+	function render( $post_id = false, $enqueue_css = true, $panels_data = false, & $layout_data = array(), $is_preview = false ) {
 
 		if ( empty( $post_id ) ) {
 			$post_id = get_the_ID();
+			
+			if ( class_exists( 'WooCommerce' ) && is_shop() ) {
+				$post_id = wc_get_page_id( 'shop' );
+			}
 		}
 
 		global $siteorigin_panels_current_post;
-		$old_current_post               = $siteorigin_panels_current_post;
+		$old_current_post = $siteorigin_panels_current_post;
 		$siteorigin_panels_current_post = $post_id;
 
 		// Try get the cached panel from in memory cache.
@@ -250,15 +298,21 @@ class SiteOrigin_Panels_Renderer {
 		if ( empty( $panels_data ) || empty( $panels_data['grids'] ) ) {
 			return '';
 		}
-
+		
+		if ( $is_preview ) {
+			$GLOBALS[ 'SITEORIGIN_PANELS_PREVIEW_RENDER' ] = true;
+		}
+		
 		$layout_data = $this->get_panels_layout_data( $panels_data );
-        $layout_data = apply_filters( 'siteorigin_panels_layout_data', $layout_data, $post_id );
+		$layout_data = apply_filters( 'siteorigin_panels_layout_data', $layout_data, $post_id );
 
 		ob_start();
 
 		// Add the panel layout wrapper
-		$layout_classes    = apply_filters( 'siteorigin_panels_layout_classes', array( 'panel-layout' ), $post_id, $panels_data );
-		if( is_rtl() ) $layout_classes[] = 'panel-is-rtl';
+		$layout_classes = apply_filters( 'siteorigin_panels_layout_classes', array( 'panel-layout' ), $post_id, $panels_data );
+		if ( is_rtl() ) {
+			$layout_classes[] = 'panel-is-rtl';
+		}
 		$layout_attributes = apply_filters( 'siteorigin_panels_layout_attributes', array(
 			'id'    => 'pl-' . $post_id,
 			'class' => implode( ' ', $layout_classes ),
@@ -287,7 +341,22 @@ class SiteOrigin_Panels_Renderer {
 
 		// Reset the current post
 		$siteorigin_panels_current_post = $old_current_post;
-		return apply_filters( 'siteorigin_panels_render', $html, $post_id, ! empty( $post ) ? $post : null );
+		
+		$rendered_layout = apply_filters( 'siteorigin_panels_render', $html, $post_id, ! empty( $post ) ? $post : null );
+		
+		if ( $is_preview ) {
+			$widget_css = '@import url(' . SiteOrigin_Panels::front_css_url() . '); ';
+			$widget_css .= SiteOrigin_Panels::renderer()->generate_css( $post_id, $panels_data, $layout_data );
+			$widget_css = preg_replace( '/\s+/', ' ', $widget_css );
+			$rendered_layout .= "\n\n" .
+								'<style type="text/css" class="panels-style" data-panels-style-for-post="' . esc_attr( $post_id ) . '">' .
+								$widget_css .
+								'</style>';
+		}
+		
+		unset( $GLOBALS[ 'SITEORIGIN_PANELS_PREVIEW_RENDER' ] );
+		
+		return $rendered_layout;
 	}
 
 	/**
@@ -310,18 +379,18 @@ class SiteOrigin_Panels_Renderer {
 		}
 
 		// Get everything related to the style wrapper
-        $attributes = apply_filters( 'siteorigin_panels_' . $name . '_style_attributes', $attributes, $style );
-        $attributes = apply_filters( 'siteorigin_panels_general_style_attributes', $attributes, $style );
+		$attributes = apply_filters( 'siteorigin_panels_' . $name . '_style_attributes', $attributes, $style );
+		$attributes = apply_filters( 'siteorigin_panels_general_style_attributes', $attributes, $style );
 
-        $standard_css = array();
-        $standard_css = apply_filters( 'siteorigin_panels_' . $name . '_style_css', $standard_css, $style );
-        $standard_css = apply_filters( 'siteorigin_panels_general_style_css', $standard_css, $style );
+		$standard_css = array();
+		$standard_css = apply_filters( 'siteorigin_panels_' . $name . '_style_css', $standard_css, $style );
+		$standard_css = apply_filters( 'siteorigin_panels_general_style_css', $standard_css, $style );
 
-        $mobile_css = array();
-        $mobile_css = apply_filters( 'siteorigin_panels_' . $name . '_style_mobile_css', $mobile_css, $style );
-        $mobile_css = apply_filters( 'siteorigin_panels_general_style_mobile_css', $mobile_css, $style );
+		$mobile_css = array();
+		$mobile_css = apply_filters( 'siteorigin_panels_' . $name . '_style_mobile_css', $mobile_css, $style );
+		$mobile_css = apply_filters( 'siteorigin_panels_general_style_mobile_css', $mobile_css, $style );
 
-        // Remove anything we didn't actually use
+		// Remove anything we didn't actually use
 		if ( empty( $attributes['class'] ) ) {
 			unset( $attributes['class'] );
 		}
@@ -348,7 +417,9 @@ class SiteOrigin_Panels_Renderer {
 			foreach ( $attributes as $name => $value ) {
 				// Attributes start with _ are used for internal communication between filters, so are not added to the HTML
 				// We don't make use of this in our styling, so its left as a mechanism for other plugins.
-				if( substr( $name, 0, 1 ) === '_' ) continue;
+				if ( substr( $name, 0, 1 ) === '_' ) {
+					continue;
+				}
 
 				if ( is_array( $value ) ) {
 					$style_wrapper .= $name . '="' . esc_attr( implode( " ", array_unique( $value ) ) ) . '" ';
@@ -379,18 +450,20 @@ class SiteOrigin_Panels_Renderer {
 	 */
 	function the_widget( $widget_info, $instance, $grid_index, $cell_index, $widget_index, $is_first, $is_last, $post_id = false, $style_wrapper = '' ) {
 
-		global $wp_widget_factory;
-
 		// Set widget class to $widget
 		$widget_class = $widget_info['class'];
 		$widget_class = apply_filters( 'siteorigin_panels_widget_class', $widget_class );
 
 		// Load the widget from the widget factory and give themes and plugins a chance to provide their own
-		$the_widget = ! empty( $wp_widget_factory->widgets[ $widget_class ] ) ? $wp_widget_factory->widgets[ $widget_class ] : false;
+		$the_widget = SiteOrigin_Panels::get_widget_instance( $widget_class );
 		$the_widget = apply_filters( 'siteorigin_panels_widget_object', $the_widget, $widget_class, $instance );
 
 		if ( empty( $post_id ) ) {
 			$post_id = get_the_ID();
+			
+			if ( class_exists( 'WooCommerce' ) && is_shop() ) {
+				$post_id = wc_get_page_id( 'shop' );
+			}
 		}
 
 		$classes = array( 'so-panel' );
@@ -423,18 +496,18 @@ class SiteOrigin_Panels_Renderer {
 			list( $before_title, $after_title ) = explode( '{{title}}', $title_html, 2 );
 		} else {
 			$before_title = '<h3 class="widget-title">';
-			$after_title  = '</h3>';
+			$after_title = '</h3>';
 		}
 
 		// Attributes of the widget wrapper
 		$attributes = apply_filters( 'siteorigin_panels_widget_attributes', array(
-			'id' => $id,
-			'class' => implode( ' ', $classes ),
+			'id'         => $id,
+			'class'      => implode( ' ', $classes ),
 			'data-index' => $widget_info['widget_index'],
 		), $widget_info );
 
 		$before_widget = '<div ';
-		foreach( $attributes as $k => $v ) {
+		foreach ( $attributes as $k => $v ) {
 			$before_widget .= esc_attr( $k ) . '="' . esc_attr( $v ) . '" ';
 		}
 		$before_widget .= '>';
@@ -453,13 +526,13 @@ class SiteOrigin_Panels_Renderer {
 		// If there is a style wrapper, add it.
 		if ( ! empty( $style_wrapper ) ) {
 			$args['before_widget'] = $args['before_widget'] . $style_wrapper;
-			$args['after_widget']  = '</div>' . $args['after_widget'];
+			$args['after_widget'] = '</div>' . $args['after_widget'];
 		}
 
 		// This gives other plugins the chance to take over rendering of widgets
 		$widget_html = apply_filters( 'siteorigin_panels_the_widget_html', '', $the_widget, $args, $instance );
 
-		if( ! empty( $widget_html ) ) {
+		if ( ! empty( $widget_html ) ) {
 			echo $args['before_widget'];
 			echo $widget_html;
 			echo $args['after_widget'];
@@ -502,10 +575,13 @@ class SiteOrigin_Panels_Renderer {
 					break;
 			}
 
+			// Allow third party developers to change the inline styles or remove them completely.
+			$the_css = apply_filters( 'siteorigin_panels_inline_styles', $the_css );
+
 			if ( ! empty( $the_css ) ) {
 				?>
-				<style type="text/css" media="all"
-				       id="siteorigin-panels-layouts-<?php echo esc_attr( $css_id ) ?>"><?php echo $the_css ?></style><?php
+                <style type="text/css" media="all"
+                       id="siteorigin-panels-layouts-<?php echo esc_attr( $css_id ) ?>"><?php echo $the_css ?></style><?php
 			}
 		}
 	}
@@ -528,7 +604,7 @@ class SiteOrigin_Panels_Renderer {
 	private function get_panels_data_for_post( $post_id ) {
 		if ( strpos( $post_id, 'prebuilt:' ) === 0 ) {
 			list( $null, $prebuilt_id ) = explode( ':', $post_id, 2 );
-			$layouts     = apply_filters( 'siteorigin_panels_prebuilt_layouts', array() );
+			$layouts = apply_filters( 'siteorigin_panels_prebuilt_layouts', array() );
 			$panels_data = ! empty( $layouts[ $prebuilt_id ] ) ? $layouts[ $prebuilt_id ] : array();
 		} else if ( $post_id == 'home' ) {
 			$page_id = get_option( 'page_on_front' );
@@ -540,7 +616,7 @@ class SiteOrigin_Panels_Renderer {
 
 			if ( is_null( $panels_data ) ) {
 				// Load the default layout
-				$layouts     = apply_filters( 'siteorigin_panels_prebuilt_layouts', array() );
+				$layouts = apply_filters( 'siteorigin_panels_prebuilt_layouts', array() );
 				$prebuilt_id = siteorigin_panels_setting( 'home-page-default' ) ? siteorigin_panels_setting( 'home-page-default' ) : 'home';
 
 				$panels_data = ! empty( $layouts[ $prebuilt_id ] ) ? $layouts[ $prebuilt_id ] : current( $layouts );
@@ -565,24 +641,26 @@ class SiteOrigin_Panels_Renderer {
 	public function get_panels_layout_data( $panels_data ) {
 		$layout_data = array();
 
-		foreach ( $panels_data[ 'grids' ] as $grid ) {
+		foreach ( $panels_data['grids'] as $grid ) {
 			$layout_data[] = array(
-				'style' => ! empty( $grid[ 'style' ] ) ? $grid[ 'style' ] : array(),
-				'color_label' => ! empty( $grid[ 'color_label' ] ) ? $grid[ 'color_label' ] : '',
-				'label' => ! empty( $grid[ 'label' ] ) ? $grid[ 'label' ] : '',
-				'cells' => array()
+				'style'           => ! empty( $grid['style'] ) ? $grid['style'] : array(),
+				'ratio'           => ! empty( $grid['ratio'] ) ? $grid['ratio'] : '',
+				'ratio_direction' => ! empty( $grid['ratio_direction'] ) ? $grid['ratio_direction'] : '',
+				'color_label'     => ! empty( $grid['color_label'] ) ? $grid['color_label'] : '',
+				'label'           => ! empty( $grid['label'] ) ? $grid['label'] : '',
+				'cells'           => array()
 			);
 		}
 
-		foreach( $panels_data[ 'grid_cells' ] as $cell ) {
-			$layout_data[ $cell[ 'grid' ] ][ 'cells' ][] = array(
+		foreach ( $panels_data['grid_cells'] as $cell ) {
+			$layout_data[ $cell['grid'] ]['cells'][] = array(
 				'widgets' => array(),
-				'style' => ! empty( $cell[ 'style' ] ) ? $cell[ 'style' ] : array(),
-				'weight' => floatval( $cell['weight'] ),
+				'style'   => ! empty( $cell['style'] ) ? $cell['style'] : array(),
+				'weight'  => floatval( $cell['weight'] ),
 			);
 		}
 
-		foreach( $panels_data[ 'widgets' ] as $i => $widget ) {
+		foreach ( $panels_data['widgets'] as $i => $widget ) {
 			$widget['panels_info']['widget_index'] = $i;
 			$row_index = intval( $widget['panels_info']['grid'] );
 			$cell_index = intval( $widget['panels_info']['cell'] );
@@ -627,9 +705,9 @@ class SiteOrigin_Panels_Renderer {
 	private function render_row( $post_id, $ri, & $row, & $panels_data ) {
 		$row_style_wrapper = $this->start_style_wrapper( 'row', ! empty( $row['style'] ) ? $row['style'] : array(), $post_id . '-' . $ri );
 
-		$row_classes   = array( 'panel-grid' );
+		$row_classes = array( 'panel-grid' );
 		$row_classes[] = ! empty( $row_style_wrapper ) ? 'panel-has-style' : 'panel-no-style';
-		$row_classes   = apply_filters( 'siteorigin_panels_row_classes', $row_classes, $row );
+		$row_classes = apply_filters( 'siteorigin_panels_row_classes', $row_classes, $row );
 
 		$row_attributes = apply_filters( 'siteorigin_panels_row_attributes', array(
 			'id'    => 'pg-' . $post_id . '-' . $ri,
@@ -643,6 +721,11 @@ class SiteOrigin_Panels_Renderer {
 
 		if ( ! empty( $row_style_wrapper ) ) {
 			echo $row_style_wrapper;
+		}
+
+		if( method_exists( $this, 'modify_row_cells' ) ) {
+			// This gives other renderers a chance to change the cell order
+			$row['cells'] = $cells = $this->modify_row_cells( $row['cells'], $row );
 		}
 
 		foreach ( $row['cells'] as $ci => & $cell ) {
@@ -674,7 +757,7 @@ class SiteOrigin_Panels_Renderer {
 	 * @param int $ci The index of this cell.
 	 * @param array $cell The model containing this cell's data and child widgets.
 	 * @param array $cells The array of cells containing this cell.
-     * @param array $panels_data A copy of panels_data for filters
+	 * @param array $panels_data A copy of panels_data for filters
 	 */
 	private function render_cell( $post_id, $ri, $ci, & $cell, $cells, & $panels_data ) {
 
@@ -689,10 +772,10 @@ class SiteOrigin_Panels_Renderer {
 		}
 
 		// Themes can add their own styles to cells
-		$cell_classes    = apply_filters( 'siteorigin_panels_cell_classes', $cell_classes, $cell );
+		$cell_classes = apply_filters( 'siteorigin_panels_cell_classes', $cell_classes, $cell );
 
 		// Legacy filter, use `siteorigin_panels_cell_classes` instead
-		$cell_classes    = apply_filters( 'siteorigin_panels_row_cell_classes', $cell_classes, $panels_data, $cell );
+		$cell_classes = apply_filters( 'siteorigin_panels_row_cell_classes', $cell_classes, $panels_data, $cell );
 
 		$cell_attributes = apply_filters( 'siteorigin_panels_cell_attributes', array(
 			'id'    => 'pgc-' . $post_id . '-' . $ri . '-' . $ci,
@@ -700,13 +783,13 @@ class SiteOrigin_Panels_Renderer {
 		), $cell );
 
 		// Legacy filter, use `siteorigin_panels_cell_attributes` instead
-        $cell_attributes = apply_filters( 'siteorigin_panels_row_cell_attributes', $cell_attributes, $panels_data, $cell );
+		$cell_attributes = apply_filters( 'siteorigin_panels_row_cell_attributes', $cell_attributes, $panels_data, $cell );
 
 		echo apply_filters( 'siteorigin_panels_before_cell', '', $cell, $cell_attributes );
 
 		$this->render_element( 'div', $cell_attributes );
-		
-		$grid = $panels_data['grids'][$ri];
+
+		$grid = $panels_data['grids'][ $ri ];
 
 		if ( empty( $cell['style']['class'] ) && ! empty( $grid['style']['cell_class'] ) ) {
 			$cell['style']['class'] = $grid['style']['cell_class'];
@@ -764,8 +847,8 @@ class SiteOrigin_Panels_Renderer {
 		);
 
 	}
-	
-	public function front_css_url(){
-		return plugin_dir_url( __FILE__ ) . '../css/front-flex.css';
+
+	public function front_css_url() {
+		return siteorigin_panels_url( 'css/front-flex' . SITEORIGIN_PANELS_CSS_SUFFIX . '.css' );
 	}
 }

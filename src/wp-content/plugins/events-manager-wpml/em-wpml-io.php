@@ -26,6 +26,8 @@ class EM_WPML_IO {
 	    //WPML deletion
 	    add_action('em_ml_transfer_original_event', 'EM_WPML_IO::transfer_original',10,2);
 	    add_action('em_ml_transfer_original_location', 'EM_WPML_IO::transfer_original',10,2);
+	    //WPML translation editor, we swap the 'save_post' action until custom fields have been copied.
+	    add_action('wp_ajax_wpml_save_job_ajax', 'EM_WPML_IO::wp_ajax_wpml_save_job_ajax', 1);
     }
     
     /**
@@ -131,9 +133,12 @@ class EM_WPML_IO {
         //check this is an event
         switch( get_post_type($id) ){
             case EM_POST_TYPE_EVENT:
-                //WPML just duplicated an event into another language, so we simply need to load the event and resave it
+                //WPML just duplicated an event into another language, so we simply need to load the event and resave it without an event ID (so it's regenerated) and the original event location ID  which isn't copied over properly
+                $EM_Event = em_get_event($master_post_id, 'post_id');
+                $location_id = $EM_Event->location_id;
                 $EM_Event = em_get_event($id, 'post_id');
                 $EM_Event->event_id = null;
+                $EM_Event->location_id = $location_id;
                 $EM_Event->save();
                 break;
             case EM_POST_TYPE_LOCATION:
@@ -202,6 +207,26 @@ class EM_WPML_IO {
 			}
 		}
 		return $result;
+	}
+	
+	/**
+	 * WPML translation editor, we swap the 'save_post' action until custom fields have been copied. 
+	 */
+	public static function wp_ajax_wpml_save_job_ajax() {
+	    remove_action('save_post',array('EM_Event_Post_Admin','save_post'),1);
+	    add_action('wpml_pro_translation_completed','EM_WPML_IO::wpml_pro_translation_completed');
+	}
+	
+	/**
+	 * Handles translation editor saves
+	 * @param integer $post_id
+	 * @param string $post
+	 */
+	public static function wpml_pro_translation_completed( $post_id, $post = false ){
+		$EM_Event = new EM_Event($post_id, 'post_id');
+		$event = EM_ML::get_original_event($EM_Event);
+		EM_ML_IO::event_merge_original_meta($EM_Event, $event);
+		$EM_Event->save();
 	}
 }
 EM_WPML_IO::init();

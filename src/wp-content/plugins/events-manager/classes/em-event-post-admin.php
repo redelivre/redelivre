@@ -39,24 +39,24 @@ class EM_Event_Post_Admin{
 				$warning .= "<p>". __( 'Modifications to recurring events will be applied to all recurrences and will overwrite any changes made to those individual event recurrences.', 'events-manager') . '</p>';
 				$warning .= "<p>". __( 'Bookings to individual event recurrences will be preserved if event times and ticket settings are not modified.', 'events-manager') . '</p>';
 				$warning .= '<p><a href="'. esc_url( add_query_arg(array('scope'=>'all', 'recurrence_id'=>$EM_Event->event_id), em_get_events_admin_url()) ).'">'. esc_html__('You can edit individual recurrences and disassociate them with this recurring event.','events-manager') . '</a></p>';
-				?><div class="updated"><?php echo $warning; ?></div><?php
+				?><div class="notice notice-warning is-dismissible"><?php echo $warning; ?></div><?php
 			} elseif ( $EM_Event->is_recurrence() ) {
 				$warning = "<p><strong>".__('WARNING: This is a recurrence in a set of recurring events.', 'events-manager')."</strong></p>";
 				$warning .= "<p>". sprintf(__('If you update this event data and save, it could get overwritten if you edit the recurring event template. To make it an independent, <a href="%s">detach it</a>.', 'events-manager'), $EM_Event->get_detach_url())."</p>";
 				$warning .= "<p>".sprintf(__('To manage the whole set, <a href="%s">edit the recurring event template</a>.', 'events-manager'),admin_url('post.php?action=edit&amp;post='.$EM_Event->get_event_recurrence()->post_id))."</p>";
-				?><div class="updated"><?php echo $warning; ?></div><?php
+				?><div class="notice notice-warning is-dismissible"><?php echo $warning; ?></div><?php
 			}
 			if( !empty($EM_Event->group_id) && function_exists('groups_get_group') ){
 				$group = groups_get_group(array('group_id'=>$EM_Event->group_id));
 				$warning = sprintf(__('WARNING: This is a event belonging to the group "%s". Other group admins can also modify this event.', 'events-manager'), $group->name);
-				?><div class="updated"><p><?php echo $warning; ?></p></div><?php
+				?><div class="notice notice-info is-dismissible"><p><?php echo $warning; ?></p></div><?php
 			}
 		}
 	}
 	
 	public static function admin_notices_filter($messages){
 		//When editing
-		global $post, $EM_Notices;
+		global $post, $EM_Notices; /* @var EM_Notices $EM_Notices */
 		if( $post->post_type == EM_POST_TYPE_EVENT || $post->post_type == 'event-recurring' ){
 			if ( $EM_Notices->count_errors() > 0 ) {
 				unset($_GET['message']);
@@ -96,7 +96,7 @@ class EM_Event_Post_Admin{
 	}
 	
 	public static function save_post($post_id, $post = false){
-		global $wpdb, $EM_Event, $EM_Location, $EM_Notices, $EM_SAVING_EVENT, $EM_EVENT_SAVE_POST;
+		global $wpdb, $EM_Event, $EM_Notices, $EM_SAVING_EVENT, $EM_EVENT_SAVE_POST; /* @var EM_Notices $EM_Notices */
 		if( !empty($EM_SAVING_EVENT) ) return; //never proceed with this if using EM_Event::save();
 		if ( isset($_GET['preview_id']) && isset($_GET['preview_nonce']) && wp_verify_nonce( $_GET['preview_nonce'], 'post_preview_' . $post_id ) ) return; //don't proceed with saving when previewing, may cause issues
 		$post_type = get_post_type($post_id);
@@ -104,8 +104,13 @@ class EM_Event_Post_Admin{
 		$saving_status = !in_array(get_post_status($post_id), array('trash','auto-draft')) && !defined('DOING_AUTOSAVE');
 		$EM_EVENT_SAVE_POST = true; //first filter for save_post in EM for events
 		if(!defined('UNTRASHING_'.$post_id) && $is_post_type && $saving_status ){
-			$EM_Event = new EM_Event($post_id, 'post_id'); //grab event, via post info, reset the $EM_Event variable
+			//Reset server timezone to UTC in case other plugins are doing something naughty
+			$server_timezone = date_default_timezone_get();
+			date_default_timezone_set('UTC');
+			//grab event, via post info, reset the $EM_Event variable
+			$EM_Event = new EM_Event($post_id, 'post_id'); 
 			$EM_Event->post_type = $post_type;
+			//check whether this is a quick save or not, then save accordingly
 			if( !empty($_REQUEST['_emnonce']) && wp_verify_nonce($_REQUEST['_emnonce'], 'edit_event') ){ 
 				//this is only run if we know form data was submitted, hence the nonce
 				$get_meta = $EM_Event->get_post_meta();
@@ -142,6 +147,9 @@ class EM_Event_Post_Admin{
 						if( $EM_Event->is_published() ){ $EM_Event->set_status(0, true); } //no publishing and editing... security threat
 					}
 					apply_filters('em_event_save', true, $EM_Event);
+					//flag a cache refresh if we get here
+					$EM_Event->refresh_cache = true;
+					add_filter('save_post', 'EM_Event_Post_Admin::refresh_cache', 100000000);
 				}
 			}else{
 				//we're updating only the quick-edit style information, which is only post info saved into the index
@@ -161,11 +169,19 @@ class EM_Event_Post_Admin{
 					$where_array = array($EM_Event->event_name, $EM_Event->event_owner, $EM_Event->event_slug, $EM_Event->event_private, $EM_Event->event_id);
 					$sql = $wpdb->prepare("UPDATE ".EM_EVENTS_TABLE." SET event_name=%s, event_owner=%d, event_slug=%s, event_status={$event_status}, event_private=%d WHERE event_id=%d", $where_array);
 					$wpdb->query($sql);
-					if( $EM_Event->is_recurring() &&  $EM_Event->is_published()){
+					//If we're saving via quick-edit in MS Global mode, then the categories need to be pushed to the ms global index
+					if( EM_MS_GLOBAL && get_option('dbem_categories_enabled') && is_main_site() ){
+		    			$EM_Event->get_categories()->save_index(); //just save to index, WP should have saved the taxonomy data
+					}
+					//deal with recurrences
+					if( $EM_Event->is_recurring() && ($EM_Event->is_published() || (defined('EM_FORCE_RECURRENCES_SAVE') && EM_FORCE_RECURRENCES_SAVE)) ){
 						//recurrences are (re)saved only if event is published
 						$EM_Event->save_events();
 					}
 					apply_filters('em_event_save', true, $EM_Event);
+					//flag a cache refresh if we get here
+					$EM_Event->refresh_cache = true;
+					add_filter('save_post', 'EM_Event_Post_Admin::refresh_cache', 100000000);
 				}else{
 					do_action('em_event_save_pre', $EM_Event); //technically, the event is saved... but the meta isn't. wp doesn't give an pre-intervention action for this (or does it?)
 					//Event doesn't validate, so set status to null
@@ -174,6 +190,23 @@ class EM_Event_Post_Admin{
 				}
 			}
 			self::maybe_publish_location($EM_Event);
+			//Set server timezone back, even though it should be UTC anyway
+			date_default_timezone_set($server_timezone);
+		}
+	}
+	
+	/**
+	 * Refreshes the cache of the current global $EM_Event, provided the refresh_cache flag is set to true within the object and the object has a published state
+	 */
+	public static function refresh_cache(){
+		global $EM_Event;
+		//if this is a published event, and the refresh_cache flag was added to this event during save_post, refresh the meta and update the cache
+		if( !empty($EM_Event->refresh_cache) && !empty($EM_Event->post_id) && $EM_Event->is_published() ){
+			$post = get_post($EM_Event->post_id);
+			$EM_Event->load_postdata($post);
+			unset($EM_Event->refresh_cache);
+			wp_cache_set($EM_Event->event_id, $EM_Event, 'em_events');
+			wp_cache_set($EM_Event->post_id, $EM_Event->event_id, 'em_events_ids');
 		}
 	}
 	
@@ -238,7 +271,7 @@ class EM_Event_Post_Admin{
 		if(get_option('dbem_locations_enabled', true)){
 			add_meta_box('em-event-where', __('Where','events-manager'), array('EM_Event_Post_Admin','meta_box_location'),EM_POST_TYPE_EVENT, 'normal','high');
 		}
-		if( defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_DISPLAY') && WP_DEBUG_DISPLAY ){
+		if( defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_DISPLAY') && WP_DEBUG_DISPLAY  && (!defined('EM_DEBUG_DISPLAY') || EM_DEBUG_DISPLAY) ){
 			add_meta_box('em-event-meta', 'Event Meta (debugging only)', array('EM_Event_Post_Admin','meta_box_metadump'),EM_POST_TYPE_EVENT, 'normal','high');
 		}
 		if( get_option('dbem_rsvp_enabled', true) && $EM_Event->can_manage('manage_bookings','manage_others_bookings') ){
@@ -267,13 +300,13 @@ class EM_Event_Post_Admin{
 	
 	public static function meta_box_metadump(){
 		global $post,$EM_Event;
-		echo "<pre>"; print_r($EM_Event); echo "</pre>";
+		echo "<pre>"; print_r($EM_Event); echo "</pre>";		
 	}
 	
 	public static function meta_box_anonymous(){
 		global $EM_Event;
 		?>
-		<div class='updated'><p><?php _e('This event was submitted by a guest. You will find their details in the <em>Anonymous Submitter Info</em> box','events-manager')?></p></div>
+		<div class='updated'><p><?php echo sprintf(__('This %s was submitted by a guest. You will find their details in the <em>Anonymous Submitter Info</em> box','events-manager'), __('event', 'events-manager')); ?></p></div>
 		<p><strong><?php _e('Name','events-manager'); ?> :</strong> <?php echo $EM_Event->event_owner_name; ?></p> 
 		<p><strong><?php _e('Email','events-manager'); ?> :</strong> <?php echo $EM_Event->event_owner_email; ?></p> 
 		<?php

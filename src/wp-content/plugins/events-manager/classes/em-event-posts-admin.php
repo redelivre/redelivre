@@ -22,10 +22,14 @@ class EM_Event_Posts_Admin{
 			$row_action_type = is_post_type_hierarchical( EM_POST_TYPE_EVENT ) ? 'page_row_actions' : 'post_row_actions';
 			add_filter($row_action_type, array('EM_Event_Posts_Admin','row_actions'),10,2);
 			add_action('admin_head', array('EM_Event_Posts_Admin','admin_head'));
-			//collumns
-			add_filter('manage_edit-'.EM_POST_TYPE_EVENT.'_columns' , array('EM_Event_Posts_Admin','columns_add'));
-			add_filter('manage_'.EM_POST_TYPE_EVENT.'_posts_custom_column' , array('EM_Event_Posts_Admin','columns_output'),10,2 );
+			
+			if( empty($_GET['orderby']) ) $_GET['orderby'] = 'date-time';
+			if( empty($_GET['order']) ) $_GET['order'] = 'asc';
 		}
+		//collumns
+		add_filter('manage_edit-'.EM_POST_TYPE_EVENT.'_columns' , array('EM_Event_Posts_Admin','columns_add'));
+		add_filter('manage_'.EM_POST_TYPE_EVENT.'_posts_custom_column' , array('EM_Event_Posts_Admin','columns_output'),10,2 );
+		add_filter('manage_edit-'.EM_POST_TYPE_EVENT.'_sortable_columns', array('EM_Event_Posts_Admin','sortable_columns') );
 		//clean up the views in the admin selection area - WIP
 		//add_filter('views_edit-'.EM_POST_TYPE_EVENT, array('EM_Event_Posts_Admin','restrict_views'),10,2);
 		//add_filter('views_edit-event-recurring', array('EM_Event_Posts_Admin','restrict_views'),10,2);
@@ -64,7 +68,7 @@ class EM_Event_Posts_Admin{
         if( !empty($_REQUEST['recurrence_id']) && is_numeric($_REQUEST['recurrence_id']) ){
             $EM_Event = em_get_event($_REQUEST['recurrence_id']);
             ?>
-            <div class="updated">
+            <div class="notice notice-info">
                 <p><?php echo sprintf(esc_html__('You are viewing individual recurrences of recurring event %s.', 'events-manager'), '<a href="'.$EM_Event->get_edit_url().'">'.$EM_Event->event_name.'</a>'); ?></p>
                 <p><?php esc_html_e('You can edit individual recurrences and disassociate them with this recurring event.', 'events-manager'); ?></p>
             </div>
@@ -220,16 +224,17 @@ class EM_Event_Posts_Admin{
 				break;
 			case 'date-time':
 				//get meta value to see if post has location, otherwise
-				$localised_start_date = date_i18n(get_option('date_format'), $EM_Event->start);
-				$localised_end_date = date_i18n(get_option('date_format'), $EM_Event->end);
+				$localised_start_date = $EM_Event->start()->i18n(get_option('date_format'));
+				$localised_end_date = $EM_Event->end()->i18n(get_option('date_format'));
 				echo $localised_start_date;
 				echo ($localised_end_date != $localised_start_date) ? " - $localised_end_date":'';
 				echo "<br />";
 				if(!$EM_Event->event_all_day){
-					echo date_i18n(get_option('time_format'), $EM_Event->start) . " - " . date_i18n(get_option('time_format'), $EM_Event->end);
+					echo $EM_Event->start()->i18n(get_option('time_format')) . " - " . $EM_Event->end()->i18n(get_option('time_format'));
 				}else{
 					echo get_option('dbem_event_all_day_message');
 				}
+				if( $EM_Event->get_timezone()->getName() != EM_DateTimeZone::create()->getName() ) echo '<span class="dashicons dashicons-info" style="font-size:16px; color:#ccc; padding-top:2px;" title="'.esc_attr(str_replace('_', ' ', $EM_Event->event_timezone)).'"></span>';
 				break;
 			case 'extra':
 				if( get_option('dbem_rsvp_enabled') == 1 && !empty($EM_Event->event_rsvp) && $EM_Event->can_manage('manage_bookings','manage_others_bookings')){
@@ -265,6 +270,12 @@ class EM_Event_Posts_Admin{
 		}
 		return $actions;
 	}
+	
+	public static function sortable_columns( $columns ){
+		$columns['date-time'] = 'date-time';
+		return $columns;
+	}
+	
 }
 add_action('admin_init', array('EM_Event_Posts_Admin','init'));
 
@@ -285,19 +296,20 @@ class EM_Event_Recurring_Posts_Admin{
 			//notices			
 			add_action('admin_notices',array('EM_Event_Recurring_Posts_Admin','admin_notices'));
 			add_action('admin_head', array('EM_Event_Recurring_Posts_Admin','admin_head'));
-			//collumns
-			add_filter('manage_edit-event-recurring_columns' , array('EM_Event_Recurring_Posts_Admin','columns_add'));
-			add_filter('manage_posts_custom_column' , array('EM_Event_Recurring_Posts_Admin','columns_output'),10,1 );
-			add_action('restrict_manage_posts', array('EM_Event_Posts_Admin','restrict_manage_posts'));
 			//actions
 			$row_action_type = is_post_type_hierarchical( EM_POST_TYPE_EVENT ) ? 'page_row_actions' : 'post_row_actions';
 			add_filter($row_action_type, array('EM_Event_Recurring_Posts_Admin','row_actions'),10,2);
 		}
+		//collumns
+		add_filter('manage_edit-event-recurring_columns' , array('EM_Event_Recurring_Posts_Admin','columns_add'));
+		add_filter('manage_posts_custom_column' , array('EM_Event_Recurring_Posts_Admin','columns_output'),10,1 );
+		add_action('restrict_manage_posts', array('EM_Event_Posts_Admin','restrict_manage_posts'));
+		add_filter( 'manage_edit-event-recurring_sortable_columns', array('EM_Event_Posts_Admin','sortable_columns') );
 	}
 	
 	public static function admin_notices(){
 		?>
-		<div class="updated">
+		<div class="notice notice-info">
 			<p><?php esc_html_e( 'Modifications to recurring events will be applied to all recurrences and will overwrite any changes made to those individual event recurrences.', 'events-manager'); ?></p>
 			<p><?php esc_html_e( 'Bookings to individual event recurrences will be preserved if event times and ticket settings are not modified.', 'events-manager'); ?></p>
 			<p>

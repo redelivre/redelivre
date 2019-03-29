@@ -8,7 +8,7 @@ class SiteOrigin_Panels_Admin_Widget_Dialog {
 	}
 
 	/**
-	 * @return SiteOrigin_Panels_Admin
+	 * @return SiteOrigin_Panels_Admin_Widget_Dialog
 	 */
 	public static function single() {
 		static $single;
@@ -43,7 +43,9 @@ class SiteOrigin_Panels_Admin_Widget_Dialog {
 			}
 		}
 
-		$widgets['SiteOrigin_Panels_Widgets_Layout']['icon'] = 'dashicons dashicons-analytics';
+		if ( ! empty( $widgets['SiteOrigin_Panels_Widgets_Layout'] ) ) {
+			$widgets['SiteOrigin_Panels_Widgets_Layout']['icon'] = 'dashicons dashicons-analytics';
+		}
 
 		$wordpress_widgets = array(
 			'WP_Widget_Pages',

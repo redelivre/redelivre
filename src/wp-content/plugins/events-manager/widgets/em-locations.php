@@ -7,6 +7,10 @@ class EM_Locations_Widget extends WP_Widget {
 	
 	var $defaults = array();
 	
+	public static function init(){
+		return register_widget("EM_Locations_Widget");
+	}
+	
     /** constructor */
     function __construct() {
     	$this->defaults = array(
@@ -70,7 +74,7 @@ class EM_Locations_Widget extends WP_Widget {
 		    }
 		    //balance tags and sanitize output formats
 		    if( in_array($key, array('format', 'no_locations_text')) ){
-		        if( is_multisite() && !is_super_admin() ) $new_instance[$key] = wp_kses_post($new_instance[$key]); //for multisite
+		        if( is_multisite() && !em_wp_is_super_admin() ) $new_instance[$key] = wp_kses_post($new_instance[$key]); //for multisite
 		        $new_instance[$key] = force_balance_tags($new_instance[$key]);
 		    }
     	}
@@ -128,5 +132,5 @@ class EM_Locations_Widget extends WP_Widget {
         <?php 
     }
 }
-add_action('widgets_init', create_function('', 'return register_widget("EM_Locations_Widget");'));
+add_action('widgets_init', 'EM_Locations_Widget::init');
 ?>

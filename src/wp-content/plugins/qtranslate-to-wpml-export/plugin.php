@@ -3,10 +3,11 @@
 Plugin Name: qTranslate X Importer
 Plugin URI: http://wpml.org/documentation/related-projects/qtranslate-importer/
 Description: Imports qTranslate X content to WPML, or just cleans up qTranslate meta tags
-Version: 1.8
+Version: 1.9.7.2
 Author: OntheGoSystems
 Author URI: http://wpml.org
 Tags: wpml, qtranslate, multilingual, translations
+Tested up to: 5.0
 */
   
 
@@ -18,9 +19,16 @@ class QT_Importer{
     const BATCH_SIZE = 10;
         
     function __construct(){
-        $this->default_language = get_option('qtranslate_default_language');
+        $this->default_language = strtolower(get_option('qtranslate_default_language'));
         $this->active_languages = get_option('qtranslate_enabled_languages');
+        foreach( $this->active_languages as $key =>$l ){
+            $l = strtolower($l);
+            $this->active_languages[$key] = $l;
+        }
         $this->url_mode         = get_option('qtranslate_url_mode');
+        if ( !$this->url_mode ) {
+            $this->url_mode = 2;
+        }
         
         add_action('init', array($this, 'init'), 100);
         add_action('admin_menu', array($this, 'menu_setup'));
@@ -414,18 +422,28 @@ class QT_Importer{
 
             <?php 
                 $language_names = get_option('qtranslate_language_names');
-                if(empty($language_names)){
-                    $language_names = get_option('qtranslate_enabled_languages');
-                    $language_names = @array_combine($language_names, $language_names);
-                }
+                $languages_enabled = get_option('qtranslate_enabled_languages');
+                $language_names = (array) @array_combine($language_names, $languages_enabled);
+                $language_names = array_change_key_case($language_names = array_map('strtolower', $language_names),CASE_LOWER);
 
                 if(empty($language_names)){
                     ?>
-                    <p class="error"><?php _e('Please save the qTranslate settings to the datbase first.', 'qt-import') ?></p><?php 
+                    <p class="error"><?php _e('Please save the qTranslate settings to the datbase first. Go to Languages Tab of Qtranslate settings Edit the languages that are active & enabled and update their names to something, save and revert back.', 'qt-import') ?></p><?php 
                     return;
                 }
+
+                foreach($language_names as $code => $name) {
+                    unset($language_names[$code]);
+
+                    $code = strtolower($code);
+
+                    $language_names[$code] = $name;
+                }
+
                 foreach($this->active_languages as $code){
-                    $active_languages[$code] = $language_names[$code];
+                    if (isset($language_names[$code])) {
+                        $active_languages[$code] = $language_names[$code];
+                    }
                 }
                 //unset($language_names);
             ?>
@@ -499,8 +517,8 @@ class QT_Importer{
                     <?php _e('The links to the translated versions of the posts will change according to the new posts that will be created. Existing links inside posts will be fixed and, also, the last step of the import process will generate a list of permanent redirects in order not to break existing links in.', 'qt-import') ?>
                 </p>
                 <p>
-                <?php printf(__('The following languages will be imported: %s', 'qt-import'), '<strong>' . join('</strong>, <strong>', $active_languages) . '</strong>'); ?>.
-                <?php printf(__('%s will be set as the default language.', 'qt-import'), '<strong>' . $active_languages[$this->default_language] . '</strong>'); ?>
+                <?php printf(__('The following languages will be imported: %s', 'qt-import'), '<strong>' . join('</strong>, <strong>', $this->active_languages) . '</strong>'); ?>.
+                <?php printf(__('%s will be set as the default language.', 'qt-import'), '<strong>' . $this->active_languages[$this->default_language] . '</strong>'); ?>
                 </p>
 
                 <?php $qtimport_status = get_option('_qt_import_status'); ?>
@@ -585,6 +603,7 @@ class QT_Importer{
             case 'iw': $code = 'he'; break;
             case 'No': $code = 'nb'; break;
             case 'cz': $code = 'cs'; break;
+            case 'gr': $code = 'el'; break;
         }
         
         return strtolower($code);
@@ -689,7 +708,7 @@ class QT_Importer{
             $pc1 = str_replace('<!--:-->', '[:]', $pc1);
             $exp = explode('[:]', $pc1);
             foreach($exp as $e){
-                if(trim($e)){
+                if($e){
                     $int = preg_match('#\[:([a-z]{2})\](.*)#ims', $e, $matches);        
                     if($int){
                         $lang = $matches[1]; 
@@ -701,7 +720,7 @@ class QT_Importer{
                 $pc2 = str_replace('<!--:-->', '[:]', $pc2);
                 $exp = explode('[:]', $pc2);
                 foreach($exp as $e){
-                    if(trim($e)){
+                    if($e){
                         $int = preg_match('#\[:([a-z]{2})\](.*)#ims', $e, $matches);        
                         if($int){
                             $lang = $matches[1]; 
@@ -803,11 +822,18 @@ class QT_Importer{
             $post['post_title'] = preg_replace('#<!--:--><!--:([a-z]{2})-->#', '[:$1]', $post['post_title']); // replace middle legacy syntax <!--:--><!--:en--> into [:en]
             $post['post_title'] = str_replace('<!--:-->', '[:]', $post['post_title']); // replace end legacy syntax <!--:--> into [:]
             $post['post_title'] = preg_replace('#<!--:([a-z]{2})-->#', '[:$1]', $post['post_title']); // replace start legacy syntax <!--:en--> into [:en]
-            $post['post_title'] = substr($post['post_title'],0, strlen($post['post_title'])-3);
+            if ( 3 == strlen($post['post_title']) - strrpos($post['post_title'], "[:]") ) {
+                // remove last [:] but remember it exists only if string is translated
+                $post['post_title'] = substr($post['post_title'],0, strlen($post['post_title'])-3);
+            }
             $exp = preg_split('#\[:([a-z]{2})\]#', $post['post_title']);
             array_shift($exp);
             preg_match_all('#\[:([a-z]{2})\]#',$post['post_title'],$matches);
             $languages = $matches['1'];
+            foreach( $languages as $key =>$l ){
+                $l = strtolower($l);
+                $languages[$key] = $l;
+            }
             foreach( $exp as $key => $e ){
                 $langs[ $languages[$key] ]['title'] = $e;
             };
@@ -815,23 +841,40 @@ class QT_Importer{
             $post['post_content'] = preg_replace('#<!--:--><!--:([a-z]{2})-->#', '[:$1]', $post['post_content']);
             $post['post_content'] = str_replace('<!--:-->', '[:]', $post['post_content']);
             $post['post_content'] = preg_replace('#<!--:([a-z]{2})-->#', '[:$1]', $post['post_content']);
-            $post['post_content'] = substr($post['post_content'],0, strlen($post['post_content'])-3);
+            if ( 3 == strlen($post['post_content']) - strrpos($post['post_content'], "[:]") ) {
+                // remove last [:] but remember it exists only if string is translated
+                $post['post_content'] = substr($post['post_content'],0, strlen($post['post_content'])-3);    
+            }
             $exp = preg_split('#\[:([a-z]{2})\]#', $post['post_content']);
             array_shift($exp);
             preg_match_all('#\[:([a-z]{2})\]#',$post['post_content'],$matches);
             $languages = $matches['1'];
+            foreach( $languages as $key =>$l ){
+                $l = strtolower($l);
+                $languages[$key] = $l;
+            }
             foreach( $exp as $key => $e ){
-                $langs[ $languages[$key] ]['content'] = $e;
+                $langs[ $languages[$key] ]['content'] .= $e;
+                if ($key == 0 && count($exp) > 2) { // if post has <!--more--> tag, add this tag to first language as well
+                    $langs[ $languages[$key] ]['content'] .= "<!--more-->";
+                }
             };
 
             $post['post_excerpt'] = preg_replace('#<!--:--><!--:([a-z]{2})-->#', '[:$1]', $post['post_excerpt']);
             $post['post_excerpt'] = str_replace('<!--:-->', '[:]', $post['post_excerpt']);
             $post['post_excerpt'] = preg_replace('#<!--:([a-z]{2})-->#', '[:$1]', $post['post_excerpt']);
-            $post['post_excerpt'] = substr($post['post_excerpt'],0, strlen($post['post_excerpt'])-3);
+            if ( 3 == strlen($post['post_excerpt']) - strrpos($post['post_excerpt'], "[:]") ) {
+                // remove last [:] but remember it exists only if string is translated
+                $post['post_excerpt'] = substr($post['post_excerpt'],0, strlen($post['post_excerpt'])-3);
+            }
             $exp = preg_split('#\[:([a-z]{2})\]#', $post['post_excerpt']);
             array_shift($exp);
             preg_match_all('#\[:([a-z]{2})\]#',$post['post_excerpt'],$matches);
             $languages = $matches['1'];
+            foreach( $languages as $key =>$l ){
+                $l = strtolower($l);
+                $languages[$key] = $l;
+            }
             foreach( $exp as $key => $e ){
                 $langs[ $languages[$key] ]['excerpt'] = $e;
             };
@@ -844,13 +887,22 @@ class QT_Importer{
                     $cf->meta_value = preg_replace('#<!--:--><!--:([a-z]{2})-->#', '[:$1]', $cf->meta_value);
                     $cf->meta_value = str_replace('<!--:-->', '[:]', $cf->meta_value);
                     $cf->meta_value = preg_replace('#<!--:([a-z]{2})-->#', '[:$1]', $cf->meta_value);
-                    $cf->meta_value = substr($cf->meta_value,0, strlen($cf->meta_value)-3);
+                    if ( 3 == strlen( $cf->meta_value ) - strrpos( $cf->meta_value, "[:]") ) {
+                        // remove last [:] but remember it exists only if string is translated
+                        $cf->meta_value = substr($cf->meta_value,0, strlen($cf->meta_value)-3);
+                    }
                     $exp = preg_split('#\[:([a-z]{2})\]#', $cf->meta_value);
                     array_shift($exp);
                     preg_match_all('#\[:([a-z]{2})\]#',$cf->meta_value,$matches);
                     $languages = $matches['1'];
+                    foreach( $languages as $key =>$l ){
+                        $l = strtolower($l);
+                        $languages[$key] = $l;
+                    }
                     foreach( $exp as $key => $e ){
-                        $langs[$lang]['custom_fields'][$cf->meta_key] = $matches[2];
+                        if (isset($matches[2])) {
+                            $langs[$lang]['custom_fields'][$cf->meta_key] = $matches[2];
+                        }
                     }
                 }else{
                     // copying all the other custom fields
@@ -872,7 +924,7 @@ class QT_Importer{
             // handle empty titles
             foreach($active_languages as $language){
                 if(empty($langs[$language]['title']) && !empty($langs[$language]['content'])){
-                    $langs[$language]['title'] = $langs[$this->default_language]['title'].' (' . $language. ')';
+                    $langs[$language]['title'] = $post['post_title'];
                 }
             }    
             

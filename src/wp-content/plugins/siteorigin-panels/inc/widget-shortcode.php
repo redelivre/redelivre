@@ -11,10 +11,6 @@ class SiteOrigin_Panels_Widget_Shortcode {
 
 	static function init() {
 		add_shortcode( 'siteorigin_widget', 'SiteOrigin_Panels_Widget_Shortcode::shortcode' );
-
-		// Integration with the cache rendering system
-		add_action( 'siteorigin_panels_start_cache_render', 'SiteOrigin_Panels_Widget_Shortcode::add_filters' );
-		add_action( 'siteorigin_panels_end_cache_render', 'SiteOrigin_Panels_Widget_Shortcode::remove_filters' );
 	}
 
 	static function add_filters() {
@@ -41,10 +37,9 @@ class SiteOrigin_Panels_Widget_Shortcode {
 		
 		$attr[ 'class' ] = html_entity_decode( $attr[ 'class' ] );
 		$attr[ 'class' ] = apply_filters( 'siteorigin_panels_widget_class', $attr[ 'class' ] );
-
-		global $wp_widget_factory;
-		if( ! empty( $attr[ 'class' ] ) && isset( $wp_widget_factory->widgets[ $attr[ 'class' ] ] ) ) {
-			$the_widget = $wp_widget_factory->widgets[ $attr[ 'class' ] ];
+		
+		$the_widget = ! empty( $attr[ 'class' ] ) ? SiteOrigin_Panels::get_widget_instance( $attr['class'] ) : null;
+		if( ! empty( $the_widget ) ) {
 
 			$data = self::decode_data( $content );
 
@@ -97,7 +92,7 @@ class SiteOrigin_Panels_Widget_Shortcode {
 	 */
 	static function widget_html( $html, $widget, $args, $instance ){
 		if(
-			empty( $GLOBALS[ 'SITEORIGIN_PANELS_CACHE_RENDER' ] ) ||
+			empty( $GLOBALS[ 'SITEORIGIN_PANELS_POST_CONTENT_RENDER' ] ) ||
 			// Don't try create HTML if there already is some
 			! empty( $html ) ||
 			! is_object( $widget ) ||

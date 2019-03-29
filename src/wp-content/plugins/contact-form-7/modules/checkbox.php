@@ -5,7 +5,7 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_checkbox' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_checkbox', 10, 0 );
 
 function wpcf7_add_form_tag_checkbox() {
 	wpcf7_add_form_tag( array( 'checkbox', 'checkbox*', 'radio' ),
@@ -52,67 +52,45 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
 
-	$tabindex = $tag->get_option( 'tabindex', 'int', true );
+	$tabindex = $tag->get_option( 'tabindex', 'signed_int', true );
 
 	if ( false !== $tabindex ) {
-		$tabindex = absint( $tabindex );
+		$tabindex = (int) $tabindex;
 	}
 
 	$html = '';
 	$count = 0;
 
-	$values = (array) $tag->values;
-	$labels = (array) $tag->labels;
-
 	if ( $data = (array) $tag->get_data_option() ) {
 		if ( $free_text ) {
-			$values = array_merge(
-				array_slice( $values, 0, -1 ),
+			$tag->values = array_merge(
+				array_slice( $tag->values, 0, -1 ),
 				array_values( $data ),
-				array_slice( $values, -1 ) );
-			$labels = array_merge(
-				array_slice( $labels, 0, -1 ),
+				array_slice( $tag->values, -1 ) );
+			$tag->labels = array_merge(
+				array_slice( $tag->labels, 0, -1 ),
 				array_values( $data ),
-				array_slice( $labels, -1 ) );
+				array_slice( $tag->labels, -1 ) );
 		} else {
-			$values = array_merge( $values, array_values( $data ) );
-			$labels = array_merge( $labels, array_values( $data ) );
+			$tag->values = array_merge( $tag->values, array_values( $data ) );
+			$tag->labels = array_merge( $tag->labels, array_values( $data ) );
 		}
 	}
 
-	$defaults = array();
+	$values = $tag->values;
+	$labels = $tag->labels;
 
-	$default_choice = $tag->get_default_option( null, 'multiple=1' );
-
-	foreach ( $default_choice as $value ) {
-		$key = array_search( $value, $values, true );
-
-		if ( false !== $key ) {
-			$defaults[] = (int) $key + 1;
-		}
-	}
-
-	if ( $matches = $tag->get_first_match_option( '/^default:([0-9_]+)$/' ) ) {
-		$defaults = array_merge( $defaults, explode( '_', $matches[1] ) );
-	}
-
-	$defaults = array_unique( $defaults );
+	$default_choice = $tag->get_default_option( null, array(
+		'multiple' => $multiple,
+	) );
 
 	$hangover = wpcf7_get_hangover( $tag->name, $multiple ? array() : '' );
 
 	foreach ( $values as $key => $value ) {
-		$class = 'wpcf7-list-item';
-
-		$checked = false;
-
 		if ( $hangover ) {
-			if ( $multiple ) {
-				$checked = in_array( esc_sql( $value ), (array) $hangover );
-			} else {
-				$checked = ( $hangover == esc_sql( $value ) );
-			}
+			$checked = in_array( $value, (array) $hangover, true );
 		} else {
-			$checked = in_array( $key + 1, (array) $defaults );
+			$checked = in_array( $value, (array) $default_choice, true );
 		}
 
 		if ( isset( $labels[$key] ) ) {
@@ -126,7 +104,7 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 			'name' => $tag->name . ( $multiple ? '[]' : '' ),
 			'value' => $value,
 			'checked' => $checked ? 'checked' : '',
-			'tabindex' => $tabindex ? $tabindex : '',
+			'tabindex' => false !== $tabindex ? $tabindex : '',
 		);
 
 		$item_atts = wpcf7_format_atts( $item_atts );
@@ -145,10 +123,12 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 			$item = '<label>' . $item . '</label>';
 		}
 
-		if ( false !== $tabindex ) {
+		if ( false !== $tabindex
+		and 0 < $tabindex ) {
 			$tabindex += 1;
 		}
 
+		$class = 'wpcf7-list-item';
 		$count += 1;
 
 		if ( 1 == $count ) {
@@ -165,10 +145,11 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 				$free_text_atts = array(
 					'name' => $free_text_name,
 					'class' => 'wpcf7-free-text',
-					'tabindex' => $tabindex ? $tabindex : '',
+					'tabindex' => false !== $tabindex ? $tabindex : '',
 				);
 
-				if ( wpcf7_is_posted() && isset( $_POST[$free_text_name] ) ) {
+				if ( wpcf7_is_posted()
+				and isset( $_POST[$free_text_name] ) ) {
 					$free_text_atts['value'] = wp_unslash(
 						$_POST[$free_text_name] );
 				}
@@ -197,17 +178,19 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 
 /* Validation filter */
 
-add_filter( 'wpcf7_validate_checkbox', 'wpcf7_checkbox_validation_filter', 10, 2 );
-add_filter( 'wpcf7_validate_checkbox*', 'wpcf7_checkbox_validation_filter', 10, 2 );
-add_filter( 'wpcf7_validate_radio', 'wpcf7_checkbox_validation_filter', 10, 2 );
+add_filter( 'wpcf7_validate_checkbox',
+	'wpcf7_checkbox_validation_filter', 10, 2 );
+add_filter( 'wpcf7_validate_checkbox*',
+	'wpcf7_checkbox_validation_filter', 10, 2 );
+add_filter( 'wpcf7_validate_radio',
+	'wpcf7_checkbox_validation_filter', 10, 2 );
 
 function wpcf7_checkbox_validation_filter( $result, $tag ) {
-	$type = $tag->type;
 	$name = $tag->name;
-
+	$is_required = $tag->is_required() || 'radio' == $tag->type;
 	$value = isset( $_POST[$name] ) ? (array) $_POST[$name] : array();
 
-	if ( $tag->is_required() && empty( $value ) ) {
+	if ( $is_required and empty( $value ) ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 
@@ -217,7 +200,7 @@ function wpcf7_checkbox_validation_filter( $result, $tag ) {
 
 /* Adding free text field */
 
-add_filter( 'wpcf7_posted_data', 'wpcf7_checkbox_posted_data' );
+add_filter( 'wpcf7_posted_data', 'wpcf7_checkbox_posted_data', 10, 1 );
 
 function wpcf7_checkbox_posted_data( $posted_data ) {
 	$tags = wpcf7_scan_form_tags(
@@ -270,7 +253,7 @@ function wpcf7_checkbox_posted_data( $posted_data ) {
 /* Tag generator */
 
 add_action( 'wpcf7_admin_init',
-	'wpcf7_add_tag_generator_checkbox_and_radio', 30 );
+	'wpcf7_add_tag_generator_checkbox_and_radio', 30, 0 );
 
 function wpcf7_add_tag_generator_checkbox_and_radio() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();

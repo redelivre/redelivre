@@ -1,16 +1,46 @@
 <?php
 /**
- * gets a location
+ * Get an event in a db friendly way, by checking globals, cache and passed variables to avoid extra class instantiations.
  * @param mixed $id
  * @param mixed $search_by
  * @return EM_Location
  */
 function em_get_location($id = false, $search_by = 'location_id') {
+	global $EM_Location;
+	//check if it's not already global so we don't instantiate again
+	if( is_object($EM_Location) && get_class($EM_Location) == 'EM_Location' ){
+		if( is_object($id) && $EM_Location->post_id == $id->ID ){
+			return apply_filters('em_get_location', $EM_Location);
+		}elseif( !is_object($id) ){
+			if( $search_by == 'location_id' && $EM_Location->location_id == $id ){
+				return apply_filters('em_get_location', $EM_Location);
+			}elseif( $search_by == 'post_id' && $EM_Location->post_id == $id ){
+				return apply_filters('em_get_location', $EM_Location);
+			}
+		}
+	}
 	if( is_object($id) && get_class($id) == 'EM_Location' ){
 		return apply_filters('em_get_location', $id);
-	}else{
-		return apply_filters('em_get_location', new EM_Location($id,$search_by));
+	}elseif( !defined('EM_CACHE') || EM_CACHE ){
+		//check the cache first
+		$location_id = false;
+		if( is_numeric($id) ){
+			if( $search_by == 'location_id' ){
+				$location_id = $id;
+			}elseif( $search_by == 'post_id' ){
+				$location_id = wp_cache_get($id, 'em_locations_ids');
+			}
+		}elseif( !empty($id->ID) && !empty($id->post_type) && $id->post_type == EM_POST_TYPE_LOCATION ){
+			$location_id = wp_cache_get($id->ID, 'em_locations_ids');
+		}
+		if( $location_id ){
+			$location = wp_cache_get($location_id, 'em_locations');
+			if( is_object($location) && !empty($location->location_id) && $location->location_id){
+				return apply_filters('em_get_location', $location);
+			}
+		}
 	}
+	return apply_filters('em_get_location', new EM_Location($id,$search_by));
 }
 /**
  * Object that holds location info and related functions
@@ -34,6 +64,10 @@ class EM_Location extends EM_Object {
 	var $post_content = '';
 	var $location_owner = '';
 	var $location_status = 0;
+	/* anonymous submission information */
+	var $owner_anonymous;
+	var $owner_name;
+	var $owner_email;
 	//Other Vars
 	var $fields = array( 
 		'location_id' => array('name'=>'id','type'=>'%d'),
@@ -53,7 +87,7 @@ class EM_Location extends EM_Object {
 		'location_owner' => array('name'=>'owner','type'=>'%d', 'null'=>true),
 		'location_status' => array('name'=>'status','type'=>'%d', 'null'=>true)
 	);
-	var $post_fields = array('post_id','location_slug','location_name','post_content','location_owner');
+	var $post_fields = array('post_id','location_slug','location_status', 'location_name','post_content','location_owner');
 	var $location_attributes = array();
 	var $image_url = '';
 	var $required_fields = array();
@@ -96,8 +130,8 @@ class EM_Location extends EM_Object {
 	
 	/**
 	 * Gets data from POST (default), supplied array, or from the database if an ID is supplied
-	 * @param $location_data
-	 * @param $search_by can be set to post_id or a number for a blog id if in ms mode with global tables, default is location_id
+	 * @param WP_Post|int|false $id
+	 * @param $search_by - Can be post_id or a number for a blog id if in ms mode with global tables, default is location_id
 	 * @return null
 	 */
 	function __construct($id = false,  $search_by = 'location_id' ) {
@@ -127,7 +161,7 @@ class EM_Location extends EM_Object {
 				if(!$is_post){
 				    if( EM_MS_GLOBAL && get_site_option('dbem_ms_mainblog_locations') ){
 				        //blog_id will always be the main blog id if global locations are restricted only to the main blog
-				        $search_by = get_current_site()->blog_id;
+				    	$search_by = $this->blog_id = get_current_site()->blog_id;
 				    }
 				    if( is_numeric($search_by) && is_multisite() ){
 						//we've been given a blog_id, so we're searching for a post id
@@ -138,12 +172,20 @@ class EM_Location extends EM_Object {
 					}
 				}else{
 					$location_post = $id;
+					if( EM_MS_GLOBAL ){
+						$search_by = $this->blog_id = get_current_blog_id();
+					}
 				}
 				$this->post_id = !empty($id->ID) ? $id->ID : $id;
 			}
 			$this->load_postdata($location_post, $search_by);
 		}
 		$this->compat_keys();
+		//add this location to the cache
+		if( $this->location_id && $this->post_id ){
+			wp_cache_set($this->location_id, $this, 'em_locations');
+			wp_cache_set($this->post_id, $this->location_id, 'em_locations_ids');
+		}
 		do_action('em_location', $this, $id, $search_by);
 	}
 	
@@ -153,23 +195,23 @@ class EM_Location extends EM_Object {
 				if( is_numeric($search_by) && is_multisite() ){
 					// if in multisite mode, switch blogs quickly to get the right post meta.
 					switch_to_blog($search_by);
-					$location_meta = get_post_custom($location_post->ID);
+					$location_meta = get_post_meta($location_post->ID);
 					restore_current_blog();
 					$this->blog_id = $search_by;
 				}else{
-					$location_meta = get_post_custom($location_post->ID);
+					$location_meta = get_post_meta($location_post->ID);
 				}	
 				//Get custom fields
 				foreach($location_meta as $location_meta_key => $location_meta_val){
-					$found = false;
-					foreach($this->fields as $field_name => $field_info){
-						if( $location_meta_key == '_'.$field_name){
+					$field_name = substr($location_meta_key, 1);
+					if($location_meta_key[0] != '_'){
+						$this->location_attributes[$location_meta_key] = ( is_array($location_meta_val) ) ? $location_meta_val[0]:$location_meta_val;
+					}elseif( is_string($field_name) && !in_array($field_name, $this->post_fields) ){
+						if( array_key_exists($field_name, $this->fields) ){
 							$this->$field_name = $location_meta_val[0];
-							$found = true;
+						}elseif( in_array($field_name, array('owner_name','owner_anonymous','owner_email')) ){
+							$this->$field_name = $location_meta_val[0];
 						}
-					}
-					if(!$found && $location_meta_key[0] != '_'){
-						$this->location_attributes[$location_meta_key] = ( count($location_meta_val) > 1 ) ? $location_meta_val:$location_meta_val[0];					
 					}
 				}	
 			}
@@ -203,9 +245,15 @@ class EM_Location extends EM_Object {
 	function get_post($validate = true){
 	    global $allowedtags;
 		do_action('em_location_get_post_pre', $this);
-		$this->location_name = ( !empty($_POST['location_name']) ) ? htmlspecialchars_decode(wp_kses_data(htmlspecialchars_decode(wp_unslash($_POST['location_name'])))):'';
+		$this->location_name = ( !empty($_POST['location_name']) ) ? sanitize_post_field('post_title', $_POST['location_name'], $this->post_id, 'db'):'';
 		$this->post_content = ( !empty($_POST['content']) ) ? wp_kses( wp_unslash($_POST['content']), $allowedtags):'';
 		$this->get_post_meta(false);
+		//anonymous submissions and guest basic info
+		if( !is_user_logged_in() && get_option('dbem_events_anonymous_submissions') && empty($this->location_id) ){
+			$this->owner_anonymous = 1;
+			$this->owner_name = !empty($_POST['owner_name']) ? wp_kses_data(wp_unslash($_POST['owner_name'])):'';
+			$this->owner_email = !empty($_POST['owner_email']) ? wp_kses_data($_POST['owner_email']):'';
+		}
 		$result = $validate ? $this->validate():true; //validate both post and meta, otherwise return true
 		$this->compat_keys();
 		return apply_filters('em_location_get_post', $result, $this);		
@@ -255,6 +303,15 @@ class EM_Location extends EM_Object {
 		if( empty($this->location_name) ){
 			$validate_post = false;
 			$this->add_error( __('Location name','events-manager').__(" is required.", 'events-manager') );
+		}
+		//anonymous submissions and guest basic info
+		if( !empty($this->owner_anonymous) ){
+			if( !is_email($this->owner_email) ){
+				$this->add_error( sprintf(__("%s is required.", 'events-manager'), __('A valid email','events-manager')) );
+			}
+			if( empty($this->owner_name) ){
+				$this->add_error( sprintf(__("%s is required.", 'events-manager'), __('Your name','events-manager')) );
+			}
 		}
 		$validate_image = $this->image_validate();
 		$validate_meta = $this->validate_meta();
@@ -339,6 +396,12 @@ class EM_Location extends EM_Object {
 			$this->location_owner = $post_data->post_author;
 			$this->post_status = $post_data->post_status;
 			$this->get_status();
+			//anonymous submissions should save this information
+			if( !empty($this->owner_anonymous) ){
+				update_post_meta($this->post_id, '_owner_anonymous', 1);
+				update_post_meta($this->post_id, '_owner_name', $this->owner_name);
+				update_post_meta($this->post_id, '_owner_email', $this->owner_email);
+			}
 			//save the image, errors here will surface during $this->save_meta()
 			$this->image_upload();
 			//now save the meta
@@ -350,12 +413,22 @@ class EM_Location extends EM_Object {
 		if( get_site_option('dbem_ms_mainblog_locations') ){ self::ms_global_switch_back(); }
 		$return = apply_filters('em_location_save', $post_save && $meta_save, $this );
 		$EM_SAVING_LOCATION = false;
+		//reload post data and add this location to the cache, after any other hooks have done their thing
+		//cache refresh when saving via admin area is handled in EM_Event_Post_Admin::save_post/refresh_cache
+		if( $post_save && $meta_save ){
+			$this->load_postdata($post_data);
+			if( $this->is_published() ){
+				//we won't depend on hooks, if we saved the event and it's still published in its saved state, refresh the cache regardless
+				wp_cache_set($this->location_id, $this, 'em_locations');
+				wp_cache_set($this->post_id, $this->location_id, 'em_locations_ids');
+			}
+		}
 		return $return;
 	}
 	
 	function save_meta(){
 		//echo "<pre>"; print_r($this); echo "</pre>"; die();
-		global $wpdb, $current_user;
+		global $wpdb;
 		if( $this->can_manage('edit_locations','edit_others_locations') || ( get_option('dbem_events_anonymous_submissions') && empty($this->location_id)) ){
 			do_action('em_location_save_meta_pre', $this);
 			//Set Blog ID if in multisite mode
@@ -365,15 +438,28 @@ class EM_Location extends EM_Object {
 				$this->blog_id = get_current_blog_id();
 			}
 			//Update Post Meta
+			$current_meta_values = get_post_meta($this->post_id);
 			foreach( array_keys($this->fields) as $key ){
-				if( !in_array($key, $this->post_fields) ){
+				if( !in_array($key, $this->post_fields) && $key != 'blog_id' && $this->$key != '' ){
 					update_post_meta($this->post_id, '_'.$key, $this->$key);
+				}elseif( array_key_exists('_'.$key, $current_meta_values) ){ //we should delete event_attributes, but maybe something else uses it without us knowing
+					delete_post_meta($this->post_id, '_'.$key);
 				}
 			}
-			//Update Post Attributes
-			foreach($this->location_attributes as $location_attribute_key => $location_attribute){
-				update_post_meta($this->post_id, $location_attribute_key, $location_attribute);
+			//Update Post Custom Fields and attributes
+			if( get_option('dbem_location_attributes_enabled') ){
+				//attributes get saved as individual keys or deleted if non-existent anymore
+				$atts = em_get_attributes( true ); //get available attributes that EM manages
+				$this->location_attributes= maybe_unserialize($this->location_attributes);
+				foreach( $atts['names'] as $location_attribute_key ){
+					if( !empty($this->location_attributes[$location_attribute_key]) ){
+						update_post_meta($this->post_id, $location_attribute_key, $this->location_attributes[$location_attribute_key]);
+					}else{
+						delete_post_meta($this->post_id, $location_attribute_key);
+					}
+				}
 			}
+			//refresh status
 			$this->get_status();
 			$this->location_status = (count($this->errors) == 0) ? $this->location_status:null; //set status at this point, it's either the current status, or if validation fails, null
 			//Save to em_locations table
@@ -412,11 +498,20 @@ class EM_Location extends EM_Object {
 					//Also set the status here if status != previous status
 					if( $this->previous_status != $this->get_status() ) $this->set_status($this->get_status());
 				}
+				//check anonymous submission information
+				if( !empty($this->owner_anonymous) && get_option('dbem_events_anonymous_user') != $this->location_owner ){
+					//anonymous user owner has been replaced with a valid wp user account, so we remove anonymous status flag but leave email and name for future reference
+					update_post_meta($this->post_id, '_owner_anonymous', 0);
+				}elseif( get_option('dbem_events_anonymous_submissions') && get_option('dbem_events_anonymous_user') == $this->location_owner && is_email($this->owner_email) && !empty($this->owner_name) ){
+					//anonymous user account has been reinstated as the owner, so we can restore anonymous submission status
+					update_post_meta($this->post_id, '_owner_anonymous', 1);
+				}
 			}
 		}else{
 			$this->add_error( sprintf(__('You do not have permission to create/edit %s.','events-manager'), __('locations','events-manager')) );
 		}
 		$this->compat_keys();
+		$result = count($this->errors) == 0;
 		return apply_filters('em_location_save_meta', count($this->errors) == 0, $this);
 	}
 	
@@ -491,12 +586,13 @@ class EM_Location extends EM_Object {
 			$post_status = $set_status ? 'publish':'pending';
 			if( empty($this->post_name) ){
 				//published or pending posts should have a valid post slug
-				$this->post_name = sanitize_title($this->post_title);
+				$slug = sanitize_title($this->post_title);
+				$this->post_name = wp_unique_post_slug( $slug, $this->post_id, $post_status, EM_POST_TYPE_LOCATION, 0);
 				$set_post_name = true;
 			}
 			if($set_post_status){
 				$wpdb->update( $wpdb->posts, array( 'post_status' => $post_status, 'post_name' => $this->post_name ), array( 'ID' => $this->post_id ) );
-			}elseif( $set_post_name ){
+			}elseif( !empty($set_post_name) ){
 				//if we've added a post slug then update wp_posts anyway
 				$wpdb->update( $wpdb->posts, array( 'post_name' => $this->post_name ), array( 'ID' => $this->post_id ) );
 			}
@@ -561,10 +657,8 @@ class EM_Location extends EM_Object {
 	
 	function has_events( $status = 1 ){
 		global $wpdb;	
-		$events_table = EM_EVENTS_TABLE;
-		$sql = $wpdb->prepare("SELECT count(event_id) as events_no FROM $events_table WHERE location_id=%d AND event_status=%d", $this->location_id, $status);
-	 	$affected_events = $wpdb->get_var($sql);
-		return apply_filters('em_location_has_events', $affected_events > 0, $this);
+		$events_count = EM_Events::count(array('location_id' => $this->location_id, 'status' => $status));
+		return apply_filters('em_location_has_events', $events_count > 0, $this);
 	}
 	
 	/**
@@ -727,14 +821,22 @@ class EM_Location extends EM_Object {
 		//This is for the custom attributes
 		preg_match_all('/#_LATT\{([^}]+)\}(\{([^}]+)\})?/', $location_string, $results);
 		foreach($results[0] as $resultKey => $result) {
+			//check that we haven't mistakenly captured a closing bracket in second bracket set
+			if( !empty($results[3][$resultKey]) && $results[3][$resultKey][0] == '/' ){
+				$result = $results[0][$resultKey] = str_replace($results[2][$resultKey], '', $result);
+				$results[3][$resultKey] = $results[2][$resultKey] = '';
+			}
 			//Strip string of placeholder and just leave the reference
 			$attRef = substr( substr($result, 0, strpos($result, '}')), 7 );
 			$attString = '';
-			if( is_array($this->location_attributes) && array_key_exists($attRef, $this->location_attributes) && !empty($this->location_attributes[$attRef]) ){
+			if( is_array($this->location_attributes) && array_key_exists($attRef, $this->location_attributes) ){
 				$attString = $this->location_attributes[$attRef];
 			}elseif( !empty($results[3][$resultKey]) ){
 				//Check to see if we have a second set of braces;
-				$attString = $results[3][$resultKey];
+				$attStringArray = explode('|', $results[3][$resultKey]);
+				$attString = $attStringArray[0];
+			}elseif( !empty($attributes['values'][$attRef][0]) ){
+				$attString = $attributes['values'][$attRef][0];
 			}
 			$attString = apply_filters('em_location_output_placeholder', $attString, $this, $result, $target);
 			$location_string = str_replace($result, $attString ,$location_string );
@@ -799,34 +901,24 @@ class EM_Location extends EM_Object {
 				case '#_LOCATIONLATITUDE':
 					$replace = $this->location_latitude;
 					break;
-				case '#_DESCRIPTION':  //Depricated
-				case '#_EXCERPT': //Depricated
+				case '#_DESCRIPTION':  //Deprecated
 				case '#_LOCATIONNOTES':
-				case '#_LOCATIONEXCERPT':	
 					$replace = $this->post_content;
-					if($result == "#_EXCERPT" || $result == "#_LOCATIONEXCERPT"){
-						if( !empty($this->post_excerpt) ){
-							$replace = $this->post_excerpt;
-						}else{
-						    $excerpt_length = 55;
-							$excerpt_more = apply_filters('em_excerpt_more', ' ' . '[...]');
-						    if( !empty($placeholders[3][$key]) ){
-						        $trim = true;
-						        $ph_args = explode(',', $placeholders[3][$key]);
-						        if( is_numeric($ph_args[0]) ) $excerpt_length = $ph_args[0];
-						        if( !empty($ph_args[1]) ) $excerpt_more = $ph_args[1];
-						    }
-							if ( preg_match('/<!--more(.*?)?-->/', $replace, $matches) ) {
-								$content = explode($matches[0], $replace, 2);
-								$replace = force_balance_tags($content[0]);
-							}
-							if( !empty($trim) ){
-							    //shorten content by supplied number - copied from wp_trim_excerpt
-							    $replace = strip_shortcodes( $replace );
-							    $replace = str_replace(']]>', ']]&gt;', $replace);
-							    $replace = wp_trim_words( $replace, $excerpt_length, $excerpt_more );
-							}
+					break;
+				case '#_EXCERPT': //Deprecated
+				case '#_LOCATIONEXCERPT':
+				case '#_LOCATIONEXCERPTCUT':
+					if( !empty($this->post_excerpt) && $result != "#_LOCATIONEXCERPTCUT" ){
+						$replace = $this->post_excerpt;
+					}else{
+						$excerpt_length = ( $result == "#_LOCATIONEXCERPTCUT" ) ? 55 : false;
+						$excerpt_more = apply_filters('em_excerpt_more', ' ' . '[...]');
+						if( !empty($placeholders[3][$key]) ){
+							$ph_args = explode(',', $placeholders[3][$key]);
+							if( is_numeric($ph_args[0]) || empty($ph_args[0]) ) $excerpt_length = $ph_args[0];
+							if( !empty($ph_args[1]) ) $excerpt_more = $ph_args[1];
 						}
+						$replace = $this->output_excerpt($excerpt_length, $excerpt_more, $result == "#_LOCATIONEXCERPTCUT");
 					}
 					break;
 				case '#_LOCATIONIMAGEURL':
@@ -897,6 +989,14 @@ class EM_Location extends EM_Object {
 						$replace = '<a href="'.esc_url($replace).'">iCal</a>';
 					}
 					break;
+				case '#_LOCATIONWEBCALURL':
+				case '#_LOCATIONWEBCALLINK':
+					$replace = $this->get_ical_url();
+					$replace = str_replace(array('http://','https://'), 'webcal://', $replace);
+					if( $result == '#_LOCATIONWEBCALLINK' ){
+						$replace = '<a href="'.esc_url($replace).'">Webcal</a>';
+					}
+					break;
 				case '#_LOCATIONRSSURL':
 				case '#_LOCATIONRSSLINK':
 					$replace = $this->get_rss_url();
@@ -919,18 +1019,16 @@ class EM_Location extends EM_Object {
 					if ( $result == '#_LOCATIONPASTEVENTS'){ $scope = 'past'; }
 					elseif ( $result == '#_LOCATIONNEXTEVENTS' ){ $scope = 'future'; }
 					else{ $scope = 'all'; }
-					$events_count = EM_Events::count( array('location'=>$this->location_id, 'scope'=>$scope) );
-					if ( $events_count > 0 ){
-					    $args = array('location'=>$this->location_id, 'scope'=>$scope, 'pagination'=>1, 'ajax'=>0);
-					    $args['format_header'] = get_option('dbem_location_event_list_item_header_format');
-					    $args['format_footer'] = get_option('dbem_location_event_list_item_footer_format');
-					    $args['format'] = get_option('dbem_location_event_list_item_format');
-						$args['limit'] = get_option('dbem_location_event_list_limit');
-						$args['page'] = (!empty($_REQUEST['pno']) && is_numeric($_REQUEST['pno']) )? $_REQUEST['pno'] : 1;
-					    $replace = EM_Events::output($args);
-					} else {
-						$replace = get_option('dbem_location_no_events_message');
-					}
+				    $args = array('location'=>$this->location_id, 'scope'=>$scope, 'pagination'=>1, 'ajax'=>0);
+				    $args['format_header'] = get_option('dbem_location_event_list_item_header_format');
+				    $args['format_footer'] = get_option('dbem_location_event_list_item_footer_format');
+				    $args['format'] = get_option('dbem_location_event_list_item_format');
+				    $args['no_results_msg'] = get_option('dbem_location_no_events_message');
+					$args['limit'] = get_option('dbem_location_event_list_limit');
+					$args['orderby'] = get_option('dbem_location_event_list_orderby');
+					$args['order'] = get_option('dbem_location_event_list_order');
+					$args['page'] = (!empty($_REQUEST['pno']) && is_numeric($_REQUEST['pno']) )? $_REQUEST['pno'] : 1;
+				    $replace = EM_Events::output($args);
 					break;
 				case '#_LOCATIONNEXTEVENT':
 					$events = EM_Events::get( array('location'=>$this->location_id, 'scope'=>'future', 'limit'=>1, 'orderby'=>'event_start_date,event_start_time') );
@@ -982,5 +1080,24 @@ class EM_Location extends EM_Object {
 		if( !empty($this->location_postcode) ) $location_array[] = $this->location_postcode;
 		if( !empty($this->location_region) ) $location_array[] = $this->location_region;
 		return implode($glue, $location_array);
+	}
+	
+	function get_google_maps_embed_url(){
+		//generate the map url
+		$latlng = $this->location_latitude.','.$this->location_longitude;
+		$args = apply_filters('em_location_google_maps_embed_args', array(
+			'maptype' => 'roadmap',
+			'zoom' => 15,
+			'key' => get_option('dbem_google_maps_browser_key')
+		), $this);
+		if( get_option('dbem_gmap_embed_type') == 'place' ){
+			$args['q'] = $this->location_name.', '. $this->get_full_address();
+		}elseif( get_option('dbem_gmap_embed_type') == 'address' ){
+			$args['q'] = $this->get_full_address();
+		}else{
+			$args['q'] = $latlng;
+		}
+		$url = add_query_arg( $args, "https://www.google.com/maps/embed/v1/place");
+		return apply_filters('em_location_get_google_maps_embed_url', $url, $this);
 	}
 }

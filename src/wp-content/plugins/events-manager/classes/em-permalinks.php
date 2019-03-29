@@ -34,7 +34,7 @@ if( !class_exists('EM_Permalinks') ){
 		public static function flush(){
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules();
-			delete_option('dbem_flush_needed');
+			update_option('dbem_flush_needed', 0);
 		}
 		
 		public static function post_type_archive_link($link, $post_type){
@@ -208,12 +208,13 @@ if( !class_exists('EM_Permalinks') ){
 			$taxonomies = EM_Object::get_taxonomies();
 			foreach($taxonomies as $tax_arg => $taxonomy_info){
 				//set the dynamic rule for this taxonomy
-				$em_rules[$taxonomy_info['slug']."/([^/]+)/ical/?$"] = 'index.php?'.$taxonomy_info['query_var'].'=$matches[1]&ical=1';
+				$em_rules[$taxonomy_info['slug']."/(.+)/ical/?$"] = 'index.php?'.$taxonomy_info['query_var'].'=$matches[1]&ical=1';
 			}
 			//add RSS location CPT endpoint
 			if( get_option('dbem_locations_enabled') ){
 				$em_rules[EM_POST_TYPE_LOCATION_SLUG."/([^/]+)/rss/?$"] = 'index.php?'.EM_POST_TYPE_LOCATION.'=$matches[1]&rss=1';
 			}
+			$em_rules = apply_filters('em_rewrite_rules_array', $em_rules);
 			return $em_rules + $rules;
 		}
 		

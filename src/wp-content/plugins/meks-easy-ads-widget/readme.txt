@@ -1,10 +1,10 @@
 === Meks Easy Ads Widget ===
 Contributors: mekshq
 Donate link: http://mekshq.com/
-Tags: ad, ads, affiliate, niche, advertising, advertisement, marketing, sidebar, widget
+Tags: ad, ads, advertising, widget, affiliate, niche, advertisement, marketing, sidebar
 Requires at least: 3.0
-Tested up to: 4.7
-Stable tag: 2.0.1
+Tested up to: 5.1
+Stable tag: 2.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -14,18 +14,19 @@ Display unlimited number of ads inside your WordPress widget.
 
 With this plugin you can create unlimited number of ads inside your WordPress widget. There are several smart options provided to customize ads for your needs.
 
-### Features
+== Features ==
 
 * Create unlimited number of ads inside one widget
 * Choose from predefined sizes or define your custom size
-* Randomize ads order
-* Limit number of ads per view
-* Slide/rotate ads
+* Support for both image ads and script based ads
+* Randomize ads ordering
+* Limit number of ads per view (page load)
+* Autoplay rotate ads
 
-Meks Easy Ads Widget plugin is created by <a href="http://mekshq.com" target="_blank">MeksHQ</a>
+Meks Easy Ads Widget plugin is created by [Meks](https://mekshq.com)
 
-><strong>Live preview?</strong><br>
->You can see Meks Easy Ads Widget live example on our <a href="http://mekshq.com/demo/herald" target="_blank">Herald theme demo website</a>
+== Live example? ==
+You can see Meks Easy Ads Widget live example on our [Herald theme demo website](https://mekshq.com/demo/herald)
 
 
 == Installation ==
@@ -36,7 +37,7 @@ Meks Easy Ads Widget plugin is created by <a href="http://mekshq.com" target="_b
 
 == Frequently Asked Questions ==
 
-For any questions, error reports and suggestions please email support@mekshq.com or visit http://mekshq.com
+For any questions, error reports and suggestions please visit https://mekshq.com/contact
 
 == Screenshots ==
 
@@ -45,6 +46,17 @@ For any questions, error reports and suggestions please email support@mekshq.com
 3. Widget in action example
 
 == Changelog ==
+
+= 2.0.4 =
+* Improved: When an existing Ad slot was removed only and another Ad was not added afterwards, widget was unable to save its settings
+
+= 2.0.3 =
+* Improved: Avoid image stretching on front end (if user does not upload the proper image size)
+* Tested with WP 4.9
+
+= 2.0.2 =
+* Improved: Some special characters in code ads were not rendered properly in special cases
+* Improved: Ad links are now sanitized so ads are always displayed even if link URL is not specified
 
 = 2.0.1 =
 * Fixed: Rotate (slide) option not working properly with code ads

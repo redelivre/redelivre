@@ -5,10 +5,13 @@
  *
  * Class SiteOrigin_Panels_Widgets_PostLoop
  */
-class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
+class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget {
 	
 	static $rendering_loop;
-	
+
+	static $current_loop_template;
+	static $current_loop_instance;
+
 	/**
 	 * @var SiteOrigin_Panels_Widgets_PostLoop_Helper
 	 */
@@ -20,14 +23,40 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 			__( 'Post Loop', 'siteorigin-panels' ),
 			array(
 				'description' => __( 'Displays a post loop.', 'siteorigin-panels' ),
+			),
+			array(
+				'width' => 800,
 			)
 		);
 	}
-	
+
+	/**
+	 * Are we currently rendering a post loop
+	 *
+	 * @return bool
+	 */
 	static function is_rendering_loop() {
 		return self::$rendering_loop;
 	}
-	
+
+	/**
+	 * Which post loop is currently being rendered
+	 *
+	 * @return array
+	 */
+	static function get_current_loop_template() {
+		return self::$current_loop_template;
+	}
+
+	/**
+	 * Which post loop is currently being rendered
+	 *
+	 * @return array
+	 */
+	static function get_current_loop_instance() {
+		return self::$current_loop_instance;
+	}
+
 	/**
 	 * Update the widget
 	 *
@@ -153,6 +182,8 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		
 		global $more; $old_more = $more; $more = empty($instance['more']);
 		self::$rendering_loop = true;
+		self::$current_loop_instance = $instance;
+		self::$current_loop_template = $instance['template'];
 		if(strpos('/'.$instance['template'], '/content') !== false) {
 			while( have_posts() ) {
 				the_post();
@@ -163,7 +194,9 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 			locate_template($instance['template'], true, false);
 		}
 		self::$rendering_loop = false;
-		
+		self::$current_loop_instance = null;
+		self::$current_loop_template = null;
+
 		echo $args['after_widget'];
 		
 		// Reset everything
@@ -329,6 +362,7 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		);
 		
 		$template_dirs = array( get_template_directory(), get_stylesheet_directory() );
+		$template_dirs = apply_filters( 'siteorigin_panels_postloop_template_directory', $template_dirs );
 		$template_dirs = array_unique( $template_dirs );
 		foreach( $template_dirs  as $dir ){
 			foreach( $template_files as $template_file ) {
@@ -338,8 +372,27 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 			}
 		}
 		
-		$templates = array_unique( $templates );
-		$templates = apply_filters('siteorigin_panels_postloop_templates', $templates);
+		$templates = array_unique( apply_filters( 'siteorigin_panels_postloop_templates', $templates ) );
+		foreach ( $templates as $template_key => $template)  {
+			$invalid = false;
+
+			// Ensure the provided file has a valid name and path
+			if ( validate_file( $template ) != 0 ) {
+				$invalid = true;
+			}
+
+			// Don't expect non-PHP files
+			if ( substr( $template, -4 ) != '.php' ) {
+				$invalid = true;
+			}
+
+			$template = locate_template( $template );
+			if ( empty( $template ) || $invalid ) {
+				unset( $templates[ $template_key ] );
+			}
+		}
+		// Update array indexes to ensure logical indexing
+		sort( $templates );
 		sort( $templates );
 		
 		return $templates;
@@ -358,11 +411,11 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		     class_exists( 'SiteOrigin_Widget' ) &&
 		     class_exists( 'SiteOrigin_Widget_Field_Posts' ) ) {
 			$this->helper = new SiteOrigin_Panels_Widgets_PostLoop_Helper( $templates );
-			// These ensure the form fields name attributes are correct.
-			$this->helper->id_base = $this->id_base;
-			$this->helper->id = $this->id;
-			$this->helper->number = $this->number;
 		}
+		// These ensure the form fields name attributes are correct.
+		$this->helper->id_base = $this->id_base;
+		$this->helper->id = $this->id;
+		$this->helper->number = $this->number;
 		
 		return $this->helper;
 	}

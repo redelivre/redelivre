@@ -13,8 +13,9 @@ class EM_WPML_Admin {
 			    add_action('admin_notices','EM_WPML_Admin::disable_recurrence_notice');
 		    }
 		}
-		if( $pagenow == 'edit.php' && !empty($_REQUEST['page']) && $_REQUEST['page'] == 'events-manager-options' ){
-		    add_filter('admin_init', 'EM_WPML_Admin::options_redirect');
+		$settings_pages = EM_ML_Admin::settings_pages();
+		if( $pagenow == 'edit.php' && !empty($_REQUEST['page']) && in_array($_REQUEST['page'], $settings_pages) ){
+		    add_action('admin_init', 'EM_WPML_Admin::options_redirect');
 		}
 	}
 	
@@ -30,7 +31,7 @@ class EM_WPML_Admin {
 	    $sitepress_langs = $sitepress->get_active_languages();
 	    foreach( $sitepress_langs as $lang => $lang_info ){
 	        if( $lang_info['default_locale'] == EM_ML::$wplang ){
-                wp_redirect(admin_url('edit.php?post_type=event&page=events-manager-options&wpmlredirect=1&lang='.$lang));
+                wp_redirect(admin_url('edit.php?post_type=event&page='.$_REQUEST['page'].'&wpmlredirect=1&lang='.$lang));
                 exit();
 	        }
 	    }
@@ -56,4 +57,4 @@ class EM_WPML_Admin {
 		return $link;
 	}
 }
-EM_WPML_Admin::init();
+add_action('em_ml_init', 'EM_WPML_Admin::init');

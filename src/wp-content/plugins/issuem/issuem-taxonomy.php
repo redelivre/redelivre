@@ -107,54 +107,37 @@ if ( !function_exists( 'issuem_issue_sortable_columns' ) ) {
 
 }
 
-if ( !function_exists( 'issuem_issue_sortable_column_orderby' ) )  {
-	
-	/**
-	 * Filters sortable columns
-	 *
-	 * @since 1.0.0
-	 * @todo there is a better way to do this sort
-	 *
-	 * @param array $terms
-	 * @param array $taxonomies
-	 * @param array $args
-	 * @return array Of sorted terms
-	 */
-	function issuem_issue_sortable_column_orderby( $terms, $taxonomies, $args ) {
-	
-		global $hook_suffix;
 
-		if ( 'edit-tags.php' == $hook_suffix && in_array( 'issuem_issue', $taxonomies ) 
-				&& ( empty( $_GET['orderby'] ) && !empty( $args['orderby'] ) && 'issue_order' == $args['orderby'] ) ) {
-				
-			$sort = array();
-			$count = 0;
-		
-			foreach ( $terms as $issue ) {
-				
-				$issue_meta = get_option( 'issuem_issue_' . $issue->term_id . '_meta' );
-			
-				if ( !empty( $issue_meta['issue_order'] ) )
-					$sort[ $issue_meta['issue_order'] ] = $issue;
-				else 
-					$sort[ '-' . ++$count ] = $issue;
-				
-			}
-		
-			if ( "asc" != $args['order'] )
-				krsort( $sort );
-			else
-				ksort( $sort );
-			
-			$terms = $sort;
-			
-		}
-		
-		return $terms;
-		
-	}
-	add_filter( 'get_terms', 'issuem_issue_sortable_column_orderby', 10, 3 );
+add_filter( 'terms_clauses', 'issuem_issue_filter_terms_clauses', 10, 3 );
 
+/**
+ * Filter WP_Term_Query meta query
+ *
+ * @param   object  $query  WP_Term_Query
+ * @return  object
+ */
+function issuem_issue_filter_terms_clauses( $pieces, $taxonomies, $args ) {
+
+    global $pagenow, $wpdb; 
+
+    // Require ordering
+    $orderby = ( isset( $_GET['orderby'] ) ) ? trim( sanitize_text_field( $_GET['orderby'] ) ) : ''; 
+    if ( empty( $orderby ) ) { return $pieces; }
+
+    // set taxonomy
+    $taxonomy = $taxonomies[0];
+
+    // only if current taxonomy or edit page in admin           
+    if ( !is_admin() || $pagenow !== 'edit-tags.php' || !in_array( $taxonomy, [ 'issuem_issue' ] ) ) { return $pieces; }
+
+    // and ordering matches
+    if ( $orderby === 'issue_order' ) {
+        $pieces['join']  .= ' INNER JOIN ' . $wpdb->termmeta . ' AS tm ON t.term_id = tm.term_id ';
+        $pieces['where'] .= ' AND tm.meta_key = "issue_order"'; 
+        $pieces['orderby']  = ' ORDER BY tm.meta_value '; 
+    }
+
+    return $pieces;
 }
 
 if ( !function_exists( 'manage_issuem_issue_custom_column' ) )  {
@@ -174,11 +157,14 @@ if ( !function_exists( 'manage_issuem_issue_custom_column' ) )  {
 	function manage_issuem_issue_custom_column( $blank, $column_name, $term_id ) {
 		
 		$issue_meta = get_option( 'issuem_issue_' . $term_id . '_meta' );
-	
-		if ( !empty( $issue_meta[$column_name] ) )
+
+		if ( $column_name == 'issue_order' ) {
+			return get_term_meta( $term_id, 'issue_order', true );
+		} else if ( !empty( $issue_meta[$column_name] ) ) {
 			return $issue_meta[$column_name];
-		else
+		} else {
 			return '';
+		}
 	
 	}
 	add_filter( "manage_issuem_issue_custom_column", 'manage_issuem_issue_custom_column', 10, 3 );
@@ -267,38 +253,37 @@ if ( !function_exists( 'issuem_issue_taxonomy_edit_form_fields' ) )  {
 		<th valign="top" scope="row"><?php _e( 'Issue Status', 'issuem' ); ?></th>
 		<td><?php echo get_issuem_issue_statuses( $issue_meta['issue_status'] ); ?></td>
 		</tr>
+
+		<?php do_action( 'issuem_after_issue_status_setting', $issue_meta ); ?>
 		
 		<tr class="form-field">
 		<th valign="top" scope="row"><?php _e( 'Issue Order', 'issuem' ); ?></th>
 		<td><input type="text" name="issue_order" id="issue_order" value="<?php echo $issue_meta['issue_order'] ?>" /></td>
 		</tr>
-		
-		<?php
-			if ( !empty( $_GET['remove_cover_image'] ) ) {
-			
-				wp_delete_attachment( $issue_meta['cover_image'] );
-				$issue_meta['cover_image'] = '';
-				update_option( 'issuem_issue_' . $tag->term_id . '_meta', $issue_meta );
-				
-			}
-		
-			if ( !empty( $issue_meta['cover_image'] ) ) {
-			
-				$view_image = '<p>' . wp_get_attachment_image( $issue_meta['cover_image'], 'issuem-cover-image' ) . '</p>';
-				$remove_image = '<p><a href="?' . http_build_query( wp_parse_args( array( 'remove_cover_image' => $issue_meta['cover_image'] ), $_GET ) ) . '">' . __( 'Remove Cover Image', 'issuem' ) . '</a></p>';
-			
-			} else {
-				
-				$view_image = '';
-				$remove_image = '';
-				
-			}
-		?>
-		
+	
 		<tr class="form-field">
-		<th valign="top" scope="row"><?php _e( 'Cover Image', 'issuem' ); ?></th>
-		<td><input type="file" name="cover_image" id="cover_image" value="" /><?php echo $view_image . $remove_image; ?></td>
+			<th valign="top" scope="row"><?php _e( 'Cover Image', 'issuem' ); ?></th>
+			<td>
+				<p class="hide-if-no-js">
+					<a title="Set Cover Image" href="javascript:;" id="set-cover-image">Set cover image</a>
+				</p>
+
+				<div id="cover-image-container" class="hidden">
+					<img width="300" src="<?php echo isset( $issue_meta['cover_image'] ) ? wp_get_attachment_url( $issue_meta['cover_image'] ) : ''; ?>" />
+				</div>
+
+				<p class="hide-if-no-js hidden">
+					<a title="Remove Cover Image" href="javascript:;" id="remove-cover-image">Remove cover image</a>
+				</p>
+
+				<p id="cover-image-meta">
+					<input type="hidden" id="cover-image" name="cover_image" value="<?php echo isset( $issue_meta['cover_image'] ) ? $issue_meta['cover_image'] : ''; ?>" />
+					<input type="hidden" id="cover-image-title" name="cover-image-title" value="" />
+					<input type="hidden" id="cover-image-alt" name="cover-image-alt" value="" />
+				</p>
+			</td>
 		</tr>
+		
 		
 		<?php
 			if ( !empty( $_GET['remove_pdf_version'] ) ) {
@@ -307,6 +292,7 @@ if ( !function_exists( 'issuem_issue_taxonomy_edit_form_fields' ) )  {
 				$issue_meta['pdf_version'] = '';
 				update_option( 'issuem_issue_' . $tag->term_id . '_meta', $issue_meta );
 				
+				wp_redirect( remove_query_arg( 'remove_pdf_version' ) );
 			}
 		
 			if ( !empty( $issue_meta['pdf_version'] ) ) {
@@ -369,24 +355,18 @@ if ( !function_exists( 'save_issuem_issue_meta' ) ) {
 	
 		$issue_meta = get_option( 'issuem_issue_' . $term_id . '_meta' );
 		
-		if ( !empty( $_POST['issue_status'] ) ) 
-			$issue_meta['issue_status'] = $_POST['issue_status'];
+		if ( isset( $_POST['issue_status'] ) ) {
+			$issue_meta['issue_status'] = sanitize_text_field( $_POST['issue_status'] );
+		}
 		
-		if ( !empty( $_POST['issue_order'] ) ) 
-			$issue_meta['issue_order'] = $_POST['issue_order'];
-		
-		if ( !empty( $_FILES['cover_image']['name'] ) ) {
-			
-			require_once(ABSPATH . 'wp-admin/includes/admin.php'); 
-			$id = media_handle_upload( 'cover_image', 0 ); //post id of Client Files page  
-			 
-			if ( is_wp_error($id) ) {  
-				$errors['upload_error'] = $id;  
-				$id = false;  
-			}
-			
-			$issue_meta['cover_image'] = $id;
-			
+		if ( isset( $_POST['issue_order'] ) ) {
+			$issue_order = sanitize_text_field( $_POST['issue_order'] );
+			$issue_meta['issue_order'] = $issue_order;
+			update_term_meta( $term_id, 'issue_order', $issue_order );
+		}
+
+		if ( isset( $_POST['cover_image'] ) ) {
+			$issue_meta['cover_image'] = sanitize_text_field( $_POST['cover_image'] );
 		}
 		
 		if ( !empty( $_FILES['pdf_version']['name'] ) ) {
@@ -436,8 +416,41 @@ if ( !function_exists( 'get_issuem_draft_issues' ) )  {
 			if ( preg_match( '/issuem_issue_(\d+)_meta/', $name, $matches ) )
 				$term_ids[] = $matches[1];
 		
-		return $term_ids;
+		return apply_filters( 'issuem_draft_issue_ids', $term_ids );
 		
 	}
+
+}
+
+
+add_action( 'admin_init', 'issuem_convert_issue_order_to_term_meta' );
+
+function issuem_convert_issue_order_to_term_meta() {
+
+	$settings = get_issuem_settings();
+
+	if ( $settings['issue_order_converted'] ) {
+		return;
+	}
+
+	$issues = get_terms( array(
+		'taxonomy' => 'issuem_issue',
+		'hide_empty' => false,
+	));
+
+	if ( count( $issues ) < 1 ) {
+		return;
+	}
+
+	foreach( $issues as $issue ) {
+
+		$issue_meta = get_option( 'issuem_issue_' . $issue->term_id . '_meta' );
+		$issue_order = isset( $issue_meta['issue_order'] ) ? $issue_meta['issue_order'] : '';
+		update_term_meta( $issue->term_id, 'issue_order', $issue_order );
+
+	}
+
+	$settings['issue_order_converted'] = true;
+	update_option( 'issuem', $settings );
 
 }

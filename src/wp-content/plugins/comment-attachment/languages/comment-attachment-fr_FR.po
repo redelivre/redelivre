@@ -1,0 +1,261 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Comment Attachment Modified\n"
+"POT-Creation-Date: 2014-12-02 10:36+0100\n"
+"PO-Revision-Date: 2015-10-09 13:53+0100\n"
+"Last-Translator: \n"
+"Language-Team: Jerome Laureys <contact@soruxa.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: ../comment-attachment-modified-init.php:50
+msgid "Comment Attachment deleted."
+msgstr "Comment Attachment effacé"
+
+#: ../comment-attachment-modified-init.php:86
+msgid "Comment Attachment"
+msgstr "Comment Attachment"
+
+#: ../comment-attachment-modified-init.php:87
+msgid "Allowed File Types"
+msgstr "Type de fichier autorisé"
+
+#: ../comment-attachment-modified-init.php:106
+msgid "Display attachment field"
+msgstr "Affichage du champ pour l'attachement"
+
+#: ../comment-attachment-modified-init.php:111
+msgid "Before default comment form fields."
+msgstr "Avant le champ commentaire par défault"
+
+#: ../comment-attachment-modified-init.php:112
+msgid "After default comment form fields."
+msgstr "Après le champ commentaire par défault"
+
+#: ../comment-attachment-modified-init.php:115
+msgid "Attachment field title"
+msgstr "Titre du champ pour l'attachement"
+
+#: ../comment-attachment-modified-init.php:117
+msgid "Upload attachment"
+msgstr "Charger l'attachement"
+
+#: ../comment-attachment-modified-init.php:122
+msgid "Maxium file size <small>(in megabytes)</small>"
+msgstr "Taille maximum <small>(en MB)</small>"
+
+#: ../comment-attachment-modified-init.php:123
+#, php-format
+msgid ""
+"Your server currently allows us to use maximum of <strong>%s MB(s).</strong>"
+msgstr ""
+"Le serveur permet l'utilisation d'un maximum de <strong>%s MB(s).</strong>"
+
+#: ../comment-attachment-modified-init.php:130
+msgid "Is attachment required?"
+msgstr "Rendre l'attachement obligatoire ?"
+
+#: ../comment-attachment-modified-init.php:137
+msgid "Attach attachment with current post?"
+msgstr "Joindre l'attachement à l'article en cours ?"
+
+#: ../comment-attachment-modified-init.php:143
+msgid "Text before attachment in a commment"
+msgstr "Texte devant l'attachement dans le commentaire"
+
+#: ../comment-attachment-modified-init.php:145
+msgid "Attachment"
+msgstr "Attachement"
+
+#: ../comment-attachment-modified-init.php:151
+msgid "Position of attchment in comment text"
+msgstr "Position de l'attachement par rapport au commentaire"
+
+#: ../comment-attachment-modified-init.php:156
+msgid "Before comment."
+msgstr "Avant le commentaire."
+
+#: ../comment-attachment-modified-init.php:157
+msgid "After comment."
+msgstr "Après le commentaire"
+
+#: ../comment-attachment-modified-init.php:158
+msgid "Don't display attachment. (really?)"
+msgstr "Ne pas afficher l'attachement. (Vraiment?)"
+
+#: ../comment-attachment-modified-init.php:162
+msgid "Make attachment in comment a link?"
+msgstr "Faire de l'attachement un lien dans le commentaire ?"
+
+#: ../comment-attachment-modified-init.php:163
+msgid "(Links to the original file.)"
+msgstr "(Lien vers le fichier original.)"
+
+#: ../comment-attachment-modified-init.php:169
+msgid "Show image thumbnail?"
+msgstr "Afficher l'image en miniature?"
+
+#: ../comment-attachment-modified-init.php:170
+msgid "(if attachment is image)"
+msgstr "(si l'attachement est une image)"
+
+#: ../comment-attachment-modified-init.php:176
+msgid "Image attachment size in comment"
+msgstr "Taille de l'attachement dans le commentaire "
+
+#: ../comment-attachment-modified-init.php:177
+msgid "(if thumbnail is set to visible, and is image)"
+msgstr "(si la miniature est possible et qu'il s'agit d'une image)"
+
+#: ../comment-attachment-modified-init.php:184
+msgid "Try to embed audio/video player?"
+msgstr "Essayer d'intégrer un lecteur audio/vidéo?"
+
+#: ../comment-attachment-modified-init.php:185
+msgid ""
+"(if attachment is audio/video)<br /><strong style=\"color: red;\">NOTE: </"
+"strong>This is an experimental feature, assuming you are using "
+"<strong>Wordpress 3.6, and higher,</strong> it uses the wordpress native "
+"<br /><code>[video]</code> and <code>[audio]</code> shortcodes to attach "
+"media file. It only takes <strong>.mp4, .m4v, .webm, .ogv, .wmv, .flv</"
+"strong> for videos,<br />and <strong>.mp3, .m4a, .ogg, .wav, .wma</strong> "
+"for audio files. Read more about <a href=\"http://codex.wordpress.org/"
+"Video_Shortcode\" target=\"_blank\">[video] shortcode</a>, or read more "
+"about <a href=\"https://codex.wordpress.org/Audio_Shortcode\" target=\"_blank"
+"\">[audio] shortcode.</a>"
+msgstr ""
+"(si l'attachement est audio ou vidéo)<br /><strong style=\"color: red;"
+"\">NOTE: </strong>Ceci est une fonction expérimentale, qui assume que vous "
+"utilisez <strong>Wordpress 3.6, ou plus récent,</strong> et qui utilise les "
+"raccourcis natifs wordpress <br /><code>[video]</code> et <code>[audio]</"
+"code> pour attacher un fichier média. Cela prend en compte les extensions "
+"<strong>.mp4, .m4v, .webm, .ogv, .wmv, .flv</strong> pour les vidéos,<br /"
+">et <strong>.mp3, .m4a, .ogg, .wav, .wma</strong> pour les fichiers audio. "
+"En savoir plus sur les <a href=\"http://codex.wordpress.org/Video_Shortcode"
+"\" target=\"_blank\">raccourcis [video]</a>, et en savoir plus sur les <a "
+"href=\"https://codex.wordpress.org/Audio_Shortcode\" target=\"_blank"
+"\">raccourcis [audio] .</a>"
+
+#: ../comment-attachment-modified-init.php:191
+msgid "Delete attachment upon comment deletition?<br />"
+msgstr "Effacer l'attachement quand le commentaire est effacé?<br />"
+
+#: ../comment-attachment-modified-init.php:196
+msgid "<strong>Images</strong>"
+msgstr "<strong>Images</strong>"
+
+#: ../comment-attachment-modified-init.php:200
+msgid "<strong>Documents</strong>"
+msgstr "<strong>Documents</strong>"
+
+#: ../comment-attachment-modified-init.php:211
+msgid "<strong>Archives</strong>"
+msgstr "<strong>Archive</strong>"
+
+#: ../comment-attachment-modified-init.php:214
+msgid "<strong>Audio</strong>"
+msgstr "<strong>Audio</strong>"
+
+#: ../comment-attachment-modified-init.php:220
+msgid "<strong>Video</strong>"
+msgstr "<strong>Vidéo</strong>"
+
+#: ../comment-attachment-modified-init.php:232
+msgid "<strong>Others</strong>"
+msgstr "<strong>Autres</strong>"
+
+#: ../comment-attachment-modified-init.php:683
+msgid "Allowed file types"
+msgstr "Type de fichier autorisé"
+
+#: ../comment-attachment-modified-init.php:683
+msgid "maximum file size"
+msgstr "Taille maximum du fichier"
+
+#: ../comment-attachment-modified-init.php:713
+#, php-format
+msgid ""
+"<strong>ERROR:</strong> File you upload must be valid file type "
+"<strong>(%1$s)</strong>, and under %2$sMB!"
+msgstr ""
+"<strong>ERREUR:</strong> Le type de fichier doit être valide <strong>(%1$s)</"
+"strong> et ne pas dépasser %2$sMB!"
+
+#: ../comment-attachment-modified-init.php:718
+msgid "<strong>ERROR:</strong> Attachment is a required field!"
+msgstr "<strong>ERREUR:</strong> Un attachement est obligatoire!"
+
+#: ../comment-attachment-modified-init.php:720
+msgid ""
+"<strong>ERROR:</strong> The uploaded file exceeds the upload_max_filesize "
+"directive in php.ini."
+msgstr ""
+"<strong>ERREUR:</strong> La taille de l'attachement dépasse la directive "
+"upload_max_filesize dans php.ini."
+
+#: ../comment-attachment-modified-init.php:722
+msgid ""
+"<strong>ERROR:</strong> The uploaded file exceeds the MAX_FILE_SIZE "
+"directive that was specified in the HTML form."
+msgstr ""
+"<strong>ERREUR:</strong> La taille de l'attachement dépasse la directive "
+"MAX_FILE_SIZE spécifiée dans le format HTML"
+
+#: ../comment-attachment-modified-init.php:724
+msgid ""
+"<strong>ERROR:</strong> The uploaded file was only partially uploaded. "
+"Please try again later."
+msgstr ""
+"<strong>ERREUR:</strong> Le fichier n'a été que partiellement chargé. "
+"Veuillez recommencer plus tard."
+
+#: ../comment-attachment-modified-init.php:726
+msgid "<strong>ERROR:</strong> Missing a temporary folder."
+msgstr "<strong>ERREUR:</strong> Fichier temporaire manquant."
+
+#: ../comment-attachment-modified-init.php:728
+msgid "<strong>ERROR:</strong> Failed to write file to disk."
+msgstr "<strong>ERREUR:</strong> Erreur d'écriture sur le disque dur"
+
+#: ../comment-attachment-modified-init.php:730
+msgid "<strong>ERROR:</strong> A PHP extension stopped the file upload."
+msgstr ""
+"<strong>ERREUR:</strong> Une extension PHP a arreté le chargement du fichier."
+
+#: ../comment-attachment-modified-init.php:749
+msgid "Attachment:"
+msgstr "Attachement:"
+
+#: ../comment-attachment-modified-init.php:918
+msgid "Delete Attachment"
+msgstr "Effacer attachement "
+
+#: ../comment-attachment-modified-init.php:937
+msgid "Settings > Discussion > Comment Attachment"
+msgstr "Réglages > Discussion > Comment Attachment"
+
+#: ../comment-attachment-modified-init.php:937
+msgid "Settings"
+msgstr "Réglages"
+
+#: ../comment-attachment-modified-init.php:955
+msgid ""
+"I'm sorry, but we can't have attachment bigger than server allows us to. If "
+"you wish to change this and you don't know how, <a href=\"https://www.google."
+"com/search?q=how+to+change+php.ini+upload_max_filesize\" target=\"_blank"
+"\">try this.</a>"
+msgstr ""
+"Désolé mais il n'est pas possible d'inclure un attachement plus gros que ce "
+"que le serveur autorise, <a href=\"https://www.google.com/search?q=how+to"
+"+change+php.ini+upload_max_filesize\" target=\"_blank\">En savoir plus.</a>"

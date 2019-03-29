@@ -28,6 +28,7 @@
 				</a>
 			</span>
 	<h2><?php _e('Mailgun', 'mailgun'); ?></h2>
+
 	<p>
 		<?php
 			$url = 'https://www.mailgun.com';
@@ -44,6 +45,7 @@
 			echo $link;
 		?>
 	</p>
+
 	<p>
 		<?php
 			$url = 'https://signup.mailgun.com/new/signup';
@@ -210,7 +212,7 @@
 							$url = 'http://documentation.mailgun.com/user_manual.html#tracking-clicks';
 							$link = sprintf(
 								wp_kses(
-									__('If enabled, Mailgun will and track links. <a href="%1$s" target="%2$s">Open Tracking Documentation</a>.', 'mailgun'),
+									__('If enabled, Mailgun will track links. <a href="%1$s" target="%2$s">Open Tracking Documentation</a>.', 'mailgun'),
 									array('a' => array(
 										'href' => array(),
 										'target' => array()

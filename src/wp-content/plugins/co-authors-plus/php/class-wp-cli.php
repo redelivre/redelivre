@@ -28,6 +28,7 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 		$users = get_users();
 		$created = 0;
 		$skipped = 0;
+		$progress = \WP_CLI\Utils\make_progress_bar( 'Processing guest authors...', count ( $users ) );
 		foreach ( $users as $user ) {
 
 			$result = $coauthors_plus->guest_authors->create_guest_author_from_user_id( $user->ID );
@@ -36,12 +37,12 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 			} else {
 				$created++;
 			}
+			$progress->tick();
 		}
-
+		$progress->finish();
 		WP_CLI::line( 'All done! Here are your results:' );
 		WP_CLI::line( "- {$created} guest author profiles were created" );
 		WP_CLI::line( "- {$skipped} users already had guest author profiles" );
-
 	}
 
 	/**
@@ -78,7 +79,7 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 
 				$terms = cap_get_coauthor_terms_for_post( $single_post->ID );
 				if ( empty( $terms ) ) {
-					WP_CLI::error( sprintf( 'No co-authors found for post #%d.', $single_post->ID ) );
+					WP_CLI::line( sprintf( 'No co-authors found for post #%d.', $single_post->ID ) );
 				}
 
 				if ( ! empty( $terms ) ) {
@@ -115,7 +116,7 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 	}
 
 	/**
-	 * Subcommand to assign coauthors to a post based on a given meta key
+	 * Subcommand to assign co-authors to a post based on a given meta key
 	 *
 	 * @since 3.0
 	 *
@@ -248,8 +249,8 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 			$coauthors_plus->add_coauthors( $post_id, array( $coauthor->user_login ) );
 			WP_CLI::line( sprintf( __( "Updating - Adding %s's byline to post #%d", 'co-authors-plus' ), $coauthor->user_login, $post_id ) );
 			$affected++;
-			if ( $affected && 0 === $affected % 20 ) {
-				sleep( 5 );
+			if ( $affected && 0 === $affected % 100 ) {
+				sleep( 2 );
 			}
 		}
 		WP_CLI::success( sprintf( __( 'All done! %d posts were affected.', 'co-authors-plus' ), $affected ) );
@@ -408,8 +409,8 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 	}
 
 	/**
-	 * Swap one Co Author with another on all posts for which they are an author. Unlike rename-coauthor,
-	 * this leaves the original Co Author term intact and works when the 'to' user already has a co-author term.
+	 * Swap one co-author with another on all posts for which they are a co-author. Unlike rename-coauthor,
+	 * this leaves the original co-author term intact and works when the 'to' user already has a co-author term.
 	 *
 	 * @subcommand swap-coauthors
 	 * @synopsis --from=<user-login> --to=<user-login> [--post_type=<ptype>] [--dry=<dry>]
@@ -611,7 +612,7 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 	}
 
 	/**
-	 * Update the post count and description for each author
+	 * Update the post count and description for each author and guest author
 	 *
 	 * @since 3.0
 	 *
@@ -734,7 +735,7 @@ class CoAuthorsPlus_Command extends WP_CLI_Command {
 		}
 
 		if ( ! class_exists( 'WXR_Parser' ) ) {
-			require_once( WP_CONTENT_DIR . '/admin-plugins/wordpress-importer/parsers.php' );
+			require_once( WP_CONTENT_DIR . '/plugins/wordpress-importer/parsers.php' );
 		}
 
 		$parser = new WXR_Parser();
