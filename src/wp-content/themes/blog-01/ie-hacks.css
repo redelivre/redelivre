@@ -1,9 +1,0 @@
-#respond, #form-comentario, #footer, #footer-nav, .widget-content, #branding, #main-section, .post, .post-content, .post-footer, #sidebar, .interaction { height: 1%; }
-#menubar { padding-top: 2px; height: 40px; }
-#main-nav { margin: -2px 0 0; }
-#main-nav li:hover { visibility: inherit; }
-#main-nav li ul li a { display: inline-block; }
-#feed-link { margin: -2px 0 -2px 10px; }
-
-
-
