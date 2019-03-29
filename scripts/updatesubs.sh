@@ -1,7 +1,18 @@
 #!/bin/bash
 
 PWDAtual=`pwd`
-APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
+APACHEUSER=""
+if [ hash apachectl 2>/dev/null ]; then 
+	APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
+fi
+
+checkIfRootRepos() {
+        REPOS=$(basename -s .git `git config --get remote.origin.url`)
+        if [ "$REPOS" = "redelivre" ]; then 
+                return 1;
+        fi
+        return 0;
+}
 
 git pull;
 
@@ -10,13 +21,17 @@ for l in $(git submodule |grep ^-|awk '{print $2}'); do git submodule update --i
 for l in $(git submodule|grep -v mapasdevista| grep -v recid|grep -v praticas-de-continuidade|grep -v observatorio-de-remocoes |awk {'print $2;'}); do
 	echo "Updating $l"
         cd $PWDAtual/$l;
-        git checkout master;
-        git pull;
+	if [ ! $(checkIfRootRepos) = 1 ]; then
+	        git checkout master;
+        	git pull;
+	fi
 done
 echo "Updating Mapasdevista on branch Redelivre"
 cd $PWDAtual/src/wp-content/plugins/mapasdevista;
-git checkout pontosdecultura;
-git pull;
+if [ ! $(checkIfRootRepos) = 1 ]; then
+	git checkout pontosdecultura;
+	git pull;
+fi
 
 if [ ! -e PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
 	cd $PWDAtual/src/wp-content/plugins/wp-opauth
@@ -24,24 +39,34 @@ if [ ! -e PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
 fi
 
 cd $PWDAtual/src/wp-content/themes/recid
-git checkout recid
-git pull
+if [ ! $(checkIfRootRepos) = 1 ]; then
+	git checkout recid
+	git pull
+fi
 
 cd $PWDAtual/src/wp-content/themes/praticas-de-continuidade
-git checkout praticas-de-continuidade
-git pull
+if [ ! $(checkIfRootRepos) = 1 ]; then
+	git checkout praticas-de-continuidade
+	git pull
+fi
 
 cd $PWDAtual/src/wp-content/themes/observatorio-de-remocoes
-git checkout observatorio-de-remocoes
-git pull
+if [ ! $(checkIfRootRepos) = 1 ]; then
+	git checkout observatorio-de-remocoes
+	git pull
+fi
 
 cd $PWDAtual/src/wp-content/plugins/sendpress
-git checkout 1.8.3.30
-git pull
+if [ ! $(checkIfRootRepos) = 1 ]; then
+	git checkout 1.8.3.30
+	git pull
+fi
 
 cd $PWDAtual/src/wp-content/themes/wp-divi-3
-git checkout divi-3.0-version
-git pull
+if [ ! $(checkIfRootRepos) = 1 ]; then
+	git checkout divi-3.0-version
+	git pull
+fi
 
 if [ -d PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp ] ; then
     cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
@@ -62,15 +87,25 @@ if [ -d PWDAtual/src/wp-content/themes/wp-logincidadao ] ; then
 	cd $PWDAtual/src/wp-content/themes/wp-logincidadao
 	git submodule update --init
         cd login-cidadao
-        git checkout master
-        git pull
+	if [ ! $(checkIfRootRepos) = 1 ]; then
+	        git checkout master
+	        git pull
+	fi
     fi
 fi
 
 if [ ! -z "$APACHEUSER" ]; then
     if ( id -u $APACHEUSER >/dev/null 2>&1 ) ; then
         mkdir -p $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
-        chown -R $APACHEUSER $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+	if [ "$EUID" -ne 0 ]; then
+	        sudo chown -R $APACHEUSER $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+		sudo chown -R $APACHEUSER $PWDAtual/src/wp-content/uploads
+		if [ -d $PWDAtual/src/wp-content/blogs.dir ]; then
+			sudo chown -R $APACHEUSER $PWDAtual/src/wp-content/blogs.dir
+		fi
+	else
+		sudo chown -R $APACHEUSER $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+	fi
     fi
 fi
 
