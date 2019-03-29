@@ -1,7 +1,9 @@
 /* global getUserSetting, setUserSetting */
 ( function( tinymce ) {
 // Set the minimum value for the modals z-index higher than #wpadminbar (100000)
-tinymce.ui.FloatPanel.zIndex = 100100;
+if ( ! tinymce.ui.FloatPanel.zIndex || tinymce.ui.FloatPanel.zIndex < 100100 ) {
+	tinymce.ui.FloatPanel.zIndex = 100100;
+}
 
 tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	var wpAdvButton, style,
@@ -17,47 +19,51 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	}
 
 	function toggleToolbars( state ) {
-		var iframe, initial, toolbars,
-			pixels = 0;
+		var initial, toolbars,
+			pixels = 0,
+			classicBlockToolbar = tinymce.$( '.block-library-classic__toolbar' );
 
-		initial = ( state === 'hide' );
+		if ( state === 'hide' ) {
+			initial = true;
+		} else if ( classicBlockToolbar.length && ! classicBlockToolbar.hasClass( 'has-advanced-toolbar' ) ) {
+			// Show the second, third, etc. toolbar rows in the Classic block instance.
+			classicBlockToolbar.addClass( 'has-advanced-toolbar' );
+			state = 'show';
+		}
 
 		if ( editor.theme.panel ) {
 			toolbars = editor.theme.panel.find('.toolbar:not(.menubar)');
 		}
 
-		if ( ! toolbars || toolbars.length < 2 || ( state === 'hide' && ! toolbars[1].visible() ) ) {
-			return;
-		}
+		if ( toolbars && toolbars.length > 1 ) {
+			if ( ! state && toolbars[1].visible() ) {
+				state = 'hide';
+			}
 
-		if ( ! state && toolbars[1].visible() ) {
-			state = 'hide';
-		}
-
-		each( toolbars, function( toolbar, i ) {
-			if ( i > 0 ) {
-				if ( state === 'hide' ) {
-					toolbar.hide();
-					pixels += 30;
-				} else {
-					toolbar.show();
-					pixels -= 30;
+			each( toolbars, function( toolbar, i ) {
+				if ( i > 0 ) {
+					if ( state === 'hide' ) {
+						toolbar.hide();
+						pixels += 30;
+					} else {
+						toolbar.show();
+						pixels -= 30;
+					}
 				}
-			}
-		});
+			});
+		}
 
-		if ( pixels && ! initial ) {
-			// Resize iframe, not needed in iOS
-			if ( ! tinymce.Env.iOS ) {
-				iframe = editor.getContentAreaContainer().firstChild;
-				DOM.setStyle( iframe, 'height', iframe.clientHeight + pixels );
-			}
+		// Resize editor iframe, not needed for iOS and inline instances.
+		if ( pixels && ! tinymce.Env.iOS && editor.iframeElement ) {
+			DOM.setStyle( editor.iframeElement, 'height', editor.iframeElement.clientHeight + pixels );
+		}
 
+		if ( ! initial ) {
 			if ( state === 'hide' ) {
-				setUserSetting('hidetb', '0');
+				setUserSetting( 'hidetb', '0' );
 				wpAdvButton && wpAdvButton.active( false );
 			} else {
-				setUserSetting('hidetb', '1');
+				setUserSetting( 'hidetb', '1' );
 				wpAdvButton && wpAdvButton.active( true );
 			}
 		}
@@ -71,7 +77,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		cmd: 'WP_Adv',
 		onPostRender: function() {
 			wpAdvButton = this;
-			wpAdvButton.active( getUserSetting( 'hidetb' ) === '1' ? true : false );
+			wpAdvButton.active( getUserSetting( 'hidetb' ) === '1' );
 		}
 	});
 
@@ -79,6 +85,8 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 	editor.on( 'PostRender', function() {
 		if ( editor.getParam( 'wordpress_adv_hidden', true ) && getUserSetting( 'hidetb', '0' ) === '0' ) {
 			toggleToolbars( 'hide' );
+		} else {
+			tinymce.$( '.block-library-classic__toolbar' ).addClass( 'has-advanced-toolbar' );
 		}
 	});
 
@@ -111,8 +119,13 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 						'alt="" title="' + title + '" data-mce-resize="false" data-mce-placeholder="1" />' );
 			}
 
-			if ( event.load && event.format !== 'raw' && hasWpautop ) {
-				event.content = wp.editor.autop( event.content );
+			if ( event.load && event.format !== 'raw' ) {
+				if ( hasWpautop ) {
+					event.content = wp.editor.autop( event.content );
+				} else {
+					// Prevent creation of paragraphs out of multiple HTML comments.
+					event.content = event.content.replace( /-->\s+<!--/g, '--><!--' );
+				}
 			}
 
 			if ( event.content.indexOf( '<script' ) !== -1 || event.content.indexOf( '<style' ) !== -1 ) {
@@ -129,17 +142,20 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 					'/>';
 				} );
 			}
-
-			// Remove spaces from empty paragraphs.
-			// Try to avoid a lot of backtracking, can freeze the editor. See #35890 and #38294.
-			event.content = event.content.replace( /<p>([^<>]+)<\/p>/gi, function( tag, text ) {
-				if ( text === '&nbsp;' || ! /\S/.test( text ) ) {
-					return '<p><br /></p>';
-				}
-
-				return tag;
-			});
 		}
+	});
+
+	editor.on( 'setcontent', function() {
+		// Remove spaces from empty paragraphs.
+		editor.$( 'p' ).each( function( i, node ) {
+			if ( node.innerHTML && node.innerHTML.length < 10 ) {
+				var html = tinymce.trim( node.innerHTML );
+
+				if ( ! html || html === '&nbsp;' ) {
+					node.innerHTML = ( tinymce.Env.ie && tinymce.Env.ie < 11 ) ? '' : '<br data-mce-bogus="1">';
+				}
+			}
+		} );
 	});
 
 	editor.on( 'PostProcess', function( event ) {
@@ -182,7 +198,8 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		var parent, html, title,
 			classname = 'wp-more-tag',
 			dom = editor.dom,
-			node = editor.selection.getNode();
+			node = editor.selection.getNode(),
+			rootNode = editor.getBody();
 
 		tag = tag || 'more';
 		classname += ' mce-wp-' + tag;
@@ -192,14 +209,14 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			'data-wp-more="' + tag + '" data-mce-resize="false" data-mce-placeholder="1" />';
 
 		// Most common case
-		if ( node.nodeName === 'BODY' || ( node.nodeName === 'P' && node.parentNode.nodeName === 'BODY' ) ) {
+		if ( node === rootNode || ( node.nodeName === 'P' && node.parentNode === rootNode ) ) {
 			editor.insertContent( html );
 			return;
 		}
 
 		// Get the top level parent node
 		parent = dom.getParent( node, function( found ) {
-			if ( found.parentNode && found.parentNode.nodeName === 'BODY' ) {
+			if ( found.parentNode && found.parentNode === rootNode ) {
 				return true;
 			}
 
@@ -353,7 +370,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		html += '</div>';
 
 		dialog = editor.windowManager.open( {
-			title: 'Keyboard Shortcuts',
+			title: editor.settings.classic_block_editor ? 'Classic Block Keyboard Shortcuts' : 'Keyboard Shortcuts',
 			items: {
 				type: 'container',
 				classes: 'wp-help',
@@ -415,9 +432,14 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		stateSelector: 'code'
 	});
 
-	// Menubar
 	// Insert->Add Media
 	if ( wp && wp.media && wp.media.editor ) {
+		editor.addButton( 'wp_add_media', {
+			tooltip: 'Add Media',
+			icon: 'dashicon dashicons-admin-media',
+			cmd: 'WP_Medialib'
+		} );
+
 		editor.addMenuItem( 'add_media', {
 			text: 'Add Media',
 			icon: 'wp-media-library',
@@ -540,11 +562,17 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 
 			editor.on( 'PastePostProcess', function( event ) {
 				// Remove empty paragraphs
-				each( dom.select( 'p', event.node ), function( node ) {
+				editor.$( 'p', event.node ).each( function( i, node ) {
 					if ( dom.isEmpty( node ) ) {
 						dom.remove( node );
 					}
 				});
+
+				if ( tinymce.isIE ) {
+					editor.$( 'a', event.node ).find( 'font, u' ).each( function( i, node ) {
+						dom.remove( node, true );
+					});
+				}
 			});
 		}
 
@@ -596,6 +624,9 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 
 		if ( hasWpautop ) {
 			event.content = wp.editor.removep( event.content );
+		} else {
+			// Restore formatting of block boundaries.
+			event.content = event.content.replace( /-->\s*<!-- wp:/g, '-->\n\n<!-- wp:' );
 		}
 	});
 
@@ -621,10 +652,8 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			u: 'InsertUnorderedList',
 			o: 'InsertOrderedList',
 			m: 'WP_Medialib',
-			z: 'WP_Adv',
 			t: 'WP_More',
 			d: 'Strikethrough',
-			h: 'WP_Help',
 			p: 'WP_Page',
 			x: 'WP_Code'
 		}, function( command, key ) {
@@ -636,6 +665,23 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 				wp.autosave.server.triggerSave();
 			}
 		} );
+
+		// Alt+Shift+Z removes a block in the Block Editor, don't add it to the Classic Block.
+		if ( ! editor.settings.classic_block_editor ) {
+			editor.addShortcut( 'access+z', '', 'WP_Adv' );
+		}
+
+		// Workaround for not triggering the global help modal in the Block Editor by the Classic Block shortcut.
+		editor.on( 'keydown', function( event ) {
+			if ( event.shiftKey && event.altKey && event.code === 'KeyH' ) {
+				editor.execCommand( 'WP_Help' );
+				event.stopPropagation();
+				event.stopImmediatePropagation();
+				return false;
+			}
+
+			return true;
+		});
 
 		if ( window.getUserSetting( 'editor_plain_text_paste_warning' ) > 1 ) {
 			editor.settings.paste_plaintext_inform = false;
@@ -673,7 +719,8 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			mceIframe = document.getElementById( editor.id + '_ifr' ),
 			mceToolbar,
 			mceStatusbar,
-			wpStatusbar;
+			wpStatusbar,
+			isChromeRtl = ( editor.rtl && /Chrome/.test( navigator.userAgent ) );
 
 			if ( container ) {
 				mceToolbar = tinymce.$( '.mce-toolbar-grp', container )[0];
@@ -917,6 +964,16 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 
 			toolbar.on( 'show', function() {
 				this.reposition();
+
+				if ( isChromeRtl ) {
+					tinymce.$( '.mce-widget.mce-tooltip' ).addClass( 'wp-hide-mce-tooltip' );
+				}
+			} );
+
+			toolbar.on( 'hide', function() {
+				if ( isChromeRtl ) {
+					tinymce.$( '.mce-widget.mce-tooltip' ).removeClass( 'wp-hide-mce-tooltip' );
+				}
 			} );
 
 			toolbar.on( 'keydown', function( event ) {
@@ -963,11 +1020,12 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			}
 
 			if ( args.toolbar ) {
-				if ( activeToolbar !== args.toolbar ) {
-					activeToolbar = args.toolbar;
-					activeToolbar.show();
-				} else {
+				activeToolbar = args.toolbar;
+
+				if ( activeToolbar.visible() ) {
 					activeToolbar.reposition();
+				} else {
+					activeToolbar.show();
 				}
 			} else {
 				activeToolbar = false;
@@ -1006,12 +1064,20 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			}
 		}
 
-		// For full height editor.
-		editor.on( 'resizewindow scrollwindow', hide );
-		// For scrollable editor.
-		editor.dom.bind( editor.getWin(), 'resize scroll', hide );
+		editor.dom.bind( editor.getWin(), 'resize', hide );
+
+		if ( editor.inline ) {
+			// Enable `capture` for the event.
+			// This will hide/reposition the toolbar on any scrolling in the document.
+			document.addEventListener( 'scroll', hide, true );
+		} else {
+			editor.dom.bind( editor.getWin(), 'scroll', hide );
+			// For full height iframe editor.
+			editor.on( 'resizewindow scrollwindow', hide );
+		}
 
 		editor.on( 'remove', function() {
+			document.removeEventListener( 'scroll', hide, true );
 			editor.off( 'resizewindow scrollwindow', hide );
 			editor.dom.unbind( editor.getWin(), 'resize scroll', hide );
 		} );

@@ -1,4 +1,4 @@
-/* global adminpage, wpActiveEditor, quicktagsL10n, wpLink, prompt */
+
 /*
  * Quicktags
  *
@@ -16,14 +16,17 @@
  *
  * quicktags_id string The ID of the textarea that will be the editor canvas
  * buttons string Comma separated list of the default buttons names that will be shown in that instance.
+ *
+ * @output wp-includes/js/quicktags.js
  */
 
 // new edit toolbar used with permission
 // by Alex King
 // http://www.alexking.org/
 
-var QTags, edCanvas,
-	edButtons = [];
+/* global adminpage, wpActiveEditor, quicktagsL10n, wpLink, prompt, edButtons */
+
+window.edButtons = [];
 
 /* jshint ignore:start */
 
@@ -32,46 +35,19 @@ var QTags, edCanvas,
  *
  * Define all former global functions so plugins that hack quicktags.js directly don't cause fatal errors.
  */
-var edAddTag = function(){},
-edCheckOpenTags = function(){},
-edCloseAllTags = function(){},
-edInsertImage = function(){},
-edInsertLink = function(){},
-edInsertTag = function(){},
-edLink = function(){},
-edQuickLink = function(){},
-edRemoveTag = function(){},
-edShowButton = function(){},
-edShowLinks = function(){},
-edSpell = function(){},
-edToolbar = function(){};
-
-/**
- * Initialize new instance of the Quicktags editor
- */
-function quicktags(settings) {
-	return new QTags(settings);
-}
-
-/**
- * Inserts content at the caret in the active editor (textarea)
- *
- * Added for back compatibility
- * @see QTags.insertContent()
- */
-function edInsertContent(bah, txt) {
-	return QTags.insertContent(txt);
-}
-
-/**
- * Adds a button to all instances of the editor
- *
- * Added for back compatibility, use QTags.addButton() as it gives more flexibility like type of button, button placement, etc.
- * @see QTags.addButton()
- */
-function edButton(id, display, tagStart, tagEnd, access) {
-	return QTags.addButton( id, display, tagStart, tagEnd, access, '', -1 );
-}
+window.edAddTag = function(){};
+window.edCheckOpenTags = function(){};
+window.edCloseAllTags = function(){};
+window.edInsertImage = function(){};
+window.edInsertLink = function(){};
+window.edInsertTag = function(){};
+window.edLink = function(){};
+window.edQuickLink = function(){};
+window.edRemoveTag = function(){};
+window.edShowButton = function(){};
+window.edShowLinks = function(){};
+window.edSpell = function(){};
+window.edToolbar = function(){};
 
 /* jshint ignore:end */
 
@@ -149,10 +125,9 @@ function edButton(id, display, tagStart, tagEnd, access) {
 			zeroise( now.getUTCMinutes() ) + ':' +
 			zeroise( now.getUTCSeconds() ) +
 			'+00:00';
-	})(),
-	qt;
+	})();
 
-	qt = QTags = function(settings) {
+	var qt = window.QTags = function(settings) {
 		if ( typeof(settings) === 'string' ) {
 			settings = {id: settings};
 		} else if ( typeof(settings) !== 'object' ) {
@@ -176,7 +151,7 @@ function edButton(id, display, tagStart, tagEnd, access) {
 
 		if ( id === 'content' && typeof(adminpage) === 'string' && ( adminpage === 'post-new-php' || adminpage === 'post-php' ) ) {
 			// back compat hack :-(
-			edCanvas = canvas;
+			window.edCanvas = canvas;
 			toolbar_id = 'ed_toolbar';
 		} else {
 			toolbar_id = name + '_toolbar';
@@ -223,7 +198,7 @@ function edButton(id, display, tagStart, tagEnd, access) {
 
 		if ( tb.addEventListener ) {
 			tb.addEventListener( 'click', onclick, false );
-			
+
 			if ( wrap ) {
 				wrap.addEventListener( 'click', setActiveEditor, false );
 			}
@@ -243,12 +218,20 @@ function edButton(id, display, tagStart, tagEnd, access) {
 			return document.getElementById(name + '_' + id);
 		};
 
-		qt.instances[id] = t;
+		t.init = function() {
+			_domReady( function(){ qt._buttonsInit( id ); } );
+		};
 
-		if ( ! qt.instances['0'] ) {
-			qt.instances['0'] = qt.instances[id];
-			_domReady( function(){ qt._buttonsInit(); } );
-		}
+		t.remove = function() {
+			delete qt.instances[id];
+
+			if ( tb && tb.parentNode ) {
+				tb.parentNode.removeChild( tb );
+			}
+		};
+
+		qt.instances[id] = t;
+		t.init();
 	};
 
 	function _escape( text ) {
@@ -263,16 +246,14 @@ function edButton(id, display, tagStart, tagEnd, access) {
 		return qt.instances[id];
 	};
 
-	qt._buttonsInit = function() {
-		var t = this, canvas, name, settings, theButtons, html, inst, ed, id, i, use,
-			defaults = ',strong,em,link,block,del,ins,img,ul,ol,li,code,more,close,';
+	qt._buttonsInit = function( id ) {
+		var t = this;
 
-		for ( inst in t.instances ) {
-			if ( '0' === inst ) {
-				continue;
-			}
+		function _init( instanceId ) {
+			var canvas, name, settings, theButtons, html, ed, id, i, use,
+				defaults = ',strong,em,link,block,del,ins,img,ul,ol,li,code,more,close,';
 
-			ed = t.instances[inst];
+			ed = t.instances[instanceId];
 			canvas = ed.canvas;
 			name = ed.name;
 			settings = ed.settings;
@@ -286,7 +267,7 @@ function edButton(id, display, tagStart, tagEnd, access) {
 			}
 
 			for ( i in edButtons ) {
-				if ( !edButtons[i] ) {
+				if ( ! edButtons[i] ) {
 					continue;
 				}
 
@@ -295,11 +276,11 @@ function edButton(id, display, tagStart, tagEnd, access) {
 					continue;
 				}
 
-				if ( !edButtons[i].instance || edButtons[i].instance === inst ) {
+				if ( ! edButtons[i].instance || edButtons[i].instance === instanceId ) {
 					theButtons[id] = edButtons[i];
 
 					if ( edButtons[i].html ) {
-						html += edButtons[i].html(name + '_');
+						html += edButtons[i].html( name + '_' );
 					}
 				}
 			}
@@ -309,9 +290,9 @@ function edButton(id, display, tagStart, tagEnd, access) {
 				html += theButtons.dfw.html( name + '_' );
 			}
 
-			if ( 'rtl' === document.getElementsByTagName('html')[0].dir ) {
+			if ( 'rtl' === document.getElementsByTagName( 'html' )[0].dir ) {
 				theButtons.textdirection = new qt.TextDirectionButton();
-				html += theButtons.textdirection.html(name + '_');
+				html += theButtons.textdirection.html( name + '_' );
 			}
 
 			ed.toolbar.innerHTML = html;
@@ -321,6 +302,15 @@ function edButton(id, display, tagStart, tagEnd, access) {
 				jQuery( document ).triggerHandler( 'quicktags-init', [ ed ] );
 			}
 		}
+
+		if ( id ) {
+			_init( id );
+		} else {
+			for ( id in t.instances ) {
+				_init( id );
+			}
+		}
+
 		t.buttonsInitDone = true;
 	};
 
@@ -391,7 +381,7 @@ function edButton(id, display, tagStart, tagEnd, access) {
 	};
 
 	qt.insertContent = function(content) {
-		var sel, startPos, endPos, scrollTop, text, canvas = document.getElementById(wpActiveEditor);
+		var sel, startPos, endPos, scrollTop, text, canvas = document.getElementById(wpActiveEditor), event;
 
 		if ( !canvas ) {
 			return false;
@@ -418,6 +408,15 @@ function edButton(id, display, tagStart, tagEnd, access) {
 			canvas.value += content;
 			canvas.focus();
 		}
+
+		if ( document.createEvent ) {
+			event = document.createEvent( 'HTMLEvents' );
+			event.initEvent( 'change', false, true );
+			canvas.dispatchEvent( event );
+		} else if ( canvas.fireEvent ) {
+			canvas.fireEvent( 'onchange' );
+		}
+
 		return true;
 	};
 
@@ -500,7 +499,7 @@ function edButton(id, display, tagStart, tagEnd, access) {
 		return ret;
 	};
 	qt.TagButton.prototype.callback = function(element, canvas, ed) {
-		var t = this, startPos, endPos, cursorPos, scrollTop, v = canvas.value, l, r, i, sel, endTag = v ? t.tagEnd : '';
+		var t = this, startPos, endPos, cursorPos, scrollTop, v = canvas.value, l, r, i, sel, endTag = v ? t.tagEnd : '', event;
 
 		if ( document.selection ) { // IE
 			canvas.focus();
@@ -575,6 +574,14 @@ function edButton(id, display, tagStart, tagEnd, access) {
 			}
 			canvas.focus();
 		}
+
+		if ( document.createEvent ) {
+			event = document.createEvent( 'HTMLEvents' );
+			event.initEvent( 'change', false, true );
+			canvas.dispatchEvent( event );
+		} else if ( canvas.fireEvent ) {
+			canvas.fireEvent( 'onchange' );
+		}
 	};
 
 	// removed
@@ -606,9 +613,12 @@ function edButton(id, display, tagStart, tagEnd, access) {
 
 	qt.CloseButton.prototype.callback = qt._close;
 
-	qt.closeAllTags = function(editor_id) {
-		var ed = this.getInstance(editor_id);
-		qt._close('', ed.canvas, ed);
+	qt.closeAllTags = function( editor_id ) {
+		var ed = this.getInstance( editor_id );
+
+		if ( ed ) {
+			qt._close( '', ed.canvas, ed );
+		}
 	};
 
 	// the link button
@@ -710,3 +720,30 @@ function edButton(id, display, tagStart, tagEnd, access) {
 	edButtons[140] = new qt.CloseButton();
 
 })();
+
+/**
+ * Initialize new instance of the Quicktags editor
+ */
+window.quicktags = function(settings) {
+	return new window.QTags(settings);
+};
+
+/**
+ * Inserts content at the caret in the active editor (textarea)
+ *
+ * Added for back compatibility
+ * @see QTags.insertContent()
+ */
+window.edInsertContent = function(bah, txt) {
+	return window.QTags.insertContent(txt);
+};
+
+/**
+ * Adds a button to all instances of the editor
+ *
+ * Added for back compatibility, use QTags.addButton() as it gives more flexibility like type of button, button placement, etc.
+ * @see QTags.addButton()
+ */
+window.edButton = function(id, display, tagStart, tagEnd, access) {
+	return window.QTags.addButton( id, display, tagStart, tagEnd, access, '', -1 );
+};
