@@ -1,0 +1,44 @@
+/*!
+ * WP Captcha Backend CSS
+ */
+ 
+#wpc-main-nav {
+	border-bottom: 1px solid #CCCCCC;
+	float: left;
+	margin-bottom: 10px;
+	padding-left: 10px;
+	width: 97%;
+}
+#wpc-main-nav li {
+	float: left;
+	margin: 0;
+}
+#wpc-main-nav li a {
+	display: block;
+	padding: 10px 20px;
+	font-size: 15px;
+	text-decoration: none;
+}
+.nav-tab-active, .nav-tab-active:hover {
+	border-bottom: 1px solid #f1f1f1;
+	background: #f1f1f1;
+	color: #000;
+}
+div.wpc_error {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0976563) 0px 1px 1px 0px;
+	background: white;
+	float: left;
+	width: 95%;
+	border-left: 4px solid #DD3D36;
+	padding: 2px 0px 2px 12px;
+	margin-bottom: 25px;
+}
+div.wpc_update {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0976563) 0px 1px 1px 0px;
+	background: white;
+	border-left: 4px solid #3498DB;
+	padding: 2px 0px 2px 12px;
+	float: left;
+	width: 95%;
+	margin-bottom: 25px;
+}

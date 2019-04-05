@@ -1,0 +1,29 @@
+@import './colors';
+@import './fonts';
+@import './function';
+
+// z-index Setting
+$z-index: (
+  below                : -1,
+  basic                : 1,
+  level-one            : 9,
+  level-two            : 99,
+  level-three          : 999,
+  level-four           : 9999,
+  level-five           : 99999,
+  pageSettingsBar      : 159899,
+  modal                : 159900,
+  video-overlay        : 159901,
+  level-six            : 999999,
+  preloader--top-level : 2000000,
+  level-seven          : 9999999,
+  level-eight          : 99999999,
+  level-nine           : 999999999,
+);
+
+// Border Setting
+$border-radius: 3px;
+
+// Transition Setting
+$transition-duration: 200ms;
+$transition-timing-function: ease;

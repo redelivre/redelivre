@@ -67,7 +67,7 @@ button.et_social_addnetwork { margin-bottom: 30px; }
 .et_social button.et_social_icon:hover,.et_social_action_button a:hover { padding: 15px 10px 15px 55px;}
 	.et_social button.et_social_icon:before,.et_social_action_button a:before { position: absolute; background-color: rgba( 0, 0, 0, 0.1); width: 45px; line-height: 45px; top:0; left:-45px; }
 		.et_social button.et_social_icon:hover:before, .et_social_action_button a:hover:before { left: 0px; }
-		.et_authorize_api:before, .et_authorize_updates:before { font-size: 20px !important; padding-left: 12px; width: 32px !important; }
+		.et_authorize_api:before, .et_authorize_updates:before, .et_save_google_settings:before { font-size: 20px !important; padding-left: 12px; width: 32px !important; }
 
 
 
@@ -75,7 +75,8 @@ button.et_social_addnetwork { margin-bottom: 30px; }
 /*-------------------[HEADER]---------------------*/
 /*------------------------------------------------*/
 
-.tools_page_et_monarch_options .update-nag { margin: 25px 20px 0 15px; }
+.et_social.notice.notice-warning  { margin: 25px 20px 10px 15px; position: relative; }
+.et_social.notice.notice-warning  p { padding-right: 30px; }
 
 #et_social_header { width: 100%; background-color: #FF6E24; float: left; }
 
@@ -308,7 +309,7 @@ button.et_social_addnetwork { margin-bottom: 30px; }
 .et_social_sidebar_style li:before, .et_social_sidebar_style li:after { width: 100%; line-height: 40px; display: block; color: #FFF; }
 	.et_social_sidebar_style li:hover { background-color: rgba( 0, 0, 0, 0.15 ); }
 
-.et_authorize_api, .et_authorize_updates { display: inline-block; margin-top: 10px; }
+.et_authorize_api, .et_authorize_updates, .et_save_google_settings { display: inline-block; margin-top: 10px; }
 
 .et_social_api_setting, .et_social_hidden_api { display: none; }
 .et_social_api_setting.et_social_visible_api { display: block; }
@@ -466,8 +467,10 @@ button.et_social_icon_importexport:before	{ content: "\e646"; }
 .et_social_icon_main:before 			{ content: "\e648"; }
 .et_social_addnetwork:before			{ content: "\e610"; }
 .et_authorize_api:before,
+.et_save_google_settings:before,
 .et_authorize_updates:before			{ content: "\e64b"; }
 .et_social_icon_header_updates:before	{ content: "\e645"; }
+.et_social_icon_header_settings:before	{ content: "\e648"; }
 
 /*---------------[NETWORK ICONS]---------------*/
 .et_social_behance:before				{ content: "\e643"; }
@@ -643,6 +646,16 @@ span.total_shares_count { position: absolute !important; left: 42px !important; 
 span.et_social_thin { position: relative !important; top: 0 !important; color: white !important; left: 0 !important; font-style: normal; font-weight: normal; }
 
 .et_social_tab_content_header_updates ul { margin-top: 20px; }
+
+.et_social_tab_content_header_settings .et_social_action_button { margin-top: 40px; }
+
+/* Colorpicker */
+
+.et_social_form .wp-picker-container { display: inline-block; }
+.et_social_form .wp-picker-input-wrap label { float: left; }
+.et_social_form span.wp-color-result-text { font-size: 11px; text-transform: capitalize; font-weight: 400; }
+.et_social_form input.et-monarch-color-picker.wp-color-picker { height: 25px; width: 86px !important; }
+
 /*------------------------------------------------*/
 /*-----------------[RESPONSIVE]-------------------*/
 /*------------------------------------------------*/

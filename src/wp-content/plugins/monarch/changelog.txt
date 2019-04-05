@@ -1,3 +1,273 @@
+version 1.4.10 ( updated 12-12-2018 )
+- Updated core to the latest version.
+	* core/components/data/Utils.php
+
+version 1.4.9 ( updated 12-05-2018 )
+- Various security hardening fixes.
+- Added i18n support for visual builder toggle buttons.
+- Fixed post_max_size megabytes conversion.
+- Fixed a issue where Your Save Has Failed Modal Hides Wordfence's Blocked Request Notification.
+- Fixed Monarch metabox styles in Gutenberg Editor.
+- Removed LinkedIn share count API integration since it was deprecated and no longer supported by LinkedIn.
+- Various security hardening fixes.
+	* core/admin/css/core.css
+	* core/admin/css/portability.css
+	* core/admin/js/core.js
+	* core/components/PageResource.php
+	* core/components/Portability.php
+	* core/components/Updates.php
+	* core/components/VersionRollback.php
+	* core/components/api/OAuthHelper.php
+	* core/components/api/Service.php
+	* core/components/api/email/HubSpot.php
+	* core/components/api/email/Provider.php
+	* core/components/api/email/Providers.php
+	* core/components/api/email/_MailPoet2.php
+	* core/components/api/email/_MailPoet3.php
+	* core/components/data/Utils.php
+	* core/components/data/init.php
+	* core/components/init.php
+	* core/components/lib/WPHttp.php
+	* core/components/post/Query.php
+	* core/functions.php
+	* core/ui/utils/attribute-binder.js
+	* core/ui/utils/frames.js
+	* css/stats-meta-styles.css
+	* monarch.php
+
+version 1.4.8 ( updated 10-30-2018 )
+	- Applied some minor security hardening improvements.
+
+version 1.4.7 ( updated 10-05-2018 )
+- Fixed the Facebook follower count.
+	* monarch.php
+
+version 1.4.6 ( updated 10-04-2018 )
+- Fixed a slightly outdated React version being loaded.
+- Updated custom fields retrieval and processing functions for Mailchimp to make it work with custom field names.
+- Fixed the Subscription error shown when using Custom fields in the Email Optin module with MailPoet service provider.
+- Fixed "et_social_stats" table missing error.
+	* .github/PULL_REQUEST_TEMPLATE.md
+	* core/admin/js/react-dom.production.min.js
+	* core/admin/js/react.production.min.js
+	* core/components/api/email/MailChimp.php
+	* core/components/api/email/_MailPoet3.php
+	* core/components/data/Utils.php
+	* monarch.php
+
+version 1.4.5 ( updated 08-13-2018 )
+- Fixed WSOD that occurred in some cases.
+	* monarch.php
+
+version 1.4.4 ( updated 08-13-2018 )
+- Corrected German translation of button text in WP Admin.
+- Fixed PHP notice that was occurring since introduction of rollback feature.
+- Fixed "et_social_stats" table missing error.
+	* core/components/VersionRollback.php
+	* core/languages/de_DE.mo
+	* core/languages/de_DE.po
+	* monarch.php
+
+version 1.4.3 ( updated 7-13-2018 )
+- Updated core framework to the latest version.
+	* core/*
+	* monarch.php
+
+version 1.4.2 ( updated 6-14-2018 )
+- Updated core framework to the latest version.
+- Sanitized values used to generate sharing popup.
+	* core/*
+	* monarch.php
+
+version 1.4.1 ( updated 5-31-2018 )
+- Updated core framework to the latest version.
+- Added extra security hardening to the OAuth2 authorization callback.
+	* core/*
+
+version 1.4 ( updated 5-26-2018 )
+- updated core framework to the latest version.
+- Added the option to disable Google Fonts.
+	* monarch.php
+	* css/admin.css
+	* includes/monarch_options.php
+	* js/admin.js
+	* core/*
+
+version 1.3.27 ( updated 4-26-2018 )
+- Updated core framework to the latest version.
+	* core/*
+
+version 1.3.26 ( updated 4-19-2018 )
+- Updated core framework to the latest version.
+	* core/*
+
+version 1.3.25 ( updated 2-8-2018 )
+- Updated core framework to the latest version.
+	* core/*
+
+version 1.3.24 ( updated 12-7-2017 )
+- Updated core framework to the latest version.
+	* core/admin/js/portability.js
+	* core/components/Portability.php
+	* core/functions.php
+
+version 1.3.23 ( updated 10-18-2017 )
+- Updated core framework to the latest version.
+	* core/admin/css/portability.css
+
+version 1.3.22 ( updated 10-18-2017 )
+- Updated core framework to the latest version.
+	* core/admin/fonts/modules.eot
+	* core/admin/fonts/modules.svg
+	* core/admin/fonts/modules.ttf
+	* core/admin/fonts/modules.woff
+
+version 1.3.21 ( updated 9-29-2017 )
+- Updated core framework to the latest version.
+	* core/components/api/email/ConstantContact.php
+	* core/components/api/email/GetResponse.php
+	* core/components/api/email/MailPoet.php
+	* core/components/api/email/_MailPoet2.php
+	* core/components/api/email/Provider.php
+	* core/components/api/email/Providers.php
+
+version 1.3.20 ( updated 9-21-2017 )
+- Updated core framework to the latest version.
+	* core/functions.php
+	* core/components/data/init.php
+	* core/components/data/Utils.php
+	* core/components/api/email/init.php
+	* core/components/api/email/iContact.php
+	* core/components/api/email/_ProviderName.php
+	* core/components/api/email/Providers.php
+	* core/components/api/email/Provider.php
+	* core/components/api/email/MailPoet.php
+	* core/components/api/email/MadMimi.php
+	* core/components/api/email/HubSpot.php
+	* core/components/api/email/GetResponse.php
+	* core/components/api/email/Feedblitz.php
+	* core/components/api/email/Emma.php
+	* core/components/api/email/ConvertKit.php
+	* core/components/api/email/ConstantContact.php
+	* core/components/api/email/CampaignMonitor.php
+	* core/components/api/email/Aweber.php
+	* core/components/api/email/ActiveCampaign.php
+	* core/components/api/Service.php
+	* core/components/Logger.php
+	* core/components/HTTPInterface.php
+
+version 1.3.19 ( updated 9-6-2017 )
+- Updated core framework to the latest version.
+	* core/init.php
+
+version 1.3.18 ( updated 7-27-2017 )
+- Updated core framework to the latest version.
+	* core/functions.php
+	* core/admin/js/portability.js
+	* core/components/Portability.php
+
+version 1.3.17 ( updated 7-14-2017 )
+- Updated core framework to the latest version.
+	* core/components/PageResource.php
+	* core/components/PageResource.php
+	* core/functions.php
+
+version 1.3.16 ( updated 7-10-2017 )
+- Updated core framework to the latest versions.
+- Fixed a bug that caused errors to occur on SiteGround hosting accounts for some customers when the Elegant Themes caching system attempted to clear the SiteGround cache during plugin & theme activation.
+	* core/components/PageResource.php
+	* core/components/data/Utils.php
+	* core/components/init.php
+	* core/functions.php
+	* core/init.php
+
+version 1.3.15 ( updated 7-8-2017 )
+- Updated core framework to the latest version.
+	* core/components/PageResource.php
+	* core/components/init.php
+
+version 1.3.14 ( updated 7-2-2017 )
+- Updated core framework to the latest version.
+	* core/components/PageResource.php
+	* core/components/init.php
+
+version 1.3.13 ( updated 7-2-2017 )
+- Updated core framework to the latest version.
+	* core/components/init.php
+	* core/components/PageResource.php
+
+version 1.3.12 ( updated 7-1-2017 )
+- Updated core framework to the latest version.
+	* core/init.php
+
+version 1.3.11 ( updated 7-1-2017 )
+- Updated core framework to the latest version.
+	* core/components/PageResource.php
+
+version 1.3.10 ( updated 6-30-2017 )
+- Updated core framework to the latest version.
+	* core/components/PageResource.php
+
+version 1.3.9 ( updated 6-30-2017 )
+- Updated core framework to the latest version.
+	* core/components/init.php
+	* core/components/PageResource.php
+
+version 1.3.8 updated 6-28-2017 )
+- Fixed undefined function PHP error that occurred after upgrading to the latest version in some cases.
+	* components/PageResource.php
+
+version 1.3.7 ( updated 6-28-2017 )
+- Updated core framework to the latest version.
+	* core/admin/js/page-resource-fallback.js
+	* core/admin/js/page-resource-fallback.min.js
+	* core/components/PageResource.php
+	* core/components/data/Utils.php
+	* core/components/init.php
+	* core/components/lib/BluehostCache.php
+	* core/functions.php
+	* core/init.php
+
+version 1.3.6 ( updated 5-31-2017 )
+- Updated Monarch to support the latest changes to the Facebook API.
+	* monarch.php
+
+version 1.3.5 ( updated 5-11-2017 )
+- Fixed an error that caused update notifications to fail when the latest version of Monarch was used with an old version of Divi.
+	* monarch.php
+
+version 1.3.4 ( updated 4-26-2017 )
+- Fixed error that occured on websites running PHP 5.2.
+- Fixed error that occured when updating plugins for some customers.
+	* core/components/Updates.php
+	* core/functions.php
+	* core/main_functions.php
+	* core/init.php
+
+version 1.3.3 ( updated 4-25-2017 )
+- Updated Monarch with new core/ structure.
+- Updated Facebook open graph to version 2.8
+- Updated Delicious URL to the new version.
+- An admin notice will now be displayed when an API needs re-authorization due to API updates.
+- Added RTL support for the Monarch dashboard.
+- Fixed a bug that allowed any empty @ symbol to be added when sharing via Twitter.
+- Removed nofollow attribute that was mistakenly added to the data-social_link div.
+- Removed FriendFeed from the list of available networks.
+- Fixed a bug where media icons were not positioned correctly in some cases.
+- Added validation to manual share count input fields in the Monarch dashboard.
+- Added support for additional post types when choosing where social sharing buttons will appear.
+- Fixed broken Vkontakte API.
+- Added support for Vkontakte groups and public pages.
+- Fixed a design conflict between Divi gallery hover icons and the On Media sharing location in Monarch.
+- Fixed a bug that caused Monarch settings import to fail in some cases.
+	* monarch.php
+	* css/admin-rtl.css
+	* css/style.css
+	* includes/monarch_options.php
+	* js/custom.js
+	* js/admin.js
+	* core/*
+
 version 1.3.2 ( updated 08-15-2016 )
 - Fixed settings page font issues in WordPress 4.6
 	* monarch.php

@@ -79,7 +79,8 @@ function Custom_User_Register(){
 					realname: jQuery("#custom-register-realname").val(),
 					password: jQuery("#custom-register-password").val(),
 					email: jQuery("#custom-register-email").val(),
-					captcha_code: (jQuery("#captcha_code").length > 0 ? jQuery("#captcha_code").val() : jQuery("#si_captcha_code").val()),
+					captcha_code: (jQuery("#captcha_code").length > 0 ? jQuery("#captcha_code").val() : (jQuery("#si_captcha_code").length > 0 ? jQuery("#si_captcha_code").val() : '')),
+					wpc_random_total : (jQuery( "input[name*='wpc_random_total']" ).length > 0 ? jQuery( "input[name*='wpc_random_total']" ).val() : ''),
 					all_fields: all_fields
 			};
 						

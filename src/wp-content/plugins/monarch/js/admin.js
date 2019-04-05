@@ -1,4 +1,7 @@
 (function($){
+
+	maybe_set_location_hash_after_oauth_redirect();
+
 	$( document ).ready( function() {
 		var follow_delete_counter = 0,
 			share_delete_counter = 0,
@@ -613,60 +616,103 @@
 			return false;
 		} );
 
-	$( 'label[for="et_social[follow_networks_use_api]"]' ).click( function() {
-		$( '#sortable_follow_networks_networks_sorting' ).toggleClass( 'et_social_api_enabled' );
-	});
-
-	$( '.et_social_location_selector' ).on( 'change', 'select', function() {
-		var selected_value = $( this ).val();
-		$.ajax({
-			type: "POST",
-			url: monarchSettings.ajaxurl,
-			data: {
-				action : 'get_share_stats_graphs',
-				get_stats_nonce : monarchSettings.get_stats,
-				monarch_location : selected_value,
-				monarch_all_stats : 'all_stats'
-			},
-			beforeSend: function ( xhr ){
-				$( '.et_social_location_selector .spinner' ).addClass( 'spinner_visible' );
-			},
-			success: function( data ){
-				$( '.et_social_location_selector .spinner' ).removeClass( 'spinner_visible' );
-				$( '#et_social_globalstats' ).remove();
-				$( '#et_social_stats_container' ).remove();
-				$( '.et_social_tab_content_header_stats' ).append( data );
-				calculate_bars_size();
-			}
-		});
-	});
-
-	$( '.et_social_form' ).on( 'click', '.et_authorize_updates', function() {
-		var $form_container = $( this ).closest( 'ul' ),
-			username = $form_container.find( '.updates_option_username' ).val(),
-			api_key = $form_container.find( '.updates_option_api_key' ).val(),
-			$spinner = $form_container.find( '.spinner' );
-
-		$.ajax({
-			type: 'POST',
-			url: monarchSettings.ajaxurl,
-			data: {
-				action : 'monarch_save_updates_settings',
-				updates_settings_nonce : monarchSettings.updates_settings,
-				et_monarch_updates_username : username,
-				et_monarch_updates_api_key : api_key
-			},
-			beforeSend: function() {
-				$spinner.addClass( 'spinner_visible' );
-			},
-			success: function( data ){
-				$spinner.removeClass( 'spinner_visible' );
-			}
+		$( 'label[for="et_social[follow_networks_use_api]"]' ).click( function() {
+			$( '#sortable_follow_networks_networks_sorting' ).toggleClass( 'et_social_api_enabled' );
 		});
 
-		return false;
-	});
+		$( '.et_social_location_selector' ).on( 'change', 'select', function() {
+			var selected_value = $( this ).val();
+			$.ajax({
+				type: "POST",
+				url: monarchSettings.ajaxurl,
+				data: {
+					action : 'get_share_stats_graphs',
+					get_stats_nonce : monarchSettings.get_stats,
+					monarch_location : selected_value,
+					monarch_all_stats : 'all_stats'
+				},
+				beforeSend: function ( xhr ){
+					$( '.et_social_location_selector .spinner' ).addClass( 'spinner_visible' );
+				},
+				success: function( data ){
+					$( '.et_social_location_selector .spinner' ).removeClass( 'spinner_visible' );
+					$( '#et_social_globalstats' ).remove();
+					$( '#et_social_stats_container' ).remove();
+					$( '.et_social_tab_content_header_stats' ).append( data );
+					calculate_bars_size();
+				}
+			});
+		});
+
+		$('.et_social_form' ).on('click', '.et_save_google_settings', function() {
+			var $form_container = $(this).closest('ul');
+			var google_fonts_val = $form_container.find('#et_use_google_fonts').prop('checked') ? 'on' : 'off';
+			var $spinner = $form_container.find('.spinner');
+
+			$.ajax({
+				type: 'POST',
+				url: monarchSettings.ajaxurl,
+				data: {
+					action : 'monarch_save_google_settings',
+					google_settings_nonce : monarchSettings.google_settings,
+					et_monarch_use_google_fonts : google_fonts_val
+				},
+				beforeSend: function() {
+					$spinner.addClass('spinner_visible');
+				},
+				success: function(data) {
+					$spinner.removeClass('spinner_visible');
+				}
+			});
+
+			return false;
+		});
+		
+		$( '.et_social_form' ).on( 'click', '.et_authorize_updates', function() {
+			var $form_container = $( this ).closest( 'ul' ),
+				username = $form_container.find( '.updates_option_username' ).val(),
+				api_key = $form_container.find( '.updates_option_api_key' ).val(),
+				$spinner = $form_container.find( '.spinner' );
+
+			$.ajax({
+				type: 'POST',
+				url: monarchSettings.ajaxurl,
+				data: {
+					action : 'monarch_save_updates_settings',
+					updates_settings_nonce : monarchSettings.updates_settings,
+					et_monarch_updates_username : username,
+					et_monarch_updates_api_key : api_key
+				},
+				beforeSend: function() {
+					$spinner.addClass( 'spinner_visible' );
+				},
+				success: function( data ){
+					$spinner.removeClass( 'spinner_visible' );
+				}
+			});
+
+			return false;
+		});
 
 	});
 
-})(jQuery)
+	function get_url_parameter( param_name ) {
+		var page_url = window.location.search.substring(1);
+		var url_variables = page_url.split('&');
+		for ( var i = 0; i < url_variables.length; i++ ) {
+			var curr_param_name = url_variables[i].split( '=' );
+			if ( curr_param_name[0] == param_name ) {
+				return curr_param_name[1];
+			}
+		}
+	}
+
+	function maybe_set_location_hash_after_oauth_redirect() {
+		var state = get_url_parameter( 'state' );
+
+		if ( 'string' === typeof state && state.indexOf( 'linkedin_' ) !== -1 ) {
+			window.location.hash = '#tab_et_social_tab_content_follow_networks';
+		}
+	}
+
+})(jQuery);

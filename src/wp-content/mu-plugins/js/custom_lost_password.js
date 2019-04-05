@@ -22,8 +22,9 @@ function Custom_Lost_Password(){
 		var data = {
 			'action': 'custom_lost_password_send',
 			'user-email': jQuery("#user-email").val(),
-			'captcha_code': jQuery("#captcha_code").val(),
-			'si_code_reg' : jQuery("#si_code_reg").val()
+			'captcha_code': (jQuery("#captcha_code").length > 0 ? jQuery("#captcha_code").val() : ''),
+			'si_code_reg' : (jQuery("#si_code_reg").length > 0 ? jQuery("#si_code_reg").val() : ''),
+			'wpc_random_total' : (jQuery( "input[name*='wpc_random_total']" ).length > 0 ? jQuery( "input[name*='wpc_random_total']" ).val() : '')
 		}		
 		
 		jQuery.post(custom_lost_password_ajax.url, data, function(response){

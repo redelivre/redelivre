@@ -1,0 +1,116 @@
+@import '../../../scss/base';
+
+// Range Component
+.et-fb-range {
+  position: relative;
+  top: 6px;
+  display: inline-block;
+  width: 64%;
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: $info;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: 5px;
+    background: $catskill-white-3;
+    border-radius: $border-radius;
+  }
+
+  &::-moz-range-track {
+    height: 5px;
+    background: $catskill-white-3;
+    border: inherit;
+    border-radius: $border-radius;
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &::-ms-track {
+    background: $catskill-white-3;
+    color: transparent;
+    height: 5px;
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 3px 0 3px 0;
+    padding: 0;
+    border: 0 none;
+    overflow: visible;
+  }
+
+  &::-ms-fill-lower,
+  &::-ms-fill-upper {
+    background: transparent;
+  }
+
+  &::-ms-tooltip {
+    display: none;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: $info;
+    width: 15px;
+    height: 15px;
+    border: 0;
+    border-radius: 15px;
+    margin-top: -5px;
+  }
+
+  &::-moz-range-thumb {
+    background-color: $info;
+    width: 15px;
+    height: 15px;
+    border: 0;
+    border-radius: 15px;
+  }
+
+  &::-ms-thumb {
+    background-color: $info;
+    width: 15px;
+    height: 15px;
+    border: 0;
+    border-radius: 15px;
+    margin-top: 0px;
+  }
+
+  &-number {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28% !important;
+
+    .rtl & {
+      right: auto;
+      left: 0;
+    }
+
+    &input[type='text'] {
+      .et-fb-module-settings & {
+        display: inline-block;
+        background: $catskill-white-3;
+        width: 28%;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  // IE range handle shape fix
+  body.ie & {
+    height: 15px;
+  }
+}

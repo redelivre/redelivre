@@ -1,0 +1,87 @@
+@import '../../../scss/base';
+
+.et-core-control-toggle {
+  $root: &;
+  display: table;
+  background: $catskill-white;
+  border-radius: $border-radius;
+  padding: 5px;
+  box-sizing: border-box;
+  transition: background-color $transition-duration $transition-timing-function, color $transition-duration $transition-timing-function;
+  color: $cadet-blue;
+  cursor: pointer;
+
+  &[disabled],
+  &[disabled] * {
+    cursor: not-allowed;
+  }
+
+  &__label {
+    color: inherit;
+    font-family: $body-font;
+    font-size: $modal-fontsize-content-allcaps;
+    font-weight: $font-bold;
+    text-align: center;
+    text-transform: uppercase;
+    display: table-cell;
+    vertical-align: middle;
+    min-width: 30px;
+    height: 20px;
+    position: relative;
+
+    &--on {
+      padding-right: 2.5px;
+    }
+    &--off {
+      padding-left: 2.5px;
+    }
+  }
+
+  &__text {
+    transform: translateY(2px);
+    margin-top: -3px;
+    line-height: 1.6em;
+  }
+
+  &__handle {
+    position: relative;
+    background: $white;
+    width: 100%;
+    height: 20px;
+    border-radius: $border-radius;
+    box-shadow: 0 1px 3px rgba($black, 0.1);
+    transition: all $transition-duration $transition-timing-function;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  //ON STATE
+
+  &--on {
+    background: $info;
+    color: $white;
+    > #{$root}__label--on > #{$root}__handle {
+      opacity: 0;
+      transform: translateX(90%);
+      box-shadow: none;
+    }
+    > #{$root}__label--off {
+      color: transparent;
+    }
+  }
+
+  //OFF STATE
+
+  &--off {
+    > #{$root}__label--off > #{$root}__handle {
+      opacity: 0;
+      transform: translateX(-90%);
+      box-shadow: none;
+    }
+    > #{$root}__label--on {
+      color: transparent;
+    }
+  }
+
+}
