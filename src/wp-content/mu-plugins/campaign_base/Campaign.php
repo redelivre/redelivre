@@ -496,7 +496,7 @@ class Campaign {
         
         if (is_wp_error($blogId)) {
             //TODO: improve error handling
-            echo 'Não foi possível criar o blog!'; die;
+            echo __('Não foi possível criar o blog!', 'redelivre'); die;
         }
 
         $this->setBlogOptions($blogId);
@@ -523,9 +523,9 @@ class Campaign {
         if(empty($model))
         {
 	        // set defaut campaign theme
-	        update_blog_option($blogId, 'current_theme', 'Blog 01');
-	        update_blog_option($blogId, 'stylesheet', 'blog-01');
-	        update_blog_option($blogId, 'template', 'blog-01');
+	        update_blog_option($blogId, 'current_theme', 'Divi-3');
+	        update_blog_option($blogId, 'stylesheet', 'wp-divi-3');
+	        update_blog_option($blogId, 'template', 'wp-divi-3');
         }
         elseif(file_exists(WPMU_PLUGIN_DIR."/campaign_base/models/".basename($model).".php")) 
         {
@@ -545,7 +545,7 @@ class Campaign {
         }
         
         // rename category "sem-categoria" to "noticias"
-        wp_update_category(array('cat_ID' => 1, 'cat_name' => 'Notícias', 'category_nicename' => 'noticias'));
+        wp_update_category(array('cat_ID' => 1, 'cat_name' => __('Notícias', 'redelivre'), 'category_nicename' => _x('noticias', 'slug', 'redelivre')));
     }
     
     /**

@@ -9,6 +9,13 @@
 
 		boot: function( $instance ) {
 			var $this = this;
+			var $customizeHeader = $( '#customize-header-actions' );
+			var $customizePortability = $( '.et-core-customize-controls-close' );
+
+			// Moved portability button into customizer header
+			if ( $customizeHeader.length && $customizePortability.length ) {
+				$customizeHeader.append( $customizePortability );
+			}
 
 			$( '[data-et-core-portability]' ).each( function() {
 				$this.listen( $( this ) );
@@ -65,12 +72,15 @@
 			} )
 		},
 
-		validateImportFile: function( file ) {
+		validateImportFile: function( file, noOutput ) {
 			if ( undefined !== file && 'undefined' != typeof file.name  && 'undefined' != typeof file.type && 'json' == file.name.split( '.' ).slice( -1 )[0] ) {
 
 				return true;
 			}
-			etCore.modalContent( '<p>' + this.text.invalideFile + '</p>', false, 3000, '#et-core-portability-import' );
+
+			if ( ! noOutput ) {
+				etCore.modalContent( '<p>' + this.text.invalideFile + '</p>', false, 3000, '#et-core-portability-import' );
+			}
 
 			this.enableActions();
 
@@ -117,6 +127,7 @@
 			$this.ajaxAction( {
 				action: 'et_core_portability_import',
 				file: file,
+				nonce: $this.nonces.import
 			}, function( response ) {
 				etCore.modalContent( '<div class="et-core-loader et-core-loader-success"></div>', false, 3000, '#et-core-portability-import' );
 				$this.toggleCancel();
@@ -151,7 +162,7 @@
 								// Remove confirmation popup before relocation.
 								$( window ).unbind( 'beforeunload' );
 
-								window.location = window.location.href;
+								window.location = window.location.href.replace(/reset\=true\&|\&reset\=true/,'');
 							} )
 						}
 					} );
@@ -163,8 +174,6 @@
 			var $this = this,
 				progressBarMessages = backup ? $this.text.backuping : $this.text.exporting;
 
-			$this.addProgressBar( progressBarMessages );
-
 			$this.save( function() {
 				var posts = {},
 					content = false;
@@ -174,7 +183,18 @@
 					$( '#posts-filter [name="post[]"]:checked:enabled' ).each( function() {
 						posts[this.id] = this.value;
 					} );
+
+					// do not proceed and display error message if no Items selected
+					if ( $.isEmptyObject( posts ) ) {
+						etCore.modalContent( '<div class="et-core-loader et-core-loader-fail"></div><h3>' + $this.text.noItemsSelected + '</h3>', false, true, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
+
+						$this.enableActions();
+
+						return;
+					}
 				}
+
+				$this.addProgressBar( progressBarMessages );
 
 				// Get post layout.
 				if ( 'undefined' !== typeof window.tinyMCE && window.tinyMCE.get( 'content' ) && ! window.tinyMCE.get( 'content' ).isHidden() ) {
@@ -192,6 +212,7 @@
 					action: 'et_core_portability_export',
 					content: content,
 					selection: $.isEmptyObject( posts ) ? false : JSON.stringify( posts ),
+					nonce: $this.nonces.export
 				}, function( response ) {
 					var time = ' ' + new Date().toJSON().replace( 'T', ' ' ).replace( ':', 'h' ).substring( 0, 16 ),
 						downloadURL = $this.instance( '[data-et-core-portability-export]' ).data( 'et-core-portability-export' ),
@@ -221,6 +242,211 @@
 			} );
 		},
 
+		exportFB: function( exportUrl, postId, content, fileName, importFile, page ) {
+			var $this = this;
+
+			page = typeof page === 'undefined' ? 1 : page;
+
+			$.ajax( {
+				type: 'POST',
+				url: etCore.ajaxurl,
+				dataType: 'json',
+				data: {
+					action: 'et_core_portability_export',
+					content: content,
+					timestamp: 0,
+					nonce: $this.nonces.export,
+					post: postId,
+					context: 'et_builder',
+					page: page,
+				},
+				success: function( response ) {
+					var errorEvent = document.createEvent( 'Event' );
+
+					errorEvent.initEvent( 'et_fb_layout_export_error', true, true );
+
+					// The error is unknown but most of the time it would be cased by the server max size being exceeded.
+					if ( 'string' === typeof response && '0' === response ) {
+						window.et_fb_export_layout_message = $this.text.maxSizeExceeded;
+						window.dispatchEvent( errorEvent );
+
+						return;
+					}
+					// Memory size set on server is exhausted.
+					else if ( 'string' === typeof response && response.toLowerCase().indexOf( 'memory size' ) >= 0 ) {
+						window.et_fb_export_layout_message = $this.text.memoryExhausted;
+						window.dispatchEvent( errorEvent );
+						return;
+					}
+					// Paginate.
+					else if ( 'undefined' !== typeof response.page ) {
+						if ( $this.cancelled ) {
+							return;
+						}
+
+						return $this.exportFB(exportUrl, postId, content, fileName, importFile, (page + 1));
+					} else if ( 'undefined' !== typeof response.data && 'undefined' !== typeof response.data.message ) {
+						window.et_fb_export_layout_message = $this.text[response.data.message];
+						window.dispatchEvent( errorEvent );
+						return;
+					}
+
+					var time = ' ' + new Date().toJSON().replace( 'T', ' ' ).replace( ':', 'h' ).substring( 0, 16 ),
+						downloadURL = exportUrl,
+						query = {
+							'timestamp': response.data.timestamp,
+							'name': '' !== fileName ? fileName : encodeURIComponent( time ),
+						};
+
+					$.each( query, function( key, value ) {
+						if ( value ) {
+							downloadURL = downloadURL + '&' + key + '=' + value;
+						}
+					} );
+
+					// Remove confirmation popup before relocation.
+					$( window ).unbind( 'beforeunload' );
+
+					window.location.assign( encodeURI( downloadURL ) );
+
+					// perform import if needed
+					if ( typeof importFile !== 'undefined' ) {
+						$this.importFB( importFile, postId );
+					} else {
+						var event = document.createEvent( 'Event' );
+
+						event.initEvent( 'et_fb_layout_export_finished', true, true );
+
+						// trigger event to communicate with FB
+						window.dispatchEvent( event );
+					}
+				}
+			} );
+		},
+
+		importFB: function( file, postId ) {
+			var $this = this;
+			var errorEvent = document.createEvent( 'Event' );
+
+			window.et_fb_import_progress = 0;
+			window.et_fb_import_estimation = 1;
+
+			errorEvent.initEvent( 'et_fb_layout_import_error', true, true );
+
+			if ( undefined === window.FormData ) {
+				window.et_fb_import_layout_message = this.text.browserSupport;
+				window.dispatchEvent( errorEvent );
+				return;
+			}
+
+			if ( ! $this.validateImportFile( file, true ) ) {
+				window.et_fb_import_layout_message = this.text.invalideFile;
+				window.dispatchEvent( errorEvent );
+				return;
+			}
+
+			var fileSize = Math.ceil( ( file.size / ( 1024 * 1024 ) ).toFixed( 2 ) ),
+				formData = new FormData(),
+				requestData = {
+					action: 'et_core_portability_import',
+					file: file,
+					content: false,
+					timestamp: 0,
+					nonce: $this.nonces.import,
+					post: postId,
+					context: 'et_builder'
+				};
+
+			// Max size set on server is exceeded.
+			if ( fileSize >= $this.postMaxSize || fileSize >= $this.uploadMaxSize ) {
+				window.et_fb_import_layout_message = this.text.maxSizeExceeded;
+				window.dispatchEvent( errorEvent );
+
+				return;
+			}
+
+			$.each( requestData, function( name, value ) {
+				formData.append( name, value);
+			} );
+
+			var importFBAjax = function( importData ) {
+				$.ajax( {
+					type: 'POST',
+					url: etCore.ajaxurl,
+					processData: false,
+					contentType: false,
+					data: formData,
+					success: function( response ) {
+						var event = document.createEvent( 'Event' );
+
+						event.initEvent( 'et_fb_layout_import_in_progress', true, true );
+
+						// Handle known error
+						if ( ! response.success && 'undefined' !== typeof response.data && 'undefined' !== typeof response.data.message && 'undefined' !== typeof $this.text[ response.data.message ] ) {
+							window.et_fb_import_layout_message = $this.text[ response.data.message ];
+							window.dispatchEvent( errorEvent );
+						}
+						// The error is unknown but most of the time it would be cased by the server max size being exceeded.
+						else if ( 'string' === typeof response && ('0' === response || '' === response) ) {
+							window.et_fb_import_layout_message = $this.text.maxSizeExceeded;
+							window.dispatchEvent( errorEvent );
+
+							return;
+						}
+						// Memory size set on server is exhausted.
+						else if ( 'string' === typeof response && response.toLowerCase().indexOf( 'memory size' ) >= 0 ) {
+							window.et_fb_import_layout_message = $this.text.memoryExhausted;
+							window.dispatchEvent( errorEvent );
+
+							return;
+						}
+						// Pagination
+						else if ( 'undefined' !== typeof response.page && 'undefined' !== typeof response.total_pages ) {
+							// Update progress bar
+							var progress = Math.ceil( ( response.page * 100 ) / response.total_pages );
+							var estimation = Math.ceil( ( ( response.total_pages - response.page ) * 6 ) / 60 );
+
+							window.et_fb_import_progress = progress;
+							window.et_fb_import_estimation = estimation;
+
+							// Import data
+							var nextImportData = importData;
+							nextImportData.append( 'page', ( parseInt(response.page) + 1 ) );
+							nextImportData.append( 'timestamp', response.timestamp );
+							nextImportData.append( 'file', null );
+
+							importFBAjax( nextImportData );
+
+							// trigger event to communicate with FB
+							window.dispatchEvent( event );
+						} else {
+							// Update progress bar
+							window.et_fb_import_progress = 100;
+							window.et_fb_import_estimation = 0;
+
+							// trigger event to communicate with FB
+							window.dispatchEvent( event );
+
+							// Allow some time for animations to animate
+							setTimeout( function() {
+								var event = document.createEvent( 'Event' );
+
+								event.initEvent( 'et_fb_layout_import_finished', true, true );
+
+								// save the data into global variable for later use in FB
+								window.et_fb_import_layout_response = response;
+
+								// trigger event to communicate with FB (again)
+								window.dispatchEvent( event );
+							}, 1300 );
+						}
+					}
+				} );
+			};
+
+			importFBAjax(formData)
+		},
+
 		ajaxAction: function( data, callback, fileSupport ) {
 			var $this = this;
 
@@ -242,9 +468,9 @@
 				url: etCore.ajaxurl,
 				data: data,
 				success: function( response ) {
-					// The error is unknown but most of the time it would be cased by the server max size being exceeded.
+					// The error is unknown but most of the time it would be caused by the server max size being exceeded.
 					if ( 'string' === typeof response && '0' === response ) {
-						etCore.modalContent( '<p>' + $this.text.maxSizeExceeded + '</p>', false, true, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id'  ) );
+						etCore.modalContent( '<p>' + $this.text.maxSizeExceeded + '</p>', false, true, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
 
 						$this.enableActions();
 
@@ -252,7 +478,7 @@
 					}
 					// Memory size set on server is exhausted.
 					else if ( 'string' === typeof response && response.toLowerCase().indexOf( 'memory size' ) >= 0 ) {
-						etCore.modalContent( '<p>' + $this.text.memoryExhausted + '</p>', false, true, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id'  ) );
+						etCore.modalContent( '<p>' + $this.text.memoryExhausted + '</p>', false, true, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
 
 						$this.enableActions();
 
@@ -282,30 +508,52 @@
 
 						return;
 					} else if ( 'undefined' !== typeof response.data && 'undefined' !== typeof response.data.message ) {
-						etCore.modalContent( '<p>' + $this.text[response.data.message] + '</p>', false, 3000, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id'  ) );
+						etCore.modalContent( '<p>' + $this.text[response.data.message] + '</p>', false, 3000, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
 
 						$this.enableActions();
 
 						return;
 					}
 
-					$this.instance( '.et-core-progress' )
-						.removeClass( 'et-core-progress-striped' )
-						.find( '.et-core-progress-bar' ).width( '100%' )
-						.text( '100%' )
-						.delay( 1000 ).queue( function() {
+					// Timestamp when AJAX response is received
+					var ajax_returned_timestamp = new Date().getTime();
 
+					// Animate Progresss Bar
+					var animateCoreProgressBar = function( DOMHighResTimeStamp ) {
+						// Check has been performed for 3s and progress bar DOM still can't be found, consider it fail to avoid infinite loop
+						var current_timestamp = new Date().getTime();
+						if ((current_timestamp - ajax_returned_timestamp) > 3000) {
 							$this.enableActions();
+							etCore.modalContent( '<div class="et-core-loader et-core-loader-fail"></div>', false, 3000, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
+							return;
+						}
 
-							if ( 'undefined' === typeof response.data || ( 'undefined' !== typeof response.data && ! response.data.timestamp ) ) {
-								etCore.modalContent( '<div class="et-core-loader et-core-loader-fail"></div>', false, 3000, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
-								return;
-							}
+						// Check if core progress DOM exists
+						if ($this.instance( '.et-core-progress' ).length ) {
+							$this.instance( '.et-core-progress' )
+								.removeClass( 'et-core-progress-striped' )
+								.find( '.et-core-progress-bar' ).width( '100%' )
+								.text( '100%' )
+								.delay( 1000 )
+								.queue( function() {
 
-							$( this ).dequeue();
+									$this.enableActions();
 
-							callback( response );
-						} );
+									if ( 'undefined' === typeof response.data || ( 'undefined' !== typeof response.data && ! response.data.timestamp ) ) {
+										etCore.modalContent( '<div class="et-core-loader et-core-loader-fail"></div>', false, 3000, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
+										return;
+									}
+
+									$( this ).dequeue();
+
+									callback( response );
+								} );
+						} else {
+							// Recheck on the next animation frame
+							window.requestAnimationFrame(animateCoreProgressBar);
+						}
+					}
+					animateCoreProgressBar();
 				}
 			};
 
@@ -315,7 +563,7 @@
 
 				// Max size set on server is exceeded.
 				if ( fileSize >= $this.postMaxSize || fileSize >= $this.uploadMaxSize ) {
-					etCore.modalContent( '<p>' + $this.text.maxSizeExceeded + '</p>', false, true, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id'  ) );
+					etCore.modalContent( '<p>' + $this.text.maxSizeExceeded + '</p>', false, true, '#' + $this.instance( '.ui-tabs-panel:visible' ).attr( 'id' ) );
 
 					$this.enableActions();
 
@@ -324,7 +572,7 @@
 
 				$.each( ajax.data, function( name, value ) {
 					formData.append( name, value);
-				} )
+				} );
 
 				ajax = $.extend( ajax, {
 					data: formData,
@@ -396,7 +644,7 @@
 					type: 'POST',
 					url: etCore.ajaxurl,
 					data: {
-						nonce: this.nonce,
+						nonce: this.nonces.cancel,
 						context: this.instance().data( 'et-core-portability' ),
 						action: 'et_core_portability_cancel',
 					}

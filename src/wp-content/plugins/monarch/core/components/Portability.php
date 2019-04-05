@@ -1,55 +1,74 @@
 <?php
 /**
- * Handles the portability workflow.
- *
- * @private
+ * Import and Export data.
  *
  * @package Core\Portability
  */
-final class ET_Core_Portability {
+
+/**
+ * Handles the portability workflow.
+ *
+ * @package ET\Core\Portability
+ */
+class ET_Core_Portability {
 
 	/**
 	 * Current instance.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
-	 * @type array
+	 * @type object
 	 */
-	private $instance = array();
+	public $instance;
+
+	/**
+	 * Whether or not an import is in progress.
+	 *
+	 * @since 3.0.99
+	 *
+	 * @var bool
+	 */
+	protected static $_doing_import = false;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param string $context Protability context previously registered.
+	 * @param string $context Portability context previously registered.
 	 */
 	public function __construct( $context ) {
-		if ( ! current_user_can( 'switch_themes' ) ) {
-			return false;
-		}
+		$this->instance = et_core_cache_get( $context, 'et_core_portability' );
 
-		if ( ! $this->instance = et_core_cache_get( $context, 'et_core_portability' ) ) {
-			return false;
-		}
-
-		if ( $this->instance->view ) {
-			add_action( 'admin_footer', array( $this, 'modal' ) );
-			add_action( 'customize_controls_print_footer_scripts', array( $this, 'modal' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'assets' ), 5 );
+		if ( $this->instance && $this->instance->view ) {
+			if ( et_core_is_fb_enabled() ) {
+				$this->assets();
+			} else {
+				add_action( 'admin_footer', array( $this, 'modal' ) );
+				add_action( 'customize_controls_print_footer_scripts', array( $this, 'modal' ) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'assets' ), 5 );
+			}
 		}
 	}
 
+	public static function doing_import() {
+		return self::$_doing_import;
+	}
+
 	/**
-	 * Import data.
+	 * Import a previously exported layout.
 	 *
-	 * @since 1.0.0
+	 * @since 3.10    Return the result of the import instead of dieing.
+	 * @since 2.7.0
+	 *
+	 * @param string $file_context Accepts 'upload', 'sideload'. Default 'upload'.
+	 *
+	 * @return bool|array
 	 */
-	public function import() {
-		// Verify nonce.
-		if ( ! ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'et_core_portability_nonce' ) ) ) {
-			wp_send_json_error();
-		}
+	public function import( $file_context = 'upload' ) {
+		global $shortname;
 
 		$this->prevent_failure();
+
+		self::$_doing_import = true;
 
 		$timestamp = $this->get_timestamp();
 		$filesystem = $this->set_filesystem();
@@ -60,15 +79,28 @@ final class ET_Core_Portability {
 			$import = json_decode( $filesystem->get_contents( $temp_file ), true );
 		} else {
 			if ( ! isset( $_FILES['file'] ) ) {
-				wp_send_json_error();
+				return false;
 			}
 
-			// Upload temporary file.
-			$upload = wp_handle_upload( $_FILES['file'], array(
+			if ( ! in_array( $file_context, array( 'upload', 'sideload' ) ) ) {
+				$file_context = 'upload';
+			}
+
+			$handle_file = "wp_handle_{$file_context}";
+			$upload      = $handle_file( $_FILES['file'], array(
 				'test_size' => false,
 				'test_type' => false,
 				'test_form' => false,
 			) );
+
+			/**
+			 * Fires before an uploaded Portability JSON file is processed.
+			 *
+			 * @since 3.0.99
+			 *
+			 * @param string $file The absolute path to the uploaded JSON file's temporary location.
+			 */
+			do_action( 'et_core_portability_import_file', $upload['file'] );
 
 			$temp_file = $this->temp_file( $temp_file_id, 'et_core_import', $upload['file'] );
 			$import = json_decode( $filesystem->get_contents( $temp_file ), true );
@@ -76,7 +108,7 @@ final class ET_Core_Portability {
 			$import['data'] = $this->apply_query( $import['data'], 'set' );
 
 			if ( ! isset( $import['context'] ) || ( isset( $import['context'] ) && $import['context'] !== $this->instance->context ) ) {
-				wp_send_json_error( array( 'message' => 'importContextFail' ) );
+				return array( 'message' => 'importContextFail' );
 			}
 
 			$filesystem->put_contents( $upload['file'], wp_json_encode( (array) $import ) );
@@ -97,8 +129,19 @@ final class ET_Core_Portability {
 			// Reset all data besides excluded data.
 			$current_data = $this->apply_query( get_option( $this->instance->target, array() ), 'unset' );
 
+			if ( isset( $data['wp_custom_css'] ) && function_exists( 'wp_update_custom_css_post' ) ) {
+				wp_update_custom_css_post( $data['wp_custom_css'] );
+
+				if ( 'yes' === get_theme_mod( 'et_pb_css_synced', 'no' ) ) {
+					// If synced, clear the legacy custom css value to avoid unwanted merging of old and new css.
+					$data[ "{$shortname}_custom_css" ] = '';
+				}
+			}
+
 			// Merge remaining current data with new data and update options.
 			update_option( $this->instance->target, array_merge( $current_data, $data ) );
+
+			set_theme_mod( 'et_pb_css_synced', 'no' );
 		}
 
 		// Pass the post content and let js save the post.
@@ -106,26 +149,32 @@ final class ET_Core_Portability {
 			$success['postContent'] = reset( $data );
 		}
 
-		if ( 'post_type' === $this->instance->type ) {
-			if ( ! $this->import_posts( $data ) ) {
-				wp_send_json_error();
+		if ( 'post_type' === $this->instance->type && ! $this->import_posts( $data ) ) {
+			/**
+			 * Filters the error message when {@see ET_Core_Portability::import()} fails.
+			 *
+			 * @since 3.0.99
+			 *
+			 * @param mixed $error_message Default is `null`.
+			 */
+			if ( $error_message = apply_filters( 'et_core_portability_import_error_message', false ) ) {
+				$error_message = array( 'message' => $error_message );
 			}
+
+			return $error_message;
 		}
 
-		wp_send_json_success( $success );
+		return $success;
 	}
 
 	/**
 	 * Initiate Export.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 */
 	public function export() {
-		if ( ! ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'et_core_portability_nonce' ) ) ) {
-			wp_send_json_error();
-		}
-
 		$this->prevent_failure();
+		et_core_nonce_verified_previously();
 
 		$timestamp = $this->get_timestamp();
 		$filesystem = $this->set_filesystem();
@@ -139,6 +188,11 @@ final class ET_Core_Portability {
 
 			if ( 'options' === $this->instance->type ) {
 				$data = get_option( $this->instance->target, array() );
+
+				// Export the Customizer "Additional CSS" value as well.
+				if ( function_exists( 'wp_get_custom_css' ) ) {
+					$data[ 'wp_custom_css' ] = wp_get_custom_css();
+				}
 			}
 
 			if ( 'post' === $this->instance->type ) {
@@ -177,14 +231,11 @@ final class ET_Core_Portability {
 	/**
 	 * Download Export Data.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 */
 	public function download_export() {
-		if ( ! isset( $_GET['nonce'] ) && wp_verify_nonce( $_GET['nonce'], 'et_core_portability_nonce' ) ) {
-			wp_die( esc_html__( 'The export process failed. Please refresh the page and try again.', ET_CORE_TEXTDOMAIN ) );
-		}
-
 		$this->prevent_failure();
+		et_core_nonce_verified_previously();
 
 		// Retrieve data.
 		$timestamp = isset( $_GET['timestamp'] ) ? sanitize_text_field( $_GET['timestamp'] ) : null;
@@ -198,7 +249,7 @@ final class ET_Core_Portability {
 		header( 'Pragma: no-cache' );
 
 		if ( file_exists( $temp_file ) ) {
-			echo $filesystem->get_contents( $temp_file );
+			echo et_core_esc_previously( $filesystem->get_contents( $temp_file ) );
 		}
 
 		$this->delete_temp_files( 'et_core_export' );
@@ -206,12 +257,34 @@ final class ET_Core_Portability {
 		exit;
 	}
 
+	protected function to_megabytes( $value ) {
+		$unit = strtoupper( substr( $value, -1 ) );
+		$amount = intval( substr( $value, 0, -1 ) );
+
+		// Known units
+		switch ( $unit ) {
+			case 'G': return $amount << 10;
+			case 'M': return $amount;
+		}
+
+		if ( is_numeric( $unit ) ) {
+			// Numeric unit is present, assume bytes
+			return intval( $value ) >> 20;
+		}
+
+		// Unknown unit ...
+		return intval( $value );
+
+	}// end to_megabytes()
+
 	/**
 	 * Get selected posts data.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 */
-	private function export_posts_query() {
+	protected function export_posts_query() {
+		et_core_nonce_verified_previously();
+
 		$args = array(
 			'post_type'      => $this->instance->target,
 			'posts_per_page' => -1,
@@ -258,21 +331,37 @@ final class ET_Core_Portability {
 
 			// Order terms to make sure children are after the parents.
 			while ( $term = array_shift( $get_terms ) ) {
-				if ( 0 == $term->parent || isset( $terms[$term->parent] ) ) {
+				if ( 0 === $term->parent || isset( $terms[$term->parent] ) ) {
 					$terms[$term->term_id] = $term;
 				} else {
-					$get_terms[] = $term;
+					// if parent category is also exporting then add the term to the end of the list and process it later
+					// otherwise add a term as usual
+					if ( $this->is_parent_term_included( $get_terms, $term->parent ) ) {
+						$get_terms[] = $term;
+					} else {
+						$terms[$term->term_id] = $term;
+					}
 				}
 			}
 
 			$posts[$post->ID]->terms = array();
 
 			foreach ( $terms as $term ) {
+				$parents_data = array();
+
+				if ( $term->parent ) {
+					$parent_slug = isset( $terms[$term->parent] ) ? $terms[$term->parent]->slug : $this->get_parent_slug( $term->parent, $term->taxonomy );
+					$parents_data = $this->get_all_parents( $term->parent, $term->taxonomy );
+				} else {
+					$parent_slug = 0;
+				}
+
 				$posts[$post->ID]->terms[$term->term_id] = array(
 					'name'        => $term->name,
 					'slug'        => $term->slug,
 					'taxonomy'    => $term->taxonomy,
-					'parent'      => $term->parent ? $terms[$term->parent]->slug : 0,
+					'parent'      => $parent_slug,
+					'all_parents' => $parents_data,
 					'description' => $term->description
 				);
 			}
@@ -282,17 +371,117 @@ final class ET_Core_Portability {
 	}
 
 	/**
-	 * Import post.
+	 * Check whether the $parent_id included into the $terms_list.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
-	 * @param array $posts Array of data formated by the portability exporter.
+	 * @param array $terms_list Array of term objects.
+	 * @param int   $parent_id  .
+	 *
+	 * @return bool
 	 */
-	private function import_posts( $posts ) {
+	protected function is_parent_term_included( $terms_list, $parent_id ) {
+		$is_parent_found = false;
+
+		foreach ( $terms_list as $term => $term_details ) {
+			if ( $parent_id === $term_details->term_id ) {
+				$is_parent_found = true;
+			}
+		}
+
+		return $is_parent_found;
+	}
+
+	/**
+	 * Retrieve the term slug.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param int    $parent_id .
+	 * @param string $taxonomy  .
+	 *
+	 * @return int|string
+	 */
+	protected function get_parent_slug( $parent_id, $taxonomy ) {
+		$term_data = get_term( $parent_id, $taxonomy );
+		$slug = '' === $term_data->slug ? 0 : $term_data->slug;
+
+		return $slug;
+	}
+
+	/**
+	 * Prepare array of all parents so the correct hierarchy can be restored during the import.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param int    $parent_id .
+	 * @param string $taxonomy  .
+	 *
+	 * @return array
+	 */
+	protected function get_all_parents( $parent_id, $taxonomy ) {
+		$parents_data_array = array();
+		$parent = $parent_id;
+
+		// retrieve data for all parent categories
+		if ( 0 !== $parent  ) {
+			while( 0 !== $parent ) {
+				$parent_term_data = get_term( $parent, $taxonomy );
+				$parents_data_array[$parent_term_data->slug] = array(
+					'name' => $parent_term_data->name,
+					'description' => $parent_term_data->description,
+					'parent' => 0 !== $parent_term_data->parent ? $this->get_parent_slug( $parent_term_data->parent, $taxonomy ) : 0,
+				);
+
+				$parent = $parent_term_data->parent;
+			}
+		}
+		//reverse order of items, to simplify the restoring process
+		return array_reverse( $parents_data_array );
+	}
+
+	/**
+	 * Check if a layout exists in the database already based on both its title and its slug.
+	 *
+	 * @param string $title
+	 * @param string $slug
+	 *
+	 * @return int $post_id The post id if it exists, zero otherwise.
+	 */
+	protected static function layout_exists( $title, $slug ) {
 		global $wpdb;
 
+		return (int) $wpdb->get_var( $wpdb->prepare(
+			"SELECT ID FROM $wpdb->posts WHERE post_title = %s AND post_name = %s",
+			array(
+				wp_unslash( sanitize_post_field( 'post_title', $title, 0, 'db' ) ),
+				wp_unslash( sanitize_post_field( 'post_name', $slug, 0, 'db' ) ),
+			)
+		) );
+	}
+
+	/**
+	 * Import post.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param array $posts Array of data formatted by the portability exporter.
+	 *
+	 * @return bool
+	 */
+	protected function import_posts( $posts ) {
+		/**
+		 * Filters the array of builder layouts to import. Returning an empty value will
+		 * short-circuit the import process.
+		 *
+		 * @since 3.0.99
+		 *
+		 * @param array $posts
+		 */
+		$posts = apply_filters( 'et_core_portability_import_posts', $posts );
+
 		if ( empty( $posts ) ) {
-			return;
+			return false;
 		}
 
 		foreach ( $posts as $post ) {
@@ -310,13 +499,13 @@ final class ET_Core_Portability {
 				continue;
 			}
 
-			$post_exists = post_exists( $post['post_title'] );
+			$layout_exists = self::layout_exists( $post['post_title'], $post['post_name'] );
 
-			// Make sure the post is published and stop here if the post exists.
-			if ( $post_exists && get_post_type( $post_exists ) == $post['post_type'] ) {
-				if ( 'publish' !== get_post_status( $post_exists ) ) {
+			if ( $layout_exists && get_post_type( $layout_exists ) === $post['post_type'] ) {
+				// Make sure the post is published.
+				if ( 'publish' !== get_post_status( $layout_exists ) ) {
 					wp_update_post( array(
-						'ID'          => intval( $post_exists ),
+						'ID'          => intval( $layout_exists ),
 						'post_status' => 'publish',
 					) );
 				}
@@ -356,6 +545,10 @@ final class ET_Core_Portability {
 					if ( empty( $term['parent'] ) ) {
 						$parent = 0;
 					} else {
+						if ( isset( $term['all_parents'] ) && ! empty( $term['all_parents'] ) ) {
+							$this->restore_parent_categories( $term['all_parents'], $term['taxonomy'] );
+						}
+
 						$parent = term_exists( $term['parent'], $term['taxonomy'] );
 
 						if ( is_array( $parent ) ){
@@ -403,15 +596,43 @@ final class ET_Core_Portability {
 	}
 
 	/**
+	 * Restore the categories hierarchy in library.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param array $parents_array    Array of parent categories data.
+	 * @param string $taxonomy
+	 */
+	protected function restore_parent_categories( $parents_array, $taxonomy ) {
+		foreach( $parents_array as $slug => $category_data ) {
+			$current_category = term_exists( $slug, $taxonomy );
+
+			if ( ! is_array( $current_category ) ) {
+				$parent_id = 0 !== $category_data['parent'] ? term_exists( $category_data['parent'], $taxonomy ) : 0;
+				wp_insert_term( $category_data['name'], $taxonomy, array(
+					'slug'        => $slug,
+					'description' => $category_data['description'],
+					'parent'      => is_array( $parent_id ) ? $parent_id['term_id'] : $parent_id,
+				) );
+			} else if ( ( ! isset( $current_category['parent'] ) || 0 === $current_category['parent'] ) && 0 !== $category_data['parent'] ) {
+				$parent_id = 0 !== $category_data['parent'] ? term_exists( $category_data['parent'], $taxonomy ) : 0;
+				wp_update_term( $current_category['term_id'], $taxonomy, array( 'parent' => is_array( $parent_id ) ? $parent_id['term_id'] : $parent_id ) );
+			}
+		}
+	}
+
+	/**
 	 * Restrict data according the argument registered.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
-	 * @param array $data    Array of data the query is applied on.
+	 * @param array  $data   Array of data the query is applied on.
 	 * @param string $method Whether data should be set or reset. Accepts 'set' or 'unset' which is
 	 *                       should be used when treating existing data in the db.
+	 *
+	 * @return array
 	 */
-	private function apply_query( $data, $method ) {
+	protected function apply_query( $data, $method ) {
 		$operator = ( $method === 'set' ) ? true : false;
 
 		foreach ( $data as $id => $value ) {
@@ -430,14 +651,28 @@ final class ET_Core_Portability {
 	/**
 	 * Paginate images processing.
 	 *
-	 * @since 1.0.0
+	 * @since    1.0.0
 	 *
-	 * @param array  $data    Array of images.
-	 * @param string $method Method applied on images.
+	 * @param        $images
+	 * @param string $method    Method applied on images.
 	 * @param int    $timestamp Timestamp used to store data upon pagination.
+	 *
+	 * @return array
+	 * @internal param array $data Array of images.
 	 */
-	private function maybe_paginate_images( $images, $method, $timestamp ) {
-		if ( count( $images ) > 5 ) {
+	protected function maybe_paginate_images( $images, $method, $timestamp ) {
+		et_core_nonce_verified_previously();
+
+		/**
+		 * Filters whether or not images in the file being imported should be paginated.
+		 *
+		 * @since 3.0.99
+		 *
+		 * @param bool $paginate_images Default `true`.
+		 */
+		$paginate_images = apply_filters( 'et_core_portability_paginate_images', true );
+
+		if ( $paginate_images && count( $images ) > 5 ) {
 			$total_pages = ceil( count( $images ) / 5 );
 			$page = isset( $_POST['page'] ) ? intval( $_POST['page'] ) : 1;
 			$slice = 5 * ( $page - 1 );
@@ -473,12 +708,14 @@ final class ET_Core_Portability {
 	/**
 	 * Get all images in the data given.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * @param array $data  Array of data.
 	 * @param bool  $force Set whether the value should be added by force. Usually used for image ids.
+	 *
+	 * @return array
 	 */
-	private function get_data_images( $data, $force = false ) {
+	protected function get_data_images( $data, $force = false ) {
 		$images = array();
 
 		foreach ( $data as $value ) {
@@ -488,7 +725,7 @@ final class ET_Core_Portability {
 			}
 
 			// Extract images from html or shortcodes.
-			if ( preg_match_all( '/(src|image_url|image|url)="(?P<src>\w+[^"]*)"/i', $value, $matches ) ) {
+			if ( preg_match_all( '/(src|image_url|image|url|bg_img_?\d?)="(?P<src>\w+[^"]*)"/i', $value, $matches ) ) {
 				foreach ( array_unique( $matches['src'] ) as $key => $src ) {
 					$images = array_merge( $images, $this->get_data_images( array( $key => $src ) ) );
 				}
@@ -523,11 +760,13 @@ final class ET_Core_Portability {
 	/**
 	 * Encode image in a base64 format.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
-	 * @param array $data Array of data for which images need to be encoded if any.
+	 * @param array $images Array of data for which images need to be encoded if any.
+	 *
+	 * @return array
 	 */
-	private function encode_images( $images ) {
+	protected function encode_images( $images ) {
 		$encoded = array();
 
 		foreach ( $images as $url ) {
@@ -561,13 +800,15 @@ final class ET_Core_Portability {
 	}
 
 	/**
-	 * Decode base64 formated image and upload it to WP media.
+	 * Decode base64 formatted image and upload it to WP media.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * @param array $images Array of encoded images which needs to be uploaded.
+	 *
+	 * @return array
 	 */
-	private function upload_images( $images ) {
+	protected function upload_images( $images ) {
 		$filesystem = $this->set_filesystem();
 
 		foreach ( $images as $key => $image ) {
@@ -639,12 +880,14 @@ final class ET_Core_Portability {
 	/**
 	 * Replace image urls with newly uploaded images.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * @param array $images Array of new images uploaded.
 	 * @param array $data   Array of for which images url needs to be replaced.
+	 *
+	 * @return array|mixed|object
 	 */
-	private function replace_images_urls( $images, $data ) {
+	protected function replace_images_urls( $images, $data ) {
 		$data = wp_json_encode( $data );
 
 		foreach ( $images as $image ) {
@@ -667,12 +910,14 @@ final class ET_Core_Portability {
 	/**
 	 * Validate data and remove any malicious code.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * @param array $data              Array of data which needs to be validated.
 	 * @param array $fields_validation Array of field and validation callback.
+	 *
+	 * @return array|bool
 	 */
-	private function validate( $data, $fields_validation = array() ) {
+	protected function validate( $data, $fields_validation = array() ) {
 		if ( ! is_array( $data ) ) {
 			return false;
 		}
@@ -684,7 +929,11 @@ final class ET_Core_Portability {
 				if ( isset( $fields_validation[$key] ) ) {
 					$data[$key] = call_user_func( $fields_validation[$key], $value );
 				} else {
-					$data[$key] = wp_kses_post( $value );
+					if ( current_user_can( 'switch_themes' ) ) {
+						$data[ $key ] = $value;
+					} else {
+						$data[ $key ] = wp_kses_post( $value );
+					}
 				}
 			}
 		}
@@ -693,17 +942,17 @@ final class ET_Core_Portability {
 	}
 
 	/**
-	 * Prevent import and export timout or memory failure.
+	 * Prevent import and export timeout or memory failure.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * It doesn't need to be reset as in both case the request exit.
 	 */
-	private function prevent_failure() {
+	protected function prevent_failure() {
 		@set_time_limit( 0 );
 
 		// Increase memory which is safe at this stage of the request.
-		if ( (int) @ini_get( 'memory_limit' ) < 256 ) {
+		if ( et_core_get_memory_limit() < 256 ) {
 			@ini_set( 'memory_limit', '256M' );
 		}
 	}
@@ -711,12 +960,12 @@ final class ET_Core_Portability {
 	/**
 	 * Set WP filesystem to direct. This should only be use to create a temporary file.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * It is safe to do so since the created file is removed immediately after import. The method does'nt have
 	 * to be reset since the ajax query is exited.
 	 */
-	private function set_filesystem() {
+	protected function set_filesystem() {
 		global $wp_filesystem;
 
 		add_filter( 'filesystem_method', array( $this, 'replace_filesystem_method' ) );
@@ -730,8 +979,10 @@ final class ET_Core_Portability {
 	 *
 	 * @param string $id    Unique id used when the temporary file was created.
 	 * @param string $group Group name in which files are grouped.
+	 *
+	 * @return bool
 	 */
-	private function has_temp_file( $id, $group ) {
+	protected function has_temp_file( $id, $group ) {
 		$temp_files = get_option( '_et_core_portability_temp_files', array() );
 
 		if ( isset( $temp_files[$group][$id] ) && file_exists( $temp_files[$group][$id] ) ) {
@@ -744,13 +995,15 @@ final class ET_Core_Portability {
 	/**
 	 * Create a temp file and register it.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * @param string      $id        Unique id reference for the temporary file.
 	 * @param string      $group     Group name in which files are grouped.
 	 * @param string|bool $temp_file Path to the temporary file. False create a new temporary file.
+	 *
+	 * @return bool|string
 	 */
-	private function temp_file( $id, $group, $temp_file = false ) {
+	protected function temp_file( $id, $group, $temp_file = false ) {
 		$temp_files = get_option( '_et_core_portability_temp_files', array() );
 
 		if ( ! isset( $temp_files[$group] ) ) {
@@ -772,7 +1025,7 @@ final class ET_Core_Portability {
 	/**
 	 * Delete all the temp files.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 *
 	 * @param bool|string $group         Group name in which files are grouped. Set to true to remove all groups and files.
 	 * @param array       $defined_files Array or temoporary files to delete. No argument deletes all temp files.
@@ -814,7 +1067,7 @@ final class ET_Core_Portability {
 	/**
 	 * Set WP filesystem method to direct.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 */
 	public function replace_filesystem_method() {
 		return 'direct';
@@ -823,16 +1076,18 @@ final class ET_Core_Portability {
 	/**
 	 * Get timestamp or create one if it isn't set.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 */
 	public function get_timestamp() {
+		et_core_nonce_verified_previously();
+
 		return isset( $_POST['timestamp'] ) && ! empty( $_POST['timestamp'] ) ? sanitize_text_field( $_POST['timestamp'] ) : current_time( 'timestamp' );
 	}
 
 	/**
 	 * Enqueue assets.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 */
 	public function assets() {
 		$time = '<span>1</span>';
@@ -847,15 +1102,20 @@ final class ET_Core_Portability {
 			'et-core-admin',
 		), ET_CORE_VERSION );
 		wp_localize_script( 'et-core-portability', 'etCorePortability', array(
-			'nonce'         => wp_create_nonce( 'et_core_portability_nonce' ),
-			'postMaxSize'   => (int) @ini_get( 'post_max_size' ),
-			'uploadMaxSize' => (int) @ini_get( 'upload_max_filesize' ),
+			'nonces'        => array(
+				'import' => wp_create_nonce( 'et_core_portability_import' ),
+				'export' => wp_create_nonce( 'et_core_portability_export' ),
+				'cancel' => wp_create_nonce( 'et_core_portability_cancel' ),
+			),
+			'postMaxSize'   => $this->to_megabytes( @ini_get( 'post_max_size' ) ),
+			'uploadMaxSize' => $this->to_megabytes( @ini_get( 'upload_max_filesize' ) ),
 			'text'          => array(
 				'browserSupport'      => esc_html__( 'The browser version you are currently using is outdated. Please update to the newest version.', ET_CORE_TEXTDOMAIN ),
 				'memoryExhausted'     => esc_html__( 'You reached your server memory limit. Please try increasing your PHP memory limit.', ET_CORE_TEXTDOMAIN ),
 				'maxSizeExceeded'     => esc_html__( 'This file cannot be imported. It may be caused by file_uploads being disabled in your php.ini. It may also be caused by post_max_size or/and upload_max_filesize being smaller than file selected. Please increase it or transfer more substantial data at the time.', ET_CORE_TEXTDOMAIN ),
 				'invalideFile'        => esc_html__( 'Invalid File format. You should be uploading a JSON file.', ET_CORE_TEXTDOMAIN ),
 				'importContextFail'   => esc_html__( 'This file should not be imported in this context.', ET_CORE_TEXTDOMAIN ),
+				'noItemsSelected'     => esc_html__( 'Please select at least one item to export or disable the "Only export selected items" option', ET_CORE_TEXTDOMAIN ),
 				'importing'           => sprintf( esc_html__( 'Import estimated time remaining: %smin', ET_CORE_TEXTDOMAIN ), $time ),
 				'exporting'           => sprintf( esc_html__( 'Export estimated time remaining: %smin', ET_CORE_TEXTDOMAIN ), $time ),
 				'backuping'           => sprintf( esc_html__( 'Backup estimated time remaining: %smin', ET_CORE_TEXTDOMAIN ), $time ),
@@ -866,30 +1126,31 @@ final class ET_Core_Portability {
 	/**
 	 * Modal HTML.
 	 *
-	 * @since 1.0.0
+	 * @since 2.7.0
 	 */
 	public function modal() {
 		$export_url = add_query_arg( array(
 			'et_core_portability' => true,
 			'context'             => $this->instance->context,
 			'name'                => $this->instance->name,
-			'nonce'               => wp_create_nonce( 'et_core_portability_nonce' ),
+			'nonce'               => wp_create_nonce( 'et_core_portability_export' ),
+
 		), admin_url() );
 
 		?>
-		<div class="et-core-modal-overlay et-core-form" data-et-core-portability="<?php echo $this->instance->context; ?>">
+		<div class="et-core-modal-overlay et-core-form" data-et-core-portability="<?php echo esc_attr( $this->instance->context ); ?>">
 			<div class="et-core-modal">
 				<div class="et-core-modal-header">
 					<h3 class="et-core-modal-title"><?php esc_html_e( 'Portability', ET_CORE_TEXTDOMAIN ); ?></h3><a href="#" class="et-core-modal-close" data-et-core-modal="close"></a>
 				</div>
-				<div data-et-core-tabs>
+				<div data-et-core-tabs class="et-core-modal-tabs-enabled">
 					<ul class="et-core-tabs">
 						<li><a href="#et-core-portability-export"><?php esc_html_e( 'Export', ET_CORE_TEXTDOMAIN ); ?></a></li>
 						<li><a href="#et-core-portability-import"><?php esc_html_e( 'Import', ET_CORE_TEXTDOMAIN ); ?></a></li>
 					</ul>
 					<div id="et-core-portability-export">
 						<div class="et-core-modal-content">
-							<?php printf( esc_html__( 'Exporting your %s will create a JSON file that can be imported into a different website.', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+							<?php printf( esc_html__( 'Exporting your %s will create a JSON file that can be imported into a different website.', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<h3><?php esc_html_e( 'Export File Name', ET_CORE_TEXTDOMAIN ); ?></h3>
 							<form class="et-core-portability-export-form">
 								<input type="text" name="" value="<?php echo esc_attr( $this->instance->name ); ?>">
@@ -899,17 +1160,17 @@ final class ET_Core_Portability {
 								<?php endif; ?>
 							</form>
 						</div>
-						<a class="et-core-modal-action" href="#" data-et-core-portability-export="<?php echo esc_url( $export_url ); ?>"><?php printf( esc_html__( 'Export %s', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?></a>
+						<a class="et-core-modal-action" href="#" data-et-core-portability-export="<?php echo esc_url( $export_url ); ?>"><?php printf( esc_html__( 'Export %s', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?></a>
 						<a class="et-core-modal-action et-core-button-danger" href="#" data-et-core-portability-cancel><?php esc_html_e( 'Cancel Export', ET_CORE_TEXTDOMAIN ); ?></a>
 					</div>
 					<div id="et-core-portability-import">
 						<div class="et-core-modal-content">
 							<?php if ( 'post' === $this->instance->type ) : ?>
-								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all content currently on this page.', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all content currently on this page.', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<?php elseif ( 'post_type' === $this->instance->type ) : ?>
-								<?php printf( esc_html__( 'Select a previously-exported Divi Builder Layouts file to begin importing items. Large collections of image-heavy exports may take several minutes to upload.', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+								<?php printf( esc_html__( 'Select a previously-exported Divi Builder Layouts file to begin importing items. Large collections of image-heavy exports may take several minutes to upload.', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<?php else : ?>
-								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all current data. Please proceed with caution!', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?>
+								<?php printf( esc_html__( 'Importing a previously-exported %s file will overwrite all current data. Please proceed with caution!', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?>
 							<?php endif; ?>
 							<h3><?php esc_html_e( 'Select File To Import', ET_CORE_TEXTDOMAIN ); ?></h3>
 							<form class="et-core-portability-import-form">
@@ -922,7 +1183,7 @@ final class ET_Core_Portability {
 								<?php endif; ?>
 							</form>
 						</div>
-						<a class="et-core-modal-action et-core-portability-import" href="#"><?php printf( esc_html__( 'Import %s', ET_CORE_TEXTDOMAIN ), $this->instance->name ); ?></a>
+						<a class="et-core-modal-action et-core-portability-import" href="#"><?php printf( esc_html__( 'Import %s', ET_CORE_TEXTDOMAIN ), esc_html( $this->instance->name ) ); ?></a>
 						<a class="et-core-modal-action et-core-button-danger" href="#" data-et-core-portability-cancel><?php esc_html_e( 'Cancel Import', ET_CORE_TEXTDOMAIN ); ?></a>
 					</div>
 				</div>
@@ -931,3 +1192,268 @@ final class ET_Core_Portability {
 		<?php
 	}
 }
+
+
+if ( ! function_exists( 'et_core_portability_register' ) ) :
+/**
+ * Register portability.
+ *
+ * This function should be called in an 'admin_init' action callback.
+ *
+ * @since 2.7.0
+ *
+ * @param string $context A unique ID used to register the portability arguments.
+ *
+ * @param array  $args {
+ *      Array of arguments used to register the portability.
+ *
+ * 		@type string $name	  The name used in the various text string.
+ * 		@type bool   $view	  Whether the assets and content should load or not.
+ * 		      				  Example: `isset( $_GET['page'] ) && $_GET['page'] == 'example'`.
+ * 		@type string $db	  The option_name from the wp_option table used to export and import data.
+ * 		@type array  $include Optional. Array of all the options scritcly included. Options ids must be set
+ *         					  as the array keys.
+ *      @type array  $exclude Optional. Array of excluded options. Options ids must be set as the array keys.
+ * }
+ */
+function et_core_portability_register( $context, $args ) {
+	$defaults = array(
+		'context' => $context,
+		'name'    => false,
+		'view'    => false,
+		'type'    => false,
+		'target'  => false,
+		'include' => array(),
+		'exclude' => array(),
+	);
+
+	$data = apply_filters( "et_core_portability_args_{$context}", (object) array_merge( $defaults, (array) $args ) );
+
+	et_core_cache_set( $context, $data, 'et_core_portability' );
+
+	// Stop here if not allowed.
+	if ( function_exists( 'et_pb_is_allowed' ) && ! et_pb_is_allowed( array( 'portability', "{$data->context}_portability" ) ) ) {
+
+		// Set view to false if not allowed.
+		$data->view = false;
+		et_core_cache_set( $context, $data, 'et_core_portability' );
+
+		return;
+	}
+
+	if ( $data->view ) {
+		et_core_portability_load( $context );
+	}
+}
+endif;
+
+
+if ( ! function_exists( 'et_core_portability_load' ) ) :
+/**
+ * Load Portability class.
+ *
+ * @since 2.7.0
+ *
+ * @param string $context A unique ID used to register the portability arguments.
+ * @return ET_Core_Portability
+ */
+function et_core_portability_load( $context ) {
+	return new ET_Core_Portability( $context );
+}
+endif;
+
+
+if ( ! function_exists( 'et_core_portability_link' ) ) :
+/**
+ * HTML link to trigger the portability modal.
+ *
+ * @since 2.7.0
+ *
+ * @param string       $context    The context used to register the portability.
+ * @param string|array $attributes Optional. Query string or array of attributes. Default empty.
+ *
+ * @return string
+ */
+function et_core_portability_link( $context, $attributes = array() ) {
+	$instance = et_core_cache_get( $context, 'et_core_portability' );
+
+	if ( ! $capability = et_core_portability_cap( $context ) ) {
+		return '';
+	}
+
+	if ( ! current_user_can( $capability ) || ! ( isset( $instance->view ) && $instance->view ) ) {
+		return '';
+	}
+
+	$defaults = array(
+		'title' => esc_attr__( 'Import & Export', ET_CORE_TEXTDOMAIN ),
+	);
+	$attributes = array_merge( $defaults, $attributes );
+
+	// Forced attributes.
+	$attributes['href'] = '#';
+	$context = esc_attr( $context );
+	$attributes['data-et-core-modal'] = "[data-et-core-portability='{$context}']";
+
+	$string = '';
+
+	foreach ( $attributes as $attribute => $value ) {
+		if ( null !== $value ){
+			$string .= esc_attr( $attribute ) . '="' . esc_attr( $value ) . '" ';
+		}
+	}
+
+	return sprintf(
+		'<a %1$s><span>%2$s</span></a>',
+		trim( $string ),
+		esc_html( $attributes['title'] )
+	);
+}
+endif;
+
+
+if ( ! function_exists( 'et_core_portability_ajax_import' ) ) :
+/**
+ * Ajax portability Import.
+ *
+ * @since 2.7.0
+ */
+function et_core_portability_ajax_import() {
+	if ( ! isset( $_POST['context'] ) ) {
+		et_core_die();
+	}
+
+	$context = sanitize_text_field( $_POST['context'] );
+
+	if ( ! $capability = et_core_portability_cap( $context ) ) {
+		et_core_die();
+	}
+
+	if ( ! et_core_security_check_passed( $capability, 'et_core_portability_import', 'nonce' ) ) {
+		et_core_die();
+	}
+
+	$portability = et_core_portability_load( $context );
+
+	if ( ! $result = $portability->import() ) {
+		wp_send_json_error();
+	} else if ( is_array( $result ) && isset( $result['message'] ) ) {
+		wp_send_json_error( $result );
+	} else if ( $result ) {
+		wp_send_json_success( $result );
+	}
+
+	wp_send_json_error();
+}
+add_action( 'wp_ajax_et_core_portability_import', 'et_core_portability_ajax_import' );
+endif;
+
+
+if ( ! function_exists( 'et_core_portability_ajax_export' ) ) :
+/**
+ * Ajax portability Export.
+ *
+ * @since 2.7.0
+ */
+function et_core_portability_ajax_export() {
+	if ( ! isset( $_POST['context'] ) ) {
+		et_core_die();
+	}
+
+	$context = sanitize_text_field( $_POST['context'] );
+
+	if ( ! $capability = et_core_portability_cap( $context ) ) {
+		et_core_die();
+	}
+
+	if ( ! et_core_security_check_passed( $capability, 'et_core_portability_export', 'nonce' ) ) {
+		et_core_die();
+	}
+
+	et_core_portability_load( $context )->export();
+
+	wp_send_json_error();
+}
+add_action( 'wp_ajax_et_core_portability_export', 'et_core_portability_ajax_export' );
+endif;
+
+
+if ( ! function_exists( 'et_core_portability_ajax_cancel' ) ) :
+/**
+ * Cancel portability action.
+ *
+ * @since 2.7.0
+ */
+function et_core_portability_ajax_cancel() {
+	if ( ! isset( $_POST['context'] ) ) {
+		et_core_die();
+	}
+
+	$context = sanitize_text_field( $_POST['context'] );
+
+	if ( ! $capability = et_core_portability_cap( $context ) ) {
+		et_core_die();
+	}
+
+	if ( ! et_core_security_check_passed( $capability, 'et_core_portability_cancel' ) ) {
+		et_core_die();
+	}
+
+	et_core_portability_load( $context )->delete_temp_files( true );
+
+	wp_send_json_error();
+}
+add_action( 'wp_ajax_et_core_portability_cancel', 'et_core_portability_ajax_cancel' );
+endif;
+
+
+if ( ! function_exists( 'et_core_portability_export' ) ) :
+/**
+ * Portability export.
+ *
+ * @since 2.7.0
+ */
+function et_core_portability_export() {
+	if ( ! isset( $_GET['et_core_portability'], $_GET['timestamp'] ) ) {
+		return;
+	}
+
+	if ( ! et_core_security_check_passed( 'edit_posts' ) ) {
+		wp_die( esc_html__( 'The export process failed. Please refresh the page and try again.', ET_CORE_TEXTDOMAIN ) );
+	}
+
+	et_core_portability_load( sanitize_text_field( $_GET['timestamp'] ) )->download_export();
+}
+add_action( 'admin_init', 'et_core_portability_export', 20 );
+endif;
+
+
+if ( ! function_exists( 'et_core_portability_cap' ) ):
+/**
+ * Returns the required WordPress Capability for a Portability context.
+ *
+ * @since 3.0.91
+ *
+ * @param string $context The Portability context
+ *
+ * @return string
+ */
+function et_core_portability_cap( $context ) {
+	$capability       = '';
+	$options_contexts = array(
+		'et_pb_roles',
+		'et_builder_layouts',
+		'epanel',
+		'et_divi_mods',
+		'et_extra_mods',
+	);
+
+	if ( in_array( $context, $options_contexts ) ) {
+		$capability = 'edit_theme_options';
+	} else if ( 'et_builder' === $context ) {
+		$capability = 'edit_posts';
+	}
+
+	return $capability;
+}
+endif;

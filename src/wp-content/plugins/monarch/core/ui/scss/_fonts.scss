@@ -1,0 +1,26 @@
+// Base
+$html-fontsize: 16px;
+
+// Font
+$body-font: 'Open Sans', Helvetica, Roboto, Arial, sans-serif;
+
+// Font Weight
+$font-light: 300;
+$font-regular: 400;
+$font-semibold: 600;
+$font-bold: 700;
+$font-extrabold: 800;
+
+// Font Size
+$core-modal-fontsize-header: 2.5 * $html-fontsize;
+$modal-fontsize-groups: 1.25 * $html-fontsize;
+$modal-fontsize-header: 1.125 * $html-fontsize;
+$modal-fontsize-subhead: 0.875 * $html-fontsize;
+$modal-fontsize-content: 0.8125 * $html-fontsize;
+$modal-fontsize-content-allcaps: 0.75 * $html-fontsize;
+$icon-fontsize-small: 16px;
+
+// Line Height
+$modal-line-height: 1 * $html-fontsize;
+$modal-line-height-medium: 1.3 * $html-fontsize;
+$modal-line-height-large: 1.7 * $html-fontsize;

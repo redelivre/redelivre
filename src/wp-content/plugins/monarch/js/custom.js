@@ -2,6 +2,9 @@
 	$(document).ready(function() {
 		var all_networks_opened = 0;
 
+		// fix the "on media" wrapper inside the Divi Gallery grid
+		et_pb_fix_gallery_wrapper();
+
 		$( 'body' ).on( 'click', '.et_social_share', function() {
 			var $this_el = $(this),
 				social_type = $this_el.data( 'social_type' ),
@@ -589,6 +592,8 @@
 					var this_wrapper = $( this ),
 						this_wrapper_media = this_wrapper.find( '.et_social_media' ),
 						this_image = this_wrapper.find( 'img' ),
+						image_position = this_image.position(),
+						image_left_offset = typeof image_position !== 'undefined' ? image_position.left : 0,
 						this_image_height = this_image.height(),
 						this_image_width = this_image.width(),
 						this_wrapper_networks_height = this_wrapper.find( '.et_social_networks' ).innerHeight();
@@ -597,8 +602,64 @@
 					this_wrapper_media.css( { 'max-height' : this_image_height } );
 					this_wrapper_media.css( { 'height' : this_wrapper_networks_height + 50 } );
 					this_wrapper_media.width( this_image_width - 80 );
+
+					// adjust the icons position based on image alignement
+					if ( 0 !== image_left_offset ) {
+						this_wrapper_media.css( { 'left' : image_left_offset + 20 } );
+					}
 				});
+
+				// fix the media wrapper sizes in Divi Gallery Slider if needed
+				et_pb_fix_gallery_slider_icons_size();
 			}
+		}
+
+		function et_pb_fix_gallery_wrapper() {
+			var $media_wrappers_inside_gallery = $( '.et_pb_gallery_grid .et_social_media_wrapper' );
+
+			if ( 0 > $media_wrappers_inside_gallery.length ) {
+				return;
+			}
+
+			$media_wrappers_inside_gallery.each( function() {
+				var $this_wrapper = $( this );
+				var $gallery_item = $this_wrapper.closest( '.et_pb_gallery_image' );
+				var $gallery_overlay = $gallery_item.find( '.et_overlay' );
+
+				if ( 0 < $gallery_overlay.length ) {
+					// move the gallery overlay inside media icons wrapper so it won't break the sharing functionality
+					$this_wrapper.append( $gallery_overlay );
+				}
+			});
+		}
+
+		function et_pb_fix_gallery_slider_icons_size() {
+			var $gallery_slider_icons = $( '.et_pb_gallery_fullwidth .et_social_media_wrapper' );
+
+			if ( 0 > $gallery_slider_icons.length ) {
+				return;
+			}
+
+			var $all_galleries = $( '.et_pb_gallery_fullwidth' );
+
+			$all_galleries.each( function() {
+				var $this_gallery = $( this );
+				var $this_gallery_media = $this_gallery.find( '.et_social_media_wrapper .et_social_media' );
+
+				if ( 0 > $this_gallery_media.length ) {
+					return;
+				}
+
+				var $first_icon_wrapper = $this_gallery_media.first();
+				var icons_width = $first_icon_wrapper.width();
+				var icons_height = $first_icon_wrapper.css( 'height' );
+				var icons_max_height = $first_icon_wrapper.css( 'max-height' );
+
+				// use the dimensions from first slide and apply it to all the media icons in the slider
+				$this_gallery_media.width( icons_width - 80 );
+				$this_gallery_media.height( icons_height );
+				$this_gallery_media.css( { 'max-height' : icons_max_height } );
+			});
 		}
 
 		$ ( 'body' ).on( 'click', '.et_social_open_all', function() {
