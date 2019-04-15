@@ -41,12 +41,12 @@ RUN apt-get update \
     && a2enmod evasive \
     && a2enmod security2 \
     && touch /etc/apache2/wpupgrade.passwd \
-    && a2enconf wordpress
+    && a2enconf wordpress \
+    && chown root:root /root/.ssh \
+	&& chmod 600 /root/.ssh/* \
+	&& chmod 700 /root/.ssh \
 	&& if [ "$REDELIVRE_SSH_PASSPHRASE" != "some_key_pass" ] ; then \
-		chown root:root /root/.ssh \
-		&& chmod 600 /root/.ssh/* \
-		&& chmod 700 /root/.ssh \
-		&& ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
+		ssh-keyscan -H -t rsa gitlab.com >> ~/.ssh/known_hosts \
 		&& echo '#!/usr/bin/expect -f' > /var/www/scripts/rlpass \
 		&& echo 'spawn ssh-add /root/.ssh/id_rsa' >> /var/www/scripts/rlpass \
 		&& echo 'expect "Enter passphrase for /root/.ssh/id_rsa:"' >> /var/www/scripts/rlpass \

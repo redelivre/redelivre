@@ -1,11 +1,12 @@
 #!/bin/bash
 
 PWDAtual=`pwd`
+echo "Working On: $PWDAtual"
 APACHEUSER=""
 if [ hash apachectl 2>/dev/null ]; then 
 	APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
 fi
-
+echo "Apache user is: $APACHEUSER"
 checkIfRootRepos() {
         REPOS=$(basename -s .git `git config --get remote.origin.url`)
         if [ "$REPOS" = "redelivre" ]; then 
@@ -33,7 +34,7 @@ if [ ! $(checkIfRootRepos) = 1 ]; then
 	git pull;
 fi
 
-if [ ! -e PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
+if [ ! -e $PWDAtual/src/wp-content/plugins/wp-opauth/opauth/lib ] ; then
 	cd $PWDAtual/src/wp-content/plugins/wp-opauth
 	git submodule update --init
 fi
@@ -68,22 +69,29 @@ if [ ! $(checkIfRootRepos) = 1 ]; then
 	git pull
 fi
 
-if [ -d PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp ] ; then
+EU=`id -u`
+
+if [ -d $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp ] ; then
+    echo "init $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp"
     cd $PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp
-    if [[ $EUID -ne 0 ]]; then
+    if [ $EU -ne 0 ]; then
         composer install
     else
-        if [ ! -z "$APACHEUSER" ]; then
-            sudo -i -u $APACHEUSER composer install
-        else
-            echo composer need to be run by apache user or other
-            exit 1
-        fi
+    	if [ -f /.dockerenv ]; then
+    		composer install
+    	else
+	        if [ ! -z "$APACHEUSER" ]; then
+	            sudo -i -u $APACHEUSER composer install
+	        else
+	            echo composer need to be run by apache user or other
+	            exit 1
+	        fi
+		fi
     fi
 fi
 
-if [ -d PWDAtual/src/wp-content/themes/wp-logincidadao ] ; then
-    if [ ! -d PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
+if [ -d $PWDAtual/src/wp-content/themes/wp-logincidadao ] ; then
+    if [ ! -d $PWDAtual/src/wp-content/themes/wp-logincidadao/login-cidadao ] ; then
 	cd $PWDAtual/src/wp-content/themes/wp-logincidadao
 	git submodule update --init
         cd login-cidadao
