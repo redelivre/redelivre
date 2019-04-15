@@ -74,10 +74,10 @@ if [ -d PWDAtual/src/wp-content/plugins/facebook-instant-articles-wp ] ; then
         composer install
     else
         if [ ! -z "$APACHEUSER" ]; then
-            mkdir 
             sudo -i -u $APACHEUSER composer install
         else
             echo composer need to be run by apache user or other
+            exit 1
         fi
     fi
 fi
@@ -104,7 +104,11 @@ if [ ! -z "$APACHEUSER" ]; then
 			sudo chown -R $APACHEUSER $PWDAtual/src/wp-content/blogs.dir
 		fi
 	else
-		sudo chown -R $APACHEUSER $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+		chown -R $APACHEUSER $PWDAtual/src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+		chown -R $APACHEUSER $PWDAtual/src/wp-content/uploads
+		if [ -d $PWDAtual/src/wp-content/blogs.dir ]; then
+                        chown -R $APACHEUSER $PWDAtual/src/wp-content/blogs.dir
+                fi
 	fi
     fi
 fi
