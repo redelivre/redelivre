@@ -39,7 +39,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) iconv mcrypt mysqli pdo pdo_mysql mbstring curl xml gd soap \ 
     && a2enmod rewrite \
     && a2enmod evasive \
-    && a2enmod security2 \
+    && a2dismod security2 \
     && touch /etc/apache2/wpupgrade.passwd \
     && a2enconf wordpress \
     && chown root:root /root/.ssh \
@@ -90,7 +90,7 @@ RUN apt-get update \
 		htpasswd -b /etc/apache2/wpupgrade.passwd $WORDPRESS_UPGRADE_USER $WORDPRESS_UPGRADE_PASS \
     ;fi \
     && cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf \
-    && sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine DetectionOnly/' /etc/modsecurity/modsecurity.conf \
+    && sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/modsecurity/modsecurity.conf \
     && sed -i 's/#DOS/DOS/g' /etc/apache2/mods-available/evasive.conf \
     && mkdir /var/log/mod_evasive \
     && if [ "$DOSSystemCommand" != "some_command" ] ; then \
