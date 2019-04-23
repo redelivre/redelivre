@@ -90,7 +90,7 @@ RUN apt-get update \
 		htpasswd -b /etc/apache2/wpupgrade.passwd $WORDPRESS_UPGRADE_USER $WORDPRESS_UPGRADE_PASS \
     ;fi \
     && cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf \
-    && sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/modsecurity/modsecurity.conf \
+    && sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine DetectionOnly/' /etc/modsecurity/modsecurity.conf \
     && sed -i 's/#DOS/DOS/g' /etc/apache2/mods-available/evasive.conf \
     && mkdir /var/log/mod_evasive \
     && if [ "$DOSSystemCommand" != "some_command" ] ; then \
