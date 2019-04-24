@@ -103,8 +103,9 @@ RUN apt-get update \
 		sed -i "s/you@yourdomain.com/$DOSEmailNotify/" /etc/apache2/mods-available/evasive.conf \
 	;else \
 		sed -i "s/DOSEmailNotify/\#DOSEmailNotify/" /etc/apache2/mods-available/evasive.conf \
-	;fi
-	
+	;fi \
+    && find /var/www/ -type f -exec chmod 644 '{}' \; \
+    && find /var/www/ -type d -exec chmod 755 '{}' \; \
 	
 	
 	
