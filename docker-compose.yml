@@ -8,6 +8,10 @@ services:
       args:
        - REDELIVRE_SSH_PASSPHRASE=some_key_pass
        - REDELIVRE_SSH_PRIVATE=some_ssh_key
+       - WORDPRESS_UPGRADE_PASS=some_pass
+       - WORDPRESS_UPGRADE_USER=some_user
+       - DOSEmailNotify=some_email
+       - DOSSystemCommand=some_command
     env_file:
      - ./Docker/.wp_env
     environment:
@@ -18,13 +22,25 @@ services:
       - WORDPRESS_TABLE_PREFIX=wp_
       - WORDPRESS_DOMAIN_CURRENT_SITE=redelivre.localhost
       - WORDPRESS_DEBUG=true
+      - WORDPRESS_WP_DEBUG_DISPLAY: 'false'
+      - WP_AUTH_KEY: '1234567890123456789012345678901234567890123456789012345678901234'
+      - WP_AUTH_SALT: '1234567890123456789012345678901234567890123456789012345678901235'
+      - WP_LOGGED_IN_KEY: '1234567890123456789012345678901234567890123456789012345678901236'
+      - WP_LOGGED_IN_SALT: '1234567890123456789012345678901234567890123456789012345678901237'
+      - WP_NONCE_KEY: '1234567890123456789012345678901234567890123456789012345678901238'
+      - WP_NONCE_SALT: '1234567890123456789012345678901234567890123456789012345678901239'
+      - WP_SECURE_AUTH_KEY: '1234567890123456789012345678901234567890123456789012345678901230'
+      - WP_SECURE_AUTH_SALT: '1234567890123456789012345678901234567890123456789012345678901231'
     volumes:
-      - ./volumes/wp-config.d:/var/www/html/wp-config.d
-      - ./volumes/wp-content/uploads:/var/www/html/wp-content/uploads
-      - ./volumes/wp-content/blogs.dir:/var/www/html/wp-content/blogs.dir
-      - ./volumes/wp-content/cache:/var/www/html/wp-content/cache
-      - ./volumes/wp-content/plugins/si-captcha-for-wordpress/captcha/cache:/var/www/html/wp-content/plugins/si-captcha-for-wordpress/captcha/cache
-      - ./volumes/wp-content/plugins/si-captcha-for-wordpress/captcha/temp:/var/www/html/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+      - ./volumes/web/wp-config.d:/var/www/html/wp-config.d
+      - ./volumes/web/wp-content/uploads:/var/www/html/wp-content/uploads
+      - ./volumes/web/wp-content/blogs.dir:/var/www/html/wp-content/blogs.dir
+      - ./volumes/web/wp-content/cache:/var/www/html/wp-content/cache
+      - ./volumes/web/wp-content/plugins/si-captcha-for-wordpress/captcha/cache:/var/www/html/wp-content/plugins/si-captcha-for-wordpress/captcha/cache
+      - ./volumes/web/wp-content/plugins/si-captcha-for-wordpress/captcha/temp:/var/www/html/wp-content/plugins/si-captcha-for-wordpress/captcha/temp
+      - ./volumes/web/htaccess_prod:/var/www/html/.htaccess
+      - ./volumes/web/mpm_prefork.conf:/etc/apache2/mods-enabled/mpm_prefork.conf
+      - ./volumes/web/custom_php.ini:/usr/local/etc/php/conf.d/custom_php.ini
     depends_on:
       - mariadb
     ports:
@@ -50,8 +66,9 @@ services:
       - MYSQL_PASSWORD=wordpress
       - TERM=xterm
     volumes:
-      - ./volumes/mysql:/var/lib/mysql
-      - ./backup:/backup
+      - ./volumes/mysql/mysql:/var/lib/mysql
+      - ./volumes/mysql/backups:/var/backups
+      - ./volumes/mysql/my.cnf:/etc/mysql/my.cnf
     restart: unless-stopped
     ports:
       - "3306:3306"
@@ -64,7 +81,7 @@ services:
       AWS_REGION: us-east-1
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./Docker/traefik.toml:/traefik.toml"
+      - "./volumes/traefik/traefik.toml:/traefik.toml"
     ports:
     - 80:80
     - 8080:8080
@@ -80,7 +97,7 @@ services:
   portainer:
     image: portainer/portainer
     volumes:
-      - ./volumes/portainer_data:/data
+      - ./volumes/portainer/portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     privileged: true
     ports:
