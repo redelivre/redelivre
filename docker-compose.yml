@@ -93,6 +93,7 @@ services:
       traefik.alias: traefik
       traefik.port: '8080'
       traefik.enable: 'true'
+    restart: unless-stopped
 
   portainer:
     image: portainer/portainer
@@ -106,3 +107,4 @@ services:
       traefik.frontend.rule: Host:portainer.redelivre
       traefik.port: '9000'
       traefik.enable: 'true'
+    restart: unless-stopped
