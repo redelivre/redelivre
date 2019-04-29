@@ -28,9 +28,17 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "80:80"
-      - "443:443"
+      - "8880:80"
+      - "4443:443"
+    labels:
+      traefik.port: '80'
+      traefik.frontend.rule: HostRegexp:{catchall:.*}
+      # traefik.frontend.redirect.replacement: https://$2
+      # traefik.frontend.redirect.regex: ^https://www.(.*)
+      traefik.frontend.priority: '1'
+      traefik.enable: 'true'
     restart: unless-stopped
+
   mariadb:
     image: mariadb:10
     env_file:
@@ -43,4 +51,41 @@ services:
       - TERM=xterm
     volumes:
       - ./volumes/mysql:/var/lib/mysql
+      - ./backup:/backup
     restart: unless-stopped
+    ports:
+      - "3306:3306"
+
+  traefik:
+    image: traefik:alpine
+    environment:
+      AWS_ACCESS_KEY_ID: xxxxxxx
+      AWS_SECRET_ACCESS_KEY: xxxxxx
+      AWS_REGION: us-east-1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./Docker/traefik.toml:/traefik.toml"
+    ports:
+    - 80:80
+    - 8080:8080
+    - 443:443
+    command:
+    - --configfile=/traefik.toml
+    labels:
+      traefik.frontend.rule: Host:traefik.redelivre
+      traefik.alias: traefik
+      traefik.port: '8080'
+      traefik.enable: 'true'
+
+  portainer:
+    image: portainer/portainer
+    volumes:
+      - ./volumes/portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    privileged: true
+    ports:
+      - 9000
+    labels:
+      traefik.frontend.rule: Host:portainer.redelivre
+      traefik.port: '9000'
+      traefik.enable: 'true'
