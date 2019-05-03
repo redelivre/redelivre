@@ -7,6 +7,10 @@ class EM_Widget extends WP_Widget {
 	
 	var $defaults;
 	
+	public static function init(){
+		return register_widget("EM_Widget");
+	}
+	
     /** constructor */
     function __construct() {
     	$this->defaults = array(
@@ -98,7 +102,7 @@ class EM_Widget extends WP_Widget {
 		    }
 		    //balance tags and sanitize output formats
 		    if( in_array($key, array('format', 'no_events_text', 'all_events_text')) ){
-		        if( is_multisite() && !is_super_admin() ) $new_instance[$key] = wp_kses_post($new_instance[$key]); //for multisite
+		        if( is_multisite() && !em_wp_is_super_admin() ) $new_instance[$key] = wp_kses_post($new_instance[$key]); //for multisite
 		        $new_instance[$key] = force_balance_tags($new_instance[$key]);
 		    }
     	}
@@ -205,5 +209,5 @@ class EM_Widget extends WP_Widget {
     	return $instance;
     }
 }
-add_action('widgets_init', create_function('', 'return register_widget("EM_Widget");'));
+add_action('widgets_init', 'EM_Widget::init');
 ?>

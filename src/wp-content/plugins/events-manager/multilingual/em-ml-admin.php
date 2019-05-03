@@ -2,8 +2,18 @@
 class EM_ML_Admin{
     
 	public static function init(){
-		add_action('add_meta_boxes', 'EM_ML_Admin::meta_boxes',100);
+		add_action('add_meta_boxes_'.EM_POST_TYPE_EVENT, 'EM_ML_Admin::meta_boxes',100);
+		add_action('add_meta_boxes_event-recurring', 'EM_ML_Admin::meta_boxes', 100, 1);
+		add_action('add_meta_boxes_'.EM_POST_TYPE_LOCATION, 'EM_ML_Admin::meta_boxes', 100, 1);
 		if( !defined('EM_SETTINGS_TABS') && count(EM_ML::$langs) > 3 ) define('EM_SETTINGS_TABS',true);
+	}
+	
+	/**
+	 * Returns array of settings page names used in $_REQUEST['page'] that must always be served in the original language of the blog 
+	 * @return array
+	 */
+	public static function settings_pages(){
+		return apply_filters('em_ml_admin_settings_pages', array('events-manager-options'));
 	}
 	
 	public static function meta_boxes(){

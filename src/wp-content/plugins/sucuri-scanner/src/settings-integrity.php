@@ -3,9 +3,15 @@
 /**
  * Code related to the settings-integrity.php interface.
  *
- * @package Sucuri Security
- * @subpackage settings-integrity.php
- * @copyright Since 2010 Sucuri Inc.
+ * PHP version 5
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 
 if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
@@ -22,47 +28,57 @@ if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
  * Generates the HTML code to display a list of options in the settings page to
  * allow the website owner to configure the functionality of the WordPress core
  * integrity scanner and the optional Unix diff utility. This also includes some
- * options to configure the website installation language and the false/positive
+ * options to configure the website installation language and the false positive
  * cache file.
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 class SucuriScanSettingsIntegrity extends SucuriScanSettings
 {
     /**
      * Configures the diffUtility for the integrity scanner.
      *
-     * @param bool $nonce True if the CSRF protection worked, false otherwise.
-     * @return string HTML code to render the configuration panel.
+     * @param  bool $nonce True if the CSRF protection worked, false otherwise.
+     * @return string      HTML code to render the configuration panel.
      */
     public static function diffUtility($nonce)
     {
         $params = array();
 
         $params['DiffUtility.StatusNum'] = 0;
-        $params['DiffUtility.Status'] = __('Disabled', SUCURISCAN_TEXTDOMAIN);
-        $params['DiffUtility.SwitchText'] = __('Enable', SUCURISCAN_TEXTDOMAIN);
+        $params['DiffUtility.Status'] = 'Disabled';
+        $params['DiffUtility.SwitchText'] = 'Enable';
         $params['DiffUtility.SwitchValue'] = 'enable';
 
         if ($nonce) {
             // Enable or disable the Unix diff utility.
-            if ($status = SucuriScanRequest::post(':diff_utility', '(en|dis)able')) {
+            $status = SucuriScanRequest::post(':diff_utility', '(en|dis)able');
+
+            if ($status) {
                 if (!SucuriScanCommand::exists('diff')) {
-                    SucuriScanInterface::error(__('DiffUtilityMissing', SUCURISCAN_TEXTDOMAIN));
+                    SucuriScanInterface::error(__('Your hosting provider has blocked the execution of external commands.', 'sucuri-scanner'));
                 } else {
                     $status = $status . 'd'; /* add past tense */
-                    $message = 'Integrity diff utility has been <code>' . $status . '</code>';
+                    $message = sprintf(__('Integrity diff utility has been <code>%s</code>', 'sucuri-scanner'), $status);
 
                     SucuriScanOption::updateOption(':diff_utility', $status);
                     SucuriScanEvent::reportInfoEvent($message);
                     SucuriScanEvent::notifyEvent('plugin_change', $message);
-                    SucuriScanInterface::info(__('DiffUtilityStatus', SUCURISCAN_TEXTDOMAIN));
+                    SucuriScanInterface::info(__('The status of the integrity diff utility has been changed', 'sucuri-scanner'));
                 }
             }
         }
 
         if (SucuriScanOption::isEnabled(':diff_utility')) {
             $params['DiffUtility.StatusNum'] = 1;
-            $params['DiffUtility.Status'] = __('Enabled', SUCURISCAN_TEXTDOMAIN);
-            $params['DiffUtility.SwitchText'] = __('Disable', SUCURISCAN_TEXTDOMAIN);
+            $params['DiffUtility.Status'] = __('Enabled', 'sucuri-scanner');
+            $params['DiffUtility.SwitchText'] = __('Disable', 'sucuri-scanner');
             $params['DiffUtility.SwitchValue'] = 'disable';
         }
 
@@ -70,44 +86,10 @@ class SucuriScanSettingsIntegrity extends SucuriScanSettings
     }
 
     /**
-     * Configures the language for the integrity scanner.
-     *
-     * @param bool $nonce True if the CSRF protection worked, false otherwise.
-     * @return string HTML code to render the configuration panel.
-     */
-    public static function language($nonce)
-    {
-        $params = array();
-        $languages = SucuriScan::languages();
-
-        if ($nonce) {
-            // Configure the language for the core integrity checks.
-            if ($language = SucuriScanRequest::post(':set_language')) {
-                if (array_key_exists($language, $languages)) {
-                    $message = 'Core integrity language set to <code>' . $language . '</code>';
-
-                    SucuriScanOption::updateOption(':language', $language);
-                    SucuriScanEvent::reportAutoEvent($message);
-                    SucuriScanEvent::notifyEvent('plugin_change', $message);
-                    SucuriScanInterface::info(__('IntegrityLanguage', SUCURISCAN_TEXTDOMAIN));
-                } else {
-                    SucuriScanInterface::error(__('NonSupportedLanguage', SUCURISCAN_TEXTDOMAIN));
-                }
-            }
-        }
-
-        $language = SucuriScanOption::getOption(':language');
-        $params['Integrity.LanguageDropdown'] = SucuriScanTemplate::selectOptions($languages, $language);
-        $params['Integrity.WordPressLocale'] = get_locale();
-
-        return SucuriScanTemplate::getSection('settings-scanner-integrity-language', $params);
-    }
-
-    /**
      * Configures the cache for the integrity scanner.
      *
-     * @param bool $nonce True if the CSRF protection worked, false otherwise.
-     * @return string HTML code to render the configuration panel.
+     * @param  bool $nonce True if the CSRF protection worked, false otherwise.
+     * @return string      HTML code to render the configuration panel.
      */
     public static function cache($nonce)
     {
@@ -119,16 +101,17 @@ class SucuriScanSettingsIntegrity extends SucuriScanSettings
             $deletedFiles = array();
             $files = SucuriScanRequest::post(':corefile_path', '_array');
 
-            foreach ($files as $path) {
+            foreach ((array) $files as $path) {
                 if ($cache->delete(md5($path))) {
                     $deletedFiles[] = $path;
                 }
             }
 
             if (!empty($deletedFiles)) {
-                SucuriScanEvent::reportDebugEvent('Core files that will not be '
-                . 'ignored anymore: (multiple entries): ' . implode(',', $deletedFiles));
-                SucuriScanInterface::info(__('ItemsProcessed', SUCURISCAN_TEXTDOMAIN));
+                SucuriScanEvent::reportDebugEvent(
+                    sprintf(__('Core files that will not be ignored anymore: (multiple entries): %s', 'sucuri-scanner'), implode(',', $deletedFiles))
+                );
+                SucuriScanInterface::info(__('The selected files have been successfully processed.', 'sucuri-scanner'));
             }
         }
 
@@ -137,16 +120,21 @@ class SucuriScanSettingsIntegrity extends SucuriScanSettings
         $params['CacheLifeTime'] = SUCURISCAN_SITECHECK_LIFETIME;
         $params['NoFilesVisibility'] = 'visible';
 
-        if ($ignored_files = $cache->getAll()) {
+        $ignored_files = $cache->getAll();
+
+        if (is_array($ignored_files) && !empty($ignored_files)) {
             $params['NoFilesVisibility'] = 'hidden';
 
             foreach ($ignored_files as $hash => $data) {
-                $params['IgnoredFiles'] .= SucuriScanTemplate::getSnippet('settings-scanner-integrity-cache', array(
-                    'UniqueId' => substr($hash, 0, 8),
-                    'FilePath' => $data->file_path,
-                    'StatusType' => $data->file_status,
-                    'IgnoredAt' => SucuriScan::datetime($data->ignored_at),
-                ));
+                $params['IgnoredFiles'] .= SucuriScanTemplate::getSnippet(
+                    'settings-scanner-integrity-cache',
+                    array(
+                        'UniqueId' => substr($hash, 0, 8),
+                        'FilePath' => $data->file_path,
+                        'StatusType' => $data->file_status,
+                        'IgnoredAt' => SucuriScan::datetime($data->ignored_at),
+                    )
+                );
             }
         }
 

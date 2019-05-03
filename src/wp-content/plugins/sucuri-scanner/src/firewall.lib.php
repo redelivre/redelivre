@@ -3,9 +3,15 @@
 /**
  * Code related to the firewall.lib.php interface.
  *
- * @package Sucuri Security
- * @subpackage firewall.lib.php
- * @copyright Since 2010 Sucuri Inc.
+ * PHP version 5
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 
 if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
@@ -18,15 +24,23 @@ if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
 
 /**
  * Defines methods to interact with Sucuri Firewall's API service.
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 class SucuriScanFirewall extends SucuriScanAPI
 {
     /**
      * Check whether the firewall API key is valid or not.
      *
-     * @param string $api_key The firewall API key.
-     * @param bool $return_match Whether the parts of the API key must be returned or not.
-     * @return array|bool True if the API key specified is valid, false otherwise.
+     * @param  string $api_key      The firewall API key.
+     * @param  bool   $return_match Whether the parts of the API key must be returned or not.
+     * @return array|bool           True if the API key specified is valid, false otherwise.
      */
     public static function isValidKey($api_key = '', $return_match = false)
     {
@@ -70,17 +84,15 @@ class SucuriScanFirewall extends SucuriScanAPI
     /**
      * Call an action from the remote API interface of our firewall service.
      *
-     * @param string $method HTTP method that will be used to send the request.
-     * @param array $params Parameters for the request defined in an associative array of key-value.
-     * @return array|bool Response object after the HTTP request is executed.
+     * @param  string $method HTTP method that will be used to send the request.
+     * @param  array  $params HTTP request parameters (key-value array).
+     * @return array|bool     HTTP response object.
      */
     public static function apiCallFirewall($method = 'GET', $params = array())
     {
-        $send_request = false;
+        $send_request = (bool) (isset($params['k']) && isset($params['s']));
 
-        if (isset($params['k']) && isset($params['s'])) {
-            $send_request = true;
-        } else {
+        if (!$send_request) {
             $api_key = self::getKey();
 
             if ($api_key) {
@@ -91,11 +103,9 @@ class SucuriScanFirewall extends SucuriScanAPI
         }
 
         if ($send_request) {
-            $url = SUCURISCAN_CLOUDPROXY_API;
-            $params[ SUCURISCAN_CLOUDPROXY_API_VERSION ] = 1;
             unset($params['string']);
-
-            return self::apiCall($url, $method, $params);
+            $params[SUCURISCAN_CLOUDPROXY_API_VERSION] = 1;
+            return self::apiCall(SUCURISCAN_CLOUDPROXY_API, $method, $params);
         }
 
         return false;
@@ -107,8 +117,8 @@ class SucuriScanFirewall extends SucuriScanAPI
      * request to the remote API service and process its response, when successful
      * it will return an array/object containing the public attributes of the site.
      *
-     * @param array|bool $api_key The firewall API key.
-     * @return array|bool A hash with the settings of a firewall account.
+     * @param  array|bool $api_key The firewall API key.
+     * @return array|bool          A hash with the settings of a firewall account.
      */
     public static function settings($api_key = false)
     {
@@ -136,8 +146,6 @@ class SucuriScanFirewall extends SucuriScanAPI
             'Firewall.APIKey' => '',
             'Firewall.APIKeyVisibility' => 'hidden',
             'Firewall.APIKeyFormVisibility' => 'visible',
-            'Firewall.SettingsVisibility' => 'hidden',
-            'Firewall.SettingOptions' => '',
         );
 
         if (SucuriScanInterface::checkNonce()) {
@@ -150,67 +158,29 @@ class SucuriScanFirewall extends SucuriScanAPI
 
                 if (self::isValidKey($api_key)) {
                     SucuriScanOption::updateOption($option_name, $api_key);
-                    SucuriScanInterface::info(__('FirewallAPIKeySet', SUCURISCAN_TEXTDOMAIN));
+                    SucuriScanInterface::info(__('Firewall API key was successfully saved', 'sucuri-scanner'));
                     SucuriScanOption::setRevProxy('enable');
                     SucuriScanOption::setAddrHeader('HTTP_X_SUCURI_CLIENTIP');
                 } else {
-                    SucuriScanInterface::error(__('FirewallAPIKeyInvalid', SUCURISCAN_TEXTDOMAIN));
+                    SucuriScanInterface::error('Invalid firewall API key');
                 }
             }
 
             // Delete the firewall API key from the plugin.
             if (SucuriScanRequest::post(':delete_wafkey') !== false) {
                 SucuriScanOption::deleteOption($option_name);
-                SucuriScanInterface::info(__('FirewallAPIKeyUnset', SUCURISCAN_TEXTDOMAIN));
+                SucuriScanInterface::info(__('Firewall API key was successfully removed', 'sucuri-scanner'));
                 SucuriScanOption::setRevProxy('disable');
                 SucuriScanOption::setAddrHeader('REMOTE_ADDR');
             }
         }
 
-        $api_key = self::getKey(); /* extract API key information */
+        $api_key = self::getKey();
 
         if ($api_key && array_key_exists('string', $api_key)) {
-            $settings = self::settings($api_key);
-
             $params['Firewall.APIKeyVisibility'] = 'visible';
             $params['Firewall.APIKeyFormVisibility'] = 'hidden';
             $params['Firewall.APIKey'] = $api_key['string'];
-
-            if ($settings) {
-                $params['Firewall.SettingsVisibility'] = 'visible';
-                $settings = self::settingsExplanation($settings);
-
-                foreach ($settings as $option_name => $option_value) {
-                    $option_title = ucwords(str_replace('_', "\x20", $option_name));
-
-                    // Generate a HTML list when the option's value is an array.
-                    if (is_array($option_value)) {
-                        $css_scrollable = count($option_value) > 10 ? 'sucuriscan-list-as-table-scrollable' : '';
-                        $html_list  = '<ul class="sucuriscan-list-as-table ' . $css_scrollable . '">';
-
-                        if (!empty($option_value)) {
-                            foreach ($option_value as $single_value) {
-                                $single_value = SucuriScan::escape($single_value);
-                                $html_list .= '<li>' . SucuriScan::escape($single_value) . '</li>';
-                            }
-                        } else {
-                            $html_list .= '<li>(' . __('NoData', SUCURISCAN_TEXTDOMAIN) . ')</li>';
-                        }
-
-                        $html_list .= '</ul>';
-                        $option_value = $html_list;
-                    } else {
-                        $option_value = SucuriScan::escape($option_value);
-                    }
-
-                    // Parse the snippet template and replace the pseudo-variables.
-                    $params['Firewall.SettingOptions']
-                    .= SucuriScanTemplate::getSnippet('firewall-settings', array(
-                        'Firewall.OptionName' => $option_title,
-                        'Firewall.OptionValue' => $option_value,
-                    ));
-                }
-            }
         }
 
         return SucuriScanTemplate::getSection('firewall-settings', $params);
@@ -221,36 +191,80 @@ class SucuriScanFirewall extends SucuriScanAPI
      * text, for example changing numbers or variable names into a more explicit
      * text so the administrator can understand the meaning of these settings.
      *
-     * @param array $settings A hash with the settings of a firewall account.
-     * @return array The explained version of the firewall settings.
+     * @param  array $settings A hash with the settings of a firewall account.
+     * @return array           The explained version of the firewall settings.
      */
     public static function settingsExplanation($settings = array())
     {
-        $cache_modes = array(
-            'docache' => __('FirewallDoCache', SUCURISCAN_TEXTDOMAIN),
-            'sitecache' => __('FirewallSiteCache', SUCURISCAN_TEXTDOMAIN),
-            'nocache' => __('FirewallNoCache', SUCURISCAN_TEXTDOMAIN),
-            'nocacheatall' => __('FirewallNoCacheAtAll', SUCURISCAN_TEXTDOMAIN),
-        );
+        if (!is_array($settings)) {
+            return array();
+        }
 
-        // TODO: Prefer Array over stdClass, modify the API library.
-        $settings = @json_decode(json_encode($settings), true);
+        $cache_modes = array(
+            'docache' => __('enabled (recommended)', 'sucuri-scanner'),
+            'sitecache' => __('site caching (using your site headers)', 'sucuri-scanner'),
+            'nocache' => __('minimal (only for a few minutes)', 'sucuri-scanner'),
+            'nocacheatall' => __('caching disabled (use with caution)', 'sucuri-scanner'),
+        );
 
         foreach ($settings as $keyname => $value) {
             if ($keyname == 'proxy_active') {
-                $settings[$keyname] = ($value === 1)
-                ? __('Active', SUCURISCAN_TEXTDOMAIN)
-                : __('NotActive', SUCURISCAN_TEXTDOMAIN);
-            } elseif ($keyname == 'cache_mode') {
+                $settings[$keyname] = ($value === 1) ? 'active' : 'not active';
+                continue;
+            }
+
+            if ($keyname == 'cache_mode') {
                 if (array_key_exists($value, $cache_modes)) {
                     $settings[$keyname] = $cache_modes[$value];
                 } else {
-                    $settings[$keyname] = __('Unknown', SUCURISCAN_TEXTDOMAIN);
+                    $settings[$keyname] = 'unknown';
                 }
+                continue;
             }
         }
 
         return $settings;
+    }
+
+    /**
+     * Returns the public firewall settings.
+     *
+     * @codeCoverageIgnore
+     *
+     * @return void
+     */
+    public static function getSettingsAjax()
+    {
+        if (SucuriScanRequest::post('form_action') !== 'firewall_settings') {
+            return;
+        }
+
+        $response = array();
+        $response['ok'] = false;
+        $api_key = self::getKey();
+
+        ob_start();
+        $settings = self::settings($api_key);
+        $error = ob_get_clean();
+
+        if (!$settings) {
+            if (empty($error)) {
+                ob_start();
+                SucuriScanInterface::error(__('Firewall API key was not found.', 'sucuri-scanner'));
+                $response['error'] = ob_get_clean();
+            } else {
+                $response['error'] = $error;
+            }
+
+            wp_send_json($response, 200);
+        }
+
+        $response['ok'] = true;
+        $response['settings'] = self::settingsExplanation($settings);
+        unset($response['settings']['whitelist_list']);
+        unset($response['settings']['blacklist_list']);
+
+        wp_send_json($response, 200);
     }
 
     /**
@@ -264,12 +278,12 @@ class SucuriScanFirewall extends SucuriScanAPI
      * the logs of previous days you will need to add a new parameter to the request
      * URL named "date" with format yyyy-mm-dd.
      *
-     * @param array|string $api_key The firewall API key.
-     * @param string $date Retrieve the data from this date.
-     * @param string $query Filter the data to match this query.
-     * @param int $limit Retrieve this maximum of data.
-     * @param int $offset Retrieve the data from this point.
-     * @return array|bool Objects with details of each blocked request.
+     * @param  array|string $api_key The firewall API key.
+     * @param  string       $date    Retrieve the data from this date.
+     * @param  string       $query   Filter the data to match this query.
+     * @param  int          $limit   Retrieve this maximum of data.
+     * @param  int          $offset  Retrieve the data from this point.
+     * @return array|bool            Objects with details of each blocked request.
      */
     public static function auditlogs($api_key, $date = '', $query = '', $limit = 10, $offset = 0)
     {
@@ -300,7 +314,7 @@ class SucuriScanFirewall extends SucuriScanAPI
         $params = array();
 
         /* logs are available after 24 hours */
-        $date = date('Y-m-d', strtotime('-1 day'));
+        $date = SucuriScan::datetime(strtotime('-1 day'), 'Y-m-d');
 
         $params['AuditLogs.DateYears'] = self::dates('years', $date);
         $params['AuditLogs.DateMonths'] = self::dates('months', $date);
@@ -318,6 +332,8 @@ class SucuriScanFirewall extends SucuriScanAPI
      * feature. The plugin will display a warning in this case.
      *
      * @codeCoverageIgnore
+     *
+     * @return void
      */
     public static function auditlogsAjax()
     {
@@ -325,41 +341,49 @@ class SucuriScanFirewall extends SucuriScanAPI
             return;
         }
 
-        $response = ''; /* HTML code response */
+        $response = '';
+        $api_key = self::getKey();
 
-        if ($api_key = self::getKey()) {
-            $query = SucuriScanRequest::post(':query');
-            $month = SucuriScanRequest::post(':month');
-            $year = SucuriScanRequest::post(':year');
-            $day = SucuriScanRequest::post(':day');
-            $limit = 50;
-            $offset = 1;
-
-            if ($year && $month && $day) {
-                $date = sprintf('%s-%s-%s', $year, $month, $day);
-            } else {
-                $date = date('Y-m-d');
-            }
-
-            $auditlogs = self::auditlogs(
-                $api_key,
-                $date, /* Retrieve the data from this date. */
-                $query, /* Filter the data to match this query. */
-                $limit, /* Retrieve this maximum of data. */
-                $offset /* Retrieve the data from this point. */
-            );
-
-            if ($auditlogs && array_key_exists('total_lines', $auditlogs)) {
-                $response = self::auditlogsEntries($auditlogs['access_logs']);
-
-                if (empty($response)) {
-                    $response = '<tr><td>' . __('NoData', SUCURISCAN_TEXTDOMAIN) . '.</td></tr>';
-                }
-            }
-        } else {
+        if (!$api_key) {
             ob_start();
-            SucuriScanInterface::error(__('FirewallAPIKeyMissing', SUCURISCAN_TEXTDOMAIN));
+            SucuriScanInterface::error(__('Firewall API key was not found.', 'sucuri-scanner'));
             $response = ob_get_clean();
+            wp_send_json($response, 200);
+        }
+
+        $query = SucuriScanRequest::post(':query');
+        $month = SucuriScanRequest::post(':month');
+        $year = SucuriScanRequest::post(':year');
+        $day = SucuriScanRequest::post(':day');
+        $limit = 50;
+        $offset = 1;
+
+        if ($year && $month && $day) {
+            $date = sprintf('%s-%s-%s', $year, $month, $day);
+        } else {
+            $date = SucuriScan::datetime(null, 'Y-m-d');
+        }
+
+        ob_start();
+        $auditlogs = self::auditlogs(
+            $api_key,
+            $date, /* Retrieve the data from this date. */
+            $query, /* Filter the data to match this query. */
+            $limit, /* Retrieve this maximum of data. */
+            $offset /* Retrieve the data from this point. */
+        );
+        $error = ob_get_clean();
+
+        if (!$auditlogs && !empty($error)) {
+            wp_send_json($error, 200);
+        }
+
+        if ($auditlogs && array_key_exists('total_lines', $auditlogs)) {
+            $response = self::auditlogsEntries($auditlogs['access_logs']);
+
+            if (empty($response)) {
+                $response = '<tr><td>' . __('no data available.', 'sucuri-scanner') . '</td></tr>';
+            }
         }
 
         wp_send_json($response, 200);
@@ -368,8 +392,8 @@ class SucuriScanFirewall extends SucuriScanAPI
     /**
      * Returns the security logs from the firewall in HTML.
      *
-     * @param array $entries Security logs retrieved from the Firewall API.
-     * @return string HTML with the information from the logs.
+     * @param  array $entries Security logs retrieved from the Firewall API.
+     * @return string         HTML with the information from the logs.
      */
     public static function auditlogsEntries($entries = array())
     {
@@ -416,7 +440,7 @@ class SucuriScanFirewall extends SucuriScanAPI
                     } elseif ($attr == 'http_referer' && $data_set[$keyname] == '-') {
                         $data_set[$keyname] = '- (no referer)';
                     } elseif ($attr == 'request_country_name' && $data_set[$keyname] == '') {
-                        $data_set[$keyname] = 'Anonymous';
+                        $data_set[$keyname] = __('Anonymous', 'sucuri-scanner');
                     }
                 }
 
@@ -430,10 +454,10 @@ class SucuriScanFirewall extends SucuriScanAPI
     /**
      * Get a list of years, months or days depending of the type specified.
      *
-     * @param string $type Either years, months or days.
-     * @param string $date Year, month and day selected from the request.
-     * @param bool $in_html Whether the list should be converted to a HTML select options or not.
-     * @return array|string Either an array with the expected values, or a HTML code.
+     * @param  string $type    Either years, months or days.
+     * @param  string $date    Year, month and day selected from the request.
+     * @param  bool   $in_html Whether the list should be converted to a HTML select options or not.
+     * @return array|string    Either an array with the expected values, or a HTML code.
      */
     public static function dates($type = '', $date = '', $in_html = true)
     {
@@ -453,27 +477,29 @@ class SucuriScanFirewall extends SucuriScanAPI
         switch ($type) {
             case 'years':
                 $selected = $s_year;
-                $current_year = (int) date('Y');
+                $current_year = (int) SucuriScan::datetime(null, 'Y');
                 $max_years = 5; /* Maximum number of years to keep the logs. */
                 $options = range(($current_year - $max_years), $current_year);
                 break;
+
             case 'months':
                 $selected = $s_month;
                 $options = array(
-                    '01' => __('January', SUCURISCAN_TEXTDOMAIN),
-                    '02' => __('February', SUCURISCAN_TEXTDOMAIN),
-                    '03' => __('March', SUCURISCAN_TEXTDOMAIN),
-                    '04' => __('April', SUCURISCAN_TEXTDOMAIN),
-                    '05' => __('May', SUCURISCAN_TEXTDOMAIN),
-                    '06' => __('June', SUCURISCAN_TEXTDOMAIN),
-                    '07' => __('July', SUCURISCAN_TEXTDOMAIN),
-                    '08' => __('August', SUCURISCAN_TEXTDOMAIN),
-                    '09' => __('September', SUCURISCAN_TEXTDOMAIN),
-                    '10' => __('October', SUCURISCAN_TEXTDOMAIN),
-                    '11' => __('November', SUCURISCAN_TEXTDOMAIN),
-                    '12' => __('December', SUCURISCAN_TEXTDOMAIN),
+                    '01' => __('January', 'sucuri-scanner'),
+                    '02' => __('February', 'sucuri-scanner'),
+                    '03' => __('March', 'sucuri-scanner'),
+                    '04' => __('April', 'sucuri-scanner'),
+                    '05' => __('May', 'sucuri-scanner'),
+                    '06' => __('June', 'sucuri-scanner'),
+                    '07' => __('July', 'sucuri-scanner'),
+                    '08' => __('August', 'sucuri-scanner'),
+                    '09' => __('September', 'sucuri-scanner'),
+                    '10' => __('October', 'sucuri-scanner'),
+                    '11' => __('November', 'sucuri-scanner'),
+                    '12' => __('December', 'sucuri-scanner'),
                 );
                 break;
+
             case 'days':
                 $options = range(1, 31);
                 $selected = $s_day;
@@ -503,14 +529,145 @@ class SucuriScanFirewall extends SucuriScanAPI
     }
 
     /**
+     * Generate the HTML code for the firewall IP access panel.
+     *
+     * @return string The parsed-content of the firewall IP access panel.
+     */
+    public static function ipAccessPage()
+    {
+        $params = array();
+
+        return SucuriScanTemplate::getSection('firewall-ipaccess', $params);
+    }
+
+    /**
+     * Returns the whitelisted and blacklisted IP addresses.
+     *
+     * @codeCoverageIgnore
+     *
+     * @return void
+     */
+    public static function ipAccessAjax()
+    {
+        if (SucuriScanRequest::post('form_action') !== 'firewall_ipaccess') {
+            return;
+        }
+
+        $response = array();
+        $response['ok'] = false;
+        $api_key = self::getKey();
+
+        ob_start();
+        $settings = self::settings($api_key);
+        $error = ob_get_clean();
+
+        if (!$settings) {
+            if (empty($error)) {
+                ob_start();
+                SucuriScanInterface::error(__('Firewall API key was not found.', 'sucuri-scanner'));
+                $response['error'] = ob_get_clean();
+            } else {
+                $response['error'] = $error;
+            }
+
+            wp_send_json($response, 200);
+        }
+
+        $response['ok'] = true;
+        $response['whitelist'] = $settings['whitelist_list'];
+        $response['blacklist'] = $settings['blacklist_list'];
+
+        wp_send_json($response, 200);
+    }
+
+    /**
+     * Blacklists an IP address.
+     *
+     * @codeCoverageIgnore
+     *
+     * @return void
+     */
+    public static function blacklistAjax()
+    {
+        if (SucuriScanRequest::post('form_action') !== 'firewall_blacklist') {
+            return;
+        }
+
+        $response = array();
+        $response['ok'] = false;
+        $params = self::getKey();
+
+        if (!$params) {
+            ob_start();
+            SucuriScanInterface::error(__('Firewall API key was not found.', 'sucuri-scanner'));
+            $response['msg'] = ob_get_clean();
+            wp_send_json($response, 200);
+        }
+
+        $params['a'] = 'blacklist_ip';
+        $params['ip'] = SucuriScanRequest::post('ip');
+        $out = self::apiCallFirewall('POST', $params);
+        $response['msg'] = __('Failure connecting to the API service; try again.', 'sucuri-scanner');
+
+        if ($out && !empty($out['messages'])) {
+            $response['ok'] = (bool) ($out['status'] == 1);
+            $response['msg'] = implode(";\x20", $out['messages']);
+
+            if ($out['status'] == 1) {
+                SucuriScanEvent::reportInfoEvent(sprintf(__('IP has been blacklisted: %s', 'sucuri-scanner'), $params['ip']));
+            }
+        }
+
+        wp_send_json($response, 200);
+    }
+
+    /**
+     * Deletes an IP address from the blacklist.
+     *
+     * @codeCoverageIgnore
+     *
+     * @return void
+     */
+    public static function deblacklistAjax()
+    {
+        if (SucuriScanRequest::post('form_action') !== 'firewall_deblacklist') {
+            return;
+        }
+
+        $response = array();
+        $params = self::getKey();
+
+        if (!$params) {
+            ob_start();
+            $response['ok'] = false;
+            SucuriScanInterface::error(__('Firewall API key was not found.', 'sucuri-scanner'));
+            $response['error'] = ob_get_clean();
+            wp_send_json($response, 200);
+        }
+
+        $params['a'] = 'delete_blacklist_ip';
+        $params['ip'] = SucuriScanRequest::post('ip');
+        $out = self::apiCallFirewall('POST', $params);
+
+        $response['ok'] = (bool) ($out['status'] == 1);
+        $response['msg'] = implode(";\x20", $out['messages']);
+
+        if ($out['status'] == 1) {
+            SucuriScanEvent::reportInfoEvent(sprintf(__('IP has been unblacklisted: %s', 'sucuri-scanner'), $params['ip']));
+        }
+
+        wp_send_json($response, 200);
+    }
+
+    /**
      * Flush the cache of the site(s) associated with the API key.
      *
-     * @param array|bool $api_key The firewall API key.
-     * @return string|bool Message explaining the result of the operation.
+     * @param  array|bool $api_key The firewall API key.
+     * @return string|bool         Message explaining the result of the operation.
      */
     public static function clearCache($api_key = false)
     {
-        $params = array( 'a' => 'clear_cache' );
+        $params = array('a' => 'clear_cache');
 
         if (is_array($api_key)) {
             $params = array_merge($params, $api_key);
@@ -532,22 +689,10 @@ class SucuriScanFirewall extends SucuriScanAPI
     {
         $params = array();
 
-        /* flush the cache of the site(s) associated with the API key. */
-        if (SucuriScanInterface::checkNonce() && SucuriScanRequest::post(':clear_cache')) {
-            $response = self::clearCache();
+        $params['FirewallAutoClearCache'] = 'data-status="disabled"';
 
-            if (!$response) {
-                SucuriScanInterface::error(__('FirewallNotEnabled', SUCURISCAN_TEXTDOMAIN));
-            } elseif (!isset($response['messages'][0])) {
-                SucuriScanInterface::error(__('FirewallClearCacheFailure', SUCURISCAN_TEXTDOMAIN));
-            } else {
-                // Clear W3 Total Cache if it is installed.
-                if (function_exists('w3tc_flush_all')) {
-                    w3tc_flush_all();
-                }
-
-                SucuriScanInterface::info($response['messages'][0]);
-            }
+        if (self::shouldAutoClearCache()) {
+            $params['FirewallAutoClearCache'] = 'checked="checked"';
         }
 
         return SucuriScanTemplate::getSection('firewall-clearcache', $params);
@@ -562,13 +707,86 @@ class SucuriScanFirewall extends SucuriScanAPI
      * of certain files is going to stay as it is due to the configuration on the
      * edge of the servers.
      *
-     * @param int $post_id The post ID.
+     * @return void
      */
-    public static function clearCacheHook($post_id = 0)
+    public static function clearCacheHook()
     {
-        /* prevent double execution of the save_post action */
-        if (!wp_is_post_revision($post_id) && !wp_is_post_autosave($post_id)) {
-            self::clearCache(); /* ignore HTTP request errors */
+        if (self::shouldAutoClearCache()) {
+            ob_start();
+            self::clearCache();
+            $error = ob_get_clean();
         }
+    }
+
+    /**
+     * Requests a cache flush to the firewall service.
+     *
+     * @codeCoverageIgnore
+     *
+     * @return void
+     */
+    public static function clearCacheAjax()
+    {
+        if (SucuriScanRequest::post('form_action') !== 'firewall_clear_cache') {
+            return;
+        }
+
+        ob_start();
+        SucuriScanInterface::error(__('Firewall API key was not found.', 'sucuri-scanner'));
+        $response = ob_get_clean();
+        $api_key = self::getKey();
+
+        if ($api_key) {
+            $res = self::clearCache($api_key);
+
+            if (is_array($res) && isset($res['messages'])) {
+                $response = sprintf(
+                    '<div class="sucuriscan-inline-alert-%s"><p>%s</p></div>',
+                    ($res['status'] == 1) ? 'success' : 'error',
+                    implode('<br>', $res['messages'])
+                );
+            }
+        }
+
+        wp_send_json($response, 200);
+    }
+
+    /**
+     * Configures the status of the automatic cache flush.
+     *
+     * @codeCoverageIgnore
+     *
+     * @return void
+     */
+    public static function clearAutoCacheAjax()
+    {
+        if (SucuriScanRequest::post('form_action') !== 'firewall_auto_clear_cache') {
+            return;
+        }
+
+        $response = array();
+
+        if (SucuriScanRequest::post('auto_clear_cache') === 'enable') {
+            $response['ok'] = SucuriScanOption::updateOption(':auto_clear_cache', 'enabled');
+            $response['status'] = 'enabled';
+        } else {
+            $response['ok'] = SucuriScanOption::deleteOption(':auto_clear_cache');
+            $response['status'] = 'disabled';
+        }
+
+        wp_send_json($response, 200);
+    }
+
+    /**
+     * Returns true if the plugin should flush the firewall cache.
+     *
+     * @return bool True if the plugin should flush the firewall cache.
+     */
+    private static function shouldAutoClearCache()
+    {
+        return (bool) (
+            defined('SUCURI_CLEAR_CACHE_ON_PUBLISH')
+            || SucuriScanOption::isEnabled(':auto_clear_cache')
+        );
     }
 }

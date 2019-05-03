@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Events Manager
-Version: 5.7.3
+Version: 5.9.5
 Plugin URI: http://wp-events-plugin.com
 Description: Event registration and booking management for WordPress. Recurring events, locations, google maps, rss, ical, booking registration and more!
 Author: Marcus Sykes
@@ -10,7 +10,7 @@ Text Domain: events-manager
 */
 
 /*
-Copyright (c) 2016, Marcus Sykes
+Copyright (c) 2018, Marcus Sykes
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 // Setting constants
-define('EM_VERSION', 5.7); //self expanatory
-define('EM_PRO_MIN_VERSION', 2.392); //self expanatory
+define('EM_VERSION', 5.95); //self expanatory
+define('EM_PRO_MIN_VERSION', 2.64); //self expanatory
 define('EM_PRO_MIN_VERSION_CRITICAL', 2.377); //self expanatory
 define('EM_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('EM_DIR_URI', trailingslashit(plugins_url('',__FILE__))); //an absolute path to this directory
@@ -43,7 +43,7 @@ if( !defined('EM_AJAX') ){
 if( !defined('EM_CONDITIONAL_RECURSIONS') ) define('EM_CONDITIONAL_RECURSIONS', get_option('dbem_conditional_recursions', 1)); //allows for conditional recursios to be nested
 
 //EM_MS_GLOBAL
-if( get_site_option('dbem_ms_global_table') && is_multisite() ){
+if( is_multisite() && get_site_option('dbem_ms_global_table') ){
 	define('EM_MS_GLOBAL', true);
 }else{
 	define('EM_MS_GLOBAL',false);
@@ -65,8 +65,15 @@ function dbem_debug_mode(){
 //add_action('plugins_loaded', 'dbem_debug_mode');
 
 // INCLUDES
-include('classes/em-object.php'); //Base object, any files below may depend on this
-include("em-posts.php"); //set up events as posts
+//Base classes
+include('classes/em-options.php');
+include('classes/em-object.php');
+include('classes/em-datetime.php');
+include('classes/em-taxonomy-term.php');
+include('classes/em-taxonomy-terms.php');
+include('classes/em-taxonomy-frontend.php');
+//set up events as posts
+include("em-posts.php");
 //Template Tags & Template Logic
 include("em-actions.php");
 include("em-events.php");
@@ -75,6 +82,7 @@ include("em-functions.php");
 include("em-ical.php");
 include("em-shortcode.php");
 include("em-template-tags.php");
+include("em-data-privacy.php");
 include("multilingual/em-ml.php");
 //Widgets
 include("widgets/em-events.php");
@@ -88,8 +96,8 @@ include('classes/em-bookings.php');
 include("classes/em-bookings-table.php") ;
 include('classes/em-calendar.php');
 include('classes/em-category.php');
-include('classes/em-category-taxonomy.php');
 include('classes/em-categories.php');
+include('classes/em-categories-frontend.php');
 include('classes/em-event.php');
 include('classes/em-event-post.php');
 include('classes/em-events.php');
@@ -102,19 +110,22 @@ include('classes/em-people.php');
 include('classes/em-person.php');
 include('classes/em-permalinks.php');
 include('classes/em-tag.php');
-include('classes/em-tag-taxonomy.php');
 include('classes/em-tags.php');
+include('classes/em-tags-frontend.php');
 include('classes/em-ticket-booking.php');
 include('classes/em-ticket.php');
 include('classes/em-tickets-bookings.php');
 include('classes/em-tickets.php');
 //Admin Files
 if( is_admin() ){
+	include('classes/em-admin-notice.php');
+	include('classes/em-admin-notices.php');
 	include('admin/em-admin.php');
 	include('admin/em-bookings.php');
 	include('admin/em-docs.php');
 	include('admin/em-help.php');
 	include('admin/em-options.php');
+	include('admin/em-data-privacy.php');
 	if( is_multisite() ){
 		include('admin/em-ms-options.php');
 	}
@@ -123,7 +134,9 @@ if( is_admin() ){
 	include('classes/em-event-posts-admin.php');
 	include('classes/em-location-post-admin.php');
 	include('classes/em-location-posts-admin.php');
-	include('classes/em-categories-taxonomy.php');
+	include('classes/em-taxonomy-admin.php');
+	include('classes/em-categories-admin.php');
+	include('classes/em-tags-admin.php');
 	//bookings folder
 		include('admin/bookings/em-cancelled.php');
 		include('admin/bookings/em-confirmed.php');
@@ -148,7 +161,6 @@ if( EM_MS_GLOBAL ){
 }else{
 	$prefix = $wpdb->prefix;
 }
-	define('EM_CATEGORIES_TABLE', $prefix.'em_categories'); //TABLE NAME
 	define('EM_EVENTS_TABLE',$prefix.'em_events'); //TABLE NAME
 	define('EM_TICKETS_TABLE', $prefix.'em_tickets'); //TABLE NAME
 	define('EM_TICKETS_BOOKINGS_TABLE', $prefix.'em_tickets_bookings'); //TABLE NAME
@@ -219,7 +231,7 @@ class EM_Scripts_and_Styles {
             if( is_page($pages) ){
                 $script_deps['jquery'] = 'jquery';
             }
-            if( (!empty($pages['events']) && is_page($pages['events']) &&  get_option('dbem_events_page_search_form')) || get_option('dbem_js_limit_search') === '0' || in_array($obj_id, explode(',', get_option('dbem_js_limit_search'))) ){ 
+            if( (!empty($pages['events']) && is_page($pages['events']) && ( get_option('dbem_events_page_search_form') || (EM_MS_GLOBAL && !get_site_option('dbem_ms_global_events_links', true)) )) || get_option('dbem_js_limit_search') === '0' || in_array($obj_id, explode(',', get_option('dbem_js_limit_search')))  ){ 
                 //events page only needs datepickers
                 $script_deps['jquery-ui-core'] = 'jquery-ui-core';
                 $script_deps['jquery-ui-datepicker'] = 'jquery-ui-datepicker';
@@ -263,7 +275,7 @@ class EM_Scripts_and_Styles {
 	        	'jquery-ui-autocomplete'=>'jquery-ui-autocomplete',
 	        	'jquery-ui-dialog'=>'jquery-ui-dialog'
             );
-        }            			
+        }
         $script_deps = apply_filters('em_public_script_deps', $script_deps);
         if( !empty($script_deps) ){ //given we depend on jQuery, there must be at least a jQuery dep for our file to be loaded
 			wp_enqueue_script('events-manager', plugins_url('includes/js/events-manager.js',__FILE__), array_values($script_deps), EM_VERSION); //jQuery will load as dependency
@@ -293,7 +305,8 @@ class EM_Scripts_and_Styles {
 	
 	public static function admin_enqueue( $hook_suffix = false ){
 		if( $hook_suffix == 'post.php' || (!empty($_GET['page']) && substr($_GET['page'],0,14) == 'events-manager') || (!empty($_GET['post_type']) && in_array($_GET['post_type'], array(EM_POST_TYPE_EVENT,EM_POST_TYPE_LOCATION,'event-recurring'))) ){
-			wp_enqueue_script('events-manager', plugins_url('includes/js/events-manager.js',__FILE__), array('jquery', 'jquery-ui-core','jquery-ui-widget','jquery-ui-position','jquery-ui-sortable','jquery-ui-datepicker','jquery-ui-autocomplete','jquery-ui-dialog'), EM_VERSION);
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_script('events-manager', plugins_url('includes/js/events-manager.js',__FILE__), array('jquery', 'jquery-ui-core','jquery-ui-widget','jquery-ui-position','jquery-ui-sortable','jquery-ui-datepicker','jquery-ui-autocomplete','jquery-ui-dialog','wp-color-picker'), EM_VERSION);
 		    do_action('em_enqueue_admin_scripts');
 			wp_enqueue_style('events-manager-admin', plugins_url('includes/css/events_manager_admin.css',__FILE__), array(), EM_VERSION);
 			do_action('em_enqueue_admin_styles');
@@ -360,13 +373,13 @@ class EM_Scripts_and_Styles {
 		//logged in messages that visitors shouldn't need to see
 		if( is_user_logged_in() || is_page(get_option('dbem_edit_events_page')) ){
 		    if( get_option('dbem_recurrence_enabled') ){
-		    	if( !empty($_REQUEST['action']) && $_REQUEST['action'] == 'edit' && !empty($_REQUEST['event_id'])){
-					$em_localized_js['event_reschedule_warning'] = __('Are you sure you want to continue?', 'events-manager') .PHP_EOL.PHP_EOL;
+		    	if( !empty($_REQUEST['action']) && ($_REQUEST['action'] == 'edit' || $_REQUEST['action'] == 'event_save') && !empty($_REQUEST['event_id']) ){
+					$em_localized_js['event_reschedule_warning'] = __('Are you sure you want to continue?', 'events-manager') .PHP_EOL;
 					$em_localized_js['event_reschedule_warning'] .= __('Modifications to event times will cause all recurrences of this event to be deleted and recreated, previous bookings will be deleted.', 'events-manager');
-					$em_localized_js['event_recurrence_overwrite'] = __('Are you sure you want to continue?', 'events-manager') .PHP_EOL.PHP_EOL;
-					$em_localized_js['event_recurrence_overwrite'] .= __( 'Modifications to recurring events will be applied to all recurrences and will overwrite any changes made to those individual event recurrences.', 'events-manager') .PHP_EOL.PHP_EOL;
+					$em_localized_js['event_recurrence_overwrite'] = __('Are you sure you want to continue?', 'events-manager') .PHP_EOL;
+					$em_localized_js['event_recurrence_overwrite'] .= __( 'Modifications to recurring events will be applied to all recurrences and will overwrite any changes made to those individual event recurrences.', 'events-manager') .PHP_EOL;
 					$em_localized_js['event_recurrence_overwrite'] .= __( 'Bookings to individual event recurrences will be preserved if event times and ticket settings are not modified.', 'events-manager');
-					$em_localized_js['event_recurrence_bookings'] = __('Are you sure you want to continue?', 'events-manager') .PHP_EOL.PHP_EOL;
+					$em_localized_js['event_recurrence_bookings'] = __('Are you sure you want to continue?', 'events-manager') .PHP_EOL;
 					$em_localized_js['event_recurrence_bookings'] .= __('Modifications to event tickets will cause all bookings to individual recurrences of this event to be deleted.', 'events-manager');
 		    	}
 				$em_localized_js['event_detach_warning'] = __('Are you sure you want to detach this event? By doing so, this event will be independent of the recurring set of events.', 'events-manager');
@@ -586,12 +599,12 @@ if( is_multisite() ){
 				$return = get_site_option(str_replace('pre_option_','',$filter_name));
 				return $return;
 			}elseif( strstr($filter_name, 'pre_update_option_') !== false ){
-				if( is_super_admin() ){
+				if( em_wp_is_super_admin() ){
 					update_site_option(str_replace('pre_update_option_','',$filter_name), $value[0]);
 				}
 				return $value[1];
 			}elseif( strstr($filter_name, 'add_option_') !== false ){
-				if( is_super_admin() ){
+				if( em_wp_is_super_admin() ){
 					update_site_option(str_replace('add_option_','',$filter_name),$value[0]);
 				}
 				delete_option(str_replace('pre_option_','',$filter_name));
@@ -626,7 +639,8 @@ function em_locate_template( $template_name, $load=false, $the_args = array() ) 
 	//First we check if there are overriding tempates in the child or parent theme
 	$located = locate_template(array('plugins/events-manager/'.$template_name));
 	if( !$located ){
-		if ( file_exists(EM_DIR.'/templates/'.$template_name) ) {
+		$located = apply_filters('em_locate_template_default', $located, $template_name, $load, $the_args);
+		if ( !$located && file_exists(EM_DIR.'/templates/'.$template_name) ) {
 			$located = EM_DIR.'/templates/'.$template_name;
 		}
 	}
@@ -703,7 +717,7 @@ add_action ( 'template_redirect', 'em_rss' );
  */
 function em_modified_monitor($result){
 	if($result){
-	    update_option('em_last_modified', current_time('timestamp', true));
+	    update_option('em_last_modified', time());
 	}
 	return $result;
 }

@@ -1,6 +1,6 @@
 
-<div class="sucuriscan-panel sucuriscan-sitecheck-list sucuriscan-sitecheck-recommendations sucuriscan-%%SUCURI.Recommendations.Visibility%%">
-    <h3 class="sucuriscan-tag-title sucuriscan-tag-blue">@@SUCURI.Recomendations@@</h3>
+<div class="sucuriscan-panel sucuriscan-sitecheck-list sucuriscan-sitecheck-recommendations">
+    <h3 class="sucuriscan-tag-title sucuriscan-tag-%%SUCURI.Recommendations.Color%%">{{Recommendations}}</h3>
 
     <ul>
         %%%SUCURI.Recommendations.Content%%%

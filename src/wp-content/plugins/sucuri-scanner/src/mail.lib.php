@@ -3,9 +3,15 @@
 /**
  * Code related to the mail.lib.php interface.
  *
- * @package Sucuri Security
- * @subpackage mail.lib.php
- * @copyright Since 2010 Sucuri Inc.
+ * PHP version 5
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 
 if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
@@ -23,6 +29,14 @@ if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
  * will check if the site is being compromised, in which case a notification
  * will be sent to the site email address (an address that can be configured in
  * the settings page).
+ *
+ * @category   Library
+ * @package    Sucuri
+ * @subpackage SucuriScanner
+ * @author     Daniel Cid <dcid@sucuri.net>
+ * @copyright  2010-2018 Sucuri Inc.
+ * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
+ * @link       https://wordpress.org/plugins/sucuri-scanner
  */
 class SucuriScanMail extends SucuriScanOption
 {
@@ -39,11 +53,11 @@ class SucuriScanMail extends SucuriScanOption
     /**
      * Send a message to a specific email address.
      *
-     * @param string $email The email address of the recipient that will receive the message.
-     * @param string $subject The reason of the message that will be sent.
-     * @param string $message Body of the message that will be sent.
-     * @param array $data_set Optional parameter to add more information to the notification.
-     * @return bool Whether the email contents were sent successfully.
+     * @param  string $email    The email address of the recipient that will receive the message.
+     * @param  string $subject  The reason of the message that will be sent.
+     * @param  string $message  Body of the message that will be sent.
+     * @param  array  $data_set Optional parameter to add more information to the notification.
+     * @return bool             Whether the email contents were sent successfully.
      */
     public static function sendMail($email = '', $subject = '', $message = '', $data_set = array())
     {
@@ -63,7 +77,7 @@ class SucuriScanMail extends SucuriScanOption
         }
 
         if (self::emailsPerHourReached() && !$force) {
-            return self::throwException('Maximum number of emails per hour reached');
+            return self::throwException(__('Maximum number of emails per hour reached', 'sucuri-scanner'));
         }
 
         /* check if we need to load a template file to wrap the message */
@@ -101,24 +115,31 @@ class SucuriScanMail extends SucuriScanOption
     /**
      * Generate a subject for the email alerts.
      *
-     * @param string $event The reason of the message that will be sent.
-     * @return string A text with the subject for the email alert.
+     * @param  string $event The reason of the message that will be sent.
+     * @return string        A text with the subject for the email alert.
      */
     private static function getEmailSubject($event = '')
     {
         $subject = self::getOption(':email_subject');
         $subject = strip_tags((string) $subject);
+        $ip = self::getRemoteAddr();
+
         $subject = str_replace(':event', $event, $subject);
         $subject = str_replace(':domain', self::getDomain(), $subject);
-        $subject = str_replace(':remoteaddr', self::getRemoteAddr(), $subject);
+        $subject = str_replace(':remoteaddr', $ip, $subject);
+
+        if (strpos($subject, ':hostname') !== false) {
+            /* expensive operation; reverse user ip address if requested */
+            $subject = str_replace(':hostname', gethostbyaddr($ip), $subject);
+        }
 
         /* include data from the user in session, if necessary */
         if (strpos($subject, ':username') !== false
             || strpos($subject, ':email') !== false
         ) {
             $user = wp_get_current_user();
-            $username = __('Unknown', SUCURISCAN_TEXTDOMAIN);
-            $eaddress = __('Unknown', SUCURISCAN_TEXTDOMAIN);
+            $username = 'unknown';
+            $eaddress = 'unknown';
 
             if ($user instanceof WP_User
                 && isset($user->user_login)
@@ -138,10 +159,10 @@ class SucuriScanMail extends SucuriScanOption
     /**
      * Generate a HTML version of the message that will be sent through an email.
      *
-     * @param string $subject The reason of the message that will be sent.
-     * @param string $message Body of the message that will be sent.
-     * @param array $data_set Optional parameter to add more information to the notification.
-     * @return string The message formatted in a HTML template.
+     * @param  string $subject  The reason of the message that will be sent.
+     * @param  string $message  Body of the message that will be sent.
+     * @param  array  $data_set Optional parameter to add more information to the notification.
+     * @return string           The message formatted in a HTML template.
      */
     private static function prettifyMail($subject = '', $message = '', $data_set = array())
     {
@@ -160,7 +181,7 @@ class SucuriScanMail extends SucuriScanOption
             && !empty($user->user_login)
         ) {
             $display_name = sprintf(
-                __('UserInfo', SUCURISCAN_TEXTDOMAIN),
+                __('User: %s (%s)', 'sucuri-scanner'),
                 $user->display_name,
                 $user->user_login
             );
@@ -186,13 +207,14 @@ class SucuriScanMail extends SucuriScanOption
             }
         }
 
-        $params['TemplateTitle'] = __('SucuriAlert', SUCURISCAN_TEXTDOMAIN);
+        $params['TemplateTitle'] = __('Sucuri Alert', 'sucuri-scanner');
         $params['Subject'] = $subject;
         $params['Website'] = $website;
         $params['RemoteAddress'] = self::getRemoteAddr();
+        $params['ReverseAddress'] = gethostbyaddr($params['RemoteAddress']);
         $params['Message'] = $message;
         $params['User'] = $display_name;
-        $params['Time'] = SucuriScan::currentDateTime();
+        $params['Time'] = SucuriScan::datetime();
 
         foreach ($data_set as $var_key => $var_value) {
             $params[ $var_key ] = $var_value;

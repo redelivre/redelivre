@@ -1,10 +1,10 @@
 === Anti-spam ===
 Contributors: webvitaly
-Donate link: http://web-profile.com.ua/donate/
+Donate link: http://web-profile.net/donate/
 Tags: spam, spammer, comment, comments, comment-spam, antispam, anti-spam, block-spam, spam-free, spambot, spam-bot, bot
 Requires at least: 3.3
-Tested up to: 4.9
-Stable tag: 4.3
+Tested up to: 5.1
+Stable tag: 5.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -12,43 +12,41 @@ No spam in comments. No captcha.
 
 == Description ==
 
-> **[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii "Upgrade to Pro")** |
-> **[Anti-spam](http://web-profile.com.ua/wordpress/plugins/anti-spam/ "Plugin page")** |
-> **[Donate](http://web-profile.com.ua/donate/ "Support the development")** |
-> **[GitHub](https://github.com/webvitalii/anti-spam "Fork")** |
-> **[Silver Bullet Pro](http://codecanyon.net/item/silver-bullet-pro/15171769?ref=webvitalii "Speedup and protect WordPress in a smart way")**
-
-**Captcha madness:**
-
-[youtube https://www.youtube.com/watch?v=WqnXp6Saa8Y]
+* **[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii "Upgrade to Pro")** |
+* **[Anti-spam](http://web-profile.net/wordpress/plugins/anti-spam/ "Plugin page")** |
+* **[Donate](http://web-profile.net/donate/ "Support the development")** |
+* **[GitHub](https://github.com/webvitalii/anti-spam "Fork")**
 
 
-**Why humans should prove that they are humans by filling captchas? Lets bots prove that they are not bots with adding javascript to their user-agents!**
-
-Anti-spam plugin blocks spam in comments automatically, invisibly for users and for admins.
-
-* **no captcha**, because spam is not users' problem
-* **no moderation queues**, because spam is not administrators' problem
-* **no settings page**, because it is great to forget about spam completely and keep admin section clean
-
+Anti-spam plugin blocks automatic spam in comments section. No captcha. 
 
 Plugin is easy to use: just install it and it just works.
 
+Blocked comments can be stored in the Spam area if needed. This can be enabled/disabled via Settings page. This is useful for testing and debug purpose. Blocked spam comments can be easily converted to regular comments if needed.
+
+Anti-spam plugin is GDPR compliant and does not store any other user data except of the behavior mentioned above.
+
 **Plugin blocks spam only in comments section**.
+
+
 
 After installing the Anti-spam plugin **try to submit a comment on your site being logged out**.
 If you get an error - you may check the solution in the [Support section](http://wordpress.org/support/plugin/anti-spam) or submit a new topic with detailed description of your problem.
 
-= Useful: =
-* **[Anti-spam Pro - extended version with settings and manual spam protection](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii "Upgrade to Pro")**
-* **[Silver Bullet Pro - Speedup and protect WordPress in a smart way](http://codecanyon.net/item/silver-bullet-pro/15171769?ref=webvitalii "Speedup and protect WordPress in a smart way")**
 
 == Installation ==
 
-1. install and activate the plugin on the Plugins page
-2. enjoy life without spam in comments
+1. Install and activate the plugin on the Plugins page
+2. Enjoy life without spam in comments
 
 == Frequently Asked Questions ==
+
+= How to test what spam comments were blocked? =
+
+You can visit Anti-spam settings page and enable saving blocked comments as spam in the spam section.
+To enabled that you need to go to: WordPress admin dashboard => Settings section => Anti-spam
+Saving blocked comments into spam section is disabled by default.
+Saving spam comments can help you to keep all the comments saved and review them in future if needed. You can easily mark comment as "not spam" if some of the comments were blocked by mistake.
 
 = What is the percentage of spam blocked? =
 
@@ -89,29 +87,18 @@ You can find the info block with total spam blocked counter in the admin comment
 You can hide or show this info block in the "Screen Options" section.
 The visibility option for this info block is saved per user.
 
-= How to test what spam comments were blocked? =
-
-You may enable sending all rejected spam comments to admin email.
-Edit [anti-spam.php](http://plugins.trac.wordpress.org/browser/anti-spam/trunk/anti-spam.php) file and find "$antispam_send_spam_comment_to_admin" and make it "true".
-Or you may log all blocked spam comments to log files.
-Edit [anti-spam.php](http://plugins.trac.wordpress.org/browser/anti-spam/trunk/anti-spam.php) file and find "$antispam_log_spam_comment" and make it "true".
-Spam comments will be saved in the file: http://site.com/wp-content/plugins/anti-spam/log/anti-spam-2015-12.log (where "site.com" is the domain and "2015-12" is year and month).
-Spam log is stored in files per month and history will be saved for 1 year and older log files will be deleted automatically.
-These features are made for debug purposes and values for these flags will be overwritten after plugin's update.
-These features are disabled by default.
-
 = Does plugin block spam from Contact or other forms? =
 
 Plugin blocks spam only in comments form section and does not block spam from any other forms on site.
-If you installed and activated the plugin and you still receiving spam - probably this could be because of some other forms on your site (for example comments forms).
+If you installed and activated the plugin and you still receiving spam - probably this could be because of some other forms on your site (for example feedback form).
 
 = What about trackback spam? =
 
 Users rarely use trackbacks because it is manual and requires extra input. Spammers uses trackbacks because it is easy to cheat here.
 Users use pingbacks very often because they work automatically. Spammers does not use pingbacks because backlinks are checked.
-So trackbacks are blocked by default but pingbacks are enabled. You may enable trackbacks if you use it.
-Edit [anti-spam.php](http://plugins.trac.wordpress.org/browser/anti-spam/trunk/anti-spam.php) file and find "$antispam_allow_trackbacks" and make it "true".
-You may read more about the [difference between trackbacks and pingbacks](http://web-profile.com.ua/web/trackback-vs-pingback/).
+So trackbacks are blocked but pingbacks are enabled. 
+You may use [Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii "Upgrade to Pro") plugin if you need to enable trackbacks.
+You may read more about the [difference between trackbacks and pingbacks](http://web-profile.net/web/trackback-vs-pingback/)
 
 = What browsers are supported? =
 
@@ -135,9 +122,33 @@ The plugin is pretty small and easy to read.
 
 == Changelog ==
 
+= 5.4 =
+* Updated dismissible notice
+
+= 5.3 =
+* Fixed the typo in the readme
+* Readme cleanup
+* Code cleanup
+* Added dismissible notice
+
+= 5.2 =
+* Disable trackbacks
+
+= 5.1 =
+* Disable check for comments from logged in users
+
+= 5.0 =
+* Rewriting/refactoring a lot of the code
+* Adding Settings page
+* Storing blocked comments into the Spam section
+* Working on GDPR compliance
+
+
+= 4.4 - 2017-08-30 =
+* Fixed issue with showing comments on every page. Thanks to [johnh10](https://wordpress.org/support/topic/shows-the-captcha-on-archive-pages/)
 
 = 4.3 - 2016-11-22 =
-* fix notices
+* fixed notices
 
 = 4.2 - 2016-01-30 =
 * removed XSS vulnerability - thanks to Kenan from [tbmnull.com](http://tbmnull.com/)

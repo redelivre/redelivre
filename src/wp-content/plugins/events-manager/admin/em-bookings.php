@@ -79,20 +79,19 @@ function em_bookings_event(){
 		<?php
 		return false;
 	}
-	$localised_start_date = date_i18n('D d M Y', $EM_Event->start);
-	$localised_end_date = date_i18n('D d M Y', $EM_Event->end);
 	$header_button_classes = is_admin() ? 'page-title-action':'button add-new-h2';
 	?>
 	<div class='wrap'>
-		<?php if( is_admin() ): ?><h1><?php else: ?><h2><?php endif; ?>		
+		<?php if( is_admin() ): ?><h1 class="wp-heading-inline"><?php else: ?><h2><?php endif; ?>		
   			<?php echo sprintf(__('Manage %s Bookings', 'events-manager'), "'{$EM_Event->event_name}'"); ?>
+  		<?php if( is_admin() ): ?></h1><?php endif; ?>
   			<a href="<?php echo $EM_Event->get_permalink(); ?>" class="<?php echo $header_button_classes; ?>"><?php echo sprintf(__('View %s','events-manager'), __('Event', 'events-manager')) ?></a>
   			<a href="<?php echo $EM_Event->get_edit_url(); ?>" class="<?php echo $header_button_classes; ?>"><?php echo sprintf(__('Edit %s','events-manager'), __('Event', 'events-manager')) ?></a>
   			<?php if( locate_template('plugins/events-manager/templates/csv-event-bookings.php', false) ): //support for legacy template ?>
   			<a href='<?php echo EM_ADMIN_URL ."&amp;page=events-manager-bookings&amp;action=bookings_export_csv&amp;_wpnonce=".wp_create_nonce('bookings_export_csv')."&amp;event_id=".$EM_Event->event_id ?>' class="<?php echo $header_button_classes; ?>"><?php esc_html_e('Export CSV','events-manager')?></a>
   			<?php endif; ?>
   			<?php do_action('em_admin_event_booking_options_buttons'); ?>
-		<?php if( !is_admin() ): ?></h2><?php else: ?></h1><?php endif; ?>
+		<?php if( !is_admin() ): ?></h2><?php else: ?><hr class="wp-header-end" /><?php endif; ?>
   		<?php if( !is_admin() ) echo $EM_Notices; ?>  
 		<div>
 			<p><strong><?php esc_html_e('Event Name','events-manager'); ?></strong> : <?php echo esc_html($EM_Event->event_name); ?></p>
@@ -105,9 +104,7 @@ function em_bookings_event(){
 			</p>
 			<p>
 				<strong><?php esc_html_e('Date','events-manager'); ?></strong> : 
-				<?php echo $localised_start_date; ?>
-				<?php echo ($localised_end_date != $localised_start_date) ? " - $localised_end_date":'' ?>
-				<?php echo substr ( $EM_Event->event_start_time, 0, 5 ) . " - " . substr ( $EM_Event->event_end_time, 0, 5 ); ?>							
+				<?php echo $EM_Event->output_dates(false, " - "). ' @ ' . $EM_Event->output_times(false, ' - '); ?>						
 			</p>
 			<p>
 				<strong><?php esc_html_e('Location','events-manager'); ?></strong> :
@@ -141,12 +138,13 @@ function em_bookings_ticket(){
 	$header_button_classes = is_admin() ? 'page-title-action':'button add-new-h2';
 	?>
 	<div class='wrap'>
-		<?php if( is_admin() ): ?><h1><?php else: ?><h2><?php endif; ?>
+		<?php if( is_admin() ): ?><h1 class="wp-heading-inline"><?php else: ?><h2><?php endif; ?>
   			<?php echo sprintf(__('Ticket for %s', 'events-manager'), "'{$EM_Event->name}'"); ?>
+  		<?php if( is_admin() ): ?></h1><?php endif; ?>
   			<a href="<?php echo $EM_Event->get_edit_url(); ?>" class="<?php echo $header_button_classes; ?>"><?php esc_html_e('View/Edit Event','events-manager') ?></a>
   			<a href="<?php echo $EM_Event->get_bookings_url(); ?>" class="<?php echo $header_button_classes; ?>"><?php esc_html_e('View Event Bookings','events-manager') ?></a>
   		
-		<?php if( !is_admin() ): ?></h2><?php else: ?></h1><?php endif; ?>
+		<?php if( !is_admin() ): ?></h2><?php else: ?><hr class="wp-header-end" /><?php endif; ?>
   		<?php if( !is_admin() ) echo $EM_Notices; ?>
 		<div>
 			<table>
@@ -156,8 +154,8 @@ function em_bookings_ticket(){
 				<tr><td><?php echo __('Spaces','events-manager'); ?></td><td></td><td><?php echo ($EM_Ticket->ticket_spaces) ? $EM_Ticket->ticket_spaces : '-'; ?></td></tr>
 				<tr><td><?php echo __('Min','events-manager'); ?></td><td></td><td><?php echo ($EM_Ticket->ticket_min) ? $EM_Ticket->ticket_min : '-'; ?></td></tr>
 				<tr><td><?php echo __('Max','events-manager'); ?></td><td></td><td><?php echo ($EM_Ticket->ticket_max) ? $EM_Ticket->ticket_max : '-'; ?></td></tr>
-				<tr><td><?php echo __('Start','events-manager'); ?></td><td></td><td><?php echo ($EM_Ticket->ticket_start) ? $EM_Ticket->ticket_start : '-'; ?></td></tr>
-				<tr><td><?php echo __('End','events-manager'); ?></td><td></td><td><?php echo ($EM_Ticket->ticket_end) ? $EM_Ticket->ticket_end : '-'; ?></td></tr>
+				<tr><td><?php echo __('Start','events-manager'); ?></td><td></td><td><?php echo ($EM_Ticket->ticket_start) ? $EM_Ticket->start()->formatDefault() : '-'; ?></td></tr>
+				<tr><td><?php echo __('End','events-manager'); ?></td><td></td><td><?php echo ($EM_Ticket->ticket_end) ? $EM_Ticket->end()->formatDefault() : '-'; ?></td></tr>
 				<?php do_action('em_booking_admin_ticket_row', $EM_Ticket); ?>
 			</table>
 		</div>
@@ -200,17 +198,13 @@ function em_bookings_single(){
 						<div class="inside">
 							<?php
 							$EM_Event = $EM_Booking->get_event();
-							$localised_start_date = date_i18n(get_option('dbem_date_format'), $EM_Event->start);
-							$localised_end_date = date_i18n(get_option('dbem_date_format'), $EM_Event->end);
 							?>
 							<table>
 								<tr><td><strong><?php esc_html_e('Name','events-manager'); ?></strong></td><td><a class="row-title" href="<?php echo $EM_Event->get_bookings_url(); ?>"><?php echo ($EM_Event->event_name); ?></a></td></tr>
 								<tr>
 									<td><strong><?php esc_html_e('Date/Time','events-manager'); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
 									<td>
-										<?php echo $localised_start_date; ?>
-										<?php echo ($localised_end_date != $localised_start_date) ? " - $localised_end_date":'' ?>
-										<?php echo substr ( $EM_Event->event_start_time, 0, 5 ) . " - " . substr ( $EM_Event->event_end_time, 0, 5 ); ?>
+										<?php echo $EM_Event->output('#_EVENTDATES @ #_EVENTTIMES'); ?>	
 									</td>
 								</tr>
 							</table>
@@ -263,8 +257,6 @@ function em_bookings_single(){
 						<div class="inside">
 							<?php
 							$EM_Event = $EM_Booking->get_event();
-							$localised_start_date = date_i18n(get_option('date_format'), $EM_Event->start);
-							$localised_end_date = date_i18n(get_option('date_format'), $EM_Event->end);
 							$shown_tickets = array();
 							?>
 							<div>
@@ -393,12 +385,12 @@ function em_bookings_single(){
 											</tr>
 											<?php endforeach; ?>
 										<?php endif; ?>
-										<tr>
+										<tr class="em-hr">
 											<th><?php esc_html_e('Total Price','events-manager'); ?></th>
 											<th>&nbsp;</th>
 											<th><?php echo $price_summary['total']; ?></th>
 										</tr>
-										<?php do_action('em_bookings_admin_ticket_totals_footer'); ?>
+										<?php do_action('em_bookings_admin_ticket_totals_footer', $EM_Booking); ?>
 									</tfoot>
 								</table>
 								<table class="em-form-fields" cellspacing="0" cellpadding="0">
@@ -508,15 +500,16 @@ function em_bookings_person(){
 	$header_button_classes = is_admin() ? 'page-title-action':'button add-new-h2';
 	?>
 	<div class='wrap'>
-		<?php if( is_admin() ): ?><h1><?php else: ?><h2><?php endif; ?>
+		<?php if( is_admin() ): ?><h1 class="wp-heading-inline"><?php else: ?><h2><?php endif; ?>
   			<?php esc_html_e('Manage Person\'s Booking', 'events-manager'); ?>
+  		<?php if( is_admin() ): ?></h1><?php endif; ?>
   			<?php if( current_user_can('edit_users') ) : ?>
   			<a href="<?php echo admin_url('user-edit.php?user_id='.$EM_Person->ID); ?>" class="<?php echo $header_button_classes; ?>"><?php esc_html_e('Edit User','events-manager') ?></a>
   			<?php endif; ?>
   			<?php if( current_user_can('delete_users') ) : ?>
   			<a href="<?php echo wp_nonce_url( admin_url("users.php?action=delete&amp;user=$EM_Person->ID"), 'bulk-users' ); ?>" class="<?php echo $header_button_classes; ?>"><?php esc_html_e('Delete User','events-manager') ?></a>
   			<?php endif; ?>
-		<?php if( !is_admin() ): ?></h2><?php else: ?></h1><?php endif; ?>
+		<?php if( !is_admin() ): ?></h2><?php else: ?><hr class="wp-header-end" /><?php endif; ?>
   		<?php if( !is_admin() ) echo $EM_Notices; ?>
 		<?php do_action('em_bookings_person_header'); ?>
   		<div id="poststuff" class="metabox-holder has-right-sidebar">

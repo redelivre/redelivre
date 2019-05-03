@@ -58,7 +58,24 @@ class EM_Booking extends EM_Object{
 	 * @var array
 	 */
 	var $notes;
-	var $timestamp;
+	/**
+	 * Deprecated as of 5.8.2, previously used to store timestamp of booking date. Use EM_Booking->date()->getTimestamp() instead.
+	 * @var int
+	 */
+	private $timestamp;
+	/**
+	 * The date of the booking, in UTC time, represented as a DATETIME mysql value.
+	 * @var string
+	 */
+	protected $booking_date;
+	/**
+	 * Contains the booking date in EM_DateTime object form.
+	 * @var EM_DateTime
+	 */
+	protected $date;
+	/**
+	 * @var EM_Person
+	 */
 	var $person;
 	var $required_fields = array('booking_id', 'event_id', 'person_id', 'booking_spaces');
 	var $feedback_message = "";
@@ -102,7 +119,7 @@ class EM_Booking extends EM_Object{
 	var $manage_override;
 	
 	/**
-	 * Creates booking object and retreives booking data (default is a blank booking object). Accepts either array of booking data (from db) or a booking id.
+	 * Creates booking object and retrieves booking data (default is a blank booking object). Accepts either array of booking data (from db) or a booking id.
 	 * @param mixed $booking_data
 	 * @return null
 	 */
@@ -115,7 +132,7 @@ class EM_Booking extends EM_Object{
 			if( is_array($booking_data) ){
 				$booking = $booking_data;
 			}elseif( is_numeric($booking_data) ){
-				//Retreiving from the database
+				//Retrieving from the database
 				$sql = "SELECT * FROM ". EM_BOOKINGS_TABLE ." WHERE booking_id ='$booking_data'";
 				$booking = $wpdb->get_row($sql, ARRAY_A);
 			}
@@ -125,7 +142,7 @@ class EM_Booking extends EM_Object{
 			$this->to_object($booking);
 			$this->previous_status = $this->booking_status;
 			$this->get_person();
-			$this->timestamp = !empty($booking['booking_date']) ? strtotime($booking['booking_date'], current_time('timestamp')):false;
+			$this->booking_date = !empty($booking['booking_date']) ? $booking['booking_date']:false;
 		}
 		//Do it here so things appear in the po file.
 		$this->status_array = array(
@@ -140,10 +157,33 @@ class EM_Booking extends EM_Object{
 		//do some legacy checking here for bookings made prior to 5.4, due to how taxes are calculated
 		$this->get_tax_rate();
 		if( !empty($this->legacy_tax_rate) ){
-			//reset booking_price, it'll be recalculated later (if you're using this property directly, don't, use $this->get_price())
+			//reset booking_price, it'll be recalculated later (if you're using this property directly, don't use $this->get_price())
 	    	$this->booking_price = $this->booking_taxes = null;
 		}
 		do_action('em_booking', $this, $booking_data);
+	}
+
+	
+	function __get( $var ){
+	    //get the modified or created date from the DB only if requested, and save to object
+	    if( $var == 'timestamp' ){
+	    	if( $this->date() === false ) return 0;
+	    	return $this->date()->getTimestampWithOffset();
+	    }
+	    return null;
+	}
+	
+	public function __set( $prop, $val ){
+		if( $prop == 'timestamp' ){
+			if( $this->date() !== false );
+			$this->date()->setTimestamp($val);
+		}else{
+			$this->$prop = $val;
+		}
+	}
+	
+	public function __isset( $prop ){
+		if( $prop == 'timestamp' ) $this->date()->getTimestamp() > 0;
 	}
 	
 	function get_notes(){
@@ -187,7 +227,7 @@ class EM_Booking extends EM_Object{
 			}else{
 				$update = false;
 				$data_types = $this->get_types($data);
-				$data['booking_date'] = current_time('mysql');
+				$data['booking_date'] = gmdate('Y-m-d H:i:s');
 				$data_types[] = '%s';
 				$result = $wpdb->insert($table, $data, $data_types);
 			    $this->booking_id = $wpdb->insert_id;  
@@ -224,7 +264,7 @@ class EM_Booking extends EM_Object{
 	}
 	
 	/**
-	 * Load an record into this object by passing an associative array of table criterie to search for. 
+	 * Load an record into this object by passing an associative array of table criteria to search for. 
 	 * Returns boolean depending on whether a record is found or not. 
 	 * @param $search
 	 * @return boolean
@@ -285,7 +325,7 @@ class EM_Booking extends EM_Object{
 			//get person
 			$this->get_person();
 			//re-run compatiblity keys function
-			$this->compat_keys(); //depricating in 6.0
+			$this->compat_keys(); //depracating in 6.0
 		}
 		return apply_filters('em_booking_get_post',count($this->errors) == 0,$this);
 	}
@@ -329,7 +369,7 @@ class EM_Booking extends EM_Object{
 	}
 	
 	/**
-	 * Get the total number of spaces booked in THIS booking. Seting $force_refresh to true will recheck spaces, even if previously done so.
+	 * Get the total number of spaces booked in THIS booking. Setting $force_refresh to true will recheck spaces, even if previously done so.
 	 * @param unknown_type $force_refresh
 	 * @return mixed
 	 */
@@ -376,12 +416,14 @@ class EM_Booking extends EM_Object{
 	    return $price;
 	}
 	
-	function get_price_pre_taxes( $format = false ){
+	function get_price_pre_taxes( $format = false, $include_adjustments = true ){
 	    $price = $base_price = $this->get_price_base();
 	    //apply pre-tax discounts
-	    $price -= $this->get_price_adjustments_amount('discounts', 'pre', $base_price);
-	    $price += $this->get_price_adjustments_amount('surcharges', 'pre', $base_price);
-	    $price = apply_filters('em_booking_get_price_pre_taxes', $price, $base_price, $this);
+	    if( $include_adjustments ){
+		    $price -= $this->get_price_adjustments_amount('discounts', 'pre', $base_price);
+		    $price += $this->get_price_adjustments_amount('surcharges', 'pre', $base_price);
+	    }
+	    $price = apply_filters('em_booking_get_price_pre_taxes', $price, $base_price, $this, $include_adjustments);
 	    if( $price < 0 ){ $price = 0; } //no negative prices
 	    //return amount of taxes applied, formatted or not
 	    if( $format ) return $this->format_price($price);
@@ -389,13 +431,14 @@ class EM_Booking extends EM_Object{
 	}
 	
 	/**
-	 * Gets price AFTER taxes and post-tax discounts have also been added
+	 * Gets price AFTER taxes and (optionally) post-tax discounts and surcharges have also been added.
 	 * @param boolean $format
+	 * @param boolean $include_adjustments If set to true discounts and surcharges won't be applied to the overall price.
 	 * @return double|string
 	 */
-	function get_price_post_taxes( $format = false ){
+	function get_price_post_taxes( $format = false, $include_adjustments = true ){
 	    //get price before taxes
-	    $price = $this->get_price_pre_taxes();
+	    $price = $this->get_price_pre_taxes( false, $include_adjustments );
 	    //add taxes to price
 	    if( $this->get_tax_rate() > 0 ){
 	        $this->booking_taxes = $price * ($this->get_tax_rate()/100); //calculate and save tax amount
@@ -404,9 +447,11 @@ class EM_Booking extends EM_Object{
 	    }
 	    //apply post-tax discounts
 	    $price_after_taxes = $price;
-	    $price -= $this->get_price_adjustments_amount('discounts', 'post', $price_after_taxes);
-	    $price += $this->get_price_adjustments_amount('surcharges', 'post', $price_after_taxes);
-	    $price = apply_filters('em_booking_get_price_post_taxes', $price, $price_after_taxes, $this);
+	    if( $include_adjustments ){
+		    $price -= $this->get_price_adjustments_amount('discounts', 'post', $price_after_taxes);
+		    $price += $this->get_price_adjustments_amount('surcharges', 'post', $price_after_taxes);
+	    }
+	    $price = apply_filters('em_booking_get_price_post_taxes', $price, $price_after_taxes, $this, $include_adjustments);
 	    if( $price < 0 ){ $price = 0; } //no negative prices
 	    //return amount of taxes applied, formatted or not
 	    if( $format ) return $this->format_price($price);
@@ -625,19 +670,19 @@ class EM_Booking extends EM_Object{
 	/* Get Objects linked to booking */
 	
 	/**
-	 * Gets the event this booking belongs to and saves a refernece in the event property
+	 * Gets the event this booking belongs to and saves a reference in the event property
 	 * @return EM_Event
 	 */
 	function get_event(){
 		global $EM_Event;
 		if( is_object($this->event) && get_class($this->event)=='EM_Event' && $this->event->event_id == $this->event_id ){
 			return $this->event;
-		}elseif( is_object($EM_Event) && ( (is_object($this->event) && $this->event->event_id == $this->event_id) || empty($this->booking_id)) ){
+		}elseif( is_object($EM_Event) && $EM_Event->event_id == $this->event_id ){
 			$this->event = $EM_Event;
 		}else{
-			$this->event = new EM_Event($this->event_id, 'event_id');
+			$this->event = em_get_event($this->event_id, 'event_id');
 		}
-		return apply_filters('em_booking_get_event',$this->event, $this);
+		return apply_filters('em_booking_get_event', $this->event, $this);
 	}
 	
 	/**
@@ -843,7 +888,7 @@ class EM_Booking extends EM_Object{
 	
 	function cancel($email = true){
 		if( $this->person->ID == get_current_user_id() ){
-			$this->manage_override = true; //normally, users can't manage a bookiing, only event owners, so we allow them to mod their booking status in this case only.
+			$this->manage_override = true; //normally, users can't manage a booking, only event owners, so we allow them to mod their booking status in this case only.
 		}
 		return $this->set_status(3, $email);
 	}
@@ -891,7 +936,7 @@ class EM_Booking extends EM_Object{
 		$result = $wpdb->query($wpdb->prepare('UPDATE '.EM_BOOKINGS_TABLE.' SET booking_status=%d WHERE booking_id=%d', array($status, $this->booking_id)));
 		if($result !== false){
 			$this->feedback_message = sprintf(__('Booking %s.','events-manager'), $action_string);
-			if( $email ){
+			if( $email && $this->previous_status != $this->booking_status ){ //email if status has changed
 				if( $this->email() ){
 				    if( $this->mails_sent > 0 ){
 				        $this->feedback_message .= " ".__('Email Sent.','events-manager');
@@ -951,7 +996,7 @@ class EM_Booking extends EM_Object{
 		global $wpdb;
 		if( $this->can_manage() ){
 			$this->get_notes();
-			$note = array('author'=>get_current_user_id(),'note'=>$note_text,'timestamp'=>current_time('timestamp'));
+			$note = array('author'=>get_current_user_id(),'note'=>$note_text,'timestamp'=>time());
 			$this->notes[] = wp_kses_data($note);
 			$this->feedback_message = __('Booking note successfully added.','events-manager');
 			return $wpdb->insert(EM_META_TABLE, array('object_id'=>$this->booking_id, 'meta_key'=>'booking-note', 'meta_value'=> serialize($note)),array('%d','%s','%s'));
@@ -1001,13 +1046,13 @@ class EM_Booking extends EM_Object{
 					$replace = $this->get_spaces();
 					break;
 				case '#_BOOKINGDATE':
-					$replace = ( $this->timestamp ) ? date_i18n(get_option('dbem_date_format'), $this->timestamp):'n/a';
+					$replace = ( $this->date() !== false ) ? $this->date()->i18n( em_get_date_format() ):'n/a';
 					break;
 				case '#_BOOKINGTIME':
-					$replace = ( $this->timestamp ) ? date_i18n(get_option('dbem_time_format'), $this->timestamp):'n/a';
+					$replace = ( $this->date() !== false ) ?  $this->date()->i18n( em_get_hour_format() ):'n/a';
 					break;
 				case '#_BOOKINGDATETIME':
-					$replace = ( $this->timestamp ) ? date_i18n(get_option('dbem_date_format').' '.get_option('dbem_time_format'), $this->timestamp):'n/a';
+					$replace = ( $this->date() !== false ) ? $this->date()->i18n( em_get_date_format().' '.em_get_hour_format()):'n/a';
 					break;
 				case '#_BOOKINGLISTURL':
 					$replace = em_get_my_bookings_url();
@@ -1169,6 +1214,32 @@ class EM_Booking extends EM_Object{
 	    		break;
 	    }
 	    return apply_filters('em_booking_email_messages', $msg, $this);
+	}
+	
+	/**
+	 * Returns an EM_DateTime representation of when booking was made in UTC timezone. If no valid date defined, false will be returned
+	 * @return EM_DateTime
+	 */
+	public function date( $utc_timezone = false ){
+		if( empty($this->date) || !$this->date->valid ){
+			if( !empty($this->booking_date ) ){
+			    $this->date = new EM_DateTime($this->booking_date, 'UTC');
+			}else{
+				//we retrn a date regardless but it's not based on a 'valid' booking date
+				$this->date = new EM_DateTime();
+				$this->date->valid = false;
+			}
+		}
+		//Set to UTC timezone if requested, local blog time by default
+		if( $utc_timezone ){
+			$timezone = 'UTC';
+		}else{
+			//we could set this to false but this way we might avoid creating a new timezone if it's already in this one
+			$timezone = get_option( 'timezone_string' );
+			if( !$timezone ) $timezone = get_option('gmt_offset');
+		}
+		$this->date->setTimezone($timezone);
+		return $this->date;
 	}
 	
 	/**
