@@ -163,6 +163,10 @@ class Extension_CloudFlare_Api {
 
 
 	private function _wp_remote_request( $method, $url, $body = array() ) {
+		if ( empty( $this->_email ) || empty( $this->_key ) ) {
+			throw new \Exception('Not authenticated');
+		}
+
 		$result = wp_remote_request( $url, array(
 				'method' => $method,
 				'headers' => array(
@@ -174,14 +178,15 @@ class Extension_CloudFlare_Api {
 				'body' => $body
 			) );
 
-		if ( is_wp_error( $result ) )
+		if ( is_wp_error( $result ) ) {
 			throw new \Exception( 'Failed to reach API endpoint' );
+		}
 
 		$response_json = @json_decode( $result['body'], true );
 		if ( is_null( $response_json ) || !isset( $response_json['success'] ) ) {
 			throw new \Exception(
 				'Failed to reach API endpoint, got unexpected response ' .
-				$result['body'] );
+				str_replace( '<', '.', str_replace( '>', '.', $result['body'] ) ) );
 		}
 
 		if ( !$response_json['success'] ) {

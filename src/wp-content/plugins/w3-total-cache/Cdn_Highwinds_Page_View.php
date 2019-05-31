@@ -21,7 +21,7 @@ $hash_code = $config->get_string( 'cdn.highwinds.host.hash_code' );
 
 <?php if ( !empty( $hash_code ) ): ?>
 <tr>
-	<th><label><?php _e( 'CDN host (CNAME target):', 'w3-total-cache' ); ?></label></th>
+	<th><label><?php _e( '<acronym title="Content Delivery Network">CDN</acronym> host (<acronym title="Canonical Name">CNAME</acronym> target):', 'w3-total-cache' ); ?></label></th>
 	<td class="w3tc_config_value_text">
 		cds.<?php echo $config->get_string( 'cdn.highwinds.host.hash_code' ) ?>.hwcdn.net
 	</td>
@@ -34,7 +34,7 @@ $hash_code = $config->get_string( 'cdn.highwinds.host.hash_code' );
 			<option value="enabled"<?php selected( $config->get_string( 'cdn.highwinds.ssl' ), 'enabled' ); ?>><?php _e( 'Enabled (always use SSL)', 'w3-total-cache' ); ?></option>
 			<option value="disabled"<?php selected( $config->get_string( 'cdn.highwinds.ssl' ), 'disabled' ); ?>><?php _e( 'Disabled (always use HTTP)', 'w3-total-cache' ); ?></option>
 		</select>
-        <br /><span class="description"><?php _e( 'Some <acronym>CDN</acronym> providers may or may not support <acronym title="Secure Sockets Layer">SSL</acronym>, contact your vendor for more information.', 'w3-total-cache' ); ?></span>
+        <br /><span class="description"><?php _e( 'Some <acronym title="Content Delivery Network">CDN</acronym> providers may or may not support <acronym title="Secure Sockets Layer">SSL</acronym>, contact your vendor for more information.', 'w3-total-cache' ); ?></span>
 	</td>
 </tr>
 <tr>
@@ -42,9 +42,9 @@ $hash_code = $config->get_string( 'cdn.highwinds.host.hash_code' );
     <td>
 		<?php $cnames = $config->get_array( 'cdn.highwinds.host.domains' ); include W3TC_INC_DIR . '/options/cdn/common/cnames-readonly.php'; ?>
 		<input class="w3tc_cdn_highwinds_configure_cnames_form button" type="button"
-				value="<?php _e( 'Configure CNAMEs', 'w3-total-cache' ); ?>" />
+				value="<?php _e( 'Configure <acronym title="Canonical Name">CNAME</acronym>s', 'w3-total-cache' ); ?>" />
         <br />
-        <span class="description"><?php _e( 'Hostname provided by your <acronym>CDN</acronym> provider, this value will replace your site\'s hostname in the <acronym title="Hypertext Markup Language">HTML</acronym>.', 'w3-total-cache' ); ?></span>
+        <span class="description"><?php _e( 'Hostname provided by your <acronym title="Content Delivery Network">CDN</acronym> provider, this value will replace your site\'s hostname in the <acronym title="Hypertext Markup Language">HTML</acronym>.', 'w3-total-cache' ); ?></span>
     </td>
 </tr>
 <tr>

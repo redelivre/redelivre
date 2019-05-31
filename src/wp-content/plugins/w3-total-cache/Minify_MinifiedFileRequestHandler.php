@@ -54,6 +54,15 @@ class Minify_MinifiedFileRequestHandler {
 			if ( ! $cache->store( basename( $file ), array( 'content' => 'content ok' ) ) ) {
 				echo 'error storing';
 			} else {
+				if ( ( function_exists( 'brotli_compress' ) &&
+				       $this->_config->get_boolean( 'browsercache.enabled' ) &&
+				       $this->_config->get_boolean( 'browsercache.cssjs.brotli' ) ) )
+					if ( !$cache->store( basename( $file ) . '_br',
+						array( 'content' => brotli_compress( 'content ok' ) ) ) ) {
+						echo 'error storing';
+						exit();
+					}
+
 				if ( ( function_exists( 'gzencode' ) &&
 						$this->_config->get_boolean( 'browsercache.enabled' ) &&
 						$this->_config->get_boolean( 'browsercache.cssjs.compression' ) ) )
@@ -134,7 +143,8 @@ class Minify_MinifiedFileRequestHandler {
 				'encodeOutput' => ( $browsercache &&
 					!defined( 'W3TC_PAGECACHE_OUTPUT_COMPRESSION_OFF' ) &&
 					!$quiet &&
-					$this->_config->get_boolean( 'browsercache.cssjs.compression' ) ),
+                    ( $this->_config->get_boolean( 'browsercache.cssjs.compression' ) ||
+                    $this->_config->get_boolean( 'browsercache.cssjs.brotli' ) ) ),
 				'bubbleCssImports' => ( $this->_config->get_string( 'minify.css.imports' ) == 'bubble' ),
 				'processCssImports' => ( $this->_config->get_string( 'minify.css.imports' ) == 'process' ),
 				'cacheHeaders' => array(
@@ -143,6 +153,7 @@ class Minify_MinifiedFileRequestHandler {
 					'cacheheaders_enabled' => ( $browsercache && $this->_config->get_boolean( 'browsercache.cssjs.cache.control' ) ),
 					'cacheheaders' => $this->_config->get_string( 'browsercache.cssjs.cache.policy' )
 				),
+				'disable_304' => $quiet,   // when requested for service needs - need content instead of 304
 				'quiet' => $quiet
 			) );
 
@@ -366,13 +377,14 @@ class Minify_MinifiedFileRequestHandler {
 
 					$file = Util_Environment::url_to_docroot_filename( $url );
 
-					if ( Util_Environment::is_url( $file ) ) {
-						$precached_file = $this->_precache_file( $file, $type );
+					if ( is_null( $file ) ) {
+						// it's external url
+						$precached_file = $this->_precache_file( $url, $type );
 
 						if ( $precached_file ) {
-							$result[$location][$file] = $precached_file;
+							$result[$location][$url] = $precached_file;
 						} else {
-							Minify_Core::debug_error( sprintf( 'Unable to cache remote file: "%s"', $file ) );
+							Minify_Core::debug_error( sprintf( 'Unable to cache remote url: "%s"', $url ) );
 						}
 					} else {
 						$path = Util_Environment::document_root() . '/' . $file;
@@ -503,7 +515,10 @@ class Minify_MinifiedFileRequestHandler {
 		$result = array();
 		if ( is_array( $files ) && count( $files ) > 0 ) {
 			foreach ( $files as $file ) {
-				if ( Util_Environment::is_url( $file ) ) {
+				$docroot_filename = Util_Environment::url_to_docroot_filename( $file );
+
+				if ( Util_Environment::is_url( $file ) && is_null( $docroot_filename ) ) {
+					// it's external url
 					$precached_file = $this->_precache_file( $file, $type );
 
 					if ( $precached_file ) {
@@ -512,13 +527,12 @@ class Minify_MinifiedFileRequestHandler {
 						Minify_Core::debug_error( sprintf( 'Unable to cache remote file: "%s"', $file ) );
 					}
 				} else {
-					$file = Util_Environment::url_to_docroot_filename( $file );
-					$path = Util_Environment::document_root() . '/' . $file;
+					$path = Util_Environment::docroot_to_full_filename( $docroot_filename );
 
 					if ( file_exists( $path ) ) {
 						$result[] = $file;
 					} else {
-						Minify_Core::debug_error( sprintf( 'File "%s" doesn\'t exist', $path ) );
+						Minify_Core::debug_error( sprintf( 'File "%s" doesn\'t exist', $file ) );
 					}
 				}
 			}
@@ -589,7 +603,11 @@ class Minify_MinifiedFileRequestHandler {
 				Util_File::mkdir_from_safe( dirname( $cache_path ), W3TC_CACHE_DIR );
 			}
 
-			Util_Http::download( $url, $cache_path );
+			// google-fonts (most used for external inclusion)
+			// doesnt return full content (unicode-range) for simple useragents
+			Util_Http::download( $url, $cache_path,
+				array( 'user-agent' =>
+					'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92' ) );
 		}
 
 		return file_exists( $cache_path ) ? $this->_get_minify_source( $cache_path, $url ) : false;

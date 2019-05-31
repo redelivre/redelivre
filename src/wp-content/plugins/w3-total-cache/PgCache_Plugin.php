@@ -21,6 +21,9 @@ class PgCache_Plugin {
 		add_action( 'w3tc_flush_all',
 			array( $this, 'w3tc_flush_posts' ),
 			1100, 1 );
+		add_action( 'w3tc_flush_group',
+			array( $this, 'w3tc_flush_group' ),
+			1100, 2 );
 		add_action( 'w3tc_flush_post',
 			array( $this, 'w3tc_flush_post' ),
 			1100, 1 );
@@ -94,7 +97,29 @@ class PgCache_Plugin {
 			add_action( 'init',
 				array( $this, 'redirect_on_foreign_domain' ) );
 		}
+		if ( $this->_config->get_string( 'pgcache.rest' ) == 'disable' ) {
+			// remove XMLRPC edit link
+			remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
+			// remove wp-json in <head>
+			remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+			// remove HTTP Header
+			remove_action( 'template_redirect', 'rest_output_link_header', 11 );
+
+			add_filter( 'rest_authentication_errors',
+				array( $this, 'rest_authentication_errors' ),
+				100 );
+		}
 	}
+
+
+
+	public function rest_authentication_errors( $result ) {
+		$error_message = __( 'REST API disabled.', 'w3-total-cache' );
+
+		return new \WP_Error( 'rest_disabled', $error_message, array( 'status' => rest_authorization_required_code() ) );
+	}
+
+
 
 	/**
 	 * Does disk cache cleanup
@@ -108,11 +133,10 @@ class PgCache_Plugin {
 	/**
 	 * Prime cache
 	 *
-	 * @param integer $start
 	 * @return void
 	 */
-	function prime( $start = 0 ) {
-		$this->_get_admin()->prime( $start );
+	function prime() {
+		$this->_get_admin()->prime();
 	}
 
 	/**
@@ -255,6 +279,16 @@ class PgCache_Plugin {
 		}
 
 		return $menu_items;
+	}
+
+	function w3tc_flush_group( $group, $extras = array() ) {
+		if ( isset( $extras['only'] ) && $extras['only'] != 'pagecache' )
+			return;
+
+		$pgcacheflush = Dispatcher::component( 'PgCache_Flush' );
+		$v = $pgcacheflush->flush_group( $group );
+
+		return $v;
 	}
 
 	/**

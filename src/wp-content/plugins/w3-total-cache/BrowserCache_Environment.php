@@ -112,6 +112,7 @@ class BrowserCache_Environment {
 		unset( $other_compression['avi'] );
 		unset( $other_compression['divx'] );
 		unset( $other_compression['gif'] );
+		unset( $other_compression['br'] );
 		unset( $other_compression['gz|gzip'] );
 		unset( $other_compression['jpg|jpeg|jpe'] );
 		unset( $other_compression['mid|midi'] );
@@ -258,7 +259,6 @@ class BrowserCache_Environment {
 
 			$rules .= "</IfModule>\n";
 
-
 			$rules .= "<IfModule mod_expires.c>\n";
 			$rules .= "    ExpiresActive On\n";
 
@@ -284,6 +284,42 @@ class BrowserCache_Environment {
 				}
 			}
 
+			$rules .= "</IfModule>\n";
+		}
+
+		$cssjs_brotli = $config->get_boolean( 'browsercache.cssjs.brotli' );
+		$html_brotli = $config->get_boolean( 'browsercache.html.brotli' );
+		$other_brotli = $config->get_boolean( 'browsercache.other.brotli' );
+
+		if ( $cssjs_brotli || $html_brotli || $other_brotli ) {
+			$brotli_types = array();
+
+			if ( $cssjs_brotli ) {
+				$brotli_types = array_merge( $brotli_types, $cssjs_types );
+			}
+
+			if ( $html_brotli ) {
+				$brotli_types = array_merge( $brotli_types, $html_types );
+			}
+
+			if ( $other_brotli ) {
+				$brotli_types = array_merge( $brotli_types,
+					$other_compression_types );
+			}
+
+			$rules .= "<IfModule mod_brotli.c>\n";
+			if ( version_compare( Util_Environment::get_server_version(), '2.3.7', '>=' ) ) {
+				$rules .= "    <IfModule mod_filter.c>\n";
+			}
+			$rules .= "        AddOutputFilterByType BROTLI_COMPRESS " . implode( ' ', $brotli_types ) . "\n";
+			$rules .= "    <IfModule mod_mime.c>\n";
+			$rules .= "        # BROTLI_COMPRESS by extension\n";
+			$rules .= "        AddOutputFilter BROTLI_COMPRESS js css htm html xml\n";
+			$rules .= "    </IfModule>\n";
+
+			if ( version_compare( Util_Environment::get_server_version(), '2.3.7', '>=' ) ) {
+				$rules .= "    </IfModule>\n";
+			}
 			$rules .= "</IfModule>\n";
 		}
 
@@ -316,7 +352,7 @@ class BrowserCache_Environment {
 				$rules .= "        BrowserMatch \\bMSI[E] !no-gzip !gzip-only-text/html\n";
 				$rules .= "    </IfModule>\n";
 			}
-			if ( version_compare( $this->_get_server_version(), '2.3.7', '>=' ) ) {
+			if ( version_compare( Util_Environment::get_server_version(), '2.3.7', '>=' ) ) {
 				$rules .= "    <IfModule mod_filter.c>\n";
 			}
 			$rules .= "        AddOutputFilterByType DEFLATE " . implode( ' ', $compression_types ) . "\n";
@@ -325,7 +361,7 @@ class BrowserCache_Environment {
 			$rules .= "        AddOutputFilter DEFLATE js css htm html xml\n";
 			$rules .= "    </IfModule>\n";
 
-			if ( version_compare( $this->_get_server_version(), '2.3.7', '>=' ) ) {
+			if ( version_compare( Util_Environment::get_server_version(), '2.3.7', '>=' ) ) {
 				$rules .= "    </IfModule>\n";
 			}
 			$rules .= "</IfModule>\n";
@@ -335,10 +371,92 @@ class BrowserCache_Environment {
 			$rules .= $this->_rules_cache_generate_apache_for_type( $config,
 				$extensions, $type );
 
-		if ( $config->get_boolean( 'browsercache.hsts' ) ) {
+		if ( $config->get_boolean( 'browsercache.hsts' ) ||
+			 $config->get_boolean( 'browsercache.security.xfo' )  ||
+			 $config->get_boolean( 'browsercache.security.xss' )  ||
+			 $config->get_boolean( 'browsercache.security.xcto' ) ||
+			 $config->get_boolean( 'browsercache.security.pkp' )  ||
+			 $config->get_boolean( 'browsercache.security.referrer.policy' )  ||
+			 $config->get_boolean( 'browsercache.security.csp' )
+		   ) {
 			$lifetime = $config->get_integer( 'browsercache.other.lifetime' );
+
 			$rules .= "<IfModule mod_headers.c>\n";
-			$rules .= "    Header set strict-transport-security \"max-age=$lifetime\"\n";
+
+			if ( $config->get_boolean( 'browsercache.hsts' ) ) {
+				$dir = $config->get_string( 'browsercache.security.hsts.directive' );
+				$rules .= "    Header set Strict-Transport-Security \"max-age=$lifetime" . ( strpos( $dir,"inc" ) ? "; includeSubDomains" : "" ) . ( strpos( $dir, "pre" ) ? "; preload" : "" ) . "\"\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.xfo' ) ) {
+				$dir = $config->get_string( 'browsercache.security.xfo.directive' );
+				$url = trim( $config->get_string( 'browsercache.security.xfo.allow' ) );
+				if ( empty( $url ) ) {
+					$url = Util_Environment::home_url_maybe_https();
+				}
+				$rules .= "    Header always append X-Frame-Options \"" . ( $dir == "same" ? "SAMEORIGIN" : ( $dir == "deny" ? "DENY" : "ALLOW-FROM $url" ) ) . "\"\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.xss' ) ) {
+				$dir = $config->get_string( 'browsercache.security.xss.directive' );
+				$rules .= "    Header set X-XSS-Protection \"" . ( $dir == "block" ? "1; mode=block" : $dir ) . "\"\n";
+
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.xcto' ) ) {
+				$rules .= "    Header set X-Content-Type-Options \"nosniff\"\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.pkp' ) ) {
+				$pin = trim( $config->get_string( 'browsercache.security.pkp.pin' ) );
+				$pinbak = trim( $config->get_string( 'browsercache.security.pkp.pin.backup' ) );
+				$extra = $config->get_string( 'browsercache.security.pkp.extra' );
+				$url = trim( $config->get_string( 'browsercache.security.pkp.report.url' ) );
+				$rep_only = $config->get_string( 'browsercache.security.pkp.report.only' ) == '1' ? true : false;
+				$rules .= "    Header set " . ( $rep_only ? "Public-Key-Pins-Report-Only" : "Public-Key-Pins" ) . " \"pin-sha256=\\\"$pin\\\"; pin-sha256=\\\"$pinbak\\\"; max-age=$lifetime" . ( strpos( $extra,"inc" ) ? "; includeSubDomains" : "" ) . ( !empty( $url ) ? "; report-uri=\\\"$url\\\"" : "" ) . "\"\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.referrer.policy' ) ) {
+				$dir = $config->get_string( 'browsercache.security.referrer.policy.directive' );
+				$rules .= "    Header set Referrer-Policy \"" . ($dir == "0" ? "" : $dir ) . "\"\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.csp' ) ) {
+				$base = trim( $config->get_string( 'browsercache.security.csp.base' ) );
+				$frame = trim( $config->get_string( 'browsercache.security.csp.frame' ) );
+				$connect = trim( $config->get_string( 'browsercache.security.csp.connect' ) );
+				$font = trim( $config->get_string( 'browsercache.security.csp.font' ) );
+				$script = trim( $config->get_string( 'browsercache.security.csp.script' ) );
+				$style = trim( $config->get_string( 'browsercache.security.csp.style' ) );
+				$img = trim( $config->get_string( 'browsercache.security.csp.img' ) );
+				$media = trim( $config->get_string( 'browsercache.security.csp.media' ) );
+				$object = trim( $config->get_string( 'browsercache.security.csp.object' ) );
+				$plugin = trim( $config->get_string( 'browsercache.security.csp.plugin' ) );
+				$form = trim( $config->get_string( 'browsercache.security.csp.form' ) );
+				$frame_ancestors = trim( $config->get_string( 'browsercache.security.csp.frame.ancestors' ) );
+				$sandbox = $config->get_string( 'browsercache.security.csp.sandbox' );
+				$default = trim( $config->get_string( 'browsercache.security.csp.default' ) );
+
+				$dir = rtrim( ( !empty( $base ) ? "base-uri $base; " : "" ).
+					   ( !empty( $frame ) ? "frame-src $frame; " : "" ).
+					   ( !empty( $connect ) ? "connect-src $connect; " : "" ).
+					   ( !empty( $font ) ? "font-src $font; " : "" ).
+					   ( !empty( $script ) ? "script-src $script; " : "" ).
+					   ( !empty( $style ) ? "style-src $style; " : "" ).
+					   ( !empty( $img ) ? "img-src $img; " : "" ).
+					   ( !empty( $media ) ? "media-src $media; " : "" ).
+					   ( !empty( $object ) ? "object-src $object; " : "" ).
+					   ( !empty( $plugin ) ? "plugin-types $plugin; " : "" ).
+					   ( !empty( $form ) ? "form-action $form; " : "" ).
+					   ( !empty( $frame_ancestors ) ? "frame-ancestors $frame_ancestors; " : "" ).
+					   ( !empty( $sandbox ) ? "sandbox " . trim( $sandbox ) . "; " : "" ).
+					   ( !empty( $default ) ? "default-src $default;" : "" ), "; " );
+
+				if ( !empty( $dir ) ) {
+					$rules .= "    Header set Content-Security-Policy \"$dir\"\n";
+				}
+			}
+
 			$rules .= "</IfModule>\n";
 		}
 
@@ -513,6 +631,36 @@ class BrowserCache_Environment {
 
 		}
 
+		$cssjs_brotli = $config->get_boolean( 'browsercache.cssjs.brotli' );
+		$html_brotli = $config->get_boolean( 'browsercache.html.brotli' );
+		$other_brotli = $config->get_boolean( 'browsercache.other.brotli' );
+
+		if ( $cssjs_brotli || $html_brotli || $other_brotli ) {
+			$brotli_types = array();
+
+			if ( $cssjs_brotli ) {
+				$brotli_types = array_merge( $brotli_types, $cssjs_types );
+			}
+
+			if ( $html_brotli ) {
+				$brotli_types = array_merge( $brotli_types, $html_types );
+			}
+
+			if ( $other_brotli ) {
+				$brotli_types = array_merge( $brotli_types,
+					$other_compression_types );
+			}
+
+			unset( $brotli_types['html|htm'] );
+
+			// some nginx cant handle values longer than 47 chars
+			unset( $brotli_types['odp'] );
+
+			$rules .= "brotli on;\n";
+			$rules .= "brotli_types " .
+			          implode( ' ', array_unique( $brotli_types ) ) . ";\n";
+		}
+
 		$cssjs_compression = $config->get_boolean( 'browsercache.cssjs.compression' );
 		$html_compression = $config->get_boolean( 'browsercache.html.compression' );
 		$other_compression = $config->get_boolean( 'browsercache.other.compression' );
@@ -558,13 +706,96 @@ class BrowserCache_Environment {
 			}
 		}
 
-		foreach ( $mime_types as $type => $extensions )
-			$this->_rules_cache_generate_nginx_for_type( $config, $rules,
-				$extensions, $type );
+		foreach ( $mime_types as $type => $extensions ) {
+			if ( $type != 'other_compression' ) {
+				$this->_rules_cache_generate_nginx_for_type( $config, $rules,
+					$extensions, $type );
+			}
+		}
 
-		if ( $config->get_boolean( 'browsercache.hsts' ) ) {
+		if ( $config->get_boolean( 'browsercache.hsts' ) ||
+			 $config->get_boolean( 'browsercache.security.xfo' )  ||
+			 $config->get_boolean( 'browsercache.security.xss' )  ||
+			 $config->get_boolean( 'browsercache.security.xcto' ) ||
+			 $config->get_boolean( 'browsercache.security.pkp' )  ||
+			 $config->get_boolean( 'browsercache.security.referrer.policy' )  ||
+			 $config->get_boolean( 'browsercache.security.csp' )
+		   ) {
 			$lifetime = $config->get_integer( 'browsercache.other.lifetime' );
-			$rules .= "add_header strict-transport-security \"max-age=$lifetime\";\n";
+
+			if ( $config->get_boolean( 'browsercache.hsts' ) ) {
+				$dir = $config->get_string( 'browsercache.security.hsts.directive' );
+				$rules .= "add_header Strict-Transport-Security \"max-age=$lifetime" . ( strpos( $dir,"inc" ) ? "; includeSubDomains" : "" ) . ( strpos( $dir, "pre" ) ? "; preload" : "" ) . "\";\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.xfo' ) ) {
+				$dir = $config->get_string( 'browsercache.security.xfo.directive' );
+				$url = trim( $config->get_string( 'browsercache.security.xfo.allow' ) );
+				if ( empty( $url ) ) {
+					$url = Util_Environment::home_url_maybe_https();
+				}
+				$rules .= "add_header X-Frame-Options \"" . ( $dir == "same" ? "SAMEORIGIN" : ( $dir == "deny" ? "DENY" : "ALLOW-FROM $url" ) ) . "\";\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.xss' ) ) {
+				$dir = $config->get_string( 'browsercache.security.xss.directive' );
+				$rules .= "add_header X-XSS-Protection \"" . ( $dir == "block" ? "1; mode=block" : $dir ) . "\";\n";
+
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.xcto' ) ) {
+				$rules .= "add_header X-Content-Type-Options \"nosniff\";\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.pkp' ) ) {
+				$pin = trim( $config->get_string( 'browsercache.security.pkp.pin' ) );
+				$pinbak = trim( $config->get_string( 'browsercache.security.pkp.pin.backup' ) );
+				$extra = $config->get_string( 'browsercache.security.pkp.extra' );
+				$url = trim( $config->get_string( 'browsercache.security.pkp.report.url' ) );
+				$rep_only = $config->get_string( 'browsercache.security.pkp.report.only' ) == '1' ? true : false;
+				$rules .= "add_header " . ( $rep_only ? "Public-Key-Pins-Report-Only" : "Public-Key-Pins" ) . " 'pin-sha256=\"$pin\"; pin-sha256=\"$pinbak\"; max-age=$lifetime" . ( strpos( $extra,"inc" ) ? "; includeSubDomains" : "" ) . ( !empty( $url ) ? "; report-uri=\"$url\"" : "" ) . "';\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.referrer.policy' ) ) {
+				$dir = $config->get_string( 'browsercache.security.referrer.policy.directive' );
+				$rules .= "add_header Referrer-Policy \"" . ( $dir == "0" ? "" : $dir ) . "\";\n";
+			}
+
+			if ( $config->get_boolean( 'browsercache.security.csp' ) ) {
+				$base = trim( $config->get_string( 'browsercache.security.csp.base' ) );
+				$frame = trim( $config->get_string( 'browsercache.security.csp.frame' ) );
+				$connect = trim( $config->get_string( 'browsercache.security.csp.connect' ) );
+				$font = trim( $config->get_string( 'browsercache.security.csp.font' ) );
+				$script = trim( $config->get_string( 'browsercache.security.csp.script' ) );
+				$style = trim( $config->get_string( 'browsercache.security.csp.style' ) );
+				$img = trim( $config->get_string( 'browsercache.security.csp.img' ) );
+				$media = trim( $config->get_string( 'browsercache.security.csp.media' ) );
+				$object = trim( $config->get_string( 'browsercache.security.csp.object' ) );
+				$plugin = trim( $config->get_string( 'browsercache.security.csp.plugin' ) );
+				$form = trim( $config->get_string( 'browsercache.security.csp.form' ) );
+				$frame_ancestors = trim( $config->get_string( 'browsercache.security.csp.frame.ancestors' ) );
+				$sandbox = $config->get_string( 'browsercache.security.csp.sandbox' );
+				$default = trim( $config->get_string( 'browsercache.security.csp.default' ) );
+
+				$dir = rtrim( ( !empty( $base ) ? "base-uri $base; " : "" ).
+					   ( !empty( $frame ) ? "frame-src $frame; " : "" ).
+					   ( !empty( $connect ) ? "connect-src $connect; " : "" ).
+					   ( !empty( $font ) ? "font-src $font; " : "" ).
+					   ( !empty( $script ) ? "script-src $script; " : "" ).
+					   ( !empty( $style ) ? "style-src $style; " : "" ).
+					   ( !empty( $img ) ? "img-src $img; " : "" ).
+					   ( !empty( $media ) ? "media-src $media; " : "" ).
+					   ( !empty( $object ) ? "object-src $object; " : "" ).
+					   ( !empty( $plugin ) ? "plugin-types $plugin; " : "" ).
+					   ( !empty( $form ) ? "form-action $form; " : "" ).
+					   ( !empty( $frame_ancestors ) ? "frame-ancestors $frame_ancestors; " : "" ).
+					   ( !empty( $sandbox ) ? "sandbox " . trim( $sandbox ) . "; " : "" ).
+					   ( !empty( $default ) ? "default-src $default;" : "" ), "; " );
+
+				if ( !empty( $dir ) ) {
+					$rules .= "add_header Content-Security-Policy \"$dir\";\n";
+				}
+			}
 		}
 
 		$rules .= W3TC_MARKER_END_BROWSERCACHE_CACHE . "\n";
@@ -585,10 +816,12 @@ class BrowserCache_Environment {
 		$mime_types, $section ) {
 
 		$expires = $config->get_boolean( 'browsercache.' . $section . '.expires' );
+		$etag = $config->get_boolean( 'browsercache.' . $section . '.etag' );
 		$cache_control = $config->get_boolean( 'browsercache.' . $section . '.cache.control' );
 		$w3tc = $config->get_boolean( 'browsercache.' . $section . '.w3tc' );
+		$last_modified = $config->get_boolean( 'browsercache.' . $section . '.last_modified' );
 
-		if ( $expires || $cache_control || $w3tc ) {
+		if ( $etag || $expires || $cache_control || $w3tc || !$last_modified ) {
 			$lifetime = $config->get_integer( 'browsercache.' . $section . '.lifetime' );
 
 			$extensions = array_keys( $mime_types );
@@ -604,6 +837,18 @@ class BrowserCache_Environment {
 			if ( $expires ) {
 				$rules .= "    expires " . $lifetime . "s;\n";
 			}
+			if ( version_compare( Util_Environment::get_server_version(), '1.3.3', '>=' ) ) {
+				if ( $etag ) {
+					$rules .= "    etag on;\n";
+				} else {
+					$rules .= "    etag off;\n";
+				}
+			}
+			if ( $last_modified ) {
+				$rules .= "    if_modified_since exact;\n";
+			} else {
+				$rules .= "    if_modified_since off;\n";
+			}
 
 			$add_header_rules = '';
 
@@ -618,7 +863,12 @@ class BrowserCache_Environment {
 
 				case 'cache_public_maxage':
 					$add_header_rules .= "    add_header Pragma \"public\";\n";
-					$add_header_rules .= "    add_header Cache-Control \"max-age=" . $lifetime . ", public\";\n";
+
+					if ( $expires ) {
+						$add_header_rules .= "    add_header Cache-Control \"public\";\n";
+					} else {
+						$add_header_rules .= "    add_header Cache-Control \"max-age=" . $lifetime . ", public\";\n";
+					}
 					break;
 
 				case 'cache_validation':
@@ -633,7 +883,12 @@ class BrowserCache_Environment {
 
 				case 'cache_maxage':
 					$add_header_rules .= "    add_header Pragma \"public\";\n";
-					$add_header_rules .= "    add_header Cache-Control \"max-age=" . $lifetime . ", public, must-revalidate, proxy-revalidate\";\n";
+
+					if ( $expires ) {
+						$add_header_rules .= "    add_header Cache-Control \"public, must-revalidate, proxy-revalidate\";\n";
+					} else {
+						$add_header_rules .= "    add_header Cache-Control \"max-age=" . $lifetime . ", public, must-revalidate, proxy-revalidate\";\n";
+					}
 					break;
 
 				case 'no_cache':

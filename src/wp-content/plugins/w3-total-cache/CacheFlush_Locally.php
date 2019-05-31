@@ -26,7 +26,7 @@ class CacheFlush_Locally {
 		if ( !method_exists( $GLOBALS['wpdb'], 'flush_cache' ) )
 			return false;
 
-		return $GLOBALS['wpdb']->flush_cache();
+		return $GLOBALS['wpdb']->flush_cache( $extras );
 	}
 
 	/**
@@ -81,9 +81,9 @@ class CacheFlush_Locally {
 	}
 
 	function minifycache_flush_all( $extras = array() ) {
-		if ( $extras['minify'] == 'purge_map' )
+		if ( isset( $extras['minify'] ) && $extras['minify'] == 'purge_map' )
 			delete_option( 'w3tc_minify' );
-		
+
 		$this->minifycache_flush( $extras );
 	}
 
@@ -103,13 +103,18 @@ class CacheFlush_Locally {
 	/**
 	 * Purge CDN mirror cache
 	 */
-	function cdn_purge_all() {
-		do_action( 'w3tc_cdn_purge_all' );
-		$cdn_core = Dispatcher::component( 'Cdn_Core' );
-		$cdn = $cdn_core->get_cdn();
-		$results = array();
-		$v = $cdn->purge_all( $results );
-		do_action( 'w3tc_cdn_purge_all_after' );
+	function cdn_purge_all( $extras = array() ) {
+		$do_flush = apply_filters( 'w3tc_preflush_cdn_all', true, $extras );
+
+		$v = false;
+		if ( $do_flush ) {
+			do_action( 'w3tc_cdn_purge_all' );
+			$cdn_core = Dispatcher::component( 'Cdn_Core' );
+			$cdn = $cdn_core->get_cdn();
+			$results = array();
+			$v = $cdn->purge_all( $results );
+			do_action( 'w3tc_cdn_purge_all_after' );
+		}
 
 		return $v;
 	}
@@ -125,7 +130,7 @@ class CacheFlush_Locally {
 		do_action( 'w3tc_cdn_purge_files', $purgefiles );
 		$common = Dispatcher::component( 'Cdn_Core' );
 		$results = array();
-		$v = $common->purge( $purgefiles, false, $results );
+		$v = $common->purge( $purgefiles, $results );
 		do_action( 'w3tc_cdn_purge_files_after', $purgefiles );
 
 		return $v;
@@ -143,21 +148,12 @@ class CacheFlush_Locally {
 	}
 
 	/**
-	 * Reload/compile a PHP file
-	 *
-	 * @param unknown $filename
-	 * @return bool
-	 */
-	function opcache_flush_file( $filename ) {
-		$o = Dispatcher::component( 'SystemOpCache_Core' );
-		return $o->flush_file( $filename );
-	}
-
-	/**
 	 * Purges/Flushes post from page cache, varnish and cdn cache
 	 */
-	function flush_post( $post_id ) {
-		do_action( 'w3tc_flush_post', $post_id );
+	function flush_post( $post_id, $extras = null ) {
+		$do_flush = apply_filters( 'w3tc_preflush_post', true, $extras );
+		if ( $do_flush )
+			do_action( 'w3tc_flush_post', $post_id, $extras );
 	}
 
 	/**
@@ -165,7 +161,9 @@ class CacheFlush_Locally {
 	 * When global changes affect whole content but not internal data structures
 	 */
 	function flush_posts( $extras = null ) {
-		do_action( 'w3tc_flush_posts', $extras );
+		$do_flush = apply_filters( 'w3tc_preflush_posts', true, $extras );
+		if ( $do_flush )
+			do_action( 'w3tc_flush_posts', $extras );
 	}
 
 	/**
@@ -185,7 +183,7 @@ class CacheFlush_Locally {
 			if ( $config->get_boolean( 'dbcache.enabled' ) )
 				add_action( 'w3tc_flush_all',
 					array( $this, 'dbcache_flush' ),
-					100, 1 );
+					100, 2 );
 			if ( $config->get_boolean( 'objectcache.enabled' ) )
 				add_action( 'w3tc_flush_all',
 					array( $this, 'objectcache_flush' ),
@@ -198,14 +196,24 @@ class CacheFlush_Locally {
 			$default_actions_added = true;
 		}
 
-		do_action( 'w3tc_flush_all', $extras );
+		$do_flush = apply_filters( 'w3tc_preflush_all', true, $extras );
+		if ( $do_flush )
+			do_action( 'w3tc_flush_all', $extras );
+	}
+
+	function flush_group( $group, $extras ) {
+		$do_flush = apply_filters( 'w3tc_preflush_group', true, $group, $extras );
+		if ( $do_flush )
+			do_action( 'w3tc_flush_group', $group, $extras );
 	}
 
 	/**
 	 * Purges/Flushes url from page cache, varnish and cdn cache
 	 */
-	function flush_url( $url ) {
-		do_action( 'w3tc_flush_url', $url );
+	function flush_url( $url, $extras = null ) {
+		$do_flush = apply_filters( 'w3tc_preflush_url', true, $extras );
+		if ( $do_flush )
+			do_action( 'w3tc_flush_url', $url, $extras );
 	}
 
 	/**

@@ -2,8 +2,8 @@
 Contributors: fredericktownes
 Tags: seo, cache, caching, compression, maxcdn, nginx, varnish, redis, new relic, aws, amazon web services, s3, cloudfront, rackspace, cloudflare, azure, apache
 Requires at least: 3.2
-Tested up to: 4.7.1
-Stable tag: 0.9.5.4
+Tested up to: 5.1
+Stable tag: 0.9.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,13 +11,13 @@ Search Engine (SEO) &amp; Performance Optimization (WPO) via caching. Integrated
 
 == Description ==
 
-W3 Total Cache improves the SEO and user experience of your site by increasing website performance, reducing download times via features like content delivery network (CDN) integration.
+W3 Total Cache improves the SEO and user experience of your site by increasing website performance, reducing load times via features like content delivery network (CDN) integration and the latest best practices.
 
-The **only** web host agnostic WordPress Performance Optimization (WPO) framework recommended by countless web developers and web hosts. Trusted by numerous companies like: AT&T, stevesouders.com, mattcutts.com, mashable.com, smashingmagazine.com, makeuseof.com, kiss925.com, pearsonified.com, lockergnome.com, johnchow.com, ilovetypography.com, webdesignerdepot.com, css-tricks.com and tens of thousands of others.
+The **only** web host agnostic Web Performance Optimization (WPO) framework for WordPress trusted by millions of publishers, web developers, and web hosts worldwide for more than a decade.
 
 An inside look:
 
-http://www.youtube.com/watch?v=rkmrQP8S5KY
+https://youtu.be/7AsNSSrZq4Y
 
 *BENEFITS*
 
@@ -108,19 +108,6 @@ Great question. W3 Total Cache uses several open source tools to attempt to comb
 A good rule of thumb is to try auto mode, work with a developer to identify the code that is not compatible and start with combine only mode (the safest optimization) and increase the optimization to the point just before functionality (JavaScript) or user interface / layout (CSS) breaks in your site.
 
 We're always working to make this more simple and straight forward in future releases, but this is not an undertaking we can realize on our own. When you find a plugin, theme or file that is not compatible with minification reach out to the developer and ask them either to provide a minified version with their distribution or otherwise make sure their code is minification-friendly.
-
-= Who do you recommend as a CDN (Content Delivery Network) provider? =
-
-That depends on how you use your site and where most of your readers read your site (regionally). Here's a short list:
-
-* [MaxCDN](https://www.maxcdn.com/), [Discount Coupon Code](http://tracking.maxcdn.com/c/15753/3982/378?u=https%3A%2F%2Fsecure.maxcdn.com%2F%3Fpackage%3Dstarter%26coupon%3Dw3tc)
-* [Amazon Cloudfront](https://aws.amazon.com/cloudfront/)
-* [CloudFlare](https://www.cloudflare.com/features-cdn/)
-* [Verizon Digital Media Services (formerly EdgeCast)](https://www.verizondigitalmedia.com/)
-* [MediaTemple TrueSpeed (formerly ProCDN)](https://mediatemple.net/services/truespeed-cdn/)
-* [Rackspace Cloud Files](https://www.rackspace.com/cloud/files)
-* [Limelight Networks](https://www.limelight.com/)
-* [Akamai / Cotendo](https://www.akamai.com/)
 
 = What about comments? Does the plugin slow down the rate at which comments appear? =
 
@@ -282,6 +269,118 @@ It's quite difficult to recall all of the innovators that have shared their thou
 Please reach out to all of these people and support their projects if you're so inclined.
 
 == Changelog ==
+
+= 0.9.7.4 =
+* Fixed PHP warning when Redis integration not configured correctly
+* Fixed 404 in multisite caused by subdirectory issue
+* Fixed object cache issue in multisite where object cache was cleared at wrong time
+* Fixed database cluster in WordPress 5.1
+* Fixed warning caused by user agent theme change used
+* Fixed minification in multisite when URLs were set to root-blog based url
+* Fixed undefined w3tc_ga issue
+* Improved purging of current page by using post_id instead of URL
+* Improved cache delivery of /feed URLs
+* Improved security on calls to opcache flush
+* Improved minification of files in environments running on non-default ports
+
+= 0.9.7.3 =
+* Fixed caching of redirect responses based on empty response body
+* Improved compatibility with WordPress 5.1
+* Improved transports, unix: prefix not required
+* Improved minify html
+
+= 0.9.7.2 =
+* Fixed fatal error during media file upload with CDN module active
+* Fixed removal of empty values, JSON encoded string in attribute, trailing quote at end of tag, and the handling of anchors in HTML minify 
+* Fixed undefined index warning
+* Fixed fatal error when purging CDN using full site delivery
+
+= 0.9.7.1 =
+* Fixed undefined variable notice
+* Fixed "No such file or directory" warning
+* Fixed writing to PHP error log rather than WordPress debug log
+* Fixed default referrer policy should be "no-referrer-when-downgrade"
+* Fixed php_flag error related to browser cache, using ini_set instead
+* Fixed CloudFlare IPv6 check undefined offset
+* Fixed Undefined constant WP_ROOT
+* Fixed frame-ancestors being overwritten by frame-src
+* Fixed missing semicolon in nginx configuration
+* Fixed HTTP/2 URLs handling for browser cache and CDN modules
+* Fixed display of CDN debug information
+* Fixed CSS Minification with Google Fonts when included via "Include external files/libraries" and non-latin character-sets are loaded
+* Fixed media query string not updating when all caches were purged
+* Fixed double slash with ABSPATH if file exists
+* Fixed setting max-age and expires header simultaneously
+* Fixed SASL detection for PECL Memcached
+* Fixed handling of manually entered objects to be purged on CDN
+* Fixed query string handling in Nginx
+* Improved error handling with Cloudfront
+* Improved page cache logging
+* Improved multi-tenant support for memory-based caching engines
+* Improved CSS minification
+* Improved purge behavior for changed media objects when using CDN
+* Improved compatibility with sitemap plugins
+* Added support for Memcached for Nginx
+* Added support for caching webm files
+* Added Brotli HTTP compression support
+* Added StackPath full site delivery support
+* Added _wc_session_ to the list of ignored query stems for improved WooCommerce compatibility
+
+= 0.9.7 =
+* Fixed minified files not being hosted by CDN when enabled if "host minified files" is disabled
+* Fixed warning thrown when purge all was selected (via nigrosimone)
+* Fixed undefined offset error in fragment cache
+* Fixed MaxCDN test button failure when debug mode is enabled
+* Fixed purging of feeds when cache feeds option is enabeld
+* Improved handling of errors when full site delivery isn't set
+* Improved nginx.conf to support xml caching
+* Improved nginx.conf to support HSTS for static files
+* Improved minify's handling of query strings
+* Improved database caching, frequent wp_options no longer flush posts or comments data
+* Improved Limelight Networks CDN integration
+* Improved FAQ, they're now hosted in the GitHub public repository
+* Improved handling for /*<![CDATA[*/ in HTML minify engine
+* Imporved garbage collection for basic disk caching
+* Improved HSTS support (via Dave Welsh)
+* Improved reliabilty of CSS embed options
+* Improved New Relic requirements in compatibility test
+* Added StackPath CDN integration (including full site delivery)
+* Added support for page cache priming via WP-CLI via prime function
+* Added filter support for managing cache groups
+* Added API for flushing individual cache groups via flush_group function
+* Added purge support for JSON cache e.g. cached REST API requests
+* Added filter support for managing database cache settings
+* Added filter support before (w3tc_process_content) and after (w3tc_processed_content) a cache object is created
+* Added compatibility for AMPforWP plugin
+* Added JSON caching support for Pro subscribers
+* Added additional security headers (via amiga-500)
+
+= 0.9.6 =
+* Fixed anonymous usage tracking, default to disabled
+* Fixed incorrect minify cache data written if target directory missing
+* Fixed empty minify cache file written when file locking enabled
+* Fixed missing commas in CSS (via nigrosimone)
+* Fixed typo in object cache engine (via Furniel)
+* Fixed incorrect reuse of redis connections when persistent connections option enabled
+* Fixed reliability of Google Drive (via jikamens)
+* Fixed handling of UTF-8 encoded files by writing them in binary (via jikamens)
+* Improved Full Site Delivery configuration user flow on the General and CDN settings screens
+* Improved content type matching and cache hits as a result
+* Improved minify file locking logic
+* Improved visual langage of the compatibility test (via Furniel)
+* Improved configuration file management
+* Improved MaxCDN set up wizard
+* Improved page cache's accepted query string handling to handle optional values and add support for disk enhanced mode (via amiga-500, nigrosimone)
+* Improved handling of timeouts to origin push CDN proviers
+* Added HTTP/2 push headers for disk enhanced page caching (via nigrosimone)
+* Added X-Forwarded-Proto header for use cases like HTTPS recognition behind proxies or load balancers
+* Added multiple CDN support i.e. static file objects and pages, posts, feeds, API responses etc to use different respective CDN providers
+* Added page caching by cookie name or value (sponsored by SQweb)
+* Added toggle for CORS header to improve inter-operatbility with various CDN providers
+* Added support for CDN hosted media to media library (inspired by amiga-500)
+* Added object caching of AJAX calls (via andyexeter)
+* Enterprise features are now available to Pro subscribers! Including reading from multiple databases concurrently and purging caches across multiple hosts via a Message Bus
+
 
 = 0.9.5.4 =
 * Fixed regression with browser caching and query strings

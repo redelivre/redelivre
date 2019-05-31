@@ -8,10 +8,10 @@ if ( !defined( 'W3TC' ) )
 <?php include W3TC_INC_DIR . '/options/common/header.php'; ?>
 
 <p>
-    <?php echo sprintf( __( 'The plugin is currently <span class="w3tc-%s">%s</span> in <strong>%s%s</strong> mode.', 'w3-total-cache' )
+    <?php echo sprintf( __( 'The plugin is currently <span class="w3tc-%s">%s</span> in <strong>%s</strong> mode.', 'w3-total-cache' )
 	, $enabled ? "enabled" : "disabled"
 	, $enabled ? __( 'enabled', 'w3-total-cache' ) : __( 'disabled', 'w3-total-cache' )
-	, Util_Environment::w3tc_edition( $this->_config ), ( Util_Environment::is_w3tc_edge( $this->_config ) ? __( ' edge', 'w3-total-cache' ) : '' ) );
+	, Util_Environment::w3tc_edition( $this->_config ) );
 ?>
 </p>
 <form id="w3tc_dashboard" action="admin.php?page=<?php echo $this->_page; ?>" method="post">
@@ -36,11 +36,11 @@ echo implode( " $string ", apply_filters( 'w3tc_dashboard_actions', array() ) ) 
     <div id="w3tc-dashboard-widgets" class="clearfix widefat metabox-holder">
         <?php $screen = get_current_screen();
 ?>
-        <div id="postbox-container-left" style="float: left;">
+        <div id="postbox-container-left">
             <div class="content">
             <div id="dashboard-text" style="display:inline-block;">
                 <h1><?php _e( 'Dashboard', 'w3-total-cache' )?></h1>
-                <p>Thanks for choosing W3TC as your Web Performance Optimization (<acronym title="Web Performance Optimization">WPO</acronym>) framework. Please share <a href="admin.php?page=w3tc_support&amp;request_type=new_feature">your suggestions</a> about the statistics and reporting you would like to see!</p>
+                <p>Thanks for choosing W3TC as your Web Performance Optimization (<acronym title="Web Performance Optimization">WPO</acronym>) framework!
             </div>
             <div id="widgets-container">
             <?php do_meta_boxes( $screen->id, 'normal', '' ); ?>

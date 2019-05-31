@@ -35,6 +35,24 @@ class PgCache_Plugin_Admin {
 			add_filter( 'w3tc_usage_statistics_summary_from_history', array(
 					$this, 'w3tc_usage_statistics_summary_from_history' ), 10, 2 );
 		}
+
+		// cookie groups
+		add_filter( 'w3tc_admin_menu', array( $this, 'w3tc_admin_menu' ) );
+		add_action( 'admin_init_w3tc_pgcache_cookiegroups',	array(
+				'\W3TC\PgCache_Page_CookieGroups',
+				'admin_init_w3tc_pgcache_cookiegroups'
+			) );
+
+		add_action( 'w3tc_settings_page-w3tc_pgcache_cookiegroups',	array(
+				'\W3TC\PgCache_Page_CookieGroups',
+				'w3tc_settings_page_w3tc_pgcache_cookiegroups'
+			) );
+
+		add_action( 'w3tc_config_ui_save-w3tc_pgcache_cookiegroups', array(
+				'\W3TC\PgCache_Page_CookieGroups',
+				'w3tc_config_ui_save_w3tc_pgcache_cookiegroups'
+			), 10, 1 );
+
 	}
 
 	function cleanup() {
@@ -98,31 +116,28 @@ class PgCache_Plugin_Admin {
 	 * @param integer $start
 	 * @return void
 	 */
-	function prime( $start = 0 ) {
-		$start = (int) $start;
-
-		/**
-		 * Don't start cache prime if queues are still scheduled
-		 */
-		if ( $start == 0 ) {
-			$crons = _get_cron_array();
-
-			if ( is_array( $crons ) ) {
-				foreach ( $crons as $timestamp => $hooks ) {
-					foreach ( $hooks as $hook => $keys ) {
-						foreach ( $keys as $key => $data ) {
-							if ( $hook == 'w3_pgcache_prime' && count( $data['args'] ) ) {
-								return;
-							}
-						}
-					}
-				}
-			}
+	function prime( $start = null, $limit = null, $log_callback = null ) {
+		if ( is_null( $start ) ) {
+			$start = get_option( 'w3tc_pgcache_prime_offset' );
+		}
+		if ( $start < 0 ) {
+			$start = 0;
 		}
 
 		$interval = $this->_config->get_integer( 'pgcache.prime.interval' );
-		$limit = $this->_config->get_integer( 'pgcache.prime.limit' );
+		if ( is_null( $limit ) ) {
+			$limit = $this->_config->get_integer( 'pgcache.prime.limit' );
+		}
+		if ( $limit < 1 ) {
+			$limit = 1;
+		}
+
 		$sitemap = $this->_config->get_string( 'pgcache.prime.sitemap' );
+
+		if ( !is_null( $log_callback ) ) {
+			$log_callback( 'Priming from sitemap ' . $sitemap .
+				' entries ' . ( $start + 1 ) . '..' . ( $start + $limit ) );
+		}
 
 		/**
 		 * Parse XML sitemap
@@ -135,21 +150,26 @@ class PgCache_Plugin_Admin {
 		$queue = array_slice( $urls, $start, $limit );
 
 		if ( count( $urls ) > ( $start + $limit ) ) {
-			wp_schedule_single_event( time() + $interval, 'w3_pgcache_prime', array(
-					$start + $limit
-				) );
+			$next_offset = $start + $limit;
+		} else {
+			$next_offset = 0;
 		}
+
+		update_option( 'w3tc_pgcache_prime_offset', $next_offset, false );
 
 		/**
 		 * Make HTTP requests and prime cache
 		 */
 
-
-
 		// use 'WordPress' since by default we use W3TC-powered by
 		// which blocks caching
-		foreach ( $queue as $url )
+		foreach ( $queue as $url ) {
 			Util_Http::get( $url, array( 'user-agent' => 'WordPress' ) );
+
+			if ( !is_null( $log_callback ) ) {
+				$log_callback( 'Priming ' . $url );
+			}
+		}
 	}
 
 	/**
@@ -206,6 +226,20 @@ class PgCache_Plugin_Admin {
 				arsort( $locs );
 
 				$urls = array_keys( $locs );
+			} elseif ( preg_match_all( '~<rss[^>]*>(.*?)</rss>~is', $response['body'], $sitemap_matches ) ) {
+
+				// rss feed format
+				if ( preg_match_all( '~<link[^>]*>(.*?)</link>~is', $response['body'], $url_matches ) ) {
+					foreach ( $url_matches[1] as $url_match ) {
+						$url = trim( $url_match );
+						$cdata_matches = null;
+						if ( preg_match( '~<!\[CDATA\[(.*)\]\]>~is', $url, $cdata_matches ) ) {
+							$url = $cdata_matches[1];
+						}
+
+						$urls[] = $url;
+					}
+				}
 			}
 		}
 
@@ -266,6 +300,17 @@ class PgCache_Plugin_Admin {
 		}
 
 		return $errors;
+	}
+
+	public function w3tc_admin_menu( $menu ) {
+		$menu['w3tc_pgcache_cookiegroups'] = array(
+			'page_title' => __( 'Cookie Groups', 'w3-total-cache' ),
+			'menu_text' => __( 'Cookie Groups', 'w3-total-cache' ),
+			'visible_always' => false,
+			'order' => 950
+		);
+
+		return $menu;
 	}
 
 	public function w3tc_usage_statistics_summary_from_history( $summary, $history ) {

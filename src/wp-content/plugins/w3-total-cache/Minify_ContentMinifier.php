@@ -31,7 +31,7 @@ class Minify_ContentMinifier {
 
 		'css' => array( 'Minify_CSS', 'minify' ),
 		'yuicss' => array( 'Minify_YUICompressor', 'minifyCss' ),
-		'cssmin' => array( 'Minify0_CSSmin', 'minify' ),
+		'cssmin' => array( 'w3tc_tubalmartin\CssMin\Minifier', 'minify' ),
 		'csstidy' => array( 'Minify_CSSTidy', 'minify' ),
 
 		'html' => array( 'Minify_HTML', 'minify' ),
@@ -246,7 +246,7 @@ class Minify_ContentMinifier {
 				) );
 		}
 
-		if ( $this->_config->get_boolean( 'cdn.enabled' ) && $this->_config->get_boolean( 'cdn.minify.enable' ) ) {
+		if ( $this->_config->get_boolean( 'cdn.enabled' ) ) {
 			$common = Dispatcher::component( 'Cdn_Core' );
 			$cdn = $common->get_cdn();
 

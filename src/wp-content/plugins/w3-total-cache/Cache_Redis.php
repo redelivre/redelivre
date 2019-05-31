@@ -25,6 +25,14 @@ class Cache_Redis extends Cache_Base {
 		$this->_servers = (array)$config['servers'];
 		$this->_password = $config['password'];
 		$this->_dbid = $config['dbid'];
+
+		// when disabled - no extra requests are made to obtain key version,
+		// but flush operations not supported as a result
+		// group should be always empty
+		if ( isset( $config['key_version_mode'] ) &&
+			$config['key_version_mode'] == 'disabled' ) {
+			$this->_key_version[''] = 1;
+		}
 	}
 
 	/**
@@ -153,7 +161,7 @@ class Cache_Redis extends Cache_Base {
 	 * @param unknown $key
 	 * @return bool
 	 */
-	function hard_delete( $key ) {
+	function hard_delete( $key, $group = '' ) {
 		$storage_key = $this->get_item_key( $key );
 		$accessor = $this->_get_accessor( $storage_key );
 		if ( is_null( $accessor ) )
@@ -170,8 +178,10 @@ class Cache_Redis extends Cache_Base {
 	 */
 	function flush( $group = '' ) {
 		$this->_get_key_version( $group );   // initialize $this->_key_version
-		$this->_key_version[$group]++;
-		$this->_set_key_version( $this->_key_version[$group], $group );
+		if (isset($this->_key_version[$group])) {
+			$this->_key_version[$group]++;
+			$this->_set_key_version( $this->_key_version[$group], $group );
+		}
 
 		return true;
 	}
@@ -208,9 +218,15 @@ class Cache_Redis extends Cache_Base {
 			if ( is_null( $accessor ) )
 				return 0;
 
-			$v = $accessor->get( $storage_key );
-			$v = intval( $v );
-			$this->_key_version[$group] = ( $v > 0 ? $v : 1 );
+			$v_original = $accessor->get( $storage_key );
+			$v = intval( $v_original );
+			$v = ( $v > 0 ? $v : 1 );
+
+			if ( (string)$v_original !== (string)$v ) {
+				$accessor->set( $storage_key, $v );
+			}
+
+			$this->_key_version[$group] = $v;
 		}
 
 		return $this->_key_version[$group];
@@ -325,14 +341,22 @@ class Cache_Redis extends Cache_Base {
 
 				if ( substr( $server, 0, 5 ) == 'unix:' ) {
 					if ( $this->_persistent )
-						$accessor->pconnect( trim( substr( $server, 5 ) ) );
+						$accessor->pconnect( trim( substr( $server, 5 ) ),
+							null, null, $this->_instance_id . '_' . $this->_dbid );
 					else
 						$accessor->connect( trim( substr( $server, 5 ) ) );
+				} elseif ( strpos( $server, ':' ) === false ) {
+					if ( $this->_persistent )
+						$accessor->pconnect( trim( $server ),
+							null, null, $this->_instance_id . '_' . $this->_dbid );
+					else
+						$accessor->connect( trim( $server ) );
 				} else {
 					list( $ip, $port ) = explode( ':', $server );
 
 					if ( $this->_persistent )
-						$accessor->pconnect( trim( $ip ), (integer) trim( $port ) );
+						$accessor->pconnect( trim( $ip ), (integer) trim( $port ),
+							null, $this->_instance_id . '_' . $this->_dbid );
 					else
 						$accessor->connect( trim( $ip ), (integer) trim( $port ) );
 				}

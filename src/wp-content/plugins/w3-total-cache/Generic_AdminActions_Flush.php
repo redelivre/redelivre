@@ -16,12 +16,15 @@ class Generic_AdminActions_Flush {
 	 * @return void
 	 */
 	function w3tc_flush_all() {
-		w3tc_flush_all();
+		w3tc_flush_all( array( 'ui_action' => 'flush_button' ) );
 		$this->_redirect_after_flush( 'flush_all' );
 	}
 
 	function w3tc_flush_current_page() {
-		$url = $_SERVER['HTTP_REFERER'];
+		$url = filter_input( INPUT_GET, 'url', FILTER_SANITIZE_URL );
+		if ( empty( $url ) && isset( $_SERVER['HTTP_REFERER'] ) ) {
+			$url = $_SERVER['HTTP_REFERER'];
+		}
 		w3tc_flush_url( $url );
 
 		?>
@@ -120,7 +123,7 @@ class Generic_AdminActions_Flush {
 	 * @return void
 	 */
 	function w3tc_flush_pgcache() {
-		w3tc_flush_posts();
+		w3tc_flush_posts( array( 'ui_action' => 'flush_button' ) );
 
 		$state_note = Dispatcher::config_state_note();
 		$state_note->set( 'common.show_note.flush_posts_needed', false );
@@ -214,7 +217,7 @@ class Generic_AdminActions_Flush {
 
 	/*
 	 * Flush varnish cache
-     */
+	 */
 	function w3tc_flush_varnish() {
 		$this->flush_varnish();
 
@@ -225,9 +228,9 @@ class Generic_AdminActions_Flush {
 
 	/*
 	 * Flush CDN mirror
-     */
+	 */
 	function w3tc_flush_cdn() {
-		$this->flush_cdn();
+		$this->flush_cdn( array( 'ui_action' => 'flush_button' ) );
 
 		Util_Admin::redirect( array(
 				'w3tc_note' => 'flush_cdn'
@@ -242,7 +245,7 @@ class Generic_AdminActions_Flush {
 	 */
 	function w3tc_flush_post() {
 		$post_id = Util_Request::get_integer( 'post_id' );
-		w3tc_flush_post( $post_id );
+		w3tc_flush_post( $post_id, array( 'ui_action' => 'flush_button' ) );
 
 		Util_Admin::redirect( array(
 				'w3tc_note' => 'pgcache_purge_post'
@@ -368,9 +371,9 @@ class Generic_AdminActions_Flush {
 	/**
 	 * Flush CDN mirror
 	 */
-	function flush_cdn() {
+	function flush_cdn( $extras = array() ) {
 		$cacheflush = Dispatcher::component( 'CacheFlush' );
-		$cacheflush->cdn_purge_all();
+		$cacheflush->cdn_purge_all( $extras );
 	}
 
 
@@ -390,7 +393,7 @@ class Generic_AdminActions_Flush {
 				), true );
 		} else {
 			Util_Admin::redirect_with_custom_messages2( array(
-					'errors' => array( 'Failed to flush: ' .
+					'errors' => array( 'Failed to purge: ' .
 						implode( ', ', $errors ) )
 				), true );
 		}

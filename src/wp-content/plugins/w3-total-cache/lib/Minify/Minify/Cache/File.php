@@ -48,12 +48,16 @@ class Minify_Cache_File {
 			// retry with make dir
 			\W3TC\Util_File::mkdir_from_safe(dirname($path), W3TC_CACHE_DIR);
 
-			if (!@file_put_contents($path, $data, $flag))
+			if (!@file_put_contents($path, $data['content'], $flag))
 				return false;
 		}
 
-		@unlink($path . '_old');
-		@unlink($path . '_meta_old');
+		if ( file_exists( $path . '_old' ) ) {
+			@unlink($path . '_old');
+		}
+		if ( file_exists( $path . '_meta_old' ) ) {
+			@unlink($path . '_meta_old');
+		}
 
 		$content = $data['content'];
 		unset($data['content']);
@@ -152,7 +156,8 @@ class Minify_Cache_File {
 					@flock($fp, LOCK_UN);
 					@fclose($fp);
 
-					return $ret;
+					$data['content'] = $ret;
+					return $data;
 				}
 			} else {
 				$data['content'] = @file_get_contents($path);

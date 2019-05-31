@@ -73,6 +73,7 @@ class PgCache_ContentGrabber {
 	 * @var string
 	 */
 	var $_page_key = '';
+	private $_page_key_extension;
 
 	/**
 	 * Shutdown buffer
@@ -105,13 +106,6 @@ class PgCache_ContentGrabber {
 	/**
 	 *
 	 *
-	 * @var If sitemap was matched
-	 */
-	var $_sitemap_matched;
-
-	/**
-	 *
-	 *
 	 * @var bool If cached page should be displayed after init
 	 */
 	var $_late_init = false;
@@ -134,7 +128,10 @@ class PgCache_ContentGrabber {
 		$this->_lifetime = $this->_config->get_integer( 'pgcache.lifetime' );
 		$this->_late_init = $this->_config->get_boolean( 'pgcache.late_init' );
 		$this->_late_caching = $this->_config->get_boolean( 'pgcache.late_caching' );
-		$this->_enhanced_mode = ( $this->_config->get_string( 'pgcache.engine' ) == 'file_generic' );
+
+		$engine = $this->_config->get_string( 'pgcache.engine' );
+		$this->_enhanced_mode = ( $engine == 'file_generic' );
+		$this->_nginx_memcached = ( $engine == 'nginx_memcached' );
 
 		if ( $this->_config->get_boolean( 'mobile.enabled' ) ) {
 			$this->_mobile = Dispatcher::component( 'Mobile_UserAgent' );
@@ -185,6 +182,14 @@ class PgCache_ContentGrabber {
 				( $this->_caching ? 'true' : 'false' ) );
 		}
 
+		$this->_page_key_extension = $this->_get_key_extension();
+		if ( !$this->_page_key_extension['cache'] ) {
+			$this->_caching = false;
+			$this->cache_reject_reason =
+				$this->_page_key_extension['cache_reject_reason'];
+		}
+
+
 		if ( $this->_caching && !$this->_late_caching ) {
 			$this->_cached_data = $this->_extract_cached_page( false );
 			if ( $this->_cached_data ) {
@@ -217,28 +222,18 @@ class PgCache_ContentGrabber {
 	function _extract_cached_page( $with_filter ) {
 		$cache = $this->_get_cache();
 
-		$mobile_group = $this->_get_mobile_group();
-		$referrer_group = $this->_get_referrer_group();
-		$encryption = $this->_get_encryption();
-		$compression = $this->_get_compression();
-
-		$group = '';
-		$sitemap_regex = $this->_config->get_string( 'pgcache.purge.sitemap_regex' );
-		if ( $sitemap_regex && preg_match( '/' . $sitemap_regex . '/', basename( $this->_request_uri ) ) ) {
-			$group = 'sitemaps';
-			$this->_sitemap_matched = true;
-		} else {
-			$this->_sitemap_matched = false;
-		}
+		$mobile_group = $this->_page_key_extension['useragent'];
+		$referrer_group = $this->_page_key_extension['referrer'];
+		$encryption = $this->_page_key_extension['encryption'];
+		$compression = $this->_page_key_extension['compression'];
 
 		/**
 		 * Check if page is cached
 		 */
-		if ( !$this->_set_extract_page_key( $mobile_group, $referrer_group,
-				$encryption, $compression, '', $with_filter ) ) {
+		if ( !$this->_set_extract_page_key( $this->_page_key_extension, $with_filter ) ) {
 			$data = null;
 		} else {
-			$data = $cache->get_with_old( $this->_page_key, $group );
+			$data = $cache->get_with_old( $this->_page_key, $this->_page_group );
 			list( $data, $this->_old_exists ) = $data;
 		}
 
@@ -246,11 +241,12 @@ class PgCache_ContentGrabber {
 		 * Try to get uncompressed version of cache
 		 */
 		if ( $compression && !$data ) {
-			if ( !$this->_set_extract_page_key( $mobile_group,
-					$referrer_group, $encryption, false, '', $with_filter ) ) {
+			if ( !$this->_set_extract_page_key(
+					array_merge( $this->_page_key_extension,
+						array( 'compression' => '') ), $with_filter ) ) {
 				$data = null;
 			} else {
-				$data = $cache->get_with_old( $this->_page_key, $group );
+				$data = $cache->get_with_old( $this->_page_key, $this->_page_group );
 				list( $data, $this->_old_exists ) = $data;
 				$compression = false;
 			}
@@ -258,7 +254,9 @@ class PgCache_ContentGrabber {
 
 		if ( !$data ) {
 			if ( $this->_debug ) {
-				self::log( 'no cache entry for ' . $this->_page_key );
+				self::log( 'no cache entry for ' .
+					$this->_request_host . $this->_request_uri . ' ' .
+					$this->_page_key );
 			}
 
 			return null;
@@ -271,17 +269,32 @@ class PgCache_ContentGrabber {
 
 
 
-	private function _set_extract_page_key( $mobile_group, $referrer_group,
-		$encryption, $compression, $content_type = '', $with_filter ) {
-		$this->_page_key = $this->_get_page_key( $mobile_group, $referrer_group,
-			$encryption, $compression, $content_type );
+	private function _set_extract_page_key( $page_key_extension, $with_filter ) {
+		// set page group
+		$this->_page_group = $page_key_extension['group'];
+		if ( $with_filter ) {
+			// return empty value if caching should not happen
+			$this->_page_group = apply_filters( 'w3tc_page_extract_group',
+				$page_key_extension['group'],
+				$this->_request_host . $this->_request_uri,
+				$page_key_extension );
+			$page_key_extension['group'] = $this->_page_group;
+		}
+
+		// set page key
+		$this->_page_key = $this->_get_page_key( $page_key_extension );
 
 		if ( $with_filter ) {
 			// return empty value if caching should not happen
 			$this->_page_key = apply_filters( 'w3tc_page_extract_key',
-				$this->_page_key, $mobile_group, $referrer_group,
-				$encryption, $compression, $content_type,
-				$this->_request_host . $this->_request_uri );
+				$this->_page_key,
+				$page_key_extension['useragent'],
+				$page_key_extension['referrer'],
+				$page_key_extension['encryption'],
+				$page_key_extension['compression'],
+				$page_key_extension['content_type'],
+				$this->_request_host . $this->_request_uri,
+				$page_key_extension );
 		}
 
 		if ( !empty( $this->_page_key ) )
@@ -307,19 +320,26 @@ class PgCache_ContentGrabber {
 		 */
 		$this->_bad_behavior();
 
-		$is_404 = $data['404'];
-		$headers = $data['headers'];
+		$is_404 = isset( $data['404'] ) ? $data['404'] : false;
+		$headers = isset( $data['headers'] ) ? $data['headers'] : array();
 		$content = $data['content'];
 		$has_dynamic = isset( $data['has_dynamic'] ) && $data['has_dynamic'];
 		$etag = md5( $content );
+
+		// for REST under disk-enhanced - return json content type
+		if ( !empty( $this->_page_key_extension['content_type'] ) &&
+			!isset( $headers['Content-Type'] ) ) {
+			$headers['Content-Type'] = $this->_page_key_extension['content_type'];
+		}
+
 
 		if ( $has_dynamic ) {
 			// its last modification date is now, and any compression
 			// browser wants cant be used, since its compressed now
 			$time = time();
-			$compression = $this->_get_compression();
+			$compression = $this->_page_key_extension['compression'];
 		} else {
-			$time = $data['time'];
+			$time = isset( $data['time'] ) ? $data['time'] : time();
 			$compression = $data['compression'];
 		}
 
@@ -361,6 +381,7 @@ class PgCache_ContentGrabber {
 		$can_cache = apply_filters( 'w3tc_can_cache', $original_can_cache, $this, $buffer );
 		if ( $can_cache != $original_can_cache )
 			$this->cache_reject_reason = 'Third-party plugin has modified caching activity';
+
 		if ( $this->_debug ) {
 			self::log( 'storing cached page: ' .
 				( $can_cache ? 'true' : 'false' ) .
@@ -368,12 +389,17 @@ class PgCache_ContentGrabber {
 				' reason ' . $this->cache_reject_reason );
 		}
 
+		$buffer = str_replace('{w3tc_pagecache_reject_reason}',
+			( $this->cache_reject_reason != '' ? sprintf( ' (%s)', $this->cache_reject_reason )
+				: '' ),
+			$buffer );
+
 		if ( $can_cache ) {
 			$buffer = $this->_maybe_save_cached_result( $buffer, $has_dynamic );
 		} else {
 			if ( $has_dynamic ) {
 				// send common headers since output will be compressed
-				$compression_header = $this->_get_compression();
+				$compression_header = $this->_page_key_extension['compression'];
 				if ( defined( 'W3TC_PAGECACHE_OUTPUT_COMPRESSION_OFF' ) )
 					$compression_header = false;
 				$headers = $this->_get_common_headers( $compression_header );
@@ -385,16 +411,15 @@ class PgCache_ContentGrabber {
 				if ( $this->_old_exists ) {
 					$cache = $this->_get_cache();
 
-					$mobile_group = $this->_get_mobile_group();
-					$referrer_group = $this->_get_referrer_group();
-					$encryption = $this->_get_encryption();
+					$mobile_group = $this->_page_key_extension['useragent'];
+					$referrer_group = $this->_page_key_extension['referrer'];
+					$encryption = $this->_page_key_extension['encryption'];
 					$compressions_to_store = $this->_get_compressions();
-					$content_type = '';
 
 					foreach ( $compressions_to_store as $_compression ) {
-						$_page_key = $this->_get_page_key( $mobile_group,
-							$referrer_group, $encryption, $_compression,
-							$content_type );
+						$_page_key = $this->_get_page_key(
+							array_merge( $this->_page_key_extension,
+								array( 'compression' => $_compression ) ) );
 						$cache->hard_delete( $_page_key );
 					}
 				}
@@ -425,7 +450,7 @@ class PgCache_ContentGrabber {
 	 * @return void
 	 */
 	public function shutdown() {
-		$compression = $this->_get_compression();
+		$compression = $this->_page_key_extension['compression'];
 
 		// Parse dynamic content
 		$buffer = $this->_parse_dynamic( $this->_shutdown_buffer );
@@ -459,10 +484,10 @@ class PgCache_ContentGrabber {
 		}
 
 		if ( !$this->_config->get_boolean('pgcache.cache.ssl') && Util_Environment::is_https() ) {
-            $this->cache_reject_reason = 'SSL caching disabled';
+			$this->cache_reject_reason = 'SSL caching disabled';
 
-        	return false;
-        }
+			return false;
+		}
 
 		/**
 		 * Skip if posting
@@ -486,19 +511,28 @@ class PgCache_ContentGrabber {
 		/**
 		 * Skip if there is query in the request uri
 		 */
-		if ( !$this->_check_query_string() &&
-			( !$this->_config->get_boolean( 'pgcache.cache.query' ) ||
-				$this->_config->get_string( 'pgcache.engine' ) == 'file_generic' ) &&
-			strstr( $this->_request_uri, '?' ) !== false ) {
-			$this->cache_reject_reason = 'Requested URI contains query';
+		if ( !$this->_is_whitelisted_query_string() ) {
+			$should_skip_qs =
+				( !$this->_config->get_boolean( 'pgcache.cache.query' ) ||
+				$this->_config->get_string( 'pgcache.engine' ) == 'file_generic' );
 
-			return false;
+			if ( $should_skip_qs &&
+				$this->_config->get_string( 'pgcache.rest' ) == 'cache' &&
+				Util_Environment::is_rest_request( $this->_request_uri ) ) {
+				$should_skip_qs = false;
+			}
+
+			if ( $should_skip_qs && strstr( $this->_request_uri, '?' ) !== false ) {
+				$this->cache_reject_reason = 'Requested URI contains query';
+
+				return false;
+			}
 		}
 
 		/**
 		 * Check request URI
 		 */
-		if ( !in_array( $_SERVER['PHP_SELF'], $this->_config->get_array( 'pgcache.accept.files' ) ) && !$this->_check_request_uri() ) {
+		if ( !$this->_passed_accept_files() && !$this->_passed_reject_uri() ) {
 			$this->cache_reject_reason = 'Requested URI is rejected';
 
 			return false;
@@ -568,8 +602,14 @@ class PgCache_ContentGrabber {
 		 */
 		if ( defined( 'DONOTCACHEPAGE' ) && DONOTCACHEPAGE ) {
 			$this->cache_reject_reason = 'DONOTCACHEPAGE constant is defined';
-
 			return false;
+		}
+
+		if ( $this->_config->get_string( 'pgcache.rest' ) != 'cache' ) {
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+				$this->cache_reject_reason = 'REST request';
+				return false;
+			}
 		}
 
 		/**
@@ -617,6 +657,39 @@ class PgCache_ContentGrabber {
 			return false;
 		}
 
+		if ( !$this->_passed_accept_files() ) {
+			if ( is_single() ) {
+				/**
+				 * Don't cache pages associated with categories
+				 */
+				if ( $this->_passed_reject_categories() ) {
+					$this->cache_reject_reason = 'Page associated with a rejected category';
+					return false;
+				}
+				/**
+				 * Don't cache pages that use tags
+				 */
+				if ( $this->_passed_reject_tags() ) {
+					$this->cache_reject_reason = 'Page using a rejected tag';
+					return false;
+				}
+			}
+			/**
+			 * Don't cache pages by these authors
+			 */
+			if ( $this->_passed_reject_authors() ) {
+				$this->cache_reject_reason = 'Page written by a rejected author';
+				return false;
+			}
+			/**
+			 * Don't cache pages using custom fields
+			 */
+			if ( $this->_passed_reject_custom_fields() ) {
+				$this->cache_reject_reason = 'Page using a rejected custom field';
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -633,6 +706,7 @@ class PgCache_ContentGrabber {
 
 		switch ( $engine ) {
 		case 'memcached':
+		case 'nginx_memcached':
 			$engineConfig = array(
 				'servers' => $this->_config->get_array( 'pgcache.memcached.servers' ),
 				'persistent' => $this->_config->get_boolean( 'pgcache.memcached.persistent' ),
@@ -676,6 +750,7 @@ class PgCache_ContentGrabber {
 
 			switch ( $engine ) {
 			case 'memcached':
+			case 'nginx_memcached':
 				$engineConfig = array(
 					'servers' => $this->_config->get_array( 'pgcache.memcached.servers' ),
 					'persistent' => $this->_config->get_boolean( 'pgcache.memcached.persistent' ),
@@ -741,7 +816,7 @@ class PgCache_ContentGrabber {
 	 *
 	 * @return boolean
 	 */
-	function _check_request_uri() {
+	function _passed_reject_uri() {
 		$auto_reject_uri = array(
 			'wp-login',
 			'wp-register'
@@ -764,6 +839,100 @@ class PgCache_ContentGrabber {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Check if in the cache exception list
+	 *
+	 * @return boolean
+	 */
+	function _passed_accept_files() {
+		$accept_uri = $this->_config->get_array( 'pgcache.accept.files' );
+		$accept_uri = array_map( array( '\W3TC\Util_Environment', 'parse_path' ), $accept_uri );
+		foreach ( $accept_uri as &$val ) $val = trim( str_replace( "~", "\~", $val ) );
+		$accept_uri = array_filter( $accept_uri, function( $val ){ return $val != ""; } );
+		if ( !empty( $accept_uri ) && @preg_match( '~' . implode( "|", $accept_uri ) . '~i', $this->_request_uri ) ) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * Checks page against rejected categories
+	 *
+	 * @return boolean
+	 */
+	function _passed_reject_categories() {
+		$reject_categories = $this->_config->get_array( 'pgcache.reject.categories' );
+		if ( !empty( $reject_categories ) ) {
+			if ( $cats = get_the_category() ) {
+			   foreach( $cats as $cat ) {
+				  if ( in_array( $cat->slug, $reject_categories ) ) {
+						return true;
+				  }
+			   }
+			}
+		}
+		return false;
+	}
+	/**
+	 * Checks page against rejected tags
+	 *
+	 * @return boolean
+	 */
+	function _passed_reject_tags() {
+		$reject_tags = $this->_config->get_array( 'pgcache.reject.tags' );
+		if ( !empty( $reject_tags ) ) {
+			if ( $tags = get_the_tags() ) {
+			   foreach( $tags as $tag ) {
+				  if ( in_array( $tag->slug,$reject_tags ) ) {
+						return true;
+				  }
+			   }
+			}
+		}
+		return false;
+	}
+	/**
+	 * Checks page against rejected authors
+	 *
+	 * @return boolean
+	 */
+	function _passed_reject_authors() {
+		$reject_authors = $this->_config->get_array( 'pgcache.reject.authors' );
+		if ( !empty( $reject_authors ) ) {
+			if ( $author = get_the_author_meta( 'user_login' ) ) {
+				if ( in_array( $author, $reject_authors ) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	/**
+	 * Checks page against rejected custom fields
+	 *
+	 * @return boolean
+	 */
+	function _passed_reject_custom_fields() {
+		$reject_custom = $this->_config->get_array( 'pgcache.reject.custom' );
+		if ( empty( $reject_custom ) )
+			return false;
+
+		foreach ( $reject_custom as &$val ) {
+			$val = preg_quote( trim( $val ), '~' );
+		}
+		$reject_custom = implode( '|', array_filter( $reject_custom ) );
+		if ( !empty( $reject_custom ) ) {
+			if ( $customs = get_post_custom() ) {
+				foreach ( $customs as $key => $value ) {
+					if ( @preg_match( '~' . $reject_custom . '~i', $key . ( isset( $value[0] ) ? "={$value[0]}" : "" ) ) ) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -890,48 +1059,99 @@ class PgCache_ContentGrabber {
 		case 'deflate':
 			$data = gzdeflate( $data );
 			break;
+
+		case 'br':
+			$data = brotli_compress( $data );
+			break;
 		}
 
 		return $data;
 	}
 
 	/**
-	 * Returns current mobile group
+	 * Returns page key extension for current request
 	 *
 	 * @return string
 	 */
-	function _get_mobile_group() {
-		if ( $this->_mobile ) {
-			return $this->_mobile->get_group();
+	private function _get_key_extension() {
+		$extension = array(
+			'useragent' => '',
+			'referrer' => '',
+			'cookie' => '',
+			'encryption' => '',
+			'compression' => $this->_get_compression(),
+			'content_type' => '',
+			'cache' => true,
+			'cache_reject_reason' => '',
+			'group' => ''
+		);
+
+		if ( $this->_mobile )
+			$extension['useragent'] = $this->_mobile->get_group();
+		if ( $this->_referrer )
+			$extension['referrer'] = $this->_referrer->get_group();
+		if ( Util_Environment::is_https() )
+			$extension['encryption'] = 'ssl';
+
+		$this->_fill_key_extension_cookie( $extension );
+
+		// fill group
+		$sitemap_regex = $this->_config->get_string(
+			'pgcache.purge.sitemap_regex' );
+		if ( !$this->_enhanced_mode && $sitemap_regex &&
+			preg_match( '~' . $sitemap_regex . '~',
+				basename( $this->_request_uri ) ) ) {
+			// dont store to separate group under disk-enhanced
+			// so that rewrite rules still work.
+			// flushing is handled by workaround in this case
+			$extension['group'] = 'sitemaps';
+		} elseif ( $this->_config->get_string( 'pgcache.rest' ) == 'cache' &&
+			Util_Environment::is_rest_request( $this->_request_uri ) &&
+			Util_Environment::is_w3tc_pro( $this->_config ) ) {
+			$extension['group'] = 'rest';
+			$extension['querystring.processing'] = 'include';
+			$extension['content_type'] = 'application/json';
 		}
 
-		return '';
+		return $extension;
 	}
 
-	/**
-	 * Returns current referrer group
-	 *
-	 * @return string
-	 */
-	function _get_referrer_group() {
-		if ( $this->_referrer ) {
-			return $this->_referrer->get_group();
+	private function _fill_key_extension_cookie( &$extension ) {
+		if ( !$this->_config->get_boolean( 'pgcache.cookiegroups.enabled' ) )
+			return;
+
+		$groups = $this->_config->get_array( 'pgcache.cookiegroups.groups' );
+		foreach ( $groups as $group_name => $g ) {
+			if ( isset( $g['enabled'] ) && $g['enabled'] ) {
+
+				$cookies = array();
+				foreach ($g['cookies'] as $cookie ) {
+					$cookie = trim( $cookie );
+					if ( !empty( $cookie ) ) {
+						$cookie = str_replace( '+', ' ', $cookie );
+						$cookie = Util_Environment::preg_quote( $cookie );
+						if ( strpos( $cookie, '=') === false )
+							$cookie .= '=.*';
+						$cookies[] = $cookie;
+					}
+				}
+
+				if ( count( $cookies ) > 0 ) {
+					$cookies_regexp = '~^(' . implode( '|', $cookies ) . ')$~i';
+
+					foreach ( $_COOKIE as $key => $value ) {
+						if ( @preg_match( $cookies_regexp, $key . '=' . $value ) ) {
+							$extension['cookie'] = $group_name;
+							if ( !$g['cache'] ) {
+								$extension['cache'] = false;
+								$extension['cache_reject_reason'] = 'cookiegroup ' . $group_name;
+							}
+							return;
+						}
+					}
+				}
+			}
 		}
-
-		return '';
-	}
-
-	/**
-	 * Returns current encryption
-	 *
-	 * @return string
-	 */
-	function _get_encryption() {
-		if ( Util_Environment::is_https() ) {
-			return 'ssl';
-		}
-
-		return '';
 	}
 
 	/**
@@ -941,7 +1161,7 @@ class PgCache_ContentGrabber {
 	 */
 	function _get_compression() {
 		if ( $this->_debug )   // cannt generate/use compressed files during debug mode
-			return false;
+			return '';
 
 		if ( !Util_Environment::is_zlib_enabled() && !$this->_is_buggy_ie() ) {
 			$compressions = $this->_get_compressions();
@@ -955,7 +1175,7 @@ class PgCache_ContentGrabber {
 			}
 		}
 
-		return false;
+		return '';
 	}
 
 	/**
@@ -968,10 +1188,20 @@ class PgCache_ContentGrabber {
 			false
 		);
 
+		if ( defined( 'W3TC_PAGECACHE_STORE_COMPRESSION_OFF' ) ) {
+			return $compressions;
+		}
+
 		if ( $this->_config->get_boolean( 'browsercache.enabled' ) &&
 			$this->_config->get_boolean( 'browsercache.html.compression' ) &&
 			function_exists( 'gzencode' ) ) {
 			$compressions[] = 'gzip';
+		}
+
+		if ( $this->_config->get_boolean( 'browsercache.enabled' ) &&
+			$this->_config->get_boolean( 'browsercache.html.brotli' ) &&
+			function_exists( 'brotli_compress' ) ) {
+			$compressions[] = 'br';
 		}
 
 		return $compressions;
@@ -1082,24 +1312,18 @@ class PgCache_ContentGrabber {
 	/**
 	 * Returns page key
 	 *
-	 * @param string  $mobile_group
-	 * @param string  $referrer_group
-	 * @param string  $encryption
-	 * @param string  $compression
-	 * @param string  $content_type
-	 * @param string  $request_uri
 	 * @return string
 	 */
-	function _get_page_key( $mobile_group = '', $referrer_group = '',
-		$encryption = '', $compression = '', $content_type = '', $request_url = '' ) {
-
+	function _get_page_key( $page_key_extension, $request_url = '' ) {
 		if ( $request_url ) {
 			$parts = parse_url( $request_url );
 			$key = $parts['host'] .
 				( isset( $parts['path'] ) ? $parts['path'] : '' ) .
 				( isset( $parts['query'] ) ? '?' . $parts['query'] : '' );
-		} else
+		} else {
 			$key = $this->_request_host . $this->_request_uri;
+			$request_url = $this->_request_uri;
+		}
 
 		// replace fragment
 		$key = preg_replace( '~#.*$~', '', $key );
@@ -1112,71 +1336,98 @@ class PgCache_ContentGrabber {
 			// replace double slashes
 			$key = preg_replace( '~[/\\\]+~', '/', $key );
 
-			// replace query string
-			$key = preg_replace( '~\?.*$~', '', $key );
-
 			// replace index.php
 			$key = str_replace( '/index.php', '/', $key );
 
-			// trim slash
-			$key = ltrim( $key, '/' );
+			$key_query = '';
+			if ( isset( $page_key_extension['querystring.processing'] ) &&
+				$page_key_extension['querystring.processing'] == 'include' ) {
 
+				if ( preg_match( '~\?.*$~', $key, $m ) ) {
+					$key_query = '_' . md5( $m[0] );
+				}
+			}
+
+			$key = preg_replace( '~\?.*$~', '', $key );
+
+			// make sure one slash is at the end
+			$key = ltrim( $key, '/' );
 			if ( $key && substr( $key, -1 ) != '/' ) {
 				$key .= '/';
 			}
 
 			$key .= '_index';
+		} else if ( $this->_nginx_memcached ) {
+			// URL decode
+			$key = urldecode( $key );
+
+			// replace double slashes
+			$key = preg_replace( '~[/\\\]+~', '/', $key );
+
+			// replace index.php
+			$key = str_replace( '/index.php', '/', $key );
+
+			$key_query = '';
+			if ( isset( $page_key_extension['querystring.processing'] ) &&
+				$page_key_extension['querystring.processing'] == 'include' ) {
+
+				if ( preg_match( '~\?.*$~', $key, $m ) ) {
+					$key_query = '_' . md5( $m[0] );
+				}
+			}
+
+			$key = preg_replace( '~\?.*$~', '', $key );
+
+			// make sure one slash is at the end
+			$key = ltrim( $key, '/' );
+			$key = rtrim( $key, '/' ) . '/';
 		} else {
-			if ( $this->_check_query_string() )
+			if ( isset( $page_key_extension['querystring.processing'] ) &&
+				$page_key_extension['querystring.processing'] == 'include' ) {
+				// include querystring in key
+			} elseif ( $this->_is_whitelisted_query_string() ) {
 				// replace query string
 				$key = preg_replace( '~\?.*$~', '', $key );
+			}
 
 			$key = md5( $key );
 		}
 
 		/**
-		 * Append mobile group
+		 * Append extensions
 		 */
-		if ( $mobile_group ) {
-			$key .= '_' . $mobile_group;
-		}
-
-		/**
-		 * Append referrer group
-		 */
-		if ( $referrer_group ) {
-			$key .= '_' . $referrer_group;
-		}
-
-		/**
-		 * Append encryption
-		 */
-		if ( $encryption ) {
-			$key .= '_' . $encryption;
-		}
-
-		if ( Util_Environment::is_preview_mode() ) {
+		if ( !empty( $page_key_extension['useragent'] ) )
+			$key .= '_' . $page_key_extension['useragent'];
+		if ( !empty( $page_key_extension['referrer'] ) )
+			$key .= '_' . $page_key_extension['referrer'];
+		if ( !empty( $page_key_extension['cookie'] ) )
+			$key .= '_' . $page_key_extension['cookie'];
+		if ( !empty( $page_key_extension['encryption'] ) )
+			$key .= '_' . $page_key_extension['encryption'];
+		if ( Util_Environment::is_preview_mode() )
 			$key .= '_preview';
-		}
 
 		if ( $this->_enhanced_mode ) {
-			/**
-			 * Append HTML extension.
-			 * For nginx - we create .xml cache entries and redirect to them
-			 */
-			if ( Util_Environment::is_nginx() && substr( $content_type, 0, 8 ) == 'text/xml' &&
-				$this->_config->get_boolean( 'pgcache.cache.nginx_handle_xml' ) )
-				$key .= '.xml';
-			else
-				$key .= '.html';
+			$key_postfix = '.html';
+			if ( $this->_config->get_boolean( 'pgcache.cache.nginx_handle_xml' ) ) {
+				$content_type = isset( $page_key_extension['content_type'] ) ?
+					$page_key_extension['content_type'] : '';
+
+				if ( @preg_match( "~(text/xml|text/xsl|application/rdf\+xml|application/rss\+xml|application/atom\+xml)~i", $content_type ) ||
+					preg_match( "~/feed(/|$)~", $request_url ) ||
+					strpos( $request_url, ".xsl" ) !== false ) {
+					$key_postfix = '.xml';
+				}
+			}
+
+			$key .= $key_query . $key_postfix;
 		}
 
 		/**
 		 * Append compression
 		 */
-		if ( $compression ) {
-			$key .= '_' . $compression;
-		}
+		if ( $page_key_extension['compression'] )
+			$key .= '_' . $page_key_extension['compression'];
 
 		return $key;
 	}
@@ -1192,24 +1443,19 @@ class PgCache_ContentGrabber {
 	 */
 	public function w3tc_footer_comment( $strings ) {
 		$strings[] = sprintf(
-			__( 'Page Caching using %s%s', 'w3-total-cache' ),
+			__( 'Page Caching using %s%s%s', 'w3-total-cache' ),
 			Cache::engine_name( $this->_config->get_string( 'pgcache.engine' ) ),
-			( $this->cache_reject_reason != ''
-				? sprintf( ' (%s)', $this->cache_reject_reason )
-				: '' ) );
+			'{w3tc_pagecache_reject_reason}',
+			isset($this->_page_key_extension['cookie']) ? ' ' . $this->_page_key_extension['cookie'] : '' );
 
 
 		if ( $this->_debug ) {
 			$time_total = Util_Debug::microtime() - $this->_time_start;
 			$engine = $this->_config->get_string( 'pgcache.engine' );
-			$strings[] = "Page cache debug info:";
+			$strings[] = '';
+			$strings[] = 'Page cache debug info:';
 			$strings[] = sprintf( "%s%s", str_pad( 'Engine: ', 20 ), Cache::engine_name( $engine ) );
 			$strings[] = sprintf( "%s%s", str_pad( 'Cache key: ', 20 ), $this->_page_key );
-
-			if ( $this->cache_reject_reason != '' ) {
-				$strings[] = sprintf( "%s%s", str_pad( 'Reject reason: ', 20 ),
-					$this->cache_reject_reason );
-			}
 
 			$strings[] = sprintf( "%s%.3fs", str_pad( 'Creation Time: ', 20 ), time() );
 
@@ -1224,6 +1470,8 @@ class PgCache_ContentGrabber {
 						Util_Content::escape_comment( $i['value'] ) );
 				}
 			}
+
+			$strings[] = '';
 		}
 
 		return $strings;
@@ -1256,7 +1504,7 @@ class PgCache_ContentGrabber {
 			} elseif ( $name == 'Status-Code' ) {
 				if ( function_exists( 'http_response_code' ) )   // php5.3 compatibility)
 					@http_response_code( $headers['Status-Code'] );
-			} else {
+			} elseif ( !empty( $name ) && !empty( $value ) ) {
 				@header( $name . ': ' . $value, !isset( $repeating[$name] ) );
 				$repeating[$name] = true;
 			}
@@ -1381,7 +1629,7 @@ class PgCache_ContentGrabber {
 
 		$vary = '';
 		//compressed && UAG
-		if ( $compression && $this->_get_mobile_group() ) {
+		if ( $compression && $this->_page_key_extension['useragent'] ) {
 			$vary = 'Accept-Encoding,User-Agent,Cookie';
 			$headers['Content-Encoding'] = $compression;
 			//compressed
@@ -1389,7 +1637,7 @@ class PgCache_ContentGrabber {
 			$vary = 'Accept-Encoding';
 			$headers['Content-Encoding'] = $compression;
 			//uncompressed && UAG
-		} elseif ( $this->_get_mobile_group() ) {
+		} elseif ( $this->_page_key_extension['useragent'] ) {
 			$vary = 'User-Agent,Cookie';
 		}
 
@@ -1579,30 +1827,44 @@ class PgCache_ContentGrabber {
 		$headers = headers_list();
 		foreach ( $headers as $header ) {
 			$header = strtolower( $header );
-			if ( stripos( $header, 'content-type' ) !== false ) {
-				$temp = explode( ';', $header );
-				$temp = array_shift( $temp );
-				$temp = explode( ':', $temp );
-				$content_type = trim( $temp[1] );
+			$m = null;
+			if ( preg_match( '~\s*content-type\s*:([^;]+)~', $header, $m ) ) {
+				$content_type = trim( $m[1] );
 			}
 		}
 
 		$cache_headers = apply_filters( 'w3tc_is_cacheable_content_type',
 			array(
 				'' /* redirects, they have only Location header set */,
-				'application/json', 'text/html', 'text/xml',
-				'application/xhtml+xml'
+				'application/json', 'text/html', 'text/xml', 'text/xsl',
+				'application/xhtml+xml', 'application/rss+xml',
+				'application/atom+xml', 'application/rdf+xml'
 			)
 		);
 		return in_array( $content_type, $cache_headers );
 	}
 
-	private function _check_query_string() {
+	private function _is_whitelisted_query_string() {
 		$accept_qs = $this->_config->get_array( 'pgcache.accept.qs' );
-		foreach ( $_GET as $key => $value ) {
-			if ( !in_array( strtolower( $key ), $accept_qs ) )
-				return false;
+		Util_Rule::array_trim( $accept_qs );
+
+		if ( empty( $accept_qs) ) {
+			return false;
 		}
+
+		foreach ( $accept_qs as &$val ) {
+			$val = Util_Environment::preg_quote( str_replace( "+", " ", $val ) );
+			$val .= ( strpos( $val, '=' ) === false ? '=.*?' : '' );
+		}
+
+		$accept_qs = implode( '|', $accept_qs );
+
+		foreach ( $_GET as $key => $value ) {
+			if ( !@preg_match( '~^(' . $accept_qs . ')$~i', $key . "=$value" ) ) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -1639,15 +1901,10 @@ class PgCache_ContentGrabber {
 	 * @return array
 	 */
 	private function _maybe_save_cached_result( $buffer, $has_dynamic ) {
-		if ( empty( $buffer ) ) {
-			$this->cache_reject_reason = 'Empty response';
-			return $buffer;
-		}
-
-		$mobile_group = $this->_get_mobile_group();
-		$referrer_group = $this->_get_referrer_group();
-		$encryption = $this->_get_encryption();
-		$compression_header = $this->_get_compression();
+		$mobile_group = $this->_page_key_extension['useragent'];
+		$referrer_group = $this->_page_key_extension['referrer'];
+		$encryption = $this->_page_key_extension['encryption'];
+		$compression_header = $this->_page_key_extension['compression'];
 		$compressions_to_store = $this->_get_compressions();
 
 		/**
@@ -1663,7 +1920,6 @@ class PgCache_ContentGrabber {
 		$compression_of_returned_content =
 			( $has_dynamic ? false : $compression_header );
 
-		$content_type = '';
 		$is_404 = ( function_exists( 'is_404' ) ? is_404() : false );
 		$response_headers = $this->_get_response_headers();
 		$headers = $this->_get_cached_headers( $response_headers['plain'] );
@@ -1673,14 +1929,19 @@ class PgCache_ContentGrabber {
 			return $buffer;
 		}
 
+		if ( empty( $buffer ) && empty( $response_headers['kv']['Location'] ) ) {
+			$this->cache_reject_reason = 'Empty response';
+			return $buffer;
+		}
+
 		if ( $this->_enhanced_mode ) {
 			// redirect issued, if we have some old cache entries
 			// they will be turned into fresh files and catch further requests
 			if ( isset( $response_headers['kv']['Location'] ) ) {
 				foreach ( $compressions_to_store as $_compression ) {
-					$_page_key = $this->_get_page_key( $mobile_group,
-						$referrer_group, $encryption, $_compression,
-						$content_type );
+					$_page_key = $this->_get_page_key(
+						array_merge( $this->_page_key_extension,
+							array( 'compression' => $_compression ) ) );
 					$cache = $this->_get_cache();
 					$cache->hard_delete( $_page_key );
 				}
@@ -1689,6 +1950,7 @@ class PgCache_ContentGrabber {
 			}
 		}
 
+		$content_type = '';
 		if ( $this->_enhanced_mode && !$this->_late_init ) {
 			register_shutdown_function( array(
 					$this,
@@ -1706,21 +1968,13 @@ class PgCache_ContentGrabber {
 		 * Store different versions of cache
 		 */
 		$buffers = array();
-		$group = '';
-		if ( !isset( $this->_sitemap_matched ) ) {
-			$sitemap_regex =
-				$this->_config->get_string( 'pgcache.purge.sitemap_regex' );
-			if ( $sitemap_regex && preg_match( '/' . $sitemap_regex . '/', basename( $this->_request_uri ) ) ) {
-				$group = 'sitemaps';
-				$this->_sitemap_matched = true;
-			}
-		} elseif ( $this->_sitemap_matched )
-			$group = 'sitemaps';
 
 		foreach ( $compressions_to_store as $_compression ) {
-			$this->_set_extract_page_key( $mobile_group,
-				$referrer_group, $encryption, $_compression,
-				$content_type, true );
+			$this->_set_extract_page_key(
+				array_merge( $this->_page_key_extension,
+					array(
+						'compression' => $_compression,
+						'content_type' => $content_type ) ), true );
 			if ( empty( $this->_page_key ) )
 				continue;
 
@@ -1734,13 +1988,17 @@ class PgCache_ContentGrabber {
 				'time' => $time,
 				'content' => $buffers[$_compression]
 			);
+			if ( !empty( $_compression ) ) {
+				$_data['c'] = $_compression;
+			}
 			if ( $has_dynamic )
 				$_data['has_dynamic'] = true;
 
-			$_data = apply_filters( 'w3tc_pagecache_set', $_data, $this->_page_key );
+			$_data = apply_filters( 'w3tc_pagecache_set', $_data, $this->_page_key,
+				$this->_page_group );
 
 			if ( !empty( $_data ) )
-				$cache->set( $this->_page_key, $_data, $this->_lifetime, $group );
+				$cache->set( $this->_page_key, $_data, $this->_lifetime, $this->_page_group );
 		}
 
 		// Change buffer if using compression
@@ -1777,7 +2035,7 @@ class PgCache_ContentGrabber {
 	/**
 	 * Log
 	 */
-	static private function log( $msg ) {
+	static protected function log( $msg ) {
 		$data = sprintf( "[%s] [%s] [%s] %s\n", date( 'r' ),
 			$_SERVER['REQUEST_URI'],
 			( !empty( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '-' ),

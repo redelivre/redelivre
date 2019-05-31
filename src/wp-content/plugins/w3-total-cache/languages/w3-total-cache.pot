@@ -537,7 +537,7 @@ msgid "Update via FTP"
 msgstr ""
 
 #: inc/functions/admin_ui.php:73 inc/functions/widgets.php:61
-#: inc/lightbox/edge.php:15 inc/options/support/form.php:26
+#: inc/options/support/form.php:26
 #: inc/options/support/payment.php:21
 msgid "Cancel"
 msgstr ""
@@ -653,23 +653,6 @@ msgstr ""
 
 #: inc/lightbox/create_netdna_maxcdn_pull_zone.php:22
 msgid "Something that describes your zone. Length: 1-255 chars"
-msgstr ""
-
-#: inc/lightbox/edge.php:7
-msgid ""
-"You can now keep up-to-date on all of the web performance optimization (WPO) "
-"techniques that will make your website as fast as possible without having to "
-"worry about new features breaking your website when you update!"
-msgstr ""
-
-#: inc/lightbox/edge.php:8
-msgid ""
-"Enable \"edge mode\" to opt-in to pre-release features or simply close this "
-"window to opt-in to bug fixes, security fixes and settings updates only."
-msgstr ""
-
-#: inc/lightbox/edge.php:13
-msgid "Enable Edge Mode"
 msgstr ""
 
 #: inc/lightbox/minify_recommendations.php:5
@@ -939,6 +922,10 @@ msgstr ""
 
 #: inc/lightbox/self_test.php:211
 msgid "Not detected"
+msgstr ""
+
+#: ../inc/lightbox/self_test.php:202
+msgid "(required for Self-hosted (<acronym title=\"File Transfer Protocol\">FTP</acronym>) <acronym title=\"Content Delivery Network\">CDN</acronym> <acronym title=\"Secure File Transfer Protocol\">SFTP</acronym> support)"
 msgstr ""
 
 #: inc/lightbox/self_test.php:213
@@ -1330,7 +1317,7 @@ msgid "cache with max-age (\"public, max-age=EXPIRES_SECONDS\")"
 msgstr ""
 
 #: inc/options/browsercache.php:166
-msgid "cache with validation (\"public, must-revalidate, proxy-revalidate\""
+msgid "cache with validation (\"public, must-revalidate, proxy-revalidate\")"
 msgstr ""
 
 #: inc/options/browsercache.php:167 inc/options/browsercache.php:257
@@ -1346,7 +1333,7 @@ msgid "cache without proxy (\"private, must-revalidate\")"
 msgstr ""
 
 #: inc/options/browsercache.php:169
-msgid "no-cache (\"max-age=0, private, no-store, no-cache, must-revalidate\""
+msgid "no-cache (\"max-age=0, private, no-store, no-cache, must-revalidate\")"
 msgstr ""
 
 #: inc/options/browsercache.php:211
@@ -1704,6 +1691,22 @@ msgid ""
 "Some <acronym>CDN</acronym> providers may or may not support <acronym title="
 "\"Secure Sockets Layer\">SSL</acronym>, contact your vendor for more "
 "information."
+msgstr ""
+
+#: inc/options/cdn/ftp.php:67
+msgid "Use default <acronym title=\"Secure Shell\">SSH</acronym> public/private key files"
+msgstr ""
+
+#: inc/options/cdn/ftp.php:68
+msgid "Enable this option if you don't have special public/private key files."
+msgstr ""
+
+#: inc/options/cdn/ftp.php:72
+msgid "<acronym title=\"Secure File Transfer Protocol\">SFTP</acronym> public key:"
+msgstr ""
+
+#: inc/options/cdn/ftp.php:79
+msgid "<acronym title=\"Secure File Transfer Protocol\">SFTP</acronym> private key:"
 msgstr ""
 
 #: inc/options/cdn/akamai.php:55 inc/options/cdn/att.php:28
@@ -2904,14 +2907,6 @@ msgstr ""
 msgid "Disable Edge mode"
 msgstr ""
 
-#: inc/options/general.php:653
-msgid ""
-"Enable this to try out new functionality under development. Might cause "
-"issues on some sites. If you have issues and can't access wp-admin, remove "
-"\"define('W3TC_EDGE_MODE', true);\" from your wp-config.php file and edge "
-"mode features will be disabled."
-msgstr ""
-
 #: inc/options/general.php:666
 msgid ""
 "Detailed information about each cache will be appended in (publicly "
@@ -2926,7 +2921,7 @@ msgstr ""
 
 #: inc/options/general.php:684
 msgid ""
-"If selected, detailed caching information will be appear at the end of each "
+"If selected, detailed caching information will appear at the end of each "
 "page in a <acronym title=\"Hypertext Markup Language\">HTML</acronym> "
 "comment. View a page's source code to review."
 msgstr ""

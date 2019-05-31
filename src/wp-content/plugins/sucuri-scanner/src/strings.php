@@ -306,7 +306,7 @@ __('HTTP Proxy Password', 'sucuri-scanner');
 __('API Service Communication', 'sucuri-scanner');
 __('Once the API key is generate the plugin will communicate with a remote API service that will act as a safe data storage for the audit logs generated when the website triggers certain events that the plugin monitors. If the website is hacked the attacker will not have access to these logs and that way you can investigate what was modified <em>(for malware infaction)</em> and/or how the malicious person was able to gain access to the website.', 'sucuri-scanner');
 __('Disabling the API service communication will stop the event monitoring, consider to enable the <a href="%%SUCURI.URL.Settings%%#general">Log Exporter</a> to keep the monitoring working while the HTTP requests are ignored, otherwise an attacker may execute an action that will not be registered in the security logs and you will not have a way to investigate the attack in the future.', 'sucuri-scanner');
-__('<strong>Are you a developer?</strong> You may be interested in our API. Feel free to use the URL shown below to access the latest 50 entries in your security log, change the value for the parameter <code>l=N</code> if you need more. Be aware that the API doesn’t provides an offset parameter, so if you have the intension to query specific sections of the log you will need to wrap the HTTP request around your own cache mechanism. We <strong>DO NOT</strong> take feature requests for the API, this is a semi-private service tailored for the specific needs of the plugin and not intended to be used by 3rd-party apps, we may change the behavior of each API endpoint without previous notice, use it at your own risk.', 'sucuri-scanner');
+__('<strong>Are you a developer?</strong> You may be interested in our API. Feel free to use the URL shown below to access the latest 50 entries in your security log, change the value for the parameter <code>l=N</code> if you need more. Be aware that the API doesn’t provides an offset parameter, so if you have the intention to query specific sections of the log you will need to wrap the HTTP request around your own cache mechanism. We <strong>DO NOT</strong> take feature requests for the API, this is a semi-private service tailored for the specific needs of the plugin and not intended to be used by 3rd-party apps, we may change the behavior of each API endpoint without previous notice, use it at your own risk.', 'sucuri-scanner');
 
 // settings-general-apikey.html.tpl
 __('API Key', 'sucuri-scanner');
@@ -363,7 +363,7 @@ __('File Path:', 'sucuri-scanner');
 __('Submit', 'sucuri-scanner');
 
 // settings-general-timezone.html.tpl
-__('Timezone', 'sucuri-scanner');
+__('Timezone Override', 'sucuri-scanner');
 __('This option defines the timezone that will be used through out the entire plugin to print the dates and times whenever is necessary. This option also affects the date and time of the logs visible in the audit logs panel which is data that comes from a remote server configured to use Eastern Daylight Time (EDT). WordPress offers an option in the general settings page to allow you to configure the timezone for the entire website, however, if you are experiencing problems with the time in the audit logs, this option will help you fix them.', 'sucuri-scanner');
 __('Timezone:', 'sucuri-scanner');
 __('Submit', 'sucuri-scanner');
@@ -521,3 +521,6 @@ __('The remote malware scanner provided by the plugin is powered by <a href="htt
 __('Malware Scan Target', 'sucuri-scanner');
 __('Malware Scan Target:', 'sucuri-scanner');
 __('Submit', 'sucuri-scanner');
+
+// wordpress-recommendations.html.tpl
+__('WordPress Security Recommendations', 'sucuri-scanner');

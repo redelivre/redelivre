@@ -5,104 +5,60 @@ class Generic_Faq {
 	static public function sections() {
 		// name => column where to show
 		return array(
-			'General' => 1,
-			'Usage' => 1,
-			'Compatibility' => 1,
-			'Minification' => 2,
-			'CDN' => 2,
-			'Browser Cache' => 3,
-			'Errors / Debugging' => 3,
-			'Requirements' => 3,
-			'Developers' => 3,
-			'Extensions' => 3
+			'General' => 'https://api.w3-edge.com/v1/faq/general',
+			'Usage' => 'https://api.w3-edge.com/v1/faq/usage',
+			'Compatibility' => 'https://api.w3-edge.com/v1/faq/compatibility',
+			'Minification' => 'https://api.w3-edge.com/v1/faq/minification',
+			'CDN' => 'https://api.w3-edge.com/v1/faq/cdn',
+			'Browser Cache' => 'https://api.w3-edge.com/v1/faq/browser-cache',
+			'Errors / Debugging' => 'https://api.w3-edge.com/v1/faq/errors-debugging',
+			'Requirements' => 'https://api.w3-edge.com/v1/faq/requirements',
+			'Developers' => 'https://api.w3-edge.com/v1/faq/developers',
+			'Extensions' => 'https://api.w3-edge.com/v1/faq/extensions',
+			'Installation' => 'https://api.w3-edge.com/v1/faq/installation'
 		);
 	}
 
-
-
 	/**
-	 * Parses FAQ XML file into array
-	 *
-	 * @return array
+	 * Returns list of questions for section
 	 */
-	static public function parse() {
-		$config = Dispatcher::config();
+	static public function parse( $section ) {
 		$faq = array();
 
-		self::parse_file( $faq, 'faq', '', '' );
+		$sections = self::sections();
+		if ( !isset( $sections[ $section ] ) ) {
+			return null;
+		}
 
-		if ( Util_Environment::is_w3tc_edge( $config ) )
-			self::parse_file( $faq, 'faq-edge', 'edge', '<b>Edge:</b> ' );
-		if ( Util_Environment::is_w3tc_pro( $config ) )
-			self::parse_file( $faq, 'faq-pro', 'pro', '<b>Pro:</b> ' );
-
-		return $faq;
-	}
+		$url = $sections[ $section ];
 
 
+		$response = wp_remote_get( $url );
+		if ( is_wp_error( $response ) ) {
+			return null;
+		}
 
-	static private function parse_file( &$entries, $filename_base, $flag,
-		$question_prefix ) {
-		$filename = W3TC_LANGUAGES_DIR . '/' . $filename_base . '-' .
-			get_locale() . '.xml';
-		if ( !file_exists( $filename ) )
-			$filename = W3TC_LANGUAGES_DIR . '/' . $filename_base . '-en_US.xml';
+		$html = $response['body'];
+		$questions = array();
 
-		$xml = @file_get_contents( $filename );
-		if ( empty( $xml ) )
-			return;
-
-		if ( !function_exists( 'xml_parser_create' ) )
-			return;
-
-		$parser = @xml_parser_create( 'UTF-8' );
-
-		xml_parser_set_option( $parser, XML_OPTION_TARGET_ENCODING, 'UTF-8' );
-		xml_parser_set_option( $parser, XML_OPTION_CASE_FOLDING, 0 );
-		xml_parser_set_option( $parser, XML_OPTION_SKIP_WHITE, 1 );
-
-		$values = null;
-		$result = xml_parse_into_struct( $parser, $xml, $values );
-		xml_parser_free( $parser );
-
-		if ( !$result )
-			return;
-
-		$section = 'General';
-		$entry = null;
-
-		foreach ( $values as $value ) {
-			switch ( $value['type'] ) {
-			case 'open':
-				if ( $value['tag'] === 'section' ) {
-					$section = $value['attributes']['name'];
-					if ( !isset( $entries[$section] ) )
-						$entries[$section] = array();
-				} else if ( $value['tag'] === 'entry' ) {
-						$entry = array(
-							'flag' => $flag
-						);
-					}
-				break;
-
-			case 'complete':
-				if ( $value['tag'] == 'question' )
-					$entry['question'] = $question_prefix . $value['value'];
-				else if ( $value['tag'] == 'answer' )
-						$entry['answer'] = $value['value'];
-					else if ( $value['tag'] == 'tag' )
-							$entry['tag'] = $value['value'];
-						break;
-
-				case 'close':
-					if ( $value['tag'] == 'entry' ) {
-						if ( !isset( $entry['tag'] ) )
-							$entry['tag'] = md5( $entry['answer'] );
-
-						$entries[$section][] = $entry;
-					}
-				break;
+		$m = array();
+		preg_match_all( '~<h1>\s*<a[^>]+href="(#[^"]+)[^>]+>.*?</a>([^<]+)</h1>~mi',
+			$html, $m );
+		if ( is_array( $m ) && count( $m ) > 1 ) {
+			for ( $n = 0; $n < count( $m[1] ); $n++ ) {
+				$questions[] = array('q' => $m[2][$n], 'a' => $url . $m[1][$n] );
 			}
 		}
+
+		$m = array();
+		preg_match_all( '~<li>\s*<a[^>]+href="([^"]+)[^>]+>(.*?)</a>\s*[.]s*</li>~mi',
+			$html, $m );
+		if ( is_array( $m ) && count( $m ) > 1 ) {
+			for ( $n = 0; $n < count( $m[1] ); $n++ ) {
+				$questions[] = array('q' => $m[2][$n], 'a' => $m[1][$n] );
+			}
+		}
+
+		return $questions;
 	}
 }

@@ -3,6 +3,11 @@ namespace W3TC;
 
 
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RecursiveRegexIterator;
+use RegexIterator;
+
 define( 'W3TC_PLUGIN_TOTALCACHE_REGEXP_COOKIEDOMAIN', '~define\s*\(\s*[\'"]COOKIE_DOMAIN[\'"]\s*,.*?\)~is' );
 
 class Generic_AdminActions_Default {
@@ -256,55 +261,62 @@ class Generic_AdminActions_Default {
 				$config->set( 'pgcache.enabled', false );
 				$data['response_errors'][] = 'fancy_permalinks_disabled_pgcache';
 			}
-
-			if ( !Util_Environment::is_w3tc_pro( $this->_config ) )
-				delete_transient( 'w3tc_license_status' );
 		}
 
 		/**
 		 * Minify tab
 		 */
-		if ( $this->_page == 'w3tc_minify' && !$this->_config->get_boolean( 'minify.auto' ) ) {
-			$js_groups = array();
-			$css_groups = array();
+		if ( $this->_page == 'w3tc_minify' ) {
+			if ( ( $this->_config->get_boolean( 'minify.js.http2push' ) && ! $config->get_boolean( 'minify.js.http2push' ) ) ||
+			     ( $this->_config->get_boolean( 'minify.css.http2push' ) && ! $config->get_boolean( 'minify.css.http2push' ) ) ) {
+				if ( $config->get_string( 'pgcache.engine' ) == 'file_generic' ) {
+					$cache_dir = Util_Environment::cache_blog_dir( 'page_enhanced' );
+					$this->_deleteAllHtaccessFiles( $cache_dir );
+				}
+			}
 
-			$js_files = Util_Request::get_array( 'js_files' );
-			$css_files = Util_Request::get_array( 'css_files' );
+			if ( !$this->_config->get_boolean( 'minify.auto' ) ) {
+				$js_groups = array();
+				$css_groups = array();
 
-			foreach ( $js_files as $theme => $templates ) {
-				foreach ( $templates as $template => $locations ) {
-					foreach ( (array) $locations as $location => $types ) {
-						foreach ( (array) $types as $files ) {
-							foreach ( (array) $files as $file ) {
-								if ( !empty( $file ) ) {
-									$js_groups[$theme][$template][$location]['files'][] = Util_Environment::normalize_file_minify( $file );
+				$js_files = Util_Request::get_array( 'js_files' );
+				$css_files = Util_Request::get_array( 'css_files' );
+
+				foreach ( $js_files as $theme => $templates ) {
+					foreach ( $templates as $template => $locations ) {
+						foreach ( (array) $locations as $location => $types ) {
+							foreach ( (array) $types as $files ) {
+								foreach ( (array) $files as $file ) {
+									if ( !empty( $file ) ) {
+										$js_groups[$theme][$template][$location]['files'][] = Util_Environment::normalize_file_minify( $file );
+									}
 								}
 							}
 						}
 					}
 				}
-			}
 
-			foreach ( $css_files as $theme => $templates ) {
-				foreach ( $templates as $template => $locations ) {
-					foreach ( (array) $locations as $location => $files ) {
-						foreach ( (array) $files as $file ) {
-							if ( !empty( $file ) ) {
-								$css_groups[$theme][$template][$location]['files'][] = Util_Environment::normalize_file_minify( $file );
+				foreach ( $css_files as $theme => $templates ) {
+					foreach ( $templates as $template => $locations ) {
+						foreach ( (array) $locations as $location => $files ) {
+							foreach ( (array) $files as $file ) {
+								if ( !empty( $file ) ) {
+									$css_groups[$theme][$template][$location]['files'][] = Util_Environment::normalize_file_minify( $file );
+								}
 							}
 						}
 					}
 				}
+
+				$config->set( 'minify.js.groups', $js_groups );
+				$config->set( 'minify.css.groups', $css_groups );
+
+				$js_theme = Util_Request::get_string( 'js_theme' );
+				$css_theme = Util_Request::get_string( 'css_theme' );
+
+				$data['response_query_string']['js_theme'] = $js_theme;
+				$data['response_query_string']['css_theme'] = $css_theme;
 			}
-
-			$config->set( 'minify.js.groups', $js_groups );
-			$config->set( 'minify.css.groups', $css_groups );
-
-			$js_theme = Util_Request::get_string( 'js_theme' );
-			$css_theme = Util_Request::get_string( 'css_theme' );
-
-			$data['response_query_string']['js_theme'] = $js_theme;
-			$data['response_query_string']['css_theme'] = $css_theme;
 		}
 
 		/**
@@ -317,7 +329,8 @@ class Generic_AdminActions_Default {
 			}
 
 			// todo: move to cdn module
-			if ( in_array( $engine = $this->_config->get_string( 'cdn.engine' ), array( 'netdna', 'maxcdn' ) ) ) {
+			$engine = $this->_config->get_string( 'cdn.engine' );
+			if ( $engine == 'maxcdn' ) {
 				require_once W3TC_LIB_NETDNA_DIR . '/NetDNA.php';
 				$keys = explode( '+', $this->_config->get_string( 'cdn.'.$engine.'.authorization_key' ) );
 				if ( sizeof( $keys ) == 3 ) {
@@ -515,13 +528,16 @@ class Generic_AdminActions_Default {
 			}
 
 			switch ( $this->_config->get_string( 'cdn.engine' ) ) {
-			case 'ftp':
-				$config->set( 'cdn.ftp.domain', $cdn_domains );
+			case 'akamai':
+				$config->set( 'cdn.akamai.domain', $cdn_domains );
 				break;
 
-			case 's3':
-			case 's3_compatible':
-				$config->set( 'cdn.s3.cname', $cdn_domains );
+			case 'att':
+				$config->set( 'cdn.att.domain', $cdn_domains );
+				break;
+
+			case 'azure':
+				$config->set( 'cdn.azure.cname', $cdn_domains );
 				break;
 
 			case 'cf':
@@ -532,29 +548,6 @@ class Generic_AdminActions_Default {
 				$config->set( 'cdn.cf2.cname', $cdn_domains );
 				break;
 
-			case 'rackspace_cdn':
-				$config->set( 'cdn.rackspace_cdn.domains', $cdn_domains );
-				break;
-
-			case 'rscf':
-				$config->set( 'cdn.rscf.cname', $cdn_domains );
-				break;
-
-			case 'azure':
-				$config->set( 'cdn.azure.cname', $cdn_domains );
-				break;
-			case 'mirror':
-				$config->set( 'cdn.mirror.domain', $cdn_domains );
-				break;
-
-			case 'maxcdn':
-				$config->set( 'cdn.maxcdn.domain', $cdn_domains );
-				break;
-
-			case 'netdna':
-				$config->set( 'cdn.netdna.domain', $cdn_domains );
-				break;
-
 			case 'cotendo':
 				$config->set( 'cdn.cotendo.domain', $cdn_domains );
 				break;
@@ -563,16 +556,56 @@ class Generic_AdminActions_Default {
 				$config->set( 'cdn.edgecast.domain', $cdn_domains );
 				break;
 
-			case 'att':
-				$config->set( 'cdn.att.domain', $cdn_domains );
-				break;
-
-			case 'akamai':
-				$config->set( 'cdn.akamai.domain', $cdn_domains );
+			case 'ftp':
+				$config->set( 'cdn.ftp.domain', $cdn_domains );
 				break;
 
 			case 'highwinds':
 				$config->set( 'cdn.highwinds.host.domains', $cdn_domains );
+				break;
+
+			case 'limelight':
+				$config->set( 'cdn.limelight.host.domains', $cdn_domains );
+				break;
+
+			case 'mirror':
+				$config->set( 'cdn.mirror.domain', $cdn_domains );
+				break;
+
+			case 'maxcdn':
+				$v = $config->get( 'cdn.maxcdn.domain' );
+				if ( isset( $v['http_default'] ) )
+					$cdn_domains['http_default'] = $v['http_default'];
+				if ( isset( $v['https_default'] ) )
+					$cdn_domains['https_default'] = $v['https_default'];
+
+				$config->set( 'cdn.maxcdn.domain', $cdn_domains );
+				break;
+
+			case 'rackspace_cdn':
+				$config->set( 'cdn.rackspace_cdn.domains', $cdn_domains );
+				break;
+
+			case 'rscf':
+				$config->set( 'cdn.rscf.cname', $cdn_domains );
+				break;
+
+			case 's3':
+			case 's3_compatible':
+				$config->set( 'cdn.s3.cname', $cdn_domains );
+				break;
+
+			case 'stackpath':
+				$v = $config->get( 'cdn.stackpath.domain' );
+				if ( isset( $v['http_default'] ) )
+					$cdn_domains['http_default'] = $v['http_default'];
+				if ( isset( $v['https_default'] ) )
+					$cdn_domains['https_default'] = $v['https_default'];
+
+				$config->set( 'cdn.stackpath.domain', $cdn_domains );
+				break;
+			case 'stackpath2':
+				$config->set( 'cdn.stackpath2.domain', $cdn_domains );
 				break;
 			}
 		}
@@ -646,6 +679,32 @@ class Generic_AdminActions_Default {
 			'errors' => $data['response_errors'],
 			'notes' => $data['response_notes']
 		);
+	}
+
+	private function _deleteAllHtaccessFiles($dir) {
+		if ( ! is_dir( $dir ) ) {
+			return;
+		}
+
+		$handle = opendir( $dir );
+		if ( $handle === false ) {
+			return;
+		}
+
+		while ( false !== ( $file = readdir( $handle ) ) ) {
+			if ( $file == '.' || $file == '..' ) {
+				continue;
+			}
+
+			if ( is_dir( $file ) ) {
+				$this->_deleteAllHtaccessFiles( $file );
+				continue;
+			} else if ( $file === '.htaccess' ) {
+				@unlink( $file );
+			}
+		}
+
+		closedir( $handle );
 	}
 
 	/**
@@ -740,7 +799,7 @@ class Generic_AdminActions_Default {
 				array_map( 'stripslashes_deep', $request_value );
 			else
 				$request_value = stripslashes( $request_value );
-			if ( strpos( $request_key, 'memcached_servers' ) )
+			if ( strpos( $request_key, 'memcached__servers' ) || strpos( $request_key, 'redis__servers' ) )
 				$request_value = explode( ',', $request_value );
 
 			$key = Util_Ui::config_key_from_http_name( $request_key );

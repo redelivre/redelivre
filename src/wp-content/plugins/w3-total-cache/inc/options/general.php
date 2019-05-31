@@ -17,14 +17,6 @@ echo sprintf( 'The plugin is currently %1$s If an option is disabled it means th
         <?php Util_Ui::postbox_header( __( 'General', 'w3-total-cache' ), '' ); ?>
         <table class="form-table">
             <tr>
-                <th colspan="2">
-                    <label>
-                        <input id="enabled" type="checkbox" name="enabled" value="1"<?php checked( $enabled_checkbox, true ); ?> />
-                        <?php _e( 'Toggle all caching types on or off (at once)', 'w3-total-cache' ); ?>
-                    </label>
-                </th>
-            </tr>
-            <tr>
                 <th>Preview mode:</th>
                 <td>
                     <?php echo Util_Ui::nonce_field( 'w3tc' ); ?>
@@ -98,6 +90,12 @@ Util_Ui::config_item( array(
 				'label' => __( 'Memcached', 'w3-total-cache' ),
 				'optgroup' => 2
 			),
+			'nginx_memcached' => array(
+				'disabled' => !Util_Installed::memcached_memcached() || !$is_pro,
+				'label' => __( 'Nginx + Memcached', 'w3-total-cache' ) .
+					( $is_pro ? '' : ' (available after upgrade)' ),
+				'optgroup' => 2
+			),
 			'redis' => array(
 				'disabled' => !Util_Installed::redis(),
 				'label' => __( 'Redis', 'w3-total-cache' ),
@@ -128,7 +126,7 @@ Util_Ui::config_overloading_button( array(
 		'key' => 'minify.configuration_overloaded'
 	) );
 ?>
-        <p><?php _e( 'Reduce load time by decreasing the size and number of <acronym title="Cascading Style Sheet">CSS</acronym> and <acronym title="JavaScript">JS</acronym> files. Automatically remove unncessary data from <acronym title="Cascading Style Sheet">CSS</acronym>, <acronym title="JavaScript">JS</acronym>, feed, page and post <acronym title="Hypertext Markup Language">HTML</acronym>.', 'w3-total-cache' ); ?></p>
+        <p><?php w3tc_e( 'minify.general.header', 'Reduce load time by decreasing the size and number of <acronym title="Cascading Style Sheet">CSS</acronym> and <acronym title="JavaScript">JS</acronym> files. Automatically remove unncessary data from <acronym title="Cascading Style Sheet">CSS</acronym>, <acronym title="JavaScript">JS</acronym>, feed, page and post <acronym title="Hypertext Markup Language">HTML</acronym>.' ) ?></p>
 
         <table class="form-table">
             <?php
@@ -220,7 +218,7 @@ Util_Ui::config_item_engine( array(
 	) );
 ?>
 
-            <?php if ( Util_Environment::is_w3tc_enterprise() && is_network_admin() ): ?>
+            <?php if ( Util_Environment::is_w3tc_pro() && is_network_admin() ): ?>
             <?php include W3TC_INC_OPTIONS_DIR . '/enterprise/dbcluster_general_section.php' ?>
             <?php endif; ?>
         </table>
@@ -298,8 +296,7 @@ Util_Ui::config_overloading_button( array(
         <p>
         	<?php
 echo sprintf(
-	__( 'A reverse proxy adds scale to an server by handling requests before WordPress does. Purge settings are set on the <a href="%s">Page Cache settings</a> page and <a href="%s">Browser Cache settings</a> are set on the browser cache settings page.',
-		'w3-total-cache' ),
+	w3tc_er( 'reverseproxy.general.header', 'A reverse proxy adds scale to an server by handling requests before WordPress does. Purge settings are set on the <a href="%s">Page Cache settings</a> page and <a href="%s">Browser Cache settings</a> are set on the browser cache settings page.' ),
 	self_admin_url( 'admin.php?page=w3tc_pgcache' ),
 	self_admin_url( 'admin.php?page=w3tc_browsercache' ) );
 ?>
@@ -329,7 +326,7 @@ Util_Ui::button_config_save( 'general_varnish',
 ?>
         <?php Util_Ui::postbox_footer(); ?>
 
-        <?php if ( Util_Environment::is_w3tc_enterprise() ): ?>
+        <?php if ( $is_pro ): ?>
         <?php Util_Ui::postbox_header( 'Message Bus', '', 'amazon_sns' ); ?>
         <p>
             Allows policy management to be shared between a dynamic pool of servers. For example, each server in a pool to use opcode caching (which is not a shared resource) and purging is then syncronized between any number of servers in real-time; each server therefore behaves identically even though resources are not shared.
@@ -403,7 +400,7 @@ foreach ( $custom_areas as $area )
                             <input id="plugin_license_key_verify" type="button" class="button" value="<?php _e( 'Verify license key', 'w3-total-cache' ) ?>"/>
                             <span class="w3tc_license_verification"></span>
                             <br />
-                            <span class="description"><?php printf( __( 'Please enter the license key provided you received after %s.', 'w3-total-cache' ), '<a class="button-buy-plugin" href="' . EDD_W3EDGE_STORE_URL_PLUGIN .'">' . __( 'upgrading', 'w3-total-cache' ) . '</a>' )?></span>
+                            <span class="description"><?php printf( __( 'Please enter the license key provided after %s.', 'w3-total-cache' ), '<a class="button-buy-plugin" href="#">' . __( 'upgrading', 'w3-total-cache' ) . '</a>' )?></span>
                         </td>
                     </tr>
 
@@ -427,9 +424,15 @@ Util_Ui::config_item( array(
                 <th><label for="widget_pagespeed_key"><?php Util_Ui::e_config_label( 'widget.pagespeed.key' ) ?></label></th>
                 <td>
                     <input id="widget_pagespeed_key" type="text" name="widget__pagespeed__key" value="<?php echo esc_attr( $this->_config->get_string( 'widget.pagespeed.key' ) ); ?>" <?php Util_Ui::sealing_disabled( 'common.' ) ?> size="60" /><br />
-                    <span class="description"><?php _e( 'To acquire an <acronym title="Application Programming Interface">API</acronym> key, visit the <a href="https://code.google.com/apis/console" target="_blank"><acronym title="Application Programming Interface">API</acronym>s Console</a>. Go to the Project Home tab, activate the PageSpeed Insights <acronym title="Application Programming Interface">API</acronym>, and accept the Terms of Service.
-                    Then go to the <acronym title="Application Programming Interface">API</acronym> Access tab. The <acronym title="Application Programming Interface">API</acronym> key is in the Simple <acronym title="Application Programming Interface">API</acronym> Access section.', 'w3-total-cache' ); ?></span>
+                    <span class="description"><?php _e( 'Learn more about obtaining a <a href="https://support.google.com/cloud/answer/6158862" target="_blank"><acronym title="Application Programming Interface">API</acronym> key here</a>.', 'w3-total-cache' ); ?></span>
                 </td>
+            </tr>
+ 			<tr>
+                 <th><label for="widget_pagespeed_key"><?php Util_Ui::e_config_label( 'widget.pagespeed.key.restrict.referrer', 'general' ) ?></label></th>
+                 <td>
+                     <input id="widget_pagespeed_key_restrict_referrer" type="text" name="widget__pagespeed__key__restrict__referrer" value="<?php echo esc_attr( $this->_config->get_string( 'widget.pagespeed.key.restrict.referrer' ) ); ?>" size="60" /><br>
+                     <span class="description">Although not required, to prevent unauthorized use and quota theft, you have the option to restrict your key using a designated HTTP referrer. If you decide to use it, you will need to set this referrer within the API Console's "Http Referrers (web sites)" key restriction area (under Credentials).</span>
+                 </td>
             </tr>
             <?php
 Util_Ui::config_item( array(
@@ -488,27 +491,6 @@ Util_Ui::config_item( array(
 ?>
 
             <?php do_action( 'w3tc_settings_general_boxarea_miscellaneous_content' ); ?>
-            <?php if ( is_network_admin() || !Util_Environment::is_wpmu() ): ?>
-            <tr id="edge_mode">
-                <th colspan="2">
-                    <?php
-	if ( !Util_Environment::is_w3tc_edge( $this->_config ) )
-		echo '<a href="' .
-			Util_Ui::url( array( 'w3tc_edge_mode_enable' => 'y' ) ) .
-			'"><strong>' .
-			__( 'Enable Edge mode', 'w3-total-cache' ) .
-			'</strong></a>';
-	else
-		echo '<a href="' .
-			Util_Ui::url( array( 'w3tc_edge_mode_disable' => 'y' ) ) .
-			'"><strong>' .
-			__( 'Disable Edge mode', 'w3-total-cache' ) .
-			'</strong></a>';
-?>
-                    <br /><span class="description"><?php _e( 'Enable this to try out new functionality under development. Might cause issues on some sites.', 'w3-total-cache' ); ?></span>
-                </th>
-            </tr>
-            <?php endif; ?>
         </table>
 
         <?php Util_Ui::button_config_save( 'general_misc' ); ?>
@@ -529,11 +511,12 @@ Util_Ui::config_item( array(
                     <?php $this->checkbox_debug( array( 'fragmentcache', 'debug' ) ) ?> <?php _e( 'Fragment Cache', 'w3-total-cache' ) ?></label><br />
                     <?php endif; ?>
                     <?php $this->checkbox_debug( 'cdn.debug' ) ?> <?php Util_Ui::e_config_label( 'cdn.debug' ) ?></label><br />
+                    <?php $this->checkbox_debug( 'cdnfsd.debug' ) ?> <?php Util_Ui::e_config_label( 'cdnfsd.debug' ) ?></label><br />
                     <?php $this->checkbox_debug( 'varnish.debug' ) ?> <?php Util_Ui::e_config_label( 'varnish.debug' ) ?></label><br />
-                    <?php if ( Util_Environment::is_w3tc_enterprise() ): ?>
+                    <?php if ( Util_Environment::is_w3tc_pro() ): ?>
                     <?php $this->checkbox_debug( 'cluster.messagebus.debug' ) ?> <?php Util_Ui::e_config_label( 'cluster.messagebus.debug' ) ?></label><br />
                     <?php endif; ?>
-                    <span class="description"><?php _e( 'If selected, detailed caching information will be appear at the end of each page in a <acronym title="Hypertext Markup Language">HTML</acronym> comment. View a page\'s source code to review.', 'w3-total-cache' ); ?></span>
+                    <span class="description"><?php _e( 'If selected, detailed caching information will appear at the end of each page in a <acronym title="Hypertext Markup Language">HTML</acronym> comment. View a page\'s source code to review.', 'w3-total-cache' ); ?></span>
                 </td>
             </tr>
         </table>

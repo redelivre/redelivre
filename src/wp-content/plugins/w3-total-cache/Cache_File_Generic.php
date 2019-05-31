@@ -2,13 +2,7 @@
 namespace W3TC;
 
 /**
- * Generic file cache
- */
-
-
-
-/**
- * class Cache_File_Generic
+ * Disk:Enhanced file cache
  */
 class Cache_File_Generic extends Cache_File {
 	/**
@@ -44,8 +38,8 @@ class Cache_File_Generic extends Cache_File {
 	 */
 	function set( $key, $var, $expire = 0, $group = '' ) {
 		$key = $this->get_item_key( $key );
-		$sub_path = $this->_get_path( $key );
-		$path = $this->_cache_dir . '/' . $sub_path;
+		$sub_path = $this->_get_path( $key, $group );
+		$path = $this->_cache_dir . DIRECTORY_SEPARATOR . $sub_path;
 
 		$dir = dirname( $path );
 
@@ -56,7 +50,7 @@ class Cache_File_Generic extends Cache_File {
 
 		$tmppath = $path . '.' . getmypid();
 
-		$fp = @fopen( $tmppath, 'w' );
+		$fp = @fopen( $tmppath, 'wb' );
 		if ( !$fp )
 			return false;
 
@@ -83,16 +77,46 @@ class Cache_File_Generic extends Cache_File {
 		$old_entry_path = $path . '_old';
 		@unlink( $old_entry_path );
 
-		if ( Util_Environment::is_apache() && isset( $var['headers'] ) &&
-			isset( $var['headers']['Content-Type'] ) &&
-			substr( $var['headers']['Content-Type'], 0, 8 ) == 'text/xml' ) {
-			file_put_contents( dirname( $path ) . '/.htaccess',
-				"<IfModule mod_mime.c>\n" .
-				"    RemoveType .html_gzip\n" .
-				"    AddType text/xml .html_gzip\n" .
-				"    RemoveType .html\n" .
-				"    AddType text/xml .html\n".
-				"</IfModule>" );
+		if ( Util_Environment::is_apache() && isset( $var['headers'] ) ) {
+			$rules = '';
+
+			if ( isset( $var['headers']['Content-Type'] ) &&
+				substr( $var['headers']['Content-Type'], 0, 8 ) == 'text/xml' ) {
+
+				$rules .= "<IfModule mod_mime.c>\n";
+				$rules .= "    RemoveType .html_gzip\n";
+				$rules .= "    AddType text/xml .html_gzip\n";
+				$rules .= "    RemoveType .html\n";
+				$rules .= "    AddType text/xml .html\n";
+				$rules .= "</IfModule>\n";
+			}
+
+			if ( isset( $var['headers'] ) ) {
+				$links = '';
+
+				foreach ( $var['headers'] as $h ) {
+					if ( isset($h['n']) && isset($h['v']) && $h['n'] == 'Link' ) {
+						$value = $h['v'];
+						if ( false !== strpos( $value, 'rel=preload' ) ) {
+							$links .= "    Header add Link '" . trim($value) . "'\n";
+						}
+					}
+				}
+
+				if ( !empty( $links) ) {
+					$rules .= "<IfModule mod_headers.c>\n";
+					$rules .= "    Header unset Link\n";
+					$rules .= "    <FilesMatch \"\.(html|html_gzip|html_br)$\">\n";
+					$rules .= $links;
+					$rules .= "    </FilesMatch>\n";
+					$rules .= "</IfModule>\n";
+				}
+			}
+
+			if ( !empty($rules) ) {
+				@file_put_contents( dirname( $path ) .
+					DIRECTORY_SEPARATOR . '.htaccess', $rules );
+			}
 		}
 
 		return true;
@@ -108,7 +132,8 @@ class Cache_File_Generic extends Cache_File {
 	function get_with_old( $key, $group = '' ) {
 		$has_old_data = false;
 		$key = $this->get_item_key( $key );
-		$path = $this->_cache_dir . '/' . $this->_get_path( $key );
+		$path = $this->_cache_dir . DIRECTORY_SEPARATOR .
+			$this->_get_path( $key, $group );
 
 		$data = $this->_read( $path );
 		if ( $data != null )
@@ -147,7 +172,7 @@ class Cache_File_Generic extends Cache_File {
 		if ( !is_readable( $path ) )
 			return null;
 
-		$fp = @fopen( $path, 'r' );
+		$fp = @fopen( $path, 'rb' );
 		if ( !$fp )
 			return null;
 
@@ -164,9 +189,14 @@ class Cache_File_Generic extends Cache_File {
 		if ( $this->_locking )
 			@flock( $fp, LOCK_UN );
 
+		$headers = array();
+		if ( substr( $path, -4 ) == '.xml' ) {
+			$headers['Content-type'] = 'text/xml';
+		}
+
 		return array(
 			'404' => false,
-			'headers' => array(),
+			'headers' => $headers,
 			'time' => null,
 			'content' => $var
 		);
@@ -181,10 +211,15 @@ class Cache_File_Generic extends Cache_File {
 	 */
 	function delete( $key, $group = '' ) {
 		$key = $this->get_item_key( $key );
-		$path = $this->_cache_dir . DIRECTORY_SEPARATOR . $this->_get_path( $key );
+		$path = $this->_cache_dir . DIRECTORY_SEPARATOR . $this->_get_path( $key, $group );
 
 		if ( !file_exists( $path ) )
 			return true;
+
+		$dir = dirname( $path );
+		if ( file_exists( $dir . DIRECTORY_SEPARATOR . '.htaccess' ) ) {
+			@unlink( $dir . DIRECTORY_SEPARATOR . '.htaccess' );
+		}
 
 		$old_entry_path = $path . '_old';
 		if ( ! @rename( $path, $old_entry_path ) ) {
@@ -204,9 +239,9 @@ class Cache_File_Generic extends Cache_File {
 	 * @param unknown $key
 	 * @return bool
 	 */
-	function hard_delete( $key ) {
+	function hard_delete( $key, $group = '' ) {
 		$key = $this->get_item_key( $key );
-		$path = $this->_cache_dir . DIRECTORY_SEPARATOR . $this->_get_path( $key );
+		$path = $this->_cache_dir . DIRECTORY_SEPARATOR . $this->_get_path( $key, $group );
 		$old_entry_path = $path . '_old';
 		@unlink( $old_entry_path );
 
@@ -228,11 +263,21 @@ class Cache_File_Generic extends Cache_File {
 			$sitemap_regex = $config->get_string( 'pgcache.purge.sitemap_regex' );
 			$this->_flush_based_on_regex( $sitemap_regex );
 		} else {
-			$c = new Cache_File_Cleaner_Generic( array(
-					'cache_dir' => $this->_flush_dir,
-					'exclude' => $this->_exclude,
-					'clean_timelimit' => $this->_flush_timelimit
-				) );
+			$dir = $this->_flush_dir;
+			if ( !empty( $group ) ) {
+				$c = new Cache_File_Cleaner_Generic_HardDelete( array(
+						'cache_dir' => $this->_flush_dir .
+							DIRECTORY_SEPARATOR . $group,
+						'exclude' => $this->_exclude,
+						'clean_timelimit' => $this->_flush_timelimit
+					) );
+			} else {
+				$c = new Cache_File_Cleaner_Generic( array(
+						'cache_dir' => $this->_flush_dir,
+						'exclude' => $this->_exclude,
+						'clean_timelimit' => $this->_flush_timelimit
+					) );
+			}
 
 			$c->clean();
 		}
@@ -244,8 +289,8 @@ class Cache_File_Generic extends Cache_File {
 	 * @param string  $key
 	 * @return string
 	 */
-	function _get_path( $key ) {
-		return $key;
+	function _get_path( $key, $group = '' ) {
+		return ( empty( $group ) ? '' : $group . DIRECTORY_SEPARATOR ) . $key;
 	}
 
 	function get_item_key( $key ) {
@@ -264,9 +309,11 @@ class Cache_File_Generic extends Cache_File {
 			$parsed = parse_url( $domain );
 			$host = $parsed['host'];
 			$path = isset( $parsed['path'] ) ? '/' . trim( $parsed['path'], '/' ) : '';
-			$flush_dir = W3TC_CACHE_PAGE_ENHANCED_DIR . '/' . $host . $path;
+			$flush_dir = W3TC_CACHE_PAGE_ENHANCED_DIR .
+				DIRECTORY_SEPARATOR . $host . $path;
 		} else
-			$flush_dir = W3TC_CACHE_PAGE_ENHANCED_DIR . '/' . Util_Environment::host();
+			$flush_dir = W3TC_CACHE_PAGE_ENHANCED_DIR .
+				DIRECTORY_SEPARATOR . Util_Environment::host();
 
 		$dir = @opendir( $flush_dir );
 		if ( $dir ) {

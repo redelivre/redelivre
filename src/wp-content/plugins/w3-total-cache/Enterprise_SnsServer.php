@@ -120,10 +120,12 @@ class Enterprise_SnsServer extends Enterprise_SnsBase {
 			$pgcache_admin->cleanup_local();
 		elseif ( $action == 'opcache_flush' )
 			$executor->opcache_flush();
-		elseif ( $action == 'opcache_flush_file' )
-			$executor->opcache_flush_file( $m['filename'] );
 		elseif ( $action == 'flush_all' )
 			$executor->flush_all(
+				isset( $m['extras'] ) ? $m['extras'] : null );
+		elseif ( $action == 'flush_group' )
+			$executor->flush_group(
+				isset( $m['group'] ) ? $m['group'] : null,
 				isset( $m['extras'] ) ? $m['extras'] : null );
 		elseif ( $action == 'flush_post' )
 			$executor->flush_post( $m['post_id'] );

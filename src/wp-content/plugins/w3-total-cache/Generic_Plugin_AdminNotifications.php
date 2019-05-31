@@ -53,46 +53,31 @@ class Generic_Plugin_AdminNotifications {
 		$state = Dispatcher::config_state_master();
 
 		// support us
+		$day7 = 604800;
 		$support_reminder =
-			$state->get_integer( 'common.support_us_invitations' ) < 3 &&
+			$state->get_integer( 'common.support_us_invitations' ) < 5 &&
 			( $state->get_integer( 'common.install' ) <
-			( time() - W3TC_SUPPORT_US_TIMEOUT ) ) &&
+			( time() - $day7 ) ) &&
 			( $state->get_integer( 'common.next_support_us_invitation' ) <
 			time() ) &&
 			$this->_config->get_string( 'common.support' ) == '' &&
 			!$this->_config->get_boolean( 'common.tweeted' );
 
 		if ( $support_reminder ) {
+			$invitations = $state->get_integer( 'common.support_us_invitations' );
+
+			if ( $invitations <= 0 ) {
+				$delay = 259200;   // delay 3 days to day10
+			} else {
+				$delay = 2592000;
+			}
+
 			$state->set( 'common.next_support_us_invitation',
-				time() + W3TC_SUPPORT_US_TIMEOUT );
-			$state->set( 'common.support_us_invitations',
-				$state->get_integer( 'common.support_us_invitations' ) + 1 );
+				time() + $delay );
+			$state->set( 'common.support_us_invitations', $invitations + 1 );
 			$state->save();
 
 			do_action( 'w3tc_message_action_generic_support_us' );
-		}
-
-
-		// edge mode
-		$edge_reminder = !$support_reminder &&
-			!Util_Environment::is_w3tc_edge( $this->_config ) &&
-			$state->get_integer( 'common.edge_invitations' ) < 3 &&
-			( $state->get_integer( 'common.install' ) <
-			( time() - W3TC_EDGE_TIMEOUT ) ) &&
-			( $state->get_integer( 'common.next_edge_invitation' ) < time() );
-
-		if ( $edge_reminder ) {
-			if ( $state->get_integer( 'common.edge_invitations' ) > 1 )
-				$next = time() + 30 * 24 * 60 * 60;
-			else
-				$next = time() + W3TC_EDGE_TIMEOUT;
-
-			$state->set( 'common.next_edge_invitation', $next );
-			$state->set( 'common.edge_invitations',
-				$state->get_integer( 'common.edge_invitations' ) + 1 );
-			$state->save();
-
-			do_action( 'w3tc_message_action_generic_edge' );
 		}
 	}
 
@@ -143,11 +128,5 @@ class Generic_Plugin_AdminNotifications {
 		wp_enqueue_script( 'w3tc-generic_edge',
 			plugins_url( 'Generic_GeneralPage_View_ShowEdge.js', W3TC_FILE ),
 			array(), W3TC_VERSION );
-	}
-
-
-
-	public function w3tc_ajax_generic_edge() {
-		include W3TC_INC_LIGHTBOX_DIR . '/edge.php';
 	}
 }

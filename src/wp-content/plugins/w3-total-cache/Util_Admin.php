@@ -313,8 +313,6 @@ class Util_Admin {
 						'cdn.azure.ssl',
 						'cdn.mirror.domain',
 						'cdn.mirror.ssl',
-						'cdn.netdna.domain',
-						'cdn.netdna.ssl',
 						'cdn.cotendo.domain',
 						'cdn.cotendo.ssl',
 						'cdn.edgecast.domain',
@@ -742,30 +740,10 @@ class Util_Admin {
 	static public function get_current_page() {
 		$page = Util_Request::get_string( 'page' );
 
-		switch ( true ) {
-		case ( $page == 'w3tc_dashboard' ):
-		case ( $page == 'w3tc_general' ):
-		case ( $page == 'w3tc_pgcache' ):
-		case ( $page == 'w3tc_minify' ):
-		case ( $page == 'w3tc_dbcache' ):
-		case ( $page == 'w3tc_objectcache' ):
-		case ( $page == 'w3tc_fragmentcache' ):
-		case ( $page == 'w3tc_browsercache' ):
-		case ( $page == 'w3tc_mobile' ):
-		case ( $page == 'w3tc_referrer' ):
-		case ( $page == 'w3tc_cdn' ):
-		case ( $page == 'w3tc_extensions' ):
-		case ( $page == 'w3tc_install' ):
-		case ( $page == 'w3tc_faq' ):
-		case ( $page == 'w3tc_about' ):
-		case ( $page == 'w3tc_support' ):
-			break;
+		if ( substr( $page, 0, 5 ) == 'w3tc_' )
+			return $page;
 
-		default:
-			$page = 'w3tc_dashboard';
-		}
-
-		return $page;
+		return 'w3tc_dashboard';
 	}
 
 	/**
@@ -782,16 +760,6 @@ class Util_Admin {
 		return false;
 	}
 
-
-	static public function make_track_call( $params ) {
-		wp_remote_post( W3TC_TRACK_URL, array(
-				'timeout' => 45,
-				'redirection' => 5,
-				'blocking' => false,
-				'headers' => array(),
-				'body' => array_merge( $params, array( 'id' => md5( home_url() ) ) )
-			) );
-	}
 
 	/**
 	 * Returns current WordPress page

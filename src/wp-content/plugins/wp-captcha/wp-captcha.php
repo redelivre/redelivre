@@ -408,9 +408,9 @@ if( !class_exists('WP_Captcha') ) {
 		*/	
 		public function wpc_captcha_login_check($user) {
 			
-			$wpc_random_total = sanitize_text_field($this->wpc_string($_REQUEST["wpc_random_total"]));
-			$wpc_first_randnumber = sanitize_text_field($this->wpc_string($_REQUEST["wpc_random_number1"]));
-			$wpc_second_randnumber = sanitize_text_field($this->wpc_string($_REQUEST["wpc_random_number2"]));
+			$wpc_random_total = array_key_exists('wpc_random_total', $_REQUEST) ? sanitize_text_field($this->wpc_string($_REQUEST["wpc_random_total"])) : null;
+			$wpc_first_randnumber = array_key_exists('wpc_random_number1', $_REQUEST) ? sanitize_text_field($this->wpc_string($_REQUEST["wpc_random_number1"])) : null;
+			$wpc_second_randnumber = array_key_exists('wpc_random_number2', $_REQUEST) ? sanitize_text_field($this->wpc_string($_REQUEST["wpc_random_number2"])) : null;
 			
 			/* Add error if captcha is empty */			
 			if ( ( !isset( $wpc_random_total ) || "" == $wpc_random_total ) && isset($_REQUEST["loggedout"]) ) {

@@ -15,12 +15,14 @@ class Cdn_Core {
 	 * Config
 	 */
 	private $_config = null;
+	private $debug;
 
 	/**
 	 * Runs plugin
 	 */
 	function __construct() {
 		$this->_config = Dispatcher::config();
+		$this->debug = $this->_config->get_boolean( 'cdn.debug' );
 	}
 
 	/**
@@ -77,7 +79,12 @@ class Cdn_Core {
 			$file = $this->normalize_attachment_file( $file );
 
 			$local_file = $upload_info['basedir'] . '/' . $file;
-			$remote_file = ltrim( $upload_info['baseurlpath'] . $file, '/' );
+
+			$parsed = parse_url( rtrim( $upload_info['baseurl'], '/' ) .
+				'/' . $file );
+			$local_uri = $parsed['path'];
+			$remote_uri = $this->uri_to_cdn_uri( $local_uri );
+			$remote_file = ltrim( $remote_uri, '/' );
 
 			$files[] = $this->build_file_descriptor( $local_file, $remote_file );
 		}
@@ -175,6 +182,11 @@ class Cdn_Core {
 	 * @return boolean
 	 */
 	function upload( $files, $queue_failed, &$results, $timeout_time = NULL ) {
+		if ( $this->debug ) {
+			Util_Debug::log( 'cdn', 'upload: ' .
+				json_encode( $files, JSON_PRETTY_PRINT ) );
+		}
+
 		$cdn = $this->get_cdn();
 		$force_rewrite = $this->_config->get_boolean( 'cdn.force.rewrite' );
 
@@ -208,6 +220,10 @@ class Cdn_Core {
 		@set_time_limit( $this->_config->get_integer( 'timelimit.cdn_delete' ) );
 
 		$return = $cdn->delete( $files, $results );
+		if ( $this->debug ) {
+			Util_Debug::log( 'cdn', 'delete: ' .
+				json_encode( $files, JSON_PRETTY_PRINT ) );
+		}
 
 		if ( !$return && $queue_failed ) {
 			foreach ( $results as $result ) {
@@ -228,7 +244,12 @@ class Cdn_Core {
 	 * @param array   $results
 	 * @return boolean
 	 */
-	function purge( $files, $queue_failed, &$results ) {
+	function purge( $files, &$results ) {
+		if ( $this->debug ) {
+			Util_Debug::log( 'cdn', 'purge: ' .
+				json_encode( $files, JSON_PRETTY_PRINT ) );
+		}
+
 		/**
 		 * Purge varnish servers before mirror purging
 		 */
@@ -250,7 +271,7 @@ class Cdn_Core {
 
 		$return = $cdn->purge( $files, $results );
 
-		if ( !$return && $queue_failed ) {
+		if ( !$return ) {
 			foreach ( $results as $result ) {
 				if ( $result['result'] != W3TC_CDN_RESULT_OK ) {
 					$this->queue_add( $result['local_path'], $result['remote_path'], W3TC_CDN_COMMAND_PURGE, $result['error'] );
@@ -288,7 +309,11 @@ class Cdn_Core {
 	 */
 	function queue_upload_url( $url ) {
 		$docroot_filename = Util_Environment::url_to_docroot_filename( $url );
-		$filename = Util_Environment::document_root() . '/' . $docroot_filename;
+		if ( is_null( $docroot_filename ) ) {
+			return;
+		}
+
+		$filename = Util_Environment::docroot_to_full_filename( $docroot_filename );
 
 		$a = parse_url( $url );
 		$uri = $a['path'];
@@ -325,97 +350,99 @@ class Cdn_Core {
 		static $cdn = array();
 
 		if ( !isset( $cdn[0] ) ) {
-			$engine = $this->_config->get_string( 'cdn.engine' );
-			$compression = ( $this->_config->get_boolean( 'browsercache.enabled' ) && $this->_config->get_boolean( 'browsercache.html.compression' ) );
+			$c = $this->_config;
+			$engine = $c->get_string( 'cdn.engine' );
+			$compression = ( $c->get_boolean( 'browsercache.enabled' ) && $c->get_boolean( 'browsercache.html.compression' ) );
 
 			switch ( $engine ) {
 			case 'akamai':
 				$engine_config = array(
-					'username' => $this->_config->get_string( 'cdn.akamai.username' ),
-					'password' => $this->_config->get_string( 'cdn.akamai.password' ),
-					'zone' => $this->_config->get_string( 'cdn.akamai.zone' ),
-					'domain' => $this->_config->get_array( 'cdn.akamai.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.akamai.ssl' ),
-					'email_notification' => $this->_config->get_array( 'cdn.akamai.email_notification' ),
+					'username' => $c->get_string( 'cdn.akamai.username' ),
+					'password' => $c->get_string( 'cdn.akamai.password' ),
+					'zone' => $c->get_string( 'cdn.akamai.zone' ),
+					'domain' => $c->get_array( 'cdn.akamai.domain' ),
+					'ssl' => $c->get_string( 'cdn.akamai.ssl' ),
+					'email_notification' => $c->get_array( 'cdn.akamai.email_notification' ),
 					'compression' => false
 				);
 				break;
 
 			case 'att':
 				$engine_config = array(
-					'account' => $this->_config->get_string( 'cdn.att.account' ),
-					'token' => $this->_config->get_string( 'cdn.att.token' ),
-					'domain' => $this->_config->get_array( 'cdn.att.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.att.ssl' ),
+					'account' => $c->get_string( 'cdn.att.account' ),
+					'token' => $c->get_string( 'cdn.att.token' ),
+					'domain' => $c->get_array( 'cdn.att.domain' ),
+					'ssl' => $c->get_string( 'cdn.att.ssl' ),
 					'compression' => false
 				);
 				break;
 
 			case 'azure':
 				$engine_config = array(
-					'user' => $this->_config->get_string( 'cdn.azure.user' ),
-					'key' => $this->_config->get_string( 'cdn.azure.key' ),
-					'container' => $this->_config->get_string( 'cdn.azure.container' ),
-					'cname' => $this->_config->get_array( 'cdn.azure.cname' ),
-					'ssl' => $this->_config->get_string( 'cdn.azure.ssl' ),
+					'user' => $c->get_string( 'cdn.azure.user' ),
+					'key' => $c->get_string( 'cdn.azure.key' ),
+					'container' => $c->get_string( 'cdn.azure.container' ),
+					'cname' => $c->get_array( 'cdn.azure.cname' ),
+					'ssl' => $c->get_string( 'cdn.azure.ssl' ),
 					'compression' => false
 				);
 				break;
 
 			case 'cf':
 				$engine_config = array(
-					'key' => $this->_config->get_string( 'cdn.cf.key' ),
-					'secret' => $this->_config->get_string( 'cdn.cf.secret' ),
-					'bucket' => $this->_config->get_string( 'cdn.cf.bucket' ),
-					'id' => $this->_config->get_string( 'cdn.cf.id' ),
-					'cname' => $this->_config->get_array( 'cdn.cf.cname' ),
-					'ssl' => $this->_config->get_string( 'cdn.cf.ssl' ),
+					'key' => $c->get_string( 'cdn.cf.key' ),
+					'secret' => $c->get_string( 'cdn.cf.secret' ),
+					'bucket' => $c->get_string( 'cdn.cf.bucket' ),
+					'bucket_location' => $c->get_string( 'cdn.cf.bucket.location' ),
+					'id' => $c->get_string( 'cdn.cf.id' ),
+					'cname' => $c->get_array( 'cdn.cf.cname' ),
+					'ssl' => $c->get_string( 'cdn.cf.ssl' ),
 					'compression' => $compression
 				);
 				break;
 
 			case 'cf2':
 				$engine_config = array(
-					'key' => $this->_config->get_string( 'cdn.cf2.key' ),
-					'secret' => $this->_config->get_string( 'cdn.cf2.secret' ),
-					'id' => $this->_config->get_string( 'cdn.cf2.id' ),
-					'cname' => $this->_config->get_array( 'cdn.cf2.cname' ),
-					'ssl' => $this->_config->get_string( 'cdn.cf2.ssl' ),
+					'key' => $c->get_string( 'cdn.cf2.key' ),
+					'secret' => $c->get_string( 'cdn.cf2.secret' ),
+					'id' => $c->get_string( 'cdn.cf2.id' ),
+					'cname' => $c->get_array( 'cdn.cf2.cname' ),
+					'ssl' => $c->get_string( 'cdn.cf2.ssl' ),
 					'compression' => false
 				);
 				break;
 
 			case 'cotendo':
 				$engine_config = array(
-					'username' => $this->_config->get_string( 'cdn.cotendo.username' ),
-					'password' => $this->_config->get_string( 'cdn.cotendo.password' ),
-					'zones' => $this->_config->get_array( 'cdn.cotendo.zones' ),
-					'domain' => $this->_config->get_array( 'cdn.cotendo.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.cotendo.ssl' ),
+					'username' => $c->get_string( 'cdn.cotendo.username' ),
+					'password' => $c->get_string( 'cdn.cotendo.password' ),
+					'zones' => $c->get_array( 'cdn.cotendo.zones' ),
+					'domain' => $c->get_array( 'cdn.cotendo.domain' ),
+					'ssl' => $c->get_string( 'cdn.cotendo.ssl' ),
 					'compression' => false
 				);
 				break;
 
 			case 'edgecast':
 				$engine_config = array(
-					'account' => $this->_config->get_string( 'cdn.edgecast.account' ),
-					'token' => $this->_config->get_string( 'cdn.edgecast.token' ),
-					'domain' => $this->_config->get_array( 'cdn.edgecast.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.edgecast.ssl' ),
+					'account' => $c->get_string( 'cdn.edgecast.account' ),
+					'token' => $c->get_string( 'cdn.edgecast.token' ),
+					'domain' => $c->get_array( 'cdn.edgecast.domain' ),
+					'ssl' => $c->get_string( 'cdn.edgecast.ssl' ),
 					'compression' => false
 				);
 				break;
 
 			case 'ftp':
 				$engine_config = array(
-					'host' => $this->_config->get_string( 'cdn.ftp.host' ),
-					'type' => $this->_config->get_string( 'cdn.ftp.type' ),
-					'user' => $this->_config->get_string( 'cdn.ftp.user' ),
-					'pass' => $this->_config->get_string( 'cdn.ftp.pass' ),
-					'path' => $this->_config->get_string( 'cdn.ftp.path' ),
-					'pasv' => $this->_config->get_boolean( 'cdn.ftp.pasv' ),
-					'domain' => $this->_config->get_array( 'cdn.ftp.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.ftp.ssl' ),
+					'host' => $c->get_string( 'cdn.ftp.host' ),
+					'type' => $c->get_string( 'cdn.ftp.type' ),
+					'user' => $c->get_string( 'cdn.ftp.user' ),
+					'pass' => $c->get_string( 'cdn.ftp.pass' ),
+					'path' => $c->get_string( 'cdn.ftp.path' ),
+					'pasv' => $c->get_boolean( 'cdn.ftp.pasv' ),
+					'domain' => $c->get_array( 'cdn.ftp.domain' ),
+					'ssl' => $c->get_string( 'cdn.ftp.ssl' ),
 					'compression' => false,
 					'docroot' => Util_Environment::document_root()
 				);
@@ -426,15 +453,15 @@ class Cdn_Core {
 
 				$engine_config = array(
 					'client_id' =>
-					$this->_config->get_string( 'cdn.google_drive.client_id' ),
+					$c->get_string( 'cdn.google_drive.client_id' ),
 					'access_token' =>
 					$state->get_string( 'cdn.google_drive.access_token' ),
 					'refresh_token' =>
-					$this->_config->get_string( 'cdn.google_drive.refresh_token' ),
+					$c->get_string( 'cdn.google_drive.refresh_token' ),
 					'root_url' =>
-					$this->_config->get_string( 'cdn.google_drive.folder.url' ),
+					$c->get_string( 'cdn.google_drive.folder.url' ),
 					'root_folder_id' =>
-					$this->_config->get_string( 'cdn.google_drive.folder.id' ),
+					$c->get_string( 'cdn.google_drive.folder.id' ),
 					'new_access_token_callback' => array(
 						$this,
 						'on_google_drive_new_access_token'
@@ -447,42 +474,42 @@ class Cdn_Core {
 
 				$engine_config = array(
 					'domains' =>
-					$this->_config->get_array( 'cdn.highwinds.host.domains' ),
+					$c->get_array( 'cdn.highwinds.host.domains' ),
 					'ssl' =>
-					$this->_config->get_string( 'cdn.highwinds.ssl' ),
+					$c->get_string( 'cdn.highwinds.ssl' ),
 					'api_token' =>
-					$this->_config->get_string( 'cdn.highwinds.api_token' ),
+					$c->get_string( 'cdn.highwinds.api_token' ),
 					'account_hash' =>
-					$this->_config->get_string( 'cdn.highwinds.account_hash' ),
+					$c->get_string( 'cdn.highwinds.account_hash' ),
 					'host_hash_code' =>
-					$this->_config->get_string( 'cdn.highwinds.host.hash_code' )
+					$c->get_string( 'cdn.highwinds.host.hash_code' )
 				);
+				break;
+
+			case 'limelight':
+				$engine_config = array(
+						'short_name' => $c->get_string( 'cdn.limelight.short_name' ),
+						'username' => $c->get_string( 'cdn.limelight.username' ),
+						'api_key' => $c->get_string( 'cdn.limelight.api_key' ),
+						'domains' => $c->get_array( 'cdn.limelight.host.domains' ),
+						'debug' => $c->get_string( 'cdn.debug' )
+					);
 				break;
 
 			case 'maxcdn':
 				$engine_config = array(
-					'authorization_key' => $this->_config->get_string( 'cdn.maxcdn.authorization_key' ),
-					'zone_id' => $this->_config->get_integer( 'cdn.maxcdn.zone_id' ),
-					'domain' => $this->_config->get_array( 'cdn.maxcdn.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.maxcdn.ssl' ),
+					'authorization_key' => $c->get_string( 'cdn.maxcdn.authorization_key' ),
+					'zone_id' => $c->get_integer( 'cdn.maxcdn.zone_id' ),
+					'domain' => $c->get_array( 'cdn.maxcdn.domain' ),
+					'ssl' => $c->get_string( 'cdn.maxcdn.ssl' ),
 					'compression' => false
 				);
 				break;
 
 			case 'mirror':
 				$engine_config = array(
-					'domain' => $this->_config->get_array( 'cdn.mirror.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.mirror.ssl' ),
-					'compression' => false
-				);
-				break;
-
-			case 'netdna':
-				$engine_config = array(
-					'authorization_key' => $this->_config->get_string( 'cdn.netdna.authorization_key' ),
-					'zone_id' => $this->_config->get_integer( 'cdn.netdna.zone_id' ),
-					'domain' => $this->_config->get_array( 'cdn.netdna.domain' ),
-					'ssl' => $this->_config->get_string( 'cdn.netdna.ssl' ),
+					'domain' => $c->get_array( 'cdn.mirror.domain' ),
+					'ssl' => $c->get_string( 'cdn.mirror.ssl' ),
 					'compression' => false
 				);
 				break;
@@ -491,13 +518,13 @@ class Cdn_Core {
 				$state = Dispatcher::config_state();
 
 				$engine_config = array(
-					'user_name' => $this->_config->get_string( 'cdn.rackspace_cdn.user_name' ),
-					'api_key' => $this->_config->get_string( 'cdn.rackspace_cdn.api_key' ),
-					'region' => $this->_config->get_string( 'cdn.rackspace_cdn.region' ),
-					'service_access_url' => $this->_config->get_string( 'cdn.rackspace_cdn.service.access_url' ),
-					'service_id' => $this->_config->get_string( 'cdn.rackspace_cdn.service.id' ),
-					'service_protocol' => $this->_config->get_string( 'cdn.rackspace_cdn.service.protocol' ),
-					'domains' => $this->_config->get_array( 'cdn.rackspace_cdn.domains' ),
+					'user_name' => $c->get_string( 'cdn.rackspace_cdn.user_name' ),
+					'api_key' => $c->get_string( 'cdn.rackspace_cdn.api_key' ),
+					'region' => $c->get_string( 'cdn.rackspace_cdn.region' ),
+					'service_access_url' => $c->get_string( 'cdn.rackspace_cdn.service.access_url' ),
+					'service_id' => $c->get_string( 'cdn.rackspace_cdn.service.id' ),
+					'service_protocol' => $c->get_string( 'cdn.rackspace_cdn.service.protocol' ),
+					'domains' => $c->get_array( 'cdn.rackspace_cdn.domains' ),
 					'access_state' =>
 					$state->get_string( 'cdn.rackspace_cdn.access_state' ),
 					'new_access_state_callback' => array(
@@ -511,12 +538,12 @@ class Cdn_Core {
 				$state = Dispatcher::config_state();
 
 				$engine_config = array(
-					'user_name' => $this->_config->get_string( 'cdn.rscf.user' ),
-					'api_key' => $this->_config->get_string( 'cdn.rscf.key' ),
-					'region' => $this->_config->get_string( 'cdn.rscf.location' ),
-					'container' => $this->_config->get_string( 'cdn.rscf.container' ),
-					'cname' => $this->_config->get_array( 'cdn.rscf.cname' ),
-					'ssl' => $this->_config->get_string( 'cdn.rscf.ssl' ),
+					'user_name' => $c->get_string( 'cdn.rscf.user' ),
+					'api_key' => $c->get_string( 'cdn.rscf.key' ),
+					'region' => $c->get_string( 'cdn.rscf.location' ),
+					'container' => $c->get_string( 'cdn.rscf.container' ),
+					'cname' => $c->get_array( 'cdn.rscf.cname' ),
+					'ssl' => $c->get_string( 'cdn.rscf.ssl' ),
 					'compression' => false,
 					'access_state' =>
 					$state->get_string( 'cdn.rackspace_cf.access_state' ),
@@ -530,30 +557,60 @@ class Cdn_Core {
 
 			case 's3':
 				$engine_config = array(
-					'key' => $this->_config->get_string( 'cdn.s3.key' ),
-					'secret' => $this->_config->get_string( 'cdn.s3.secret' ),
-					'bucket' => $this->_config->get_string( 'cdn.s3.bucket' ),
-					'cname' => $this->_config->get_array( 'cdn.s3.cname' ),
-					'ssl' => $this->_config->get_string( 'cdn.s3.ssl' ),
+					'key' => $c->get_string( 'cdn.s3.key' ),
+					'secret' => $c->get_string( 'cdn.s3.secret' ),
+					'bucket' => $c->get_string( 'cdn.s3.bucket' ),
+					'bucket_location' => $c->get_string( 'cdn.s3.bucket.location' ),
+					'cname' => $c->get_array( 'cdn.s3.cname' ),
+					'ssl' => $c->get_string( 'cdn.s3.ssl' ),
 					'compression' => $compression
 				);
 				break;
 
 			case 's3_compatible':
 				$engine_config = array(
-					'key' => $this->_config->get_string( 'cdn.s3.key' ),
-					'secret' => $this->_config->get_string( 'cdn.s3.secret' ),
-					'bucket' => $this->_config->get_string( 'cdn.s3.bucket' ),
-					'cname' => $this->_config->get_array( 'cdn.s3.cname' ),
-					'ssl' => $this->_config->get_string( 'cdn.s3.ssl' ),
+					'key' => $c->get_string( 'cdn.s3.key' ),
+					'secret' => $c->get_string( 'cdn.s3.secret' ),
+					'bucket' => $c->get_string( 'cdn.s3.bucket' ),
+					'cname' => $c->get_array( 'cdn.s3.cname' ),
+					'ssl' => $c->get_string( 'cdn.s3.ssl' ),
 					'compression' => $compression,
-					'api_host' => $this->_config->get_string( 'cdn.s3_compatible.api_host' )
+					'api_host' => $c->get_string( 'cdn.s3_compatible.api_host' )
 				);
 				break;
+
+			case 'stackpath':
+				$engine_config = array(
+					'authorization_key' => $c->get_string( 'cdn.stackpath.authorization_key' ),
+					'zone_id' => $c->get_integer( 'cdn.stackpath.zone_id' ),
+					'domain' => $c->get_array( 'cdn.stackpath.domain' ),
+					'ssl' => $c->get_string( 'cdn.stackpath.ssl' ),
+					'compression' => false
+				);
+				break;
+
+				case 'stackpath2':
+					$state = Dispatcher::config_state();
+
+					$engine_config = array(
+						'client_id' => $c->get_string( 'cdn.stackpath2.client_id' ),
+						'client_secret' => $c->get_string( 'cdn.stackpath2.client_secret' ),
+						'stack_id' => $c->get_string( 'cdn.stackpath2.stack_id' ),
+						'site_root_domain' => $c->get_string( 'cdn.stackpath2.site_root_domain' ),
+						'domain' => $c->get_array( 'cdn.stackpath2.domain' ),
+						'ssl' => $c->get_string( 'cdn.stackpath2.ssl' ),
+						'access_token' => $state->get_string( 'cdn.stackpath2.access_token' ),
+						'on_new_access_token' => array(
+							$this,
+							'on_stackpath2_new_access_token'
+						)
+					);
+					break;
+
 			}
 
 			$engine_config = array_merge( $engine_config, array(
-					'debug' => $this->_config->get_boolean( 'cdn.debug' )
+					'debug' => $c->get_boolean( 'cdn.debug' )
 				) );
 
 			$cdn[0] = CdnEngine::instance( $engine, $engine_config );
@@ -594,6 +651,12 @@ class Cdn_Core {
 	public function on_rackspace_cf_new_access_state( $access_state ) {
 		$state = Dispatcher::config_state();
 		$state->set( 'cdn.rackspace_cf.access_state', $access_state );
+		$state->save();
+	}
+
+	public function on_stackpath2_new_access_token( $access_token ) {
+		$state = Dispatcher::config_state();
+		$state->set( 'cdn.stackpath2.access_token', $access_token );
 		$state->save();
 	}
 
@@ -655,8 +718,11 @@ class Cdn_Core {
 			!Util_Environment::is_wpmu_subdomain() &&
 			Util_Environment::is_using_master_config() &&
 			Cdn_Util::is_engine_push( $engine ) ) {
-			// in common config files are uploaded for network home url
+			// in common config mode files are uploaded for network home url
 			// so mirror will not contain /subblog/ path in uri
+			//
+			// since upload process is not blog-specific and
+			// wp-content/plugins/../*.jpg files are common
 			$home = trim( home_url( '', 'relative' ), '/' ) . '/';
 			$network_home = trim( network_home_url( '', 'relative' ), '/' ) . '/';
 
@@ -667,6 +733,25 @@ class Cdn_Core {
 		}
 
 		return ltrim( $remote_uri, '/' );
+	}
+
+	/**
+	 * Need to pass full URL and it's URI
+	 * URI passed to prevent redundant parsing, normally it's available for caller
+	 **/
+	function url_to_cdn_url( $url, $path ) {
+		$cdn = $this->get_cdn();
+		$remote_path = $this->uri_to_cdn_uri( $path );
+		$new_url = $cdn->format_url( $remote_path );
+		if ( !$new_url ) {
+			return null;
+		}
+		$is_engine_mirror = Cdn_Util::is_engine_mirror(
+			$this->_config->get_string( 'cdn.engine' ) );
+
+		$new_url = apply_filters( 'w3tc_cdn_url', $new_url, $url,
+			$is_engine_mirror );
+		return $new_url;
 	}
 
 	/**

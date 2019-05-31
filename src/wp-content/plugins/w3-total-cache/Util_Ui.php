@@ -184,21 +184,21 @@ class Util_Ui {
 		$b2_id = 'w3tc_default_save_and_flush_' . $id;
 
 ?>
-        <p class="submit">
-            <?php echo Util_Ui::nonce_field( 'w3tc' ); ?>
-            <input type="submit" id="<?php echo $b1_id ?>"
-                name="w3tc_save_options"
-                class="w3tc-button-save button-primary"
-                value="<?php _e( 'Save all settings', 'w3-total-cache' ); ?>" />
-            <?php echo $extra ?>
-            <?php if ( !is_network_admin() ): ?>
-            <input type="submit" id="<?php echo $b2_id ?>"
-                name="w3tc_default_save_and_flush" style="float: right"
-                class="w3tc-button-save button-primary"
-                value="<?php _e( 'Save Settings & Purge Caches', 'w3-total-cache' ); ?>" />
-            <?php endif ?>
-        </p>
-        <?php
+		<p class="submit">
+			<?php echo Util_Ui::nonce_field( 'w3tc' ); ?>
+			<input type="submit" id="<?php echo $b1_id ?>"
+				name="w3tc_save_options"
+				class="w3tc-button-save button-primary"
+				value="<?php _e( 'Save all settings', 'w3-total-cache' ); ?>" />
+			<?php echo $extra ?>
+			<?php if ( !is_network_admin() ): ?>
+			<input type="submit" id="<?php echo $b2_id ?>"
+				name="w3tc_default_save_and_flush" style="float: right"
+				class="w3tc-button-save button-primary"
+				value="<?php _e( 'Save Settings & Purge Caches', 'w3-total-cache' ); ?>" />
+			<?php endif ?>
+		</p>
+		<?php
 	}
 
 	static public function sealing_disabled( $key ) {
@@ -304,6 +304,21 @@ class Util_Ui {
 	}
 
 	/**
+	 * Returns an input text element
+	 *
+	 * @param string  $id
+	 * @param string  $name
+	 * @param string  $value
+	 * @param bool    $disabled
+	 * @param int     $size
+	 */
+	static public function r_hidden( $id, $name, $value ) {
+		return '<input type="hidden" id="' . esc_attr( $id ) .
+			'" name="' . esc_attr( $name ) .
+			'" value="' . esc_attr( $value ) . '" />';
+	}
+
+	/**
 	 * Echos an input text element
 	 *
 	 * @param string  $id
@@ -313,9 +328,7 @@ class Util_Ui {
 	 * @param int     $size
 	 */
 	static public function hidden( $id, $name, $value ) {
-		echo '<input type="hidden" id="' . esc_attr( $id ) .
-			'" name="' . esc_attr( $name ) .
-			'" value="' . esc_attr( $value ) . '" />';
+		echo self::r_hidden( $id, $name, $value );
 	}
 
 	/**
@@ -428,22 +441,39 @@ class Util_Ui {
 
 	/**
 	 * Echos a group of radio elements
-	 *
-	 * @param string  $id
-	 * @param string  $name
-	 * @param bool    $state    whether checked or not
-	 * @param bool    $disabled
+	 * values: value => label pair or
+	 *  value => array(label, disabled, postfix)
 	 */
 	static public function radiogroup( $name, $value, $values,
-		$disabled = false ) {
-		foreach ( $values as $key => $label ) {
-			echo '<label><input type="radio" name="' . esc_attr( $name )  .
+		$disabled = false, $separator = '' ) {
+		$first = true;
+		foreach ( $values as $key => $label_or_array ) {
+			if ( $first ) {
+				$first = false;
+			} else {
+				echo $separator;
+			}
+
+			$label = '';
+			$item_disabled = false;
+			$postfix = '';
+
+			if ( !is_array( $label_or_array ) ) {
+				$label = $label_or_array;
+			} else {
+				$label = $label_or_array['label'];
+				$item_disabled = $label_or_array['disabled'];
+				$postfix = $label_or_array['postfix'];
+			}
+
+			echo '<label><input type="radio" id="' . esc_attr( $name . '__' . $key )  .
+				'" name="' . esc_attr( $name )  .
 				'" value="' . esc_attr( $key ) . '"';
 			checked( $value, $key );
-			disabled( $disabled );
+			disabled( $disabled || $item_disabled );
 			echo ' />';
 			echo $label;
-			echo '</label>' . "\n";
+			echo '</label>' . $postfix . "\n";
 		}
 	}
 
@@ -456,10 +486,10 @@ class Util_Ui {
 	 * @param bool    $disabled
 	 */
 	static public function textarea( $id, $name, $value, $disabled = false ) {?>
-        <textarea class="enabled" id="<?php echo esc_attr( $id )?>"
-            name="<?php echo esc_attr( $name )?>" rows="5" cols=25 style="width: 100%"
-            <?php disabled( $disabled ) ?>><?php echo esc_textarea( $value )?></textarea>
-    <?php
+		<textarea class="enabled" id="<?php echo esc_attr( $id )?>"
+			name="<?php echo esc_attr( $name )?>" rows="5" cols=25 style="width: 100%"
+			<?php disabled( $disabled ) ?>><?php echo esc_textarea( $value )?></textarea>
+	<?php
 	}
 
 	/**
@@ -531,7 +561,7 @@ class Util_Ui {
 		$a = apply_filters( 'w3tc_ui_settings_item', $a );
 
 		if ( isset( $a['style'] ) ) {
-			echo '<tr><th colspan="2"';
+			echo '<tr><th colspan="2">';
 		} else {
 			echo '<tr><th';
 
@@ -558,7 +588,8 @@ class Util_Ui {
 			elseif ( $key == 'html' )
 				echo $e;
 			elseif ( $key == 'radiogroup' )
-				Util_Ui::radiogroup( $e['name'], $e['value'], $e['values'] );
+				Util_Ui::radiogroup( $e['name'], $e['value'], $e['values'],
+					$e['disabled'], $e['separator'] );
 			elseif ( $key == 'selectbox' )
 				Util_Ui::selectbox( $id, $e['name'], $e['value'], $e['values'],
 					( isset( $e['disabled'] ) ? $e['disabled'] : false ),
@@ -642,7 +673,9 @@ class Util_Ui {
 					'name' => Util_Ui::config_key_to_http_name( $a['key'] ),
 					'value' => $a['value'],
 					'disabled' => $disabled,
-					'values' => $a['radiogroup_values']
+					'values' => $a['radiogroup_values'],
+					'separator' => isset( $a['radiogroup_separator'] ) ?
+						$a['radiogroup_separator'] : ''
 				);
 			} else if ( $a['control'] == 'selectbox' ) {
 				$table_tr['selectbox'] = array(
@@ -836,9 +869,9 @@ class Util_Ui {
 
 
 	/*
-     * Converts configuration key returned in http _GET/_POST
-     * to configuration key
-     */
+	 * Converts configuration key returned in http _GET/_POST
+	 * to configuration key
+	 */
 	static public function config_key_from_http_name( $http_key ) {
 		$a = explode( '___', $http_key );
 		if ( count( $a ) == 2 ) {
