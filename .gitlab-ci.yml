@@ -23,13 +23,13 @@ build to homolog:
   tags:
     - docker
 
-deploy to homolog:
-  stage: deploy
-  image: cdrx/rancher-gitlab-deploy
-  script:
-    - upgrade --environment RedeLivre --stack redelivre-site-beta --service wordpress --no-finish-upgrade --debug --rancher-url $RANCHER_URL --rancher-key $RANCHER_ACCESS_KEY --rancher-secret $RANCHER_SECRET_KEY
-  only:
-    - /docker/
-  environment: homolog
-  tags:
-    - docker
+      #deploy to homolog:
+      #  stage: deploy
+      #  image: cdrx/rancher-gitlab-deploy
+      #  script:
+      #    - upgrade --environment RedeLivre --stack redelivre-site-beta --service wordpress --no-finish-upgrade --debug --rancher-url $RANCHER_URL --rancher-key $RANCHER_ACCESS_KEY --rancher-secret $RANCHER_SECRET_KEY
+      #  only:
+      #    - /docker/
+      #  environment: homolog
+      #  tags:
+      #    - docker
