@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Limit Login Attempts - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-22 09:33:36+0000\n"
+"PO-Revision-Date: 2019-03-30 11:02:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,7 +49,7 @@ msgstr "bloqueos"
 
 #: limit-login-attempts.php:1076
 msgid "Email to admin after"
-msgstr "Enviar email al administrador cada"
+msgstr "Enviar un correo electrónico al administrador después de"
 
 #: limit-login-attempts.php:1075
 msgid "Log IP"
@@ -69,11 +69,11 @@ msgstr "Sí"
 
 #: limit-login-attempts.php:1067
 msgid "Handle cookie login"
-msgstr "Gestionar cookies de login"
+msgstr "Gestionar cookies de acceso"
 
 #: limit-login-attempts.php:1061
 msgid "From behind a reversy proxy"
-msgstr "Detrás de un proxy"
+msgstr "Desde detrás de un proxy inverso"
 
 #: limit-login-attempts.php:1056
 msgid "Direct connection"
@@ -85,7 +85,7 @@ msgstr "Conexión"
 
 #: limit-login-attempts.php:1046
 msgid "hours until retries are reset"
-msgstr "horas hasta restablecer los reintentos"
+msgstr "horas hasta que se restablecen los reintentos"
 
 #: limit-login-attempts.php:1045
 msgid "hours"
@@ -93,7 +93,7 @@ msgstr "horas"
 
 #: limit-login-attempts.php:1045
 msgid "lockouts increase lockout time to"
-msgstr "bloqueos incrementan el tiempo a"
+msgstr "bloqueos incrementan el tiempo de bloqueo a"
 
 #: limit-login-attempts.php:1044
 msgid "minutes lockout"
@@ -113,7 +113,7 @@ msgstr "Opciones"
 
 #: limit-login-attempts.php:1030
 msgid "%d IP is currently blocked from trying to log in"
-msgstr "La IP %d actualmente tiene restringido el acceso"
+msgstr "La IP %d actualmente está bloqueada por intentos de acceso"
 
 #: limit-login-attempts.php:1029
 msgid "Restore Lockouts"
@@ -151,31 +151,31 @@ msgstr "Ajustes de Limit Login Attempts"
 
 #: limit-login-attempts.php:1003
 msgid "<strong>Current setting appears to be invalid</strong>. Please make sure it is correct. Further information can be found <a href=\"%s\" title=\"FAQ\">here</a>"
-msgstr "<strong>La configuración actual parece ser incorrecta</strong>. Asegúrate de verificarla. Para mayor información, <a href=\"%s\" title=\"FAQ\">click aquí</a>"
+msgstr "<strong>La configuración actual parece ser no válida</strong>. Asegúrate de que es correcta. Puedes encontrar más información <a href=\"%s\" title=\"FAQ\">aquí</a>"
 
 #: limit-login-attempts.php:995
 msgid "It appears the site is reached through a proxy server (proxy IP: %s, your IP: %s)"
-msgstr "Al parecer, el sitio está siendo accedido desde un servidor proxy (IP del proxy: %s, tu IP: %s)"
+msgstr "Parece que el sitio es alcanzado a través de un servidor proxy (IP del proxy: %s, tu IP: %s)"
 
 #: limit-login-attempts.php:993
 msgid "It appears the site is reached directly (from your IP: %s)"
-msgstr "Al parecer, el sitio está siendo accedido directamente (desde tu IP: %s)"
+msgstr "Parece que el sitio es alcanzado directamente (desde tu IP: %s)"
 
 #: limit-login-attempts.php:975
 msgid "Options changed"
-msgstr "Opciones actualizadas"
+msgstr "Opciones cambiadas"
 
 #: limit-login-attempts.php:946
 msgid "Cleared current lockouts"
-msgstr "Bloqueos actuales liberados"
+msgstr "Bloqueos actuales borrados"
 
 #: limit-login-attempts.php:938
 msgid "Reset lockout count"
-msgstr "Reiniciar contador de bloqueos"
+msgstr "Restablecer el recuento de bloqueos"
 
 #: limit-login-attempts.php:930
 msgid "Cleared IP log"
-msgstr "Direcciones liberadas"
+msgstr "Registro de IP borrado"
 
 #: limit-login-attempts.php:901
 msgid "%d lockout"
@@ -185,7 +185,7 @@ msgstr[1] "%d bloqueos"
 
 #: limit-login-attempts.php:896
 msgid "Tried to log in as"
-msgstr "Intentó ingresar como"
+msgstr "Intentó acceder como"
 
 #: limit-login-attempts.php:896
 msgctxt "Internet address"
@@ -199,24 +199,24 @@ msgstr "<strong>ERROR</strong>: Nombre de usuario o contraseña incorrectos."
 #: limit-login-attempts.php:657
 msgid "<strong>%d</strong> attempt remaining."
 msgid_plural "<strong>%d</strong> attempts remaining."
-msgstr[0] "Le queda <strong>%d</strong> intento más."
-msgstr[1] "Le quedan <strong>%d</strong> intentos más."
+msgstr[0] "Queda <strong>%d</strong> intento más."
+msgstr[1] "Quedan <strong>%d</strong> intentos más."
 
 #: limit-login-attempts.php:628
 msgid "Please try again in %d minute."
 msgid_plural "Please try again in %d minutes."
-msgstr[0] "Por favor inténtelo dentro de %d minuto."
-msgstr[1] "Por favor inténtelo dentro de %d minutos."
+msgstr[0] "Por favor, inténtalo dentro de %d minuto."
+msgstr[1] "Por favor, inténtalo dentro de %d minutos."
 
 #: limit-login-attempts.php:626
 msgid "Please try again in %d hour."
 msgid_plural "Please try again in %d hours."
-msgstr[0] "Por favor inténtelo dentro de %d hora."
-msgstr[1] "Por favor inténtelo dentro de %d horas."
+msgstr[0] "Por favor, inténtalo dentro de %d hora."
+msgstr[1] "Por favor, inténtalo dentro de %d horas."
 
 #: limit-login-attempts.php:619
 msgid "Please try again later."
-msgstr "Por favor inténtelo más tarde."
+msgstr "Por favor, inténtalo de nuevo más tarde."
 
 #: limit-login-attempts.php:615
 msgid "<strong>ERROR</strong>: Too many failed login attempts."
@@ -232,7 +232,7 @@ msgstr "La IP no fue bloqueada por la lista blanca externa."
 
 #: limit-login-attempts.php:547
 msgid "Last user attempted: %s"
-msgstr "Ultimo usuario probado: %s"
+msgstr "Último usuario que lo intentó: %s"
 
 #: limit-login-attempts.php:543
 msgid "%d failed login attempts (%d lockout(s)) from IP: %s"
