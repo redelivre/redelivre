@@ -382,20 +382,14 @@ function user_can_create_campanha()
 		"administrator" => 4
 	);
 
-	$get_users_obj = get_users(
-			array(
-				'blog_id' => 1,
-				'search' => get_current_user_id()
-			)
-			);
+	$get_user_obj = wp_get_current_user();
 	if(
-			is_array($get_users_obj) &&
-			count($get_users_obj) > 0 &&
-			is_array($get_users_obj[0]->roles) &&
-			count($get_users_obj[0]->roles) > 0
-			)
+			is_object($get_user_obj) &&
+			is_array($get_user_obj->roles) &&
+			count($get_user_obj->roles) > 0
+		)
 	{
-		$user_role = $get_users_obj[0]->roles[0];
+		$user_role = $get_user_obj->roles[0];
 		$minPerm = getPlataformSettings('minPerm');
 
 		if(!array_key_exists($minPerm, $roles_array))
