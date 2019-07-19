@@ -575,8 +575,8 @@ class Audima_OptionsManager
      */
     protected function createFormControl($aOptionKey, $aOptionMeta, $savedOptionValue)
     {
-    	$aSavedOptionValue = json_decode($savedOptionValue);
-    	if(is_null($aSavedOptionValue)) $aSavedOptionValue = array();
+        $aSavedOptionValue = json_decode($savedOptionValue);
+        if(is_null($aSavedOptionValue)) $aSavedOptionValue = array();
         if (is_array($aOptionMeta) && count($aOptionMeta) >= 2) { // Drop-down list
             if ($aOptionKey !== "Plans") :
 
@@ -593,7 +593,8 @@ class Audima_OptionsManager
                 <p><select name="<?php echo $aOptionKey ?>[]" id="<?php echo $aOptionKey ?>" multiple style="width: 75%">
                         <?php
                         foreach ( $choices as $aChoice ) {
-                        	$selected = ( in_array($aChoice, $aSavedOptionValue) ) ? 'selected' : '';
+                           /* $selected = ( in_array($aChoice, json_decode($savedOptionValue)) ) ? 'selected' : '';*/
+                            $selected = ( in_array($aChoice, $aSavedOptionValue) ) ? 'selected' : '';
                             ?>
                             <option
                                 value="<?php echo $aChoice ?>" <?php echo $selected ?>><?php echo $this->getOptionValueI18nString( $aChoice ) ?></option>

@@ -7,8 +7,8 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 4.6
 Requires PHP: 5.4
 Tested up to: 5.2.0
-Version: 1.7.0
-Stable tag: 1.7
+Version: 1.8.0
+Stable tag: 1.8
 
 Insere o Player da Audima nos seus Posts
 
@@ -70,6 +70,7 @@ https://audima.atlassian.net/servicedesk/customer/portals
 6. screenshot-6.png
 
 == Changelog ==
+= 1.8 =
 = 1.7 =
 = 1.6 =
 = 1.5 =
@@ -98,3 +99,5 @@ ReadOnly
 Fix version
 = 1.7 =
 Fix duplicate player
+= 1.8=
+Fix warning

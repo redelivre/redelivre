@@ -2,7 +2,7 @@
 /*
    Plugin Name: Audima
    Plugin URI: https://audima.co/startnow/
-   Version: 1.7.0
+   Version: 1.8.0
    Author: Audima
    Description: Insere o Player da Audima nos seus Posts
    Text Domain: audima

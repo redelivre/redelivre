@@ -330,8 +330,7 @@ class Audima_Plugin extends Audima_LifeCycle
 
         add_action('admin_menu', array(&$this, 'addSettingsSubMenuPage'));
 
-        add_action('the_content', array(&$this, 'insertAudimaPlugin'),2);
-        remove_action('the_content', array(&$this, 'insertAudimaPlugin'),3);
+        add_action('the_content', array(&$this, 'insertAudimaPlugin'));
 
         add_action('post_updated', array(&$this, 'updatePost'));
 
