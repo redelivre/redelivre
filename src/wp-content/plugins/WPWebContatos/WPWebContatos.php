@@ -26,6 +26,7 @@ if(!defined('__DIR__')) {
     $iPos = strrpos(__FILE__, DIRECTORY_SEPARATOR);
     define("__DIR__", substr(__FILE__, 0, $iPos) . DIRECTORY_SEPARATOR);
 }
+if(!class_exists('SoapClient')) return ;
 
 define('WebContatos_FOLDER', dirname(plugin_basename(__FILE__)));
 
