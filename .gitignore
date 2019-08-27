@@ -32,3 +32,4 @@ src/wp-content/plugins/debug-bar-console
 .wp_env
 *.local
 volumes/
+src/wp-content/cache/*
