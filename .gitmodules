@@ -229,3 +229,7 @@
 	path = src/wp-content/plugins/divi-post-type-blog
 	url = http://github.com/redelivre/divi-post-type-blog.git
 	branch = master
+[submodule "src/wp-content/plugins/rl-auto-clear-cache"]
+	path = src/wp-content/plugins/rl-auto-clear-cache
+	url = https://github.com/redelivre/rl-auto-clear-cache.git
+	branch = master
