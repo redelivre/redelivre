@@ -108,3 +108,20 @@ services:
       traefik.port: '9000'
       traefik.enable: 'true'
     restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+    restart: unless-stopped
+    volumes:
+      - ./volumes/phpmyadmin/sessions:/sessions
+      - ./volumes/phpmyadmin/htaccess:/var/www/html/.htaccess
+      - ./volumes/phpmyadmin/users.passwd:/etc/apache2/users.passwd
+    labels:
+      traefik.frontend.rule: Host:phpmyadmin.redelivre
+      traefik.frontend.priority: '1'
+      traefik.port: '80'
+      traefik.enable: 'true'
+      traefik.docker.network: 'web'
+      traefik.frontend.redirect.entryPoint: 'https'

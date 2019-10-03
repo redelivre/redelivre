@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "Area Restrita"
+AuthBasicProvider file
+AuthUserFile "/etc/apache2/users.passwd"
+Require valid-user
