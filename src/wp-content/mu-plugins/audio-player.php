@@ -38,22 +38,12 @@ function print_audio_player($fileURL, $dl = true){
 }
 
 function get_audio_player($fileURL, $dl = true){
-    
-	$playerURL = WPMU_PLUGIN_URL . '/includes/audio-player/';
-    
-    $player ='<object type="application/x-shockwave-flash"
-        	data="' . $playerURL . '/player.swf" id="audioplayer1"
-        	class="audioplayer" height="24" width="220" style="visibility: visible">
-        	<param name="movie" value="' . $playerURL . '/player.swf">
-        	<param name="FlashVars"
-        		value="playerID=1&amp;soundFile=' . $fileURL . '">
-        	<param name="quality" value="high">
-        	<param name="menu" value="false">
-        	<param name="wmode" value="transparent">
-        </object>';
-    
-    if ($dl)
-    $player .= '<br/><a href="' . WPMU_PLUGIN_URL . '/includes/audio-player/download_audio.php?file_url=' . $fileURL . '">Download</a>';
+    $player ='<audio controls>
+				<source src="' . $fileURL . '">
+			 </audio>';
+    if ($dl) {
+    	//$player .= '<br/><a href="'. $fileURL . '">Download</a>';
+    }
     
     return $player;
     
