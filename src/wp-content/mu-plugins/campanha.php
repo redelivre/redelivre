@@ -88,7 +88,7 @@ function campanha_addJS() {
     wp_enqueue_script('campanha', WPMU_PLUGIN_URL.'/campanha/js/campanha.js', 'jquery');
 }
 
-add_action('wp_print_scripts', 'campanha_addJS');
+//add_action('wp_print_scripts', 'campanha_addJS');
 
 // CUSTOM MENU
 function campanha_custom_menus() {
