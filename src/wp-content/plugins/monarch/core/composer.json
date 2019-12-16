@@ -1,7 +1,0 @@
-{
-    "name": "elegantthemes/submodule-core",
-    "require": {},
-    "require-dev": {
-        "lucatume/wp-browser": "^2.0"
-    }
-}
