@@ -1,0 +1,560 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-02-02 11:53+0600\n"
+"PO-Revision-Date: 2016-02-02 11:53+0600\n"
+"Last-Translator: Ohidul Islam\n"
+"Language-Team: wahid@webappick.com\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-Basepath: admin/partials\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: become/add-feed.php:4 bing/add-feed.php:4 connexity/add-feed.php:4
+#: custom/add-feed.php:4 facebook/add-feed.php:4 google/add-feed.php:4
+#: kelkoo/add-feed.php:4 nextag/add-feed.php:4 pricegrabber/add-feed.php:4
+#: shopmania/add-feed.php:4 shopping/add-feed.php:4 shopzilla/add-feed.php:4
+#: woo-feed-edit-template.php:117
+msgid "Feed Config"
+msgstr "Feed Config"
+
+#: become/add-feed.php:10 become/add-feed.php:498 bing/add-feed.php:10
+#: bing/add-feed.php:351 connexity/add-feed.php:10 connexity/add-feed.php:498
+#: custom/add-feed.php:10 custom/add-feed.php:104 custom/edit-feed.php:119
+#: custom/edit-feed.php:275 facebook/add-feed.php:10 facebook/add-feed.php:645
+#: google/add-feed.php:10 google/add-feed.php:645 kelkoo/add-feed.php:10
+#: kelkoo/add-feed.php:596 nextag/add-feed.php:10 nextag/add-feed.php:449
+#: pricegrabber/add-feed.php:10 pricegrabber/add-feed.php:645
+#: shopmania/add-feed.php:10 shopmania/add-feed.php:694
+#: shopping/add-feed.php:10 shopping/add-feed.php:498 shopzilla/add-feed.php:10
+#: shopzilla/add-feed.php:498 woo-feed-dynamic-attribute.php:51
+#: woo-feed-edit-template.php:124 woo-feed-edit-template.php:277
+msgid "Attributes"
+msgstr "Attributes"
+
+#: become/add-feed.php:11 bing/add-feed.php:11 connexity/add-feed.php:11
+#: custom/add-feed.php:11 custom/edit-feed.php:120 facebook/add-feed.php:11
+#: google/add-feed.php:11 kelkoo/add-feed.php:11 nextag/add-feed.php:11
+#: pricegrabber/add-feed.php:11 shopmania/add-feed.php:11
+#: shopping/add-feed.php:11 shopzilla/add-feed.php:11
+#: woo-feed-edit-template.php:125
+msgid "Prefix"
+msgstr "Prefix"
+
+#: become/add-feed.php:12 bing/add-feed.php:12 connexity/add-feed.php:12
+#: custom/add-feed.php:12 custom/edit-feed.php:121 facebook/add-feed.php:12
+#: google/add-feed.php:12 kelkoo/add-feed.php:12 nextag/add-feed.php:12
+#: pricegrabber/add-feed.php:12 shopmania/add-feed.php:12
+#: shopping/add-feed.php:12 shopzilla/add-feed.php:12
+#: woo-feed-edit-template.php:126
+msgid "Type"
+msgstr "Type"
+
+#: become/add-feed.php:13 become/add-feed.php:500 bing/add-feed.php:13
+#: bing/add-feed.php:353 connexity/add-feed.php:13 connexity/add-feed.php:500
+#: custom/add-feed.php:13 custom/add-feed.php:106 custom/edit-feed.php:122
+#: custom/edit-feed.php:277 facebook/add-feed.php:13 facebook/add-feed.php:647
+#: google/add-feed.php:13 google/add-feed.php:647 kelkoo/add-feed.php:13
+#: kelkoo/add-feed.php:598 nextag/add-feed.php:13 nextag/add-feed.php:451
+#: pricegrabber/add-feed.php:13 pricegrabber/add-feed.php:647
+#: shopmania/add-feed.php:13 shopmania/add-feed.php:696
+#: shopping/add-feed.php:13 shopping/add-feed.php:500 shopzilla/add-feed.php:13
+#: shopzilla/add-feed.php:500 woo-feed-dynamic-attribute.php:55
+#: woo-feed-edit-template.php:127 woo-feed-edit-template.php:279
+msgid "Value"
+msgstr "Value"
+
+#: become/add-feed.php:14 bing/add-feed.php:14 connexity/add-feed.php:14
+#: custom/add-feed.php:14 custom/edit-feed.php:123 facebook/add-feed.php:14
+#: google/add-feed.php:14 kelkoo/add-feed.php:14 nextag/add-feed.php:14
+#: pricegrabber/add-feed.php:14 shopmania/add-feed.php:14
+#: shopping/add-feed.php:14 shopzilla/add-feed.php:14
+#: woo-feed-edit-template.php:128
+msgid "Suffix"
+msgstr "Suffix"
+
+#: become/add-feed.php:15 bing/add-feed.php:15 connexity/add-feed.php:15
+#: custom/add-feed.php:15 custom/edit-feed.php:124 facebook/add-feed.php:15
+#: google/add-feed.php:15 kelkoo/add-feed.php:15 nextag/add-feed.php:15
+#: pricegrabber/add-feed.php:15 shopmania/add-feed.php:15
+#: shopping/add-feed.php:15 shopzilla/add-feed.php:15
+#: woo-feed-dynamic-attribute.php:54 woo-feed-edit-template.php:129
+msgid "Output Type"
+msgstr "Output Type"
+
+#: become/add-feed.php:16 bing/add-feed.php:16 connexity/add-feed.php:16
+#: custom/add-feed.php:16 custom/edit-feed.php:125 facebook/add-feed.php:16
+#: google/add-feed.php:16 kelkoo/add-feed.php:16 nextag/add-feed.php:16
+#: pricegrabber/add-feed.php:16 shopmania/add-feed.php:16
+#: shopping/add-feed.php:16 shopzilla/add-feed.php:16
+#: woo-feed-edit-template.php:130
+msgid "Output Limit"
+msgstr "Output Limit"
+
+#: become/add-feed.php:35 become/add-feed.php:84 become/add-feed.php:133
+#: become/add-feed.php:182 become/add-feed.php:231 become/add-feed.php:280
+#: become/add-feed.php:329 become/add-feed.php:378 become/add-feed.php:427
+#: bing/add-feed.php:35 bing/add-feed.php:84 bing/add-feed.php:133
+#: bing/add-feed.php:182 bing/add-feed.php:231 bing/add-feed.php:280
+#: connexity/add-feed.php:35 connexity/add-feed.php:84
+#: connexity/add-feed.php:133 connexity/add-feed.php:182
+#: connexity/add-feed.php:231 connexity/add-feed.php:280
+#: connexity/add-feed.php:329 connexity/add-feed.php:378
+#: connexity/add-feed.php:427 custom/add-feed.php:33 custom/edit-feed.php:164
+#: facebook/add-feed.php:35 facebook/add-feed.php:84 facebook/add-feed.php:133
+#: facebook/add-feed.php:182 facebook/add-feed.php:231
+#: facebook/add-feed.php:280 facebook/add-feed.php:329
+#: facebook/add-feed.php:378 facebook/add-feed.php:427
+#: facebook/add-feed.php:476 facebook/add-feed.php:525
+#: facebook/add-feed.php:574 google/add-feed.php:35 google/add-feed.php:84
+#: google/add-feed.php:133 google/add-feed.php:182 google/add-feed.php:231
+#: google/add-feed.php:280 google/add-feed.php:329 google/add-feed.php:378
+#: google/add-feed.php:427 google/add-feed.php:476 google/add-feed.php:525
+#: google/add-feed.php:574 kelkoo/add-feed.php:35 kelkoo/add-feed.php:84
+#: kelkoo/add-feed.php:133 kelkoo/add-feed.php:182 kelkoo/add-feed.php:231
+#: kelkoo/add-feed.php:280 kelkoo/add-feed.php:329 kelkoo/add-feed.php:378
+#: kelkoo/add-feed.php:427 kelkoo/add-feed.php:476 kelkoo/add-feed.php:525
+#: nextag/add-feed.php:35 nextag/add-feed.php:84 nextag/add-feed.php:133
+#: nextag/add-feed.php:182 nextag/add-feed.php:231 nextag/add-feed.php:280
+#: nextag/add-feed.php:329 nextag/add-feed.php:378 pricegrabber/add-feed.php:35
+#: pricegrabber/add-feed.php:84 pricegrabber/add-feed.php:133
+#: pricegrabber/add-feed.php:182 pricegrabber/add-feed.php:231
+#: pricegrabber/add-feed.php:280 pricegrabber/add-feed.php:329
+#: pricegrabber/add-feed.php:378 pricegrabber/add-feed.php:427
+#: pricegrabber/add-feed.php:476 pricegrabber/add-feed.php:525
+#: pricegrabber/add-feed.php:574 shopmania/add-feed.php:35
+#: shopmania/add-feed.php:84 shopmania/add-feed.php:133
+#: shopmania/add-feed.php:182 shopmania/add-feed.php:231
+#: shopmania/add-feed.php:280 shopmania/add-feed.php:329
+#: shopmania/add-feed.php:378 shopmania/add-feed.php:427
+#: shopmania/add-feed.php:476 shopmania/add-feed.php:525
+#: shopmania/add-feed.php:574 shopmania/add-feed.php:623
+#: shopping/add-feed.php:35 shopping/add-feed.php:84 shopping/add-feed.php:133
+#: shopping/add-feed.php:182 shopping/add-feed.php:231
+#: shopping/add-feed.php:280 shopping/add-feed.php:329
+#: shopping/add-feed.php:378 shopping/add-feed.php:427
+#: shopzilla/add-feed.php:35 shopzilla/add-feed.php:84
+#: shopzilla/add-feed.php:133 shopzilla/add-feed.php:182
+#: shopzilla/add-feed.php:231 shopzilla/add-feed.php:280
+#: shopzilla/add-feed.php:329 shopzilla/add-feed.php:378
+#: shopzilla/add-feed.php:427 woo-feed-dynamic-attribute.php:120
+#: woo-feed-dynamic-attribute.php:173 woo-feed-dynamic-attribute.php:203
+#: woo-feed-edit-template.php:167
+msgid "Attribute"
+msgstr "Attribute"
+
+#: become/add-feed.php:36 become/add-feed.php:85 become/add-feed.php:134
+#: become/add-feed.php:183 become/add-feed.php:232 become/add-feed.php:281
+#: become/add-feed.php:330 become/add-feed.php:379 become/add-feed.php:428
+#: bing/add-feed.php:36 bing/add-feed.php:85 bing/add-feed.php:134
+#: bing/add-feed.php:183 bing/add-feed.php:232 bing/add-feed.php:281
+#: connexity/add-feed.php:36 connexity/add-feed.php:85
+#: connexity/add-feed.php:134 connexity/add-feed.php:183
+#: connexity/add-feed.php:232 connexity/add-feed.php:281
+#: connexity/add-feed.php:330 connexity/add-feed.php:379
+#: connexity/add-feed.php:428 custom/add-feed.php:34 custom/edit-feed.php:167
+#: facebook/add-feed.php:36 facebook/add-feed.php:85 facebook/add-feed.php:134
+#: facebook/add-feed.php:183 facebook/add-feed.php:232
+#: facebook/add-feed.php:281 facebook/add-feed.php:330
+#: facebook/add-feed.php:379 facebook/add-feed.php:428
+#: facebook/add-feed.php:477 facebook/add-feed.php:526
+#: facebook/add-feed.php:575 google/add-feed.php:36 google/add-feed.php:85
+#: google/add-feed.php:134 google/add-feed.php:183 google/add-feed.php:232
+#: google/add-feed.php:281 google/add-feed.php:330 google/add-feed.php:379
+#: google/add-feed.php:428 google/add-feed.php:477 google/add-feed.php:526
+#: google/add-feed.php:575 kelkoo/add-feed.php:36 kelkoo/add-feed.php:85
+#: kelkoo/add-feed.php:134 kelkoo/add-feed.php:183 kelkoo/add-feed.php:232
+#: kelkoo/add-feed.php:281 kelkoo/add-feed.php:330 kelkoo/add-feed.php:379
+#: kelkoo/add-feed.php:428 kelkoo/add-feed.php:477 kelkoo/add-feed.php:526
+#: nextag/add-feed.php:36 nextag/add-feed.php:85 nextag/add-feed.php:134
+#: nextag/add-feed.php:183 nextag/add-feed.php:232 nextag/add-feed.php:281
+#: nextag/add-feed.php:330 nextag/add-feed.php:379 pricegrabber/add-feed.php:36
+#: pricegrabber/add-feed.php:85 pricegrabber/add-feed.php:134
+#: pricegrabber/add-feed.php:183 pricegrabber/add-feed.php:232
+#: pricegrabber/add-feed.php:281 pricegrabber/add-feed.php:330
+#: pricegrabber/add-feed.php:379 pricegrabber/add-feed.php:428
+#: pricegrabber/add-feed.php:477 pricegrabber/add-feed.php:526
+#: pricegrabber/add-feed.php:575 shopmania/add-feed.php:36
+#: shopmania/add-feed.php:85 shopmania/add-feed.php:134
+#: shopmania/add-feed.php:183 shopmania/add-feed.php:232
+#: shopmania/add-feed.php:281 shopmania/add-feed.php:330
+#: shopmania/add-feed.php:379 shopmania/add-feed.php:428
+#: shopmania/add-feed.php:477 shopmania/add-feed.php:526
+#: shopmania/add-feed.php:575 shopmania/add-feed.php:624
+#: shopping/add-feed.php:36 shopping/add-feed.php:85 shopping/add-feed.php:134
+#: shopping/add-feed.php:183 shopping/add-feed.php:232
+#: shopping/add-feed.php:281 shopping/add-feed.php:330
+#: shopping/add-feed.php:379 shopping/add-feed.php:428
+#: shopzilla/add-feed.php:36 shopzilla/add-feed.php:85
+#: shopzilla/add-feed.php:134 shopzilla/add-feed.php:183
+#: shopzilla/add-feed.php:232 shopzilla/add-feed.php:281
+#: shopzilla/add-feed.php:330 shopzilla/add-feed.php:379
+#: shopzilla/add-feed.php:428 woo-feed-dynamic-attribute.php:123
+#: woo-feed-dynamic-attribute.php:174 woo-feed-dynamic-attribute.php:206
+#: woo-feed-edit-template.php:170
+msgid "Pattern"
+msgstr "Pattern"
+
+#: become/add-feed.php:467 bing/add-feed.php:320 connexity/add-feed.php:467
+#: custom/add-feed.php:73 custom/edit-feed.php:244 facebook/add-feed.php:614
+#: google/add-feed.php:614 kelkoo/add-feed.php:565 nextag/add-feed.php:418
+#: pricegrabber/add-feed.php:614 shopmania/add-feed.php:663
+#: shopping/add-feed.php:467 shopzilla/add-feed.php:467
+#: woo-feed-edit-template.php:246
+msgid "Add New Row"
+msgstr "Add New Row"
+
+#: become/add-feed.php:483 become/add-feed.php:563 become/add-feed.php:610
+#: bing/add-feed.php:336 bing/add-feed.php:416 bing/add-feed.php:463
+#: connexity/add-feed.php:483 connexity/add-feed.php:563
+#: connexity/add-feed.php:610 custom/add-feed.php:89 custom/add-feed.php:169
+#: custom/add-feed.php:216 facebook/add-feed.php:630 facebook/add-feed.php:710
+#: facebook/add-feed.php:757 google/add-feed.php:630 google/add-feed.php:710
+#: google/add-feed.php:757 kelkoo/add-feed.php:581 kelkoo/add-feed.php:661
+#: kelkoo/add-feed.php:708 nextag/add-feed.php:434 nextag/add-feed.php:514
+#: nextag/add-feed.php:561 pricegrabber/add-feed.php:630
+#: pricegrabber/add-feed.php:710 pricegrabber/add-feed.php:757
+#: shopmania/add-feed.php:679 shopmania/add-feed.php:759
+#: shopmania/add-feed.php:806 shopping/add-feed.php:483
+#: shopping/add-feed.php:563 shopping/add-feed.php:610
+#: shopzilla/add-feed.php:483 shopzilla/add-feed.php:563
+#: shopzilla/add-feed.php:610
+msgid "Save & Generate Feed"
+msgstr "Save & Generate Feed"
+
+#: become/add-feed.php:492 become/add-feed.php:506 bing/add-feed.php:345
+#: bing/add-feed.php:359 connexity/add-feed.php:492 connexity/add-feed.php:506
+#: custom/add-feed.php:98 custom/add-feed.php:112 custom/edit-feed.php:268
+#: custom/edit-feed.php:283 facebook/add-feed.php:639 facebook/add-feed.php:653
+#: google/add-feed.php:639 google/add-feed.php:653 kelkoo/add-feed.php:590
+#: kelkoo/add-feed.php:604 nextag/add-feed.php:443 nextag/add-feed.php:457
+#: pricegrabber/add-feed.php:639 pricegrabber/add-feed.php:653
+#: shopmania/add-feed.php:688 shopmania/add-feed.php:702
+#: shopping/add-feed.php:492 shopping/add-feed.php:506
+#: shopzilla/add-feed.php:492 shopzilla/add-feed.php:506
+#: woo-feed-edit-template.php:270 woo-feed-edit-template.php:285
+msgid "Filter"
+msgstr "Filter"
+
+#: become/add-feed.php:499 bing/add-feed.php:352 connexity/add-feed.php:499
+#: custom/add-feed.php:105 custom/edit-feed.php:276 facebook/add-feed.php:646
+#: google/add-feed.php:646 kelkoo/add-feed.php:597 nextag/add-feed.php:450
+#: pricegrabber/add-feed.php:646 shopmania/add-feed.php:695
+#: shopping/add-feed.php:499 shopzilla/add-feed.php:499
+#: woo-feed-dynamic-attribute.php:52 woo-feed-edit-template.php:278
+msgid "Condition"
+msgstr "Condition"
+
+#: become/add-feed.php:509 bing/add-feed.php:362 connexity/add-feed.php:509
+#: custom/add-feed.php:115 custom/edit-feed.php:287 facebook/add-feed.php:656
+#: google/add-feed.php:656 kelkoo/add-feed.php:607 nextag/add-feed.php:460
+#: pricegrabber/add-feed.php:656 shopmania/add-feed.php:705
+#: shopping/add-feed.php:509 shopzilla/add-feed.php:509
+#: woo-feed-edit-template.php:289
+msgid "Together"
+msgstr "Together"
+
+#: become/add-feed.php:510 bing/add-feed.php:363 connexity/add-feed.php:510
+#: custom/add-feed.php:116 custom/edit-feed.php:290 facebook/add-feed.php:657
+#: google/add-feed.php:657 kelkoo/add-feed.php:608 nextag/add-feed.php:461
+#: pricegrabber/add-feed.php:657 shopmania/add-feed.php:706
+#: shopping/add-feed.php:510 shopzilla/add-feed.php:510
+#: woo-feed-edit-template.php:292
+msgid "Individually"
+msgstr "Individually"
+
+#: become/add-feed.php:525 bing/add-feed.php:378 connexity/add-feed.php:525
+#: custom/add-feed.php:131 custom/edit-feed.php:306 custom/edit-feed.php:342
+#: facebook/add-feed.php:672 google/add-feed.php:672 kelkoo/add-feed.php:623
+#: nextag/add-feed.php:476 pricegrabber/add-feed.php:672
+#: shopmania/add-feed.php:721 shopping/add-feed.php:525
+#: shopzilla/add-feed.php:525 woo-feed-dynamic-attribute.php:88
+#: woo-feed-dynamic-attribute.php:158 woo-feed-edit-template.php:308
+#: woo-feed-edit-template.php:344
+msgid "is / equal"
+msgstr "is / equal"
+
+#: become/add-feed.php:526 bing/add-feed.php:379 connexity/add-feed.php:526
+#: custom/add-feed.php:132 custom/edit-feed.php:307 custom/edit-feed.php:345
+#: facebook/add-feed.php:673 google/add-feed.php:673 kelkoo/add-feed.php:624
+#: nextag/add-feed.php:477 pricegrabber/add-feed.php:673
+#: shopmania/add-feed.php:722 shopping/add-feed.php:526
+#: shopzilla/add-feed.php:526 woo-feed-dynamic-attribute.php:91
+#: woo-feed-dynamic-attribute.php:159 woo-feed-edit-template.php:309
+#: woo-feed-edit-template.php:347
+msgid "is not / not equal"
+msgstr "is not / not equal"
+
+#: become/add-feed.php:527 bing/add-feed.php:380 connexity/add-feed.php:527
+#: custom/add-feed.php:133 custom/edit-feed.php:308 custom/edit-feed.php:348
+#: facebook/add-feed.php:674 google/add-feed.php:674 kelkoo/add-feed.php:625
+#: nextag/add-feed.php:478 pricegrabber/add-feed.php:674
+#: shopmania/add-feed.php:723 shopping/add-feed.php:527
+#: shopzilla/add-feed.php:527 woo-feed-dynamic-attribute.php:94
+#: woo-feed-dynamic-attribute.php:160 woo-feed-edit-template.php:310
+#: woo-feed-edit-template.php:350
+msgid "equals or greater than"
+msgstr "equals or greater than"
+
+#: become/add-feed.php:528 bing/add-feed.php:381 connexity/add-feed.php:528
+#: custom/add-feed.php:134 custom/edit-feed.php:309 custom/edit-feed.php:351
+#: facebook/add-feed.php:675 google/add-feed.php:675 kelkoo/add-feed.php:626
+#: nextag/add-feed.php:479 pricegrabber/add-feed.php:675
+#: shopmania/add-feed.php:724 shopping/add-feed.php:528
+#: shopzilla/add-feed.php:528 woo-feed-dynamic-attribute.php:97
+#: woo-feed-dynamic-attribute.php:161 woo-feed-edit-template.php:311
+#: woo-feed-edit-template.php:353
+msgid "greater than"
+msgstr "greater than"
+
+#: become/add-feed.php:529 bing/add-feed.php:382 connexity/add-feed.php:529
+#: custom/add-feed.php:135 custom/edit-feed.php:310 custom/edit-feed.php:354
+#: facebook/add-feed.php:676 google/add-feed.php:676 kelkoo/add-feed.php:627
+#: nextag/add-feed.php:480 pricegrabber/add-feed.php:676
+#: shopmania/add-feed.php:725 shopping/add-feed.php:529
+#: shopzilla/add-feed.php:529 woo-feed-dynamic-attribute.php:100
+#: woo-feed-dynamic-attribute.php:162 woo-feed-edit-template.php:312
+#: woo-feed-edit-template.php:356
+msgid "equals or less than"
+msgstr "equals or less than"
+
+#: become/add-feed.php:530 bing/add-feed.php:383 connexity/add-feed.php:530
+#: custom/add-feed.php:136 custom/edit-feed.php:311 custom/edit-feed.php:357
+#: facebook/add-feed.php:677 google/add-feed.php:677 kelkoo/add-feed.php:628
+#: nextag/add-feed.php:481 pricegrabber/add-feed.php:677
+#: shopmania/add-feed.php:726 shopping/add-feed.php:530
+#: shopzilla/add-feed.php:530 woo-feed-dynamic-attribute.php:103
+#: woo-feed-dynamic-attribute.php:163 woo-feed-edit-template.php:313
+#: woo-feed-edit-template.php:359
+msgid "less than"
+msgstr "less than"
+
+#: become/add-feed.php:531 bing/add-feed.php:384 connexity/add-feed.php:531
+#: custom/add-feed.php:137 custom/edit-feed.php:312 custom/edit-feed.php:360
+#: facebook/add-feed.php:678 google/add-feed.php:678 kelkoo/add-feed.php:629
+#: nextag/add-feed.php:482 pricegrabber/add-feed.php:678
+#: shopmania/add-feed.php:727 shopping/add-feed.php:531
+#: shopzilla/add-feed.php:531 woo-feed-dynamic-attribute.php:106
+#: woo-feed-dynamic-attribute.php:164 woo-feed-edit-template.php:314
+#: woo-feed-edit-template.php:362
+msgid "contains"
+msgstr "contains"
+
+#: become/add-feed.php:532 bing/add-feed.php:385 connexity/add-feed.php:532
+#: custom/add-feed.php:138 custom/edit-feed.php:313 custom/edit-feed.php:363
+#: facebook/add-feed.php:679 google/add-feed.php:679 kelkoo/add-feed.php:630
+#: nextag/add-feed.php:483 pricegrabber/add-feed.php:679
+#: shopmania/add-feed.php:728 shopping/add-feed.php:532
+#: shopzilla/add-feed.php:532 woo-feed-dynamic-attribute.php:109
+#: woo-feed-dynamic-attribute.php:165 woo-feed-edit-template.php:315
+#: woo-feed-edit-template.php:365
+msgid "does not contain"
+msgstr "does not contain"
+
+#: become/add-feed.php:547 bing/add-feed.php:400 connexity/add-feed.php:547
+#: custom/add-feed.php:153 custom/edit-feed.php:387 facebook/add-feed.php:694
+#: google/add-feed.php:694 kelkoo/add-feed.php:645 nextag/add-feed.php:498
+#: pricegrabber/add-feed.php:694 shopmania/add-feed.php:743
+#: shopping/add-feed.php:547 shopzilla/add-feed.php:547
+#: woo-feed-edit-template.php:389
+msgid "Add New Condition"
+msgstr "Add New Condition"
+
+#: become/add-feed.php:572 bing/add-feed.php:425 connexity/add-feed.php:572
+#: custom/add-feed.php:178 custom/edit-feed.php:411 facebook/add-feed.php:719
+#: google/add-feed.php:719 kelkoo/add-feed.php:670 nextag/add-feed.php:523
+#: pricegrabber/add-feed.php:719 shopmania/add-feed.php:768
+#: shopping/add-feed.php:572 shopzilla/add-feed.php:572
+#: woo-feed-edit-template.php:413
+msgid "FTP"
+msgstr "FTP"
+
+#: become/add-feed.php:577 become/add-feed.php:581 bing/add-feed.php:430
+#: bing/add-feed.php:434 connexity/add-feed.php:577 connexity/add-feed.php:581
+#: custom/add-feed.php:183 custom/add-feed.php:187 custom/edit-feed.php:417
+#: facebook/add-feed.php:724 facebook/add-feed.php:728 google/add-feed.php:724
+#: google/add-feed.php:728 kelkoo/add-feed.php:675 kelkoo/add-feed.php:679
+#: nextag/add-feed.php:528 nextag/add-feed.php:532
+#: pricegrabber/add-feed.php:724 pricegrabber/add-feed.php:728
+#: shopmania/add-feed.php:773 shopmania/add-feed.php:777
+#: shopping/add-feed.php:577 shopping/add-feed.php:581
+#: shopzilla/add-feed.php:577 shopzilla/add-feed.php:581
+#: woo-feed-edit-template.php:419 woo-feed-edit-template.php:426
+msgid "Enabled"
+msgstr "Enabled"
+
+#: become/add-feed.php:580 bing/add-feed.php:433 connexity/add-feed.php:580
+#: custom/add-feed.php:186 facebook/add-feed.php:727 google/add-feed.php:727
+#: kelkoo/add-feed.php:678 nextag/add-feed.php:531
+#: pricegrabber/add-feed.php:727 shopmania/add-feed.php:776
+#: shopping/add-feed.php:580 shopzilla/add-feed.php:580
+#: woo-feed-edit-template.php:423
+msgid "Disabled"
+msgstr "Disabled"
+
+#: become/add-feed.php:586 bing/add-feed.php:439 connexity/add-feed.php:586
+#: custom/add-feed.php:192 custom/edit-feed.php:431 facebook/add-feed.php:733
+#: google/add-feed.php:733 kelkoo/add-feed.php:684 nextag/add-feed.php:537
+#: pricegrabber/add-feed.php:733 shopmania/add-feed.php:782
+#: shopping/add-feed.php:586 shopzilla/add-feed.php:586
+#: woo-feed-edit-template.php:433
+msgid "Host Name"
+msgstr "Host Name"
+
+#: become/add-feed.php:590 bing/add-feed.php:443 connexity/add-feed.php:590
+#: custom/add-feed.php:196 custom/edit-feed.php:436 facebook/add-feed.php:737
+#: google/add-feed.php:737 kelkoo/add-feed.php:688 nextag/add-feed.php:541
+#: pricegrabber/add-feed.php:737 shopmania/add-feed.php:786
+#: shopping/add-feed.php:590 shopzilla/add-feed.php:590
+#: woo-feed-edit-template.php:438
+msgid "User Name"
+msgstr "User Name"
+
+#: become/add-feed.php:594 bing/add-feed.php:447 connexity/add-feed.php:594
+#: custom/add-feed.php:200 custom/edit-feed.php:441 facebook/add-feed.php:741
+#: google/add-feed.php:741 kelkoo/add-feed.php:692 nextag/add-feed.php:545
+#: pricegrabber/add-feed.php:741 shopmania/add-feed.php:790
+#: shopping/add-feed.php:594 shopzilla/add-feed.php:594
+#: woo-feed-edit-template.php:443
+msgid "Password"
+msgstr "Password"
+
+#: become/add-feed.php:598 bing/add-feed.php:451 connexity/add-feed.php:598
+#: custom/add-feed.php:204 custom/edit-feed.php:446 facebook/add-feed.php:745
+#: google/add-feed.php:745 kelkoo/add-feed.php:696 nextag/add-feed.php:549
+#: pricegrabber/add-feed.php:745 shopmania/add-feed.php:794
+#: shopping/add-feed.php:598 shopzilla/add-feed.php:598
+#: woo-feed-edit-template.php:448
+msgid "Path"
+msgstr "Path"
+
+#: custom/edit-feed.php:14 woo-feed-admin-display.php:27
+#: woo-feed-edit-template.php:20
+msgid "Template"
+msgstr "Template"
+
+#: custom/edit-feed.php:22 woo-feed-admin-display.php:35
+#: woo-feed-edit-template.php:28
+msgid "File Name"
+msgstr "File Name"
+
+#: custom/edit-feed.php:28 woo-feed-admin-display.php:40
+#: woo-feed-edit-template.php:34
+msgid "Feed Type"
+msgstr "Feed Type"
+
+#: custom/edit-feed.php:44 woo-feed-admin-display.php:51
+#: woo-feed-edit-template.php:50
+msgid "Items Wrapper"
+msgstr "Items Wrapper"
+
+#: custom/edit-feed.php:51 woo-feed-admin-display.php:56
+#: woo-feed-edit-template.php:57
+msgid "Single Item Wrapper"
+msgstr "Single Item Wrapper"
+
+#: custom/edit-feed.php:58 woo-feed-admin-display.php:61
+#: woo-feed-edit-template.php:64
+msgid "Extra Header"
+msgstr "Extra Header"
+
+#: custom/edit-feed.php:65 woo-feed-admin-display.php:67
+#: woo-feed-edit-template.php:71
+msgid "Delimiter"
+msgstr "Delimiter"
+
+#: custom/edit-feed.php:90 woo-feed-admin-display.php:80
+#: woo-feed-edit-template.php:96
+msgid "Enclosure"
+msgstr "Enclosure"
+
+#: custom/edit-feed.php:259 custom/edit-feed.php:402 custom/edit-feed.php:459
+#: woo-feed-edit-template.php:261 woo-feed-edit-template.php:404
+#: woo-feed-edit-template.php:459
+msgid "Update and Generate Feed"
+msgstr "Update and Generate Feed"
+
+#: woo-feed-admin-display.php:21
+msgid "WooCommerce Product Feed"
+msgstr "WooCommerce Product Feed Pro"
+
+#: woo-feed-category-list.php:19
+msgid "Category Mapping List"
+msgstr "Category Mapping List"
+
+#: woo-feed-category-list.php:21
+msgid "Add New Mapping"
+msgstr "Add New Mapping"
+
+#: woo-feed-category-list.php:48 woo-feed-category-list.php:55
+#: woo-feed-category-list.php:62 woo-feed-dynamic-attribute-list.php:46
+#: woo-feed-dynamic-attribute-list.php:53
+#: woo-feed-dynamic-attribute-list.php:60 woo-feed-manage-list.php:44
+#: woo-feed-manage-list.php:51 woo-feed-manage-list.php:58
+msgid "Are You Sure to Delete ?"
+msgstr "Are You Sure to Delete ?"
+
+#: woo-feed-category-mapping.php:87
+msgid "Category Mapping"
+msgstr "Category Mapping"
+
+#: woo-feed-category-mapping.php:95
+msgid "Merchant"
+msgstr "Merchant"
+
+#: woo-feed-category-mapping.php:103
+msgid "Mapping Name"
+msgstr "Mapping Name"
+
+#: woo-feed-category-mapping.php:115
+msgid "Local Category"
+msgstr "Local Category"
+
+#: woo-feed-category-mapping.php:116
+msgid "Merchant Category"
+msgstr "Merchant Category"
+
+#: woo-feed-category-mapping.php:127
+msgid "Save Mapping"
+msgstr "Save Mapping"
+
+#: woo-feed-dynamic-attribute-list.php:19
+msgid "Attribute List"
+msgstr "Attribute List"
+
+#: woo-feed-dynamic-attribute-list.php:21
+msgid "Add New"
+msgstr "Add New"
+
+#: woo-feed-dynamic-attribute.php:18
+msgid "Dynamic Attribute"
+msgstr "Dynamic Attribute"
+
+#: woo-feed-dynamic-attribute.php:26
+msgid "Attribute Name"
+msgstr "Attribute Name"
+
+#: woo-feed-dynamic-attribute.php:34
+msgid "Attribute Code"
+msgstr "Attribute Code"
+
+#: woo-feed-dynamic-attribute.php:232
+msgid "Add Condition"
+msgstr "Add Condition"
+
+#: woo-feed-dynamic-attribute.php:246
+msgid "Save"
+msgstr "Save"
+
+#: woo-feed-manage-list.php:19
+msgid "Manage Feed"
+msgstr "Manage Feed"
+
+#: woo-feed-manage-list.php:21
+msgid "New Feed"
+msgstr "New Feed"

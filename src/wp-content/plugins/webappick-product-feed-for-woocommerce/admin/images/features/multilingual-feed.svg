@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="594px" height="340px" viewBox="0 0 594 340" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59 (86127) - https://sketch.com -->
+    <title>Multilingual Feed</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-58.000000, -503.000000)">
+            <g id="Multilingual-Feed" transform="translate(58.000000, 503.000000)">
+                <rect id="Rectangle-Copy-5" fill="#EFF5FF" transform="translate(297.000000, 170.000000) rotate(-360.000000) translate(-297.000000, -170.000000) " x="0" y="0" width="594" height="340" rx="15"></rect>
+                <g id="translate-24px" transform="translate(209.000000, 82.000000)">
+                    <polygon id="Path" points="0 0 177 0 177 177 0 177"></polygon>
+                    <path d="M94.9459091,111.0645 L76.1268182,92.616 L76.3490909,92.3955 C89.2409091,78.1365 98.4281818,61.746 103.836818,44.4 L125.545455,44.4 L125.545455,29.7 L73.6818182,29.7 L73.6818182,15 L58.8636364,15 L58.8636364,29.7 L7,29.7 L7,44.3265 L89.7595455,44.3265 C84.7954545,58.512 76.9418182,71.9625 66.2727273,83.7225 C59.3822727,76.152 53.6772727,67.8465 49.1577273,59.1 L34.3395455,59.1 C39.7481818,71.0805 47.1572727,82.3995 56.4186364,92.616 L18.7063636,129.513 L29.2272727,139.95 L66.2727273,103.2 L89.315,126.0585 L94.9459091,111.0645 Z M136.659091,73.8 L121.840909,73.8 L88.5,162 L103.318182,162 L111.616364,139.95 L146.809545,139.95 L155.181818,162 L170,162 L136.659091,73.8 Z M117.247273,125.25 L129.25,93.4245 L141.252727,125.25 L117.247273,125.25 L117.247273,125.25 Z" id="Shape" fill="#1165E4" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
