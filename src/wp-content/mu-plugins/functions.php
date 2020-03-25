@@ -637,6 +637,9 @@ function custom_register_header()
 {
 	if(get_query_var('custom_user_register'))
 	{
+		global $wp_query;
+		$wp_query->is_404 = false;
+		status_header( '200' );
 		if(class_exists('siCaptcha', false))
 		{
 			global $registro_captcha;
