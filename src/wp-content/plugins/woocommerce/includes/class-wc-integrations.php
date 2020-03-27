@@ -1,19 +1,17 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
 /**
  * WooCommerce Integrations class
  *
  * Loads Integrations into WooCommerce.
  *
- * @class    WC_Integrations
- * @version  2.3.0
- * @package  WooCommerce/Classes/Integrations
- * @category Class
- * @author   WooThemes
+ * @version 3.9.0
+ * @package WooCommerce/Classes/Integrations
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Integrations class.
  */
 class WC_Integrations {
 
@@ -31,9 +29,13 @@ class WC_Integrations {
 
 		do_action( 'woocommerce_integrations_init' );
 
-		$load_integrations = apply_filters( 'woocommerce_integrations', array() );
+		$load_integrations = array(
+			'WC_Integration_MaxMind_Geolocation',
+		);
 
-		// Load integration classes
+		$load_integrations = apply_filters( 'woocommerce_integrations', $load_integrations );
+
+		// Load integration classes.
 		foreach ( $load_integrations as $integration ) {
 
 			$load_integration = new $integration();
@@ -45,10 +47,24 @@ class WC_Integrations {
 	/**
 	 * Return loaded integrations.
 	 *
-	 * @access public
 	 * @return array
 	 */
 	public function get_integrations() {
 		return $this->integrations;
+	}
+
+	/**
+	 * Return a desired integration.
+	 *
+	 * @since 3.9.0
+	 * @param string $id The id of the integration to get.
+	 * @return mixed|null The integration if one is found, otherwise null.
+	 */
+	public function get_integration( $id ) {
+		if ( isset( $this->integrations[ $id ] ) ) {
+			return $this->integrations[ $id ];
+		}
+
+		return null;
 	}
 }
