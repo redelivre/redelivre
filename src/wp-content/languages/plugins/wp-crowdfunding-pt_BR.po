@@ -1,0 +1,2071 @@
+# Translation of Plugins - WP Crowdfunding - Development (trunk) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - WP Crowdfunding - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-11-30 16:00:15+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: pt_BR\n"
+"Project-Id-Version: Plugins - WP Crowdfunding - Development (trunk)\n"
+
+#: wpneotemplate/woocommerce/basic/include/fund-campaign-btn.php:62
+msgid "This campaign has been invalid or not started yet."
+msgstr "Esta campanha é invalida ou ainda não iniciou."
+
+#: includes/class-wp-crowdfunding-shortcode.php:268
+msgid "Campaign ID required"
+msgstr "O ID da campanha é obrigatório"
+
+#: includes/class-wp-crowdfunding-shortcode.php:273
+msgid "Invalid Campaign ID"
+msgstr "ID da campanha é inválido"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:509
+msgid "Campaign will be started within"
+msgstr "A campanha será iniciada em"
+
+#: wpneotemplate/woocommerce/basic/author-campaigns.php:16
+msgid "Campaigns by Author"
+msgstr "Campanhas por autor"
+
+#: wpneotemplate/woocommerce/basic/include/fund-raised.php:30
+msgid "Days Until Launch"
+msgstr "Dias até o lançamento"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:923
+msgid "Yes"
+msgstr "Sim"
+
+#. Description of the plugin
+msgid "WP crowdfunding (Free) for collect fund and investment"
+msgstr "WP Crowdfunding (Grátis) para arrecadar fundos e investimentos"
+
+#: admin/includes-tab/tab-woocommerce.php:100
+msgid "Additional title for Submit Form Requirement Form goes here."
+msgstr "O título adicional do formulário de exigência para envio de formulários vai aqui."
+
+#: admin/includes-tab/tab-woocommerce.php:110
+msgid "Additional Text for Submit Form Requirement Form goes here."
+msgstr "O texto adicional do formulário de exigência do formulário de envio vai aqui."
+
+#: admin/includes-tab/tab-woocommerce.php:119
+msgid "The checkmark text for agreeing with terms and conditions."
+msgstr "O texto do marcador para concordar com os termos e condições."
+
+#: admin/includes-tab/tab-woocommerce.php:126
+msgid "Button Submit Action of \"Back This Campaign\" "
+msgstr "Ação de envio do botão \"Apoie essa campanha\" "
+
+#: admin/includes-tab/tab-woocommerce.php:127
+msgid "This action will determine where to redirect after clicking on “Back This Campaign” button of campaign single page."
+msgstr "Esta ação determinará para onde redirecionar o usuário depois de clicar no botão \"Apoiar essa campanha\" de página de detalhes da campanha."
+
+#: admin/includes-tab/tab-woocommerce.php:175
+msgid "Template for campaign single page"
+msgstr "Modelo para a página de detalhes da campanha"
+
+#: admin/includes-tab/tab-woocommerce.php:186
+msgid "Select Style for Rewards"
+msgstr "Selecione o estilo para as recompensas"
+
+#: admin/includes-tab/tab-woocommerce.php:194
+msgid "Set fixed price instead of range on Rewards"
+msgstr "Definir um preço fixo ao invés de um intervalo de valores nas recompensas"
+
+#: admin/includes-tab/tab-woocommerce.php:74
+msgid "Categories Settings"
+msgstr "Configurações de categorias"
+
+#: admin/includes-tab/tab-woocommerce.php:75
+msgid "Excludes or include WooCommerce product categories."
+msgstr "Exclui ou incluir e categorias de produto WooCommerce."
+
+#: admin/includes-tab/tab-woocommerce.php:83
+msgid "Separate Crowdfunding Categories"
+msgstr "Separar categorias de crowdfunding"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:856
+#: includes/woocommerce/class-wpneo-crowdfunding.php:880
+msgid "Mark as Crowdfunding Category"
+msgstr "Marcar como categoria de crowdfunding"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:859
+#: includes/woocommerce/class-wpneo-crowdfunding.php:883
+msgid "This check mark allow you to detect crowdfunding specific category,"
+msgstr "Esta marcação permite detectar uma categoria específica de crowdfunding,"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:869
+msgid "Is Crowdfunding Category"
+msgstr "É uma categoria de crowdfunding"
+
+#: includes/woocommerce/dashboard/profile.php:54
+msgid "Display Name:"
+msgstr "Nome de exibição:"
+
+#: admin/includes-tab/tab-general.php:172
+msgid "Redirect URL for User Registration Success"
+msgstr "URL de redirecionamento do registro de usuário bem sucedido"
+
+#: admin/includes-tab/tab-woocommerce.php:200
+msgid "Tax Settings"
+msgstr "Configurações de impostos"
+
+#: admin/includes-tab/tab-woocommerce.php:209
+msgid "Enable Tax in Crowdfunding Products"
+msgstr "Ativar impostos nos produtos crowdfunding"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:213
+#: shortcode/submit-form.php:261
+msgid "Predefined Pledge Amount"
+msgstr "Valor predefinido para a doação"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:214
+msgid "10,20,30,40"
+msgstr "10,20,30,40"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:215
+msgid "Predefined amount allow you to place the amount in donate box by click, example: <code>10,20,30,40</code>"
+msgstr "O valor predefinido permite que você coloque um valor para a doação na caixa por clique, ex: <code>10,20,30,40</code>"
+
+#: shortcode/submit-form.php:264
+msgid "Predefined amount allow you to place the amount in donate box by click, price should separated by comma (,), example: <code>10,20,30,40</code>"
+msgstr "O valor predefinido permite que você coloque um valor para a doação na caixa por clique, os valores devem ser separados por vírgula (,), ex: <code>10,20,30,40</code>"
+
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:48
+msgid "or more"
+msgstr "ou mais"
+
+#: includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php:226
+msgid "to"
+msgstr "para"
+
+#: includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php:206
+msgid "Summary"
+msgstr "Resumo"
+
+#: includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php:236
+msgid "Total Backed"
+msgstr "Apoio total"
+
+#: includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php:237
+msgid "Pledge Received"
+msgstr "Apoio recebido"
+
+#: includes/woocommerce/dashboard/dashboard-campaign.php:53
+msgid "Days to go "
+msgstr "Dias restantes "
+
+#: includes/woocommerce/dashboard/dashboard.php:34
+msgid "My Information"
+msgstr "Minhas informações"
+
+#: includes/woocommerce/dashboard/profile.php:28
+msgid "Profile Picture"
+msgstr "Foto de perfil"
+
+#: includes/woocommerce/dashboard/profile.php:50
+msgid "Basic Info"
+msgstr "Informações básicas"
+
+#: shortcode/dashboard.php:113
+msgid "My Account"
+msgstr "Minha conta"
+
+#: shortcode/dashboard.php:125
+msgid "Add New Campaign"
+msgstr "Adicionar nova campanha"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:85
+msgid "Profile Information"
+msgstr "Informação do perfil"
+
+#: includes/class-wpneo-crowdfunding-base.php:172
+msgid "Thank you for raise funds with <strong>WP Crowdfunding</strong> by %s."
+msgstr "Obrigado por levantar fundos com <strong>WP Crowdfunding</strong> por %s."
+
+#: includes/class-wpneo-crowdfunding-base.php:164
+msgid "If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!"
+msgstr "Se você gostou do <strong>WP Crowdfunding</strong>, deixe-nos uma avaliação 5 estrelas em %s. Um grande abraço antecipado!"
+
+#: includes/class-wpneo-crowdfunding-base.php:164
+msgid "Thanks :)"
+msgstr "Agradecemos :)"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:288
+msgid "Phone:"
+msgstr "Telefone:"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:276
+msgid "Note:"
+msgstr "Nota:"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:265
+msgid "Total:"
+msgstr "Total:"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:255
+msgid "Subtotal:"
+msgstr "Subtotal:"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:202
+msgid "Product"
+msgstr "Produto"
+
+#: addons/social-share/pages/tab-social-share.php:94
+msgid "Embed Option"
+msgstr "Opção de incorporação"
+
+#: addons/social-share/pages/tab-social-share.php:95
+msgid "Embed Option in Single Campaign."
+msgstr "Opção de incorporação na campanha individual."
+
+#: addons/social-share/social-share.php:240
+msgid "Embed Code"
+msgstr "Código de incorporação"
+
+#: addons/social-share/social-share.php:245
+msgid "Copy this code and paste inside your content."
+msgstr "Copie esse código e cole no seu conteúdo."
+
+#: includes/class-wp-crowdfunding-shortcode.php:264
+#: wpneotemplate/woocommerce/basic/include/fund-campaign-btn.php:54
+msgid "Back Campaign"
+msgstr "Apoiar campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:800
+msgid "Make me anonymous"
+msgstr "Prefiro ficar anônimo"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:195
+msgid "Order ID"
+msgstr "ID do pedido"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:196
+msgid "Order Date"
+msgstr "Data do pedido"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:197
+msgid "Order Status"
+msgstr "Status do pedido"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:260
+msgid "Payments Method:"
+msgstr "Formas de pagamento:"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:272
+msgid "Customer details"
+msgstr "Detalhes do cliente"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:296
+msgid "Billing Address:"
+msgstr "Endereço de cobrança:"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:298
+msgid "N/A"
+msgstr "N/D"
+
+#: includes/woocommerce/dashboard/order.php:57
+#: includes/woocommerce/dashboard/investment.php:47
+msgid "Actions"
+msgstr "Ações"
+
+#. Author URI of the plugin
+msgid "https://themeum.com"
+msgstr "https://themeum.com"
+
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:79
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:96
+msgid "Reward no longer available."
+msgstr "Recompensa indisponível."
+
+#: shortcode/submit-form.php:86
+msgid "Click here to login."
+msgstr "Clique aqui para fazer login."
+
+#: includes/class-wpneo-crowdfunding-initial-setup.php:190
+msgid "Your WooCommerce version is below then 3.0, please update"
+msgstr "Sua versão do WooCommerce está abaixo da 3.0, atualize"
+
+#: shortcode/submit-form.php:86
+msgid "Please log in first."
+msgstr "Faça login primeiro."
+
+#. Author of the plugin
+msgid "Themeum"
+msgstr "Themeum"
+
+#. Plugin URI of the plugin
+msgid "https://www.themeum.com/product/wp-crowdfunding-plugin/"
+msgstr "https://www.themeum.com/product/wp-crowdfunding-plugin/"
+
+#: admin/includes-tab/tab-woocommerce.php:172
+msgid "In WP Crowdfunding own template"
+msgstr "No próprio template do WP Crowdfunding"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:299
+msgid "ID"
+msgstr "ID"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:302
+msgid "Amount"
+msgstr "Quantia"
+
+#: admin/includes-tab/tab-woocommerce.php:173
+msgid "In WooCommerce Default"
+msgstr "No WooCommerce Padrão"
+
+#: includes/woocommerce/dashboard/rewards.php:107
+msgid "There is no rewards selected by backer"
+msgstr "Não há recompensas selecionadas pelo apoiador"
+
+#: includes/woocommerce/dashboard/bookmark.php:33
+#: includes/woocommerce/dashboard/rewards.php:43
+msgid "Action"
+msgstr "Ação"
+
+#: admin/includes-tab/tab-woocommerce.php:163
+msgid "Single Page Settings"
+msgstr "Configurações de Páginas Simples"
+
+#: addons/wallet/wpneo-crowdfunding-wallet-demo.php:39
+msgid "Wallet"
+msgstr "Carteira"
+
+#: addons/reports/reports.php:102
+msgid "Crowdfunding Sales Reports"
+msgstr "Relatório das campanhas do crowdfunding"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:175
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:239
+#: includes/woocommerce/class-wpneo-wc-reward.php:302
+#: includes/woocommerce/class-wpneo-wc-reward.php:321
+msgid "Selected Reward"
+msgstr "Recompensa selecionada"
+
+#: includes/woocommerce/dashboard/bookmark.php:32
+msgid "Created Time"
+msgstr "Horário da criação"
+
+#: includes/woocommerce/dashboard/rewards.php:42
+msgid "Campaign Name / Reward Amount"
+msgstr "Nome da campanha / Quantia da recompensa"
+
+#: includes/woocommerce/dashboard/rewards.php:75
+msgid "Backer info"
+msgstr "Dados do apoiador"
+
+#: includes/woocommerce/dashboard/rewards.php:95
+msgid "View Details"
+msgstr "Ver detalhes"
+
+#: wpneotemplate/woocommerce/basic/include/loop/no-campaigns-found.php:7
+msgid "No campaigns found here."
+msgstr "Nenhuma campanha encontrada."
+
+#: wpneotemplate/woocommerce/basic/include/fund-raised.php:15
+msgid "Funds Raised"
+msgstr "Fundos arrecadados"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:135
+msgid "About the campaign creator"
+msgstr "Sobre o criador da campanha"
+
+#: wpneotemplate/woocommerce/basic/include/creator-info.php:30
+msgid "Loved campaigns"
+msgstr "Campanhas favoritas"
+
+#: shortcode/dashboard.php:119
+#: wpneotemplate/woocommerce/basic/include/creator-info.php:30
+msgid "Campaigns"
+msgstr "Campanhas"
+
+#: shortcode/submit-form.php:565
+msgid "+ Add"
+msgstr "+ Adicionar"
+
+#: shortcode/submit-form.php:462 shortcode/submit-form.php:544
+msgid "Quantity of physical products"
+msgstr "Quantidade de produtos físicos"
+
+#: shortcode/submit-form.php:358
+msgid "Put the campaign location here"
+msgstr "Coloque a localização da campanha aqui"
+
+#: shortcode/submit-form.php:219
+msgid "Campaign end date (dd-mm-yy)"
+msgstr "Data de encerramento da campanha (dd-mm-aa)"
+
+#: shortcode/submit-form.php:209
+msgid "Campaign start date (dd-mm-yy)"
+msgstr "Data de início da campanha (dd-mm-aa)"
+
+#: shortcode/submit-form.php:167
+msgid "Select your campaign category"
+msgstr "Selecione a categoria da sua campanha"
+
+#: shortcode/submit-form.php:120
+msgid "Put the campaign description here"
+msgstr "Coloque a descrição da campanha aqui"
+
+#: shortcode/submit-form.php:108
+msgid "Put the campaign title here"
+msgstr "Coloque o título da campanha aqui"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:303
+msgid "Location of this campaign"
+msgstr "Localização dessa campanha"
+
+#: includes/woocommerce/class-wpneo-wc-account-dashboard.php:59
+msgid "Backed Campaigns"
+msgstr "Campanhas apoiadas"
+
+#: includes/woocommerce/dashboard/dashboard.php:21
+#: includes/woocommerce/class-wpneo-wc-account-dashboard.php:58
+#: shortcode/dashboard.php:50
+msgid "My Campaigns"
+msgstr "Minhas campanhas"
+
+#: includes/class-wpneo-crowdfunding-common.php:66
+msgid "Loved campaign"
+msgstr "Campanhas favoritadas"
+
+#: includes/class-wpneo-crowdfunding-common.php:58
+msgid "Campaign already loved"
+msgstr "Campanhas já favoritadas"
+
+#: admin/view/product_metabox_campaign_info.php:26
+msgid "Raised"
+msgstr "Arrecadado"
+
+#: admin/view/product_metabox_campaign_info.php:3
+msgid "By"
+msgstr "Por"
+
+#: admin/menu-settings.php:206
+msgid "Style"
+msgstr "Estilo"
+
+#: admin/includes-tab/tab-style.php:64
+msgid "Select button text hover color."
+msgstr "Selecione a cor do texto do botão no hover."
+
+#: admin/includes-tab/tab-style.php:46
+msgid "Select button background hover color."
+msgstr "Selecione a cor do fundo do botão no hover."
+
+#: admin/includes-tab/tab-style.php:37
+msgid "Select button background color."
+msgstr "Selecione a cor do fundo do botão."
+
+#: admin/includes-tab/tab-style.php:36
+msgid "Button BG Color"
+msgstr "Cor do fundo do botão"
+
+#: admin/includes-tab/tab-style.php:20
+msgid "Enable color styling option for custom color layout."
+msgstr "Habilitar a opção de estilo de cor para layouts com cor personalizada."
+
+#: admin/includes-tab/tab-style.php:10
+msgid "Style Settings"
+msgstr "Configurações de estilo"
+
+#: addons/social-share/pages/tab-social-share.php:76
+msgid "Enable Linkedin"
+msgstr "Permitir Linkedin"
+
+#: addons/social-share/pages/tab-social-share.php:67
+msgid "Enable Pinterest"
+msgstr "Permitir Pinterest"
+
+#: addons/social-share/pages/tab-social-share.php:49
+msgid "Enable Facebook"
+msgstr "Permitir Facebook"
+
+#: addons/social-share/pages/tab-social-share.php:31
+msgid "Enable Twitter"
+msgstr "Permitir Twitter"
+
+#: addons/social-share/pages/tab-social-share.php:13
+msgid "You may enable social share to share post."
+msgstr "Você deve habilitar o compartilhamento de redes sociais para compartilhar esse post."
+
+#: addons/reports/reports.php:90
+msgid "Top Campaigns"
+msgstr "Melhores campanhas"
+
+#: addons/social-share/pages/tab-social-share.php:12
+msgid "Social Share Settings"
+msgstr "Configurações de compartilhamento social"
+
+#: addons/social-share/pages/tab-social-share.php:22
+msgid "Enable Social Share"
+msgstr "Permitir compartilhamento social"
+
+#: addons/social-share/pages/tab-social-share.php:23
+msgid "Enable Social Share for crowdfunding Plugin."
+msgstr "Permitir compartilhamento social no plugin de crowdfunding."
+
+#: addons/social-share/pages/tab-social-share.php:32
+msgid "Enable Twitter for crowdfunding plugin."
+msgstr "Permitir o Twitter no plugin de crowdfunding."
+
+#: addons/social-share/pages/tab-social-share.php:40
+msgid "Twitter Via"
+msgstr "Usuário do Twitter"
+
+#: addons/social-share/pages/tab-social-share.php:41
+msgid "Put your twitter via key here."
+msgstr "Informe o usuário do Twitter aqui."
+
+#: addons/social-share/pages/tab-social-share.php:50
+msgid "Enable Facebook for crowdfunding plugin."
+msgstr "Permitir o Facebook no plugin de crowdfunding."
+
+#: addons/social-share/pages/tab-social-share.php:58
+msgid "Enable GooglePlus"
+msgstr "Permitir Google+"
+
+#: addons/social-share/pages/tab-social-share.php:59
+msgid "Enable GooglePlus for crowdfunding plugin."
+msgstr "Permitir o Google+ no plugin de crowdfunding."
+
+#: addons/social-share/pages/tab-social-share.php:68
+msgid "Enable Pinterest for crowdfunding plugin."
+msgstr "Permitir o Pinterest no plugin de crowdfunding."
+
+#: addons/social-share/pages/tab-social-share.php:77
+msgid "Enable Linkedin for crowdfunding plugin."
+msgstr "Permitir o Linkedin no plugin de crowdfunding."
+
+#: addons/social-share/pages/tab-social-share.php:85
+msgid "Linkedin Via"
+msgstr "Usuário do Linkedin"
+
+#: addons/social-share/pages/tab-social-share.php:86
+msgid "Put your Linkedin via key here."
+msgstr "Informe o usuário do Linkedin aqui."
+
+#: admin/includes-tab/tab-general.php:146
+msgid "Select Campaign Submit Form"
+msgstr "Selecione o formulário para enviar a campanha"
+
+#: admin/includes-tab/tab-general.php:156
+msgid "Campaign Creator"
+msgstr "Criador da campanha"
+
+#: admin/includes-tab/tab-general.php:157
+msgid "Select roles that can enable front end campaign submission form"
+msgstr "Selecione as funções que podem permitir o formulário de submissão de campanha no front-end"
+
+#: admin/includes-tab/tab-general.php:52
+msgid "Default Campaign Status"
+msgstr "Status inicial da campanha"
+
+#: admin/includes-tab/tab-style.php:19
+msgid "Enable Color Styling"
+msgstr "Ativar estilo de cor"
+
+#: admin/includes-tab/tab-style.php:28
+msgid "Select color scheme of plugins."
+msgstr "Selecione o esquema de cores do plugin."
+
+#: admin/includes-tab/tab-style.php:45
+msgid "Button BG Hover Color"
+msgstr "Cor do fundo do botão ao passar o mouse"
+
+#: admin/includes-tab/tab-style.php:54
+msgid "Button Text Color"
+msgstr "Cor do texto do botão"
+
+#: admin/includes-tab/tab-style.php:55
+msgid "Select button text color."
+msgstr "Selecione a cor do texto do botão."
+
+#: admin/includes-tab/tab-style.php:63
+msgid "Button Text Hover Color"
+msgstr "Cor do texto do botão ao passar o mouse"
+
+#: admin/includes-tab/tab-style.php:72
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+#: admin/includes-tab/tab-style.php:73
+msgid "Put here custom CSS."
+msgstr "Coloque aqui o CSS personalizado."
+
+#: admin/menu-settings.php:246
+msgid "Reset Settings"
+msgstr "Redefinir as configurações"
+
+#: includes/woocommerce/dashboard/dashboard-campaign.php:80
+#: admin/view/product_metabox_campaign_info.php:22
+msgid "Goal"
+msgstr "Meta"
+
+#: includes/class-wpneo-crowdfunding-common.php:87
+msgid "Campaign has been deleted"
+msgstr "A campanha foi excluída"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:157
+msgid "Start time of this campaign"
+msgstr "Horário de início dessa campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:158
+msgid "Enter start of this campaign"
+msgstr "Informe o início dessa campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:166
+msgid "End time of this campaign"
+msgstr "Horário de encerramento dessa campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:167
+msgid "Enter end time of this campaign"
+msgstr "Informe o encerramento dessa campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:313
+msgid "Campaign Update Status"
+msgstr "Status de atualização da campanha"
+
+#: includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php:189
+msgid "Campaign successfully submitted"
+msgstr "A campanha foi enviada"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:118
+msgid "Owner"
+msgstr "Proprietário"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:154
+msgid "Campaign Summery"
+msgstr "Resumo da campanha"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:73
+msgid "Total Campaign"
+msgstr "Total da campanha"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:250
+msgid "+ Add Reward"
+msgstr "+ Adicionar recompensa"
+
+#: includes/woocommerce/dashboard/dashboard-campaign.php:95
+#: includes/woocommerce/dashboard/campaign.php:142
+msgid "Sorry, no Campaign Found."
+msgstr "Desculpe, nenhuma campanha foi encontrada."
+
+#: includes/woocommerce/dashboard/update.php:75
+#: includes/woocommerce/dashboard/update.php:114
+#: includes/woocommerce/dashboard/update.php:119
+msgid "Add Update"
+msgstr "Adicionar atualização"
+
+#: includes/wpneo-crowdfunding-template-functions.php:274
+#: wpneotemplate/woocommerce/basic/include/tabs/story-tab.php:11
+msgid "Campaign Story"
+msgstr "História da campanha"
+
+#: shortcode/submit-form.php:188 shortcode/submit-form.php:412
+#: shortcode/submit-form.php:493
+msgid "Upload Image"
+msgstr "Enviar imagem"
+
+#: shortcode/submit-form.php:189
+msgid "Upload a campaign feature image"
+msgstr "Faça upload de uma foto para ilustrar sua campanha aqui"
+
+#: shortcode/submit-form.php:199
+msgid "Put the campaign video URL here"
+msgstr "Coloque o URL do vídeo da campanha aqui"
+
+#: shortcode/submit-form.php:230
+msgid "Minimum campaign funding amount"
+msgstr "Quantia mínima de apoio para essa campanha"
+
+#: shortcode/submit-form.php:242
+msgid "Maximum campaign funding amount"
+msgstr "Quantia máxima de apoio para essa campanha"
+
+#: shortcode/submit-form.php:254
+msgid "Recomended campaign funding amount"
+msgstr "Quantia recomendada de apoio para essa campanha"
+
+#: shortcode/submit-form.php:273
+msgid "Campaign funding goal"
+msgstr "Meta de arrecadação da campanha"
+
+#: shortcode/submit-form.php:596
+msgid "Submit campaign"
+msgstr "Enviar campanha"
+
+#: shortcode/submit-form.php:94
+msgid "You Do not have permission to submit form."
+msgstr "Você não tem permissão para enviar o formulário."
+
+#: wpneotemplate/woocommerce/basic/include/loop/thumbnail.php:11
+msgid "View Campaign"
+msgstr "Ver campanha"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:80
+msgid " Campaigns"
+msgstr " Campanhas"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:80
+msgid " Loved campaigns"
+msgstr " Campanhas favoritas"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:9
+msgid "Campaigns by: "
+msgstr "Campanhas por: "
+
+#: admin/includes-tab/tab-style.php:27
+msgid "Color Scheme"
+msgstr "Combinação de cores"
+
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:123
+msgid "backers"
+msgstr "apoiadores"
+
+#: wpneotemplate/woocommerce/basic/include/single-bakers-counter.php:8
+msgid "People backed this so far"
+msgstr "Pessoas que apoiaram até agora"
+
+#: includes/woocommerce/class-wpneo-wc-account-dashboard.php:56
+msgid "Crowdfunding Dashboard"
+msgstr "Painel do crowdfunding"
+
+#: includes/woocommerce/dashboard/rewards.php:67
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:66
+msgid "Estimated Delivery"
+msgstr "Entrega estimada"
+
+#: shortcode/submit-form.php:404 shortcode/submit-form.php:489
+msgid "Reward Image"
+msgstr "Imagem de recompensa"
+
+#: shortcode/submit-form.php:413 shortcode/submit-form.php:494
+msgid "Upload a reward image"
+msgstr "Faça upload da imagem da recompensa"
+
+#: wpneotemplate/woocommerce/basic/include/days-remaining.php:10
+msgid "Days to Go"
+msgstr "Dias restantes"
+
+#: wpneotemplate/woocommerce/basic/include/description.php:12
+msgid "Short Story"
+msgstr "História curta"
+
+#: wpneotemplate/woocommerce/basic/include/fund-campaign-btn.php:31
+msgid "Minimum amount is "
+msgstr "O valor mínimo é "
+
+#: wpneotemplate/woocommerce/basic/include/fund-campaign-btn.php:32
+msgid "Maximum amount is "
+msgstr "O valor máximo é "
+
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:129
+msgid " rewards left"
+msgstr " recompensas restantes"
+
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:87
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:104
+msgid "Select Reward"
+msgstr "Selecione a recompensa"
+
+#: includes/woocommerce/dashboard/dashboard-campaign.php:47
+#: includes/woocommerce/dashboard/campaign.php:119
+#: wpneotemplate/woocommerce/basic/include/loop/time_remaining.php:5
+#: addons/social-share/social-share.php:202
+msgid "0"
+msgstr "0"
+
+#: includes/woocommerce/dashboard/dashboard-campaign.php:60
+#: includes/woocommerce/dashboard/campaign.php:53
+#: wpneotemplate/woocommerce/basic/include/loop/author.php:7
+#: wpneotemplate/woocommerce/basic/include/author.php:10
+#: addons/social-share/social-share.php:167
+msgid "by"
+msgstr "por"
+
+#: includes/woocommerce/dashboard/order.php:160
+msgid "Sorry, No Pledges Received Data Found."
+msgstr "Desculpe, nenhum dado de apoios recebidos encontrado."
+
+#: includes/woocommerce/dashboard/order.php:109
+#: includes/woocommerce/dashboard/investment.php:98
+msgid "%s for %s item"
+msgid_plural "%s for %s items"
+msgstr[0] "%s para %s item"
+msgstr[1] "%s para %s itens"
+
+#: includes/woocommerce/dashboard/order.php:97
+#: includes/woocommerce/dashboard/investment.php:88
+msgctxt "hash before order number"
+msgid "#"
+msgstr "#"
+
+#: includes/woocommerce/dashboard/dashboard-campaign.php:74
+#: includes/woocommerce/dashboard/order.php:55
+#: includes/woocommerce/dashboard/investment.php:45
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:203
+msgid "Total"
+msgstr "Total"
+
+#: includes/woocommerce/dashboard/order.php:54
+#: includes/woocommerce/dashboard/investment.php:44
+msgid "Status"
+msgstr "Status"
+
+#: includes/woocommerce/dashboard/order.php:52
+#: includes/woocommerce/dashboard/rewards.php:41
+#: includes/woocommerce/dashboard/investment.php:42
+msgid "Order"
+msgstr "Pedido"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:136
+msgid "Number of Rewards(Physical Product)"
+msgstr "Número de Recompensas (Produtos Físicos)"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:133
+#: shortcode/submit-form.php:459 shortcode/submit-form.php:541
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:72
+#: includes/woocommerce/class-wpneo-wc-reward.php:75
+msgid "Image Field"
+msgstr "Campo da Imagem"
+
+#: includes/class-wpneo-crowdfunding-base.php:201
+msgid "WP Crowdfunding will not work properly if you activate it from network, please deactivate from network and activate again from individual site admin."
+msgstr "WP Crowdfunding não vai funcionar adequadamente se você ativá-lo da rede, por favor desative-o da rede e ative novamente de um site administrador individual."
+
+#: admin/menu-settings.php:642
+msgid "Go Premium <span class=\"dashicons dashicons-star-filled\"></span>"
+msgstr "Torne-se Premium <span class=\"dashicons dashicons-star-filled\"></span>"
+
+#: admin/menu-settings.php:642
+msgid "Go Premium"
+msgstr "Torne-se Premium"
+
+#: admin/includes-tab/tab-woocommerce.php:183
+msgid "1"
+msgstr "1"
+
+#: admin/includes-tab/tab-woocommerce.php:147
+msgid "Number of Columns in your Listing Page"
+msgstr "Número de Colunas de sua Página de Exibição"
+
+#: admin/includes-tab/tab-general.php:50
+msgid "Draft"
+msgstr "Rascunho"
+
+#: admin/includes-tab/tab-general.php:48
+msgid "Published"
+msgstr "Publicado"
+
+#: admin/includes-tab/tab-general.php:49
+msgid "Pending Review"
+msgstr "Aguardando revisão"
+
+#: admin/includes-tab/tab-woocommerce.php:49
+msgid "Hide Billing Address From Checkout Page"
+msgstr "Ocultar o endereço de cobrança da página de finalização do pedido"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:419
+msgid "+ Add Update"
+msgstr "+ Adicionar atualização"
+
+#: includes/woocommerce/dashboard/bookmark.php:51
+msgid "Sorry, No bookmark found."
+msgstr "Desculpe, nenhum favorito foi encontrado."
+
+#: includes/woocommerce/dashboard/investment.php:147
+msgid "Sorry, No Backed Campaigns Data Found."
+msgstr "Desculpe, nenhum dado de campanhas apoiadas foi encontrado."
+
+#: shortcode/registration.php:11
+msgid "You are already logged in."
+msgstr "Você já está logado."
+
+#: wpneotemplate/woocommerce/basic/include/pagination.php:20
+msgid "Prev"
+msgstr "Ant."
+
+#: wpneotemplate/woocommerce/basic/include/pagination.php:21
+msgid "Next"
+msgstr "Próx."
+
+#: includes/woocommerce/dashboard/dashboard.php:95
+msgid "Payment Info"
+msgstr "Informação de pagamento"
+
+#: shortcode/registration.php:134
+msgid "Sign UP"
+msgstr "Cadastre-se"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:146
+msgid "Video Url"
+msgstr "URL do vídeo"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:106
+msgid "Fax: "
+msgstr "Fax: "
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:92
+msgid "Portfolio"
+msgstr "Portfólio"
+
+#: wpneotemplate/woocommerce/basic/include/creator-info.php:34
+msgid "See full bio."
+msgstr "Veja a biografia completa."
+
+#: includes/woocommerce/dashboard/order.php:56
+#: includes/woocommerce/dashboard/order.php:136
+#: includes/woocommerce/dashboard/investment.php:46
+#: includes/woocommerce/dashboard/investment.php:124 shortcode/dashboard.php:80
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:15
+msgid "Rewards"
+msgstr "Recompensas"
+
+#: wpneotemplate/woocommerce/basic/include/tabs/baker-list-tab.php:37
+#: wpneotemplate/woocommerce/basic/include/tabs/baker-list-tab.php:41
+msgid "Anonymous"
+msgstr "Anônimo"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:300
+#: wpneotemplate/woocommerce/basic/include/tabs/baker-list-tab.php:14
+msgid "Name"
+msgstr "Nome"
+
+#: includes/wpneo-crowdfunding-template-functions.php:305
+msgid "Reviews (%d)"
+msgstr "Avaliações (%d)"
+
+#: includes/wpneo-crowdfunding-template-functions.php:284
+msgid "Updates"
+msgstr "Atualizações"
+
+#: includes/woocommerce/dashboard/profile.php:207
+msgid "Pinterest:"
+msgstr "Pinterest:"
+
+#: includes/woocommerce/dashboard/profile.php:196
+msgid "Linkedin:"
+msgstr "Linkedin:"
+
+#: includes/woocommerce/dashboard/profile.php:174
+msgid "Twitter:"
+msgstr "Twitter:"
+
+#: includes/woocommerce/dashboard/profile.php:163
+msgid "Facebook:"
+msgstr "Facebook:"
+
+#: includes/woocommerce/dashboard/profile.php:147
+msgid "Address:"
+msgstr "Endereço:"
+
+#: includes/woocommerce/dashboard/profile.php:126
+msgid "Fax:"
+msgstr "Fax:"
+
+#: includes/woocommerce/dashboard/profile.php:106
+msgid "Mobile Number:"
+msgstr "Celular:"
+
+#: includes/woocommerce/dashboard/profile.php:43
+#: includes/woocommerce/class-wpneo-wc-reward.php:174
+#: includes/woocommerce/class-wpneo-wc-reward.php:227
+msgid "Upload"
+msgstr "Upload"
+
+#: includes/woocommerce/dashboard/password.php:33
+msgid "Retype Password"
+msgstr "Redigitar senha"
+
+#: includes/woocommerce/dashboard/password.php:23
+msgid "New Password"
+msgstr "Nova senha"
+
+#: includes/woocommerce/dashboard/password.php:12
+msgid "Current Password"
+msgstr "Senha atual"
+
+#: includes/woocommerce/dashboard/dashboard.php:37
+msgid "Username:"
+msgstr "Nome de usuário:"
+
+#: includes/woocommerce/dashboard/profile.php:229
+#: includes/woocommerce/dashboard/dashboard.php:105
+#: includes/woocommerce/dashboard/contact.php:297
+#: includes/woocommerce/dashboard/update.php:84
+#: includes/woocommerce/dashboard/password.php:47
+msgid "Save"
+msgstr "Salvar"
+
+#: includes/woocommerce/dashboard/profile.php:227
+#: includes/woocommerce/dashboard/dashboard.php:103
+#: includes/woocommerce/dashboard/campaign.php:76
+#: includes/woocommerce/dashboard/contact.php:295
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/woocommerce/dashboard/contact.php:266
+msgid "Telephone:"
+msgstr "Telefone:"
+
+#: includes/woocommerce/dashboard/contact.php:139
+#: includes/woocommerce/dashboard/contact.php:255
+msgid "State:"
+msgstr "Estado:"
+
+#: includes/woocommerce/dashboard/contact.php:122
+#: includes/woocommerce/dashboard/contact.php:238 shortcode/submit-form.php:338
+msgid "Select a country"
+msgstr "Selecione um país"
+
+#: includes/woocommerce/dashboard/contact.php:107
+#: includes/woocommerce/dashboard/contact.php:222
+msgid "Postcode:"
+msgstr "CEP:"
+
+#: includes/woocommerce/dashboard/contact.php:97
+#: includes/woocommerce/dashboard/contact.php:211
+msgid "City:"
+msgstr "Cidade:"
+
+#: includes/woocommerce/dashboard/contact.php:87
+#: includes/woocommerce/dashboard/contact.php:200
+msgid "Address 2:"
+msgstr "Endereço 2:"
+
+#: includes/woocommerce/dashboard/contact.php:77
+#: includes/woocommerce/dashboard/contact.php:189
+msgid "Address 1:"
+msgstr "Endereço 1:"
+
+#: includes/woocommerce/dashboard/contact.php:67
+#: includes/woocommerce/dashboard/contact.php:178
+msgid "Company:"
+msgstr "Empresa:"
+
+#: includes/woocommerce/dashboard/profile.php:69
+#: includes/woocommerce/dashboard/dashboard.php:68
+#: includes/woocommerce/dashboard/contact.php:57
+#: includes/woocommerce/dashboard/contact.php:167
+msgid "Last Name:"
+msgstr "Sobrenome:"
+
+#: includes/woocommerce/dashboard/profile.php:62
+#: includes/woocommerce/dashboard/dashboard.php:58
+#: includes/woocommerce/dashboard/contact.php:46
+#: includes/woocommerce/dashboard/contact.php:156
+msgid "First Name:"
+msgstr "Nome:"
+
+#: includes/woocommerce/dashboard/bookmark.php:41
+msgid "Created at"
+msgstr "Criado em"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:126
+msgid "2021"
+msgstr "2021"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:125
+msgid "2020"
+msgstr "2020"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:124
+msgid "2019"
+msgstr "2019"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:123
+msgid "2018"
+msgstr "2018"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:122
+msgid "2017"
+msgstr "2017"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:121
+msgid "2016"
+msgstr "2016"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:109
+#: shortcode/submit-form.php:385
+msgid "December"
+msgstr "Dezembro"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:108
+#: shortcode/submit-form.php:384
+msgid "November"
+msgstr "Novembro"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:107
+#: shortcode/submit-form.php:383
+msgid "October"
+msgstr "Outubro"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:106
+#: shortcode/submit-form.php:382
+msgid "September"
+msgstr "Setembro"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:105
+#: shortcode/submit-form.php:381
+msgid "August"
+msgstr "Agosto"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:104
+#: shortcode/submit-form.php:380
+msgid "July"
+msgstr "Julho"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:103
+#: shortcode/submit-form.php:379
+msgid "June"
+msgstr "Junho"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:102
+#: shortcode/submit-form.php:378
+msgid "May"
+msgstr "Maio"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:101
+#: shortcode/submit-form.php:377
+msgid "April"
+msgstr "Abril"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:100
+#: shortcode/submit-form.php:376
+msgid "March"
+msgstr "Março"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:99
+#: shortcode/submit-form.php:375
+msgid "February"
+msgstr "Fevereiro"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:98
+#: shortcode/submit-form.php:374
+msgid "January"
+msgstr "Janeiro"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:97
+#: includes/woocommerce/class-wpneo-wc-reward.php:120
+#: shortcode/submit-form.php:431 shortcode/submit-form.php:447
+#: shortcode/submit-form.php:513 shortcode/submit-form.php:527
+msgid "- Select -"
+msgstr "- Selecionar -"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:245
+#: shortcode/submit-form.php:560
+msgid "click here to get pro version"
+msgstr "clique aqui para comprar a versão pro"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:245
+#: shortcode/submit-form.php:560
+msgid "pro version is required to add more than 1 reward"
+msgstr "a versão pro é necessária para adicionar mais do que 1 recompensa"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:86
+#: shortcode/submit-form.php:503
+msgid "Reward Description"
+msgstr "Descrição da Recompensa"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:184
+#: includes/woocommerce/class-wpneo-wc-reward.php:236
+#: shortcode/submit-form.php:467 shortcode/submit-form.php:549
+msgid "- Remove"
+msgstr "- Remover"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:93
+#: shortcode/submit-form.php:428 shortcode/submit-form.php:510
+msgid "Estimated Delivery Month"
+msgstr "Mês da Previsão de Entrega"
+
+#: shortcode/submit-form.php:422
+msgid "Put the reward description here"
+msgstr "Coloque a descrição da recompensa aqui"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:61
+#: includes/woocommerce/class-wpneo-wc-reward.php:64
+#: shortcode/submit-form.php:395 shortcode/submit-form.php:480
+#: shortcode/submit-form.php:483
+msgid "Pledge Amount"
+msgstr "Quantia do apoio"
+
+#: shortcode/submit-form.php:348
+msgid "Select your country"
+msgstr "Selecione seu país"
+
+#: shortcode/submit-form.php:280
+msgid "End Method"
+msgstr "Método de encerramento"
+
+#: shortcode/submit-form.php:198
+msgid "https://"
+msgstr "https://"
+
+#: shortcode/submit-form.php:196
+msgid "Video"
+msgstr "Vídeo"
+
+#: shortcode/submit-form.php:184
+msgid "Image"
+msgstr "Imagem"
+
+#: shortcode/submit-form.php:177
+msgid "Separate tags with commas eg: tag1,tag2"
+msgstr "Separe as tags com vírgula, ex: tag1,tag2"
+
+#: shortcode/submit-form.php:174 shortcode/submit-form.php:176
+msgid "Tag"
+msgstr "Tag"
+
+#: shortcode/submit-form.php:139
+msgid "Category"
+msgstr "Categoria"
+
+#: includes/woocommerce/dashboard/rewards.php:72 shortcode/submit-form.php:115
+msgid "Description"
+msgstr "Descrição"
+
+#: shortcode/submit-form.php:30
+msgid "This is somewhat embarrassing, isn’t it?"
+msgstr "Isso é embaraçoso, não é mesmo?"
+
+#: shortcode/submit-form.php:28
+msgid "Not Found"
+msgstr "Não Encontrado"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:39
+#: includes/woocommerce/class-wpneo-wc-reward.php:83
+#: shortcode/submit-form.php:419 shortcode/submit-form.php:500
+msgid "Reward"
+msgstr "Recompensa"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:339
+msgid "Sorry, no posts matched your criteria."
+msgstr "Desculpe, nenhum post se encaixou nos seus critérios."
+
+#: includes/woocommerce/dashboard/update.php:49
+#: includes/woocommerce/dashboard/update.php:69
+#: includes/woocommerce/class-wpneo-crowdfunding.php:363
+#: includes/woocommerce/class-wpneo-crowdfunding.php:408
+msgid "Remove"
+msgstr "Remover"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:349
+#: includes/woocommerce/class-wpneo-crowdfunding.php:389
+msgid "Update title"
+msgstr "Título da atualização"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:359
+msgid "Update details"
+msgstr "Detalhes da atualização"
+
+#: includes/woocommerce/dashboard/order.php:53
+#: includes/woocommerce/dashboard/investment.php:43
+#: includes/woocommerce/dashboard/update.php:38
+#: includes/woocommerce/dashboard/update.php:58
+#: includes/woocommerce/dashboard/update.php:100
+#: includes/woocommerce/class-wpneo-crowdfunding.php:335
+#: includes/woocommerce/class-wpneo-crowdfunding.php:375
+#: wpneotemplate/woocommerce/basic/include/tabs/baker-list-tab.php:16
+msgid "Date"
+msgstr "Data"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:301
+#: includes/woocommerce/class-wpneo-crowdfunding.php:302
+#: shortcode/submit-form.php:355
+msgid "Location"
+msgstr "Localização"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:252
+#: includes/woocommerce/class-wpneo-crowdfunding.php:290
+#: includes/woocommerce/class-wpneo-crowdfunding.php:291
+#: shortcode/submit-form.php:334
+msgid "Country"
+msgstr "País"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:165
+msgid "End date"
+msgstr "Data de encerramento"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:156
+msgid "Start date"
+msgstr "Data de início"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:147
+msgid "Video url"
+msgstr "URL do vídeo"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:118
+#: includes/woocommerce/class-wpneo-crowdfunding.php:913
+msgid "Crowdfunding"
+msgstr "Crowdfunding"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:133
+msgid "Sorry, the username you entered is not valid"
+msgstr "Desculpe, o nome do usuário que você informou não é válido"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:130
+msgid "Sorry, that username already exists!"
+msgstr "Desculpe, o nome de usuário já existe!"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:122
+msgid "Required form field is missing"
+msgstr "Campos obrigatórios do formulário estão faltando"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:101
+#: includes/class-wpneo-crowdfunding-user-registration.php:110
+msgid "ERROR"
+msgstr "ERRO"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:96
+msgid "Registration complete."
+msgstr "Cadastro completo."
+
+#: includes/woocommerce/dashboard/profile.php:228
+#: includes/woocommerce/dashboard/dashboard.php:104
+#: includes/woocommerce/dashboard/contact.php:296
+#: includes/woocommerce/dashboard/password.php:46
+#: shortcode/registration.php:131 shortcode/submit-form.php:597
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: shortcode/registration.php:82
+msgid "Nickname"
+msgstr "Apelido"
+
+#: shortcode/registration.php:62
+msgid "Email *"
+msgstr "E-mail *"
+
+#: shortcode/registration.php:53
+msgid "Password *"
+msgstr "Senha *"
+
+#: shortcode/registration.php:43
+msgid "Username *"
+msgstr "Nome de usuário *"
+
+#: shortcode/registration.php:33
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: shortcode/registration.php:23
+msgid "First Name"
+msgstr "Nome"
+
+#: includes/class-wpneo-crowdfunding-templating.php:282
+msgid "You have no valid theme"
+msgstr "Você não tem um tema válido"
+
+#: includes/class-wpneo-crowdfunding-templating.php:272
+msgid "Select a theme"
+msgstr "Selecione um tema"
+
+#: includes/class-wpneo-crowdfunding-product-search.php:44
+#: includes/woocommerce/dashboard/bookmark.php:31
+#: includes/woocommerce/dashboard/update.php:101 shortcode/submit-form.php:105
+msgid "Title"
+msgstr "Título"
+
+#: shortcode/dashboard.php:116
+msgid "Logout"
+msgstr "Sair"
+
+#: shortcode/dashboard.php:74
+msgid "Password"
+msgstr "Senha"
+
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:73
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:131
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:195
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:248
+msgid "Successfully updated"
+msgstr "Atualização bem-sucedida"
+
+#: includes/woocommerce/class-wpneo-wc-account-dashboard.php:61
+#: shortcode/dashboard.php:68
+msgid "Bookmarks"
+msgstr "Favoritos"
+
+#: shortcode/dashboard.php:44
+msgid "Contact"
+msgstr "Contato"
+
+#: includes/woocommerce/class-wpneo-wc-account-dashboard.php:57
+#: shortcode/dashboard.php:38
+msgid "Profile"
+msgstr "Perfil"
+
+#: shortcode/dashboard.php:32
+msgid "Dashboard"
+msgstr "Painel"
+
+#: includes/class-wpneo-crowdfunding-common.php:45
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:187
+msgid "Please Sign In first"
+msgstr "Por favor faça Login primeiro"
+
+#: admin/menu-settings.php:201 admin/includes-tab/tab-woocommerce.php:20
+msgid "WooCommerce Settings"
+msgstr "Configurações do WooCommerce"
+
+#: admin/includes-tab/tab-woocommerce.php:21
+msgid "All settings related to WooCommerce"
+msgstr "Todas as configurações relacionadas ao WooCommerce"
+
+#. Plugin Name of the plugin
+msgid "WP Crowdfunding"
+msgstr "WP Crowdfunding"
+
+#: wpneotemplate/woocommerce/basic/include/loop/fund_raised_percent.php:9
+#: wpneotemplate/woocommerce/basic/include/fund_raised_percent.php:9
+#: addons/social-share/social-share.php:181
+#: admin/view/product_metabox_campaign_info.php:37
+msgid "Raised Percent"
+msgstr "Percentual arrecadado"
+
+#: includes/woocommerce/dashboard/campaign.php:115
+#: shortcode/submit-form.php:270
+#: wpneotemplate/woocommerce/basic/include/loop/funding_goal.php:11
+#: wpneotemplate/woocommerce/basic/include/fund-raised.php:11
+#: addons/social-share/social-share.php:197
+msgid "Funding Goal"
+msgstr "Meta de arrecadação"
+
+#: includes/woocommerce/dashboard/campaign.php:129
+#: wpneotemplate/woocommerce/basic/include/loop/time_remaining.php:15
+#: wpneotemplate/woocommerce/basic/include/fund-raised.php:25
+#: addons/social-share/social-share.php:209
+msgid "Days to go"
+msgstr "Dias restantes"
+
+#: includes/woocommerce/dashboard/campaign.php:108
+#: includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php:235
+#: wpneotemplate/woocommerce/basic/include/loop/fund_raised.php:14
+#: addons/social-share/social-share.php:220
+msgid "Fund Raised"
+msgstr "Fundos arrecadados"
+
+#: admin/includes-tab/tab-woocommerce.php:31
+#: admin/includes-tab/tab-woocommerce.php:50
+#: admin/includes-tab/tab-woocommerce.php:84
+#: admin/includes-tab/tab-woocommerce.php:195
+#: admin/includes-tab/tab-woocommerce.php:208
+#: admin/includes-tab/tab-general.php:101
+#: admin/includes-tab/tab-general.php:110
+#: admin/includes-tab/tab-general.php:119
+#: admin/includes-tab/tab-general.php:128
+msgid "Enable/Disable"
+msgstr "Ativar/Desativar"
+
+#: admin/includes-tab/tab-woocommerce.php:109
+msgid "Submit Form Requirement Text"
+msgstr "Texto de exigência do formulário de envio"
+
+#: admin/includes-tab/tab-woocommerce.php:118
+msgid "Submit Form Agree Title"
+msgstr "Título do aceite do fomulário"
+
+#: admin/includes-tab/tab-woocommerce.php:30
+msgid "Hide Crowdfunding Campaign From Shop Page"
+msgstr "Ocultar as campanhas de crowdfunding na página da loja"
+
+#: admin/includes-tab/tab-woocommerce.php:58
+msgid "Select Listing Page"
+msgstr "Selecionar a página de exibição"
+
+#: admin/includes-tab/tab-woocommerce.php:59
+msgid "Select Crowdfunding Product Listing Page."
+msgstr "Selecione a página para listagem de produtos de crowdfunding."
+
+#: admin/includes-tab/tab-woocommerce.php:67
+msgid "Select Registration Page"
+msgstr "Selecione a página de cadastro"
+
+#: admin/includes-tab/tab-woocommerce.php:68
+msgid "Select Crowdfunding Registration Page."
+msgstr "Selecione a página para cadastros de crowdfunding."
+
+#: admin/includes-tab/tab-woocommerce.php:90
+msgid "Submit Form Text Settings"
+msgstr "Configurações do texto do formulário de envio"
+
+#: admin/includes-tab/tab-woocommerce.php:91
+msgid "All settings related to Submit Form Text."
+msgstr "Todas as configurações relacionadas ao Texto de envio do formulário."
+
+#: admin/includes-tab/tab-woocommerce.php:99
+msgid "Submit Form Requirement Title"
+msgstr "Título da exigência do formulário de envio"
+
+#: shortcode/submit-form.php:206
+#: admin/view/product_metabox_campaign_info.php:14
+msgid "Start Date"
+msgstr "Data de início"
+
+#: shortcode/submit-form.php:216
+#: admin/view/product_metabox_campaign_info.php:18
+msgid "End Date"
+msgstr "Data de encerramento"
+
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:218
+msgid "Password successfully updated"
+msgstr "A senha foi atualizada"
+
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:50
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:85
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:141
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:202
+msgid "Sorry, your nonce did not verify."
+msgstr "Desculpe, seu código único não é válido."
+
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:75
+#: includes/class-wpneo-crowdfunding-frontend-dashboard.php:221
+msgid "Error updating, please try again"
+msgstr "Erro na atualização, tente novamente"
+
+#: includes/class-wpneo-crowdfunding-initial-setup.php:182
+msgid "Please install & activate WooCommerce in order to use WP Crowdfunding plugin."
+msgstr "Instale e ative o WooCommerce para poder usar o plugin WP Crowdfunding."
+
+#: includes/class-wpneo-crowdfunding-product-search.php:48
+msgid "Placeholder of Input Box"
+msgstr "Espaço reservado no campo do formulário"
+
+#: includes/class-wpneo-crowdfunding-product-search.php:52
+msgid "Search Button Text"
+msgstr "Texto do botão de pesquisa"
+
+#: includes/class-wpneo-crowdfunding-templating.php:226
+msgid "Error crowdfunding theme: "
+msgstr "Erro no tema de crowdfunding: "
+
+#: includes/class-wpneo-crowdfunding-templating.php:268
+msgid "Select a Theme for Single and Listing Pages"
+msgstr "Selecione um tema para as listagens e página de detalhes"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:126
+msgid "Username too short. At least 4 characters is required"
+msgstr "O nome de usuário é muito curto. Deve ter ao menos 4 caracteres"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:137
+msgid "Password length must be greater than 6"
+msgstr "A senha deve ter pelo menos 6 caracteres"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:141
+msgid "Email is not valid"
+msgstr "Esse e-mail não é válido"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:145
+msgid "Email Already in use"
+msgstr "Esse e-mail já está em uso"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:150
+msgid "Website is not a valid URL"
+msgstr "Site não tem um URL válido"
+
+#: includes/class-wpneo-crowdfunding-user-registration.php:70
+msgid "Security Error"
+msgstr "Erro de segurança"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:148
+msgid "Enter a video url to show your video in campaign details page"
+msgstr "Informe o URL do vídeo para exibi-lo na página de detalhes da campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:178
+msgid "Minimum Price"
+msgstr "Valor mínimo"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:179
+msgid "Enter the minimum price"
+msgstr "Informe o valor mínimo"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:190
+msgid "Maximum Price"
+msgstr "Valor máximo"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:191
+msgid "Enter the maximum price"
+msgstr "Informe o valor máximo"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:202
+msgid "Recommended Price"
+msgstr "Valor recomendado"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:203
+msgid "Enter the recommended price"
+msgstr "Informe o valor recomendado"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:226
+msgid "Funding goal"
+msgstr "Meta de arrecadação"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:227
+msgid "Enter the funding goal"
+msgstr "Informe a meta de arrecadação"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:251
+#: wpneotemplate/woocommerce/basic/include/fund-raised.php:46
+msgid "Campaign End Method"
+msgstr "Método de encerramento da campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:263
+msgid "Show Contributor Table"
+msgstr "Mostrar tabela de apoiadores"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:265
+msgid "Enable this option to display the contributors for this Campaign"
+msgstr "Ative esta opção para exibir os apoiadores desta campanha"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:273
+msgid "Mark Contributors as Anonymous"
+msgstr "Marcar apoiadores como anônimos"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:275
+msgid "Enable this option to display the contributors Name as Anonymous for this Campaign"
+msgstr "Ative essa opção para exibir o nome dos apoiadores como Anônimos para essa campanha"
+
+#: includes/woocommerce/dashboard/update.php:42
+#: includes/woocommerce/dashboard/update.php:43
+#: includes/woocommerce/dashboard/update.php:62
+#: includes/woocommerce/dashboard/update.php:63
+#: includes/woocommerce/class-wpneo-crowdfunding.php:346
+#: includes/woocommerce/class-wpneo-crowdfunding.php:386
+msgid "Update Title"
+msgstr "Título da atualização"
+
+#: includes/woocommerce/dashboard/update.php:46
+#: includes/woocommerce/dashboard/update.php:47
+#: includes/woocommerce/dashboard/update.php:66
+#: includes/woocommerce/dashboard/update.php:67
+#: includes/woocommerce/class-wpneo-crowdfunding.php:356
+msgid "Update Details"
+msgstr "Detalhes da atualização"
+
+#: includes/woocommerce/class-wpneo-crowdfunding.php:553
+msgid "This campaign has been end"
+msgstr "Essa campanha já foi encerrada"
+
+#: includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php:55
+msgid "Title required"
+msgstr "O título é necessário"
+
+#: includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php:58
+msgid "Description required"
+msgstr "A descrição é necessária"
+
+#: includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php:61
+msgid "Short Description required"
+msgstr "A descrição curta é necessária"
+
+#: includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php:64
+msgid "Funding goal required"
+msgstr "A meta de arrecadação é necessária"
+
+#: includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php:67
+msgid "Please check terms condition"
+msgstr "É necessário aceitar os termos e condições"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:270
+msgid "Backed User"
+msgstr "Usuário apoiado"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:63
+msgid "Date expired"
+msgstr "A data expirou"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:73
+msgid "Location: "
+msgstr "Localização: "
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:79
+msgid "Funding Goal: "
+msgstr "Meta de arrecadação: "
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:85
+msgid "Raised: "
+msgstr "Arrecadado: "
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:92
+msgid "Funded percent: "
+msgstr "Percentual arrecado: "
+
+#: includes/woocommerce/class-wpneo-wc-account-dashboard.php:60
+#: shortcode/dashboard.php:62
+msgid "Pledges Received"
+msgstr "Apoios recebidos"
+
+#: includes/woocommerce/dashboard/profile.php:116
+#: includes/woocommerce/dashboard/dashboard.php:48
+#: includes/woocommerce/dashboard/contact.php:277
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:282
+msgid "Email:"
+msgstr "E-mail:"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:28
+msgid "CrowdFunding Overview"
+msgstr "Visão geral do crowdfunding"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:74
+msgid "Completed Orders"
+msgstr "Pedidos concluídos"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:75
+msgid "On-Hold Orders"
+msgstr "Pedidos em espera"
+
+#: includes/woocommerce/class-wpneo-wc-admin-dashboard.php:76
+msgid "Total Donation Raised"
+msgstr "Total de doações arrecadadas"
+
+#: includes/woocommerce/class-wpneo-wc-reward.php:116
+#: shortcode/submit-form.php:444 shortcode/submit-form.php:524
+msgid "Estimated Delivery Year"
+msgstr "Ano da previsão de entrega"
+
+#: includes/woocommerce/dashboard/bookmark.php:42
+#: includes/woocommerce/dashboard/campaign.php:40
+#: includes/woocommerce/dashboard/order.php:100
+#: includes/woocommerce/dashboard/order.php:149
+#: includes/woocommerce/dashboard/investment.php:136
+msgid "View"
+msgstr "Ver"
+
+#: includes/woocommerce/dashboard/campaign.php:75
+msgid "Update"
+msgstr "Atualizar"
+
+#: includes/woocommerce/dashboard/contact.php:117
+#: includes/woocommerce/dashboard/contact.php:233
+msgid "Country:"
+msgstr "País:"
+
+#: includes/woocommerce/dashboard/contact.php:152
+msgid "Billing Address"
+msgstr "Endereço de cobrança"
+
+#: includes/woocommerce/dashboard/contact.php:42
+msgid "Shipping Address"
+msgstr "Endereço de entrega"
+
+#: includes/woocommerce/dashboard/profile.php:136
+#: includes/woocommerce/dashboard/dashboard.php:78
+msgid "Website:"
+msgstr "Site:"
+
+#: includes/woocommerce/dashboard/dashboard.php:88
+msgid "Bio:"
+msgstr "Biografia:"
+
+#: includes/woocommerce/dashboard/profile.php:103
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:98
+msgid "Contact Info"
+msgstr "Informação de contato"
+
+#: includes/woocommerce/dashboard/profile.php:159
+msgid "Social Profile"
+msgstr "Perfil social"
+
+#: includes/woocommerce/dashboard/profile.php:185
+msgid "Google Plus:"
+msgstr "Google+:"
+
+#: includes/woocommerce/dashboard/profile.php:36
+msgid "Profile Image:"
+msgstr "Imagem de perfil:"
+
+#: includes/woocommerce/dashboard/profile.php:80
+msgid "About Us:"
+msgstr "Quem somos:"
+
+#: includes/woocommerce/dashboard/profile.php:90
+msgid "Profile Info:"
+msgstr "Informações do perfil:"
+
+#: includes/wpneo-crowdfunding-template-functions.php:295
+msgid "Backer List"
+msgstr "Lista de apoiadores"
+
+#: includes/wpneo-crowdfunding-template-functions.php:397
+msgid "Your browser does not support the video tag."
+msgstr "Seu navegador não suporta a tag de vídeo."
+
+#: includes/wpneo-crowdfunding-template-functions.php:418
+msgid "Please log in first?"
+msgstr "Fazer login primeiro?"
+
+#: includes/wpneo-crowdfunding-template-functions.php:418
+msgid "Click here to login"
+msgstr "Clique aqui para entrar"
+
+#: shortcode/registration.php:25
+msgid "Enter First Name"
+msgstr "Informe seu primeiro nome"
+
+#: shortcode/registration.php:35
+msgid "Enter Last Name"
+msgstr "Informe seu sobrenome"
+
+#: shortcode/registration.php:45
+msgid "Enter Username"
+msgstr "Informe o nome de usuário desejado"
+
+#: shortcode/registration.php:55
+msgid "Enter Password"
+msgstr "Informe sua senha"
+
+#: shortcode/registration.php:64
+msgid "Enter Email"
+msgstr "Informe seu endereço de e-mail"
+
+#: shortcode/registration.php:72
+msgid "Website"
+msgstr "Site"
+
+#: shortcode/registration.php:74
+msgid "Enter Website"
+msgstr "Informe o URL do seu site"
+
+#: shortcode/registration.php:84
+msgid "Enter Nickname"
+msgstr "Informe seu apelido"
+
+#: shortcode/registration.php:92
+msgid "About / Bio"
+msgstr "Sobre / Biografia"
+
+#: shortcode/registration.php:94
+msgid "Enter About / Bio"
+msgstr "Informe algumas informações adicionais sobre você"
+
+#: shortcode/search.php:10 shortcode/search.php:13
+msgid "Search"
+msgstr "Pesquisar"
+
+#: shortcode/submit-form.php:127
+msgid "Short Description"
+msgstr "Descrição curta"
+
+#: shortcode/submit-form.php:132
+msgid "Put Here Product Short Description"
+msgstr "Coloque uma breve descrição da campanha aqui"
+
+#: shortcode/submit-form.php:227
+msgid "Minimum Amount"
+msgstr "Quantia mínima"
+
+#: shortcode/submit-form.php:239
+msgid "Maximum Amount"
+msgstr "Quantia máxima"
+
+#: shortcode/submit-form.php:251
+msgid "Recomended Amount"
+msgstr "Quantia recomendada"
+
+#: shortcode/submit-form.php:286
+msgid "Target Goal"
+msgstr "Meta desejada"
+
+#: shortcode/submit-form.php:291
+msgid "Target Date"
+msgstr "Data desejada"
+
+#: shortcode/submit-form.php:296
+msgid "Target Goal & Date"
+msgstr "Meta e data desejados"
+
+#: shortcode/submit-form.php:301
+msgid "Campaign Never Ends"
+msgstr "Campanha que nunca acaba"
+
+#: shortcode/submit-form.php:305
+msgid "Choose the stage when campaign will end"
+msgstr "Escolha o estágio no qual a campanha irá acabar"
+
+#: shortcode/submit-form.php:31
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "Parece que nada foi encontrado nessa localização. Que tal tentar uma pesquisa?"
+
+#: shortcode/submit-form.php:313
+msgid "Contributor Table"
+msgstr "Tabela de apoiadores"
+
+#: shortcode/submit-form.php:317
+msgid "Show contributor table on campaign single page"
+msgstr "Mostrar a tabela de apoiadores na página de detalhes da campanha"
+
+#: shortcode/submit-form.php:324
+msgid "Contributor Anonymity"
+msgstr "Anonimato dos apoiadores"
+
+#: shortcode/submit-form.php:328
+msgid "Make contributors anonymous on the contributor table"
+msgstr "Tornar os apoiadores anônimos da tabela de apoiadores"
+
+#: shortcode/submit-form.php:370
+msgid "Reward Option"
+msgstr "Opção de recompensa"
+
+#: shortcode/submit-form.php:398
+msgid "Put the pledge amount here"
+msgstr "Coloque o valor do apoio aqui"
+
+#: shortcode/submit-form.php:438 shortcode/submit-form.php:518
+msgid "Estimated Delivery Month of the Reward"
+msgstr "Mês da previsão de entrega da recompensa"
+
+#: shortcode/submit-form.php:453 shortcode/submit-form.php:535
+msgid "Estimated Delivery Year of the Reward"
+msgstr "Ano da previsão de entrega da recompensa"
+
+#: wpneotemplate/woocommerce/basic/include/feature-image.php:40
+msgid "Placeholder"
+msgstr "Espaço reservado"
+
+#: wpneotemplate/woocommerce/basic/include/social-share.php:21
+msgid "Share: "
+msgstr "Compartilhe: "
+
+#: wpneotemplate/woocommerce/basic/include/tabs/baker-list-tab.php:15
+msgid "Donate Amount"
+msgstr "Quantia a doar"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:100
+msgid "Email: "
+msgstr "E-mail: "
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:103
+msgid "Phone: "
+msgstr "Telefone: "
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:109
+msgid "Website: "
+msgstr "Site: "
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:112
+msgid "Contact Me"
+msgstr "Entrar em contato"
+
+#: wpneotemplate/woocommerce/basic/wpneo-functions.php:117
+msgid "Social Link"
+msgstr "Link social"
+
+#: admin/includes-tab/tab-woocommerce.php:146
+msgid "Number of Columns in a Row"
+msgstr "Número de Colunas em cada Linha"
+
+#: admin/includes-tab/tab-woocommerce.php:157
+msgid "Number of Words Shown in Listing Description"
+msgstr "Número de Palavras Mostradas na Descrição Exibida"
+
+#: admin/includes-tab/tab-woocommerce.php:144
+msgid "4"
+msgstr "4"
+
+#: admin/includes-tab/tab-woocommerce.php:143
+msgid "3"
+msgstr "3"
+
+#: admin/includes-tab/tab-woocommerce.php:142
+#: admin/includes-tab/tab-woocommerce.php:184
+msgid "2"
+msgstr "2"
+
+#: addons/reports/reports.php:50
+msgid "Reports"
+msgstr "Relatórios"
+
+#: includes/woocommerce/class-wpneo-frontend-hook.php:301
+msgid "Email"
+msgstr "E-mail"
+
+#: addons/reports/reports.php:85
+msgid "Sales Report"
+msgstr "Relatório de campanhas"
+
+#: addons/social-share/social-share.php:37
+msgid "Social Share"
+msgstr "Compartilhamento social"
+
+#: admin/includes-tab/tab-general.php:120
+msgid "Show Target Goal & Date"
+msgstr "Mostrar meta e data"
+
+#: admin/includes-tab/tab-general.php:129
+msgid "Show Campaign Never End"
+msgstr "Mostrar campanha que nunca acaba"
+
+#: admin/includes-tab/tab-general.php:137
+msgid "Select Dashboard Page"
+msgstr "Selecione a página do painel"
+
+#: admin/includes-tab/tab-general.php:138
+msgid "Select a page for access crowdfunding frontend dashboard"
+msgstr "Selecione a página de acesso ao painel do crowdfunding no front-end"
+
+#: admin/includes-tab/tab-general.php:147
+msgid "Select a WooCommerce campaign submission form page"
+msgstr "Selecione uma página para o formulário de envio da campanha no WooCommerce"
+
+#: admin/menu-settings.php:196 admin/includes-tab/tab-general.php:28
+msgid "General Settings"
+msgstr "Configurações gerais"
+
+#: admin/includes-tab/tab-general.php:37
+msgid "Woocommerce"
+msgstr "WooCommerce"
+
+#: admin/includes-tab/tab-general.php:39
+msgid "Funds Manager"
+msgstr "Gerenciador de fundos"
+
+#: admin/includes-tab/tab-general.php:40
+msgid "Define the system you want to use to receive and manage the funds raised for your campaigns"
+msgstr "Definie o sistema que você deseja usar para receber e gerenciar os fundos arrecadados em suas campanhas"
+
+#: admin/includes-tab/tab-general.php:53
+msgid "Default status of a campaign added by a user"
+msgstr "Status padrão de uma campanha adicionada por um usuário"
+
+#: admin/includes-tab/tab-general.php:74
+msgid "Enable Minimum Price"
+msgstr "Ativar valor mínimo"
+
+#: admin/includes-tab/tab-general.php:75
+msgid "Enable minimum price option on the campaign submission form"
+msgstr "Habilitar a opção de valor mínimo no formulário de envio da campanha"
+
+#: admin/includes-tab/tab-general.php:83
+msgid "Enable Maximum Price"
+msgstr "Ativar valor máximo"
+
+#: admin/includes-tab/tab-general.php:84
+msgid "Enable maximum price option on the campaign submission form"
+msgstr "Habilitar a opção de valor máximo no formulário de envio da campanha"
+
+#: admin/includes-tab/tab-general.php:92
+msgid "Enable Recommended Price"
+msgstr "Ativar valor recomendado"
+
+#: admin/includes-tab/tab-general.php:93
+msgid "Enable recommended price option on the campaign submission form"
+msgstr "Habilitar a opção de valor recomendado no formulário de envio da campanha"
+
+#: admin/includes-tab/tab-general.php:102
+msgid "Show Target Goal"
+msgstr "Mostrar a meta desejada"
+
+#: admin/includes-tab/tab-general.php:111
+msgid "Show Target Date"
+msgstr "Mostrar a data desejada"
+
+#: admin/includes-tab/tab-woocommerce.php:133
+msgid "Listing Page Settings"
+msgstr "Configurações da página de listagem"

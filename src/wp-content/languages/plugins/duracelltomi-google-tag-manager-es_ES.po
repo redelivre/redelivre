@@ -1,0 +1,1111 @@
+# Translation of Plugins - Google Tag Manager for WordPress - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Google Tag Manager for WordPress - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-08-13 10:59:58+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Google Tag Manager for WordPress - Stable (latest release)\n"
+
+#: admin/admin.php:1257
+msgid "Google Ads"
+msgstr "Google Ads"
+
+#: admin/admin.php:531
+msgid "Google Ads Remarketing"
+msgstr "Remarketing de Google Ads"
+
+#: admin/admin.php:308
+msgid "Google Ads Remarketing Tag"
+msgstr "Etiqueta de remarketing de Google Ads"
+
+#: admin/admin.php:303
+msgid "Google Ads Conversion Tracking Tag"
+msgstr "Etiqueta de seguimiento de conversión de Google Ads"
+
+#: admin/admin.php:1265
+msgid "Weather & geo data"
+msgstr "Clima y datos geográficos"
+
+#: admin/admin.php:526
+msgid "Enable this to exclude shipping costs from the revenue variable while generating the purchase data"
+msgstr "Activa esto para excluir los costes de envío de la variable de ingresos mientras se generan los datos de compra"
+
+#: admin/admin.php:525
+msgid "Exclude shipping from revenue"
+msgstr "Excluir el envío de los ingresos"
+
+#: admin/admin.php:508
+msgid "Select which custom taxonomy is being used to add the brand of products"
+msgstr "Selecciona qué taxonomía personalizada se está usando para añadir la marca de los productos"
+
+#: admin/admin.php:507
+msgid "Taxonomy to be used for product brands"
+msgstr "Taxonomía a usar para las marcas de los productos"
+
+#: admin/admin.php:496
+msgid "Enable this option to include the content of the cart in the data layer on each page. Needs WooCommerce v3.2 or newer. Especially useful for site personalization with Google Optimize."
+msgstr "Activa esta opción para incluir el contenido del carrito en la capa de datos de cada página. Necesita WooCommerce v3.2 o posterior. Especialmente útil para la personalización del sitio con Google Optimize."
+
+#: admin/admin.php:495
+msgid "Cart content in data layer"
+msgstr "Contenido del carrito en la capa de datos"
+
+#: admin/admin.php:162
+msgid "Add the country code of the user provided by Cloudflare (if Cloudflare is used with your site)"
+msgstr "Añade el código del país del usuario proporcionado por Cloudflare (si Cloudflare es usado con tu sitio)"
+
+#: admin/admin.php:161
+msgid "Cloudflare country code"
+msgstr "Código de país de Cloudflare"
+
+#: admin/admin.php:87
+msgid "Check this option to include taxonomy values associated with a given post."
+msgstr "Marca esta opción para añadir los valores de la taxonomía asociados a una entrada determinada."
+
+#: admin/admin.php:86
+msgid "Post Terms"
+msgstr "Términos de la entrada"
+
+#: admin/admin.php:794
+msgid "This plugin ("
+msgstr "Este plugin ("
+
+#: admin/admin.php:1532
+msgid "Warning: Some features of Google Tag Manager for WordPress are deprecated and will be removed in the next version: <ul><li>"
+msgstr "Advertencia: Algunas funciones de Google Tag Manager for WordPress son obsoletas y se eliminarán en la próxima versión: <ul><li> <ul"
+
+#: admin/admin.php:638
+msgid "You are using an <strong>outdated</strong> version of PHP (v"
+msgstr "Estás usando una versión <strong>anticuada</strong> de PHP (v"
+
+#: admin/admin.php:1513
+msgid "Warning: You are using an outdated version of PHP (v"
+msgstr "Advertencia: Estás utilizando una versión anticuada de PHP (v"
+
+#: admin/admin.php:1517
+msgid "Warning: You are using an outdated version of WooCommerce (v"
+msgstr "Advertencia: Estás usando una versión anticuada de WooCommerce (v"
+
+#: admin/admin.php:550
+msgid "Check this to prevent the plugin to flag orders as being already tracked.<br /><br />This ensures that no order data will be tracked multiple times in any ad or measurement system so please only enable this feature if you really need it (with iDeal you might need this)!"
+msgstr "Marca esta opción para evitar que el plugin marque las órdenes como ya rastreadas.<br /><br />Esto asegura que ningún dato del pedido será rastreado varias veces en cualquier anuncio o sistema de medición, así que, por favor, ¡activa esta función sólo si realmente la necesitas (con iDeal, es posible que necesites esto)!"
+
+#: admin/admin.php:562
+msgid "Enter a comma separated list of Google Optimize container IDs that you would like to use on your site.<br />This plugin will add the <a href=\"%s\">page-hiding snippet</a> to your pages.<br /><br />The Google Optimize container will be only loaded if you provide your Google Analytics property ID bellow as well."
+msgstr "Introduce una lista separada por comas de los identificadores de contenedor de Google Optimize que te gustaría utilizar en tu sitio. <br />Este plugin añadirá el <a href=\"%s\">fragmento de código de ocultación de página </a>> a tus páginas.<br /><br />El contenedor de Google Optimize se cargará únicamente si proporcionas el identificador de la propiedad de Google Analytics que aparece a continuación también."
+
+#: admin/admin.php:478
+msgid "If you have many products shown on product category pages and/or on your site home, you could miss pageviews in Google Analytics due to the amount of data that is needed to be sent. To prevent this, you can split product impression data into multiple Google Analytics events by entering a number here (minimum 10-15 recommended) and adding gtm4wp.productImpressionEEC into your Google Analytics ecommerce event helper tag's trigger.<br /><br />Leave this value 0 to include product impression data in your pageview hit."
+msgstr "Si tienes muchos productos mostrados en las páginas de categorías de productos y/o en la página principal de tu web, es posible que no veas las páginas de Google Analytics debido a la cantidad de datos que se deben enviar. Para evitarlo, puedes dividir los datos de impresión del producto en varios eventos de Google Analytics introduciendo un número aquí (se recomienda un mínimo de 10 a 15) y añadiendo gtm4wp.productImpressionEEC a la etiqueta de activación de la etiqueta de ayuda para eventos de comercio electrónico de Google Analytics.<br /><br />Deja este valor en 0 para incluir los datos de impresión del producto en el resultado de la vista de página."
+
+#: admin/admin.php:168
+msgid "Check this option to include the current weather conditions around the current visitor.<br /><br /><strong>Attention!</strong> This feature uses <a href=\"%s\" target=\"_blank\">ipstack.com</a> and <a href=\"%s\" target=\"_blank\">openweathermap.org</a> to collect data.<br />Depending on your website's traffic, additional fees may apply!<br />This plugin caches weather data for 1 hour to lower the need to access those services.<br /><br />If you activate weather data, <strong>you will need</strong> to add an IPStack.com API key regardless of whether you activate the 'Geo data' option!"
+msgstr "Marca esta opción para incluir las condiciones meteorológicas actuales en el entorno del visitante actual. <br /><br /><strong>¡Atención!</strong> Esta característica utiliza <a href=\"%s\" target=\"_blank\">ipstack.com</a> y <a href=\"%s\" target=\"_blank\">openweathermap.org</a> para recopilar datos.<br /> ¡Dependiendo del tráfico de tu web, se pueden aplicar cargos adicionales! <br />Este plugin almacena en caché los datos meteorológicos durante 1 hora para reducir la necesidad de acceder a esos servicios. <br /><br />¡Si activas los datos meteorológicos, <strong>necesitarás</strong> añadir una clave API de IPStack.com, independientemente de si activas o no la opción de «Datos geográficos»!"
+
+#: admin/admin.php:212
+msgid "New user registration"
+msgstr "Registro de nuevo usuario"
+
+#: admin/admin.php:477
+msgid "Products per impression"
+msgstr "Productos por impresión"
+
+#: admin/admin.php:587
+msgid "Enter a comma separated list of Google Tag Manager container IDs that you would like to use on your site. This plugin will add the <a href=\"%s\">AMP GTM snippet</a> to your AMP pages."
+msgstr "Introduce una lista separada por comas de identificadores de contenedor de Google Tag Manager que te gustaría usar en tu sitio. Este plugin añadirá el fragmento de código de <a href=\"%s\"> AMP GTM</a> a tus páginas AMP."
+
+#: admin/admin.php:156
+msgid "IPStack.com API key"
+msgstr "Clave API IPStack.com"
+
+#: admin/admin.php:930
+msgid "Invalid AMP Google Tag Manager Container ID. Valid ID format: GTM-XXXXX. Use comma without additional space (,) to enter more than one ID."
+msgstr "ID de contenedor de Google Tag Manager de AMP no válido. Formato de ID válido: GTM-XXXXX. Utiliza una coma sin espacio adicional (,) para introducir más de un ID."
+
+#: admin/admin.php:899
+msgid "Invalid Google Analytics property ID. Valid ID format: UA-NNNNNN-N."
+msgstr "ID de propiedad de Google Analytics no válido. Formato de ID válido: UA-NNNNNN-N."
+
+#: admin/admin.php:616
+msgid "Load GTM container as early as possible"
+msgstr "Carga el contenedor GTM lo antes posible"
+
+#: admin/admin.php:612
+msgid "Add into the data layer whether the user has asked not to track any website interaction. You may want to respect this and disable all tags if this variable is set in the data layer."
+msgstr "Añade a la capa de datos si el usuario ha solicitado no realizar un seguimiento de la interacción de un sitio Web. Es posible que desee respetar esto y deshabilitar todas las etiquetas si esta variable se establece en la capa de datos."
+
+#: admin/admin.php:560
+msgid "Google Optimize container ID list"
+msgstr "Lista de ID de contenedor de Google Optimize"
+
+#: admin/admin.php:549
+msgid "Do not flag orders as being tracked"
+msgstr "No marcar los pedidos como rastreados"
+
+#: admin/admin.php:519
+msgid "Exclude tax from revenue"
+msgstr "Excluir impuestos de las ventas"
+
+#: admin/admin.php:217
+msgid "User logged in"
+msgstr "Usuario conectado"
+
+#: admin/admin.php:586
+msgid "Google Tag Manager 'AMP' Container ID"
+msgstr "ID de contenedor de Google Tag Manager 'AMP'"
+
+#: admin/admin.php:581
+msgid "This does not seems to be a valid Google Analytics property ID! Valid format: UA-NNNNNN-N where N can be numbers. Enter a single property ID here."
+msgstr "¡ Esto no parece ser una ID de propiedad de Google Analytics válido! Formato válido: UA-NNNNNN-N donde N puede ser números. Introduce aquí un único ID de propiedad."
+
+#: admin/admin.php:580
+msgid "If you enter your Google Analytics property ID here as well (UA-NNNNNN-N), this plugin will also load your Google Optimize container itself. Leave this blank to only load the page hiding snippet."
+msgstr "Si introduces también aquí tu ID de propiedad de Google Analytics (UA-NNNNNN-N), este plugin cargará el propio contenedor de Google Optimize. Deja este espacio en blanco para cargar sólo el fragmento de código que oculta la página."
+
+#: admin/admin.php:218
+msgid "Check this option to include a Tag Manager event when an existing user has been logged in on the frontend of your site (admin events not included)"
+msgstr "Marca esta opción para incluir un evento de TAG Manager cuando un usuario existente haya iniciado sesión en la parte pública de tu sitio (eventos admin no incluidos)"
+
+#: admin/admin.php:588
+msgid "This does not seems to be a valid Google Tag Manager Container ID! Valid format: GTM-XXXXXX where X can be numbers and capital letters. Use comma without any space (,) to enter multpile IDs."
+msgstr "¡ Esto no parece ser un ID de contenedor de Google Tag Manager válido! Formato válido: GTM-XXXXXX donde X puede ser números y letras mayúsculas. Utiliza una coma sin espacio (,) para introducir identificadores multiples."
+
+#: admin/admin.php:213
+msgid "Check this option to include a Tag Manager event when a new user registration has been completed on the frontend of your site (admin events not included)"
+msgstr "Marca esta opción para incluir un evento de TAG Manager cuando se haya completado un nuevo registro de usuario en la parte pública de tu sitio (eventos admin no incluidos)"
+
+#: admin/admin.php:127
+msgid "Check this option to include the IP address of the visitor. You might use this to filter internal traffic inside your GTM container. Please be aware that per GDPR its not allowed to transmit this full IP address to Google Analytics or to any other measurement system without explicit consent from the visitor."
+msgstr "Marca esta opción para incluir la dirección IP del visitante. Puedes usar esto para filtrar el tráfico interno dentro del contenedor GTM. Ten en cuenta que por GDPR no se permite transmitir esta dirección IP completa a Google Analytics o a cualquier otro sistema de medición sin el consentimiento explícito del visitante."
+
+#: admin/admin.php:1264
+msgid "Accelerated Mobile Pages"
+msgstr "Accelerated Mobile Pages"
+
+#: admin/admin.php:617
+msgid "Turning on this option will load your Google Tag Manager container as early as possible during page load. This can cause issues if you are using jQuery in your custom HTML tags that fire on 'Page View' events."
+msgstr "Si activas esta opción, cargarás el contenedor de Google Tag Manager lo antes posible durante la carga de la página. Esto puede causar problemas si estás utilizando jQuery en las etiquetas HTML personalizadas que se disparan en los eventos de 'páginas vistas '."
+
+#: admin/admin.php:611
+msgid "Include browser 'Do not track' setting"
+msgstr "Incluir el ajuste del navegador 'No rastrear’"
+
+#: admin/admin.php:520
+msgid "Enable this to exclude tax from the revenue variable while generating the purchase data"
+msgstr "Activa esto para excluir impuestos de la variable de ventas al generar los datos de compra"
+
+#: admin/admin.php:579
+msgid "Google Optimize - Google Analytics property ID"
+msgstr "Google Optimize - ID de la propiedad de Google Analytics"
+
+#: admin/admin.php:190
+msgid "Enter your OpenWeatherMap API key here. <a href=\"%s\" target=\"_blank\">Get a free API key here</a>."
+msgstr "Introduce aquí tu clave de API de OpenWeatherMap. <a href=\"%s\" target=\"_blank\">Obtén una clave API Gratuita aquí</a>."
+
+#: admin/admin.php:157
+msgid "Enter your IPStack.com API key here. <a href=\"%s\" target=\"_blank\">Get a free API key here</a>."
+msgstr "Introduce aquí tu clave de API de IPStack.com. <a href=\"%s\" target=\"_blank\">Obtén una clave API Gratuita aquí</a>."
+
+#: admin/admin.php:472
+msgid "Choose this option if you would like to track e-commerce data using <a href=\"%s\" target=\"_blank\">enhanced ecommerce tracking</a>."
+msgstr "Elige esta opción si deseas realizar un seguimiento de los datos de comercio electrónico utilizando <a href=\"%s\" target=\"_blank\">de seguimiento de comercio electrónico mejorado</a>."
+
+#: admin/admin.php:466
+msgid "Choose this option if you would like to track e-commerce data using <a href=\"%s\" target=\"_blank\">classic transaction data</a>."
+msgstr "Elige esta opción si deseas realizar un seguimiento de los datos de comercio electrónico utilizando <a href=\"%s\" target=\"_blank\">datos de transacción clásicos</a>."
+
+#: admin/admin.php:126
+msgid "Visitor IP"
+msgstr "IP del visitante"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://gtm4wp.com/"
+msgstr "https://gtm4wp.com/"
+
+#: public/frontend.php:534 public/frontend.php:535 public/frontend.php:536
+#: public/frontend.php:537 public/frontend.php:538 public/frontend.php:539
+#: public/frontend.php:540 public/frontend.php:541
+msgid "(no geo data available)"
+msgstr "(no hay datos geo disponibles)"
+
+#: admin/admin.php:1486
+msgid "Incomplete Google Tag Manager environment configuration: either gtm_preview or gtm_auth parameter value is missing!"
+msgstr "Configuración incompleta del entorno de Google Tag Manager: Falta el valor del parámetro «gtm_preview» o «gtm_auth»"
+
+#: admin/admin.php:1270
+msgid "Misc"
+msgstr "Varios"
+
+#: admin/admin.php:1039
+msgid "Code placement decides where to put the second, so called noscript part of the GTM container code.<br />This code is usually only executed if your visitor has for some reason disabled JavaScript.<br/>The main GTM container code will be placed into the <code>&lt;head&gt;</code> section of your webpages anyway (where it belongs to).<br />If you select 'Custom' you need to edit your template file and add the following line just after the opening <code>&lt;body&gt;</code> tag:<br /><code>&lt;?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?&gt;</code>"
+msgstr "La ubicación del código decide dónde colocar el segundo, lo que se denomina parte NoScript del código de contenedor GTM. <br /> este código se ejecuta normalmente sólo si su visitante tiene por alguna razón desactivado JavaScript. <br/>El código principal del contenedor GTM se colocará en la sección <code>&lt;head&gt;</code> de tus páginas web de cualquier forma (donde pertenece). <br /> Si seleccionas ‘Personalizado’ necesitas editar tu archivo del tema y añadir la siguiente línea justo después de la apertura de la etiqueta <code>&lt;body&gt;</code>:<br /><code>&lt;?php if ( function_exists( ‘gtm4wp_the_gtm_tag’ ) ) { gtm4wp_the_gtm_tag(); } ?&gt;</code>"
+
+#: admin/admin.php:151
+msgid "Geo data"
+msgstr "Datos Geo"
+
+#: admin/admin.php:81
+msgid "Post Format"
+msgstr "Formato de entrada"
+
+#: admin/admin.php:513
+msgid "Customer data in data layer"
+msgstr "Datos del cliente en capa de datos"
+
+#: admin/admin.php:606
+msgid "Environment gtm_preview parameter"
+msgstr "Parámetro de entorno de vista previa gtm_preview"
+
+#: admin/admin.php:601
+msgid "Environment gtm_auth parameter"
+msgstr "Parámetro de entorno gtm_auth"
+
+#: admin/admin.php:501
+msgid "Include full category path."
+msgstr "Incluye la ruta de la categoría completa."
+
+#: admin/admin.php:963
+msgid "Invalid gtm_preview environment parameter value. It should have the format 'env-NN' where NN is an integer number."
+msgstr "Valor de parámetro de entorno gtm_preview no válido. Debe tener el formato ' env-NN ' donde NN es un número entero."
+
+#: admin/admin.php:960
+msgid "Invalid gtm_auth environment parameter value. It should only contain letters, numbers or the '-' and '_' characters."
+msgstr "Valor de parámetro de entorno gtm_auth no válido. Sólo debe contener letras, números o los caracteres '-' y ' _ '."
+
+#: admin/admin.php:731
+msgid "This does not seems to be a valid gtm_preview parameter! It should have the format &quot;env-NN&quot; where NN is an integer number. Please check and try again"
+msgstr "¡Esto no parece ser un parámetro gtm_preview válido! Debe tener el formato \"env-NN\" donde NN es un número entero. Por favor, comprueba y vuelve a intentarlo"
+
+#: admin/admin.php:724
+msgid "This does not seems to be a valid gtm_auth parameter! It should only contain letters, number and the &quot;-&quot; character. Please check and try again"
+msgstr "¡Esto no parece ser un parámetro gtm_auth válido! Sólo debe contener letras, números y el carácter \"\". Por favor, comprueba y vuelve a intentarlo"
+
+#: admin/admin.php:602 admin/admin.php:607
+msgid "Enter the gtm_auth parameter of the Google Tag Manager environment that has to be activated on this site. Both gtm_auth and gtm_preview parameters are required to activate the desired environment."
+msgstr "Introduce el parámetro gtm_auth del entorno de Google Tag Manager que debes activar en este sitio. Los parámetros gtm_auth y gtm_preview son necesarios para activar el entorno deseado."
+
+#: admin/admin.php:502
+msgid "Check this to inclulde the full category path of each product in enhanced ecommerce tracking. WARNING! This can lead to performance issues on large sites with lots of traffic!"
+msgstr "Marca esto para incluir la ruta de categoría completa de cada producto en el seguimiento de comercio electrónico mejorado. ¡ADVERTENCIA! Esto puede conducir a problemas de rendimiento en sitios grandes con mucho tráfico!"
+
+#: admin/admin.php:111
+msgid "Logged in user name"
+msgstr "Nombre de usuario conectado"
+
+#: admin/admin.php:82
+msgid "Check this option to include the post format."
+msgstr "Marca esta opción para incluir el formato de entrada."
+
+#: admin/admin.php:514
+msgid "Enable this to add all customer data (billing and shipping data, total number of orders and order value) into the data layer (WooCommerce 3.x required)"
+msgstr "Activa esto para añadir todos los datos del cliente (datos de facturación y envío, número total de pedidos y valor de pedido) en la capa de datos (se requiere WooCommerce 3.x)"
+
+#: admin/admin.php:152
+msgid "Add geo data (latitude, longitude, country, city, etc) of the current visitor (provided by ipstack.com)"
+msgstr "Añade datos geográficos (latitud, longitud, país, ciudad, etc.) del visitante actual (proporcionado por ipstack.com)"
+
+#: admin/admin.php:112
+msgid "Check this option to include the username of the logged in user."
+msgstr "Marca esta opción para incluir el nombre del usuario conectado."
+
+#: integration/woocommerce.php:782
+msgid "Cross-Sell Products"
+msgstr "Productos de venta cruzada"
+
+#: admin/admin.php:122
+msgid "Check this option to include the date of creation (registration) of the logged in user."
+msgstr "Seleccione esta opción para incluir la fecha de creación (registro) del usuario logueado."
+
+#: integration/woocommerce.php:790
+msgid "Upsell Products"
+msgstr "Productos de venta sugerida"
+
+#: admin/admin.php:121
+msgid "Logged in user creation date"
+msgstr "Fecha de creación del usuario logueado"
+
+#: admin/admin.php:575
+msgid "Enter here the amount of time in milliseconds that the page-hiding snippet should wait before page content gets visible even if Google Optimize has not been completely loaded yet."
+msgstr "Escribe el tiempo en milisegundos que debe esperar el fragmento para ocultar páginas de Google Optimize antes de que el contenido de la página sea visible, incluso si Google Optimize aún no se ha cargado completamente."
+
+#: admin/admin.php:1263
+msgid "Google Optimize"
+msgstr "Google Optimize"
+
+#: admin/admin.php:881
+msgid "Invalid Google Optimize ID. Valid ID format: GTM-XXXXX. Use comma without additional space (,) to enter more than one ID."
+msgstr "El ID de Google Optimize no es válido. El formato válido de ID es: GTM-XXXXX. Si quieres añadir mas de un ID, usa la coma sin espacio adicional (,)."
+
+#: admin/admin.php:537
+msgid "Product ID prefix"
+msgstr "Prefijo de ID de producto"
+
+#: admin/admin.php:489
+msgid "Cart as 1st checkout step"
+msgstr "Carrito como primer paso de pago"
+
+#: admin/admin.php:490
+msgid "Enable this to track the cart page as the first checkout step in enhanced ecommerce instead of the checkout page itself"
+msgstr "Habilítelo para realizar un seguimiento de la página del carrito como el primer paso de pago en el comercio electrónico mejorado en lugar de la página de pago."
+
+#: admin/admin.php:538
+msgid "Some product feed generator plugins prefix product IDs with a fixed text like 'woocommerce_gpf'. You can enter this prefix here so that tags in your website include this prefix as well."
+msgstr "Algunos plugins del generador de feeds de productos incluyen prefijos con IDs de productos con un texto fijo como por ejemplo 'woocommerce_gpf'. Puede ingresar este prefijo aquí para que las etiquetas de su sitio web también incluyan este prefijo."
+
+#: admin/admin.php:574
+msgid "Google Optimize page-hiding timeout"
+msgstr "Se superó el tiempo de inactividad para el fragmento para ocultar páginas de Google Optimize"
+
+#: admin/admin.php:570
+msgid "This does not seems to be a valid Google Optimize ID! Valid format: GTM-XXXXXX where X can be numbers and capital letters. Use comma without any space (,) to enter multpile IDs."
+msgstr "Este ID de Google Optimize parece ser inválido. Formato válido: GTM-XXXXXX donde X pueden ser números y letras mayúsculas. Use la coma sin espacio (,) para añadir múltiples ID's."
+
+#: admin/admin.php:544
+msgid "Check this to use product SKU instead of the ID of the products for remarketing and ecommerce tracking. Will fallback to ID if no SKU is set."
+msgstr "Selecciona esto para usar el SKU en lugar del ID de los productos para el Remarketing y el seguimiento de comercio electrónico. Si no se establece el SKU cogerá el ID."
+
+#: admin/admin.php:117
+msgid "Check this option to include the email address of the logged in user."
+msgstr "Selecciona esta opción para incluir la dirección de correo electrónico del usuario logueado."
+
+#: admin/admin.php:116
+msgid "Logged in user email"
+msgstr "Email del usuario logueado"
+
+#: admin/admin.php:52
+msgid "Check this option to include the ID of the author on the current post or author page."
+msgstr "Selecciona esta opción para incluir el ID del autor en cada post o página de autor."
+
+#: admin/admin.php:51
+msgid "Post author ID"
+msgstr "ID del autor del post"
+
+#: admin/admin.php:194
+msgid "Site ID"
+msgstr "ID del sitio"
+
+#: admin/admin.php:195
+msgid "ID of the current site in a WordPress Multisite environment"
+msgstr "ID del sitio actual en un entorno de WordPress Multisitio."
+
+#: admin/admin.php:199
+msgid "Site name"
+msgstr "Nombre del sitio"
+
+#: admin/admin.php:200
+msgid "Name of the current site in a WordPress Multisite environment"
+msgstr "Nombre del sitio actual en un entorno WordPress Multisitio"
+
+#: admin/admin.php:710
+msgid "Off (only add data layer to the page source)"
+msgstr "Apagado (sólo añadir el dataLayer al código fuente de la página)"
+
+#: admin/admin.php:1269
+msgid "Site"
+msgstr "Sitio"
+
+#: admin/admin.php:189
+msgid "OpenWeatherMap API key"
+msgstr "Clave API de OpenWeatherMap"
+
+#: integration/woocommerce.php:883
+msgid "Top Rated Products"
+msgstr "Productos mejor valorados"
+
+#: integration/woocommerce.php:889
+msgid "Featured Products"
+msgstr "Productos destacados"
+
+#: admin/admin.php:76
+msgid "Post ID"
+msgstr "ID del post"
+
+#: admin/admin.php:77
+msgid "Check this option to include the post id."
+msgstr "Selecciona esta opción para incluir el ID del post"
+
+#: admin/admin.php:952
+msgid "Invalid Google Tag Manager ID. Valid ID format: GTM-XXXXX. Use comma without additional space (,) to enter more than one container ID."
+msgstr "El ID de Google Tag Manager no es válido. El formato de ID válido es: GTM-XXXXX. Usa la coma sin ningún espacio adicional (,) para entrar en más de un ID de contenedor."
+
+#: admin/admin.php:1026
+msgid "Enter your Google Tag Manager ID here. Use comma without space (,) to enter multiple IDs."
+msgstr "Introduce aquí tu ID de Google Tag Manager. Utiliza comas sin espacio (,) para introducir múltiples IDs."
+
+#: integration/woocommerce.php:921
+msgid "Search Results"
+msgstr "Resultados de búsqueda"
+
+#: integration/woocommerce.php:925
+msgid "General Product List"
+msgstr "Lista general de productos"
+
+#: integration/woocommerce.php:774 integration/woocommerce.php:895
+msgid "Related Products"
+msgstr "Productos relacionados"
+
+#: integration/woocommerce.php:857
+msgid " (widget)"
+msgstr "(widget)"
+
+#: integration/woocommerce.php:865
+msgid "Recent Products"
+msgstr "Productos recientes"
+
+#: integration/woocommerce.php:871
+msgid "Sale Products"
+msgstr "Productos en oferta"
+
+#: integration/woocommerce.php:877
+msgid "Best Selling Products"
+msgstr "Productos más vendidos"
+
+#: admin/admin.php:701
+msgid "This does not seems to be a valid Google Tag Manager ID! Valid format: GTM-XXXXX where X can be numbers and capital letters. Use comma without any space (,) to enter multpile container IDs."
+msgstr "¡Este no parece ser un ID válido de Google Tal Manager! El formato válido es: GTM-XXXXX donde X pueden ser números y letras mayúsculas. Utiliza comas sin espacio (,) para introducir varios ID de contenedor."
+
+#: admin/admin.php:1013
+msgid "General"
+msgstr "General"
+
+#: admin/admin.php:1171
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: admin/admin.php:1201
+msgid "Author"
+msgstr "Autor"
+
+#: admin/admin.php:459 admin/admin.php:1261
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+#: admin/admin.php:270
+msgid "Debug mode"
+msgstr "Modo depuración (Debug)"
+
+#: admin/admin.php:41
+msgid "Category list of current post/archive"
+msgstr "Lista de categorías del post/archivo actual"
+
+#: admin/admin.php:42
+msgid "Check this option to include the category names of the current post or archive page"
+msgstr "Selecciona esta opción para incluir los nombres de la categoría del post actual o de la página de archivo"
+
+#: admin/admin.php:46
+msgid "Tags of current post"
+msgstr "Etiquetas del post actual"
+
+#: admin/admin.php:47
+msgid "Check this option to include the tags of the current post."
+msgstr "Selecciona esta opción para incluir las etiquetas del post actual."
+
+#: admin/admin.php:56
+msgid "Post author name"
+msgstr "Nombre del autor del post"
+
+#: admin/admin.php:57
+msgid "Check this option to include the name of the author on the current post or author page."
+msgstr "Selecciona esta opción para incluir el nombre del autor en cada post o página de autor."
+
+#: admin/admin.php:61
+msgid "Post date"
+msgstr "Fecha del post"
+
+#: admin/admin.php:62
+msgid "Check this option to include the date of the current post. This will include 4 dataLayer variables: full date, post year, post month, post date."
+msgstr "Selecciona esta opción para incluir la fecha del post actual. Esto incluirá 4 variables dataLayer: fecha completa, año del post, mes del post y fecha del post."
+
+#: admin/admin.php:66
+msgid "Post title"
+msgstr "Título de post"
+
+#: admin/admin.php:67
+msgid "Check this option to include the title of the current post."
+msgstr "Selecciona esta opción para incluir el título del post actual."
+
+#: admin/admin.php:72
+msgid "Check this option to include the count of the posts currently shown on the page and the total number of posts in the category/tag/any taxonomy."
+msgstr "Selecciona esta opción para incluir el recuento de posts que actualmente aparecen en la página y el número total de posts en la categoría/etiqueta/ o cualquier taxonomía."
+
+#: admin/admin.php:91
+msgid "Search data"
+msgstr "Datos de búsqueda"
+
+#: admin/admin.php:185
+msgid "Select which temperature units you would like to use."
+msgstr "Selecciona la unidad de temperatura que quieras usar."
+
+#: admin/admin.php:184
+msgid "Weather data units"
+msgstr "Unidades para los datos de meteorológicos"
+
+#: admin/admin.php:208
+msgid "Check this option to include a Tag Manager event when a visitor moves between elements of a form (comment, contact, etc)."
+msgstr "Selecciona esta opción para incluir un evento en Tag Manager cuando un usuario se mueva entre los elementos de un formulario (comentario, contacto, etc)."
+
+#: admin/admin.php:237
+msgid "Social actions (gtm4wp.socialAction)"
+msgstr "Acciones sociales (gtm4wp.socialAction)"
+
+#: admin/admin.php:238
+msgid "Check this option to include a Tag Manager event when a visitor uses a social button to share/like content on a social network."
+msgstr "Selecciona esta opción para incluir un evento en Tag Manager cuando un usuario divulgue un contenido mediante un botón social tipo Compartir/Me gusta en una red social."
+
+#: admin/admin.php:222
+msgid "YouTube video events"
+msgstr "Eventos de video para Youtube"
+
+#: admin/admin.php:227
+msgid "Vimeo video events"
+msgstr "Eventos de video para Vimeo"
+
+#: admin/admin.php:228
+msgid "Check this option to include a Tag Manager event when a visitor interacts with a Vimeo video embeded on your site."
+msgstr "Selecciona esta opción para incluir un evento en Tag Manager cuando un usuario interactúe con un video de Vimeo embebido en tu sitio."
+
+#: admin/admin.php:223
+msgid "Check this option to include a Tag Manager event when a visitor interacts with a YouTube video embeded on your site."
+msgstr "Selecciona esta opción para incluir un evento en Tag Manager cuando un usuario interactúe con un video de YouTube embebido en tu sitio."
+
+#: admin/admin.php:232
+msgid "Soundcloud events"
+msgstr "Eventos para Soundcloud"
+
+#: admin/admin.php:233
+msgid "Check this option to include a Tag Manager event when a visitor interacts with a Soundcloud media embeded on your site."
+msgstr "Selecciona esta opción para incluir un evento en Tag Manager cuando un usuario interactúe con un medio de SoundCloud embebido en tu sitio."
+
+#: admin/admin.php:242
+msgid "Outbound link click events (gtm4wp.outboundClick)"
+msgstr "Eventos de clic para enlaces salientes (gtm4wp.outboundClick)"
+
+#: admin/admin.php:286
+msgid "Enter the DOM ID of the content element in your template. Leave it empty for default(content). Do not include the # sign."
+msgstr "Introduce el DOM ID del elemento 'content' en tu plantilla. Déjalo vacío para que se use el predeterminado(content). No incluyas el signo #."
+
+#: admin/admin.php:290
+msgid "Scroller time"
+msgstr "Tiempo de desplazamiento"
+
+#: admin/admin.php:298
+msgid "Enable blacklist/whitelist"
+msgstr "Habilitar lista negra/lista blanca"
+
+#: admin/admin.php:299
+msgid "Disable feature or select whether you want to whitelist or blacklist tags"
+msgstr "Desactiva la característica o selecciona si quieres permitir o prohibir etiquetas"
+
+#: admin/admin.php:313
+msgid "Google Analytics Tag"
+msgstr "Etiqueta de Google Analytics"
+
+#: admin/admin.php:318
+msgid "Universal Analytics Tag"
+msgstr "Etiqueta de Universal Analytics"
+
+#: admin/admin.php:328
+msgid "AdRoll Smart Pixel Tag"
+msgstr "Etiqueta de AdRoll Smart Pixel"
+
+#: admin/admin.php:333
+msgid "Bizo Insight Tag"
+msgstr "Etiqueta de Bizo Insight"
+
+#: admin/admin.php:338
+msgid "ClickTale Standard Tracking Tag"
+msgstr "Etiqueta de ClickTale Standard Tracking"
+
+#: admin/admin.php:343
+msgid "comScore Unified Digital Measurement Tag"
+msgstr "Etiqueta de comScore Unified Digital Measurement"
+
+#: admin/admin.php:348
+msgid "Custom HTML Tag"
+msgstr "Etiqueta HTML personalizada"
+
+#: admin/admin.php:460
+msgid "Check this to include a dataLayer event after a successfull form submission."
+msgstr "Incluir un evento tipo dataLayer después de que se envíe un formulario con éxito."
+
+#: admin/admin.php:465
+msgid "Track classic e-commerce"
+msgstr "Seguimiento de e-commerce tradicional"
+
+#: admin/admin.php:471
+msgid "Track enhanced e-commerce"
+msgstr "Seguimiento de e-commerce mejorado"
+
+#: admin/admin.php:543
+msgid "Use SKU instead of ID"
+msgstr "Usar el SKU en lugar del ID"
+
+#: admin/admin.php:680
+msgid "You usually do not need to modify thoose settings. Please be carefull while hacking here."
+msgstr "Por lo general, no es necesario modificar esta configuración. Por favor, ten cuidado si cambias algo  aquí."
+
+#: admin/admin.php:686
+msgid "Some info about the author of this plugin"
+msgstr "Información sobre el autor de este plugin"
+
+#: admin/admin.php:707
+msgid "Footer of the page (not recommended by Google, no tweak in your template required)"
+msgstr "Footer de la página (No recomendado por Google. No es necesario que cambies nada en tu plantilla)"
+
+#: admin/admin.php:708
+msgid "Custom (needs tweak in your template)"
+msgstr "Personalizado (necesitarás retocar tu tema)"
+
+#: admin/admin.php:709
+msgid "Codeless injection (no tweak, right placement but experimental, could break your frontend)"
+msgstr "Inyección sin código (sin ajustes, colocación correcta pero experimental, podría romper tu frontend)"
+
+#: admin/admin.php:717
+msgid "This does not seems to be a valid JavaScript variable name! Please check and try again"
+msgstr "¡Esto no parece ser un nombre válido de variable JavaScript! Por favor, revísalo e inténtalo de nuevo"
+
+#: admin/admin.php:737
+msgid "Disable feature: control everything on Google Tag Manager interface"
+msgstr "Desactivar esta característica: Controlarlo todo desde la interfaz de Google Tag Manager"
+
+#: admin/admin.php:738
+msgid "Allow all, except the checked items below (blacklist)"
+msgstr "Permitir todos, excepto los elementos seleccionados a continuación (lista negra)"
+
+#: admin/admin.php:739
+msgid "Block all, except the checked items below (whitelist)"
+msgstr "Bloquear todos, excepto los elementos seleccionados a continuación (lista blanca)"
+
+#: admin/admin.php:746
+msgid "Celsius"
+msgstr "Centígrados"
+
+#: admin/admin.php:747
+msgid "Fahrenheit"
+msgstr "Fahrenheit"
+
+#: admin/admin.php:792 admin/admin.php:806 admin/admin.php:820
+msgid "This plugin is <strong class=\"gtm4wp-plugin-active\">active</strong>, it is strongly recommended to enable this integration!"
+msgstr "Este plugin está <strong class=\"gtm4wp-plugin-active\">activo</strong>. ¡Es muy recomendable que habilites esta integración!"
+
+#: admin/admin.php:808 admin/admin.php:822
+msgid "This plugin is <strong class=\"gtm4wp-plugin-not-active\">not active</strong>, enabling this integration could cause issues on frontend!"
+msgstr "Este plugin está <strong class=\"gtm4wp-plugin-not-active\">desactivado</strong>. Habilitar esta integración podría causar problemas en el frontend."
+
+#: admin/admin.php:1020
+msgid "Google Tag Manager ID"
+msgstr "ID de Google Tag Manager"
+
+#: admin/admin.php:1262
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: admin/admin.php:1266
+msgid "General events"
+msgstr "Eventos generales"
+
+#: admin/admin.php:1267
+msgid "Media events"
+msgstr "Eventos para Medios"
+
+#: admin/admin.php:1268
+msgid "Deprecated"
+msgstr "Obsoletos"
+
+#: admin/admin.php:1504
+msgid "Notice: you should deactivate the plugin \"WooCommerce Google Analytics Integration\" if you are using Google Analytics tags inside Google Tag Manager!"
+msgstr "Aviso: ¡Debe desactivar el plugin \"WooCommerce Google Analytics Integration\" si estás utilizando etiquetas de Google Analytics dentro de Google Tag Manager!"
+
+#. Description of the plugin
+msgid "The first Google Tag Manager plugin for WordPress with business goals in mind"
+msgstr "El primer plugin de Google Tag Manager para WordPress enfocado a objetivos de negocio"
+
+#: public/frontend.php:524 public/frontend.php:525
+msgid "(no weather data available)"
+msgstr "(no hay datos meteorológicos disponibles)"
+
+#: admin/admin.php:1255
+msgid "Search"
+msgstr "Búsqueda"
+
+#: admin/admin.php:1568
+msgid "Settings"
+msgstr "Ajustes"
+
+#: admin/admin.php:166
+msgid "Weather data"
+msgstr "Datos meteorológicos"
+
+#: admin/admin.php:92
+msgid "Check this option to include the search term, referring page URL and number of results on the search page."
+msgstr "Selecciona esta opción para incluir el término de búsqueda, la URL de la página de referencia y el número de resultados en la página de búsqueda."
+
+#: admin/admin.php:96
+msgid "Logged in status"
+msgstr "Estado logueado"
+
+#: admin/admin.php:101
+msgid "Logged in user role"
+msgstr "Rol del usuario logueado"
+
+#: admin/admin.php:106
+msgid "Logged in user ID"
+msgstr "ID del usuario logueado"
+
+#: admin/admin.php:131
+msgid "Remarketing variable"
+msgstr "Variable de Remarketing"
+
+#: admin/admin.php:136
+msgid "Browser data *"
+msgstr "Datos del navegador *"
+
+#: admin/admin.php:137
+msgid "Check this option to include the name, version and engine data of the browser the visitor uses."
+msgstr "Selecciona esta opción para incluir el nombre, versión y datos del navegador que utiliza el usuario."
+
+#: admin/admin.php:141
+msgid "OS data *"
+msgstr "Datos de sistema operativo *"
+
+#: admin/admin.php:146
+msgid "Device data *"
+msgstr "Datos del dispositivo *"
+
+#: admin/admin.php:247
+msgid "Download click events (gtm4wp.downloadClick)"
+msgstr "Eventos de clic para Descargas (gtm4wp.downloadClick)"
+
+#: admin/admin.php:257
+msgid "Email click events (gtm4wp.emailClick)"
+msgstr "Eventos de clic Email (gtm4wp.emailClick)"
+
+#: admin/admin.php:265
+msgid "Enabled"
+msgstr "Habilitar"
+
+#: admin/admin.php:280
+msgid "Minimum distance"
+msgstr "Distancia mínima"
+
+#: admin/admin.php:285
+msgid "Content ID"
+msgstr "ID del contenido"
+
+#: admin/admin.php:323
+msgid "AdAdvisor Tag"
+msgstr "Etiqueta AdAdvisor"
+
+#: admin/admin.php:353
+msgid "Custom Image Tag"
+msgstr "Etiqueta Custom Image"
+
+#: admin/admin.php:358
+msgid "DoubleClick Floodlight Counter Tag"
+msgstr "Etiqueta DoubleClick Floodlight Counter"
+
+#: admin/admin.php:363
+msgid "DoubleClick Floodlight Sales Tag"
+msgstr "Etiqueta DoubleClick Floodlight Sales"
+
+#: admin/admin.php:368
+msgid "Marin Software Tag"
+msgstr "Etiqueta Marin Software"
+
+#: admin/admin.php:373
+msgid "Mediaplex - IFRAME MCT Tag"
+msgstr "Etiqueta Mediaplex - IFRAME MCT"
+
+#: admin/admin.php:378
+msgid "Mediaplex - Standard IMG ROI Tag"
+msgstr "Etiqueta Mediaplex - Standard IMG ROI"
+
+#: admin/admin.php:383
+msgid "Media6Degrees Universal Pixel Tag"
+msgstr "Etiqueta Media6Degrees Universal Pixel"
+
+#: admin/admin.php:388
+msgid "Turn Conversion Tracking Tag"
+msgstr "Etiqueta Turn Conversion Tracking"
+
+#: admin/admin.php:393
+msgid "Turn Data Collection Tag"
+msgstr "Etiqueta Turn Data Collection"
+
+#: admin/admin.php:957
+msgid "Invalid dataLayer variable name. Please start with a character from a-z or A-Z followed by characters from a-z, A-Z, 0-9 or '_' or '-'!"
+msgstr "El nombre de la variable dataLayer no es válido. Debe empezar con un carácter desde la a-z o A-Z, seguido de caracteres desde la a-z, A-Z, 0-9, '_' o '-'!"
+
+#: admin/admin.php:1045
+msgid "Basic data"
+msgstr "Datos básicos"
+
+#: admin/admin.php:1067
+msgid "Events"
+msgstr "Eventos"
+
+#: admin/admin.php:1111 admin/admin.php:1259
+msgid "Blacklist tags"
+msgstr "Lista negra de etiquetas"
+
+#: admin/admin.php:1148
+msgid "Integration"
+msgstr "Integración"
+
+#: admin/admin.php:596
+msgid "dataLayer variable name"
+msgstr "Nombre de la variable dataLayer"
+
+#: admin/admin.php:597
+msgid "In some cases you need to rename the dataLayer variable. You can enter your name here. Leave black for default name: dataLayer"
+msgstr "Puede que necesites usar otro el nombre para la variable dataLayer. Puedes escribir su nombre aquí. Déjalo en blanco para mantener el nombre por defecto: dataLayer"
+
+#: admin/admin.php:1226
+msgid "Google Tag Manager for WordPress options"
+msgstr "Opciones de Google Tag Manager para WordPress"
+
+#: admin/admin.php:1239
+msgid "Google Tag Manager for WordPress settings"
+msgstr "Ajustes de Google Tag Manager para WordPress"
+
+#: admin/admin.php:1240
+msgid "Google Tag Manager"
+msgstr "Google Tag Manager"
+
+#: admin/admin.php:1254
+msgid "Posts"
+msgstr "Posts"
+
+#: admin/admin.php:1256
+msgid "Visitors"
+msgstr "Usuarios"
+
+#: admin/admin.php:1258
+msgid "Browser/OS/Device"
+msgstr "Sistema operativo/Navegador/Dispositivo"
+
+#. Author of the plugin
+msgid "Thomas Geiger"
+msgstr "Thomas Geiger"
+
+#: admin/admin.php:674
+msgid "Google Tag Manager for WordPress can integrate with several popular plugins. Please check the plugins you would like to integrate with:"
+msgstr "Google Tag Manager para WordPress puede integrarse con varios plugins muy populares. Por favor, comprueba los plugins con los cuales quieras que se integre:"
+
+#: admin/admin.php:275
+msgid "Time delay before location check"
+msgstr "Tiempo de espera antes de la comprobación de ubicación"
+
+#: admin/admin.php:142
+msgid "Check this option to include the name and version of the operating system the visitor uses."
+msgstr "Selecciona esta opción para incluir el nombre y la versión del sistema operativo utilizado por el usuario."
+
+#: admin/admin.php:276
+msgid "Enter the number of milliseconds after the script checks the current location. It prevents too many events being fired while scrolling."
+msgstr "Introduce el número de milisegundos después de que el script compruebe la ubicación actual. Evita que se disparen demasiados eventos mientras se hacen desplazamientos (scroll)."
+
+#: admin/admin.php:656
+msgid "Based on the script originaly posted to <a href=\"%s\">Analytics Talk</a>"
+msgstr "Basado en el script original publicado en <a href=\"%s\">Analytics Talk</a>"
+
+#: admin/admin.php:271
+msgid "Fire console.log() commands instead of dataLayer events."
+msgstr "Activación de comandos console.log() en lugar de eventos dataLayer."
+
+#: admin/admin.php:416
+msgid "First Party Cookie Macro"
+msgstr "Variable First-Party cookie"
+
+#: admin/admin.php:258
+msgid "Check this option to include a Tag Manager event when a visitor clicks on an email link."
+msgstr "Selecciona esta opción para incluir un evento de Tag Manager cuando un usuario haga clic en un enlace de email."
+
+#: admin/admin.php:102
+msgid "Check this option to include the role of the logged in user."
+msgstr "Selecciona esta opción para incluir el rol del usuario que haya iniciado sesión."
+
+#: admin/admin.php:421
+msgid "Event Name Macro"
+msgstr "Variable Nombre de evento"
+
+#: admin/admin.php:436
+msgid "Random Number Macro"
+msgstr "Variable Número aleatorio"
+
+#: admin/admin.php:441
+msgid "Referrer Macro"
+msgstr "Variable Referencia"
+
+#: admin/admin.php:426
+msgid "JavaScript Variable Macro"
+msgstr "Variable JavaScript"
+
+#: admin/admin.php:411
+msgid "Constant Macro"
+msgstr "Variable Constante"
+
+#: admin/admin.php:97
+msgid "Check this option to include whether there is a logged in user on your website."
+msgstr "Selecciona esta opción para incluir si el usuario ha iniciado sesión en su sitio web."
+
+#: admin/admin.php:645
+msgid "Fire tags in Google Tag Manager on special events on your website"
+msgstr "Activación de etiquetas en Google Tag Manager en eventos especiales de tu sitio web"
+
+#: admin/admin.php:635
+msgid "* Browser, OS and Device data is provided using <a href=\"%s\">WhichBrowser</a> library."
+msgstr "* Los datos del navegador, sistema operativo y dispositivo se proporcionan mediante la biblioteca <a href=\"%s\">WhichBrowser</a>."
+
+#: admin/admin.php:666
+msgid "Blacklisting of macros only work if you enable blacklist or whilelist of tags on the previous tab."
+msgstr "La prohibición de variables solo funciona si habilitas la lista negra o la lista blanca de etiquetas en la pestaña anterior."
+
+#: admin/admin.php:662
+msgid "Here you can control which types of tags and macros can be executed on your site regardless of what tags are included in your container on the Google Tag Manager site. Use this to increase security!"
+msgstr "Aquí puedes controlar qué tipos de etiquetas y variables se pueden ejecutar en tu sitio web, independientemente de las etiquetas que estén incluidas en el contenedor de Google Tag Manager. ¡Úsalo para aumentar la seguridad!"
+
+#: admin/admin.php:446
+msgid "URL Macro"
+msgstr "Variable URL"
+
+#: admin/admin.php:451
+msgid "Auto-Event Variable Macro"
+msgstr "Variable de evento automático"
+
+#: admin/admin.php:431
+msgid "DataLayer Variable Macro"
+msgstr "Variable de capa de datos (dataLayer)"
+
+#: admin/admin.php:281
+msgid "The minimum amount of pixels that a visitor has to scroll before we treat the move as scrolling."
+msgstr "La cantidad mínima de píxeles que un visitante tiene que desplazarse antes de que tratemos ese movimiento como desplazamiento (scroll)."
+
+#: admin/admin.php:266
+msgid "Enable scroll tracker script on your website."
+msgstr "Habilita el script de seguimiento de desplazamiento (scroll) en tu sitio web."
+
+#: admin/admin.php:253
+msgid "Enter a comma separated list of extensions to track when 'Include download click events' option is set."
+msgstr "Introduce una lista de extensiones separadas por comas para realizar el seguimiento cuando establezcas la opción 'Incluir eventos de clic para descargas'."
+
+#: admin/admin.php:248
+msgid "Check this option to include a Tag Manager event when a visitors clicks on a link that leads to a downloadable file on your website."
+msgstr "Selecciona esta opción para incluir un evento de Tag Manager cuando los usuarios hagan clic en un enlace que conduzca a un archivo descargable en tu sitio web."
+
+#: admin/admin.php:243
+msgid "Check this option to include a Tag Manager event when a visitor clicks on a link directing the visitor out of your website."
+msgstr "Selecciona esta opción para incluir un evento de Tag Manager cuando un usuario haga clic en un enlace externo que dirija al usuario fuera de tu sitio web."
+
+#: admin/admin.php:147
+msgid "Check this option to include the type of device the user is currently using (desktop, tablet or mobile) including manufacturer and model data."
+msgstr "Selecciona esta opción para incluir el tipo de dispositivo que el usuario está utilizando actualmente (escritorio, tableta o móvil) incluyendo el fabricante y los datos del modelo."
+
+#: admin/admin.php:107
+msgid "Check this option to include the ID of the logged in user."
+msgstr "Selecciona esta opción para incluir el ID del usuario que ha iniciado sesión."
+
+#: admin/admin.php:1260
+msgid "Blacklist macros"
+msgstr "Lista negra de variables"
+
+#: admin/admin.php:668
+msgid "Uncheck a row to blacklist a macro type."
+msgstr "Desmarca una fila para prohibir el tipo de variable."
+
+#: admin/admin.php:432
+msgid "It is not recommended to blacklist this type of macro since most features of this plugin depend on dataLayer macros."
+msgstr "No se recomienda prohibir este tipo de variable debido a que la mayoría de características de este plugin dependen de variables de tipo capa de datos (dataLayer)."
+
+#: admin/admin.php:406
+msgid "Custom JavaScript Macro"
+msgstr "Variable JavaScript personalizada"
+
+#: admin/admin.php:633
+msgid "Here you can check what data is needed to be included in the dataLayer to be able to access them in Google Tag Manager"
+msgstr "Aquí puedes consultar los datos que serán incluidos en la capa de datos (dataLayer) para poder acceder a ellos mediante Google Tag Manager"
+
+#: admin/admin.php:71
+msgid "Post count"
+msgstr "Recuento de posts"
+
+#: admin/admin.php:401
+msgid "DOM element Macro"
+msgstr "Variable de elemento DOM"
+
+#: admin/admin.php:1032
+msgid "Container code placement"
+msgstr "Colocación del código del contenedor"
+
+#: admin/admin.php:627
+msgid "This plugin is intended to be used by IT girls&guys and marketing staff. Please be sure you read the <a href=\"https://developers.google.com/tag-manager/\" target=\"_blank\">Google Tag Manager Help Center</a> before you start using this plugin.<br /><br />"
+msgstr "Este plugin está diseñado para ser utilizado por el equipo de TI y de marketing. Por favor, aseguraros de leer el <a href=\"https://developers.google.com/tag-manager/\" target=\"_blank\">Centro de ayuda de Google Tag Manager</a> antes de utilizar este plugin.<br /><br />"
+
+#: admin/admin.php:1089
+msgid "Scroll tracking"
+msgstr "Seguimiento del Scroll"
+
+#: admin/admin.php:252
+msgid "Extensions to track"
+msgstr "Extensiones a realizar un seguimiento"
+
+#: admin/admin.php:291
+msgid "Enter the number of seconds after the the scroller user is being treated as a reader, someone who really reads the content, not just scrolls through it."
+msgstr "Introduce el número de segundos después de que el usuario que esté haciendo scroll esté siendo tratado como un lector. Alguien que realmente lea el contenido, no sólo se desplace por él."
+
+#: admin/admin.php:36
+msgid "Posttype of current post/archive"
+msgstr "Tipo de contenido (Post Type) de la publicación/archivo actual"
+
+#: admin/admin.php:37
+msgid "Check this option to include the type of the current post or archive page (post, page or any custom post type)."
+msgstr "Selecciona esta opción para incluir si la página actual es de tipo Post o Archive (Entrada (post), Página (page) o cualquier Tipo de Contenido Personalizado (Custom Post Type)."
+
+#: admin/admin.php:664
+msgid "Do not modify if you do not know what to do since it can cause issues in your tag deployment!"
+msgstr "No lo modifiques si no sabes lo que haces, puesto que podría causar problemas con el despliegue de etiquetas."
+
+#: admin/admin.php:1194
+msgid "Credits"
+msgstr "Créditos"
+
+#: admin/admin.php:207
+msgid "Form fill events (gtm4wp.formElementEnter & gtm4wp.formElementLeave)"
+msgstr "Eventos para el relleno de formularios (gtm4wp.formElementEnter & gtm4wp.formElementLeave)"
+
+#: admin/admin.php:647
+msgid "In October 2013 Google released a new feature called <a href=\"https://support.google.com/tagmanager/answer/3415369?hl=en\" target=\"_blank\">auto event tracking</a>. It is up to you how you use click events either using Google's solution or the settings below."
+msgstr "En octubre de 2013, Google lanzó una nueva característica denominada <a href=\"https://support.google.com/tagmanager/answer/3415369?hl=en\" target=\"_blank\">auto event tracking</a>. Depende de ti cómo desees utilizar los eventos de clic, ya sea con la solución de Google o con la configuración siguiente."
+
+#: admin/admin.php:1508
+msgid "Notice: you should deactivate the plugin \"Google Analytics for WordPress by MonsterInsights\" if you are using Google Analytics tags inside Google Tag Manager!"
+msgstr "Aviso: ¡Debes desactivar el plugin \"Google Analytics for WordPress by MonsterInsights\" si estás utilizando etiquetas de Google Analytics dentro de Google Tag Manager!"
+
+#: admin/admin.php:654
+msgid "Fire tags based on how the visitor scrolls through your page."
+msgstr "Etiquetas de activación basadas en cómo el usuario se desplaza a través de la página. (scroll)"
+
+#. Plugin Name of the plugin
+msgid "Google Tag Manager for Wordpress"
+msgstr "Google Tag Manager for WordPress"
+
+#: admin/admin.php:1498
+msgid "Notice: you should disable Google Analytics tracking <a href=\"admin.php?page=wc-settings&tab=integration&section=google_analytics\">in WooCommerce settings</a> by leaving Google Analytics ID field empty if you are using Google Analytics tags inside Google Tag Manager!"
+msgstr "Aviso: ¡Debes desactivar el seguimiento de Google Analytics <a href=\"admin.php?page=wc-settings&tab=integration&section=google_analytics\">en los ajustes de WooCommerce</a> si estás utilizando etiquetas de Google Analytics dentro de Google Tag Manager!"
+
+#: admin/admin.php:1478
+msgid "To start using Google Tag Manager for WordPress, please <a href=\"%s\">enter your GTM ID</a>"
+msgstr "<a href=\"%s\">Introduce tu ID de GTM</a> para empezar a utilizar Google Tag Manager para WordPress"
+
+#: admin/admin.php:532
+msgid "Enable this to add Google Ads dynamic remarketing variables to the dataLayer"
+msgstr "Activa esto para añadir variables dinámicas de remarketing de Google AdWords a la capa de datos."
+
+#: admin/admin.php:132
+msgid "Check this option to include a dataLayer variable where all dataLayer values are stored to be included in your Google Ads remarketing tag as a custom variable field"
+msgstr "Selecciona esta opción para incluir una variable de capa de datos en la que se almacenan todos los valores de capa de datos para incluirlos en tu etiqueta de remarketing de AdWords como un campo de variable personalizada"
