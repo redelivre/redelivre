@@ -127,6 +127,19 @@ if ( WP_SMUSH_BASENAME !== plugin_basename( __FILE__ ) ) {
 	}
 }
 
+if(!function_exists('wp_doing_cron') ) {
+	function wp_doing_cron() {
+	    /**
+	     * Filters whether the current request is a WordPress cron request.
+	     *
+	     * @since 4.8.0
+	     *
+	     * @param bool $wp_doing_cron Whether the current request is a WordPress cron request.
+	     */
+	    return apply_filters( 'wp_doing_cron', defined( 'DOING_CRON' ) && DOING_CRON );
+	}
+}
+
 /* @noinspection PhpIncludeInspection */
 require_once WP_SMUSH_DIR . 'core/class-installer.php';
 register_activation_hook( __FILE__, array( 'Smush\\Core\\Installer', 'smush_activated' ) );
