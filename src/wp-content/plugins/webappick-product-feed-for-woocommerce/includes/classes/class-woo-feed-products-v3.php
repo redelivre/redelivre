@@ -84,6 +84,52 @@ class Woo_Feed_Products_v3 {
 		'subscription_period_length',
 		'subscription_amount',
 	);
+	
+	/**
+	 * Attribute to skip in attribute loop for processing separately
+	 * @var array
+	 */
+	protected $skipped_merchant_attributes = array(
+		'google'   => array(
+			'shipping_country',
+			'shipping_region',
+			'shipping_service',
+			'shipping_price',
+			'tax_country',
+			'tax_region',
+			'tax_rate',
+			'tax_ship',
+			'installment_months',
+			'installment_amount',
+			'subscription_period',
+			'subscription_period_length',
+			'subscription_amount',
+		),
+		'facebook' => array(
+			'shipping_country',
+			'shipping_region',
+			'shipping_service',
+			'shipping_price',
+			'tax_country',
+			'tax_region',
+			'tax_rate',
+			'tax_ship',
+			'installment_months',
+			'installment_amount',
+			'subscription_period',
+			'subscription_period_length',
+			'subscription_amount',
+		),
+	);
+	
+	/**
+	 * Already Processed merchant attributes by the attribute loop
+	 * this will ensure unique merchant attribute.
+	 * @see Woo_Feed_Products_v3::exclude_current_attribute()
+	 * @var array
+	 */
+	protected $processed_merchant_attributes = array();
+	
 	/**
 	 * Product types for query
 	 * @var array
@@ -122,6 +168,9 @@ class Woo_Feed_Products_v3 {
 		if ( ! in_array( $this->queryType, [ 'wc', 'wp', 'both' ] ) ) {
 			$this->queryType = 'wc';
 		}
+		
+		$this->config['itemWrapper']  = str_replace( ' ', '_', $this->config['itemWrapper'] );
+		$this->config['itemsWrapper'] = str_replace( ' ', '_', $this->config['itemsWrapper'] );
 
 //		woo_feed_log_feed_process( $this->config['filename'], sprintf( 'Current Query Type is %s', $this->queryType ) );
 	}
@@ -254,37 +303,18 @@ class Woo_Feed_Products_v3 {
 		do_action( 'woo_feed_before_product_loop', $productIds, $this->config );
 		
 		foreach ( $productIds as $key => $pid ) {
-			
+//			woo_feed_log_feed_process( $this->config['filename'], sprintf( 'Loading Product Data For %d.', $pid ) );
 			$product = wc_get_product( $pid );
 			
-			// For WP_Query check available product types
-			if ( 'wp' == $this->queryType ) {
-				if ( ! in_array( $product->get_type(), $this->product_types ) ) {
-//					woo_feed_log_feed_process( $this->config['filename'], sprintf( 'Skipping Product :: Invalid Post/Product Type : %s.', $product->get_type() ) );
-					continue;
-				}
-			}
-			
-			// Skip for invalid products
-			if ( ! is_object( $product ) ) {
-//				woo_feed_log_feed_process( $this->config['filename'], 'Skipping Product :: Product data is not a valid WC_Product object.' );
+			if ( $this->exclude_from_loop( $product ) ) {
 				continue;
 			}
 			
-			// Skip for invisible products
-			if ( ! $product->is_visible() ) {
-//				woo_feed_log_feed_process( $this->config['filename'], 'Skipping Product :: Product is not visible.' );
+			if ( $this->process_variation( $product ) ) {
 				continue;
 			}
-			
-			// Apply variable and variation settings
-			if ( $product->is_type( 'variable' ) && $product->has_child() ) {
-				$this->pi ++;
-				$variations = $product->get_visible_children();
-				if ( is_array( $variations ) && ( sizeof( $variations ) > 0 ) ) {
-					$this->get_products( $variations );
-				}
-			}
+
+//			woo_feed_log_feed_process( $this->config['filename'], 'Formatting Feed Data...' );
 			
 			// Add Single item wrapper before product info loop start
 			if ( 'xml' == $this->config['feedType'] ) {
@@ -293,113 +323,14 @@ class Woo_Feed_Products_v3 {
 				$this->feedBody .= "\n";
 			}
 			
-			// Unique Merchant Attributes
-			$mAttributes = array();
-			// Get Product Attribute values by type and assign to product array
-			foreach ( $this->config['attributes'] as $attr_key => $attribute ) {
-				
-				// Continue for Google Shipping and Tax attributes
-				$skipFor = array( 'google', 'facebook' );
-				if (
-					'xml' == $this->config['feedType'] &&
-					in_array( $this->config['mattributes'][ $attr_key ], $this->google_shipping_tax ) &&
-					in_array( $this->config['provider'], $skipFor )
-				) {
-					continue;
-				}
-				
-				if ( in_array( $this->config['mattributes'][ $attr_key ], $mAttributes ) ) {
-					continue;
-				}
-				
-				if ( 'pattern' == $this->config['type'][ $attr_key ] ) {
-					$attributeValue = $this->config['default'][ $attr_key ];
-				} else { # Get Pattern value
-					$attributeValue = $this->getAttributeValueByType( $product, $attribute );
-				}
-				
-				// Format Output according to Output Type config.
-				$outputType = $this->config['output_type'][ $attr_key ];
-				if ( 'default' != $outputType ) {
-					$attributeValue = $this->format_output( $attributeValue, $outputType, $product, $attribute );
-				}
-				
-				// Limit Output
-				$limit = $this->config['limit'][ $attr_key ];
-				if ( ! empty( $limit ) && is_numeric( $limit ) ) {
-					if ( strpos( $attributeValue, '<![CDATA[' ) !== false ) {
-						$attributeValue = str_replace( array( '<![CDATA[', ']]>' ), array( '', '' ), $attributeValue );
-						$attributeValue = substr( $attributeValue, 0, $limit );
-						$attributeValue = '<![CDATA[' . $attributeValue . ']]>';
-					} else {
-						$attributeValue = substr( $attributeValue, 0, $limit );
-					}
-				}
-				
-				// Add Prefix and Suffix into Output
-				$prefix = $this->config['prefix'][ $attr_key ];
-				$suffix = $this->config['suffix'][ $attr_key ];
-				
-				if ( '' != $prefix || '' != $suffix ) {
-					$attributeValue = $this->process_prefix_suffix( $attributeValue, $prefix, $suffix, $attribute );
-				}
-				
-				$pluginAttribute = $this->config['mattributes'][ $attr_key ];
-				$merchant        = $this->config['provider'];
-				$feedType        = $this->config['feedType'];
-				if ( 'xml' == $this->config['feedType'] ) {
-					
-					# Replace XML Nodes according to merchant requirement
-					$getReplacedAttribute = woo_feed_replace_to_merchant_attribute( $pluginAttribute,
-						$merchant,
-						$feedType );
-					
-					# XML does not support space in node. So replace Space with Underscore
-					$getReplacedAttribute = str_replace( '', '_', $getReplacedAttribute );
-					
-					if ( ! empty( $attributeValue ) ) {
-						$attributeValue = trim( $attributeValue );
-					}
-					
-					// Add closing XML node if value is empty
-					if ( '' != $attributeValue ) {
-						# Add CDATA wrapper for XML feed to prevent XML error.
-						$attributeValue = woo_feed_add_cdata( $pluginAttribute, $attributeValue, $merchant );
-						
-						#TODO Move to proper place
-						# Replace Google Color attribute value according to requirements
-						if ( 'g:color' == $getReplacedAttribute ) {
-							$attributeValue = str_replace( ', ', '/', $attributeValue );
-						}
-						
-						# Strip slash from output
-						$attributeValue = stripslashes( $attributeValue );
-						
-						$this->feedBody .= '<' . $getReplacedAttribute . '>' . "$attributeValue" . '</' . $getReplacedAttribute . '>';
-						$this->feedBody .= "\n";
-						
-					} else {
-						$this->feedBody .= '<' . $getReplacedAttribute . '/>';
-						$this->feedBody .= "\n";
-					}
-				} elseif ( 'csv' == $this->config['feedType'] ) {
-					$pluginAttribute = woo_feed_replace_to_merchant_attribute( $pluginAttribute, $merchant, $feedType );
-					$pluginAttribute = $this->processStringForCSV( $pluginAttribute );
-					$attributeValue  = $this->processStringForCSV( $attributeValue );
-				} elseif ( 'txt' == $this->config['feedType'] ) {
-					$pluginAttribute = woo_feed_replace_to_merchant_attribute( $pluginAttribute, $merchant, $feedType );
-					$pluginAttribute = $this->processStringForTXT( $pluginAttribute );
-					$attributeValue  = $this->processStringForTXT( $attributeValue );
-				}
-				
-				$mAttributes[ $attr_key ]                        = $this->config['mattributes'][ $attr_key ];
-				$this->products[ $this->pi ][ $pluginAttribute ] = $attributeValue;
-			}
+			// reset processed attribute list before loop
+			$this->processed_merchant_attributes = [];
+			// Process attribute values
+			$this->process_attributes( $product );
 
 //			try {
 //				woo_feed_log_feed_process( $this->config['filename'], 'Processing Merchant Specific Fields' );
 			// Process feed data for uncommon merchant feed like Google,Facebook,Pinterest
-			# Process feed data for uncommon merchant feed like Google,Facebook,Pinterest
 			$this->process_for_merchant( $product, $this->pi );
 //			} catch ( Exception $e ) {
 //				$message = 'Error Processing Merchant Specific Fields.' . PHP_EOL . 'Caught Exception :: ' . $e->getMessage();
@@ -411,11 +342,9 @@ class Woo_Feed_Products_v3 {
 				if ( empty( $this->feedHeader ) ) {
 					$this->feedHeader = $this->process_xml_feed_header();
 					$this->feedFooter = $this->process_xml_feed_footer();
-					
 				}
 				
 				$this->feedBody .= '</' . $this->config['itemWrapper'] . '>';
-				
 				
 			} elseif ( 'txt' == $this->config['feedType'] ) {
 				if ( empty( $this->feedHeader ) ) {
@@ -445,6 +374,204 @@ class Woo_Feed_Products_v3 {
 		return $this->products;
 	}
 	
+	/**
+	 * Process product variations
+	 * @param WC_Abstract_Legacy_Product $product
+	 *
+	 * @return bool
+	 * @since 3.3.9
+	 */
+	protected function process_variation( $product ) {
+		// Apply variable and variation settings
+		if ( $product->is_type( 'variable' ) && $product->has_child() ) {
+			$this->pi ++;
+			$variations = $product->get_visible_children();
+			if ( is_array( $variations ) && ( sizeof( $variations ) > 0 ) ) {
+//				if( woo_feed_is_debugging_enabled() ) {
+//					woo_feed_log_feed_process( $this->config['filename'], sprintf( 'Getting Variation Product(s) :: %s', implode( ', ', $variations ) ) );
+//				}
+				$this->get_products( $variations );
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Process The Attributes and assign value to merchant attribute
+	 *
+	 * @param WC_Abstract_Legacy_Product $product
+	 *
+	 * @return void
+	 * @since 3.3.9
+	 */
+	protected function process_attributes( $product ) {
+		// Get Product Attribute values by type and assign to product array
+		foreach ( $this->config['attributes'] as $attr_key => $attribute ) {
+			
+			$merchant_attribute = $this->config['mattributes'][ $attr_key ];
+			
+			if ( $this->exclude_current_attribute( $product, $merchant_attribute, $attribute ) ) {
+				continue;
+			}
+			
+			// Add Prefix and Suffix into Output
+			$prefix   = $this->config['prefix'][ $attr_key ];
+			$suffix   = $this->config['suffix'][ $attr_key ];
+			$merchant = $this->config['provider'];
+			$feedType = $this->config['feedType'];
+			
+			if ( 'pattern' == $this->config['type'][ $attr_key ] ) {
+				$attributeValue = $this->config['default'][ $attr_key ];
+			} else { # Get Pattern value
+				$attributeValue = $this->getAttributeValueByType( $product, $attribute );
+			}
+			
+			// Format Output according to Output Type config.
+			$outputType = $this->config['output_type'][ $attr_key ];
+			$attributeValue = $this->format_output( $attributeValue, $this->config['output_type'][ $attr_key ], $product, $attribute );
+			
+			// Limit Output.
+			$attributeValue = $this->crop_string( $attributeValue, 0, $this->config['limit'][ $attr_key ] );
+			
+			// Process prefix and suffix.
+			$attributeValue = $this->process_prefix_suffix( $attributeValue, $prefix, $suffix, $attribute );
+			
+			if ( 'xml' == $feedType ) {
+				
+				// Replace XML Nodes according to merchant requirement.
+				$getReplacedAttribute = woo_feed_replace_to_merchant_attribute( $merchant_attribute, $merchant, $feedType );
+				
+				// XML does not support space in node. So replace Space with Underscore.
+				$getReplacedAttribute = str_replace( ' ', '_', $getReplacedAttribute );
+				
+				if ( ! empty( $attributeValue ) ) {
+					$attributeValue = trim( $attributeValue );
+				}
+				
+				// Add closing XML node if value is empty
+				if ( '' != $attributeValue ) {
+					# Add CDATA wrapper for XML feed to prevent XML error.
+					$attributeValue = woo_feed_add_cdata( $merchant_attribute, $attributeValue, $merchant );
+					
+					#TODO Move to proper place
+					# Replace Google Color attribute value according to requirements
+					if ( 'g:color' == $getReplacedAttribute ) {
+						$attributeValue = str_replace( ', ', '/', $attributeValue );
+					}
+					
+					# Strip slash from output
+					$attributeValue = stripslashes( $attributeValue );
+					
+					$this->feedBody .= '<' . $getReplacedAttribute . '>' . "$attributeValue" . '</' . $getReplacedAttribute . '>';
+					$this->feedBody .= "\n";
+					
+				} else {
+					$this->feedBody .= '<' . $getReplacedAttribute . '/>';
+					$this->feedBody .= "\n";
+				}
+			} elseif ( 'csv' == $feedType ) {
+				$merchant_attribute = woo_feed_replace_to_merchant_attribute( $merchant_attribute, $merchant, $feedType );
+				$merchant_attribute = $this->processStringForCSV( $merchant_attribute );
+				$attributeValue  = $this->processStringForCSV( $attributeValue );
+			} elseif ( 'txt' == $feedType ) {
+				$merchant_attribute = woo_feed_replace_to_merchant_attribute( $merchant_attribute, $merchant, $feedType );
+				$merchant_attribute = $this->processStringForTXT( $merchant_attribute );
+				$attributeValue  = $this->processStringForTXT( $attributeValue );
+			}
+			
+			$this->products[ $this->pi ][ $merchant_attribute ] = $attributeValue;
+		}
+	}
+	
+	/**
+	 * Check if current product should be processed for feed
+	 * This should be using by Woo_Feed_Products_v3::get_products()
+	 *
+	 * @param WC_Product $product
+	 *
+	 * @return bool
+	 * @since 3.3.9
+	 *
+	 */
+	protected function exclude_from_loop( $product ) {
+		// For WP_Query check available product types
+		if ( 'wp' == $this->queryType && ! in_array( $product->get_type(), $this->product_types ) ) {
+//			woo_feed_log_feed_process( $this->config['filename'], sprintf( 'Skipping Product :: Invalid Post/Product Type : %s.', $product->get_type() ) );
+			return true;
+		}
+		
+		// Skip for invalid products
+		if ( ! is_object( $product ) ) {
+//			woo_feed_log_feed_process( $this->config['filename'], 'Skipping Product :: Product data is not a valid WC_Product object.' );
+			return true;
+		}
+		
+		// Skip for invisible products
+		if ( ! $product->is_visible() ) {
+//			woo_feed_log_feed_process( $this->config['filename'], 'Skipping Product :: Product is not visible.' );
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Check if current attribute/merchant attribute should be processed for feed
+	 * This should be using by Woo_Feed_Products_v3::get_products()
+	 *
+	 * @param WC_Product $product
+	 * @param string $merchant_attribute
+	 * @param string $product_attribute
+	 * @param string $feedType
+	 *
+	 * @return bool
+	 *
+	 * @since 3.3.9
+	 *
+	 */
+	protected function exclude_current_attribute( $product, $merchant_attribute, $product_attribute, $feedType = 'xml' ) {
+		if (
+			$feedType == $this->config['feedType'] &&
+			in_array( $this->config['provider'], array_keys( $this->skipped_merchant_attributes ) ) &&
+			in_array( $merchant_attribute, $this->skipped_merchant_attributes[ $this->config['provider'] ] )
+		
+		) {
+			return true;
+		}
+		
+		if ( in_array( $merchant_attribute, $this->processed_merchant_attributes ) ) {
+			return true;
+		}
+		
+		$this->processed_merchant_attributes[] = $merchant_attribute;
+		
+		return false;
+	}
+	
+	/**
+	 * Wrapper for substr with <![CDATA[string]]> support
+	 *
+	 * @see substr
+	 *
+	 * @param string $string
+	 * @param int $start
+	 * @param int $limit
+	 *
+	 * @return string
+	 */
+	protected function crop_string( $string, $start = 0, $limit = null ) {
+		$limit = absint( $limit );
+		if ( $limit > 0 ) {
+			$start = absint( $start );
+			if ( strpos( $string, '<![CDATA[' ) !== false ) {
+				$string = str_replace( array( '<![CDATA[', ']]>' ), array( '', '' ), $string );
+				$string = substr( $string, $start, $limit );
+				$string = '<![CDATA[' . $string . ']]>';
+			} else {
+				$string = substr( $string, $start, $limit );
+			}
+		}
+		return $string;
+	}
 	
 	/**
 	 * Process feed data according to merchant uncommon requirements like Google
@@ -678,8 +805,7 @@ class Woo_Feed_Products_v3 {
 		
 		$product          = $this->products[ $this->pi ];
 		$headers          = array_keys( $product );
-		$this->feedHeader .= $this->enclosure . implode( "$this->enclosure$this->delimiter$this->enclosure",
-				$headers ) . $this->enclosure . $eol;
+		$this->feedHeader .= $this->enclosure . implode( "$this->enclosure$this->delimiter$this->enclosure", $headers ) . $this->enclosure . $eol;
 		
 		return $this->feedHeader;
 	}
@@ -697,8 +823,7 @@ class Woo_Feed_Products_v3 {
 		if ( 'trovaprezzi' === $this->config['provider'] ) {
 			$eol = '<endrecord>' . PHP_EOL;
 		}
-		$this->feedBody .= $this->enclosure . implode( "$this->enclosure$this->delimiter$this->enclosure",
-				$productInfo ) . $this->enclosure . $eol;
+		$this->feedBody .= $this->enclosure . implode( "$this->enclosure$this->delimiter$this->enclosure", $productInfo ) . $this->enclosure . $eol;
 		
 		return $this->feedBody;
 	}

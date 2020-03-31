@@ -5,7 +5,7 @@ Tags:product feed,woocommerce product feed,google shopping feed,google shopping,
 Requires at least: 3.6
 Tested Up To: 5.3.2
 Requires PHP: 5.6
-Stable tag: 3.3.8
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -304,6 +304,20 @@ Using pro version:
 2. FTP info config
 
 == Changelog ==
+
+= 3.4.0 (2020-03-26) =
+* Feature: Google Shopping Action template added.
+* Feature: Skroutz template added.
+* Feature: Glami.gr template added.
+* Improvement: Reduce duplicate codes.
+* Improvement: Improve caching for generated dropdown content with separate caching handler.
+* Improvement: improve loading google category for supported merchant.
+* Fix: JS syntax error fixed.
+* Fix: Auto generate gets disabled on feed config “Save” action
+
+= 3.3.9 (2020-03-18) =
+* Fix: Replace space character with underscore (`_`).
+* Fix: Fix and optimize sortable table initialization.
 
 = 3.3.8 (2020-03-16) =
 * Compatibility: Tested Upto WooCommerce 4.0

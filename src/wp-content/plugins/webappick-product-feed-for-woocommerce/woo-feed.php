@@ -12,7 +12,7 @@
  * Description:       This plugin generate WooCommerce product feed for Shopping Engines
  * like Google Shopping, Facebook Product Feed, eBay, Amazon, Idealo and many more.
  *
- * Version:           3.3.8
+ * Version:           3.4.0
  * Author:            WebAppick
  * Author URI:        https://webappick.com/
  * License:           GPL v2
@@ -40,7 +40,7 @@ if ( ! defined( 'WOO_FEED_FREE_VERSION' ) ) {
 	 * @var string
 	 * @since 3.1.6
 	 */
-	define( 'WOO_FEED_FREE_VERSION', '3.3.8' );
+	define( 'WOO_FEED_FREE_VERSION', '3.4.0' );
 }
 
 if ( ! defined( 'WOO_FEED_FREE_FILE' ) ) {

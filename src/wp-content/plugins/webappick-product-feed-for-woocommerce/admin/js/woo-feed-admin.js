@@ -29,8 +29,7 @@
      */
     $.fn.disabled = function( status ) {
         $(this).each( function(){
-            // noinspection ES6ConvertVarToLetConst
-            var self = $(this), prop = 'disabled';
+            let self = $(this), prop = 'disabled';
             if( typeof( self.prop( prop ) ) !== 'undefined' ) {
                 self.prop( prop, status === void 0 || status === true  );
             } else {
@@ -43,8 +42,7 @@
      * Check if a HTMLElement or jQuery is disabled
      */
     $.fn.isDisabled = function() {
-        // noinspection ES6ConvertVarToLetConst
-        var self = $(this), prop = 'disabled';
+        let self = $(this), prop = 'disabled';
         return ( typeof( self.prop( prop ) ) !== 'undefined' ) ? self.prop( prop ) : self.hasClass( prop );
     };
 
@@ -63,8 +61,7 @@
     }
 
     function fallbackMessage(action) {
-        // noinspection ES6ConvertVarToLetConst
-        var actionMsg, actionKey = (action === 'cut' ? 'X' : 'C');
+        let actionMsg, actionKey = (action === 'cut' ? 'X' : 'C');
         if (/iPhone|iPad/i.test(navigator.userAgent)) {
             actionMsg = 'No support :(';
         } else if (/Mac/i.test(navigator.userAgent)) {
@@ -82,8 +79,7 @@
      * @param {Object} _args
      */
     const extend = ( _default, _args ) => $.extend( true, {}, _default, _args );
-    // noinspection ES6ConvertVarToLetConst
-    var $copyBtn, clipboard, googleCategories,
+    let $copyBtn, clipboard, googleCategories,
         helper = {
             in_array: function( needle, haystack ) {
                 try {
@@ -100,24 +96,26 @@
                 alert( ( e.hasOwnProperty( 'statusText' ) && e.hasOwnProperty( 'status' ) ) ? opts.ajax.error + '\n' + e.statusText + ' (' + e.status + ')' : e );
             },
             sortable: function( el, config ) {
-                console.log( ( el || $('.sorted_table') ) );
-                ( el || $('.sorted_table') ).wf_sortable( extend( {
-                    containerSelector: 'table',
-                    itemPath: '> tbody',
-                    itemSelector: 'tr',
-                    handle: 'i.wf_sortedtable',
-                    placeholder: '<tr class="placeholder"><td colspan="9"></td></tr>',
-                }, config ));
+                return (el || $('.sorted_table')).each(function () {
+                    let self = $(this), column = self.find('tbody > tr:eq(0) > td').length;
+                    self.wf_sortable(extend({
+                        containerSelector: 'table',
+                        itemPath: '> tbody',
+                        itemSelector: 'tr',
+                        handle: 'i.wf_sortedtable',
+                        placeholder: `<tr class="placeholder"><td colspan="${column}"></td></tr>`,
+                    }, config));
+                });
             },
             selectize: function( el, config ) {
-                return ( el || $('select.selectize') ).not('.selectized').each(function(){
+                return (el || $('select.selectize')).not('.selectized').each(function () {
                     let self = $(this);
-                    self.selectize( extend( {
+                    self.selectize(extend({
                         create: self.data('create') || false,
-                        plugins: self.data('plugins') ? self.data('plugins').split(',').map( s => s.trim() ): [],//['remove_button'],
+                        plugins: self.data('plugins') ? self.data('plugins').split(',').map(s => s.trim()) : [],//['remove_button'],
                         render: {item: helper.selectize_render_item,}
-                    }, config ) );
-                } );
+                    }, config));
+                });
             }
         }, // helper functions
         feedEditor = {
@@ -134,8 +132,7 @@
                 let self = this;
                 self.form = $('.generateFeed');
                 if( ! self.form.length ) return;
-                // noinspection ES6ConvertVarToLetConst
-                var outOfStockVisibilityRow = $('.out-of-stock-visibility');
+                let outOfStockVisibilityRow = $('.out-of-stock-visibility');
                 // Initialize Table Sorting
                 // noinspection JSUnresolvedFunction
                 helper.sortable();
@@ -150,8 +147,7 @@
                     })
                     .on('change', '.attr_type', function () {
                         // Attribute type selection
-                        // noinspection ES6ConvertVarToLetConst
-                        var type = $(this).val(), row = $(this).closest('tr');
+                        let type = $(this).val(), row = $(this).closest('tr');
                         if (type === 'pattern') {
                             row.find('.wf_attr').hide();
                             row.find('.wf_attr').val('');
@@ -163,29 +159,25 @@
                         }
                     })
                     .on('change', '.wf_mattributes, .attr_type', function () {
-                        // noinspection ES6ConvertVarToLetConst
-                        var row = $(this).closest('tr'),
+                        let row = $(this).closest('tr'),
                             attribute = row.find('.wf_mattributes'),
                             type = row.find('.attr_type'),
                             valueColumn = row.find('td:eq(4)'),
                             provider = $('#provider').val();
                         if (attribute.val() === 'current_category' && type.val() === 'pattern' && helper.in_array(provider, ['google', 'facebook', 'pinterest'])) {
                             if (valueColumn.find('select.selectize').length === 0) {
-                                // noinspection ES6ConvertVarToLetConst
-                                var selectizeOpts = {
+                                let selectizeOpts = {
                                     options: googleCategories,
                                     config: {render: {item: helper.selectize_render_item,}},
                                 };
                                 valueColumn.find('input.wf_default').remove();
                                 valueColumn.append('<span class="wf_default wf_attributes"><select name="default[]" class="selectize"></select></span>');
                                 // valueColumn.find('.wf_attributes select').selectize({render: {item: helper.selectize_render_item,}});
-                                // noinspection JSUnresolvedVariable
                                 valueColumn.append('<span style="font-size:x-small;"><a style="color: red" href="http://webappick.helpscoutdocs.com/article/19-how-to-map-store-category-with-merchant-category" target="_blank">' + opts.learn_more + '</a></span>');
                                 if( ! googleCategories ) {
                                     valueColumn.append('<span class="spinner is-active" style="margin: 0;"></span>');
                                 }
-                                // noinspection ES6ConvertVarToLetConst
-                                var select = valueColumn.find('.wf_attributes select');
+                                const select = valueColumn.find('.wf_attributes select');
                                 helper.selectize( select, {
                                     preload: true,
                                     placeholder: opts.form.select_category,
@@ -230,20 +222,16 @@
              * @param {Object} r            ajax response object
              */
             renderMerchantInfo: function( merchantInfo, feedType, r ) {
-                // noinspection ES6ConvertVarToLetConst
-                for( var k in r ) {
+                for( let k in r ) {
                     if( r.hasOwnProperty( k ) ) {
                         merchantInfo.find( '.merchant-info-section.' + k + ' .data' ).html( r[k] ); // phpcs:ignore WordPressVIPMinimum.JS.HTMLExecutingFunctions.html
                         if( 'feed_file_type' === k ) {
-                            // noinspection ES6ConvertVarToLetConst,JSUnresolvedVariable
-                            var types = r[k].split(",").map(function(t){return t.trim().toLowerCase()}).filter(function(t){
-                                // noinspection JSUnresolvedVariable
+                            let types = r[k].split(",").map(function(t){return t.trim().toLowerCase()}).filter(function(t){
                                 return t !== '' && t !== opts.na.toLowerCase()
                             });
                             if( types.length ) {
                                 feedType.find('option').removeAttr('selected').each( function(){
-                                    // noinspection ES6ConvertVarToLetConst
-                                    var opt = $(this);
+                                    let opt = $(this);
                                     opt.val() && ! helper.in_array(opt.val(),types) ? opt.disabled( ! 0) : opt.disabled( ! 1);
                                 } );
                                 if( types.length === 1 ) feedType.find('option[value="' + types[0] + '"]').attr( 'selected', 'selected' );
@@ -262,18 +250,15 @@
              * @param {object} r            merchant template ajax response object
              */
             renderMerchantTemplate: function( feedForm, r ) {
-                // noinspection ES6ConvertVarToLetConst
-                for ( var k in r ) {
+                for ( let k in r ) {
                     if ( r.hasOwnProperty( k ) ) {
                         if ( 'tabs' === k ) {
                             feedForm.html( r[k]); // phpcs:ignore WordPressVIPMinimum.JS.HTMLExecutingFunctions.html
                         } else {
-                            // noinspection ES6ConvertVarToLetConst
-                            var contentSettings = $('[name="'+k+'"]');
+                            let contentSettings = $('[name="'+k+'"]');
                             if ( contentSettings.length ) {
                                 contentSettings.each( function() {
-                                    // noinspection ES6ConvertVarToLetConst
-                                    var elem = $(this);
+                                    let elem = $(this);
                                     if ( elem.is( 'select' ) ) {
                                         elem.find( '[value="'+r[k]+'"]').prop( 'selected', true );
                                     } else if ( ( elem.is('[type=checkbox]') || elem.is('[type=radio]') ) && elem.val() === r[k] ) {
@@ -331,44 +316,43 @@
 
         // XML Feed Wrapper
         $('#feedType,#provider').on('change', function () {
-            // noinspection ES6ConvertVarToLetConst,
-            var type = $('#feedType').val(), provider = $('#provider').val(), itemWrapper = $('.itemWrapper'), wf_csv_txt = $('.wf_csvtxt');
-            // noinspection JSUnresolvedVariable
-            if ( type === 'xml' ) {
+            let type = $('#feedType').val(), provider = $('#provider').val(), itemWrapper = $('.itemWrapper'), wf_csv_txt = $('.wf_csvtxt');
+            const hidden = [
+                'google', 'facebook', 'pinterest', 'fruugo.au', 'stylight.com', 'nextad', 'skinflint.co.uk',
+                'comparer.be', 'dooyoo', 'hintaseuranta.fi', 'incurvy', 'kijiji.ca', 'marktplaats.nl',
+                'rakuten.de', 'shopalike.fr', 'spartoo.fi', 'webmarchand',
+            ];
+            if (type !== '' && helper.in_array(provider, hidden)) {
+                itemWrapper.hide();
+            } else if ( type === 'xml' ) {
                 itemWrapper.show();
                 wf_csv_txt.hide();
             } else if ( type === 'csv' || type === 'txt' ) {
                 itemWrapper.hide();
                 wf_csv_txt.show();
-            } else if ( type === '' ) {
+            } else {
                 itemWrapper.hide();
                 wf_csv_txt.hide();
             }
-            if( type !== '' && helper.in_array( provider, ['google', 'facebook', 'pinterest'] ) ) {
-                itemWrapper.hide();
-            }
+
         }).trigger( 'change' );
+
         // Tooltip only Text
-        {
-            $('.wfmasterTooltip').hover(function () {
-                // Hover over code
-                // noinspection ES6ConvertVarToLetConst
-                var title = $(this).attr('wftitle');
-                $(this).data('tipText', title).removeAttr('wftitle');
-                $('<p class="wftooltip"></p>').text(title).appendTo('body').fadeIn('slow');
-            }, function () {
-                // Hover out code
-                $(this).attr('wftitle', $(this).data('tipText'));
-                $('.wftooltip').remove();
-            }).mousemove(function (e) {
-                $('.wftooltip').css({top: e.pageY + 10, left: e.pageX + 20})
-            });
-        }
+        $('.wfmasterTooltip').hover(function () {
+            // Hover over code
+            let title = $(this).attr('wftitle');
+            $(this).data('tipText', title).removeAttr('wftitle');
+            $('<p class="wftooltip"></p>').text(title).appendTo('body').fadeIn('slow');
+        }, function () { // Hover out code
+            $(this).attr('wftitle', $(this).data('tipText'));
+            $('.wftooltip').remove();
+        }).mousemove(function (e) {
+            $('.wftooltip').css({top: e.pageY + 10, left: e.pageX + 20})
+        });
 
         // Attribute type selection for dynamic attribute
         $(document).on('change', '.dType', function () {
-            // noinspection ES6ConvertVarToLetConst
-            var type = $(this).val(), row = $(this).closest('tr');
+            let type = $(this).val(), row = $(this).closest('tr');
             if (type === 'pattern') {
                 row.find('.value_attribute').hide();
                 row.find('.value_pattern').show();
@@ -416,13 +400,11 @@
         $("#provider").on('change', function ( event ) {
             event.preventDefault();
             if( ! $(this).closest('.generateFeed').hasClass('add-new') ) return; // only for new feed.
-            // noinspection ES6ConvertVarToLetConst
-            var merchant = $(this).val(),
+            let merchant = $(this).val(),
                 feedType = $("#feedType"),
                 feedForm = $("#providerPage"),
                 merchantInfo = $('#feed_merchant_info');
             // set loading..
-            // noinspection JSUnresolvedVariable
             feedForm.html('<h3><span style="float:none;margin: -3px 0 0;" class="spinner is-active"></span> ' + opts.form.loading_tmpl + '</h3>'); // phpcs:ignore WordPressVIPMinimum.JS.HTMLExecutingFunctions.html, WordPressVIPMinimum.JS.StringConcat.Found
             merchantInfo.find( '.spinner' ).addClass( 'is-active' );
             feedType.disabled( ! 0 ); // disable dropdown
@@ -457,8 +439,7 @@
 
         // Feed Active and Inactive status change via ajax
         $('.woo_feed_status_input').on('change',function(){
-            // noinspection ES6ConvertVarToLetConst
-            var  $feedName = $(this).val(), counter = ( $(this)[0].checked ) ? 1 : 0;
+            let $feedName = $(this).val(), counter = ( $(this)[0].checked ) ? 1 : 0;
             wpAjax.post( 'update_feed_status', { _ajax_nonce: opts.nonce, feedName: $feedName, status: counter }, );
         });
 
@@ -472,22 +453,17 @@
 
         //Checking whether php ssh2 extension is added or not
         $(document).on('change', '.ftporsftp', function () {
-            // noinspection ES6ConvertVarToLetConst
-            var server = $(this).val(), status = $('.ssh2_status');
+            let server = $(this).val(), status = $('.ssh2_status');
             if (server === 'sftp') {
-                // noinspection JSUnresolvedVariable
                 status.show().css('color', 'dodgerblue').text(opts.form.sftp_checking);
-                // noinspection JSUnresolvedVariable
                 wpAjax.post('get_ssh2_status', {_ajax_nonce: opts.nonce, server: server})
                     .then(function (response) {
                         if ( response === 'exists' ) {
-                            // noinspection JSUnresolvedVariable
                             status.css('color', '#2CC185').text(opts.form.sftp_available);
                             setTimeout( function () {
                                 status.hide();
                             }, 1500 );
                         } else {
-                            // noinspection JSUnresolvedVariable
                             status.show().css('color', 'red').text(opts.form.sftp_warning);
                         }
                     })
