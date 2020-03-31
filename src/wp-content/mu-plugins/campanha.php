@@ -16,7 +16,7 @@ function campanha_setup() {
     load_theme_textdomain('campanha', MUCAMPANHAPATH . '/languages' );
 
     // POST THUMBNAILS
-    add_theme_support('post-thumbnails');
+    //add_theme_support('post-thumbnails');
     //set_post_thumbnail_size( 200, 150, true );
 
     //REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
@@ -24,7 +24,7 @@ function campanha_setup() {
     //add_image_size('nome2',X,Y);
 
     // AUTOMATIC FEED LINKS
-    add_theme_support('automatic-feed-links');
+    //add_theme_support('automatic-feed-links');
 
 }
 
@@ -347,7 +347,7 @@ function savePlataformSettings($sets = false)
         }
     }
 }
-
+/** use this function on wp-cli **/
 function campanha_add_user_to_root()
 {
 	if(is_super_admin())
@@ -357,17 +357,23 @@ function campanha_add_user_to_root()
 		$query = "SELECT ID FROM {$wpdb->users}";
 		$users = $wpdb->get_results( $query, ARRAY_A );
 		foreach($users as $user) {
-			add_user_to_blog('1', $user['ID'], 'subscriber');
+			if(! is_user_member_of_blog($user['ID'], 1) ) {
+				add_user_to_blog('1', $user['ID'], 'subscriber');
+			}
 		}
+		return true;
 	}
+	return false;
 }
-//add_action( 'init', 'campanha_add_user_to_root', 1, 2); // TODO exec when need and not always
 
 function campanha_new_user_to_root($user_id)
 {
-	add_user_to_blog('1', $user_id, 'subscriber');
+	if(! is_user_member_of_blog($user_id, 1) )
+		add_user_to_blog('1', $user_id, 'subscriber');
 }
-add_action( 'wpmu_new_user', 'campanha_new_user_to_root', 10, 2);
+add_action( 'wpmu_new_user', 'campanha_new_user_to_root', 10, 1);
+add_action( 'user_register', 'campanha_new_user_to_root', 10, 1);
+
 
 function user_can_create_campanha()
 {
