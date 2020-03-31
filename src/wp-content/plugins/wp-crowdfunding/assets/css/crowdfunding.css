@@ -1,0 +1,240 @@
+/*
+ * Crowdfunding CSS
+ * File Description: The main stylesheet of this plugins for main design part.
+ */
+#addreward, #addcampaignupdate{
+    float: right;
+    position: relative;
+    margin: 25px 25px 25px 0px;
+}
+.reward_group{
+    border-bottom: 1px solid #F3EDED;
+}
+.removeCampaignRewards, .removecampaignupdate{
+    position: relative;
+    float: right;
+    top: -38px;
+    right: 10px;
+}
+/** Seelct2 */
+.select2-container.select2.wpneo_country {
+    min-width: 200px;
+}
+#wpneo_crowdfunding_overview .wpneo_d_status_list{
+    overflow: hidden;
+    margin: 0;
+}
+#wpneo_crowdfunding_overview .wpneo_d_status_list li {
+    border-top: 1px solid #ececec;
+    box-sizing: border-box;
+    color: #aaa;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+}
+#wpneo_crowdfunding_overview .wpneo_d_status_list li:first-child , #wpneo_crowdfunding_overview .wpneo_d_status_list li:nth-child(2){
+     border-top: none;
+ }
+#wpneo_crowdfunding_overview .wpneo_d_status_list li span strong, #wpneo_crowdfunding_overview .wpneo_d_status_list li span.amount {
+    color: #21759b;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2em;
+    padding: 0;
+    display: block;
+}
+#wpneo_crowdfunding_overview .wpneo_d_status_list li span{
+    color: #aaa;
+    display: block;
+    font-size: 12px;
+    padding: 6px 10px;
+    position: relative;
+}
+.form-table input[type="text"],
+.form-table textarea{
+    width: 400px;
+}
+.form-table textarea{
+    height: 150px;
+}
+.wpneo-image-container{
+    position: relative;
+}
+.wpneo-image-container img{
+    margin-right: 10px;
+}
+.wpneo-image-remove{
+    position: absolute;
+    left: 80px;
+    margin-top: 4px;
+    font-size: 10px;
+    color: #fff;
+    padding: 3px 4px 5px 5px;
+    border: 1px solid #ff0000;
+    border-radius: 50%;
+    line-height: 6px;
+    background-color: #ff0000;
+    cursor: pointer;
+}
+.wpneo-image-upload-btn{
+    background-color: #0073aa;
+    border: none;
+    color: #fff;
+    padding: 4px 10px;
+    position: absolute;
+    cursor: pointer;
+}
+.button.removeCampaignRewards{
+    color: #ff0000;
+}
+
+/* ***** Buy Now ***** */
+.wpneo-premium h2{
+    font-size: 30px;
+    line-height: 42px;
+}
+.wpneo-premium p{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.dashicons-star-filled{
+    color: #ef5e25;
+    margin-top: -3px;
+}
+.wpneo-premium ul li{
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+.wpneo-premium ul li span{
+    color: #000;
+    font-weight: bold;
+}
+.wpneo-premium ul li:before{
+    color: #77b227;
+    font-size: 30px;
+    margin-top: -5px;
+    margin-right: 20px;
+}
+.wpneo-premium h2 span{
+    color: #ef5e25;
+}
+.wpneo-premium .wpneo-buynow{
+    background-color: #ef5e25;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 26px;
+    display: inline-block;
+}
+.button.wpneo-crowdfunding-reset-btn i {
+    line-height: 25px;
+}
+.button.wpneo-crowdfunding-reset-btn {
+    float: right;
+    margin-top: -30px;
+    margin-right: 20px;
+}
+.multiple-selector{
+    height: 190px;
+}
+.label-default,
+.label-primary,
+.label-success,
+.label-info,
+.label-warning,
+.label-danger{
+    color: #ffffff;
+    display: inline-block;
+    padding: .4em .8em .4em;
+    font-size: 90%;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    border: none;
+    margin: 2px;
+}
+.label-default{ background-color: #777; }
+.label-primary{ background-color: #337ab7; }
+.label-success{ background-color: #5cb85c; }
+.label-info{ background-color: #5bc0de; }
+.label-warning{ background-color: #f0ad4e; }
+.label-danger{ background-color: #d9534f; }
+
+.widefat td,
+.widefat th {
+    padding: 6px 10px;
+}
+h1.top-reports{
+    margin-top: 40px;
+}
+
+.campaign-warp .page-title-action{
+    margin: 10px 10px 10px 0px;
+    padding: 7px 13px;
+    display: inline-block;
+}
+.campaign-warp form{
+    margin: 12px 0px 24px;
+}
+.campaign-warp input{
+    margin: 0px 8px 0px 0px !important;
+    padding: 5px 5px;
+}
+.button-default{
+    text-decoration: none;
+    padding: 6px 20px;
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #337ab7;
+    border-radius: 3px;
+    color: #fff;
+    margin-right: 10px;
+}
+
+
+
+.alert {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+/**
+@Since 10.30.1
+@date: May 18, 2018
+ */
+.campaign_update_field_copy {
+    margin: 10px 0;
+    background: #F0F0F0;
+    padding: 30px 20px;
+}
+.wpcf-campaign-update-btn-wrap {
+    clear: both;
+    margin-top: 50px;
+}
