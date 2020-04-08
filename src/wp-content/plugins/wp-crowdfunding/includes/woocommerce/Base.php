@@ -82,6 +82,7 @@ class Base {
         if (is_plugin_active_for_network(WPCF_BASENAME)){
             add_action('admin_notices', array($this, 'network_notice_callback'));
         }
+        add_action('init', 'function_to_add_author_woocommerce', 999 );
     }
 
     // Disable Notice
@@ -126,6 +127,10 @@ class Base {
         wp_enqueue_script( 'jquery.easypiechart', WPCF_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
         wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
         wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+        global $wp_locale;
+        if(! is_object($wp_locale)) {
+        	$wp_locale = new \WP_Locale();
+        }
         wp_enqueue_media();
     }
 
@@ -201,5 +206,9 @@ class Base {
         $addonsConfig[$addonFieldName]['is_enable'] = ($isEnable) ? 1 : 0;
         update_option('wpcf_addons_config', $addonsConfig);
         wp_send_json_success();
+    }
+    
+    function function_to_add_author_woocommerce() {
+    	add_post_type_support( 'product', 'author' );
     }
 }

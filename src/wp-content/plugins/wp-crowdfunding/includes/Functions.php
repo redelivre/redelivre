@@ -4,6 +4,19 @@ namespace WPCF;
 defined( 'ABSPATH' ) || exit;
 
 class Functions {
+	
+	public function __construct() {
+		add_filter( "get_post_metadata", array($this, 'get_post_metadata'), 10, 4 );
+	}
+	
+	function get_post_metadata($check, $object_id, $meta_key, $single) {
+		if($meta_key == '_nf_funding_total' && !defined('nf_funding_total_updating')) {
+			define('nf_funding_total_updating', true);
+			$fund = $this->get_total_fund($object_id);
+			update_post_meta($object_id, $meta_key, $fund );
+		}
+		return $check;
+	}
 
     public function generator( $arr ){
         require_once WPCF_DIR_PATH . 'settings/Generator.php';
