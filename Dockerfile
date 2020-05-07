@@ -36,7 +36,7 @@ RUN apt-get update \
 		libapache2-mod-security2 \
 		unzip\
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt mysqli pdo pdo_mysql mbstring curl xml gd soap \ 
+    && docker-php-ext-install -j$(nproc) iconv mcrypt mysqli pdo pdo_mysql mbstring curl xml gd soap zip \ 
     && a2enmod rewrite \
     && a2enmod evasive \
     && a2dismod security2 \
