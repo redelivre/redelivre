@@ -97,29 +97,43 @@ class SiteOrigin_Panels_Css_Builder {
 	 * @param bool $specify_layout Sometimes for CSS specificity, we need to include the layout ID.
 	 */
 	public function add_cell_css( $li, $ri = false, $ci = false, $sub_selector = '', $attributes = array(), $resolution = 1920, $specify_layout = false ) {
-		$selector = array();
+		$selector_parts = array();
 
 		if ( $ri === false && $ci === false ) {
 			// This applies to all cells in the layout
-			$selector[] = '#pl-' . $li;
-			$selector[] = '.panel-grid-cell';
+			$selector_parts[] = '#pl-' . $li;
+			$selector_parts[] = '.panel-grid-cell';
 		} elseif ( $ri !== false && $ci === false ) {
 			// This applies to all cells in a row
+			$sel = '';
+			
 			if ( $specify_layout ) {
-				$selector[] = '#pl-' . $li;
+				$sel = '#pl-' . $li . ' ';
 			}
-			$selector[] = is_string( $ri ) ? ( '#' . $ri ) : '#pg-' . $li . '-' . $ri;
-			$selector[] = '.panel-grid-cell';
+			$sel .= is_string( $ri ) ? ( '#' . $ri ) : '#pg-' . $li . '-' . $ri;
+			
+			// If row styles are set, there's a row style wrapper between the row and the cell, so we need to include
+			// the selector for both. This is a somewhat hacky fix, but trying to prevent further breakage in existing
+			// layouts.
+			$sel_with_style = ', ' . $sel . ' > .panel-row-style';
+			
+			$sel .= ' > .panel-grid-cell';
+			$sel_with_style .= ' > .panel-grid-cell';
+			
+			$selector_parts[] = $sel;
+			$selector_parts[] = $sel_with_style;
 		} elseif ( $ri !== false && $ci !== false ) {
 			// This applies to a specific cell
 			if ( $specify_layout ) {
-				$selector[] = '#pl-' . $li;
+				$selector_parts[] = '#pl-' . $li;
 			}
-			$selector[] = '#pgc-' . $li . '-' . $ri . '-' . $ci;
+			$selector_parts[] = '#pgc-' . $li . '-' . $ri . '-' . $ci;
 		}
 
-		$selector = implode( ' ', $selector );
-		$selector = $this->add_sub_selector( $selector, $sub_selector );
+		$selector = implode( ' ', $selector_parts );
+		if ( ! empty( $sub_selector ) ) {
+			$selector = $this->add_sub_selector( $selector, $sub_selector );
+		}
 
 		// Add this to the CSS array
 		$this->add_css( $selector, $attributes, $resolution );
@@ -205,7 +219,7 @@ class SiteOrigin_Panels_Css_Builder {
 		$css_text = '';
 		krsort( $this->css );
 		foreach ( $this->css as $res => $def ) {
-			if( strpos( $res, ':' ) ) {
+			if( strpos( $res, ':' ) !== false ) {
 				list( $max_res, $min_res ) = explode( ':', $res, 2 );
 			}
 			else {
@@ -217,9 +231,11 @@ class SiteOrigin_Panels_Css_Builder {
 				continue;
 			}
 
-			if ( $max_res < 1920 ) {
+			if ( $max_res === '' && $min_res > 0 ) {
+				$css_text .= '@media (min-width:' . intval( $min_res ) . 'px) {';
+			} elseif ( $max_res < 1920 ) {
 				$css_text .= '@media (max-width:' . intval( $max_res ) . 'px)';
-				if( ! empty( $min_res ) ) {
+				if ( ! empty( $min_res ) ) {
 					$css_text .= ' and (min-width:' . intval( $min_res ) . 'px) ';
 				}
 				$css_text .= '{ ';
@@ -230,7 +246,7 @@ class SiteOrigin_Panels_Css_Builder {
 				$css_text .= implode( ' , ', $selector ) . ' { ' . $property . ' } ';
 			}
 
-			if ( $max_res < 1920 ) {
+			if ( ( $max_res === '' && $min_res > 0 ) ||  $max_res < 1920 ) {
 				$css_text .= ' } ';
 			}
 		}

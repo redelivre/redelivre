@@ -14,9 +14,6 @@ class SiteOrigin_Panels_Live_Editor {
 
 		// Don't display the admin bar when in live editor mode
 		add_filter( 'show_admin_bar', '__return_false' );
-
-		// Don't use the cached version
-		add_filter( 'siteorigin_panels_use_cached', '__return_false' );
 	}
 
 	public static function single() {
@@ -29,15 +26,24 @@ class SiteOrigin_Panels_Live_Editor {
 		if(
 			! empty( $_POST['live_editor_panels_data'] ) &&
 			! empty( $post->ID ) &&
-			current_user_can( 'edit_post', $post->ID )
+			current_user_can( 'edit_post', $post->ID ) &&
+			isset( $_GET['_panelsnonce'] ) &&
+			! wp_verify_nonce( $_GET['_panelsnonce'], 'panels_action' )
 		) {
 			// Disable XSS protection when in the Live Editor
 			header( 'X-XSS-Protection: 0' );
+		} else {
+			// If this class has been loaded, we know we're in the Live Editor
+			// In the case that data or the nonce isn't valid, wp_die as a security precaution.
+			// This will happen on template_redirect.
+			wp_die();
 		}
 	}
-
+	
+	
 	/**
-	 * Edit the page builder data when we're viewing the live editor version
+	 * Edit the page builder data when we're viewing the live editor version. This is necessary to ensure updated styles
+	 * are rendered in the preview.
 	 *
 	 * @param $value
 	 * @param $post_id
@@ -52,23 +58,10 @@ class SiteOrigin_Panels_Live_Editor {
 			! empty( $_POST['live_editor_panels_data'] ) &&
 			$_POST['live_editor_post_ID'] == $post_id
 		) {
-			$data = json_decode( wp_unslash( $_POST['live_editor_panels_data'] ), true );
-
-			if (
-				! empty( $data['widgets'] ) && (
-					! class_exists( 'SiteOrigin_Widget_Field_Class_Loader' ) ||
-					method_exists( 'SiteOrigin_Widget_Field_Class_Loader', 'extend' )
-				)
-			) {
-				$data['widgets'] = SiteOrigin_Panels_Admin::single()->process_raw_widgets( $data['widgets'], false, false );
-			}
-
-			$value = array( $data );
+			$value = array( json_decode( wp_unslash( $_POST['live_editor_panels_data'] ), true ) );
 		}
-
 		return $value;
 	}
-
 
 	/**
 	 * Load the frontend scripts for the live editor
@@ -76,21 +69,21 @@ class SiteOrigin_Panels_Live_Editor {
 	function frontend_scripts() {
 		wp_enqueue_script(
 			'live-editor-front',
-			plugin_dir_url( __FILE__ ) . '../js/live-editor/live-editor-front' . SITEORIGIN_PANELS_JS_SUFFIX . '.js',
+			siteorigin_panels_url( 'js/live-editor/live-editor-front' . SITEORIGIN_PANELS_JS_SUFFIX . '.js' ),
 			array( 'jquery' ),
 			SITEORIGIN_PANELS_VERSION
 		);
 
 		wp_enqueue_script(
 			'live-editor-scrollto',
-			plugin_dir_url( __FILE__ ) . '../js/live-editor/jquery.scrollTo' . SITEORIGIN_PANELS_JS_SUFFIX . '.js',
+			siteorigin_panels_url( 'js/live-editor/jquery.scrollTo' . SITEORIGIN_PANELS_JS_SUFFIX . '.js' ),
 			array( 'jquery' ),
 			SITEORIGIN_PANELS_VERSION
 		);
 
 		wp_enqueue_style(
 			'live-editor-front',
-			plugin_dir_url( __FILE__ ) . '../css/live-editor-front.css',
+			siteorigin_panels_url( 'css/live-editor-front' . SITEORIGIN_PANELS_CSS_SUFFIX . '.css' ),
 			array(),
 			SITEORIGIN_PANELS_VERSION
 		);

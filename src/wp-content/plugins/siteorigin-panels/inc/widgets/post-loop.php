@@ -5,10 +5,13 @@
  *
  * Class SiteOrigin_Panels_Widgets_PostLoop
  */
-class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
+class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget {
 	
 	static $rendering_loop;
-	
+
+	static $current_loop_template;
+	static $current_loop_instance;
+
 	/**
 	 * @var SiteOrigin_Panels_Widgets_PostLoop_Helper
 	 */
@@ -20,14 +23,40 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 			__( 'Post Loop', 'siteorigin-panels' ),
 			array(
 				'description' => __( 'Displays a post loop.', 'siteorigin-panels' ),
+			),
+			array(
+				'width' => 800,
 			)
 		);
 	}
-	
+
+	/**
+	 * Are we currently rendering a post loop
+	 *
+	 * @return bool
+	 */
 	static function is_rendering_loop() {
 		return self::$rendering_loop;
 	}
-	
+
+	/**
+	 * Which post loop is currently being rendered
+	 *
+	 * @return array
+	 */
+	static function get_current_loop_template() {
+		return self::$current_loop_template;
+	}
+
+	/**
+	 * Which post loop is currently being rendered
+	 *
+	 * @return array
+	 */
+	static function get_current_loop_instance() {
+		return self::$current_loop_instance;
+	}
+
 	/**
 	 * Update the widget
 	 *
@@ -151,19 +180,27 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 			echo $args['before_title'] . $instance['title'] . $args['after_title'];
 		}
 		
-		global $more; $old_more = $more; $more = empty($instance['more']);
+		global $more;
+		$old_more = $more;
+		$more = empty($instance['more']);
+		
 		self::$rendering_loop = true;
-		if(strpos('/'.$instance['template'], '/content') !== false) {
+		self::$current_loop_instance = $instance;
+		self::$current_loop_template = $instance['template'];
+		
+		if ( preg_match( '/\/content*/', '/' . $instance['template'] ) ) {
 			while( have_posts() ) {
 				the_post();
-				locate_template($instance['template'], true, false);
+				self::locate_template($instance['template'], true, false);
 			}
+		} else {
+			self::locate_template($instance['template'], true, false);
 		}
-		else {
-			locate_template($instance['template'], true, false);
-		}
-		self::$rendering_loop = false;
 		
+		self::$rendering_loop = false;
+		self::$current_loop_instance = null;
+		self::$current_loop_template = null;
+
 		echo $args['after_widget'];
 		
 		// Reset everything
@@ -219,7 +256,7 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 					<?php foreach($templates as $template) : ?>
 						<option value="<?php echo esc_attr($template) ?>" <?php selected($instance['template'], $template) ?>>
 							<?php
-							$headers = get_file_data( locate_template($template), array(
+							$headers = get_file_data( self::locate_template($template), array(
 								'loop_name' => 'Loop Name',
 							) );
 							echo esc_html(!empty($headers['loop_name']) ? $headers['loop_name'] : $template);
@@ -309,10 +346,12 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 					?>
 				</small>
 			</p>
+			
+			<a href="https://siteorigin.com/page-builder/bundled-widgets/post-loop-widget/" class="siteorigin-widget-help-link siteorigin-panels-help-link" target="_blank" rel="noopener noreferrer"><?php _e('Help', 'so-widgets-bundle') ?></a>
 			<?php
 		}
 	}
-	
+
 	/**
 	 * Get all the existing files
 	 *
@@ -329,7 +368,9 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		);
 		
 		$template_dirs = array( get_template_directory(), get_stylesheet_directory() );
+		$template_dirs = apply_filters( 'siteorigin_panels_postloop_template_directory', $template_dirs );
 		$template_dirs = array_unique( $template_dirs );
+		
 		foreach( $template_dirs  as $dir ){
 			foreach( $template_files as $template_file ) {
 				foreach( (array) glob($dir.'/'.$template_file) as $file ) {
@@ -337,15 +378,64 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 				}
 			}
 		}
+		$templates = array_unique( apply_filters( 'siteorigin_panels_postloop_templates', $templates ) );
+		$templates = array_filter( $templates, array($this, 'validate_template_file') );
 		
-		$templates = array_unique( $templates );
-		$templates = apply_filters('siteorigin_panels_postloop_templates', $templates);
+		// Update array indexes to ensure logical indexing
 		sort( $templates );
 		
 		return $templates;
 	}
 	
+	/**
+	 * Checks if a template file is valid
+	 *
+	 * @param $filename
+	 *
+	 * @return bool
+	 */
+	public function validate_template_file( $filename )
+	{
+		return (
+			// File is a valid PHP file
+			validate_file( $filename ) == 0 &&
+			substr( $filename, -4 ) == '.php' &&
+			
+			// And it exists
+			self::locate_template( $filename ) != ''
+		);
+	}
 	
+	/**
+	 * Find the location of a given template. Either in the theme or in the plugin directory.
+	 *
+	 * @param $template_names
+	 * @param bool $load
+	 * @param bool $require_once
+	 *
+	 * @return string The template location.
+	 */
+	public static function locate_template( $template_names, $load = false, $require_once = true )
+	{
+		$located = '';
+		
+		foreach ( (array) $template_names as $template_name ) {
+			
+			$located = locate_template($template_name, false);
+			
+			if ( ! $located && file_exists( WP_PLUGIN_DIR . '/' . $template_name ) ) {
+				// Template added by a plugin
+				$located = WP_PLUGIN_DIR . '/' . $template_name;
+			}
+		}
+		
+		if ( $load && '' != $located ) {
+			load_template( $located, $require_once );
+		}
+		
+		return $located;
+	}
+
 	/**
 	 * Get the helper widget based on the Widgets Bundle's classes.
 	 *
@@ -358,11 +448,11 @@ class SiteOrigin_Panels_Widgets_PostLoop extends WP_Widget{
 		     class_exists( 'SiteOrigin_Widget' ) &&
 		     class_exists( 'SiteOrigin_Widget_Field_Posts' ) ) {
 			$this->helper = new SiteOrigin_Panels_Widgets_PostLoop_Helper( $templates );
-			// These ensure the form fields name attributes are correct.
-			$this->helper->id_base = $this->id_base;
-			$this->helper->id = $this->id;
-			$this->helper->number = $this->number;
 		}
+		// These ensure the form fields name attributes are correct.
+		$this->helper->id_base = $this->id_base;
+		$this->helper->id = $this->id;
+		$this->helper->number = $this->number;
 		
 		return $this->helper;
 	}

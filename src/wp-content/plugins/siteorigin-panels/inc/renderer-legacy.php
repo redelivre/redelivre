@@ -57,10 +57,12 @@ class SiteOrigin_Panels_Renderer_Legacy extends SiteOrigin_Panels_Renderer {
 					'width' => round( $weight * 100, 4 ) . '%',
 				) );
 			}
-			
-			$css->add_cell_css( $post_id, $ri, false, '', array(
-			
-			) );
+
+			if( ! empty( $row['style']['collapse_order'] ) &&  $row['style']['collapse_order'] == 'right-top') {
+				$css->add_cell_css( $post_id, $ri, false, '', array(
+					'float' => 'right'
+				) );
+			}
 
 			if(
 				$ri != count( $layout_data ) - 1 ||
@@ -142,8 +144,25 @@ class SiteOrigin_Panels_Renderer_Legacy extends SiteOrigin_Panels_Renderer {
 
 		return $css->get_css();
 	}
+
+	/**
+	 * This overwrites the parent function to get the cells in reverse order when using right_on_top collapse mode.
+	 *
+	 * @param $cells The cells to modify
+	 * @param $row The row the cells belong to
+	 *
+	 * @return mixed
+	 */
+	protected function modify_row_cells( $cells, $row ){
+		if( ! empty( $row['style']['collapse_order'] ) &&  $row['style']['collapse_order'] == 'right-top') {
+			$cells = array_reverse( $cells, true );
+		}
+
+		return $cells;
+
+	}
 	
 	public function front_css_url(){
-		return plugin_dir_url( __FILE__ ) . '../css/front' . ( siteorigin_panels_setting( 'legacy-layout' ) ? '-legacy' : '' ) . '.css';
+		return siteorigin_panels_url( 'css/front' . ( siteorigin_panels_setting( 'legacy-layout' ) ? '-legacy' : '' ) . '.css' );
 	}
 }

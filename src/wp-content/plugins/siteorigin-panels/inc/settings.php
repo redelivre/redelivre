@@ -114,19 +114,23 @@ class SiteOrigin_Panels_Settings {
 		$defaults['display-teaser']    = true;
 		$defaults['display-learn']     = true;
 		$defaults['load-on-attach']    = false;
+		$defaults['use-classic']       = true;
 
 		// The general fields
 		$defaults['post-types']             = array( 'page', 'post' );
 		$defaults['live-editor-quick-link'] = true;
+		$defaults['admin-post-state']       = true;
 		$defaults['admin-widget-count']     = false;
 		$defaults['parallax-motion']        = '';
 		$defaults['sidebars-emulator']      = true;
+		$defaults['layout-block-default-mode'] = 'preview';
 
 		// Widgets fields
-		$defaults['title-html']          = '<h3 class="widget-title">{{title}}</h3>';
-		$defaults['add-widget-class']    = apply_filters( 'siteorigin_panels_default_add_widget_class', true );
-		$defaults['bundled-widgets']     = get_option( 'siteorigin_panels_is_using_bundled', false );
-		$defaults['recommended-widgets'] = true;
+		$defaults['title-html']           = '<h3 class="widget-title">{{title}}</h3>';
+		$defaults['add-widget-class']     = apply_filters( 'siteorigin_panels_default_add_widget_class', true );
+		$defaults['bundled-widgets']      = get_option( 'siteorigin_panels_is_using_bundled', false );
+		$defaults['recommended-widgets']  = true;
+		$defaults['instant-open-widgets'] = false;
 
 		// The layout fields
 		$defaults['responsive']             = true;
@@ -142,7 +146,6 @@ class SiteOrigin_Panels_Settings {
 		// Content fields
 		$defaults['copy-content'] = true;
 		$defaults['copy-styles'] = false;
-		$defaults['cache-content'] = false;
 
 		return $defaults;
 	}
@@ -175,8 +178,18 @@ class SiteOrigin_Panels_Settings {
 		if ( $prefix != 'settings_page_siteorigin_panels' ) {
 			return;
 		}
-		wp_enqueue_style( 'siteorigin-panels-settings', plugin_dir_url( __FILE__ ) . '../settings/admin-settings.css', array(), SITEORIGIN_PANELS_VERSION );
-		wp_enqueue_script( 'siteorigin-panels-settings', plugin_dir_url( __FILE__ ) . '../settings/admin-settings' . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array(), SITEORIGIN_PANELS_VERSION );
+		wp_enqueue_style(
+			'siteorigin-panels-settings',
+			siteorigin_panels_url( 'settings/admin-settings.css' ),
+			array(),
+			SITEORIGIN_PANELS_VERSION
+		);
+		wp_enqueue_script(
+			'siteorigin-panels-settings',
+			siteorigin_panels_url( 'settings/admin-settings' . SITEORIGIN_PANELS_JS_SUFFIX . '.js' ),
+			array(),
+			SITEORIGIN_PANELS_VERSION
+		);
 	}
 
 	/**
@@ -234,13 +247,29 @@ class SiteOrigin_Panels_Settings {
 			'type'        => 'select_multi',
 			'label'       => __( 'Post Types', 'siteorigin-panels' ),
 			'options'     => $this->get_post_types(),
-			'description' => __( 'The post types to use Page Builder on.', 'siteorigin-panels' ),
+			'description' => __( 'The post types on which to use Page Builder.', 'siteorigin-panels' ),
+		);
+
+		$fields['general']['fields']['use-classic'] = array(
+			'type' => 'checkbox',
+			'label' => __( 'Use Classic Editor for new posts', 'siteorigin-panels' ),
+			'description' => __( 'New posts of the above Post Types will be created using the Classic Editor.', 'siteorigin-panels' )
 		);
 
 		$fields['general']['fields']['live-editor-quick-link'] = array(
 			'type'        => 'checkbox',
 			'label'       => __( 'Live Editor Quick Link', 'siteorigin-panels' ),
 			'description' => __( 'Display a Live Editor button in the admin bar.', 'siteorigin-panels' ),
+		);
+
+		$fields['general']['fields']['admin-post-state'] = array(
+			'type'        => 'checkbox',
+			'label'       => __( 'Display Post State', 'siteorigin-panels' ),
+			'description' => sprintf(
+				__( "Display a %sSiteOrigin Page Builder%s post state in the admin lists of posts/pages to indicate Page Builder is active.", 'siteorigin-panels' ),
+				'<strong>',
+				'</strong>'
+			),
 		);
 
 		$fields['general']['fields']['admin-widget-count'] = array(
@@ -260,27 +289,35 @@ class SiteOrigin_Panels_Settings {
 			'label'       => __( 'Sidebars Emulator', 'siteorigin-panels' ),
 			'description' => __( 'Page Builder will create an emulated sidebar, that contains all widgets in the page.', 'siteorigin-panels' ),
 		);
-		
+
 		$fields['general']['fields']['display-teaser'] = array(
 			'type' => 'checkbox',
 			'label' => __('Upgrade Teaser', 'siteorigin-panels'),
 			'description' => sprintf(
 				__('Display the %sSiteOrigin Premium%s upgrade teaser in the Page Builder toolbar.', 'siteorigin-panels'),
-				'<a href="siteorigin.com/downloads/premium/" target="_blank">',
+				'<a href="https://siteorigin.com/downloads/premium/" target="_blank" rel="noopener noreferrer">',
 				'</a>'
 			)
 		);
 
-		$fields['general']['fields']['display-learn'] = array(
-			'type' => 'checkbox',
-			'label' => __( 'Page Builder Learning', 'siteorigin-panels' ),
-			'description' => __( 'Display buttons for Page Builder learning.', 'siteorigin-panels' )
-		);
-		
 		$fields['general']['fields']['load-on-attach'] = array(
 			'type' => 'checkbox',
 			'label' => __( 'Default To Page Builder Interface', 'siteorigin-panels' ),
-			'description' => __( 'New posts/pages that you create will start with the Page Builder loaded.', 'siteorigin-panels' )
+			'description' => sprintf(
+				__( 'New Classic Editor posts/pages that you create will start with the Page Builder loaded. The %s"Use Classic Editor for new posts"%s setting must be enabled.', 'siteorigin-panels' ),
+				'<strong>',
+				'</strong>'
+			)
+		);
+
+		$fields['general']['fields']['layout-block-default-mode'] = array(
+			'label' => __( 'Layout Block Default Mode', 'siteorigin-panels' ),
+			'type'        => 'select',
+			'options'     => array(
+				'edit' => __( 'Edit', 'siteorigin-panels' ),
+				'preview' => __( 'Preview', 'siteorigin-panels' ),
+			),
+			'description' => __( 'Whether to display layout blocks in edit mode or preview mode in the block editor.', 'siteorigin-panels' ),
 		);
 
 		// The widgets fields
@@ -314,6 +351,12 @@ class SiteOrigin_Panels_Settings {
 			'description' => __( 'Display recommend widgets in Page Builder add widget dialog.', 'siteorigin-panels' ),
 		);
 
+		$fields['widgets']['fields']['instant-open-widgets'] = array(
+			'type'        => 'checkbox',
+			'label'       => __( 'Instant Open Widgets', 'siteorigin-panels' ),
+			'description' => __( 'Open a widget form as soon as its added to a page.', 'siteorigin-panels' ),
+		);
+
 		// The layout fields
 
 		$fields['layout'] = array(
@@ -334,7 +377,7 @@ class SiteOrigin_Panels_Settings {
 			'label'       => __( 'Use Tablet Layout', 'siteorigin-panels' ),
 			'description' => __( 'Collapses columns differently on tablet devices.', 'siteorigin-panels' ),
 		);
-		
+
 		$fields['layout']['fields']['legacy-layout'] = array(
 			'type'        => 'select',
 			'options'     => array(
@@ -407,12 +450,6 @@ class SiteOrigin_Panels_Settings {
 			'description' => __( 'Include styles into your Post Content. This keeps page layouts, even when Page Builder is deactivated.', 'siteorigin-panels' ),
 		);
 
-		$fields['content']['fields']['cache-content'] = array(
-			'type'        => 'checkbox',
-			'label'       => __( 'Content Cache', 'siteorigin-panels' ),
-			'description' => __( "Cache CSS and HTML generated by Page Builder." , 'siteorigin-panels' ),
-		);
-
 		return $fields;
 	}
 
@@ -432,6 +469,12 @@ class SiteOrigin_Panels_Settings {
 			case 'float':
 				?><input name="<?php echo esc_attr( $field_name ) ?>"
 				         class="panels-setting-<?php echo esc_attr( $field['type'] ) ?>" type="text"
+				         value="<?php echo esc_attr( $value ) ?>" /> <?php
+				break;
+
+			case 'password':
+				?><input name="<?php echo esc_attr( $field_name ) ?>"
+				         class="panels-setting-<?php echo esc_attr( $field['type'] ) ?>" type="password"
 				         value="<?php echo esc_attr( $value ) ?>" /> <?php
 				break;
 
@@ -579,7 +622,7 @@ class SiteOrigin_Panels_Settings {
 
 		// Don't let mobile width go below 320
 		$values[ 'mobile-width' ] = max( $values[ 'mobile-width' ], 320 );
-		
+
 		// Save the values to the database
 		update_option( 'siteorigin_panels_settings', $values );
 		do_action( 'siteorigin_panels_save_settings', $values );
@@ -593,10 +636,17 @@ class SiteOrigin_Panels_Settings {
 	 * @return array
 	 */
 	function get_post_types() {
-		$types = array_merge( array(
+		$post_types = get_post_types( array( '_builtin' => false ) );
+
+		$types = array(
 			'page' => 'page',
 			'post' => 'post'
-		), get_post_types( array( '_builtin' => false ) ) );
+		);
+
+		// Don't use `array_merge` here as it will break things if a post type has a numeric slug.
+		foreach ( $post_types as $key => $value ) {
+			$types[ $key ] = $value;
+		}
 
 		// These are post types we know we don't want to show Page Builder on
 		unset( $types['ml-slider'] );
@@ -612,7 +662,7 @@ class SiteOrigin_Panels_Settings {
 			$types[ $type_id ] = $type_object->label;
 		}
 
-		return $types;
+		return apply_filters( 'siteorigin_panels_settings_enabled_post_types', $types );
 	}
 
 }

@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var panels = window.panels;
 
 module.exports = Backbone.Collection.extend( {
@@ -471,7 +471,7 @@ module.exports = panels.view.dialog.extend( {
 		c.html( $( '#siteorigin-panels-dialog-prebuilt-importexport' ).html() );
 
 		var thisView = this;
-		var uploadUi = thisView.$( '.import-upload-ui' ).hide();
+		var uploadUi = thisView.$( '.import-upload-ui' );
 
 		// Create the uploader
 		var uploader = new plupload.Uploader( {
@@ -500,7 +500,7 @@ module.exports = panels.view.dialog.extend( {
 					if ( uploader.features.dragdrop ) {
 						uploadUi.addClass( 'has-drag-drop' );
 					}
-					uploadUi.show().find( '.progress-precent' ).css( 'width', '0%' );
+					uploadUi.find( '.progress-precent' ).css( 'width', '0%' );
 				},
 				FilesAdded: function ( uploader ) {
 					uploadUi.find( '.file-browse-button' ).blur();
@@ -533,6 +533,14 @@ module.exports = panels.view.dialog.extend( {
 		} );
 		uploader.init();
 
+		if ( /Edge\/\d./i.test(navigator.userAgent) ){
+			// A very dirty fix for a Microsoft Edge issue.
+			// TODO find a more elegant fix if Edge gains market share
+			setTimeout( function(){
+				uploader.refresh();
+			}, 250 );
+		}
+
 		// This is
 		uploadUi.find( '.drag-upload-area' )
 			.on( 'dragover', function () {
@@ -545,7 +553,13 @@ module.exports = panels.view.dialog.extend( {
 		// Handle exporting the file
 		c.find( '.so-export' ).submit( function ( e ) {
 			var $$ = $( this );
-			$$.find( 'input[name="panels_export_data"]' ).val( JSON.stringify( thisView.builder.model.getPanelsData() ) );
+			var panelsData = thisView.builder.model.getPanelsData();
+			var postName = $('input[name="post_title"]').val();
+			if ( ! postName ) {
+				postName = $('input[name="post_ID"]').val();
+			}
+			panelsData.name = postName;
+			$$.find( 'input[name="panels_export_data"]' ).val( JSON.stringify( panelsData ) );
 		} );
 
 	},
@@ -599,6 +613,7 @@ module.exports = panels.view.dialog.extend( {
 				search: search,
 				page: page,
 				type: type,
+				builderType: this.builder.config.builderType,
 			},
 			function ( data ) {
 				// Skip this if we're no longer viewing the layout directory
@@ -721,21 +736,28 @@ module.exports = panels.view.dialog.extend( {
 	loadSelectedLayout: function () {
 		this.setStatusMessage( panelsOptions.loc.prebuilt_loading, true );
 
-		var args = _.extend( this.selectedLayoutItem, {action: 'so_panels_get_layout'} );
+		var args = _.extend(
+			this.selectedLayoutItem,
+			{
+				action: 'so_panels_get_layout',
+				builderType: this.builder.config.builderType
+			}
+		);
 		var deferredLayout = new $.Deferred();
 
 		$.get(
 			panelsOptions.ajaxurl,
 			args,
 			function ( layout ) {
-				if ( layout.error !== undefined ) {
-					// There was an error
-					alert( layout.error );
-					deferredLayout.reject( layout );
+				var msg = '';
+				if ( ! layout.success ) {
+					msg = layout.data.message;
+					deferredLayout.reject( layout.data );
 				} else {
-					this.setStatusMessage( '', false );
-					deferredLayout.resolve( layout );
+					deferredLayout.resolve( layout.data );
 				}
+				this.setStatusMessage( msg, false, ! layout.success );
+				this.updateButtonState( true );
 			}.bind( this )
 		);
 		return deferredLayout.promise();
@@ -798,6 +820,7 @@ module.exports = panels.view.dialog.extend({
 		'click .row-set-form button.set-row': 'setCellsFromForm',
 	},
 
+	rowView: null,
 	dialogIcon: 'add-row',
 	dialogClass: 'so-panels-dialog-row-edit',
 	styleType: 'row',
@@ -825,6 +848,8 @@ module.exports = panels.view.dialog.extend({
 			}
 
 			this.regenerateRowPreview();
+			this.renderStyles();
+			this.openSelectedCellStyles();
 		}, this);
 
 		// This is the default row layout
@@ -887,14 +912,6 @@ module.exports = panels.view.dialog.extend({
 		}
 		this.$( '.so-edit-title' ).val( titleElt.text() );
 
-		// Now we need to attach the style window
-		this.styles = new panels.view.styles();
-		this.styles.model = this.model;
-		this.styles.render('row', this.builder.config.postId, {
-			builderType: this.builder.config.builderType,
-			dialog: this
-		});
-
 		if (!this.builder.supports('addRow')) {
 			this.$('.so-buttons .so-duplicate').remove();
 		}
@@ -902,24 +919,15 @@ module.exports = panels.view.dialog.extend({
 			this.$('.so-buttons .so-delete').remove();
 		}
 
-		var $rightSidebar = this.$('.so-sidebar.so-right-sidebar');
-		this.styles.attach($rightSidebar);
-
-		// Handle the loading class
-		this.styles.on('styles_loaded', function (hasStyles) {
-			// If we have styles remove the loading spinner, else remove the whole empty sidebar.
-			if (hasStyles) {
-				$rightSidebar.removeClass('so-panels-loading');
-			} else {
-				$rightSidebar.closest('.so-panels-dialog').removeClass('so-panels-dialog-has-right-sidebar');
-				$rightSidebar.remove();
-			}
-		}, this);
-		$rightSidebar.addClass('so-panels-loading');
-
 		if (!_.isUndefined(this.model)) {
 			// Set the initial value of the
-			this.$('input.so-row-field').val(this.model.get('cells').length);
+			this.$( 'input[name="cells"].so-row-field' ).val( this.model.get( 'cells' ).length );
+			if ( this.model.has( 'ratio' ) ) {
+				this.$( 'select[name="ratio"].so-row-field' ).val( this.model.get( 'ratio' ) );
+			}
+			if ( this.model.has( 'ratio_direction' ) ) {
+				this.$( 'select[name="ratio_direction"].so-row-field' ).val( this.model.get( 'ratio_direction' ) );
+			}
 		}
 
 		this.$('input.so-row-field').keyup(function () {
@@ -927,6 +935,38 @@ module.exports = panels.view.dialog.extend({
 		});
 
 		return this;
+	},
+	
+	renderStyles: function () {
+		if ( this.styles ) {
+			this.styles.off( 'styles_loaded' );
+			this.styles.remove();
+		}
+		
+		// Now we need to attach the style window
+		this.styles = new panels.view.styles();
+		this.styles.model = this.model;
+		this.styles.render('row', this.builder.config.postId, {
+			builderType: this.builder.config.builderType,
+			dialog: this
+		});
+		
+		var $rightSidebar = this.$('.so-sidebar.so-right-sidebar');
+		this.styles.attach( $rightSidebar );
+		
+		// Handle the loading class
+		this.styles.on('styles_loaded', function (hasStyles) {
+			if ( ! hasStyles ) {
+				// If we don't have styles remove the view.
+				this.styles.remove();
+				
+				// If the sidebar is empty, hide it.
+				if ( $rightSidebar.children().length === 0 ) {
+					$rightSidebar.closest('.so-panels-dialog').removeClass('so-panels-dialog-has-right-sidebar');
+					$rightSidebar.hide();
+				}
+			}
+		}, this);
 	},
 
 	/**
@@ -944,11 +984,19 @@ module.exports = panels.view.dialog.extend({
 		// Set the rows to be a copy of the model
 		this.row = {
 			cells: this.model.get('cells').clone(),
-			style: {}
+			style: {},
+			ratio: this.model.get('ratio'),
+			ratio_direction: this.model.get('ratio_direction'),
 		};
 
 		// Set the initial value of the cell field.
-		this.$('input.so-row-field').val(this.model.get('cells').length);
+		this.$( 'input[name="cells"].so-row-field' ).val( this.model.get( 'cells' ).length );
+		if ( this.model.has( 'ratio' ) ) {
+			this.$( 'select[name="ratio"].so-row-field' ).val( this.model.get( 'ratio' ) );
+		}
+		if ( this.model.has( 'ratio_direction' ) ) {
+			this.$( 'select[name="ratio_direction"].so-row-field' ).val( this.model.get( 'ratio_direction' ) );
+		}
 
 		this.clearCellStylesCache();
 
@@ -1209,10 +1257,7 @@ module.exports = panels.view.dialog.extend({
 
 								// So the draggable handle is not hidden.
 								rowPreview.find('.preview-cell').css('overflow', 'visible');
-
-								setTimeout(function () {
-									thisDialog.regenerateRowPreview();
-								}, 260);
+								setTimeout(thisDialog.regenerateRowPreview.bind(thisDialog), 260);
 
 							}, 100);
 						})
@@ -1226,8 +1271,6 @@ module.exports = panels.view.dialog.extend({
 			});
 
 		}, this);
-
-		this.openSelectedCellStyles();
 
 		this.trigger('form_loaded', this);
 	},
@@ -1263,13 +1306,12 @@ module.exports = panels.view.dialog.extend({
 		if ( this.cellStyles ) {
 			var $rightSidebar = this.$( '.so-sidebar.so-right-sidebar' );
 			this.cellStyles.attach( $rightSidebar );
-
-			if ( !this.cellStyles.stylesLoaded ) {
-				this.cellStyles.on( 'styles_loaded', function () {
-					$rightSidebar.removeClass( 'so-panels-loading' );
-				}, this );
-				$rightSidebar.addClass( 'so-panels-loading' );
-			}
+			this.cellStyles.on( 'styles_loaded', function ( hasStyles ) {
+				if ( hasStyles ) {
+					$rightSidebar.closest('.so-panels-dialog').addClass('so-panels-dialog-has-right-sidebar');
+					$rightSidebar.show();
+				}
+			} );
 		}
 	},
 
@@ -1296,6 +1338,7 @@ module.exports = panels.view.dialog.extend({
 		// Call remove() on all cell styles to remove data, event listeners etc.
 		this.cellStylesCache.forEach(function (cellStyles) {
 			cellStyles.remove();
+			cellStyles.off( 'styles_loaded' );
 		});
 		this.cellStylesCache = [];
 	},
@@ -1340,7 +1383,7 @@ module.exports = panels.view.dialog.extend({
 				this.$('.row-set-form input[name="cells"]').val(f.cells);
 			}
 
-			this.$('.row-set-form input[name="ratio"]').val(f.ratio);
+			this.$('.row-set-form select[name="ratio"]').val(f.ratio);
 
 			var cells = [];
 			var cellCountChanged = (
@@ -1384,6 +1427,9 @@ module.exports = panels.view.dialog.extend({
 					cell.set('weight', cellWeight);
 				}
 			}.bind(this));
+			
+			this.row.ratio = f.ratio;
+			this.row.ratio_direction = f.direction;
 
 			if (cellCountChanged) {
 				this.regenerateRowPreview();
@@ -1400,9 +1446,7 @@ module.exports = panels.view.dialog.extend({
 				// So the draggable handle is not hidden.
 				this.$('.preview-cell').css('overflow', 'visible');
 
-				setTimeout(function () {
-					thisDialog.regenerateRowPreview();
-				}, 260);
+				setTimeout(thisDialog.regenerateRowPreview.bind(thisDialog), 260);
 			}
 		}
 		catch (err) {
@@ -1436,7 +1480,9 @@ module.exports = panels.view.dialog.extend({
 
 		// Set the cells
 		if (!_.isEmpty(this.model)) {
-			this.model.setCells(this.row.cells);
+			this.model.setCells( this.row.cells );
+			this.model.set( 'ratio', this.row.ratio );
+			this.model.set( 'ratio_direction', this.row.ratio_direction );
 		}
 
 		// Update the row styles if they've loaded
@@ -1518,7 +1564,7 @@ module.exports = panels.view.dialog.extend({
 	 */
 	deleteHandler: function () {
 		// Trigger a destroy on the model that will happen with a visual indication to the user
-		this.model.trigger('visual_destroy');
+		this.rowView.visualDestroyModel();
 		this.closeDialog({silent: true});
 
 		return false;
@@ -1578,8 +1624,8 @@ module.exports = panels.view.dialog.extend( {
 
 	initializeDialog: function () {
 		var thisView = this;
-		this.model.on( 'change:values', this.handleChangeValues, this );
-		this.model.on( 'destroy', this.remove, this );
+		this.listenTo( this.model, 'change:values', this.handleChangeValues );
+		this.listenTo( this.model, 'destroy', this.remove );
 
 		// Refresh panels data after both dialog form components are loaded
 		this.dialogFormsLoaded = 0;
@@ -1638,15 +1684,12 @@ module.exports = panels.view.dialog.extend( {
 
 		// Handle the loading class
 		this.styles.on( 'styles_loaded', function ( hasStyles ) {
-			// If we have styles remove the loading spinner, else remove the whole empty sidebar.
-			if ( hasStyles ) {
-				$rightSidebar.removeClass( 'so-panels-loading' );
-			} else {
+			// If we don't have styles remove the empty sidebar.
+			if ( ! hasStyles ) {
 				$rightSidebar.closest( '.so-panels-dialog' ).removeClass( 'so-panels-dialog-has-right-sidebar' );
 				$rightSidebar.remove();
 			}
 		}, this );
-		$rightSidebar.addClass( 'so-panels-loading' );
 	},
 
 	/**
@@ -1663,6 +1706,7 @@ module.exports = panels.view.dialog.extend( {
 		if ( currentIndex === 0 ) {
 			return false;
 		} else {
+			var widgetView;
 			do {
 				widgetView = widgets.eq( --currentIndex ).data( 'view' );
 				if ( ! _.isUndefined( widgetView ) && ! widgetView.model.get( 'read_only' ) ) {
@@ -1684,11 +1728,12 @@ module.exports = panels.view.dialog.extend( {
 			return false;
 		}
 
-		var currentIndex = widgets.index( this.widgetView.$el ), widgetView;
+		var currentIndex = widgets.index( this.widgetView.$el );
 
 		if ( currentIndex === widgets.length - 1 ) {
 			return false;
 		} else {
+			var widgetView;
 			do {
 				widgetView = widgets.eq( ++currentIndex ).data( 'view' );
 				if ( ! _.isUndefined( widgetView ) && ! widgetView.model.get( 'read_only' ) ) {
@@ -1718,39 +1763,48 @@ module.exports = panels.view.dialog.extend( {
 			'instance': JSON.stringify( this.model.get( 'values' ) ),
 			'raw': this.model.get( 'raw' )
 		};
+		
+		var $soContent = this.$( '.so-content' );
 
-		$.post(
-			panelsOptions.ajaxurl,
-			data,
-			function ( result ) {
-				// Add in the CID of the widget model
-				var html = result.replace( /{\$id}/g, this.model.cid );
-
-				// Load this content into the form
-				var $soContent = this.$( '.so-content' );
-				$soContent
-					.removeClass( 'so-panels-loading' )
-					.html( html );
-
-				// Trigger all the necessary events
-				this.trigger( 'form_loaded', this );
-
-				// For legacy compatibility, trigger a panelsopen event
-				this.$( '.panel-dialog' ).trigger( 'panelsopen' );
-
-				// If the main dialog is closed from this point on, save the widget content
-				this.on( 'close_dialog', this.updateModel, this );
-
-				var widgetContent = $soContent.find( '> .widget-content' );
-				// If there's a widget content wrapper, this is one of the new widgets in WP 4.8 which need some special
-				// handling in JS.
-				if ( widgetContent.length > 0 ) {
-					jsWidget.addWidget( $soContent, this.model.widget_id );
-				}
-
-			}.bind( this ),
-			'html'
-		);
+		$.post( panelsOptions.ajaxurl, data, null, 'html' )
+		.done( function ( result ) {
+			// Add in the CID of the widget model
+			var html = result.replace( /{\$id}/g, this.model.cid );
+			
+			// Load this content into the form
+			$soContent
+			.removeClass( 'so-panels-loading' )
+			.html( html );
+			
+			// Trigger all the necessary events
+			this.trigger( 'form_loaded', this );
+			
+			// For legacy compatibility, trigger a panelsopen event
+			this.$( '.panel-dialog' ).trigger( 'panelsopen' );
+			
+			// If the main dialog is closed from this point on, save the widget content
+			this.on( 'close_dialog', this.updateModel, this );
+			
+			var widgetContent = $soContent.find( '> .widget-content' );
+			// If there's a widget content wrapper, this is one of the new widgets in WP 4.8 which need some special
+			// handling in JS.
+			if ( widgetContent.length > 0 ) {
+				jsWidget.addWidget( $soContent, this.model.widget_id );
+			}
+			
+		}.bind( this ) )
+		.fail( function ( error ) {
+			var html;
+			if ( error && error.responseText ) {
+				html = error.responseText;
+			} else {
+				html = panelsOptions.forms.loadingFailed;
+			}
+			
+			$soContent
+			.removeClass( 'so-panels-loading' )
+			.html( html );
+		} );
 	},
 
 	/**
@@ -1821,8 +1875,7 @@ module.exports = panels.view.dialog.extend( {
 	 * @returns {boolean}
 	 */
 	deleteHandler: function () {
-
-		this.model.trigger( 'visual_destroy' );
+		this.widgetView.visualDestroyModel();
 		this.closeDialog( {silent: true} );
 		this.builder.model.refreshPanelsData();
 
@@ -1830,7 +1883,8 @@ module.exports = panels.view.dialog.extend( {
 	},
 
 	duplicateHandler: function () {
-		this.model.trigger( 'user_duplicate' );
+		// Call the widget duplicate handler directly
+		this.widgetView.duplicateHandler();
 
 		this.closeDialog( {silent: true} );
 		this.builder.model.refreshPanelsData();
@@ -1840,7 +1894,7 @@ module.exports = panels.view.dialog.extend( {
 
 } );
 
-},{"../view/widgets/js-widget":30}],10:[function(require,module,exports){
+},{"../view/widgets/js-widget":31}],10:[function(require,module,exports){
 var panels = window.panels, $ = jQuery;
 
 module.exports = panels.view.dialog.extend( {
@@ -1900,8 +1954,8 @@ module.exports = panels.view.dialog.extend( {
 
 		// Add the sidebar tabs
 		var tabs = this.$( '.so-sidebar-tabs' );
-		_.each( panelsOptions.widget_dialog_tabs, function ( tab ) {
-			$( this.dialogTabTemplate( {'title': tab.title} ) ).data( {
+		_.each( panelsOptions.widget_dialog_tabs, function ( tab, key ) {
+			$( this.dialogTabTemplate( {'title': tab.title, 'tab': key} ) ).data( {
 				'message': tab.message,
 				'filter': tab.filter
 			} ).appendTo( tabs );
@@ -2014,6 +2068,7 @@ module.exports = panels.view.dialog.extend( {
 	 */
 	widgetClickHandler: function ( e ) {
 		// Add the history entry
+		this.builder.trigger('before_user_adds_widget');
 		this.builder.addHistoryEntry( 'widget_added' );
 
 		var $w = $( e.currentTarget );
@@ -2028,6 +2083,8 @@ module.exports = panels.view.dialog.extend( {
 
 		this.closeDialog();
 		this.builder.model.refreshPanelsData();
+
+		this.builder.trigger('after_user_adds_widget', widget);
 	},
 
 	/**
@@ -2250,7 +2307,14 @@ module.exports = {
 			case 'row-model' :
 				retObj = new panels.model.row();
 				retObj.builder = parent;
-				retObj.set( 'style', thing.style );
+				var atts = { style: thing.style };
+				if ( thing.hasOwnProperty( 'label' ) ) {
+					atts.label = thing.label;
+				}
+				if ( thing.hasOwnProperty( 'color_label' ) ) {
+					atts.color_label = thing.color_label;
+				}
+				retObj.set( atts );
 				retObj.setCells( this.unserialize( thing.cells, 'cell-collection', retObj ) );
 				break;
 
@@ -2313,6 +2377,9 @@ module.exports = {
 	},
 
 	processTemplate: function ( s ) {
+		if ( _.isUndefined( s ) || _.isNull( s ) ) {
+			return '';
+		}
 		s = s.replace( /{{%/g, '<%' );
 		s = s.replace( /%}}/g, '%>' );
 		s = s.trim();
@@ -2335,10 +2402,14 @@ module.exports = {
 
 var panels = window.panels, $ = jQuery;
 
-module.exports = function ( config ) {
+module.exports = function ( config, force ) {
 
 	return this.each( function () {
 		var $$ = jQuery( this );
+		
+		if ( $$.data( 'soPanelsBuilderWidgetInitialized' ) && ! force ) {
+			return;
+		}
 		var widgetId = $$.closest( 'form' ).find( '.widget-id' ).val();
 
 		// Create a config for this specific widget
@@ -2404,6 +2475,8 @@ module.exports = function ( config ) {
 
 		// Trigger a global jQuery event after we've setup the builder view
 		$( document ).trigger( 'panels_setup', builderView );
+		
+		$$.data( 'soPanelsBuilderWidgetInitialized', true );
 	} );
 };
 
@@ -2479,21 +2552,22 @@ jQuery( function ( $ ) {
 		field,
 		form,
 		builderConfig;
-
-	if ( $( '#siteorigin-panels-metabox' ).length && $( 'form#post' ).length ) {
+	
+	var $panelsMetabox = $( '#siteorigin-panels-metabox' );
+	form = $( 'form#post' );
+	if ( $panelsMetabox.length && form.length ) {
 		// This is usually the case when we're in the post edit interface
-		container = $( '#siteorigin-panels-metabox' );
-		field = $( '#siteorigin-panels-metabox .siteorigin-panels-data-field' );
-		form = $( 'form#post' );
+		container = $panelsMetabox;
+		field = $panelsMetabox.find( '.siteorigin-panels-data-field' );
 
 		builderConfig = {
 			editorType: 'tinyMCE',
 			postId: $( '#post_ID' ).val(),
 			editorId: '#content',
-			builderType: $( '#siteorigin-panels-metabox' ).data( 'builder-type' ),
-			builderSupports: $( '#siteorigin-panels-metabox' ).data( 'builder-supports' ),
+			builderType: $panelsMetabox.data( 'builder-type' ),
+			builderSupports: $panelsMetabox.data( 'builder-supports' ),
 			loadOnAttach: panelsOptions.loadOnAttach && $( '#auto_draft' ).val() == 1,
-			loadLiveEditor: $( '#siteorigin-panels-metabox' ).data('live-editor') == 1,
+			loadLiveEditor: $panelsMetabox.data('live-editor') == 1,
 			liveEditorPreview: container.data('preview-url')
 		};
 	}
@@ -2529,6 +2603,10 @@ jQuery( function ( $ ) {
 			config: builderConfig
 		} );
 
+		// Trigger an event before the panels setup to allow adding listeners for various builder events which are
+		// triggered during initial setup.
+		$(document).trigger('before_panels_setup', builderView);
+
 		// Set up the builder view
 		builderView
 			.render()
@@ -2561,6 +2639,16 @@ jQuery( function ( $ ) {
 			$( '.siteorigin-page-builder-widget' ).soPanelsSetupBuilderWidget();
 		} );
 	}
+
+	// A global escape handler
+	$(window).on('keyup', function(e){
+		// [Esc] to close
+		if ( e.which === 27 ) {
+			// Trigger a click on the last visible Page Builder window
+			$( '.so-panels-dialog-wrapper, .so-panels-live-editor' ).filter(':visible')
+				.last().find('.so-title-bar .so-close, .live-editor-close').click();
+		}
+	});
 } );
 
 },{"./collection/cells":1,"./collection/history-entries":2,"./collection/rows":3,"./collection/widgets":4,"./dialog/builder":5,"./dialog/history":6,"./dialog/prebuilt":7,"./dialog/row":8,"./dialog/widget":9,"./dialog/widgets":10,"./helpers/clipboard":11,"./helpers/page-scroll":12,"./helpers/serialize":13,"./helpers/utils":14,"./jquery/setup-builder-widget":15,"./model/builder":17,"./model/cell":18,"./model/history-entry":19,"./model/row":20,"./model/widget":21,"./utils/menu":22,"./view/builder":23,"./view/cell":24,"./view/dialog":25,"./view/live-editor":26,"./view/row":27,"./view/styles":28,"./view/widget":29}],17:[function(require,module,exports){
@@ -2659,6 +2747,14 @@ module.exports = Backbone.Model.extend({
 
 				if ( ! _.isUndefined( data.grids[i].style ) ) {
 					rowAttrs.style = data.grids[i].style;
+				}
+
+				if ( ! _.isUndefined( data.grids[i].ratio) ) {
+					rowAttrs.ratio = data.grids[i].ratio;
+				}
+
+				if ( ! _.isUndefined( data.grids[i].ratio_direction) ) {
+					rowAttrs.ratio_direction = data.grids[i].ratio_direction
 				}
 
 				if ( ! _.isUndefined( data.grids[i].color_label) ) {
@@ -2832,6 +2928,8 @@ module.exports = Backbone.Model.extend({
 			data.grids.push( {
 				cells: row.get('cells').length,
 				style: row.get( 'style' ),
+				ratio: row.get('ratio'),
+				ratio_direction: row.get('ratio_direction'),
 				color_label: row.get( 'color_label' ),
 				label: row.get( 'label' ),
 			} );
@@ -2956,6 +3054,8 @@ module.exports = Backbone.Model.extend({
 				panels_data.grids.push( {
 					cells: $cells.length,
 					style: $row.data( 'style' ),
+					ratio: $row.data( 'ratio' ),
+					ratio_direction: $row.data( 'ratio-direction' ),
 					color_label: $row.data( 'color-label' ),
 					label: $row.data( 'label' ),
 				} );
@@ -2976,6 +3076,7 @@ module.exports = Backbone.Model.extend({
 							panels_info = {
 								grid: ri,
 								cell: ci,
+								style: $widget.data( 'style' ),
 								raw: false,
 								label: $widget.data( 'label' )
 							};
@@ -3365,20 +3466,6 @@ module.exports = Backbone.Model.extend( {
 	},
 
 	/**
-	 * Trigger an event on the model that indicates a user wants to edit it
-	 */
-	triggerEdit: function () {
-		this.trigger( 'user_edit', this );
-	},
-
-	/**
-	 * Trigger an event on the widget that indicates a user wants to duplicate it
-	 */
-	triggerDuplicate: function () {
-		this.trigger( 'user_duplicate', this );
-	},
-
-	/**
 	 * This is basically a wrapper for set that checks if we need to trigger a change
 	 */
 	setValues: function ( values ) {
@@ -3433,6 +3520,7 @@ module.exports = Backbone.Model.extend( {
 			cloneValues.builder_id = Math.random().toString( 36 ).substr( 2 );
 		}
 
+		clone.set( 'widget_id', '' );
 		clone.set( 'values', cloneValues, {silent: true} );
 		clone.set( 'collection', cell.get('widgets'), {silent: true} );
 		clone.cell = cell;
@@ -3465,6 +3553,10 @@ module.exports = Backbone.Model.extend( {
 		var titleFields = ['title', 'text'];
 
 		for ( var k in values ) {
+			if(k.charAt(0) === '_' || k === 'so_sidebar_emulator_id'  || k === 'option_name'){
+				// Skip Widgets Bundle supporting fields
+				continue;
+			}
 			if ( values.hasOwnProperty( k ) ) {
 				titleFields.push( k );
 			}
@@ -3819,46 +3911,45 @@ module.exports = Backbone.View.extend( {
 var panels = window.panels, $ = jQuery;
 
 module.exports = Backbone.View.extend( {
-
+	
 	// Config options
 	config: {},
-
+	
 	template: _.template( panels.helpers.utils.processTemplate( $( '#siteorigin-panels-builder' ).html() ) ),
 	dialogs: {},
 	rowsSortable: null,
 	dataField: false,
 	currentData: '',
-
+	
 	attachedToEditor: false,
 	attachedVisible: false,
 	liveEditor: undefined,
 	menu: false,
-
+	
 	activeCell: null,
-
+	
 	events: {
 		'click .so-tool-button.so-widget-add': 'displayAddWidgetDialog',
 		'click .so-tool-button.so-row-add': 'displayAddRowDialog',
 		'click .so-tool-button.so-prebuilt-add': 'displayAddPrebuiltDialog',
 		'click .so-tool-button.so-history': 'displayHistoryDialog',
-		'click .so-tool-button.so-live-editor': 'displayLiveEditor',
-		'click .so-learn-wrapper .show-tutorials': 'loadTutorials'
+		'click .so-tool-button.so-live-editor': 'displayLiveEditor'
 	},
-
+	
 	/* A row collection */
 	rows: null,
-
+	
 	/**
 	 * Initialize the builder
 	 */
 	initialize: function ( options ) {
 		var builder = this;
-
+		
 		this.config = _.extend( {
 			loadLiveEditor: false,
-			builderSupports : {}
-		}, options.config);
-
+			builderSupports: {}
+		}, options.config );
+		
 		// These are the actions that a user can perform in the builder
 		this.config.builderSupports = _.extend( {
 			addRow: true,
@@ -3874,64 +3965,63 @@ module.exports = Backbone.View.extend( {
 			liveEditor: true,
 			revertToEditor: true
 		}, this.config.builderSupports );
-
+		
 		// Automatically load the live editor as soon as it's ready
-		if( options.config.loadLiveEditor ) {
-			this.on( 'builder_live_editor_added', function(){
+		if ( options.config.loadLiveEditor ) {
+			this.on( 'builder_live_editor_added', function () {
 				this.displayLiveEditor();
 			} );
-			}
-
+		}
+		
 		// Now lets create all the dialog boxes that the main builder interface uses
 		this.dialogs = {
 			widgets: new panels.dialog.widgets(),
 			row: new panels.dialog.row(),
 			prebuilt: new panels.dialog.prebuilt()
 		};
-
+		
 		// Set the builder for each dialog and render it.
 		_.each( this.dialogs, function ( p, i, d ) {
-			d[i].setBuilder( builder );
+			d[ i ].setBuilder( builder );
 		} );
-
+		
 		this.dialogs.row.setRowDialogType( 'create' );
-
+		
 		// This handles a new row being added to the collection - we'll display it in the interface
-		this.model.get('rows').on( 'add', this.onAddRow, this );
-
+		this.listenTo( this.model.get( 'rows' ), 'add', this.onAddRow );
+		
 		// Reflow the entire builder when ever the
 		$( window ).resize( function ( e ) {
 			if ( e.target === window ) {
 				builder.trigger( 'builder_resize' );
 			}
 		} );
-
+		
 		// When the data changes in the model, store it in the field
-		this.model.on( 'change:data load_panels_data', this.storeModelData, this );
-
+		this.listenTo( this.model, 'change:data load_panels_data', this.storeModelData );
+		this.listenTo( this.model, 'change:data load_panels_data', this.toggleWelcomeDisplay );
+		
 		// Handle a content change
 		this.on( 'content_change', this.handleContentChange, this );
 		this.on( 'display_builder', this.handleDisplayBuilder, this );
 		this.on( 'hide_builder', this.handleHideBuilder, this );
 		this.on( 'builder_rendered builder_resize', this.handleBuilderSizing, this );
-		this.model.on( 'change:data load_panels_data', this.toggleWelcomeDisplay, this );
 
 		this.on( 'display_builder', this.wrapEditorExpandAdjust, this );
-
+		
 		// Create the context menu for this builder
 		this.menu = new panels.utils.menu( {} );
-		this.menu.on( 'activate_context', this.activateContextMenu, this );
+		this.listenTo( this.menu, 'activate_context', this.activateContextMenu )
 
-		if( this.config.loadOnAttach ) {
-			this.on( 'builder_attached_to_editor', function(){
+		if ( this.config.loadOnAttach ) {
+			this.on( 'builder_attached_to_editor', function () {
 				this.displayAttachedBuilder( { confirm: false } );
 			}, this );
 		}
 
-
 		return this;
 	},
-
+	
 	/**
 	 * Render the builder interface.
 	 *
@@ -3941,18 +4031,14 @@ module.exports = Backbone.View.extend( {
 		// this.$el.html( this.template() );
 		this.setElement( this.template() );
 		this.$el
-			.attr( 'id', 'siteorigin-panels-builder-' + this.cid )
-			.addClass( 'so-builder-container' );
-
-		if( panelsOptions.tutorials_enabled ) {
-			this.loadTutorials();
-		}
-
+		.attr( 'id', 'siteorigin-panels-builder-' + this.cid )
+		.addClass( 'so-builder-container' );
+		
 		this.trigger( 'builder_rendered' );
-
+		
 		return this;
 	},
-
+	
 	/**
 	 * Attach the builder to the given container
 	 *
@@ -3960,12 +4046,12 @@ module.exports = Backbone.View.extend( {
 	 * @returns {panels.view.builder}
 	 */
 	attach: function ( options ) {
-
+		
 		options = _.extend( {
 			container: false,
 			dialog: false
 		}, options );
-
+		
 		if ( options.dialog ) {
 			// We're going to add this to a dialog
 			this.dialog = new panels.dialog.builder();
@@ -3977,33 +4063,59 @@ module.exports = Backbone.View.extend( {
 			this.initSortable();
 			this.trigger( 'attached_to_container', options.container );
 		}
-
+		
 		this.trigger( 'builder_attached' );
-
+		
 		// Add support for components we have
-
-		if( this.supports( 'liveEditor' ) ) {
+		
+		if ( this.supports( 'liveEditor' ) ) {
 			this.addLiveEditor();
 		}
-		if( this.supports( 'history' ) ) {
+		if ( this.supports( 'history' ) ) {
 			this.addHistoryBrowser();
 		}
-
+		
 		// Hide toolbar buttons we don't support
-		var toolbar = this.$('.so-builder-toolbar');
-		if( ! this.supports( 'addWidget' ) ) {
-			toolbar.find('.so-widget-add' ).hide();
+		var toolbar = this.$( '.so-builder-toolbar' );
+		var welcomeMessageContainer = this.$( '.so-panels-welcome-message' );
+		var welcomeMessage = panelsOptions.loc.welcomeMessage;
+		
+		var supportedItems = [];
+		
+		if ( !this.supports( 'addWidget' ) ) {
+			toolbar.find( '.so-widget-add' ).hide();
+		} else {
+			supportedItems.push( welcomeMessage.addWidgetButton );
 		}
-		if( ! this.supports( 'addRow' ) ) {
-			toolbar.find('.so-row-add' ).hide();
+		if ( !this.supports( 'addRow' ) ) {
+			toolbar.find( '.so-row-add' ).hide();
+		} else {
+			supportedItems.push( welcomeMessage.addRowButton );
 		}
-		if( ! this.supports( 'prebuilt' ) ) {
-			toolbar.find('.so-prebuilt-add' ).hide();
+		if ( !this.supports( 'prebuilt' ) ) {
+			toolbar.find( '.so-prebuilt-add' ).hide();
+		} else {
+			supportedItems.push( welcomeMessage.addPrebuiltButton );
 		}
-
+		
+		var msg = '';
+		if ( supportedItems.length === 3 ) {
+			msg = welcomeMessage.threeEnabled;
+		} else if ( supportedItems.length === 2 ) {
+			msg = welcomeMessage.twoEnabled;
+		} else if ( supportedItems.length === 1 ) {
+			msg = welcomeMessage.oneEnabled;
+		} else if ( supportedItems.length === 0 ) {
+			msg = welcomeMessage.addingDisabled;
+		}
+		
+		var resTemplate = _.template( panels.helpers.utils.processTemplate( msg ) );
+		var msgHTML = resTemplate( { items: supportedItems } ) + ' ' + welcomeMessage.docsMessage;
+		welcomeMessageContainer.find( '.so-message-wrapper' ).html( msgHTML );
+		
 		return this;
 	},
-
+	
 	/**
 	 * This will move the Page Builder meta box into the editor if we're in the post/page edit interface.
 	 *
@@ -4013,72 +4125,73 @@ module.exports = Backbone.View.extend( {
 		if ( this.config.editorType !== 'tinyMCE' ) {
 			return this;
 		}
-
+		
 		this.attachedToEditor = true;
 		var metabox = this.metabox;
 		var thisView = this;
-
+		
 		// Handle switching between the page builder and other tabs
 		$( '#wp-content-wrap .wp-editor-tabs' )
-			.find( '.wp-switch-editor' )
+		.find( '.wp-switch-editor' )
+		.click( function ( e ) {
+			e.preventDefault();
+			$( '#wp-content-editor-container' ).show();
+			
+			// metabox.hide();
+			$( '#wp-content-wrap' ).removeClass( 'panels-active' );
+			$( '#content-resize-handle' ).show();
+			
+			// Make sure the word count is visible
+			thisView.trigger( 'hide_builder' );
+		} ).end()
+		.append(
+			$( '<button type="button" id="content-panels" class="hide-if-no-js wp-switch-editor switch-panels">' + metabox.find( '.hndle span' ).html() + '</button>' )
 			.click( function ( e ) {
-				e.preventDefault();
-				$( '#wp-content-editor-container' ).show();
-
-				// metabox.hide();
-				$( '#wp-content-wrap' ).removeClass( 'panels-active' );
-				$( '#content-resize-handle' ).show();
-
-				// Make sure the word count is visible
-				thisView.trigger( 'hide_builder' );
-			} ).end()
-			.append(
-				$( '<a id="content-panels" class="hide-if-no-js wp-switch-editor switch-panels">' + metabox.find( '.hndle span' ).html() + '</a>' )
-					.click( function ( e ) {
-						if ( thisView.displayAttachedBuilder( { confirm: true } ) ) {
-							e.preventDefault();
-						}
-					} )
-			);
-
+				if ( thisView.displayAttachedBuilder( { confirm: true } ) ) {
+					e.preventDefault();
+				}
+			} )
+		);
+		
 		// Switch back to the standard editor
-		if( this.supports( 'revertToEditor' ) ) {
+		if ( this.supports( 'revertToEditor' ) ) {
 			metabox.find( '.so-switch-to-standard' ).click( function ( e ) {
 				e.preventDefault();
-
-				if ( ! confirm( panelsOptions.loc.confirm_stop_builder ) ) {
+				
+				if ( !confirm( panelsOptions.loc.confirm_stop_builder ) ) {
 					return;
 				}
-
+				
 				// User is switching to the standard visual editor
 				thisView.addHistoryEntry( 'back_to_editor' );
 				thisView.model.loadPanelsData( false );
-
+				
 				// Switch back to the standard editor
 				$( '#wp-content-wrap' ).show();
 				metabox.hide();
-
+				
 				// Resize to trigger reflow of WordPress editor stuff
 				$( window ).resize();
-
-                thisView.attachedVisible = false;
+				
+				thisView.attachedVisible = false;
 				thisView.trigger( 'hide_builder' );
 			} ).show();
 		}
-
+		
 		// Move the panels box into a tab of the content editor
 		metabox.insertAfter( '#wp-content-wrap' ).hide().addClass( 'attached-to-editor' );
-
-		// Switch to the Page Builder interface as soon as we load the page if there are widgets
+		
+		// Switch to the Page Builder interface as soon as we load the page if there are widgets or the normal editor
+		// isn't supported.
 		var data = this.model.get( 'data' );
-		if ( ! _.isEmpty( data.widgets ) || ! _.isEmpty( data.grids ) ) {
+		if ( !_.isEmpty( data.widgets ) || !_.isEmpty( data.grids ) || !this.supports( 'revertToEditor' ) ) {
 			this.displayAttachedBuilder( { confirm: false } );
 		}
-
+		
 		// We will also make this sticky if its attached to an editor.
 		var stickToolbar = function () {
 			var toolbar = thisView.$( '.so-builder-toolbar' );
-
+			
 			if ( thisView.$el.hasClass( 'so-display-narrow' ) ) {
 				// In this case, we don't want to stick the toolbar.
 				toolbar.css( {
@@ -4090,18 +4203,18 @@ module.exports = Backbone.View.extend( {
 				thisView.$el.css( 'padding-top', toolbar.outerHeight() );
 				return;
 			}
-
+			
 			var newTop = $( window ).scrollTop() - thisView.$el.offset().top;
-
+			
 			if ( $( '#wpadminbar' ).css( 'position' ) === 'fixed' ) {
 				newTop += $( '#wpadminbar' ).outerHeight();
 			}
-
+			
 			var limits = {
 				top: 0,
 				bottom: thisView.$el.outerHeight() - toolbar.outerHeight() + 20
 			};
-
+			
 			if ( newTop > limits.top && newTop < limits.bottom ) {
 				if ( toolbar.css( 'position' ) !== 'fixed' ) {
 					// The toolbar needs to stick to the top, over the interface
@@ -4121,141 +4234,190 @@ module.exports = Backbone.View.extend( {
 					position: 'absolute'
 				} );
 			}
-
+			
 			thisView.$el.css( 'padding-top', toolbar.outerHeight() );
 		};
-
+		
 		this.on( 'builder_resize', stickToolbar, this );
 		$( document ).scroll( stickToolbar );
 		stickToolbar();
-
-		this.trigger('builder_attached_to_editor');
-
+		
+		this.trigger( 'builder_attached_to_editor' );
+		
 		return this;
 	},
-
+	
 	/**
 	 * Display the builder interface when attached to a WordPress editor
 	 */
-	displayAttachedBuilder: function( options ){
+	displayAttachedBuilder: function ( options ) {
 		options = _.extend( {
 			confirm: true
 		}, options );
-
+		
 		// Switch to the Page Builder interface
-
-		if( options.confirm ) {
+		
+		if ( options.confirm ) {
 			var editor = typeof tinyMCE !== 'undefined' ? tinyMCE.get( 'content' ) : false;
 			var editorContent = ( editor && _.isFunction( editor.getContent ) ) ? editor.getContent() : $( 'textarea#content' ).val();
-
-			if ( editorContent !== '' && ! confirm( panelsOptions.loc.confirm_use_builder ) ) {
+			
+			if ( editorContent !== '' && !confirm( panelsOptions.loc.confirm_use_builder ) ) {
 				return false;
 			}
 		}
-
+		
 		// Hide the standard content editor
 		$( '#wp-content-wrap' ).hide();
-
+		
+		
+		$( '#editor-expand-toggle' ).on( 'change.editor-expand', function () {
+			if ( !$( this ).prop( 'checked' ) ) {
+				$( '#wp-content-wrap' ).hide();
+			}
+		} );
+		
 		// Show page builder and the inside div
 		this.metabox.show().find( '> .inside' ).show();
-
+		
 		// Triggers full refresh
 		$( window ).resize();
 		$( document ).scroll();
-
+		
 		// Make sure the word count is visible
 		this.attachedVisible = true;
 		this.trigger( 'display_builder' );
-
+		
 		return true;
 	},
-
+	
 	/**
 	 * Initialize the row sortables
 	 */
 	initSortable: function () {
-		if( ! this.supports( 'moveRow' ) ) {
+		if ( !this.supports( 'moveRow' ) ) {
 			return this;
 		}
-
-		// Create the sortable for the rows
+		
 		var builderView = this;
-
+		var builderID = builderView.$el.attr( 'id' );
+		
+		// Create the sortable for the rows
 		this.rowsSortable = this.$( '.so-rows-container' ).sortable( {
 			appendTo: '#wpwrap',
 			items: '.so-row-container',
 			handle: '.so-row-move',
+			// For the block editor, where it's possible to have multiple Page Builder blocks on a page.
+			// Also specify builderID when not in the block editor to prevent being able to drop rows from builder in a dialog
+			// into builder on the page under the dialog.
+			connectWith: '#' + builderID + '.so-rows-container,.block-editor .so-rows-container',
 			axis: 'y',
 			tolerance: 'pointer',
 			scroll: false,
-			stop: function ( e, ui ) {
-				builderView.addHistoryEntry( 'row_moved' );
-
-				var $$ =  $( ui.item ),
-					row = $$.data( 'view' );
-
-				builderView.model.get('rows').remove( row.model, {
-					'silent' : true
-				} );
-				builderView.model.get('rows').add( row.model, {
-					'silent' : true,
-					'at' : $$.index()
-				} );
-
-				row.trigger( 'move', $$.index() );
-
+			remove: function ( e, ui ) {
+				builderView.model.get( 'rows' ).remove(
+					$( ui.item ).data( 'view' ).model,
+					{ silent: true }
+				);
 				builderView.model.refreshPanelsData();
+			},
+			receive: function ( e, ui ) {
+				builderView.model.get( 'rows' ).add(
+					$( ui.item ).data( 'view' ).model,
+					{ silent: true, at: $( ui.item ).index() }
+				);
+				builderView.model.refreshPanelsData();
+			},
+			stop: function ( e, ui ) {
+				var $$ = $( ui.item ),
+					row = $$.data( 'view' ),
+					rows = builderView.model.get( 'rows' );
+				
+				// If this hasn't already been removed and added to a different builder.
+				if ( rows.get( row.model ) ) {
+					builderView.addHistoryEntry( 'row_moved' );
+					
+					rows.remove( row.model, {
+						'silent': true
+					} );
+					rows.add( row.model, {
+						'silent': true,
+						'at': $$.index()
+					} );
+					
+					row.trigger( 'move', $$.index() );
+					
+					builderView.model.refreshPanelsData();
+				}
 			}
 		} );
-
+		
 		return this;
 	},
-
+	
 	/**
 	 * Refresh the row sortable
 	 */
 	refreshSortable: function () {
 		// Refresh the sortable to account for the new row
-		if ( ! _.isNull( this.rowsSortable ) ) {
+		if ( !_.isNull( this.rowsSortable ) ) {
 			this.rowsSortable.sortable( 'refresh' );
 		}
 	},
-
+	
 	/**
 	 * Set the field that's used to store the data
 	 * @param field
+	 * @param options
 	 */
 	setDataField: function ( field, options ) {
 		options = _.extend( {
 			load: true
 		}, options );
-
+		
 		this.dataField = field;
 		this.dataField.data( 'builder', this );
-
+		
 		if ( options.load && field.val() !== '' ) {
 			var data = this.dataField.val();
 			try {
 				data = JSON.parse( data );
 			}
 			catch ( err ) {
+				console.log( "Failed to parse Page Builder layout data from supplied data field." );
 				data = {};
 			}
-
-			this.model.loadPanelsData( data );
-			this.currentData = data;
-			this.toggleWelcomeDisplay();
+			
+			this.setData( data );
 		}
-
+		
 		return this;
 	},
-
+	
+	/**
+	 * Set the current panels data to be used.
+	 *
+	 * @param data
+	 */
+	setData: function( data ) {
+		this.model.loadPanelsData( data );
+		this.currentData = data;
+		this.toggleWelcomeDisplay();
+	},
+	
+	/**
+	 * Get the current panels data.
+	 *
+	 */
+	getData: function() {
+		return this.model.get( 'data' );
+	},
+	
 	/**
 	 * Store the model data in the data html field set in this.setDataField.
 	 */
 	storeModelData: function () {
 		var data = JSON.stringify( this.model.get( 'data' ) );
-
+		
 		if ( $( this.dataField ).val() !== data ) {
 			// If the data is different, set it and trigger a content_change event
 			$( this.dataField ).val( data );
@@ -4263,7 +4425,7 @@ module.exports = Backbone.View.extend( {
 			this.trigger( 'content_change' );
 		}
 	},
-
+	
 	/**
 	 * HAndle the visual side of adding a new row to the builder.
 	 *
@@ -4272,12 +4434,12 @@ module.exports = Backbone.View.extend( {
 	 * @param options
 	 */
 	onAddRow: function ( row, collection, options ) {
-		options = _.extend( {noAnimate: false}, options );
+		options = _.extend( { noAnimate: false }, options );
 		// Create a view for the row
-		var rowView = new panels.view.row( {model: row} );
+		var rowView = new panels.view.row( { model: row } );
 		rowView.builder = this;
 		rowView.render();
-
+		
 		// Attach the row elements to this builder
 		if ( _.isUndefined( options.at ) || collection.length <= 1 ) {
 			// Insert this at the end of the widgets container
@@ -4288,15 +4450,16 @@ module.exports = Backbone.View.extend( {
 				this.$( '.so-rows-container .so-row-container' ).eq( options.at - 1 )
 			);
 		}
-
+		
 		if ( options.noAnimate === false ) {
 			rowView.visualCreate();
 		}
-
+		
 		this.refreshSortable();
 		rowView.resize();
+		this.trigger( 'row_added' );
 	},
-
+	
 	/**
 	 * Display the dialog to add a new widget.
 	 *
@@ -4305,23 +4468,23 @@ module.exports = Backbone.View.extend( {
 	displayAddWidgetDialog: function () {
 		this.dialogs.widgets.openDialog();
 	},
-
+	
 	/**
 	 * Display the dialog to add a new row.
 	 */
 	displayAddRowDialog: function () {
 		var row = new panels.model.row();
-		var cells = new panels.collection.cells([{weight: 0.5}, {weight: 0.5}]);
-		cells.each(function (cell) {
+		var cells = new panels.collection.cells( [ { weight: 0.5 }, { weight: 0.5 } ] );
+		cells.each( function ( cell ) {
 			cell.row = row;
-		});
-		row.set('cells', cells);
+		} );
+		row.set( 'cells', cells );
 		row.builder = this.model;
-
-		this.dialogs.row.setRowModel(row);
+		
+		this.dialogs.row.setRowModel( row );
 		this.dialogs.row.openDialog();
 	},
-
+	
 	/**
 	 * Display the dialog to add prebuilt layouts.
 	 *
@@ -4330,7 +4493,7 @@ module.exports = Backbone.View.extend( {
 	displayAddPrebuiltDialog: function () {
 		this.dialogs.prebuilt.openDialog();
 	},
-
+	
 	/**
 	 * Display the history dialog.
 	 *
@@ -4339,23 +4502,23 @@ module.exports = Backbone.View.extend( {
 	displayHistoryDialog: function () {
 		this.dialogs.history.openDialog();
 	},
-
+	
 	/**
 	 * Handle pasting a row into the builder.
 	 */
-	pasteRowHandler: function(){
+	pasteRowHandler: function () {
 		var pastedModel = panels.helpers.clipboard.getModel( 'row-model' );
-
-		if( ! _.isEmpty( pastedModel ) && pastedModel instanceof panels.model.row ) {
+		
+		if ( !_.isEmpty( pastedModel ) && pastedModel instanceof panels.model.row ) {
 			this.addHistoryEntry( 'row_pasted' );
 			pastedModel.builder = this.model;
-			this.model.get('rows').add( pastedModel, {
-				at: this.model.get('rows').indexOf( this.model ) + 1
+			this.model.get( 'rows' ).add( pastedModel, {
+				at: this.model.get( 'rows' ).indexOf( this.model ) + 1
 			} );
 			this.model.refreshPanelsData();
 		}
 	},
-
+	
 	/**
 	 * Get the model for the currently selected cell
 	 */
@@ -4363,52 +4526,52 @@ module.exports = Backbone.View.extend( {
 		options = _.extend( {
 			createCell: true,
 		}, options );
-
-		if( ! this.model.get('rows').length ) {
+		
+		if ( !this.model.get( 'rows' ).length ) {
 			// There aren't any rows yet
 			if ( options.createCell ) {
 				// Create a row with a single cell
-				this.model.addRow( {}, [{ weight: 1 }], { noAnimate: true } );
+				this.model.addRow( {}, [ { weight: 1 } ], { noAnimate: true } );
 			} else {
 				return null;
 			}
 		}
-
+		
 		// Make sure the active cell isn't empty, and it's in a row that exists
 		var activeCell = this.activeCell;
-		if( _.isEmpty( activeCell ) || this.model.get('rows').indexOf( activeCell.model.row ) === -1 ) {
-			return this.model.get('rows').last().get('cells').first();
+		if ( _.isEmpty( activeCell ) || this.model.get( 'rows' ).indexOf( activeCell.model.row ) === -1 ) {
+			return this.model.get( 'rows' ).last().get( 'cells' ).first();
 		} else {
 			return activeCell.model;
 		}
 	},
-
+	
 	/**
 	 * Add a live editor to the builder
 	 *
 	 * @returns {panels.view.builder}
 	 */
-	addLiveEditor: function ( ) {
-		if( _.isEmpty( this.config.liveEditorPreview ) ) {
+	addLiveEditor: function () {
+		if ( _.isEmpty( this.config.liveEditorPreview ) ) {
 			return this;
 		}
-
+		
 		// Create the live editor and set the builder to this.
 		this.liveEditor = new panels.view.liveEditor( {
 			builder: this,
 			previewUrl: this.config.liveEditorPreview
 		} );
-
+		
 		// Display the live editor button in the toolbar
 		if ( this.liveEditor.hasPreviewUrl() ) {
 			this.$( '.so-builder-toolbar .so-live-editor' ).show();
 		}
-
-		this.trigger('builder_live_editor_added');
-
+		
+		this.trigger( 'builder_live_editor_added' );
+		
 		return this;
 	},
-
+	
 	/**
 	 * Show the current live editor
 	 */
@@ -4416,31 +4579,31 @@ module.exports = Backbone.View.extend( {
 		if ( _.isUndefined( this.liveEditor ) ) {
 			return;
 		}
-
+		
 		this.liveEditor.open();
 	},
-
+	
 	/**
 	 * Add the history browser.
 	 *
 	 * @return {panels.view.builder}
 	 */
 	addHistoryBrowser: function () {
-		if( _.isEmpty( this.config.liveEditorPreview ) ) {
+		if ( _.isEmpty( this.config.liveEditorPreview ) ) {
 			return this;
 		}
-
+		
 		this.dialogs.history = new panels.dialog.history();
 		this.dialogs.history.builder = this;
 		this.dialogs.history.entries.builder = this.model;
-
+		
 		// Set the revert entry
 		this.dialogs.history.setRevertEntry( this.model );
-
+		
 		// Display the live editor button in the toolbar
 		this.$( '.so-builder-toolbar .so-history' ).show();
 	},
-
+	
 	/**
 	 * Add an entry.
 	 *
@@ -4451,35 +4614,35 @@ module.exports = Backbone.View.extend( {
 		if ( _.isUndefined( data ) ) {
 			data = null;
 		}
-
-		if ( ! _.isUndefined( this.dialogs.history ) ) {
+		
+		if ( !_.isUndefined( this.dialogs.history ) ) {
 			this.dialogs.history.entries.addEntry( text, data );
 		}
 	},
-
-	supports: function( thing ){
-
-		if( thing === 'rowAction' ) {
+	
+	supports: function ( thing ) {
+		
+		if ( thing === 'rowAction' ) {
 			// Check if this supports any row action
 			return this.supports( 'addRow' ) || this.supports( 'editRow' ) || this.supports( 'deleteRow' );
 		} else if ( thing === 'widgetAction' ) {
 			// Check if this supports any widget action
 			return this.supports( 'addWidget' ) || this.supports( 'editWidget' ) || this.supports( 'deleteWidget' );
 		}
-
+		
 		return _.isUndefined( this.config.builderSupports[ thing ] ) ? false : this.config.builderSupports[ thing ];
 	},
-
+	
 	/**
 	 * Handle a change of the content
 	 */
 	handleContentChange: function () {
-
+		
 		// Make sure we actually need to copy content.
 		if ( panelsOptions.copy_content && this.attachedToEditor && this.$el.is( ':visible' ) ) {
-
+			
 			var panelsData = this.model.getPanelsData();
-			if( ! _.isEmpty( panelsData.widgets ) ) {
+			if ( !_.isEmpty( panelsData.widgets ) ) {
 				// We're going to create a copy of page builder content into the post content
 				$.post(
 					panelsOptions.ajaxurl,
@@ -4489,7 +4652,7 @@ module.exports = Backbone.View.extend( {
 						post_id: this.config.postId
 					},
 					function ( content ) {
-						if( content !== '' ) {
+						if ( content !== '' ) {
 							this.updateEditorContent( content );
 						}
 					}.bind( this )
@@ -4497,7 +4660,7 @@ module.exports = Backbone.View.extend( {
 			}
 		}
 	},
-
+	
 	/**
 	 * Update editor content with the given content.
 	 *
@@ -4510,23 +4673,23 @@ module.exports = Backbone.View.extend( {
 			$editor.val( content ).trigger( 'change' ).trigger( 'keyup' );
 		} else {
 			var contentEd = tinyMCE.get( "content" );
-
+			
 			contentEd.setContent( content );
-
+			
 			contentEd.fire( 'change' );
 			contentEd.fire( 'keyup' );
 		}
-
+		
 		this.triggerYoastSeoChange();
 	},
-
+	
 	/**
 	 * Trigger a change on Yoast SEO
 	 */
 	triggerYoastSeoChange: function () {
 		if ( $( '#yoast_wpseo_focuskw_text_input' ).length ) {
 			var element = document.getElementById( 'yoast_wpseo_focuskw_text_input' ), event;
-
+			
 			if ( document.createEvent ) {
 				event = document.createEvent( "HTMLEvents" );
 				event.initEvent( "keyup", true, true );
@@ -4534,9 +4697,9 @@ module.exports = Backbone.View.extend( {
 				event = document.createEventObject();
 				event.eventType = "keyup";
 			}
-
+			
 			event.eventName = "keyup";
-
+			
 			if ( document.createEvent ) {
 				element.dispatchEvent( event );
 			} else {
@@ -4544,14 +4707,14 @@ module.exports = Backbone.View.extend( {
 			}
 		}
 	},
-
+	
 	/**
 	 * Handle displaying the builder
 	 */
 	handleDisplayBuilder: function () {
 		var editor = typeof tinyMCE !== 'undefined' ? tinyMCE.get( 'content' ) : false;
 		var editorContent = ( editor && _.isFunction( editor.getContent ) ) ? editor.getContent() : $( 'textarea#content' ).val();
-
+		
 		if (
 			(
 				_.isEmpty( this.model.get( 'data' ) ) ||
@@ -4564,67 +4727,67 @@ module.exports = Backbone.View.extend( {
 			if ( _.isEmpty( editorClass ) ) {
 				return;
 			}
-
+			
 			// Create the existing page content in a single widget
 			this.model.loadPanelsData( this.model.getPanelsDataFromHtml( editorContent, editorClass ) );
 			this.model.trigger( 'change' );
 			this.model.trigger( 'change:data' );
 		}
-
-		$('#post-status-info').addClass( 'for-siteorigin-panels' );
+		
+		$( '#post-status-info' ).addClass( 'for-siteorigin-panels' );
 	},
-
-	handleHideBuilder: function(){
-		$('#post-status-info').show().removeClass( 'for-siteorigin-panels' );
+	
+	handleHideBuilder: function () {
+		$( '#post-status-info' ).show().removeClass( 'for-siteorigin-panels' );
 	},
-
-    wrapEditorExpandAdjust: function( ){
+	
+	wrapEditorExpandAdjust: function () {
 		try {
 			var events = ( $.hasData( window ) && $._data( window ) ).events.scroll,
 				event;
-
-			for( var i = 0; i < events.length; i++ ) {
-				if( events[i].namespace === 'editor-expand' ) {
-                    event = events[i];
-
-                    // Wrap the call
+			
+			for ( var i = 0; i < events.length; i++ ) {
+				if ( events[ i ].namespace === 'editor-expand' ) {
+					event = events[ i ];
+					
+					// Wrap the call
 					$( window ).unbind( 'scroll', event.handler );
-					$( window ).bind( 'scroll', function( e ){
-						if( ! this.attachedVisible ) {
-                            event.handler( e );
+					$( window ).bind( 'scroll', function ( e ) {
+						if ( !this.attachedVisible ) {
+							event.handler( e );
 						}
 					}.bind( this ) );
-
+					
 					break;
 				}
 			}
 		}
-		catch( e ){
+		catch ( e ) {
 			// We tried, we failed
 			return;
 		}
 	},
-
+	
 	/**
 	 * Either add or remove the narrow class
 	 * @returns {exports}
 	 */
 	handleBuilderSizing: function () {
 		var width = this.$el.width();
-
-		if ( ! width ) {
+		
+		if ( !width ) {
 			return this;
 		}
-
-		if ( width < 480 ) {
+		
+		if ( width < 575 ) {
 			this.$el.addClass( 'so-display-narrow' );
 		} else {
 			this.$el.removeClass( 'so-display-narrow' );
 		}
-
+		
 		return this;
 	},
-
+	
 	/**
 	 * Set the parent dialog for all the dialogs in this builder.
 	 *
@@ -4633,26 +4796,26 @@ module.exports = Backbone.View.extend( {
 	 */
 	setDialogParents: function ( text, dialog ) {
 		_.each( this.dialogs, function ( p, i, d ) {
-			d[i].setParent( text, dialog );
+			d[ i ].setParent( text, dialog );
 		} );
-
+		
 		// For any future dialogs
 		this.on( 'add_dialog', function ( newDialog ) {
 			newDialog.setParent( text, dialog );
 		}, this );
 	},
-
+	
 	/**
 	 * This shows or hides the welcome display depending on whether there are any rows in the collection.
 	 */
 	toggleWelcomeDisplay: function () {
-		if ( ! this.model.get('rows').isEmpty() ) {
+		if ( !this.model.get( 'rows' ).isEmpty() ) {
 			this.$( '.so-panels-welcome-message' ).hide();
 		} else {
 			this.$( '.so-panels-welcome-message' ).show();
 		}
 	},
-
+	
 	/**
 	 * Activate the contextual menu
 	 * @param e
@@ -4660,69 +4823,48 @@ module.exports = Backbone.View.extend( {
 	 */
 	activateContextMenu: function ( e, menu ) {
 		var builder = this;
-
-		// Of all the visible builders, find the topmost
-		var topmostBuilder = $( '.siteorigin-panels-builder:visible' )
-			.sort( function ( a, b ) {
-				return $( a ).zIndex() > $( b ).zIndex() ? 1 : - 1;
-			} )
-			.last();
-
-		var topmostDialog = $( '.so-panels-dialog-wrapper:visible' )
-			.sort( function ( a, b ) {
-				return $( a ).zIndex() > $( b ).zIndex() ? 1 : - 1;
-			} )
-			.last();
-
-		var closestDialog = builder.$el.closest('.so-panels-dialog-wrapper');
-
-		// Only run this if its element is the topmost builder, in the topmost dialog
-		if (
-			builder.$el.is( topmostBuilder ) &&
-			(
-				topmostDialog.length === 0 ||
-				topmostDialog.is( closestDialog )
-			)
-		) {
+		
+		// Only run this if the event target is a descendant of this builder's DOM element.
+		if ( $.contains( builder.$el.get( 0 ), e.target ) ) {
 			// Get the element we're currently hovering over
 			var over = $( [] )
-				.add( builder.$( '.so-panels-welcome-message:visible' ) )
-				.add( builder.$( '.so-rows-container > .so-row-container' ) )
-				.add( builder.$( '.so-cells > .cell' ) )
-				.add( builder.$( '.cell-wrapper > .so-widget' ) )
-				.filter( function ( i ) {
-					return menu.isOverEl( $( this ), e );
-				} );
-
+			.add( builder.$( '.so-panels-welcome-message:visible' ) )
+			.add( builder.$( '.so-rows-container > .so-row-container' ) )
+			.add( builder.$( '.so-cells > .cell' ) )
+			.add( builder.$( '.cell-wrapper > .so-widget' ) )
+			.filter( function ( i ) {
+				return menu.isOverEl( $( this ), e );
+			} );
+			
 			var activeView = over.last().data( 'view' );
 			if ( activeView !== undefined && activeView.buildContextualMenu !== undefined ) {
-				// We'll pass this to the current active view so it can popular the contextual menu
+				// We'll pass this to the current active view so it can populate the contextual menu
 				activeView.buildContextualMenu( e, menu );
 			}
-			else if( over.last().hasClass( 'so-panels-welcome-message' ) ) {
+			else if ( over.last().hasClass( 'so-panels-welcome-message' ) ) {
 				// The user opened the contextual menu on the welcome message
 				this.buildContextualMenu( e, menu );
 			}
 		}
 	},
-
+	
 	/**
 	 * Build the contextual menu for the main builder - before any content has been added.
 	 */
-	buildContextualMenu: function( e, menu ){
+	buildContextualMenu: function ( e, menu ) {
 		var actions = {};
-
-		if( this.supports( 'addRow' ) ) {
+		
+		if ( this.supports( 'addRow' ) ) {
 			actions.add_row = { title: panelsOptions.loc.contextual.add_row };
 		}
-
+		
 		if ( panels.helpers.clipboard.canCopyPaste() ) {
-			if( panels.helpers.clipboard.isModel( 'row-model' ) && this.supports( 'addRow' ) ) {
+			if ( panels.helpers.clipboard.isModel( 'row-model' ) && this.supports( 'addRow' ) ) {
 				actions.paste_row = { title: panelsOptions.loc.contextual.row_paste };
 			}
 		}
-
-		if( ! _.isEmpty( actions ) ) {
+		
+		if ( !_.isEmpty( actions ) ) {
 			menu.addSection(
 				'builder-actions',
 				{
@@ -4735,59 +4877,13 @@ module.exports = Backbone.View.extend( {
 						case 'add_row':
 							this.displayAddRowDialog();
 							break;
-
+						
 						case 'paste_row':
 							this.pasteRowHandler();
 							break;
 					}
 				}.bind( this )
 			);
-		}
-	},
-
-	loadTutorials: function( event ){
-		if( ! _.isUndefined( event ) ) {
-			event.preventDefault();
-		}
-
-		var $dd = this.$('.so-learn-wrapper .so-tool-button-dropdown');
-		$dd.addClass( 'so-loading' ).find( '.view-message' ).hide();
-
-		var loadResponse = function( response ){
-			if( ! _.isUndefined( response.error ) ) {
-				$dd.find( '.view-message' ).show().find('p').html(response.error);
-			}
-			else if( response.length ) {
-				panelsOptions.cache.tutorials = response;
-
-				for( var i in response.slice( 0,4 ) ) {
-					$dd.find( '.view-tutorials ul' ).append(
-						$('<li></li>')
-							.append(
-								$('<a target="_blank"></a>')
-									.text( response[i].title )
-									.attr( 'href', response[i].url )
-							)
-							.append(
-								$('<small></small>').text( response[i].excerpt )
-							)
-					);
-				}
-
-				$dd.find('.view-tutorials').show();
-			}
-			$dd.removeClass( 'so-loading' );
-		};
-
-		if( typeof panelsOptions.cache.tutorials === 'undefined' ) {
-			$.get(
-				panelsOptions.ajaxurl,
-				{ action: 'so_panels_get_tutorials' },
-				loadResponse
-			);
-		}
-		else {
-			loadResponse( panelsOptions.cache.tutorials );
 		}
 	},
 } );
@@ -4806,7 +4902,7 @@ module.exports = Backbone.View.extend( {
 	widgetSortable: null,
 
 	initialize: function () {
-		this.model.get('widgets').on( 'add', this.onAddWidget, this );
+		this.listenTo(this.model.get('widgets'), 'add', this.onAddWidget );
 	},
 
 	/**
@@ -4846,32 +4942,57 @@ module.exports = Backbone.View.extend( {
 		}
 
 		var cellView = this;
-
+		var builder = cellView.row.builder;
+		
 		// Go up the view hierarchy until we find the ID attribute
-		var builderID = cellView.row.builder.$el.attr( 'id' );
+		var builderID = builder.$el.attr( 'id' );
+		var builderModel = builder.model;
 
 		// Create a widget sortable that's connected with all other cells
 		this.widgetSortable = this.$( '.widgets-container' ).sortable( {
 			placeholder: "so-widget-sortable-highlight",
-			connectWith: '#' + builderID + ' .so-cells .cell .widgets-container',
+			connectWith: '#' + builderID + ' .so-cells .cell .widgets-container,.block-editor .so-cells .cell .widgets-container',
 			tolerance: 'pointer',
 			scroll: false,
 			over: function ( e, ui ) {
 				// This will make all the rows in the current builder resize
 				cellView.row.builder.trigger( 'widget_sortable_move' );
 			},
+			remove: function ( e, ui ) {
+				cellView.model.get( 'widgets' ).remove(
+					$( ui.item ).data( 'view' ).model,
+					{ silent: true }
+				);
+				builderModel.refreshPanelsData();
+			},
+			receive: function ( e, ui ) {
+				var widgetView = $( ui.item ).data( 'view' );
+				widgetView.cell = cellView;
+				var widgetModel = widgetView.model;
+				widgetModel.cell = cellView.model;
+				cellView.model.get( 'widgets' ).add(
+					widgetModel,
+					{ silent: true, at: $( ui.item ).index() }
+				);
+				builderModel.refreshPanelsData();
+			},
 			stop: function ( e, ui ) {
-				cellView.row.builder.addHistoryEntry( 'widget_moved' );
-
 				var $$ =  $( ui.item ),
 					widget = $$.data( 'view' ),
 					targetCell = $$.closest( '.cell' ).data( 'view' );
-
-				// Move the model and the view to the new cell
-				widget.model.moveToCell( targetCell.model, {}, $$.index() );
-				widget.cell = targetCell;
-
-				widget.cell.row.builder.model.refreshPanelsData();
+				
+				
+				// If this hasn't already been removed and added to a different builder.
+				if ( cellView.model.get( 'widgets' ).get( widget.model ) ) {
+					
+					cellView.row.builder.addHistoryEntry( 'widget_moved' );
+					
+					// Move the model and the view to the new cell
+					widget.model.moveToCell( targetCell.model, {}, $$.index() );
+					widget.cell = targetCell;
+					
+					builderModel.refreshPanelsData();
+				}
 			},
 			helper: function ( e, el ) {
 				var helper = el.clone()
@@ -5053,6 +5174,7 @@ module.exports = Backbone.View.extend( {
 
 		this.refreshSortable();
 		this.row.resize();
+		this.row.builder.trigger( 'widget_added', view );
 	},
 
 	/**
@@ -5107,6 +5229,7 @@ module.exports = Backbone.View.extend( {
 				},
 				panelsOptions.widgets,
 				function ( c ) {
+					thisView.row.builder.trigger('before_user_adds_widget')
 					thisView.row.builder.addHistoryEntry( 'widget_added' );
 
 					var widget = new panels.model.widget( {
@@ -5118,6 +5241,7 @@ module.exports = Backbone.View.extend( {
 					widget.cell.get('widgets').add( widget );
 
 					thisView.row.builder.model.refreshPanelsData();
+					thisView.row.builder.trigger('after_user_adds_widget', widget);
 				}
 			);
 		}
@@ -5186,6 +5310,8 @@ module.exports = Backbone.View.extend( {
 		if ( ! _.isUndefined( this.initializeDialog ) ) {
 			this.initializeDialog();
 		}
+		
+		_.bindAll( this, 'initSidebars', 'hasSidebar', 'onResize', 'toggleLeftSideBar', 'toggleRightSideBar' );
 	},
 
 	/**
@@ -5285,22 +5411,44 @@ module.exports = Backbone.View.extend( {
 
 		if ( this.parentDialog !== false ) {
 			// Add a link to the parent dialog as a sort of crumbtrail.
-			var thisDialog = this;
 			var dialogParent = $( '<h3 class="so-parent-link"></h3>' ).html( this.parentDialog.text + '<div class="so-separator"></div>' );
 			dialogParent.click( function ( e ) {
 				e.preventDefault();
-				thisDialog.closeDialog();
-				thisDialog.parentDialog.openDialog();
-			} );
-			this.$( '.so-title-bar' ).prepend( dialogParent );
+				this.closeDialog();
+				this.parentDialog.dialog.openDialog();
+			}.bind(this) );
+			this.$( '.so-title-bar .so-title' ).before( dialogParent );
 		}
 
 		if( this.$( '.so-title-bar .so-title-editable' ).length ) {
 			// Added here because .so-edit-title is only available after the template has been rendered.
 			this.initEditableLabel();
 		}
+		
+		setTimeout( this.initSidebars, 1 );
 
 		return this;
+	},
+	
+	initSidebars: function () {
+		var $leftButton = this.$( '.so-show-left-sidebar' ).hide();
+		var $rightButton = this.$( '.so-show-right-sidebar' ).hide();
+		var hasLeftSidebar = this.hasSidebar( 'left' );
+		var hasRightSidebar = this.hasSidebar( 'right' );
+		// Set up resize handling
+		if ( hasLeftSidebar || hasRightSidebar ) {
+			$( window ).on( 'resize', this.onResize );
+			if ( hasLeftSidebar ) {
+				$leftButton.show();
+				$leftButton.on( 'click', this.toggleLeftSideBar );
+			}
+			if ( hasRightSidebar ) {
+				$rightButton.show();
+				$rightButton.on( 'click', this.toggleRightSideBar );
+			}
+		}
+		
+		this.onResize();
 	},
 
 	/**
@@ -5470,8 +5618,7 @@ module.exports = Backbone.View.extend( {
 		// Stop scrolling for the main body
 		panels.helpers.pageScroll.lock();
 
-		// Start listen for keyboard keypresses.
-		$( window ).on( 'keyup', this.keyboardListen );
+		this.onResize();
 
 		this.$el.show();
 
@@ -5479,6 +5626,7 @@ module.exports = Backbone.View.extend( {
 			// This triggers once everything is visible
 			this.trigger( 'open_dialog_complete' );
 			this.builder.trigger( 'open_dialog', this );
+			$( document ).trigger( 'open_dialog', this );
 		}
 	},
 
@@ -5502,23 +5650,10 @@ module.exports = Backbone.View.extend( {
 		this.$el.hide();
 		panels.helpers.pageScroll.unlock();
 
-		// Stop listen for keyboard keypresses.
-		$( window ).off( 'keyup', this.keyboardListen );
-
 		if ( ! options.silent ) {
 			// This triggers once everything is hidden
 			this.trigger( 'close_dialog_complete' );
 			this.builder.trigger( 'close_dialog', this );
-		}
-	},
-
-	/**
-	 * Keyboard events handler
-	 */
-	keyboardListen: function ( e ) {
-		// [Esc] to close
-		if ( e.which === 27 ) {
-			$( '.so-panels-dialog-wrapper .so-close' ).trigger( 'click' );
 		}
 	},
 
@@ -5608,19 +5743,6 @@ module.exports = Backbone.View.extend( {
 						return;
 					}
 				}
-				else if ( $$.prop( 'tagName' ) === 'TEXTAREA' && $$.hasClass( 'wp-editor-area' ) ) {
-					// This is a TinyMCE editor, so we'll use the tinyMCE object to get the content
-					var editor = null;
-					if ( typeof tinyMCE !== 'undefined' ) {
-						editor = tinyMCE.get( $$.attr( 'id' ) );
-					}
-
-					if ( editor !== null && _.isFunction( editor.getContent ) && ! editor.isHidden() ) {
-						fieldValue = editor.getContent();
-					} else {
-						fieldValue = $$.val();
-					}
-				}
 				else if ( $$.prop( 'tagName' ) === 'SELECT' ) {
 					var selected = $$.find( 'option:selected' );
 
@@ -5690,10 +5812,13 @@ module.exports = Backbone.View.extend( {
 	/**
 	 * Set a status message for the dialog
 	 */
-	setStatusMessage: function ( message, loading ) {
-		this.$( '.so-toolbar .so-status' ).html( message );
+	setStatusMessage: function ( message, loading, error ) {
+		var msg = error ? '<span class="dashicons dashicons-warning"></span>' + message : message;
+		this.$( '.so-toolbar .so-status' ).html( msg );
 		if ( ! _.isUndefined( loading ) && loading ) {
 			this.$( '.so-toolbar .so-status' ).addClass( 'so-panels-loading' );
+		} else {
+			this.$( '.so-toolbar .so-status' ).removeClass( 'so-panels-loading' );
 		}
 	},
 
@@ -5705,7 +5830,57 @@ module.exports = Backbone.View.extend( {
 			text: text,
 			dialog: dialog
 		};
-	}
+	},
+	
+	onResize: function () {
+		var mediaQuery = window.matchMedia( '(max-width: 980px)' );
+		var sides = [ 'left', 'right' ];
+		
+		sides.forEach( function ( side ) {
+			var $sideBar = this.$( '.so-' + side + '-sidebar' );
+			var $showSideBarButton = this.$( '.so-show-' + side + '-sidebar' );
+			if ( this.hasSidebar( side ) ) {
+				$showSideBarButton.hide();
+				if ( mediaQuery.matches ) {
+					$showSideBarButton.show();
+					$showSideBarButton.closest( '.so-title-bar' ).addClass( 'so-has-' + side + '-button' );
+					$sideBar.hide();
+					$sideBar.closest( '.so-panels-dialog' ).removeClass( 'so-panels-dialog-has-' + side + '-sidebar' );
+				} else {
+					$showSideBarButton.hide();
+					$showSideBarButton.closest( '.so-title-bar' ).removeClass( 'so-has-' + side + '-button' );
+					$sideBar.show();
+					$sideBar.closest( '.so-panels-dialog' ).addClass( 'so-panels-dialog-has-' + side + '-sidebar' );
+				}
+			} else {
+				$sideBar.hide();
+				$showSideBarButton.hide();
+			}
+		}.bind( this ) );
+	},
+	
+	hasSidebar: function ( side ) {
+		return this.$( '.so-' + side + '-sidebar' ).children().length > 0;
+	},
+	
+	toggleLeftSideBar: function () {
+		this.toggleSidebar( 'left' );
+	},
+	
+	toggleRightSideBar: function () {
+		this.toggleSidebar( 'right' );
+	},
+	
+	toggleSidebar: function ( side ) {
+		var sidebar = this.$( '.so-' + side + '-sidebar' );
+		
+		if ( sidebar.is( ':visible' ) ) {
+			sidebar.hide();
+		} else {
+			sidebar.show();
+		}
+	},
+	
 } );
 
 },{}],26:[function(require,module,exports){
@@ -5723,6 +5898,7 @@ module.exports = Backbone.View.extend( {
 
 	events: {
 		'click .live-editor-close': 'close',
+		'click .live-editor-save': 'closeAndSave',
 		'click .live-editor-collapse': 'collapse',
 		'click .live-editor-mode': 'mobileToggle'
 	},
@@ -5740,8 +5916,8 @@ module.exports = Backbone.View.extend( {
 		this.builder = options.builder;
 		this.previewUrl = options.previewUrl;
 
-		this.builder.model.on( 'refresh_panels_data', this.handleRefreshData, this );
-		this.builder.model.on( 'load_panels_data', this.handleLoadData, this );
+		this.listenTo( this.builder.model, 'refresh_panels_data', this.handleRefreshData );
+		this.listenTo( this.builder.model, 'load_panels_data', this.handleLoadData );
 	},
 
 	/**
@@ -5750,10 +5926,13 @@ module.exports = Backbone.View.extend( {
 	render: function () {
 		this.setElement( this.template() );
 		this.$el.hide();
-		var thisView = this;
+		
+		if ( $( '#submitdiv #save-post' ).length > 0 ) {
+			var $saveButton = this.$el.find( '.live-editor-save' );
+			$saveButton.text( $saveButton.data( 'save' ) );
+		}
 
 		var isMouseDown = false;
-
 		$( document )
 			.mousedown( function () {
 				isMouseDown = true;
@@ -5763,22 +5942,23 @@ module.exports = Backbone.View.extend( {
 			} );
 
 		// Handle highlighting the relevant widget in the live editor preview
+		var liveEditorView = this;
 		this.$el.on( 'mouseenter', '.so-widget-wrapper', function () {
 			var $$ = $( this ),
 				previewWidget = $$.data( 'live-editor-preview-widget' );
 
-			if ( ! isMouseDown && previewWidget !== undefined && previewWidget.length && ! thisView.$( '.so-preview-overlay' ).is( ':visible' ) ) {
-				thisView.highlightElement( previewWidget );
-				thisView.scrollToElement( previewWidget );
+			if ( ! isMouseDown && previewWidget !== undefined && previewWidget.length && ! liveEditorView.$( '.so-preview-overlay' ).is( ':visible' ) ) {
+				liveEditorView.highlightElement( previewWidget );
+				liveEditorView.scrollToElement( previewWidget );
 			}
 		} );
 
-		thisView.$el.on( 'mouseleave', '.so-widget-wrapper', function () {
-			thisView.resetHighlights();
-		} );
+		this.$el.on( 'mouseleave', '.so-widget-wrapper', function () {
+			this.resetHighlights();
+		}.bind(this) );
 
-		thisView.builder.on( 'open_dialog', function () {
-			thisView.resetHighlights();
+		this.listenTo( this.builder, 'open_dialog', function () {
+			this.resetHighlights();
 		} );
 
 		return this;
@@ -5840,7 +6020,7 @@ module.exports = Backbone.View.extend( {
 	},
 
 	/**
-	 * Close the live editor
+	 * Close the Live Editor
 	 */
 	close: function () {
 		if ( ! this.$el.is( ':visible' ) ) {
@@ -5857,13 +6037,19 @@ module.exports = Backbone.View.extend( {
 	},
 
 	/**
+	 * Close the Live Editor and save the post.
+	 */
+	closeAndSave: function(){
+		this.close();
+		// Finds the submit input for saving without publishing draft posts.
+		$('#submitdiv input[type="submit"][name="save"]').click();
+	},
+
+	/**
 	 * Collapse the live editor
 	 */
 	collapse: function () {
 		this.$el.toggleClass( 'so-collapsed' );
-
-		var text = this.$( '.live-editor-collapse span' );
-		text.html( text.data( this.$el.hasClass( 'so-collapsed' ) ? 'expand' : 'collapse' ) );
 	},
 
 	/**
@@ -5912,7 +6098,7 @@ module.exports = Backbone.View.extend( {
 		contentWindow.liveEditorScrollTo( over );
 	},
 
-	handleRefreshData: function ( newData, args ) {
+	handleRefreshData: function ( newData ) {
 		if ( ! this.$el.is( ':visible' ) ) {
 			return this;
 		}
@@ -5987,7 +6173,7 @@ module.exports = Backbone.View.extend( {
 				'id' : iframeId,
 				'name' : iframeId,
 			} )
-			.appendTo( target )
+			.appendTo( target );
 
 		this.setupPreviewFrame( this.previewIframe );
 
@@ -6143,12 +6329,11 @@ module.exports = Backbone.View.extend( {
 	initialize: function () {
 
 		var rowCells = this.model.get('cells');
-		rowCells.on( 'add', this.handleCellAdd, this );
-		rowCells.on( 'remove', this.handleCellRemove, this );
-		this.model.on( 'reweight_cells', this.resize, this );
+		this.listenTo(rowCells, 'add', this.handleCellAdd );
+		this.listenTo(rowCells, 'remove', this.handleCellRemove );
 
-		this.model.on( 'destroy', this.onModelDestroy, this );
-		this.model.on( 'visual_destroy', this.visualDestroyModel, this );
+		this.listenTo( this.model, 'reweight_cells', this.resize );
+		this.listenTo( this.model, 'destroy', this.onModelDestroy );
 
 		var thisView = this;
 		rowCells.each( function ( cell ) {
@@ -6160,7 +6345,7 @@ module.exports = Backbone.View.extend( {
 			thisView.listenTo( cell.get('widgets'), 'add', thisView.resize );
 		}, this );
 
-		this.model.on( 'change:label', this.onLabelChange, this );
+		this.listenTo( this.model, 'change:label', this.onLabelChange );
 	},
 
 	/**
@@ -6191,16 +6376,16 @@ module.exports = Backbone.View.extend( {
 			this.$el.addClass('so-row-no-actions');
 		}
 		else {
-			if( ! this.builder.supports( 'editWidget' ) ) {
-				this.$('.so-row-toolbar .so-row-settings' ).parent().remove();
+			if( ! this.builder.supports( 'editRow' ) ) {
+				this.$('.so-row-toolbar .so-dropdown-links-wrapper .so-row-settings' ).parent().remove();
 				this.$el.addClass('so-row-no-edit');
 			}
-			if( ! this.builder.supports( 'addWidget' ) ) {
-				this.$('.so-row-toolbar .so-row-duplicate' ).parent().remove();
+			if( ! this.builder.supports( 'addRow' ) ) {
+				this.$('.so-row-toolbar .so-dropdown-links-wrapper .so-row-duplicate' ).parent().remove();
 				this.$el.addClass('so-row-no-duplicate');
 			}
-			if( ! this.builder.supports( 'deleteWidget' ) ) {
-				this.$('.so-row-toolbar .so-row-delete' ).parent().remove();
+			if( ! this.builder.supports( 'deleteRow' ) ) {
+				this.$('.so-row-toolbar .so-dropdown-links-wrapper .so-row-delete' ).parent().remove();
 				this.$el.addClass('so-row-no-delete');
 			}
 		}
@@ -6213,8 +6398,8 @@ module.exports = Backbone.View.extend( {
 		}
 
 		// Resize the rows when ever the widget sortable moves
-		this.builder.on( 'widget_sortable_move', this.resize, this );
-		this.builder.on( 'builder_resize', this.resize, this );
+		this.listenTo( this.builder, 'widget_sortable_move', this.resize );
+		this.listenTo( this.builder, 'builder_resize', this.resize );
 
 		this.resize();
 
@@ -6337,7 +6522,7 @@ module.exports = Backbone.View.extend( {
 
 		// The user clicked on the dashicon
 		if ( $$.hasClass( 'dashicons' ) ) {
-			$$ = $.parent();
+			$$ = $$.parent();
 		}
 
 		if ( $$.hasClass( 'so-confirmed' ) ) {
@@ -6359,11 +6544,15 @@ module.exports = Backbone.View.extend( {
 	 * Handle displaying the settings dialog
 	 */
 	editSettingsHandler: function () {
+		if ( ! this.builder.supports( 'editRow' ) ) {
+			return;
+		}
 		// Lets open up an instance of the settings dialog
 		if ( this.dialog === null ) {
 			// Create the dialog
 			this.dialog = new panels.dialog.row();
 			this.dialog.setBuilder( this.builder ).setRowModel( this.model );
+			this.dialog.rowView = this;
 		}
 
 		this.dialog.openDialog();
@@ -6539,12 +6728,13 @@ module.exports = Backbone.View.extend( {
 	initialize: function () {
 
 	},
-
+	
 	/**
 	 * Render the visual styles object.
 	 *
-	 * @param type
+	 * @param stylesType
 	 * @param postId
+	 * @param args
 	 */
 	render: function ( stylesType, postId, args ) {
 		if ( _.isUndefined( stylesType ) ) {
@@ -6557,7 +6747,7 @@ module.exports = Backbone.View.extend( {
 			dialog: null
 		}, args );
 
-		this.$el.addClass( 'so-visual-styles so-' + stylesType + '-styles' );
+		this.$el.addClass( 'so-visual-styles so-' + stylesType + '-styles so-panels-loading' );
 
 		var postArgs = {
 			builderType: args.builderType
@@ -6566,7 +6756,7 @@ module.exports = Backbone.View.extend( {
 		if ( stylesType === 'cell') {
 			postArgs.index = args.index;
 		}
-
+		
 		// Load the form
 		$.post(
 			panelsOptions.ajaxurl,
@@ -6577,16 +6767,30 @@ module.exports = Backbone.View.extend( {
 				args: JSON.stringify( postArgs ),
 				postId: postId
 			},
-			function ( response ) {
-				this.$el.html( response );
-				this.setupFields();
-				this.stylesLoaded = true;
-				this.trigger( 'styles_loaded', ! _.isEmpty( response ) );
-				if ( ! _.isNull( args.dialog ) ) {
-					args.dialog.trigger( 'styles_loaded', ! _.isEmpty( response ) );
-				}
-			}.bind(this)
-		);
+			null,
+			'html'
+		).done( function ( response ) {
+			this.$el.html( response );
+			this.setupFields();
+			this.stylesLoaded = true;
+			this.trigger( 'styles_loaded', !_.isEmpty( response ) );
+			if ( !_.isNull( args.dialog ) ) {
+				args.dialog.trigger( 'styles_loaded', !_.isEmpty( response ) );
+			}
+		}.bind( this ) )
+		.fail( function ( error ) {
+			var html;
+			if ( error && error.responseText ) {
+				html = error.responseText;
+			} else {
+				html = panelsOptions.forms.loadingFailed;
+			}
+			
+			this.$el.html( html );
+		}.bind( this ) )
+		.always( function () {
+			this.$el.removeClass( 'so-panels-loading' );
+		}.bind( this ) );
 
 		return this;
 	},
@@ -6675,7 +6879,9 @@ module.exports = Backbone.View.extend( {
 						$s.find( '.current-image' ).css( 'background-image', 'url(' + url + ')' );
 
 						// Store the ID
-						$s.find( 'input' ).val( attachment.id )
+						$s.find( '.so-image-selector > input' ).val( attachment.id );
+						
+						$s.find( '.remove-image' ).removeClass( 'hidden' );
 					} );
 				}
 
@@ -6687,7 +6893,8 @@ module.exports = Backbone.View.extend( {
 			$s.find( '.remove-image' ).click( function ( e ) {
 				e.preventDefault();
 				$s.find( '.current-image' ).css( 'background-image', 'none' );
-				$s.find( 'input' ).val( '' );
+				$s.find( '.so-image-selector > input' ).val( '' );
+				$s.find( '.remove-image' ).addClass( 'hidden' );
 			} );
 		} );
 
@@ -6823,7 +7030,7 @@ module.exports = Backbone.View.extend( {
 
 	events: {
 		'click .widget-edit': 'editHandler',
-		'click .title h4': 'titleClickHandler',
+		'click .title h4': 'editHandler',
 		'click .actions .widget-duplicate': 'duplicateHandler',
 		'click .actions .widget-delete': 'deleteHandler'
 	},
@@ -6832,13 +7039,9 @@ module.exports = Backbone.View.extend( {
 	 * Initialize the widget
 	 */
 	initialize: function () {
-		this.model.on( 'user_edit', this.editHandler, this );				 // When a user wants to edit the widget model
-		this.model.on( 'user_duplicate', this.duplicateHandler, this );	   // When a user wants to duplicate the widget model
-		this.model.on( 'destroy', this.onModelDestroy, this );
-		this.model.on( 'visual_destroy', this.visualDestroyModel, this );
-
-		this.model.on( 'change:values', this.onModelChange, this );
-		this.model.on( 'change:label', this.onLabelChange, this );
+		this.listenTo(this.model, 'destroy', this.onModelDestroy);
+		this.listenTo(this.model, 'change:values', this.onModelChange);
+		this.listenTo(this.model, 'change:label', this.onLabelChange);
 	},
 
 	/**
@@ -6849,7 +7052,8 @@ module.exports = Backbone.View.extend( {
 
 		this.setElement( this.template( {
 			title: this.model.getWidgetField( 'title' ),
-			description: this.model.getTitle()
+			description: this.model.getTitle(),
+			widget_class: this.model.attributes.class
 		} ) );
 
 		this.$el.data( 'view', this );
@@ -6889,6 +7093,9 @@ module.exports = Backbone.View.extend( {
 			dialog.setupDialog();
 		}
 
+		// Add the global builder listeners
+		this.listenTo(this.cell.row.builder, 'after_user_adds_widget', this.afterUserAddsWidgetHandler);
+
 		return this;
 	},
 
@@ -6919,19 +7126,14 @@ module.exports = Backbone.View.extend( {
 
 	/**
 	 * Handle clicking on edit widget.
-	 *
-	 * @returns {boolean}
 	 */
 	editHandler: function () {
 		// Create a new dialog for editing this
-		this.getEditDialog().openDialog();
-	},
-
-	titleClickHandler: function( event ){
 		if ( ! this.cell.row.builder.supports( 'editWidget' ) || this.model.get( 'read_only' ) ) {
 			return this;
 		}
-		this.editHandler();
+
+		this.getEditDialog().openDialog();
 		return this;
 	},
 
@@ -6969,7 +7171,7 @@ module.exports = Backbone.View.extend( {
 	 * @returns {boolean}
 	 */
 	deleteHandler: function () {
-		this.model.trigger( 'visual_destroy' );
+		this.visualDestroyModel();
 		return this;
 	},
 
@@ -6996,13 +7198,12 @@ module.exports = Backbone.View.extend( {
 		// Add the history entry
 		this.cell.row.builder.addHistoryEntry( 'widget_deleted' );
 
-		var thisView = this;
 		this.$el.fadeOut( 'fast', function () {
-			thisView.cell.row.resize();
-			thisView.model.destroy();
-			thisView.cell.row.builder.model.refreshPanelsData();
-			thisView.remove();
-		} );
+			this.cell.row.resize();
+			this.model.destroy();
+			this.cell.row.builder.model.refreshPanelsData();
+			this.remove();
+		}.bind(this) );
 
 		return this;
 	},
@@ -7024,6 +7225,7 @@ module.exports = Backbone.View.extend( {
 				},
 				panelsOptions.widgets,
 				function ( c ) {
+					this.cell.row.builder.trigger('before_user_adds_widget');
 					this.cell.row.builder.addHistoryEntry( 'widget_added' );
 
 					var widget = new panels.model.widget( {
@@ -7038,6 +7240,8 @@ module.exports = Backbone.View.extend( {
 					} );
 
 					this.cell.row.builder.model.refreshPanelsData();
+
+					this.cell.row.builder.trigger('after_user_adds_widget', widget);
 				}.bind( this )
 			);
 		}
@@ -7090,16 +7294,56 @@ module.exports = Backbone.View.extend( {
 
 		// Lets also add the contextual menu for the entire row
 		this.cell.buildContextualMenu( e, menu );
+	},
+
+	/**
+	 * Handler for any action after the user adds a new widget.
+	 * @param widget
+	 */
+	afterUserAddsWidgetHandler: function( widget ) {
+		if( this.model === widget && panelsOptions.instant_open ) {
+			setTimeout(this.editHandler.bind(this), 350);
+		}
 	}
 
 } );
 
 },{}],30:[function(require,module,exports){
+var $ = jQuery;
+
+var customHtmlWidget = {
+	addWidget: function( idBase, widgetContainer, widgetId ) {
+		var component = wp.customHtmlWidgets;
+		
+		var fieldContainer = $( '<div></div>' );
+		var syncContainer = widgetContainer.find( '.widget-content:first' );
+		syncContainer.before( fieldContainer );
+
+		var widgetControl = new component.CustomHtmlWidgetControl( {
+			el: fieldContainer,
+			syncContainer: syncContainer,
+		} );
+
+		widgetControl.initializeEditor();
+		
+		// HACK: To ensure CodeMirror resize for the gutter.
+		widgetControl.editor.codemirror.refresh();
+		
+		return widgetControl;
+	}
+};
+
+module.exports = customHtmlWidget;
+
+},{}],31:[function(require,module,exports){
+var customHtmlWidget = require( './custom-html-widget' );
 var mediaWidget = require( './media-widget' );
 var textWidget = require( './text-widget' );
 
 var jsWidget = {
+	CUSTOM_HTML: 'custom_html',
 	MEDIA_AUDIO: 'media_audio',
+	MEDIA_GALLERY: 'media_gallery',
 	MEDIA_IMAGE: 'media_image',
 	MEDIA_VIDEO: 'media_video',
 	TEXT: 'text',
@@ -7109,7 +7353,11 @@ var jsWidget = {
 		var widget;
 
 		switch ( idBase ) {
+			case this.CUSTOM_HTML:
+				widget = customHtmlWidget;
+				break;
 			case this.MEDIA_AUDIO:
+			case this.MEDIA_GALLERY:
 			case this.MEDIA_IMAGE:
 			case this.MEDIA_VIDEO:
 				widget = mediaWidget;
@@ -7125,7 +7373,7 @@ var jsWidget = {
 
 module.exports = jsWidget;
 
-},{"./media-widget":31,"./text-widget":32}],31:[function(require,module,exports){
+},{"./custom-html-widget":30,"./media-widget":32,"./text-widget":33}],32:[function(require,module,exports){
 var $ = jQuery;
 
 var mediaWidget = {
@@ -7138,12 +7386,12 @@ var mediaWidget = {
 		}
 
 		var ModelConstructor = component.modelConstructors[ idBase ] || component.MediaWidgetModel;
-		var widgetContent = widgetContainer.find( '> .widget-content' );
+		var syncContainer = widgetContainer.find( '> .widget-content' );
 		var controlContainer = $( '<div class="media-widget-control"></div>' );
-		widgetContent.before( controlContainer );
+		syncContainer.before( controlContainer );
 
 		var modelAttributes = {};
-		widgetContent.find( '.media-widget-instance-property' ).each( function() {
+		syncContainer.find( '.media-widget-instance-property' ).each( function() {
 			var input = $( this );
 			modelAttributes[ input.data( 'property' ) ] = input.val();
 		});
@@ -7153,7 +7401,8 @@ var mediaWidget = {
 
 		var widgetControl = new ControlConstructor({
 			el: controlContainer,
-			model: widgetModel
+			syncContainer: syncContainer,
+			model: widgetModel,
 		});
 
 		widgetControl.render();
@@ -7164,16 +7413,41 @@ var mediaWidget = {
 
 module.exports = mediaWidget;
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 var $ = jQuery;
 
 var textWidget = {
 	addWidget: function( idBase, widgetContainer, widgetId ) {
 		var component = wp.textWidgets;
 
-		var widgetControl = new component.TextWidgetControl({
-			el: widgetContainer
-		});
+		var options = {};
+		var visualField = widgetContainer.find( '.visual' );
+		// 'visual' field and syncContainer were introduced together in 4.8.1
+		if ( visualField.length > 0 ) {
+			// If 'visual' field has no value it's a legacy text widget.
+			if ( ! visualField.val() ) {
+				return null;
+			}
+
+			var fieldContainer = $( '<div></div>' );
+			var syncContainer = widgetContainer.find( '.widget-content:first' );
+			syncContainer.before( fieldContainer );
+
+			options = {
+				el: fieldContainer,
+				syncContainer: syncContainer,
+			};
+		} else {
+			options = { el: widgetContainer };
+		}
+
+		var widgetControl = new component.TextWidgetControl( options );
+		var wpEditor = wp.oldEditor ? wp.oldEditor : wp.editor;
+		if ( wpEditor && wpEditor.hasOwnProperty( 'autop' ) ) {
+			wp.editor.autop = wpEditor.autop;
+			wp.editor.removep = wpEditor.removep;
+			wp.editor.initialize = wpEditor.initialize
+		}
 
 		widgetControl.initializeEditor();
 

@@ -36,7 +36,10 @@ class SiteOrigin_Panels_Styles {
 
 		// Filtering specific attributes
 		add_filter( 'siteorigin_panels_css_row_margin_bottom', array( $this, 'filter_row_bottom_margin' ), 10, 2 );
+		add_filter( 'siteorigin_panels_css_cell_mobile_margin_bottom', array( $this, 'filter_row_cell_bottom_margin' ), 10, 5 );
+		add_filter( 'siteorigin_panels_css_row_mobile_margin_bottom', array( $this, 'filter_row_mobile_bottom_margin' ), 10, 2 );
 		add_filter( 'siteorigin_panels_css_row_gutter', array( $this, 'filter_row_gutter' ), 10, 2 );
+		add_filter( 'siteorigin_panels_css_widget_css', array( $this, 'filter_widget_style_css' ), 10, 2 );
 	}
 
 	public static function single() {
@@ -45,8 +48,18 @@ class SiteOrigin_Panels_Styles {
 	}
 
 	static function register_scripts() {
-		wp_register_script( 'siteorigin-panels-front-styles', plugin_dir_url( __FILE__ ) . '../js/styling' . SITEORIGIN_PANELS_VERSION_SUFFIX . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array( 'jquery' ), SITEORIGIN_PANELS_VERSION );
-		wp_register_script( 'siteorigin-parallax', plugin_dir_url( __FILE__ ) . '../js/siteorigin-parallax' . SITEORIGIN_PANELS_JS_SUFFIX . '.js', array( 'jquery' ), SITEORIGIN_PANELS_VERSION );
+		wp_register_script(
+			'siteorigin-panels-front-styles',
+			siteorigin_panels_url( 'js/styling' . SITEORIGIN_PANELS_VERSION_SUFFIX . SITEORIGIN_PANELS_JS_SUFFIX . '.js' ),
+			array( 'jquery' ),
+			SITEORIGIN_PANELS_VERSION
+		);
+		wp_register_script(
+			'siteorigin-parallax',
+			siteorigin_panels_url( 'js/siteorigin-parallax' . SITEORIGIN_PANELS_JS_SUFFIX . '.js' ),
+			array( 'jquery' ),
+			SITEORIGIN_PANELS_VERSION
+		);
 		wp_localize_script( 'siteorigin-panels-front-styles', 'panelsStyles', array(
 			'fullContainer' => apply_filters( 'siteorigin_panels_full_width_container', siteorigin_panels_setting( 'full-width-container' ) )
 		) );
@@ -106,11 +119,13 @@ class SiteOrigin_Panels_Styles {
 			'priority'    => 7,
 			'multiple'    => true
 		);
+		
+		// Mobile layout fields
 
 		$fields['mobile_padding'] = array(
 			'name'        => __( 'Mobile Padding', 'siteorigin-panels' ),
 			'type'        => 'measurement',
-			'group'       => 'layout',
+			'group'       => 'mobile_layout',
 			'description' => __( 'Padding when on mobile devices.', 'siteorigin-panels' ),
 			'priority'    => 8,
 			'multiple'    => true
@@ -142,6 +157,7 @@ class SiteOrigin_Panels_Styles {
 				'tile'              => __( 'Tiled Image', 'siteorigin-panels' ),
 				'cover'             => __( 'Cover', 'siteorigin-panels' ),
 				'center'            => __( 'Centered, with original size', 'siteorigin-panels' ),
+				'contain'           => __( 'Contain', 'siteorigin-panels' ),
 				'fixed'             => __( 'Fixed', 'siteorigin-panels' ),
 				'parallax'          => __( 'Parallax', 'siteorigin-panels' ),
 				'parallax-original' => __( 'Parallax (Original Size)', 'siteorigin-panels' ),
@@ -206,6 +222,7 @@ class SiteOrigin_Panels_Styles {
 				''               => __( 'Standard', 'siteorigin-panels' ),
 				'full'           => __( 'Full Width', 'siteorigin-panels' ),
 				'full-stretched' => __( 'Full Width Stretched', 'siteorigin-panels' ),
+				'full-stretched-padded' => __( 'Full Width Stretched Padded', 'siteorigin-panels' ),
 			),
 			'priority' => 10,
 		);
@@ -233,19 +250,39 @@ class SiteOrigin_Panels_Styles {
 			'priority' => 16,
 		);
 
-		$fields['cell_alignment'] = array(
-			'name'     => __( 'Cell Vertical Alignment', 'siteorigin-panels' ),
-			'type'     => 'select',
-			'group'    => 'layout',
-			'options'  => array(
-				'flex-start' => __( 'Top', 'siteorigin-panels' ),
-				'center'     => __( 'Center', 'siteorigin-panels' ),
-				'flex-end'   => __( 'Bottom', 'siteorigin-panels' ),
-				'stretch'    => __( 'Stretch', 'siteorigin-panels' ),
-			),
-			'priority' => 17,
+		if ( siteorigin_panels_setting( 'legacy-layout' ) != 'always'  ) {
+			$fields['cell_alignment'] = array(
+				'name'     => __( 'Cell Vertical Alignment', 'siteorigin-panels' ),
+				'type'     => 'select',
+				'group'    => 'layout',
+				'options'  => array(
+					'flex-start' => __( 'Top', 'siteorigin-panels' ),
+					'center'     => __( 'Center', 'siteorigin-panels' ),
+					'flex-end'   => __( 'Bottom', 'siteorigin-panels' ),
+					'stretch'    => __( 'Stretch', 'siteorigin-panels' ),
+				),
+				'priority' => 17,
+			);
+		}
+		
+		// Add the mobile layout fields
+		
+		$fields['mobile_bottom_margin'] = array(
+			'name'        => __( 'Mobile Bottom Margin', 'siteorigin-panels' ),
+			'type'        => 'measurement',
+			'group'       => 'mobile_layout',
+			'description' => sprintf( __( 'Space below the row on mobile devices. Default is %spx.', 'siteorigin-panels' ), siteorigin_panels_setting( 'margin-bottom' ) ),
+			'priority'    => 5,
 		);
-
+		
+		$fields['mobile_cell_margin'] = array(
+			'name'        => __( 'Mobile Cell Margins', 'siteorigin-panels' ),
+			'type'        => 'measurement',
+			'group'       => 'mobile_layout',
+			'description' => sprintf( __( 'Vertical space between cells in a collapsed mobile row. Default is %spx.', 'siteorigin-panels' ), siteorigin_panels_setting( 'margin-bottom' ) ),
+			'priority'    => 5,
+		);
+		
 		return $fields;
 	}
 
@@ -302,6 +339,15 @@ class SiteOrigin_Panels_Styles {
 
 		// Add the general fields
 		$fields = wp_parse_args( $fields, self::get_general_style_fields( 'widget', __( 'Widget', 'siteorigin-panels' ) ) );
+		
+		$fields['margin'] = array(
+			'name'        => __( 'Margin', 'siteorigin-panels' ),
+			'type'        => 'measurement',
+			'group'       => 'layout',
+			'description' => __( 'Margins around the widget.', 'siteorigin-panels' ),
+			'priority'    => 6,
+			'multiple'    => true
+		);
 
 		// How lets add the design fields
 
@@ -340,8 +386,10 @@ class SiteOrigin_Panels_Styles {
 			$attributes['class'] = array_merge( $attributes['class'], $style['class'] );
 		}
 
-		if ( ! empty( $style['background_display'] ) && ! empty( $style['background_image_attachment'] ) ) {
-
+		if ( ! empty( $style['background_display'] ) &&
+			 ! empty( $style['background_image_attachment'] )
+		) {
+			
 			$url = self::get_attachment_image_src( $style['background_image_attachment'], 'full' );
 
 			if (
@@ -398,12 +446,17 @@ class SiteOrigin_Panels_Styles {
 			$css[ 'background-color' ] = $style['background'];
 		}
 
-		if ( ! empty( $style['background_display'] ) && ! empty( $style['background_image_attachment'] ) ) {
-
+		if ( ! empty( $style['background_display'] ) &&
+			 ! ( empty( $style['background_image_attachment'] ) && empty( $style['background_image_attachment_fallback'] ) )
+		) {
 			$url = self::get_attachment_image_src( $style['background_image_attachment'], 'full' );
+			
+			if ( empty( $url ) && ! empty( $style['background_image_attachment_fallback'] ) ) {
+				$url = $style['background_image_attachment_fallback'];
+			}
 
 			if ( ! empty( $url ) ) {
-				$css[ 'background-image' ] = 'url(' . $url[0] . ')';
+				$css['background-image'] = 'url(' .( is_array( $url ) ? $url[0] : $url ) . ')';
 
 				switch ( $style['background_display'] ) {
 					case 'parallax':
@@ -417,6 +470,9 @@ class SiteOrigin_Panels_Styles {
 					case 'cover':
 						$css[ 'background-position' ] = 'center center';
 						$css[ 'background-size' ] = 'cover';
+						break;
+					case 'contain':
+						$css[ 'background-size' ] = 'contain';
 						break;
 					case 'center':
 						$css[ 'background-position' ] = 'center center';
@@ -474,6 +530,13 @@ class SiteOrigin_Panels_Styles {
 		if( ! empty( $style['mobile_padding'] ) ) {
 			$css['padding'] = $style[ 'mobile_padding' ];
 		}
+		
+		if ( ! empty( $style['background_display'] ) &&
+			 $style['background_display'] == 'fixed'  &&
+			 ! ( empty( $style['background_image_attachment'] ) && empty( $style['background_image_attachment_fallback'] ) )
+		) {
+			$css[ 'background-attachment' ] = 'scroll';
+		}
 
 		if ( ! empty( $style[ 'mobile_css' ] ) ) {
 			preg_match_all( '/^([A-Za-z0-9\-]+?):(.+?);?$/m', $style[ 'mobile_css' ], $matches );
@@ -526,7 +589,7 @@ class SiteOrigin_Panels_Styles {
 			}
 
 			// Add in flexbox alignment to the main row element
-			if ( ! empty( $row['style']['cell_alignment'] ) ) {
+			if ( siteorigin_panels_setting( 'legacy-layout' ) != 'always' && ! SiteOrigin_Panels::is_legacy_browser() && ! empty( $row['style']['cell_alignment'] ) ) {
 				$css->add_row_css(
 					$post_id,
 					$ri,
@@ -623,10 +686,50 @@ class SiteOrigin_Panels_Styles {
 
 		return $css;
 	}
-
+	
+	/**
+	 * Add in custom styles for the row's bottom margin
+	 *
+	 * @param $margin
+	 * @param $grid
+	 *
+	 * @return mixed
+	 */
 	static function filter_row_bottom_margin( $margin, $grid ) {
 		if ( ! empty( $grid['style']['bottom_margin'] ) ) {
 			$margin = $grid['style']['bottom_margin'];
+		}
+
+		return $margin;
+	}
+	
+	/**
+	 * Add in custom styles for spacing between cells in a row.
+	 *
+	 * @param $margin
+	 * @param $cell
+	 *
+	 * @return mixed
+	 */
+	static function filter_row_cell_bottom_margin($margin, $cell, $ci, $row, $ri){
+		if ( ! empty( $row['style']['mobile_cell_margin'] ) ) {
+			$margin = $row['style']['mobile_cell_margin'];
+		}
+		
+		return $margin;
+	}
+	
+	/**
+	 * Add in custom styles for a row's mobile bottom margin
+	 *
+	 * @param $margin
+	 * @param $grid
+	 *
+	 * @return mixed
+	 */
+	static function filter_row_mobile_bottom_margin( $margin, $grid ) {
+		if ( ! empty( $grid['style']['mobile_bottom_margin'] ) ) {
+			$margin = $grid['style']['mobile_bottom_margin'];
 		}
 
 		return $margin;
@@ -638,6 +741,22 @@ class SiteOrigin_Panels_Styles {
 		}
 
 		return $gutter;
+	}
+	
+	/**
+	 * Adds widget specific styles not included in the general style fields.
+	 *
+	 * @param $widget_css The CSS properties and values
+	 * @param $widget_style_data The style settings as obtained from the style fields.
+	 *
+	 * @return mixed
+	 */
+	static function filter_widget_style_css( $widget_css, $widget_style_data ) {
+		if ( ! empty( $widget_style_data['margin'] ) ) {
+			$widget_css['margin'] = $widget_style_data['margin'];
+		}
+		
+		return $widget_css;
 	}
 	
 	public static function get_attachment_image_src( $image, $size = 'full' ){
