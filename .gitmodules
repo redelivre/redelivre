@@ -237,3 +237,11 @@
 	path = src/wp-content/plugins/really-simple-ssl-fixer
 	url = git@github.com:redelivre/really-simple-ssl-fixer.git
 	branch = master
+[submodule "src/wp-content/themes/localbiz"]
+	path = src/wp-content/themes/localbiz
+	url = https://github.com/redelivre/theme-localbiz.git
+	branch = master
+[submodule "src/wp-content/plugins/rl-progressbar-meta"]
+	path = src/wp-content/plugins/rl-progressbar-meta
+	url = https://github.com/redelivre/really-simple-ssl-fixer.git
+	branch = master
