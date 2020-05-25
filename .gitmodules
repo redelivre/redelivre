@@ -245,3 +245,7 @@
 	path = src/wp-content/plugins/rl-progressbar-meta
 	url = https://github.com/redelivre/really-simple-ssl-fixer.git
 	branch = master
+[submodule "src/wp-content/plugins/mapsvg"]
+	path = src/wp-content/plugins/mapsvg
+	url = git@gitlab.com:redelivre/mapsvg.git
+	branch = master
