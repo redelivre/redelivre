@@ -235,7 +235,7 @@
 	branch = master
 [submodule "src/wp-content/plugins/really-simple-ssl-fixer"]
 	path = src/wp-content/plugins/really-simple-ssl-fixer
-	url = git@github.com:redelivre/really-simple-ssl-fixer.git
+	url = https://github.com/redelivre/really-simple-ssl-fixer.git
 	branch = master
 [submodule "src/wp-content/themes/localbiz"]
 	path = src/wp-content/themes/localbiz
