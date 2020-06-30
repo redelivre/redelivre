@@ -1,0 +1,47 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-label,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-label {
+		<?php if ( forminator_array_value_exists( $properties, 'progress-label' ) && !empty( $properties['progress-label'] ) ) { ?>
+			color: <?php echo $properties['progress-label'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar {
+		<?php if ( forminator_array_value_exists( $properties, 'progress-background' ) && !empty( $properties['progress-background'] ) ) { ?>
+			background-color: <?php echo $properties['progress-background'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar span,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar span {
+		<?php if ( forminator_array_value_exists( $properties, 'progress-background-status' ) && !empty( $properties['progress-background-status'] ) ) { ?>
+			background-color: <?php echo $properties['progress-background-status'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-label,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-label {
+		color: #777771;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar {
+		background-color: #E6E6E6;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar span,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-pagination-progress .forminator-progress-bar span {
+		background-color: #17A8E3;
+	}
+
+<?php } ?>

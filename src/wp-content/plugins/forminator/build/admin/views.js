@@ -1,0 +1,1 @@
+!function(n){formintorjs.define(["admin/dashboard","admin/settings-page","admin/popups","admin/addons/addons"],function(n,a,d,i){return{Views:{Dashboard:n,SettingsPage:a,Popups:d}}})}(jQuery);

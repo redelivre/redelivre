@@ -1,0 +1,28 @@
+@include body-class(true) {
+
+	.sui-box {
+
+		.fui-builder-section {
+
+			&--insert {
+				display: flex;
+				justify-content: space-between;
+				border-bottom-width: 0;
+
+				@include media(max-width, md) {
+					padding-top: $sui-gutter-md;
+					padding-bottom: $sui-gutter-md;
+				}
+
+				@include media(min-width, md) {
+					padding-top: $sui-gutter;
+					padding-bottom: $sui-gutter;
+				}
+
+				+ .fui-builder-section--pagination {
+					border-top: 1px solid palette(silver, soft);
+				}
+			}
+		}
+	}
+}

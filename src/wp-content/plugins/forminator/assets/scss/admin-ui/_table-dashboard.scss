@@ -1,0 +1,52 @@
+@include body-class(true) {
+
+	.sui-table {
+
+		thead,
+		tbody,
+		tfoot {
+
+			th, td {
+
+				&.fui-col-status {
+
+					.fui-module-status {
+						width: 10px;
+						height: 10px;
+						cursor: help;
+						display: inline-block;
+						margin-right: 13px;
+						border-radius: 20px;
+						background-color: #E6E6E6;
+
+						&.fui-publish {
+							background-color: $blue;
+						}
+					}
+
+					> .sui-button-icon,
+					> .sui-dropdown {
+						margin-right: 3px;
+						margin-left: 4px;
+
+						&:first-child {
+							margin-left: 0;
+						}
+
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+
+					@include media(max-width, md) {
+						width: 135px;
+					}
+
+					@include media(min-width, md) {
+						width: 150px;
+					}
+				}
+			}
+		}
+	}
+}

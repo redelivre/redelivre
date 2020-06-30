@@ -1,0 +1,35 @@
+<?php include('global/container-colors.html') ?>
+<?php include('global/container-padding.html') ?>
+<?php include('global/container-border.html') ?>
+<?php include('global/chart-colors.html') ?>
+
+<?php include('global/question-colors.html') ?>
+<?php include('global/question-font.html') ?>
+
+<?php include('global/description-colors.html') ?>
+<?php include('global/description-font.html') ?>
+
+<?php include('default/radio-colors.html') ?>
+<?php include('default/radio-font.html') ?>
+
+<?php include('default/input-colors.html') ?>
+<?php include('default/input-font.html') ?>
+
+<?php include('default/submit-colors.html') ?>
+<?php include('default/submit-font.html') ?>
+
+<?php include('default/back-colors.html') ?>
+<?php include('default/back-font.html') ?>
+
+<?php include('default/link-colors.html') ?>
+<?php include('default/link-font.html') ?>
+
+<?php include('default/note-colors.html') ?>
+<?php include('default/note-font.html') ?>
+
+<?php include('default/response-colors.html') ?>
+<?php include('default/response-font.html') ?>
+
+<?php if ( forminator_array_value_exists( $properties, 'use-custom-css' ) && forminator_array_value_exists( $properties, 'custom_css' ) ) { ?>
+	<?php echo $properties['custom_css'] ?>
+<?php } ?>

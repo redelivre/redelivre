@@ -1,0 +1,71 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox {
+		<?php if ( forminator_array_value_exists( $properties, 'radio-label' ) && !empty( $properties['radio-label'] ) ) { ?>
+			color: <?php echo $properties['radio-label'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox span[aria-hidden] {
+		<?php if ( forminator_array_value_exists( $properties, 'radio-border-static' ) && !empty( $properties['radio-border-static'] ) ) { ?>
+			border-color: <?php echo $properties['radio-border-static'] ?>;
+		<?php } else { ?>
+			border-color: #777771;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'radio-icon' ) && !empty( $properties['radio-icon'] ) ) { ?>
+			color: <?php echo $properties['radio-icon'] ?>;
+		<?php } else { ?>
+			color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox span[aria-hidden]:after {
+		<?php if ( forminator_array_value_exists( $properties, 'radio-border-active' ) && !empty( $properties['radio-border-active'] ) ) { ?>
+			background-color: <?php echo $properties['radio-border-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox input:checked + span[aria-hidden] {
+		<?php if ( forminator_array_value_exists( $properties, 'radio-border-active' ) && !empty( $properties['radio-border-active'] ) ) { ?>
+			border-color: <?php echo $properties['radio-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-checkbox span[aria-hidden] {
+		<?php if ( forminator_array_value_exists( $properties, 'label-validation-color' ) && !empty( $properties['label-validation-color'] ) ) { ?>
+			border-color: <?php echo $properties['label-validation-color'] ?>;
+		<?php } else { ?>
+			border-color: #E04562;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox {
+		color: #000000;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox span[aria-hidden] {
+		border-color: #777771;
+		color: #17A8E3;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox span[aria-hidden]:after {
+		background-color: #17A8E3;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-checkbox input:checked + span[aria-hidden] {
+		border-color: #17A8E3;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-checkbox span[aria-hidden] {
+		border-color: #E04562;
+	}
+
+<?php } ?>

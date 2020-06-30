@@ -1,0 +1,13 @@
+@include body-class(true) {
+
+	.sui-checkbox {
+
+		&.sui-checkbox-pre {
+			font-family: monospace;
+
+			input + span + span {
+				word-break: break-all;
+			}
+		}
+	}
+}

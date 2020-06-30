@@ -1,0 +1,83 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-background' ) && !empty( $properties['multiselect-background'] ) ) { ?>
+			background-color: <?php echo $properties['multiselect-background'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-has_error .forminator-multiselect {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-border-error' ) && !empty( $properties['multiselect-border-error'] ) ) { ?>
+			box-shadow: inset 2px 0 0 0 <?php echo $properties['multiselect-border-error'] ?>;
+			-moz-box-shadow: inset 2px 0 0 0 <?php echo $properties['multiselect-border-error'] ?>;
+			-webkit-box-shadow: inset 2px 0 0 0 <?php echo $properties['multiselect-border-error'] ?>;
+		<?php } else { ?>
+			box-shadow: inset 2px 0 0 0 #E04562;
+			-moz-box-shadow: inset 2px 0 0 0 #E04562;
+			-webkit-box-shadow: inset 2px 0 0 0 #E04562;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect .forminator-option {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-color-static' ) && !empty( $properties['multiselect-item-color-static'] ) ) { ?>
+			color: <?php echo $properties['multiselect-item-color-static'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect .forminator-option:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-bg-hover' ) && !empty( $properties['multiselect-item-bg-hover'] ) ) { ?>
+			background-color: <?php echo $properties['multiselect-item-bg-hover'] ?>;
+		<?php } else { ?>
+			background-color: #DDDDDD;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-color-hover' ) && !empty( $properties['multiselect-item-color-hover'] ) ) { ?>
+			color: <?php echo $properties['multiselect-item-color-hover'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect .forminator-option.forminator-is_checked {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-bg-active' ) && !empty( $properties['multiselect-item-bg-active'] ) ) { ?>
+			background-color: <?php echo $properties['multiselect-item-bg-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-color-active' ) && !empty( $properties['multiselect-item-color-active'] ) ) { ?>
+			color: <?php echo $properties['multiselect-item-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect {
+		background-color: #E6E6E6;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-has_error .forminator-multiselect {
+		box-shadow: inset 2px 0 0 0 #E04562;
+		-moz-box-shadow: inset 2px 0 0 0 #E04562;
+		-webkit-box-shadow: inset 2px 0 0 0 #E04562;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect .forminator-option {
+		color: #777771;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect .forminator-option:hover {
+		background-color: #DDDDDD;
+		color: #000000;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-multiselect .forminator-option.forminator-is_checked {
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	}
+
+<?php } ?>

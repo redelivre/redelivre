@@ -1,0 +1,69 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-font-family' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message p {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-response-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-response-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 15px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-response-font-family' ) ) { ?>
+			<?php if ( $properties['cform-response-font-family'] != 'custom' && !empty( $properties['cform-response-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-response-font-family'] ?>;
+			<?php } else if ( $properties['cform-response-font-family'] == 'custom' && !empty( $properties['cform-response-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-response-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-response-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-response-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message p {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-response-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-response-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 15px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-response-font-family' ) ) { ?>
+			<?php if ( $properties['cform-response-font-family'] != 'custom' && !empty( $properties['cform-response-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-response-font-family'] ?>;
+			<?php } else if ( $properties['cform-response-font-family'] == 'custom' && !empty( $properties['cform-response-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-response-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-response-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-response-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message p {
+		font-size: 15px;
+		font-family: inherit;
+		font-weight: 400;
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .forminator-response-message p {
+		font-size: 15px;
+		font-family: inherit;
+		font-weight: 400;
+	}
+
+<?php } ?>

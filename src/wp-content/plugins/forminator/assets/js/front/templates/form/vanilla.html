@@ -1,0 +1,5 @@
+<?php include('global/grid.html') ?>
+
+<?php if ( forminator_array_value_exists( $properties, 'use-custom-css' ) && forminator_array_value_exists( $properties, 'custom_css' ) ) { ?>
+	<?php echo $properties['custom_css'] ?>
+<?php } ?>

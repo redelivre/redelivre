@@ -1,0 +1,103 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success {
+		<?php if ( forminator_array_value_exists( $properties, 'response-success-background' ) && !empty( $properties['response-success-background'] ) ) { ?>
+			background-color: <?php echo $properties['response-success-background'] ?>;
+		<?php } else { ?>
+			background-color: #BCEEE6;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'response-success-border' ) && !empty( $properties['response-success-border'] ) ) { ?>
+			box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+			-moz-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+			-webkit-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+		<?php } else { ?>
+			box-shadow: inset 4px 0 0 0 #1ABCA1;
+			-moz-box-shadow: inset 4px 0 0 0 #1ABCA1;
+			-webkit-box-shadow: inset 4px 0 0 0 #1ABCA1;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:hover,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:focus,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:active {
+		<?php if ( forminator_array_value_exists( $properties, 'response-success-border' ) && !empty( $properties['response-success-border'] ) ) { ?>
+			box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+			-moz-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+			-webkit-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+		<?php } else { ?>
+			box-shadow: inset 4px 0 0 0 #1ABCA1;
+			-moz-box-shadow: inset 4px 0 0 0 #1ABCA1;
+			-webkit-box-shadow: inset 4px 0 0 0 #1ABCA1;
+		<?php } ?>
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:focus,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:active {
+		<?php if ( forminator_array_value_exists( $properties, 'response-success-border' ) && !empty( $properties['response-success-border'] ) ) { ?>
+			box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+			-moz-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+			-webkit-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-success-border'] ?>;
+		<?php } else { ?>
+			box-shadow: inset 4px 0 0 0 #1ABCA1;
+			-moz-box-shadow: inset 4px 0 0 0 #1ABCA1;
+			-webkit-box-shadow: inset 4px 0 0 0 #1ABCA1;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success p {
+		<?php if ( forminator_array_value_exists( $properties, 'response-success-color' ) && !empty( $properties['response-success-color'] ) ) { ?>
+			color: <?php echo $properties['response-success-color'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success p {
+		<?php if ( forminator_array_value_exists( $properties, 'response-success-color' ) && !empty( $properties['response-success-color'] ) ) { ?>
+			color: <?php echo $properties['response-success-color'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success {
+		background-color: #BCEEE6;
+		box-shadow: inset 4px 0 0 0 #1ABCA1;
+		-moz-box-shadow: inset 4px 0 0 0 #1ABCA1;
+		-webkit-box-shadow: inset 4px 0 0 0 #1ABCA1;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:hover,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:focus,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:active {
+		box-shadow: inset 4px 0 0 0 #1ABCA1;
+		-moz-box-shadow: inset 4px 0 0 0 #1ABCA1;
+		-webkit-box-shadow: inset 4px 0 0 0 #1ABCA1;
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:focus,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success:active {
+		box-shadow: inset 4px 0 0 0 #1ABCA1;
+		-moz-box-shadow: inset 4px 0 0 0 #1ABCA1;
+		-webkit-box-shadow: inset 4px 0 0 0 #1ABCA1;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success p {
+		color: #333333;
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-response-message.forminator-success p {
+		color: #333333;
+	}
+
+<?php } ?>

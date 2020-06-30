@@ -1,0 +1,164 @@
+$fui-multi-options--background: palette(silver, light);
+
+$fui-multi-options--button-height:       70px;
+$fui-multi-options--button-height-md:    60px;
+$fui-multi-options--button-border-width: 1px;
+$fui-multi-options--button-border-style: dashed;
+$fui-multi-options--button-border-color: palette(silver, medium);
+$fui-multi-options--button-background:   transparent;
+$fui-multi-options--button-color:        palette(gray, light);
+$fui-multi-options--button-font-size:    12px;
+$fui-multi-options--button-line-height:  16px;
+
+$fui-multi-options--option-background: $white;
+
+@include body-class(true) {
+
+	.fui-multi-options {
+
+		.fui-add-option {
+			width: 100%;
+			cursor: pointer;
+			display: block;
+			margin: 0;
+			border-width: $fui-multi-options--button-border-width;
+			border-style: $fui-multi-options--button-border-style;
+			border-color: $fui-multi-options--button-border-color;
+			border-radius: $border-radius;
+			background-color: $fui-multi-options--button-background;
+			color: $fui-multi-options--button-color;
+			font: 500 #{$fui-multi-options--button-font-size}/#{$fui-multi-options--button-line-height} $font;
+			letter-spacing: $font--letter-spacing;
+			text-transform: uppercase;
+			text-align: center;
+
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				outline: none;
+				box-shadow: none;
+			}
+
+			[class*="sui-icon-"] {
+				width: 23px;
+				height: 16px;
+				text-align: center;
+
+				&:before {
+					display: block;
+					font-size: 12px;
+					line-height: 16px;
+				}
+			}
+
+			@include media(max-width, md) {
+				height: $fui-multi-options--button-height-md;
+				padding: #{($fui-multi-options--button-height-md - $fui-multi-options--button-line-height - ($fui-multi-options--button-border-width * 2)) / 2} #{$sui-gutter-md / 2};
+			}
+
+			@include media(min-width, md) {
+				height: $fui-multi-options--button-height;
+				padding: #{($fui-multi-options--button-height - $fui-multi-options--button-line-height - ($fui-multi-options--button-border-width * 2)) / 2} #{$sui-gutter / 2};
+			}
+		}
+
+		.fui-option {
+			cursor: move;
+			display: flex;
+			align-items: flex-start;
+			margin: 0 0 10px;
+			padding: 15px 10px;
+			border-radius: $border-radius;
+			background-color: $fui-multi-options--option-background;
+			box-shadow: 0 2px 7px 0 rgba(162,138,138,0.05);
+
+			@include icon(before, drag) {
+				width: 30px;
+				display: block;
+				flex: 0 0 auto;
+				margin: 12px 10px 12px 0;
+				font-size: 16px;
+				line-height: 16px;
+				text-align: center;
+			}
+
+			&:hover,
+			&:active,
+			&.fui-on_focus {
+				box-shadow: 0 0 0 4px rgba(0,0,0,0.02), 0 4px 15px 0 rgba(0,0,0,0.05);
+			}
+
+			.fui-option-settings {
+				display: block;
+				flex: 1;
+				margin-right: 10px;
+
+				[class^="fui-option-settings-"] {
+					display: flex;
+					align-items: center;
+
+					> [class^="sui-"] {
+						flex: 0 0 auto;
+					}
+
+					> .sui-form-field,
+					> .sui-form-control {
+						flex: 1;
+						margin: 0;
+					}
+
+					> *:not(:first-child) {
+						margin-left: 10px;
+					}
+
+					~ [class^="fui-option-settings-"] {
+						margin-top: 10px;
+					}
+				}
+			}
+
+			+ .fui-add-option {
+
+				@include media(max-width, md) {
+					margin-top: $sui-gutter-md;
+				}
+
+				@include media(min-width, md) {
+					margin-top: $sui-gutter;
+				}
+			}
+		}
+
+		&:not(.fui-nobg) {
+			background-color: $fui-multi-options--background;
+
+			@include media(max-width, md) {
+				margin: 0 -#{$sui-gutter-md};
+				padding: $sui-gutter-md;
+			}
+
+			@include media(min-width, md) {
+				margin: 0 -#{$sui-gutter};
+				padding: $sui-gutter;
+			}
+		}
+	}
+
+	.sui-form-field:last-child {
+
+		.fui-multi-options {
+
+			&:not(.fui-nobg) {
+
+				@include media(max-width, md) {
+					margin-bottom: -#{$sui-gutter-md};
+				}
+
+				@include media(min-width, md) {
+					margin-bottom: -#{$sui-gutter};
+				}
+			}
+		}
+	}
+}

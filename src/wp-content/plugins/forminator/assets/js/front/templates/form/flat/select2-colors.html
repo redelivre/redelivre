@@ -1,0 +1,113 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .select2-selection--single {
+		<?php if ( forminator_array_value_exists( $properties, 'select-background-static' ) && !empty( $properties['select-background-static'] ) ) { ?>
+			background-color: <?php echo $properties['select-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #EDEDED;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'select-value-static' ) && !empty( $properties['select-value-static'] ) ) { ?>
+			color: <?php echo $properties['select-value-static'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .selection .select2-selection--single .select2-selection__arrow {
+		<?php if ( forminator_array_value_exists( $properties, 'select-icon-static' ) && !empty( $properties['select-icon-static'] ) ) { ?>
+			color: <?php echo $properties['select-icon-static'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .select2-selection--single:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'select-background-hover' ) && !empty( $properties['select-background-hover'] ) ) { ?>
+			background-color: <?php echo $properties['select-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'select-value-hover' ) && !empty( $properties['select-value-hover'] ) ) { ?>
+			color: <?php echo $properties['select-value-hover'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .select2-selection--single:hover .select2-selection__arrow {
+		<?php if ( forminator_array_value_exists( $properties, 'select-icon-hover' ) && !empty( $properties['select-icon-hover'] ) ) { ?>
+			color: <?php echo $properties['select-icon-hover'] ?>;
+		<?php } else { ?>
+			color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default.select2-container--open .select2-selection--single {
+		<?php if ( forminator_array_value_exists( $properties, 'select-background-active' ) && !empty( $properties['select-background-active'] ) ) { ?>
+			background-color: <?php echo $properties['select-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'select-value-active' ) && !empty( $properties['select-value-active'] ) ) { ?>
+			color: <?php echo $properties['select-value-active'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow {
+		<?php if ( forminator_array_value_exists( $properties, 'select-icon-active' ) && !empty( $properties['select-icon-active'] ) ) { ?>
+			color: <?php echo $properties['select-icon-active'] ?>;
+		<?php } else { ?>
+			color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-has_error .forminator-select2 + .select2-container--default .select2-selection--single {
+		<?php if ( forminator_array_value_exists( $properties, 'select-border-error' ) && !empty( $properties['select-border-error'] ) ) { ?>
+			box-shadow: inset 2px 0 0 <?php echo $properties['select-border-error'] ?>;
+			-moz-box-shadow: inset 2px 0 0 <?php echo $properties['select-border-error'] ?>;
+			-webkit-box-shadow: inset 2px 0 0 <?php echo $properties['select-border-error'] ?>;
+		<?php } else { ?>
+			box-shadow: inset 2px 0 0 #E04562;
+			-moz-box-shadow: inset 2px 0 0 #E04562;
+			-webkit-box-shadow: inset 2px 0 0 #E04562;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .select2-selection--single {
+		background-color: #EDEDED;
+		color: #000000;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .selection .select2-selection--single .select2-selection__arrow {
+		color: #777771;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .select2-selection--single:hover {
+		background-color: #E6E6E6;
+		color: #000000;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default .select2-selection--single:hover .select2-selection__arrow {
+		color: #17A8E3;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default.select2-container--open .select2-selection--single {
+		background-color: #E6E6E6;
+		color: #000000;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-select2 + .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow {
+		color: #17A8E3;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-has_error .forminator-select2 + .select2-container--default .select2-selection--single {
+		box-shadow: inset 2px 0 0 #E04562;
+		-moz-box-shadow: inset 2px 0 0 #E04562;
+		-webkit-box-shadow: inset 2px 0 0 #E04562;
+	}
+
+<?php } ?>

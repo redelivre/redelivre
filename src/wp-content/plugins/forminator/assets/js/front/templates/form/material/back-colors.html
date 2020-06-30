@@ -1,0 +1,59 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button-back {
+		<?php if ( forminator_array_value_exists( $properties, 'prev-background-static' ) && !empty( $properties['prev-background-static'] ) ) { ?>
+			background-color: <?php echo $properties['prev-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #1ABCA1;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'prev-color-static' ) && !empty( $properties['prev-color-static'] ) ) { ?>
+			color: <?php echo $properties['prev-color-static'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button-back:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'prev-background-hover' ) && !empty( $properties['prev-background-hover'] ) ) { ?>
+			background-color: <?php echo $properties['prev-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #159C85;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'prev-color-hover' ) && !empty( $properties['prev-color-hover'] ) ) { ?>
+			color: <?php echo $properties['prev-color-hover'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button-back:active {
+		<?php if ( forminator_array_value_exists( $properties, 'prev-background-active' ) && !empty( $properties['prev-background-active'] ) ) { ?>
+			background-color: <?php echo $properties['prev-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #159C85;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'prev-color-active' ) && !empty( $properties['prev-color-active'] ) ) { ?>
+			color: <?php echo $properties['prev-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button-back {
+		background-color: #1ABCA1;
+		color: #FFFFFF;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button-back:hover {
+		background-color: #159C85;
+		color: #FFFFFF;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button-back:active {
+		background-color: #159C85;
+		color: #FFFFFF;
+	}
+
+<?php } ?>

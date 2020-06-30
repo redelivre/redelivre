@@ -1,0 +1,29 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-title {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-title-color' ) && !empty( $properties['cform-title-color'] ) ) { ?>
+			color: <?php echo $properties['cform-title-color'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-subtitle {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-subtitle-color' ) && !empty( $properties['cform-subtitle-color'] ) ) { ?>
+			color: <?php echo $properties['cform-subtitle-color'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-title {
+		color: #333333;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-subtitle {
+		color: #333333;
+	}
+
+<?php } ?>

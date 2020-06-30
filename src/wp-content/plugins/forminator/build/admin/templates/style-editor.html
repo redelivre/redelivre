@@ -1,0 +1,57 @@
+<div>
+
+	<script type="text/template" id="style-editor-main-tpl">
+
+		<div class="forminator-basic-selectors">
+
+			<label class="sui-label">{{ Forminator.l10n.tab_appearance.basic_selectors }}:</label>
+
+			<div class="sui-ace-selectors">
+
+				{[ _.each( selectors, function( selector ) {  ]}
+					{[ if( selector.sort === "basic" ) { ]}
+						<a href="#" class="sui-selector sui-insert-selector {{ selector.visibility }}" data-selector="{{ selector.selector }}" >{{ selector.label }}</a>
+					{[ } ]}
+				{[ }) ]}
+
+			</div>
+
+		</div>
+
+		<div class="forminator-advanced-selectors">
+
+			<label class="sui-label">{{ Forminator.l10n.tab_appearance.advanced_selectors }}:</label>
+
+			<div class="sui-ace-selectors">
+
+				{[ _.each( selectors, function( selector ) {  ]}
+					{[ if( selector.sort === "advanced" ) { ]}
+						<a href="#" class="sui-selector sui-insert-selector {{ selector.visibility }}" data-selector="{{ selector.selector }}" >{{ selector.label }}</a>
+					{[ } ]}
+				{[ }) ]}
+
+			</div>
+
+		</div>
+
+		<div class="forminator-pagination-selectors">
+
+			<label class="sui-label">{{ Forminator.l10n.tab_appearance.pagination_selectors }}:</label>
+
+			<div class="sui-ace-selectors">
+
+				{[ _.each( selectors, function( selector ) {  ]}
+					{[ if( selector.sort === "pagination" ) { ]}
+						<a href="#" class="sui-selector sui-insert-selector {{ selector.visibility }}" data-selector="{{ selector.selector }}" >{{ selector.label }}</a>
+					{[ } ]}
+				{[ }) ]}
+
+			</div>
+
+		</div>
+
+		<div style="height: 210px; margin-top: 15px;" id="{{ element_id }}">{{ custom_css }}</div>
+
+	</script>
+
+</div>

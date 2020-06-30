@@ -1,0 +1,45 @@
+<?php if ( forminator_array_value_exists( $properties, 'poll-colors' ) ) { ?>
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-error,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-error {
+		<?php if ( forminator_array_value_exists( $properties, 'error_background' ) && !empty( $properties['error_background'] ) ) { ?>
+			background-color: <?php echo $properties['error_background'] ?>;
+		<?php } else { ?>
+			background-color: #F9E4E8;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'error_text' ) && !empty( $properties['error_text'] ) ) { ?>
+			color: <?php echo $properties['error_text'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-success,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-success {
+		<?php if ( forminator_array_value_exists( $properties, 'success_background' ) && !empty( $properties['success_background'] ) ) { ?>
+			background-color: <?php echo $properties['success_background'] ?>;
+		<?php } else { ?>
+			background-color: #BCEEE6;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'success_text' ) && !empty( $properties['success_text'] ) ) { ?>
+			color: <?php echo $properties['success_text'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-error,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-error {
+		background-color: #F9E4E8;
+		color: #333333;
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-success,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-response-message.forminator-success {
+		background-color: #BCEEE6;
+		color: #333333;
+	}
+
+<?php } ?>

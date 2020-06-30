@@ -1,0 +1,708 @@
+<div>
+
+	<script type="text/template" id="forminator-new-form-content-tpl">
+		<p><small>{{ Forminator.l10n.popup.new_form_desc2 }}</small></p>
+
+		<div id="forminator-form-name-input" class="sui-form-field">
+
+			<label for="forminator-form-name" class="sui-screen-reader-text">{{ Forminator.l10n.popup.input_label }}</label>
+			<input type="text"
+			       id="forminator-form-name"
+			       class="sui-form-control fui-required"
+			       placeholder="{{Forminator.l10n.popup.new_form_placeholder}}" autofocus>
+			<span class="sui-error-message" style="display: none;">{{Forminator.l10n.popup.form_name_validation}}</span>
+
+		</div>
+	</script>
+
+	<script type="text/template" id="forminator-new-poll-content-tpl">
+		<p><small>{{ Forminator.l10n.popup.new_poll_desc2 }}</small></p>
+
+		<div id="forminator-form-name-input" class="sui-form-field">
+
+			<label for="forminator-form-name" class="sui-screen-reader-text">{{ Forminator.l10n.popup.input_label }}</label>
+			<input type="text"
+			       id="forminator-form-name"
+			       class="sui-form-control fui-required"
+			       placeholder="{{Forminator.l10n.popup.new_poll_placeholder}}" autofocus>
+			<span class="sui-error-message" style="display: none;">{{Forminator.l10n.popup.poll_name_validation}}</span>
+
+		</div>
+	</script>
+
+	<script type="text/template" id="forminator-new-quiz-content-tpl">
+		<p><small>{{ Forminator.l10n.popup.new_quiz_desc2 }}</small></p>
+
+		<div id="forminator-form-name-input" class="sui-form-field">
+
+			<label for="forminator-form-name" class="sui-screen-reader-text">{{ Forminator.l10n.popup.input_label }}</label>
+			<input type="text"
+			       id="forminator-form-name"
+			       class="sui-form-control fui-required"
+			       placeholder="{{Forminator.l10n.popup.new_quiz_placeholder}}" autofocus>
+			<span class="sui-error-message" style="display: none;">{{Forminator.l10n.popup.quiz_name_validation}}</span>
+
+		</div>
+	</script>
+
+	<script type="text/template" id="forminator-new-form-tpl">
+
+		<div class="sui-box-header sui-block-content-center">
+
+			<h3 class="sui-box-title" id="dialogTitle">{{ Forminator.l10n.popup.enter_name }}</h3>
+
+			<button class="sui-dialog-close forminator-cancel-create-form" data-a11y-dialog-hide aria-label="Close this dialog window"></button>
+
+		</div>
+
+		<div class="sui-box-body sui-box-body-slim sui-block-content-center">
+
+		</div>
+
+		<div class="sui-box-footer sui-box-footer-right" style="padding-top: 0;">
+
+			<button id="forminator-build-your-form" class="sui-button sui-button-blue">
+				<span class="sui-loading-text"><i class="sui-icon-plus" aria-hidden="true"></i> {{Forminator.l10n.popup.create}}</span>
+				<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
+			</button>
+
+		</div>
+
+		{[ if( Forminator.Data.showBranding ) { ]}
+		<img src="{{ Forminator.Data.imagesUrl }}/forminator-create-modal.png"
+		     srcset="{{ Forminator.Data.imagesUrl }}/forminator-create-modal.png 1x, {{ Forminator.Data.imagesUrl }}/forminator-create-modal@2x.png 2x"
+		     class="sui-image sui-image-center"
+		     aria-hidden="true"
+		     alt="Forminator">
+		{[ } ]}
+
+	</script>
+
+    <script type="text/template" id="forminator-login-popup-tpl">
+
+        <div class="wpmudev-row">
+
+            <div class="wpmudev-col col-12 col-sm-6">
+
+                <a class="wpmudev-popup--logreg" href="{{ loginUrl }}">
+
+                    <div class="wpmudev-logreg--header">
+
+                        <span class="wpdui-icon wpdui-icon-key"></span>
+
+                        <h3 class="wpmudev-logreg--title">{{ Forminator.l10n.login.login_label }}</h3>
+
+                    </div>
+
+                    <div class="wpmudev-logreg--section">
+
+                        <p class="wpmudev-logreg--description">{{ Forminator.l10n.login.login_description }}</p>
+
+                        <div class="wpmudev-logreg--image">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 width="110" height="140" viewBox="0 0 110 140" preserveAspectRatio="none"
+                                 class="wpmudev-svg-login">
+                                <defs>
+                                    <path id="b" d="M0 40h100v94H0z"/>
+                                    <filter id="a" width="116%" height="117%" x="-8%" y="-7.4%"
+                                            filterUnits="objectBoundingBox">
+                                        <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                                        <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1"
+                                                        stdDeviation="2.5"/>
+                                        <feColorMatrix in="shadowBlurOuter1"
+                                                       values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                                    </filter>
+                                    <path id="c" d="M10 112h6v6h-6z"/>
+                                    <path id="d" d="M10 90h80v15H10z"/>
+                                    <path id="e" d="M10 60h80v15H10z"/>
+                                </defs>
+                                <g fill="none" fill-rule="evenodd" transform="translate(5)">
+                                    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+                                    <use fill="#FFF" xlink:href="#b"/>
+                                    <rect width="22" height="12" x="68" y="112" fill="#0472AC" rx="3"/>
+                                    <path fill="#808285" d="M19 114h26v2H19z"/>
+                                    <use fill="#FBFBFB" xlink:href="#c"/>
+                                    <path stroke="#E1E1E1" d="M10.5 112.5h5v5h-5z"/>
+                                    <use fill="#FBFBFB" xlink:href="#d"/>
+                                    <path stroke="#E1E1E1" d="M10.5 90.5h79v14h-79z"/>
+                                    <path fill="#808285" d="M10 85h26v2H10z"/>
+                                    <use fill="#FBFBFB" xlink:href="#e"/>
+                                    <path stroke="#E1E1E1" d="M10.5 60.5h79v14h-79z"/>
+                                    <path fill="#808285" d="M10 55h50v2H10z"/>
+                                    <circle cx="50" cy="15" r="15" fill="#0272AC"/>
+                                </g>
+                            </svg>
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="wpmudev-col col-12 col-sm-6">
+
+                <a class="wpmudev-popup--logreg" href="{{ registerUrl }}">
+
+                    <div class="wpmudev-logreg--header">
+
+                        <span class="wpdui-icon wpdui-icon-profile-female"></span>
+
+                        <h3 class="wpmudev-logreg--title">{{ Forminator.l10n.login.registration_label }}</h3>
+
+                    </div>
+
+                    <div class="wpmudev-logreg--section">
+
+                        <p class="wpmudev-logreg--description">{{ Forminator.l10n.login.registration_description }}</p>
+
+                        <div class="wpmudev-logreg--image">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 width="183" height="97" viewBox="0 0 183 97" preserveAspectRatio="none"
+                                 class="wpmudev-svg-registration">
+                                <defs>
+                                    <path id="a" d="M0 58h183v15H0z"/>
+                                    <path id="b" d="M0 23h183v15H0z"/>
+                                </defs>
+                                <g fill="none" fill-rule="evenodd">
+                                    <rect width="50" height="14" y="83" fill="#353535" rx="3"/>
+                                    <path fill="#FBFBFB" stroke="#E1E1E1" d="M.5 58.5h182v14H.5z"/>
+                                    <path fill="#808285" d="M0 51h40v2H0z"/>
+                                    <path fill="#FBFBFB" stroke="#E1E1E1" d="M.5 23.5h182v14H.5z"/>
+                                    <path fill="#808285" d="M0 16h40v2H0z"/>
+                                    <path fill="#353535" d="M0 0h120v6H0z"/>
+                                </g>
+                            </svg>
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+    </script>
+
+	<script type="text/template" id="forminator-quizzes-popup-tpl">
+
+		<div class="sui-box-header sui-block-content-center">
+
+			<h3 class="sui-box-title" id="dialogTitle">Choose Quiz Type</h3>
+
+			<div class="sui-actions-right">
+
+				<button data-a11y-dialog-hide="" class="sui-dialog-close" aria-label=""></button>
+
+			</div>
+
+		</div>
+
+		<div class="sui-box-body sui-block-content-center" style="padding-top: 10px;">
+
+			<p class="sui-description">{{ Forminator.l10n.quiz.choose_quiz_description }}</p>
+
+		</div>
+
+		<div class="sui-box-selectors">
+
+			<ul>
+
+				<li><label for="forminator-new-quiz--knowledge" class="sui-box-selector">
+					<input
+						type="radio"
+						name="forminator-new-quiz"
+						id="forminator-new-quiz--knowledge"
+						class="forminator-new-quiz-type"
+						value="knowledge"
+						checked="checked"
+					/>
+					<span>
+						<i class="sui-icon-academy" aria-hidden="true"></i>
+						{{ Forminator.l10n.quiz.knowledge_label }}
+					</span>
+					<span>{{ Forminator.l10n.quiz.knowledge_description }}</span>
+				</label></li>
+
+				<li><label for="forminator-new-quiz--nowrong" class="sui-box-selector">
+					<input
+						type="radio"
+						name="forminator-new-quiz"
+						id="forminator-new-quiz--nowrong"
+						class="forminator-new-quiz-type"
+						value="nowrong"
+					/>
+					<span>
+						<i class="sui-icon-community-people" aria-hidden="true"></i>
+						{{ Forminator.l10n.quiz.nowrong_label }}
+					</span>
+					<span>{{ Forminator.l10n.quiz.nowrong_description }}</span>
+				</label></li>
+
+			</ul>
+
+		</div>
+
+		<div class="sui-box-footer">
+
+			<div class="sui-actions-right">
+
+				<button class="sui-button select-quiz-template">
+					<span class="sui-loading-text">{{ Forminator.l10n.quiz.continue_button }}</span>
+					<i class="sui-icon-load sui-loading" aria-hidden="true"></i>
+				</button>
+
+			</div>
+
+		</div>
+
+		{[ if( Forminator.Data.showBranding ) { ]}
+		<img src="{{ Forminator.Data.imagesUrl }}/forminator-create-modal.png"
+		     srcset="{{ Forminator.Data.imagesUrl }}/forminator-create-modal.png 1x, {{ Forminator.Data.imagesUrl }}/forminator-create-modal@2x.png 2x"
+		     class="sui-image sui-image-center"
+		     aria-hidden="true"
+		     alt="Forminator">
+		{[ } ]}
+
+	</script>
+
+	<script type="text/template" id="forminator-form-popup-tpl">
+
+		<div class="sui-box-header sui-block-content-center">
+
+			<h3 class="sui-box-title" id="dialogTitle">{{ Forminator.l10n.form.form_template_title }}</h3>
+
+			<div class="sui-actions-right">
+
+				<button data-a11y-dialog-hide="" class="sui-dialog-close" aria-label=""></button>
+
+			</div>
+
+		</div>
+
+		<div class="sui-box-body sui-block-content-center" style="padding-top: 10px;">
+
+			<p class="sui-description">{{ Forminator.l10n.form.form_template_description }}</p>
+
+		</div>
+
+		<div class="sui-box-selectors sui-box-selectors-col-2">
+
+			<ul>
+
+				{[ _.each(templates, function(template){ ]}
+
+				<li>
+
+					<label for="forminator-new-quiz--{{ template.options.id }}" class="sui-box-selector">
+
+						<input
+								type="radio"
+								name="forminator-form-template"
+								id="forminator-new-quiz--{{ template.options.id }}"
+								class="forminator-new-form-type"
+								value="{{ template.options.id }}"
+								{[ if( template.options.id === 'blank' ) { ]}
+								checked="checked"
+								{[ } ]}
+						/>
+
+						<span>
+							<i class="sui-icon-{{template.options.icon}}" aria-hidden="true"></i>
+							{{ template.options.name }}
+						</span>
+
+					</label>
+
+				</li>
+
+				{[ }); ]}
+
+			</ul>
+
+		</div>
+
+		<div class="sui-box-footer">
+
+			<div class="sui-actions-right">
+
+				<button class="sui-button select-quiz-template">
+					<span class="sui-loading-text">{{ Forminator.l10n.quiz.continue_button }}</span>
+					<i class="sui-icon-load sui-loading" aria-hidden="true"></i>
+				</button>
+
+			</div>
+
+		</div>
+
+		{[ if( Forminator.Data.showBranding ) { ]}
+		<img src="{{ Forminator.Data.imagesUrl }}/forminator-create-modal.png"
+		     srcset="{{ Forminator.Data.imagesUrl }}/forminator-create-modal.png 1x, {{ Forminator.Data.imagesUrl }}/forminator-create-modal@2x.png 2x"
+		     class="sui-image sui-image-center"
+		     aria-hidden="true"
+		     alt="Forminator">
+		{[ } ]}
+
+	</script>
+
+	<script type="text/template" id="forminator-exports-schedule-popup-tpl">
+
+		<div class="sui-box-body">
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-2">
+
+					<span class="sui-settings-label sui-dark">{{ Forminator.l10n.popup.manual_exports }}</span>
+					<span class="sui-description">{{ Forminator.l10n.popup.manual_description }}</span>
+
+					<form method="post" style="margin-top: 10px;">
+
+						<input type="hidden" name="forminator_export" value="1" />
+						<input type="hidden" name="form_id" value="{{ Forminator.l10n.exporter.form_id }}" />
+						<input type="hidden" name="form_type" value="{{ Forminator.l10n.exporter.form_type }}" />
+						<input type="hidden" name="_forminator_nonce" value="{{ Forminator.l10n.exporter.export_nonce }}" />
+
+						<button class="sui-button sui-button-ghost">{{ Forminator.l10n.popup.download_csv }}</button>
+
+						{[ if( 'cform' === Forminator.l10n.exporter.form_type ) { ]}
+							<label for="apply-submission-filter" class="sui-checkbox sui-checkbox-sm sui-checkbox-stacked" style="margin-top: 20px;">
+								<input type="checkbox" name="submission-filter" id="apply-submission-filter" value="yes" />
+								<span aria-hidden="true"></span>
+								<span>{{ Forminator.l10n.popup.apply_submission_filter }}</span>
+							</label>
+						{[ } ]}
+
+					</form>
+
+				</div>
+
+			</div>
+
+			<form method="post" class="sui-box-settings-row schedule-action">
+
+				<div class="sui-box-settings-col-2">
+
+					<span class="sui-settings-label sui-dark">{{ Forminator.l10n.popup.scheduled_exports }}</span>
+					<span class="sui-description">{{ Forminator.l10n.popup.scheduled_description }}</span>
+
+					<div class="sui-side-tabs" style="margin-top: 10px;">
+
+						<div class="sui-tabs-menu tab-labels">
+
+							<label for="forminator-disable-scheduled-exports" class="sui-tab-item tab-label-disable">
+								<input
+									type="radio"
+									name="enabled"
+									value="false"
+									id="forminator-disable-scheduled-exports"
+								/>
+								{{ Forminator.l10n.popup.disable }}
+							</label>
+
+							<label for="forminator-enable-scheduled-exports" class="sui-tab-item tab-label-enable">
+								<input
+									type="radio"
+									name="enabled"
+									value="true"
+									id="forminator-enable-scheduled-exports"
+								/>
+								{{ Forminator.l10n.popup.enable }}
+							</label>
+
+						</div>
+
+						<div class="sui-tabs-content schedule-enabled">
+
+							<div id="forminator-export-schedule-timeframe" class="sui-tab-content sui-tab-boxed active">
+
+								<div class="sui-row">
+
+									<div class="sui-col-md-6">
+
+										<div class="sui-form-field">
+
+											<label class="sui-label">{{ Forminator.l10n.popup.frequency }}</label>
+
+											<select name="interval" class="sui-select">
+												<option value="daily">{{ Forminator.l10n.popup.daily }}</option>
+												<option value="weekly">{{ Forminator.l10n.popup.weekly }}</option>
+												<option value="monthly">{{ Forminator.l10n.popup.monthly }}</option>
+											</select>
+
+										</div>
+
+									</div>
+
+									<div class="sui-col-md-6">
+
+										<div class="sui-form-field">
+
+											<label class="sui-label">{{ Forminator.l10n.popup.day_time }}</label>
+
+											<select name="hour" class="sui-select">
+												<option value="00:00">12:00 AM</option>
+												<option value="01:00">01:00 AM</option>
+												<option value="02:00">02:00 AM</option>
+												<option value="03:00">03:00 AM</option>
+												<option value="04:00">04:00 AM</option>
+												<option value="05:00">05:00 AM</option>
+												<option value="06:00">06:00 AM</option>
+												<option value="07:00">07:00 AM</option>
+												<option value="08:00">08:00 AM</option>
+												<option value="09:00">09:00 AM</option>
+												<option value="10:00">10:00 AM</option>
+												<option value="11:00">11:00 AM</option>
+												<option value="12:00">12:00 PM</option>
+												<option value="13:00">01:00 PM</option>
+												<option value="14:00">02:00 PM</option>
+												<option value="15:00">03:00 PM</option>
+												<option value="16:00">04:00 PM</option>
+												<option value="17:00">05:00 PM</option>
+												<option value="18:00">06:00 PM</option>
+												<option value="19:00">07:00 PM</option>
+												<option value="20:00">08:00 PM</option>
+												<option value="21:00">09:00 PM</option>
+												<option value="22:00">10:00 PM</option>
+												<option value="23:00">11:00 PM</option>
+											</select>
+
+										</div>
+
+									</div>
+
+								</div>
+
+								<div class="sui-form-field">
+
+									<label class="sui-label">{{ Forminator.l10n.popup.week_day }}</label>
+
+									<select name="day" class="sui-select">
+										<option value="mon">{{ Forminator.l10n.popup.monday }}</option>
+										<option value="tue">{{ Forminator.l10n.popup.tuesday }}</option>
+										<option value="wed">{{ Forminator.l10n.popup.wednesday }}</option>
+										<option value="thu">{{ Forminator.l10n.popup.thursday }}</option>
+										<option value="fri">{{ Forminator.l10n.popup.friday }}</option>
+										<option value="sat">{{ Forminator.l10n.popup.saturday }}</option>
+										<option value="sun">{{ Forminator.l10n.popup.sunday }}</option>
+									</select>
+
+								</div>
+
+								<div class="sui-form-field">
+
+									<label class="sui-label">{{ Forminator.l10n.popup.day_month }}</label>
+
+									<select name="month_day" class="sui-select">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+									</select>
+
+								</div>
+
+								<div id="forminator-export-schedule-email" class="sui-form-field" style="margin-bottom: 20px;">
+
+									<label class="sui-label">{{ Forminator.l10n.popup.email_to }}</label>
+
+									<select name="email[]" class="sui-select fui-multi-select wpmudev-select" multiple="multiple">
+										{[ _.each( Forminator.l10n.exporter.email, function ( email ) { ]}
+										<option value="{{ email }}" selected="selected">{{ email }}</option>
+										{[ }) ]}
+									</select>
+
+									<input type="hidden" name="form_id" value="{{ Forminator.l10n.exporter.form_id }}"/>
+									<input type="hidden" name="form_type" value="{{ Forminator.l10n.exporter.form_type }}"/>
+									<input type="hidden" name="action" value="forminator_export_entries"/>
+									<input type="hidden" name="_forminator_nonce" value="{{ Forminator.l10n.exporter.export_nonce }}"/>
+
+								</div>
+
+								<label for="forminator-send-if-new-exports" class="sui-checkbox sui-checkbox-sm sui-checkbox-stacked">
+									<input
+										type="checkbox"
+										name="if_new"
+										value="true"
+										id="forminator-send-if-new-exports"
+										class="forminator-field-singular"
+									/>
+									<span aria-hidden="true"></span>
+									<span class="sui-description">{{ Forminator.l10n.popup.scheduled_export_if_new }}</span>
+								</label>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</form>
+
+		</div>
+
+		<div class="sui-box-footer">
+
+			<button class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide="forminator-popup">{{ Forminator.l10n.popup.cancel }}</button>
+
+			<div class="sui-actions-right">
+
+				<button type="submit" class="sui-button wpmudev-action-done">{{ Forminator.l10n.popup.save }}</button>
+
+			</div>
+
+		</div>
+
+	</script>
+
+    <script type="text/template" id="forminator-new-form-popup-tpl">
+
+        <div class="wpmudev-box--congrats">
+
+            <div class="wpmudev-congrats--image"></div>
+
+            <div class="wpmudev-congrats--message">
+
+                <p><strong>{{ title }}</strong> {{ Forminator.l10n.popup.is_ready }}<br/>
+					{{ Forminator.l10n.popup.new_form_desc }}</p>
+
+            </div>
+
+		</div>
+
+	</script>
+
+    <script type="text/template" id="forminator-delete-popup-tpl">
+
+	    <div class="sui-box-body">
+		    <span class="sui-description">{{ content }}</span>
+	    </div>
+
+	    <div class="sui-box-footer">
+		    <button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+		    <form method="post" class="delete-action">
+			    <input type="hidden" name="forminator_action" value="delete">
+			    <input type="hidden" name="id" value="{{ id }}">
+			    <input type="hidden" id="forminatorNonce" name="forminatorNonce" value="{{ nonce }}">
+				<input type="hidden" id="forminatorEntryNonce" name="forminatorEntryNonce" value="{{ nonce }}">
+			    <input type="hidden" name="_wp_http_referer" value="{{ referrer }}">
+			    <button type="submit" class="sui-button sui-button-ghost sui-button-red popup-confirmation-confirm">
+				    <i class="sui-icon-trash" aria-hidden="true"></i>
+				    {{ Forminator.l10n.popup.delete }}
+			    </button>
+		    </form>
+	    </div>
+
+	</script>
+
+    <script type="text/template" id="forminator-confirmation-popup-tpl">
+
+	    <div class="sui-box-body">
+		    <p>{{ confirmation_message }}</p>
+	    </div>
+
+        <form class="sui-box-footer" method="post">
+			<button type="button" class="sui-button popup-confirmation-cancel">{{ Forminator.l10n.popup.cancel }}</button>
+			<div class="sui-actions-right">
+				<button type="button" class="sui-button sui-button-red popup-confirmation-confirm">{{ Forminator.l10n.popup.delete }}</button>
+			</div>
+        </form>
+
+    </script>
+
+	<script type="text/template" id="forminator-reset-plugin-settings-popup-tpl">
+
+		<div class="sui-box-body">
+			<span class="sui-description">{{ content }}</span>
+		</div>
+
+		<div class="sui-box-footer">
+			<button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+			<form method="post" class="delete-action">
+				<input type="hidden" name="forminator_action" value="reset_plugin_settings">
+				<input type="hidden" id="forminatorNonce" name="forminatorNonce" value="{{ nonce }}">
+				<input type="hidden" name="_wp_http_referer" value="{{ referrer }}">
+				<button type="submit" class="sui-button sui-button-ghost sui-button-red popup-confirmation-confirm">
+					<i class="sui-icon-refresh" aria-hidden="true"></i>
+					{{ Forminator.l10n.popup.reset }}
+				</button>
+			</form>
+		</div>
+
+	</script>
+
+	<script type="text/template" id="forminator-disconnect-stripe-popup-tpl">
+
+		<div class="sui-box-body">
+			<span class="sui-description">{{ content }}</span>
+		</div>
+
+		<div class="sui-box-footer">
+			<button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+			<button type="submit" class="disconnect_stripe sui-button sui-button-ghost sui-button-red popup-confirmation-confirm" data-nonce="{{ nonce }}" data-action="disconnect_stripe">
+				<i class="sui-icon-refresh" aria-hidden="true"></i>
+				{{ Forminator.l10n.popup.disconnect }}
+			</button>
+		</div>
+
+	</script>
+	<script type="text/template" id="forminator-disconnect-paypal-popup-tpl">
+
+		<div class="sui-box-body">
+			<span class="sui-description">{{ content }}</span>
+		</div>
+
+		<div class="sui-box-footer">
+			<button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+			<button type="submit" class="disconnect_paypal sui-button sui-button-ghost sui-button-red popup-confirmation-confirm" data-nonce="{{ nonce }}" data-action="disconnect_paypal">
+				{{ Forminator.l10n.popup.disconnect }}
+			</button>
+		</div>
+
+	</script>
+
+	<script type="text/template" id="forminator-delete-poll-popup-tpl">
+
+		<div class="sui-box-body">
+			<span class="sui-description">{{ content }}</span>
+		</div>
+
+		<div class="sui-box-footer">
+			<button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+			<button type="submit" class="delete-poll-submission sui-button sui-button-ghost sui-button-red popup-confirmation-confirm" data-nonce="{{ nonce }}" data-id="{{ id }}" data-action="delete_poll_submissions">
+				{{ Forminator.l10n.popup.delete }}
+			</button>
+		</div>
+
+	</script>
+
+</div>

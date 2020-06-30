@@ -1,0 +1,71 @@
+// Summary
+$summary-image: '../images/forminator-summary@2x.png';
+$summary-image-sm: '../images/forminator-summary-sm@2x.png';
+
+// ChartJS
+$chartjs-image--loading: '../images/forminator-charts@2x.png';
+
+// Cross Sell Footer
+$cross-sell-1: 'hummingbird';
+$cross-sell-2: 'defender';
+$cross-sell-3: 'smartcrawl';
+
+// ============================================================
+// Shared UI
+// Import original shared-ui styles.
+@import "../../node_modules/@wpmudev/shared-ui/scss/shared-ui";
+
+// ============================================================
+// Shared UI
+// There are some styles from SUI that needs to be overwritten
+// or included per project only. Those kind of styles should be
+// place them inside "shared-ui" folder:
+// @import "shared-ui/variables";
+@import "shared-ui/variables";
+@import "shared-ui/links";
+@import "shared-ui/buttons";
+@import "shared-ui/tags";
+@import "shared-ui/checkbox";
+@import "shared-ui/box-settings"; // TODO: Add this variation to SUI.
+@import "shared-ui/box-builder";
+
+// ============================================================
+// Admin UI
+// The following styles are specifically for the project and not
+// related to shared-ui.
+@import "admin-ui/variables";
+@import "admin-ui/select";
+@import "admin-ui/table-dashboard";
+@import "admin-ui/table-apps";
+@import "admin-ui/table-pagination";
+@import "admin-ui/grid";
+@import "admin-ui/builder-sections";
+@import "admin-ui/builder-sortable";
+@import "admin-ui/builder-status";
+@import "admin-ui/builder-fields";
+@import "admin-ui/visibility";
+@import "admin-ui/dialogs";
+@import "admin-ui/disabled";
+@import "admin-ui/demo-fields";
+@import "admin-ui/multi-options";
+@import "admin-ui/form-field";
+@import "admin-ui/box-entries";
+@import "admin-ui/listings";
+@import "admin-ui/multi-answers";
+@import "admin-ui/calculations";
+@import "admin-ui/list-fields";
+@import "admin-ui/utilities";
+@import "admin-ui/icon-stripe";
+@import "admin-ui/icon-currency";
+@import "admin-ui/icon-paypal";
+@import "admin-ui/icon-pagination";
+@import "admin-ui/block-integrations";
+@import "admin-ui/modals";
+@import "admin-ui/notifications";
+
+// ============================================================
+// Admin UI OLD
+// Get admin styles from Forminator 1.5.x to prevent other admin
+// pages to break.
+
+@import "admin-old/editor";

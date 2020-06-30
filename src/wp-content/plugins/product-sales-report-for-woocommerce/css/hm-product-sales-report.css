@@ -1,0 +1,20 @@
+/**
+ * Author: Hearken Media
+ * License: GNU General Public License version 2 or later
+ * License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+ */
+#hm_psr_report_field_selection label {
+	display: block;
+	margin-bottom: 5px;
+	white-space: nowrap;
+}
+#hm_sbp_table {
+	border-collapse: collapse;
+	margin-bottom: 40px;
+}
+#hm_sbp_table th, #hm_sbp_table td {
+	background-color: #fff;
+	padding: 10px 15px;
+	border: 1px solid #ccc;
+	text-align: left;
+}

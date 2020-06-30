@@ -1,0 +1,51 @@
+@include body-class(true) {
+
+	.sui-box-body {
+
+		// ELEMENT: Row (Slim)
+		.sui-box-settings-slim-row {
+
+			&.sui-sm {
+				margin-bottom: #{$sui-gutter-md / 2};
+
+				[class*="sui-box-settings-col-"] {
+
+					+ div {
+
+						@include media(max-width, md) {
+							padding-top: 0;
+						}
+
+						@include media(min-width, md) {
+							margin-left: $sui-gutter-md;
+						}
+					}
+				}
+
+				.sui-settings-label {
+
+					&:only-child {
+
+						@include media(min-width, md) {
+							margin: 0;
+							line-height: inherit;
+						}
+					}
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+
+		// ELEMENT: Label
+		.sui-settings-label {
+
+			&.sui-sm {
+				font-size: 13px;
+				line-height: 22px;
+			}
+		}
+	}
+}

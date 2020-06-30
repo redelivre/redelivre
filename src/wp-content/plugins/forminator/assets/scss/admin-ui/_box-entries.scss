@@ -1,0 +1,288 @@
+@include body-class(true) {
+
+	.fui-entries-bar {
+		display: flex;
+
+		.fui-bar-selectors {
+			display: flex;
+
+			.select-container {
+
+				~ .select2 {
+					margin-left: 10px;
+				}
+
+				@include media(max-width, md) {
+					flex: 0 0 auto;
+				}
+
+				@include media(min-width, md) {
+					min-width: 120px;
+				}
+			}
+
+			.sui-select + .select2 {
+
+				@include media(max-width, md) {
+					min-width: unset;
+					flex: 1;
+				}
+			}
+
+			+ .sui-button {
+
+				@include media(min-width, md) {
+					margin-left: 10px;
+				}
+			}
+
+			@include media(max-width, md) {
+				min-width: 100%;
+				flex: 0 0 100%;
+				margin: 0 0 #{$sui-gutter-md / 2};
+			}
+
+			@include media(min-width, md) {
+				align-items: center;
+			}
+		}
+
+		.sui-button {
+
+			+ .sui-button {
+
+				@include media(max-width, md) {
+					margin-left: #{$sui-gutter-md / 2};
+				}
+
+				@include media(min-width, md) {
+					margin-left: auto;
+				}
+			}
+		}
+
+		@include media(max-width, md) {
+			flex-wrap: wrap;
+			justify-content: space-between;
+			padding: #{$sui-gutter / 2} #{$sui-gutter-md / 2};
+		}
+
+		@include media(min-width, md) {
+			padding: #{$sui-gutter / 2} $sui-gutter;
+		}
+	}
+
+	.fui-pagination-entries {
+		margin: $sui-gutter-md 0 #{$sui-gutter-md / 2};
+
+		.sui-pagination-results {
+			display: inline-block;
+			line-height: 30px;
+
+			+ .sui-pagination {
+				margin-left: #{$sui-gutter / 2};
+			}
+		}
+
+		.sui-pagination {
+			flex: 0 0 auto;
+
+			li a {
+
+				@include media(max-width, md) {
+					min-width: 38px;
+				}
+			}
+		}
+
+		@include media(min-width, md) {
+			display: none;
+		}
+	}
+
+	.fui-box-entries {
+
+		.fui-box-actions {
+
+			@include media(max-width, md) {
+				padding: #{$sui-gutter / 2} #{$sui-gutter-md / 2};
+			}
+		}
+
+		.sui-box-search {
+
+			.sui-select-sm {
+				min-width: 200px;
+
+				+ .sui-button {
+
+					@include media(max-width, md) {
+						min-width: unset;
+					}
+				}
+			}
+
+			.sui-search-right {
+
+				@include media(max-width, md) {
+					display: none;
+				}
+			}
+		}
+
+		.fui-table-entries {
+
+			> thead,
+			> tbody {
+
+				> tr > td {
+
+					.fui-mobile-only {
+
+						@include media(min-width, md) {
+							display: none;
+						}
+					}
+				}
+
+				> tr:not(.sui-accordion-item-content) {
+
+					> th, > td {
+
+						&:first-child {
+
+							.sui-checkbox {
+								margin-right: 10px;
+							}
+
+							@include media(max-width, md) {
+								min-width: 100px;
+								display: flex;
+								flex: 0 0 100px;
+								align-items: center;
+								padding-right: 0;
+								padding-left: #{$sui-gutter-md / 2};
+							}
+						}
+
+						&:not(:first-child) {
+
+							.sui-accordion-open-indicator {
+
+								@include media(max-width, md) {
+									float: none;
+									margin-left: 5px;
+								}
+							}
+
+							@include media(max-width, md) {
+								display: flex;
+								flex: 1;
+								align-items: center;
+								justify-content: space-between;
+								padding-right: #{$sui-gutter-md / 2};
+							}
+						}
+
+						&:nth-child(n+3) {
+
+							@include media(max-width, md) {
+								display: none;
+							}
+						}
+
+						@include media(max-width, md) {
+							height: auto;
+							padding-top: #{$sui-gutter-md - 1px};
+							padding-bottom: #{$sui-gutter-md - 2px};
+						}
+					}
+
+					@include media(max-width, md) {
+						display: flex;
+					}
+				}
+
+				> tr.sui-accordion-item-content {
+
+					> td {
+
+						@include media(max-width, md) {
+							height: auto;
+							display: block;
+							padding-right: #{$sui-gutter-md / 2};
+							padding-left: #{$sui-gutter-md / 2};
+						}
+					}
+
+					&.sui-accordion-item--open {
+
+						@include media(max-width, md) {
+							display: block !important;
+						}
+					}
+				}
+
+				@include media(max-width, md) {
+					display: block;
+				}
+			}
+
+			@include media(max-width, md) {
+				width: 100%;
+				display: block;
+			}
+		}
+
+		.fui-entry-content {
+
+			.fui-entry-title {
+				margin: 0 0 $sui-gutter-md;
+
+				&:last-child {
+					margin-bottom: 0;
+
+					@include media(min-width, md) {
+						margin-bottom: 0;
+					}
+				}
+
+				@include media(min-width, md) {
+					margin-bottom: $sui-gutter;
+				}
+			}
+
+			.fui-table-details {
+				margin: 0;
+
+				> thead {
+
+					tr th {
+						padding-top: #{$sui-gutter / 2};
+						padding-bottom: #{$sui-gutter / 2};
+
+						@include media(max-width, md) {
+							padding-top: 8px;
+							padding-bottom: 9px;
+						}
+					}
+				}
+
+				thead,
+				tbody {
+
+					th, td {
+						word-break: break-word;
+
+						&:not(:last-child) {
+
+							@include media(max-width, md) {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

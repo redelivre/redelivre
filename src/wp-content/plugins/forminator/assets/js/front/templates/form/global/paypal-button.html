@@ -1,0 +1,49 @@
+.forminator-custom-form-<?php echo $properties['form_id'] ?> .forminator-pagination-footer .forminator-button-paypal {
+	<?php if ( forminator_array_value_exists( $properties, 'paypal-width' ) && '' !== $properties['paypal-width'] ) { ?>
+		flex: 0 1 <?php echo $properties['paypal-width'] ?>px;
+	<?php } else { ?>
+		flex: 1;
+	<?php } ?>
+}
+.forminator-custom-form-<?php echo $properties['form_id'] ?> .forminator-button-paypal > .paypal-buttons {
+	<?php if ( forminator_array_value_exists( $properties, 'paypal-width' ) && '' !== $properties['paypal-width'] ) { ?>
+		max-width: <?php echo $properties['paypal-width'] ?>px !important;
+	<?php } ?>
+	<?php if ( ( forminator_array_value_exists( $properties, 'paypal-layout' ) && 'horizontal' === $properties['paypal-layout'] ) && ( forminator_array_value_exists( $properties, 'paypal-tagline' ) && 'true' === $properties['paypal-tagline'] ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'paypal-width' ) ) { ?>
+			<?php if ( $properties['paypal-height'] < '30' ) { ?>
+				<?php if ( $properties['paypal-width'] < '160' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } else if ( $properties['paypal-height'] < '33' ) { ?>
+				<?php if ( $properties['paypal-width'] < '165' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } else if ( $properties['paypal-height'] < '36' ) { ?>
+				<?php if ( $properties['paypal-width'] < '175' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } else if ( $properties['paypal-height'] < '40' ) { ?>
+				<?php if ( $properties['paypal-width'] < '190' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } else if ( $properties['paypal-height'] < '45' ) { ?>
+				<?php if ( $properties['paypal-width'] < '215' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } else if ( $properties['paypal-height'] < '50' ) { ?>
+				<?php if ( $properties['paypal-width'] < '245' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } else if ( $properties['paypal-height'] < '54' ) { ?>
+				<?php if ( $properties['paypal-width'] < '250' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } else { ?>
+				<?php if ( $properties['paypal-width'] < '270' ) { ?>
+					height: <?php echo $properties['paypal-height'] ?>px !important;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+	<?php } ?>
+}

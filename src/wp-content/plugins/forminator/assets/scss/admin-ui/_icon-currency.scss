@@ -1,0 +1,56 @@
+@include body-class(true) {
+
+	.sui-icon-currency {
+
+		&:before {
+			content: " ";
+			width: 30px;
+			height: 16px;
+			background-repeat: no-repeat;
+			background-size: 16px 16px;
+			background-position: center;
+		}
+	}
+
+	.sui-box-selector {
+
+		input {
+
+			&:checked + span {
+
+				.sui-icon-currency {
+
+					&:before {
+						background-image: url('../images/currency-icon-blue.png');
+					}
+				}
+			}
+
+			+ span {
+
+				.sui-icon-currency {
+
+					&:before {
+						background-image: url('../images/currency-icon-light.png');
+					}
+				}
+			}
+		}
+	}
+
+	.fui-builder-field-block {
+
+		.fui-field--info {
+
+			.fui-field--icon {
+
+				.sui-icon-currency {
+
+					&:before {
+						background-image: url('../images/currency-icon-dark.png');
+					}
+				}
+			}
+		}
+	}
+}

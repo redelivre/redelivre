@@ -1,0 +1,71 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list {
+		<?php if ( forminator_array_value_exists( $properties, 'dropdown-border' ) && !empty( $properties['dropdown-border'] ) ) { ?>
+			border-color: <?php echo $properties['dropdown-border'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'dropdown-background' ) && !empty( $properties['dropdown-background'] ) ) { ?>
+			background-color: <?php echo $properties['dropdown-background'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'dropdown-option-color-static' ) && !empty( $properties['dropdown-option-color-static'] ) ) { ?>
+			color: <?php echo $properties['dropdown-option-color-static'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'dropdown-option-background-hover' ) && !empty( $properties['dropdown-option-background-hover'] ) ) { ?>
+			background-color: <?php echo $properties['dropdown-option-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #DDDDDD;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'dropdown-option-color-hover' ) && !empty( $properties['dropdown-option-color-hover'] ) ) { ?>
+			color: <?php echo $properties['dropdown-option-color-hover'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li.current,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li.current {
+		<?php if ( forminator_array_value_exists( $properties, 'dropdown-option-background-active' ) && !empty( $properties['dropdown-option-background-active'] ) ) { ?>
+			background-color: <?php echo $properties['dropdown-option-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'dropdown-option-color-active' ) && !empty( $properties['dropdown-option-color-active'] ) ) { ?>
+			color: <?php echo $properties['dropdown-option-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list {
+		border-color: #17A8E3;
+		background-color: #E6E6E6;
+		color: #777771;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li:hover {
+		background-color: #DDDDDD;
+		color: #000000;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li.current,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-select-container .forminator-select-list .forminator-dropdown-list li.current {
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	}
+
+<?php } ?>

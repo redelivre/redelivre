@@ -1,0 +1,322 @@
+@include body-class(true) {
+
+	.fui-visibility-header {
+
+		.fui-visibility-options {
+
+			.fui-visibility-option {
+				display: block;
+
+				.sui-side-tabs {
+
+					@include media(max-width, md) {
+						margin-bottom: 5px;
+					}
+
+					@include media(min-width, md) {
+						flex: 0 0 auto;
+						margin-right: 5px;
+						margin-bottom: 0;
+					}
+				}
+
+				.sui-description {
+
+					@include media(min-width, md) {
+						flex: 0 0 auto;
+						margin-top: 0;
+						margin-left: 5px;
+					}
+				}
+
+				&:not(:last-child) {
+
+					@include media(max-width, md) {
+						margin-bottom: #{$sui-gutter-md / 2};
+					}
+
+					@include media(min-width, md) {
+						margin-right: 10px;
+					}
+				}
+
+				@include media(min-width, md) {
+					display: flex;
+					align-items: center;
+					flex: 0 0 auto;
+				}
+			}
+
+			@include media(max-width, md) {
+				margin-bottom: $sui-gutter-md;
+			}
+
+			@include media(min-width, md) {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				margin-bottom: $sui-gutter;
+			}
+		}
+
+		.sui-label {
+			margin-bottom: 5px;
+		}
+
+		+ .fui-visibility {
+
+			@include media(max-width, md) {
+				margin-top: 0;
+			}
+
+			@include media(min-width, md) {
+				margin-top: 0;
+			}
+		}
+	}
+
+	.fui-visibility {
+		background-color: #F8F8F8;
+
+		// Rules container
+		.fui-visibility-rules {
+
+			.sui-box {
+				margin-bottom: 10px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+
+		// Visibility rule
+		.fui-visibility-rule {
+
+			.fui-visibility-rule-header {
+				margin: 0;
+				cursor: pointer;
+				display: block;
+
+				button {
+					width: 100%;
+					cursor: pointer;
+					display: flex;
+					align-items: flex-start;
+					padding-right: $sui-gutter-md;
+					border-width: 0;
+					border-radius: $border-radius;
+					color: palette( gray, light);
+					font: 400 13px/22px $font;
+					text-align: left;
+
+					strong {
+						color: palette(gray, dark);
+						font-weight: $font--medium;
+					}
+
+					.fui-visibility-rule-icon,
+					.fui-visibility-rule-arrow {
+						width: 30px;
+						height: 30px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						flex: 0 0 auto;
+
+						&:before {
+							display: block;
+							color: inherit;
+						}
+					}
+
+					.fui-visibility-rule-icon {
+						margin-right: 3px;
+						margin-left: -7px;
+						color: palette(yellow, default);
+					}
+
+					.fui-visibility-rule-text {
+						display: block;
+						flex: 1;
+						padding: 4px 0;
+					}
+
+					.fui-visibility-rule-arrow {
+
+						&:before {
+							transition: 0.2s linear;
+						}
+					}
+
+					&,
+					&:focus,
+					&:hover,
+					&:active {
+						outline: none;
+						box-shadow: none;
+						background-color: transparent;
+					}
+				}
+
+				+ .fui-visibility-rule-body {
+					border-top: 1px solid palette(silver, soft);
+				}
+			}
+
+			.fui-visibility-rule-body {
+				display: none;
+			}
+
+			.fui-visibility-rule-footer {
+				display: flex;
+				justify-content: space-between;
+				margin: 0 -#{$sui-gutter-md};
+				padding: $sui-gutter-md $sui-gutter-md 0;
+				border-top: 1px solid palette(silver, soft);
+
+				@include media(min-width, md) {
+					margin-right: -#{$sui-gutter};
+					margin-left: -#{$sui-gutter};
+					padding: $sui-gutter $sui-gutter 0;
+				}
+			}
+
+			// STATE: Open
+			&.fui-open {
+
+				.fui-visibility-rule-header {
+
+					button {
+						border-bottom-left-radius: 0;
+						border-bottom-right-radius: 0;
+
+						.fui-visibility-rule-arrow {
+
+							&:before {
+								transform: rotate(180deg);
+							}
+						}
+					}
+				}
+
+				.fui-visibility-rule-body {
+					display: block;
+				}
+			}
+		}
+
+		// Empty message
+		.fui-visibility-empty-message {
+			text-align: center;
+
+			p {
+				margin: 0;
+				color: $fui-visibility--empty-message-color;
+				font-size: $fui-visibility--empty-message-font-size;
+				line-height: $fui-visibility--empty-message-line-height;
+
+				@include media(min-width, md) {
+					max-width: $fui-visibility--empty-message-width;
+					margin: 0 auto;
+				}
+			}
+
+			button {
+				width: 100%;
+				cursor: pointer;
+				display: block;
+				margin: 0;
+				border: $fui-visibility--empty-button-border-width dashed palette(silver, medium);
+				border-radius: $border-radius;
+				background-color: transparent;
+				color: palette(gray, light);
+				font: $font--medium 12px/#{$fui-visibility--empty-button-line-height} $font;
+				letter-spacing: $font--letter-spacing;
+				text-transform: uppercase;
+
+				[class*="sui-icon-"] {
+					width: 20px;
+					text-align: center;
+
+					&:before {
+						display: block;
+					}
+				}
+
+				&,
+				&:hover,
+				&:active {
+					outline: none;
+					box-shadow: none;
+				}
+
+				@include media(max-width, md) {
+					height: 60px;
+					margin-bottom: $sui-gutter-md;
+					padding: #{($fui-visibility--empty-button-height-md - $fui-visibility--empty-button-line-height - ($fui-visibility--empty-button-border-width * 2)) / 2} #{$sui-gutter-md / 2};
+				}
+
+				@include media(min-width, md) {
+					height: $fui-visibility--empty-button-height;
+					margin-bottom: $sui-gutter;
+					padding: #{($fui-visibility--empty-button-height - $fui-visibility--empty-button-line-height - ($fui-visibility--empty-button-border-width * 2)) / 2} #{$sui-gutter / 2};
+				}
+			}
+
+			.sui-image {
+				margin-top: $sui-gutter-md;
+				margin-bottom: -#{$sui-gutter-md};
+
+				@include media(min-width, md) {
+					margin-top: $sui-gutter;
+					margin-bottom: -#{$sui-gutter};
+				}
+			}
+		}
+
+		@include media(max-width, md) {
+			margin: -#{$sui-gutter-md};
+			padding: $sui-gutter-md;
+		}
+
+		@include media(min-width, md) {
+			margin: -#{$sui-gutter};
+			padding: $sui-gutter;
+		}
+	}
+
+	// FIX: Visibility notice
+	// Add bigger margins to .sui-notice to counteract
+	// .fui-visibility negative margins on bottom of it.
+	.fui-visibility-notice {
+
+		+ .fui-visibility {
+
+			@include media(max-width, md) {
+				margin-top: 0;
+			}
+
+			@include media(min-width, md) {
+				margin-top: 0;
+			}
+		}
+	}
+
+	// FIX: Add rule button
+	// Add bigger margins to add rule button to counteract
+	// .fui-visibility negative margins on top of it.
+	.fui-visibility-group {
+
+		> .sui-button {
+
+			@include media(max-width, md) {
+				margin-top: #{$sui-gutter-md * 2} !important;
+			}
+
+			@include media(min-width, md) {
+				margin-top: #{$sui-gutter * 2} !important;
+			}
+		}
+	}
+}

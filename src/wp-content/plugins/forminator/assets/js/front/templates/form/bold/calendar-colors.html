@@ -1,0 +1,205 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold:before {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-border' ) && !empty( $properties['calendar-border'] ) ) { ?>
+			border-color: <?php echo $properties['calendar-border'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-background' ) && !empty( $properties['calendar-background'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-background'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-header .ui-corner-all {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-arrows-static' ) && !empty( $properties['calendar-arrows-bg-static'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-arrows-bg-static'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-arrows-static' ) && !empty( $properties['calendar-arrows-static'] ) ) { ?>
+			color: <?php echo $properties['calendar-arrows-static'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-header .ui-datepicker-title select {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-select-border' ) && !empty( $properties['calendar-select-border'] ) ) { ?>
+			border-color: <?php echo $properties['calendar-select-border'] ?>;
+		<?php } else { ?>
+			border-color: #BBBBBB;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-select-bg' ) && !empty( $properties['calendar-select-bg'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-select-bg'] ?>;
+		<?php } else { ?>
+			background-color: #FFFFFF;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-select-color' ) && !empty( $properties['calendar-select-color'] ) ) { ?>
+			color: <?php echo $properties['calendar-select-color'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar thead th {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-dweek' ) && !empty( $properties['calendar-dweek'] ) ) { ?>
+			color: <?php echo $properties['calendar-dweek'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td.ui-state-disabled span {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-color-static' ) && !empty( $properties['calendar-days-color-static'] ) ) { ?>
+			border-color: <?php echo $properties['calendar-days-color-static'] ?>;
+		<?php } else { ?>
+			border-color: #E6E6E6;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-background-static' ) && !empty( $properties['calendar-days-background-static'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-days-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-color-static' ) && !empty( $properties['calendar-days-color-static'] ) ) { ?>
+			color: <?php echo $properties['calendar-days-color-static'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default:hover,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-hover {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-border-hover' ) && !empty( $properties['calendar-days-border-hover'] ) ) { ?>
+			border-color: <?php echo $properties['calendar-days-border-hover'] ?>;
+		<?php } else { ?>
+			border-color: #DDDDDD;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-background-hover' ) && !empty( $properties['calendar-days-background-hover'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-days-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #DDDDDD;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-color-hover' ) && !empty( $properties['calendar-days-color-hover'] ) ) { ?>
+			color: <?php echo $properties['calendar-days-color-hover'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default:active,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-active {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-border-active' ) && !empty( $properties['calendar-days-border-active'] ) ) { ?>
+			border-color: <?php echo $properties['calendar-days-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-background-active' ) && !empty( $properties['calendar-days-background-active'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-days-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-color-active' ) && !empty( $properties['calendar-days-color-active'] ) ) { ?>
+			color: <?php echo $properties['calendar-days-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-highlight {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-border-current' ) && !empty( $properties['calendar-days-border-current'] ) ) { ?>
+			border-color: <?php echo $properties['calendar-days-border-current'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-background-current' ) && !empty( $properties['calendar-days-background-current'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-days-background-current'] ?>;
+		<?php } else { ?>
+			background-color: #C8DEE7;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-color-current' ) && !empty( $properties['calendar-days-color-current'] ) ) { ?>
+			color: <?php echo $properties['calendar-days-color-current'] ?>;
+		<?php } else { ?>
+			color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-highlight:active,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-highlight.ui-state-active {
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-border-active' ) && !empty( $properties['calendar-days-border-active'] ) ) { ?>
+			border-color: <?php echo $properties['calendar-days-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-background-active' ) && !empty( $properties['calendar-days-background-active'] ) ) { ?>
+			background-color: <?php echo $properties['calendar-days-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'calendar-days-color-active' ) && !empty( $properties['calendar-days-color-active'] ) ) { ?>
+			color: <?php echo $properties['calendar-days-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold:before {
+		border-color: #17A8E3;
+		background-color: #E6E6E6;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-header .ui-corner-all {
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-header .ui-datepicker-title select {
+		border-color: #BBBBBB;
+		background-color: #FFFFFF;
+		color: #777771;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar thead th {
+		color: #333333;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td.ui-state-disabled span {
+		border-color: #E6E6E6;
+		background-color: #E6E6E6;
+		color: #777771;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default:hover,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-hover {
+		border-color: #DDDDDD;
+		background-color: #DDDDDD;
+		color: #777771;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default:active,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-active {
+		border-color: #17A8E3;
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-highlight {
+		border-color: #17A8E3;
+		background-color: #C8DEE7;
+		color: #17A8E3;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-highlight:active,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-calendar--bold .ui-datepicker-calendar tbody td a.ui-state-default.ui-state-highlight.ui-state-active {
+		border-color: #17A8E3;
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	}
+
+<?php } ?>

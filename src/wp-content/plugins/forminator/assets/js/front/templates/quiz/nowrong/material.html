@@ -1,0 +1,877 @@
+<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-title-color' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			color: <?php echo $properties['nowrong-title-color'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			color: #333333;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-description-color' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			color: <?php echo $properties['nowrong-description-color'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			color: #8C8C8C;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-question-color' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			color: <?php echo $properties['nowrong-question-color'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			color: #333333;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-background-static' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--design {
+			background-color: <?php echo $properties['nowrong-answer-background-static'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--design {
+			background-color: #FAFAFA;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-background-hover' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--design:hover {
+			background-color: <?php echo $properties['nowrong-answer-background-hover'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--design:hover {
+			background-color: #F3FBFE;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-background-active' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + .forminator-answer--design {
+			background-color: <?php echo $properties['nowrong-answer-background-active'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + .forminator-answer--design {
+			background-color: #F3FBFE;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chkbo-static' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check {
+			border-color: <?php echo $properties['nowrong-answer-chkbo-static'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check {
+			border-color: #BFBFBF;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chkbo-active' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + span .forminator-answer--check {
+			border-color: <?php echo $properties['nowrong-answer-chkbo-active'] ?>;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check:before {
+			background-color: <?php echo $properties['nowrong-answer-chkbo-active'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + span .forminator-answer--check {
+			border-color: #17A8E3;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check:before {
+			background-color: #17A8E3;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chck-icon' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check {
+			color: <?php echo $properties['nowrong-answer-chck-icon'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check {
+			color: #17A8E3;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-color-static' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			color: <?php echo $properties['nowrong-answer-color-static'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			color: #888888;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-color-active' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + span .forminator-answer--name {
+			color: <?php echo $properties['nowrong-answer-color-active'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + span .forminator-answer--name {
+			color: #333333;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-background-static' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			background-color: <?php echo $properties['nowrong-submit-background-static'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			background-color: #17A8E3;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-background-hover' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:hover {
+			background-color: <?php echo $properties['nowrong-submit-background-hover'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:hover {
+			background-color: #008FCA;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-background-active' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:active {
+			background-color: <?php echo $properties['nowrong-submit-background-active'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:active {
+			background-color: #008FCA;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-color-static' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			color: <?php echo $properties['nowrong-submit-color-static'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			color: #FFFFFF;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-color-hover' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:hover {
+			color: <?php echo $properties['nowrong-submit-color-hover'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:hover {
+			color: #FFFFFF;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-color-active' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:active {
+			color: <?php echo $properties['nowrong-submit-color-active'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:active {
+			color: #FFFFFF;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-background-main' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result {
+			background-color: <?php echo $properties['nowrong-result-background-main'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result {
+			background-color: #FAFAFA;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-quiz-color' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			color: <?php echo $properties['nowrong-result-quiz-color'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			color: #888888;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-color-static' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			color: <?php echo $properties['nowrong-result-retake-color-static'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			color: #17A8E3;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-color-hover' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake:hover {
+			color: <?php echo $properties['nowrong-result-retake-color-hover'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake:hover {
+			color: #17A8E3;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-color-active' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake:active {
+			color: <?php echo $properties['nowrong-result-retake-color-active'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake:active {
+			color: #17A8E3;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-title-color' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			color: <?php echo $properties['nowrong-result-title-color'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			color: #333333;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-description-color' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			color: <?php echo $properties['nowrong-result-description-color'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			color: #4D4D4D;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-sshare-color' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+			color: <?php echo $properties['nowrong-sshare-color'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+			color: #4D4D4D;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-social-facebook' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-facebook {
+			color: <?php echo $properties['nowrong-social-facebook'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-facebook {
+			color: #0084BF;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-social-twitter' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-twitter {
+			color: <?php echo $properties['nowrong-social-twitter'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-twitter {
+			color: #1DA1F2;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-social-google' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-google-plus {
+			color: <?php echo $properties['nowrong-social-google'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-google-plus {
+			color: #DB4437;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-social-linkedin' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-linkedin {
+			color: <?php echo $properties['nowrong-social-linkedin'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-linkedin {
+			color: #0084BF;
+		}
+	<?php } ?>
+<?php } else { ?>
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+		color: #333333;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+		color: #8C8C8C;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+		color: #333333;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--design {
+		background-color: #FAFAFA;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--design:hover {
+		background-color: #F3FBFE;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + .forminator-answer--design {
+		background-color: #F3FBFE;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check {
+		border-color: #BFBFBF;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check {
+		color: #17A8E3;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + span .forminator-answer--check {
+		border-color: #17A8E3;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--check:before {
+		background-color: #17A8E3;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+		color: #888888;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer input:checked + span .forminator-answer--name {
+		color: #333333;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:hover {
+		background-color: #008FCA;
+		color: #FFFFFF;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button:active {
+		background-color: #008FCA;
+		color: #FFFFFF;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result {
+		background-color: #FAFAFA;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+		color: #888888;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+		color: #17A8E3;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake:hover {
+		color: #17A8E3;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake:active {
+		color: #17A8E3;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+		color: #333333;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+		color: #4D4D4D;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+		color: #4D4D4D;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-facebook {
+		color: #0084BF;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-twitter {
+		color: #1DA1F2;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-google-plus {
+		color: #DB4437;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon .wpdui-icon-social-linkedin {
+		color: #0084BF;
+	}
+<?php } ?>
+<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-typography' ) && filter_var( $properties['nowrong-toggle-typography'], FILTER_VALIDATE_BOOLEAN ) ) { ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-title-font-size' ) ) { ?>
+		<?php if ( $properties['nowrong-title-font-size'] != '24' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+				font-size: calc(<?php echo $properties['nowrong-title-font-size'] ?>px - 6px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+					font-size: <?php echo $properties['nowrong-title-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-quiz--title {
+					font-size: calc(<?php echo $properties['nowrong-title-font-size'] ?>px - 6px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+				font-size: <?php echo $properties['nowrong-title-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			font-size: 36px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+				font-size: 42px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-quiz--title {
+				font-size: 36px;
+			}
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-title-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			<?php if ( $properties['nowrong-title-font-family'] != 'custom' && !empty( $properties['nowrong-title-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-title-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-title-font-family'] == 'custom' && !empty( $properties['nowrong-title-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-title-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-title-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			font-weight: <?php echo $properties['nowrong-title-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			font-weight: 700;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-description-font-size' ) ) { ?>
+		<?php if ( $properties['nowrong-description-font-size'] != '16' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+				font-size: calc(<?php echo $properties['nowrong-description-font-size'] ?>px - 4px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+					font-size: <?php echo $properties['nowrong-description-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-quiz--description {
+					font-size: calc(<?php echo $properties['nowrong-description-font-size'] ?>px - 4px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+				font-size: <?php echo $properties['nowrong-description-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			font-size: 16px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+				font-size: 20px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-quiz--description {
+				font-size: 16px;
+			}
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-description-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			<?php if ( $properties['nowrong-description-font-family'] != 'custom' && !empty( $properties['nowrong-description-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-description-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-description-font-family'] == 'custom' && !empty( $properties['nowrong-description-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-description-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-description-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			font-weight: <?php echo $properties['nowrong-description-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			font-weight: 400;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-question-font-size' ) ) { ?>
+		<?php if ( $properties['nowrong-question-font-size'] != '16' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+				font-size: calc(<?php echo $properties['nowrong-question-font-size'] ?>px - 4px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+					font-size: <?php echo $properties['nowrong-question-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-question legend {
+					font-size: calc(<?php echo $properties['nowrong-question-font-size'] ?>px - 4px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+				font-size: <?php echo $properties['nowrong-question-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			font-size: 20px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+				font-size: 24px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-question legend {
+				font-size: 20px;
+			}
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-question-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			<?php if ( $properties['nowrong-question-font-family'] != 'custom' && !empty( $properties['nowrong-question-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-question-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-question-font-family'] == 'custom' && !empty( $properties['nowrong-question-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-question-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-question-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			font-weight: <?php echo $properties['nowrong-question-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			font-size: <?php echo $properties['nowrong-answer-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			font-size: 14px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			<?php if ( $properties['nowrong-answer-font-family'] != 'custom' && !empty( $properties['nowrong-answer-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-answer-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-answer-font-family'] == 'custom' && !empty( $properties['nowrong-answer-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-answer-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			font-weight: <?php echo $properties['nowrong-answer-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			font-size: <?php echo $properties['nowrong-submit-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			font-size: 14px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			<?php if ( $properties['nowrong-submit-font-family'] != 'custom' && !empty( $properties['nowrong-submit-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-submit-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-submit-font-family'] == 'custom' && !empty( $properties['nowrong-submit-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-submit-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-submit-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			font-weight: <?php echo $properties['nowrong-submit-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-quiz-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			font-size: <?php echo $properties['nowrong-result-quiz-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			font-size: 15px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-quiz-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			<?php if ( $properties['nowrong-result-quiz-font-family'] != 'custom' && !empty( $properties['nowrong-result-quiz-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-quiz-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-result-quiz-font-family'] == 'custom' && !empty( $properties['nowrong-result-quiz-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-quiz-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-quiz-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			font-weight: <?php echo $properties['nowrong-result-quiz-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			font-size: <?php echo $properties['nowrong-result-retake-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			font-size: 13px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			<?php if ( $properties['nowrong-result-retake-font-family'] != 'custom' && !empty( $properties['nowrong-result-retake-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-retake-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-result-retake-font-family'] == 'custom' && !empty( $properties['nowrong-result-retake-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-retake-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			font-size: <?php echo $properties['nowrong-result-retake-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+			font-size: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-title-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			font-size: <?php echo $properties['nowrong-result-title-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			font-size: 15px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-title-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			<?php if ( $properties['nowrong-result-title-font-family'] != 'custom' && !empty( $properties['nowrong-result-title-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-title-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-result-title-font-family'] == 'custom' && !empty( $properties['nowrong-result-title-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-title-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-title-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			font-weight: <?php echo $properties['nowrong-result-title-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-description-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			font-size: <?php echo $properties['nowrong-result-description-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			font-size: 13px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-description-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			<?php if ( $properties['nowrong-result-description-font-family'] != 'custom' && !empty( $properties['nowrong-result-description-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-description-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['nowrong-result-description-font-family'] == 'custom' && !empty( $properties['nowrong-result-description-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['nowrong-result-description-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-description-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			font-weight: <?php echo $properties['nowrong-result-description-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+			font-weight: 400;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-sshare-font-size' ) ) { ?>
+		<?php if ( $properties['nowrong-sshare-font-size'] != '20' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+				font-size: calc(<?php echo $properties['nowrong-sshare-font-size'] ?>px - 3px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+					font-size: <?php echo $properties['nowrong-sshare-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material.forminator-size--small .forminator-social--text {
+					font-size: calc(<?php echo $properties['nowrong-sshare-font-size'] ?>px - 3px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+				font-size: <?php echo $properties['nowrong-sshare-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+			font-size: 20px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-sshare-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+		<?php if ( $properties['nowrong-sshare-font-family'] != 'custom' && !empty( $properties['nowrong-sshare-font-family'] ) ) { ?>
+			font-family: <?php echo $properties['nowrong-sshare-font-family'] ?>;
+		<?php } ?>
+		<?php if ( $properties['nowrong-sshare-font-family'] == 'custom' && !empty( $properties['nowrong-sshare-custom-family'] ) ) { ?>
+			font-family: <?php echo $properties['nowrong-sshare-custom-family'] ?>;
+		<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-sshare-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+			font-weight: <?php echo $properties['nowrong-sshare-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+			font-weight: 400;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-social-size' ) ) { ?>
+		<?php if ( $properties['nowrong-social-size'] != '24' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon {
+				font-size: calc(<?php echo $properties['nowrong-social-size'] ?>px - 6px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon {
+					font-size: <?php echo $properties['nowrong-social-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material.forminator-size--small .forminator-social--icon {
+					font-size: calc(<?php echo $properties['nowrong-social-size'] ?>px - 6px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon {
+				font-size: <?php echo $properties['nowrong-social-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon {
+			font-size: 33px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon {
+				font-size: 36px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material.forminator-size--small .forminator-social--icon {
+				font-size: 33px;
+			}
+		}
+	<?php } ?>
+<?php } else { ?>
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+		font-size: 36px;
+		font-family: Roboto;
+		font-weight: 700;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+		font-size: 16px;
+		font-family: Roboto;
+		font-weight: 400;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+		font-size: 20px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-answer .forminator-answer--name {
+		font-size: 14px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-button {
+		font-size: 14px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--quiz-name {
+		font-size: 15px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--retake {
+		font-size: 13px;
+		font-family: Roboto;
+		font-size: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--title {
+		font-size: 15px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description,
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-result .forminator-result--description p {
+		font-size: 13px;
+		font-family: Roboto;
+		font-weight: 400;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--text {
+		font-size: 20px;
+		font-family: Roboto;
+		font-weight: 400;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon {
+		font-size: 33px;
+	}
+	@media (min-width: 783px){
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--title {
+			font-size: 42px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-quiz--title {
+			font-size: 36px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-quiz--description {
+			font-size: 20px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-quiz--description {
+			font-size: 16px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-question legend {
+			font-size: 24px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-size--small.forminator-design--material .forminator-question legend {
+			font-size: 20px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-social--icon {
+			font-size: 36px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--material.forminator-size--small .forminator-social--icon {
+			font-size: 33px;
+		}
+	}
+<?php } ?>

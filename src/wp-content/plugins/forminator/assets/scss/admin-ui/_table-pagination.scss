@@ -1,0 +1,19 @@
+@include body-class(true) {
+
+	.fui-table--pagination {
+
+		tbody {
+
+			tr td {
+
+				input.sui-form-control {
+					height: 30px;
+					margin: 10px 0;
+					padding: 7px 12px;
+					font-size: 12px;
+					line-height: 16px;
+				}
+			}
+		}
+	}
+}

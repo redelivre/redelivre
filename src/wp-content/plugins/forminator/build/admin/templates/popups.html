@@ -1,0 +1,144 @@
+<div>
+
+	<script type="text/template" id="popup-integration-tpl">
+
+		<div class="sui-dialog sui-dialog-alt sui-dialog-sm" id="forminator-integration-popup">
+
+			<div class="sui-dialog-overlay sui-fade-in" tabindex="-1" data-a11y-dialog-hide=""></div>
+
+			<div class="sui-dialog-content sui-bounce-in" aria-labelledby="dialogTitle" aria-describedby="dialogDescription" role="dialog">
+
+				<div class="sui-box" role="document"></div>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="popup-integration-content-tpl">
+
+		<div class="sui-box-header sui-block-content-center">
+
+			<div class="sui-dialog-image" aria-hidden="true">
+
+				<img
+					src="{{ image }}"
+					srcset="{{ image }} 1x, {{ image_x2 }} 2x"
+					alt="{{ title }}"
+				/>
+
+			</div>
+
+			<div class="sui-box-content integration-header"></div>
+
+			<button class="sui-dialog-back forminator-addon-back" aria-label="Back" style="display: none;"></button>
+
+			<button class="sui-dialog-close forminator-integration-close" aria-label="{{ Forminator.l10n.popup.close_label }}"></button>
+
+		</div>
+
+		<div class="sui-box-body"></div>
+
+		<div class="sui-box-footer sui-box-footer-center"></div>
+
+	</script>
+
+	<script type="text/template" id="popup-new-tpl">
+
+		<div class="sui-dialog sui-dialog-alt sui-dialog-sm" id="forminator-popup">
+
+			<div class="sui-dialog-overlay sui-fade-in" tabindex="-1" data-a11y-dialog-hide=""></div>
+
+			<div class="sui-dialog-content sui-bounce-in" aria-labelledby="dialogTitle" aria-describedby="dialogDescription" role="dialog">
+
+				<div class="sui-box" role="document"></div>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="popup-tpl">
+
+		<div class="sui-dialog" id="forminator-popup" aria-hidden="true">
+
+			<div class="sui-dialog-overlay sui-fade-in" tabindex="-1" data-a11y-dialog-hide=""></div>
+
+			<div class="sui-dialog-content sui-bounce-in" aria-labelledby="dialogTitle" aria-describedby="dialogDescription" role="dialog">
+
+				<div class="sui-box" role="document"></div>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="popup-header-tpl">
+
+		<div class="sui-box-header">
+
+			<h3 class="sui-box-title" id="dialogTitle">{{ title }}</h3>
+
+			<div class="sui-actions-right">
+
+				<button data-a11y-dialog-hide="" class="sui-dialog-close" aria-label=""></button>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="popup-loader-tpl">
+
+		<p class="fui-loading-dialog" aria-label="Loading content">
+
+			<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
+
+		</p>
+
+	</script>
+
+	<script type="text/template" id="popup-stripe-tpl">
+
+		<div class="sui-dialog sui-dialog-alt sui-dialog-sm" id="forminator-stripe-popup">
+
+			<div class="sui-dialog-overlay sui-fade-in" tabindex="-1" data-a11y-dialog-hide=""></div>
+
+			<div class="sui-dialog-content sui-bounce-in" aria-labelledby="dialogTitle" aria-describedby="dialogDescription" role="dialog">
+
+				<div class="sui-box" role="document"></div>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="popup-stripe-content-tpl">
+
+		<div class="sui-box-header sui-block-content-center">
+
+			<div class="sui-dialog-image" aria-hidden="true">
+
+				<img src="{{ image }}"
+				     srcset="{{ image }} 1x, {{ image_x2 }} 2x" alt="{{ title }}" />
+
+			</div>
+
+			<h3 class="sui-box-title" id="dialogTitle2" style="display: none;">{{ title }}</h3>
+
+			<button class="sui-dialog-close forminator-integration-close" aria-label="{{ Forminator.l10n.popup.close_label }}"></button>
+
+		</div>
+
+		<div class="sui-box-body sui-block-content-center sui-box-body-slim"></div>
+
+		<div class="sui-box-footer sui-box-footer-center"></div>
+
+	</script>
+
+</div>

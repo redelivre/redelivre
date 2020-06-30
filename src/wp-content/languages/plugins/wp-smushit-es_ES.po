@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Smush &#8211; Compress, Optimize and Lazy Load Images - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-03-11 10:46:18+0000\n"
+"PO-Revision-Date: 2020-04-17 07:26:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1931,7 +1931,7 @@ msgstr "Haz clic para empezar el procesamiento por lotes de las imágenes de la 
 
 #: app/views/cdn/disabled-meta-box.php:32
 msgid "GET STARTED"
-msgstr "EMPEZAR"
+msgstr "PRIMEROS PASOS"
 
 #: core/modules/class-dir.php:1179
 msgid "Select a directory you'd like to Smush."

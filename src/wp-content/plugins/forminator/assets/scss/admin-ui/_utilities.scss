@@ -1,0 +1,21 @@
+@include body-class(true) {
+
+	.fui-buttons-alignment {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.sui-button,
+		.sui-button-icon {
+			flex: 0 1 auto;
+		}
+
+		&.fui-alignment-center {
+			justify-content: center;
+		}
+
+		&.fui-alignment-right {
+			justify-content: flex-end;
+		}
+	}
+}

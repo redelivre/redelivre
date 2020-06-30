@@ -1,0 +1,163 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-background-static' ) && !empty( $properties['button-upload-background-static'] ) ) { ?>
+			background-color: <?php echo $properties['button-upload-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #1ABCA1;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-color-static' ) && !empty( $properties['button-upload-color-static'] ) ) { ?>
+			color: <?php echo $properties['button-upload-color-static'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-background-hover' ) && !empty( $properties['button-upload-background-hover'] ) ) { ?>
+			background-color: <?php echo $properties['button-upload-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #159C85;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-color-hover' ) && !empty( $properties['button-upload-color-hover'] ) ) { ?>
+			color: <?php echo $properties['button-upload-color-hover'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:active,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:active {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-background-active' ) && !empty( $properties['button-upload-background-active'] ) ) { ?>
+			background-color: <?php echo $properties['button-upload-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #159C85;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-color-active' ) && !empty( $properties['button-upload-color-active'] ) ) { ?>
+			color: <?php echo $properties['button-upload-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-notice' ) && !empty( $properties['button-upload-notice'] ) ) { ?>
+			color: <?php echo $properties['button-upload-notice'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-delete-background-static' ) && !empty( $properties['button-upload-delete-background-static'] ) ) { ?>
+			background-color: <?php echo $properties['button-upload-delete-background-static'] ?>;
+		<?php } else { ?>
+			background-color: rgba(0,0,0,0);
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-delete-background-hover' ) && !empty( $properties['button-upload-delete-background-hover'] ) ) { ?>
+			background-color: <?php echo $properties['button-upload-delete-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #F9E4E8;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-delete-background-active' ) && !empty( $properties['button-upload-delete-background-active'] ) ) { ?>
+			background-color: <?php echo $properties['button-upload-delete-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #F9E4E8;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete [class*="forminator-icon-"],
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete [class*="forminator-icon-"] {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-delete-color-static' ) && !empty( $properties['button-upload-delete-color-static'] ) ) { ?>
+			color: <?php echo $properties['button-upload-delete-color-static'] ?>;
+		<?php } else { ?>
+			color: #E04562;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover [class*="forminator-icon-"],
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover [class*="forminator-icon-"] {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-delete-color-hover' ) && !empty( $properties['button-upload-delete-color-hover'] ) ) { ?>
+			color: <?php echo $properties['button-upload-delete-color-hover'] ?>;
+		<?php } else { ?>
+			color: #E04562;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active [class*="forminator-icon-"],
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active [class*="forminator-icon-"] {
+		<?php if ( forminator_array_value_exists( $properties, 'button-upload-delete-color-active' ) && !empty( $properties['button-upload-delete-color-active'] ) ) { ?>
+			color: <?php echo $properties['button-upload-delete-color-active'] ?>;
+		<?php } else { ?>
+			color: #E04562;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload {
+		background-color: #1ABCA1;
+		color: #FFFFFF;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:hover {
+		background-color: #159C85;
+		color: #FFFFFF;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:active,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload:active {
+		background-color: #159C85;
+		color: #FFFFFF;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span {
+		color: #777771;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete {
+		background-color: rgba(0,0,0,0);
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover {
+		background-color: #F9E4E8;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active {
+		background-color: #F9E4E8;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete [class*="forminator-icon-"],
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete [class*="forminator-icon-"] {
+		color: #E04562;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover [class*="forminator-icon-"],
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:hover [class*="forminator-icon-"] {
+		color: #E04562;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active [class*="forminator-icon-"],
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-delete:active [class*="forminator-icon-"] {
+		color: #E04562;
+	}
+
+<?php } ?>

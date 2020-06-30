@@ -1,0 +1,20 @@
+@include body-class(true) {
+
+	.sui-button,
+	a.sui-button,
+	button.sui-button {
+
+		&.sui-button-purple {
+			background-color: $button-purple-background;
+
+			i:before {
+				color: $button-purple-color;
+			}
+
+			&:hover,
+			&:focus {
+				background-color: $button-purple-action-background;
+			}
+		}
+	}
+}

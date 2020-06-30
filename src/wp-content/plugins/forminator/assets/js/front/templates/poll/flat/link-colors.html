@@ -1,0 +1,61 @@
+<?php if ( forminator_array_value_exists( $properties, 'poll-colors' ) ) { ?>
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link {
+		<?php if ( forminator_array_value_exists( $properties, 'color_link' ) ) { ?>
+			color: <?php echo $properties['color_link'] ?>;
+		<?php } else { ?>
+			color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:visited,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:visited {
+		<?php if ( forminator_array_value_exists( $properties, 'color_link' ) ) { ?>
+			color: <?php echo $properties['color_link'] ?>;
+		<?php } else { ?>
+			color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'color_link_hover' ) ) { ?>
+			color: <?php echo $properties['color_link_hover'] ?>;
+		<?php } else { ?>
+			color: #008FCA;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:active,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:active {
+		<?php if ( forminator_array_value_exists( $properties, 'color_link_active' ) ) { ?>
+			color: <?php echo $properties['color_link_active'] ?>;
+		<?php } else { ?>
+			color: #008FCA;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link {
+		color: #17A8E3;
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:visited,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:visited {
+		color: #17A8E3;
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:hover,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:hover {
+		color: #008FCA;
+	}
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:active,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-link:active {
+		color: #008FCA;
+	}
+
+<?php } ?>

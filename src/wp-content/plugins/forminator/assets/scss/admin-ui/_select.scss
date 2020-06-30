@@ -1,0 +1,77 @@
+@include body-class(true) {
+
+	select.fui-select {
+		width: 100%;
+		height: 40px;
+		display: block;
+		flex: 1;
+		margin: 0;
+		padding: 4px 15px;
+		border: 1px solid palette(gray, lighter);
+		border-radius: $border-radius;
+		background-color: #FAFAFA;
+		box-shadow: none;
+		color: palette(gray, dark);
+		font-size: 15px;
+		font-weight: 500;
+		font-family: $font;
+		letter-spacing: 0;
+	}
+
+	.select-container {
+
+		// ELEMENT: Listing Actions.
+		&.fui-select-listing-actions {
+			width: 100%;
+			max-width: 160px;
+			min-width: unset;
+			display: flex;
+
+			.select-list-container {
+
+				.list-results {
+					max-height: 230px;
+				}
+			}
+		}
+
+		// ELEMENT: Empty Notice.
+		&.fui-select-disabled {
+			user-select: none;
+			pointer-events: none;
+			border-color: #DEDEDE;
+			background-color: #F2F2F2;
+
+			.select-list-container {
+				cursor: not-allowed;
+
+				.list-value {
+					color: palette(silver, medium);
+				}
+			}
+
+			&.active {
+				user-select: none;
+				pointer-events: none;
+
+				.dropdown-handle {
+
+					[class*=sui-icon-] {
+						transform: rotate(0);
+					}
+				}
+
+				.select-list-container {
+
+					.list-results {
+						width: 0;
+						display: none;
+						left: -9999px;
+						right: -9999px;
+						transition-duration: .3s;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,56 @@
+@include body-class(true) {
+
+	.sui-icon-pagination {
+
+		&:before {
+			content: " ";
+			width: 30px;
+			height: 16px;
+			background-repeat: no-repeat;
+			background-size: 16px 16px;
+			background-position: center;
+		}
+	}
+
+	.sui-box-selector {
+
+		input {
+
+			&:checked + span {
+
+				.sui-icon-pagination {
+
+					&:before {
+						background-image: url('../images/pagination-icon-blue.png');
+					}
+				}
+			}
+
+			+ span {
+
+				.sui-icon-pagination {
+
+					&:before {
+						background-image: url('../images/pagination-icon-light.png');
+					}
+				}
+			}
+		}
+	}
+
+	.fui-builder-field-block {
+
+		.fui-field--info {
+
+			.fui-field--icon {
+
+				.sui-icon-pagination {
+
+					&:before {
+						background-image: url('../images/pagination-icon-dark.png');
+					}
+				}
+			}
+		}
+	}
+}

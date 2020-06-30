@@ -1,0 +1,76 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-font-family' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-title {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-title-font-size' ) ) { ?>
+			font-size: $properties['cform-title-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 45px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-title-font-family' ) ) { ?>
+			<?php if ( $properties['cform-title-font-family'] != 'custom' && !empty( $properties['cform-title-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-title-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['cform-title-font-family'] == 'custom' && !empty( $properties['cform-title-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-title-custom-family'] ?>;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-title-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-title-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-title-text-align' ) ) { ?>
+			text-align: <?php echo $properties['cform-title-text-align'] ?>;
+		<?php } else { ?>
+			text-align: left;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-subtitle {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-subtitle-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-subtitle-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 18px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-subtitle-font-family' ) ) { ?>
+			<?php if ( $properties['cform-subtitle-font-family'] != 'custom' && !empty( $properties['cform-subtitle-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-subtitle-font-family'] ?>;
+			<?php } else if ( $properties['cform-subtitle-font-family'] == 'custom' && !empty( $properties['cform-subtitle-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-subtitle-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-subtitle-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-subtitle-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-subtitle-text-align' ) ) { ?>
+			text-align: <?php echo $properties['cform-subtitle-text-align'] ?>;
+		<?php } else { ?>
+			text-align: left;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-title {
+		font-size: 45px;
+		font-family: inherit;
+		font-weight: 400;
+		text-align: left;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-subtitle {
+		font-size: 18px;
+		font-family: inherit;
+		font-weight: 400;
+		text-align: left;
+	}
+
+<?php } ?>

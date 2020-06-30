@@ -1,0 +1,52 @@
+@include body-class(true) {
+
+	.sui-dialog {
+
+		// FIX: Center align loader
+		.fui-loading-dialog {
+			text-align: center;
+		}
+
+		// DIALOG: Publish
+		&.fui-dialog-publish {
+
+			.sui-dialog-content .sui-box {
+
+				.sui-box-header {
+					padding-top: #{$sui-gutter-md * 2};
+
+					[class*="sui-icon"] {
+						font-size: 20px;
+
+						&:before {
+							display: block;
+						}
+
+						+ .sui-box-title {
+							margin-top: $sui-gutter-md;
+
+							@include media(min-width, md) {
+								margin-top: $sui-gutter;
+							}
+						}
+					}
+
+					@include media(min-width, md) {
+						padding-top: #{$sui-gutter * 2};
+					}
+				}
+
+				.sui-box-body {
+
+					+ .sui-image {
+						margin-top: #{$sui-gutter-md / 2};
+
+						@include media(min-width, md) {
+							margin-top: #{$sui-gutter / 2};
+						}
+					}
+				}
+			}
+		}
+	}
+}

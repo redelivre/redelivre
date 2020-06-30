@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Blogger Importer - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-22 09:23:18+0000\n"
+"PO-Revision-Date: 2020-05-11 09:35:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - Blogger Importer - Stable (latest release)\n"
 
@@ -37,11 +37,11 @@ msgstr "- Seleccionar -"
 
 #: blogger-importer.php:286
 msgid "or assign posts to an existing user:"
-msgstr "o asignar mensajes a un usuario existente:"
+msgstr "o asignar entradas a un usuario existente:"
 
 #: blogger-importer.php:334
 msgid "Failed to create new user for %s. Their posts will be attributed to the current user."
-msgstr "Error al crear nuevo usuario para %s. Sus entradas se le atribuyen al usuario actual."
+msgstr "Fallo al crear un usuario nuevo para %s. Sus entradas se atribuirán al usuario actual."
 
 #: blogger-importer.php:861
 msgid "Howdy! Upload your Blogger Exported XML file and we&#8217;ll import the contents from it into this site."
@@ -54,23 +54,23 @@ msgstr "Elige un archivo XML para cargar, haz clic en subir archivo e importar."
 #: blogger-importer.php:129 blogger-importer.php:138 blogger-importer.php:192
 #: blogger-importer.php:196 blogger-importer.php:206
 msgid "Sorry, there has been an error."
-msgstr "Lo sentimos, se ha producido un error."
+msgstr "Lo siento, ha habido un error."
 
 #: blogger-importer.php:130
 msgid "The file does not exist, please try again."
-msgstr "El archivo no existe, por favor intente de nuevo."
+msgstr "El archivo no existe, por favor, inténtalo de nuevo."
 
 #: blogger-importer.php:176
 msgid "All done."
-msgstr "Todo hecho."
+msgstr "Todo listo."
 
 #: blogger-importer.php:176
 msgid "Have fun!"
-msgstr "¡A divertirse!"
+msgstr "¡Diviértete!"
 
 #: blogger-importer.php:177
 msgid "Remember to update the passwords and roles of imported users."
-msgstr "Recuerda actualizar las contraseñas y los roles de los usuarios importados."
+msgstr "Recuerda actualizar las contraseñas y los perfiles de los usuarios importados."
 
 #: blogger-importer.php:197
 msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
@@ -82,7 +82,7 @@ msgstr "Asignar autores"
 
 #: blogger-importer.php:717 blogger-importer.php:801
 msgid "Attempting to write back empty content"
-msgstr "Tratando de adjuntar contenido vacío"
+msgstr "Intentando reescribir contenido vacío"
 
 #: blogger-importer.php:660
 msgid "None of the images are valid"
@@ -102,21 +102,21 @@ msgstr "Importar desde Blogger"
 
 #. Plugin URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/blogger-importer/"
-msgstr "http://wordpress.org/extend/plugins/blogger-importer/"
+msgstr "https://es.wordpress.org/plugins/blogger-importer/"
 
 #. Plugin Name of the plugin/theme
 msgid "Blogger Importer"
-msgstr "Importador de Blogger"
+msgstr "Blogger Importer"
 
 #. #-#-#-#-#  tmp-blogger-importer.pot (Blogger Importer 0.9)  #-#-#-#-#
 #. Description of the plugin/theme
 #: blogger-importer.php:915
 msgid "Import posts, comments, and categories from a Blogger blog and migrate authors to WordPress users."
-msgstr "Importa entradas, comentarios y categorías  de un blog de Blogger y migra los autores a usuarios de WordPress."
+msgstr "Importa las entradas, comentarios y categorías de un blog de Blogger y migra los autores a usuarios de WordPress."
 
 #. Author URI of the plugin/theme
 msgid "http://wordpress.org/"
-msgstr "http://wordpress.org/"
+msgstr "https://es.wordpress.org/"
 
 #. Author of the plugin/theme
 msgid "wordpressdotorg"

@@ -1,0 +1,56 @@
+@include body-class(true) {
+
+	.sui-icon-paypal {
+
+		&:before {
+			content: " ";
+			width: 30px;
+			height: 16px;
+			background-repeat: no-repeat;
+			background-size: 16px 16px;
+			background-position: center;
+		}
+	}
+
+	.sui-box-selector {
+
+		input {
+
+			&:checked + span {
+
+				.sui-icon-paypal {
+
+					&:before {
+						background-image: url('../images/paypal-icon-blue.png');
+					}
+				}
+			}
+
+			+ span {
+
+				.sui-icon-paypal {
+
+					&:before {
+						background-image: url('../images/paypal-icon-light.png');
+					}
+				}
+			}
+		}
+	}
+
+	.fui-builder-field-block {
+
+		.fui-field--info {
+
+			.fui-field--icon {
+
+				.sui-icon-paypal {
+
+					&:before {
+						background-image: url('../images/paypal-icon-dark.png');
+					}
+				}
+			}
+		}
+	}
+}

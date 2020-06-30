@@ -1,0 +1,75 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement {
+		<?php if ( forminator_array_value_exists( $properties, 'input-color' ) && !empty( $properties['input-color'] ) ) { ?>
+			color: <?php echo $properties['input-color'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement:after {
+		<?php if ( forminator_array_value_exists( $properties, 'input-border' ) && !empty( $properties['input-border'] ) ) { ?>
+			background-color: <?php echo $properties['input-border'] ?>;
+		<?php } else { ?>
+			background-color: #777771;
+		<?php } ?>
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe:after {
+		<?php if ( forminator_array_value_exists( $properties, 'input-border-hover' ) && !empty( $properties['input-border-hover'] ) ) { ?>
+			background-color: <?php echo $properties['input-border-hover'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-is_active .forminator-input--stripe:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-is_active .forminator-input--stripe:after {
+		<?php if ( forminator_array_value_exists( $properties, 'input-border-active' ) && !empty( $properties['input-border-active'] ) ) { ?>
+			background-color: <?php echo $properties['input-border-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-input--stripe:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-input--stripe:after {
+		<?php if ( forminator_array_value_exists( $properties, 'label-validation-color' ) && !empty( $properties['label-validation-color'] ) ) { ?>
+			background-color: <?php echo $properties['label-validation-color'] ?>;
+		<?php } else { ?>
+			background-color: #E04562;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement {
+		color: #000000;
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe .StripeElement:after {
+		background-color: #777771;
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-input--stripe:after {
+		background-color: #17A8E3;
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-is_active .forminator-input--stripe:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-is_active .forminator-input--stripe:after {
+		background-color: #17A8E3;
+	}
+
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-input--stripe:after,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-input--stripe:after {
+		background-color: #E04562;
+	}
+
+<?php } ?>

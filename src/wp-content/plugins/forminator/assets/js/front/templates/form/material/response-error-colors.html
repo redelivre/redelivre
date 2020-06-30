@@ -1,0 +1,59 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error {
+		<?php if ( forminator_array_value_exists( $properties, 'response-error-border' ) && !empty( $properties['response-error-border'] ) ) { ?>
+			box-shadow: inset 4px 0 0 0 <?php echo $properties['response-error-border'] ?>, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-moz-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-error-border'] ?>, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-webkit-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-error-border'] ?>, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		<?php } else { ?>
+			box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-moz-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-webkit-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error:hover,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error:focus,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error:active {
+		<?php if ( forminator_array_value_exists( $properties, 'response-error-border' ) && !empty( $properties['response-error-border'] ) ) { ?>
+			box-shadow: inset 4px 0 0 0 <?php echo $properties['response-error-border'] ?>, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-moz-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-error-border'] ?>, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-webkit-box-shadow: inset 4px 0 0 0 <?php echo $properties['response-error-border'] ?>, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		<?php } else { ?>
+			box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-moz-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+			-webkit-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error p {
+		<?php if ( forminator_array_value_exists( $properties, 'response-error-color' ) && !empty( $properties['response-error-color'] ) ) { ?>
+			color: <?php echo $properties['response-error-color'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error {
+		box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		-moz-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		-webkit-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error:hover,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error:focus,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error:active {
+		box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		-moz-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+		-webkit-box-shadow: inset 4px 0 0 0 #E04562, 1px 1px 4px 0 rgba(0,0,0,0.3);
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error,
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-response-message.forminator-error p {
+		color: #333333;
+	}
+
+<?php } ?>

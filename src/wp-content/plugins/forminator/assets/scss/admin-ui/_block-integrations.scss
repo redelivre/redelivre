@@ -1,0 +1,32 @@
+@include body-class(true) {
+
+	.fui-integrations-block {
+
+		.sui-table-title {
+			display: block;
+			margin: 0 0 5px;
+			color: palette(gray, light);
+			font: bold 12px/22px $font;
+			letter-spacing: $font--letter-spacing;
+
+			+ .sui-notice {
+				margin: 5px 0 0;
+			}
+		}
+
+		.fui-table--apps {
+			margin: 5px 0;
+		}
+
+		&:not(:last-child) {
+
+			@include media(max-width, md) {
+				margin: 0 0 $sui-gutter-md;
+			}
+
+			@include media(min-width, md) {
+				margin: 0 0 $sui-gutter;
+			}
+		}
+	}
+}

@@ -1,0 +1,47 @@
+@include body-class(true) {
+
+	.sui-box-builder {
+
+		.sui-builder-field {
+			position: relative;
+
+			.sui-builder-field-label {
+
+				// Label.
+				&.fui-notifications-label {
+					min-width: 40%;
+					max-width: 40%;
+				}
+
+				// Recipient(s).
+				&.fui-notifications-recipient {
+					color: palette(gray, light);
+				}
+			}
+
+			.fui-conditions {
+				cursor: help;
+				position: absolute;
+				z-index: 1;
+				right: -10px;
+
+				[class*="sui-icon-"] {
+					width: 20px;
+					height: 20px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 40px;
+					background-color: $white;
+					box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.05);
+					text-align: center;
+
+					&:before {
+						display: block;
+						color: palette(yellow, default);
+					}
+				}
+			}
+		}
+	}
+}

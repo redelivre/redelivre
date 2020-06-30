@@ -1,0 +1,488 @@
+
+<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-typography' ) ) { ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-title-font-size' ) ) { ?>
+		<?php if ( $properties['knowledge-title-font-size'] != '24' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+				font-size: calc(<?php echo $properties['knowledge-title-font-size'] ?>px - 6px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+					font-size: <?php echo $properties['knowledge-title-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--title {
+					font-size: calc(<?php echo $properties['knowledge-title-font-size'] ?>px - 6px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+				font-size: <?php echo $properties['knowledge-title-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+			font-size: 36px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+				font-size: 42px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--title {
+				font-size: 36px;
+			}
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-title-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+			<?php if ( $properties['knowledge-title-font-family'] != 'custom' && !empty( $properties['knowledge-title-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-title-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-title-font-family'] == 'custom' && !empty( $properties['knowledge-title-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-title-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-title-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+			font-weight: <?php echo $properties['knowledge-title-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-description-font-size' ) ) { ?>
+		<?php if ( $properties['knowledge-description-font-size'] != '16' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+				font-size: calc(<?php echo $properties['knowledge-description-font-size'] ?>px - 4px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+					font-size: <?php echo $properties['knowledge-description-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--description {
+					font-size: calc(<?php echo $properties['knowledge-description-font-size'] ?>px - 4px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+				font-size: <?php echo $properties['knowledge-description-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+			font-size: 16px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+				font-size: 20px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--description {
+				font-size: 16px;
+			}
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-description-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+			<?php if ( $properties['knowledge-description-font-family'] != 'custom' && !empty( $properties['knowledge-description-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-description-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-description-font-family'] == 'custom' && !empty( $properties['knowledge-description-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-description-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-description-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+			font-weight: <?php echo $properties['knowledge-description-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+			font-weight: 400;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-question-font-size' ) ) { ?>
+		<?php if ( $properties['knowledge-question-font-size'] === '24' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+				font-size: calc(<?php echo $properties['knowledge-question-font-size'] ?>px - 4px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+					font-size: <?php echo $properties['knowledge-question-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-question legend {
+					font-size: calc(<?php echo $properties['knowledge-question-font-size'] ?>px - 4px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+				font-size: <?php echo $properties['knowledge-question-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+			font-size: 20px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+				font-size: 24px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-question legend {
+				font-size: 20px;
+			}
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-question-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+			<?php if ( $properties['knowledge-question-font-family'] != 'custom' && !empty( $properties['knowledge-question-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-question-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-question-font-family'] == 'custom' && !empty( $properties['knowledge-question-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-question-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-question-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+			font-weight: <?php echo $properties['knowledge-question-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-answer .forminator-answer--name {
+			font-size: <?php echo $properties['knowledge-answer-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-answer .forminator-answer--name {
+			font-size: 14px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-answer .forminator-answer--name {
+			<?php if ( $properties['knowledge-answer-font-family'] != 'custom' && !empty( $properties['knowledge-answer-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-answer-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-answer-font-family'] == 'custom' && !empty( $properties['knowledge-answer-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-answer-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-answer .forminator-answer--name {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-answer .forminator-answer--name {
+			font-weight: <?php echo $properties['knowledge-answer-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-answer .forminator-answer--name {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-phrasing-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question--result span {
+			font-size: <?php echo $properties['knowledge-phrasing-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question--result span {
+			font-size: 16px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-phrasing-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question--result span {
+			<?php if ( $properties['knowledge-phrasing-font-family'] != 'custom' && !empty( $properties['knowledge-phrasing-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-phrasing-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-phrasing-font-family'] == 'custom' && !empty( $properties['knowledge-phrasing-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-phrasing-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question--result span {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-phrasing-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question--result span {
+			font-weight: <?php echo $properties['knowledge-phrasing-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question--result span {
+			font-weight: 700;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-font-size' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button {
+			font-size: <?php echo $properties['knowledge-submit-font-size'] ?>px;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button {
+			font-size: 14px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button {
+			<?php if ( $properties['knowledge-submit-font-family'] != 'custom' && !empty( $properties['knowledge-submit-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-submit-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-submit-font-family'] == 'custom' && !empty( $properties['knowledge-submit-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-submit-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button {
+			font-weight: <?php echo $properties['knowledge-submit-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button {
+			font-weight: 500;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-summary-font-size' ) ) { ?>
+		<?php if ( $properties['knowledge-summary-font-size'] != '22' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+				font-size: calc(<?php echo $properties['knowledge-summary-font-size'] ?>px - 6px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+					font-size: <?php echo $properties['knowledge-summary-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--summary p {
+					font-size: calc(<?php echo $properties['knowledge-summary-font-size'] ?>px - 6px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+				font-size: <?php echo $properties['knowledge-summary-font-size'] ?>px;
+			}
+		<?php } ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p small {
+			font-size: calc(<?php echo $properties['knowledge-summary-font-size'] ?>px / 2);
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+			font-size: 34px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p small {
+			font-size: 17px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+				font-size: 40px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p small {
+				font-size: 20px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--summary p {
+				font-size: 34px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--summary p small {
+				font-size: 17px;
+			}
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-summary-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary * {
+			<?php if ( $properties['knowledge-summary-font-family'] != 'custom' && !empty( $properties['knowledge-summary-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-summary-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-summary-font-family'] == 'custom' && !empty( $properties['knowledge-summary-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-summary-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary * {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-summary-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+			font-weight: <?php echo $properties['knowledge-summary-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--summary p {
+			font-weight: 400;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-sshare-font-size' ) ) { ?>
+		<?php if ( $properties['knowledge-sshare-font-size'] != '20' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+				font-size: calc(<?php echo $properties['knowledge-sshare-font-size'] ?>px - 3px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+					font-size: <?php echo $properties['knowledge-sshare-font-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-social--text {
+					font-size: calc(<?php echo $properties['knowledge-sshare-font-size'] ?>px - 3px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+				font-size: <?php echo $properties['knowledge-sshare-font-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+			font-size: 20px;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-sshare-font-family' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+			<?php if ( $properties['knowledge-sshare-font-family'] != 'custom' && !empty( $properties['knowledge-sshare-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-sshare-font-family'] ?>;
+			<?php } ?>
+			<?php if ( $properties['knowledge-sshare-font-family'] == 'custom' && !empty( $properties['knowledge-sshare-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['knowledge-sshare-custom-family'] ?>;
+			<?php } ?>
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+			font-family: Roboto;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-sshare-font-weight' ) ) { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+			font-weight: <?php echo $properties['knowledge-sshare-font-weight'] ?>;
+		}
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+			font-weight: 400;
+		}
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-social-size' ) ) { ?>
+		<?php if ( $properties['knowledge-social-size'] != '24' ) { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--icon {
+				font-size: calc(<?php echo $properties['knowledge-social-size'] ?>px - 6px);
+			}
+			@media (min-width: 783px){
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--icon {
+					font-size: <?php echo $properties['knowledge-social-size'] ?>px;
+				}
+				.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-social--icon {
+					font-size: calc(<?php echo $properties['knowledge-social-size'] ?>px - 6px);
+				}
+			}
+		<?php } else { ?>
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--icon {
+				font-size: <?php echo $properties['knowledge-social-size'] ?>px;
+			}
+		<?php } ?>
+	<?php } else { ?>
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--icon {
+			font-size: 33px;
+		}
+		@media (min-width: 783px){
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--icon {
+				font-size: 36px;
+			}
+			.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-social--icon {
+				font-size: 33px;
+			}
+		}
+	<?php } ?>
+<?php } else { ?>
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+		font-size: 36px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+		font-size: 16px;
+		font-family: Roboto;
+		font-weight: 400;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+		font-size: 20px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-answer .forminator-answer--name {
+		font-size: 14px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question--result span {
+		font-size: 16px;
+		font-family: Roboto;
+		font-weight: 700;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button {
+		font-size: 14px;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary * {
+		font-family: Roboto;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+		font-size: 34px;
+		font-weight: 400;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p small {
+		font-size: 17px;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--text {
+		font-size: 20px;
+		font-family: Roboto;
+		font-weight: 400;
+	}
+	.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--icon {
+		font-size: 33px;
+	}
+	@media (min-width: 783px){
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--title {
+			font-size: 42px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--title {
+			font-size: 36px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--description {
+			font-size: 20px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--description {
+			font-size: 16px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-question legend {
+			font-size: 24px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-question legend {
+			font-size: 20px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p {
+			font-size: 40px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-quiz--summary p small {
+			font-size: 20px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-quiz--summary p {
+			font-size: 34px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-social--icon {
+			font-size: 36px;
+		}
+		.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-design--bold.forminator-size--small .forminator-social--icon {
+			font-size: 33px;
+		}
+	}
+<?php } ?>

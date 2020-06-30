@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+// ============================================================
+// Shared UI
+// Import original shared-ui styles.
+@import "../../node_modules/@wpmudev/shared-ui/scss/functions";
+@import "../../node_modules/@wpmudev/shared-ui/scss/colors";
+@import "../../node_modules/@wpmudev/shared-ui/scss/variables";
+
+// Overwrite SUI version variable
+$sui-version: 'forminator-scgen';
+
+@import "../../node_modules/@wpmudev/shared-ui/scss/mixins";
+@import "../../node_modules/@wpmudev/shared-ui/scss/accessibility";
+@import "../../node_modules/@wpmudev/shared-ui/scss/animations";
+@import "../../node_modules/@wpmudev/shared-ui/scss/typography";
+@import "../../node_modules/@wpmudev/shared-ui/scss/icons";
+@import "../../node_modules/@wpmudev/shared-ui/scss/buttons";
+@import "../../node_modules/@wpmudev/shared-ui/scss/boxes";
+@import "../../node_modules/@wpmudev/shared-ui/scss/header";
+@import "../../node_modules/@wpmudev/shared-ui/scss/forms";
+@import "../../node_modules/@wpmudev/shared-ui/scss/tabs";
+@import "../../node_modules/@wpmudev/shared-ui/scss/dropdowns";
+@import "../../node_modules/@wpmudev/shared-ui/scss/modals";
+@import "../../node_modules/@wpmudev/shared-ui/scss/select2";
+@import "../../node_modules/@wpmudev/shared-ui/scss/utility";
+
+
+@include body-class() {
+
+	.sui-dialog {
+
+		&#forminator-popup {
+			z-index: 9991;
+
+			.sui-box {
+
+				.sui-box-body {
+
+					.sui-tabs {
+
+						div[data-tabs] {
+
+							@include media(min-width, md) {
+								justify-content: center;
+							}
+						}
+					}
+
+					.sui-form-field {
+						margin: 0;
+
+						&.sui-form-field-error {
+
+							select.sui-select + .select2-container {
+
+								.select2-selection--single {
+									border-bottom-width: 2px;
+									border-bottom-color: $red;
+								}
+							}
+						}
+					}
+
+					.fui-simulate-footer {
+						display: block;
+						text-align: center;
+
+						@include media(max-width, md) {
+							margin: 0 -#{$sui-gutter-md};
+							padding-top: $sui-gutter-md;
+						}
+
+						@include media(min-width, md) {
+							margin: 0 -#{$sui-gutter};
+							padding-top: $sui-gutter;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	> .select2-container {
+		z-index: 999991;
+	}
+
+	#forminator-generate-shortcode {
+
+		.forminator-scgen-icon {
+
+			@include icon(before, forminator, true) {
+				color: inherit;
+			}
+		}
+	}
+
+	// VARIATION: When page has SUI installed.
+	&[class*="sui-2-"] {
+
+		#forminator-generate-shortcode {
+			width: 48px;
+			height: 30px;
+			padding: 7px 5px;
+			border: 0;
+			border-radius: $border-radius;
+			transition: $transition;
+
+			.forminator-scgen-icon {
+				display: block;
+				text-align: center;
+
+				&:before {
+					display: block;
+					font-size: 16px;
+					line-height: 16px;
+				}
+			}
+
+			span {
+				@extend %sui-screen-reader-text;
+			}
+
+			&,
+			&:focus,
+			&:hover,
+			&:active {
+				border: 0;
+				outline: none;
+				box-shadow: none;
+				text-decoration: none;
+			}
+
+			&,
+			&:focus {
+				background-color: palette(gray, light);
+				color: $white;
+			}
+
+			&:hover,
+			&:active {
+				background-color: $blue;
+				color: $white;
+			}
+		}
+	}
+
+	// VARIATION: When page doesn't have SUI installed.
+	&:not([class*="sui-2-"]) {
+
+		#forminator-generate-shortcode {
+
+			.forminator-scgen-icon {
+				width: 18px;
+				height: 18px;
+				opacity: 0.7;
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0 2px;
+				text-align: center;
+
+				@include icon(before, forminator, true) {
+					display: block;
+					color: inherit;
+					font-size: 16px;
+				}
+			}
+		}
+	}
+}

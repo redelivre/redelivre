@@ -1,0 +1,93 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement {
+		padding: 9px;
+		border-width: 1px;
+		border-style: solid;
+		<?php if ( forminator_array_value_exists( $properties, 'input-border' ) && !empty( $properties['input-border'] ) ) { ?>
+			border-color: <?php echo $properties['input-border'] ?>;
+		<?php } else { ?>
+			border-color: #777771;
+		<?php } ?>
+		border-radius: 2px;
+		<?php if ( forminator_array_value_exists( $properties, 'input-bg' ) && !empty( $properties['input-bg'] ) ) { ?>
+			background-color: <?php echo $properties['input-bg'] ?>;
+		<?php } else { ?>
+			background-color: #EDEDED;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'input-color' ) && !empty( $properties['input-color'] ) ) { ?>
+			color: <?php echo $properties['input-color'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+		transition: 0.2s ease;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'input-border-hover' ) && !empty( $properties['input-border-hover'] ) ) { ?>
+			border-color: <?php echo $properties['input-border-hover'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'input-hover-bg' ) && !empty( $properties['input-hover-bg'] ) ) { ?>
+			background-color: <?php echo $properties['input-hover-bg'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--focus,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--focus:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'input-border-active' ) && !empty( $properties['input-border-active'] ) ) { ?>
+			border-color: <?php echo $properties['input-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'input-active-bg' ) && !empty( $properties['input-active-bg'] ) ) { ?>
+			background-color: <?php echo $properties['input-active-bg'] ?>;
+		<?php } else { ?>
+			background-color: #E6E6E6;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--invalid,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--invalid:hover,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--focus.StripeElement--invalid {
+		<?php if ( forminator_array_value_exists( $properties, 'input-border-error' ) && !empty( $properties['input-border-error'] ) ) { ?>
+			border-color: <?php echo $properties['input-border-error'] ?>;
+		<?php } else { ?>
+			border-color: #E04562;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement {
+		padding: 9px;
+		border-width: 1px;
+		border-style: solid;
+		border-color: #777771;
+		border-radius: 2px;
+		background-color: #EDEDED;
+		color: #000000;
+		transition: 0.2s ease;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement:hover {
+		border-color: #17A8E3;
+		background-color: #E6E6E6;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--focus,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--focus:hover {
+		border-color: #17A8E3;
+		background-color: #E6E6E6;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--invalid,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--invalid:hover,
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--default .StripeElement--focus.StripeElement--invalid {
+		border-color: #E04562;
+	}
+
+<?php } ?>

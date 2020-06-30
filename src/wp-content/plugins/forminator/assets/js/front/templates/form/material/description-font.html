@@ -1,0 +1,35 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-font-family' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-description {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-description-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-description-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 12px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-description-font-family' ) ) { ?>
+			<?php if ( $properties['cform-description-font-family'] != 'custom' && !empty( $properties['cform-description-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-description-font-family'] ?>;
+			<?php } else if ( $properties['cform-description-font-family'] == 'custom' && !empty( $properties['cform-description-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-description-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-description-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-description-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-description {
+		font-size: 12px;
+		font-family: inherit;
+		font-weight: 400;
+	}
+
+<?php } ?>

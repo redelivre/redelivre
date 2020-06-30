@@ -1,0 +1,35 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-font-family' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-error-message {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-validation-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-validation-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 12px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-validation-font-family' ) ) { ?>
+			<?php if ( $properties['cform-validation-font-family'] != 'custom' && !empty( $properties['cform-validation-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-validation-font-family'] ?>;
+			<?php } else if ( $properties['cform-validation-font-family'] == 'custom' && !empty( $properties['cform-validation-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-validation-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-validation-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-validation-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 500;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-error-message {
+		font-size: 12px;
+		font-family: inherit;
+		font-weight: 500;
+	}
+
+<?php } ?>

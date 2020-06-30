@@ -1,0 +1,37 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-font-family' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-multiselect .forminator-option,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-multiselect .forminator-option {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-multiselect-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-multiselect-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 16px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-multiselect-font-family' ) ) { ?>
+			<?php if ( $properties['cform-multiselect-font-family'] != 'custom' && !empty( $properties['cform-multiselect-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-multiselect-font-family'] ?>;
+			<?php } else if ( $properties['cform-multiselect-font-family'] == 'custom' && !empty( $properties['cform-multiselect-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-multiselect-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-multiselect-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-multiselect-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-multiselect .forminator-option,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-multiselect .forminator-option {
+		font-size: 16px;
+		font-family: inherit;
+		font-weight: 400;
+	}
+
+<?php } ?>

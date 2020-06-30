@@ -1,0 +1,77 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-multiselect .forminator-option {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-border' ) && !empty( $properties['multiselect-border'] ) ) { ?>
+			border-color: <?php echo $properties['multiselect-border'] ?>;
+		<?php } else { ?>
+			border-color: #777771;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-color-static' ) && !empty( $properties['multiselect-item-color-static'] ) ) { ?>
+			color: <?php echo $properties['multiselect-item-color-static'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-multiselect .forminator-option:hover {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-border-hover' ) && !empty( $properties['multiselect-border-hover'] ) ) { ?>
+			border-color: <?php echo $properties['multiselect-border-hover'] ?>;
+		<?php } else { ?>
+			border-color: #000000;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-color-hover' ) && !empty( $properties['multiselect-item-color-hover'] ) ) { ?>
+			color: <?php echo $properties['multiselect-item-color-hover'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-multiselect .forminator-option.forminator-is_checked {
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-border-active' ) && !empty( $properties['multiselect-border-active'] ) ) { ?>
+			border-color: <?php echo $properties['multiselect-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'multiselect-item-color-active' ) && !empty( $properties['multiselect-item-color-active'] ) ) { ?>
+			color: <?php echo $properties['multiselect-item-color-active'] ?>;
+		<?php } else { ?>
+			color: #17A8E3;
+		<?php } ?>
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-multiselect .forminator-option {
+		<?php if ( forminator_array_value_exists( $properties, 'input-border-active' ) && !empty( $properties['input-border-active'] ) ) { ?>
+			border-color: <?php echo $properties['input-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #E04562;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'input-border-active' ) && !empty( $properties['input-border-active'] ) ) { ?>
+			color: <?php echo $properties['input-border-active'] ?>;
+		<?php } else { ?>
+			color: #E04562;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-multiselect .forminator-option {
+		border-color: #777771;
+		color: #777771;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-multiselect .forminator-option:hover {
+		border-color: #000000;
+		color: #000000;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-multiselect .forminator-option.forminator-is_checked {
+		border-color: #17A8E3;
+		color: #17A8E3;
+	}
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--material .forminator-has_error .forminator-multiselect .forminator-option {
+		border-color: #E04562;
+		color: #E04562;
+	}
+
+<?php } ?>

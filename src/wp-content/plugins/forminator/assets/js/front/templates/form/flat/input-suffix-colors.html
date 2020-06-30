@@ -1,0 +1,17 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-suffix {
+		<?php if ( forminator_array_value_exists( $properties, 'suffix-color' ) && !empty( $properties['suffix-color'] ) ) { ?>
+			color: <?php echo $properties['suffix-color'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-suffix {
+		color: #000000;
+	}
+
+<?php } ?>

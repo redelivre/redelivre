@@ -1,0 +1,320 @@
+@include body-class(true) {
+
+	// ELEMENT: Fields block
+	.fui-builder-field-block {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		position: relative;
+		border: 1px solid palette(silver, soft);
+		border-radius: $border-radius;
+		background-color: $white;
+
+		.fui-field--info {
+			overflow: hidden;
+			display: flex;
+			flex: 1;
+			align-items: center;
+			padding: 13px 0 13px $sui-gutter-md;
+
+			.fui-field--move,
+			.fui-field--icon {
+				width: 30px;
+				display: block;
+				flex: 0 0 30px;
+				text-align: center;
+
+				[class*="sui-icon-"] {
+					display: block;
+					font-size: 16px;
+					transition: $fui-transition;
+
+					&:before {
+						display: block;
+						color: inherit;
+					}
+				}
+			}
+
+			.fui-field--move {
+				margin-left: -#{$sui-gutter-md / 2};
+
+				[class*="sui-icon-"] {
+					color: palette(gray, lighter);
+				}
+			}
+
+			.fui-field--icon {
+
+				[class*="sui-icon-"] {
+					color: palette(gray, light);
+				}
+			}
+
+			.fui-field--name {
+				display: block;
+				flex: 1;
+				line-height: 22px;
+				font-family: $font;
+				font-weight: $font--medium;
+				letter-spacing: $font--letter-spacing;
+				@include text-truncate;
+
+				.fui-field--label,
+				.fui-field--id {
+					display: block;
+					@include text-truncate;
+				}
+
+				.fui-field--label {
+					color: palette(gray, dark);
+					font-size: 13px;
+
+					span {
+						margin-left: 5px;
+					}
+				}
+
+				.fui-field--id {
+					color: palette(gray, light);
+					font-size: 12px;
+				}
+
+				&:not(:first-child) {
+					margin-left: 5px;
+				}
+			}
+
+			+ div {
+				margin-left: 5px;
+			}
+		}
+
+		.fui-field--actions {
+			flex: 0 0 auto;
+			margin-right: $sui-gutter-md;
+		}
+
+		// STATUS: Unsaved
+		&.fui-unsaved {
+
+			@include icon(before, update) {
+				width: 20px;
+				height: 20px;
+				display: block;
+				position: absolute;
+				left: -10px;
+				border-radius: 40px;
+				background-color: $white;
+				box-shadow: $fui-shadow-static;
+				color: palette(blue, default);
+				font-size: 12px;
+				line-height: 20px;
+				text-align: center;
+			}
+
+			&.fui-changes-saving:before {
+				animation: spin 1.3s linear infinite;
+			}
+		}
+
+		// STATUS: Has Conditions
+		.fui-builder-field-block-conditions {
+			cursor: default;
+			position: absolute;
+			z-index: 1;
+			right: -10px;
+
+			[class*="sui-icon-"] {
+				width: 20px;
+				height: 20px;
+				display: flex;
+				justify-content: center;
+				border-radius: 40px;
+				background-color: $white;
+				box-shadow: $fui-shadow-static;
+				text-align: center;
+
+				&:before {
+					display: block;
+					color: palette(yellow, default);
+					font-size: 12px;
+					line-height: 20px;
+				}
+			}
+		}
+
+		// STATUS: Has Info
+		&.fui-has-info {
+
+			.fui-info {
+				width: 20px;
+				height: 20px;
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: -10px;
+				border-radius: 40px;
+				background-color: $white;
+				box-shadow: 0 2px 7px 0 rgba(0,0,0,0.05);
+				transform: translateY(-50%);
+
+				[class*="sui-icon-"] {
+					display: block;
+					margin: 0 auto;
+					text-align: center;
+
+					&:before {
+						display: block;
+						color: $blue;
+						font-size: 12px;
+						line-height: 20px;
+					}
+				}
+			}
+		}
+
+		@include media(max-width, md) {
+			height: 60px;
+		}
+
+		@include media(min-width, md) {
+			height: 70px;
+		}
+	}
+
+	// ELEMENT: Builder fields
+	.fui-builder-fields {
+		background-color: palette(silver, light);
+
+		// ELEMENT: Block
+		.fui-builder-field-block {
+			cursor: move;
+			border-color: transparent;
+			box-shadow: $fui-shadow-static;
+			transition: $fui-transition;
+
+			&:hover {
+				box-shadow: $fui-shadow-hover;
+
+				.fui-field--info {
+
+					.fui-field--move {
+
+						[class*="sui-icon-"] {
+							color: palette(gray, light);
+						}
+					}
+				}
+			}
+		}
+
+		// ELEMENT: Footer
+		.fui-builder-fields--footer {
+
+			.sui-button-dashed {
+
+				&:not(:last-child) {
+
+					@include media(max-width, md) {
+						margin-bottom: $sui-gutter-md;
+					}
+
+					@include media(min-width, md) {
+						margin-bottom: $sui-gutter;
+					}
+				}
+
+				@include media(max-width, md) {
+					height: 60px;
+				}
+
+				@include media(min-width, md) {
+					height: 70px;
+				}
+			}
+
+			.sui-image:last-child {
+
+				@include media(max-width, md) {
+					margin-bottom: -#{$sui-gutter-md};
+				}
+
+				@include media(min-width, md) {
+					margin-bottom: -#{$sui-gutter};
+				}
+			}
+		}
+
+		@include media(max-width, md) {
+			padding: $sui-gutter-md;
+		}
+
+		@include media(min-width, md) {
+			padding: $sui-gutter;
+		}
+	}
+
+	// ELEMENT: Swipe Wrapper
+	.fui-builder-form--wrap {
+
+		.fui-swipe {
+			margin: 0 0 10px;
+			color: palette(silver, medium);
+			font: bold 10px/16px $font;
+			text-transform: uppercase;
+			text-align: center;
+
+			[class*="sui-icon-"] {
+				vertical-align: bottom;
+				margin-left: 6px;
+				font-size: 14px;
+
+				&:before {
+					display: block;
+					color: palette(silver, medium);
+					line-height: 16px;
+				}
+			}
+
+			@include media(max-width, md) {
+				display: block;
+			}
+
+			@include media(min-width, md) {
+				display: none;
+			}
+		}
+
+		.fui-builder-form {
+			min-width: 700px;
+
+			@include media(max-width, md) {
+				margin: 0 -#{$sui-gutter-md};
+				padding: 0 $sui-gutter-md;
+			}
+
+			@include media(min-width, md) {
+				margin: 0 -#{$sui-gutter};
+				padding: 0 $sui-gutter;
+			}
+		}
+	}
+
+	// FIX: Fields block fixes based on column size
+	.fui-col-3 {
+
+		.fui-builder-field-block {
+
+			.fui-field--info {
+
+				.fui-field--icon {
+
+					@media (max-width: 1300px) {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

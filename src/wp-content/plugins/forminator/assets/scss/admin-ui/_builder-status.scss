@@ -1,0 +1,78 @@
+@include body-class(true) {
+
+	.fui-builder-status {
+		padding: $sui-gutter-md;
+
+		.fui-status {
+			display: flex;
+			align-items: center;
+
+			+ .sui-actions-right {
+				margin-top: #{$sui-gutter-md / 2};
+
+				@include media(min-width, md) {
+					margin-top: 0;
+					margin-left: #{$sui-gutter / 2};
+				}
+			}
+		}
+
+		.fui-module-status {
+			color: $fui-status--color-module;
+			font-size: $fui-status--font-size;
+			line-height: $fui-status--line-height;
+			font-family: $fui-status--font-family;
+			font-weight: $fui-status--font-weight;
+			letter-spacing: $font--letter-spacing;
+
+			.sui-tag {
+				margin-left: 6px;
+			}
+
+			+ .fui-changes-status {
+				margin-left: $sui-gutter-md;
+				padding-left: $sui-gutter-md;
+				border-left: 1px solid $fui-status--separator;
+			}
+		}
+
+		.fui-changes-status {
+			color: $fui-status--color-changes;
+			font-size: $fui-status--font-size;
+			line-height: $fui-status--line-height;
+			font-family: $fui-status--font-family;
+			font-weight: $fui-status--font-weight;
+			letter-spacing: $font--letter-spacing;
+
+			[class*="sui-icon-"] {
+				margin-right: 4px;
+				font-size: $fui-status--icon-size;
+
+				&:before {
+					display: block;
+				}
+			}
+
+			.sui-icon-check-tick:before {
+				color: $fui-status--icon-saved;
+			}
+
+			.sui-icon-update:before {
+				color: $fui-status--icon-unsaved;
+			}
+
+			&.fui-changes-saving {
+
+				.sui-icon-update:before {
+					animation: spin 1.3s linear infinite;
+				}
+			}
+		}
+
+		@include media(min-width, md) {
+			display: flex;
+			justify-content: space-between;
+			padding: #{$sui-gutter / 2} $sui-gutter;
+		}
+	}
+}

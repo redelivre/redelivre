@@ -1,0 +1,16 @@
+@include body-class(true) {
+
+	.hui-form-field-reduced {
+
+		&:not(:last-child) {
+
+			@include media(max-width, md) {
+				margin-bottom: 10px;
+			}
+	
+			@include media(min-width, md) {
+				margin-bottom: 10px;
+			}
+		}
+	}
+}

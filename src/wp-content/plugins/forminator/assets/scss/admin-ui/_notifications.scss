@@ -1,0 +1,29 @@
+$notice-image-width: 114px;
+$notice-image-height: 136px;
+
+@include body-class(true) {
+
+	.sui-notice {
+
+		// NOTICE: Rate.
+		&.fui-notice-rate {
+
+			&:not(.fui-unbranded) {
+
+				@include media(min-width, md) {
+					background-image: image-set(
+						url('../images/forminator-prompt.png') 1x,
+						url('../images/forminator-prompt@2x.png') 2x,
+					);
+					background-repeat: no-repeat;
+					padding-right: #{$notice-image-width + $sui-gutter + $sui-gutter-md};
+					background-position: right 20px bottom -10px;
+				}
+
+				@include media(min-width, lg) {
+					background-position: right 20px top 5px;
+				}
+			}
+		}
+	}
+}

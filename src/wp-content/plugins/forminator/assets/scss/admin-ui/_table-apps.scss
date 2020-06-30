@@ -1,0 +1,183 @@
+$list-integrations: (
+	zapier: #FF4A00
+);
+
+@include body-class(true) {
+
+	.fui-table--apps {
+
+		tbody tr {
+
+			// APP: Promoted
+			&.fui-app--promote {
+
+				td {
+					padding-top: 20px;
+					padding-bottom: 20px;
+				}
+
+				.fui-app--wrapper {
+
+					@include media(max-width, md) {
+						display: block;
+					}
+
+					@include media(min-width, md) {
+						display: flex;
+					}
+				}
+
+				.fui-app--banner {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: $border-radius;
+
+					img {
+						max-width: 100%;
+						max-height: 100%;
+						display: block;
+						margin: 0 auto;
+					}
+
+					@each $app, $color in $list-integrations {
+
+						&[data-app="#{$app}"] {
+							background-color: $color;
+						}
+					}
+
+					+ .fui-app--content {
+
+						@include media(max-width, md) {
+							margin-top: 10px;
+						}
+
+						@include media(min-width, md) {
+							margin-left: 20px;
+						}
+					}
+
+					@include media(max-width, md) {
+						width: 100%;
+						height: 100px;
+						padding: 5px;
+					}
+
+					@include media(min-width, md) {
+						flex: 0 0 220px;
+						min-height: 150px;
+						padding: 5px 10px;
+					}
+				}
+
+				.fui-app--content {
+
+					.fui-app--title {
+						display: flex;
+
+						> span {
+							display: block;
+							margin: 4px 0;
+							flex: 1;
+							line-height: 22px;
+						}
+
+						> a {
+							display: block;
+							flex: 0 0 auto;
+							margin-left: 5px;
+							line-height: 30px;
+
+							@include media(max-width, md) {
+								display: none;
+							}
+						}
+
+						> button {
+							flex: 0 0 auto;
+							margin-left: 5px;
+						}
+
+						+ .fui-app--description {
+							margin-top: 5px;
+						}
+					}
+
+					.fui-app--description {
+						@extend .sui-description;
+						margin: 0;
+					}
+
+					@include media(min-width, md) {
+						flex: 1;
+					}
+				}
+			}
+
+			// APP: Regular
+			&:not(.fui-app--promote) {
+
+				.fui-app--wrapper {
+					display: flex;
+					align-items: center;
+
+					.sui-image {
+						width: 20px;
+						height: 20px;
+						flex: 0 0 auto;
+						margin-right: 10px;
+					}
+
+					.fui-noicon {
+						width: 20px;
+						height: 20px;
+						overflow: hidden;
+						user-select: none;
+						display: block;
+						flex: 0 0 auto;
+						margin-right: 10px;
+						padding: 2px;
+						border-radius: #{$border-radius / 2};
+						background-color: palette(gray, lighter);
+						color: $gray;
+						font-size: 7px;
+						line-height: 16px;
+						font-weight: bold;
+						font-family: $font;
+						text-transform: uppercase;
+						text-align: center;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+
+					> span {
+						flex: 1;
+						display: block;
+					}
+
+					.sui-button-icon {
+						margin-left: 10px;
+						flex: 0 0 30px;
+					}
+				}
+			}
+		}
+
+		&.fui-connected {
+			border-left-width: 0;
+
+			tbody tr {
+				box-shadow: inset 2px 0 0 $blue;
+
+				&:first-child {
+					border-top-left-radius: $border-radius;
+				}
+
+				&:last-child {
+					border-bottom-left-radius: $border-radius;
+				}
+			}
+		}
+	}
+}

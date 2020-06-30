@@ -1,0 +1,35 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-border' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?> {
+		<?php if ( forminator_array_value_exists( $properties, 'form-border-width' ) ) { ?>
+			border-width: <?php echo $properties['form-border-width'] ?>px;
+		<?php } else { ?>
+			border-width: 0;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'form-border-style' ) ) { ?>
+			border-style: <?php echo $properties['form-border-style'] ?>;
+		<?php } else { ?>
+			border-style: none;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'form-border-radius' ) ) { ?>
+			border-radius: <?php echo $properties['form-border-radius'] ?>px;
+			-moz-border-radius: <?php echo $properties['form-border-radius'] ?>px;
+			-webkit-border-radius: <?php echo $properties['form-border-radius'] ?>px;
+		<?php } else { ?>
+			border-radius: 0;
+			-moz-border-radius: 0;
+			-webkit-border-radius: 0;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?> {
+		border-width: 0;
+		border-style: none;
+		border-radius: 0;
+		-moz-border-radius: 0;
+		-webkit-border-radius: 0;
+	}
+
+<?php } ?>

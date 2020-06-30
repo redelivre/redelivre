@@ -1,0 +1,19 @@
+<?php if ( forminator_array_value_exists( $properties, 'poll-colors' ) ) { ?>
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-note,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-note {
+		<?php if ( forminator_array_value_exists( $properties, 'novotes_text' ) ) { ?>
+			color: <?php echo $properties['novotes_text'] ?>;
+		<?php } else { ?>
+			color: #333333;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-note,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-poll-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-note {
+		color: #333333;
+	}
+
+<?php } ?>

@@ -1,0 +1,69 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-font-family' ) ) { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-upload-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-upload-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 14px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-upload-font-family' ) ) { ?>
+			<?php if ( $properties['cform-upload-font-family'] != 'custom' && !empty( $properties['cform-upload-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-upload-font-family'] ?>;
+			<?php } else if ( $properties['cform-upload-font-family'] == 'custom' && !empty( $properties['cform-button-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-button-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-upload-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-upload-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 500;
+		<?php } ?>
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span {
+		<?php if ( forminator_array_value_exists( $properties, 'cform-upload-file-font-size' ) ) { ?>
+			font-size: <?php echo $properties['cform-upload-file-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 12px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-upload-file-font-family' ) ) { ?>
+			<?php if ( $properties['cform-upload-file-font-family'] != 'custom' && !empty( $properties['cform-upload-file-font-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-upload-file-font-family'] ?>;
+			<?php } else if ( $properties['cform-upload-file-font-family'] == 'custom' && !empty( $properties['cform-button-custom-family'] ) ) { ?>
+				font-family: <?php echo $properties['cform-button-custom-family'] ?>;
+			<?php } else { ?>
+				font-family: inherit;
+			<?php } ?>
+		<?php } else { ?>
+			font-family: inherit;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'cform-upload-file-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['cform-upload-file-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 500;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-button-upload {
+		font-size: 14px;
+		font-family: inherit;
+		font-weight: 500;
+	}
+
+	.forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span,
+	.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold .forminator-file-upload > span {
+		font-size: 12px;
+		font-family: inherit;
+		font-weight: 500;
+	}
+
+<?php } ?>

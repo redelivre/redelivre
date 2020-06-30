@@ -1,0 +1,17 @@
+<?php if ( forminator_array_value_exists( $properties, 'cform-color-settings' ) ) { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-description {
+		<?php if ( forminator_array_value_exists( $properties, 'label-helper-color' ) && !empty( $properties['label-helper-color'] ) ) { ?>
+			color: <?php echo $properties['label-helper-color'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	}
+
+<?php } else { ?>
+
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--flat .forminator-description {
+		color: #777771;
+	}
+
+<?php } ?>
