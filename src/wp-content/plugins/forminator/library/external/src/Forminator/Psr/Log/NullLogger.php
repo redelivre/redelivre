@@ -20,6 +20,8 @@ class NullLogger extends AbstractLogger
      * @param array  $context
      *
      * @return void
+     *
+     * @throws \Forminator\Psr\Log\InvalidArgumentException
      */
     public function log($level, $message, array $context = array())
     {

@@ -151,7 +151,8 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 				$field_object->import(
 					array(
 						'cols' => $cols,
-					) );
+					)
+				);
 			}
 
 			return true;
@@ -219,14 +220,14 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 		$form_settings = $this->settings;
 		$can_show      = array(
 			'can_submit' => true,
-			'error'      => ''
+			'error'      => '',
 		);
 
 		if ( isset( $form_settings['logged-users'] ) && ! empty( $form_settings['logged-users'] ) ) {
 			if ( filter_var( $form_settings['logged-users'], FILTER_VALIDATE_BOOLEAN ) && ! is_user_logged_in() ) {
-				$can_show      = array(
+				$can_show = array(
 					'can_submit' => false,
-					'error'      => __( "Only logged in users can submit this form.", Forminator::DOMAIN )
+					'error'      => __( 'Only logged in users can submit this form.', Forminator::DOMAIN ),
 				);
 			}
 		}
@@ -237,20 +238,20 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 						$submits       = intval( $form_settings['expire_submits'] );
 						$total_entries = Forminator_Form_Entry_Model::count_entries( $this->id );
 						if ( $total_entries >= $submits ) {
-							$can_show      = array(
+							$can_show = array(
 								'can_submit' => false,
-								'error'      => __( "You reached the maximum allowed submissions for this form.", Forminator::DOMAIN )
+								'error'      => __( 'You reached the maximum allowed submissions for this form.', Forminator::DOMAIN ),
 							);
 						}
 					}
 				} elseif ( 'date' === $form_settings['form-expire'] ) {
 					if ( isset( $form_settings['expire_date'] ) && ! empty( $form_settings['expire_date'] ) ) {
 						$expire_date  = strtotime( $form_settings['expire_date'] );
-						$current_date = strtotime( "now" );
+						$current_date = strtotime( 'now' );
 						if ( $current_date > $expire_date ) {
-							$can_show      = array(
+							$can_show = array(
 								'can_submit' => false,
-								'error'      => __( "Unfortunately this form expired.", Forminator::DOMAIN )
+								'error'      => __( 'Unfortunately this form expired.', Forminator::DOMAIN ),
 							);
 						}
 					}
@@ -289,7 +290,7 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 				} elseif ( 'date' === $form_settings['form-expire'] ) {
 					if ( isset( $form_settings['expire_date'] ) && ! empty( $form_settings['expire_date'] ) ) {
 						$expire_date  = strtotime( $form_settings['expire_date'] );
-						$current_date = strtotime( "now" );
+						$current_date = strtotime( 'now' );
 						if ( $current_date > $expire_date ) {
 							$can_show = false;
 						}
@@ -351,7 +352,6 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 			} catch ( Exception $e ) {
 				forminator_addon_maybe_log( $connected_addon->get_slug(), 'failed to get to_exportable_data', $e->getMessage() );
 			}
-
 		}
 
 		/**
@@ -434,7 +434,6 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 			} catch ( Exception $e ) {
 				forminator_addon_maybe_log( $slug, 'failed to get import form settings', $e->getMessage() );
 			}
-
 		}
 
 		return $model;
@@ -530,8 +529,8 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 	 * @return bool
 	 */
 	public function is_ajax_submit() {
-		$form_id        = (int) $this->id;
-		$form_settings  = $this->settings;
+		$form_id       = (int) $this->id;
+		$form_settings = $this->settings;
 
 		if ( ! isset( $form_settings['enable-ajax'] ) || empty( $form_settings['enable-ajax'] ) ) {
 			return false;
@@ -586,7 +585,6 @@ class Forminator_Custom_Form_Model extends Forminator_Base_Form_Model {
 		$form_id        = (int) $this->id;
 		$form_settings  = $this->settings;
 		$global_enabled = parent::is_use_donotcachepage_constant();
-
 
 		$enabled = isset( $form_settings['use_donotcachepage'] ) ? $this->settings['use_donotcachepage'] : false;
 		$enabled = filter_var( $enabled, FILTER_VALIDATE_BOOLEAN );

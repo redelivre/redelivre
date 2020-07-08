@@ -3,14 +3,14 @@
 namespace Forminator\Stripe\Sigma;
 
 /**
- * Class Authorization
+ * Class ScheduledQueryRun
  *
  * @property string $id
  * @property string $object
  * @property int $created
  * @property int $data_load_time
- * @property string $error
- * @property \Forminator\Stripe\FileUpload $file
+ * @property \Forminator\Stripe\StripeObject $error
+ * @property \Forminator\Stripe\File|null $file
  * @property bool $livemode
  * @property int $result_available_until
  * @property string $sql
@@ -21,7 +21,7 @@ namespace Forminator\Stripe\Sigma;
  */
 class ScheduledQueryRun extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "scheduled_query_run";
+    const OBJECT_NAME = 'scheduled_query_run';
 
     use \Forminator\Stripe\ApiOperations\All;
     use \Forminator\Stripe\ApiOperations\Retrieve;

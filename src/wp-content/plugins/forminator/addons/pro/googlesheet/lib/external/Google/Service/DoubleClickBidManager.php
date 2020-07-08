@@ -26,7 +26,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_DoubleClickBidManager extends Google_Service
+class Forminator_Google_Service_DoubleClickBidManager extends Forminator_Google_Service
 {
 
 
@@ -40,9 +40,9 @@ class Google_Service_DoubleClickBidManager extends Google_Service
    * Constructs the internal representation of the DoubleClickBidManager
    * service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://www.googleapis.com/';
@@ -50,7 +50,7 @@ class Google_Service_DoubleClickBidManager extends Google_Service
     $this->version = 'v1';
     $this->serviceName = 'doubleclickbidmanager';
 
-    $this->lineitems = new Google_Service_DoubleClickBidManager_Lineitems_Resource(
+    $this->lineitems = new Forminator_Google_Service_DoubleClickBidManager_Lineitems_Resource(
         $this,
         $this->serviceName,
         'lineitems',
@@ -68,7 +68,7 @@ class Google_Service_DoubleClickBidManager extends Google_Service
           )
         )
     );
-    $this->queries = new Google_Service_DoubleClickBidManager_Queries_Resource(
+    $this->queries = new Forminator_Google_Service_DoubleClickBidManager_Queries_Resource(
         $this,
         $this->serviceName,
         'queries',
@@ -116,7 +116,7 @@ class Google_Service_DoubleClickBidManager extends Google_Service
           )
         )
     );
-    $this->reports = new Google_Service_DoubleClickBidManager_Reports_Resource(
+    $this->reports = new Forminator_Google_Service_DoubleClickBidManager_Reports_Resource(
         $this,
         $this->serviceName,
         'reports',
@@ -136,7 +136,7 @@ class Google_Service_DoubleClickBidManager extends Google_Service
           )
         )
     );
-    $this->rubicon = new Google_Service_DoubleClickBidManager_Rubicon_Resource(
+    $this->rubicon = new Forminator_Google_Service_DoubleClickBidManager_Rubicon_Resource(
         $this,
         $this->serviceName,
         'rubicon',
@@ -158,39 +158,39 @@ class Google_Service_DoubleClickBidManager extends Google_Service
  * The "lineitems" collection of methods.
  * Typical usage is:
  *  <code>
- *   $doubleclickbidmanagerService = new Google_Service_DoubleClickBidManager(...);
+ *   $doubleclickbidmanagerService = new Forminator_Google_Service_DoubleClickBidManager(...);
  *   $lineitems = $doubleclickbidmanagerService->lineitems;
  *  </code>
  */
-class Google_Service_DoubleClickBidManager_Lineitems_Resource extends Google_Service_Resource
+class Forminator_Google_Service_DoubleClickBidManager_Lineitems_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Retrieves line items in CSV format. (lineitems.downloadlineitems)
    *
-   * @param Google_DownloadLineItemsRequest $postBody
+   * @param Forminator_Google_DownloadLineItemsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_DownloadLineItemsResponse
+   * @return Forminator_Google_Service_DoubleClickBidManager_DownloadLineItemsResponse
    */
-  public function downloadlineitems(Google_Service_DoubleClickBidManager_DownloadLineItemsRequest $postBody, $optParams = array())
+  public function downloadlineitems(Forminator_Google_Service_DoubleClickBidManager_DownloadLineItemsRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('downloadlineitems', array($params), "Google_Service_DoubleClickBidManager_DownloadLineItemsResponse");
+    return $this->call('downloadlineitems', array($params), "Forminator_Google_Service_DoubleClickBidManager_DownloadLineItemsResponse");
   }
 
   /**
    * Uploads line items in CSV format. (lineitems.uploadlineitems)
    *
-   * @param Google_UploadLineItemsRequest $postBody
+   * @param Forminator_Google_UploadLineItemsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_UploadLineItemsResponse
+   * @return Forminator_Google_Service_DoubleClickBidManager_UploadLineItemsResponse
    */
-  public function uploadlineitems(Google_Service_DoubleClickBidManager_UploadLineItemsRequest $postBody, $optParams = array())
+  public function uploadlineitems(Forminator_Google_Service_DoubleClickBidManager_UploadLineItemsRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('uploadlineitems', array($params), "Google_Service_DoubleClickBidManager_UploadLineItemsResponse");
+    return $this->call('uploadlineitems', array($params), "Forminator_Google_Service_DoubleClickBidManager_UploadLineItemsResponse");
   }
 }
 
@@ -198,25 +198,25 @@ class Google_Service_DoubleClickBidManager_Lineitems_Resource extends Google_Ser
  * The "queries" collection of methods.
  * Typical usage is:
  *  <code>
- *   $doubleclickbidmanagerService = new Google_Service_DoubleClickBidManager(...);
+ *   $doubleclickbidmanagerService = new Forminator_Google_Service_DoubleClickBidManager(...);
  *   $queries = $doubleclickbidmanagerService->queries;
  *  </code>
  */
-class Google_Service_DoubleClickBidManager_Queries_Resource extends Google_Service_Resource
+class Forminator_Google_Service_DoubleClickBidManager_Queries_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Creates a query. (queries.createquery)
    *
-   * @param Google_Query $postBody
+   * @param Forminator_Google_Query $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_Query
+   * @return Forminator_Google_Service_DoubleClickBidManager_Query
    */
-  public function createquery(Google_Service_DoubleClickBidManager_Query $postBody, $optParams = array())
+  public function createquery(Forminator_Google_Service_DoubleClickBidManager_Query $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('createquery', array($params), "Google_Service_DoubleClickBidManager_Query");
+    return $this->call('createquery', array($params), "Forminator_Google_Service_DoubleClickBidManager_Query");
   }
 
   /**
@@ -238,36 +238,36 @@ class Google_Service_DoubleClickBidManager_Queries_Resource extends Google_Servi
    *
    * @param string $queryId Query ID to retrieve.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_Query
+   * @return Forminator_Google_Service_DoubleClickBidManager_Query
    */
   public function getquery($queryId, $optParams = array())
   {
     $params = array('queryId' => $queryId);
     $params = array_merge($params, $optParams);
-    return $this->call('getquery', array($params), "Google_Service_DoubleClickBidManager_Query");
+    return $this->call('getquery', array($params), "Forminator_Google_Service_DoubleClickBidManager_Query");
   }
 
   /**
    * Retrieves stored queries. (queries.listqueries)
    *
    * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_ListQueriesResponse
+   * @return Forminator_Google_Service_DoubleClickBidManager_ListQueriesResponse
    */
   public function listqueries($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('listqueries', array($params), "Google_Service_DoubleClickBidManager_ListQueriesResponse");
+    return $this->call('listqueries', array($params), "Forminator_Google_Service_DoubleClickBidManager_ListQueriesResponse");
   }
 
   /**
    * Runs a stored query to generate a report. (queries.runquery)
    *
    * @param string $queryId Query ID to run.
-   * @param Google_RunQueryRequest $postBody
+   * @param Forminator_Google_RunQueryRequest $postBody
    * @param array $optParams Optional parameters.
    */
-  public function runquery($queryId, Google_Service_DoubleClickBidManager_RunQueryRequest $postBody, $optParams = array())
+  public function runquery($queryId, Forminator_Google_Service_DoubleClickBidManager_RunQueryRequest $postBody, $optParams = array())
   {
     $params = array('queryId' => $queryId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
@@ -279,11 +279,11 @@ class Google_Service_DoubleClickBidManager_Queries_Resource extends Google_Servi
  * The "reports" collection of methods.
  * Typical usage is:
  *  <code>
- *   $doubleclickbidmanagerService = new Google_Service_DoubleClickBidManager(...);
+ *   $doubleclickbidmanagerService = new Forminator_Google_Service_DoubleClickBidManager(...);
  *   $reports = $doubleclickbidmanagerService->reports;
  *  </code>
  */
-class Google_Service_DoubleClickBidManager_Reports_Resource extends Google_Service_Resource
+class Forminator_Google_Service_DoubleClickBidManager_Reports_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -291,13 +291,13 @@ class Google_Service_DoubleClickBidManager_Reports_Resource extends Google_Servi
    *
    * @param string $queryId Query ID with which the reports are associated.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_DoubleClickBidManager_ListReportsResponse
+   * @return Forminator_Google_Service_DoubleClickBidManager_ListReportsResponse
    */
   public function listreports($queryId, $optParams = array())
   {
     $params = array('queryId' => $queryId);
     $params = array_merge($params, $optParams);
-    return $this->call('listreports', array($params), "Google_Service_DoubleClickBidManager_ListReportsResponse");
+    return $this->call('listreports', array($params), "Forminator_Google_Service_DoubleClickBidManager_ListReportsResponse");
   }
 }
 
@@ -305,21 +305,21 @@ class Google_Service_DoubleClickBidManager_Reports_Resource extends Google_Servi
  * The "rubicon" collection of methods.
  * Typical usage is:
  *  <code>
- *   $doubleclickbidmanagerService = new Google_Service_DoubleClickBidManager(...);
+ *   $doubleclickbidmanagerService = new Forminator_Google_Service_DoubleClickBidManager(...);
  *   $rubicon = $doubleclickbidmanagerService->rubicon;
  *  </code>
  */
-class Google_Service_DoubleClickBidManager_Rubicon_Resource extends Google_Service_Resource
+class Forminator_Google_Service_DoubleClickBidManager_Rubicon_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Update proposal upon actions of Rubicon publisher.
    * (rubicon.notifyproposalchange)
    *
-   * @param Google_NotifyProposalChangeRequest $postBody
+   * @param Forminator_Google_NotifyProposalChangeRequest $postBody
    * @param array $optParams Optional parameters.
    */
-  public function notifyproposalchange(Google_Service_DoubleClickBidManager_NotifyProposalChangeRequest $postBody, $optParams = array())
+  public function notifyproposalchange(Forminator_Google_Service_DoubleClickBidManager_NotifyProposalChangeRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
@@ -330,7 +330,7 @@ class Google_Service_DoubleClickBidManager_Rubicon_Resource extends Google_Servi
 
 
 
-class Google_Service_DoubleClickBidManager_DownloadLineItemsRequest extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_DownloadLineItemsRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'filterIds';
   protected $internal_gapi_mappings = array(
@@ -375,7 +375,7 @@ class Google_Service_DoubleClickBidManager_DownloadLineItemsRequest extends Goog
   }
 }
 
-class Google_Service_DoubleClickBidManager_DownloadLineItemsResponse extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_DownloadLineItemsResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -392,7 +392,7 @@ class Google_Service_DoubleClickBidManager_DownloadLineItemsResponse extends Goo
   }
 }
 
-class Google_Service_DoubleClickBidManager_FilterPair extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_FilterPair extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -418,13 +418,13 @@ class Google_Service_DoubleClickBidManager_FilterPair extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_ListQueriesResponse extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_ListQueriesResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'queries';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
-  protected $queriesType = 'Google_Service_DoubleClickBidManager_Query';
+  protected $queriesType = 'Forminator_Google_Service_DoubleClickBidManager_Query';
   protected $queriesDataType = 'array';
 
 
@@ -446,13 +446,13 @@ class Google_Service_DoubleClickBidManager_ListQueriesResponse extends Google_Co
   }
 }
 
-class Google_Service_DoubleClickBidManager_ListReportsResponse extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_ListReportsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'reports';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
-  protected $reportsType = 'Google_Service_DoubleClickBidManager_Report';
+  protected $reportsType = 'Forminator_Google_Service_DoubleClickBidManager_Report';
   protected $reportsDataType = 'array';
 
 
@@ -474,7 +474,7 @@ class Google_Service_DoubleClickBidManager_ListReportsResponse extends Google_Co
   }
 }
 
-class Google_Service_DoubleClickBidManager_Note extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_Note extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -527,7 +527,7 @@ class Google_Service_DoubleClickBidManager_Note extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_NotifyProposalChangeRequest extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_NotifyProposalChangeRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'notes';
   protected $internal_gapi_mappings = array(
@@ -535,7 +535,7 @@ class Google_Service_DoubleClickBidManager_NotifyProposalChangeRequest extends G
   public $action;
   public $href;
   public $id;
-  protected $notesType = 'Google_Service_DoubleClickBidManager_Note';
+  protected $notesType = 'Forminator_Google_Service_DoubleClickBidManager_Note';
   protected $notesDataType = 'array';
   public $token;
 
@@ -582,12 +582,12 @@ class Google_Service_DoubleClickBidManager_NotifyProposalChangeRequest extends G
   }
 }
 
-class Google_Service_DoubleClickBidManager_Parameters extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_Parameters extends Forminator_Google_Collection
 {
   protected $collection_key = 'metrics';
   protected $internal_gapi_mappings = array(
   );
-  protected $filtersType = 'Google_Service_DoubleClickBidManager_FilterPair';
+  protected $filtersType = 'Forminator_Google_Service_DoubleClickBidManager_FilterPair';
   protected $filtersDataType = 'array';
   public $groupBys;
   public $includeInviteData;
@@ -637,19 +637,19 @@ class Google_Service_DoubleClickBidManager_Parameters extends Google_Collection
   }
 }
 
-class Google_Service_DoubleClickBidManager_Query extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_Query extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $kind;
-  protected $metadataType = 'Google_Service_DoubleClickBidManager_QueryMetadata';
+  protected $metadataType = 'Forminator_Google_Service_DoubleClickBidManager_QueryMetadata';
   protected $metadataDataType = '';
-  protected $paramsType = 'Google_Service_DoubleClickBidManager_Parameters';
+  protected $paramsType = 'Forminator_Google_Service_DoubleClickBidManager_Parameters';
   protected $paramsDataType = '';
   public $queryId;
   public $reportDataEndTimeMs;
   public $reportDataStartTimeMs;
-  protected $scheduleType = 'Google_Service_DoubleClickBidManager_QuerySchedule';
+  protected $scheduleType = 'Forminator_Google_Service_DoubleClickBidManager_QuerySchedule';
   protected $scheduleDataType = '';
   public $timezoneCode;
 
@@ -662,7 +662,7 @@ class Google_Service_DoubleClickBidManager_Query extends Google_Model
   {
     return $this->kind;
   }
-  public function setMetadata(Google_Service_DoubleClickBidManager_QueryMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_DoubleClickBidManager_QueryMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -670,7 +670,7 @@ class Google_Service_DoubleClickBidManager_Query extends Google_Model
   {
     return $this->metadata;
   }
-  public function setParams(Google_Service_DoubleClickBidManager_Parameters $params)
+  public function setParams(Forminator_Google_Service_DoubleClickBidManager_Parameters $params)
   {
     $this->params = $params;
   }
@@ -702,7 +702,7 @@ class Google_Service_DoubleClickBidManager_Query extends Google_Model
   {
     return $this->reportDataStartTimeMs;
   }
-  public function setSchedule(Google_Service_DoubleClickBidManager_QuerySchedule $schedule)
+  public function setSchedule(Forminator_Google_Service_DoubleClickBidManager_QuerySchedule $schedule)
   {
     $this->schedule = $schedule;
   }
@@ -720,7 +720,7 @@ class Google_Service_DoubleClickBidManager_Query extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_QueryMetadata extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_QueryMetadata extends Forminator_Google_Collection
 {
   protected $collection_key = 'shareEmailAddress';
   protected $internal_gapi_mappings = array(
@@ -828,7 +828,7 @@ class Google_Service_DoubleClickBidManager_QueryMetadata extends Google_Collecti
   }
 }
 
-class Google_Service_DoubleClickBidManager_QuerySchedule extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_QuerySchedule extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -872,19 +872,19 @@ class Google_Service_DoubleClickBidManager_QuerySchedule extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_Report extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_Report extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $keyType = 'Google_Service_DoubleClickBidManager_ReportKey';
+  protected $keyType = 'Forminator_Google_Service_DoubleClickBidManager_ReportKey';
   protected $keyDataType = '';
-  protected $metadataType = 'Google_Service_DoubleClickBidManager_ReportMetadata';
+  protected $metadataType = 'Forminator_Google_Service_DoubleClickBidManager_ReportMetadata';
   protected $metadataDataType = '';
-  protected $paramsType = 'Google_Service_DoubleClickBidManager_Parameters';
+  protected $paramsType = 'Forminator_Google_Service_DoubleClickBidManager_Parameters';
   protected $paramsDataType = '';
 
 
-  public function setKey(Google_Service_DoubleClickBidManager_ReportKey $key)
+  public function setKey(Forminator_Google_Service_DoubleClickBidManager_ReportKey $key)
   {
     $this->key = $key;
   }
@@ -892,7 +892,7 @@ class Google_Service_DoubleClickBidManager_Report extends Google_Model
   {
     return $this->key;
   }
-  public function setMetadata(Google_Service_DoubleClickBidManager_ReportMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_DoubleClickBidManager_ReportMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -900,7 +900,7 @@ class Google_Service_DoubleClickBidManager_Report extends Google_Model
   {
     return $this->metadata;
   }
-  public function setParams(Google_Service_DoubleClickBidManager_Parameters $params)
+  public function setParams(Forminator_Google_Service_DoubleClickBidManager_Parameters $params)
   {
     $this->params = $params;
   }
@@ -910,7 +910,7 @@ class Google_Service_DoubleClickBidManager_Report extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_ReportFailure extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_ReportFailure extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -927,7 +927,7 @@ class Google_Service_DoubleClickBidManager_ReportFailure extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_ReportKey extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_ReportKey extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -953,14 +953,14 @@ class Google_Service_DoubleClickBidManager_ReportKey extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_ReportMetadata extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_ReportMetadata extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $googleCloudStoragePath;
   public $reportDataEndTimeMs;
   public $reportDataStartTimeMs;
-  protected $statusType = 'Google_Service_DoubleClickBidManager_ReportStatus';
+  protected $statusType = 'Forminator_Google_Service_DoubleClickBidManager_ReportStatus';
   protected $statusDataType = '';
 
 
@@ -988,7 +988,7 @@ class Google_Service_DoubleClickBidManager_ReportMetadata extends Google_Model
   {
     return $this->reportDataStartTimeMs;
   }
-  public function setStatus(Google_Service_DoubleClickBidManager_ReportStatus $status)
+  public function setStatus(Forminator_Google_Service_DoubleClickBidManager_ReportStatus $status)
   {
     $this->status = $status;
   }
@@ -998,18 +998,18 @@ class Google_Service_DoubleClickBidManager_ReportMetadata extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_ReportStatus extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_ReportStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $failureType = 'Google_Service_DoubleClickBidManager_ReportFailure';
+  protected $failureType = 'Forminator_Google_Service_DoubleClickBidManager_ReportFailure';
   protected $failureDataType = '';
   public $finishTimeMs;
   public $format;
   public $state;
 
 
-  public function setFailure(Google_Service_DoubleClickBidManager_ReportFailure $failure)
+  public function setFailure(Forminator_Google_Service_DoubleClickBidManager_ReportFailure $failure)
   {
     $this->failure = $failure;
   }
@@ -1043,7 +1043,7 @@ class Google_Service_DoubleClickBidManager_ReportStatus extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_RowStatus extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_RowStatus extends Forminator_Google_Collection
 {
   protected $collection_key = 'errors';
   protected $internal_gapi_mappings = array(
@@ -1106,7 +1106,7 @@ class Google_Service_DoubleClickBidManager_RowStatus extends Google_Collection
   }
 }
 
-class Google_Service_DoubleClickBidManager_RunQueryRequest extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_RunQueryRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1150,7 +1150,7 @@ class Google_Service_DoubleClickBidManager_RunQueryRequest extends Google_Model
   }
 }
 
-class Google_Service_DoubleClickBidManager_UploadLineItemsRequest extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_UploadLineItemsRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1185,15 +1185,15 @@ class Google_Service_DoubleClickBidManager_UploadLineItemsRequest extends Google
   }
 }
 
-class Google_Service_DoubleClickBidManager_UploadLineItemsResponse extends Google_Model
+class Forminator_Google_Service_DoubleClickBidManager_UploadLineItemsResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $uploadStatusType = 'Google_Service_DoubleClickBidManager_UploadStatus';
+  protected $uploadStatusType = 'Forminator_Google_Service_DoubleClickBidManager_UploadStatus';
   protected $uploadStatusDataType = '';
 
 
-  public function setUploadStatus(Google_Service_DoubleClickBidManager_UploadStatus $uploadStatus)
+  public function setUploadStatus(Forminator_Google_Service_DoubleClickBidManager_UploadStatus $uploadStatus)
   {
     $this->uploadStatus = $uploadStatus;
   }
@@ -1203,13 +1203,13 @@ class Google_Service_DoubleClickBidManager_UploadLineItemsResponse extends Googl
   }
 }
 
-class Google_Service_DoubleClickBidManager_UploadStatus extends Google_Collection
+class Forminator_Google_Service_DoubleClickBidManager_UploadStatus extends Forminator_Google_Collection
 {
   protected $collection_key = 'rowStatus';
   protected $internal_gapi_mappings = array(
   );
   public $errors;
-  protected $rowStatusType = 'Google_Service_DoubleClickBidManager_RowStatus';
+  protected $rowStatusType = 'Forminator_Google_Service_DoubleClickBidManager_RowStatus';
   protected $rowStatusDataType = 'array';
 
 

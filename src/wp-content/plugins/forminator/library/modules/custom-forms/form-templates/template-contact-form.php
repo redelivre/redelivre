@@ -73,14 +73,15 @@ class Forminator_Template_Contact_Form extends Forminator_Template {
 				'wrapper_id' => 'wrapper-1311247712118-1194',
 				'fields'     => array(
 					array(
-						'element_id'      => 'phone-1',
-						'type'            => 'phone',
-						'cols'            => '12',
-						"required"        => false,
-						"field_label"     => __( "Phone Number", Forminator::DOMAIN ),
-						"placeholder"     => __( "E.g. +1 3004005000", Forminator::DOMAIN ),
-						"validation"      => true,
-						"validation_text" => "",
+						'element_id'            => 'phone-1',
+						'type'                  => 'phone',
+						'cols'                  => '12',
+						"required"              => false,
+						"field_label"           => __( "Phone Number", Forminator::DOMAIN ),
+						"placeholder"           => __( "E.g. +1 3004005000", Forminator::DOMAIN ),
+						"validation"            => "false",
+						'phone_validation_type' => 'standard',
+						"validation_text"       => "",
 					),
 				),
 			),
@@ -111,6 +112,7 @@ class Forminator_Template_Contact_Form extends Forminator_Template {
 	 */
 	public function settings() {
 		return array(
+			"form-type"                     => "default",
 			"submission-behaviour"          => "behaviour-thankyou",
 			"thankyou-message"              => __( "Thank you for contacting us, we will be in touch shortly.", Forminator::DOMAIN ),
 			'submitData'                    => array(

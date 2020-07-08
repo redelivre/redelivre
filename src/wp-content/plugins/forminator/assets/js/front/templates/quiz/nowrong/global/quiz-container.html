@@ -1,0 +1,39 @@
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> {
+	width: 100%;
+	<?php if ( forminator_array_value_exists( $properties, 'quiz-size' ) ) { ?>
+		<?php if ( 'custom' == $properties['quiz-size'] && ! empty( $properties['quiz-custom-size'] ) ) { ?>
+			max-width: <?php echo $properties['quiz-custom-size'] ?>px;
+		<?php } ?>
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'quiz-padding' ) ) { ?>
+		<?php if ( 'custom' == $properties['quiz-padding'] && ! empty( $properties['quiz-padding-top'] ) ) { ?>
+			padding-top: <?php echo $properties['quiz-padding-top'] ?>px;
+		<?php } ?>
+		<?php if ( 'custom' == $properties['quiz-padding'] && ! empty( $properties['quiz-padding-right'] ) ) { ?>
+			padding-right: <?php echo $properties['quiz-padding-right'] ?>px;
+		<?php } ?>
+		<?php if ( 'custom' == $properties['quiz-padding'] && ! empty( $properties['quiz-padding-bottom'] ) ) { ?>
+			padding-bottom: <?php echo $properties['quiz-padding-bottom'] ?>px;
+		<?php } ?>
+		<?php if ( 'custom' == $properties['quiz-padding'] && ! empty( $properties['quiz-padding-left'] ) ) { ?>
+			padding-left: <?php echo $properties['quiz-padding-left'] ?>px;
+		<?php } ?>
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'quiz-border' ) ) { ?>
+		<?php if ( 'custom' == $properties['quiz-border'] && ! empty( $properties['quiz-border-width'] ) ) { ?>
+			border-width: <?php echo $properties['quiz-border-width'] ?>px;
+		<?php } ?>
+		<?php if ( 'custom' == $properties['quiz-border'] ) { ?>
+			<?php if ( ! empty( $properties['quiz-border-style'] ) ) { ?>
+				border-style: <?php echo $properties['quiz-border-style'] ?>;
+			<?php } else { ?>
+				border-style: none;
+			<?php } ?>
+		<?php } ?>
+		<?php if ( 'custom' == $properties['quiz-border'] && ! empty( $properties['quiz-border-radius'] ) ) { ?>
+			border-radius: <?php echo $properties['quiz-border-radius'] ?>px;
+			-moz-border-radius: <?php echo $properties['quiz-border-radius'] ?>px;
+			-webkit-border-radius: <?php echo $properties['quiz-border-radius'] ?>px;
+		<?php } ?>
+	<?php } ?>
+}

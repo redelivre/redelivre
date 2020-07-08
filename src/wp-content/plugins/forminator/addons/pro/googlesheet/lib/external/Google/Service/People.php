@@ -27,7 +27,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_People extends Google_Service
+class Forminator_Google_Service_People extends Forminator_Google_Service
 {
   /** Manage your contacts. */
   const CONTACTS =
@@ -64,9 +64,9 @@ class Google_Service_People extends Google_Service
   /**
    * Constructs the internal representation of the People service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://people.googleapis.com/';
@@ -74,7 +74,7 @@ class Google_Service_People extends Google_Service
     $this->version = 'v1';
     $this->serviceName = 'people';
 
-    $this->people = new Google_Service_People_People_Resource(
+    $this->people = new Forminator_Google_Service_People_People_Resource(
         $this,
         $this->serviceName,
         'people',
@@ -112,7 +112,7 @@ class Google_Service_People extends Google_Service
           )
         )
     );
-    $this->people_connections = new Google_Service_People_PeopleConnections_Resource(
+    $this->people_connections = new Forminator_Google_Service_People_PeopleConnections_Resource(
         $this,
         $this->serviceName,
         'connections',
@@ -160,11 +160,11 @@ class Google_Service_People extends Google_Service
  * The "people" collection of methods.
  * Typical usage is:
  *  <code>
- *   $peopleService = new Google_Service_People(...);
+ *   $peopleService = new Forminator_Google_Service_People(...);
  *   $people = $peopleService->people;
  *  </code>
  */
-class Google_Service_People_People_Resource extends Google_Service_Resource
+class Forminator_Google_Service_People_People_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -184,13 +184,13 @@ class Google_Service_People_People_Resource extends Google_Service_Resource
    * be included in the response. Omitting this field will include all fields.
    * Each path should start with `person.`: for example, `person.names` or
    * `person.photos`.
-   * @return Google_Service_People_Person
+   * @return Forminator_Google_Service_People_Person
    */
   public function get($resourceName, $optParams = array())
   {
     $params = array('resourceName' => $resourceName);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_People_Person");
+    return $this->call('get', array($params), "Forminator_Google_Service_People_Person");
   }
 
   /**
@@ -208,13 +208,13 @@ class Google_Service_People_People_Resource extends Google_Service_Resource
    * [`people.connections.list`](/people/api/rest/v1/people.connections/list), of
    * one of the people to provide information about. You can include this
    * parameter up to 50 times in one request.
-   * @return Google_Service_People_GetPeopleResponse
+   * @return Forminator_Google_Service_People_GetPeopleResponse
    */
   public function getBatchGet($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('getBatchGet', array($params), "Google_Service_People_GetPeopleResponse");
+    return $this->call('getBatchGet', array($params), "Forminator_Google_Service_People_GetPeopleResponse");
   }
 }
 
@@ -222,11 +222,11 @@ class Google_Service_People_People_Resource extends Google_Service_Resource
  * The "connections" collection of methods.
  * Typical usage is:
  *  <code>
- *   $peopleService = new Google_Service_People(...);
+ *   $peopleService = new Forminator_Google_Service_People(...);
  *   $connections = $peopleService->connections;
  *  </code>
  */
-class Google_Service_People_PeopleConnections_Resource extends Google_Service_Resource
+class Forminator_Google_Service_People_PeopleConnections_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -249,20 +249,20 @@ class Google_Service_People_PeopleConnections_Resource extends Google_Service_Re
    * Each path should start with `person.`: for example, `person.names` or
    * `person.photos`.
    * @opt_param string pageToken The token of the page to be returned.
-   * @return Google_Service_People_ListConnectionsResponse
+   * @return Forminator_Google_Service_People_ListConnectionsResponse
    */
   public function listPeopleConnections($resourceName, $optParams = array())
   {
     $params = array('resourceName' => $resourceName);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_People_ListConnectionsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_People_ListConnectionsResponse");
   }
 }
 
 
 
 
-class Google_Service_People_Address extends Google_Model
+class Forminator_Google_Service_People_Address extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -272,7 +272,7 @@ class Google_Service_People_Address extends Google_Model
   public $extendedAddress;
   public $formattedType;
   public $formattedValue;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $poBox;
   public $postalCode;
@@ -329,7 +329,7 @@ class Google_Service_People_Address extends Google_Model
   {
     return $this->formattedValue;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -379,16 +379,16 @@ class Google_Service_People_Address extends Google_Model
   }
 }
 
-class Google_Service_People_Biography extends Google_Model
+class Forminator_Google_Service_People_Biography extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -406,18 +406,18 @@ class Google_Service_People_Biography extends Google_Model
   }
 }
 
-class Google_Service_People_Birthday extends Google_Model
+class Forminator_Google_Service_People_Birthday extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $dateType = 'Google_Service_People_Date';
+  protected $dateType = 'Forminator_Google_Service_People_Date';
   protected $dateDataType = '';
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $text;
 
 
-  public function setDate(Google_Service_People_Date $date)
+  public function setDate(Forminator_Google_Service_People_Date $date)
   {
     $this->date = $date;
   }
@@ -425,7 +425,7 @@ class Google_Service_People_Birthday extends Google_Model
   {
     return $this->date;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -443,16 +443,16 @@ class Google_Service_People_Birthday extends Google_Model
   }
 }
 
-class Google_Service_People_BraggingRights extends Google_Model
+class Forminator_Google_Service_People_BraggingRights extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -470,7 +470,7 @@ class Google_Service_People_BraggingRights extends Google_Model
   }
 }
 
-class Google_Service_People_ContactGroupMembership extends Google_Model
+class Forminator_Google_Service_People_ContactGroupMembership extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -487,12 +487,12 @@ class Google_Service_People_ContactGroupMembership extends Google_Model
   }
 }
 
-class Google_Service_People_CoverPhoto extends Google_Model
+class Forminator_Google_Service_People_CoverPhoto extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $default;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $url;
 
@@ -505,7 +505,7 @@ class Google_Service_People_CoverPhoto extends Google_Model
   {
     return $this->default;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -523,7 +523,7 @@ class Google_Service_People_CoverPhoto extends Google_Model
   }
 }
 
-class Google_Service_People_Date extends Google_Model
+class Forminator_Google_Service_People_Date extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -558,7 +558,7 @@ class Google_Service_People_Date extends Google_Model
   }
 }
 
-class Google_Service_People_DomainMembership extends Google_Model
+class Forminator_Google_Service_People_DomainMembership extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -575,12 +575,12 @@ class Google_Service_People_DomainMembership extends Google_Model
   }
 }
 
-class Google_Service_People_EmailAddress extends Google_Model
+class Forminator_Google_Service_People_EmailAddress extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $formattedType;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $type;
   public $value;
@@ -594,7 +594,7 @@ class Google_Service_People_EmailAddress extends Google_Model
   {
     return $this->formattedType;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -620,19 +620,19 @@ class Google_Service_People_EmailAddress extends Google_Model
   }
 }
 
-class Google_Service_People_Event extends Google_Model
+class Forminator_Google_Service_People_Event extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $dateType = 'Google_Service_People_Date';
+  protected $dateType = 'Forminator_Google_Service_People_Date';
   protected $dateDataType = '';
   public $formattedType;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $type;
 
 
-  public function setDate(Google_Service_People_Date $date)
+  public function setDate(Forminator_Google_Service_People_Date $date)
   {
     $this->date = $date;
   }
@@ -648,7 +648,7 @@ class Google_Service_People_Event extends Google_Model
   {
     return $this->formattedType;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -666,12 +666,12 @@ class Google_Service_People_Event extends Google_Model
   }
 }
 
-class Google_Service_People_FieldMetadata extends Google_Model
+class Forminator_Google_Service_People_FieldMetadata extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $primary;
-  protected $sourceType = 'Google_Service_People_Source';
+  protected $sourceType = 'Forminator_Google_Service_People_Source';
   protected $sourceDataType = '';
   public $verified;
 
@@ -684,7 +684,7 @@ class Google_Service_People_FieldMetadata extends Google_Model
   {
     return $this->primary;
   }
-  public function setSource(Google_Service_People_Source $source)
+  public function setSource(Forminator_Google_Service_People_Source $source)
   {
     $this->source = $source;
   }
@@ -702,12 +702,12 @@ class Google_Service_People_FieldMetadata extends Google_Model
   }
 }
 
-class Google_Service_People_Gender extends Google_Model
+class Forminator_Google_Service_People_Gender extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $formattedValue;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
@@ -720,7 +720,7 @@ class Google_Service_People_Gender extends Google_Model
   {
     return $this->formattedValue;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -738,12 +738,12 @@ class Google_Service_People_Gender extends Google_Model
   }
 }
 
-class Google_Service_People_GetPeopleResponse extends Google_Collection
+class Forminator_Google_Service_People_GetPeopleResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'responses';
   protected $internal_gapi_mappings = array(
   );
-  protected $responsesType = 'Google_Service_People_PersonResponse';
+  protected $responsesType = 'Forminator_Google_Service_People_PersonResponse';
   protected $responsesDataType = 'array';
 
 
@@ -757,13 +757,13 @@ class Google_Service_People_GetPeopleResponse extends Google_Collection
   }
 }
 
-class Google_Service_People_ImClient extends Google_Model
+class Forminator_Google_Service_People_ImClient extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $formattedProtocol;
   public $formattedType;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $protocol;
   public $type;
@@ -786,7 +786,7 @@ class Google_Service_People_ImClient extends Google_Model
   {
     return $this->formattedType;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -820,16 +820,16 @@ class Google_Service_People_ImClient extends Google_Model
   }
 }
 
-class Google_Service_People_Interest extends Google_Model
+class Forminator_Google_Service_People_Interest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -847,12 +847,12 @@ class Google_Service_People_Interest extends Google_Model
   }
 }
 
-class Google_Service_People_ListConnectionsResponse extends Google_Collection
+class Forminator_Google_Service_People_ListConnectionsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'connections';
   protected $internal_gapi_mappings = array(
   );
-  protected $connectionsType = 'Google_Service_People_Person';
+  protected $connectionsType = 'Forminator_Google_Service_People_Person';
   protected $connectionsDataType = 'array';
   public $nextPageToken;
   public $nextSyncToken;
@@ -884,16 +884,16 @@ class Google_Service_People_ListConnectionsResponse extends Google_Collection
   }
 }
 
-class Google_Service_People_Locale extends Google_Model
+class Forminator_Google_Service_People_Locale extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -911,19 +911,19 @@ class Google_Service_People_Locale extends Google_Model
   }
 }
 
-class Google_Service_People_Membership extends Google_Model
+class Forminator_Google_Service_People_Membership extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $contactGroupMembershipType = 'Google_Service_People_ContactGroupMembership';
+  protected $contactGroupMembershipType = 'Forminator_Google_Service_People_ContactGroupMembership';
   protected $contactGroupMembershipDataType = '';
-  protected $domainMembershipType = 'Google_Service_People_DomainMembership';
+  protected $domainMembershipType = 'Forminator_Google_Service_People_DomainMembership';
   protected $domainMembershipDataType = '';
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
 
 
-  public function setContactGroupMembership(Google_Service_People_ContactGroupMembership $contactGroupMembership)
+  public function setContactGroupMembership(Forminator_Google_Service_People_ContactGroupMembership $contactGroupMembership)
   {
     $this->contactGroupMembership = $contactGroupMembership;
   }
@@ -931,7 +931,7 @@ class Google_Service_People_Membership extends Google_Model
   {
     return $this->contactGroupMembership;
   }
-  public function setDomainMembership(Google_Service_People_DomainMembership $domainMembership)
+  public function setDomainMembership(Forminator_Google_Service_People_DomainMembership $domainMembership)
   {
     $this->domainMembership = $domainMembership;
   }
@@ -939,7 +939,7 @@ class Google_Service_People_Membership extends Google_Model
   {
     return $this->domainMembership;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -949,7 +949,7 @@ class Google_Service_People_Membership extends Google_Model
   }
 }
 
-class Google_Service_People_Name extends Google_Model
+class Forminator_Google_Service_People_Name extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -958,7 +958,7 @@ class Google_Service_People_Name extends Google_Model
   public $givenName;
   public $honorificPrefix;
   public $honorificSuffix;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $middleName;
   public $phoneticFamilyName;
@@ -1008,7 +1008,7 @@ class Google_Service_People_Name extends Google_Model
   {
     return $this->honorificSuffix;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1066,17 +1066,17 @@ class Google_Service_People_Name extends Google_Model
   }
 }
 
-class Google_Service_People_Nickname extends Google_Model
+class Forminator_Google_Service_People_Nickname extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $type;
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1102,16 +1102,16 @@ class Google_Service_People_Nickname extends Google_Model
   }
 }
 
-class Google_Service_People_Occupation extends Google_Model
+class Forminator_Google_Service_People_Occupation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1129,23 +1129,23 @@ class Google_Service_People_Occupation extends Google_Model
   }
 }
 
-class Google_Service_People_Organization extends Google_Model
+class Forminator_Google_Service_People_Organization extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $current;
   public $department;
   public $domain;
-  protected $endDateType = 'Google_Service_People_Date';
+  protected $endDateType = 'Forminator_Google_Service_People_Date';
   protected $endDateDataType = '';
   public $formattedType;
   public $jobDescription;
   public $location;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $name;
   public $phoneticName;
-  protected $startDateType = 'Google_Service_People_Date';
+  protected $startDateType = 'Forminator_Google_Service_People_Date';
   protected $startDateDataType = '';
   public $symbol;
   public $title;
@@ -1176,7 +1176,7 @@ class Google_Service_People_Organization extends Google_Model
   {
     return $this->domain;
   }
-  public function setEndDate(Google_Service_People_Date $endDate)
+  public function setEndDate(Forminator_Google_Service_People_Date $endDate)
   {
     $this->endDate = $endDate;
   }
@@ -1208,7 +1208,7 @@ class Google_Service_People_Organization extends Google_Model
   {
     return $this->location;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1232,7 +1232,7 @@ class Google_Service_People_Organization extends Google_Model
   {
     return $this->phoneticName;
   }
-  public function setStartDate(Google_Service_People_Date $startDate)
+  public function setStartDate(Forminator_Google_Service_People_Date $startDate)
   {
     $this->startDate = $startDate;
   }
@@ -1266,65 +1266,65 @@ class Google_Service_People_Organization extends Google_Model
   }
 }
 
-class Google_Service_People_Person extends Google_Collection
+class Forminator_Google_Service_People_Person extends Forminator_Google_Collection
 {
   protected $collection_key = 'urls';
   protected $internal_gapi_mappings = array(
   );
-  protected $addressesType = 'Google_Service_People_Address';
+  protected $addressesType = 'Forminator_Google_Service_People_Address';
   protected $addressesDataType = 'array';
   public $ageRange;
-  protected $biographiesType = 'Google_Service_People_Biography';
+  protected $biographiesType = 'Forminator_Google_Service_People_Biography';
   protected $biographiesDataType = 'array';
-  protected $birthdaysType = 'Google_Service_People_Birthday';
+  protected $birthdaysType = 'Forminator_Google_Service_People_Birthday';
   protected $birthdaysDataType = 'array';
-  protected $braggingRightsType = 'Google_Service_People_BraggingRights';
+  protected $braggingRightsType = 'Forminator_Google_Service_People_BraggingRights';
   protected $braggingRightsDataType = 'array';
-  protected $coverPhotosType = 'Google_Service_People_CoverPhoto';
+  protected $coverPhotosType = 'Forminator_Google_Service_People_CoverPhoto';
   protected $coverPhotosDataType = 'array';
-  protected $emailAddressesType = 'Google_Service_People_EmailAddress';
+  protected $emailAddressesType = 'Forminator_Google_Service_People_EmailAddress';
   protected $emailAddressesDataType = 'array';
   public $etag;
-  protected $eventsType = 'Google_Service_People_Event';
+  protected $eventsType = 'Forminator_Google_Service_People_Event';
   protected $eventsDataType = 'array';
-  protected $gendersType = 'Google_Service_People_Gender';
+  protected $gendersType = 'Forminator_Google_Service_People_Gender';
   protected $gendersDataType = 'array';
-  protected $imClientsType = 'Google_Service_People_ImClient';
+  protected $imClientsType = 'Forminator_Google_Service_People_ImClient';
   protected $imClientsDataType = 'array';
-  protected $interestsType = 'Google_Service_People_Interest';
+  protected $interestsType = 'Forminator_Google_Service_People_Interest';
   protected $interestsDataType = 'array';
-  protected $localesType = 'Google_Service_People_Locale';
+  protected $localesType = 'Forminator_Google_Service_People_Locale';
   protected $localesDataType = 'array';
-  protected $membershipsType = 'Google_Service_People_Membership';
+  protected $membershipsType = 'Forminator_Google_Service_People_Membership';
   protected $membershipsDataType = 'array';
-  protected $metadataType = 'Google_Service_People_PersonMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_PersonMetadata';
   protected $metadataDataType = '';
-  protected $namesType = 'Google_Service_People_Name';
+  protected $namesType = 'Forminator_Google_Service_People_Name';
   protected $namesDataType = 'array';
-  protected $nicknamesType = 'Google_Service_People_Nickname';
+  protected $nicknamesType = 'Forminator_Google_Service_People_Nickname';
   protected $nicknamesDataType = 'array';
-  protected $occupationsType = 'Google_Service_People_Occupation';
+  protected $occupationsType = 'Forminator_Google_Service_People_Occupation';
   protected $occupationsDataType = 'array';
-  protected $organizationsType = 'Google_Service_People_Organization';
+  protected $organizationsType = 'Forminator_Google_Service_People_Organization';
   protected $organizationsDataType = 'array';
-  protected $phoneNumbersType = 'Google_Service_People_PhoneNumber';
+  protected $phoneNumbersType = 'Forminator_Google_Service_People_PhoneNumber';
   protected $phoneNumbersDataType = 'array';
-  protected $photosType = 'Google_Service_People_Photo';
+  protected $photosType = 'Forminator_Google_Service_People_Photo';
   protected $photosDataType = 'array';
-  protected $relationsType = 'Google_Service_People_Relation';
+  protected $relationsType = 'Forminator_Google_Service_People_Relation';
   protected $relationsDataType = 'array';
-  protected $relationshipInterestsType = 'Google_Service_People_RelationshipInterest';
+  protected $relationshipInterestsType = 'Forminator_Google_Service_People_RelationshipInterest';
   protected $relationshipInterestsDataType = 'array';
-  protected $relationshipStatusesType = 'Google_Service_People_RelationshipStatus';
+  protected $relationshipStatusesType = 'Forminator_Google_Service_People_RelationshipStatus';
   protected $relationshipStatusesDataType = 'array';
-  protected $residencesType = 'Google_Service_People_Residence';
+  protected $residencesType = 'Forminator_Google_Service_People_Residence';
   protected $residencesDataType = 'array';
   public $resourceName;
-  protected $skillsType = 'Google_Service_People_Skill';
+  protected $skillsType = 'Forminator_Google_Service_People_Skill';
   protected $skillsDataType = 'array';
-  protected $taglinesType = 'Google_Service_People_Tagline';
+  protected $taglinesType = 'Forminator_Google_Service_People_Tagline';
   protected $taglinesDataType = 'array';
-  protected $urlsType = 'Google_Service_People_Url';
+  protected $urlsType = 'Forminator_Google_Service_People_Url';
   protected $urlsDataType = 'array';
 
 
@@ -1440,7 +1440,7 @@ class Google_Service_People_Person extends Google_Collection
   {
     return $this->memberships;
   }
-  public function setMetadata(Google_Service_People_PersonMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_PersonMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1562,7 +1562,7 @@ class Google_Service_People_Person extends Google_Collection
   }
 }
 
-class Google_Service_People_PersonMetadata extends Google_Collection
+class Forminator_Google_Service_People_PersonMetadata extends Forminator_Google_Collection
 {
   protected $collection_key = 'sources';
   protected $internal_gapi_mappings = array(
@@ -1570,7 +1570,7 @@ class Google_Service_People_PersonMetadata extends Google_Collection
   public $deleted;
   public $objectType;
   public $previousResourceNames;
-  protected $sourcesType = 'Google_Service_People_Source';
+  protected $sourcesType = 'Forminator_Google_Service_People_Source';
   protected $sourcesDataType = 'array';
 
 
@@ -1608,12 +1608,12 @@ class Google_Service_People_PersonMetadata extends Google_Collection
   }
 }
 
-class Google_Service_People_PersonResponse extends Google_Model
+class Forminator_Google_Service_People_PersonResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $httpStatusCode;
-  protected $personType = 'Google_Service_People_Person';
+  protected $personType = 'Forminator_Google_Service_People_Person';
   protected $personDataType = '';
   public $requestedResourceName;
 
@@ -1626,7 +1626,7 @@ class Google_Service_People_PersonResponse extends Google_Model
   {
     return $this->httpStatusCode;
   }
-  public function setPerson(Google_Service_People_Person $person)
+  public function setPerson(Forminator_Google_Service_People_Person $person)
   {
     $this->person = $person;
   }
@@ -1644,13 +1644,13 @@ class Google_Service_People_PersonResponse extends Google_Model
   }
 }
 
-class Google_Service_People_PhoneNumber extends Google_Model
+class Forminator_Google_Service_People_PhoneNumber extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $canonicalForm;
   public $formattedType;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $type;
   public $value;
@@ -1672,7 +1672,7 @@ class Google_Service_People_PhoneNumber extends Google_Model
   {
     return $this->formattedType;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1698,16 +1698,16 @@ class Google_Service_People_PhoneNumber extends Google_Model
   }
 }
 
-class Google_Service_People_Photo extends Google_Model
+class Forminator_Google_Service_People_Photo extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $url;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1725,12 +1725,12 @@ class Google_Service_People_Photo extends Google_Model
   }
 }
 
-class Google_Service_People_Relation extends Google_Model
+class Forminator_Google_Service_People_Relation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $formattedType;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $person;
   public $type;
@@ -1744,7 +1744,7 @@ class Google_Service_People_Relation extends Google_Model
   {
     return $this->formattedType;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1770,12 +1770,12 @@ class Google_Service_People_Relation extends Google_Model
   }
 }
 
-class Google_Service_People_RelationshipInterest extends Google_Model
+class Forminator_Google_Service_People_RelationshipInterest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $formattedValue;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
@@ -1788,7 +1788,7 @@ class Google_Service_People_RelationshipInterest extends Google_Model
   {
     return $this->formattedValue;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1806,12 +1806,12 @@ class Google_Service_People_RelationshipInterest extends Google_Model
   }
 }
 
-class Google_Service_People_RelationshipStatus extends Google_Model
+class Forminator_Google_Service_People_RelationshipStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $formattedValue;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
@@ -1824,7 +1824,7 @@ class Google_Service_People_RelationshipStatus extends Google_Model
   {
     return $this->formattedValue;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1842,12 +1842,12 @@ class Google_Service_People_RelationshipStatus extends Google_Model
   }
 }
 
-class Google_Service_People_Residence extends Google_Model
+class Forminator_Google_Service_People_Residence extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $current;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
@@ -1860,7 +1860,7 @@ class Google_Service_People_Residence extends Google_Model
   {
     return $this->current;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1878,16 +1878,16 @@ class Google_Service_People_Residence extends Google_Model
   }
 }
 
-class Google_Service_People_Skill extends Google_Model
+class Forminator_Google_Service_People_Skill extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1905,7 +1905,7 @@ class Google_Service_People_Skill extends Google_Model
   }
 }
 
-class Google_Service_People_Source extends Google_Model
+class Forminator_Google_Service_People_Source extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1931,16 +1931,16 @@ class Google_Service_People_Source extends Google_Model
   }
 }
 
-class Google_Service_People_Tagline extends Google_Model
+class Forminator_Google_Service_People_Tagline extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $value;
 
 
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1958,12 +1958,12 @@ class Google_Service_People_Tagline extends Google_Model
   }
 }
 
-class Google_Service_People_Url extends Google_Model
+class Forminator_Google_Service_People_Url extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $formattedType;
-  protected $metadataType = 'Google_Service_People_FieldMetadata';
+  protected $metadataType = 'Forminator_Google_Service_People_FieldMetadata';
   protected $metadataDataType = '';
   public $type;
   public $value;
@@ -1977,7 +1977,7 @@ class Google_Service_People_Url extends Google_Model
   {
     return $this->formattedType;
   }
-  public function setMetadata(Google_Service_People_FieldMetadata $metadata)
+  public function setMetadata(Forminator_Google_Service_People_FieldMetadata $metadata)
   {
     $this->metadata = $metadata;
   }

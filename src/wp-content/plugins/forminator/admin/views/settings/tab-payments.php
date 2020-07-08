@@ -32,7 +32,7 @@ $nonce      = wp_create_nonce( 'forminator_save_payments_settings' );
 
 				<button
 					class="sui-button sui-button-blue wpmudev-action-done"
-					data-title="<?php esc_attr_e( "Payments settings", Forminator::DOMAIN ); ?>"
+					data-title="<?php esc_attr_e( 'Payments settings', Forminator::DOMAIN ); ?>"
 					data-action="payments_settings"
 					data-nonce="<?php echo esc_attr( $nonce ); ?>"
 				>

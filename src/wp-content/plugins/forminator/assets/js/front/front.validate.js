@@ -422,6 +422,40 @@
 
 		return true;
 	});
+	$.validator.addMethod("forminatorPasswordStrength", function (value, element, param) {
+		var passwordStrength = value.trim();
+
+		//at least 8 characters
+		if ( ! passwordStrength || passwordStrength.length < 8) {
+			return false;
+		}
+
+		var symbolSize = 0, natLog, score;
+		//at least one number
+		if ( passwordStrength.match(/[0-9]/) ) {
+			symbolSize += 10;
+		}
+		//at least one lowercase letter
+		if ( passwordStrength.match(/[a-z]/) ) {
+			symbolSize += 20;
+		}
+		//at least one uppercase letter
+		if ( passwordStrength.match(/[A-Z]/) ) {
+			symbolSize += 20;
+		}
+		if ( passwordStrength.match(/[^a-zA-Z0-9]/) ) {
+			symbolSize += 30;
+		}
+		//at least one special character
+		if ( passwordStrength.match(/[=!\-@._*#&$]/) ) {
+			symbolSize += 30;
+		}
+
+		natLog = Math.log( Math.pow(symbolSize, passwordStrength.length) );
+		score = natLog / Math.LN2;
+
+		return score < 56 ? false : true;
+	});
 
 	// $.validator.methods.required = function(value, element, param) {
 	// 	console.log("required", element);

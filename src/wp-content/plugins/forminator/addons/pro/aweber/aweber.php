@@ -23,8 +23,8 @@ function forminator_addon_aweber_assets_url() {
 	return trailingslashit( forminator_addon_aweber_url() . 'assets' );
 }
 
-require_once dirname( __FILE__ ) . '/forminator-addon-aweber.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-aweber-form-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-aweber-form-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-aweber.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-aweber-form-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-aweber-form-hooks.php';
 //Direct Load
 Forminator_Addon_Loader::get_instance()->register( 'Forminator_Addon_Aweber' );

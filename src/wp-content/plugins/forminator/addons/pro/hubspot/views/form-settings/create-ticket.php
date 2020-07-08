@@ -313,7 +313,7 @@ foreach ( $template_vars as $key => $val ) {
 			$('#hubspot-support-request').on('change', function () {
 				let value = $(this).val();
 				$.ajax({
-					url: '<?php echo forminator_ajax_url(); ?>',
+					url: '<?php echo forminator_ajax_url();// phpcs:ignore ?>',
 					type: "POST",
 					data: {
 						action: "forminator_hubspot_support_request",

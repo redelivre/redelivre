@@ -1,5 +1,5 @@
 <?php
-$form_id = $_POST['id'];// WPCS: CSRF ok. varified on admin ajax
+$form_id = $_POST['id'];// phpcs:ignore -- varified on admin ajax
 $nonce   = wp_create_nonce( 'forminatorQuizFormRequest' );
 
 $exportable = array();
@@ -7,7 +7,7 @@ $model      = Forminator_Quiz_Form_Model::model()->load( $form_id );
 if ( $model instanceof Forminator_Quiz_Form_Model ) {
 	$exportable = $model->to_exportable_data();
 }
-$text_area_id = uniqid('export-text-');
+$text_area_id = uniqid( 'export-text-' );
 ?>
 
 <div class="sui-box-body wpmudev-popup-form">
@@ -19,7 +19,8 @@ $text_area_id = uniqid('export-text-');
 
 	<div class="sui-notice sui-notice-info">
 		<p>
-			<?php echo(
+			<?php
+			echo(
 			sprintf(
 				__( 'You can import this %1$s in Forminator %2$s%3$s%4$s or above. The %5$s may break on a version lower than your install.', Forminator::DOMAIN ), //phpcs:ignore
 				__( 'Quiz', Forminator::DOMAIN ),//phpcs:ignore
@@ -28,7 +29,8 @@ $text_area_id = uniqid('export-text-');
 				'</strong>',
 				__( 'Quiz', Forminator::DOMAIN )
 			)
-			); ?>
+			);
+			?>
 		</p>
 	</div>
 

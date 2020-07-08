@@ -8,29 +8,28 @@ namespace Forminator\Stripe;
  * @property string $id
  * @property string $object
  * @property bool $active
- * @property string[] $attributes
- * @property string $caption
+ * @property string[]|null $attributes
+ * @property string|null $caption
  * @property int $created
  * @property string[] $deactivate_on
- * @property string $description
+ * @property string|null $description
  * @property string[] $images
  * @property bool $livemode
- * @property StripeObject $metadata
+ * @property \Forminator\Stripe\StripeObject $metadata
  * @property string $name
- * @property mixed $package_dimensions
- * @property bool $shippable
- * @property string $statement_descriptor
+ * @property \Forminator\Stripe\StripeObject|null $package_dimensions
+ * @property bool|null $shippable
+ * @property string|null $statement_descriptor
  * @property string $type
- * @property string $unit_label
+ * @property string|null $unit_label
  * @property int $updated
- * @property string $url
+ * @property string|null $url
  *
  * @package Stripe
  */
 class Product extends ApiResource
 {
-
-    const OBJECT_NAME = "product";
+    const OBJECT_NAME = 'product';
 
     use ApiOperations\All;
     use ApiOperations\Create;

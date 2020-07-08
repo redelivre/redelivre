@@ -26,7 +26,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Dataproc extends Google_Service
+class Forminator_Google_Service_Dataproc extends Forminator_Google_Service
 {
   /** View and manage your data across Google Cloud Platform services. */
   const CLOUD_PLATFORM =
@@ -47,9 +47,9 @@ class Google_Service_Dataproc extends Google_Service
   /**
    * Constructs the internal representation of the Dataproc service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://dataproc.googleapis.com/';
@@ -57,7 +57,7 @@ class Google_Service_Dataproc extends Google_Service
     $this->version = 'v1';
     $this->serviceName = 'dataproc';
 
-    $this->media = new Google_Service_Dataproc_Media_Resource(
+    $this->media = new Forminator_Google_Service_Dataproc_Media_Resource(
         $this,
         $this->serviceName,
         'media',
@@ -95,11 +95,11 @@ class Google_Service_Dataproc extends Google_Service
  * The "media" collection of methods.
  * Typical usage is:
  *  <code>
- *   $dataprocService = new Google_Service_Dataproc(...);
+ *   $dataprocService = new Forminator_Google_Service_Dataproc(...);
  *   $media = $dataprocService->media;
  *  </code>
  */
-class Google_Service_Dataproc_Media_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Dataproc_Media_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -109,13 +109,13 @@ class Google_Service_Dataproc_Media_Resource extends Google_Service_Resource
    * @param string $resourceName Name of the media that is being downloaded. See
    * [][ByteStream.ReadRequest.resource_name].
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Dataproc_Media
+   * @return Forminator_Google_Service_Dataproc_Media
    */
   public function download($resourceName, $optParams = array())
   {
     $params = array('resourceName' => $resourceName);
     $params = array_merge($params, $optParams);
-    return $this->call('download', array($params), "Google_Service_Dataproc_Media");
+    return $this->call('download', array($params), "Forminator_Google_Service_Dataproc_Media");
   }
 
   /**
@@ -124,22 +124,22 @@ class Google_Service_Dataproc_Media_Resource extends Google_Service_Resource
    *
    * @param string $resourceName Name of the media that is being downloaded. See
    * [][ByteStream.ReadRequest.resource_name].
-   * @param Google_Media $postBody
+   * @param Forminator_Google_Media $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Dataproc_Media
+   * @return Forminator_Google_Service_Dataproc_Media
    */
-  public function upload($resourceName, Google_Service_Dataproc_Media $postBody, $optParams = array())
+  public function upload($resourceName, Forminator_Google_Service_Dataproc_Media $postBody, $optParams = array())
   {
     $params = array('resourceName' => $resourceName, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('upload', array($params), "Google_Service_Dataproc_Media");
+    return $this->call('upload', array($params), "Forminator_Google_Service_Dataproc_Media");
   }
 }
 
 
 
 
-class Google_Service_Dataproc_DiagnoseClusterOutputLocation extends Google_Model
+class Forminator_Google_Service_Dataproc_DiagnoseClusterOutputLocation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -156,7 +156,7 @@ class Google_Service_Dataproc_DiagnoseClusterOutputLocation extends Google_Model
   }
 }
 
-class Google_Service_Dataproc_Media extends Google_Model
+class Forminator_Google_Service_Dataproc_Media extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -173,7 +173,7 @@ class Google_Service_Dataproc_Media extends Google_Model
   }
 }
 
-class Google_Service_Dataproc_OperationMetadata extends Google_Collection
+class Forminator_Google_Service_Dataproc_OperationMetadata extends Forminator_Google_Collection
 {
   protected $collection_key = 'statusHistory';
   protected $internal_gapi_mappings = array(
@@ -186,9 +186,9 @@ class Google_Service_Dataproc_OperationMetadata extends Google_Collection
   public $insertTime;
   public $startTime;
   public $state;
-  protected $statusType = 'Google_Service_Dataproc_OperationStatus';
+  protected $statusType = 'Forminator_Google_Service_Dataproc_OperationStatus';
   protected $statusDataType = '';
-  protected $statusHistoryType = 'Google_Service_Dataproc_OperationStatus';
+  protected $statusHistoryType = 'Forminator_Google_Service_Dataproc_OperationStatus';
   protected $statusHistoryDataType = 'array';
 
 
@@ -256,7 +256,7 @@ class Google_Service_Dataproc_OperationMetadata extends Google_Collection
   {
     return $this->state;
   }
-  public function setStatus(Google_Service_Dataproc_OperationStatus $status)
+  public function setStatus(Forminator_Google_Service_Dataproc_OperationStatus $status)
   {
     $this->status = $status;
   }
@@ -274,7 +274,7 @@ class Google_Service_Dataproc_OperationMetadata extends Google_Collection
   }
 }
 
-class Google_Service_Dataproc_OperationStatus extends Google_Model
+class Forminator_Google_Service_Dataproc_OperationStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );

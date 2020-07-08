@@ -54,7 +54,7 @@ class Forminator_CForm_New_Page extends Forminator_Admin_Page {
 		);
 
 		// Load front scripts for preview_form
-		forminator_print_front_styles( FORMINATOR_VERSION );
+		forminator_print_forms_admin_styles( FORMINATOR_VERSION );
 		forminator_print_front_scripts( FORMINATOR_VERSION );
 
 		// for preview

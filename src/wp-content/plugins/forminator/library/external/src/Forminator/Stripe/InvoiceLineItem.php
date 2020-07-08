@@ -20,11 +20,13 @@ namespace Forminator\Stripe;
  * @property int $quantity
  * @property string $subscription
  * @property string $subscription_item
+ * @property array $tax_amounts
+ * @property array $tax_rates
  * @property string $type
  *
  * @package Stripe
  */
 class InvoiceLineItem extends ApiResource
 {
-    const OBJECT_NAME = "line_item";
+    const OBJECT_NAME = 'line_item';
 }

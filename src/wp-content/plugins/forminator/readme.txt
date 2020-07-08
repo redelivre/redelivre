@@ -1,13 +1,13 @@
 === Forminator Payment, Quiz and Contact Form Plugin ===
 Plugin Name: Forminator Payment, Quiz and Contact Form Plugin
-Version: 1.10.1
+Version: 1.12.1.1
 Author: WPMU DEV
 Author URI: https://premium.wpmudev.org/
 Contributors: WPMUDEV
 Tags: form, contact form, wordpress form plugin, quiz, email, paypal form wordpress, custom forms, form builder, online form, form maker, payment form
 Requires at least: 4.6
-Tested up to: 5.2
-Stable tag: 1.10.1
+Tested up to: 5.4.1
+Stable tag: 1.12.1.1
 Requires PHP: 5.2.4
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -35,6 +35,10 @@ Start taking payments with Forminator. No Pro upgrade required! SCA compliant St
 Learn how to start taking payments with Forminator in this video tutorial.
 
 [youtube https://www.youtube.com/watch?v=Yrq88IJa2VM&feature=youtu.be]
+
+### Stripe Verified Partner
+
+Forminator is also proud to be a Stripe Verified Partner. This partnerships allows us to help you get the most out of our Stripe integration thanks to additional resources, e.g. the ability to escalate support questions, or request custom pricing reviews.
 
 ### Calculations are a Lead Magnet
 
@@ -83,6 +87,10 @@ Who hasn't been roped into taking “IQ tests” and “figure out which Star Wa
 
 Forminator’s got you, whether you’re a classic editor or Gutenberg early adapter. Say goodbye to shortcodes and quickly add forms to posts with the Forminator block for Gutenberg.
 
+### Email Routing and Pre-Populate
+
+Make your site more efficient from visitor input to email response times. Use query strings to pre-fill your visitor information and deliver forms direct to specific teams with email routing, auto-response and conditions.
+
 ### User Front End Post Submittions
 Want to let your visitors share a post submission without needing access to the WordPress dashboard? With Forminator visitors can submit post ideas from the front end of your site so you can easily curate and publish their thoughts. Assign post to a default author, save to draft, publish immediately, etc.
 
@@ -93,6 +101,14 @@ You don’t want your inbox flooded with a bunch of form spam. Google ReCAPTCHA 
 ### Collect, Track and GDPR Ready
 
 Forminator stores and organizes submissions so you can sort, analyze and manage responses – of course, all while making it super easy to comply with the GDPR and other legal privacy policies.
+
+### Import Your Existing Contact Form 7 Data
+
+Looking to move existing forms over from CF7? Forminator’s Import Wizard allows you to migrate all, or selected forms in a matter of clicks. You can also transfer data from a range of Contact Form 7 add-ons and settings.
+
+### Custom Login and Registration Forms
+
+Create and embed custom login and registration forms for your sites (or multisites!). Take L&R forms to the next level: choose from a range of form fields, and customize settings, style, and behavior.
 
 ###What Do People Say About Forminator?
 
@@ -162,6 +178,104 @@ We've put together a simple guide to Forminator contact forms on our blog. https
 7. Publish polls with real-time stats and graphs.
 
 == Changelog ==
+
+= 1.12.1.1 =
+
+* Fix: Missing quiz styles on front-end
+
+= 1.12.1 =
+
+* Fix: Quiz submitting after answering first question
+* Fix: Compatibility issue with BigCommerce plugin
+* Fix: Name field breaks pagination
+
+= 1.12 =
+
+* Add: Registration & Login forms
+* Improvement: Load Quiz front-end stylesheets efficiently
+* Improvement: Load Quiz front-end JS efficiently
+* Improvement: Add height option for Textarea field
+* Improvement: User RGBA color picker for all pickers except text layer
+* Improvement: Improved front-end pagination logic
+* Improvement: Updated Stripe PHP lib
+* Improvement: Allow upload limit to be set in different units (Byte, KB and MB)
+* Improvement: Allow disabling IP Retention when 0 set as value
+* Improvement: Make subject and body required for the email notifications
+* Improvement: Add Unselect All for File Upload field
+* Improvement: Quiz Real Time responses show answer faster
+* Fix: Stripe payment not working when Stripe receipt field left empty
+* Fix: Date field not displayed correctly on front-end with Ultimate Addons for WPBakery Page Builder
+* Fix: Custom CSS not working for Polls
+* Fix: Various typos
+* Fix: Conflict between Stripe and Upload required fields
+* Fix: Stripe field not rendering when form Material theme used
+* Fix: Number field can be submitted only with zero field
+* Fix: update_form_setting API method doesn't update settings
+* Fix: Disconnected Hubspot integration is still displayed as connected
+* Fix: Sender Email name is missing when email sent
+* Fix: Empty file upload causes error message that files are exceeding max size
+* Fix: Shortcode generator SUIselect2 breaks Hustle selects
+* Fix: Server validations not working for Date field when type is text
+* Fix: Scheduled export email sent only on admin email
+* Fix: Conflict with Embed Plus for YouTube plugin
+* Fix: Replace 'php://output' with 'php://memory' in CSV export
+* Fix: Issues with Phone field validation
+* Fix: Popup for leaving page with changes shown even no changes done
+* Fix: Query Parameters prefill not working with AJAX form load
+* Fix: "Invalid Format" when using decimals on number fields
+* Fix: Refer URL is incorrect when slug contains percent-encoding
+* Fix: PHP warning displayed on Quiz front-end
+* Fix: Poll votes count cannot be hidden
+* Fix: Forminator form notification sender email overwriting the default one
+* Fix: Visual issues with Pagination on Twenty Twenty theme
+* Fix: Text content goes outside the preview modal
+* Fix: Quiz font does not match the theme font automatically
+
+= 1.11.4 =
+
+* Fix: GDPR field prints HTML as text
+
+= 1.11.3 =
+
+* Security Fix: Patch authenticated stored XSS
+
+= 1.11.2 =
+
+* Fix: Stripe field not rendering properly when Material design style is used on custom forms.
+
+= 1.11.1 =
+
+* Fix: PayPal throwing the 0 amount error when variable amount option is used.
+* Fix: Visitors able to change the form fields data while making the inline credit/debit card payment with the PayPal field.
+
+= 1.11.0 =
+
+* Add: Importing forms from Contact Form 7 & third party add-ons
+* Add: Hooks for Form, Poll and Quiz CRUD
+* Improvement: Load front-end stylesheets efficiently
+* Improvement: Load front-end JS efficiently
+* Improvement: Add validation for PayPal field amount
+* Improvement: Plugin reset doesn't delete Payment settings
+* Improvement: Stripe forms giving console warnings
+* Improvement: Nested calculatons with conditions
+* Fix: Conditionally hidden fields are still required
+* Fix: Cannot connect Google Sheets when Beehive is activated
+* Fix: Email notification "from email" setting not applied
+* Fix: Conditions with HIDE method not working as expected
+* Fix: Wrong custom CSS selectors for Polls
+* Fix: Redirect to same tab behaviour
+* Fix: Missing country Georgia
+* Fix: Quiz and Poll custom CSS doesn't apply on front-end
+* Fix: Phone field with National validation type fails to validate
+* Fix: HTML stripped from quizzes Final Count message
+* Fix: Editing calculation sometimes breaks the wizard
+* Fix: Type attribute missing for Text field input
+* Fix: Forms doesn't work in Elementor popup
+* Fix: Select field inline validation fails
+
+= 1.10.2 =
+
+* Fix: WordPress 5.3 compatibility issues
 
 = 1.10.1 =
 

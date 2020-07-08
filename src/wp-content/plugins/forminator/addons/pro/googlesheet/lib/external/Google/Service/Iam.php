@@ -28,7 +28,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Iam extends Google_Service
+class Forminator_Google_Service_Iam extends Forminator_Google_Service
 {
   /** View and manage your data across Google Cloud Platform services. */
   const CLOUD_PLATFORM =
@@ -41,9 +41,9 @@ class Google_Service_Iam extends Google_Service
   /**
    * Constructs the internal representation of the Iam service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://iam.googleapis.com/';
@@ -51,7 +51,7 @@ class Google_Service_Iam extends Google_Service
     $this->version = 'v1';
     $this->serviceName = 'iam';
 
-    $this->projects_serviceAccounts = new Google_Service_Iam_ProjectsServiceAccounts_Resource(
+    $this->projects_serviceAccounts = new Forminator_Google_Service_Iam_ProjectsServiceAccounts_Resource(
         $this,
         $this->serviceName,
         'serviceAccounts',
@@ -159,7 +159,7 @@ class Google_Service_Iam extends Google_Service
           )
         )
     );
-    $this->projects_serviceAccounts_keys = new Google_Service_Iam_ProjectsServiceAccountsKeys_Resource(
+    $this->projects_serviceAccounts_keys = new Forminator_Google_Service_Iam_ProjectsServiceAccountsKeys_Resource(
         $this,
         $this->serviceName,
         'keys',
@@ -222,11 +222,11 @@ class Google_Service_Iam extends Google_Service
  * The "projects" collection of methods.
  * Typical usage is:
  *  <code>
- *   $iamService = new Google_Service_Iam(...);
+ *   $iamService = new Forminator_Google_Service_Iam(...);
  *   $projects = $iamService->projects;
  *  </code>
  */
-class Google_Service_Iam_Projects_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Iam_Projects_Resource extends Forminator_Google_Service_Resource
 {
 }
 
@@ -234,11 +234,11 @@ class Google_Service_Iam_Projects_Resource extends Google_Service_Resource
  * The "serviceAccounts" collection of methods.
  * Typical usage is:
  *  <code>
- *   $iamService = new Google_Service_Iam(...);
+ *   $iamService = new Forminator_Google_Service_Iam(...);
  *   $serviceAccounts = $iamService->serviceAccounts;
  *  </code>
  */
-class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Iam_ProjectsServiceAccounts_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -246,15 +246,15 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    *
    * @param string $name Required. The resource name of the project associated
    * with the service accounts, such as "projects/123"
-   * @param Google_CreateServiceAccountRequest $postBody
+   * @param Forminator_Google_CreateServiceAccountRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_ServiceAccount
+   * @return Forminator_Google_Service_Iam_ServiceAccount
    */
-  public function create($name, Google_Service_Iam_CreateServiceAccountRequest $postBody, $optParams = array())
+  public function create($name, Forminator_Google_Service_Iam_CreateServiceAccountRequest $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Iam_ServiceAccount");
+    return $this->call('create', array($params), "Forminator_Google_Service_Iam_ServiceAccount");
   }
 
   /**
@@ -265,13 +265,13 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * the project, will infer the project from the account. The account value can
    * be the email address or the unique_id of the service account.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_Empty
+   * @return Forminator_Google_Service_Iam_Empty
    */
   public function delete($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Iam_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Iam_Empty");
   }
 
   /**
@@ -282,13 +282,13 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * the project, will infer the project from the account. The account value can
    * be the email address or the unique_id of the service account.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_ServiceAccount
+   * @return Forminator_Google_Service_Iam_ServiceAccount
    */
   public function get($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Iam_ServiceAccount");
+    return $this->call('get', array($params), "Forminator_Google_Service_Iam_ServiceAccount");
   }
 
   /**
@@ -301,13 +301,13 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * this value is resource specific and is specified in the `getIamPolicy`
    * documentation.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_Policy
+   * @return Forminator_Google_Service_Iam_Policy
    */
   public function getIamPolicy($resource, $optParams = array())
   {
     $params = array('resource' => $resource);
     $params = array_merge($params, $optParams);
-    return $this->call('getIamPolicy', array($params), "Google_Service_Iam_Policy");
+    return $this->call('getIamPolicy', array($params), "Forminator_Google_Service_Iam_Policy");
   }
 
   /**
@@ -324,13 +324,13 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * request.
    * @opt_param string pageToken Optional pagination token returned in an earlier
    * [ListServiceAccountsResponse.next_page_token].
-   * @return Google_Service_Iam_ListServiceAccountsResponse
+   * @return Forminator_Google_Service_Iam_ListServiceAccountsResponse
    */
   public function listProjectsServiceAccounts($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Iam_ListServiceAccountsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Iam_ListServiceAccountsResponse");
   }
 
   /**
@@ -342,15 +342,15 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * `projectsprojectzoneszonedisksdisk*`. The format for the path specified in
    * this value is resource specific and is specified in the `setIamPolicy`
    * documentation.
-   * @param Google_SetIamPolicyRequest $postBody
+   * @param Forminator_Google_SetIamPolicyRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_Policy
+   * @return Forminator_Google_Service_Iam_Policy
    */
-  public function setIamPolicy($resource, Google_Service_Iam_SetIamPolicyRequest $postBody, $optParams = array())
+  public function setIamPolicy($resource, Forminator_Google_Service_Iam_SetIamPolicyRequest $postBody, $optParams = array())
   {
     $params = array('resource' => $resource, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('setIamPolicy', array($params), "Google_Service_Iam_Policy");
+    return $this->call('setIamPolicy', array($params), "Forminator_Google_Service_Iam_Policy");
   }
 
   /**
@@ -360,15 +360,15 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * "projects/{project}/serviceAccounts/{account}". Using '-' as a wildcard for
    * the project, will infer the project from the account. The account value can
    * be the email address or the unique_id of the service account.
-   * @param Google_SignBlobRequest $postBody
+   * @param Forminator_Google_SignBlobRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_SignBlobResponse
+   * @return Forminator_Google_Service_Iam_SignBlobResponse
    */
-  public function signBlob($name, Google_Service_Iam_SignBlobRequest $postBody, $optParams = array())
+  public function signBlob($name, Forminator_Google_Service_Iam_SignBlobRequest $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('signBlob', array($params), "Google_Service_Iam_SignBlobResponse");
+    return $this->call('signBlob', array($params), "Forminator_Google_Service_Iam_SignBlobResponse");
   }
 
   /**
@@ -380,15 +380,15 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * `projectsprojectzoneszonedisksdisk*`. The format for the path specified in
    * this value is resource specific and is specified in the `testIamPermissions`
    * documentation.
-   * @param Google_TestIamPermissionsRequest $postBody
+   * @param Forminator_Google_TestIamPermissionsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_TestIamPermissionsResponse
+   * @return Forminator_Google_Service_Iam_TestIamPermissionsResponse
    */
-  public function testIamPermissions($resource, Google_Service_Iam_TestIamPermissionsRequest $postBody, $optParams = array())
+  public function testIamPermissions($resource, Forminator_Google_Service_Iam_TestIamPermissionsRequest $postBody, $optParams = array())
   {
     $params = array('resource' => $resource, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('testIamPermissions', array($params), "Google_Service_Iam_TestIamPermissionsResponse");
+    return $this->call('testIamPermissions', array($params), "Forminator_Google_Service_Iam_TestIamPermissionsResponse");
   }
 
   /**
@@ -401,15 +401,15 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
    * account value can be the email address or the unique_id of the service
    * account. In responses the resource name will always be in the format
    * "projects/{project}/serviceAccounts/{email}".
-   * @param Google_ServiceAccount $postBody
+   * @param Forminator_Google_ServiceAccount $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_ServiceAccount
+   * @return Forminator_Google_Service_Iam_ServiceAccount
    */
-  public function update($name, Google_Service_Iam_ServiceAccount $postBody, $optParams = array())
+  public function update($name, Forminator_Google_Service_Iam_ServiceAccount $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Iam_ServiceAccount");
+    return $this->call('update', array($params), "Forminator_Google_Service_Iam_ServiceAccount");
   }
 }
 
@@ -417,11 +417,11 @@ class Google_Service_Iam_ProjectsServiceAccounts_Resource extends Google_Service
  * The "keys" collection of methods.
  * Typical usage is:
  *  <code>
- *   $iamService = new Google_Service_Iam(...);
+ *   $iamService = new Forminator_Google_Service_Iam(...);
  *   $keys = $iamService->keys;
  *  </code>
  */
-class Google_Service_Iam_ProjectsServiceAccountsKeys_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Iam_ProjectsServiceAccountsKeys_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -431,15 +431,15 @@ class Google_Service_Iam_ProjectsServiceAccountsKeys_Resource extends Google_Ser
    * "projects/{project}/serviceAccounts/{account}". Using '-' as a wildcard for
    * the project, will infer the project from the account. The account value can
    * be the email address or the unique_id of the service account.
-   * @param Google_CreateServiceAccountKeyRequest $postBody
+   * @param Forminator_Google_CreateServiceAccountKeyRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_ServiceAccountKey
+   * @return Forminator_Google_Service_Iam_ServiceAccountKey
    */
-  public function create($name, Google_Service_Iam_CreateServiceAccountKeyRequest $postBody, $optParams = array())
+  public function create($name, Forminator_Google_Service_Iam_CreateServiceAccountKeyRequest $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Iam_ServiceAccountKey");
+    return $this->call('create', array($params), "Forminator_Google_Service_Iam_ServiceAccountKey");
   }
 
   /**
@@ -451,13 +451,13 @@ class Google_Service_Iam_ProjectsServiceAccountsKeys_Resource extends Google_Ser
    * account value can be the email address or the unique_id of the service
    * account.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_Empty
+   * @return Forminator_Google_Service_Iam_Empty
    */
   public function delete($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Iam_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Iam_Empty");
   }
 
   /**
@@ -469,13 +469,13 @@ class Google_Service_Iam_ProjectsServiceAccountsKeys_Resource extends Google_Ser
    * account value can be the email address or the unique_id of the service
    * account.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Iam_ServiceAccountKey
+   * @return Forminator_Google_Service_Iam_ServiceAccountKey
    */
   public function get($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Iam_ServiceAccountKey");
+    return $this->call('get', array($params), "Forminator_Google_Service_Iam_ServiceAccountKey");
   }
 
   /**
@@ -490,20 +490,20 @@ class Google_Service_Iam_ProjectsServiceAccountsKeys_Resource extends Google_Ser
    * @opt_param string keyTypes The type of keys the user wants to list. If empty,
    * all key types are included in the response. Duplicate key types are not
    * allowed.
-   * @return Google_Service_Iam_ListServiceAccountKeysResponse
+   * @return Forminator_Google_Service_Iam_ListServiceAccountKeysResponse
    */
   public function listProjectsServiceAccountsKeys($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Iam_ListServiceAccountKeysResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Iam_ListServiceAccountKeysResponse");
   }
 }
 
 
 
 
-class Google_Service_Iam_Binding extends Google_Collection
+class Forminator_Google_Service_Iam_Binding extends Forminator_Google_Collection
 {
   protected $collection_key = 'members';
   protected $internal_gapi_mappings = array(
@@ -530,11 +530,11 @@ class Google_Service_Iam_Binding extends Google_Collection
   }
 }
 
-class Google_Service_Iam_CloudAuditOptions extends Google_Model
+class Forminator_Google_Service_Iam_CloudAuditOptions extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Iam_Condition extends Google_Collection
+class Forminator_Google_Service_Iam_Condition extends Forminator_Google_Collection
 {
   protected $collection_key = 'values';
   protected $internal_gapi_mappings = array(
@@ -597,7 +597,7 @@ class Google_Service_Iam_Condition extends Google_Collection
   }
 }
 
-class Google_Service_Iam_CounterOptions extends Google_Model
+class Forminator_Google_Service_Iam_CounterOptions extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -623,7 +623,7 @@ class Google_Service_Iam_CounterOptions extends Google_Model
   }
 }
 
-class Google_Service_Iam_CreateServiceAccountKeyRequest extends Google_Model
+class Forminator_Google_Service_Iam_CreateServiceAccountKeyRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -640,12 +640,12 @@ class Google_Service_Iam_CreateServiceAccountKeyRequest extends Google_Model
   }
 }
 
-class Google_Service_Iam_CreateServiceAccountRequest extends Google_Model
+class Forminator_Google_Service_Iam_CreateServiceAccountRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $accountId;
-  protected $serviceAccountType = 'Google_Service_Iam_ServiceAccount';
+  protected $serviceAccountType = 'Forminator_Google_Service_Iam_ServiceAccount';
   protected $serviceAccountDataType = '';
 
 
@@ -657,7 +657,7 @@ class Google_Service_Iam_CreateServiceAccountRequest extends Google_Model
   {
     return $this->accountId;
   }
-  public function setServiceAccount(Google_Service_Iam_ServiceAccount $serviceAccount)
+  public function setServiceAccount(Forminator_Google_Service_Iam_ServiceAccount $serviceAccount)
   {
     $this->serviceAccount = $serviceAccount;
   }
@@ -667,20 +667,20 @@ class Google_Service_Iam_CreateServiceAccountRequest extends Google_Model
   }
 }
 
-class Google_Service_Iam_DataAccessOptions extends Google_Model
+class Forminator_Google_Service_Iam_DataAccessOptions extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Iam_Empty extends Google_Model
+class Forminator_Google_Service_Iam_Empty extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Iam_ListServiceAccountKeysResponse extends Google_Collection
+class Forminator_Google_Service_Iam_ListServiceAccountKeysResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'keys';
   protected $internal_gapi_mappings = array(
   );
-  protected $keysType = 'Google_Service_Iam_ServiceAccountKey';
+  protected $keysType = 'Forminator_Google_Service_Iam_ServiceAccountKey';
   protected $keysDataType = 'array';
 
 
@@ -694,12 +694,12 @@ class Google_Service_Iam_ListServiceAccountKeysResponse extends Google_Collectio
   }
 }
 
-class Google_Service_Iam_ListServiceAccountsResponse extends Google_Collection
+class Forminator_Google_Service_Iam_ListServiceAccountsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'accounts';
   protected $internal_gapi_mappings = array(
   );
-  protected $accountsType = 'Google_Service_Iam_ServiceAccount';
+  protected $accountsType = 'Forminator_Google_Service_Iam_ServiceAccount';
   protected $accountsDataType = 'array';
   public $nextPageToken;
 
@@ -722,19 +722,19 @@ class Google_Service_Iam_ListServiceAccountsResponse extends Google_Collection
   }
 }
 
-class Google_Service_Iam_LogConfig extends Google_Model
+class Forminator_Google_Service_Iam_LogConfig extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $cloudAuditType = 'Google_Service_Iam_CloudAuditOptions';
+  protected $cloudAuditType = 'Forminator_Google_Service_Iam_CloudAuditOptions';
   protected $cloudAuditDataType = '';
-  protected $counterType = 'Google_Service_Iam_CounterOptions';
+  protected $counterType = 'Forminator_Google_Service_Iam_CounterOptions';
   protected $counterDataType = '';
-  protected $dataAccessType = 'Google_Service_Iam_DataAccessOptions';
+  protected $dataAccessType = 'Forminator_Google_Service_Iam_DataAccessOptions';
   protected $dataAccessDataType = '';
 
 
-  public function setCloudAudit(Google_Service_Iam_CloudAuditOptions $cloudAudit)
+  public function setCloudAudit(Forminator_Google_Service_Iam_CloudAuditOptions $cloudAudit)
   {
     $this->cloudAudit = $cloudAudit;
   }
@@ -742,7 +742,7 @@ class Google_Service_Iam_LogConfig extends Google_Model
   {
     return $this->cloudAudit;
   }
-  public function setCounter(Google_Service_Iam_CounterOptions $counter)
+  public function setCounter(Forminator_Google_Service_Iam_CounterOptions $counter)
   {
     $this->counter = $counter;
   }
@@ -750,7 +750,7 @@ class Google_Service_Iam_LogConfig extends Google_Model
   {
     return $this->counter;
   }
-  public function setDataAccess(Google_Service_Iam_DataAccessOptions $dataAccess)
+  public function setDataAccess(Forminator_Google_Service_Iam_DataAccessOptions $dataAccess)
   {
     $this->dataAccess = $dataAccess;
   }
@@ -760,15 +760,15 @@ class Google_Service_Iam_LogConfig extends Google_Model
   }
 }
 
-class Google_Service_Iam_Policy extends Google_Collection
+class Forminator_Google_Service_Iam_Policy extends Forminator_Google_Collection
 {
   protected $collection_key = 'rules';
   protected $internal_gapi_mappings = array(
   );
-  protected $bindingsType = 'Google_Service_Iam_Binding';
+  protected $bindingsType = 'Forminator_Google_Service_Iam_Binding';
   protected $bindingsDataType = 'array';
   public $etag;
-  protected $rulesType = 'Google_Service_Iam_Rule';
+  protected $rulesType = 'Forminator_Google_Service_Iam_Rule';
   protected $rulesDataType = 'array';
   public $version;
 
@@ -807,17 +807,17 @@ class Google_Service_Iam_Policy extends Google_Collection
   }
 }
 
-class Google_Service_Iam_Rule extends Google_Collection
+class Forminator_Google_Service_Iam_Rule extends Forminator_Google_Collection
 {
   protected $collection_key = 'permissions';
   protected $internal_gapi_mappings = array(
   );
   public $action;
-  protected $conditionsType = 'Google_Service_Iam_Condition';
+  protected $conditionsType = 'Forminator_Google_Service_Iam_Condition';
   protected $conditionsDataType = 'array';
   public $description;
   public $in;
-  protected $logConfigType = 'Google_Service_Iam_LogConfig';
+  protected $logConfigType = 'Forminator_Google_Service_Iam_LogConfig';
   protected $logConfigDataType = 'array';
   public $notIn;
   public $permissions;
@@ -881,7 +881,7 @@ class Google_Service_Iam_Rule extends Google_Collection
   }
 }
 
-class Google_Service_Iam_ServiceAccount extends Google_Model
+class Forminator_Google_Service_Iam_ServiceAccount extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -952,7 +952,7 @@ class Google_Service_Iam_ServiceAccount extends Google_Model
   }
 }
 
-class Google_Service_Iam_ServiceAccountKey extends Google_Model
+class Forminator_Google_Service_Iam_ServiceAccountKey extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1005,15 +1005,15 @@ class Google_Service_Iam_ServiceAccountKey extends Google_Model
   }
 }
 
-class Google_Service_Iam_SetIamPolicyRequest extends Google_Model
+class Forminator_Google_Service_Iam_SetIamPolicyRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $policyType = 'Google_Service_Iam_Policy';
+  protected $policyType = 'Forminator_Google_Service_Iam_Policy';
   protected $policyDataType = '';
 
 
-  public function setPolicy(Google_Service_Iam_Policy $policy)
+  public function setPolicy(Forminator_Google_Service_Iam_Policy $policy)
   {
     $this->policy = $policy;
   }
@@ -1023,7 +1023,7 @@ class Google_Service_Iam_SetIamPolicyRequest extends Google_Model
   }
 }
 
-class Google_Service_Iam_SignBlobRequest extends Google_Model
+class Forminator_Google_Service_Iam_SignBlobRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1040,7 +1040,7 @@ class Google_Service_Iam_SignBlobRequest extends Google_Model
   }
 }
 
-class Google_Service_Iam_SignBlobResponse extends Google_Model
+class Forminator_Google_Service_Iam_SignBlobResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1066,7 +1066,7 @@ class Google_Service_Iam_SignBlobResponse extends Google_Model
   }
 }
 
-class Google_Service_Iam_TestIamPermissionsRequest extends Google_Collection
+class Forminator_Google_Service_Iam_TestIamPermissionsRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'permissions';
   protected $internal_gapi_mappings = array(
@@ -1084,7 +1084,7 @@ class Google_Service_Iam_TestIamPermissionsRequest extends Google_Collection
   }
 }
 
-class Google_Service_Iam_TestIamPermissionsResponse extends Google_Collection
+class Forminator_Google_Service_Iam_TestIamPermissionsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'permissions';
   protected $internal_gapi_mappings = array(

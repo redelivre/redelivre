@@ -83,7 +83,7 @@ foreach ( $template_vars as $key => $val ) {
 	<div class="sui-form-field<?php echo esc_attr( ! empty( $vars['consent_to_track_error'] ) ? ' sui-form-field-error' : '' ); ?>">
 
 		<label class="sui-label" for="consent_to_track"><?php esc_html_e( 'Consent to Track', Forminator::DOMAIN ); ?></label>
-		
+
 		<select name="consent_to_track" id="consent_to_track" class="sui-select sui-form-control">
 			<option value="Unchanged" <?php selected( 'Unchanged', $vars['consent_to_track'] ); ?>>Unchanged</option>
 			<option value="Yes" <?php selected( 'Yes', $vars['consent_to_track'] ); ?>>Yes</option>

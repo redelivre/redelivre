@@ -7,8 +7,8 @@ namespace Forminator\Stripe;
  *
  * @property string $id
  * @property string $object
- * @property mixed $business_profile
- * @property string $business_type
+ * @property mixed|null $business_profile
+ * @property string|null $business_type
  * @property mixed $capabilities
  * @property bool $charges_enabled
  * @property mixed $company
@@ -16,13 +16,13 @@ namespace Forminator\Stripe;
  * @property int $created
  * @property string $default_currency
  * @property bool $details_submitted
- * @property string $email
- * @property Collection $external_accounts
+ * @property string|null $email
+ * @property \Forminator\Stripe\Collection $external_accounts
  * @property mixed $individual
- * @property StripeObject $metadata
+ * @property \Forminator\Stripe\StripeObject $metadata
  * @property bool $payouts_enabled
  * @property mixed $requirements
- * @property mixed $settings
+ * @property mixed|null $settings
  * @property mixed $tos_acceptance
  * @property string $type
  *
@@ -30,8 +30,7 @@ namespace Forminator\Stripe;
  */
 class Account extends ApiResource
 {
-
-    const OBJECT_NAME = "account";
+    const OBJECT_NAME = 'account';
 
     use ApiOperations\All;
     use ApiOperations\Create;
@@ -56,6 +55,7 @@ class Account extends ApiResource
     const CAPABILITY_CARD_PAYMENTS     = 'card_payments';
     const CAPABILITY_LEGACY_PAYMENTS   = 'legacy_payments';
     const CAPABILITY_PLATFORM_PAYMENTS = 'platform_payments';
+    const CAPABILITY_TRANSFERS         = 'transfers';
 
     /**
      * Possible string representations of an account's capability status.
@@ -85,6 +85,7 @@ class Account extends ApiResource
         return $savedNestedResources;
     }
 
+    const PATH_CAPABILITIES = '/capabilities';
     const PATH_EXTERNAL_ACCOUNTS = '/external_accounts';
     const PATH_LOGIN_LINKS = '/login_links';
     const PATH_PERSONS = '/persons';
@@ -103,6 +104,8 @@ class Account extends ApiResource
      *     options array containing an `id` key.
      * @param array|string|null $opts
      *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
      * @return Account
      */
     public static function retrieve($id = null, $opts = null)
@@ -118,6 +121,8 @@ class Account extends ApiResource
      * @param array|null $params
      * @param array|string|null $opts
      *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
      * @return Account The rejected account.
      */
     public function reject($params = null, $opts = null)
@@ -129,23 +134,10 @@ class Account extends ApiResource
     }
 
     /**
-     * @param array|null $params
-     * @param array|string|null $options
-     *
-     * @return Collection The list of persons.
-     */
-    public function persons($params = null, $options = null)
-    {
-        $url = $this->instanceUrl() . '/persons';
-        list($response, $opts) = $this->_request('get', $url, $params, $options);
-        $obj = Util\Util::convertToStripeObject($response, $opts);
-        $obj->setLastResponse($response);
-        return $obj;
-    }
-
-    /**
      * @param array|null $clientId
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return StripeObject Object containing the response from the API.
      */
@@ -158,10 +150,63 @@ class Account extends ApiResource
         return OAuth::deauthorize($params, $opts);
     }
 
+    /*
+     * Capabilities methods
+     * We can not add the capabilities() method today as the Account object already has a
+     * capabilities property which is a hash and not the sub-list of capabilities.
+     */
+
+
     /**
-     * @param string|null $id The ID of the account on which to create the external account.
+     * @param string $id The ID of the account to which the capability belongs.
+     * @param string $capabilityId The ID of the capability to retrieve.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return Capability
+     */
+    public static function retrieveCapability($id, $capabilityId, $params = null, $opts = null)
+    {
+        return self::_retrieveNestedResource($id, static::PATH_CAPABILITIES, $capabilityId, $params, $opts);
+    }
+
+    /**
+     * @param string $id The ID of the account to which the capability belongs.
+     * @param string $capabilityId The ID of the capability to update.
+     * @param array|null $params
+     * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return Capability
+     */
+    public static function updateCapability($id, $capabilityId, $params = null, $opts = null)
+    {
+        return self::_updateNestedResource($id, static::PATH_CAPABILITIES, $capabilityId, $params, $opts);
+    }
+
+    /**
+     * @param string $id The ID of the account on which to retrieve the capabilities.
+     * @param array|null $params
+     * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return Collection The list of capabilities.
+     */
+    public static function allCapabilities($id, $params = null, $opts = null)
+    {
+        return self::_allNestedResources($id, static::PATH_CAPABILITIES, $params, $opts);
+    }
+
+    /**
+     * @param string $id The ID of the account on which to create the external account.
+     * @param array|null $params
+     * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return BankAccount|Card
      */
@@ -171,10 +216,12 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account to which the external account belongs.
-     * @param array|null $externalAccountId The ID of the external account to retrieve.
+     * @param string $id The ID of the account to which the external account belongs.
+     * @param string $externalAccountId The ID of the external account to retrieve.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return BankAccount|Card
      */
@@ -184,10 +231,12 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account to which the external account belongs.
-     * @param array|null $externalAccountId The ID of the external account to update.
+     * @param string $id The ID of the account to which the external account belongs.
+     * @param string $externalAccountId The ID of the external account to update.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return BankAccount|Card
      */
@@ -197,10 +246,12 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account to which the external account belongs.
-     * @param array|null $externalAccountId The ID of the external account to delete.
+     * @param string $id The ID of the account to which the external account belongs.
+     * @param string $externalAccountId The ID of the external account to delete.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return BankAccount|Card
      */
@@ -210,9 +261,11 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account on which to retrieve the external accounts.
+     * @param string $id The ID of the account on which to retrieve the external accounts.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Collection The list of external accounts (BankAccount or Card).
      */
@@ -222,9 +275,11 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account on which to create the login link.
+     * @param string $id The ID of the account on which to create the login link.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return LoginLink
      */
@@ -234,9 +289,28 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account on which to create the person.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return Collection The list of persons.
+     */
+    public function persons($params = null, $opts = null)
+    {
+        $url = $this->instanceUrl() . '/persons';
+        list($response, $opts) = $this->_request('get', $url, $params, $opts);
+        $obj = Util\Util::convertToStripeObject($response, $opts);
+        $obj->setLastResponse($response);
+        return $obj;
+    }
+
+    /**
+     * @param string $id The ID of the account on which to create the person.
+     * @param array|null $params
+     * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Person
      */
@@ -246,10 +320,12 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account to which the person belongs.
-     * @param array|null $personId The ID of the person to retrieve.
+     * @param string $id The ID of the account to which the person belongs.
+     * @param string $personId The ID of the person to retrieve.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Person
      */
@@ -259,10 +335,12 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account to which the person belongs.
-     * @param array|null $personId The ID of the person to update.
+     * @param string $id The ID of the account to which the person belongs.
+     * @param string $personId The ID of the person to update.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Person
      */
@@ -272,10 +350,12 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account to which the person belongs.
-     * @param array|null $personId The ID of the person to delete.
+     * @param string $id The ID of the account to which the person belongs.
+     * @param string $personId The ID of the person to delete.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Person
      */
@@ -285,9 +365,11 @@ class Account extends ApiResource
     }
 
     /**
-     * @param string|null $id The ID of the account on which to retrieve the persons.
+     * @param string $id The ID of the account on which to retrieve the persons.
      * @param array|null $params
      * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Collection The list of persons.
      */
@@ -325,7 +407,7 @@ class Account extends ApiResource
             $originalValue = [];
         }
         if (($originalValue) && (count($originalValue) > count($additionalOwners))) {
-            throw new \InvalidArgumentException(
+            throw new Exception\InvalidArgumentException(
                 "You cannot delete an item from an array, you must instead set a new array"
             );
         }

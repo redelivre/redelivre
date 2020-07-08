@@ -125,28 +125,32 @@ class Forminator_Textarea extends Forminator_Field {
 		$ariaid      = $id;
 		$id          = 'forminator-field-' . $id;
 		$required    = self::get_property( 'required', $field, false, 'bool' );
-		$default     = self::get_property( 'default', $field, false );
+		$default     = esc_html( self::get_property( 'default', $field, false ) );
 		$placeholder = $this->sanitize_value( self::get_property( 'placeholder', $field ) );
 		$design      = $this->get_form_style( $settings );
-		$label       = self::get_property( 'field_label', $field, '' );
-		$description = self::get_property( 'description', $field, '' );
+		$label       = esc_html( self::get_property( 'field_label', $field, '' ) );
+		$description = esc_html( self::get_property( 'description', $field, '' ) );
 		$limit       = self::get_property( 'limit', $field, 0, 'num' );
 		$limit_type  = self::get_property( 'limit_type', $field, '', 'str' );
 		$editor_type  = self::get_property( 'editor-type', $field, false, 'bool' );
+		$default_height  = self::get_property( 'default-height', $field, false, 140 );
+
 		$autofill_markup = $this->get_element_autofill_markup_attr( self::get_property( 'element_id', $field ), $this->form_settings );
 
 		$textarea = array(
-			'name'            => $name,
-			'placeholder'     => $placeholder,
-			'id'              => $id,
-			'class'           => 'forminator-textarea',
+			'name'        => $name,
+			'placeholder' => $placeholder,
+			'id'          => $id,
+			'class'       => 'forminator-textarea',
+			'height'      => 50,
+			'style'       => 'min-height:' . $default_height . 'px;'
 		);
 
-        // Check if Pre-fill parameter used
-        if( $this->has_prefill( $field ) ) {
-            // We have pre-fill parameter, use its value or $value
-            $default = $this->get_prefill( $field, $default );
-        }
+		// Check if Pre-fill parameter used
+		if ( $this->has_prefill( $field ) ) {
+			// We have pre-fill parameter, use its value or $value
+			$default = $this->get_prefill( $field, $default );
+		}
 
 		if ( ! empty( $default ) ) {
 			$textarea['content'] = $default;
@@ -158,9 +162,9 @@ class Forminator_Textarea extends Forminator_Field {
 		$textarea = array_merge( $textarea, $autofill_markup );
 
 		$html .= '<div class="forminator-field">';
-		if( true === $editor_type ) {
+		if ( true === $editor_type ) {
 			$html .= self::create_wp_editor( $textarea, $label, '', $required );
-		}else{
+		} else {
 			$html .= self::create_textarea( $textarea, $label, '', $required, $design );
 		}
 		// Counter
@@ -242,7 +246,7 @@ class Forminator_Textarea extends Forminator_Field {
 					$id,
 					$field
 				);
-				$messages       .= '"required": "' . forminator_addcslashes( $required_error ) . '",' . "\n";
+				$messages      .= '"required": "' . forminator_addcslashes( $required_error ) . '",' . "\n";
 			}
 
 			if ( $has_limit ) {
@@ -253,7 +257,7 @@ class Forminator_Textarea extends Forminator_Field {
 						$id,
 						$field
 					);
-					$messages         .= '"maxlength": "' . forminator_addcslashes( $max_length_error ) . '",' . "\n";
+					$messages        .= '"maxlength": "' . forminator_addcslashes( $max_length_error ) . '",' . "\n";
 				} else {
 					$max_words_error = apply_filters(
 						'forminator_text_field_words_validation_message',
@@ -261,7 +265,7 @@ class Forminator_Textarea extends Forminator_Field {
 						$id,
 						$field
 					);
-					$messages        .= '"maxwords": "' . forminator_addcslashes( $max_words_error ) . '",' . "\n";
+					$messages       .= '"maxwords": "' . forminator_addcslashes( $max_words_error ) . '",' . "\n";
 				}
 			}
 
@@ -298,7 +302,7 @@ class Forminator_Textarea extends Forminator_Field {
 			}
 		}
 		if ( $this->has_limit( $field ) ) {
-			if ( ( isset( $field['limit_type'] ) && 'characters' === trim( $field['limit_type'] ) ) && ( mb_strlen( strip_tags( $data ) ) > $field['limit'] ) ) {
+			if ( ( isset( $field['limit_type'] ) && 'characters' === trim( $field['limit_type'] ) ) && ( mb_strlen( strip_tags( $data ) ) > $field['limit'] ) ) { // phpcs:ignore
 				$this->validation_message[ $id ] = apply_filters(
 					'forminator_text_field_characters_validation_message',
 					__( 'You exceeded the allowed amount of characters. Please check again', Forminator::DOMAIN ),
@@ -306,7 +310,7 @@ class Forminator_Textarea extends Forminator_Field {
 					$field
 				);
 			} elseif ( ( isset( $field['limit_type'] ) && 'words' === trim( $field['limit_type'] ) ) ) {
-				$words = preg_split( "/[\s]+/", $data );
+				$words = preg_split( '/[\s]+/', $data );
 				if ( is_array( $words ) && count( $words ) > $field['limit'] ) {
 					$this->validation_message[ $id ] = apply_filters(
 						'forminator_text_field_words_validation_message',
@@ -315,7 +319,6 @@ class Forminator_Textarea extends Forminator_Field {
 						$field
 					);
 				}
-
 			}
 		}
 	}

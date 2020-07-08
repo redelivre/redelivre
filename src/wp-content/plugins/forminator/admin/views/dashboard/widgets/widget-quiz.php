@@ -24,7 +24,7 @@ if ( 0 === $num_recent ) {
 
 		<div class="sui-box-header">
 
-			<h3 class="sui-box-title"><i class="sui-icon-academy" aria-hidden="true"></i><?php esc_html_e( "Quizzes", Forminator::DOMAIN ); ?></h3>
+			<h3 class="sui-box-title"><i class="sui-icon-academy" aria-hidden="true"></i><?php esc_html_e( 'Quizzes', Forminator::DOMAIN ); ?></h3>
 
 		</div>
 
@@ -64,17 +64,19 @@ if ( 0 === $num_recent ) {
 
 						<tr>
 
-							<td class="sui-table-item-title"><?php echo $module['name']; // WPCS: XSS ok. ?></td>
+							<td class="sui-table-item-title"><?php echo esc_html( $module['name'] ); ?></td>
 
 							<td class="fui-col-status">
 
-								<?php if ( 'publish' === $module['status'] ) {
+								<?php
+								if ( 'publish' === $module['status'] ) {
 									$status_class = 'published';
 									$status_text  = esc_html__( 'Published', Forminator::DOMAIN );
 								} else {
 									$status_class = 'draft';
 									$status_text  = esc_html__( 'Draft', Forminator::DOMAIN );
-								} ?>
+								}
+								?>
 
 								<span
 										class="sui-status-dot sui-<?php echo esc_html( $status_class ); ?> sui-tooltip"
@@ -83,7 +85,7 @@ if ( 0 === $num_recent ) {
 									<span aria-hidden="true"></span>
 								</span>
 
-								<a href="<?php echo admin_url( 'admin.php?page=forminator-quiz&view-stats=' . esc_attr( $module['id'] ) ); // WPCS: XSS ok. ?>"
+								<a href="<?php echo admin_url( 'admin.php?page=forminator-quiz&view-stats=' . esc_attr( $module['id'] ) ); // phpcs:ignore ?>"
 									class="sui-button-icon sui-tooltip"
 									data-tooltip="<?php esc_html_e( 'View Status', Forminator::DOMAIN ); ?>">
 									<i class="sui-icon-graph-line" aria-hidden="true"></i>
@@ -99,24 +101,24 @@ if ( 0 === $num_recent ) {
 
 									<ul>
 										<li>
-											<a href="<?php echo $this->getAdminEditUrl( $module['type'], $module['id'] ); // WPCS: XSS ok. ?>">
+											<a href="<?php echo $this->getAdminEditUrl( $module['type'], $module['id'] ); // phpcs:ignore ?>">
 												<i class="sui-icon-pencil" aria-hidden="true"></i> <?php esc_html_e( 'Edit', Forminator::DOMAIN ); ?>
 											</a>
 										</li>
 
 										<li><button class="wpmudev-open-modal"
 											data-modal="preview_quizzes"
-											data-modal-title="<?php echo sprintf( "%s - %s", __( 'Preview Quiz', Forminator::DOMAIN ), forminator_get_form_name( $module['id'], 'quiz' ) ); // WPCS: XSS ok. ?>"
+											data-modal-title="<?php echo sprintf( '%s - %s', __( 'Preview Quiz', Forminator::DOMAIN ), forminator_get_form_name( $module['id'], 'quiz' ) ); // phpcs:ignore ?>"
 											data-form-id="<?php echo esc_attr( $module['id'] ); ?>"
-											data-nonce="<?php echo wp_create_nonce( 'forminator_popup_preview_quizzes' ); // WPCS: XSS ok. ?>">
+											data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_popup_preview_quizzes' ) ); ?>">
 											<i class="sui-icon-eye" aria-hidden="true"></i> <?php esc_html_e( 'Preview', Forminator::DOMAIN ); ?>
 										</button></li>
 
 										<li>
-											<button class="copy-clipboard" data-shortcode='[forminator_quiz id="<?php echo esc_attr( $module['id'] ); ?>"]'><i class="sui-icon-code" aria-hidden="true"></i> <?php esc_html_e( "Copy Shortcode", Forminator::DOMAIN ); ?></button>
+											<button class="copy-clipboard" data-shortcode='[forminator_quiz id="<?php echo esc_attr( $module['id'] ); ?>"]'><i class="sui-icon-code" aria-hidden="true"></i> <?php esc_html_e( 'Copy Shortcode', Forminator::DOMAIN ); ?></button>
 										</li>
 
-										<li><a href="<?php echo admin_url( 'admin.php?page=forminator-entries&form_type=forminator_quizzes&form_id=' . $module['id'] ); // WPCS: XSS ok. ?>"><i class="sui-icon-community-people" aria-hidden="true"></i> <?php esc_html_e( 'View Submissions', Forminator::DOMAIN ); ?></a></li>
+										<li><a href="<?php echo admin_url( 'admin.php?page=forminator-entries&form_type=forminator_quizzes&form_id=' . $module['id'] ); // phpcs:ignore ?>"><i class="sui-icon-community-people" aria-hidden="true"></i> <?php esc_html_e( 'View Submissions', Forminator::DOMAIN ); ?></a></li>
 
 										<li><form method="post">
 											<input type="hidden" name="forminator_action" value="clone">
@@ -140,12 +142,12 @@ if ( 0 === $num_recent ) {
 										<?php endif; ?>
 
 										<li><a href="#"
-											   class="wpmudev-open-modal"
-											   data-modal="delete-module"
-											   data-modal-title="<?php esc_attr_e( 'Delete Quiz', Forminator::DOMAIN ); ?>"
-											   data-modal-content="<?php esc_attr_e( 'Are you sure you wish to permanently delete this quiz?', Forminator::DOMAIN ); ?>"
-											   data-form-id="<?php echo esc_attr( $module['id'] ); ?>"
-											   data-nonce="<?php echo wp_create_nonce( 'forminatorQuizFormRequest' ); // WPCS: XSS ok. ?>">
+											class="wpmudev-open-modal"
+											data-modal="delete-module"
+											data-modal-title="<?php esc_attr_e( 'Delete Quiz', Forminator::DOMAIN ); ?>"
+											data-modal-content="<?php esc_attr_e( 'Are you sure you wish to permanently delete this quiz?', Forminator::DOMAIN ); ?>"
+											data-form-id="<?php echo esc_attr( $module['id'] ); ?>"
+											data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminatorQuizFormRequest' ) ); ?>">
 												<i class="sui-icon-trash" aria-hidden="true"></i> <?php esc_html_e( 'Delete', Forminator::DOMAIN ); ?>
 											</a></li>
 
@@ -171,7 +173,7 @@ if ( 0 === $num_recent ) {
 				</button>
 
 				<div class="sui-actions-right">
-					<p class="sui-description"><a href="<?php echo admin_url( 'admin.php?page=forminator-quiz' ); // WPCS: XSS ok. ?>" class="sui-link-gray"><?php esc_html_e( 'View all quizzes', Forminator::DOMAIN ); ?></a></p>
+					<p class="sui-description"><a href="<?php echo admin_url( 'admin.php?page=forminator-quiz' ); // phpcs:ignore ?>" class="sui-link-gray"><?php esc_html_e( 'View all quizzes', Forminator::DOMAIN ); ?></a></p>
 				</div>
 
 			</div>

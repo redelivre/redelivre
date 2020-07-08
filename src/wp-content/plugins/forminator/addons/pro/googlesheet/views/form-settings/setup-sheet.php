@@ -20,7 +20,7 @@ foreach ( $template_vars as $key => $val ) {
 	<p><?php esc_html_e( 'Create Spreadsheet that will be used to send submissions.', Forminator::DOMAIN ); ?></p>
 	<?php if ( ! empty( $vars['file_id'] ) ) : ?>
 		<span class="sui-notice sui-notice-info"><p>
-	<?php esc_html_e( 'You can open your current spread sheet', Forminator::DOMAIN ); ?>
+		<?php esc_html_e( 'You can open your current spread sheet', Forminator::DOMAIN ); ?>
 				<a target="_blank" href="https://docs.google.com/spreadsheets/d/<?php echo esc_attr( $vars['file_id'] ); ?>"><?php esc_html_e( 'here', Forminator::DOMAIN ); ?></a>.</p></span>
 	<?php endif; ?>
 	<?php if ( ! empty( $vars['error_message'] ) ) : ?>
@@ -43,19 +43,24 @@ foreach ( $template_vars as $key => $val ) {
 					<?php esc_html_e( 'It is optional, if Drive Folder ID omitted / empty, new spreadsheet will be created in your Google Drive home / root folder.', Forminator::DOMAIN ); ?>
 				</li>
 				<li>
-					<?php echo sprintf(
-						__( 'Go to your %1$s.', Forminator::DOMAIN ),
-						'<a href="https://drive.google.com/#my-drive" target="_blank">' . __( 'Drive account', Forminator::DOMAIN ) . '</a>'
-					); //wpcs: xss ok?>
+					<?php
+					echo sprintf(/* translators: ... */
+						esc_html__( 'Go to your %1$s.', Forminator::DOMAIN ),
+						'<a href="https://drive.google.com/#my-drive" target="_blank">' . esc_html__( 'Drive account', Forminator::DOMAIN ) . '</a>'
+					); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+					?>
 					<?php esc_html_e( 'Navigate to or create a new directory where you want to new spreadsheet created. Make sure you are viewing the destination directory.', Forminator::DOMAIN ); ?>
 				</li>
 				<li>
-				<?php echo sprintf(
-					__( 'The URL for the directory will be something similar to %1$s. The Directory ID would be the last part after %2$s, which is %3$s in this case.', Forminator::DOMAIN ),
+				<?php
+				echo sprintf(/* translators: ... */
+					esc_html__( 'The URL for the directory will be something similar to %1$s. The Directory ID would be the last part after %2$s, which is %3$s in this case.', Forminator::DOMAIN ),
 					'<em>https://drive.google.com/#folders/0B6GD66ctHXdCOWZKNDRIRGJJXS3</em>',
 					'<em>/#folders/</em>',
 					'<strong>0B6GD66ctHXdCOWZKNDRIRGJJXS3</strong>'
-				); //wpcs: xss ok?></li>
+				); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+				?>
+				</li>
 			</ol>
 		</span>
 	</div>

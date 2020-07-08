@@ -131,7 +131,7 @@ class Forminator_Calculator_Parser_Tokenizer {
 	 * @return bool
 	 */
 	protected function is_whitespace( $char ) {
-		return in_array( $char, array( " ", "\t", "\n" ), true );
+		return in_array( $char, array( ' ', "\t", "\n" ), true );
 	}
 
 	/**

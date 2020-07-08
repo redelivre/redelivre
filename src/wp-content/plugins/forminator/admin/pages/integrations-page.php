@@ -43,7 +43,7 @@ class Forminator_Integrations_Page extends Forminator_Admin_Page {
 
 		Forminator_Addon_Admin_Ajax::get_instance()->generate_nonce();
 		$this->addon_nonce = Forminator_Addon_Admin_Ajax::get_instance()->get_nonce();
-		add_filter( 'forminator_data', array( $this, "add_addons_js_data" ) );
+		add_filter( 'forminator_data', array( $this, 'add_addons_js_data' ) );
 
 		$this->validate_addon_page();
 	}
@@ -85,7 +85,7 @@ class Forminator_Integrations_Page extends Forminator_Admin_Page {
 				<div class="sui-actions-right">
 					<?php if ( forminator_is_show_documentation_link() ) : ?>
 						<a href="https://premium.wpmudev.org/docs/wpmu-dev-plugins/forminator/#integrations" target="_blank" class="sui-button sui-button-ghost">
-							<i class="sui-icon-academy"></i> <?php esc_html_e( "View Documentation", Forminator::DOMAIN ); ?>
+							<i class="sui-icon-academy"></i> <?php esc_html_e( 'View Documentation', Forminator::DOMAIN ); ?>
 						</a>
 					<?php endif; ?>
 				</div>

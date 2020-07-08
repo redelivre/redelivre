@@ -126,12 +126,12 @@ class Forminator_Text extends Forminator_Field {
 		$id          = 'forminator-field-' . $id;
 		$required    = self::get_property( 'required', $field, false );
 		$ariareq     = 'false';
-		$default     = self::get_property( 'default', $field, false );
+		$default     = esc_html( self::get_property( 'default', $field, false ) );
 		$placeholder = $this->sanitize_value( self::get_property( 'placeholder', $field ) );
 		$field_type  = trim( self::get_property( 'input_type', $field ) );
 		$design      = $this->get_form_style( $settings );
-		$label       = self::get_property( 'field_label', $field, '' );
-		$description = self::get_property( 'description', $field, '' );
+		$label       = esc_html( self::get_property( 'field_label', $field, '' ) );
+		$description = esc_html( self::get_property( 'description', $field, '' ) );
 		$limit       = self::get_property( 'limit', $field, 0, 'num' );
 		$limit_type  = self::get_property( 'limit_type', $field, '', 'str' );
 
@@ -141,7 +141,7 @@ class Forminator_Text extends Forminator_Field {
 			$ariareq = 'true';
 		}
 
-		if ( "paragraph" === $field_type ) {
+		if ( 'paragraph' === $field_type ) {
 
 			$textarea = array(
 				'name'          => $name,
@@ -151,11 +151,11 @@ class Forminator_Text extends Forminator_Field {
 				'aria-required' => $ariareq,
 			);
 
-            // Check if Pre-fill parameter used
-            if( $this->has_prefill( $field ) ) {
-                // We have pre-fill parameter, use its value or $value
-                $default = $this->get_prefill( $field, $default );
-            }
+			// Check if Pre-fill parameter used
+			if ( $this->has_prefill( $field ) ) {
+				// We have pre-fill parameter, use its value or $value
+				$default = $this->get_prefill( $field, $default );
+			}
 
 			if ( ! empty( $default ) ) {
 				$textarea['content'] = $default;
@@ -182,21 +182,20 @@ class Forminator_Text extends Forminator_Field {
 			if ( ! empty( $description ) || ( ! empty( $limit ) && ! empty( $limit_type ) ) ) {
 				$html .= '<span class="forminator-description">';
 
-					if ( ! empty( $description ) ) {
-						$html .= $description;
-					}
+				if ( ! empty( $description ) ) {
+					$html .= $description;
+				}
 
-					if ( ( ! empty( $limit ) && ! empty( $limit_type ) ) ) {
-						$html .= sprintf( '<span data-limit="%s" data-type="%s">0 / %s</span>', $limit, $limit_type, $limit );
-					}
+				if ( ( ! empty( $limit ) && ! empty( $limit_type ) ) ) {
+					$html .= sprintf( '<span data-limit="%s" data-type="%s">0 / %s</span>', $limit, $limit_type, $limit );
+				}
 
 				$html .= '</span>';
 			}
-
-
 		} else {
 
 			$input_text = array(
+				'type'          => 'text',
 				'name'          => $name,
 				'value'         => $default,
 				'placeholder'   => $placeholder,
@@ -205,11 +204,11 @@ class Forminator_Text extends Forminator_Field {
 				'data-required' => $required,
 			);
 
-            // Check if Pre-fill parameter used
-            if( $this->has_prefill( $field ) ) {
-                // We have pre-fill parameter, use its value or $value
-                $default = $this->get_prefill( $field, $default );
-            }
+			// Check if Pre-fill parameter used
+			if ( $this->has_prefill( $field ) ) {
+				// We have pre-fill parameter, use its value or $value
+				$default = $this->get_prefill( $field, $default );
+			}
 
 			if ( ! empty( $default ) ) {
 				$input_text['value'] = $default;
@@ -234,19 +233,17 @@ class Forminator_Text extends Forminator_Field {
 
 				$html .= '<span class="forminator-description">';
 
-					if ( ! empty( $description ) ) {
-						$html .= $description;
-					}
+				if ( ! empty( $description ) ) {
+					$html .= $description;
+				}
 
-					if ( ( ! empty( $limit ) && ! empty( $limit_type ) ) ) {
-						$html .= sprintf( '<span data-limit="%s" data-type="%s">0 / %s</span>', $limit, $limit_type, $limit );
-					}
+				if ( ( ! empty( $limit ) && ! empty( $limit_type ) ) ) {
+					$html .= sprintf( '<span data-limit="%s" data-type="%s">0 / %s</span>', $limit, $limit_type, $limit );
+				}
 
 				$html .= '</span>';
 
 			}
-
-
 		}
 
 		return apply_filters( 'forminator_field_text_markup', $html, $field );
@@ -312,7 +309,7 @@ class Forminator_Text extends Forminator_Field {
 					$id,
 					$field
 				);
-				$messages       .= '"required": "' . forminator_addcslashes( $required_error ) . '",' . "\n";
+				$messages      .= '"required": "' . forminator_addcslashes( $required_error ) . '",' . "\n";
 			}
 
 			if ( $has_limit ) {
@@ -323,7 +320,7 @@ class Forminator_Text extends Forminator_Field {
 						$id,
 						$field
 					);
-					$messages         .= '"maxlength": "' . forminator_addcslashes( $max_length_error ) . '",' . "\n";
+					$messages        .= '"maxlength": "' . forminator_addcslashes( $max_length_error ) . '",' . "\n";
 				} else {
 					$max_words_error = apply_filters(
 						'forminator_text_field_words_validation_message',
@@ -331,7 +328,7 @@ class Forminator_Text extends Forminator_Field {
 						$id,
 						$field
 					);
-					$messages        .= '"maxwords": "' . forminator_addcslashes( $max_words_error ) . '",' . "\n";
+					$messages       .= '"maxwords": "' . forminator_addcslashes( $max_words_error ) . '",' . "\n";
 				}
 			}
 
@@ -376,7 +373,7 @@ class Forminator_Text extends Forminator_Field {
 					$field
 				);
 			} elseif ( ( isset( $field['limit_type'] ) && 'words' === trim( $field['limit_type'] ) ) ) {
-				$words = preg_split( "/\s+/", $data );
+				$words = preg_split( '/\s+/', $data );
 				if ( is_array( $words ) && count( $words ) > $field['limit'] ) {
 					$this->validation_message[ $id ] = apply_filters(
 						'forminator_text_field_words_validation_message',

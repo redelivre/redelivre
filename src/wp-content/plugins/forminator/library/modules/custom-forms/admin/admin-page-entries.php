@@ -605,7 +605,7 @@ class Forminator_CForm_View_Page extends Forminator_Admin_Page {
 	private function build_fields_mappers() {
 		/** @var  Forminator_Custom_Form_Model $model */
 		$model               = $this->model;
-		$fields              = $model->get_fields();
+		$fields              = apply_filters( 'forminator_custom_form_build_fields_mappers', $model->get_fields() );
 		$visible_fields      = $this->get_visible_fields();
 		$ignored_field_types = Forminator_Form_Entry_Model::ignored_fields();
 
@@ -1088,6 +1088,8 @@ class Forminator_CForm_View_Page extends Forminator_Admin_Page {
 
 			$iterator['summary']['items'] = $summary_items;
 			$iterator['detail']['items']  = $detail_items;
+
+			$iterator = apply_filters( 'forminator_custom_form_entries_iterator', $iterator, $entry );
 
 			$entries_iterator[] = $iterator;
 			$numerator_id --;

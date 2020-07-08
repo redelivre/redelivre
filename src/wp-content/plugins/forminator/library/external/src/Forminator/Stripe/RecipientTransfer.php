@@ -34,6 +34,5 @@ namespace Forminator\Stripe;
  */
 class RecipientTransfer extends ApiResource
 {
-
-    const OBJECT_NAME = "recipient_transfer";
+    const OBJECT_NAME = 'recipient_transfer';
 }

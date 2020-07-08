@@ -45,6 +45,7 @@
 	$.extend(ForminatorFrontCalculate.prototype, {
 		init: function () {
 			var self              = this;
+
 			// find calculation fields
 			var calculationInputs = this.$el.find('input.forminator-calculation');
 
@@ -61,16 +62,18 @@
 
 					// isHidden
 					if ($(this).data('isHidden')) {
-						$(this).closest('.forminator-col').addClass('forminator-hidden');
+						$(this).closest('.forminator-col').addClass('forminator-hidden forminator-hidden-option');
 						var rowField = $(this).closest('.forminator-row');
 						if (rowField.find('> .forminator-col:not(.forminator-hidden)').length === 0) {
-							rowField.addClass('forminator-hidden');
+							rowField.addClass('forminator-hidden forminator-hidden-option');
 						}
 					}
 				});
 
+				var memoizeTime = this.settings.memoizeTime || 300;
+
 				this.debouncedReCalculateAll = this.debounce(this.recalculateAll, 1000);
-				this.memoizeDebounceRender = this.memoize(this.recalculate, 500);
+				this.memoizeDebounceRender = this.memoize(this.recalculate, memoizeTime);
 
 				this.$el.on('forminator:field:condition:toggled', function (e) {
 					self.debouncedReCalculateAll();
@@ -128,7 +131,9 @@
 				var formula   = calcField.formula;
 
 				this.currentExpand = 0;
-				formula            = this.maybeExpandCalculationFieldOnFormula(formula);
+
+				// Disable formula expand to allow formula calculation based on conditions
+				//formula          = this.maybeExpandCalculationFieldOnFormula(formula);
 
 				calcField.formula = formula;
 
@@ -192,10 +197,6 @@
 				var fieldType = matches[2];
 
 				if (fullMatch === undefined || inputName === undefined || fieldType === undefined) {
-					continue;
-				}
-
-				if (fieldType === 'calculation') {
 					continue;
 				}
 
@@ -302,6 +303,7 @@
 			this.hideErrorMessage($input);
 
 			var formula = this.maybeReplaceFieldOnFormula(calcField.formula);
+
 			var res     = 0;
 			var calc    = new window.forminatorCalculator(formula);
 
@@ -310,7 +312,7 @@
 				if (!isFinite(res)) {
 					throw ('Infinity calculation result.');
 				}
-				res = Number(res.toFixed(calcField.precision));
+				res = Number.parseFloat(res).toFixed(calcField.precision);
 			} catch (e) {
 				this.isError = true;
 				console.log(e);
@@ -325,7 +327,6 @@
 		},
 
 		maybeReplaceFieldOnFormula: function (formula) {
-
 			var joinedFieldTypes      = this.settings.forminatorFields.join('|');
 			var incrementFieldPattern = "(" + joinedFieldTypes + ")-\\d+";
 			var pattern               = new RegExp('\\{(' + incrementFieldPattern + ')(\\-[A-Za-z-_]+)?\\}', 'g');
@@ -343,11 +344,6 @@
 					continue;
 				}
 
-				if (fieldType === 'calculation') {
-					// calc field still exist, skip and continue
-					continue;
-				}
-
 				if(this.is_hidden(inputName)) {
 					replace = 0;
 					var quotedOperand = fullMatch.replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
@@ -360,6 +356,14 @@
 						}
 					}
 				} else {
+					if (fieldType === 'calculation') {
+						var calcField = this.get_calculation_field(inputName);
+
+						if (calcField) {
+							this.memoizeDebounceRender( calcField );
+						}
+					}
+
 					replace = this.get_field_value(inputName);
 				}
 
@@ -371,11 +375,26 @@
 			return parsedFormula;
 		},
 
+
+		get_calculation_field: function (element_id) {
+			for (var i = 0; i < this.calculationFields.length; i++) {
+				if(this.calculationFields[i].name === element_id) {
+					return this.calculationFields[i];
+				}
+			}
+
+			return false;
+		},
+
 		is_hidden: function (element_id) {
 			var $element_id = this.get_form_field(element_id),
 				$column_field = $element_id.closest('.forminator-col'),
 				$row_field = $column_field.closest('.forminator-row')
 			;
+
+			if( $row_field.hasClass("forminator-hidden-option") || $column_field.hasClass("forminator-hidden-option") ) {
+				return false;
+			}
 
 			if( $row_field.hasClass("forminator-hidden") || $column_field.hasClass("forminator-hidden") ) {
 				return true;

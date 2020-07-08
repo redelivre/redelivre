@@ -1,0 +1,42 @@
+/* ELEMENT: Quiz Answers (Checkbox) */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer .forminator-answer--status {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chkbo-static' ) ) { ?>
+			border-color: <?php echo $properties['nowrong-answer-chkbo-static'] ?>;
+		<?php } else { ?>
+			border-color: #EBEDEB;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chkbg-static' ) ) { ?>
+			background-color: <?php echo $properties['nowrong-answer-chkbg-static'] ?>;
+		<?php } else { ?>
+			background-color: #FFFFFF;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chck-icon' ) ) { ?>
+			color: <?php echo $properties['nowrong-answer-chck-icon'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #EBEDEB;
+		background-color: #FFFFFF;
+		color: #FFFFFF;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer input:checked + .forminator-answer--design .forminator-answer--status {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chkbo-active' ) ) { ?>
+			border-color: <?php echo $properties['nowrong-answer-chkbo-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-answer-chkbg-active' ) ) { ?>
+			background-color: <?php echo $properties['nowrong-answer-chkbg-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #17A8E3;
+		background-color: #17A8E3;
+	<?php } ?>
+}

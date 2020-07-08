@@ -1,0 +1,64 @@
+/* ======================= */
+/* SECTION: Layout Spacing */
+<?php if ( forminator_array_value_exists( $properties, 'quiz-spacing' ) && ! empty( $properties['quiz-custom-spacing'] ) ) { ?>
+	<?php if ( forminator_array_value_exists( $properties, 'visual_style' ) ) { ?>
+		<?php if ( 'grid' == $properties['visual_style'] && ! empty( $properties['visual_style'] ) ) { ?>
+			<?php include('global/spacing/layout-grid.html') ?>
+		<?php } else if ( 'grid' != $properties['visual_style'] && ! empty( $properties['visual_style'] ) ) { ?>
+			<?php include('global/spacing/layout-list.html') ?>
+		<?php } ?>
+	<?php } ?>
+<?php } ?>
+
+/* =============== */
+/* SECTION: Global */
+<?php include('global/quiz-container.html') ?>
+
+/* =============== */
+/* SECTION: Header */
+<?php include('global/header/quiz-title.html') ?>
+<?php include('global/header/quiz-description.html') ?>
+
+/* ================ */
+/* SECTION: Content */
+<?php include('global/content/questions-container.html') ?>
+<?php include('global/content/questions-legend.html') ?>
+<?php include('global/content/questions-result.html') ?>
+<?php include('global/content/answers-text.html') ?>
+<?php if ( forminator_array_value_exists( $properties, 'forminator-quiz-theme' ) ) { ?>
+	<?php if ( 'default' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('default/answers-container.html') ?>
+		<?php include('default/answers-checkbox.html') ?>
+	<?php } else if ( 'flat' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('flat/answers-container.html') ?>
+		<?php include('flat/answers-checkbox.html') ?>
+	<?php } else if ( 'bold' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('bold/answers-container.html') ?>
+		<?php include('bold/answers-checkbox.html') ?>
+	<?php } else if ( 'material' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('material/answers-container.html') ?>
+		<?php include('material/answers-checkbox.html') ?>
+	<?php } else if ( 'empty' != $properties['forminator-quiz-theme'] && ( empty( $properties['forminator-quiz-theme'] ) || '' != $properties['forminator-quiz-theme'] ) ) { ?>
+		<?php include('default/answers-container.html') ?>
+		<?php include('default/answers-checkbox.html') ?>
+	<?php } ?>
+<?php } ?>
+
+/* =============== */
+/* SECTION: Footer */
+<?php include('global/footer/quiz-footer.html') ?>
+<?php include('global/footer/submit-button.html') ?>
+<?php include('global/footer/social-share.html') ?>
+<?php if ( forminator_array_value_exists( $properties, 'forminator-quiz-theme' ) ) { ?>
+	<?php if ( 'default' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('default/quiz-result.html') ?>
+	<?php } else if ( 'flat' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('flat/quiz-result.html') ?>
+	<?php } else if ( 'bold' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('bold/quiz-result.html') ?>
+	<?php } else if ( 'material' == $properties['forminator-quiz-theme'] ) { ?>
+		<?php include('material/quiz-result.html') ?>
+	<?php } else if ( 'empty' != $properties['forminator-quiz-theme'] && ( empty( $properties['forminator-quiz-theme'] ) || '' != $properties['forminator-quiz-theme'] ) ) { ?>
+		<?php include('default/quiz-result.html') ?>
+	<?php } ?>
+<?php } ?>

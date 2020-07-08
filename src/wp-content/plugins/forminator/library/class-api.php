@@ -1047,11 +1047,8 @@ class Forminator_API {
 			return new WP_Error( 'missing_object', __( "Form model doesn't exist", Forminator::DOMAIN ) );
 		}
 
-		// Load all settings
-		$settings = $model->settings;
-
 		// Set the setting
-		$settings[ $setting ] = sanitize_textarea_field( $value );
+		$model->settings[ $setting ] = sanitize_textarea_field( $value );
 
 		// Save data
 		$id = $model->save();

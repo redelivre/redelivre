@@ -260,7 +260,7 @@ class Forminator_Migration {
 		}
 
 		// Migrate multi select to select
-		if ( "checkbox" === $field['type'] && "multiselect" === $field['value_type'] ) {
+		if ( "checkbox" === $field['type'] && ( isset( $field['value_type'] ) && "multiselect" === $field['value_type'] ) ) {
 			$field['type'] = "select";
 		}
 
@@ -771,7 +771,7 @@ class Forminator_Migration {
 					$admin_args['bcc-email'] = implode( ',', $settings['admin-email-bcc-address'] );
 				}
 				if ( ! empty( $settings['admin-email-from-name'] ) ) {
-					$admin_args['form-name'] = $settings['admin-email-from-name'];
+					$admin_args['from-name'] = $settings['admin-email-from-name'];
 				}
 				if ( ! empty( $settings['admin-email-from-address'] ) ) {
 					$admin_args['form-email'] = $settings['admin-email-from-address'];
@@ -783,7 +783,7 @@ class Forminator_Migration {
 					$admin_args['email-subject'] = $settings['admin-email-title'];
 				}
 				if ( ! empty( $settings['admin-email-editor'] ) ) {
-					$admin_args['email-editor'] = $settings['admin-email-editor'];
+					$admin_args['email-editor'] = nl2br( $settings['admin-email-editor'] );
 				}
 				$notifications[] = $admin_args;
 			}
@@ -803,7 +803,7 @@ class Forminator_Migration {
 					$user_args['bcc-email'] = implode( ',', $settings['user-email-bcc-address'] );
 				}
 				if ( ! empty( $settings['user-email-from-name'] ) ) {
-					$user_args['form-name'] = $settings['user-email-from-name'];
+					$user_args['from-name'] = $settings['user-email-from-name'];
 				}
 				if ( ! empty( $settings['user-email-from-address'] ) ) {
 					$user_args['form-email'] = $settings['user-email-from-address'];
@@ -815,7 +815,7 @@ class Forminator_Migration {
 					$user_args['email-subject'] = $settings['user-email-title'];
 				}
 				if ( ! empty( $settings['user-email-editor'] ) ) {
-					$user_args['email-editor'] = $settings['user-email-editor'];
+					$user_args['email-editor'] = nl2br( $settings['user-email-editor'] );
 				}
 				$notifications[] = $user_args;
 			}

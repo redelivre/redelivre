@@ -23,8 +23,8 @@ function forminator_addon_campaignmonitor_assets_url() {
 	return trailingslashit( forminator_addon_campaignmonitor_url() . 'assets' );
 }
 
-require_once dirname( __FILE__ ) . '/forminator-addon-campaignmonitor.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-campaignmonitor-form-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-campaignmonitor-form-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-campaignmonitor.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-campaignmonitor-form-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-campaignmonitor-form-hooks.php';
 //Direct Load
 Forminator_Addon_Loader::get_instance()->register( 'Forminator_Addon_Campaignmonitor' );

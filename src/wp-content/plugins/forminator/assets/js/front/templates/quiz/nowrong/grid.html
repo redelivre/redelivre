@@ -1,0 +1,11 @@
+/* ======================= */
+/* SECTION: Layout Spacing */
+<?php if ( forminator_array_value_exists( $properties, 'quiz-spacing' ) && ! empty( $properties['quiz-custom-spacing'] ) ) { ?>
+	<?php if ( forminator_array_value_exists( $properties, 'visual_style' ) ) { ?>
+		<?php if ( 'grid' == $properties['visual_style'] && ! empty( $properties['visual_style'] ) ) { ?>
+			<?php include('global/spacing/layout-grid.html') ?>
+		<?php } else if ( 'grid' != $properties['visual_style'] && ! empty( $properties['visual_style'] ) ) { ?>
+			<?php include('global/spacing/layout-list.html') ?>
+		<?php } ?>
+	<?php } ?>
+<?php } ?>

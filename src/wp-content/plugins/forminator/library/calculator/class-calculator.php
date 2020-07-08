@@ -289,7 +289,6 @@ class Forminator_Calculator {
 					unset( $nodes[ $right_operand_index ] );
 					$nodes[ $index ] = $result;
 				}
-
 			}
 		}
 

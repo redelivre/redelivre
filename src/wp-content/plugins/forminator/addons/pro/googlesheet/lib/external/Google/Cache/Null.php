@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-if (!class_exists('Google_Client')) {
+if (!class_exists('Forminator_Google_Client')) {
   require_once dirname(__FILE__) . '/../autoload.php';
 }
 
@@ -23,9 +23,9 @@ if (!class_exists('Google_Client')) {
  * A blank storage class, for cases where caching is not
  * required.
  */
-class Google_Cache_Null extends Google_Cache_Abstract
+class Forminator_Google_Cache_Null extends Forminator_Google_Cache_Abstract
 {
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
 
   }

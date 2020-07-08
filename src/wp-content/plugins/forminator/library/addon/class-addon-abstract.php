@@ -886,10 +886,12 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 
 		$steps = $this->settings_wizards();
 		if ( ! is_array( $steps ) ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 		$total_steps = count( $steps );
 		if ( $total_steps < 1 ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 
@@ -958,10 +960,12 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 		$steps = array_merge( $settings_steps, $form_settings_steps );
 
 		if ( ! is_array( $steps ) ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Form Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 		$total_steps = count( $steps );
 		if ( $total_steps < 1 ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Form Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 
@@ -1125,12 +1129,14 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 
 		// validate callback, when its empty or not callable, mark as no wizard
 		if ( ! isset( $steps[ $step ]['callback'] ) || ! is_callable( $steps[ $step ]['callback'] ) ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 
 		$wizard = call_user_func( $steps[ $step ]['callback'], $submitted_data, $module_id );
 		// a wizard to be able to processed by our application need to has at least `html` which will be rendered or `redirect` which will be the url for redirect user to go to
 		if ( ! isset( $wizard['html'] ) && ! isset( $wizard['redirect'] ) ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 		$wizard['forminator_addon_current_step']  = $step;
@@ -1238,7 +1244,6 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 		$values = get_option( $this->get_settings_options_name(), array() );
 
 		$addon_slug = $this->get_slug();
-
 
 		/**
 		 * Filter retrieved saved addon's settings values from db
@@ -1842,7 +1847,7 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 	final public function get_addon_poll_settings( $poll_id ) {
 		$class_name = $this->get_poll_settings_class_name();
 		if ( ! isset( $this->_addon_poll_settings_instances[ $poll_id ] )
-		     || ! $this->_addon_poll_settings_instances[ $poll_id ] instanceof Forminator_Addon_Poll_Settings_Abstract ) {
+			|| ! $this->_addon_poll_settings_instances[ $poll_id ] instanceof Forminator_Addon_Poll_Settings_Abstract ) {
 			if ( empty( $class_name ) ) {
 				return null;
 			}
@@ -1937,10 +1942,12 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 		$steps = array_merge( $settings_steps, $poll_settings_steps );
 
 		if ( ! is_array( $steps ) ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Poll Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 		$total_steps = count( $steps );
 		if ( $total_steps < 1 ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Poll Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 
@@ -2291,7 +2298,7 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 	final public function get_addon_quiz_settings( $quiz_id ) {
 		$class_name = $this->get_quiz_settings_class_name();
 		if ( ! isset( $this->_addon_quiz_settings_instances[ $quiz_id ] )
-		     || ! $this->_addon_quiz_settings_instances[ $quiz_id ] instanceof Forminator_Addon_Quiz_Settings_Abstract ) {
+			|| ! $this->_addon_quiz_settings_instances[ $quiz_id ] instanceof Forminator_Addon_Quiz_Settings_Abstract ) {
 			if ( empty( $class_name ) ) {
 				return null;
 			}
@@ -2386,10 +2393,12 @@ abstract class Forminator_Addon_Abstract implements Forminator_Addon_Interface {
 		$steps = array_merge( $settings_steps, $quiz_settings_steps );
 
 		if ( ! is_array( $steps ) ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Quiz Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 		$total_steps = count( $steps );
 		if ( $total_steps < 1 ) {
+			/* translators: ... */
 			return $this->get_empty_wizard( sprintf( __( 'No Quiz Settings available for %1$s', Forminator::DOMAIN ), $this->get_title() ) );
 		}
 

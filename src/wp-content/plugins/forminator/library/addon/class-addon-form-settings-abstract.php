@@ -103,6 +103,7 @@ abstract class Forminator_Addon_Form_Settings_Abstract {
 		$this->form_id = $form_id;
 		$custom_form   = Forminator_Custom_Form_Model::model()->load( $this->form_id );
 		if ( ! $custom_form ) {
+			/* translators: ... */
 			throw new Forminator_Addon_Exception( sprintf( __( 'Form with id %d could not be found', Forminator::DOMAIN ), $this->form_id ) );
 		}
 		$this->form_fields   = forminator_addon_format_form_fields( $custom_form );
@@ -228,7 +229,6 @@ abstract class Forminator_Addon_Form_Settings_Abstract {
 	 */
 	final public function is_force_form_disconnected() {
 		$disconnected = get_post_meta( $this->form_id, 'forminator_addon_' . $this->addon->get_slug() . '_form_disconnect', true );
-
 
 		if ( ! empty( $disconnected ) && isset( $disconnected['disconnect'] ) && $disconnected['disconnect'] ) {
 			$this->is_force_form_disconnected     = true;
@@ -617,7 +617,7 @@ abstract class Forminator_Addon_Form_Settings_Abstract {
 			'city'    => 'City',
 			'state'   => 'State',
 			'zip'     => 'Zip',
-			'country' => 'Country'
+			'country' => 'Country',
 		);
 
 		return $address;

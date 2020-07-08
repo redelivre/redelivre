@@ -17,6 +17,5 @@ namespace Forminator\Stripe;
  */
 class OrderItem extends StripeObject
 {
-
-    const OBJECT_NAME = "order_item";
+    const OBJECT_NAME = 'order_item';
 }

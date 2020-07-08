@@ -131,7 +131,7 @@ class Forminator_Form_Field_Model {
 		}
 
 		foreach ( $data as $key => $val ) {
-			$key = sanitize_key( $key ); // Attempt ti sanitize key
+			$key        = sanitize_key( $key ); // Attempt ti sanitize key
 			$this->$key = $val;
 		}
 
@@ -141,7 +141,7 @@ class Forminator_Form_Field_Model {
 			if ( isset( $this->form_id ) && ! empty( $this->form_id ) && false !== stripos( $this->form_id, 'wrapper-' ) ) {
 				$wrapper_id = $this->form_id;
 			} elseif ( isset( $this->formID ) && ! empty( $this->formID )  // phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar
-			           && false !== stripos( $this->formID, 'wrapper-' ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar
+					&& false !== stripos( $this->formID, 'wrapper-' ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar
 
 				// Backward compat formID
 				$wrapper_id = $this->formID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar

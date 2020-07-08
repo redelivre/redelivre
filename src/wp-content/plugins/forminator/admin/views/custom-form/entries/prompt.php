@@ -12,7 +12,7 @@ if ( ! FORMINATOR_PRO ) {
 			if ( ( 0 < $live_payment_count && 100 >= $submission && ! $submission_later ) ||
 				 ( 0 < $live_payment_count && 100 < $submission && ! $submission_later_dismiss ) ) { ?>
 				<div class="forminator-rating-notice sui-notice sui-notice-purple fui-notice-rate<?php echo forminator_is_show_branding() ? '' : ' fui-unbranded'; ?>"
-					 data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_dismiss_notification' ) ); ?>">
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_dismiss_notification' ) ); ?>">
 					<?php if ( $submission <= 100 ) { ?>
 						<p><?php printf( esc_html__( "%1\$sCongratulations!%2\$s You have started collecting live payments on this form - that's awesome. We have spent countless hours developing this free plugin for you, and we would really appreciate it if you could drop us a rating on wp.org to help us spread the word and boost our motivation.", Forminator::DOMAIN ), '<strong>', '</strong>' ); ?></p>
 					<?php } else { ?>
@@ -20,41 +20,41 @@ if ( ! FORMINATOR_PRO ) {
 					<?php } ?>
 					<p>
 						<a type="button" href="#" target="_blank"
-						   class="sui-button sui-button-purple"
-						   data-prop="forminator_rating_success"><?php esc_html_e( 'Rate Forminator', Forminator::DOMAIN ); ?></a>
+							class="sui-button sui-button-purple"
+							data-prop="forminator_rating_success"><?php esc_html_e( 'Rate Forminator', Forminator::DOMAIN ); ?></a>
 
 						<button type="button"
 								class="sui-button sui-button-ghost"
 								data-prop="<?php echo 100 > $live_payment_count ? 'forminator_submission_rating_later' : 'forminator_submission_rating_later_dismiss'; ?>"><?php esc_html_e( 'Maybe later', Forminator::DOMAIN ); ?></button>
 
 						<a href="#" style="color: #888;"
-						   data-prop="forminator_rating_dismissed"
-						   data-prop="forminator_rating_dismissed"><?php esc_html_e( 'No Thanks', Forminator::DOMAIN ); ?></a>
+							data-prop="forminator_rating_dismissed"
+							data-prop="forminator_rating_dismissed"><?php esc_html_e( 'No Thanks', Forminator::DOMAIN ); ?></a>
 					</p>
 
 				</div>
 			<?php }
 		} else {
 			if ( ( ( 10 < $submission && 100 >= $submission ) && ! $submission_later )
-				 || ( 100 < $submission && ! $submission_later_dismiss ) ) {
+				|| ( 100 < $submission && ! $submission_later_dismiss ) ) {
 				$milestone = ( 100 >= $submission ) ? 10 : 100;
 				?>
 				<div class="forminator-rating-notice sui-notice sui-notice-purple fui-notice-rate<?php echo forminator_is_show_branding() ? '' : ' fui-unbranded'; ?>"
-					 data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_dismiss_notification' ) ); ?>">
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_dismiss_notification' ) ); ?>">
 
 					<p><?php printf( esc_html__( "Hey, we noticed you just crossed %1\$s submissions%2\$s on this form - that's awesome! We have spent countless hours developing this free plugin for you, and we would really appreciate it if you could drop us a rating on wp.org to help us spread the word and boost our motivation.", Forminator::DOMAIN ), '<strong> ' . $milestone, '</strong>' ); ?></p>
 					<p>
 						<a type="button" href="#" target="_blank"
-						   class="sui-button sui-button-purple"
-						   data-prop="forminator_rating_success"><?php esc_html_e( 'Rate Forminator', Forminator::DOMAIN ); ?></a>
+							class="sui-button sui-button-purple"
+							data-prop="forminator_rating_success"><?php esc_html_e( 'Rate Forminator', Forminator::DOMAIN ); ?></a>
 
 						<button type="button"
 								class="sui-button sui-button-ghost"
 								data-prop="<?php echo 100 > $submission ? 'forminator_submission_rating_later' : 'forminator_submission_rating_later_dismiss'; ?>"><?php esc_html_e( 'Maybe later', Forminator::DOMAIN ); ?></button>
 
 						<a href="#" style="color: #888;"
-						   data-prop="forminator_rating_dismissed"
-						   data-prop="forminator_rating_dismissed"><?php esc_html_e( 'No Thanks', Forminator::DOMAIN ); ?></a>
+							data-prop="forminator_rating_dismissed"
+							data-prop="forminator_rating_dismissed"><?php esc_html_e( 'No Thanks', Forminator::DOMAIN ); ?></a>
 					</p>
 
 				</div>

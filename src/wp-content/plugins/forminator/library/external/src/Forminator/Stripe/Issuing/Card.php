@@ -7,10 +7,9 @@ namespace Forminator\Stripe\Issuing;
  *
  * @property string $id
  * @property string $object
- * @property mixed $authorization_controls
- * @property mixed $billing
+ * @property \Forminator\Stripe\StripeObject $authorization_controls
  * @property string $brand
- * @property Cardholder $cardholder
+ * @property \Forminator\Stripe\Issuing\Cardholder|null $cardholder
  * @property int $created
  * @property string $currency
  * @property int $exp_month
@@ -19,7 +18,10 @@ namespace Forminator\Stripe\Issuing;
  * @property bool $livemode
  * @property \Forminator\Stripe\StripeObject $metadata
  * @property string $name
- * @property mixed $shipping
+ * @property \Forminator\Stripe\StripeObject|null $pin
+ * @property string|null $replacement_for
+ * @property string|null $replacement_reason
+ * @property \Forminator\Stripe\StripeObject|null $shipping
  * @property string $status
  * @property string $type
  *
@@ -27,7 +29,7 @@ namespace Forminator\Stripe\Issuing;
  */
 class Card extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "issuing.card";
+    const OBJECT_NAME = 'issuing.card';
 
     use \Forminator\Stripe\ApiOperations\All;
     use \Forminator\Stripe\ApiOperations\Create;
@@ -36,14 +38,16 @@ class Card extends \Forminator\Stripe\ApiResource
 
     /**
      * @param array|null $params
-     * @param array|string|null $options
+     * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return CardDetails The card details associated with that issuing card.
      */
-    public function details($params = null, $options = null)
+    public function details($params = null, $opts = null)
     {
         $url = $this->instanceUrl() . '/details';
-        list($response, $opts) = $this->_request('get', $url, $params, $options);
+        list($response, $opts) = $this->_request('get', $url, $params, $opts);
         $obj = \Forminator\Stripe\Util\Util::convertToStripeObject($response, $opts);
         $obj->setLastResponse($response);
         return $obj;

@@ -54,6 +54,10 @@ class Forminator_Custom_Form extends Forminator_Module {
 		if ( class_exists( 'Forminator_CForm_General_Data_Protection' ) ) {
 			new Forminator_CForm_General_Data_Protection();
 		}
+		if ( ! class_exists( 'Forminator_CForm_User_Data' ) ) {
+			include_once __DIR__ . '/user/class-forminator-cform-user-data.php';
+			new Forminator_CForm_User_Data();
+		}
 	}
 
 	/**
@@ -78,7 +82,10 @@ class Forminator_Custom_Form extends Forminator_Module {
 
 		include_once dirname(__FILE__) . '/front/front-action.php';
 		include_once dirname(__FILE__) . '/front/front-render.php';
+		include_once dirname(__FILE__) . '/front/front-user-login.php';
+		include_once dirname(__FILE__) . '/front/front-user-registration.php';
 		include_once dirname(__FILE__) . '/front/front-mail.php';
+		include_once dirname(__FILE__) . '/front/front-assets.php';
 
 		Forminator_CForm_Front_Action::get_instance();
 		new Forminator_CForm_Front();

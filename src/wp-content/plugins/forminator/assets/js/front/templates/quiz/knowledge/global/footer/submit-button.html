@@ -1,0 +1,79 @@
+/* Submit Button */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-button {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-background-static' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-submit-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-color-static' ) ) { ?>
+			color: <?php echo $properties['knowledge-submit-color-static'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-typography' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-font-size' ) ) { ?>
+			font-size: <?php echo $properties['knowledge-submit-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 14px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-font-family' ) ) { ?>
+			<?php if ( $properties['knowledge-submit-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['knowledge-submit-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['knowledge-submit-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['knowledge-submit-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['knowledge-submit-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 500;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 14px;
+		font-weight: 500;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-button:hover {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-background-hover' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-submit-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #008FCA;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-color-hover' ) ) { ?>
+			color: <?php echo $properties['knowledge-submit-color-hover'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-button:focus,
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-button:active {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-background-active' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-submit-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #008FCA;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-submit-color-active' ) ) { ?>
+			color: <?php echo $properties['knowledge-submit-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	<?php } ?>
+}

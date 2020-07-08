@@ -29,7 +29,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Monitoring extends Google_Service
+class Forminator_Google_Service_Monitoring extends Forminator_Google_Service
 {
   /** View and manage your data across Google Cloud Platform services. */
   const CLOUD_PLATFORM =
@@ -55,9 +55,9 @@ class Google_Service_Monitoring extends Google_Service
   /**
    * Constructs the internal representation of the Monitoring service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://monitoring.googleapis.com/';
@@ -65,7 +65,7 @@ class Google_Service_Monitoring extends Google_Service
     $this->version = 'v3';
     $this->serviceName = 'monitoring';
 
-    $this->projects_collectdTimeSeries = new Google_Service_Monitoring_ProjectsCollectdTimeSeries_Resource(
+    $this->projects_collectdTimeSeries = new Forminator_Google_Service_Monitoring_ProjectsCollectdTimeSeries_Resource(
         $this,
         $this->serviceName,
         'collectdTimeSeries',
@@ -85,7 +85,7 @@ class Google_Service_Monitoring extends Google_Service
           )
         )
     );
-    $this->projects_groups = new Google_Service_Monitoring_ProjectsGroups_Resource(
+    $this->projects_groups = new Forminator_Google_Service_Monitoring_ProjectsGroups_Resource(
         $this,
         $this->serviceName,
         'groups',
@@ -173,7 +173,7 @@ class Google_Service_Monitoring extends Google_Service
           )
         )
     );
-    $this->projects_groups_members = new Google_Service_Monitoring_ProjectsGroupsMembers_Resource(
+    $this->projects_groups_members = new Forminator_Google_Service_Monitoring_ProjectsGroupsMembers_Resource(
         $this,
         $this->serviceName,
         'members',
@@ -213,7 +213,7 @@ class Google_Service_Monitoring extends Google_Service
           )
         )
     );
-    $this->projects_metricDescriptors = new Google_Service_Monitoring_ProjectsMetricDescriptors_Resource(
+    $this->projects_metricDescriptors = new Forminator_Google_Service_Monitoring_ProjectsMetricDescriptors_Resource(
         $this,
         $this->serviceName,
         'metricDescriptors',
@@ -275,7 +275,7 @@ class Google_Service_Monitoring extends Google_Service
           )
         )
     );
-    $this->projects_monitoredResourceDescriptors = new Google_Service_Monitoring_ProjectsMonitoredResourceDescriptors_Resource(
+    $this->projects_monitoredResourceDescriptors = new Forminator_Google_Service_Monitoring_ProjectsMonitoredResourceDescriptors_Resource(
         $this,
         $this->serviceName,
         'monitoredResourceDescriptors',
@@ -317,7 +317,7 @@ class Google_Service_Monitoring extends Google_Service
           )
         )
     );
-    $this->projects_timeSeries = new Google_Service_Monitoring_ProjectsTimeSeries_Resource(
+    $this->projects_timeSeries = new Forminator_Google_Service_Monitoring_ProjectsTimeSeries_Resource(
         $this,
         $this->serviceName,
         'timeSeries',
@@ -400,11 +400,11 @@ class Google_Service_Monitoring extends Google_Service
  * The "projects" collection of methods.
  * Typical usage is:
  *  <code>
- *   $monitoringService = new Google_Service_Monitoring(...);
+ *   $monitoringService = new Forminator_Google_Service_Monitoring(...);
  *   $projects = $monitoringService->projects;
  *  </code>
  */
-class Google_Service_Monitoring_Projects_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Monitoring_Projects_Resource extends Forminator_Google_Service_Resource
 {
 }
 
@@ -412,11 +412,11 @@ class Google_Service_Monitoring_Projects_Resource extends Google_Service_Resourc
  * The "collectdTimeSeries" collection of methods.
  * Typical usage is:
  *  <code>
- *   $monitoringService = new Google_Service_Monitoring(...);
+ *   $monitoringService = new Forminator_Google_Service_Monitoring(...);
  *   $collectdTimeSeries = $monitoringService->collectdTimeSeries;
  *  </code>
  */
-class Google_Service_Monitoring_ProjectsCollectdTimeSeries_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Monitoring_ProjectsCollectdTimeSeries_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -427,26 +427,26 @@ class Google_Service_Monitoring_ProjectsCollectdTimeSeries_Resource extends Goog
    *
    * @param string $name The project in which to create the time series. The
    * format is `"projects/PROJECT_ID_OR_NUMBER"`.
-   * @param Google_CreateCollectdTimeSeriesRequest $postBody
+   * @param Forminator_Google_CreateCollectdTimeSeriesRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_Empty
+   * @return Forminator_Google_Service_Monitoring_Empty
    */
-  public function create($name, Google_Service_Monitoring_CreateCollectdTimeSeriesRequest $postBody, $optParams = array())
+  public function create($name, Forminator_Google_Service_Monitoring_CreateCollectdTimeSeriesRequest $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Monitoring_Empty");
+    return $this->call('create', array($params), "Forminator_Google_Service_Monitoring_Empty");
   }
 }
 /**
  * The "groups" collection of methods.
  * Typical usage is:
  *  <code>
- *   $monitoringService = new Google_Service_Monitoring(...);
+ *   $monitoringService = new Forminator_Google_Service_Monitoring(...);
  *   $groups = $monitoringService->groups;
  *  </code>
  */
-class Google_Service_Monitoring_ProjectsGroups_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Monitoring_ProjectsGroups_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -454,18 +454,18 @@ class Google_Service_Monitoring_ProjectsGroups_Resource extends Google_Service_R
    *
    * @param string $name The project in which to create the group. The format is
    * `"projects/{project_id_or_number}"`.
-   * @param Google_Group $postBody
+   * @param Forminator_Google_Group $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool validateOnly If true, validate this request but do not create
    * the group.
-   * @return Google_Service_Monitoring_Group
+   * @return Forminator_Google_Service_Monitoring_Group
    */
-  public function create($name, Google_Service_Monitoring_Group $postBody, $optParams = array())
+  public function create($name, Forminator_Google_Service_Monitoring_Group $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Monitoring_Group");
+    return $this->call('create', array($params), "Forminator_Google_Service_Monitoring_Group");
   }
 
   /**
@@ -474,13 +474,13 @@ class Google_Service_Monitoring_ProjectsGroups_Resource extends Google_Service_R
    * @param string $name The group to delete. The format is
    * `"projects/{project_id_or_number}/groups/{group_id}"`.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_Empty
+   * @return Forminator_Google_Service_Monitoring_Empty
    */
   public function delete($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Monitoring_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Monitoring_Empty");
   }
 
   /**
@@ -489,13 +489,13 @@ class Google_Service_Monitoring_ProjectsGroups_Resource extends Google_Service_R
    * @param string $name The group to retrieve. The format is
    * `"projects/{project_id_or_number}/groups/{group_id}"`.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_Group
+   * @return Forminator_Google_Service_Monitoring_Group
    */
   public function get($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Monitoring_Group");
+    return $this->call('get', array($params), "Forminator_Google_Service_Monitoring_Group");
   }
 
   /**
@@ -525,13 +525,13 @@ class Google_Service_Monitoring_ProjectsGroups_Resource extends Google_Service_R
    * the `nextPageToken` value returned by a previous call to this method. Using
    * this field causes the method to return additional results from the previous
    * method call.
-   * @return Google_Service_Monitoring_ListGroupsResponse
+   * @return Forminator_Google_Service_Monitoring_ListGroupsResponse
    */
   public function listProjectsGroups($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Monitoring_ListGroupsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Monitoring_ListGroupsResponse");
   }
 
   /**
@@ -543,18 +543,18 @@ class Google_Service_Monitoring_ProjectsGroups_Resource extends Google_Service_R
    * this field is ignored and a new name is created consisting of the project
    * specified in the call to `CreateGroup` and a unique `{group_id}` that is
    * generated automatically. @OutputOnly
-   * @param Google_Group $postBody
+   * @param Forminator_Google_Group $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool validateOnly If true, validate this request but do not update
    * the existing group.
-   * @return Google_Service_Monitoring_Group
+   * @return Forminator_Google_Service_Monitoring_Group
    */
-  public function update($name, Google_Service_Monitoring_Group $postBody, $optParams = array())
+  public function update($name, Forminator_Google_Service_Monitoring_Group $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Monitoring_Group");
+    return $this->call('update', array($params), "Forminator_Google_Service_Monitoring_Group");
   }
 }
 
@@ -562,11 +562,11 @@ class Google_Service_Monitoring_ProjectsGroups_Resource extends Google_Service_R
  * The "members" collection of methods.
  * Typical usage is:
  *  <code>
- *   $monitoringService = new Google_Service_Monitoring(...);
+ *   $monitoringService = new Forminator_Google_Service_Monitoring(...);
  *   $members = $monitoringService->members;
  *  </code>
  */
-class Google_Service_Monitoring_ProjectsGroupsMembers_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Monitoring_ProjectsGroupsMembers_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -595,24 +595,24 @@ class Google_Service_Monitoring_ProjectsGroupsMembers_Resource extends Google_Se
    * point in time, `endTime`. If `startTime` is present, it must be earlier than
    * (less than) `endTime`. The interval begins after `startTime`—it does not
    * include `startTime`.
-   * @return Google_Service_Monitoring_ListGroupMembersResponse
+   * @return Forminator_Google_Service_Monitoring_ListGroupMembersResponse
    */
   public function listProjectsGroupsMembers($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Monitoring_ListGroupMembersResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Monitoring_ListGroupMembersResponse");
   }
 }
 /**
  * The "metricDescriptors" collection of methods.
  * Typical usage is:
  *  <code>
- *   $monitoringService = new Google_Service_Monitoring(...);
+ *   $monitoringService = new Forminator_Google_Service_Monitoring(...);
  *   $metricDescriptors = $monitoringService->metricDescriptors;
  *  </code>
  */
-class Google_Service_Monitoring_ProjectsMetricDescriptors_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Monitoring_ProjectsMetricDescriptors_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -621,15 +621,15 @@ class Google_Service_Monitoring_ProjectsMetricDescriptors_Resource extends Googl
    *
    * @param string $name The project on which to execute the request. The format
    * is `"projects/{project_id_or_number}"`.
-   * @param Google_MetricDescriptor $postBody
+   * @param Forminator_Google_MetricDescriptor $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_MetricDescriptor
+   * @return Forminator_Google_Service_Monitoring_MetricDescriptor
    */
-  public function create($name, Google_Service_Monitoring_MetricDescriptor $postBody, $optParams = array())
+  public function create($name, Forminator_Google_Service_Monitoring_MetricDescriptor $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Monitoring_MetricDescriptor");
+    return $this->call('create', array($params), "Forminator_Google_Service_Monitoring_MetricDescriptor");
   }
 
   /**
@@ -641,13 +641,13 @@ class Google_Service_Monitoring_ProjectsMetricDescriptors_Resource extends Googl
    * `"projects/{project_id_or_number}/metricDescriptors/{metric_id}"`. An example
    * of `{metric_id}` is: `"custom.googleapis.com/my_test_metric"`.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_Empty
+   * @return Forminator_Google_Service_Monitoring_Empty
    */
   public function delete($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Monitoring_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Monitoring_Empty");
   }
 
   /**
@@ -659,13 +659,13 @@ class Google_Service_Monitoring_ProjectsMetricDescriptors_Resource extends Googl
    * value of `{metric_id}` is
    * `"compute.googleapis.com/instance/disk/read_bytes_count"`.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_MetricDescriptor
+   * @return Forminator_Google_Service_Monitoring_MetricDescriptor
    */
   public function get($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Monitoring_MetricDescriptor");
+    return $this->call('get', array($params), "Forminator_Google_Service_Monitoring_MetricDescriptor");
   }
 
   /**
@@ -688,24 +688,24 @@ class Google_Service_Monitoring_ProjectsMetricDescriptors_Resource extends Googl
    * the `nextPageToken` value returned by a previous call to this method. Using
    * this field causes the method to return additional results from the previous
    * method call.
-   * @return Google_Service_Monitoring_ListMetricDescriptorsResponse
+   * @return Forminator_Google_Service_Monitoring_ListMetricDescriptorsResponse
    */
   public function listProjectsMetricDescriptors($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Monitoring_ListMetricDescriptorsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Monitoring_ListMetricDescriptorsResponse");
   }
 }
 /**
  * The "monitoredResourceDescriptors" collection of methods.
  * Typical usage is:
  *  <code>
- *   $monitoringService = new Google_Service_Monitoring(...);
+ *   $monitoringService = new Forminator_Google_Service_Monitoring(...);
  *   $monitoredResourceDescriptors = $monitoringService->monitoredResourceDescriptors;
  *  </code>
  */
-class Google_Service_Monitoring_ProjectsMonitoredResourceDescriptors_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Monitoring_ProjectsMonitoredResourceDescriptors_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -716,13 +716,13 @@ class Google_Service_Monitoring_ProjectsMonitoredResourceDescriptors_Resource ex
    * "projects/{project_id_or_number}/monitoredResourceDescriptors/{resource_type}
    * "`. The `{resource_type}` is a predefined type, such as `cloudsql_database`.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_MonitoredResourceDescriptor
+   * @return Forminator_Google_Service_Monitoring_MonitoredResourceDescriptor
    */
   public function get($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Monitoring_MonitoredResourceDescriptor");
+    return $this->call('get', array($params), "Forminator_Google_Service_Monitoring_MonitoredResourceDescriptor");
   }
 
   /**
@@ -744,24 +744,24 @@ class Google_Service_Monitoring_ProjectsMonitoredResourceDescriptors_Resource ex
    * the `nextPageToken` value returned by a previous call to this method. Using
    * this field causes the method to return additional results from the previous
    * method call.
-   * @return Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse
+   * @return Forminator_Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse
    */
   public function listProjectsMonitoredResourceDescriptors($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse");
   }
 }
 /**
  * The "timeSeries" collection of methods.
  * Typical usage is:
  *  <code>
- *   $monitoringService = new Google_Service_Monitoring(...);
+ *   $monitoringService = new Forminator_Google_Service_Monitoring(...);
  *   $timeSeries = $monitoringService->timeSeries;
  *  </code>
  */
-class Google_Service_Monitoring_ProjectsTimeSeries_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Monitoring_ProjectsTimeSeries_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -772,15 +772,15 @@ class Google_Service_Monitoring_ProjectsTimeSeries_Resource extends Google_Servi
    *
    * @param string $name The project on which to execute the request. The format
    * is `"projects/{project_id_or_number}"`.
-   * @param Google_CreateTimeSeriesRequest $postBody
+   * @param Forminator_Google_CreateTimeSeriesRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_Empty
+   * @return Forminator_Google_Service_Monitoring_Empty
    */
-  public function create($name, Google_Service_Monitoring_CreateTimeSeriesRequest $postBody, $optParams = array())
+  public function create($name, Forminator_Google_Service_Monitoring_CreateTimeSeriesRequest $postBody, $optParams = array())
   {
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Monitoring_Empty");
+    return $this->call('create', array($params), "Forminator_Google_Service_Monitoring_Empty");
   }
 
   /**
@@ -848,32 +848,32 @@ class Google_Service_Monitoring_ProjectsTimeSeries_Resource extends Google_Servi
    * the `nextPageToken` value returned by a previous call to this method. Using
    * this field causes the method to return additional results from the previous
    * method call.
-   * @return Google_Service_Monitoring_ListTimeSeriesResponse
+   * @return Forminator_Google_Service_Monitoring_ListTimeSeriesResponse
    */
   public function listProjectsTimeSeries($name, $optParams = array())
   {
     $params = array('name' => $name);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Monitoring_ListTimeSeriesResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Monitoring_ListTimeSeriesResponse");
   }
 }
 
 
 
 
-class Google_Service_Monitoring_BucketOptions extends Google_Model
+class Forminator_Google_Service_Monitoring_BucketOptions extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $explicitBucketsType = 'Google_Service_Monitoring_Explicit';
+  protected $explicitBucketsType = 'Forminator_Google_Service_Monitoring_Explicit';
   protected $explicitBucketsDataType = '';
-  protected $exponentialBucketsType = 'Google_Service_Monitoring_Exponential';
+  protected $exponentialBucketsType = 'Forminator_Google_Service_Monitoring_Exponential';
   protected $exponentialBucketsDataType = '';
-  protected $linearBucketsType = 'Google_Service_Monitoring_Linear';
+  protected $linearBucketsType = 'Forminator_Google_Service_Monitoring_Linear';
   protected $linearBucketsDataType = '';
 
 
-  public function setExplicitBuckets(Google_Service_Monitoring_Explicit $explicitBuckets)
+  public function setExplicitBuckets(Forminator_Google_Service_Monitoring_Explicit $explicitBuckets)
   {
     $this->explicitBuckets = $explicitBuckets;
   }
@@ -881,7 +881,7 @@ class Google_Service_Monitoring_BucketOptions extends Google_Model
   {
     return $this->explicitBuckets;
   }
-  public function setExponentialBuckets(Google_Service_Monitoring_Exponential $exponentialBuckets)
+  public function setExponentialBuckets(Forminator_Google_Service_Monitoring_Exponential $exponentialBuckets)
   {
     $this->exponentialBuckets = $exponentialBuckets;
   }
@@ -889,7 +889,7 @@ class Google_Service_Monitoring_BucketOptions extends Google_Model
   {
     return $this->exponentialBuckets;
   }
-  public function setLinearBuckets(Google_Service_Monitoring_Linear $linearBuckets)
+  public function setLinearBuckets(Forminator_Google_Service_Monitoring_Linear $linearBuckets)
   {
     $this->linearBuckets = $linearBuckets;
   }
@@ -899,20 +899,20 @@ class Google_Service_Monitoring_BucketOptions extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_CollectdPayload extends Google_Collection
+class Forminator_Google_Service_Monitoring_CollectdPayload extends Forminator_Google_Collection
 {
   protected $collection_key = 'values';
   protected $internal_gapi_mappings = array(
   );
   public $endTime;
-  protected $metadataType = 'Google_Service_Monitoring_TypedValue';
+  protected $metadataType = 'Forminator_Google_Service_Monitoring_TypedValue';
   protected $metadataDataType = 'map';
   public $plugin;
   public $pluginInstance;
   public $startTime;
   public $type;
   public $typeInstance;
-  protected $valuesType = 'Google_Service_Monitoring_CollectdValue';
+  protected $valuesType = 'Forminator_Google_Service_Monitoring_CollectdValue';
   protected $valuesDataType = 'array';
 
 
@@ -982,17 +982,17 @@ class Google_Service_Monitoring_CollectdPayload extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_CollectdPayloadMetadata extends Google_Model
+class Forminator_Google_Service_Monitoring_CollectdPayloadMetadata extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Monitoring_CollectdValue extends Google_Model
+class Forminator_Google_Service_Monitoring_CollectdValue extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $dataSourceName;
   public $dataSourceType;
-  protected $valueType = 'Google_Service_Monitoring_TypedValue';
+  protected $valueType = 'Forminator_Google_Service_Monitoring_TypedValue';
   protected $valueDataType = '';
 
 
@@ -1012,7 +1012,7 @@ class Google_Service_Monitoring_CollectdValue extends Google_Model
   {
     return $this->dataSourceType;
   }
-  public function setValue(Google_Service_Monitoring_TypedValue $value)
+  public function setValue(Forminator_Google_Service_Monitoring_TypedValue $value)
   {
     $this->value = $value;
   }
@@ -1022,15 +1022,15 @@ class Google_Service_Monitoring_CollectdValue extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_CreateCollectdTimeSeriesRequest extends Google_Collection
+class Forminator_Google_Service_Monitoring_CreateCollectdTimeSeriesRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'collectdPayloads';
   protected $internal_gapi_mappings = array(
   );
-  protected $collectdPayloadsType = 'Google_Service_Monitoring_CollectdPayload';
+  protected $collectdPayloadsType = 'Forminator_Google_Service_Monitoring_CollectdPayload';
   protected $collectdPayloadsDataType = 'array';
   public $collectdVersion;
-  protected $resourceType = 'Google_Service_Monitoring_MonitoredResource';
+  protected $resourceType = 'Forminator_Google_Service_Monitoring_MonitoredResource';
   protected $resourceDataType = '';
 
 
@@ -1050,7 +1050,7 @@ class Google_Service_Monitoring_CreateCollectdTimeSeriesRequest extends Google_C
   {
     return $this->collectdVersion;
   }
-  public function setResource(Google_Service_Monitoring_MonitoredResource $resource)
+  public function setResource(Forminator_Google_Service_Monitoring_MonitoredResource $resource)
   {
     $this->resource = $resource;
   }
@@ -1060,12 +1060,12 @@ class Google_Service_Monitoring_CreateCollectdTimeSeriesRequest extends Google_C
   }
 }
 
-class Google_Service_Monitoring_CreateTimeSeriesRequest extends Google_Collection
+class Forminator_Google_Service_Monitoring_CreateTimeSeriesRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'timeSeries';
   protected $internal_gapi_mappings = array(
   );
-  protected $timeSeriesType = 'Google_Service_Monitoring_TimeSeries';
+  protected $timeSeriesType = 'Forminator_Google_Service_Monitoring_TimeSeries';
   protected $timeSeriesDataType = 'array';
 
 
@@ -1079,17 +1079,17 @@ class Google_Service_Monitoring_CreateTimeSeriesRequest extends Google_Collectio
   }
 }
 
-class Google_Service_Monitoring_Distribution extends Google_Collection
+class Forminator_Google_Service_Monitoring_Distribution extends Forminator_Google_Collection
 {
   protected $collection_key = 'bucketCounts';
   protected $internal_gapi_mappings = array(
   );
   public $bucketCounts;
-  protected $bucketOptionsType = 'Google_Service_Monitoring_BucketOptions';
+  protected $bucketOptionsType = 'Forminator_Google_Service_Monitoring_BucketOptions';
   protected $bucketOptionsDataType = '';
   public $count;
   public $mean;
-  protected $rangeType = 'Google_Service_Monitoring_Range';
+  protected $rangeType = 'Forminator_Google_Service_Monitoring_Range';
   protected $rangeDataType = '';
   public $sumOfSquaredDeviation;
 
@@ -1102,7 +1102,7 @@ class Google_Service_Monitoring_Distribution extends Google_Collection
   {
     return $this->bucketCounts;
   }
-  public function setBucketOptions(Google_Service_Monitoring_BucketOptions $bucketOptions)
+  public function setBucketOptions(Forminator_Google_Service_Monitoring_BucketOptions $bucketOptions)
   {
     $this->bucketOptions = $bucketOptions;
   }
@@ -1126,7 +1126,7 @@ class Google_Service_Monitoring_Distribution extends Google_Collection
   {
     return $this->mean;
   }
-  public function setRange(Google_Service_Monitoring_Range $range)
+  public function setRange(Forminator_Google_Service_Monitoring_Range $range)
   {
     $this->range = $range;
   }
@@ -1144,11 +1144,11 @@ class Google_Service_Monitoring_Distribution extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_Empty extends Google_Model
+class Forminator_Google_Service_Monitoring_Empty extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Monitoring_Explicit extends Google_Collection
+class Forminator_Google_Service_Monitoring_Explicit extends Forminator_Google_Collection
 {
   protected $collection_key = 'bounds';
   protected $internal_gapi_mappings = array(
@@ -1166,7 +1166,7 @@ class Google_Service_Monitoring_Explicit extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_Exponential extends Google_Model
+class Forminator_Google_Service_Monitoring_Exponential extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1201,7 +1201,7 @@ class Google_Service_Monitoring_Exponential extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_Field extends Google_Collection
+class Forminator_Google_Service_Monitoring_Field extends Forminator_Google_Collection
 {
   protected $collection_key = 'options';
   protected $internal_gapi_mappings = array(
@@ -1213,7 +1213,7 @@ class Google_Service_Monitoring_Field extends Google_Collection
   public $name;
   public $number;
   public $oneofIndex;
-  protected $optionsType = 'Google_Service_Monitoring_Option';
+  protected $optionsType = 'Forminator_Google_Service_Monitoring_Option';
   protected $optionsDataType = 'array';
   public $packed;
   public $typeUrl;
@@ -1301,7 +1301,7 @@ class Google_Service_Monitoring_Field extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_Group extends Google_Model
+class Forminator_Google_Service_Monitoring_Group extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1354,7 +1354,7 @@ class Google_Service_Monitoring_Group extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_LabelDescriptor extends Google_Model
+class Forminator_Google_Service_Monitoring_LabelDescriptor extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1389,7 +1389,7 @@ class Google_Service_Monitoring_LabelDescriptor extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_Linear extends Google_Model
+class Forminator_Google_Service_Monitoring_Linear extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1424,12 +1424,12 @@ class Google_Service_Monitoring_Linear extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_ListGroupMembersResponse extends Google_Collection
+class Forminator_Google_Service_Monitoring_ListGroupMembersResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'members';
   protected $internal_gapi_mappings = array(
   );
-  protected $membersType = 'Google_Service_Monitoring_MonitoredResource';
+  protected $membersType = 'Forminator_Google_Service_Monitoring_MonitoredResource';
   protected $membersDataType = 'array';
   public $nextPageToken;
   public $totalSize;
@@ -1461,12 +1461,12 @@ class Google_Service_Monitoring_ListGroupMembersResponse extends Google_Collecti
   }
 }
 
-class Google_Service_Monitoring_ListGroupsResponse extends Google_Collection
+class Forminator_Google_Service_Monitoring_ListGroupsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'group';
   protected $internal_gapi_mappings = array(
   );
-  protected $groupType = 'Google_Service_Monitoring_Group';
+  protected $groupType = 'Forminator_Google_Service_Monitoring_Group';
   protected $groupDataType = 'array';
   public $nextPageToken;
 
@@ -1489,12 +1489,12 @@ class Google_Service_Monitoring_ListGroupsResponse extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_ListMetricDescriptorsResponse extends Google_Collection
+class Forminator_Google_Service_Monitoring_ListMetricDescriptorsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'metricDescriptors';
   protected $internal_gapi_mappings = array(
   );
-  protected $metricDescriptorsType = 'Google_Service_Monitoring_MetricDescriptor';
+  protected $metricDescriptorsType = 'Forminator_Google_Service_Monitoring_MetricDescriptor';
   protected $metricDescriptorsDataType = 'array';
   public $nextPageToken;
 
@@ -1517,13 +1517,13 @@ class Google_Service_Monitoring_ListMetricDescriptorsResponse extends Google_Col
   }
 }
 
-class Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse extends Google_Collection
+class Forminator_Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resourceDescriptors';
   protected $internal_gapi_mappings = array(
   );
   public $nextPageToken;
-  protected $resourceDescriptorsType = 'Google_Service_Monitoring_MonitoredResourceDescriptor';
+  protected $resourceDescriptorsType = 'Forminator_Google_Service_Monitoring_MonitoredResourceDescriptor';
   protected $resourceDescriptorsDataType = 'array';
 
 
@@ -1545,13 +1545,13 @@ class Google_Service_Monitoring_ListMonitoredResourceDescriptorsResponse extends
   }
 }
 
-class Google_Service_Monitoring_ListTimeSeriesResponse extends Google_Collection
+class Forminator_Google_Service_Monitoring_ListTimeSeriesResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'timeSeries';
   protected $internal_gapi_mappings = array(
   );
   public $nextPageToken;
-  protected $timeSeriesType = 'Google_Service_Monitoring_TimeSeries';
+  protected $timeSeriesType = 'Forminator_Google_Service_Monitoring_TimeSeries';
   protected $timeSeriesDataType = 'array';
 
 
@@ -1573,7 +1573,7 @@ class Google_Service_Monitoring_ListTimeSeriesResponse extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_Metric extends Google_Model
+class Forminator_Google_Service_Monitoring_Metric extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1599,14 +1599,14 @@ class Google_Service_Monitoring_Metric extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_MetricDescriptor extends Google_Collection
+class Forminator_Google_Service_Monitoring_MetricDescriptor extends Forminator_Google_Collection
 {
   protected $collection_key = 'labels';
   protected $internal_gapi_mappings = array(
   );
   public $description;
   public $displayName;
-  protected $labelsType = 'Google_Service_Monitoring_LabelDescriptor';
+  protected $labelsType = 'Forminator_Google_Service_Monitoring_LabelDescriptor';
   protected $labelsDataType = 'array';
   public $metricKind;
   public $name;
@@ -1681,11 +1681,11 @@ class Google_Service_Monitoring_MetricDescriptor extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_MetricLabels extends Google_Model
+class Forminator_Google_Service_Monitoring_MetricLabels extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Monitoring_MonitoredResource extends Google_Model
+class Forminator_Google_Service_Monitoring_MonitoredResource extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1711,14 +1711,14 @@ class Google_Service_Monitoring_MonitoredResource extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_MonitoredResourceDescriptor extends Google_Collection
+class Forminator_Google_Service_Monitoring_MonitoredResourceDescriptor extends Forminator_Google_Collection
 {
   protected $collection_key = 'labels';
   protected $internal_gapi_mappings = array(
   );
   public $description;
   public $displayName;
-  protected $labelsType = 'Google_Service_Monitoring_LabelDescriptor';
+  protected $labelsType = 'Forminator_Google_Service_Monitoring_LabelDescriptor';
   protected $labelsDataType = 'array';
   public $name;
   public $type;
@@ -1766,11 +1766,11 @@ class Google_Service_Monitoring_MonitoredResourceDescriptor extends Google_Colle
   }
 }
 
-class Google_Service_Monitoring_MonitoredResourceLabels extends Google_Model
+class Forminator_Google_Service_Monitoring_MonitoredResourceLabels extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Monitoring_Option extends Google_Model
+class Forminator_Google_Service_Monitoring_Option extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1796,21 +1796,21 @@ class Google_Service_Monitoring_Option extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_OptionValue extends Google_Model
+class Forminator_Google_Service_Monitoring_OptionValue extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Monitoring_Point extends Google_Model
+class Forminator_Google_Service_Monitoring_Point extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $intervalType = 'Google_Service_Monitoring_TimeInterval';
+  protected $intervalType = 'Forminator_Google_Service_Monitoring_TimeInterval';
   protected $intervalDataType = '';
-  protected $valueType = 'Google_Service_Monitoring_TypedValue';
+  protected $valueType = 'Forminator_Google_Service_Monitoring_TypedValue';
   protected $valueDataType = '';
 
 
-  public function setInterval(Google_Service_Monitoring_TimeInterval $interval)
+  public function setInterval(Forminator_Google_Service_Monitoring_TimeInterval $interval)
   {
     $this->interval = $interval;
   }
@@ -1818,7 +1818,7 @@ class Google_Service_Monitoring_Point extends Google_Model
   {
     return $this->interval;
   }
-  public function setValue(Google_Service_Monitoring_TypedValue $value)
+  public function setValue(Forminator_Google_Service_Monitoring_TypedValue $value)
   {
     $this->value = $value;
   }
@@ -1828,7 +1828,7 @@ class Google_Service_Monitoring_Point extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_Range extends Google_Model
+class Forminator_Google_Service_Monitoring_Range extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1854,7 +1854,7 @@ class Google_Service_Monitoring_Range extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_SourceContext extends Google_Model
+class Forminator_Google_Service_Monitoring_SourceContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1871,7 +1871,7 @@ class Google_Service_Monitoring_SourceContext extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_TimeInterval extends Google_Model
+class Forminator_Google_Service_Monitoring_TimeInterval extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1897,22 +1897,22 @@ class Google_Service_Monitoring_TimeInterval extends Google_Model
   }
 }
 
-class Google_Service_Monitoring_TimeSeries extends Google_Collection
+class Forminator_Google_Service_Monitoring_TimeSeries extends Forminator_Google_Collection
 {
   protected $collection_key = 'points';
   protected $internal_gapi_mappings = array(
   );
-  protected $metricType = 'Google_Service_Monitoring_Metric';
+  protected $metricType = 'Forminator_Google_Service_Monitoring_Metric';
   protected $metricDataType = '';
   public $metricKind;
-  protected $pointsType = 'Google_Service_Monitoring_Point';
+  protected $pointsType = 'Forminator_Google_Service_Monitoring_Point';
   protected $pointsDataType = 'array';
-  protected $resourceType = 'Google_Service_Monitoring_MonitoredResource';
+  protected $resourceType = 'Forminator_Google_Service_Monitoring_MonitoredResource';
   protected $resourceDataType = '';
   public $valueType;
 
 
-  public function setMetric(Google_Service_Monitoring_Metric $metric)
+  public function setMetric(Forminator_Google_Service_Monitoring_Metric $metric)
   {
     $this->metric = $metric;
   }
@@ -1936,7 +1936,7 @@ class Google_Service_Monitoring_TimeSeries extends Google_Collection
   {
     return $this->points;
   }
-  public function setResource(Google_Service_Monitoring_MonitoredResource $resource)
+  public function setResource(Forminator_Google_Service_Monitoring_MonitoredResource $resource)
   {
     $this->resource = $resource;
   }
@@ -1954,18 +1954,18 @@ class Google_Service_Monitoring_TimeSeries extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_Type extends Google_Collection
+class Forminator_Google_Service_Monitoring_Type extends Forminator_Google_Collection
 {
   protected $collection_key = 'options';
   protected $internal_gapi_mappings = array(
   );
-  protected $fieldsType = 'Google_Service_Monitoring_Field';
+  protected $fieldsType = 'Forminator_Google_Service_Monitoring_Field';
   protected $fieldsDataType = 'array';
   public $name;
   public $oneofs;
-  protected $optionsType = 'Google_Service_Monitoring_Option';
+  protected $optionsType = 'Forminator_Google_Service_Monitoring_Option';
   protected $optionsDataType = 'array';
-  protected $sourceContextType = 'Google_Service_Monitoring_SourceContext';
+  protected $sourceContextType = 'Forminator_Google_Service_Monitoring_SourceContext';
   protected $sourceContextDataType = '';
   public $syntax;
 
@@ -2002,7 +2002,7 @@ class Google_Service_Monitoring_Type extends Google_Collection
   {
     return $this->options;
   }
-  public function setSourceContext(Google_Service_Monitoring_SourceContext $sourceContext)
+  public function setSourceContext(Forminator_Google_Service_Monitoring_SourceContext $sourceContext)
   {
     $this->sourceContext = $sourceContext;
   }
@@ -2020,12 +2020,12 @@ class Google_Service_Monitoring_Type extends Google_Collection
   }
 }
 
-class Google_Service_Monitoring_TypedValue extends Google_Model
+class Forminator_Google_Service_Monitoring_TypedValue extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $boolValue;
-  protected $distributionValueType = 'Google_Service_Monitoring_Distribution';
+  protected $distributionValueType = 'Forminator_Google_Service_Monitoring_Distribution';
   protected $distributionValueDataType = '';
   public $doubleValue;
   public $int64Value;
@@ -2040,7 +2040,7 @@ class Google_Service_Monitoring_TypedValue extends Google_Model
   {
     return $this->boolValue;
   }
-  public function setDistributionValue(Google_Service_Monitoring_Distribution $distributionValue)
+  public function setDistributionValue(Forminator_Google_Service_Monitoring_Distribution $distributionValue)
   {
     $this->distributionValue = $distributionValue;
   }

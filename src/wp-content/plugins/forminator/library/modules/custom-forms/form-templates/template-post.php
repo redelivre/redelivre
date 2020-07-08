@@ -22,7 +22,7 @@ class Forminator_Template_Post extends Forminator_Template {
 			'name'        => __( 'Create Post', Forminator::DOMAIN ),
 			'description' => __( "A simple contact form for your users to contact you", Forminator::DOMAIN ),
 			'icon'        => 'plus',
-			'priortiy'    => 5,
+			'priortiy'    => 7,
 		);
 	}
 
@@ -76,6 +76,7 @@ class Forminator_Template_Post extends Forminator_Template {
 	 */
 	public function settings() {
 		return array(
+			"form-type"                     => "default",
 			"submission-behaviour"          => "behaviour-thankyou",
 			"thankyou-message"              => __( "Thank you for contacting us, we will be in touch shortly.", Forminator::DOMAIN ),
 			'submitData'                    => array(

@@ -116,7 +116,6 @@ class Forminator_MultiValue extends Forminator_Field {
 	public function markup( $field, $settings = array() ) {
 
 		$this->field = $field;
-
 		$i           = 1;
 		$html        = '';
 		$id          = self::get_property( 'element_id', $field );
@@ -129,71 +128,70 @@ class Forminator_MultiValue extends Forminator_Field {
 		$required    = self::get_property( 'required', $field, false );
 		$options     = self::get_property( 'options', $field, array() );
 		$value_type  = trim( isset( $field['value_type'] ) ? $field['value_type'] : "multiselect" );
-		$description = self::get_property( 'description', $field, '' );
-		$label       = self::get_property( 'field_label', $field, '' );
+		$description = esc_html( self::get_property( 'description', $field, '' ) );
+		$label       = esc_html( self::get_property( 'field_label', $field, '' ) );
 		$class       = ( 'horizontal' === self::get_property( 'layout', $field, '' ) ) ? 'forminator-checkbox forminator-checkbox-inline' : 'forminator-checkbox';
 		$design      = $this->get_form_style( $settings );
+
 		$calc_enabled = self::get_property( 'calculations', $field, false, 'bool' );
 
 		$html .= '<div class="forminator-field">';
 
-			if ( $label ) {
-				if ( $required ) {
-					$html .= sprintf( '<label class="forminator-label">%s %s</label>', $label, forminator_get_required_icon() );
-				} else {
-					$html .= sprintf( '<label class="forminator-label">%s</label>', $label );
+		if ( $label ) {
+			if ( $required ) {
+				$html .= sprintf( '<label class="forminator-label">%s %s</label>', $label, forminator_get_required_icon() );
+			} else {
+				$html .= sprintf( '<label class="forminator-label">%s</label>', $label );
+			}
+		}
+
+		foreach ( $options as $option ) {
+			$value             = $option['value'] ? esc_html( $option['value'] ) : esc_html( $option['label'] );
+			$input_id          = $id . '-' . $i . '-' . $uniq_id;
+			$option_default    = isset( $option['default'] ) ? filter_var( $option['default'], FILTER_VALIDATE_BOOLEAN ) : false;
+			$calculation_value = $calc_enabled && isset( $option['calculation'] ) ? $option['calculation'] : 0.0;
+
+			$selected = false;
+
+			// Check if Pre-fill parameter used
+			if ( $this->has_prefill( $field ) ) {
+				// We have pre-fill parameter, use its value or $value
+				$prefill        = $this->get_prefill( $field, false );
+				$prefill_values = explode( ',', $prefill );
+
+				if ( in_array( $value, $prefill_values ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+					$option_default = true;
 				}
 			}
 
-			foreach ( $options as $option ) {
-
-				$value             = $option['value'] ? $option['value'] : $option['label'];
-				$input_id          = $id . '-' . $i . '-' . $uniq_id;
-				$option_default    = isset( $option['default'] ) ? filter_var( $option['default'], FILTER_VALIDATE_BOOLEAN ) : false;
-				$calculation_value = $calc_enabled && isset( $option['calculation'] ) ? $option['calculation'] : 0.0;
-
-				$selected = false;
-
-                // Check if Pre-fill parameter used
-                if( $this->has_prefill( $field ) ) {
-                    // We have pre-fill parameter, use its value or $value
-                    $prefill = $this->get_prefill( $field, false );
-                    $prefill_values = explode( ',', $prefill );
-
-                    if( in_array( $value, $prefill_values ) ) {
-                        $option_default = true;
-                    }
-                }
-
-				if ( self::FIELD_PROPERTY_VALUE_NOT_EXIST !== $post_value ) {
-					if ( is_array( $post_value ) ) {
-						$selected = in_array( $value, $post_value );// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-					}
-				} else {
-					$selected = $option_default;
+			if ( self::FIELD_PROPERTY_VALUE_NOT_EXIST !== $post_value ) {
+				if ( is_array( $post_value ) ) {
+					$selected = in_array( $value, $post_value );// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				}
-
-				$selected = $selected ? 'checked="checked"' : '';
-
-				$html .= sprintf( '<label for="%s" class="' . $class . '">', $input_id );
-
-					$html .= sprintf(
-						'<input type="checkbox" name="%s" value="%s" id="%s" data-calculation="%s" %s />',
-						$name,
-						$value,
-						$input_id,
-						$calculation_value,
-						$selected
-					);
-
-					$html .= '<span aria-hidden="true"></span>';
-
-					$html .= sprintf( '<span>%s</span>', $option['label'] );
-
-				$html .= '</label>';
-
-				$i ++;
+			} else {
+				$selected = $option_default;
 			}
+
+			$selected = $selected ? 'checked="checked"' : '';
+
+			$html .= sprintf( '<label for="%s" class="' . $class . '">', $input_id );
+
+				$html .= sprintf(
+					'<input type="checkbox" name="%s" value="%s" id="%s" data-calculation="%s" %s />',
+					$name,
+					$value,
+					$input_id,
+					$calculation_value,
+					$selected
+				);
+
+				$html .= '<span aria-hidden="true"></span>';
+				$html .= sprintf( '<span>%s</span>', esc_html( $option['label'] ) );
+
+			$html .= '</label>';
+
+			$i ++;
+		}
 
 			$html .= self::get_description( $description );
 
@@ -237,12 +235,11 @@ class Forminator_MultiValue extends Forminator_Field {
 			$required_message = self::get_property( 'required_message', $field, __( 'This field is required. Please select a value', Forminator::DOMAIN ) );
 			$required_message = apply_filters(
 				'forminator_multi_field_required_validation_message',
-				$required_message
-				,
+				$required_message,
 				$id,
 				$field
 			);
-			$messages         .= '"' . $this->get_id( $field ) . '[]": "' . forminator_addcslashes( $required_message ) . '",' . "\n";
+			$messages        .= '"' . $this->get_id( $field ) . '[]": "' . forminator_addcslashes( $required_message ) . '",' . "\n";
 		}
 
 		return $messages;
@@ -324,7 +321,6 @@ class Forminator_MultiValue extends Forminator_Field {
 				// this one is selected
 				$sums += floatval( $calculation_value );
 			}
-
 		}
 
 		return floatval( $sums );
@@ -347,7 +343,7 @@ class Forminator_MultiValue extends Forminator_Field {
 		 *
 		 * @return string|int|float
 		 */
-		$calculable_value = apply_filters( "forminator_field_multi_calculable_value", $calculable_value, $submitted_data, $field_settings );
+		$calculable_value = apply_filters( 'forminator_field_multi_calculable_value', $calculable_value, $submitted_data, $field_settings );
 
 		return $calculable_value;
 	}

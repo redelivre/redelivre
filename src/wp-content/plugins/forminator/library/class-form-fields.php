@@ -32,7 +32,7 @@ class Forminator_Fields {
 			'library/fields',
 			array(
 				'stripe.php' => array(
-					'php' => '5.4.0',
+					'php' => '5.6.0',
 				),
 			)
 		);

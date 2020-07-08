@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Class Forminator_Payment_Gateway
- * 
+ *
  * Payment Gateway abstract class
  *
  * @since 1.0
@@ -14,21 +14,21 @@ abstract class Forminator_Payment_Gateway {
 
 	/**
 	 * Gateway slug
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $_slug = '';
 
 	/**
 	 * Enabled based on settings
-	 * 
+	 *
 	 * @var bool
 	 */
 	protected $_enabled = false;
 
 	/**
 	 * The total field name
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $_total_field = '';
@@ -44,7 +44,7 @@ abstract class Forminator_Payment_Gateway {
 
 		// Handle purchases
 		if ( $this->_enabled ) {
-			add_filter( 'forminator_cform_process_purchase', array( $this, '_handle_purchase'), 10, 5 );
+			add_filter( 'forminator_cform_process_purchase', array( $this, '_handle_purchase' ), 10, 5 );
 		}
 	}
 
@@ -83,13 +83,13 @@ abstract class Forminator_Payment_Gateway {
 	 * @param int $entry_id - the entry id ( reference for callback)
 	 * @param int $page_id - the page id. Used to generate a return url
 	 * @param int $shipping - the shipping cost
-	 * 
+	 *
 	 * @return array $response
 	 */
 	protected function handle_purchase( $response, $product_fields, $field_data_array, $entry_id, $page_id, $shipping ) {
 		return $response;
 	}
-	
+
 	/**
 	 * Gateway footer scripts
 	 *

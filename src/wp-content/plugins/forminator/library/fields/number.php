@@ -76,11 +76,11 @@ class Forminator_Number extends Forminator_Field {
 		return apply_filters(
 			'forminator_number_defaults_settings',
 			array(
-				'calculations' => "true",
-				'limit_min'   => 1,
-				'limit_max'   => 150,
-				'field_label' => __( 'Number', Forminator::DOMAIN ),
-				'placeholder' => __( 'E.g. 10', Forminator::DOMAIN ),
+				'calculations' => 'true',
+				'limit_min'    => 1,
+				'limit_max'    => 150,
+				'field_label'  => __( 'Number', Forminator::DOMAIN ),
+				'placeholder'  => __( 'E.g. 10', Forminator::DOMAIN ),
 			)
 		);
 	}
@@ -132,22 +132,22 @@ class Forminator_Number extends Forminator_Field {
 		$required    = self::get_property( 'required', $field, false );
 		$ariareq     = 'false';
 		$placeholder = $this->sanitize_value( self::get_property( 'placeholder', $field ) );
-		$value       = self::get_post_data( $name, self::get_property( 'default_value', $field ) );
-		$label       = self::get_property( 'field_label', $field, '' );
-		$description = self::get_property( 'description', $field, '' );
+		$value       = esc_html( self::get_post_data( $name, self::get_property( 'default_value', $field ) ) );
+		$label       = esc_html( self::get_property( 'field_label', $field, '' ) );
+		$description = esc_html( self::get_property( 'description', $field, '' ) );
 		$design      = $this->get_form_style( $settings );
-		$min         = self::get_property( 'limit_min', $field, false );
-		$max         = self::get_property( 'limit_max', $field, false );
+		$min         = esc_html( self::get_property( 'limit_min', $field, false ) );
+		$max         = esc_html( self::get_property( 'limit_max', $field, false ) );
 
 		if ( (bool) $required ) {
 			$ariareq = 'true';
 		}
 
-        // Check if Pre-fill parameter used
-        if( $this->has_prefill( $field ) ) {
-            // We have pre-fill parameter, use its value or $value
-            $value = $this->get_prefill( $field, $value );
-        }
+		// Check if Pre-fill parameter used
+		if ( $this->has_prefill( $field ) ) {
+			// We have pre-fill parameter, use its value or $value
+			$value = $this->get_prefill( $field, $value );
+		}
 
 		$number_attr = array(
 			'type'          => 'number',
@@ -156,7 +156,7 @@ class Forminator_Number extends Forminator_Field {
 			'placeholder'   => $placeholder,
 			'id'            => $id,
 			'class'         => 'forminator-input forminator-number--field',
-			'pattern'       => '[0-9]*',
+			'pattern'       => '^\-?\d*([\.\,]\d+)?',
 			'inputmode'     => 'numeric',
 			'data-required' => $required,
 			'aria-required' => $ariareq,
@@ -240,7 +240,7 @@ class Forminator_Number extends Forminator_Field {
 				$required_validation_message,
 				$field
 			);
-			$messages                    .= '"required": "' . forminator_addcslashes( $required_validation_message ) . '",' . "\n";
+			$messages                   .= '"required": "' . forminator_addcslashes( $required_validation_message ) . '",' . "\n";
 		}
 
 		$number_validation_message = apply_filters(
@@ -248,23 +248,23 @@ class Forminator_Number extends Forminator_Field {
 			__( 'This is not valid number', Forminator::DOMAIN ),
 			$field
 		);
-		$messages                  .= '"number": "' . forminator_addcslashes( $number_validation_message ) . '",' . "\n";
+		$messages                 .= '"number": "' . forminator_addcslashes( $number_validation_message ) . '",' . "\n";
 
 		if ( $min ) {
 			$min_validation_message = apply_filters(
 				'forminator_field_number_min_validation_message',
-				__( "Please enter a value greater than or equal to {0}.", Forminator::DOMAIN ),
+				__( 'Please enter a value greater than or equal to {0}.', Forminator::DOMAIN ),
 				$field
 			);
-			$messages               .= '"min": "' . forminator_addcslashes( $min_validation_message ) . '",' . "\n";
+			$messages              .= '"min": "' . forminator_addcslashes( $min_validation_message ) . '",' . "\n";
 		}
 		if ( $max ) {
 			$max_validation_message = apply_filters(
 				'forminator_field_number_max_validation_message',
-				__( "Please enter a value less than or equal to {0}.", Forminator::DOMAIN ),
+				__( 'Please enter a value less than or equal to {0}.', Forminator::DOMAIN ),
 				$field
 			);
-			$messages               .= '"max": "' . forminator_addcslashes( $max_validation_message ) . '",' . "\n";
+			$messages              .= '"max": "' . forminator_addcslashes( $max_validation_message ) . '",' . "\n";
 		}
 
 		$messages .= '},' . "\n";
@@ -285,11 +285,16 @@ class Forminator_Number extends Forminator_Field {
 		$max = self::get_property( 'limit_max', $field, $data );
 		$min = self::get_property( 'limit_min', $field, $data );
 
+		$max     = trim( $max );
+		$min     = trim( $min );
+		$max_len = strlen( $max );
+		$min_len = strlen( $min );
+
 		if ( $this->is_required( $field ) ) {
 
 			if ( empty( $data ) && '0' !== $data ) {
-				$require_message     = self::get_property( 'required_message', $field, '' );
-				$required_validation_message = ! empty( $require_message ) ? $require_message : __( 'This field is required. Please enter number', Forminator::DOMAIN );
+				$require_message                 = self::get_property( 'required_message', $field, '' );
+				$required_validation_message     = ! empty( $require_message ) ? $require_message : __( 'This field is required. Please enter number', Forminator::DOMAIN );
 				$this->validation_message[ $id ] = apply_filters(
 					'forminator_field_number_required_field_validation_message',
 					$required_validation_message,
@@ -299,7 +304,7 @@ class Forminator_Number extends Forminator_Field {
 					$this
 				);
 			}
-		} else if ( ! is_numeric( $data ) && ! empty( $data ) ) {
+		} elseif ( ! is_numeric( $data ) && ! empty( $data ) ) {
 			$this->validation_message[ $id ] = apply_filters(
 				'forminator_field_number_numeric_validation_message',
 				__( 'Only numbers allowed', Forminator::DOMAIN ),
@@ -309,14 +314,16 @@ class Forminator_Number extends Forminator_Field {
 				$this
 			);
 		} else {
-			if( ! empty( $data ) ) {
+			if ( ! empty( $data ) ) {
 				$data = intval( $data );
 				$min  = intval( $min );
 				$max  = intval( $max );
-				if ( ( $data < $min ) || ( $data > $max ) ) {
+				//Note : do not compare max or min if that settings field is blank string ( not zero )
+				if ( ( $min_len !== 0 && $data < $min ) || ( $max_len !== 0 && $data > $max ) ) {
 					$this->validation_message[ $id ] = sprintf(
 						apply_filters(
 							'forminator_field_number_max_min_validation_message',
+							/* translators: ... */
 							__( 'The number should be less than %1$d and greater than %2$d', Forminator::DOMAIN ),
 							$id,
 							$field,
@@ -384,7 +391,7 @@ class Forminator_Number extends Forminator_Field {
 		 *
 		 * @return string|int|float
 		 */
-		$calculable_value = apply_filters( "forminator_field_number_calculable_value", $calculable_value, $submitted_data, $field_settings );
+		$calculable_value = apply_filters( 'forminator_field_number_calculable_value', $calculable_value, $submitted_data, $field_settings );
 
 		return $calculable_value;
 	}

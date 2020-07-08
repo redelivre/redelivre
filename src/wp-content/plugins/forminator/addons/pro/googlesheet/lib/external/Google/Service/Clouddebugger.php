@@ -27,7 +27,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Clouddebugger extends Google_Service
+class Forminator_Google_Service_Clouddebugger extends Forminator_Google_Service
 {
   /** View and manage your data across Google Cloud Platform services. */
   const CLOUD_PLATFORM =
@@ -48,9 +48,9 @@ class Google_Service_Clouddebugger extends Google_Service
   /**
    * Constructs the internal representation of the Clouddebugger service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://clouddebugger.googleapis.com/';
@@ -58,7 +58,7 @@ class Google_Service_Clouddebugger extends Google_Service
     $this->version = 'v2';
     $this->serviceName = 'clouddebugger';
 
-    $this->controller_debuggees = new Google_Service_Clouddebugger_ControllerDebuggees_Resource(
+    $this->controller_debuggees = new Forminator_Google_Service_Clouddebugger_ControllerDebuggees_Resource(
         $this,
         $this->serviceName,
         'debuggees',
@@ -72,7 +72,7 @@ class Google_Service_Clouddebugger extends Google_Service
           )
         )
     );
-    $this->controller_debuggees_breakpoints = new Google_Service_Clouddebugger_ControllerDebuggeesBreakpoints_Resource(
+    $this->controller_debuggees_breakpoints = new Forminator_Google_Service_Clouddebugger_ControllerDebuggeesBreakpoints_Resource(
         $this,
         $this->serviceName,
         'breakpoints',
@@ -115,7 +115,7 @@ class Google_Service_Clouddebugger extends Google_Service
           )
         )
     );
-    $this->debugger_debuggees = new Google_Service_Clouddebugger_DebuggerDebuggees_Resource(
+    $this->debugger_debuggees = new Forminator_Google_Service_Clouddebugger_DebuggerDebuggees_Resource(
         $this,
         $this->serviceName,
         'debuggees',
@@ -138,7 +138,7 @@ class Google_Service_Clouddebugger extends Google_Service
           )
         )
     );
-    $this->debugger_debuggees_breakpoints = new Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource(
+    $this->debugger_debuggees_breakpoints = new Forminator_Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource(
         $this,
         $this->serviceName,
         'breakpoints',
@@ -226,11 +226,11 @@ class Google_Service_Clouddebugger extends Google_Service
  * The "controller" collection of methods.
  * Typical usage is:
  *  <code>
- *   $clouddebuggerService = new Google_Service_Clouddebugger(...);
+ *   $clouddebuggerService = new Forminator_Google_Service_Clouddebugger(...);
  *   $controller = $clouddebuggerService->controller;
  *  </code>
  */
-class Google_Service_Clouddebugger_Controller_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Clouddebugger_Controller_Resource extends Forminator_Google_Service_Resource
 {
 }
 
@@ -238,11 +238,11 @@ class Google_Service_Clouddebugger_Controller_Resource extends Google_Service_Re
  * The "debuggees" collection of methods.
  * Typical usage is:
  *  <code>
- *   $clouddebuggerService = new Google_Service_Clouddebugger(...);
+ *   $clouddebuggerService = new Forminator_Google_Service_Clouddebugger(...);
  *   $debuggees = $clouddebuggerService->debuggees;
  *  </code>
  */
-class Google_Service_Clouddebugger_ControllerDebuggees_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Clouddebugger_ControllerDebuggees_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -254,15 +254,15 @@ class Google_Service_Clouddebugger_ControllerDebuggees_Resource extends Google_S
    * data loss. If the debuggee is disabled by the server, the response will have
    * `is_disabled` set to `true`. (debuggees.register)
    *
-   * @param Google_RegisterDebuggeeRequest $postBody
+   * @param Forminator_Google_RegisterDebuggeeRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Clouddebugger_RegisterDebuggeeResponse
+   * @return Forminator_Google_Service_Clouddebugger_RegisterDebuggeeResponse
    */
-  public function register(Google_Service_Clouddebugger_RegisterDebuggeeRequest $postBody, $optParams = array())
+  public function register(Forminator_Google_Service_Clouddebugger_RegisterDebuggeeRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('register', array($params), "Google_Service_Clouddebugger_RegisterDebuggeeResponse");
+    return $this->call('register', array($params), "Forminator_Google_Service_Clouddebugger_RegisterDebuggeeResponse");
   }
 }
 
@@ -270,11 +270,11 @@ class Google_Service_Clouddebugger_ControllerDebuggees_Resource extends Google_S
  * The "breakpoints" collection of methods.
  * Typical usage is:
  *  <code>
- *   $clouddebuggerService = new Google_Service_Clouddebugger(...);
+ *   $clouddebuggerService = new Forminator_Google_Service_Clouddebugger(...);
  *   $breakpoints = $clouddebuggerService->breakpoints;
  *  </code>
  */
-class Google_Service_Clouddebugger_ControllerDebuggeesBreakpoints_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Clouddebugger_ControllerDebuggeesBreakpoints_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -301,13 +301,13 @@ class Google_Service_Clouddebugger_ControllerDebuggeesBreakpoints_Resource exten
    * `true` when the server-selected timeout has expired (recommended). If set to
    * `false`, returns `google.rpc.Code.ABORTED` status when the server-selected
    * timeout has expired (deprecated).
-   * @return Google_Service_Clouddebugger_ListActiveBreakpointsResponse
+   * @return Forminator_Google_Service_Clouddebugger_ListActiveBreakpointsResponse
    */
   public function listControllerDebuggeesBreakpoints($debuggeeId, $optParams = array())
   {
     $params = array('debuggeeId' => $debuggeeId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Clouddebugger_ListActiveBreakpointsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Clouddebugger_ListActiveBreakpointsResponse");
   }
 
   /**
@@ -321,15 +321,15 @@ class Google_Service_Clouddebugger_ControllerDebuggeesBreakpoints_Resource exten
    *
    * @param string $debuggeeId Identifies the debuggee being debugged.
    * @param string $id Breakpoint identifier, unique in the scope of the debuggee.
-   * @param Google_UpdateActiveBreakpointRequest $postBody
+   * @param Forminator_Google_UpdateActiveBreakpointRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Clouddebugger_UpdateActiveBreakpointResponse
+   * @return Forminator_Google_Service_Clouddebugger_UpdateActiveBreakpointResponse
    */
-  public function update($debuggeeId, $id, Google_Service_Clouddebugger_UpdateActiveBreakpointRequest $postBody, $optParams = array())
+  public function update($debuggeeId, $id, Forminator_Google_Service_Clouddebugger_UpdateActiveBreakpointRequest $postBody, $optParams = array())
   {
     $params = array('debuggeeId' => $debuggeeId, 'id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Clouddebugger_UpdateActiveBreakpointResponse");
+    return $this->call('update', array($params), "Forminator_Google_Service_Clouddebugger_UpdateActiveBreakpointResponse");
   }
 }
 
@@ -337,11 +337,11 @@ class Google_Service_Clouddebugger_ControllerDebuggeesBreakpoints_Resource exten
  * The "debugger" collection of methods.
  * Typical usage is:
  *  <code>
- *   $clouddebuggerService = new Google_Service_Clouddebugger(...);
+ *   $clouddebuggerService = new Forminator_Google_Service_Clouddebugger(...);
  *   $debugger = $clouddebuggerService->debugger;
  *  </code>
  */
-class Google_Service_Clouddebugger_Debugger_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Clouddebugger_Debugger_Resource extends Forminator_Google_Service_Resource
 {
 }
 
@@ -349,11 +349,11 @@ class Google_Service_Clouddebugger_Debugger_Resource extends Google_Service_Reso
  * The "debuggees" collection of methods.
  * Typical usage is:
  *  <code>
- *   $clouddebuggerService = new Google_Service_Clouddebugger(...);
+ *   $clouddebuggerService = new Forminator_Google_Service_Clouddebugger(...);
  *   $debuggees = $clouddebuggerService->debuggees;
  *  </code>
  */
-class Google_Service_Clouddebugger_DebuggerDebuggees_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Clouddebugger_DebuggerDebuggees_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -366,13 +366,13 @@ class Google_Service_Clouddebugger_DebuggerDebuggees_Resource extends Google_Ser
    * debuggees to list.
    * @opt_param bool includeInactive When set to `true`, the result includes all
    * debuggees. Otherwise, the result includes only debuggees that are active.
-   * @return Google_Service_Clouddebugger_ListDebuggeesResponse
+   * @return Forminator_Google_Service_Clouddebugger_ListDebuggeesResponse
    */
   public function listDebuggerDebuggees($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Clouddebugger_ListDebuggeesResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Clouddebugger_ListDebuggeesResponse");
   }
 }
 
@@ -380,11 +380,11 @@ class Google_Service_Clouddebugger_DebuggerDebuggees_Resource extends Google_Ser
  * The "breakpoints" collection of methods.
  * Typical usage is:
  *  <code>
- *   $clouddebuggerService = new Google_Service_Clouddebugger(...);
+ *   $clouddebuggerService = new Forminator_Google_Service_Clouddebugger(...);
  *   $breakpoints = $clouddebuggerService->breakpoints;
  *  </code>
  */
-class Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -393,13 +393,13 @@ class Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource extends
    * @param string $debuggeeId ID of the debuggee whose breakpoint to delete.
    * @param string $breakpointId ID of the breakpoint to delete.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Clouddebugger_Empty
+   * @return Forminator_Google_Service_Clouddebugger_Empty
    */
   public function delete($debuggeeId, $breakpointId, $optParams = array())
   {
     $params = array('debuggeeId' => $debuggeeId, 'breakpointId' => $breakpointId);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Clouddebugger_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Clouddebugger_Empty");
   }
 
   /**
@@ -408,13 +408,13 @@ class Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource extends
    * @param string $debuggeeId ID of the debuggee whose breakpoint to get.
    * @param string $breakpointId ID of the breakpoint to get.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Clouddebugger_GetBreakpointResponse
+   * @return Forminator_Google_Service_Clouddebugger_GetBreakpointResponse
    */
   public function get($debuggeeId, $breakpointId, $optParams = array())
   {
     $params = array('debuggeeId' => $debuggeeId, 'breakpointId' => $breakpointId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Clouddebugger_GetBreakpointResponse");
+    return $this->call('get', array($params), "Forminator_Google_Service_Clouddebugger_GetBreakpointResponse");
   }
 
   /**
@@ -440,13 +440,13 @@ class Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource extends
    * expired. The value should be set from the last response. The error code
    * `google.rpc.Code.ABORTED` (RPC) is returned on wait timeout, which should be
    * called again with the same `wait_token`.
-   * @return Google_Service_Clouddebugger_ListBreakpointsResponse
+   * @return Forminator_Google_Service_Clouddebugger_ListBreakpointsResponse
    */
   public function listDebuggerDebuggeesBreakpoints($debuggeeId, $optParams = array())
   {
     $params = array('debuggeeId' => $debuggeeId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Clouddebugger_ListBreakpointsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Clouddebugger_ListBreakpointsResponse");
   }
 
   /**
@@ -454,22 +454,22 @@ class Google_Service_Clouddebugger_DebuggerDebuggeesBreakpoints_Resource extends
    *
    * @param string $debuggeeId ID of the debuggee where the breakpoint is to be
    * set.
-   * @param Google_Breakpoint $postBody
+   * @param Forminator_Google_Breakpoint $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Clouddebugger_SetBreakpointResponse
+   * @return Forminator_Google_Service_Clouddebugger_SetBreakpointResponse
    */
-  public function set($debuggeeId, Google_Service_Clouddebugger_Breakpoint $postBody, $optParams = array())
+  public function set($debuggeeId, Forminator_Google_Service_Clouddebugger_Breakpoint $postBody, $optParams = array())
   {
     $params = array('debuggeeId' => $debuggeeId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('set', array($params), "Google_Service_Clouddebugger_SetBreakpointResponse");
+    return $this->call('set', array($params), "Forminator_Google_Service_Clouddebugger_SetBreakpointResponse");
   }
 }
 
 
 
 
-class Google_Service_Clouddebugger_AliasContext extends Google_Model
+class Forminator_Google_Service_Clouddebugger_AliasContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -495,7 +495,7 @@ class Google_Service_Clouddebugger_AliasContext extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_Breakpoint extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_Breakpoint extends Forminator_Google_Collection
 {
   protected $collection_key = 'variableTable';
   protected $internal_gapi_mappings = array(
@@ -503,22 +503,22 @@ class Google_Service_Clouddebugger_Breakpoint extends Google_Collection
   public $action;
   public $condition;
   public $createTime;
-  protected $evaluatedExpressionsType = 'Google_Service_Clouddebugger_Variable';
+  protected $evaluatedExpressionsType = 'Forminator_Google_Service_Clouddebugger_Variable';
   protected $evaluatedExpressionsDataType = 'array';
   public $expressions;
   public $finalTime;
   public $id;
   public $isFinalState;
-  protected $locationType = 'Google_Service_Clouddebugger_SourceLocation';
+  protected $locationType = 'Forminator_Google_Service_Clouddebugger_SourceLocation';
   protected $locationDataType = '';
   public $logLevel;
   public $logMessageFormat;
-  protected $stackFramesType = 'Google_Service_Clouddebugger_StackFrame';
+  protected $stackFramesType = 'Forminator_Google_Service_Clouddebugger_StackFrame';
   protected $stackFramesDataType = 'array';
-  protected $statusType = 'Google_Service_Clouddebugger_StatusMessage';
+  protected $statusType = 'Forminator_Google_Service_Clouddebugger_StatusMessage';
   protected $statusDataType = '';
   public $userEmail;
-  protected $variableTableType = 'Google_Service_Clouddebugger_Variable';
+  protected $variableTableType = 'Forminator_Google_Service_Clouddebugger_Variable';
   protected $variableTableDataType = 'array';
 
 
@@ -586,7 +586,7 @@ class Google_Service_Clouddebugger_Breakpoint extends Google_Collection
   {
     return $this->isFinalState;
   }
-  public function setLocation(Google_Service_Clouddebugger_SourceLocation $location)
+  public function setLocation(Forminator_Google_Service_Clouddebugger_SourceLocation $location)
   {
     $this->location = $location;
   }
@@ -618,7 +618,7 @@ class Google_Service_Clouddebugger_Breakpoint extends Google_Collection
   {
     return $this->stackFrames;
   }
-  public function setStatus(Google_Service_Clouddebugger_StatusMessage $status)
+  public function setStatus(Forminator_Google_Service_Clouddebugger_StatusMessage $status)
   {
     $this->status = $status;
   }
@@ -644,19 +644,19 @@ class Google_Service_Clouddebugger_Breakpoint extends Google_Collection
   }
 }
 
-class Google_Service_Clouddebugger_CloudRepoSourceContext extends Google_Model
+class Forminator_Google_Service_Clouddebugger_CloudRepoSourceContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $aliasContextType = 'Google_Service_Clouddebugger_AliasContext';
+  protected $aliasContextType = 'Forminator_Google_Service_Clouddebugger_AliasContext';
   protected $aliasContextDataType = '';
   public $aliasName;
-  protected $repoIdType = 'Google_Service_Clouddebugger_RepoId';
+  protected $repoIdType = 'Forminator_Google_Service_Clouddebugger_RepoId';
   protected $repoIdDataType = '';
   public $revisionId;
 
 
-  public function setAliasContext(Google_Service_Clouddebugger_AliasContext $aliasContext)
+  public function setAliasContext(Forminator_Google_Service_Clouddebugger_AliasContext $aliasContext)
   {
     $this->aliasContext = $aliasContext;
   }
@@ -672,7 +672,7 @@ class Google_Service_Clouddebugger_CloudRepoSourceContext extends Google_Model
   {
     return $this->aliasName;
   }
-  public function setRepoId(Google_Service_Clouddebugger_RepoId $repoId)
+  public function setRepoId(Forminator_Google_Service_Clouddebugger_RepoId $repoId)
   {
     $this->repoId = $repoId;
   }
@@ -690,12 +690,12 @@ class Google_Service_Clouddebugger_CloudRepoSourceContext extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_CloudWorkspaceId extends Google_Model
+class Forminator_Google_Service_Clouddebugger_CloudWorkspaceId extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $name;
-  protected $repoIdType = 'Google_Service_Clouddebugger_RepoId';
+  protected $repoIdType = 'Forminator_Google_Service_Clouddebugger_RepoId';
   protected $repoIdDataType = '';
 
 
@@ -707,7 +707,7 @@ class Google_Service_Clouddebugger_CloudWorkspaceId extends Google_Model
   {
     return $this->name;
   }
-  public function setRepoId(Google_Service_Clouddebugger_RepoId $repoId)
+  public function setRepoId(Forminator_Google_Service_Clouddebugger_RepoId $repoId)
   {
     $this->repoId = $repoId;
   }
@@ -717,12 +717,12 @@ class Google_Service_Clouddebugger_CloudWorkspaceId extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_CloudWorkspaceSourceContext extends Google_Model
+class Forminator_Google_Service_Clouddebugger_CloudWorkspaceSourceContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $snapshotId;
-  protected $workspaceIdType = 'Google_Service_Clouddebugger_CloudWorkspaceId';
+  protected $workspaceIdType = 'Forminator_Google_Service_Clouddebugger_CloudWorkspaceId';
   protected $workspaceIdDataType = '';
 
 
@@ -734,7 +734,7 @@ class Google_Service_Clouddebugger_CloudWorkspaceSourceContext extends Google_Mo
   {
     return $this->snapshotId;
   }
-  public function setWorkspaceId(Google_Service_Clouddebugger_CloudWorkspaceId $workspaceId)
+  public function setWorkspaceId(Forminator_Google_Service_Clouddebugger_CloudWorkspaceId $workspaceId)
   {
     $this->workspaceId = $workspaceId;
   }
@@ -744,23 +744,23 @@ class Google_Service_Clouddebugger_CloudWorkspaceSourceContext extends Google_Mo
   }
 }
 
-class Google_Service_Clouddebugger_Debuggee extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_Debuggee extends Forminator_Google_Collection
 {
   protected $collection_key = 'sourceContexts';
   protected $internal_gapi_mappings = array(
   );
   public $agentVersion;
   public $description;
-  protected $extSourceContextsType = 'Google_Service_Clouddebugger_ExtendedSourceContext';
+  protected $extSourceContextsType = 'Forminator_Google_Service_Clouddebugger_ExtendedSourceContext';
   protected $extSourceContextsDataType = 'array';
   public $id;
   public $isDisabled;
   public $isInactive;
   public $labels;
   public $project;
-  protected $sourceContextsType = 'Google_Service_Clouddebugger_SourceContext';
+  protected $sourceContextsType = 'Forminator_Google_Service_Clouddebugger_SourceContext';
   protected $sourceContextsDataType = 'array';
-  protected $statusType = 'Google_Service_Clouddebugger_StatusMessage';
+  protected $statusType = 'Forminator_Google_Service_Clouddebugger_StatusMessage';
   protected $statusDataType = '';
   public $uniquifier;
 
@@ -837,7 +837,7 @@ class Google_Service_Clouddebugger_Debuggee extends Google_Collection
   {
     return $this->sourceContexts;
   }
-  public function setStatus(Google_Service_Clouddebugger_StatusMessage $status)
+  public function setStatus(Forminator_Google_Service_Clouddebugger_StatusMessage $status)
   {
     $this->status = $status;
   }
@@ -855,20 +855,20 @@ class Google_Service_Clouddebugger_Debuggee extends Google_Collection
   }
 }
 
-class Google_Service_Clouddebugger_Empty extends Google_Model
+class Forminator_Google_Service_Clouddebugger_Empty extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Clouddebugger_ExtendedSourceContext extends Google_Model
+class Forminator_Google_Service_Clouddebugger_ExtendedSourceContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $contextType = 'Google_Service_Clouddebugger_SourceContext';
+  protected $contextType = 'Forminator_Google_Service_Clouddebugger_SourceContext';
   protected $contextDataType = '';
   public $labels;
 
 
-  public function setContext(Google_Service_Clouddebugger_SourceContext $context)
+  public function setContext(Forminator_Google_Service_Clouddebugger_SourceContext $context)
   {
     $this->context = $context;
   }
@@ -886,7 +886,7 @@ class Google_Service_Clouddebugger_ExtendedSourceContext extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_FormatMessage extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_FormatMessage extends Forminator_Google_Collection
 {
   protected $collection_key = 'parameters';
   protected $internal_gapi_mappings = array(
@@ -913,11 +913,11 @@ class Google_Service_Clouddebugger_FormatMessage extends Google_Collection
   }
 }
 
-class Google_Service_Clouddebugger_GerritSourceContext extends Google_Model
+class Forminator_Google_Service_Clouddebugger_GerritSourceContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $aliasContextType = 'Google_Service_Clouddebugger_AliasContext';
+  protected $aliasContextType = 'Forminator_Google_Service_Clouddebugger_AliasContext';
   protected $aliasContextDataType = '';
   public $aliasName;
   public $gerritProject;
@@ -925,7 +925,7 @@ class Google_Service_Clouddebugger_GerritSourceContext extends Google_Model
   public $revisionId;
 
 
-  public function setAliasContext(Google_Service_Clouddebugger_AliasContext $aliasContext)
+  public function setAliasContext(Forminator_Google_Service_Clouddebugger_AliasContext $aliasContext)
   {
     $this->aliasContext = $aliasContext;
   }
@@ -967,15 +967,15 @@ class Google_Service_Clouddebugger_GerritSourceContext extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_GetBreakpointResponse extends Google_Model
+class Forminator_Google_Service_Clouddebugger_GetBreakpointResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $breakpointType = 'Google_Service_Clouddebugger_Breakpoint';
+  protected $breakpointType = 'Forminator_Google_Service_Clouddebugger_Breakpoint';
   protected $breakpointDataType = '';
 
 
-  public function setBreakpoint(Google_Service_Clouddebugger_Breakpoint $breakpoint)
+  public function setBreakpoint(Forminator_Google_Service_Clouddebugger_Breakpoint $breakpoint)
   {
     $this->breakpoint = $breakpoint;
   }
@@ -985,7 +985,7 @@ class Google_Service_Clouddebugger_GetBreakpointResponse extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_GitSourceContext extends Google_Model
+class Forminator_Google_Service_Clouddebugger_GitSourceContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1011,12 +1011,12 @@ class Google_Service_Clouddebugger_GitSourceContext extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_ListActiveBreakpointsResponse extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_ListActiveBreakpointsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'breakpoints';
   protected $internal_gapi_mappings = array(
   );
-  protected $breakpointsType = 'Google_Service_Clouddebugger_Breakpoint';
+  protected $breakpointsType = 'Forminator_Google_Service_Clouddebugger_Breakpoint';
   protected $breakpointsDataType = 'array';
   public $nextWaitToken;
   public $waitExpired;
@@ -1048,12 +1048,12 @@ class Google_Service_Clouddebugger_ListActiveBreakpointsResponse extends Google_
   }
 }
 
-class Google_Service_Clouddebugger_ListBreakpointsResponse extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_ListBreakpointsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'breakpoints';
   protected $internal_gapi_mappings = array(
   );
-  protected $breakpointsType = 'Google_Service_Clouddebugger_Breakpoint';
+  protected $breakpointsType = 'Forminator_Google_Service_Clouddebugger_Breakpoint';
   protected $breakpointsDataType = 'array';
   public $nextWaitToken;
 
@@ -1076,12 +1076,12 @@ class Google_Service_Clouddebugger_ListBreakpointsResponse extends Google_Collec
   }
 }
 
-class Google_Service_Clouddebugger_ListDebuggeesResponse extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_ListDebuggeesResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'debuggees';
   protected $internal_gapi_mappings = array(
   );
-  protected $debuggeesType = 'Google_Service_Clouddebugger_Debuggee';
+  protected $debuggeesType = 'Forminator_Google_Service_Clouddebugger_Debuggee';
   protected $debuggeesDataType = 'array';
 
 
@@ -1095,7 +1095,7 @@ class Google_Service_Clouddebugger_ListDebuggeesResponse extends Google_Collecti
   }
 }
 
-class Google_Service_Clouddebugger_ProjectRepoId extends Google_Model
+class Forminator_Google_Service_Clouddebugger_ProjectRepoId extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1121,15 +1121,15 @@ class Google_Service_Clouddebugger_ProjectRepoId extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_RegisterDebuggeeRequest extends Google_Model
+class Forminator_Google_Service_Clouddebugger_RegisterDebuggeeRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $debuggeeType = 'Google_Service_Clouddebugger_Debuggee';
+  protected $debuggeeType = 'Forminator_Google_Service_Clouddebugger_Debuggee';
   protected $debuggeeDataType = '';
 
 
-  public function setDebuggee(Google_Service_Clouddebugger_Debuggee $debuggee)
+  public function setDebuggee(Forminator_Google_Service_Clouddebugger_Debuggee $debuggee)
   {
     $this->debuggee = $debuggee;
   }
@@ -1139,15 +1139,15 @@ class Google_Service_Clouddebugger_RegisterDebuggeeRequest extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_RegisterDebuggeeResponse extends Google_Model
+class Forminator_Google_Service_Clouddebugger_RegisterDebuggeeResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $debuggeeType = 'Google_Service_Clouddebugger_Debuggee';
+  protected $debuggeeType = 'Forminator_Google_Service_Clouddebugger_Debuggee';
   protected $debuggeeDataType = '';
 
 
-  public function setDebuggee(Google_Service_Clouddebugger_Debuggee $debuggee)
+  public function setDebuggee(Forminator_Google_Service_Clouddebugger_Debuggee $debuggee)
   {
     $this->debuggee = $debuggee;
   }
@@ -1157,16 +1157,16 @@ class Google_Service_Clouddebugger_RegisterDebuggeeResponse extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_RepoId extends Google_Model
+class Forminator_Google_Service_Clouddebugger_RepoId extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $projectRepoIdType = 'Google_Service_Clouddebugger_ProjectRepoId';
+  protected $projectRepoIdType = 'Forminator_Google_Service_Clouddebugger_ProjectRepoId';
   protected $projectRepoIdDataType = '';
   public $uid;
 
 
-  public function setProjectRepoId(Google_Service_Clouddebugger_ProjectRepoId $projectRepoId)
+  public function setProjectRepoId(Forminator_Google_Service_Clouddebugger_ProjectRepoId $projectRepoId)
   {
     $this->projectRepoId = $projectRepoId;
   }
@@ -1184,15 +1184,15 @@ class Google_Service_Clouddebugger_RepoId extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_SetBreakpointResponse extends Google_Model
+class Forminator_Google_Service_Clouddebugger_SetBreakpointResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $breakpointType = 'Google_Service_Clouddebugger_Breakpoint';
+  protected $breakpointType = 'Forminator_Google_Service_Clouddebugger_Breakpoint';
   protected $breakpointDataType = '';
 
 
-  public function setBreakpoint(Google_Service_Clouddebugger_Breakpoint $breakpoint)
+  public function setBreakpoint(Forminator_Google_Service_Clouddebugger_Breakpoint $breakpoint)
   {
     $this->breakpoint = $breakpoint;
   }
@@ -1202,21 +1202,21 @@ class Google_Service_Clouddebugger_SetBreakpointResponse extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_SourceContext extends Google_Model
+class Forminator_Google_Service_Clouddebugger_SourceContext extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $cloudRepoType = 'Google_Service_Clouddebugger_CloudRepoSourceContext';
+  protected $cloudRepoType = 'Forminator_Google_Service_Clouddebugger_CloudRepoSourceContext';
   protected $cloudRepoDataType = '';
-  protected $cloudWorkspaceType = 'Google_Service_Clouddebugger_CloudWorkspaceSourceContext';
+  protected $cloudWorkspaceType = 'Forminator_Google_Service_Clouddebugger_CloudWorkspaceSourceContext';
   protected $cloudWorkspaceDataType = '';
-  protected $gerritType = 'Google_Service_Clouddebugger_GerritSourceContext';
+  protected $gerritType = 'Forminator_Google_Service_Clouddebugger_GerritSourceContext';
   protected $gerritDataType = '';
-  protected $gitType = 'Google_Service_Clouddebugger_GitSourceContext';
+  protected $gitType = 'Forminator_Google_Service_Clouddebugger_GitSourceContext';
   protected $gitDataType = '';
 
 
-  public function setCloudRepo(Google_Service_Clouddebugger_CloudRepoSourceContext $cloudRepo)
+  public function setCloudRepo(Forminator_Google_Service_Clouddebugger_CloudRepoSourceContext $cloudRepo)
   {
     $this->cloudRepo = $cloudRepo;
   }
@@ -1224,7 +1224,7 @@ class Google_Service_Clouddebugger_SourceContext extends Google_Model
   {
     return $this->cloudRepo;
   }
-  public function setCloudWorkspace(Google_Service_Clouddebugger_CloudWorkspaceSourceContext $cloudWorkspace)
+  public function setCloudWorkspace(Forminator_Google_Service_Clouddebugger_CloudWorkspaceSourceContext $cloudWorkspace)
   {
     $this->cloudWorkspace = $cloudWorkspace;
   }
@@ -1232,7 +1232,7 @@ class Google_Service_Clouddebugger_SourceContext extends Google_Model
   {
     return $this->cloudWorkspace;
   }
-  public function setGerrit(Google_Service_Clouddebugger_GerritSourceContext $gerrit)
+  public function setGerrit(Forminator_Google_Service_Clouddebugger_GerritSourceContext $gerrit)
   {
     $this->gerrit = $gerrit;
   }
@@ -1240,7 +1240,7 @@ class Google_Service_Clouddebugger_SourceContext extends Google_Model
   {
     return $this->gerrit;
   }
-  public function setGit(Google_Service_Clouddebugger_GitSourceContext $git)
+  public function setGit(Forminator_Google_Service_Clouddebugger_GitSourceContext $git)
   {
     $this->git = $git;
   }
@@ -1250,7 +1250,7 @@ class Google_Service_Clouddebugger_SourceContext extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_SourceLocation extends Google_Model
+class Forminator_Google_Service_Clouddebugger_SourceLocation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1276,17 +1276,17 @@ class Google_Service_Clouddebugger_SourceLocation extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_StackFrame extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_StackFrame extends Forminator_Google_Collection
 {
   protected $collection_key = 'locals';
   protected $internal_gapi_mappings = array(
   );
-  protected $argumentsType = 'Google_Service_Clouddebugger_Variable';
+  protected $argumentsType = 'Forminator_Google_Service_Clouddebugger_Variable';
   protected $argumentsDataType = 'array';
   public $function;
-  protected $localsType = 'Google_Service_Clouddebugger_Variable';
+  protected $localsType = 'Forminator_Google_Service_Clouddebugger_Variable';
   protected $localsDataType = 'array';
-  protected $locationType = 'Google_Service_Clouddebugger_SourceLocation';
+  protected $locationType = 'Forminator_Google_Service_Clouddebugger_SourceLocation';
   protected $locationDataType = '';
 
 
@@ -1314,7 +1314,7 @@ class Google_Service_Clouddebugger_StackFrame extends Google_Collection
   {
     return $this->locals;
   }
-  public function setLocation(Google_Service_Clouddebugger_SourceLocation $location)
+  public function setLocation(Forminator_Google_Service_Clouddebugger_SourceLocation $location)
   {
     $this->location = $location;
   }
@@ -1324,17 +1324,17 @@ class Google_Service_Clouddebugger_StackFrame extends Google_Collection
   }
 }
 
-class Google_Service_Clouddebugger_StatusMessage extends Google_Model
+class Forminator_Google_Service_Clouddebugger_StatusMessage extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $descriptionType = 'Google_Service_Clouddebugger_FormatMessage';
+  protected $descriptionType = 'Forminator_Google_Service_Clouddebugger_FormatMessage';
   protected $descriptionDataType = '';
   public $isError;
   public $refersTo;
 
 
-  public function setDescription(Google_Service_Clouddebugger_FormatMessage $description)
+  public function setDescription(Forminator_Google_Service_Clouddebugger_FormatMessage $description)
   {
     $this->description = $description;
   }
@@ -1360,15 +1360,15 @@ class Google_Service_Clouddebugger_StatusMessage extends Google_Model
   }
 }
 
-class Google_Service_Clouddebugger_UpdateActiveBreakpointRequest extends Google_Model
+class Forminator_Google_Service_Clouddebugger_UpdateActiveBreakpointRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $breakpointType = 'Google_Service_Clouddebugger_Breakpoint';
+  protected $breakpointType = 'Forminator_Google_Service_Clouddebugger_Breakpoint';
   protected $breakpointDataType = '';
 
 
-  public function setBreakpoint(Google_Service_Clouddebugger_Breakpoint $breakpoint)
+  public function setBreakpoint(Forminator_Google_Service_Clouddebugger_Breakpoint $breakpoint)
   {
     $this->breakpoint = $breakpoint;
   }
@@ -1378,19 +1378,19 @@ class Google_Service_Clouddebugger_UpdateActiveBreakpointRequest extends Google_
   }
 }
 
-class Google_Service_Clouddebugger_UpdateActiveBreakpointResponse extends Google_Model
+class Forminator_Google_Service_Clouddebugger_UpdateActiveBreakpointResponse extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Clouddebugger_Variable extends Google_Collection
+class Forminator_Google_Service_Clouddebugger_Variable extends Forminator_Google_Collection
 {
   protected $collection_key = 'members';
   protected $internal_gapi_mappings = array(
   );
-  protected $membersType = 'Google_Service_Clouddebugger_Variable';
+  protected $membersType = 'Forminator_Google_Service_Clouddebugger_Variable';
   protected $membersDataType = 'array';
   public $name;
-  protected $statusType = 'Google_Service_Clouddebugger_StatusMessage';
+  protected $statusType = 'Forminator_Google_Service_Clouddebugger_StatusMessage';
   protected $statusDataType = '';
   public $type;
   public $value;
@@ -1413,7 +1413,7 @@ class Google_Service_Clouddebugger_Variable extends Google_Collection
   {
     return $this->name;
   }
-  public function setStatus(Google_Service_Clouddebugger_StatusMessage $status)
+  public function setStatus(Forminator_Google_Service_Clouddebugger_StatusMessage $status)
   {
     $this->status = $status;
   }

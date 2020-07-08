@@ -5,7 +5,7 @@ $vars = array(
 	'list_id'       => '',
 	'list_id_error' => '',
 	'multi_id'      => '',
-	'lists'          => array(),
+	'lists'         => array(),
 );
 /** @var array $template_vars */
 foreach ( $template_vars as $key => $val ) {

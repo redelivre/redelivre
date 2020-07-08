@@ -1,6 +1,5 @@
 <?php
 $section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : 'dashboard';
-
 $v2_captcha_key              = get_option( 'forminator_captcha_key', '' );
 $v2_captcha_secret           = get_option( 'forminator_captcha_secret', '' );
 $v2_invisible_captcha_key    = get_option( 'forminator_v2_invisible_captcha_key', '' );
@@ -35,7 +34,7 @@ $new = true;
 					<div class="sui-form-field">
 
 						<span class="sui-settings-label"><?php esc_html_e( 'API Keys', Forminator::DOMAIN ); ?></span>
-						<span class="sui-description" style="margin-bottom: 10px;"><?php printf( esc_html( __( "Enter the API keys for each reCAPTCHA type you want to use in your forms. Note that each reCAPTCHA type requires a different set of API keys. %1\$sGenerate API keys%2\$s", Forminator::DOMAIN ) ), '<a href="https://www.google.com/recaptcha/admin#list" target="_blank">', '</a>' ); ?></span>
+						<span class="sui-description" style="margin-bottom: 10px;"><?php /* translators: ... */ printf( esc_html( __( 'Enter the API keys for each reCAPTCHA type you want to use in your forms. Note that each reCAPTCHA type requires a different set of API keys. %1$sGenerate API keys%2$s', Forminator::DOMAIN ) ), '<a href="https://www.google.com/recaptcha/admin#list" target="_blank">', '</a>' ); ?></span>
 
 						<div class="sui-tabs sui-tabs-overflow">
 
@@ -198,8 +197,8 @@ $new = true;
 							<select name="captcha_language" id="captcha_language" class="sui-select">
 								<?php $languages = forminator_get_captcha_languages(); ?>
 								<option value=""><?php esc_html_e( 'Automatic', Forminator::DOMAIN ); ?></option>
-								<?php foreach ( $languages as $key => $lang ): ?>
-									<option value="<?php echo $key; ?>" <?php selected( $captcha_language, $key ); ?>><?php echo esc_html( $lang ); ?></option>
+								<?php foreach ( $languages as $key => $lang ) : ?>
+									<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $captcha_language, $key ); ?>><?php echo esc_html( $lang ); ?></option>
 								<?php endforeach; ?>
 							</select>
 
@@ -218,7 +217,7 @@ $new = true;
 
 				<button
 					class="sui-button sui-button-blue wpmudev-action-done"
-					data-title="<?php esc_attr_e( "reCaptcha settings", Forminator::DOMAIN ); ?>"
+					data-title="<?php esc_attr_e( 'reCaptcha settings', Forminator::DOMAIN ); ?>"
 					data-action="captcha"
 					data-nonce="<?php echo esc_attr( $nonce ); ?>"
 				>

@@ -11,9 +11,11 @@ if ( $this->error_message() ) : ?>
 
 	<span class="sui-notice sui-notice-error"><p><?php echo esc_html( $this->error_message() ); ?></p></span>
 
-<?php endif;
+	<?php
+endif;
 
-if ( $this->total_entries() > 0 ) : ?>
+if ( $this->total_entries() > 0 ) :
+	?>
 
 	<form method="GET" class="forminator-entries-actions">
 
@@ -79,10 +81,12 @@ if ( $this->total_entries() > 0 ) : ?>
 
 						<?php if ( isset( $this->filters['search'] ) ) : ?>
 							<div class="sui-active-filter">
-								<?php printf(
+								<?php
+								printf(/* translators: ... */
 									esc_html__( 'Keyword: %s', Forminator::DOMAIN ),
 									esc_html( $this->filters['search'] )
-								); ?>
+								);
+								?>
 								<button class="sui-active-filter-remove" type="submit" name="search" value="">
 									<span class="sui-screen-reader-text"><?php esc_html_e( 'Remove this keyword', Forminator::DOMAIN ); ?></span>
 								</button>
@@ -91,10 +95,12 @@ if ( $this->total_entries() > 0 ) : ?>
 
 						<?php if ( isset( $this->filters['min_id'] ) ) : ?>
 							<div class="sui-active-filter">
-								<?php printf(
+								<?php
+								printf(/* translators: ... */
 									esc_html__( 'From ID: %s', Forminator::DOMAIN ),
 									esc_html( $this->filters['min_id'] )
-								); ?>
+								);
+								?>
 								<button class="sui-active-filter-remove" type="submit" name="min_id" value="">
 									<span class="sui-screen-reader-text"><?php esc_html_e( 'Remove this keyword', Forminator::DOMAIN ); ?></span>
 								</button>
@@ -103,11 +109,13 @@ if ( $this->total_entries() > 0 ) : ?>
 
 						<?php if ( isset( $this->filters['max_id'] ) ) : ?>
 							<div class="sui-active-filter">
-								<?php printf(
+								<?php
+								printf(/* translators: ... */
 									esc_html__( 'To ID: %s', Forminator::DOMAIN ),
 									esc_html( $this->filters['max_id'] )
-								); ?>
-                                <button class="sui-active-filter-remove" type="submit" name="max_id" value="">
+								);
+								?>
+								<button class="sui-active-filter-remove" type="submit" name="max_id" value="">
 									<span class="sui-screen-reader-text"><?php esc_html_e( 'Remove this keyword', Forminator::DOMAIN ); ?></span>
 								</button>
 							</div>
@@ -115,11 +123,13 @@ if ( $this->total_entries() > 0 ) : ?>
 
 						<?php if ( isset( $this->filters['date_created'][0] ) || isset( $this->filters['date_created'][1] ) ) : ?>
 							<div class="sui-active-filter">
-								<?php printf(
+								<?php
+								printf(/* translators: ... */
 									esc_html__( 'Submission Date Range: %1$s to %2$s', Forminator::DOMAIN ),
 									esc_html( $this->filters['date_created'][0] ),
 									esc_html( $this->filters['date_created'][1] )
-								); ?>
+								);
+								?>
 								<button class="sui-active-filter-remove" type="submit" name="date_range" value="">
 									<span class="sui-screen-reader-text"><?php esc_html_e( 'Remove this keyword', Forminator::DOMAIN ); ?></span>
 								</button>
@@ -134,7 +144,8 @@ if ( $this->total_entries() > 0 ) : ?>
 								esc_html_e( 'Descending', Forminator::DOMAIN );
 							} else {
 								esc_html_e( 'Ascending', Forminator::DOMAIN );
-							} ?>
+							}
+							?>
 						</div>
 
 					</div>
@@ -150,6 +161,7 @@ if ( $this->total_entries() > 0 ) : ?>
 				<tbody>
 
 					<?php
+					$url_entry_id = ( isset( $_GET['entry_id'] ) && !empty( $_GET['entry_id'] ) ) ? (int) sanitize_text_field( $_GET['entry_id'] ) : 0;//phpcs:ignore
 					foreach ( $this->entries_iterator() as $entries ) {
 
 						$entry_id    = $entries['id'];
@@ -160,13 +172,16 @@ if ( $this->total_entries() > 0 ) : ?>
 
 						$detail       = $entries['detail'];
 						$detail_items = $detail['items'];
+						//Open entry tab by received submission link
+						$cls_open_tab = $url_entry_id === (int)$db_entry_id ? 'sui-accordion-item--open' : '';
 						?>
 
-						<tr class="sui-accordion-item" data-entry-id="<?php echo esc_attr( $db_entry_id ); ?>">
+						<tr class="sui-accordion-item <?php echo esc_attr( $cls_open_tab ); ?>" data-entry-id="<?php echo esc_attr( $db_entry_id ); ?>">
 
 							<?php foreach ( $summary_items as $key => $summary_item ) { ?>
 
-								<?php if ( ! $summary['num_fields_left'] && ( count( $summary_items ) - 1 ) === $key ) :
+								<?php
+								if ( ! $summary['num_fields_left'] && ( count( $summary_items ) - 1 ) === $key ) :
 
 									echo '<td>';
 
@@ -190,7 +205,10 @@ if ( $this->total_entries() > 0 ) : ?>
 
 											echo '<span aria-hidden="true"></span>';
 
-											echo '<span class="sui-screen-reader-text">' . sprintf( esc_html__( 'Select entry number %s', Forminator::DOMAIN ), esc_html( $db_entry_id ) ) . '</span>';
+											echo '<span class="sui-screen-reader-text">' . sprintf(/* translators: ... */
+												esc_html__( 'Select entry number %s', Forminator::DOMAIN ),
+												esc_html( $db_entry_id )
+											) . '</span>';
 
 										echo '</label>';
 
@@ -210,20 +228,26 @@ if ( $this->total_entries() > 0 ) : ?>
 
 									echo '</td>';
 
-								endif; ?>
+								endif;
+								?>
 
 							<?php } ?>
 
-							<?php if ( $summary['num_fields_left'] ) {
+							<?php
+							if ( $summary['num_fields_left'] ) {
 
 								echo '<td>';
-									echo '' . sprintf( esc_html__( "+ %s other fields", Forminator::DOMAIN ), esc_html( $summary['num_fields_left'] ) ) . '';
+									echo '' . sprintf(/* translators: ... */
+										esc_html__( '+ %s other fields', Forminator::DOMAIN ),
+										esc_html( $summary['num_fields_left'] )
+									) . '';
 									echo '<span class="sui-accordion-open-indicator">';
 										echo '<i class="sui-icon-chevron-down"></i>';
 									echo '</span>';
 								echo '</td>';
 
-							} ?>
+							}
+							?>
 
 						</tr>
 
@@ -243,9 +267,11 @@ if ( $this->total_entries() > 0 ) : ?>
 
 											<div class="sui-box-settings-slim-row sui-sm">
 
-												<?php if ( isset( $detail_item['type'] ) && ( 'stripe' === $detail_item['type'] || 'paypal' === $detail_item['type'] ) ) {
+												<?php
+												if ( isset( $detail_item['type'] ) && ( 'stripe' === $detail_item['type'] || 'paypal' === $detail_item['type'] ) ) {
 
-													if ( ! empty( $sub_entries ) ) { ?>
+													if ( ! empty( $sub_entries ) ) {
+														?>
 
 														<div class="sui-box-settings-col-2">
 
@@ -272,8 +298,8 @@ if ( $this->total_entries() > 0 ) : ?>
 																				echo '<th>' . esc_html( $sub_entry['label'] ) . '</th>';
 
 																			}
-
-																		} ?>
+																		}
+																		?>
 
 																	</tr>
 
@@ -291,15 +317,15 @@ if ( $this->total_entries() > 0 ) : ?>
 
 																			if ( $sub_key === $end ) {
 
-																				echo '<td colspan="2" style="padding-top: 5px; padding-bottom: 5px;">' . ( $sub_entry['value'] ) . '</td>'; // wpcs xss ok. html output intended
+																				echo '<td colspan="2" style="padding-top: 5px; padding-bottom: 5px;">' . esc_html( $sub_entry['value'] ) . '</td>';
 
 																			} else {
 
 																				echo '<td style="padding-top: 5px; padding-bottom: 5px;">' . esc_html( $sub_entry['value'] ) . '</td>';
 
 																			}
-
-																		} ?>
+																		}
+																		?>
 
 																	</tr>
 
@@ -309,9 +335,10 @@ if ( $this->total_entries() > 0 ) : ?>
 
 														</div>
 
-													<?php }
-
-												} else { ?>
+														<?php
+													}
+												} else {
+													?>
 
 													<div class="sui-box-settings-col-1">
 														<span class="sui-settings-label sui-sm"><?php echo esc_html( $detail_item['label'] ); ?></span>
@@ -321,7 +348,7 @@ if ( $this->total_entries() > 0 ) : ?>
 
 														<?php if ( empty( $sub_entries ) ) { ?>
 
-															<span class="sui-description"><?php echo ( $detail_item['value'] ); // wpcs xss ok. html output intended ?></span>
+															<span class="sui-description"><?php echo ( $detail_item['value'] );//phpcs:ignore -- html output intended ?></span>
 
 														<?php } else { ?>
 
@@ -329,7 +356,7 @@ if ( $this->total_entries() > 0 ) : ?>
 
 																<div class="sui-form-field">
 																	<span class="sui-settings-label"><?php echo esc_html( $sub_entry['label'] ); ?></span>
-																	<span class="sui-description"><?php echo ( $sub_entry['value'] ); // wpcs xss ok. html output intended ?></span>
+																	<span class="sui-description"><?php echo ( $sub_entry['value'] );//phpcs:ignore -- html output intended ?></span>
 																</div>
 
 															<?php } ?>
@@ -351,14 +378,46 @@ if ( $this->total_entries() > 0 ) : ?>
 										<button
 											type="button"
 											class="sui-button sui-button-ghost sui-button-red wpmudev-open-modal"
-											data-modal="delete-module"
+											<?php if ( isset( $entries['activation_key'] ) ) {
+												$button_title = esc_html( 'Delete Submission & User', Forminator::DOMAIN );
+												$is_activation_key = true;
+												?>
+												data-activation-key="<?php echo $entries['activation_key']; ?>"
+												data-modal="delete-unconfirmed-user-module"
+												data-entry-id="<?php echo esc_attr( $db_entry_id ); ?>"
+												data-form-id="<?php echo esc_attr( $this->model->id ); ?>"
+											<?php } else {
+												$button_title = esc_html( 'Delete', Forminator::DOMAIN );
+												$is_activation_key = false;
+												?>
+												data-modal="delete-module"
+												data-form-id="<?php echo esc_attr( $db_entry_id ); ?>"
+											<?php } ?>
 											data-modal-title="<?php esc_attr_e( 'Delete Submission', Forminator::DOMAIN ); ?>"
 											data-modal-content="<?php esc_attr_e( 'Are you sure you wish to permanently delete this submission?', Forminator::DOMAIN ); ?>"
-											data-form-id="<?php echo esc_attr( $db_entry_id ); ?>"
-											data-nonce="<?php echo wp_create_nonce( 'forminatorCustomFormEntries' ); // WPCS: XSS ok. ?>"
+											data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminatorCustomFormEntries' ) ); ?>"
 										>
-											<i class="sui-icon-trash" aria-hidden="true"></i> <?php esc_html_e( "Delete", Forminator::DOMAIN ); ?>
+											<i class="sui-icon-trash" aria-hidden="true"></i> <?php echo $button_title; ?>
 										</button>
+
+										<?php if ( isset( $entries['activation_method'] ) && 'manual' === $entries['activation_method'] && $is_activation_key  ) { ?>
+
+											<div class="sui-actions-right">
+												<button
+													type="button"
+													class="sui-button wpmudev-open-modal"
+													data-modal="approve-user-module"
+													data-modal-title="<?php esc_attr_e( 'Approve User', Forminator::DOMAIN ); ?>"
+													data-modal-content="<?php esc_attr_e( 'Are you sure you want to approve and activate this user?', Forminator::DOMAIN ); ?>"
+													data-form-id="<?php echo esc_attr( $db_entry_id ); ?>"
+													data-activation-key="<?php echo esc_attr( $entries['activation_key'] ); ?>"
+													data-nonce="<?php echo wp_create_nonce( 'forminatorCustomFormEntries' ); // WPCS: XSS ok. ?>"
+												>
+													<?php esc_html_e( 'Approve User', Forminator::DOMAIN ); ?>
+												</button>
+											</div>
+
+										<?php } ?>
 
 									</div>
 
@@ -392,19 +451,19 @@ if ( $this->total_entries() > 0 ) : ?>
 
 	<div class="sui-box sui-message">
 
-		<?php if ( forminator_is_show_branding() ): ?>
+		<?php if ( forminator_is_show_branding() ) : ?>
 			<img src="<?php echo esc_url( forminator_plugin_url() . 'assets/img/forminator-submissions.png' ); ?>"
-				 srcset="<?php echo esc_url( forminator_plugin_url() . 'assets/img/forminator-submissions.png' ); ?> 1x, <?php echo esc_url( forminator_plugin_url() . 'assets/img/forminator-submissions@2x.png' ); ?> 2x"
-				 alt="<?php esc_html_e( 'Forminator', Forminator::DOMAIN ); ?>"
-				 class="sui-image"
-				 aria-hidden="true"/>
+				srcset="<?php echo esc_url( forminator_plugin_url() . 'assets/img/forminator-submissions.png' ); ?> 1x, <?php echo esc_url( forminator_plugin_url() . 'assets/img/forminator-submissions@2x.png' ); ?> 2x"
+				alt="<?php esc_html_e( 'Forminator', Forminator::DOMAIN ); ?>"
+				class="sui-image"
+				aria-hidden="true"/>
 		<?php endif; ?>
 
 		<div class="sui-message-content">
 
-			<h2><?php echo forminator_get_form_name( $this->form_id, 'custom_form' ); // WPCS: XSS ok. ?></h2>
+			<h2><?php echo forminator_get_form_name( $this->form_id, 'custom_form' );// phpcs:ignore ?></h2>
 
-			<p><?php esc_html_e( "You haven’t received any submissions for this form yet. When you do, you’ll be able to view all the data here.", Forminator::DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'You haven’t received any submissions for this form yet. When you do, you’ll be able to view all the data here.', Forminator::DOMAIN ); ?></p>
 
 		</div>
 

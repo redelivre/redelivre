@@ -234,7 +234,7 @@ abstract class Forminator_Field {
 			$html .= sprintf(
 				'<span class="forminator-description" aria-describedby="%s">%s</span>',
 				$get_id,
-				$description
+				esc_html( $description )
 			);
 
 		}
@@ -282,7 +282,7 @@ abstract class Forminator_Field {
 				$html .= sprintf(
 					'<label for="%s" class="forminator-label">%s %s</label>',
 					$get_id,
-					$label,
+					esc_html( $label ),
 					forminator_get_required_icon()
 				);
 
@@ -291,20 +291,19 @@ abstract class Forminator_Field {
 				$html .= sprintf(
 					'<label for="%s" class="forminator-label">%s</label>',
 					$get_id,
-					$label
+					esc_html( $label )
 				);
 
 			}
-
 		}
 
 		if ( isset( $wrapper_input[0] ) ) {
 			$html .= $wrapper_input[0];
 		}
 
-			if ( isset( $wrapper_input[2] ) && ! empty( $wrapper_input[2] ) ) {
-				$html .= sprintf( '<i class="forminator-icon-%s" aria-hidden="true"></i>', $wrapper_input[2] );
-			}
+		if ( isset( $wrapper_input[2] ) && ! empty( $wrapper_input[2] ) ) {
+			$html .= sprintf( '<i class="forminator-icon-%s" aria-hidden="true"></i>', $wrapper_input[2] );
+		}
 
 			$html .= sprintf( '<input %s />', $markup );
 
@@ -313,7 +312,7 @@ abstract class Forminator_Field {
 		}
 
 		if ( ! empty( $description ) || '' !== $description ) {
-			$html .= self::get_description( $description, $get_id );
+			$html .= self::get_description( esc_html( $description ), $get_id );
 		}
 
 		return apply_filters( 'forminator_field_create_input', $html, $attr, $label, $description );
@@ -336,7 +335,7 @@ abstract class Forminator_Field {
 	 */
 	public static function create_textarea( $attr = array(), $label = '', $description = '', $required = false, $design = '' ) {
 
-		$html = '';
+		$html    = '';
 		$content = isset( $attr['content'] ) ? $attr['content'] : '';
 
 		if ( isset( $attr['name'] ) ) {
@@ -354,7 +353,7 @@ abstract class Forminator_Field {
 				$html .= sprintf(
 					'<label for="%s" class="forminator-label">%s %s</label>',
 					$attr['id'],
-					$label,
+					esc_html( $label ),
 					forminator_get_required_icon()
 				);
 
@@ -363,11 +362,10 @@ abstract class Forminator_Field {
 				$html .= sprintf(
 					'<label for="%s" class="forminator-label">%s</label>',
 					$attr['id'],
-					$label
+					esc_html( $label )
 				);
 
 			}
-
 		}
 
 		$html .= sprintf( '<textarea %s >%s</textarea>', $markup, $content );
@@ -406,17 +404,16 @@ abstract class Forminator_Field {
 			if ( $required ) {
 
 				$html .= '<div class="forminator-field--label">';
-				$html .= sprintf( '<label id="forminator-label-%s" class="forminator-label">%s %s</label>', $attr['id'], $label, forminator_get_required_icon() );
+				$html .= sprintf( '<label id="forminator-label-%s" class="forminator-label">%s %s</label>', $attr['id'], esc_html( $label ), forminator_get_required_icon() );
 				$html .= '</div>';
 
 			} else {
 
 				$html .= '<div class="forminator-field--label">';
-				$html .= sprintf( '<label id="forminator-label-%s" class="forminator-label">%s</label>', $attr['id'], $label );
+				$html .= sprintf( '<label id="forminator-label-%s" class="forminator-label">%s</label>', $attr['id'], esc_html( $label ) );
 				$html .= '</div>';
 
 			}
-
 		}
 
 		$wp_editor_class = isset( $attr['class'] ) ? $attr['class'] : '';
@@ -483,11 +480,11 @@ abstract class Forminator_Field {
 	 */
 	public static function create_select( $attr = array(), $label = '', $options = array(), $value = '', $description = '', $required = false ) {
 
-		$html   = '';
+		$html = '';
 
 		$markup = self::implode_attr( $attr );
 
-		if( isset( $attr['id'] ) ) {
+		if ( isset( $attr['id'] ) ) {
 			$get_id = $attr['id'];
 		} else {
 			$get_id = uniqid( 'forminator-select-' );
@@ -504,7 +501,7 @@ abstract class Forminator_Field {
 				$html .= sprintf(
 					'<label for="%s" class="forminator-label">%s %s</label>',
 					$get_id,
-					$label,
+					esc_html( $label ),
 					forminator_get_required_icon()
 				);
 
@@ -513,11 +510,10 @@ abstract class Forminator_Field {
 				$html .= sprintf(
 					'<label for="%s" class="forminator-label">%s</label>',
 					$get_id,
-					$label
+					esc_html( $label )
 				);
 
 			}
-
 		}
 
 		$markup .= ' data-default-value="' . esc_attr( $value ) . '"';
@@ -589,14 +585,13 @@ abstract class Forminator_Field {
 
 			if ( isset( $option['value'] ) && is_array( $option['value'] ) ) {
 				$populated_optgroup_options = self::populate_options_for_select( $option['value'], $selected_value );
-				$html                       .= sprintf( '<optgroup label="%s">%s</optgroup>', $option['label'], $populated_optgroup_options );
+				$html                      .= sprintf( '<optgroup label="%s">%s</optgroup>', $option['label'], $populated_optgroup_options );
 			} else {
-				if ( ( $option['value'] == $selected_value ) || ( isset( $option['selected'] ) && $option['selected'] ) ) { // WPCS: loose comparison ok : possible compare '1' and 1.
+				if ( ( $option['value'] == $selected_value ) || ( isset( $option['selected'] ) && $option['selected'] ) ) { // phpcs:ignore -- loose comparison ok : possible compare '1' and 1.
 					$selected = 'selected="selected"';
 				}
-				$html .= sprintf( '<option value="%s" %s>%s</option>', $option['value'], $selected, $option['label'] );
+				$html .= sprintf( '<option value="%s" %s>%s</option>', esc_html( $option['value'] ), $selected, esc_html( $option['label'] ) );
 			}
-
 		}
 
 		return $html;
@@ -628,64 +623,64 @@ abstract class Forminator_Field {
 
 		$html .= '<div class="forminator-file-upload">';
 
-			if ( 'clean' === $design ) {
+		if ( 'clean' === $design ) {
 
-				$html .= sprintf( '<input class="%s" type="file" name="%s" id="%s">', $class, $name, $id );
-				$html .= sprintf( '<button class="forminator-upload--remove" style="display: none;">%s</button>', __( 'Remove', Forminator::DOMAIN ) );
+			$html .= sprintf( '<input class="%s" type="file" name="%s" id="%s">', $class, $name, $id );
+			$html .= sprintf( '<button class="forminator-upload--remove" style="display: none;">%s</button>', __( 'Remove', Forminator::DOMAIN ) );
+
+		} else {
+
+			$html .= sprintf(
+				'<input type="file" name="%s" id="%s" class="%s" readonly="readonly" />',
+				$name,
+				$id,
+				$class
+			);
+
+			if ( 'material' === $design ) {
+
+				$html .= sprintf(
+					'<button id="%s" class="forminator-button forminator-button-upload" data-id="%s">',
+					$id,
+					$id
+				);
+
+					$html .= sprintf(
+						'<span>%s</span>',
+						__( 'Choose File', Forminator::DOMAIN )
+					);
+
+					$html .= '<span aria-hidden="true"></span>';
+
+				$html .= '</button>';
 
 			} else {
 
 				$html .= sprintf(
-					'<input type="file" name="%s" id="%s" class="%s" readonly="readonly" />',
-					$name,
+					'<button id="%s" class="forminator-button forminator-button-upload" data-id="%s">%s</button>',
 					$id,
-					$class
+					$id,
+					__( 'Choose File', Forminator::DOMAIN )
 				);
+			}
 
-				if ( 'material' === $design ) {
+			$html .= sprintf(
+				'<span data-empty-text="%s">%s</span>',
+				__( 'No file chosen', Forminator::DOMAIN ),
+				__( 'No file chosen', Forminator::DOMAIN )
+			);
 
-					$html .= sprintf(
-						'<button id="%s" class="forminator-button forminator-button-upload" data-id="%s">',
-						$id,
-						$id
-					);
+			$html .= '<button class="forminator-button-delete" style="display: none;">';
 
-						$html .= sprintf(
-							'<span>%s</span>',
-							__( 'Choose File', Forminator::DOMAIN )
-						);
-
-						$html .= '<span aria-hidden="true"></span>';
-
-					$html .= '</button>';
-
-				} else {
-
-					$html .= sprintf(
-						'<button id="%s" class="forminator-button forminator-button-upload" data-id="%s">%s</button>',
-						$id,
-						$id,
-						__( 'Choose File', Forminator::DOMAIN )
-					);
-				}
+				$html .= '<i class="forminator-icon-close" aria-hidden="true"></i>';
 
 				$html .= sprintf(
-					'<span data-empty-text="%s">%s</span>',
-					__( 'No file chosen', Forminator::DOMAIN ),
-					__( 'No file chosen', Forminator::DOMAIN )
+					'<span class="forminator-screen-reader-only">%s</span>',
+					__( 'Delete uploaded file', Forminator::DOMAIN )
 				);
 
-				$html .= '<button class="forminator-button-delete" style="display: none;">';
-
-					$html .= '<i class="forminator-icon-close" aria-hidden="true"></i>';
-
-					$html .= sprintf(
-						'<span class="forminator-screen-reader-only">%s</span>',
-						__( 'Delete uploaded file', Forminator::DOMAIN )
-					);
-
-				$html .= '</button>';
-			}
+			$html .= '</button>';
+		}
 
 		$html .= '</div>';
 
@@ -709,7 +704,7 @@ abstract class Forminator_Field {
 			$data[] = $key . '="' . $value . '"';
 		}
 
-		return implode( " ", $data );
+		return implode( ' ', $data );
 	}
 
 	/**
@@ -789,9 +784,9 @@ abstract class Forminator_Field {
 			// Check if we have nested conditions
 			$element_id = $condition['element_id'];
 
-			if( $form_object ) {
+			if ( $form_object ) {
 				// Get condition field object
-				$parent_field = $form_object->get_field( $element_id );
+				$parent_field      = $form_object->get_field( $element_id );
 				$parent_conditions = self::get_property( 'conditions', $parent_field, array() );
 
 				if( ! empty( $parent_conditions ) ) {
@@ -833,10 +828,11 @@ abstract class Forminator_Field {
 		$condition_rule   = self::get_property( 'condition_rule', $field, 'all' );
 
 		$condition_fulfilled = 0;
+		$conditions_count    = 0;
 
 		$all_conditions = self::get_field_conditions( $field, $conditions, $form_object );
 
-		foreach ( $all_conditions as $condition ) {
+		foreach ( $conditions as $condition ) {
 			$element_id = $condition['element_id'];
 
 			if ( stripos( $element_id, 'calculation-' ) !== false || stripos( $element_id, 'stripe-' ) !== false ) {
@@ -855,18 +851,38 @@ abstract class Forminator_Field {
 			if ( $is_condition_fulfilled ) {
 				$condition_fulfilled ++;
 			}
+
+			// Increase conditions count
+			$conditions_count ++;
+
+			// Check for parent conditions
+			if ( $form_object ) {
+				$parent_field      = $form_object->get_field( $element_id );
+				$parent_conditions = self::get_property( 'conditions', $parent_field, array() );
+
+				if ( ! empty( $parent_conditions ) ) {
+					// Increase conditions count
+					$conditions_count ++;
+					$parent_hidden = self::is_hidden( $parent_field, $form_data, $pseudo_submitted_data, $form_object = false );
+
+					// If parent not hidden increase fulfilled conditions
+					if ( ! $parent_hidden ) {
+						$condition_fulfilled ++;
+					}
+				}
+			}
 		}
 
 		//initialized as hidden
 		if ( 'show' === $condition_action ) {
-			if ( ( $condition_fulfilled > 0 && 'any' === $condition_rule ) || ( count( $conditions ) === $condition_fulfilled && 'all' === $condition_rule ) ) {
+			if ( ( $condition_fulfilled > 0 && 'any' === $condition_rule ) || ( $conditions_count === $condition_fulfilled && 'all' === $condition_rule ) ) {
 				return false;
 			}
 
 			return true;
 		} else {
 			//initialized as shown
-			if ( ( $condition_fulfilled > 0 && 'any' === $condition_rule ) || ( count( $conditions ) === $condition_fulfilled && 'all' === $condition_rule ) ) {
+			if ( ( $condition_fulfilled > 0 && 'any' === $condition_rule ) || ( $conditions_count === $condition_fulfilled && 'all' === $condition_rule ) ) {
 				return true;
 			}
 
@@ -891,7 +907,7 @@ abstract class Forminator_Field {
 					// possible input is "1" to be compared with 1
 					return in_array( $condition['value'], $form_field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				}
-				if( is_numeric( $condition['value'] ) ) {
+				if ( is_numeric( $condition['value'] ) ) {
 					return ( ( int ) $form_field_value === ( int ) $condition['value'] );
 				}
 
@@ -1036,15 +1052,15 @@ abstract class Forminator_Field {
 	 * @return mixed value of $_POST[$id] or $fallback when unavailable
 	 */
 	public static function get_post_data( $id, $fallback = '' ) {
-		if( isset( $_POST[ $id ] ) ) {
-			return self::get_post_data_sanitize( $_POST[ $id ], $fallback );
+		if ( isset( $_POST[ $id ] ) ) { // phpcs:ignore
+			return self::get_post_data_sanitize( $_POST[ $id ], $fallback ); // phpcs:ignore
 		}
 
 		return $fallback;
 	}
 
 	/**
-	 * Return sanitized $_POST vlaue, or the fallback value
+	 * Return sanitized $_POST value, or the fallback value
 	 *
 	 * @since 1.6.3
 	 *
@@ -1054,10 +1070,10 @@ abstract class Forminator_Field {
 	 * @return mixed value of $_POST[$id] or $fallback when unavailable
 	 */
 	public static function get_post_data_sanitize( $data, $fallback ) {
-		if( is_array( $data ) ) {
+		if ( is_array( $data ) ) {
 			$escaped = array();
 
-			foreach( $data as $key => $value ) {
+			foreach ( $data as $key => $value ) {
 				$escaped[ $key ] = self::get_post_data_sanitize( $value, '' );
 			}
 
@@ -1100,8 +1116,8 @@ abstract class Forminator_Field {
 
 		// Lazy init providers
 		if ( self::is_autofill_enabled( $settings )
-		     && isset( $settings['fields-autofill'] )
-		     && ! empty( $settings['fields-autofill'] ) ) {
+			&& isset( $settings['fields-autofill'] )
+			&& ! empty( $settings['fields-autofill'] ) ) {
 
 			foreach ( $settings['fields-autofill'] as $fields_autofill ) {
 				if ( ! isset( $fields_autofill['provider'] ) || empty( $fields_autofill['provider'] ) ) {
@@ -1222,7 +1238,6 @@ abstract class Forminator_Field {
 					$field_data = $autofill_value;
 				}
 			}
-
 		}
 
 		return $field_data;
@@ -1467,70 +1482,70 @@ abstract class Forminator_Field {
 		return $precision;
 	}
 
-    /**
-     * Return if field has pre-fill value filled
-     *
-     * @since 1.10
-     *
-     * @param $field
-     * @return bool
-     */
+	/**
+	 * Return if field has pre-fill value filled
+	 *
+	 * @since 1.10
+	 *
+	 * @param $field
+	 * @return bool
+	 */
 	public function has_prefill( $field, $prefix = false ) {
-	    if( $prefix ) {
-	        $prefix = $prefix . '_';
-        }
+		if ( $prefix ) {
+			$prefix = $prefix . '_';
+		}
 
-        $prefill = self::get_property( $prefix . 'prefill', $field, false );
+		$prefill = self::get_property( $prefix . 'prefill', $field, false );
 
-        if ( $prefill ) {
-            return true;
-        }
+		if ( $prefill ) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * Get pre-fill value if set, else return $default
-     *
-     * @since 1.10
-     *
-     * @param $field
-     * @param $default
-     * @return mixed
-     */
-    public function get_prefill( $field, $default, $prefix = false ) {
-        if( $prefix ) {
-            $prefix = $prefix . '_';
-        }
+	/**
+	 * Get pre-fill value if set, else return $default
+	 *
+	 * @since 1.10
+	 *
+	 * @param $field
+	 * @param $default
+	 * @return mixed
+	 */
+	public function get_prefill( $field, $default, $prefix = false ) {
+		if ( $prefix ) {
+			$prefix = $prefix . '_';
+		}
 
-        $prefill = self::get_property( $prefix . 'prefill', $field, false );
+		$prefill = self::get_property( $prefix . 'prefill', $field, false );
 
-        if ( isset( $_GET[ $prefill ] ) && ! empty( $_GET[ $prefill ] ) ) {  // WPCS: CSRF ok.
-            return sanitize_text_field( $_GET[ $prefill ] );
-        }
+		if ( isset( $_GET[ $prefill ] ) && ! empty( $_GET[ $prefill ] ) ) {  // phpcs:ignore
+			return sanitize_text_field( $_GET[ $prefill ] );// phpcs:ignore
+		}
 
-        return $default;
-    }
+		return $default;
+	}
 
-    /**
-     * Replace object value from prefill
-     *
-     * @since 1.10
-     *
-     * @param $field
-     * @param $attributes
-     * @param $prefix
-     * @param bool $default
-     * @return mixed
-     */
-    public function replace_from_prefill( $field, $attributes, $prefix, $default = false ) {
-        if( $this->has_prefill( $field, $prefix ) ) {
-            // We have pre-fill parameter, use its value or $value
-            $value = $this->get_prefill( $field, $default, $prefix );
+	/**
+	 * Replace object value from prefill
+	 *
+	 * @since 1.10
+	 *
+	 * @param $field
+	 * @param $attributes
+	 * @param $prefix
+	 * @param bool $default
+	 * @return mixed
+	 */
+	public function replace_from_prefill( $field, $attributes, $prefix, $default = false ) {
+		if( $this->has_prefill( $field, $prefix ) ) {
+			// We have pre-fill parameter, use its value or $value
+			$value = $this->get_prefill( $field, $default, $prefix );
 
-            $attributes['value'] = $value;
-        }
+			$attributes['value'] = esc_html( $value );
+		}
 
-        return $attributes;
-    }
+		return $attributes;
+	}
 }

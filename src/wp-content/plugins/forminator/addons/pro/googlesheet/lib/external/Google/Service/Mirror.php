@@ -26,7 +26,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Mirror extends Google_Service
+class Forminator_Google_Service_Mirror extends Forminator_Google_Service
 {
   /** View your location. */
   const GLASS_LOCATION =
@@ -47,9 +47,9 @@ class Google_Service_Mirror extends Google_Service
   /**
    * Constructs the internal representation of the Mirror service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://www.googleapis.com/';
@@ -57,7 +57,7 @@ class Google_Service_Mirror extends Google_Service
     $this->version = 'v1';
     $this->serviceName = 'mirror';
 
-    $this->accounts = new Google_Service_Mirror_Accounts_Resource(
+    $this->accounts = new Forminator_Google_Service_Mirror_Accounts_Resource(
         $this,
         $this->serviceName,
         'accounts',
@@ -87,7 +87,7 @@ class Google_Service_Mirror extends Google_Service
           )
         )
     );
-    $this->contacts = new Google_Service_Mirror_Contacts_Resource(
+    $this->contacts = new Forminator_Google_Service_Mirror_Contacts_Resource(
         $this,
         $this->serviceName,
         'contacts',
@@ -145,7 +145,7 @@ class Google_Service_Mirror extends Google_Service
           )
         )
     );
-    $this->locations = new Google_Service_Mirror_Locations_Resource(
+    $this->locations = new Forminator_Google_Service_Mirror_Locations_Resource(
         $this,
         $this->serviceName,
         'locations',
@@ -169,7 +169,7 @@ class Google_Service_Mirror extends Google_Service
           )
         )
     );
-    $this->settings = new Google_Service_Mirror_Settings_Resource(
+    $this->settings = new Forminator_Google_Service_Mirror_Settings_Resource(
         $this,
         $this->serviceName,
         'settings',
@@ -189,7 +189,7 @@ class Google_Service_Mirror extends Google_Service
           )
         )
     );
-    $this->subscriptions = new Google_Service_Mirror_Subscriptions_Resource(
+    $this->subscriptions = new Forminator_Google_Service_Mirror_Subscriptions_Resource(
         $this,
         $this->serviceName,
         'subscriptions',
@@ -227,7 +227,7 @@ class Google_Service_Mirror extends Google_Service
           )
         )
     );
-    $this->timeline = new Google_Service_Mirror_Timeline_Resource(
+    $this->timeline = new Forminator_Google_Service_Mirror_Timeline_Resource(
         $this,
         $this->serviceName,
         'timeline',
@@ -314,7 +314,7 @@ class Google_Service_Mirror extends Google_Service
           )
         )
     );
-    $this->timeline_attachments = new Google_Service_Mirror_TimelineAttachments_Resource(
+    $this->timeline_attachments = new Forminator_Google_Service_Mirror_TimelineAttachments_Resource(
         $this,
         $this->serviceName,
         'attachments',
@@ -382,11 +382,11 @@ class Google_Service_Mirror extends Google_Service
  * The "accounts" collection of methods.
  * Typical usage is:
  *  <code>
- *   $mirrorService = new Google_Service_Mirror(...);
+ *   $mirrorService = new Forminator_Google_Service_Mirror(...);
  *   $accounts = $mirrorService->accounts;
  *  </code>
  */
-class Google_Service_Mirror_Accounts_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Mirror_Accounts_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -397,15 +397,15 @@ class Google_Service_Mirror_Accounts_Resource extends Google_Service_Resource
    * Manager.
    * @param string $accountName The name of the account to be passed to the
    * Android Account Manager.
-   * @param Google_Account $postBody
+   * @param Forminator_Google_Account $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Account
+   * @return Forminator_Google_Service_Mirror_Account
    */
-  public function insert($userToken, $accountType, $accountName, Google_Service_Mirror_Account $postBody, $optParams = array())
+  public function insert($userToken, $accountType, $accountName, Forminator_Google_Service_Mirror_Account $postBody, $optParams = array())
   {
     $params = array('userToken' => $userToken, 'accountType' => $accountType, 'accountName' => $accountName, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Mirror_Account");
+    return $this->call('insert', array($params), "Forminator_Google_Service_Mirror_Account");
   }
 }
 
@@ -413,11 +413,11 @@ class Google_Service_Mirror_Accounts_Resource extends Google_Service_Resource
  * The "contacts" collection of methods.
  * Typical usage is:
  *  <code>
- *   $mirrorService = new Google_Service_Mirror(...);
+ *   $mirrorService = new Forminator_Google_Service_Mirror(...);
  *   $contacts = $mirrorService->contacts;
  *  </code>
  */
-class Google_Service_Mirror_Contacts_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Mirror_Contacts_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -438,27 +438,27 @@ class Google_Service_Mirror_Contacts_Resource extends Google_Service_Resource
    *
    * @param string $id The ID of the contact.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Contact
+   * @return Forminator_Google_Service_Mirror_Contact
    */
   public function get($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Mirror_Contact");
+    return $this->call('get', array($params), "Forminator_Google_Service_Mirror_Contact");
   }
 
   /**
    * Inserts a new contact. (contacts.insert)
    *
-   * @param Google_Contact $postBody
+   * @param Forminator_Google_Contact $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Contact
+   * @return Forminator_Google_Service_Mirror_Contact
    */
-  public function insert(Google_Service_Mirror_Contact $postBody, $optParams = array())
+  public function insert(Forminator_Google_Service_Mirror_Contact $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Mirror_Contact");
+    return $this->call('insert', array($params), "Forminator_Google_Service_Mirror_Contact");
   }
 
   /**
@@ -466,13 +466,13 @@ class Google_Service_Mirror_Contacts_Resource extends Google_Service_Resource
    * (contacts.listContacts)
    *
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_ContactsListResponse
+   * @return Forminator_Google_Service_Mirror_ContactsListResponse
    */
   public function listContacts($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Mirror_ContactsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Mirror_ContactsListResponse");
   }
 
   /**
@@ -480,30 +480,30 @@ class Google_Service_Mirror_Contacts_Resource extends Google_Service_Resource
    * (contacts.patch)
    *
    * @param string $id The ID of the contact.
-   * @param Google_Contact $postBody
+   * @param Forminator_Google_Contact $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Contact
+   * @return Forminator_Google_Service_Mirror_Contact
    */
-  public function patch($id, Google_Service_Mirror_Contact $postBody, $optParams = array())
+  public function patch($id, Forminator_Google_Service_Mirror_Contact $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_Mirror_Contact");
+    return $this->call('patch', array($params), "Forminator_Google_Service_Mirror_Contact");
   }
 
   /**
    * Updates a contact in place. (contacts.update)
    *
    * @param string $id The ID of the contact.
-   * @param Google_Contact $postBody
+   * @param Forminator_Google_Contact $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Contact
+   * @return Forminator_Google_Service_Mirror_Contact
    */
-  public function update($id, Google_Service_Mirror_Contact $postBody, $optParams = array())
+  public function update($id, Forminator_Google_Service_Mirror_Contact $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Mirror_Contact");
+    return $this->call('update', array($params), "Forminator_Google_Service_Mirror_Contact");
   }
 }
 
@@ -511,11 +511,11 @@ class Google_Service_Mirror_Contacts_Resource extends Google_Service_Resource
  * The "locations" collection of methods.
  * Typical usage is:
  *  <code>
- *   $mirrorService = new Google_Service_Mirror(...);
+ *   $mirrorService = new Forminator_Google_Service_Mirror(...);
  *   $locations = $mirrorService->locations;
  *  </code>
  */
-class Google_Service_Mirror_Locations_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Mirror_Locations_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -524,26 +524,26 @@ class Google_Service_Mirror_Locations_Resource extends Google_Service_Resource
    * @param string $id The ID of the location or latest for the last known
    * location.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Location
+   * @return Forminator_Google_Service_Mirror_Location
    */
   public function get($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Mirror_Location");
+    return $this->call('get', array($params), "Forminator_Google_Service_Mirror_Location");
   }
 
   /**
    * Retrieves a list of locations for the user. (locations.listLocations)
    *
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_LocationsListResponse
+   * @return Forminator_Google_Service_Mirror_LocationsListResponse
    */
   public function listLocations($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Mirror_LocationsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Mirror_LocationsListResponse");
   }
 }
 
@@ -551,11 +551,11 @@ class Google_Service_Mirror_Locations_Resource extends Google_Service_Resource
  * The "settings" collection of methods.
  * Typical usage is:
  *  <code>
- *   $mirrorService = new Google_Service_Mirror(...);
+ *   $mirrorService = new Forminator_Google_Service_Mirror(...);
  *   $settings = $mirrorService->settings;
  *  </code>
  */
-class Google_Service_Mirror_Settings_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Mirror_Settings_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -567,13 +567,13 @@ class Google_Service_Mirror_Settings_Resource extends Google_Service_Resource
    * the user’s current time zone region as defined in the tz database. Example:
    * America/Los_Angeles.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Setting
+   * @return Forminator_Google_Service_Mirror_Setting
    */
   public function get($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Mirror_Setting");
+    return $this->call('get', array($params), "Forminator_Google_Service_Mirror_Setting");
   }
 }
 
@@ -581,11 +581,11 @@ class Google_Service_Mirror_Settings_Resource extends Google_Service_Resource
  * The "subscriptions" collection of methods.
  * Typical usage is:
  *  <code>
- *   $mirrorService = new Google_Service_Mirror(...);
+ *   $mirrorService = new Forminator_Google_Service_Mirror(...);
  *   $subscriptions = $mirrorService->subscriptions;
  *  </code>
  */
-class Google_Service_Mirror_Subscriptions_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Mirror_Subscriptions_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -604,15 +604,15 @@ class Google_Service_Mirror_Subscriptions_Resource extends Google_Service_Resour
   /**
    * Creates a new subscription. (subscriptions.insert)
    *
-   * @param Google_Subscription $postBody
+   * @param Forminator_Google_Subscription $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Subscription
+   * @return Forminator_Google_Service_Mirror_Subscription
    */
-  public function insert(Google_Service_Mirror_Subscription $postBody, $optParams = array())
+  public function insert(Forminator_Google_Service_Mirror_Subscription $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Mirror_Subscription");
+    return $this->call('insert', array($params), "Forminator_Google_Service_Mirror_Subscription");
   }
 
   /**
@@ -620,28 +620,28 @@ class Google_Service_Mirror_Subscriptions_Resource extends Google_Service_Resour
    * (subscriptions.listSubscriptions)
    *
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_SubscriptionsListResponse
+   * @return Forminator_Google_Service_Mirror_SubscriptionsListResponse
    */
   public function listSubscriptions($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Mirror_SubscriptionsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Mirror_SubscriptionsListResponse");
   }
 
   /**
    * Updates an existing subscription in place. (subscriptions.update)
    *
    * @param string $id The ID of the subscription.
-   * @param Google_Subscription $postBody
+   * @param Forminator_Google_Subscription $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Subscription
+   * @return Forminator_Google_Service_Mirror_Subscription
    */
-  public function update($id, Google_Service_Mirror_Subscription $postBody, $optParams = array())
+  public function update($id, Forminator_Google_Service_Mirror_Subscription $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Mirror_Subscription");
+    return $this->call('update', array($params), "Forminator_Google_Service_Mirror_Subscription");
   }
 }
 
@@ -649,11 +649,11 @@ class Google_Service_Mirror_Subscriptions_Resource extends Google_Service_Resour
  * The "timeline" collection of methods.
  * Typical usage is:
  *  <code>
- *   $mirrorService = new Google_Service_Mirror(...);
+ *   $mirrorService = new Forminator_Google_Service_Mirror(...);
  *   $timeline = $mirrorService->timeline;
  *  </code>
  */
-class Google_Service_Mirror_Timeline_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Mirror_Timeline_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -674,27 +674,27 @@ class Google_Service_Mirror_Timeline_Resource extends Google_Service_Resource
    *
    * @param string $id The ID of the timeline item.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_TimelineItem
+   * @return Forminator_Google_Service_Mirror_TimelineItem
    */
   public function get($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Mirror_TimelineItem");
+    return $this->call('get', array($params), "Forminator_Google_Service_Mirror_TimelineItem");
   }
 
   /**
    * Inserts a new item into the timeline. (timeline.insert)
    *
-   * @param Google_TimelineItem $postBody
+   * @param Forminator_Google_TimelineItem $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_TimelineItem
+   * @return Forminator_Google_Service_Mirror_TimelineItem
    */
-  public function insert(Google_Service_Mirror_TimelineItem $postBody, $optParams = array())
+  public function insert(Forminator_Google_Service_Mirror_TimelineItem $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Mirror_TimelineItem");
+    return $this->call('insert', array($params), "Forminator_Google_Service_Mirror_TimelineItem");
   }
 
   /**
@@ -715,13 +715,13 @@ class Google_Service_Mirror_Timeline_Resource extends Google_Service_Resource
    * @opt_param bool pinnedOnly If true, only pinned items will be returned.
    * @opt_param string sourceItemId If provided, only items with the given
    * sourceItemId will be returned.
-   * @return Google_Service_Mirror_TimelineListResponse
+   * @return Forminator_Google_Service_Mirror_TimelineListResponse
    */
   public function listTimeline($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Mirror_TimelineListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Mirror_TimelineListResponse");
   }
 
   /**
@@ -729,30 +729,30 @@ class Google_Service_Mirror_Timeline_Resource extends Google_Service_Resource
    * (timeline.patch)
    *
    * @param string $id The ID of the timeline item.
-   * @param Google_TimelineItem $postBody
+   * @param Forminator_Google_TimelineItem $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_TimelineItem
+   * @return Forminator_Google_Service_Mirror_TimelineItem
    */
-  public function patch($id, Google_Service_Mirror_TimelineItem $postBody, $optParams = array())
+  public function patch($id, Forminator_Google_Service_Mirror_TimelineItem $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_Mirror_TimelineItem");
+    return $this->call('patch', array($params), "Forminator_Google_Service_Mirror_TimelineItem");
   }
 
   /**
    * Updates a timeline item in place. (timeline.update)
    *
    * @param string $id The ID of the timeline item.
-   * @param Google_TimelineItem $postBody
+   * @param Forminator_Google_TimelineItem $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_TimelineItem
+   * @return Forminator_Google_Service_Mirror_TimelineItem
    */
-  public function update($id, Google_Service_Mirror_TimelineItem $postBody, $optParams = array())
+  public function update($id, Forminator_Google_Service_Mirror_TimelineItem $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Mirror_TimelineItem");
+    return $this->call('update', array($params), "Forminator_Google_Service_Mirror_TimelineItem");
   }
 }
 
@@ -760,11 +760,11 @@ class Google_Service_Mirror_Timeline_Resource extends Google_Service_Resource
  * The "attachments" collection of methods.
  * Typical usage is:
  *  <code>
- *   $mirrorService = new Google_Service_Mirror(...);
+ *   $mirrorService = new Forminator_Google_Service_Mirror(...);
  *   $attachments = $mirrorService->attachments;
  *  </code>
  */
-class Google_Service_Mirror_TimelineAttachments_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Mirror_TimelineAttachments_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -788,13 +788,13 @@ class Google_Service_Mirror_TimelineAttachments_Resource extends Google_Service_
    * @param string $itemId The ID of the timeline item the attachment belongs to.
    * @param string $attachmentId The ID of the attachment.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Attachment
+   * @return Forminator_Google_Service_Mirror_Attachment
    */
   public function get($itemId, $attachmentId, $optParams = array())
   {
     $params = array('itemId' => $itemId, 'attachmentId' => $attachmentId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Mirror_Attachment");
+    return $this->call('get', array($params), "Forminator_Google_Service_Mirror_Attachment");
   }
 
   /**
@@ -802,13 +802,13 @@ class Google_Service_Mirror_TimelineAttachments_Resource extends Google_Service_
    *
    * @param string $itemId The ID of the timeline item the attachment belongs to.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_Attachment
+   * @return Forminator_Google_Service_Mirror_Attachment
    */
   public function insert($itemId, $optParams = array())
   {
     $params = array('itemId' => $itemId);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Mirror_Attachment");
+    return $this->call('insert', array($params), "Forminator_Google_Service_Mirror_Attachment");
   }
 
   /**
@@ -818,29 +818,29 @@ class Google_Service_Mirror_TimelineAttachments_Resource extends Google_Service_
    * @param string $itemId The ID of the timeline item whose attachments should be
    * listed.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Mirror_AttachmentsListResponse
+   * @return Forminator_Google_Service_Mirror_AttachmentsListResponse
    */
   public function listTimelineAttachments($itemId, $optParams = array())
   {
     $params = array('itemId' => $itemId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Mirror_AttachmentsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Mirror_AttachmentsListResponse");
   }
 }
 
 
 
 
-class Google_Service_Mirror_Account extends Google_Collection
+class Forminator_Google_Service_Mirror_Account extends Forminator_Google_Collection
 {
   protected $collection_key = 'userData';
   protected $internal_gapi_mappings = array(
   );
-  protected $authTokensType = 'Google_Service_Mirror_AuthToken';
+  protected $authTokensType = 'Forminator_Google_Service_Mirror_AuthToken';
   protected $authTokensDataType = 'array';
   public $features;
   public $password;
-  protected $userDataType = 'Google_Service_Mirror_UserData';
+  protected $userDataType = 'Forminator_Google_Service_Mirror_UserData';
   protected $userDataDataType = 'array';
 
 
@@ -878,7 +878,7 @@ class Google_Service_Mirror_Account extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_Attachment extends Google_Model
+class Forminator_Google_Service_Mirror_Attachment extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -922,12 +922,12 @@ class Google_Service_Mirror_Attachment extends Google_Model
   }
 }
 
-class Google_Service_Mirror_AttachmentsListResponse extends Google_Collection
+class Forminator_Google_Service_Mirror_AttachmentsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_Mirror_Attachment';
+  protected $itemsType = 'Forminator_Google_Service_Mirror_Attachment';
   protected $itemsDataType = 'array';
   public $kind;
 
@@ -950,7 +950,7 @@ class Google_Service_Mirror_AttachmentsListResponse extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_AuthToken extends Google_Model
+class Forminator_Google_Service_Mirror_AuthToken extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -976,7 +976,7 @@ class Google_Service_Mirror_AuthToken extends Google_Model
   }
 }
 
-class Google_Service_Mirror_Command extends Google_Model
+class Forminator_Google_Service_Mirror_Command extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -993,12 +993,12 @@ class Google_Service_Mirror_Command extends Google_Model
   }
 }
 
-class Google_Service_Mirror_Contact extends Google_Collection
+class Forminator_Google_Service_Mirror_Contact extends Forminator_Google_Collection
 {
   protected $collection_key = 'sharingFeatures';
   protected $internal_gapi_mappings = array(
   );
-  protected $acceptCommandsType = 'Google_Service_Mirror_Command';
+  protected $acceptCommandsType = 'Forminator_Google_Service_Mirror_Command';
   protected $acceptCommandsDataType = 'array';
   public $acceptTypes;
   public $displayName;
@@ -1111,12 +1111,12 @@ class Google_Service_Mirror_Contact extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_ContactsListResponse extends Google_Collection
+class Forminator_Google_Service_Mirror_ContactsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_Mirror_Contact';
+  protected $itemsType = 'Forminator_Google_Service_Mirror_Contact';
   protected $itemsDataType = 'array';
   public $kind;
 
@@ -1139,7 +1139,7 @@ class Google_Service_Mirror_ContactsListResponse extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_Location extends Google_Model
+class Forminator_Google_Service_Mirror_Location extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1219,12 +1219,12 @@ class Google_Service_Mirror_Location extends Google_Model
   }
 }
 
-class Google_Service_Mirror_LocationsListResponse extends Google_Collection
+class Forminator_Google_Service_Mirror_LocationsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_Mirror_Location';
+  protected $itemsType = 'Forminator_Google_Service_Mirror_Location';
   protected $itemsDataType = 'array';
   public $kind;
 
@@ -1247,7 +1247,7 @@ class Google_Service_Mirror_LocationsListResponse extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_MenuItem extends Google_Collection
+class Forminator_Google_Service_Mirror_MenuItem extends Forminator_Google_Collection
 {
   protected $collection_key = 'values';
   protected $internal_gapi_mappings = array(
@@ -1258,7 +1258,7 @@ class Google_Service_Mirror_MenuItem extends Google_Collection
   public $id;
   public $payload;
   public $removeWhenSelected;
-  protected $valuesType = 'Google_Service_Mirror_MenuValue';
+  protected $valuesType = 'Forminator_Google_Service_Mirror_MenuValue';
   protected $valuesDataType = 'array';
 
 
@@ -1312,7 +1312,7 @@ class Google_Service_Mirror_MenuItem extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_MenuValue extends Google_Model
+class Forminator_Google_Service_Mirror_MenuValue extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1347,7 +1347,7 @@ class Google_Service_Mirror_MenuValue extends Google_Model
   }
 }
 
-class Google_Service_Mirror_Notification extends Google_Collection
+class Forminator_Google_Service_Mirror_Notification extends Forminator_Google_Collection
 {
   protected $collection_key = 'userActions';
   protected $internal_gapi_mappings = array(
@@ -1355,7 +1355,7 @@ class Google_Service_Mirror_Notification extends Google_Collection
   public $collection;
   public $itemId;
   public $operation;
-  protected $userActionsType = 'Google_Service_Mirror_UserAction';
+  protected $userActionsType = 'Forminator_Google_Service_Mirror_UserAction';
   protected $userActionsDataType = 'array';
   public $userToken;
   public $verifyToken;
@@ -1411,7 +1411,7 @@ class Google_Service_Mirror_Notification extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_NotificationConfig extends Google_Model
+class Forminator_Google_Service_Mirror_NotificationConfig extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1437,7 +1437,7 @@ class Google_Service_Mirror_NotificationConfig extends Google_Model
   }
 }
 
-class Google_Service_Mirror_Setting extends Google_Model
+class Forminator_Google_Service_Mirror_Setting extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1472,7 +1472,7 @@ class Google_Service_Mirror_Setting extends Google_Model
   }
 }
 
-class Google_Service_Mirror_Subscription extends Google_Collection
+class Forminator_Google_Service_Mirror_Subscription extends Forminator_Google_Collection
 {
   protected $collection_key = 'operation';
   protected $internal_gapi_mappings = array(
@@ -1481,7 +1481,7 @@ class Google_Service_Mirror_Subscription extends Google_Collection
   public $collection;
   public $id;
   public $kind;
-  protected $notificationType = 'Google_Service_Mirror_Notification';
+  protected $notificationType = 'Forminator_Google_Service_Mirror_Notification';
   protected $notificationDataType = '';
   public $operation;
   public $updated;
@@ -1521,7 +1521,7 @@ class Google_Service_Mirror_Subscription extends Google_Collection
   {
     return $this->kind;
   }
-  public function setNotification(Google_Service_Mirror_Notification $notification)
+  public function setNotification(Forminator_Google_Service_Mirror_Notification $notification)
   {
     $this->notification = $notification;
   }
@@ -1563,12 +1563,12 @@ class Google_Service_Mirror_Subscription extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_SubscriptionsListResponse extends Google_Collection
+class Forminator_Google_Service_Mirror_SubscriptionsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_Mirror_Subscription';
+  protected $itemsType = 'Forminator_Google_Service_Mirror_Subscription';
   protected $itemsDataType = 'array';
   public $kind;
 
@@ -1591,17 +1591,17 @@ class Google_Service_Mirror_SubscriptionsListResponse extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_TimelineItem extends Google_Collection
+class Forminator_Google_Service_Mirror_TimelineItem extends Forminator_Google_Collection
 {
   protected $collection_key = 'recipients';
   protected $internal_gapi_mappings = array(
   );
-  protected $attachmentsType = 'Google_Service_Mirror_Attachment';
+  protected $attachmentsType = 'Forminator_Google_Service_Mirror_Attachment';
   protected $attachmentsDataType = 'array';
   public $bundleId;
   public $canonicalUrl;
   public $created;
-  protected $creatorType = 'Google_Service_Mirror_Contact';
+  protected $creatorType = 'Forminator_Google_Service_Mirror_Contact';
   protected $creatorDataType = '';
   public $displayTime;
   public $etag;
@@ -1612,14 +1612,14 @@ class Google_Service_Mirror_TimelineItem extends Google_Collection
   public $isDeleted;
   public $isPinned;
   public $kind;
-  protected $locationType = 'Google_Service_Mirror_Location';
+  protected $locationType = 'Forminator_Google_Service_Mirror_Location';
   protected $locationDataType = '';
-  protected $menuItemsType = 'Google_Service_Mirror_MenuItem';
+  protected $menuItemsType = 'Forminator_Google_Service_Mirror_MenuItem';
   protected $menuItemsDataType = 'array';
-  protected $notificationType = 'Google_Service_Mirror_NotificationConfig';
+  protected $notificationType = 'Forminator_Google_Service_Mirror_NotificationConfig';
   protected $notificationDataType = '';
   public $pinScore;
-  protected $recipientsType = 'Google_Service_Mirror_Contact';
+  protected $recipientsType = 'Forminator_Google_Service_Mirror_Contact';
   protected $recipientsDataType = 'array';
   public $selfLink;
   public $sourceItemId;
@@ -1662,7 +1662,7 @@ class Google_Service_Mirror_TimelineItem extends Google_Collection
   {
     return $this->created;
   }
-  public function setCreator(Google_Service_Mirror_Contact $creator)
+  public function setCreator(Forminator_Google_Service_Mirror_Contact $creator)
   {
     $this->creator = $creator;
   }
@@ -1742,7 +1742,7 @@ class Google_Service_Mirror_TimelineItem extends Google_Collection
   {
     return $this->kind;
   }
-  public function setLocation(Google_Service_Mirror_Location $location)
+  public function setLocation(Forminator_Google_Service_Mirror_Location $location)
   {
     $this->location = $location;
   }
@@ -1758,7 +1758,7 @@ class Google_Service_Mirror_TimelineItem extends Google_Collection
   {
     return $this->menuItems;
   }
-  public function setNotification(Google_Service_Mirror_NotificationConfig $notification)
+  public function setNotification(Forminator_Google_Service_Mirror_NotificationConfig $notification)
   {
     $this->notification = $notification;
   }
@@ -1840,12 +1840,12 @@ class Google_Service_Mirror_TimelineItem extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_TimelineListResponse extends Google_Collection
+class Forminator_Google_Service_Mirror_TimelineListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_Mirror_TimelineItem';
+  protected $itemsType = 'Forminator_Google_Service_Mirror_TimelineItem';
   protected $itemsDataType = 'array';
   public $kind;
   public $nextPageToken;
@@ -1877,7 +1877,7 @@ class Google_Service_Mirror_TimelineListResponse extends Google_Collection
   }
 }
 
-class Google_Service_Mirror_UserAction extends Google_Model
+class Forminator_Google_Service_Mirror_UserAction extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1903,7 +1903,7 @@ class Google_Service_Mirror_UserAction extends Google_Model
   }
 }
 
-class Google_Service_Mirror_UserData extends Google_Model
+class Forminator_Google_Service_Mirror_UserData extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );

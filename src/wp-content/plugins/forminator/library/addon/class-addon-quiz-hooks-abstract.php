@@ -70,6 +70,7 @@ abstract class Forminator_Addon_Quiz_Hooks_Abstract {
 		$this->quiz_id = $quiz_id;
 		$this->quiz    = Forminator_Quiz_Form_Model::model()->load( $this->quiz_id );
 		if ( ! $this->quiz ) {
+			/* translators: ... */
 			throw new Forminator_Addon_Exception( sprintf( __( 'Quiz with id %d could not be found', Forminator::DOMAIN ), $this->quiz_id ) );
 		}
 
@@ -224,7 +225,6 @@ abstract class Forminator_Addon_Quiz_Hooks_Abstract {
 			$quiz_settings_instance
 		);
 
-
 		$is_success = true;
 		/**
 		 * Filter result of quiz submit
@@ -334,7 +334,6 @@ abstract class Forminator_Addon_Quiz_Hooks_Abstract {
 			$quiz_id,
 			$quiz_settings_instance
 		);
-
 
 		$entry_fields = array();
 		/**
@@ -446,7 +445,6 @@ abstract class Forminator_Addon_Quiz_Hooks_Abstract {
 			$quiz_settings_instance
 		);
 
-
 		$entry_items = array();
 		/**
 		 * Filter addon row(s) to be displayed on entries page
@@ -472,7 +470,6 @@ abstract class Forminator_Addon_Quiz_Hooks_Abstract {
 			$addon_meta_data,
 			$quiz_settings_instance
 		);
-
 
 		return $entry_items;
 	}

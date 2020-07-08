@@ -67,7 +67,7 @@ class Forminator_Export {
 		add_action( 'wp_loaded', array( &$this, 'listen_for_csv_export' ) );
 		add_action( 'wp_loaded', array( &$this, 'listen_for_saving_export_schedule' ) );
 		//schedule for check and send export
-		add_action( 'init', array( &$this, 'schedule_entries_exporter' ) );
+		add_action( 'wp_footer', array( &$this, 'schedule_entries_exporter' ) );
 
 		add_action( 'forminator_send_export', array( &$this, 'maybe_send_export' ) );
 	}
@@ -79,7 +79,7 @@ class Forminator_Export {
 	 */
 	public function schedule_entries_exporter() {
 		if ( ! wp_next_scheduled( 'forminator_send_export' ) ) {
-			wp_schedule_single_event( time(), 'forminator_send_export' );
+			wp_schedule_single_event( time() + WP_CRON_LOCK_TIMEOUT, 'forminator_send_export' );
 		}
 	}
 
@@ -124,13 +124,15 @@ class Forminator_Export {
 		);
 		update_option( 'forminator_exporter_log', $logs );
 
-		$fp = fopen( 'php://memory', 'w' ); // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_fopen -- disable phpcs because it writes memory
+		$fp = fopen( 'php://output', 'w' ); // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_fopen -- disable phpcs because it writes memory
+		ob_start();
 		foreach ( $data as $fields ) {
 			$fields = self::get_formatted_csv_fields( $fields );
 			fputcsv( $fp, $fields );
 		}
 		$filename = 'forminator-' . sanitize_title( $model->name ) . '-' . date( 'ymdHis' ) . '.csv';
-		fseek( $fp, 0 );
+
+		$output = ob_get_clean();
 
 		header( 'Content-Encoding: UTF-8' );
 		header( 'Content-type: text/csv; charset=UTF-8' );
@@ -140,8 +142,7 @@ class Forminator_Export {
 		echo chr( 239 ) . chr( 187 ) . chr( 191 );// wpcs xss ok. excel generated content
 
 		// make php send the generated csv lines to the browser
-		fpassthru( $fp );
-		exit();
+		exit( $output );
 	}
 
 	/**
@@ -321,14 +322,15 @@ class Forminator_Export {
 			}
 		}
 
+		$files = [];
 		//now start to send
 		foreach ( $receipts as $email => $info ) {
-			$files          = array();
+			$current_files          = array();
 			$export_results = array();
 			foreach ( $info as $export_result ) {
 
 				// files reference needed for future deletion
-				$files[] = $export_result->file_path;
+				$current_files[] = $export_result->file_path;
 
 				/** @var Forminator_Export_Result $export_result */
 				$schedule_key    = $export_result->model->id . $export_result->form_type;
@@ -361,17 +363,20 @@ class Forminator_Export {
 
 				$export_results[] = $export_result;
 			}
+			$files += $current_files;
 
 			if ( ! empty( $export_results ) ) {
 				$subject      = $this->get_mail_subject( $export_results );
 				$mail_content = $this->get_mail_content( $export_results );
 				$mail_headers = $this->get_mail_headers( $email, $export_results );
-				wp_mail( $email, $subject, $mail_content, $mail_headers, $files );
+				wp_mail( $email, $subject, $mail_content, $mail_headers, $current_files );
 			}
 
-			foreach ( $files as $file ) {
-				@unlink( $file ); // phpcs:ignore
-			}
+		}
+
+		$files = array_unique( $files );
+		foreach ( $files as $file ) {
+			@unlink( $file ); // phpcs:ignore
 		}
 		update_option( 'forminator_entries_export_schedule', $export_schedules );
 	}
@@ -1290,7 +1295,7 @@ class Forminator_Export {
 		foreach ( $submission_links as $key => $submission_link ) {
 			$mail_content
 				.= sprintf(
-					   '<li><strong>%1$s</strong>: 
+					   '<li><strong>%1$s</strong>:
 						<ul>
 							<li>%2$s : %3$d</li>
 							<li>%4$s : %5$d</li>

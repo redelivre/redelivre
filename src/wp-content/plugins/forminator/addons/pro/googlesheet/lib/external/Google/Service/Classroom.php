@@ -26,7 +26,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Classroom extends Google_Service
+class Forminator_Google_Service_Classroom extends Forminator_Google_Service
 {
   /** View instructions for teacher-assigned work in your Google Classroom classes. */
   const CLASSROOM_COURSE_WORK_READONLY =
@@ -81,9 +81,9 @@ class Google_Service_Classroom extends Google_Service
   /**
    * Constructs the internal representation of the Classroom service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://classroom.googleapis.com/';
@@ -91,7 +91,7 @@ class Google_Service_Classroom extends Google_Service
     $this->version = 'v1';
     $this->serviceName = 'classroom';
 
-    $this->courses = new Google_Service_Classroom_Courses_Resource(
+    $this->courses = new Forminator_Google_Service_Classroom_Courses_Resource(
         $this,
         $this->serviceName,
         'courses',
@@ -170,7 +170,7 @@ class Google_Service_Classroom extends Google_Service
           )
         )
     );
-    $this->courses_aliases = new Google_Service_Classroom_CoursesAliases_Resource(
+    $this->courses_aliases = new Forminator_Google_Service_Classroom_CoursesAliases_Resource(
         $this,
         $this->serviceName,
         'aliases',
@@ -223,7 +223,7 @@ class Google_Service_Classroom extends Google_Service
           )
         )
     );
-    $this->courses_courseWork = new Google_Service_Classroom_CoursesCourseWork_Resource(
+    $this->courses_courseWork = new Forminator_Google_Service_Classroom_CoursesCourseWork_Resource(
         $this,
         $this->serviceName,
         'courseWork',
@@ -285,7 +285,7 @@ class Google_Service_Classroom extends Google_Service
           )
         )
     );
-    $this->courses_courseWork_studentSubmissions = new Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource(
+    $this->courses_courseWork_studentSubmissions = new Forminator_Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource(
         $this,
         $this->serviceName,
         'studentSubmissions',
@@ -455,7 +455,7 @@ class Google_Service_Classroom extends Google_Service
           )
         )
     );
-    $this->courses_students = new Google_Service_Classroom_CoursesStudents_Resource(
+    $this->courses_students = new Forminator_Google_Service_Classroom_CoursesStudents_Resource(
         $this,
         $this->serviceName,
         'students',
@@ -527,7 +527,7 @@ class Google_Service_Classroom extends Google_Service
           )
         )
     );
-    $this->courses_teachers = new Google_Service_Classroom_CoursesTeachers_Resource(
+    $this->courses_teachers = new Forminator_Google_Service_Classroom_CoursesTeachers_Resource(
         $this,
         $this->serviceName,
         'teachers',
@@ -595,7 +595,7 @@ class Google_Service_Classroom extends Google_Service
           )
         )
     );
-    $this->invitations = new Google_Service_Classroom_Invitations_Resource(
+    $this->invitations = new Forminator_Google_Service_Classroom_Invitations_Resource(
         $this,
         $this->serviceName,
         'invitations',
@@ -660,7 +660,7 @@ class Google_Service_Classroom extends Google_Service
           )
         )
     );
-    $this->userProfiles = new Google_Service_Classroom_UserProfiles_Resource(
+    $this->userProfiles = new Forminator_Google_Service_Classroom_UserProfiles_Resource(
         $this,
         $this->serviceName,
         'userProfiles',
@@ -688,11 +688,11 @@ class Google_Service_Classroom extends Google_Service
  * The "courses" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $courses = $classroomService->courses;
  *  </code>
  */
-class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_Courses_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -705,15 +705,15 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
    * `ALREADY_EXISTS` if an alias was specified in the `id` and already exists.
    * (courses.create)
    *
-   * @param Google_Course $postBody
+   * @param Forminator_Google_Course $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Course
+   * @return Forminator_Google_Service_Classroom_Course
    */
-  public function create(Google_Service_Classroom_Course $postBody, $optParams = array())
+  public function create(Forminator_Google_Service_Classroom_Course $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Classroom_Course");
+    return $this->call('create', array($params), "Forminator_Google_Service_Classroom_Course");
   }
 
   /**
@@ -725,13 +725,13 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
    * @param string $id Identifier of the course to delete. This identifier can be
    * either the Classroom-assigned identifier or an alias.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
   public function delete($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -743,13 +743,13 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
    * @param string $id Identifier of the course to return. This identifier can be
    * either the Classroom-assigned identifier or an alias.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Course
+   * @return Forminator_Google_Service_Classroom_Course
    */
   public function get($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Classroom_Course");
+    return $this->call('get', array($params), "Forminator_Google_Service_Classroom_Course");
   }
 
   /**
@@ -776,13 +776,13 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
    * call, indicating that the subsequent page of results should be returned. The
    * list request must be otherwise identical to the one that resulted in this
    * token.
-   * @return Google_Service_Classroom_ListCoursesResponse
+   * @return Forminator_Google_Service_Classroom_ListCoursesResponse
    */
   public function listCourses($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Classroom_ListCoursesResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Classroom_ListCoursesResponse");
   }
 
   /**
@@ -796,7 +796,7 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
    *
    * @param string $id Identifier of the course to update. This identifier can be
    * either the Classroom-assigned identifier or an alias.
-   * @param Google_Course $postBody
+   * @param Forminator_Google_Course $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param string updateMask Mask that identifies which fields on the course
@@ -805,13 +805,13 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
    * `section` * `descriptionHeading` * `description` * `room` * `courseState`
    * When set in a query parameter, this field should be specified as
    * `updateMask=,,...`
-   * @return Google_Service_Classroom_Course
+   * @return Forminator_Google_Service_Classroom_Course
    */
-  public function patch($id, Google_Service_Classroom_Course $postBody, $optParams = array())
+  public function patch($id, Forminator_Google_Service_Classroom_Course $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_Classroom_Course");
+    return $this->call('patch', array($params), "Forminator_Google_Service_Classroom_Course");
   }
 
   /**
@@ -823,15 +823,15 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
    *
    * @param string $id Identifier of the course to update. This identifier can be
    * either the Classroom-assigned identifier or an alias.
-   * @param Google_Course $postBody
+   * @param Forminator_Google_Course $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Course
+   * @return Forminator_Google_Service_Classroom_Course
    */
-  public function update($id, Google_Service_Classroom_Course $postBody, $optParams = array())
+  public function update($id, Forminator_Google_Service_Classroom_Course $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_Classroom_Course");
+    return $this->call('update', array($params), "Forminator_Google_Service_Classroom_Course");
   }
 }
 
@@ -839,11 +839,11 @@ class Google_Service_Classroom_Courses_Resource extends Google_Service_Resource
  * The "aliases" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $aliases = $classroomService->aliases;
  *  </code>
  */
-class Google_Service_Classroom_CoursesAliases_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_CoursesAliases_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -854,15 +854,15 @@ class Google_Service_Classroom_CoursesAliases_Resource extends Google_Service_Re
    *
    * @param string $courseId Identifier of the course to alias. This identifier
    * can be either the Classroom-assigned identifier or an alias.
-   * @param Google_CourseAlias $postBody
+   * @param Forminator_Google_CourseAlias $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_CourseAlias
+   * @return Forminator_Google_Service_Classroom_CourseAlias
    */
-  public function create($courseId, Google_Service_Classroom_CourseAlias $postBody, $optParams = array())
+  public function create($courseId, Forminator_Google_Service_Classroom_CourseAlias $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Classroom_CourseAlias");
+    return $this->call('create', array($params), "Forminator_Google_Service_Classroom_CourseAlias");
   }
 
   /**
@@ -877,13 +877,13 @@ class Google_Service_Classroom_CoursesAliases_Resource extends Google_Service_Re
    * @param string $alias Alias to delete. This may not be the Classroom-assigned
    * identifier.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
   public function delete($courseId, $alias, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'alias' => $alias);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -903,24 +903,24 @@ class Google_Service_Classroom_CoursesAliases_Resource extends Google_Service_Re
    * call, indicating that the subsequent page of results should be returned. The
    * list request must be otherwise identical to the one that resulted in this
    * token.
-   * @return Google_Service_Classroom_ListCourseAliasesResponse
+   * @return Forminator_Google_Service_Classroom_ListCourseAliasesResponse
    */
   public function listCoursesAliases($courseId, $optParams = array())
   {
     $params = array('courseId' => $courseId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Classroom_ListCourseAliasesResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Classroom_ListCourseAliasesResponse");
   }
 }
 /**
  * The "courseWork" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $courseWork = $classroomService->courseWork;
  *  </code>
  */
-class Google_Service_Classroom_CoursesCourseWork_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_CoursesCourseWork_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -937,15 +937,15 @@ class Google_Service_Classroom_CoursesCourseWork_Resource extends Google_Service
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.
-   * @param Google_CourseWork $postBody
+   * @param Forminator_Google_CourseWork $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_CourseWork
+   * @return Forminator_Google_Service_Classroom_CourseWork
    */
-  public function create($courseId, Google_Service_Classroom_CourseWork $postBody, $optParams = array())
+  public function create($courseId, Forminator_Google_Service_Classroom_CourseWork $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Classroom_CourseWork");
+    return $this->call('create', array($params), "Forminator_Google_Service_Classroom_CourseWork");
   }
 
   /**
@@ -959,13 +959,13 @@ class Google_Service_Classroom_CoursesCourseWork_Resource extends Google_Service
    * either the Classroom-assigned identifier or an alias.
    * @param string $id Identifier of the course work.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_CourseWork
+   * @return Forminator_Google_Service_Classroom_CourseWork
    */
   public function get($courseId, $id, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Classroom_CourseWork");
+    return $this->call('get', array($params), "Forminator_Google_Service_Classroom_CourseWork");
   }
 
   /**
@@ -996,13 +996,13 @@ class Google_Service_Classroom_CoursesCourseWork_Resource extends Google_Service
    * call, indicating that the subsequent page of results should be returned. The
    * list request must be otherwise identical to the one that resulted in this
    * token.
-   * @return Google_Service_Classroom_ListCourseWorkResponse
+   * @return Forminator_Google_Service_Classroom_ListCourseWorkResponse
    */
   public function listCoursesCourseWork($courseId, $optParams = array())
   {
     $params = array('courseId' => $courseId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Classroom_ListCourseWorkResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Classroom_ListCourseWorkResponse");
   }
 }
 
@@ -1010,11 +1010,11 @@ class Google_Service_Classroom_CoursesCourseWork_Resource extends Google_Service
  * The "studentSubmissions" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $studentSubmissions = $classroomService->studentSubmissions;
  *  </code>
  */
-class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1029,13 +1029,13 @@ class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource exte
    * @param string $courseWorkId Identifier of the course work.
    * @param string $id Identifier of the student submission.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_StudentSubmission
+   * @return Forminator_Google_Service_Classroom_StudentSubmission
    */
   public function get($courseId, $courseWorkId, $id, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'courseWorkId' => $courseWorkId, 'id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Classroom_StudentSubmission");
+    return $this->call('get', array($params), "Forminator_Google_Service_Classroom_StudentSubmission");
   }
 
   /**
@@ -1074,13 +1074,13 @@ class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource exte
    * call, indicating that the subsequent page of results should be returned. The
    * list request must be otherwise identical to the one that resulted in this
    * token.
-   * @return Google_Service_Classroom_ListStudentSubmissionsResponse
+   * @return Forminator_Google_Service_Classroom_ListStudentSubmissionsResponse
    */
   public function listCoursesCourseWorkStudentSubmissions($courseId, $courseWorkId, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'courseWorkId' => $courseWorkId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Classroom_ListStudentSubmissionsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Classroom_ListStudentSubmissionsResponse");
   }
 
   /**
@@ -1100,15 +1100,15 @@ class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource exte
    * either the Classroom-assigned identifier or an alias.
    * @param string $courseWorkId Identifier of the course work.
    * @param string $id Identifier of the student submission.
-   * @param Google_ModifyAttachmentsRequest $postBody
+   * @param Forminator_Google_ModifyAttachmentsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_StudentSubmission
+   * @return Forminator_Google_Service_Classroom_StudentSubmission
    */
-  public function modifyAttachments($courseId, $courseWorkId, $id, Google_Service_Classroom_ModifyAttachmentsRequest $postBody, $optParams = array())
+  public function modifyAttachments($courseId, $courseWorkId, $id, Forminator_Google_Service_Classroom_ModifyAttachmentsRequest $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'courseWorkId' => $courseWorkId, 'id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('modifyAttachments', array($params), "Google_Service_Classroom_StudentSubmission");
+    return $this->call('modifyAttachments', array($params), "Forminator_Google_Service_Classroom_StudentSubmission");
   }
 
   /**
@@ -1129,20 +1129,20 @@ class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource exte
    * either the Classroom-assigned identifier or an alias.
    * @param string $courseWorkId Identifier of the course work.
    * @param string $id Identifier of the student submission.
-   * @param Google_StudentSubmission $postBody
+   * @param Forminator_Google_StudentSubmission $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param string updateMask Mask that identifies which fields on the student
    * submission to update. This field is required to do an update. The update
    * fails if invalid fields are specified. The following fields may be specified
    * by teachers: * `draft_grade` * `assigned_grade`
-   * @return Google_Service_Classroom_StudentSubmission
+   * @return Forminator_Google_Service_Classroom_StudentSubmission
    */
-  public function patch($courseId, $courseWorkId, $id, Google_Service_Classroom_StudentSubmission $postBody, $optParams = array())
+  public function patch($courseId, $courseWorkId, $id, Forminator_Google_Service_Classroom_StudentSubmission $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'courseWorkId' => $courseWorkId, 'id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_Classroom_StudentSubmission");
+    return $this->call('patch', array($params), "Forminator_Google_Service_Classroom_StudentSubmission");
   }
 
   /**
@@ -1165,15 +1165,15 @@ class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource exte
    * either the Classroom-assigned identifier or an alias.
    * @param string $courseWorkId Identifier of the course work.
    * @param string $id Identifier of the student submission.
-   * @param Google_ReclaimStudentSubmissionRequest $postBody
+   * @param Forminator_Google_ReclaimStudentSubmissionRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
-  public function reclaim($courseId, $courseWorkId, $id, Google_Service_Classroom_ReclaimStudentSubmissionRequest $postBody, $optParams = array())
+  public function reclaim($courseId, $courseWorkId, $id, Forminator_Google_Service_Classroom_ReclaimStudentSubmissionRequest $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'courseWorkId' => $courseWorkId, 'id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('reclaim', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('reclaim', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -1196,15 +1196,15 @@ class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource exte
    * either the Classroom-assigned identifier or an alias.
    * @param string $courseWorkId Identifier of the course work.
    * @param string $id Identifier of the student submission.
-   * @param Google_ReturnStudentSubmissionRequest $postBody
+   * @param Forminator_Google_ReturnStudentSubmissionRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
-  public function returnCoursesCourseWorkStudentSubmissions($courseId, $courseWorkId, $id, Google_Service_Classroom_ReturnStudentSubmissionRequest $postBody, $optParams = array())
+  public function returnCoursesCourseWorkStudentSubmissions($courseId, $courseWorkId, $id, Forminator_Google_Service_Classroom_ReturnStudentSubmissionRequest $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'courseWorkId' => $courseWorkId, 'id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('return', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('return', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -1225,26 +1225,26 @@ class Google_Service_Classroom_CoursesCourseWorkStudentSubmissions_Resource exte
    * either the Classroom-assigned identifier or an alias.
    * @param string $courseWorkId Identifier of the course work.
    * @param string $id Identifier of the student submission.
-   * @param Google_TurnInStudentSubmissionRequest $postBody
+   * @param Forminator_Google_TurnInStudentSubmissionRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
-  public function turnIn($courseId, $courseWorkId, $id, Google_Service_Classroom_TurnInStudentSubmissionRequest $postBody, $optParams = array())
+  public function turnIn($courseId, $courseWorkId, $id, Forminator_Google_Service_Classroom_TurnInStudentSubmissionRequest $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'courseWorkId' => $courseWorkId, 'id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('turnIn', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('turnIn', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 }
 /**
  * The "students" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $students = $classroomService->students;
  *  </code>
  */
-class Google_Service_Classroom_CoursesStudents_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_CoursesStudents_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1259,20 +1259,20 @@ class Google_Service_Classroom_CoursesStudents_Resource extends Google_Service_R
    *
    * @param string $courseId Identifier of the course to create the student in.
    * This identifier can be either the Classroom-assigned identifier or an alias.
-   * @param Google_Student $postBody
+   * @param Forminator_Google_Student $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param string enrollmentCode Enrollment code of the course to create the
    * student in. This code is required if userId corresponds to the requesting
    * user; it may be omitted if the requesting user has administrative permissions
    * to create students for any user.
-   * @return Google_Service_Classroom_Student
+   * @return Forminator_Google_Service_Classroom_Student
    */
-  public function create($courseId, Google_Service_Classroom_Student $postBody, $optParams = array())
+  public function create($courseId, Forminator_Google_Service_Classroom_Student $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Classroom_Student");
+    return $this->call('create', array($params), "Forminator_Google_Service_Classroom_Student");
   }
 
   /**
@@ -1289,13 +1289,13 @@ class Google_Service_Classroom_CoursesStudents_Resource extends Google_Service_R
    * address of the user * the string literal `"me"`, indicating the requesting
    * user
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
   public function delete($courseId, $userId, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'userId' => $userId);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -1312,13 +1312,13 @@ class Google_Service_Classroom_CoursesStudents_Resource extends Google_Service_R
    * address of the user * the string literal `"me"`, indicating the requesting
    * user
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Student
+   * @return Forminator_Google_Service_Classroom_Student
    */
   public function get($courseId, $userId, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'userId' => $userId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Classroom_Student");
+    return $this->call('get', array($params), "Forminator_Google_Service_Classroom_Student");
   }
 
   /**
@@ -1337,24 +1337,24 @@ class Google_Service_Classroom_CoursesStudents_Resource extends Google_Service_R
    * call, indicating that the subsequent page of results should be returned. The
    * list request must be otherwise identical to the one that resulted in this
    * token.
-   * @return Google_Service_Classroom_ListStudentsResponse
+   * @return Forminator_Google_Service_Classroom_ListStudentsResponse
    */
   public function listCoursesStudents($courseId, $optParams = array())
   {
     $params = array('courseId' => $courseId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Classroom_ListStudentsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Classroom_ListStudentsResponse");
   }
 }
 /**
  * The "teachers" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $teachers = $classroomService->teachers;
  *  </code>
  */
-class Google_Service_Classroom_CoursesTeachers_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_CoursesTeachers_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1369,15 +1369,15 @@ class Google_Service_Classroom_CoursesTeachers_Resource extends Google_Service_R
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.
-   * @param Google_Teacher $postBody
+   * @param Forminator_Google_Teacher $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Teacher
+   * @return Forminator_Google_Service_Classroom_Teacher
    */
-  public function create($courseId, Google_Service_Classroom_Teacher $postBody, $optParams = array())
+  public function create($courseId, Forminator_Google_Service_Classroom_Teacher $postBody, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Classroom_Teacher");
+    return $this->call('create', array($params), "Forminator_Google_Service_Classroom_Teacher");
   }
 
   /**
@@ -1395,13 +1395,13 @@ class Google_Service_Classroom_CoursesTeachers_Resource extends Google_Service_R
    * address of the user * the string literal `"me"`, indicating the requesting
    * user
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
   public function delete($courseId, $userId, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'userId' => $userId);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -1418,13 +1418,13 @@ class Google_Service_Classroom_CoursesTeachers_Resource extends Google_Service_R
    * address of the user * the string literal `"me"`, indicating the requesting
    * user
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Teacher
+   * @return Forminator_Google_Service_Classroom_Teacher
    */
   public function get($courseId, $userId, $optParams = array())
   {
     $params = array('courseId' => $courseId, 'userId' => $userId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Classroom_Teacher");
+    return $this->call('get', array($params), "Forminator_Google_Service_Classroom_Teacher");
   }
 
   /**
@@ -1443,13 +1443,13 @@ class Google_Service_Classroom_CoursesTeachers_Resource extends Google_Service_R
    * call, indicating that the subsequent page of results should be returned. The
    * list request must be otherwise identical to the one that resulted in this
    * token.
-   * @return Google_Service_Classroom_ListTeachersResponse
+   * @return Forminator_Google_Service_Classroom_ListTeachersResponse
    */
   public function listCoursesTeachers($courseId, $optParams = array())
   {
     $params = array('courseId' => $courseId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Classroom_ListTeachersResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Classroom_ListTeachersResponse");
   }
 }
 
@@ -1457,11 +1457,11 @@ class Google_Service_Classroom_CoursesTeachers_Resource extends Google_Service_R
  * The "invitations" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $invitations = $classroomService->invitations;
  *  </code>
  */
-class Google_Service_Classroom_Invitations_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_Invitations_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1477,13 +1477,13 @@ class Google_Service_Classroom_Invitations_Resource extends Google_Service_Resou
    *
    * @param string $id Identifier of the invitation to accept.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
   public function accept($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('accept', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('accept', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -1497,15 +1497,15 @@ class Google_Service_Classroom_Invitations_Resource extends Google_Service_Resou
    * `ALREADY_EXISTS` if an invitation for the specified user and course already
    * exists. (invitations.create)
    *
-   * @param Google_Invitation $postBody
+   * @param Forminator_Google_Invitation $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Invitation
+   * @return Forminator_Google_Service_Classroom_Invitation
    */
-  public function create(Google_Service_Classroom_Invitation $postBody, $optParams = array())
+  public function create(Forminator_Google_Service_Classroom_Invitation $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('create', array($params), "Google_Service_Classroom_Invitation");
+    return $this->call('create', array($params), "Forminator_Google_Service_Classroom_Invitation");
   }
 
   /**
@@ -1516,13 +1516,13 @@ class Google_Service_Classroom_Invitations_Resource extends Google_Service_Resou
    *
    * @param string $id Identifier of the invitation to delete.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Empty
+   * @return Forminator_Google_Service_Classroom_Empty
    */
   public function delete($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_Classroom_Empty");
+    return $this->call('delete', array($params), "Forminator_Google_Service_Classroom_Empty");
   }
 
   /**
@@ -1533,13 +1533,13 @@ class Google_Service_Classroom_Invitations_Resource extends Google_Service_Resou
    *
    * @param string $id Identifier of the invitation to return.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_Invitation
+   * @return Forminator_Google_Service_Classroom_Invitation
    */
   public function get($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Classroom_Invitation");
+    return $this->call('get', array($params), "Forminator_Google_Service_Classroom_Invitation");
   }
 
   /**
@@ -1563,13 +1563,13 @@ class Google_Service_Classroom_Invitations_Resource extends Google_Service_Resou
    * call, indicating that the subsequent page of results should be returned. The
    * list request must be otherwise identical to the one that resulted in this
    * token.
-   * @return Google_Service_Classroom_ListInvitationsResponse
+   * @return Forminator_Google_Service_Classroom_ListInvitationsResponse
    */
   public function listInvitations($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Classroom_ListInvitationsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Classroom_ListInvitationsResponse");
   }
 }
 
@@ -1577,11 +1577,11 @@ class Google_Service_Classroom_Invitations_Resource extends Google_Service_Resou
  * The "userProfiles" collection of methods.
  * Typical usage is:
  *  <code>
- *   $classroomService = new Google_Service_Classroom(...);
+ *   $classroomService = new Forminator_Google_Service_Classroom(...);
  *   $userProfiles = $classroomService->userProfiles;
  *  </code>
  */
-class Google_Service_Classroom_UserProfiles_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Classroom_UserProfiles_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1595,28 +1595,28 @@ class Google_Service_Classroom_UserProfiles_Resource extends Google_Service_Reso
    * address of the user * the string literal `"me"`, indicating the requesting
    * user
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Classroom_UserProfile
+   * @return Forminator_Google_Service_Classroom_UserProfile
    */
   public function get($userId, $optParams = array())
   {
     $params = array('userId' => $userId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Classroom_UserProfile");
+    return $this->call('get', array($params), "Forminator_Google_Service_Classroom_UserProfile");
   }
 }
 
 
 
 
-class Google_Service_Classroom_Assignment extends Google_Model
+class Forminator_Google_Service_Classroom_Assignment extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $studentWorkFolderType = 'Google_Service_Classroom_DriveFolder';
+  protected $studentWorkFolderType = 'Forminator_Google_Service_Classroom_DriveFolder';
   protected $studentWorkFolderDataType = '';
 
 
-  public function setStudentWorkFolder(Google_Service_Classroom_DriveFolder $studentWorkFolder)
+  public function setStudentWorkFolder(Forminator_Google_Service_Classroom_DriveFolder $studentWorkFolder)
   {
     $this->studentWorkFolder = $studentWorkFolder;
   }
@@ -1626,12 +1626,12 @@ class Google_Service_Classroom_Assignment extends Google_Model
   }
 }
 
-class Google_Service_Classroom_AssignmentSubmission extends Google_Collection
+class Forminator_Google_Service_Classroom_AssignmentSubmission extends Forminator_Google_Collection
 {
   protected $collection_key = 'attachments';
   protected $internal_gapi_mappings = array(
   );
-  protected $attachmentsType = 'Google_Service_Classroom_Attachment';
+  protected $attachmentsType = 'Forminator_Google_Service_Classroom_Attachment';
   protected $attachmentsDataType = 'array';
 
 
@@ -1645,21 +1645,21 @@ class Google_Service_Classroom_AssignmentSubmission extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_Attachment extends Google_Model
+class Forminator_Google_Service_Classroom_Attachment extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $driveFileType = 'Google_Service_Classroom_DriveFile';
+  protected $driveFileType = 'Forminator_Google_Service_Classroom_DriveFile';
   protected $driveFileDataType = '';
-  protected $formType = 'Google_Service_Classroom_Form';
+  protected $formType = 'Forminator_Google_Service_Classroom_Form';
   protected $formDataType = '';
-  protected $linkType = 'Google_Service_Classroom_Link';
+  protected $linkType = 'Forminator_Google_Service_Classroom_Link';
   protected $linkDataType = '';
-  protected $youTubeVideoType = 'Google_Service_Classroom_YouTubeVideo';
+  protected $youTubeVideoType = 'Forminator_Google_Service_Classroom_YouTubeVideo';
   protected $youTubeVideoDataType = '';
 
 
-  public function setDriveFile(Google_Service_Classroom_DriveFile $driveFile)
+  public function setDriveFile(Forminator_Google_Service_Classroom_DriveFile $driveFile)
   {
     $this->driveFile = $driveFile;
   }
@@ -1667,7 +1667,7 @@ class Google_Service_Classroom_Attachment extends Google_Model
   {
     return $this->driveFile;
   }
-  public function setForm(Google_Service_Classroom_Form $form)
+  public function setForm(Forminator_Google_Service_Classroom_Form $form)
   {
     $this->form = $form;
   }
@@ -1675,7 +1675,7 @@ class Google_Service_Classroom_Attachment extends Google_Model
   {
     return $this->form;
   }
-  public function setLink(Google_Service_Classroom_Link $link)
+  public function setLink(Forminator_Google_Service_Classroom_Link $link)
   {
     $this->link = $link;
   }
@@ -1683,7 +1683,7 @@ class Google_Service_Classroom_Attachment extends Google_Model
   {
     return $this->link;
   }
-  public function setYouTubeVideo(Google_Service_Classroom_YouTubeVideo $youTubeVideo)
+  public function setYouTubeVideo(Forminator_Google_Service_Classroom_YouTubeVideo $youTubeVideo)
   {
     $this->youTubeVideo = $youTubeVideo;
   }
@@ -1693,14 +1693,14 @@ class Google_Service_Classroom_Attachment extends Google_Model
   }
 }
 
-class Google_Service_Classroom_Course extends Google_Collection
+class Forminator_Google_Service_Classroom_Course extends Forminator_Google_Collection
 {
   protected $collection_key = 'courseMaterialSets';
   protected $internal_gapi_mappings = array(
   );
   public $alternateLink;
   public $courseGroupEmail;
-  protected $courseMaterialSetsType = 'Google_Service_Classroom_CourseMaterialSet';
+  protected $courseMaterialSetsType = 'Forminator_Google_Service_Classroom_CourseMaterialSet';
   protected $courseMaterialSetsDataType = 'array';
   public $courseState;
   public $creationTime;
@@ -1712,7 +1712,7 @@ class Google_Service_Classroom_Course extends Google_Collection
   public $ownerId;
   public $room;
   public $section;
-  protected $teacherFolderType = 'Google_Service_Classroom_DriveFolder';
+  protected $teacherFolderType = 'Forminator_Google_Service_Classroom_DriveFolder';
   protected $teacherFolderDataType = '';
   public $teacherGroupEmail;
   public $updateTime;
@@ -1822,7 +1822,7 @@ class Google_Service_Classroom_Course extends Google_Collection
   {
     return $this->section;
   }
-  public function setTeacherFolder(Google_Service_Classroom_DriveFolder $teacherFolder)
+  public function setTeacherFolder(Forminator_Google_Service_Classroom_DriveFolder $teacherFolder)
   {
     $this->teacherFolder = $teacherFolder;
   }
@@ -1848,7 +1848,7 @@ class Google_Service_Classroom_Course extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_CourseAlias extends Google_Model
+class Forminator_Google_Service_Classroom_CourseAlias extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1865,21 +1865,21 @@ class Google_Service_Classroom_CourseAlias extends Google_Model
   }
 }
 
-class Google_Service_Classroom_CourseMaterial extends Google_Model
+class Forminator_Google_Service_Classroom_CourseMaterial extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $driveFileType = 'Google_Service_Classroom_DriveFile';
+  protected $driveFileType = 'Forminator_Google_Service_Classroom_DriveFile';
   protected $driveFileDataType = '';
-  protected $formType = 'Google_Service_Classroom_Form';
+  protected $formType = 'Forminator_Google_Service_Classroom_Form';
   protected $formDataType = '';
-  protected $linkType = 'Google_Service_Classroom_Link';
+  protected $linkType = 'Forminator_Google_Service_Classroom_Link';
   protected $linkDataType = '';
-  protected $youTubeVideoType = 'Google_Service_Classroom_YouTubeVideo';
+  protected $youTubeVideoType = 'Forminator_Google_Service_Classroom_YouTubeVideo';
   protected $youTubeVideoDataType = '';
 
 
-  public function setDriveFile(Google_Service_Classroom_DriveFile $driveFile)
+  public function setDriveFile(Forminator_Google_Service_Classroom_DriveFile $driveFile)
   {
     $this->driveFile = $driveFile;
   }
@@ -1887,7 +1887,7 @@ class Google_Service_Classroom_CourseMaterial extends Google_Model
   {
     return $this->driveFile;
   }
-  public function setForm(Google_Service_Classroom_Form $form)
+  public function setForm(Forminator_Google_Service_Classroom_Form $form)
   {
     $this->form = $form;
   }
@@ -1895,7 +1895,7 @@ class Google_Service_Classroom_CourseMaterial extends Google_Model
   {
     return $this->form;
   }
-  public function setLink(Google_Service_Classroom_Link $link)
+  public function setLink(Forminator_Google_Service_Classroom_Link $link)
   {
     $this->link = $link;
   }
@@ -1903,7 +1903,7 @@ class Google_Service_Classroom_CourseMaterial extends Google_Model
   {
     return $this->link;
   }
-  public function setYouTubeVideo(Google_Service_Classroom_YouTubeVideo $youTubeVideo)
+  public function setYouTubeVideo(Forminator_Google_Service_Classroom_YouTubeVideo $youTubeVideo)
   {
     $this->youTubeVideo = $youTubeVideo;
   }
@@ -1913,12 +1913,12 @@ class Google_Service_Classroom_CourseMaterial extends Google_Model
   }
 }
 
-class Google_Service_Classroom_CourseMaterialSet extends Google_Collection
+class Forminator_Google_Service_Classroom_CourseMaterialSet extends Forminator_Google_Collection
 {
   protected $collection_key = 'materials';
   protected $internal_gapi_mappings = array(
   );
-  protected $materialsType = 'Google_Service_Classroom_CourseMaterial';
+  protected $materialsType = 'Forminator_Google_Service_Classroom_CourseMaterial';
   protected $materialsDataType = 'array';
   public $title;
 
@@ -1941,27 +1941,27 @@ class Google_Service_Classroom_CourseMaterialSet extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_CourseWork extends Google_Collection
+class Forminator_Google_Service_Classroom_CourseWork extends Forminator_Google_Collection
 {
   protected $collection_key = 'materials';
   protected $internal_gapi_mappings = array(
   );
   public $alternateLink;
-  protected $assignmentType = 'Google_Service_Classroom_Assignment';
+  protected $assignmentType = 'Forminator_Google_Service_Classroom_Assignment';
   protected $assignmentDataType = '';
   public $associatedWithDeveloper;
   public $courseId;
   public $creationTime;
   public $description;
-  protected $dueDateType = 'Google_Service_Classroom_Date';
+  protected $dueDateType = 'Forminator_Google_Service_Classroom_Date';
   protected $dueDateDataType = '';
-  protected $dueTimeType = 'Google_Service_Classroom_TimeOfDay';
+  protected $dueTimeType = 'Forminator_Google_Service_Classroom_TimeOfDay';
   protected $dueTimeDataType = '';
   public $id;
-  protected $materialsType = 'Google_Service_Classroom_Material';
+  protected $materialsType = 'Forminator_Google_Service_Classroom_Material';
   protected $materialsDataType = 'array';
   public $maxPoints;
-  protected $multipleChoiceQuestionType = 'Google_Service_Classroom_MultipleChoiceQuestion';
+  protected $multipleChoiceQuestionType = 'Forminator_Google_Service_Classroom_MultipleChoiceQuestion';
   protected $multipleChoiceQuestionDataType = '';
   public $state;
   public $submissionModificationMode;
@@ -1978,7 +1978,7 @@ class Google_Service_Classroom_CourseWork extends Google_Collection
   {
     return $this->alternateLink;
   }
-  public function setAssignment(Google_Service_Classroom_Assignment $assignment)
+  public function setAssignment(Forminator_Google_Service_Classroom_Assignment $assignment)
   {
     $this->assignment = $assignment;
   }
@@ -2018,7 +2018,7 @@ class Google_Service_Classroom_CourseWork extends Google_Collection
   {
     return $this->description;
   }
-  public function setDueDate(Google_Service_Classroom_Date $dueDate)
+  public function setDueDate(Forminator_Google_Service_Classroom_Date $dueDate)
   {
     $this->dueDate = $dueDate;
   }
@@ -2026,7 +2026,7 @@ class Google_Service_Classroom_CourseWork extends Google_Collection
   {
     return $this->dueDate;
   }
-  public function setDueTime(Google_Service_Classroom_TimeOfDay $dueTime)
+  public function setDueTime(Forminator_Google_Service_Classroom_TimeOfDay $dueTime)
   {
     $this->dueTime = $dueTime;
   }
@@ -2058,7 +2058,7 @@ class Google_Service_Classroom_CourseWork extends Google_Collection
   {
     return $this->maxPoints;
   }
-  public function setMultipleChoiceQuestion(Google_Service_Classroom_MultipleChoiceQuestion $multipleChoiceQuestion)
+  public function setMultipleChoiceQuestion(Forminator_Google_Service_Classroom_MultipleChoiceQuestion $multipleChoiceQuestion)
   {
     $this->multipleChoiceQuestion = $multipleChoiceQuestion;
   }
@@ -2108,7 +2108,7 @@ class Google_Service_Classroom_CourseWork extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_Date extends Google_Model
+class Forminator_Google_Service_Classroom_Date extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2143,7 +2143,7 @@ class Google_Service_Classroom_Date extends Google_Model
   }
 }
 
-class Google_Service_Classroom_DriveFile extends Google_Model
+class Forminator_Google_Service_Classroom_DriveFile extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2187,7 +2187,7 @@ class Google_Service_Classroom_DriveFile extends Google_Model
   }
 }
 
-class Google_Service_Classroom_DriveFolder extends Google_Model
+class Forminator_Google_Service_Classroom_DriveFolder extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2222,11 +2222,11 @@ class Google_Service_Classroom_DriveFolder extends Google_Model
   }
 }
 
-class Google_Service_Classroom_Empty extends Google_Model
+class Forminator_Google_Service_Classroom_Empty extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Classroom_Form extends Google_Model
+class Forminator_Google_Service_Classroom_Form extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2270,7 +2270,7 @@ class Google_Service_Classroom_Form extends Google_Model
   }
 }
 
-class Google_Service_Classroom_GlobalPermission extends Google_Model
+class Forminator_Google_Service_Classroom_GlobalPermission extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2287,7 +2287,7 @@ class Google_Service_Classroom_GlobalPermission extends Google_Model
   }
 }
 
-class Google_Service_Classroom_Invitation extends Google_Model
+class Forminator_Google_Service_Classroom_Invitation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2331,7 +2331,7 @@ class Google_Service_Classroom_Invitation extends Google_Model
   }
 }
 
-class Google_Service_Classroom_Link extends Google_Model
+class Forminator_Google_Service_Classroom_Link extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2366,12 +2366,12 @@ class Google_Service_Classroom_Link extends Google_Model
   }
 }
 
-class Google_Service_Classroom_ListCourseAliasesResponse extends Google_Collection
+class Forminator_Google_Service_Classroom_ListCourseAliasesResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'aliases';
   protected $internal_gapi_mappings = array(
   );
-  protected $aliasesType = 'Google_Service_Classroom_CourseAlias';
+  protected $aliasesType = 'Forminator_Google_Service_Classroom_CourseAlias';
   protected $aliasesDataType = 'array';
   public $nextPageToken;
 
@@ -2394,12 +2394,12 @@ class Google_Service_Classroom_ListCourseAliasesResponse extends Google_Collecti
   }
 }
 
-class Google_Service_Classroom_ListCourseWorkResponse extends Google_Collection
+class Forminator_Google_Service_Classroom_ListCourseWorkResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'courseWork';
   protected $internal_gapi_mappings = array(
   );
-  protected $courseWorkType = 'Google_Service_Classroom_CourseWork';
+  protected $courseWorkType = 'Forminator_Google_Service_Classroom_CourseWork';
   protected $courseWorkDataType = 'array';
   public $nextPageToken;
 
@@ -2422,12 +2422,12 @@ class Google_Service_Classroom_ListCourseWorkResponse extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_ListCoursesResponse extends Google_Collection
+class Forminator_Google_Service_Classroom_ListCoursesResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'courses';
   protected $internal_gapi_mappings = array(
   );
-  protected $coursesType = 'Google_Service_Classroom_Course';
+  protected $coursesType = 'Forminator_Google_Service_Classroom_Course';
   protected $coursesDataType = 'array';
   public $nextPageToken;
 
@@ -2450,12 +2450,12 @@ class Google_Service_Classroom_ListCoursesResponse extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_ListInvitationsResponse extends Google_Collection
+class Forminator_Google_Service_Classroom_ListInvitationsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'invitations';
   protected $internal_gapi_mappings = array(
   );
-  protected $invitationsType = 'Google_Service_Classroom_Invitation';
+  protected $invitationsType = 'Forminator_Google_Service_Classroom_Invitation';
   protected $invitationsDataType = 'array';
   public $nextPageToken;
 
@@ -2478,13 +2478,13 @@ class Google_Service_Classroom_ListInvitationsResponse extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_ListStudentSubmissionsResponse extends Google_Collection
+class Forminator_Google_Service_Classroom_ListStudentSubmissionsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'studentSubmissions';
   protected $internal_gapi_mappings = array(
   );
   public $nextPageToken;
-  protected $studentSubmissionsType = 'Google_Service_Classroom_StudentSubmission';
+  protected $studentSubmissionsType = 'Forminator_Google_Service_Classroom_StudentSubmission';
   protected $studentSubmissionsDataType = 'array';
 
 
@@ -2506,13 +2506,13 @@ class Google_Service_Classroom_ListStudentSubmissionsResponse extends Google_Col
   }
 }
 
-class Google_Service_Classroom_ListStudentsResponse extends Google_Collection
+class Forminator_Google_Service_Classroom_ListStudentsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'students';
   protected $internal_gapi_mappings = array(
   );
   public $nextPageToken;
-  protected $studentsType = 'Google_Service_Classroom_Student';
+  protected $studentsType = 'Forminator_Google_Service_Classroom_Student';
   protected $studentsDataType = 'array';
 
 
@@ -2534,13 +2534,13 @@ class Google_Service_Classroom_ListStudentsResponse extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_ListTeachersResponse extends Google_Collection
+class Forminator_Google_Service_Classroom_ListTeachersResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'teachers';
   protected $internal_gapi_mappings = array(
   );
   public $nextPageToken;
-  protected $teachersType = 'Google_Service_Classroom_Teacher';
+  protected $teachersType = 'Forminator_Google_Service_Classroom_Teacher';
   protected $teachersDataType = 'array';
 
 
@@ -2562,21 +2562,21 @@ class Google_Service_Classroom_ListTeachersResponse extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_Material extends Google_Model
+class Forminator_Google_Service_Classroom_Material extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $driveFileType = 'Google_Service_Classroom_SharedDriveFile';
+  protected $driveFileType = 'Forminator_Google_Service_Classroom_SharedDriveFile';
   protected $driveFileDataType = '';
-  protected $formType = 'Google_Service_Classroom_Form';
+  protected $formType = 'Forminator_Google_Service_Classroom_Form';
   protected $formDataType = '';
-  protected $linkType = 'Google_Service_Classroom_Link';
+  protected $linkType = 'Forminator_Google_Service_Classroom_Link';
   protected $linkDataType = '';
-  protected $youtubeVideoType = 'Google_Service_Classroom_YouTubeVideo';
+  protected $youtubeVideoType = 'Forminator_Google_Service_Classroom_YouTubeVideo';
   protected $youtubeVideoDataType = '';
 
 
-  public function setDriveFile(Google_Service_Classroom_SharedDriveFile $driveFile)
+  public function setDriveFile(Forminator_Google_Service_Classroom_SharedDriveFile $driveFile)
   {
     $this->driveFile = $driveFile;
   }
@@ -2584,7 +2584,7 @@ class Google_Service_Classroom_Material extends Google_Model
   {
     return $this->driveFile;
   }
-  public function setForm(Google_Service_Classroom_Form $form)
+  public function setForm(Forminator_Google_Service_Classroom_Form $form)
   {
     $this->form = $form;
   }
@@ -2592,7 +2592,7 @@ class Google_Service_Classroom_Material extends Google_Model
   {
     return $this->form;
   }
-  public function setLink(Google_Service_Classroom_Link $link)
+  public function setLink(Forminator_Google_Service_Classroom_Link $link)
   {
     $this->link = $link;
   }
@@ -2600,7 +2600,7 @@ class Google_Service_Classroom_Material extends Google_Model
   {
     return $this->link;
   }
-  public function setYoutubeVideo(Google_Service_Classroom_YouTubeVideo $youtubeVideo)
+  public function setYoutubeVideo(Forminator_Google_Service_Classroom_YouTubeVideo $youtubeVideo)
   {
     $this->youtubeVideo = $youtubeVideo;
   }
@@ -2610,12 +2610,12 @@ class Google_Service_Classroom_Material extends Google_Model
   }
 }
 
-class Google_Service_Classroom_ModifyAttachmentsRequest extends Google_Collection
+class Forminator_Google_Service_Classroom_ModifyAttachmentsRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'addAttachments';
   protected $internal_gapi_mappings = array(
   );
-  protected $addAttachmentsType = 'Google_Service_Classroom_Attachment';
+  protected $addAttachmentsType = 'Forminator_Google_Service_Classroom_Attachment';
   protected $addAttachmentsDataType = 'array';
 
 
@@ -2629,7 +2629,7 @@ class Google_Service_Classroom_ModifyAttachmentsRequest extends Google_Collectio
   }
 }
 
-class Google_Service_Classroom_MultipleChoiceQuestion extends Google_Collection
+class Forminator_Google_Service_Classroom_MultipleChoiceQuestion extends Forminator_Google_Collection
 {
   protected $collection_key = 'choices';
   protected $internal_gapi_mappings = array(
@@ -2647,7 +2647,7 @@ class Google_Service_Classroom_MultipleChoiceQuestion extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_MultipleChoiceSubmission extends Google_Model
+class Forminator_Google_Service_Classroom_MultipleChoiceSubmission extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2664,7 +2664,7 @@ class Google_Service_Classroom_MultipleChoiceSubmission extends Google_Model
   }
 }
 
-class Google_Service_Classroom_Name extends Google_Model
+class Forminator_Google_Service_Classroom_Name extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2699,24 +2699,24 @@ class Google_Service_Classroom_Name extends Google_Model
   }
 }
 
-class Google_Service_Classroom_ReclaimStudentSubmissionRequest extends Google_Model
+class Forminator_Google_Service_Classroom_ReclaimStudentSubmissionRequest extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Classroom_ReturnStudentSubmissionRequest extends Google_Model
+class Forminator_Google_Service_Classroom_ReturnStudentSubmissionRequest extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Classroom_SharedDriveFile extends Google_Model
+class Forminator_Google_Service_Classroom_SharedDriveFile extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $driveFileType = 'Google_Service_Classroom_DriveFile';
+  protected $driveFileType = 'Forminator_Google_Service_Classroom_DriveFile';
   protected $driveFileDataType = '';
   public $shareMode;
 
 
-  public function setDriveFile(Google_Service_Classroom_DriveFile $driveFile)
+  public function setDriveFile(Forminator_Google_Service_Classroom_DriveFile $driveFile)
   {
     $this->driveFile = $driveFile;
   }
@@ -2734,7 +2734,7 @@ class Google_Service_Classroom_SharedDriveFile extends Google_Model
   }
 }
 
-class Google_Service_Classroom_ShortAnswerSubmission extends Google_Model
+class Forminator_Google_Service_Classroom_ShortAnswerSubmission extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2751,14 +2751,14 @@ class Google_Service_Classroom_ShortAnswerSubmission extends Google_Model
   }
 }
 
-class Google_Service_Classroom_Student extends Google_Model
+class Forminator_Google_Service_Classroom_Student extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $courseId;
-  protected $profileType = 'Google_Service_Classroom_UserProfile';
+  protected $profileType = 'Forminator_Google_Service_Classroom_UserProfile';
   protected $profileDataType = '';
-  protected $studentWorkFolderType = 'Google_Service_Classroom_DriveFolder';
+  protected $studentWorkFolderType = 'Forminator_Google_Service_Classroom_DriveFolder';
   protected $studentWorkFolderDataType = '';
   public $userId;
 
@@ -2771,7 +2771,7 @@ class Google_Service_Classroom_Student extends Google_Model
   {
     return $this->courseId;
   }
-  public function setProfile(Google_Service_Classroom_UserProfile $profile)
+  public function setProfile(Forminator_Google_Service_Classroom_UserProfile $profile)
   {
     $this->profile = $profile;
   }
@@ -2779,7 +2779,7 @@ class Google_Service_Classroom_Student extends Google_Model
   {
     return $this->profile;
   }
-  public function setStudentWorkFolder(Google_Service_Classroom_DriveFolder $studentWorkFolder)
+  public function setStudentWorkFolder(Forminator_Google_Service_Classroom_DriveFolder $studentWorkFolder)
   {
     $this->studentWorkFolder = $studentWorkFolder;
   }
@@ -2797,13 +2797,13 @@ class Google_Service_Classroom_Student extends Google_Model
   }
 }
 
-class Google_Service_Classroom_StudentSubmission extends Google_Model
+class Forminator_Google_Service_Classroom_StudentSubmission extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $alternateLink;
   public $assignedGrade;
-  protected $assignmentSubmissionType = 'Google_Service_Classroom_AssignmentSubmission';
+  protected $assignmentSubmissionType = 'Forminator_Google_Service_Classroom_AssignmentSubmission';
   protected $assignmentSubmissionDataType = '';
   public $associatedWithDeveloper;
   public $courseId;
@@ -2813,9 +2813,9 @@ class Google_Service_Classroom_StudentSubmission extends Google_Model
   public $draftGrade;
   public $id;
   public $late;
-  protected $multipleChoiceSubmissionType = 'Google_Service_Classroom_MultipleChoiceSubmission';
+  protected $multipleChoiceSubmissionType = 'Forminator_Google_Service_Classroom_MultipleChoiceSubmission';
   protected $multipleChoiceSubmissionDataType = '';
-  protected $shortAnswerSubmissionType = 'Google_Service_Classroom_ShortAnswerSubmission';
+  protected $shortAnswerSubmissionType = 'Forminator_Google_Service_Classroom_ShortAnswerSubmission';
   protected $shortAnswerSubmissionDataType = '';
   public $state;
   public $updateTime;
@@ -2838,7 +2838,7 @@ class Google_Service_Classroom_StudentSubmission extends Google_Model
   {
     return $this->assignedGrade;
   }
-  public function setAssignmentSubmission(Google_Service_Classroom_AssignmentSubmission $assignmentSubmission)
+  public function setAssignmentSubmission(Forminator_Google_Service_Classroom_AssignmentSubmission $assignmentSubmission)
   {
     $this->assignmentSubmission = $assignmentSubmission;
   }
@@ -2910,7 +2910,7 @@ class Google_Service_Classroom_StudentSubmission extends Google_Model
   {
     return $this->late;
   }
-  public function setMultipleChoiceSubmission(Google_Service_Classroom_MultipleChoiceSubmission $multipleChoiceSubmission)
+  public function setMultipleChoiceSubmission(Forminator_Google_Service_Classroom_MultipleChoiceSubmission $multipleChoiceSubmission)
   {
     $this->multipleChoiceSubmission = $multipleChoiceSubmission;
   }
@@ -2918,7 +2918,7 @@ class Google_Service_Classroom_StudentSubmission extends Google_Model
   {
     return $this->multipleChoiceSubmission;
   }
-  public function setShortAnswerSubmission(Google_Service_Classroom_ShortAnswerSubmission $shortAnswerSubmission)
+  public function setShortAnswerSubmission(Forminator_Google_Service_Classroom_ShortAnswerSubmission $shortAnswerSubmission)
   {
     $this->shortAnswerSubmission = $shortAnswerSubmission;
   }
@@ -2952,12 +2952,12 @@ class Google_Service_Classroom_StudentSubmission extends Google_Model
   }
 }
 
-class Google_Service_Classroom_Teacher extends Google_Model
+class Forminator_Google_Service_Classroom_Teacher extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $courseId;
-  protected $profileType = 'Google_Service_Classroom_UserProfile';
+  protected $profileType = 'Forminator_Google_Service_Classroom_UserProfile';
   protected $profileDataType = '';
   public $userId;
 
@@ -2970,7 +2970,7 @@ class Google_Service_Classroom_Teacher extends Google_Model
   {
     return $this->courseId;
   }
-  public function setProfile(Google_Service_Classroom_UserProfile $profile)
+  public function setProfile(Forminator_Google_Service_Classroom_UserProfile $profile)
   {
     $this->profile = $profile;
   }
@@ -2988,7 +2988,7 @@ class Google_Service_Classroom_Teacher extends Google_Model
   }
 }
 
-class Google_Service_Classroom_TimeOfDay extends Google_Model
+class Forminator_Google_Service_Classroom_TimeOfDay extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3032,20 +3032,20 @@ class Google_Service_Classroom_TimeOfDay extends Google_Model
   }
 }
 
-class Google_Service_Classroom_TurnInStudentSubmissionRequest extends Google_Model
+class Forminator_Google_Service_Classroom_TurnInStudentSubmissionRequest extends Forminator_Google_Model
 {
 }
 
-class Google_Service_Classroom_UserProfile extends Google_Collection
+class Forminator_Google_Service_Classroom_UserProfile extends Forminator_Google_Collection
 {
   protected $collection_key = 'permissions';
   protected $internal_gapi_mappings = array(
   );
   public $emailAddress;
   public $id;
-  protected $nameType = 'Google_Service_Classroom_Name';
+  protected $nameType = 'Forminator_Google_Service_Classroom_Name';
   protected $nameDataType = '';
-  protected $permissionsType = 'Google_Service_Classroom_GlobalPermission';
+  protected $permissionsType = 'Forminator_Google_Service_Classroom_GlobalPermission';
   protected $permissionsDataType = 'array';
   public $photoUrl;
 
@@ -3066,7 +3066,7 @@ class Google_Service_Classroom_UserProfile extends Google_Collection
   {
     return $this->id;
   }
-  public function setName(Google_Service_Classroom_Name $name)
+  public function setName(Forminator_Google_Service_Classroom_Name $name)
   {
     $this->name = $name;
   }
@@ -3092,7 +3092,7 @@ class Google_Service_Classroom_UserProfile extends Google_Collection
   }
 }
 
-class Google_Service_Classroom_YouTubeVideo extends Google_Model
+class Forminator_Google_Service_Classroom_YouTubeVideo extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );

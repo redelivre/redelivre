@@ -67,9 +67,10 @@
 						conditions = logic.conditions, // Conditions rules
 						matches = 0 // Number of matches
 					;
+
 					conditions.forEach(function (condition) {
 						// If rule is applicable save in matches
-						if (self.is_applicable_rule(condition)) {
+						if (self.is_applicable_rule(condition, action)) {
 							matches++;
 						}
 					});
@@ -82,18 +83,18 @@
 						self.toggle_field(relation, action, "valid");
 						if (self.has_relations(relation)){
 							if(action === 'hide'){
-								self.hide_element(relation);
+								self.hide_element(relation, e);
 							}else{
-								self.show_element(relation);
+								self.show_element(relation, e);
 							}
 						}
 					} else {
 						self.toggle_field(relation, action, "invalid");
 						if (self.has_relations(relation)){
 							if(action === 'show'){
-								self.hide_element(relation);
+								self.hide_element(relation, e);
 							}else{
-								self.show_element(relation);
+								self.show_element(relation, e);
 							}
 						}
 					}
@@ -361,7 +362,7 @@
 
 		},
 
-		is_applicable_rule: function (condition) {
+		is_applicable_rule: function (condition, action) {
 			if (typeof condition === "undefined") return false;
 
 			if( this.is_date_rule( condition.operator ) ){
@@ -373,7 +374,11 @@
 				operator = condition.operator
 			;
 
-			return this.is_matching(value1, value2, operator) && this.is_hidden(condition.field);
+			if (action === "show") {
+				return this.is_matching(value1, value2, operator) && this.is_hidden(condition.field);
+			} else {
+				return this.is_matching(value1, value2, operator);
+			}
 		},
 
 		is_hidden: function (element_id) {
@@ -381,9 +386,15 @@
 				$column_field = $element_id.closest('.forminator-col'),
 				$row_field = $column_field.closest('.forminator-row')
 			;
+
+			if ( $row_field.hasClass("forminator-hidden-option") ) {
+				return true;
+			}
+
 			if( $row_field.hasClass("forminator-hidden") ) {
 				return false;
 			}
+
 			return true;
 		},
 
@@ -518,19 +529,76 @@
 			this.$el.trigger('forminator:field:condition:toggled');
 		},
 
-		hide_element: function (relation){
+		clear_value: function(element_id, e) {
+			var $element = this.get_form_field(element_id),
+				value = this.get_field_value(element_id)
+			;
+
+			// Execute only on human action
+			if (e.originalEvent !== undefined) {
+				if (this.field_is_radio($element)) {
+					$element.data('previous-value', value);
+					$element.removeAttr('checked');
+				} else if (this.field_is_checkbox($element)) {
+					$element.each(function () {
+						if($(this).is(':checked')) {
+							$(this).data('previous-value', value);
+						}
+						$(this).removeAttr('checked');
+					});
+				} else {
+					$element.data('previous-value', value);
+					$element.val('');
+				}
+			}
+		},
+
+		restore_value: function(element_id, e) {
+			var $element = this.get_form_field(element_id),
+				value = $element.data('previous-value')
+			;
+
+			if(!value) return;
+
+			// Execute only on human action
+			if (e.originalEvent !== undefined) {
+				if (this.field_is_radio($element)) {
+					$element.val([value]);
+				} else if (this.field_is_checkbox($element)) {
+					$element.each(function () {
+						var value = $(this).data('previous-value');
+
+						if (!value) return;
+
+						if (value.indexOf($(this).val()) >= 0) {
+							$(this).attr("checked", "checked");
+						}
+					});
+				} else {
+					$element.val(value);
+				}
+			}
+		},
+
+		hide_element: function (relation, e){
 			var self = this,
 				sub_relations = self.get_relations(relation);
+
+			self.clear_value(relation, e);
+
 			sub_relations.forEach(function (sub_relation) {
 				self.toggle_field(sub_relation, 'hide', "valid");
 				if (self.has_relations(sub_relation)) {
-					sub_relations = self.hide_element(sub_relation);
+					sub_relations = self.hide_element(sub_relation, e);
 				}
 			});
 		},
-		show_element: function (relation){
+
+		show_element: function (relation, e){
 			var self = this,
 				sub_relations = self.get_relations(relation);
+
+			this.restore_value(relation, e);
 
 			sub_relations.forEach(function (sub_relation) {
 				var logic = self.get_field_logic(sub_relation),
@@ -542,17 +610,18 @@
 
 				conditions.forEach(function (condition) {
 					// If rule is applicable save in matches
-					if (self.is_applicable_rule(condition)) {
+					if (self.is_applicable_rule(condition, action)) {
 						matches++;
 					}
 				});
+
 				if ((rule === "all" && matches === conditions.length) || (rule === "any" && matches > 0)) {
 					self.toggle_field(sub_relation, action, "valid");
 				}else{
 					self.toggle_field(sub_relation, action, "invalid");
 				}
 				if (self.has_relations(sub_relation)) {
-					sub_relations = self.show_element(sub_relation);
+					sub_relations = self.show_element(sub_relation, e);
 				}
 			});
 		},

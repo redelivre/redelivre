@@ -91,7 +91,8 @@ foreach ( $template_vars as $key => $val ) {
 			<?php
 			esc_html_e(
 				'Select which ActiveCampaign form will be used when adding to ActiveCampaign to send the opt-in email. You can read more information ',
-			Forminator::DOMAIN );
+				Forminator::DOMAIN
+			);
 			?>
 			<a href="https://help.activecampaign.com/hc/en-us/articles/115000839230-How-do-I-enable-double-opt-in-confirmation-" target="_blank">here</a>.
 		</span>
@@ -104,9 +105,9 @@ foreach ( $template_vars as $key => $val ) {
 				<label class="sui-toggle">
 
 					<input type="checkbox"
-					       name="instantresponders"
-					       id="instantresponders"
-					       value="1"
+							name="instantresponders"
+							id="instantresponders"
+							value="1"
 						<?php checked( 1, $vars['instantresponders'] ); ?>>
 					<span class="sui-toggle-slider"></span>
 				</label>
@@ -131,9 +132,9 @@ foreach ( $template_vars as $key => $val ) {
 			<div class="sui-form-field <?php echo esc_attr( ! empty( $vars['lastmessage_error'] ) ? 'sui-form-field-error' : '' ); ?>">
 				<label class="sui-toggle">
 					<input type="checkbox"
-					       name="lastmessage"
-					       id="lastmessage"
-					       value="1"
+							name="lastmessage"
+							id="lastmessage"
+							value="1"
 						<?php checked( 1, $vars['lastmessage'] ); ?>>
 					<span class="sui-toggle-slider"></span>
 				</label>

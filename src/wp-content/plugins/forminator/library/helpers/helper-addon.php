@@ -25,8 +25,8 @@ function forminator_get_pro_addon_list() {
 		'mailchimp' => array(
 			'_image'                  => 'https://via.placeholder.com/350x150?',
 			'_icon'                   => 'mailchimp',
-			'_title'                  => 'MailChimp',
-			'_short_title'            => 'MailChimp',
+			'_title'                  => 'Mailchimp',
+			'_short_title'            => 'Mailchimp',
 			'_version'                => '1.0',
 			'_description'            => __( 'Unlock this as part of a WPMU DEV Membership', Forminator::DOMAIN ),
 			'_min_forminator_version' => FORMINATOR_VERSION,
@@ -54,7 +54,7 @@ function forminator_get_pro_addon_list() {
  */
 function forminator_get_registered_addons_list() {
 	$addon_list = Forminator_Addon_Loader::get_instance()->get_addons()->to_array();
-	usort($addon_list, 'sortAddons');
+	usort( $addon_list, 'sort_addons' );
 
 	// late init properties
 	foreach ( $addon_list as $key => $addon ) {
@@ -72,7 +72,7 @@ function forminator_get_registered_addons_list() {
  *
  * @return mixed
  */
-function sortAddons($a, $b) {
+function sort_addons( $a, $b ) {
 	return $a['position'] - $b['position'];
 }
 
@@ -148,7 +148,7 @@ function forminator_get_registered_addons_grouped_by_form_connected( $form_id ) 
 	$addons = Forminator_Addon_Loader::get_instance()->get_addons();
 	foreach ( $addons as $slug => $addon ) {
 		/** @var Forminator_Addon_Abstract $addon */
-		if( $addon->is_connected() ) {
+		if ( $addon->is_connected() ) {
 			if ( $addon->is_allow_multi_on_form() ) {
 				$addon_array = $addon->to_array_with_form( $form_id );
 				if ( $addon->is_form_connected( $form_id ) && isset( $addon_array['multi_ids'] ) && is_array( $addon_array['multi_ids'] ) ) {
@@ -166,7 +166,6 @@ function forminator_get_registered_addons_grouped_by_form_connected( $form_id ) 
 				} else {
 					$not_connected_addons[] = $addon->to_array_with_form( $form_id );
 				}
-
 			}
 		}
 	}
@@ -244,6 +243,7 @@ function forminator_get_allowed_field_types_for_addon() {
 		'select',
 		'text',
 		'time',
+		//phpcs:ignore
 		//			'time.hours', // force into one
 		//			'time.minutes',
 		//			'time.ampm',
@@ -256,7 +256,7 @@ function forminator_get_allowed_field_types_for_addon() {
 		// 1.7 fields
 		'calculation',
 		'stripe',
-		'paypal'
+		'paypal',
 	);
 
 	/**
@@ -420,12 +420,12 @@ function forminator_addon_flatten_mutiple_field( $field_array ) {
 		}
 	} elseif ( 'postdata' === $field_array['type'] ) {
 		// flatten POSTDATA
-		$title_enabled    = isset( $field_array['post_title'] ) && ! empty( $field_array['post_title'] ) ? true : false;
-		$content_enabled  = isset( $field_array['post_content'] ) && ! empty( $field_array['post_content'] ) ? true : false;
-		$excerpt_enabled  = isset( $field_array['post_excerpt'] ) && ! empty( $field_array['post_excerpt'] ) ? true : false;
-		$image_enabled    = isset( $field_array['post_image'] ) && ! empty( $field_array['post_image'] ) ? true : false;
-		$post_type        = isset( $field_array['post_type'] ) && ! empty( $field_array['post_type'] ) ? $field_array['post_type'] : 'post';
-		$category_list    = forminator_post_categories( $post_type );
+		$title_enabled   = isset( $field_array['post_title'] ) && ! empty( $field_array['post_title'] ) ? true : false;
+		$content_enabled = isset( $field_array['post_content'] ) && ! empty( $field_array['post_content'] ) ? true : false;
+		$excerpt_enabled = isset( $field_array['post_excerpt'] ) && ! empty( $field_array['post_excerpt'] ) ? true : false;
+		$image_enabled   = isset( $field_array['post_image'] ) && ! empty( $field_array['post_image'] ) ? true : false;
+		$post_type       = isset( $field_array['post_type'] ) && ! empty( $field_array['post_type'] ) ? $field_array['post_type'] : 'post';
+		$category_list   = forminator_post_categories( $post_type );
 		if ( $title_enabled || $content_enabled || $excerpt_enabled || $image_enabled || $category_list ) {
 			$multi_fields = array();
 
@@ -468,7 +468,7 @@ function forminator_addon_flatten_mutiple_field( $field_array ) {
 				$multi_fields [] = $multi_field;
 			}
 
-			if( ! empty( $category_list ) ) {
+			if ( ! empty( $category_list ) ) {
 				foreach ( $category_list as $category ) {
 					$category_enabled = isset( $field_array[ $category['value'] ] ) && ! empty( $field_array[ $category['value'] ] ) ? true : false;
 					if ( $category_enabled ) {
@@ -501,7 +501,6 @@ function forminator_addon_flatten_mutiple_field( $field_array ) {
 
 			return $multi_fields;
 		}
-
 	} elseif ( 'address' === $field_array['type'] ) {
 		// flatten ADDRESS
 		$street_enabled  = isset( $field_array['street_address'] ) && filter_var( $field_array['street_address'], FILTER_VALIDATE_BOOLEAN ) ? true : false;
@@ -878,7 +877,6 @@ function forminator_addon_maybe_log() {
 			$args  = array_merge( $args, $fargs );
 			call_user_func_array( 'forminator_maybe_log', $args );
 		}
-
 	}
 }
 
@@ -918,7 +916,6 @@ function forminator_addon_replace_custom_vars( $content, $submitted_data, Formin
 	$randomed_field_pattern  = 'field-\d+-\d+';
 	$increment_field_pattern = sprintf( '(%s)-\d+', implode( '|', $field_types ) );
 	$pattern                 = '/\{((' . $randomed_field_pattern . ')|(' . $increment_field_pattern . '))(\-[A-Za-z-_]+)?\}/';
-
 
 	// Find all field ID's
 	if ( preg_match_all( $pattern, $content, $matches ) ) {
@@ -1124,7 +1121,7 @@ function forminator_get_registered_addons_grouped_by_poll_connected( $poll_id ) 
 	$addons = Forminator_Addon_Loader::get_instance()->get_addons();
 	foreach ( $addons as $slug => $addon ) {
 		/** @var Forminator_Addon_Abstract $addon */
-		if( $addon->is_connected() ) {
+		if ( $addon->is_connected() ) {
 			if ( $addon->is_allow_multi_on_poll() ) {
 				$addon_array = $addon->to_array_with_poll( $poll_id );
 				if ( $addon->is_poll_connected( $poll_id ) && isset( $addon_array['multi_ids'] ) && is_array( $addon_array['multi_ids'] ) ) {
@@ -1337,7 +1334,7 @@ function forminator_get_registered_addons_grouped_by_quiz_connected( $quiz_id ) 
 	$addons = Forminator_Addon_Loader::get_instance()->get_addons();
 	foreach ( $addons as $slug => $addon ) {
 		/** @var Forminator_Addon_Abstract $addon */
-		if( $addon->is_connected() ) {
+		if ( $addon->is_connected() ) {
 			if ( $addon->is_allow_multi_on_quiz() ) {
 				$addon_array = $addon->to_array_with_quiz( $quiz_id );
 				if ( $addon->is_quiz_connected( $quiz_id ) && isset( $addon_array['multi_ids'] ) && is_array( $addon_array['multi_ids'] ) ) {

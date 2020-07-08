@@ -334,7 +334,18 @@ class Forminator_Quizz_Page extends Forminator_Admin_Page {
 			}
 
 			//save it to create new record
-			$model->save( true );
+			$new_id = $model->save( true );
+
+			/**
+			 * Action called after quiz cloned
+			 *
+			 * @since 1.11
+			 *
+			 * @param int    $id - quiz id
+			 * @param object $model - quiz model
+			 *
+			 */
+			do_action( 'forminator_quiz_action_clone', $new_id, $model );
 		}
 	}
 
@@ -369,6 +380,16 @@ class Forminator_Quizz_Page extends Forminator_Admin_Page {
 			$form_view = Forminator_Form_Views_Model::get_instance();
 			$form_view->delete_by_form( $id );
 			wp_delete_post( $id );
+
+			/**
+			 * Action called after quiz deleted
+			 *
+			 * @since 1.11
+			 *
+			 * @param int    $id - quiz id
+			 *
+			 */
+			do_action( 'forminator_quiz_action_delete', $id );
 		}
 	}
 
@@ -418,5 +439,19 @@ class Forminator_Quizz_Page extends Forminator_Admin_Page {
 
 		// make php send the generated csv lines to the browser
 		fpassthru( $fp );
+	}
+
+	/**
+	 * Override scripts to be loaded
+	 *
+	 * @since 1.11
+	 *
+	 * @param $hook
+	 */
+	public function enqueue_scripts( $hook ) {
+		parent::enqueue_scripts( $hook );
+
+		forminator_print_front_styles( FORMINATOR_VERSION );
+		forminator_print_front_scripts( FORMINATOR_VERSION );
 	}
 }

@@ -12,7 +12,12 @@ foreach ( $template_vars as $key => $val ) {
 
 <div class="integration-header">
 
-	<h3 id="dialogTitle2" class="sui-box-title"><?php echo esc_html( sprintf( __( 'Activate %1$s', Forminator::DOMAIN ), 'Zapier' ) ); ?></h3>
+	<h3 id="dialogTitle2" class="sui-box-title">
+		<?php
+		/* translators: ... */
+		echo esc_html( sprintf( __( 'Activate %1$s', Forminator::DOMAIN ), 'Zapier' ) );
+		?>
+	</h3>
 
 	<span class="sui-description" style="margin-top: 20px;"><?php esc_html_e( 'Activate Zapier to start using it on your forms.', Forminator::DOMAIN ); ?></span>
 

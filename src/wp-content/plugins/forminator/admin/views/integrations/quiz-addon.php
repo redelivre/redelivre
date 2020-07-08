@@ -42,7 +42,6 @@ if ( ! empty( $quiz_id ) ) {
 				$tooltip           = __( 'Activate App', Forminator::DOMAIN );
 			}
 		}
-
 	}
 } else {
 	// on integrations page
@@ -124,7 +123,7 @@ if ( ! $show_action ) {
 
 						<span><?php echo esc_html( $addon['title'] ); ?><?php if ( $show_pro_info && $addon['is_pro'] ) : ?>
 								<span class="sui-tag sui-tag-pro">
-								<?php esc_html_e( "PRO", Forminator::DOMAIN ); ?>
+								<?php esc_html_e( 'PRO', Forminator::DOMAIN ); ?>
 							</span>
 							<?php endif; ?></span>
 
@@ -132,19 +131,19 @@ if ( ! $show_action ) {
 							<a href="<?php echo esc_url( $addon['documentation'] ); ?>" target="_blank"><?php esc_html_e( 'View Docs', Forminator::DOMAIN ); ?></a>
 						<?php } ?>
 
-                        <button class="sui-button-icon sui-tooltip sui-tooltip-top-right connect-integration"
-                                data-tooltip="<?php echo esc_attr( $tooltip ); ?>"
-                                data-slug="<?php echo esc_attr( $addon['slug'] ); ?>"
-                                data-title="<?php echo esc_attr( $addon['title'] ); ?>"
-                                data-image="<?php echo esc_attr( $addon['image'] ); ?>"
-                                data-imagex2="<?php echo esc_attr( $addon['image_x2'] ); ?>"
-                                data-nonce="<?php echo wp_create_nonce( 'forminator_addon_action' ); // WPCS: XSS ok. ?>"
-                                data-action="<?php echo esc_attr( $main_action ); ?>"
-                                data-quiz-id="<?php echo esc_attr( $quiz_id ); ?>"
-                                data-multi-id="<?php echo esc_attr( $multi_id ); ?>">
-                            <i class="<?php echo esc_attr( $icon_class_action ); ?>" aria-hidden="true"></i>
-                            <span class="sui-screen-reader-text"><?php esc_html_e( 'Connect this integration', Forminator::DOMAIN ); ?></span>
-                        </button>
+						<button class="sui-button-icon sui-tooltip sui-tooltip-top-right connect-integration"
+								data-tooltip="<?php echo esc_attr( $tooltip ); ?>"
+								data-slug="<?php echo esc_attr( $addon['slug'] ); ?>"
+								data-title="<?php echo esc_attr( $addon['title'] ); ?>"
+								data-image="<?php echo esc_attr( $addon['image'] ); ?>"
+								data-imagex2="<?php echo esc_attr( $addon['image_x2'] ); ?>"
+								data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_addon_action' ) ); ?>"
+								data-action="<?php echo esc_attr( $main_action ); ?>"
+								data-quiz-id="<?php echo esc_attr( $quiz_id ); ?>"
+								data-multi-id="<?php echo esc_attr( $multi_id ); ?>">
+							<i class="<?php echo esc_attr( $icon_class_action ); ?>" aria-hidden="true"></i>
+							<span class="sui-screen-reader-text"><?php esc_html_e( 'Connect this integration', Forminator::DOMAIN ); ?></span>
+						</button>
 
 					</div>
 
@@ -176,23 +175,23 @@ if ( ! $show_action ) {
 
 				<span><?php echo esc_html( $addon['title'] ); ?><?php if ( $show_pro_info && $addon['is_pro'] ) : ?>
 						<span class="sui-tag sui-tag-pro">
-						<?php esc_html_e( "PRO", Forminator::DOMAIN ); ?>
+						<?php esc_html_e( 'PRO', Forminator::DOMAIN ); ?>
 					</span>
 					<?php endif; ?></span>
 
-                <button class="sui-button-icon sui-tooltip sui-tooltip-top-right connect-integration"
-                        data-tooltip="<?php echo esc_attr( $tooltip ); ?>"
-                        data-slug="<?php echo esc_attr( $addon['slug'] ); ?>"
-                        data-title="<?php echo esc_attr( $addon['title'] ); ?>"
-                        data-image="<?php echo esc_attr( $addon['image'] ); ?>"
-                        data-imagex2="<?php echo esc_attr( $addon['image_x2'] ); ?>"
-                        data-nonce="<?php echo wp_create_nonce( 'forminator_addon_action' ); // WPCS: XSS ok. ?>"
-                        data-action="<?php echo esc_attr( $main_action ); ?>"
-                        data-quiz-id="<?php echo esc_attr( $quiz_id ); ?>"
-                        data-multi-id="<?php echo esc_attr( $multi_id ); ?>">
-                    <i class="<?php echo esc_attr( $icon_class_action ); ?>" aria-hidden="true"></i>
-                    <span class="sui-screen-reader-text"><?php esc_html_e( 'Connect this integration', Forminator::DOMAIN ); ?></span>
-                </button>
+				<button class="sui-button-icon sui-tooltip sui-tooltip-top-right connect-integration"
+						data-tooltip="<?php echo esc_attr( $tooltip ); ?>"
+						data-slug="<?php echo esc_attr( $addon['slug'] ); ?>"
+						data-title="<?php echo esc_attr( $addon['title'] ); ?>"
+						data-image="<?php echo esc_attr( $addon['image'] ); ?>"
+						data-imagex2="<?php echo esc_attr( $addon['image_x2'] ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_addon_action' ) ); ?>"
+						data-action="<?php echo esc_attr( $main_action ); ?>"
+						data-quiz-id="<?php echo esc_attr( $quiz_id ); ?>"
+						data-multi-id="<?php echo esc_attr( $multi_id ); ?>">
+					<i class="<?php echo esc_attr( $icon_class_action ); ?>" aria-hidden="true"></i>
+					<span class="sui-screen-reader-text"><?php esc_html_e( 'Connect this integration', Forminator::DOMAIN ); ?></span>
+				</button>
 
 			<?php } ?>
 

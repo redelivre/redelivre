@@ -1,0 +1,64 @@
+// =============================================
+// FORMINATOR UI – FRONT STYLES
+//
+// Author: Leighton Sapir (WPMU DEV)
+// Date: June 21, 2018
+//
+// Last Update: June 30, 2018
+// =============================================
+
+// =============================================
+// FRONT STYLES MENU
+//
+// 1. HELPERS
+// 2. GLOBAL ELEMENTS
+// 3. BY TYPE OF MODULE
+//    3.1. Form
+//    3.2. Poll
+//    3.3. Quiz
+// =============================================
+
+// =============================================
+// 1. HELPERS
+
+@import "helpers/functions";
+@import "helpers/colors";
+@import "helpers/variables";
+@import "helpers/mixins";
+@import "helpers/icons";
+@import "helpers/keyframes";
+@import "helpers/extensions";
+
+// =============================================
+// 2. GLOBAL ELEMENTS
+
+// @import "grid";
+@import "utilities";
+
+// =============================================
+// 3. BY TYPE OF MODULE
+//    ******************************************
+//    3.1. Form
+
+// @import "form/global";
+// @import "form/bold";
+// @import "form/flat";
+// @import "form/default";
+// @import "form/material";
+
+//    ******************************************
+//    3.2. Poll
+
+// @import "poll/global";
+// @import "poll/bold";
+// @import "poll/flat";
+// @import "poll/default";
+// @import "poll/material";
+
+//    ******************************************
+//    3.3. Quiz
+@import "quiz/global";
+@import "quiz/bold";
+@import "quiz/flat";
+@import "quiz/default";
+@import "quiz/material";

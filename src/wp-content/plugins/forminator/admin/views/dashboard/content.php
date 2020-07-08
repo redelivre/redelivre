@@ -10,7 +10,7 @@
 
 		<?php $this->template( 'dashboard/widgets/widget-quiz' ); ?>
 
-		<?php if ( isset( $_GET['show_stripe_dialog'] ) && ! empty( $_GET['show_stripe_dialog'] ) ) { // WPCS: CSRF ok. ?>
+		<?php if ( isset( $_GET['show_stripe_dialog'] ) && ! empty( $_GET['show_stripe_dialog'] ) ) { // phpcs:ignore ?>
 
 			<?php $this->template( 'dashboard/stripe-notice' ); ?>
 

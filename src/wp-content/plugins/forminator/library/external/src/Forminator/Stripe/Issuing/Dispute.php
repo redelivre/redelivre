@@ -10,18 +10,18 @@ namespace Forminator\Stripe\Issuing;
  * @property int $amount
  * @property int $created
  * @property string $currency
- * @property mixed $evidence
+ * @property string $disputed_transaction
+ * @property \Forminator\Stripe\StripeObject $evidence
  * @property bool $livemode
  * @property \Forminator\Stripe\StripeObject $metadata
  * @property string $reason
  * @property string $status
- * @property Transaction $transaction
  *
  * @package Forminator\Stripe\Issuing
  */
 class Dispute extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "issuing.dispute";
+    const OBJECT_NAME = 'issuing.dispute';
 
     use \Forminator\Stripe\ApiOperations\All;
     use \Forminator\Stripe\ApiOperations\Create;

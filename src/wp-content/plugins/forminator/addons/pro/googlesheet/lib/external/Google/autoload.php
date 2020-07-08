@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-function google_api_php_client_autoload($className)
+function forminator_google_api_php_client_autoload($className)
 {
+  $className = str_replace( 'Forminator_', '', $className );
   $classPath = explode('_', $className);
   if ($classPath[0] != 'Google') {
     return;
@@ -28,4 +29,4 @@ function google_api_php_client_autoload($className)
     require_once($filePath);
   }
 }
-spl_autoload_register('google_api_php_client_autoload');
+spl_autoload_register('forminator_google_api_php_client_autoload');

@@ -100,7 +100,6 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 	 * @param bool $hide If true, display: none will be added on the form markup and later removed with JS
 	 */
 	public function display( $id, $is_preview = false, $data = false, $hide = true ) {
-
 		if ( $data && ! empty( $data ) ) {
 			$this->model = Forminator_Custom_Form_Model::model()->load_preview( $id, $data );
 			// its preview!
@@ -119,6 +118,18 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 
 		// preview force using ajax
 		$is_ajax_load = $this->is_ajax_load( $is_preview );
+		// hide login/registration form if a user is already logged in
+		$hide_form = $hidden_form_message = false;
+		if ( isset( $this->model->settings['form-type'] ) && in_array( $this->model->settings['form-type'], array('login', 'registration') ) && is_user_logged_in() ) {
+			// Option 'Is a form hide?'
+			$hide_option = 'hide-'. $this->model->settings['form-type'] .'-form';
+			$hide_form = ( isset( $this->model->settings[ $hide_option ] ) && '1' === $this->model->settings[ $hide_option ] ) ? true : false;
+			// Display message if a form is hidden
+			$hide_form_message_option = 'hidden-'. $this->model->settings['form-type'] .'-form-message';
+			$hidden_form_message = isset( $this->model->settings[$hide_form_message_option] ) && ! empty( $this->model->settings[$hide_form_message_option] )
+				? $this->model->settings[$hide_form_message_option]
+				: false;
+		}
 
 		if ( $is_ajax_load ) {
 			$this->generate_render_id( $id );
@@ -128,8 +139,7 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 			return;
 		}
 
-		if ( $this->is_displayable( $is_preview ) ) {
-
+		if ( $this->is_displayable( $is_preview ) && ! $hide_form ) {
 			echo $this->get_html( $hide, $is_preview );// wpcs xss ok.
 
 			if ( is_admin() || $is_preview ) {
@@ -143,7 +153,8 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 			}
 
 			$this->enqueue_form_scripts( $is_preview );
-
+		} elseif( $hide_form && $hidden_form_message ) {
+			echo $this->render_hidden_form_message( $hidden_form_message );
 		}
 	}
 
@@ -173,6 +184,74 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 	}
 
 	/**
+	 * Footer handle
+	 *
+	 * @since 1.12
+	 */
+	public function render_form_authentication() {
+
+		$wrapper = '';
+		// These are unique IDs.
+		$module_id = 'forminator-module-' . $this->model->id . '-authentication';
+		$title_id  = $module_id . '-title';
+		$label_id  = $module_id . '-label';
+		$input_id  = $module_id . '-input';
+		$notice_id = $module_id . '-notice';
+
+		$form_type  = isset( $this->model->settings['form-type'] ) ? $this->model->settings['form-type'] : '';
+
+		if ( 'login' !== $form_type )
+		    return '';
+
+		if ( is_multisite() ) {
+			$login_header_url   = network_home_url();
+			$login_header_title = get_network()->site_name;
+		} else {
+			$login_header_url   = __( 'https://wordpress.org/' );
+			$login_header_title = __( 'Powered by WordPress' );
+		}
+
+		$settings       = \WP_Defender\Module\Advanced_Tools\Model\Auth_Settings::instance();
+
+		$custom_graphic = false == wp_defender()->isFree && $settings->custom_graphic ? $settings->custom_graphic_url : wp_defender()->getPluginUrl() . 'app/module/advanced-tools/img/2factor-disabled.svg';
+
+		$wrapper .= '<div class="forminator-authentication">';
+
+			$wrapper .= '<div role="dialog" id="' . $module_id . '" class="forminator-authentication-content" aria-modal="true" aria-labelledby="' . $title_id . '">';
+
+				$wrapper .= '<h1 id="' . $title_id . '"><a href="' . esc_url( $login_header_url ) . '" title="' . esc_attr( $login_header_title ) . '" style="background-image: url(' . $custom_graphic . ');">' . esc_html__( 'Authenticate to login', Forminator::DOMAIN ) . '</a></h1>';
+
+				$wrapper .= '<div role="alert" id="' . $notice_id . '" class="forminator-authentication-notice" data-error-message="' . esc_html__( 'The passcode was incorrect.', Forminator::DOMAIN ) . '"></div>';
+
+				$wrapper .= '<div class="forminator-authentication-box">';
+
+					$wrapper .= '<p>';
+						$wrapper .= '<label for="' . $input_id . '" id="' . $label_id . '">' . esc_html__( 'Open the Google Authenticator app and enter the 6 digit passcode.', Forminator::DOMAIN ) . '</label>';
+						$wrapper .= '<input type="text" name="auth-code" value="" id="' . $input_id . '" aria-labelledby="' . $label_id . '" autocomplete="off" disabled />';
+					$wrapper .= '</p>';
+
+					$wrapper .= '<p class="forminator-authentication-button">';
+						$wrapper .= '<button role="button" class="authentication-button">' . esc_html__( 'Authenticate', Forminator::DOMAIN ) . '</button>';
+					$wrapper .= '</p>';
+
+				$wrapper .= '</div>';
+
+				$wrapper .= '<p class="forminator-authentication-nav"><a id="lostPhone" class="lost-device-url" href="#">' . esc_html__( 'Lost your device? ', Forminator::DOMAIN ) . '</a>';
+				$wrapper .= '<img class="def-ajaxloader" src="'.wp_defender()->getPluginUrl() .'app/module/advanced-tools/img/spinner.svg"/>';
+				$wrapper .='<strong class="notification"></strong>';
+				$wrapper .='</p>';
+
+				$wrapper .= '<p class="forminator-authentication-backtolog"><a class="auth-back" href="#">&larr; ' . sprintf( esc_html__( 'Back to %s', Forminator::DOMAIN ), 'MY SITE' ) . '</a></p>';
+
+			$wrapper .= '</div>';
+
+		$wrapper .= '</div>';
+
+		return $wrapper;
+
+	}
+
+	/**
 	 * Enqueue form scripts
 	 *
 	 * @since 1.0
@@ -183,10 +262,9 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 	public function enqueue_form_scripts( $is_preview, $is_ajax_load = false ) {
 		$is_ajax_load = $is_preview || $is_ajax_load;
 
-		$design = $this->get_form_design();
-		// Core scripts and styles always included!
-		forminator_print_front_styles( FORMINATOR_VERSION, $design );
-		forminator_print_front_scripts( FORMINATOR_VERSION );
+		// Load assets conditionally
+		$assets = new Forminator_Assets_Enqueue_Form( $this->model, $is_ajax_load );
+		$assets->load_assets();
 
 		// Load reCaptcha scripts
 		if ( $this->has_captcha() ) {
@@ -214,7 +292,6 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 					'load' => 'grecaptcha',
 				);
 			}
-
 		}
 
 		// Load Stripe scripts
@@ -237,8 +314,27 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 					'load' => 'StripeCheckout',
 				);
 			}
-
 		}
+
+		// load int-tels
+		if ( $this->has_phone() ) {
+			$style_src     = forminator_plugin_url() . 'assets/css/intlTelInput.min.css';
+			$style_version = "4.0.3";
+
+			$script_src     = forminator_plugin_url() . 'assets/js/library/intlTelInput.min.js';
+			$script_version = FORMINATOR_VERSION;
+
+			if ( $is_ajax_load ) {
+				// load later via ajax to avoid cache
+				$this->styles['intlTelInput-forminator-css'] = array( 'src' => add_query_arg( 'ver', $style_version, $style_src ) );
+				$this->scripts['forminator-intlTelInput']    = array(
+					'src'  => add_query_arg( 'ver', $style_version, $script_src ),
+					'on'   => '$',
+					'load' => 'intlTelInput',
+				);
+			}
+		}
+
 		// Load Paypal scripts
 		if ( $this->has_paypal() ) {
 			$paypal_src = $this->paypal_script_argument( 'https://www.paypal.com/sdk/js' );
@@ -263,31 +359,6 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 			add_action( 'wp_footer', array( $this, 'print_paypal_scripts' ), 9999 );
 		}
 
-		// todo: solve this
-		// load date picker scripts always
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-
-		// load int-tels
-		if ( $this->has_phone() ) {
-			$style_src     = forminator_plugin_url() . 'assets/css/intlTelInput.min.css';
-			$style_version = "4.0.3";
-
-			$script_src     = forminator_plugin_url() . 'assets/js/library/intlTelInput.min.js';
-			$script_version = FORMINATOR_VERSION;
-
-			wp_enqueue_style( 'intlTelInput-forminator-css', $style_src, array(), $style_version ); // intlTelInput
-			wp_enqueue_script( 'forminator-intlTelInput', $script_src, array( 'jquery' ), $script_version, false ); // intlTelInput
-
-			if ( $is_ajax_load ) {
-				// load later via ajax to avoid cache
-				$this->styles['intlTelInput-forminator-css'] = array( 'src' => add_query_arg( 'ver', $style_version, $style_src ) );
-				$this->scripts['forminator-intlTelInput']    = array(
-					'src'  => add_query_arg( 'ver', $style_version, $script_src ),
-					'on'   => '$',
-					'load' => 'intlTelInput',
-				);
-			}
-		}
 
 		// todo: solve this
 		// load buttons css
@@ -611,7 +682,7 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		$step             = 1;
 		$pagination_field = array();
 
-		$wrappers = $this->get_wrappers();
+		$wrappers = apply_filters( 'forminator_cform_render_fields', $this->get_wrappers(), $this->model->id );
 
 		$html .= $this->do_before_render_form_fields_for_addons();
 
@@ -735,7 +806,6 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 	 * @return string
 	 */
 	public function pagination_header() {
-
 		$type           = $this->get_pagination_type();
 		$has_pagination = $this->has_pagination_header();
 
@@ -744,17 +814,12 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		}
 
 		if ( 'bar' === $type ) {
-
 			$html = '<div class="forminator-pagination-progress" aria-hidden="true"></div>';
-
 		} else {
-
 			$html = '<div class="forminator-pagination-steps" aria-hidden="true"></div>';
-
 		}
 
 		return apply_filters( 'forminator_pagination_header_markup', $html );
-
 	}
 
 	/**
@@ -1439,11 +1504,11 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 	public function get_fields_style() {
 		$form_settings = $this->get_form_settings();
 
-		if ( ! isset( $form_settings['fields-style'] ) ) {
-			return 'open';
+		if ( isset( $form_settings['fields-style'] ) ) {
+			return $form_settings['fields-style'];
 		}
 
-		return $form_settings['fields-style'];
+		return 'open';
 	}
 
 	/**
@@ -1607,7 +1672,7 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		$class = '';
 
 		if ( isset( $field['custom-class'] ) && ! empty( $field['custom-class'] ) ) {
-			$class .= ' ' . $field['custom-class'];
+			$class .= ' ' . esc_html( $field['custom-class'] );
 		}
 
 		return $class;
@@ -1856,7 +1921,7 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		$nonce      = $this->nonce_field( 'forminator_submit_form', 'forminator_nonce' );
 		$post_id    = $this->get_post_id();
 		$has_paypal = $this->has_paypal();
-
+		$form_type  = isset( $this->model->settings['form-type'] ) ? $this->model->settings['form-type'] : '';
 		if ( $has_paypal ) {
 			if ( ! ( self::$paypal instanceof Forminator_Paypal_Express ) ) {
 				self::$paypal = new Forminator_Paypal_Express();
@@ -1877,9 +1942,16 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		$html .= $nonce;
 		$html .= sprintf( '<input type="hidden" name="form_id" value="%s">', $form_id );
 		$html .= sprintf( '<input type="hidden" name="page_id" value="%s">', $post_id );
+		$html .= sprintf( '<input type="hidden" name="form_type" value="%s">', $form_type );
 		$html .= sprintf( '<input type="hidden" name="current_url" value="%s">', forminator_get_current_url() );
 		if ( isset( self::$render_ids[ $form_id ] ) ) {
 			$html .= sprintf( '<input type="hidden" name="render_id" value="%s">', self::$render_ids[ $form_id ] );
+		}
+
+		if ( $this->is_login_form() ) {
+			$redirect_url = ! empty( $this->model->settings['redirect-url'] ) ? $this->model->settings['redirect-url'] : admin_url();
+			$redirect_url = forminator_replace_variables( $redirect_url, $form_id );
+			$html         .= sprintf( '<input type="hidden" name="redirect_to" value="%s">', $redirect_url );
 		}
 
 		if ( $this->is_preview ) {
@@ -2105,7 +2177,6 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -2316,8 +2387,20 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 				?>
 				window.Forminator_Cform_Paginations[<?php echo esc_attr( $form_properties['id'] ); ?>] =
 				<?php echo wp_json_encode( $pagination_config ); ?>;
-				jQuery('#forminator-module-<?php echo esc_attr( $form_properties['id'] ); ?>[data-forminator-render="<?php echo esc_attr( $form_properties['render_id'] ); ?>"]')
-					.forminatorFront(<?php echo wp_json_encode( $options ); ?>);
+
+				var runForminatorFront = function () {
+					jQuery('#forminator-module-<?php echo esc_attr( $form_properties['id'] ); ?>[data-forminator-render="<?php echo esc_attr( $form_properties['render_id'] ); ?>"]')
+						.forminatorFront(<?php echo wp_json_encode( $options ); ?>);
+				}
+
+				runForminatorFront();
+
+				if (window.elementorFrontend) {
+					elementorFrontend.hooks.addAction('frontend/element_ready/global', function () {
+						runForminatorFront();
+					});
+				}
+
 				<?php
 				}
 				}
@@ -2633,9 +2716,41 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 			'fadeout_time'        => $autoclose_time,
 			'has_loader'          => $this->form_has_loader( $form_properties ),
 			'loader_label'		  => $this->get_loader_label( $form_properties ),
+			'calcs_memoize_time'  => $this->get_memoize_time(),
+			'is_reset_enabled'    => $this->is_reset_enabled(),
 		);
 
 		return $options;
+	}
+
+	/**
+	 * Return calculations time in ms
+	 *
+	 * @since 1.11
+	 *
+	 * @return mixed
+	 */
+	public function get_memoize_time() {
+		$default = 300; // Memoize time in ms
+
+		$time = apply_filters( 'forminator_calculation_memoize_time', $default );
+
+		return $time;
+	}
+
+	/**
+	 * Return if form reset after submit is enabled
+	 *
+	 * @since 1.12
+	 *
+	 * @return mixed
+	 */
+	public function is_reset_enabled() {
+		$default = true; // Memoize time in ms
+
+		$value = apply_filters( 'forminator_is_form_reset_enabled', $default );
+
+		return $value;
 	}
 
 	/**
@@ -2691,7 +2806,9 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		if ( $data && ! empty( $data ) ) {
 			$this->model = Forminator_Custom_Form_Model::model()->load_preview( $id, $data );
 			// its preview!
-			$this->model->id = $id;
+			if( is_object( $this->model ) ) {
+				$this->model->id = $id;
+			}
 		} else {
 			$this->model = Forminator_Custom_Form_Model::model()->load( $id );
 		}
@@ -2887,6 +3004,34 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		}
 
 		return false;
+	}
+
+	/**
+     * Check login form
+     *
+	 * @return bool
+	 */
+	public function is_login_form() {
+	    $settings = $this->model->settings;
+
+	    if ( isset( $settings['form-type'] ) && 'login' === $settings['form-type'] ) {
+	        return true;
+        }
+
+	    return false;
+    }
+
+	/**
+	 * Render a message if form is hidden
+	 *
+	 * @since 1.11
+	 *
+	 * @param string $hidden_form_message
+	 *
+	 * @return string
+	 */
+	public function render_hidden_form_message( $hidden_form_message ) {
+		return apply_filters( 'forminator_render_hidden_form_message', $hidden_form_message );
 	}
 
 }

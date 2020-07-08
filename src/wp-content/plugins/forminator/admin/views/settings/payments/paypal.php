@@ -1,15 +1,15 @@
 <?php
 // defaults
 $vars = array(
-	'error_message'     => '',
-	'sandbox_id'          => '',
-	'sandbox_id_error'    => '',
+	'error_message'        => '',
+	'sandbox_id'           => '',
+	'sandbox_id_error'     => '',
 	'sandbox_secret'       => '',
 	'sandbox_secret_error' => '',
-	'live_id'          => '',
-	'live_id_error'    => '',
-	'live_secret'       => '',
-	'live_secret_error' => '',
+	'live_id'              => '',
+	'live_id_error'        => '',
+	'live_secret'          => '',
+	'live_secret_error'    => '',
 
 );
 /** @var array $template_vars */
@@ -18,7 +18,7 @@ foreach ( $template_vars as $key => $val ) {
 }
 ?>
 
-<span class="sui-description"><?php printf( esc_html__( 'Enter your PayPal REST API keys to connect your account. You can create a REST API app %1$shere%2$s to grab the credentials.' ), '<a href="https://developer.paypal.com/developer/applications/" target="_blank">', '</a>' ); ?></span>
+<span class="sui-description"><?php /* translators: ... */ printf( esc_html__( 'Enter your PayPal REST API keys to connect your account. You can create a REST API app %1$shere%2$s to grab the credentials.' ), '<a href="https://developer.paypal.com/developer/applications/" target="_blank">', '</a>' ); ?></span>
 
 <?php if ( ! empty( $vars['error_message'] ) ) : ?>
 

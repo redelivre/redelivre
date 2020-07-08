@@ -2,7 +2,12 @@
 
 	<script type="text/template" id="forminator-new-form-content-tpl">
 		<p><small>{{ Forminator.l10n.popup.new_form_desc2 }}</small></p>
-
+		<div class="sui-notice" id="forminator-template-register-notice" style="display: none;">
+			<p>{{ Forminator.l10n.popup.registration_notice }}</p>
+		</div>
+		<div class="sui-notice" id="forminator-template-login-notice" style="display: none;">
+			<p>{{ Forminator.l10n.popup.login_notice }}</p>
+		</div>
 		<div id="forminator-form-name-input" class="sui-form-field">
 
 			<label for="forminator-form-name" class="sui-screen-reader-text">{{ Forminator.l10n.popup.input_label }}</label>
@@ -701,6 +706,53 @@
 			<button type="submit" class="delete-poll-submission sui-button sui-button-ghost sui-button-red popup-confirmation-confirm" data-nonce="{{ nonce }}" data-id="{{ id }}" data-action="delete_poll_submissions">
 				{{ Forminator.l10n.popup.delete }}
 			</button>
+		</div>
+
+	</script>
+
+	<script type="text/template" id="forminator-approve-user-popup-tpl">
+
+		<div class="sui-box-body">
+			<span class="sui-description">{{ content }}</span>
+		</div>
+
+		<div class="sui-box-footer">
+			<button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+			<form method="post" class="form-approve-user">
+				<input type="hidden" name="forminator_action" value="approve_user">
+				<input type="hidden" name="id" value="{{ id }}">
+				<input type="hidden" name="activationKey" value="{{ activationKey }}">
+				<input type="hidden" id="forminatorNonce" name="forminatorNonce" value="{{ nonce }}">
+				<input type="hidden" id="forminatorEntryNonce" name="forminatorEntryNonce" value="{{ nonce }}">
+				<input type="hidden" name="_wp_http_referer" value="{{ referrer }}">
+				<button type="submit" class="sui-button approve-user popup-confirmation-confirm">
+					{{ Forminator.l10n.popup.approve_user }}
+				</button>
+			</form>
+		</div>
+
+	</script>
+
+	<script type="text/template" id="forminator-delete-unconfirmed-user-popup-tpl">
+
+		<div class="sui-box-body">
+			<span class="sui-description">{{ content }}</span>
+		</div>
+
+		<div class="sui-box-footer">
+			<button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+			<form method="post" class="form-delete-unconfirmed-user">
+				<input type="hidden" name="forminatorAction" value="delete-unconfirmed-user">
+				<input type="hidden" name="formId" value="{{ formId }}">
+				<input type="hidden" name="entryId" value="{{ entryId }}">
+				<input type="hidden" name="activationKey" value="{{ activationKey }}">
+				<input type="hidden" id="forminatorNonceDeleteUnconfirmedUser" name="forminatorNonceDeleteUnconfirmedUser" value="{{ nonce }}">
+				<input type="hidden" name="_wp_http_referer" value="{{ referrer }}">
+				<button type="submit" class="sui-button sui-button-ghost sui-button-red delete-unconfirmed-user popup-confirmation-confirm">
+					<i class="sui-icon-trash" aria-hidden="true"></i>
+					{{ Forminator.l10n.popup.delete }}
+				</button>
+			</form>
 		</div>
 
 	</script>

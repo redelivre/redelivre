@@ -85,6 +85,7 @@ abstract class Forminator_Addon_Form_Hooks_Abstract {
 		$this->form_id     = $form_id;
 		$this->custom_form = Forminator_Custom_Form_Model::model()->load( $this->form_id );
 		if ( ! $this->custom_form ) {
+			/* translators: ... */
 			throw new Forminator_Addon_Exception( sprintf( __( 'Form with id %d could not be found', Forminator::DOMAIN ), $this->form_id ) );
 		}
 
@@ -239,7 +240,6 @@ abstract class Forminator_Addon_Form_Hooks_Abstract {
 			$form_settings_instance
 		);
 
-
 		$is_success = true;
 		/**
 		 * Filter result of form submit
@@ -358,7 +358,6 @@ abstract class Forminator_Addon_Form_Hooks_Abstract {
 			$form_settings_instance
 		);
 
-
 		$entry_fields = array();
 		/**
 		 * Filter addon entry fields to be saved to entry model
@@ -470,7 +469,6 @@ abstract class Forminator_Addon_Form_Hooks_Abstract {
 			$form_settings_instance
 		);
 
-
 		$entry_items = array();
 		/**
 		 * Filter mailchimp row(s) to be displayed on entries page
@@ -496,7 +494,6 @@ abstract class Forminator_Addon_Form_Hooks_Abstract {
 			$addon_meta_data,
 			$form_settings_instance
 		);
-
 
 		return $entry_items;
 	}

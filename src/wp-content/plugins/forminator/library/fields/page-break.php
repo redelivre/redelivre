@@ -43,7 +43,7 @@ class Forminator_Page_Break extends Forminator_Field {
 	/**
 	 * @var string
 	 */
-	public $hide_advanced = "true";
+	public $hide_advanced = 'true';
 
 	/**
 	 * @var string
@@ -70,10 +70,13 @@ class Forminator_Page_Break extends Forminator_Field {
 	 * @return array
 	 */
 	public function defaults() {
-		return apply_filters( 'forminator_page_break_btn_label', array(
-			'btn_left'	=> __( '« Previous Step', Forminator::DOMAIN ),
-			'btn_right'	=> __( 'Next Step »', Forminator::DOMAIN ),
-		) );
+		return apply_filters(
+			'forminator_page_break_btn_label',
+			array(
+				'btn_left'  => __( '« Previous Step', Forminator::DOMAIN ),
+				'btn_right' => __( 'Next Step »', Forminator::DOMAIN ),
+			)
+		);
 	}
 
 	/**

@@ -15,9 +15,7 @@ const config = {
 
 // Full path of main files that need to be ran through the bundler
 config.source.scss = './assets/scss/shared-ui.scss';
-config.source.editor = './assets/scss/sui-editor.scss';
 config.source.scgen = './assets/scss/forminator-scgen.scss';
-config.source.front = './assets/sass/front.scss';
 config.source.js   = './assets/js/shared-ui.js';
 
 // Path where the scss & js should be compiled to
@@ -35,9 +33,7 @@ config.output.fontsDirectory  = '../fonts/';
 var scssConfig = Object.assign( {}, {
 	entry: {
 		'shared-ui': config.source.scss,
-		'sui-editor': config.source.editor,
-		'forminator-scgen': config.source.scgen,
-		'front': config.source.front
+		'forminator-scgen': config.source.scgen
 	},
 	output: {
 		filename: '[name].min.css',

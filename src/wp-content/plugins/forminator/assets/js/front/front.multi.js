@@ -111,6 +111,7 @@
 				fadeout_time: self.settings.fadeout_time,
 				has_loader: self.settings.has_loader,
 				loader_label: self.settings.loader_label,
+				resetEnabled: self.settings.is_reset_enabled,
 			});
 
 
@@ -129,9 +130,10 @@
 			var self = this;
 
 			//initiate validator
-			if (this.settings.inline_validation) {
 
-				this.init_intlTelInput_validation();
+			this.init_intlTelInput_validation();
+
+			if (this.settings.inline_validation) {
 
 				$(this.element).forminatorFrontValidate({
 					rules: self.settings.rules,
@@ -144,6 +146,7 @@
 				forminatorFields: self.settings.forminator_fields,
 				maxExpand: self.settings.max_nested_formula,
 				generalMessages: self.settings.general_messages,
+				memoizeTime: self.settings.calcs_memoize_time || 300,
 			});
 
 			// initiate merge tags

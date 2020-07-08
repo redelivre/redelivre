@@ -27,7 +27,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_ShoppingContent extends Google_Service
+class Forminator_Google_Service_ShoppingContent extends Forminator_Google_Service
 {
   /** Manage your product listings and accounts for Google Shopping. */
   const CONTENT =
@@ -48,9 +48,9 @@ class Google_Service_ShoppingContent extends Google_Service
   /**
    * Constructs the internal representation of the ShoppingContent service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://www.googleapis.com/';
@@ -58,7 +58,7 @@ class Google_Service_ShoppingContent extends Google_Service
     $this->version = 'v2';
     $this->serviceName = 'content';
 
-    $this->accounts = new Google_Service_ShoppingContent_Accounts_Resource(
+    $this->accounts = new Forminator_Google_Service_ShoppingContent_Accounts_Resource(
         $this,
         $this->serviceName,
         'accounts',
@@ -185,7 +185,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->accountshipping = new Google_Service_ShoppingContent_Accountshipping_Resource(
+    $this->accountshipping = new Forminator_Google_Service_ShoppingContent_Accountshipping_Resource(
         $this,
         $this->serviceName,
         'accountshipping',
@@ -275,7 +275,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->accountstatuses = new Google_Service_ShoppingContent_Accountstatuses_Resource(
+    $this->accountstatuses = new Forminator_Google_Service_ShoppingContent_Accountstatuses_Resource(
         $this,
         $this->serviceName,
         'accountstatuses',
@@ -322,7 +322,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->accounttax = new Google_Service_ShoppingContent_Accounttax_Resource(
+    $this->accounttax = new Forminator_Google_Service_ShoppingContent_Accounttax_Resource(
         $this,
         $this->serviceName,
         'accounttax',
@@ -412,7 +412,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->datafeeds = new Google_Service_ShoppingContent_Datafeeds_Resource(
+    $this->datafeeds = new Forminator_Google_Service_ShoppingContent_Datafeeds_Resource(
         $this,
         $this->serviceName,
         'datafeeds',
@@ -535,7 +535,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->datafeedstatuses = new Google_Service_ShoppingContent_Datafeedstatuses_Resource(
+    $this->datafeedstatuses = new Forminator_Google_Service_ShoppingContent_Datafeedstatuses_Resource(
         $this,
         $this->serviceName,
         'datafeedstatuses',
@@ -582,7 +582,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->inventory = new Google_Service_ShoppingContent_Inventory_Resource(
+    $this->inventory = new Forminator_Google_Service_ShoppingContent_Inventory_Resource(
         $this,
         $this->serviceName,
         'inventory',
@@ -625,7 +625,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->orders = new Google_Service_ShoppingContent_Orders_Resource(
+    $this->orders = new Forminator_Google_Service_ShoppingContent_Orders_Resource(
         $this,
         $this->serviceName,
         'orders',
@@ -868,7 +868,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->products = new Google_Service_ShoppingContent_Products_Resource(
+    $this->products = new Forminator_Google_Service_ShoppingContent_Products_Resource(
         $this,
         $this->serviceName,
         'products',
@@ -957,7 +957,7 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
-    $this->productstatuses = new Google_Service_ShoppingContent_Productstatuses_Resource(
+    $this->productstatuses = new Forminator_Google_Service_ShoppingContent_Productstatuses_Resource(
         $this,
         $this->serviceName,
         'productstatuses',
@@ -1016,41 +1016,41 @@ class Google_Service_ShoppingContent extends Google_Service
  * The "accounts" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $accounts = $contentService->accounts;
  *  </code>
  */
-class Google_Service_ShoppingContent_Accounts_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Accounts_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Returns information about the authenticated user. (accounts.authinfo)
    *
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_AccountsAuthInfoResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccountsAuthInfoResponse
    */
   public function authinfo($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('authinfo', array($params), "Google_Service_ShoppingContent_AccountsAuthInfoResponse");
+    return $this->call('authinfo', array($params), "Forminator_Google_Service_ShoppingContent_AccountsAuthInfoResponse");
   }
 
   /**
    * Retrieves, inserts, updates, and deletes multiple Merchant Center
    * (sub-)accounts in a single request. (accounts.custombatch)
    *
-   * @param Google_AccountsCustomBatchRequest $postBody
+   * @param Forminator_Google_AccountsCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_AccountsCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccountsCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_AccountsCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_AccountsCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_AccountsCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_AccountsCustomBatchResponse");
   }
 
   /**
@@ -1075,30 +1075,30 @@ class Google_Service_ShoppingContent_Accounts_Resource extends Google_Service_Re
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_Account
+   * @return Forminator_Google_Service_ShoppingContent_Account
    */
   public function get($merchantId, $accountId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_Account");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_Account");
   }
 
   /**
    * Creates a Merchant Center sub-account. (accounts.insert)
    *
    * @param string $merchantId The ID of the managing account.
-   * @param Google_Account $postBody
+   * @param Forminator_Google_Account $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_Account
+   * @return Forminator_Google_Service_ShoppingContent_Account
    */
-  public function insert($merchantId, Google_Service_ShoppingContent_Account $postBody, $optParams = array())
+  public function insert($merchantId, Forminator_Google_Service_ShoppingContent_Account $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_ShoppingContent_Account");
+    return $this->call('insert', array($params), "Forminator_Google_Service_ShoppingContent_Account");
   }
 
   /**
@@ -1111,13 +1111,13 @@ class Google_Service_ShoppingContent_Accounts_Resource extends Google_Service_Re
    * @opt_param string maxResults The maximum number of accounts to return in the
    * response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_AccountsListResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccountsListResponse
    */
   public function listAccounts($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_AccountsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_AccountsListResponse");
   }
 
   /**
@@ -1126,17 +1126,17 @@ class Google_Service_ShoppingContent_Accounts_Resource extends Google_Service_Re
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account.
-   * @param Google_Account $postBody
+   * @param Forminator_Google_Account $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_Account
+   * @return Forminator_Google_Service_ShoppingContent_Account
    */
-  public function patch($merchantId, $accountId, Google_Service_ShoppingContent_Account $postBody, $optParams = array())
+  public function patch($merchantId, $accountId, Forminator_Google_Service_ShoppingContent_Account $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_ShoppingContent_Account");
+    return $this->call('patch', array($params), "Forminator_Google_Service_ShoppingContent_Account");
   }
 
   /**
@@ -1144,17 +1144,17 @@ class Google_Service_ShoppingContent_Accounts_Resource extends Google_Service_Re
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account.
-   * @param Google_Account $postBody
+   * @param Forminator_Google_Account $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_Account
+   * @return Forminator_Google_Service_ShoppingContent_Account
    */
-  public function update($merchantId, $accountId, Google_Service_ShoppingContent_Account $postBody, $optParams = array())
+  public function update($merchantId, $accountId, Forminator_Google_Service_ShoppingContent_Account $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_ShoppingContent_Account");
+    return $this->call('update', array($params), "Forminator_Google_Service_ShoppingContent_Account");
   }
 }
 
@@ -1162,28 +1162,28 @@ class Google_Service_ShoppingContent_Accounts_Resource extends Google_Service_Re
  * The "accountshipping" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $accountshipping = $contentService->accountshipping;
  *  </code>
  */
-class Google_Service_ShoppingContent_Accountshipping_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Accountshipping_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Retrieves and updates the shipping settings of multiple accounts in a single
    * request. (accountshipping.custombatch)
    *
-   * @param Google_AccountshippingCustomBatchRequest $postBody
+   * @param Forminator_Google_AccountshippingCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_AccountshippingCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_AccountshippingCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_AccountshippingCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchResponse");
   }
 
   /**
@@ -1193,13 +1193,13 @@ class Google_Service_ShoppingContent_Accountshipping_Resource extends Google_Ser
    * @param string $accountId The ID of the account for which to get/update
    * account shipping settings.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_AccountShipping
+   * @return Forminator_Google_Service_ShoppingContent_AccountShipping
    */
   public function get($merchantId, $accountId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_AccountShipping");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_AccountShipping");
   }
 
   /**
@@ -1212,13 +1212,13 @@ class Google_Service_ShoppingContent_Accountshipping_Resource extends Google_Ser
    * @opt_param string maxResults The maximum number of shipping settings to
    * return in the response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_AccountshippingListResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccountshippingListResponse
    */
   public function listAccountshipping($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_AccountshippingListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_AccountshippingListResponse");
   }
 
   /**
@@ -1228,17 +1228,17 @@ class Google_Service_ShoppingContent_Accountshipping_Resource extends Google_Ser
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account for which to get/update
    * account shipping settings.
-   * @param Google_AccountShipping $postBody
+   * @param Forminator_Google_AccountShipping $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_AccountShipping
+   * @return Forminator_Google_Service_ShoppingContent_AccountShipping
    */
-  public function patch($merchantId, $accountId, Google_Service_ShoppingContent_AccountShipping $postBody, $optParams = array())
+  public function patch($merchantId, $accountId, Forminator_Google_Service_ShoppingContent_AccountShipping $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_ShoppingContent_AccountShipping");
+    return $this->call('patch', array($params), "Forminator_Google_Service_ShoppingContent_AccountShipping");
   }
 
   /**
@@ -1247,17 +1247,17 @@ class Google_Service_ShoppingContent_Accountshipping_Resource extends Google_Ser
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account for which to get/update
    * account shipping settings.
-   * @param Google_AccountShipping $postBody
+   * @param Forminator_Google_AccountShipping $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_AccountShipping
+   * @return Forminator_Google_Service_ShoppingContent_AccountShipping
    */
-  public function update($merchantId, $accountId, Google_Service_ShoppingContent_AccountShipping $postBody, $optParams = array())
+  public function update($merchantId, $accountId, Forminator_Google_Service_ShoppingContent_AccountShipping $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_ShoppingContent_AccountShipping");
+    return $this->call('update', array($params), "Forminator_Google_Service_ShoppingContent_AccountShipping");
   }
 }
 
@@ -1265,25 +1265,25 @@ class Google_Service_ShoppingContent_Accountshipping_Resource extends Google_Ser
  * The "accountstatuses" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $accountstatuses = $contentService->accountstatuses;
  *  </code>
  */
-class Google_Service_ShoppingContent_Accountstatuses_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Accountstatuses_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * (accountstatuses.custombatch)
    *
-   * @param Google_AccountstatusesCustomBatchRequest $postBody
+   * @param Forminator_Google_AccountstatusesCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_AccountstatusesCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_AccountstatusesCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_AccountstatusesCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchResponse");
   }
 
   /**
@@ -1292,13 +1292,13 @@ class Google_Service_ShoppingContent_Accountstatuses_Resource extends Google_Ser
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_AccountStatus
+   * @return Forminator_Google_Service_ShoppingContent_AccountStatus
    */
   public function get($merchantId, $accountId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_AccountStatus");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_AccountStatus");
   }
 
   /**
@@ -1311,13 +1311,13 @@ class Google_Service_ShoppingContent_Accountstatuses_Resource extends Google_Ser
    * @opt_param string maxResults The maximum number of account statuses to return
    * in the response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_AccountstatusesListResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccountstatusesListResponse
    */
   public function listAccountstatuses($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_AccountstatusesListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_AccountstatusesListResponse");
   }
 }
 
@@ -1325,28 +1325,28 @@ class Google_Service_ShoppingContent_Accountstatuses_Resource extends Google_Ser
  * The "accounttax" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $accounttax = $contentService->accounttax;
  *  </code>
  */
-class Google_Service_ShoppingContent_Accounttax_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Accounttax_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Retrieves and updates tax settings of multiple accounts in a single request.
    * (accounttax.custombatch)
    *
-   * @param Google_AccounttaxCustomBatchRequest $postBody
+   * @param Forminator_Google_AccounttaxCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_AccounttaxCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_AccounttaxCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_AccounttaxCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchResponse");
   }
 
   /**
@@ -1356,13 +1356,13 @@ class Google_Service_ShoppingContent_Accounttax_Resource extends Google_Service_
    * @param string $accountId The ID of the account for which to get/update
    * account tax settings.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_AccountTax
+   * @return Forminator_Google_Service_ShoppingContent_AccountTax
    */
   public function get($merchantId, $accountId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_AccountTax");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_AccountTax");
   }
 
   /**
@@ -1375,13 +1375,13 @@ class Google_Service_ShoppingContent_Accounttax_Resource extends Google_Service_
    * @opt_param string maxResults The maximum number of tax settings to return in
    * the response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_AccounttaxListResponse
+   * @return Forminator_Google_Service_ShoppingContent_AccounttaxListResponse
    */
   public function listAccounttax($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_AccounttaxListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_AccounttaxListResponse");
   }
 
   /**
@@ -1391,17 +1391,17 @@ class Google_Service_ShoppingContent_Accounttax_Resource extends Google_Service_
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account for which to get/update
    * account tax settings.
-   * @param Google_AccountTax $postBody
+   * @param Forminator_Google_AccountTax $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_AccountTax
+   * @return Forminator_Google_Service_ShoppingContent_AccountTax
    */
-  public function patch($merchantId, $accountId, Google_Service_ShoppingContent_AccountTax $postBody, $optParams = array())
+  public function patch($merchantId, $accountId, Forminator_Google_Service_ShoppingContent_AccountTax $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_ShoppingContent_AccountTax");
+    return $this->call('patch', array($params), "Forminator_Google_Service_ShoppingContent_AccountTax");
   }
 
   /**
@@ -1410,17 +1410,17 @@ class Google_Service_ShoppingContent_Accounttax_Resource extends Google_Service_
    * @param string $merchantId The ID of the managing account.
    * @param string $accountId The ID of the account for which to get/update
    * account tax settings.
-   * @param Google_AccountTax $postBody
+   * @param Forminator_Google_AccountTax $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_AccountTax
+   * @return Forminator_Google_Service_ShoppingContent_AccountTax
    */
-  public function update($merchantId, $accountId, Google_Service_ShoppingContent_AccountTax $postBody, $optParams = array())
+  public function update($merchantId, $accountId, Forminator_Google_Service_ShoppingContent_AccountTax $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'accountId' => $accountId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_ShoppingContent_AccountTax");
+    return $this->call('update', array($params), "Forminator_Google_Service_ShoppingContent_AccountTax");
   }
 }
 
@@ -1428,27 +1428,27 @@ class Google_Service_ShoppingContent_Accounttax_Resource extends Google_Service_
  * The "datafeeds" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $datafeeds = $contentService->datafeeds;
  *  </code>
  */
-class Google_Service_ShoppingContent_Datafeeds_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Datafeeds_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * (datafeeds.custombatch)
    *
-   * @param Google_DatafeedsCustomBatchRequest $postBody
+   * @param Forminator_Google_DatafeedsCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_DatafeedsCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_DatafeedsCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_DatafeedsCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchResponse");
   }
 
   /**
@@ -1473,30 +1473,30 @@ class Google_Service_ShoppingContent_Datafeeds_Resource extends Google_Service_R
    * @param string $merchantId
    * @param string $datafeedId
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_Datafeed
+   * @return Forminator_Google_Service_ShoppingContent_Datafeed
    */
   public function get($merchantId, $datafeedId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'datafeedId' => $datafeedId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_Datafeed");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_Datafeed");
   }
 
   /**
    * Registers a datafeed with your Merchant Center account. (datafeeds.insert)
    *
    * @param string $merchantId
-   * @param Google_Datafeed $postBody
+   * @param Forminator_Google_Datafeed $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_Datafeed
+   * @return Forminator_Google_Service_ShoppingContent_Datafeed
    */
-  public function insert($merchantId, Google_Service_ShoppingContent_Datafeed $postBody, $optParams = array())
+  public function insert($merchantId, Forminator_Google_Service_ShoppingContent_Datafeed $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_ShoppingContent_Datafeed");
+    return $this->call('insert', array($params), "Forminator_Google_Service_ShoppingContent_Datafeed");
   }
 
   /**
@@ -1509,13 +1509,13 @@ class Google_Service_ShoppingContent_Datafeeds_Resource extends Google_Service_R
    * @opt_param string maxResults The maximum number of products to return in the
    * response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_DatafeedsListResponse
+   * @return Forminator_Google_Service_ShoppingContent_DatafeedsListResponse
    */
   public function listDatafeeds($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_DatafeedsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_DatafeedsListResponse");
   }
 
   /**
@@ -1524,17 +1524,17 @@ class Google_Service_ShoppingContent_Datafeeds_Resource extends Google_Service_R
    *
    * @param string $merchantId
    * @param string $datafeedId
-   * @param Google_Datafeed $postBody
+   * @param Forminator_Google_Datafeed $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_Datafeed
+   * @return Forminator_Google_Service_ShoppingContent_Datafeed
    */
-  public function patch($merchantId, $datafeedId, Google_Service_ShoppingContent_Datafeed $postBody, $optParams = array())
+  public function patch($merchantId, $datafeedId, Forminator_Google_Service_ShoppingContent_Datafeed $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'datafeedId' => $datafeedId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_ShoppingContent_Datafeed");
+    return $this->call('patch', array($params), "Forminator_Google_Service_ShoppingContent_Datafeed");
   }
 
   /**
@@ -1542,17 +1542,17 @@ class Google_Service_ShoppingContent_Datafeeds_Resource extends Google_Service_R
    *
    * @param string $merchantId
    * @param string $datafeedId
-   * @param Google_Datafeed $postBody
+   * @param Forminator_Google_Datafeed $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_Datafeed
+   * @return Forminator_Google_Service_ShoppingContent_Datafeed
    */
-  public function update($merchantId, $datafeedId, Google_Service_ShoppingContent_Datafeed $postBody, $optParams = array())
+  public function update($merchantId, $datafeedId, Forminator_Google_Service_ShoppingContent_Datafeed $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'datafeedId' => $datafeedId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_ShoppingContent_Datafeed");
+    return $this->call('update', array($params), "Forminator_Google_Service_ShoppingContent_Datafeed");
   }
 }
 
@@ -1560,25 +1560,25 @@ class Google_Service_ShoppingContent_Datafeeds_Resource extends Google_Service_R
  * The "datafeedstatuses" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $datafeedstatuses = $contentService->datafeedstatuses;
  *  </code>
  */
-class Google_Service_ShoppingContent_Datafeedstatuses_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Datafeedstatuses_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * (datafeedstatuses.custombatch)
    *
-   * @param Google_DatafeedstatusesCustomBatchRequest $postBody
+   * @param Forminator_Google_DatafeedstatusesCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponse");
   }
 
   /**
@@ -1588,13 +1588,13 @@ class Google_Service_ShoppingContent_Datafeedstatuses_Resource extends Google_Se
    * @param string $merchantId
    * @param string $datafeedId
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_DatafeedStatus
+   * @return Forminator_Google_Service_ShoppingContent_DatafeedStatus
    */
   public function get($merchantId, $datafeedId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'datafeedId' => $datafeedId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_DatafeedStatus");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_DatafeedStatus");
   }
 
   /**
@@ -1607,13 +1607,13 @@ class Google_Service_ShoppingContent_Datafeedstatuses_Resource extends Google_Se
    * @opt_param string maxResults The maximum number of products to return in the
    * response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_DatafeedstatusesListResponse
+   * @return Forminator_Google_Service_ShoppingContent_DatafeedstatusesListResponse
    */
   public function listDatafeedstatuses($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_DatafeedstatusesListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_DatafeedstatusesListResponse");
   }
 }
 
@@ -1621,11 +1621,11 @@ class Google_Service_ShoppingContent_Datafeedstatuses_Resource extends Google_Se
  * The "inventory" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $inventory = $contentService->inventory;
  *  </code>
  */
-class Google_Service_ShoppingContent_Inventory_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Inventory_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1633,17 +1633,17 @@ class Google_Service_ShoppingContent_Inventory_Resource extends Google_Service_R
    * request. This operation does not update the expiration date of the products.
    * (inventory.custombatch)
    *
-   * @param Google_InventoryCustomBatchRequest $postBody
+   * @param Forminator_Google_InventoryCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_InventoryCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_InventoryCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_InventoryCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_InventoryCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_InventoryCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_InventoryCustomBatchResponse");
   }
 
   /**
@@ -1657,17 +1657,17 @@ class Google_Service_ShoppingContent_Inventory_Resource extends Google_Service_R
    * product.
    * @param string $productId The ID of the product for which to update price and
    * availability.
-   * @param Google_InventorySetRequest $postBody
+   * @param Forminator_Google_InventorySetRequest $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_InventorySetResponse
+   * @return Forminator_Google_Service_ShoppingContent_InventorySetResponse
    */
-  public function set($merchantId, $storeCode, $productId, Google_Service_ShoppingContent_InventorySetRequest $postBody, $optParams = array())
+  public function set($merchantId, $storeCode, $productId, Forminator_Google_Service_ShoppingContent_InventorySetRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'storeCode' => $storeCode, 'productId' => $productId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('set', array($params), "Google_Service_ShoppingContent_InventorySetResponse");
+    return $this->call('set', array($params), "Forminator_Google_Service_ShoppingContent_InventorySetResponse");
   }
 }
 
@@ -1675,11 +1675,11 @@ class Google_Service_ShoppingContent_Inventory_Resource extends Google_Service_R
  * The "orders" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $orders = $contentService->orders;
  *  </code>
  */
-class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Orders_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1687,15 +1687,15 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order.
-   * @param Google_OrdersAcknowledgeRequest $postBody
+   * @param Forminator_Google_OrdersAcknowledgeRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersAcknowledgeResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersAcknowledgeResponse
    */
-  public function acknowledge($merchantId, $orderId, Google_Service_ShoppingContent_OrdersAcknowledgeRequest $postBody, $optParams = array())
+  public function acknowledge($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersAcknowledgeRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('acknowledge', array($params), "Google_Service_ShoppingContent_OrdersAcknowledgeResponse");
+    return $this->call('acknowledge', array($params), "Forminator_Google_Service_ShoppingContent_OrdersAcknowledgeResponse");
   }
 
   /**
@@ -1705,13 +1705,13 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the test order to modify.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersAdvanceTestOrderResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersAdvanceTestOrderResponse
    */
   public function advancetestorder($merchantId, $orderId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId);
     $params = array_merge($params, $optParams);
-    return $this->call('advancetestorder', array($params), "Google_Service_ShoppingContent_OrdersAdvanceTestOrderResponse");
+    return $this->call('advancetestorder', array($params), "Forminator_Google_Service_ShoppingContent_OrdersAdvanceTestOrderResponse");
   }
 
   /**
@@ -1719,15 +1719,15 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order to cancel.
-   * @param Google_OrdersCancelRequest $postBody
+   * @param Forminator_Google_OrdersCancelRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersCancelResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersCancelResponse
    */
-  public function cancel($merchantId, $orderId, Google_Service_ShoppingContent_OrdersCancelRequest $postBody, $optParams = array())
+  public function cancel($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersCancelRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('cancel', array($params), "Google_Service_ShoppingContent_OrdersCancelResponse");
+    return $this->call('cancel', array($params), "Forminator_Google_Service_ShoppingContent_OrdersCancelResponse");
   }
 
   /**
@@ -1735,45 +1735,45 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order.
-   * @param Google_OrdersCancelLineItemRequest $postBody
+   * @param Forminator_Google_OrdersCancelLineItemRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersCancelLineItemResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersCancelLineItemResponse
    */
-  public function cancellineitem($merchantId, $orderId, Google_Service_ShoppingContent_OrdersCancelLineItemRequest $postBody, $optParams = array())
+  public function cancellineitem($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersCancelLineItemRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('cancellineitem', array($params), "Google_Service_ShoppingContent_OrdersCancelLineItemResponse");
+    return $this->call('cancellineitem', array($params), "Forminator_Google_Service_ShoppingContent_OrdersCancelLineItemResponse");
   }
 
   /**
    * Sandbox only. Creates a test order. (orders.createtestorder)
    *
    * @param string $merchantId The ID of the managing account.
-   * @param Google_OrdersCreateTestOrderRequest $postBody
+   * @param Forminator_Google_OrdersCreateTestOrderRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersCreateTestOrderResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersCreateTestOrderResponse
    */
-  public function createtestorder($merchantId, Google_Service_ShoppingContent_OrdersCreateTestOrderRequest $postBody, $optParams = array())
+  public function createtestorder($merchantId, Forminator_Google_Service_ShoppingContent_OrdersCreateTestOrderRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('createtestorder', array($params), "Google_Service_ShoppingContent_OrdersCreateTestOrderResponse");
+    return $this->call('createtestorder', array($params), "Forminator_Google_Service_ShoppingContent_OrdersCreateTestOrderResponse");
   }
 
   /**
    * Retrieves or modifies multiple orders in a single request.
    * (orders.custombatch)
    *
-   * @param Google_OrdersCustomBatchRequest $postBody
+   * @param Forminator_Google_OrdersCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_OrdersCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_OrdersCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_OrdersCustomBatchResponse");
   }
 
   /**
@@ -1782,13 +1782,13 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_Order
+   * @return Forminator_Google_Service_ShoppingContent_Order
    */
   public function get($merchantId, $orderId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_Order");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_Order");
   }
 
   /**
@@ -1797,13 +1797,13 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    * @param string $merchantId The ID of the managing account.
    * @param string $merchantOrderId The merchant order id to be looked for.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse
    */
   public function getbymerchantorderid($merchantId, $merchantOrderId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'merchantOrderId' => $merchantOrderId);
     $params = array_merge($params, $optParams);
-    return $this->call('getbymerchantorderid', array($params), "Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse");
+    return $this->call('getbymerchantorderid', array($params), "Forminator_Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse");
   }
 
   /**
@@ -1813,13 +1813,13 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    * @param string $merchantId The ID of the managing account.
    * @param string $templateName The name of the template to retrieve.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse
    */
   public function gettestordertemplate($merchantId, $templateName, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'templateName' => $templateName);
     $params = array_merge($params, $optParams);
-    return $this->call('gettestordertemplate', array($params), "Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse");
+    return $this->call('gettestordertemplate', array($params), "Forminator_Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse");
   }
 
   /**
@@ -1853,13 +1853,13 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    * Additionally, please note that active is a shortcut for pendingShipment and
    * partiallyShipped, and completed is a shortcut for shipped ,
    * partiallyDelivered, delivered, partiallyReturned, returned, and canceled.
-   * @return Google_Service_ShoppingContent_OrdersListResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersListResponse
    */
   public function listOrders($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_OrdersListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_OrdersListResponse");
   }
 
   /**
@@ -1867,15 +1867,15 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order to refund.
-   * @param Google_OrdersRefundRequest $postBody
+   * @param Forminator_Google_OrdersRefundRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersRefundResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersRefundResponse
    */
-  public function refund($merchantId, $orderId, Google_Service_ShoppingContent_OrdersRefundRequest $postBody, $optParams = array())
+  public function refund($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersRefundRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('refund', array($params), "Google_Service_ShoppingContent_OrdersRefundResponse");
+    return $this->call('refund', array($params), "Forminator_Google_Service_ShoppingContent_OrdersRefundResponse");
   }
 
   /**
@@ -1883,15 +1883,15 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order.
-   * @param Google_OrdersReturnLineItemRequest $postBody
+   * @param Forminator_Google_OrdersReturnLineItemRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersReturnLineItemResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersReturnLineItemResponse
    */
-  public function returnlineitem($merchantId, $orderId, Google_Service_ShoppingContent_OrdersReturnLineItemRequest $postBody, $optParams = array())
+  public function returnlineitem($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersReturnLineItemRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('returnlineitem', array($params), "Google_Service_ShoppingContent_OrdersReturnLineItemResponse");
+    return $this->call('returnlineitem', array($params), "Forminator_Google_Service_ShoppingContent_OrdersReturnLineItemResponse");
   }
 
   /**
@@ -1899,15 +1899,15 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order.
-   * @param Google_OrdersShipLineItemsRequest $postBody
+   * @param Forminator_Google_OrdersShipLineItemsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersShipLineItemsResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersShipLineItemsResponse
    */
-  public function shiplineitems($merchantId, $orderId, Google_Service_ShoppingContent_OrdersShipLineItemsRequest $postBody, $optParams = array())
+  public function shiplineitems($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersShipLineItemsRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('shiplineitems', array($params), "Google_Service_ShoppingContent_OrdersShipLineItemsResponse");
+    return $this->call('shiplineitems', array($params), "Forminator_Google_Service_ShoppingContent_OrdersShipLineItemsResponse");
   }
 
   /**
@@ -1916,15 +1916,15 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order.
-   * @param Google_OrdersUpdateMerchantOrderIdRequest $postBody
+   * @param Forminator_Google_OrdersUpdateMerchantOrderIdRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdResponse
    */
-  public function updatemerchantorderid($merchantId, $orderId, Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdRequest $postBody, $optParams = array())
+  public function updatemerchantorderid($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('updatemerchantorderid', array($params), "Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdResponse");
+    return $this->call('updatemerchantorderid', array($params), "Forminator_Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdResponse");
   }
 
   /**
@@ -1933,15 +1933,15 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
    *
    * @param string $merchantId The ID of the managing account.
    * @param string $orderId The ID of the order.
-   * @param Google_OrdersUpdateShipmentRequest $postBody
+   * @param Forminator_Google_OrdersUpdateShipmentRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersUpdateShipmentResponse
+   * @return Forminator_Google_Service_ShoppingContent_OrdersUpdateShipmentResponse
    */
-  public function updateshipment($merchantId, $orderId, Google_Service_ShoppingContent_OrdersUpdateShipmentRequest $postBody, $optParams = array())
+  public function updateshipment($merchantId, $orderId, Forminator_Google_Service_ShoppingContent_OrdersUpdateShipmentRequest $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('updateshipment', array($params), "Google_Service_ShoppingContent_OrdersUpdateShipmentResponse");
+    return $this->call('updateshipment', array($params), "Forminator_Google_Service_ShoppingContent_OrdersUpdateShipmentResponse");
   }
 }
 
@@ -1949,28 +1949,28 @@ class Google_Service_ShoppingContent_Orders_Resource extends Google_Service_Reso
  * The "products" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $products = $contentService->products;
  *  </code>
  */
-class Google_Service_ShoppingContent_Products_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Products_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Retrieves, inserts, and deletes multiple products in a single request.
    * (products.custombatch)
    *
-   * @param Google_ProductsCustomBatchRequest $postBody
+   * @param Forminator_Google_ProductsCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_ProductsCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_ProductsCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_ProductsCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_ProductsCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_ProductsCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_ProductsCustomBatchResponse");
   }
 
   /**
@@ -1995,30 +1995,30 @@ class Google_Service_ShoppingContent_Products_Resource extends Google_Service_Re
    * @param string $merchantId The ID of the managing account.
    * @param string $productId The ID of the product.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_Product
+   * @return Forminator_Google_Service_ShoppingContent_Product
    */
   public function get($merchantId, $productId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'productId' => $productId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_Product");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_Product");
   }
 
   /**
    * Uploads a product to your Merchant Center account. (products.insert)
    *
    * @param string $merchantId The ID of the managing account.
-   * @param Google_Product $postBody
+   * @param Forminator_Google_Product $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool dryRun Flag to run the request in dry-run mode.
-   * @return Google_Service_ShoppingContent_Product
+   * @return Forminator_Google_Service_ShoppingContent_Product
    */
-  public function insert($merchantId, Google_Service_ShoppingContent_Product $postBody, $optParams = array())
+  public function insert($merchantId, Forminator_Google_Service_ShoppingContent_Product $postBody, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_ShoppingContent_Product");
+    return $this->call('insert', array($params), "Forminator_Google_Service_ShoppingContent_Product");
   }
 
   /**
@@ -2033,13 +2033,13 @@ class Google_Service_ShoppingContent_Products_Resource extends Google_Service_Re
    * @opt_param string maxResults The maximum number of products to return in the
    * response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_ProductsListResponse
+   * @return Forminator_Google_Service_ShoppingContent_ProductsListResponse
    */
   public function listProducts($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_ProductsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_ProductsListResponse");
   }
 }
 
@@ -2047,26 +2047,26 @@ class Google_Service_ShoppingContent_Products_Resource extends Google_Service_Re
  * The "productstatuses" collection of methods.
  * Typical usage is:
  *  <code>
- *   $contentService = new Google_Service_ShoppingContent(...);
+ *   $contentService = new Forminator_Google_Service_ShoppingContent(...);
  *   $productstatuses = $contentService->productstatuses;
  *  </code>
  */
-class Google_Service_ShoppingContent_Productstatuses_Resource extends Google_Service_Resource
+class Forminator_Google_Service_ShoppingContent_Productstatuses_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Gets the statuses of multiple products in a single request.
    * (productstatuses.custombatch)
    *
-   * @param Google_ProductstatusesCustomBatchRequest $postBody
+   * @param Forminator_Google_ProductstatusesCustomBatchRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_ProductstatusesCustomBatchResponse
+   * @return Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_ProductstatusesCustomBatchRequest $postBody, $optParams = array())
+  public function custombatch(Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_ProductstatusesCustomBatchResponse");
+    return $this->call('custombatch', array($params), "Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchResponse");
   }
 
   /**
@@ -2076,13 +2076,13 @@ class Google_Service_ShoppingContent_Productstatuses_Resource extends Google_Ser
    * @param string $merchantId The ID of the managing account.
    * @param string $productId The ID of the product.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_ProductStatus
+   * @return Forminator_Google_Service_ShoppingContent_ProductStatus
    */
   public function get($merchantId, $productId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId, 'productId' => $productId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_ShoppingContent_ProductStatus");
+    return $this->call('get', array($params), "Forminator_Google_Service_ShoppingContent_ProductStatus");
   }
 
   /**
@@ -2098,33 +2098,33 @@ class Google_Service_ShoppingContent_Productstatuses_Resource extends Google_Ser
    * @opt_param string maxResults The maximum number of product statuses to return
    * in the response, used for paging.
    * @opt_param string pageToken The token returned by the previous request.
-   * @return Google_Service_ShoppingContent_ProductstatusesListResponse
+   * @return Forminator_Google_Service_ShoppingContent_ProductstatusesListResponse
    */
   public function listProductstatuses($merchantId, $optParams = array())
   {
     $params = array('merchantId' => $merchantId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_ShoppingContent_ProductstatusesListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_ShoppingContent_ProductstatusesListResponse");
   }
 }
 
 
 
 
-class Google_Service_ShoppingContent_Account extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_Account extends Forminator_Google_Collection
 {
   protected $collection_key = 'users';
   protected $internal_gapi_mappings = array(
   );
   public $adultContent;
-  protected $adwordsLinksType = 'Google_Service_ShoppingContent_AccountAdwordsLink';
+  protected $adwordsLinksType = 'Forminator_Google_Service_ShoppingContent_AccountAdwordsLink';
   protected $adwordsLinksDataType = 'array';
   public $id;
   public $kind;
   public $name;
   public $reviewsUrl;
   public $sellerId;
-  protected $usersType = 'Google_Service_ShoppingContent_AccountUser';
+  protected $usersType = 'Forminator_Google_Service_ShoppingContent_AccountUser';
   protected $usersDataType = 'array';
   public $websiteUrl;
 
@@ -2203,7 +2203,7 @@ class Google_Service_ShoppingContent_Account extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_AccountAdwordsLink extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountAdwordsLink extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2229,7 +2229,7 @@ class Google_Service_ShoppingContent_AccountAdwordsLink extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_AccountIdentifier extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountIdentifier extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2255,20 +2255,20 @@ class Google_Service_ShoppingContent_AccountIdentifier extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_AccountShipping extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountShipping extends Forminator_Google_Collection
 {
   protected $collection_key = 'services';
   protected $internal_gapi_mappings = array(
   );
   public $accountId;
-  protected $carrierRatesType = 'Google_Service_ShoppingContent_AccountShippingCarrierRate';
+  protected $carrierRatesType = 'Forminator_Google_Service_ShoppingContent_AccountShippingCarrierRate';
   protected $carrierRatesDataType = 'array';
   public $kind;
-  protected $locationGroupsType = 'Google_Service_ShoppingContent_AccountShippingLocationGroup';
+  protected $locationGroupsType = 'Forminator_Google_Service_ShoppingContent_AccountShippingLocationGroup';
   protected $locationGroupsDataType = 'array';
-  protected $rateTablesType = 'Google_Service_ShoppingContent_AccountShippingRateTable';
+  protected $rateTablesType = 'Forminator_Google_Service_ShoppingContent_AccountShippingRateTable';
   protected $rateTablesDataType = 'array';
-  protected $servicesType = 'Google_Service_ShoppingContent_AccountShippingShippingService';
+  protected $servicesType = 'Forminator_Google_Service_ShoppingContent_AccountShippingShippingService';
   protected $servicesDataType = 'array';
 
 
@@ -2322,13 +2322,13 @@ class Google_Service_ShoppingContent_AccountShipping extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingCarrierRate extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountShippingCarrierRate extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $carrier;
   public $carrierService;
-  protected $modifierFlatRateType = 'Google_Service_ShoppingContent_Price';
+  protected $modifierFlatRateType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $modifierFlatRateDataType = '';
   public $modifierPercent;
   public $name;
@@ -2352,7 +2352,7 @@ class Google_Service_ShoppingContent_AccountShippingCarrierRate extends Google_M
   {
     return $this->carrierService;
   }
-  public function setModifierFlatRate(Google_Service_ShoppingContent_Price $modifierFlatRate)
+  public function setModifierFlatRate(Forminator_Google_Service_ShoppingContent_Price $modifierFlatRate)
   {
     $this->modifierFlatRate = $modifierFlatRate;
   }
@@ -2394,19 +2394,19 @@ class Google_Service_ShoppingContent_AccountShippingCarrierRate extends Google_M
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingCondition extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountShippingCondition extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $deliveryLocationGroup;
   public $deliveryLocationId;
   public $deliveryPostalCode;
-  protected $deliveryPostalCodeRangeType = 'Google_Service_ShoppingContent_AccountShippingPostalCodeRange';
+  protected $deliveryPostalCodeRangeType = 'Forminator_Google_Service_ShoppingContent_AccountShippingPostalCodeRange';
   protected $deliveryPostalCodeRangeDataType = '';
-  protected $priceMaxType = 'Google_Service_ShoppingContent_Price';
+  protected $priceMaxType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceMaxDataType = '';
   public $shippingLabel;
-  protected $weightMaxType = 'Google_Service_ShoppingContent_Weight';
+  protected $weightMaxType = 'Forminator_Google_Service_ShoppingContent_Weight';
   protected $weightMaxDataType = '';
 
 
@@ -2434,7 +2434,7 @@ class Google_Service_ShoppingContent_AccountShippingCondition extends Google_Mod
   {
     return $this->deliveryPostalCode;
   }
-  public function setDeliveryPostalCodeRange(Google_Service_ShoppingContent_AccountShippingPostalCodeRange $deliveryPostalCodeRange)
+  public function setDeliveryPostalCodeRange(Forminator_Google_Service_ShoppingContent_AccountShippingPostalCodeRange $deliveryPostalCodeRange)
   {
     $this->deliveryPostalCodeRange = $deliveryPostalCodeRange;
   }
@@ -2442,7 +2442,7 @@ class Google_Service_ShoppingContent_AccountShippingCondition extends Google_Mod
   {
     return $this->deliveryPostalCodeRange;
   }
-  public function setPriceMax(Google_Service_ShoppingContent_Price $priceMax)
+  public function setPriceMax(Forminator_Google_Service_ShoppingContent_Price $priceMax)
   {
     $this->priceMax = $priceMax;
   }
@@ -2458,7 +2458,7 @@ class Google_Service_ShoppingContent_AccountShippingCondition extends Google_Mod
   {
     return $this->shippingLabel;
   }
-  public function setWeightMax(Google_Service_ShoppingContent_Weight $weightMax)
+  public function setWeightMax(Forminator_Google_Service_ShoppingContent_Weight $weightMax)
   {
     $this->weightMax = $weightMax;
   }
@@ -2468,7 +2468,7 @@ class Google_Service_ShoppingContent_AccountShippingCondition extends Google_Mod
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingLocationGroup extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountShippingLocationGroup extends Forminator_Google_Collection
 {
   protected $collection_key = 'postalCodes';
   protected $internal_gapi_mappings = array(
@@ -2476,7 +2476,7 @@ class Google_Service_ShoppingContent_AccountShippingLocationGroup extends Google
   public $country;
   public $locationIds;
   public $name;
-  protected $postalCodeRangesType = 'Google_Service_ShoppingContent_AccountShippingPostalCodeRange';
+  protected $postalCodeRangesType = 'Forminator_Google_Service_ShoppingContent_AccountShippingPostalCodeRange';
   protected $postalCodeRangesDataType = 'array';
   public $postalCodes;
 
@@ -2523,7 +2523,7 @@ class Google_Service_ShoppingContent_AccountShippingLocationGroup extends Google
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingPostalCodeRange extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountShippingPostalCodeRange extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2549,12 +2549,12 @@ class Google_Service_ShoppingContent_AccountShippingPostalCodeRange extends Goog
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingRateTable extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountShippingRateTable extends Forminator_Google_Collection
 {
   protected $collection_key = 'content';
   protected $internal_gapi_mappings = array(
   );
-  protected $contentType = 'Google_Service_ShoppingContent_AccountShippingRateTableCell';
+  protected $contentType = 'Forminator_Google_Service_ShoppingContent_AccountShippingRateTableCell';
   protected $contentDataType = 'array';
   public $name;
   public $saleCountry;
@@ -2586,17 +2586,17 @@ class Google_Service_ShoppingContent_AccountShippingRateTable extends Google_Col
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingRateTableCell extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountShippingRateTableCell extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $conditionType = 'Google_Service_ShoppingContent_AccountShippingCondition';
+  protected $conditionType = 'Forminator_Google_Service_ShoppingContent_AccountShippingCondition';
   protected $conditionDataType = '';
-  protected $rateType = 'Google_Service_ShoppingContent_Price';
+  protected $rateType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $rateDataType = '';
 
 
-  public function setCondition(Google_Service_ShoppingContent_AccountShippingCondition $condition)
+  public function setCondition(Forminator_Google_Service_ShoppingContent_AccountShippingCondition $condition)
   {
     $this->condition = $condition;
   }
@@ -2604,7 +2604,7 @@ class Google_Service_ShoppingContent_AccountShippingRateTableCell extends Google
   {
     return $this->condition;
   }
-  public function setRate(Google_Service_ShoppingContent_Price $rate)
+  public function setRate(Forminator_Google_Service_ShoppingContent_Price $rate)
   {
     $this->rate = $rate;
   }
@@ -2614,14 +2614,14 @@ class Google_Service_ShoppingContent_AccountShippingRateTableCell extends Google
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingShippingService extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountShippingShippingService extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $active;
-  protected $calculationMethodType = 'Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod';
+  protected $calculationMethodType = 'Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod';
   protected $calculationMethodDataType = '';
-  protected $costRuleTreeType = 'Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule';
+  protected $costRuleTreeType = 'Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule';
   protected $costRuleTreeDataType = '';
   public $name;
   public $saleCountry;
@@ -2635,7 +2635,7 @@ class Google_Service_ShoppingContent_AccountShippingShippingService extends Goog
   {
     return $this->active;
   }
-  public function setCalculationMethod(Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod $calculationMethod)
+  public function setCalculationMethod(Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod $calculationMethod)
   {
     $this->calculationMethod = $calculationMethod;
   }
@@ -2643,7 +2643,7 @@ class Google_Service_ShoppingContent_AccountShippingShippingService extends Goog
   {
     return $this->calculationMethod;
   }
-  public function setCostRuleTree(Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule $costRuleTree)
+  public function setCostRuleTree(Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule $costRuleTree)
   {
     $this->costRuleTree = $costRuleTree;
   }
@@ -2669,13 +2669,13 @@ class Google_Service_ShoppingContent_AccountShippingShippingService extends Goog
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $carrierRate;
   public $excluded;
-  protected $flatRateType = 'Google_Service_ShoppingContent_Price';
+  protected $flatRateType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $flatRateDataType = '';
   public $percentageRate;
   public $rateTable;
@@ -2697,7 +2697,7 @@ class Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMe
   {
     return $this->excluded;
   }
-  public function setFlatRate(Google_Service_ShoppingContent_Price $flatRate)
+  public function setFlatRate(Forminator_Google_Service_ShoppingContent_Price $flatRate)
   {
     $this->flatRate = $flatRate;
   }
@@ -2723,20 +2723,20 @@ class Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMe
   }
 }
 
-class Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule extends Forminator_Google_Collection
 {
   protected $collection_key = 'children';
   protected $internal_gapi_mappings = array(
   );
-  protected $calculationMethodType = 'Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod';
+  protected $calculationMethodType = 'Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod';
   protected $calculationMethodDataType = '';
-  protected $childrenType = 'Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule';
+  protected $childrenType = 'Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule';
   protected $childrenDataType = 'array';
-  protected $conditionType = 'Google_Service_ShoppingContent_AccountShippingCondition';
+  protected $conditionType = 'Forminator_Google_Service_ShoppingContent_AccountShippingCondition';
   protected $conditionDataType = '';
 
 
-  public function setCalculationMethod(Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod $calculationMethod)
+  public function setCalculationMethod(Forminator_Google_Service_ShoppingContent_AccountShippingShippingServiceCalculationMethod $calculationMethod)
   {
     $this->calculationMethod = $calculationMethod;
   }
@@ -2752,7 +2752,7 @@ class Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule exte
   {
     return $this->children;
   }
-  public function setCondition(Google_Service_ShoppingContent_AccountShippingCondition $condition)
+  public function setCondition(Forminator_Google_Service_ShoppingContent_AccountShippingCondition $condition)
   {
     $this->condition = $condition;
   }
@@ -2762,13 +2762,13 @@ class Google_Service_ShoppingContent_AccountShippingShippingServiceCostRule exte
   }
 }
 
-class Google_Service_ShoppingContent_AccountStatus extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountStatus extends Forminator_Google_Collection
 {
   protected $collection_key = 'dataQualityIssues';
   protected $internal_gapi_mappings = array(
   );
   public $accountId;
-  protected $dataQualityIssuesType = 'Google_Service_ShoppingContent_AccountStatusDataQualityIssue';
+  protected $dataQualityIssuesType = 'Forminator_Google_Service_ShoppingContent_AccountStatusDataQualityIssue';
   protected $dataQualityIssuesDataType = 'array';
   public $kind;
 
@@ -2799,14 +2799,14 @@ class Google_Service_ShoppingContent_AccountStatus extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_AccountStatusDataQualityIssue extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountStatusDataQualityIssue extends Forminator_Google_Collection
 {
   protected $collection_key = 'exampleItems';
   protected $internal_gapi_mappings = array(
   );
   public $country;
   public $displayedValue;
-  protected $exampleItemsType = 'Google_Service_ShoppingContent_AccountStatusExampleItem';
+  protected $exampleItemsType = 'Forminator_Google_Service_ShoppingContent_AccountStatusExampleItem';
   protected $exampleItemsDataType = 'array';
   public $id;
   public $lastChecked;
@@ -2881,7 +2881,7 @@ class Google_Service_ShoppingContent_AccountStatusDataQualityIssue extends Googl
   }
 }
 
-class Google_Service_ShoppingContent_AccountStatusExampleItem extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountStatusExampleItem extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2934,14 +2934,14 @@ class Google_Service_ShoppingContent_AccountStatusExampleItem extends Google_Mod
   }
 }
 
-class Google_Service_ShoppingContent_AccountTax extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountTax extends Forminator_Google_Collection
 {
   protected $collection_key = 'rules';
   protected $internal_gapi_mappings = array(
   );
   public $accountId;
   public $kind;
-  protected $rulesType = 'Google_Service_ShoppingContent_AccountTaxTaxRule';
+  protected $rulesType = 'Forminator_Google_Service_ShoppingContent_AccountTaxTaxRule';
   protected $rulesDataType = 'array';
 
 
@@ -2971,7 +2971,7 @@ class Google_Service_ShoppingContent_AccountTax extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_AccountTaxTaxRule extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountTaxTaxRule extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3024,7 +3024,7 @@ class Google_Service_ShoppingContent_AccountTaxTaxRule extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_AccountUser extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountUser extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3050,12 +3050,12 @@ class Google_Service_ShoppingContent_AccountUser extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_AccountsAuthInfoResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountsAuthInfoResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'accountIdentifiers';
   protected $internal_gapi_mappings = array(
   );
-  protected $accountIdentifiersType = 'Google_Service_ShoppingContent_AccountIdentifier';
+  protected $accountIdentifiersType = 'Forminator_Google_Service_ShoppingContent_AccountIdentifier';
   protected $accountIdentifiersDataType = 'array';
   public $kind;
 
@@ -3078,12 +3078,12 @@ class Google_Service_ShoppingContent_AccountsAuthInfoResponse extends Google_Col
   }
 }
 
-class Google_Service_ShoppingContent_AccountsCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountsCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccountsCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccountsCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -3097,11 +3097,11 @@ class Google_Service_ShoppingContent_AccountsCustomBatchRequest extends Google_C
   }
 }
 
-class Google_Service_ShoppingContent_AccountsCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountsCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $accountType = 'Google_Service_ShoppingContent_Account';
+  protected $accountType = 'Forminator_Google_Service_ShoppingContent_Account';
   protected $accountDataType = '';
   public $accountId;
   public $batchId;
@@ -3109,7 +3109,7 @@ class Google_Service_ShoppingContent_AccountsCustomBatchRequestEntry extends Goo
   public $method;
 
 
-  public function setAccount(Google_Service_ShoppingContent_Account $account)
+  public function setAccount(Forminator_Google_Service_ShoppingContent_Account $account)
   {
     $this->account = $account;
   }
@@ -3151,12 +3151,12 @@ class Google_Service_ShoppingContent_AccountsCustomBatchRequestEntry extends Goo
   }
 }
 
-class Google_Service_ShoppingContent_AccountsCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountsCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccountsCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccountsCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -3179,19 +3179,19 @@ class Google_Service_ShoppingContent_AccountsCustomBatchResponse extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_AccountsCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountsCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $accountType = 'Google_Service_ShoppingContent_Account';
+  protected $accountType = 'Forminator_Google_Service_ShoppingContent_Account';
   protected $accountDataType = '';
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
   public $kind;
 
 
-  public function setAccount(Google_Service_ShoppingContent_Account $account)
+  public function setAccount(Forminator_Google_Service_ShoppingContent_Account $account)
   {
     $this->account = $account;
   }
@@ -3207,7 +3207,7 @@ class Google_Service_ShoppingContent_AccountsCustomBatchResponseEntry extends Go
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -3225,14 +3225,14 @@ class Google_Service_ShoppingContent_AccountsCustomBatchResponseEntry extends Go
   }
 }
 
-class Google_Service_ShoppingContent_AccountsListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_Account';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_Account';
   protected $resourcesDataType = 'array';
 
 
@@ -3262,12 +3262,12 @@ class Google_Service_ShoppingContent_AccountsListResponse extends Google_Collect
   }
 }
 
-class Google_Service_ShoppingContent_AccountshippingCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccountshippingCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -3281,12 +3281,12 @@ class Google_Service_ShoppingContent_AccountshippingCustomBatchRequest extends G
   }
 }
 
-class Google_Service_ShoppingContent_AccountshippingCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $accountId;
-  protected $accountShippingType = 'Google_Service_ShoppingContent_AccountShipping';
+  protected $accountShippingType = 'Forminator_Google_Service_ShoppingContent_AccountShipping';
   protected $accountShippingDataType = '';
   public $batchId;
   public $merchantId;
@@ -3301,7 +3301,7 @@ class Google_Service_ShoppingContent_AccountshippingCustomBatchRequestEntry exte
   {
     return $this->accountId;
   }
-  public function setAccountShipping(Google_Service_ShoppingContent_AccountShipping $accountShipping)
+  public function setAccountShipping(Forminator_Google_Service_ShoppingContent_AccountShipping $accountShipping)
   {
     $this->accountShipping = $accountShipping;
   }
@@ -3335,12 +3335,12 @@ class Google_Service_ShoppingContent_AccountshippingCustomBatchRequestEntry exte
   }
 }
 
-class Google_Service_ShoppingContent_AccountshippingCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccountshippingCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -3363,19 +3363,19 @@ class Google_Service_ShoppingContent_AccountshippingCustomBatchResponse extends 
   }
 }
 
-class Google_Service_ShoppingContent_AccountshippingCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountshippingCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $accountShippingType = 'Google_Service_ShoppingContent_AccountShipping';
+  protected $accountShippingType = 'Forminator_Google_Service_ShoppingContent_AccountShipping';
   protected $accountShippingDataType = '';
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
   public $kind;
 
 
-  public function setAccountShipping(Google_Service_ShoppingContent_AccountShipping $accountShipping)
+  public function setAccountShipping(Forminator_Google_Service_ShoppingContent_AccountShipping $accountShipping)
   {
     $this->accountShipping = $accountShipping;
   }
@@ -3391,7 +3391,7 @@ class Google_Service_ShoppingContent_AccountshippingCustomBatchResponseEntry ext
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -3409,14 +3409,14 @@ class Google_Service_ShoppingContent_AccountshippingCustomBatchResponseEntry ext
   }
 }
 
-class Google_Service_ShoppingContent_AccountshippingListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountshippingListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_AccountShipping';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_AccountShipping';
   protected $resourcesDataType = 'array';
 
 
@@ -3446,12 +3446,12 @@ class Google_Service_ShoppingContent_AccountshippingListResponse extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_AccountstatusesCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccountstatusesCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -3465,7 +3465,7 @@ class Google_Service_ShoppingContent_AccountstatusesCustomBatchRequest extends G
   }
 }
 
-class Google_Service_ShoppingContent_AccountstatusesCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3509,12 +3509,12 @@ class Google_Service_ShoppingContent_AccountstatusesCustomBatchRequestEntry exte
   }
 }
 
-class Google_Service_ShoppingContent_AccountstatusesCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccountstatusesCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -3537,18 +3537,18 @@ class Google_Service_ShoppingContent_AccountstatusesCustomBatchResponse extends 
   }
 }
 
-class Google_Service_ShoppingContent_AccountstatusesCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccountstatusesCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $accountStatusType = 'Google_Service_ShoppingContent_AccountStatus';
+  protected $accountStatusType = 'Forminator_Google_Service_ShoppingContent_AccountStatus';
   protected $accountStatusDataType = '';
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
 
 
-  public function setAccountStatus(Google_Service_ShoppingContent_AccountStatus $accountStatus)
+  public function setAccountStatus(Forminator_Google_Service_ShoppingContent_AccountStatus $accountStatus)
   {
     $this->accountStatus = $accountStatus;
   }
@@ -3564,7 +3564,7 @@ class Google_Service_ShoppingContent_AccountstatusesCustomBatchResponseEntry ext
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -3574,14 +3574,14 @@ class Google_Service_ShoppingContent_AccountstatusesCustomBatchResponseEntry ext
   }
 }
 
-class Google_Service_ShoppingContent_AccountstatusesListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccountstatusesListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_AccountStatus';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_AccountStatus';
   protected $resourcesDataType = 'array';
 
 
@@ -3611,12 +3611,12 @@ class Google_Service_ShoppingContent_AccountstatusesListResponse extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_AccounttaxCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccounttaxCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -3630,12 +3630,12 @@ class Google_Service_ShoppingContent_AccounttaxCustomBatchRequest extends Google
   }
 }
 
-class Google_Service_ShoppingContent_AccounttaxCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $accountId;
-  protected $accountTaxType = 'Google_Service_ShoppingContent_AccountTax';
+  protected $accountTaxType = 'Forminator_Google_Service_ShoppingContent_AccountTax';
   protected $accountTaxDataType = '';
   public $batchId;
   public $merchantId;
@@ -3650,7 +3650,7 @@ class Google_Service_ShoppingContent_AccounttaxCustomBatchRequestEntry extends G
   {
     return $this->accountId;
   }
-  public function setAccountTax(Google_Service_ShoppingContent_AccountTax $accountTax)
+  public function setAccountTax(Forminator_Google_Service_ShoppingContent_AccountTax $accountTax)
   {
     $this->accountTax = $accountTax;
   }
@@ -3684,12 +3684,12 @@ class Google_Service_ShoppingContent_AccounttaxCustomBatchRequestEntry extends G
   }
 }
 
-class Google_Service_ShoppingContent_AccounttaxCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_AccounttaxCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -3712,19 +3712,19 @@ class Google_Service_ShoppingContent_AccounttaxCustomBatchResponse extends Googl
   }
 }
 
-class Google_Service_ShoppingContent_AccounttaxCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_AccounttaxCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $accountTaxType = 'Google_Service_ShoppingContent_AccountTax';
+  protected $accountTaxType = 'Forminator_Google_Service_ShoppingContent_AccountTax';
   protected $accountTaxDataType = '';
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
   public $kind;
 
 
-  public function setAccountTax(Google_Service_ShoppingContent_AccountTax $accountTax)
+  public function setAccountTax(Forminator_Google_Service_ShoppingContent_AccountTax $accountTax)
   {
     $this->accountTax = $accountTax;
   }
@@ -3740,7 +3740,7 @@ class Google_Service_ShoppingContent_AccounttaxCustomBatchResponseEntry extends 
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -3758,14 +3758,14 @@ class Google_Service_ShoppingContent_AccounttaxCustomBatchResponseEntry extends 
   }
 }
 
-class Google_Service_ShoppingContent_AccounttaxListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_AccounttaxListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_AccountTax';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_AccountTax';
   protected $resourcesDataType = 'array';
 
 
@@ -3795,7 +3795,7 @@ class Google_Service_ShoppingContent_AccounttaxListResponse extends Google_Colle
   }
 }
 
-class Google_Service_ShoppingContent_Datafeed extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_Datafeed extends Forminator_Google_Collection
 {
   protected $collection_key = 'intendedDestinations';
   protected $internal_gapi_mappings = array(
@@ -3803,10 +3803,10 @@ class Google_Service_ShoppingContent_Datafeed extends Google_Collection
   public $attributeLanguage;
   public $contentLanguage;
   public $contentType;
-  protected $fetchScheduleType = 'Google_Service_ShoppingContent_DatafeedFetchSchedule';
+  protected $fetchScheduleType = 'Forminator_Google_Service_ShoppingContent_DatafeedFetchSchedule';
   protected $fetchScheduleDataType = '';
   public $fileName;
-  protected $formatType = 'Google_Service_ShoppingContent_DatafeedFormat';
+  protected $formatType = 'Forminator_Google_Service_ShoppingContent_DatafeedFormat';
   protected $formatDataType = '';
   public $id;
   public $intendedDestinations;
@@ -3839,7 +3839,7 @@ class Google_Service_ShoppingContent_Datafeed extends Google_Collection
   {
     return $this->contentType;
   }
-  public function setFetchSchedule(Google_Service_ShoppingContent_DatafeedFetchSchedule $fetchSchedule)
+  public function setFetchSchedule(Forminator_Google_Service_ShoppingContent_DatafeedFetchSchedule $fetchSchedule)
   {
     $this->fetchSchedule = $fetchSchedule;
   }
@@ -3855,7 +3855,7 @@ class Google_Service_ShoppingContent_Datafeed extends Google_Collection
   {
     return $this->fileName;
   }
-  public function setFormat(Google_Service_ShoppingContent_DatafeedFormat $format)
+  public function setFormat(Forminator_Google_Service_ShoppingContent_DatafeedFormat $format)
   {
     $this->format = $format;
   }
@@ -3905,7 +3905,7 @@ class Google_Service_ShoppingContent_Datafeed extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedFetchSchedule extends Google_Model
+class Forminator_Google_Service_ShoppingContent_DatafeedFetchSchedule extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3976,7 +3976,7 @@ class Google_Service_ShoppingContent_DatafeedFetchSchedule extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedFormat extends Google_Model
+class Forminator_Google_Service_ShoppingContent_DatafeedFormat extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4011,20 +4011,20 @@ class Google_Service_ShoppingContent_DatafeedFormat extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedStatus extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedStatus extends Forminator_Google_Collection
 {
   protected $collection_key = 'warnings';
   protected $internal_gapi_mappings = array(
   );
   public $datafeedId;
-  protected $errorsType = 'Google_Service_ShoppingContent_DatafeedStatusError';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_DatafeedStatusError';
   protected $errorsDataType = 'array';
   public $itemsTotal;
   public $itemsValid;
   public $kind;
   public $lastUploadDate;
   public $processingStatus;
-  protected $warningsType = 'Google_Service_ShoppingContent_DatafeedStatusError';
+  protected $warningsType = 'Forminator_Google_Service_ShoppingContent_DatafeedStatusError';
   protected $warningsDataType = 'array';
 
 
@@ -4094,14 +4094,14 @@ class Google_Service_ShoppingContent_DatafeedStatus extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedStatusError extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedStatusError extends Forminator_Google_Collection
 {
   protected $collection_key = 'examples';
   protected $internal_gapi_mappings = array(
   );
   public $code;
   public $count;
-  protected $examplesType = 'Google_Service_ShoppingContent_DatafeedStatusExample';
+  protected $examplesType = 'Forminator_Google_Service_ShoppingContent_DatafeedStatusExample';
   protected $examplesDataType = 'array';
   public $message;
 
@@ -4140,7 +4140,7 @@ class Google_Service_ShoppingContent_DatafeedStatusError extends Google_Collecti
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedStatusExample extends Google_Model
+class Forminator_Google_Service_ShoppingContent_DatafeedStatusExample extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4175,12 +4175,12 @@ class Google_Service_ShoppingContent_DatafeedStatusExample extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedsCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_DatafeedsCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -4194,12 +4194,12 @@ class Google_Service_ShoppingContent_DatafeedsCustomBatchRequest extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedsCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $datafeedType = 'Google_Service_ShoppingContent_Datafeed';
+  protected $datafeedType = 'Forminator_Google_Service_ShoppingContent_Datafeed';
   protected $datafeedDataType = '';
   public $datafeedId;
   public $merchantId;
@@ -4214,7 +4214,7 @@ class Google_Service_ShoppingContent_DatafeedsCustomBatchRequestEntry extends Go
   {
     return $this->batchId;
   }
-  public function setDatafeed(Google_Service_ShoppingContent_Datafeed $datafeed)
+  public function setDatafeed(Forminator_Google_Service_ShoppingContent_Datafeed $datafeed)
   {
     $this->datafeed = $datafeed;
   }
@@ -4248,12 +4248,12 @@ class Google_Service_ShoppingContent_DatafeedsCustomBatchRequestEntry extends Go
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedsCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_DatafeedsCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -4276,14 +4276,14 @@ class Google_Service_ShoppingContent_DatafeedsCustomBatchResponse extends Google
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedsCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_DatafeedsCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $datafeedType = 'Google_Service_ShoppingContent_Datafeed';
+  protected $datafeedType = 'Forminator_Google_Service_ShoppingContent_Datafeed';
   protected $datafeedDataType = '';
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
 
 
@@ -4295,7 +4295,7 @@ class Google_Service_ShoppingContent_DatafeedsCustomBatchResponseEntry extends G
   {
     return $this->batchId;
   }
-  public function setDatafeed(Google_Service_ShoppingContent_Datafeed $datafeed)
+  public function setDatafeed(Forminator_Google_Service_ShoppingContent_Datafeed $datafeed)
   {
     $this->datafeed = $datafeed;
   }
@@ -4303,7 +4303,7 @@ class Google_Service_ShoppingContent_DatafeedsCustomBatchResponseEntry extends G
   {
     return $this->datafeed;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -4313,14 +4313,14 @@ class Google_Service_ShoppingContent_DatafeedsCustomBatchResponseEntry extends G
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedsListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_Datafeed';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_Datafeed';
   protected $resourcesDataType = 'array';
 
 
@@ -4350,12 +4350,12 @@ class Google_Service_ShoppingContent_DatafeedsListResponse extends Google_Collec
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -4369,7 +4369,7 @@ class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequest extends 
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4413,12 +4413,12 @@ class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchRequestEntry ext
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -4441,14 +4441,14 @@ class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponse extends
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $datafeedStatusType = 'Google_Service_ShoppingContent_DatafeedStatus';
+  protected $datafeedStatusType = 'Forminator_Google_Service_ShoppingContent_DatafeedStatus';
   protected $datafeedStatusDataType = '';
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
 
 
@@ -4460,7 +4460,7 @@ class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry ex
   {
     return $this->batchId;
   }
-  public function setDatafeedStatus(Google_Service_ShoppingContent_DatafeedStatus $datafeedStatus)
+  public function setDatafeedStatus(Forminator_Google_Service_ShoppingContent_DatafeedStatus $datafeedStatus)
   {
     $this->datafeedStatus = $datafeedStatus;
   }
@@ -4468,7 +4468,7 @@ class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry ex
   {
     return $this->datafeedStatus;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -4478,14 +4478,14 @@ class Google_Service_ShoppingContent_DatafeedstatusesCustomBatchResponseEntry ex
   }
 }
 
-class Google_Service_ShoppingContent_DatafeedstatusesListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_DatafeedstatusesListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_DatafeedStatus';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_DatafeedStatus';
   protected $resourcesDataType = 'array';
 
 
@@ -4515,7 +4515,7 @@ class Google_Service_ShoppingContent_DatafeedstatusesListResponse extends Google
   }
 }
 
-class Google_Service_ShoppingContent_Error extends Google_Model
+class Forminator_Google_Service_ShoppingContent_Error extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4550,13 +4550,13 @@ class Google_Service_ShoppingContent_Error extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_Errors extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_Errors extends Forminator_Google_Collection
 {
   protected $collection_key = 'errors';
   protected $internal_gapi_mappings = array(
   );
   public $code;
-  protected $errorsType = 'Google_Service_ShoppingContent_Error';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Error';
   protected $errorsDataType = 'array';
   public $message;
 
@@ -4587,16 +4587,16 @@ class Google_Service_ShoppingContent_Errors extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_Installment extends Google_Model
+class Forminator_Google_Service_ShoppingContent_Installment extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $amountDataType = '';
   public $months;
 
 
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  public function setAmount(Forminator_Google_Service_ShoppingContent_Price $amount)
   {
     $this->amount = $amount;
   }
@@ -4614,20 +4614,20 @@ class Google_Service_ShoppingContent_Installment extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_Inventory extends Google_Model
+class Forminator_Google_Service_ShoppingContent_Inventory extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $availability;
-  protected $installmentType = 'Google_Service_ShoppingContent_Installment';
+  protected $installmentType = 'Forminator_Google_Service_ShoppingContent_Installment';
   protected $installmentDataType = '';
   public $kind;
-  protected $loyaltyPointsType = 'Google_Service_ShoppingContent_LoyaltyPoints';
+  protected $loyaltyPointsType = 'Forminator_Google_Service_ShoppingContent_LoyaltyPoints';
   protected $loyaltyPointsDataType = '';
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceDataType = '';
   public $quantity;
-  protected $salePriceType = 'Google_Service_ShoppingContent_Price';
+  protected $salePriceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $salePriceDataType = '';
   public $salePriceEffectiveDate;
   public $sellOnGoogleQuantity;
@@ -4641,7 +4641,7 @@ class Google_Service_ShoppingContent_Inventory extends Google_Model
   {
     return $this->availability;
   }
-  public function setInstallment(Google_Service_ShoppingContent_Installment $installment)
+  public function setInstallment(Forminator_Google_Service_ShoppingContent_Installment $installment)
   {
     $this->installment = $installment;
   }
@@ -4657,7 +4657,7 @@ class Google_Service_ShoppingContent_Inventory extends Google_Model
   {
     return $this->kind;
   }
-  public function setLoyaltyPoints(Google_Service_ShoppingContent_LoyaltyPoints $loyaltyPoints)
+  public function setLoyaltyPoints(Forminator_Google_Service_ShoppingContent_LoyaltyPoints $loyaltyPoints)
   {
     $this->loyaltyPoints = $loyaltyPoints;
   }
@@ -4665,7 +4665,7 @@ class Google_Service_ShoppingContent_Inventory extends Google_Model
   {
     return $this->loyaltyPoints;
   }
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  public function setPrice(Forminator_Google_Service_ShoppingContent_Price $price)
   {
     $this->price = $price;
   }
@@ -4681,7 +4681,7 @@ class Google_Service_ShoppingContent_Inventory extends Google_Model
   {
     return $this->quantity;
   }
-  public function setSalePrice(Google_Service_ShoppingContent_Price $salePrice)
+  public function setSalePrice(Forminator_Google_Service_ShoppingContent_Price $salePrice)
   {
     $this->salePrice = $salePrice;
   }
@@ -4707,12 +4707,12 @@ class Google_Service_ShoppingContent_Inventory extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_InventoryCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_InventoryCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_InventoryCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_InventoryCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -4726,12 +4726,12 @@ class Google_Service_ShoppingContent_InventoryCustomBatchRequest extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_InventoryCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_InventoryCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $inventoryType = 'Google_Service_ShoppingContent_Inventory';
+  protected $inventoryType = 'Forminator_Google_Service_ShoppingContent_Inventory';
   protected $inventoryDataType = '';
   public $merchantId;
   public $productId;
@@ -4746,7 +4746,7 @@ class Google_Service_ShoppingContent_InventoryCustomBatchRequestEntry extends Go
   {
     return $this->batchId;
   }
-  public function setInventory(Google_Service_ShoppingContent_Inventory $inventory)
+  public function setInventory(Forminator_Google_Service_ShoppingContent_Inventory $inventory)
   {
     $this->inventory = $inventory;
   }
@@ -4780,12 +4780,12 @@ class Google_Service_ShoppingContent_InventoryCustomBatchRequestEntry extends Go
   }
 }
 
-class Google_Service_ShoppingContent_InventoryCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_InventoryCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_InventoryCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_InventoryCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -4808,12 +4808,12 @@ class Google_Service_ShoppingContent_InventoryCustomBatchResponse extends Google
   }
 }
 
-class Google_Service_ShoppingContent_InventoryCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_InventoryCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
   public $kind;
 
@@ -4826,7 +4826,7 @@ class Google_Service_ShoppingContent_InventoryCustomBatchResponseEntry extends G
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -4844,19 +4844,19 @@ class Google_Service_ShoppingContent_InventoryCustomBatchResponseEntry extends G
   }
 }
 
-class Google_Service_ShoppingContent_InventorySetRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_InventorySetRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $availability;
-  protected $installmentType = 'Google_Service_ShoppingContent_Installment';
+  protected $installmentType = 'Forminator_Google_Service_ShoppingContent_Installment';
   protected $installmentDataType = '';
-  protected $loyaltyPointsType = 'Google_Service_ShoppingContent_LoyaltyPoints';
+  protected $loyaltyPointsType = 'Forminator_Google_Service_ShoppingContent_LoyaltyPoints';
   protected $loyaltyPointsDataType = '';
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceDataType = '';
   public $quantity;
-  protected $salePriceType = 'Google_Service_ShoppingContent_Price';
+  protected $salePriceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $salePriceDataType = '';
   public $salePriceEffectiveDate;
   public $sellOnGoogleQuantity;
@@ -4870,7 +4870,7 @@ class Google_Service_ShoppingContent_InventorySetRequest extends Google_Model
   {
     return $this->availability;
   }
-  public function setInstallment(Google_Service_ShoppingContent_Installment $installment)
+  public function setInstallment(Forminator_Google_Service_ShoppingContent_Installment $installment)
   {
     $this->installment = $installment;
   }
@@ -4878,7 +4878,7 @@ class Google_Service_ShoppingContent_InventorySetRequest extends Google_Model
   {
     return $this->installment;
   }
-  public function setLoyaltyPoints(Google_Service_ShoppingContent_LoyaltyPoints $loyaltyPoints)
+  public function setLoyaltyPoints(Forminator_Google_Service_ShoppingContent_LoyaltyPoints $loyaltyPoints)
   {
     $this->loyaltyPoints = $loyaltyPoints;
   }
@@ -4886,7 +4886,7 @@ class Google_Service_ShoppingContent_InventorySetRequest extends Google_Model
   {
     return $this->loyaltyPoints;
   }
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  public function setPrice(Forminator_Google_Service_ShoppingContent_Price $price)
   {
     $this->price = $price;
   }
@@ -4902,7 +4902,7 @@ class Google_Service_ShoppingContent_InventorySetRequest extends Google_Model
   {
     return $this->quantity;
   }
-  public function setSalePrice(Google_Service_ShoppingContent_Price $salePrice)
+  public function setSalePrice(Forminator_Google_Service_ShoppingContent_Price $salePrice)
   {
     $this->salePrice = $salePrice;
   }
@@ -4928,7 +4928,7 @@ class Google_Service_ShoppingContent_InventorySetRequest extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_InventorySetResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_InventorySetResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4945,7 +4945,7 @@ class Google_Service_ShoppingContent_InventorySetResponse extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_LoyaltyPoints extends Google_Model
+class Forminator_Google_Service_ShoppingContent_LoyaltyPoints extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4980,37 +4980,37 @@ class Google_Service_ShoppingContent_LoyaltyPoints extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_Order extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_Order extends Forminator_Google_Collection
 {
   protected $collection_key = 'shipments';
   protected $internal_gapi_mappings = array(
   );
   public $acknowledged;
-  protected $customerType = 'Google_Service_ShoppingContent_OrderCustomer';
+  protected $customerType = 'Forminator_Google_Service_ShoppingContent_OrderCustomer';
   protected $customerDataType = '';
-  protected $deliveryDetailsType = 'Google_Service_ShoppingContent_OrderDeliveryDetails';
+  protected $deliveryDetailsType = 'Forminator_Google_Service_ShoppingContent_OrderDeliveryDetails';
   protected $deliveryDetailsDataType = '';
   public $id;
   public $kind;
-  protected $lineItemsType = 'Google_Service_ShoppingContent_OrderLineItem';
+  protected $lineItemsType = 'Forminator_Google_Service_ShoppingContent_OrderLineItem';
   protected $lineItemsDataType = 'array';
   public $merchantId;
   public $merchantOrderId;
-  protected $netAmountType = 'Google_Service_ShoppingContent_Price';
+  protected $netAmountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $netAmountDataType = '';
-  protected $paymentMethodType = 'Google_Service_ShoppingContent_OrderPaymentMethod';
+  protected $paymentMethodType = 'Forminator_Google_Service_ShoppingContent_OrderPaymentMethod';
   protected $paymentMethodDataType = '';
   public $paymentStatus;
   public $placedDate;
-  protected $promotionsType = 'Google_Service_ShoppingContent_OrderPromotion';
+  protected $promotionsType = 'Forminator_Google_Service_ShoppingContent_OrderPromotion';
   protected $promotionsDataType = 'array';
-  protected $refundsType = 'Google_Service_ShoppingContent_OrderRefund';
+  protected $refundsType = 'Forminator_Google_Service_ShoppingContent_OrderRefund';
   protected $refundsDataType = 'array';
-  protected $shipmentsType = 'Google_Service_ShoppingContent_OrderShipment';
+  protected $shipmentsType = 'Forminator_Google_Service_ShoppingContent_OrderShipment';
   protected $shipmentsDataType = 'array';
-  protected $shippingCostType = 'Google_Service_ShoppingContent_Price';
+  protected $shippingCostType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $shippingCostDataType = '';
-  protected $shippingCostTaxType = 'Google_Service_ShoppingContent_Price';
+  protected $shippingCostTaxType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $shippingCostTaxDataType = '';
   public $shippingOption;
   public $status;
@@ -5024,7 +5024,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   {
     return $this->acknowledged;
   }
-  public function setCustomer(Google_Service_ShoppingContent_OrderCustomer $customer)
+  public function setCustomer(Forminator_Google_Service_ShoppingContent_OrderCustomer $customer)
   {
     $this->customer = $customer;
   }
@@ -5032,7 +5032,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   {
     return $this->customer;
   }
-  public function setDeliveryDetails(Google_Service_ShoppingContent_OrderDeliveryDetails $deliveryDetails)
+  public function setDeliveryDetails(Forminator_Google_Service_ShoppingContent_OrderDeliveryDetails $deliveryDetails)
   {
     $this->deliveryDetails = $deliveryDetails;
   }
@@ -5080,7 +5080,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   {
     return $this->merchantOrderId;
   }
-  public function setNetAmount(Google_Service_ShoppingContent_Price $netAmount)
+  public function setNetAmount(Forminator_Google_Service_ShoppingContent_Price $netAmount)
   {
     $this->netAmount = $netAmount;
   }
@@ -5088,7 +5088,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   {
     return $this->netAmount;
   }
-  public function setPaymentMethod(Google_Service_ShoppingContent_OrderPaymentMethod $paymentMethod)
+  public function setPaymentMethod(Forminator_Google_Service_ShoppingContent_OrderPaymentMethod $paymentMethod)
   {
     $this->paymentMethod = $paymentMethod;
   }
@@ -5136,7 +5136,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   {
     return $this->shipments;
   }
-  public function setShippingCost(Google_Service_ShoppingContent_Price $shippingCost)
+  public function setShippingCost(Forminator_Google_Service_ShoppingContent_Price $shippingCost)
   {
     $this->shippingCost = $shippingCost;
   }
@@ -5144,7 +5144,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   {
     return $this->shippingCost;
   }
-  public function setShippingCostTax(Google_Service_ShoppingContent_Price $shippingCostTax)
+  public function setShippingCostTax(Forminator_Google_Service_ShoppingContent_Price $shippingCostTax)
   {
     $this->shippingCostTax = $shippingCostTax;
   }
@@ -5170,7 +5170,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_OrderAddress extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrderAddress extends Forminator_Google_Collection
 {
   protected $collection_key = 'streetAddress';
   protected $internal_gapi_mappings = array(
@@ -5251,7 +5251,7 @@ class Google_Service_ShoppingContent_OrderAddress extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_OrderCancellation extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderCancellation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -5304,7 +5304,7 @@ class Google_Service_ShoppingContent_OrderCancellation extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrderCustomer extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderCustomer extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -5339,16 +5339,16 @@ class Google_Service_ShoppingContent_OrderCustomer extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrderDeliveryDetails extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderDeliveryDetails extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $addressType = 'Google_Service_ShoppingContent_OrderAddress';
+  protected $addressType = 'Forminator_Google_Service_ShoppingContent_OrderAddress';
   protected $addressDataType = '';
   public $phoneNumber;
 
 
-  public function setAddress(Google_Service_ShoppingContent_OrderAddress $address)
+  public function setAddress(Forminator_Google_Service_ShoppingContent_OrderAddress $address)
   {
     $this->address = $address;
   }
@@ -5366,17 +5366,17 @@ class Google_Service_ShoppingContent_OrderDeliveryDetails extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrderLineItem extends Forminator_Google_Collection
 {
   protected $collection_key = 'returns';
   protected $internal_gapi_mappings = array(
   );
-  protected $cancellationsType = 'Google_Service_ShoppingContent_OrderCancellation';
+  protected $cancellationsType = 'Forminator_Google_Service_ShoppingContent_OrderCancellation';
   protected $cancellationsDataType = 'array';
   public $id;
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceDataType = '';
-  protected $productType = 'Google_Service_ShoppingContent_OrderLineItemProduct';
+  protected $productType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemProduct';
   protected $productDataType = '';
   public $quantityCanceled;
   public $quantityDelivered;
@@ -5384,13 +5384,13 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   public $quantityPending;
   public $quantityReturned;
   public $quantityShipped;
-  protected $returnInfoType = 'Google_Service_ShoppingContent_OrderLineItemReturnInfo';
+  protected $returnInfoType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemReturnInfo';
   protected $returnInfoDataType = '';
-  protected $returnsType = 'Google_Service_ShoppingContent_OrderReturn';
+  protected $returnsType = 'Forminator_Google_Service_ShoppingContent_OrderReturn';
   protected $returnsDataType = 'array';
-  protected $shippingDetailsType = 'Google_Service_ShoppingContent_OrderLineItemShippingDetails';
+  protected $shippingDetailsType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetails';
   protected $shippingDetailsDataType = '';
-  protected $taxType = 'Google_Service_ShoppingContent_Price';
+  protected $taxType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $taxDataType = '';
 
 
@@ -5410,7 +5410,7 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   {
     return $this->id;
   }
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  public function setPrice(Forminator_Google_Service_ShoppingContent_Price $price)
   {
     $this->price = $price;
   }
@@ -5418,7 +5418,7 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   {
     return $this->price;
   }
-  public function setProduct(Google_Service_ShoppingContent_OrderLineItemProduct $product)
+  public function setProduct(Forminator_Google_Service_ShoppingContent_OrderLineItemProduct $product)
   {
     $this->product = $product;
   }
@@ -5474,7 +5474,7 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   {
     return $this->quantityShipped;
   }
-  public function setReturnInfo(Google_Service_ShoppingContent_OrderLineItemReturnInfo $returnInfo)
+  public function setReturnInfo(Forminator_Google_Service_ShoppingContent_OrderLineItemReturnInfo $returnInfo)
   {
     $this->returnInfo = $returnInfo;
   }
@@ -5490,7 +5490,7 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   {
     return $this->returns;
   }
-  public function setShippingDetails(Google_Service_ShoppingContent_OrderLineItemShippingDetails $shippingDetails)
+  public function setShippingDetails(Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetails $shippingDetails)
   {
     $this->shippingDetails = $shippingDetails;
   }
@@ -5498,7 +5498,7 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   {
     return $this->shippingDetails;
   }
-  public function setTax(Google_Service_ShoppingContent_Price $tax)
+  public function setTax(Forminator_Google_Service_ShoppingContent_Price $tax)
   {
     $this->tax = $tax;
   }
@@ -5508,7 +5508,7 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_OrderLineItemProduct extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrderLineItemProduct extends Forminator_Google_Collection
 {
   protected $collection_key = 'variantAttributes';
   protected $internal_gapi_mappings = array(
@@ -5523,12 +5523,12 @@ class Google_Service_ShoppingContent_OrderLineItemProduct extends Google_Collect
   public $itemGroupId;
   public $mpn;
   public $offerId;
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceDataType = '';
   public $shownImage;
   public $targetCountry;
   public $title;
-  protected $variantAttributesType = 'Google_Service_ShoppingContent_OrderLineItemProductVariantAttribute';
+  protected $variantAttributesType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemProductVariantAttribute';
   protected $variantAttributesDataType = 'array';
 
 
@@ -5612,7 +5612,7 @@ class Google_Service_ShoppingContent_OrderLineItemProduct extends Google_Collect
   {
     return $this->offerId;
   }
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  public function setPrice(Forminator_Google_Service_ShoppingContent_Price $price)
   {
     $this->price = $price;
   }
@@ -5654,7 +5654,7 @@ class Google_Service_ShoppingContent_OrderLineItemProduct extends Google_Collect
   }
 }
 
-class Google_Service_ShoppingContent_OrderLineItemProductVariantAttribute extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderLineItemProductVariantAttribute extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -5680,7 +5680,7 @@ class Google_Service_ShoppingContent_OrderLineItemProductVariantAttribute extend
   }
 }
 
-class Google_Service_ShoppingContent_OrderLineItemReturnInfo extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderLineItemReturnInfo extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -5715,12 +5715,12 @@ class Google_Service_ShoppingContent_OrderLineItemReturnInfo extends Google_Mode
   }
 }
 
-class Google_Service_ShoppingContent_OrderLineItemShippingDetails extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetails extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $deliverByDate;
-  protected $methodType = 'Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod';
+  protected $methodType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod';
   protected $methodDataType = '';
   public $shipByDate;
 
@@ -5733,7 +5733,7 @@ class Google_Service_ShoppingContent_OrderLineItemShippingDetails extends Google
   {
     return $this->deliverByDate;
   }
-  public function setMethod(Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod $method)
+  public function setMethod(Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod $method)
   {
     $this->method = $method;
   }
@@ -5751,7 +5751,7 @@ class Google_Service_ShoppingContent_OrderLineItemShippingDetails extends Google
   }
 }
 
-class Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -5795,11 +5795,11 @@ class Google_Service_ShoppingContent_OrderLineItemShippingDetailsMethod extends 
   }
 }
 
-class Google_Service_ShoppingContent_OrderPaymentMethod extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderPaymentMethod extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $billingAddressType = 'Google_Service_ShoppingContent_OrderAddress';
+  protected $billingAddressType = 'Forminator_Google_Service_ShoppingContent_OrderAddress';
   protected $billingAddressDataType = '';
   public $expirationMonth;
   public $expirationYear;
@@ -5808,7 +5808,7 @@ class Google_Service_ShoppingContent_OrderPaymentMethod extends Google_Model
   public $type;
 
 
-  public function setBillingAddress(Google_Service_ShoppingContent_OrderAddress $billingAddress)
+  public function setBillingAddress(Forminator_Google_Service_ShoppingContent_OrderAddress $billingAddress)
   {
     $this->billingAddress = $billingAddress;
   }
@@ -5858,12 +5858,12 @@ class Google_Service_ShoppingContent_OrderPaymentMethod extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrderPromotion extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrderPromotion extends Forminator_Google_Collection
 {
   protected $collection_key = 'benefits';
   protected $internal_gapi_mappings = array(
   );
-  protected $benefitsType = 'Google_Service_ShoppingContent_OrderPromotionBenefit';
+  protected $benefitsType = 'Forminator_Google_Service_ShoppingContent_OrderPromotionBenefit';
   protected $benefitsDataType = 'array';
   public $effectiveDates;
   public $genericRedemptionCode;
@@ -5931,21 +5931,21 @@ class Google_Service_ShoppingContent_OrderPromotion extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_OrderPromotionBenefit extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrderPromotionBenefit extends Forminator_Google_Collection
 {
   protected $collection_key = 'offerIds';
   protected $internal_gapi_mappings = array(
   );
-  protected $discountType = 'Google_Service_ShoppingContent_Price';
+  protected $discountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $discountDataType = '';
   public $offerIds;
   public $subType;
-  protected $taxImpactType = 'Google_Service_ShoppingContent_Price';
+  protected $taxImpactType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $taxImpactDataType = '';
   public $type;
 
 
-  public function setDiscount(Google_Service_ShoppingContent_Price $discount)
+  public function setDiscount(Forminator_Google_Service_ShoppingContent_Price $discount)
   {
     $this->discount = $discount;
   }
@@ -5969,7 +5969,7 @@ class Google_Service_ShoppingContent_OrderPromotionBenefit extends Google_Collec
   {
     return $this->subType;
   }
-  public function setTaxImpact(Google_Service_ShoppingContent_Price $taxImpact)
+  public function setTaxImpact(Forminator_Google_Service_ShoppingContent_Price $taxImpact)
   {
     $this->taxImpact = $taxImpact;
   }
@@ -5987,12 +5987,12 @@ class Google_Service_ShoppingContent_OrderPromotionBenefit extends Google_Collec
   }
 }
 
-class Google_Service_ShoppingContent_OrderRefund extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderRefund extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $actor;
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $amountDataType = '';
   public $creationDate;
   public $reason;
@@ -6007,7 +6007,7 @@ class Google_Service_ShoppingContent_OrderRefund extends Google_Model
   {
     return $this->actor;
   }
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  public function setAmount(Forminator_Google_Service_ShoppingContent_Price $amount)
   {
     $this->amount = $amount;
   }
@@ -6041,7 +6041,7 @@ class Google_Service_ShoppingContent_OrderRefund extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrderReturn extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderReturn extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6094,7 +6094,7 @@ class Google_Service_ShoppingContent_OrderReturn extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrderShipment extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrderShipment extends Forminator_Google_Collection
 {
   protected $collection_key = 'lineItems';
   protected $internal_gapi_mappings = array(
@@ -6103,7 +6103,7 @@ class Google_Service_ShoppingContent_OrderShipment extends Google_Collection
   public $creationDate;
   public $deliveryDate;
   public $id;
-  protected $lineItemsType = 'Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
+  protected $lineItemsType = 'Forminator_Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
   protected $lineItemsDataType = 'array';
   public $status;
   public $trackingId;
@@ -6167,7 +6167,7 @@ class Google_Service_ShoppingContent_OrderShipment extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_OrderShipmentLineItemShipment extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrderShipmentLineItemShipment extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6193,7 +6193,7 @@ class Google_Service_ShoppingContent_OrderShipmentLineItemShipment extends Googl
   }
 }
 
-class Google_Service_ShoppingContent_OrdersAcknowledgeRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersAcknowledgeRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6210,7 +6210,7 @@ class Google_Service_ShoppingContent_OrdersAcknowledgeRequest extends Google_Mod
   }
 }
 
-class Google_Service_ShoppingContent_OrdersAcknowledgeResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersAcknowledgeResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6236,7 +6236,7 @@ class Google_Service_ShoppingContent_OrdersAcknowledgeResponse extends Google_Mo
   }
 }
 
-class Google_Service_ShoppingContent_OrdersAdvanceTestOrderResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersAdvanceTestOrderResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6253,11 +6253,11 @@ class Google_Service_ShoppingContent_OrdersAdvanceTestOrderResponse extends Goog
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCancelLineItemRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCancelLineItemRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $amountDataType = '';
   public $lineItemId;
   public $operationId;
@@ -6266,7 +6266,7 @@ class Google_Service_ShoppingContent_OrdersCancelLineItemRequest extends Google_
   public $reasonText;
 
 
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  public function setAmount(Forminator_Google_Service_ShoppingContent_Price $amount)
   {
     $this->amount = $amount;
   }
@@ -6316,7 +6316,7 @@ class Google_Service_ShoppingContent_OrdersCancelLineItemRequest extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCancelLineItemResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCancelLineItemResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6342,7 +6342,7 @@ class Google_Service_ShoppingContent_OrdersCancelLineItemResponse extends Google
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCancelRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCancelRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6377,7 +6377,7 @@ class Google_Service_ShoppingContent_OrdersCancelRequest extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCancelResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCancelResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6403,12 +6403,12 @@ class Google_Service_ShoppingContent_OrdersCancelResponse extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCreateTestOrderRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCreateTestOrderRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $templateName;
-  protected $testOrderType = 'Google_Service_ShoppingContent_TestOrder';
+  protected $testOrderType = 'Forminator_Google_Service_ShoppingContent_TestOrder';
   protected $testOrderDataType = '';
 
 
@@ -6420,7 +6420,7 @@ class Google_Service_ShoppingContent_OrdersCreateTestOrderRequest extends Google
   {
     return $this->templateName;
   }
-  public function setTestOrder(Google_Service_ShoppingContent_TestOrder $testOrder)
+  public function setTestOrder(Forminator_Google_Service_ShoppingContent_TestOrder $testOrder)
   {
     $this->testOrder = $testOrder;
   }
@@ -6430,7 +6430,7 @@ class Google_Service_ShoppingContent_OrdersCreateTestOrderRequest extends Google
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCreateTestOrderResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCreateTestOrderResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6456,12 +6456,12 @@ class Google_Service_ShoppingContent_OrdersCreateTestOrderResponse extends Googl
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -6475,27 +6475,27 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequest extends Google_Col
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $cancelType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancel';
+  protected $cancelType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancel';
   protected $cancelDataType = '';
-  protected $cancelLineItemType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem';
+  protected $cancelLineItemType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem';
   protected $cancelLineItemDataType = '';
   public $merchantId;
   public $merchantOrderId;
   public $method;
   public $operationId;
   public $orderId;
-  protected $refundType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefund';
+  protected $refundType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefund';
   protected $refundDataType = '';
-  protected $returnLineItemType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryReturnLineItem';
+  protected $returnLineItemType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryReturnLineItem';
   protected $returnLineItemDataType = '';
-  protected $shipLineItemsType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItems';
+  protected $shipLineItemsType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItems';
   protected $shipLineItemsDataType = '';
-  protected $updateShipmentType = 'Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryUpdateShipment';
+  protected $updateShipmentType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryUpdateShipment';
   protected $updateShipmentDataType = '';
 
 
@@ -6507,7 +6507,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Googl
   {
     return $this->batchId;
   }
-  public function setCancel(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancel $cancel)
+  public function setCancel(Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancel $cancel)
   {
     $this->cancel = $cancel;
   }
@@ -6515,7 +6515,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Googl
   {
     return $this->cancel;
   }
-  public function setCancelLineItem(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem $cancelLineItem)
+  public function setCancelLineItem(Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem $cancelLineItem)
   {
     $this->cancelLineItem = $cancelLineItem;
   }
@@ -6563,7 +6563,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Googl
   {
     return $this->orderId;
   }
-  public function setRefund(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefund $refund)
+  public function setRefund(Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefund $refund)
   {
     $this->refund = $refund;
   }
@@ -6571,7 +6571,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Googl
   {
     return $this->refund;
   }
-  public function setReturnLineItem(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryReturnLineItem $returnLineItem)
+  public function setReturnLineItem(Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryReturnLineItem $returnLineItem)
   {
     $this->returnLineItem = $returnLineItem;
   }
@@ -6579,7 +6579,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Googl
   {
     return $this->returnLineItem;
   }
-  public function setShipLineItems(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItems $shipLineItems)
+  public function setShipLineItems(Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItems $shipLineItems)
   {
     $this->shipLineItems = $shipLineItems;
   }
@@ -6587,7 +6587,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Googl
   {
     return $this->shipLineItems;
   }
-  public function setUpdateShipment(Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryUpdateShipment $updateShipment)
+  public function setUpdateShipment(Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryUpdateShipment $updateShipment)
   {
     $this->updateShipment = $updateShipment;
   }
@@ -6597,7 +6597,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntry extends Googl
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancel extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancel extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6623,11 +6623,11 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancel extends
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $amountDataType = '';
   public $lineItemId;
   public $quantity;
@@ -6635,7 +6635,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem
   public $reasonText;
 
 
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  public function setAmount(Forminator_Google_Service_ShoppingContent_Price $amount)
   {
     $this->amount = $amount;
   }
@@ -6677,17 +6677,17 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryCancelLineItem
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefund extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefund extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $amountDataType = '';
   public $reason;
   public $reasonText;
 
 
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  public function setAmount(Forminator_Google_Service_ShoppingContent_Price $amount)
   {
     $this->amount = $amount;
   }
@@ -6713,7 +6713,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryRefund extends
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryReturnLineItem extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryReturnLineItem extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6757,13 +6757,13 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryReturnLineItem
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItems extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItems extends Forminator_Google_Collection
 {
   protected $collection_key = 'lineItems';
   protected $internal_gapi_mappings = array(
   );
   public $carrier;
-  protected $lineItemsType = 'Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
+  protected $lineItemsType = 'Forminator_Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
   protected $lineItemsDataType = 'array';
   public $shipmentId;
   public $trackingId;
@@ -6803,7 +6803,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryShipLineItems 
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryUpdateShipment extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryUpdateShipment extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -6847,12 +6847,12 @@ class Google_Service_ShoppingContent_OrdersCustomBatchRequestEntryUpdateShipment
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_OrdersCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_OrdersCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -6875,16 +6875,16 @@ class Google_Service_ShoppingContent_OrdersCustomBatchResponse extends Google_Co
   }
 }
 
-class Google_Service_ShoppingContent_OrdersCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
   public $executionStatus;
   public $kind;
-  protected $orderType = 'Google_Service_ShoppingContent_Order';
+  protected $orderType = 'Forminator_Google_Service_ShoppingContent_Order';
   protected $orderDataType = '';
 
 
@@ -6896,7 +6896,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchResponseEntry extends Goog
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -6920,7 +6920,7 @@ class Google_Service_ShoppingContent_OrdersCustomBatchResponseEntry extends Goog
   {
     return $this->kind;
   }
-  public function setOrder(Google_Service_ShoppingContent_Order $order)
+  public function setOrder(Forminator_Google_Service_ShoppingContent_Order $order)
   {
     $this->order = $order;
   }
@@ -6930,12 +6930,12 @@ class Google_Service_ShoppingContent_OrdersCustomBatchResponseEntry extends Goog
   }
 }
 
-class Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $kind;
-  protected $orderType = 'Google_Service_ShoppingContent_Order';
+  protected $orderType = 'Forminator_Google_Service_ShoppingContent_Order';
   protected $orderDataType = '';
 
 
@@ -6947,7 +6947,7 @@ class Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse extends 
   {
     return $this->kind;
   }
-  public function setOrder(Google_Service_ShoppingContent_Order $order)
+  public function setOrder(Forminator_Google_Service_ShoppingContent_Order $order)
   {
     $this->order = $order;
   }
@@ -6957,12 +6957,12 @@ class Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse extends 
   }
 }
 
-class Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $kind;
-  protected $templateType = 'Google_Service_ShoppingContent_TestOrder';
+  protected $templateType = 'Forminator_Google_Service_ShoppingContent_TestOrder';
   protected $templateDataType = '';
 
 
@@ -6974,7 +6974,7 @@ class Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse extends 
   {
     return $this->kind;
   }
-  public function setTemplate(Google_Service_ShoppingContent_TestOrder $template)
+  public function setTemplate(Forminator_Google_Service_ShoppingContent_TestOrder $template)
   {
     $this->template = $template;
   }
@@ -6984,14 +6984,14 @@ class Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse extends 
   }
 }
 
-class Google_Service_ShoppingContent_OrdersListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrdersListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_Order';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_Order';
   protected $resourcesDataType = 'array';
 
 
@@ -7021,18 +7021,18 @@ class Google_Service_ShoppingContent_OrdersListResponse extends Google_Collectio
   }
 }
 
-class Google_Service_ShoppingContent_OrdersRefundRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersRefundRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $amountType = 'Google_Service_ShoppingContent_Price';
+  protected $amountType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $amountDataType = '';
   public $operationId;
   public $reason;
   public $reasonText;
 
 
-  public function setAmount(Google_Service_ShoppingContent_Price $amount)
+  public function setAmount(Forminator_Google_Service_ShoppingContent_Price $amount)
   {
     $this->amount = $amount;
   }
@@ -7066,7 +7066,7 @@ class Google_Service_ShoppingContent_OrdersRefundRequest extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrdersRefundResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersRefundResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7092,7 +7092,7 @@ class Google_Service_ShoppingContent_OrdersRefundResponse extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_OrdersReturnLineItemRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersReturnLineItemRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7145,7 +7145,7 @@ class Google_Service_ShoppingContent_OrdersReturnLineItemRequest extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_OrdersReturnLineItemResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersReturnLineItemResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7171,13 +7171,13 @@ class Google_Service_ShoppingContent_OrdersReturnLineItemResponse extends Google
   }
 }
 
-class Google_Service_ShoppingContent_OrdersShipLineItemsRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_OrdersShipLineItemsRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'lineItems';
   protected $internal_gapi_mappings = array(
   );
   public $carrier;
-  protected $lineItemsType = 'Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
+  protected $lineItemsType = 'Forminator_Google_Service_ShoppingContent_OrderShipmentLineItemShipment';
   protected $lineItemsDataType = 'array';
   public $operationId;
   public $shipmentId;
@@ -7226,7 +7226,7 @@ class Google_Service_ShoppingContent_OrdersShipLineItemsRequest extends Google_C
   }
 }
 
-class Google_Service_ShoppingContent_OrdersShipLineItemsResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersShipLineItemsResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7252,7 +7252,7 @@ class Google_Service_ShoppingContent_OrdersShipLineItemsResponse extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7278,7 +7278,7 @@ class Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdRequest extends 
   }
 }
 
-class Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7304,7 +7304,7 @@ class Google_Service_ShoppingContent_OrdersUpdateMerchantOrderIdResponse extends
   }
 }
 
-class Google_Service_ShoppingContent_OrdersUpdateShipmentRequest extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersUpdateShipmentRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7357,7 +7357,7 @@ class Google_Service_ShoppingContent_OrdersUpdateShipmentRequest extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_OrdersUpdateShipmentResponse extends Google_Model
+class Forminator_Google_Service_ShoppingContent_OrdersUpdateShipmentResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7383,7 +7383,7 @@ class Google_Service_ShoppingContent_OrdersUpdateShipmentResponse extends Google
   }
 }
 
-class Google_Service_ShoppingContent_Price extends Google_Model
+class Forminator_Google_Service_ShoppingContent_Price extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -7409,7 +7409,7 @@ class Google_Service_ShoppingContent_Price extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_Product extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_Product extends Forminator_Google_Collection
 {
   protected $collection_key = 'warnings';
   protected $internal_gapi_mappings = array(
@@ -7420,7 +7420,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   public $adwordsLabels;
   public $adwordsRedirect;
   public $ageGroup;
-  protected $aspectsType = 'Google_Service_ShoppingContent_ProductAspect';
+  protected $aspectsType = 'Forminator_Google_Service_ShoppingContent_ProductAspect';
   protected $aspectsDataType = 'array';
   public $availability;
   public $availabilityDate;
@@ -7429,9 +7429,9 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   public $color;
   public $condition;
   public $contentLanguage;
-  protected $customAttributesType = 'Google_Service_ShoppingContent_ProductCustomAttribute';
+  protected $customAttributesType = 'Forminator_Google_Service_ShoppingContent_ProductCustomAttribute';
   protected $customAttributesDataType = 'array';
-  protected $customGroupsType = 'Google_Service_ShoppingContent_ProductCustomGroup';
+  protected $customGroupsType = 'Forminator_Google_Service_ShoppingContent_ProductCustomGroup';
   protected $customGroupsDataType = 'array';
   public $customLabel0;
   public $customLabel1;
@@ -7439,7 +7439,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   public $customLabel3;
   public $customLabel4;
   public $description;
-  protected $destinationsType = 'Google_Service_ShoppingContent_ProductDestination';
+  protected $destinationsType = 'Forminator_Google_Service_ShoppingContent_ProductDestination';
   protected $destinationsDataType = 'array';
   public $displayAdsId;
   public $displayAdsLink;
@@ -7454,13 +7454,13 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   public $id;
   public $identifierExists;
   public $imageLink;
-  protected $installmentType = 'Google_Service_ShoppingContent_Installment';
+  protected $installmentType = 'Forminator_Google_Service_ShoppingContent_Installment';
   protected $installmentDataType = '';
   public $isBundle;
   public $itemGroupId;
   public $kind;
   public $link;
-  protected $loyaltyPointsType = 'Google_Service_ShoppingContent_LoyaltyPoints';
+  protected $loyaltyPointsType = 'Forminator_Google_Service_ShoppingContent_LoyaltyPoints';
   protected $loyaltyPointsDataType = '';
   public $material;
   public $mobileLink;
@@ -7469,38 +7469,38 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   public $offerId;
   public $onlineOnly;
   public $pattern;
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceDataType = '';
   public $productType;
   public $promotionIds;
-  protected $salePriceType = 'Google_Service_ShoppingContent_Price';
+  protected $salePriceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $salePriceDataType = '';
   public $salePriceEffectiveDate;
   public $sellOnGoogleQuantity;
-  protected $shippingType = 'Google_Service_ShoppingContent_ProductShipping';
+  protected $shippingType = 'Forminator_Google_Service_ShoppingContent_ProductShipping';
   protected $shippingDataType = 'array';
-  protected $shippingHeightType = 'Google_Service_ShoppingContent_ProductShippingDimension';
+  protected $shippingHeightType = 'Forminator_Google_Service_ShoppingContent_ProductShippingDimension';
   protected $shippingHeightDataType = '';
   public $shippingLabel;
-  protected $shippingLengthType = 'Google_Service_ShoppingContent_ProductShippingDimension';
+  protected $shippingLengthType = 'Forminator_Google_Service_ShoppingContent_ProductShippingDimension';
   protected $shippingLengthDataType = '';
-  protected $shippingWeightType = 'Google_Service_ShoppingContent_ProductShippingWeight';
+  protected $shippingWeightType = 'Forminator_Google_Service_ShoppingContent_ProductShippingWeight';
   protected $shippingWeightDataType = '';
-  protected $shippingWidthType = 'Google_Service_ShoppingContent_ProductShippingDimension';
+  protected $shippingWidthType = 'Forminator_Google_Service_ShoppingContent_ProductShippingDimension';
   protected $shippingWidthDataType = '';
   public $sizeSystem;
   public $sizeType;
   public $sizes;
   public $targetCountry;
-  protected $taxesType = 'Google_Service_ShoppingContent_ProductTax';
+  protected $taxesType = 'Forminator_Google_Service_ShoppingContent_ProductTax';
   protected $taxesDataType = 'array';
   public $title;
-  protected $unitPricingBaseMeasureType = 'Google_Service_ShoppingContent_ProductUnitPricingBaseMeasure';
+  protected $unitPricingBaseMeasureType = 'Forminator_Google_Service_ShoppingContent_ProductUnitPricingBaseMeasure';
   protected $unitPricingBaseMeasureDataType = '';
-  protected $unitPricingMeasureType = 'Google_Service_ShoppingContent_ProductUnitPricingMeasure';
+  protected $unitPricingMeasureType = 'Forminator_Google_Service_ShoppingContent_ProductUnitPricingMeasure';
   protected $unitPricingMeasureDataType = '';
   public $validatedDestinations;
-  protected $warningsType = 'Google_Service_ShoppingContent_Error';
+  protected $warningsType = 'Forminator_Google_Service_ShoppingContent_Error';
   protected $warningsDataType = 'array';
 
 
@@ -7792,7 +7792,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->imageLink;
   }
-  public function setInstallment(Google_Service_ShoppingContent_Installment $installment)
+  public function setInstallment(Forminator_Google_Service_ShoppingContent_Installment $installment)
   {
     $this->installment = $installment;
   }
@@ -7832,7 +7832,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->link;
   }
-  public function setLoyaltyPoints(Google_Service_ShoppingContent_LoyaltyPoints $loyaltyPoints)
+  public function setLoyaltyPoints(Forminator_Google_Service_ShoppingContent_LoyaltyPoints $loyaltyPoints)
   {
     $this->loyaltyPoints = $loyaltyPoints;
   }
@@ -7896,7 +7896,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->pattern;
   }
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  public function setPrice(Forminator_Google_Service_ShoppingContent_Price $price)
   {
     $this->price = $price;
   }
@@ -7920,7 +7920,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->promotionIds;
   }
-  public function setSalePrice(Google_Service_ShoppingContent_Price $salePrice)
+  public function setSalePrice(Forminator_Google_Service_ShoppingContent_Price $salePrice)
   {
     $this->salePrice = $salePrice;
   }
@@ -7952,7 +7952,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->shipping;
   }
-  public function setShippingHeight(Google_Service_ShoppingContent_ProductShippingDimension $shippingHeight)
+  public function setShippingHeight(Forminator_Google_Service_ShoppingContent_ProductShippingDimension $shippingHeight)
   {
     $this->shippingHeight = $shippingHeight;
   }
@@ -7968,7 +7968,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->shippingLabel;
   }
-  public function setShippingLength(Google_Service_ShoppingContent_ProductShippingDimension $shippingLength)
+  public function setShippingLength(Forminator_Google_Service_ShoppingContent_ProductShippingDimension $shippingLength)
   {
     $this->shippingLength = $shippingLength;
   }
@@ -7976,7 +7976,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->shippingLength;
   }
-  public function setShippingWeight(Google_Service_ShoppingContent_ProductShippingWeight $shippingWeight)
+  public function setShippingWeight(Forminator_Google_Service_ShoppingContent_ProductShippingWeight $shippingWeight)
   {
     $this->shippingWeight = $shippingWeight;
   }
@@ -7984,7 +7984,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->shippingWeight;
   }
-  public function setShippingWidth(Google_Service_ShoppingContent_ProductShippingDimension $shippingWidth)
+  public function setShippingWidth(Forminator_Google_Service_ShoppingContent_ProductShippingDimension $shippingWidth)
   {
     $this->shippingWidth = $shippingWidth;
   }
@@ -8040,7 +8040,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->title;
   }
-  public function setUnitPricingBaseMeasure(Google_Service_ShoppingContent_ProductUnitPricingBaseMeasure $unitPricingBaseMeasure)
+  public function setUnitPricingBaseMeasure(Forminator_Google_Service_ShoppingContent_ProductUnitPricingBaseMeasure $unitPricingBaseMeasure)
   {
     $this->unitPricingBaseMeasure = $unitPricingBaseMeasure;
   }
@@ -8048,7 +8048,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   {
     return $this->unitPricingBaseMeasure;
   }
-  public function setUnitPricingMeasure(Google_Service_ShoppingContent_ProductUnitPricingMeasure $unitPricingMeasure)
+  public function setUnitPricingMeasure(Forminator_Google_Service_ShoppingContent_ProductUnitPricingMeasure $unitPricingMeasure)
   {
     $this->unitPricingMeasure = $unitPricingMeasure;
   }
@@ -8074,7 +8074,7 @@ class Google_Service_ShoppingContent_Product extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_ProductAspect extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductAspect extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8109,7 +8109,7 @@ class Google_Service_ShoppingContent_ProductAspect extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_ProductCustomAttribute extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductCustomAttribute extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8153,12 +8153,12 @@ class Google_Service_ShoppingContent_ProductCustomAttribute extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_ProductCustomGroup extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductCustomGroup extends Forminator_Google_Collection
 {
   protected $collection_key = 'attributes';
   protected $internal_gapi_mappings = array(
   );
-  protected $attributesType = 'Google_Service_ShoppingContent_ProductCustomAttribute';
+  protected $attributesType = 'Forminator_Google_Service_ShoppingContent_ProductCustomAttribute';
   protected $attributesDataType = 'array';
   public $name;
 
@@ -8181,7 +8181,7 @@ class Google_Service_ShoppingContent_ProductCustomGroup extends Google_Collectio
   }
 }
 
-class Google_Service_ShoppingContent_ProductDestination extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductDestination extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8207,7 +8207,7 @@ class Google_Service_ShoppingContent_ProductDestination extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_ProductShipping extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductShipping extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8215,7 +8215,7 @@ class Google_Service_ShoppingContent_ProductShipping extends Google_Model
   public $locationGroupName;
   public $locationId;
   public $postalCode;
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceDataType = '';
   public $region;
   public $service;
@@ -8253,7 +8253,7 @@ class Google_Service_ShoppingContent_ProductShipping extends Google_Model
   {
     return $this->postalCode;
   }
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  public function setPrice(Forminator_Google_Service_ShoppingContent_Price $price)
   {
     $this->price = $price;
   }
@@ -8279,7 +8279,7 @@ class Google_Service_ShoppingContent_ProductShipping extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_ProductShippingDimension extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductShippingDimension extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8305,7 +8305,7 @@ class Google_Service_ShoppingContent_ProductShippingDimension extends Google_Mod
   }
 }
 
-class Google_Service_ShoppingContent_ProductShippingWeight extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductShippingWeight extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8331,15 +8331,15 @@ class Google_Service_ShoppingContent_ProductShippingWeight extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_ProductStatus extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductStatus extends Forminator_Google_Collection
 {
   protected $collection_key = 'destinationStatuses';
   protected $internal_gapi_mappings = array(
   );
   public $creationDate;
-  protected $dataQualityIssuesType = 'Google_Service_ShoppingContent_ProductStatusDataQualityIssue';
+  protected $dataQualityIssuesType = 'Forminator_Google_Service_ShoppingContent_ProductStatusDataQualityIssue';
   protected $dataQualityIssuesDataType = 'array';
-  protected $destinationStatusesType = 'Google_Service_ShoppingContent_ProductStatusDestinationStatus';
+  protected $destinationStatusesType = 'Forminator_Google_Service_ShoppingContent_ProductStatusDestinationStatus';
   protected $destinationStatusesDataType = 'array';
   public $googleExpirationDate;
   public $kind;
@@ -8423,7 +8423,7 @@ class Google_Service_ShoppingContent_ProductStatus extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_ProductStatusDataQualityIssue extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductStatusDataQualityIssue extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8503,7 +8503,7 @@ class Google_Service_ShoppingContent_ProductStatusDataQualityIssue extends Googl
   }
 }
 
-class Google_Service_ShoppingContent_ProductStatusDestinationStatus extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductStatusDestinationStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8538,7 +8538,7 @@ class Google_Service_ShoppingContent_ProductStatusDestinationStatus extends Goog
   }
 }
 
-class Google_Service_ShoppingContent_ProductTax extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductTax extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8600,7 +8600,7 @@ class Google_Service_ShoppingContent_ProductTax extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_ProductUnitPricingBaseMeasure extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductUnitPricingBaseMeasure extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8626,7 +8626,7 @@ class Google_Service_ShoppingContent_ProductUnitPricingBaseMeasure extends Googl
   }
 }
 
-class Google_Service_ShoppingContent_ProductUnitPricingMeasure extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductUnitPricingMeasure extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8652,12 +8652,12 @@ class Google_Service_ShoppingContent_ProductUnitPricingMeasure extends Google_Mo
   }
 }
 
-class Google_Service_ShoppingContent_ProductsCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductsCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_ProductsCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_ProductsCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -8671,14 +8671,14 @@ class Google_Service_ShoppingContent_ProductsCustomBatchRequest extends Google_C
   }
 }
 
-class Google_Service_ShoppingContent_ProductsCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductsCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
   public $merchantId;
   public $method;
-  protected $productType = 'Google_Service_ShoppingContent_Product';
+  protected $productType = 'Forminator_Google_Service_ShoppingContent_Product';
   protected $productDataType = '';
   public $productId;
 
@@ -8707,7 +8707,7 @@ class Google_Service_ShoppingContent_ProductsCustomBatchRequestEntry extends Goo
   {
     return $this->method;
   }
-  public function setProduct(Google_Service_ShoppingContent_Product $product)
+  public function setProduct(Forminator_Google_Service_ShoppingContent_Product $product)
   {
     $this->product = $product;
   }
@@ -8725,12 +8725,12 @@ class Google_Service_ShoppingContent_ProductsCustomBatchRequestEntry extends Goo
   }
 }
 
-class Google_Service_ShoppingContent_ProductsCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductsCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -8753,15 +8753,15 @@ class Google_Service_ShoppingContent_ProductsCustomBatchResponse extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
   public $kind;
-  protected $productType = 'Google_Service_ShoppingContent_Product';
+  protected $productType = 'Forminator_Google_Service_ShoppingContent_Product';
   protected $productDataType = '';
 
 
@@ -8773,7 +8773,7 @@ class Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry extends Go
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -8789,7 +8789,7 @@ class Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry extends Go
   {
     return $this->kind;
   }
-  public function setProduct(Google_Service_ShoppingContent_Product $product)
+  public function setProduct(Forminator_Google_Service_ShoppingContent_Product $product)
   {
     $this->product = $product;
   }
@@ -8799,14 +8799,14 @@ class Google_Service_ShoppingContent_ProductsCustomBatchResponseEntry extends Go
   }
 }
 
-class Google_Service_ShoppingContent_ProductsListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_Product';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_Product';
   protected $resourcesDataType = 'array';
 
 
@@ -8836,12 +8836,12 @@ class Google_Service_ShoppingContent_ProductsListResponse extends Google_Collect
   }
 }
 
-class Google_Service_ShoppingContent_ProductstatusesCustomBatchRequest extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_ProductstatusesCustomBatchRequestEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchRequestEntry';
   protected $entriesDataType = 'array';
 
 
@@ -8855,7 +8855,7 @@ class Google_Service_ShoppingContent_ProductstatusesCustomBatchRequest extends G
   }
 }
 
-class Google_Service_ShoppingContent_ProductstatusesCustomBatchRequestEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchRequestEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -8899,12 +8899,12 @@ class Google_Service_ShoppingContent_ProductstatusesCustomBatchRequestEntry exte
   }
 }
 
-class Google_Service_ShoppingContent_ProductstatusesCustomBatchResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'entries';
   protected $internal_gapi_mappings = array(
   );
-  protected $entriesType = 'Google_Service_ShoppingContent_ProductstatusesCustomBatchResponseEntry';
+  protected $entriesType = 'Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchResponseEntry';
   protected $entriesDataType = 'array';
   public $kind;
 
@@ -8927,15 +8927,15 @@ class Google_Service_ShoppingContent_ProductstatusesCustomBatchResponse extends 
   }
 }
 
-class Google_Service_ShoppingContent_ProductstatusesCustomBatchResponseEntry extends Google_Model
+class Forminator_Google_Service_ShoppingContent_ProductstatusesCustomBatchResponseEntry extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $batchId;
-  protected $errorsType = 'Google_Service_ShoppingContent_Errors';
+  protected $errorsType = 'Forminator_Google_Service_ShoppingContent_Errors';
   protected $errorsDataType = '';
   public $kind;
-  protected $productStatusType = 'Google_Service_ShoppingContent_ProductStatus';
+  protected $productStatusType = 'Forminator_Google_Service_ShoppingContent_ProductStatus';
   protected $productStatusDataType = '';
 
 
@@ -8947,7 +8947,7 @@ class Google_Service_ShoppingContent_ProductstatusesCustomBatchResponseEntry ext
   {
     return $this->batchId;
   }
-  public function setErrors(Google_Service_ShoppingContent_Errors $errors)
+  public function setErrors(Forminator_Google_Service_ShoppingContent_Errors $errors)
   {
     $this->errors = $errors;
   }
@@ -8963,7 +8963,7 @@ class Google_Service_ShoppingContent_ProductstatusesCustomBatchResponseEntry ext
   {
     return $this->kind;
   }
-  public function setProductStatus(Google_Service_ShoppingContent_ProductStatus $productStatus)
+  public function setProductStatus(Forminator_Google_Service_ShoppingContent_ProductStatus $productStatus)
   {
     $this->productStatus = $productStatus;
   }
@@ -8973,14 +8973,14 @@ class Google_Service_ShoppingContent_ProductstatusesCustomBatchResponseEntry ext
   }
 }
 
-class Google_Service_ShoppingContent_ProductstatusesListResponse extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_ProductstatusesListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_ShoppingContent_ProductStatus';
+  protected $resourcesType = 'Forminator_Google_Service_ShoppingContent_ProductStatus';
   protected $resourcesDataType = 'array';
 
 
@@ -9010,29 +9010,29 @@ class Google_Service_ShoppingContent_ProductstatusesListResponse extends Google_
   }
 }
 
-class Google_Service_ShoppingContent_TestOrder extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_TestOrder extends Forminator_Google_Collection
 {
   protected $collection_key = 'promotions';
   protected $internal_gapi_mappings = array(
   );
-  protected $customerType = 'Google_Service_ShoppingContent_TestOrderCustomer';
+  protected $customerType = 'Forminator_Google_Service_ShoppingContent_TestOrderCustomer';
   protected $customerDataType = '';
   public $kind;
-  protected $lineItemsType = 'Google_Service_ShoppingContent_TestOrderLineItem';
+  protected $lineItemsType = 'Forminator_Google_Service_ShoppingContent_TestOrderLineItem';
   protected $lineItemsDataType = 'array';
-  protected $paymentMethodType = 'Google_Service_ShoppingContent_TestOrderPaymentMethod';
+  protected $paymentMethodType = 'Forminator_Google_Service_ShoppingContent_TestOrderPaymentMethod';
   protected $paymentMethodDataType = '';
   public $predefinedDeliveryAddress;
-  protected $promotionsType = 'Google_Service_ShoppingContent_OrderPromotion';
+  protected $promotionsType = 'Forminator_Google_Service_ShoppingContent_OrderPromotion';
   protected $promotionsDataType = 'array';
-  protected $shippingCostType = 'Google_Service_ShoppingContent_Price';
+  protected $shippingCostType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $shippingCostDataType = '';
-  protected $shippingCostTaxType = 'Google_Service_ShoppingContent_Price';
+  protected $shippingCostTaxType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $shippingCostTaxDataType = '';
   public $shippingOption;
 
 
-  public function setCustomer(Google_Service_ShoppingContent_TestOrderCustomer $customer)
+  public function setCustomer(Forminator_Google_Service_ShoppingContent_TestOrderCustomer $customer)
   {
     $this->customer = $customer;
   }
@@ -9056,7 +9056,7 @@ class Google_Service_ShoppingContent_TestOrder extends Google_Collection
   {
     return $this->lineItems;
   }
-  public function setPaymentMethod(Google_Service_ShoppingContent_TestOrderPaymentMethod $paymentMethod)
+  public function setPaymentMethod(Forminator_Google_Service_ShoppingContent_TestOrderPaymentMethod $paymentMethod)
   {
     $this->paymentMethod = $paymentMethod;
   }
@@ -9080,7 +9080,7 @@ class Google_Service_ShoppingContent_TestOrder extends Google_Collection
   {
     return $this->promotions;
   }
-  public function setShippingCost(Google_Service_ShoppingContent_Price $shippingCost)
+  public function setShippingCost(Forminator_Google_Service_ShoppingContent_Price $shippingCost)
   {
     $this->shippingCost = $shippingCost;
   }
@@ -9088,7 +9088,7 @@ class Google_Service_ShoppingContent_TestOrder extends Google_Collection
   {
     return $this->shippingCost;
   }
-  public function setShippingCostTax(Google_Service_ShoppingContent_Price $shippingCostTax)
+  public function setShippingCostTax(Forminator_Google_Service_ShoppingContent_Price $shippingCostTax)
   {
     $this->shippingCostTax = $shippingCostTax;
   }
@@ -9106,7 +9106,7 @@ class Google_Service_ShoppingContent_TestOrder extends Google_Collection
   }
 }
 
-class Google_Service_ShoppingContent_TestOrderCustomer extends Google_Model
+class Forminator_Google_Service_ShoppingContent_TestOrderCustomer extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -9141,22 +9141,22 @@ class Google_Service_ShoppingContent_TestOrderCustomer extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_TestOrderLineItem extends Google_Model
+class Forminator_Google_Service_ShoppingContent_TestOrderLineItem extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $productType = 'Google_Service_ShoppingContent_TestOrderLineItemProduct';
+  protected $productType = 'Forminator_Google_Service_ShoppingContent_TestOrderLineItemProduct';
   protected $productDataType = '';
   public $quantityOrdered;
-  protected $returnInfoType = 'Google_Service_ShoppingContent_OrderLineItemReturnInfo';
+  protected $returnInfoType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemReturnInfo';
   protected $returnInfoDataType = '';
-  protected $shippingDetailsType = 'Google_Service_ShoppingContent_OrderLineItemShippingDetails';
+  protected $shippingDetailsType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetails';
   protected $shippingDetailsDataType = '';
-  protected $unitTaxType = 'Google_Service_ShoppingContent_Price';
+  protected $unitTaxType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $unitTaxDataType = '';
 
 
-  public function setProduct(Google_Service_ShoppingContent_TestOrderLineItemProduct $product)
+  public function setProduct(Forminator_Google_Service_ShoppingContent_TestOrderLineItemProduct $product)
   {
     $this->product = $product;
   }
@@ -9172,7 +9172,7 @@ class Google_Service_ShoppingContent_TestOrderLineItem extends Google_Model
   {
     return $this->quantityOrdered;
   }
-  public function setReturnInfo(Google_Service_ShoppingContent_OrderLineItemReturnInfo $returnInfo)
+  public function setReturnInfo(Forminator_Google_Service_ShoppingContent_OrderLineItemReturnInfo $returnInfo)
   {
     $this->returnInfo = $returnInfo;
   }
@@ -9180,7 +9180,7 @@ class Google_Service_ShoppingContent_TestOrderLineItem extends Google_Model
   {
     return $this->returnInfo;
   }
-  public function setShippingDetails(Google_Service_ShoppingContent_OrderLineItemShippingDetails $shippingDetails)
+  public function setShippingDetails(Forminator_Google_Service_ShoppingContent_OrderLineItemShippingDetails $shippingDetails)
   {
     $this->shippingDetails = $shippingDetails;
   }
@@ -9188,7 +9188,7 @@ class Google_Service_ShoppingContent_TestOrderLineItem extends Google_Model
   {
     return $this->shippingDetails;
   }
-  public function setUnitTax(Google_Service_ShoppingContent_Price $unitTax)
+  public function setUnitTax(Forminator_Google_Service_ShoppingContent_Price $unitTax)
   {
     $this->unitTax = $unitTax;
   }
@@ -9198,7 +9198,7 @@ class Google_Service_ShoppingContent_TestOrderLineItem extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_TestOrderLineItemProduct extends Google_Collection
+class Forminator_Google_Service_ShoppingContent_TestOrderLineItemProduct extends Forminator_Google_Collection
 {
   protected $collection_key = 'variantAttributes';
   protected $internal_gapi_mappings = array(
@@ -9212,11 +9212,11 @@ class Google_Service_ShoppingContent_TestOrderLineItemProduct extends Google_Col
   public $itemGroupId;
   public $mpn;
   public $offerId;
-  protected $priceType = 'Google_Service_ShoppingContent_Price';
+  protected $priceType = 'Forminator_Google_Service_ShoppingContent_Price';
   protected $priceDataType = '';
   public $targetCountry;
   public $title;
-  protected $variantAttributesType = 'Google_Service_ShoppingContent_OrderLineItemProductVariantAttribute';
+  protected $variantAttributesType = 'Forminator_Google_Service_ShoppingContent_OrderLineItemProductVariantAttribute';
   protected $variantAttributesDataType = 'array';
 
 
@@ -9292,7 +9292,7 @@ class Google_Service_ShoppingContent_TestOrderLineItemProduct extends Google_Col
   {
     return $this->offerId;
   }
-  public function setPrice(Google_Service_ShoppingContent_Price $price)
+  public function setPrice(Forminator_Google_Service_ShoppingContent_Price $price)
   {
     $this->price = $price;
   }
@@ -9326,7 +9326,7 @@ class Google_Service_ShoppingContent_TestOrderLineItemProduct extends Google_Col
   }
 }
 
-class Google_Service_ShoppingContent_TestOrderPaymentMethod extends Google_Model
+class Forminator_Google_Service_ShoppingContent_TestOrderPaymentMethod extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -9379,7 +9379,7 @@ class Google_Service_ShoppingContent_TestOrderPaymentMethod extends Google_Model
   }
 }
 
-class Google_Service_ShoppingContent_Weight extends Google_Model
+class Forminator_Google_Service_ShoppingContent_Weight extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );

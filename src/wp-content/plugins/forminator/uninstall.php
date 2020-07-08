@@ -102,6 +102,8 @@ function forminator_delete_custom_options() {
 	delete_option( "forminator_currency" );
 	delete_option( "forminator_exporter_log" );
 	delete_option( "forminator_uninstall_clear_data" );
+	delete_option( "forminator_stripe_configuration" );
+	delete_option( "forminator_paypal_configuration" );
 }
 
 /**

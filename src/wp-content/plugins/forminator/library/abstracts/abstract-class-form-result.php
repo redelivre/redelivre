@@ -106,7 +106,7 @@ abstract class Forminator_Result {
 		$http_referer = $this->post_data['_wp_http_referer'];
 		$http_referer = preg_replace( '/entries((.*))?/', '', $http_referer );
 
-		return $http_referer . "entries/" . $this->entry_id . "/";
+		return $http_referer . 'entries/' . $this->entry_id . '/';
 	}
 
 	public function add_rewrite_rules() {

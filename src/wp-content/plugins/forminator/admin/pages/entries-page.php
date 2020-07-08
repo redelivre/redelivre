@@ -75,7 +75,7 @@ class Forminator_Entries_Page extends Forminator_Admin_Page {
 			'form_id'   => 0,
 		);
 
-		$this->screen_params = array_merge( $screen_params, $_REQUEST );//WPCS CSRF ok.
+		$this->screen_params = array_merge( $screen_params, $_REQUEST );//phpcs:ignore -- data without nonce verification
 	}
 
 	/**
@@ -148,7 +148,6 @@ class Forminator_Entries_Page extends Forminator_Admin_Page {
 				$entries_renderer->render();
 				$this->entries_page = ob_get_clean();
 			}
-
 		}
 	}
 
@@ -213,7 +212,7 @@ class Forminator_Entries_Page extends Forminator_Admin_Page {
 		foreach ( $forms as $form ) {
 			/**@var Forminator_Base_Form_Model $form */
 			$title = ! empty( $form->settings['formName'] ) ? $form->settings['formName'] : $form->raw->post_title;
-			$html  .= '<option value="' . $form->id . '" ' . selected( $form->id, $this->get_current_form_id(), false ) . '>' . $title . '</option>';
+			$html .= '<option value="' . $form->id . '" ' . selected( $form->id, $this->get_current_form_id(), false ) . '>' . $title . '</option>';
 		}
 
 		$html .= '</select>';
@@ -277,25 +276,31 @@ class Forminator_Entries_Page extends Forminator_Admin_Page {
 	 * @since 1.5.4
 	 */
 	public function enqueue_entries_scripts() {
-		wp_enqueue_script( 'forminator-entries-moment',
-		                   forminator_plugin_url() . 'assets/js/library/moment.min.js',
-		                   array( 'jquery' ),
-		                   '2.22.2',
-		                   true );
-		wp_enqueue_script( 'forminator-entries-datepicker-range',
-		                   forminator_plugin_url() . 'assets/js/library/daterangepicker.min.js',
-		                   array( 'forminator-entries-moment' ),
-		                   '3.0.3',
-		                   true );
-		wp_enqueue_style( 'forminator-entries-datepicker-range',
-		                  forminator_plugin_url() . 'assets/css/daterangepicker.min.css',
-		                  array(),
-		                  '3.0.3' );
+		wp_enqueue_script(
+			'forminator-entries-moment',
+			forminator_plugin_url() . 'assets/js/library/moment.min.js',
+			array( 'jquery' ),
+			'2.22.2',
+			true
+		);
+		wp_enqueue_script(
+			'forminator-entries-datepicker-range',
+			forminator_plugin_url() . 'assets/js/library/daterangepicker.min.js',
+			array( 'forminator-entries-moment' ),
+			'3.0.3',
+			true
+		);
+		wp_enqueue_style(
+			'forminator-entries-datepicker-range',
+			forminator_plugin_url() . 'assets/css/daterangepicker.min.css',
+			array(),
+			'3.0.3'
+		);
 
 		// use inline script to allow hooking into this
 		$daterangepicker_ranges
 			= sprintf(
-			"
+				"
 			var forminator_entries_datepicker_ranges = {
 				'%s': [moment(), moment()],
 		        '%s': [moment().subtract(1,'days'), moment().subtract(1,'days')],
@@ -304,13 +309,13 @@ class Forminator_Entries_Page extends Forminator_Admin_Page {
 		        '%s': [moment().startOf('month'), moment().endOf('month')],
 		        '%s': [moment().subtract(1,'month').startOf('month'), moment().subtract(1,'month').endOf('month')]
 			};",
-			__( 'Today', Forminator::DOMAIN ),
-			__( 'Yesterday', Forminator::DOMAIN ),
-			__( 'Last 7 Days', Forminator::DOMAIN ),
-			__( 'Last 30 Days', Forminator::DOMAIN ),
-			__( 'This Month', Forminator::DOMAIN ),
-			__( 'Last Month', Forminator::DOMAIN )
-		);
+				__( 'Today', Forminator::DOMAIN ),
+				__( 'Yesterday', Forminator::DOMAIN ),
+				__( 'Last 7 Days', Forminator::DOMAIN ),
+				__( 'Last 30 Days', Forminator::DOMAIN ),
+				__( 'This Month', Forminator::DOMAIN ),
+				__( 'Last Month', Forminator::DOMAIN )
+			);
 
 		/**
 		 * Filter ranges to be used on submissions date range
@@ -352,7 +357,23 @@ class Forminator_Entries_Page extends Forminator_Admin_Page {
 		$daterangepicker_lang    = apply_filters( 'forminator_l10n_daterangepicker', $daterangepicker_lang );
 		$l10n['daterangepicker'] = $daterangepicker_lang;
 
-
 		return $l10n;
+	}
+
+	/**
+	 * Override scripts to be loaded
+	 *
+	 * @since 1.11
+	 *
+	 * @param $hook
+	 */
+	public function enqueue_scripts( $hook ) {
+		parent::enqueue_scripts( $hook );
+
+		forminator_print_forms_admin_styles( FORMINATOR_VERSION );
+		forminator_print_polls_admin_styles( FORMINATOR_VERSION );
+		forminator_print_front_styles( FORMINATOR_VERSION );
+
+		forminator_print_front_scripts( FORMINATOR_VERSION );
 	}
 }

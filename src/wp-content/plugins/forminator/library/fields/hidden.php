@@ -43,7 +43,7 @@ class Forminator_Hidden extends Forminator_Field {
 	/**
 	 * @var string
 	 */
-	public $hide_advanced = "true";
+	public $hide_advanced = 'true';
 
 	/**
 	 * @var string
@@ -104,8 +104,8 @@ class Forminator_Hidden extends Forminator_Field {
 		$id          = self::get_property( 'element_id', $field );
 		$name        = $id;
 		$required    = self::get_property( 'required', $field, false );
-		$placeholder = self::get_property( 'placeholder', $field );
-		$value       = $this->get_value( $field );
+		$placeholder = esc_html( self::get_property( 'placeholder', $field ) );
+		$value       = esc_html( $this->get_value( $field ) );
 
 		return sprintf( '<input type="hidden" id="%s" name="%s" value="%s" />', $id, $name, $value );
 	}
@@ -124,49 +124,49 @@ class Forminator_Hidden extends Forminator_Field {
 		$saved_value = self::get_property( 'default_value', $field );
 		$embed_url   = forminator_get_current_url();
 
-		switch( $saved_value ) {
-			case "user_ip":
+		switch ( $saved_value ) {
+			case 'user_ip':
 				$value = Forminator_Geo::get_user_ip();
 				break;
-			case "date_mdy":
+			case 'date_mdy':
 				$value = date_i18n( 'm/d/Y', forminator_local_timestamp(), true );
 				break;
-			case "date_dmy":
+			case 'date_dmy':
 				$value = date_i18n( 'd/m/Y', forminator_local_timestamp(), true );
 				break;
-			case "embed_id":
+			case 'embed_id':
 				$value = forminator_get_post_data( 'ID' );
 				break;
-			case "embed_title":
+			case 'embed_title':
 				$value = forminator_get_post_data( 'post_title' );
 				break;
-			case "embed_url":
+			case 'embed_url':
 				$value = $embed_url;
 				break;
-			case "user_agent":
-				$value = $_SERVER[ 'HTTP_USER_AGENT' ];
+			case 'user_agent':
+				$value = $_SERVER['HTTP_USER_AGENT'];
 				break;
-			case "refer_url":
-				$value = isset ( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : $embed_url;
+			case 'refer_url':
+				$value = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : $embed_url;
 				break;
-			case "user_id":
+			case 'user_id':
 				$value = forminator_get_user_data( 'ID' );
 				break;
-			case "user_name":
+			case 'user_name':
 				$value = forminator_get_user_data( 'display_name' );
 				break;
-			case "user_email":
+			case 'user_email':
 				$value = forminator_get_user_data( 'user_email' );
 				break;
-			case "user_login":
+			case 'user_login':
 				$value = forminator_get_user_data( 'user_login' );
 				break;
-			case "custom_value":
+			case 'custom_value':
 				$value = self::get_property( 'custom_value', $field );
 				break;
-            case "query":
-                $value = $this->replace_prefill( $field );
-                break;
+			case 'query':
+				$value = $this->replace_prefill( $field );
+				break;
 			default:
 				break;
 		}
@@ -174,24 +174,24 @@ class Forminator_Hidden extends Forminator_Field {
 		return apply_filters( 'forminator_field_hidden_field_value', $value, $saved_value, $field, $this );
 	}
 
-    /**
-     * Get prefill value
-     *
-     * @since 1.10
-     *
-     * @param $field
-     * @return mixed|string
-     */
+	/**
+	 * Get prefill value
+	 *
+	 * @since 1.10
+	 *
+	 * @param $field
+	 * @return mixed|string
+	 */
 	public function replace_prefill( $field ) {
-	    $value = '';
+		$value = '';
 
-	    if( $this->has_prefill( $field ) ) {
-            // We have pre-fill parameter, use its value or $value
-            $value = $this->get_prefill( $field, $value );
-        }
+		if ( $this->has_prefill( $field ) ) {
+			// We have pre-fill parameter, use its value or $value
+			$value = $this->get_prefill( $field, $value );
+		}
 
-	    return $value;
-    }
+		return $value;
+	}
 
 	/**
 	 * Sanitize data
@@ -206,6 +206,9 @@ class Forminator_Hidden extends Forminator_Field {
 	public function sanitize( $field, $data ) {
 		$original_data = $data;
 		// Sanitize
+		if ( in_array( $field['default_value'], array( 'refer_url', 'embed_url' ) ) ) {
+			$data = urldecode_deep( $data );
+		}
 		$data = forminator_sanitize_field( $data );
 
 		return apply_filters( 'forminator_field_hidden_sanitize', $data, $field, $original_data );

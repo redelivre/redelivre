@@ -1,0 +1,52 @@
+/* Social Sharing */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-quiz--social {
+	border-top-color: rgba(0,0,0,0.12);
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-quiz--social .forminator-social--text {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-sshare-color' ) ) { ?>
+			color: <?php echo $properties['nowrong-sshare-color'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	<?php } else { ?>
+		color: #000000;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-typography' ) ) { ?>
+		<?php if ( $properties['nowrong-sshare-font-size'] != '' ) { ?>
+			font-size: <?php echo $properties['nowrong-sshare-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 20px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-sshare-font-family' ) ) { ?>
+			<?php if ( $properties['nowrong-sshare-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['nowrong-sshare-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['nowrong-sshare-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['nowrong-sshare-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-sshare-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['nowrong-sshare-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 20px;
+		font-weight: 400;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-quiz--social .forminator-social--icon {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-typography' ) ) { ?>
+		<?php if ( $properties['nowrong-social-size'] != '' ) { ?>
+			font-size: <?php echo $properties['nowrong-social-size'] ?>px;
+		<?php } else { ?>
+			font-size: 36px;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 36px;
+	<?php } ?>
+}

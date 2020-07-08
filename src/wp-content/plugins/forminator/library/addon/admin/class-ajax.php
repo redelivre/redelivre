@@ -249,6 +249,7 @@ class Forminator_Addon_Admin_Ajax {
 			$form_settings->disconnect_form( $sanitized_post_data );
 
 			$this->send_json_success(
+				/* translators: ... */
 				sprintf( __( 'Successfully disconnected %1$s from this form', Forminator::DOMAIN ), $addon->get_title() ),
 				array(
 					'notification' => array(
@@ -259,6 +260,7 @@ class Forminator_Addon_Admin_Ajax {
 			);
 		} else {
 			$this->send_json_errors(
+				/* translators: ... */
 				sprintf( __( 'Failed to disconnect %1$s from this form', Forminator::DOMAIN ), $addon->get_title() ),
 				array(),
 				array(
@@ -388,7 +390,7 @@ class Forminator_Addon_Admin_Ajax {
 	 * @return mixed
 	 */
 	private function validate_and_sanitize_fields( $required_fields = array() ) {
-		$post_data = $_REQUEST['data']; // wpcs csrf ok. already validated
+		$post_data = $_REQUEST['data']; // phpcs:ignore -- already validated
 
 		//for serialized data or form
 		if ( ! is_array( $post_data ) && is_string( $post_data ) ) {
@@ -460,7 +462,6 @@ class Forminator_Addon_Admin_Ajax {
 			remove_action( 'wp_ajax_forminator_addon_get_addons', array( self::$_instance, 'get_addons' ) );
 			remove_action( 'wp_ajax_forminator_addon_settings', array( self::$_instance, 'settings' ) );
 			remove_action( 'wp_ajax_forminator_addon_deactivate', array( self::$_instance, 'deactivate' ) );
-
 
 			remove_action( 'wp_ajax_forminator_addon_get_form_addons', array( self::$_instance, 'get_form_addons' ) );
 			remove_action( 'wp_ajax_forminator_addon_form_settings', array( self::$_instance, 'form_settings' ) );
@@ -581,6 +582,7 @@ class Forminator_Addon_Admin_Ajax {
 			$poll_settings->disconnect_poll( $sanitized_post_data );
 
 			$this->send_json_success(
+				/* translators: ... */
 				sprintf( __( 'Successfully disconnected %1$s from this poll', Forminator::DOMAIN ), $addon->get_title() ),
 				array(
 					'notification' => array(
@@ -591,6 +593,7 @@ class Forminator_Addon_Admin_Ajax {
 			);
 		} else {
 			$this->send_json_errors(
+				/* translators: ... */
 				sprintf( __( 'Failed to disconnect %1$s from this poll', Forminator::DOMAIN ), $addon->get_title() ),
 				array(),
 				array(
@@ -706,6 +709,7 @@ class Forminator_Addon_Admin_Ajax {
 			$quiz_settings->disconnect_quiz( $sanitized_post_data );
 
 			$this->send_json_success(
+				/* translators: ... */
 				sprintf( __( 'Successfully disconnected %1$s from this quiz', Forminator::DOMAIN ), $addon->get_title() ),
 				array(
 					'notification' => array(
@@ -716,6 +720,7 @@ class Forminator_Addon_Admin_Ajax {
 			);
 		} else {
 			$this->send_json_errors(
+				/* translators: ... */
 				sprintf( __( 'Failed to disconnect %1$s from this quiz', Forminator::DOMAIN ), $addon->get_title() ),
 				array(),
 				array(

@@ -23,8 +23,8 @@ function forminator_addon_activecampaign_assets_url() {
 	return trailingslashit( forminator_addon_activecampaign_url() . 'assets' );
 }
 
-require_once dirname( __FILE__ ) . '/forminator-addon-activecampaign.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-activecampaign-form-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-activecampaign-form-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-activecampaign.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-activecampaign-form-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-activecampaign-form-hooks.php';
 //Direct Load
 Forminator_Addon_Loader::get_instance()->register( 'Forminator_Addon_Activecampaign' );

@@ -20,4 +20,3 @@ foreach ( $template_vars as $key => $val ) {
 <?php if ( empty( $vars['token'] ) ) : ?>
 	<a href="<?php echo esc_attr( $vars['auth_url'] ); ?>" target="_blank" class="sui-button disable-loader"><?php esc_html_e( 'RETRY', Forminator::DOMAIN ); ?></a>
 <?php endif ?>
-

@@ -1,0 +1,36 @@
+/* ELEMENT: Quiz Question (Legend) */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-question .forminator-legend {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-question-color' ) ) { ?>
+			color: <?php echo $properties['knowledge-question-color'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	<?php } else { ?>
+		color: #000000;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-typography' ) ) { ?>
+		<?php if ( $properties['knowledge-question-font-size'] != '' ) { ?>
+			font-size: <?php echo $properties['knowledge-question-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 16px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-question-font-family' ) ) { ?>
+			<?php if ( $properties['knowledge-question-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['knowledge-question-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['knowledge-question-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['knowledge-question-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-question-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['knowledge-question-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 700;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 16px;
+		font-weight: 700;
+	<?php } ?>
+}

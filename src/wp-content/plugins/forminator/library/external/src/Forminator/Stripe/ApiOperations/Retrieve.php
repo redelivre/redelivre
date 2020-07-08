@@ -15,7 +15,9 @@ trait Retrieve
      *     or an options array containing an `id` key.
      * @param array|string|null $opts
      *
-     * @return \Forminator\Stripe\StripeObject
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return static
      */
     public static function retrieve($id, $opts = null)
     {

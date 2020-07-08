@@ -11,16 +11,20 @@ $section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) :
 				<a href="#" data-nav="dashboard"><?php esc_html_e( 'General', Forminator::DOMAIN ); ?></a>
 			</li>
 
-            <li class="sui-vertical-tab <?php echo esc_attr( 'accessibility' === $section ? 'current' : '' ); ?>">
-                <a href="#" data-nav="accessibility"><?php esc_html_e( 'Accessibility', Forminator::DOMAIN ); ?></a>
-            </li>
+			<li class="sui-vertical-tab <?php echo esc_attr( 'accessibility' === $section ? 'current' : '' ); ?>">
+				<a href="#" data-nav="accessibility"><?php esc_html_e( 'Accessibility', Forminator::DOMAIN ); ?></a>
+			</li>
 
-            <li class="sui-vertical-tab <?php echo esc_attr( 'data' === $section ? 'current' : '' ); ?>">
-                <a href="#" data-nav="data"><?php esc_html_e( 'Data', Forminator::DOMAIN ); ?></a>
-            </li>
+			<li class="sui-vertical-tab <?php echo esc_attr( 'data' === $section ? 'current' : '' ); ?>">
+				<a href="#" data-nav="data"><?php esc_html_e( 'Data', Forminator::DOMAIN ); ?></a>
+			</li>
 
 			<li class="sui-vertical-tab <?php echo esc_attr( 'recaptcha' === $section ? 'current' : '' ); ?>">
 				<a href="#" data-nav="recaptcha"><?php esc_html_e( 'Google reCAPTCHA', Forminator::DOMAIN ); ?></a>
+			</li>
+
+			<li class="sui-vertical-tab <?php echo esc_attr( 'import' === $section ? 'current' : '' ); ?>">
+				<a href="#" data-nav="import"><?php esc_html_e( 'Import', Forminator::DOMAIN ); ?></a>
 			</li>
 
 			<li class="sui-vertical-tab <?php echo esc_attr( 'submissions' === $section ? 'current' : '' ); ?>">
@@ -35,9 +39,10 @@ $section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) :
 
 		<select class="sui-mobile-nav sui-sidenav-hide-lg">
 			<option value="dashboard"><?php esc_html_e( 'General', Forminator::DOMAIN ); ?></option>
-            <option value="accessibility"><?php esc_html_e( 'Accessibility', Forminator::DOMAIN ); ?></option>
-            <option value="data"><?php esc_html_e( 'Data', Forminator::DOMAIN ); ?></option>
+			<option value="accessibility"><?php esc_html_e( 'Accessibility', Forminator::DOMAIN ); ?></option>
+			<option value="data"><?php esc_html_e( 'Data', Forminator::DOMAIN ); ?></option>
 			<option value="recaptcha"><?php esc_html_e( 'Google reCAPTCHA', Forminator::DOMAIN ); ?></option>
+			<option value="import"><?php esc_html_e( 'Import', Forminator::DOMAIN ); ?></option>
 			<option value="submissions"><?php esc_html_e( 'Submissions', Forminator::DOMAIN ); ?></option>
 			<option value="payments"><?php esc_html_e( 'Payments', Forminator::DOMAIN ); ?></option>
 		</select>
@@ -50,5 +55,6 @@ $section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) :
 	<?php $this->template( 'settings/tab-submissions' ); ?>
 	<?php $this->template( 'settings/tab-payments' ); ?>
 	<?php $this->template( 'settings/tab-accessibility' ); ?>
+	<?php $this->template( 'settings/tab-import' ); ?>
 
 </div>

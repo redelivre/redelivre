@@ -1,0 +1,90 @@
+/* ELEMENT: Quiz Answers (Checkbox) */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer .forminator-answer--status {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-border-static' ) ) { ?>
+			border-color: <?php echo $properties['knowledge-answer-check-border-static'] ?>;
+		<?php } else { ?>
+			border-color: #EBEDEB;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-background-static' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-answer-check-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #FFFFFF;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-loader-icon-color' ) ) { ?>
+			color: <?php echo $properties['knowledge-answer-loader-icon-color'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #EBEDEB;
+		background-color: #FFFFFF;
+		color: #FFFFFF;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer input:checked + .forminator-answer--design .forminator-answer--status {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-border-active' ) ) { ?>
+			border-color: <?php echo $properties['knowledge-answer-check-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-background-active' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-answer-check-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #17A8E3;
+		background-color: #17A8E3;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer.forminator-is_correct input:checked + .forminator-answer--design .forminator-answer--status {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-border-correct' ) ) { ?>
+			border-color: <?php echo $properties['knowledge-answer-check-border-correct'] ?>;
+		<?php } else { ?>
+			border-color: #0BC30B;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-background-correct' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-answer-check-background-correct'] ?>;
+		<?php } else { ?>
+			background-color: #0BC30B;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-icon-correct' ) ) { ?>
+			color: <?php echo $properties['knowledge-answer-icon-correct'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #0BC30B;
+		background-color: #0BC30B;
+		color: #FFFFFF;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer.forminator-is_incorrect input:checked + .forminator-answer--design .forminator-answer--status {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-border-incorrect' ) ) { ?>
+			border-color: <?php echo $properties['knowledge-answer-check-border-incorrect'] ?>;
+		<?php } else { ?>
+			border-color: #DA0000;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-check-background-incorrect' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-answer-check-background-incorrect'] ?>;
+		<?php } else { ?>
+			background-color: #DA0000;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-icon-incorrect' ) ) { ?>
+			color: <?php echo $properties['knowledge-answer-icon-incorrect'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #DA0000;
+		background-color: #DA0000;
+		color: #FFFFFF;
+	<?php } ?>
+}

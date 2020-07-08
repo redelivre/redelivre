@@ -159,12 +159,12 @@ function forminator_cform_modules( $limit = 4, $status = '' ) {
 	if ( ! empty( $models ) ) {
 		foreach ( $models as $model ) {
 			$modules[] = array(
-				"id"      => $model->id,
-				"title"   => $model->name,
-				"entries" => Forminator_Form_Entry_Model::count_entries( $model->id ),
-				"views"   => $form_view->count_views( $model->id ),
-				"date"    => date( get_option( 'date_format' ), strtotime( $model->raw->post_date ) ),
-				"status"  => $model->status
+				'id'      => $model->id,
+				'title'   => $model->name,
+				'entries' => Forminator_Form_Entry_Model::count_entries( $model->id ),
+				'views'   => $form_view->count_views( $model->id ),
+				'date'    => date( get_option( 'date_format' ), strtotime( $model->raw->post_date ) ), // phpcs:ignore
+				'status'  => $model->status,
 			);
 		}
 	}
@@ -179,10 +179,10 @@ function forminator_cform_modules( $limit = 4, $status = '' ) {
  * @return mixed
  */
 function forminator_get_rate( $module ) {
-	if ( 0 === $module["views"] ) {
+	if ( 0 === $module['views'] ) {
 		$rate = 0;
 	} else {
-		$rate = round( ( $module["entries"] * 100 ) / $module["views"], 1 );
+		$rate = round( ( $module['entries'] * 100 ) / $module['views'], 1 );
 	}
 
 	return $rate;
@@ -230,11 +230,11 @@ function forminator_polls_modules( $limit = 4, $status = '' ) {
 	if ( ! empty( $models ) ) {
 		foreach ( $models as $model ) {
 			$modules[] = array(
-				"id"      => $model->id,
-				"title"   => $model->name,
-				"entries" => Forminator_Form_Entry_Model::count_entries( $model->id ),
-				"views"   => $form_view->count_views( $model->id ),
-				"date"    => date( get_option( 'date_format' ), strtotime( $model->raw->post_date ) ),
+				'id'      => $model->id,
+				'title'   => $model->name,
+				'entries' => Forminator_Form_Entry_Model::count_entries( $model->id ),
+				'views'   => $form_view->count_views( $model->id ),
+				'date'    => date( get_option( 'date_format' ), strtotime( $model->raw->post_date ) ), // phpcs:ignore
 				'status'  => $model->status,
 				'name'    => forminator_get_name_from_model( $model ),
 			);
@@ -285,12 +285,12 @@ function forminator_quizzes_modules( $limit = 4, $status = '' ) {
 	if ( ! empty( $models ) ) {
 		foreach ( $models as $model ) {
 			$modules[] = array(
-				"id"      => $model->id,
-				"title"   => $model->name,
-				"entries" => Forminator_Form_Entry_Model::count_entries( $model->id ),
-				"views"   => $form_view->count_views( $model->id ),
+				'id'      => $model->id,
+				'title'   => $model->name,
+				'entries' => Forminator_Form_Entry_Model::count_entries( $model->id ),
+				'views'   => $form_view->count_views( $model->id ),
 				'type'    => $model->quiz_type,
-				"date"    => date( get_option( 'date_format' ), strtotime( $model->raw->post_date ) ),
+				'date'    => date( get_option( 'date_format' ), strtotime( $model->raw->post_date ) ), // phpcs:ignore
 				'status'  => $model->status,
 				'name'    => forminator_get_name_from_model( $model ),
 			);
@@ -346,12 +346,12 @@ function forminator_total_forms( $status = '' ) {
  *
  * @return mixed
  */
-function forminator_get_form_name( $id, $type = "custom_form" ) {
-	if ( "custom_form" === $type ) {
+function forminator_get_form_name( $id, $type = 'custom_form' ) {
+	if ( 'custom_form' === $type ) {
 		$model = Forminator_Custom_Form_Model::model()->load( $id );
-	} elseif ( "poll" === $type ) {
+	} elseif ( 'poll' === $type ) {
 		$model = Forminator_Poll_Form_Model::model()->load( $id );
-	} elseif ( "quiz" === $type ) {
+	} elseif ( 'quiz' === $type ) {
 		$model = Forminator_Quiz_Form_Model::model()->load( $id );
 	}
 
@@ -426,9 +426,9 @@ function forminator_most_popular_poll() {
 function forminator_form_view_per_page( $type = 'listings' ) {
 
 	if ( 'entries' === $type ) {
-		$per_page = get_option( "forminator_pagination_entries", 10 );
+		$per_page = get_option( 'forminator_pagination_entries', 10 );
 	} else {
-		$per_page = get_option( "forminator_pagination_listings", 10 );
+		$per_page = get_option( 'forminator_pagination_listings', 10 );
 	}
 
 	// force at least 1 data per page
@@ -492,7 +492,7 @@ function forminator_data_to_model_poll( $data ) {
 		return $model;
 	}
 
-	if( isset( $data['answers'] ) ) {
+	if ( isset( $data['answers'] ) ) {
 		// Set wrappers
 		$model['answers'] = $data['answers'];
 
@@ -565,15 +565,15 @@ function forminator_prepare_css( $css_string, $prefix, $as_array = false, $separ
 	$css_array = array(); // master array to hold all values
 	$elements  = explode( '}', $css_string );
 	// Output is the final processed CSS string.
-	$output          = "";
-	$prepared        = "";
+	$output          = '';
+	$prepared        = '';
 	$have_media      = false;
 	$media_names     = array();
 	$media_names_key = 0;
 	$index           = 0;
 	foreach ( $elements as $element ) {
 		// We need to null prepared else styles are multiplied
-		$prepared = "";
+		$prepared = '';
 
 		$check_element = trim( $element );
 		if ( empty( $check_element ) ) {
@@ -599,7 +599,7 @@ function forminator_prepare_css( $css_string, $prefix, $as_array = false, $separ
 		}
 
 		if ( $have_media ) {
-			$prepared = "";
+			$prepared = '';
 		}
 
 		// get all the key:value pair styles
@@ -621,11 +621,11 @@ function forminator_prepare_css( $css_string, $prefix, $as_array = false, $separ
 			} else {
 				$space_needed = false;
 			}
-			$maybe_put_space = ( $space_needed ) ? " " : "";
-			$prepared        .= ( $prefix . $maybe_put_space . trim( $name ) . ',' );
+			$maybe_put_space = ( $space_needed ) ? ' ' : '';
+			$prepared       .= ( $prefix . $maybe_put_space . trim( $name ) . ',' );
 		}
-		$prepared = trim( $prepared, "," );
-		$prepared .= "{";
+		$prepared  = trim( $prepared, ',' );
+		$prepared .= '{';
 		// loop through each style and split apart the key from the value
 		$count = count( $a_styles );
 		for ( $a = 0; $a < $count; $a ++ ) {
@@ -634,17 +634,17 @@ function forminator_prepare_css( $css_string, $prefix, $as_array = false, $separ
 				// build the master css array
 				if ( count( $a_key_value ) > 2 ) {
 					$a_key_value_to_join = array_slice( $a_key_value, 1 );
-					$a_key_value[1]      = implode( ":", $a_key_value_to_join );
+					$a_key_value[1]      = implode( ':', $a_key_value_to_join );
 				}
 				$css_array[ $name ][ $a_key_value[0] ] = $a_key_value[1];
-				$prepared                              .= ( $a_key_value[0] . ": " . $a_key_value[1] );// . strpos($a_key_value[1], "!important") === false ? " !important;": ";";
-				if ( strpos( $a_key_value[1], "!important" ) === false ) {
-					$prepared .= " !important";
+				$prepared                             .= ( $a_key_value[0] . ': ' . $a_key_value[1] );// . strpos($a_key_value[1], "!important") === false ? " !important;": ";";
+				if ( strpos( $a_key_value[1], '!important' ) === false ) {
+					$prepared .= ' !important';
 				}
-				$prepared .= ";";
+				$prepared .= ';';
 			}
 		}
-		$prepared .= "}";
+		$prepared .= '}';
 
 		// if have @media earlier, append these styles
 		$prev_media_names_key = $media_names_key - 1;
@@ -674,7 +674,7 @@ function forminator_prepare_css( $css_string, $prefix, $as_array = false, $separ
 	// if have @media, populate styles using $media_names
 	if ( $have_media ) {
 		// reset first $prepared styles
-		$prepared = "";
+		$prepared = '';
 		foreach ( $media_names as $media ) {
 			$prepared .= $media['name'] . '{ ' . $media['styles'] . ' }';
 		}
@@ -695,8 +695,8 @@ function forminator_prepare_css( $css_string, $prefix, $as_array = false, $separ
  * @return mixed
  */
 function forminator_normalize_font_weight( $properties ) {
-	foreach( $properties as $key => $property ) {
-		if( is_array( $properties[ $key ] ) ) {
+	foreach ( $properties as $key => $property ) {
+		if ( is_array( $properties[ $key ] ) ) {
 			$properties[ $key ] = forminator_normalize_font_weight( $property );
 		} else {
 			$properties[ $key ] = str_replace( 'regular', 'normal', $property );
@@ -717,7 +717,7 @@ function forminator_normalize_font_weight( $properties ) {
  * @return string
  */
 function forminator_list_pagination( $total, $type = 'listings' ) {
-	$pagenum     = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0; // WPCS: CSRF OK
+	$pagenum     = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0; // phpcs:ignore
 	$page_number = max( 1, $pagenum );
 	$per_page    = forminator_form_view_per_page( $type );
 	if ( 'entries' === $type ) {
@@ -760,7 +760,7 @@ function forminator_list_pagination( $total, $type = 'listings' ) {
 		?>
 		<ul class="sui-pagination">
 
-			<?php if ( ! $disable_first ): ?>
+			<?php if ( ! $disable_first ) : ?>
 				<?php
 				$prev_url  = esc_url( add_query_arg( 'paged', min( $total_pages, $page_number - 1 ), $current_url ) );
 				$first_url = esc_url( add_query_arg( 'paged', min( 1, $total_pages ), $current_url ) );
@@ -777,10 +777,10 @@ function forminator_list_pagination( $total, $type = 'listings' ) {
 				<?php endif; ?>
 			<?php endif; ?>
 			<?php
-			$dots    = false;
+			$dots = false;
 			for ( $i = 1; $i <= $total_pages; $i ++ ) :
 				$class = ( $page_number === $i ) ? 'sui-active' : '';
-				$url = esc_url( add_query_arg( 'paged', ( $i ), $current_url ) );
+				$url   = esc_url( add_query_arg( 'paged', ( $i ), $current_url ) );
 				if ( ( $i <= $end_size || ( $current && $i >= $current - $mid_size && $i <= $current + $mid_size ) || $i > $total_pages - $end_size ) ) {
 					?>
 					<li class="<?php echo esc_attr( $class ); ?>"><a href="<?php echo esc_attr( $url ); ?>" class="<?php echo esc_attr( $class ); ?>"><?php echo esc_html( $i ); ?></a></li>
@@ -797,7 +797,7 @@ function forminator_list_pagination( $total, $type = 'listings' ) {
 
 			<?php endfor; ?>
 
-			<?php if ( ! $disable_last ): ?>
+			<?php if ( ! $disable_last ) : ?>
 				<?php
 				$next_url = esc_url( add_query_arg( 'paged', min( $total_pages, $page_number + 1 ), $current_url ) );
 				$last_url = esc_url( add_query_arg( 'paged', max( $total_pages, $page_number - 1 ), $current_url ) );
@@ -883,7 +883,7 @@ function forminator_get_latest_entry_time( $entry_type ) {
 	if ( $latest_entry instanceof Forminator_Form_Entry_Model ) {
 		$last_entry_time = mysql2date( 'U', $latest_entry->date_created_sql );
 		$time_diff       = human_time_diff( current_time( 'timestamp' ), $last_entry_time );
-		$last_entry_time = sprintf( __( '%s ago', Forminator::DOMAIN ), $time_diff );
+		$last_entry_time = sprintf( /* translators: ... */ __( '%s ago', Forminator::DOMAIN ), $time_diff );
 
 		return $last_entry_time;
 	} else {
@@ -1044,7 +1044,7 @@ function forminator_get_social_message( $settings, $title, $result, $data = arra
     $message = str_ireplace( '{quiz_name}', $title, $message );
     $message = str_ireplace( '{quiz_result}', $result, $message );
 
-    return $message;
+	return $message;
 }
 
 /**
@@ -1083,7 +1083,7 @@ function forminator_get_chart_data( Forminator_Poll_Form_Model $poll ) {
 
 			$color = $field->color;
 
-			if( empty( $color ) ) {
+			if ( empty( $color ) ) {
 				// Colors
 				if ( empty( $chart_colors ) ) {
 					$chart_colors = $default_chart_colors;
@@ -1095,7 +1095,7 @@ function forminator_get_chart_data( Forminator_Poll_Form_Model $poll ) {
 			$chart_datas[] = array(
 				(string) $label,
 				(int) $entries,
-				(string) $color
+				(string) $color,
 			);
 		}
 	}
@@ -1103,3 +1103,46 @@ function forminator_get_chart_data( Forminator_Poll_Form_Model $poll ) {
 	return $chart_datas;
 }
 
+/**
+ * Get a specific property of an array.
+ *
+ * @since  1.11
+ *
+ * @param array  $array   Array from which the property's value should be retrieved.
+ * @param string $prop    Name of the property to be retrieved.
+ * @param string $default Optional. Value that should be returned if the property is not set or empty. Defaults to null.
+ *
+ * @return null|string|mixed The value
+ */
+function forminator_get_property( $array, $prop, $default = null ) {
+
+	if ( ! is_array( $array ) && ! ( is_object( $array ) && $array instanceof ArrayAccess ) ) {
+		return $default;
+	}
+
+	$value = isset( $array[ $prop ] ) ? $array[ $prop ] : '';
+
+	return empty( $value ) && $default !== null ? $default : $value;
+}
+
+/**
+ * Flag whether this is the main site or not
+ *
+ * @since 1.11
+ * @return bool
+ */
+function forminator_is_main_site() {
+
+	return ( is_multisite() && is_main_site() );
+}
+
+/**
+ * Flag whether this is subdomain network or not
+ *
+ * @since 1.11
+ * @return bool
+ */
+function forminator_is_subdomain_network() {
+
+	return ( is_multisite() && is_subdomain_install() );
+}

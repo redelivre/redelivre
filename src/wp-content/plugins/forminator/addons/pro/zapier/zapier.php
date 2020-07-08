@@ -23,16 +23,16 @@ function forminator_addon_zapier_dir() {
 	return trailingslashit( dirname( __FILE__ ) );
 }
 
-require_once dirname( __FILE__ ) . '/forminator-addon-zapier.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-zapier.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-zapier-form-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-zapier-form-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-zapier-form-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-zapier-form-hooks.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-zapier-poll-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-zapier-poll-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-zapier-poll-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-zapier-poll-hooks.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-zapier-quiz-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-zapier-quiz-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-zapier-quiz-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-zapier-quiz-hooks.php';
 
 //Direct Load
 Forminator_Addon_Loader::get_instance()->register( 'Forminator_Addon_Zapier' );

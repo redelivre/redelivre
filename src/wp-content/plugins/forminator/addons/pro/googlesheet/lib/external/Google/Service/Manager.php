@@ -27,7 +27,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Manager extends Google_Service
+class Forminator_Google_Service_Manager extends Forminator_Google_Service
 {
   /** View and manage your applications deployed on Google App Engine. */
   const APPENGINE_ADMIN =
@@ -58,9 +58,9 @@ class Google_Service_Manager extends Google_Service
   /**
    * Constructs the internal representation of the Manager service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://www.googleapis.com/';
@@ -68,7 +68,7 @@ class Google_Service_Manager extends Google_Service
     $this->version = 'v1beta2';
     $this->serviceName = 'manager';
 
-    $this->deployments = new Google_Service_Manager_Deployments_Resource(
+    $this->deployments = new Forminator_Google_Service_Manager_Deployments_Resource(
         $this,
         $this->serviceName,
         'deployments',
@@ -156,7 +156,7 @@ class Google_Service_Manager extends Google_Service
           )
         )
     );
-    $this->templates = new Google_Service_Manager_Templates_Resource(
+    $this->templates = new Forminator_Google_Service_Manager_Templates_Resource(
         $this,
         $this->serviceName,
         'templates',
@@ -232,11 +232,11 @@ class Google_Service_Manager extends Google_Service
  * The "deployments" collection of methods.
  * Typical usage is:
  *  <code>
- *   $managerService = new Google_Service_Manager(...);
+ *   $managerService = new Forminator_Google_Service_Manager(...);
  *   $deployments = $managerService->deployments;
  *  </code>
  */
-class Google_Service_Manager_Deployments_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Manager_Deployments_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -261,13 +261,13 @@ class Google_Service_Manager_Deployments_Resource extends Google_Service_Resourc
    * @param string $region
    * @param string $deploymentName
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Manager_Deployment
+   * @return Forminator_Google_Service_Manager_Deployment
    */
   public function get($projectId, $region, $deploymentName, $optParams = array())
   {
     $params = array('projectId' => $projectId, 'region' => $region, 'deploymentName' => $deploymentName);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Manager_Deployment");
+    return $this->call('get', array($params), "Forminator_Google_Service_Manager_Deployment");
   }
 
   /**
@@ -275,15 +275,15 @@ class Google_Service_Manager_Deployments_Resource extends Google_Service_Resourc
    *
    * @param string $projectId
    * @param string $region
-   * @param Google_Deployment $postBody
+   * @param Forminator_Google_Deployment $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Manager_Deployment
+   * @return Forminator_Google_Service_Manager_Deployment
    */
-  public function insert($projectId, $region, Google_Service_Manager_Deployment $postBody, $optParams = array())
+  public function insert($projectId, $region, Forminator_Google_Service_Manager_Deployment $postBody, $optParams = array())
   {
     $params = array('projectId' => $projectId, 'region' => $region, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Manager_Deployment");
+    return $this->call('insert', array($params), "Forminator_Google_Service_Manager_Deployment");
   }
 
   /**
@@ -298,13 +298,13 @@ class Google_Service_Manager_Deployments_Resource extends Google_Service_Resourc
    * @opt_param string pageToken Specifies a nextPageToken returned by a previous
    * list request. This token can be used to request the next page of results from
    * a previous list request.
-   * @return Google_Service_Manager_DeploymentsListResponse
+   * @return Forminator_Google_Service_Manager_DeploymentsListResponse
    */
   public function listDeployments($projectId, $region, $optParams = array())
   {
     $params = array('projectId' => $projectId, 'region' => $region);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Manager_DeploymentsListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Manager_DeploymentsListResponse");
   }
 }
 
@@ -312,11 +312,11 @@ class Google_Service_Manager_Deployments_Resource extends Google_Service_Resourc
  * The "templates" collection of methods.
  * Typical usage is:
  *  <code>
- *   $managerService = new Google_Service_Manager(...);
+ *   $managerService = new Forminator_Google_Service_Manager(...);
  *   $templates = $managerService->templates;
  *  </code>
  */
-class Google_Service_Manager_Templates_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Manager_Templates_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -339,28 +339,28 @@ class Google_Service_Manager_Templates_Resource extends Google_Service_Resource
    * @param string $projectId
    * @param string $templateName
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Manager_Template
+   * @return Forminator_Google_Service_Manager_Template
    */
   public function get($projectId, $templateName, $optParams = array())
   {
     $params = array('projectId' => $projectId, 'templateName' => $templateName);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_Manager_Template");
+    return $this->call('get', array($params), "Forminator_Google_Service_Manager_Template");
   }
 
   /**
    * (templates.insert)
    *
    * @param string $projectId
-   * @param Google_Template $postBody
+   * @param Forminator_Google_Template $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Manager_Template
+   * @return Forminator_Google_Service_Manager_Template
    */
-  public function insert($projectId, Google_Service_Manager_Template $postBody, $optParams = array())
+  public function insert($projectId, Forminator_Google_Service_Manager_Template $postBody, $optParams = array())
   {
     $params = array('projectId' => $projectId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Manager_Template");
+    return $this->call('insert', array($params), "Forminator_Google_Service_Manager_Template");
   }
 
   /**
@@ -374,20 +374,20 @@ class Google_Service_Manager_Templates_Resource extends Google_Service_Resource
    * @opt_param string pageToken Specifies a nextPageToken returned by a previous
    * list request. This token can be used to request the next page of results from
    * a previous list request.
-   * @return Google_Service_Manager_TemplatesListResponse
+   * @return Forminator_Google_Service_Manager_TemplatesListResponse
    */
   public function listTemplates($projectId, $optParams = array())
   {
     $params = array('projectId' => $projectId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Manager_TemplatesListResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_Manager_TemplatesListResponse");
   }
 }
 
 
 
 
-class Google_Service_Manager_AccessConfig extends Google_Model
+class Forminator_Google_Service_Manager_AccessConfig extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -422,7 +422,7 @@ class Google_Service_Manager_AccessConfig extends Google_Model
   }
 }
 
-class Google_Service_Manager_Action extends Google_Collection
+class Forminator_Google_Service_Manager_Action extends Forminator_Google_Collection
 {
   protected $collection_key = 'commands';
   protected $internal_gapi_mappings = array(
@@ -449,7 +449,7 @@ class Google_Service_Manager_Action extends Google_Collection
   }
 }
 
-class Google_Service_Manager_AllowedRule extends Google_Collection
+class Forminator_Google_Service_Manager_AllowedRule extends Forminator_Google_Collection
 {
   protected $collection_key = 'ports';
   protected $internal_gapi_mappings = array(
@@ -477,7 +477,7 @@ class Google_Service_Manager_AllowedRule extends Google_Collection
   }
 }
 
-class Google_Service_Manager_AutoscalingModule extends Google_Model
+class Forminator_Google_Service_Manager_AutoscalingModule extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -548,7 +548,7 @@ class Google_Service_Manager_AutoscalingModule extends Google_Model
   }
 }
 
-class Google_Service_Manager_AutoscalingModuleStatus extends Google_Model
+class Forminator_Google_Service_Manager_AutoscalingModuleStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -565,7 +565,7 @@ class Google_Service_Manager_AutoscalingModuleStatus extends Google_Model
   }
 }
 
-class Google_Service_Manager_DeployState extends Google_Model
+class Forminator_Google_Service_Manager_DeployState extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -591,19 +591,19 @@ class Google_Service_Manager_DeployState extends Google_Model
   }
 }
 
-class Google_Service_Manager_Deployment extends Google_Collection
+class Forminator_Google_Service_Manager_Deployment extends Forminator_Google_Collection
 {
   protected $collection_key = 'overrides';
   protected $internal_gapi_mappings = array(
   );
   public $creationDate;
   public $description;
-  protected $modulesType = 'Google_Service_Manager_ModuleStatus';
+  protected $modulesType = 'Forminator_Google_Service_Manager_ModuleStatus';
   protected $modulesDataType = 'map';
   public $name;
-  protected $overridesType = 'Google_Service_Manager_ParamOverride';
+  protected $overridesType = 'Forminator_Google_Service_Manager_ParamOverride';
   protected $overridesDataType = 'array';
-  protected $stateType = 'Google_Service_Manager_DeployState';
+  protected $stateType = 'Forminator_Google_Service_Manager_DeployState';
   protected $stateDataType = '';
   public $templateName;
 
@@ -648,7 +648,7 @@ class Google_Service_Manager_Deployment extends Google_Collection
   {
     return $this->overrides;
   }
-  public function setState(Google_Service_Manager_DeployState $state)
+  public function setState(Forminator_Google_Service_Manager_DeployState $state)
   {
     $this->state = $state;
   }
@@ -666,13 +666,13 @@ class Google_Service_Manager_Deployment extends Google_Collection
   }
 }
 
-class Google_Service_Manager_DeploymentsListResponse extends Google_Collection
+class Forminator_Google_Service_Manager_DeploymentsListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_Manager_Deployment';
+  protected $resourcesType = 'Forminator_Google_Service_Manager_Deployment';
   protected $resourcesDataType = 'array';
 
 
@@ -694,7 +694,7 @@ class Google_Service_Manager_DeploymentsListResponse extends Google_Collection
   }
 }
 
-class Google_Service_Manager_DiskAttachment extends Google_Model
+class Forminator_Google_Service_Manager_DiskAttachment extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -720,7 +720,7 @@ class Google_Service_Manager_DiskAttachment extends Google_Model
   }
 }
 
-class Google_Service_Manager_EnvVariable extends Google_Model
+class Forminator_Google_Service_Manager_EnvVariable extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -746,16 +746,16 @@ class Google_Service_Manager_EnvVariable extends Google_Model
   }
 }
 
-class Google_Service_Manager_ExistingDisk extends Google_Model
+class Forminator_Google_Service_Manager_ExistingDisk extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $attachmentType = 'Google_Service_Manager_DiskAttachment';
+  protected $attachmentType = 'Forminator_Google_Service_Manager_DiskAttachment';
   protected $attachmentDataType = '';
   public $source;
 
 
-  public function setAttachment(Google_Service_Manager_DiskAttachment $attachment)
+  public function setAttachment(Forminator_Google_Service_Manager_DiskAttachment $attachment)
   {
     $this->attachment = $attachment;
   }
@@ -773,12 +773,12 @@ class Google_Service_Manager_ExistingDisk extends Google_Model
   }
 }
 
-class Google_Service_Manager_FirewallModule extends Google_Collection
+class Forminator_Google_Service_Manager_FirewallModule extends Forminator_Google_Collection
 {
   protected $collection_key = 'targetTags';
   protected $internal_gapi_mappings = array(
   );
-  protected $allowedType = 'Google_Service_Manager_AllowedRule';
+  protected $allowedType = 'Forminator_Google_Service_Manager_AllowedRule';
   protected $allowedDataType = 'array';
   public $description;
   public $network;
@@ -837,7 +837,7 @@ class Google_Service_Manager_FirewallModule extends Google_Collection
   }
 }
 
-class Google_Service_Manager_FirewallModuleStatus extends Google_Model
+class Forminator_Google_Service_Manager_FirewallModuleStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -854,7 +854,7 @@ class Google_Service_Manager_FirewallModuleStatus extends Google_Model
   }
 }
 
-class Google_Service_Manager_HealthCheckModule extends Google_Model
+class Forminator_Google_Service_Manager_HealthCheckModule extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -934,7 +934,7 @@ class Google_Service_Manager_HealthCheckModule extends Google_Model
   }
 }
 
-class Google_Service_Manager_HealthCheckModuleStatus extends Google_Model
+class Forminator_Google_Service_Manager_HealthCheckModuleStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -951,7 +951,7 @@ class Google_Service_Manager_HealthCheckModuleStatus extends Google_Model
   }
 }
 
-class Google_Service_Manager_LbModule extends Google_Collection
+class Forminator_Google_Service_Manager_LbModule extends Forminator_Google_Collection
 {
   protected $collection_key = 'targetModules';
   protected $internal_gapi_mappings = array(
@@ -1023,7 +1023,7 @@ class Google_Service_Manager_LbModule extends Google_Collection
   }
 }
 
-class Google_Service_Manager_LbModuleStatus extends Google_Model
+class Forminator_Google_Service_Manager_LbModuleStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1049,13 +1049,13 @@ class Google_Service_Manager_LbModuleStatus extends Google_Model
   }
 }
 
-class Google_Service_Manager_Metadata extends Google_Collection
+class Forminator_Google_Service_Manager_Metadata extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
   public $fingerPrint;
-  protected $itemsType = 'Google_Service_Manager_MetadataItem';
+  protected $itemsType = 'Forminator_Google_Service_Manager_MetadataItem';
   protected $itemsDataType = 'array';
 
 
@@ -1077,7 +1077,7 @@ class Google_Service_Manager_Metadata extends Google_Collection
   }
 }
 
-class Google_Service_Manager_MetadataItem extends Google_Model
+class Forminator_Google_Service_Manager_MetadataItem extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1103,26 +1103,26 @@ class Google_Service_Manager_MetadataItem extends Google_Model
   }
 }
 
-class Google_Service_Manager_Module extends Google_Model
+class Forminator_Google_Service_Manager_Module extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $autoscalingModuleType = 'Google_Service_Manager_AutoscalingModule';
+  protected $autoscalingModuleType = 'Forminator_Google_Service_Manager_AutoscalingModule';
   protected $autoscalingModuleDataType = '';
-  protected $firewallModuleType = 'Google_Service_Manager_FirewallModule';
+  protected $firewallModuleType = 'Forminator_Google_Service_Manager_FirewallModule';
   protected $firewallModuleDataType = '';
-  protected $healthCheckModuleType = 'Google_Service_Manager_HealthCheckModule';
+  protected $healthCheckModuleType = 'Forminator_Google_Service_Manager_HealthCheckModule';
   protected $healthCheckModuleDataType = '';
-  protected $lbModuleType = 'Google_Service_Manager_LbModule';
+  protected $lbModuleType = 'Forminator_Google_Service_Manager_LbModule';
   protected $lbModuleDataType = '';
-  protected $networkModuleType = 'Google_Service_Manager_NetworkModule';
+  protected $networkModuleType = 'Forminator_Google_Service_Manager_NetworkModule';
   protected $networkModuleDataType = '';
-  protected $replicaPoolModuleType = 'Google_Service_Manager_ReplicaPoolModule';
+  protected $replicaPoolModuleType = 'Forminator_Google_Service_Manager_ReplicaPoolModule';
   protected $replicaPoolModuleDataType = '';
   public $type;
 
 
-  public function setAutoscalingModule(Google_Service_Manager_AutoscalingModule $autoscalingModule)
+  public function setAutoscalingModule(Forminator_Google_Service_Manager_AutoscalingModule $autoscalingModule)
   {
     $this->autoscalingModule = $autoscalingModule;
   }
@@ -1130,7 +1130,7 @@ class Google_Service_Manager_Module extends Google_Model
   {
     return $this->autoscalingModule;
   }
-  public function setFirewallModule(Google_Service_Manager_FirewallModule $firewallModule)
+  public function setFirewallModule(Forminator_Google_Service_Manager_FirewallModule $firewallModule)
   {
     $this->firewallModule = $firewallModule;
   }
@@ -1138,7 +1138,7 @@ class Google_Service_Manager_Module extends Google_Model
   {
     return $this->firewallModule;
   }
-  public function setHealthCheckModule(Google_Service_Manager_HealthCheckModule $healthCheckModule)
+  public function setHealthCheckModule(Forminator_Google_Service_Manager_HealthCheckModule $healthCheckModule)
   {
     $this->healthCheckModule = $healthCheckModule;
   }
@@ -1146,7 +1146,7 @@ class Google_Service_Manager_Module extends Google_Model
   {
     return $this->healthCheckModule;
   }
-  public function setLbModule(Google_Service_Manager_LbModule $lbModule)
+  public function setLbModule(Forminator_Google_Service_Manager_LbModule $lbModule)
   {
     $this->lbModule = $lbModule;
   }
@@ -1154,7 +1154,7 @@ class Google_Service_Manager_Module extends Google_Model
   {
     return $this->lbModule;
   }
-  public function setNetworkModule(Google_Service_Manager_NetworkModule $networkModule)
+  public function setNetworkModule(Forminator_Google_Service_Manager_NetworkModule $networkModule)
   {
     $this->networkModule = $networkModule;
   }
@@ -1162,7 +1162,7 @@ class Google_Service_Manager_Module extends Google_Model
   {
     return $this->networkModule;
   }
-  public function setReplicaPoolModule(Google_Service_Manager_ReplicaPoolModule $replicaPoolModule)
+  public function setReplicaPoolModule(Forminator_Google_Service_Manager_ReplicaPoolModule $replicaPoolModule)
   {
     $this->replicaPoolModule = $replicaPoolModule;
   }
@@ -1180,28 +1180,28 @@ class Google_Service_Manager_Module extends Google_Model
   }
 }
 
-class Google_Service_Manager_ModuleStatus extends Google_Model
+class Forminator_Google_Service_Manager_ModuleStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $autoscalingModuleStatusType = 'Google_Service_Manager_AutoscalingModuleStatus';
+  protected $autoscalingModuleStatusType = 'Forminator_Google_Service_Manager_AutoscalingModuleStatus';
   protected $autoscalingModuleStatusDataType = '';
-  protected $firewallModuleStatusType = 'Google_Service_Manager_FirewallModuleStatus';
+  protected $firewallModuleStatusType = 'Forminator_Google_Service_Manager_FirewallModuleStatus';
   protected $firewallModuleStatusDataType = '';
-  protected $healthCheckModuleStatusType = 'Google_Service_Manager_HealthCheckModuleStatus';
+  protected $healthCheckModuleStatusType = 'Forminator_Google_Service_Manager_HealthCheckModuleStatus';
   protected $healthCheckModuleStatusDataType = '';
-  protected $lbModuleStatusType = 'Google_Service_Manager_LbModuleStatus';
+  protected $lbModuleStatusType = 'Forminator_Google_Service_Manager_LbModuleStatus';
   protected $lbModuleStatusDataType = '';
-  protected $networkModuleStatusType = 'Google_Service_Manager_NetworkModuleStatus';
+  protected $networkModuleStatusType = 'Forminator_Google_Service_Manager_NetworkModuleStatus';
   protected $networkModuleStatusDataType = '';
-  protected $replicaPoolModuleStatusType = 'Google_Service_Manager_ReplicaPoolModuleStatus';
+  protected $replicaPoolModuleStatusType = 'Forminator_Google_Service_Manager_ReplicaPoolModuleStatus';
   protected $replicaPoolModuleStatusDataType = '';
-  protected $stateType = 'Google_Service_Manager_DeployState';
+  protected $stateType = 'Forminator_Google_Service_Manager_DeployState';
   protected $stateDataType = '';
   public $type;
 
 
-  public function setAutoscalingModuleStatus(Google_Service_Manager_AutoscalingModuleStatus $autoscalingModuleStatus)
+  public function setAutoscalingModuleStatus(Forminator_Google_Service_Manager_AutoscalingModuleStatus $autoscalingModuleStatus)
   {
     $this->autoscalingModuleStatus = $autoscalingModuleStatus;
   }
@@ -1209,7 +1209,7 @@ class Google_Service_Manager_ModuleStatus extends Google_Model
   {
     return $this->autoscalingModuleStatus;
   }
-  public function setFirewallModuleStatus(Google_Service_Manager_FirewallModuleStatus $firewallModuleStatus)
+  public function setFirewallModuleStatus(Forminator_Google_Service_Manager_FirewallModuleStatus $firewallModuleStatus)
   {
     $this->firewallModuleStatus = $firewallModuleStatus;
   }
@@ -1217,7 +1217,7 @@ class Google_Service_Manager_ModuleStatus extends Google_Model
   {
     return $this->firewallModuleStatus;
   }
-  public function setHealthCheckModuleStatus(Google_Service_Manager_HealthCheckModuleStatus $healthCheckModuleStatus)
+  public function setHealthCheckModuleStatus(Forminator_Google_Service_Manager_HealthCheckModuleStatus $healthCheckModuleStatus)
   {
     $this->healthCheckModuleStatus = $healthCheckModuleStatus;
   }
@@ -1225,7 +1225,7 @@ class Google_Service_Manager_ModuleStatus extends Google_Model
   {
     return $this->healthCheckModuleStatus;
   }
-  public function setLbModuleStatus(Google_Service_Manager_LbModuleStatus $lbModuleStatus)
+  public function setLbModuleStatus(Forminator_Google_Service_Manager_LbModuleStatus $lbModuleStatus)
   {
     $this->lbModuleStatus = $lbModuleStatus;
   }
@@ -1233,7 +1233,7 @@ class Google_Service_Manager_ModuleStatus extends Google_Model
   {
     return $this->lbModuleStatus;
   }
-  public function setNetworkModuleStatus(Google_Service_Manager_NetworkModuleStatus $networkModuleStatus)
+  public function setNetworkModuleStatus(Forminator_Google_Service_Manager_NetworkModuleStatus $networkModuleStatus)
   {
     $this->networkModuleStatus = $networkModuleStatus;
   }
@@ -1241,7 +1241,7 @@ class Google_Service_Manager_ModuleStatus extends Google_Model
   {
     return $this->networkModuleStatus;
   }
-  public function setReplicaPoolModuleStatus(Google_Service_Manager_ReplicaPoolModuleStatus $replicaPoolModuleStatus)
+  public function setReplicaPoolModuleStatus(Forminator_Google_Service_Manager_ReplicaPoolModuleStatus $replicaPoolModuleStatus)
   {
     $this->replicaPoolModuleStatus = $replicaPoolModuleStatus;
   }
@@ -1249,7 +1249,7 @@ class Google_Service_Manager_ModuleStatus extends Google_Model
   {
     return $this->replicaPoolModuleStatus;
   }
-  public function setState(Google_Service_Manager_DeployState $state)
+  public function setState(Forminator_Google_Service_Manager_DeployState $state)
   {
     $this->state = $state;
   }
@@ -1267,12 +1267,12 @@ class Google_Service_Manager_ModuleStatus extends Google_Model
   }
 }
 
-class Google_Service_Manager_NetworkInterface extends Google_Collection
+class Forminator_Google_Service_Manager_NetworkInterface extends Forminator_Google_Collection
 {
   protected $collection_key = 'accessConfigs';
   protected $internal_gapi_mappings = array(
   );
-  protected $accessConfigsType = 'Google_Service_Manager_AccessConfig';
+  protected $accessConfigsType = 'Forminator_Google_Service_Manager_AccessConfig';
   protected $accessConfigsDataType = 'array';
   public $name;
   public $network;
@@ -1313,7 +1313,7 @@ class Google_Service_Manager_NetworkInterface extends Google_Collection
   }
 }
 
-class Google_Service_Manager_NetworkModule extends Google_Model
+class Forminator_Google_Service_Manager_NetworkModule extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
         "iPv4Range" => "IPv4Range",
@@ -1349,7 +1349,7 @@ class Google_Service_Manager_NetworkModule extends Google_Model
   }
 }
 
-class Google_Service_Manager_NetworkModuleStatus extends Google_Model
+class Forminator_Google_Service_Manager_NetworkModuleStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1366,19 +1366,19 @@ class Google_Service_Manager_NetworkModuleStatus extends Google_Model
   }
 }
 
-class Google_Service_Manager_NewDisk extends Google_Model
+class Forminator_Google_Service_Manager_NewDisk extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $attachmentType = 'Google_Service_Manager_DiskAttachment';
+  protected $attachmentType = 'Forminator_Google_Service_Manager_DiskAttachment';
   protected $attachmentDataType = '';
   public $autoDelete;
   public $boot;
-  protected $initializeParamsType = 'Google_Service_Manager_NewDiskInitializeParams';
+  protected $initializeParamsType = 'Forminator_Google_Service_Manager_NewDiskInitializeParams';
   protected $initializeParamsDataType = '';
 
 
-  public function setAttachment(Google_Service_Manager_DiskAttachment $attachment)
+  public function setAttachment(Forminator_Google_Service_Manager_DiskAttachment $attachment)
   {
     $this->attachment = $attachment;
   }
@@ -1402,7 +1402,7 @@ class Google_Service_Manager_NewDisk extends Google_Model
   {
     return $this->boot;
   }
-  public function setInitializeParams(Google_Service_Manager_NewDiskInitializeParams $initializeParams)
+  public function setInitializeParams(Forminator_Google_Service_Manager_NewDiskInitializeParams $initializeParams)
   {
     $this->initializeParams = $initializeParams;
   }
@@ -1412,7 +1412,7 @@ class Google_Service_Manager_NewDisk extends Google_Model
   }
 }
 
-class Google_Service_Manager_NewDiskInitializeParams extends Google_Model
+class Forminator_Google_Service_Manager_NewDiskInitializeParams extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1447,7 +1447,7 @@ class Google_Service_Manager_NewDiskInitializeParams extends Google_Model
   }
 }
 
-class Google_Service_Manager_ParamOverride extends Google_Model
+class Forminator_Google_Service_Manager_ParamOverride extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1473,16 +1473,16 @@ class Google_Service_Manager_ParamOverride extends Google_Model
   }
 }
 
-class Google_Service_Manager_ReplicaPoolModule extends Google_Collection
+class Forminator_Google_Service_Manager_ReplicaPoolModule extends Forminator_Google_Collection
 {
   protected $collection_key = 'healthChecks';
   protected $internal_gapi_mappings = array(
   );
-  protected $envVariablesType = 'Google_Service_Manager_EnvVariable';
+  protected $envVariablesType = 'Forminator_Google_Service_Manager_EnvVariable';
   protected $envVariablesDataType = 'map';
   public $healthChecks;
   public $numReplicas;
-  protected $replicaPoolParamsType = 'Google_Service_Manager_ReplicaPoolParams';
+  protected $replicaPoolParamsType = 'Forminator_Google_Service_Manager_ReplicaPoolParams';
   protected $replicaPoolParamsDataType = '';
   public $resourceView;
 
@@ -1511,7 +1511,7 @@ class Google_Service_Manager_ReplicaPoolModule extends Google_Collection
   {
     return $this->numReplicas;
   }
-  public function setReplicaPoolParams(Google_Service_Manager_ReplicaPoolParams $replicaPoolParams)
+  public function setReplicaPoolParams(Forminator_Google_Service_Manager_ReplicaPoolParams $replicaPoolParams)
   {
     $this->replicaPoolParams = $replicaPoolParams;
   }
@@ -1529,7 +1529,7 @@ class Google_Service_Manager_ReplicaPoolModule extends Google_Collection
   }
 }
 
-class Google_Service_Manager_ReplicaPoolModuleStatus extends Google_Model
+class Forminator_Google_Service_Manager_ReplicaPoolModuleStatus extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1555,15 +1555,15 @@ class Google_Service_Manager_ReplicaPoolModuleStatus extends Google_Model
   }
 }
 
-class Google_Service_Manager_ReplicaPoolParams extends Google_Model
+class Forminator_Google_Service_Manager_ReplicaPoolParams extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $v1beta1Type = 'Google_Service_Manager_ReplicaPoolParamsV1Beta1';
+  protected $v1beta1Type = 'Forminator_Google_Service_Manager_ReplicaPoolParamsV1Beta1';
   protected $v1beta1DataType = '';
 
 
-  public function setV1beta1(Google_Service_Manager_ReplicaPoolParamsV1Beta1 $v1beta1)
+  public function setV1beta1(Forminator_Google_Service_Manager_ReplicaPoolParamsV1Beta1 $v1beta1)
   {
     $this->v1beta1 = $v1beta1;
   }
@@ -1573,7 +1573,7 @@ class Google_Service_Manager_ReplicaPoolParams extends Google_Model
   }
 }
 
-class Google_Service_Manager_ReplicaPoolParamsV1Beta1 extends Google_Collection
+class Forminator_Google_Service_Manager_ReplicaPoolParamsV1Beta1 extends Forminator_Google_Collection
 {
   protected $collection_key = 'serviceAccounts';
   protected $internal_gapi_mappings = array(
@@ -1582,20 +1582,20 @@ class Google_Service_Manager_ReplicaPoolParamsV1Beta1 extends Google_Collection
   public $baseInstanceName;
   public $canIpForward;
   public $description;
-  protected $disksToAttachType = 'Google_Service_Manager_ExistingDisk';
+  protected $disksToAttachType = 'Forminator_Google_Service_Manager_ExistingDisk';
   protected $disksToAttachDataType = 'array';
-  protected $disksToCreateType = 'Google_Service_Manager_NewDisk';
+  protected $disksToCreateType = 'Forminator_Google_Service_Manager_NewDisk';
   protected $disksToCreateDataType = 'array';
   public $initAction;
   public $machineType;
-  protected $metadataType = 'Google_Service_Manager_Metadata';
+  protected $metadataType = 'Forminator_Google_Service_Manager_Metadata';
   protected $metadataDataType = '';
-  protected $networkInterfacesType = 'Google_Service_Manager_NetworkInterface';
+  protected $networkInterfacesType = 'Forminator_Google_Service_Manager_NetworkInterface';
   protected $networkInterfacesDataType = 'array';
   public $onHostMaintenance;
-  protected $serviceAccountsType = 'Google_Service_Manager_ServiceAccount';
+  protected $serviceAccountsType = 'Forminator_Google_Service_Manager_ServiceAccount';
   protected $serviceAccountsDataType = 'array';
-  protected $tagsType = 'Google_Service_Manager_Tag';
+  protected $tagsType = 'Forminator_Google_Service_Manager_Tag';
   protected $tagsDataType = '';
   public $zone;
 
@@ -1664,7 +1664,7 @@ class Google_Service_Manager_ReplicaPoolParamsV1Beta1 extends Google_Collection
   {
     return $this->machineType;
   }
-  public function setMetadata(Google_Service_Manager_Metadata $metadata)
+  public function setMetadata(Forminator_Google_Service_Manager_Metadata $metadata)
   {
     $this->metadata = $metadata;
   }
@@ -1696,7 +1696,7 @@ class Google_Service_Manager_ReplicaPoolParamsV1Beta1 extends Google_Collection
   {
     return $this->serviceAccounts;
   }
-  public function setTags(Google_Service_Manager_Tag $tags)
+  public function setTags(Forminator_Google_Service_Manager_Tag $tags)
   {
     $this->tags = $tags;
   }
@@ -1714,7 +1714,7 @@ class Google_Service_Manager_ReplicaPoolParamsV1Beta1 extends Google_Collection
   }
 }
 
-class Google_Service_Manager_ServiceAccount extends Google_Collection
+class Forminator_Google_Service_Manager_ServiceAccount extends Forminator_Google_Collection
 {
   protected $collection_key = 'scopes';
   protected $internal_gapi_mappings = array(
@@ -1741,7 +1741,7 @@ class Google_Service_Manager_ServiceAccount extends Google_Collection
   }
 }
 
-class Google_Service_Manager_Tag extends Google_Collection
+class Forminator_Google_Service_Manager_Tag extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
@@ -1768,14 +1768,14 @@ class Google_Service_Manager_Tag extends Google_Collection
   }
 }
 
-class Google_Service_Manager_Template extends Google_Model
+class Forminator_Google_Service_Manager_Template extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $actionsType = 'Google_Service_Manager_Action';
+  protected $actionsType = 'Forminator_Google_Service_Manager_Action';
   protected $actionsDataType = 'map';
   public $description;
-  protected $modulesType = 'Google_Service_Manager_Module';
+  protected $modulesType = 'Forminator_Google_Service_Manager_Module';
   protected $modulesDataType = 'map';
   public $name;
 
@@ -1814,13 +1814,13 @@ class Google_Service_Manager_Template extends Google_Model
   }
 }
 
-class Google_Service_Manager_TemplatesListResponse extends Google_Collection
+class Forminator_Google_Service_Manager_TemplatesListResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'resources';
   protected $internal_gapi_mappings = array(
   );
   public $nextPageToken;
-  protected $resourcesType = 'Google_Service_Manager_Template';
+  protected $resourcesType = 'Forminator_Google_Service_Manager_Template';
   protected $resourcesDataType = 'array';
 
 

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-class Google_Service
+class Forminator_Google_Service
 {
   public $batchPath;
   public $rootUrl;
@@ -25,14 +25,14 @@ class Google_Service
   public $resource;
   private $client;
 
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     $this->client = $client;
   }
 
   /**
-   * Return the associated Google_Client class.
-   * @return Google_Client
+   * Return the associated Forminator_Google_Client class.
+   * @return Forminator_Google_Client
    */
   public function getClient()
   {
@@ -42,11 +42,11 @@ class Google_Service
   /**
    * Create a new HTTP Batch handler for this service
    *
-   * @return Google_Http_Batch
+   * @return Forminator_Google_Http_Batch
    */
   public function createBatch()
   {
-    return new Google_Http_Batch(
+    return new Forminator_Google_Http_Batch(
         $this->client,
         false,
         $this->rootUrl,

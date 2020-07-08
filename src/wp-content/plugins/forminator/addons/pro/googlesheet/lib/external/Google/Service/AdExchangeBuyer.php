@@ -27,7 +27,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_AdExchangeBuyer extends Google_Service
+class Forminator_Google_Service_AdExchangeBuyer extends Forminator_Google_Service
 {
   /** Manage your Ad Exchange buyer account configuration. */
   const ADEXCHANGE_BUYER =
@@ -48,9 +48,9 @@ class Google_Service_AdExchangeBuyer extends Google_Service
   /**
    * Constructs the internal representation of the AdExchangeBuyer service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://www.googleapis.com/';
@@ -58,7 +58,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
     $this->version = 'v1.4';
     $this->serviceName = 'adexchangebuyer';
 
-    $this->accounts = new Google_Service_AdExchangeBuyer_Accounts_Resource(
+    $this->accounts = new Forminator_Google_Service_AdExchangeBuyer_Accounts_Resource(
         $this,
         $this->serviceName,
         'accounts',
@@ -102,7 +102,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->billingInfo = new Google_Service_AdExchangeBuyer_BillingInfo_Resource(
+    $this->billingInfo = new Forminator_Google_Service_AdExchangeBuyer_BillingInfo_Resource(
         $this,
         $this->serviceName,
         'billingInfo',
@@ -126,7 +126,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->budget = new Google_Service_AdExchangeBuyer_Budget_Resource(
+    $this->budget = new Forminator_Google_Service_AdExchangeBuyer_Budget_Resource(
         $this,
         $this->serviceName,
         'budget',
@@ -181,7 +181,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->creatives = new Google_Service_AdExchangeBuyer_Creatives_Resource(
+    $this->creatives = new Forminator_Google_Service_AdExchangeBuyer_Creatives_Resource(
         $this,
         $this->serviceName,
         'creatives',
@@ -281,7 +281,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->marketplacedeals = new Google_Service_AdExchangeBuyer_Marketplacedeals_Resource(
+    $this->marketplacedeals = new Forminator_Google_Service_AdExchangeBuyer_Marketplacedeals_Resource(
         $this,
         $this->serviceName,
         'marketplacedeals',
@@ -331,7 +331,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->marketplacenotes = new Google_Service_AdExchangeBuyer_Marketplacenotes_Resource(
+    $this->marketplacenotes = new Forminator_Google_Service_AdExchangeBuyer_Marketplacenotes_Resource(
         $this,
         $this->serviceName,
         'marketplacenotes',
@@ -361,7 +361,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->performanceReport = new Google_Service_AdExchangeBuyer_PerformanceReport_Resource(
+    $this->performanceReport = new Forminator_Google_Service_AdExchangeBuyer_PerformanceReport_Resource(
         $this,
         $this->serviceName,
         'performanceReport',
@@ -399,7 +399,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->pretargetingConfig = new Google_Service_AdExchangeBuyer_PretargetingConfig_Resource(
+    $this->pretargetingConfig = new Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig_Resource(
         $this,
         $this->serviceName,
         'pretargetingConfig',
@@ -489,7 +489,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->products = new Google_Service_AdExchangeBuyer_Products_Resource(
+    $this->products = new Forminator_Google_Service_AdExchangeBuyer_Products_Resource(
         $this,
         $this->serviceName,
         'products',
@@ -518,7 +518,7 @@ class Google_Service_AdExchangeBuyer extends Google_Service
           )
         )
     );
-    $this->proposals = new Google_Service_AdExchangeBuyer_Proposals_Resource(
+    $this->proposals = new Forminator_Google_Service_AdExchangeBuyer_Proposals_Resource(
         $this,
         $this->serviceName,
         'proposals',
@@ -599,11 +599,11 @@ class Google_Service_AdExchangeBuyer extends Google_Service
  * The "accounts" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $accounts = $adexchangebuyerService->accounts;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_Accounts_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_Accounts_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -611,26 +611,26 @@ class Google_Service_AdExchangeBuyer_Accounts_Resource extends Google_Service_Re
    *
    * @param int $id The account id
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Account
+   * @return Forminator_Google_Service_AdExchangeBuyer_Account
    */
   public function get($id, $optParams = array())
   {
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_Account");
+    return $this->call('get', array($params), "Forminator_Google_Service_AdExchangeBuyer_Account");
   }
 
   /**
    * Retrieves the authenticated user's list of accounts. (accounts.listAccounts)
    *
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_AccountsList
+   * @return Forminator_Google_Service_AdExchangeBuyer_AccountsList
    */
   public function listAccounts($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_AccountsList");
+    return $this->call('list', array($params), "Forminator_Google_Service_AdExchangeBuyer_AccountsList");
   }
 
   /**
@@ -638,30 +638,30 @@ class Google_Service_AdExchangeBuyer_Accounts_Resource extends Google_Service_Re
    * (accounts.patch)
    *
    * @param int $id The account id
-   * @param Google_Account $postBody
+   * @param Forminator_Google_Account $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Account
+   * @return Forminator_Google_Service_AdExchangeBuyer_Account
    */
-  public function patch($id, Google_Service_AdExchangeBuyer_Account $postBody, $optParams = array())
+  public function patch($id, Forminator_Google_Service_AdExchangeBuyer_Account $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_AdExchangeBuyer_Account");
+    return $this->call('patch', array($params), "Forminator_Google_Service_AdExchangeBuyer_Account");
   }
 
   /**
    * Updates an existing account. (accounts.update)
    *
    * @param int $id The account id
-   * @param Google_Account $postBody
+   * @param Forminator_Google_Account $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Account
+   * @return Forminator_Google_Service_AdExchangeBuyer_Account
    */
-  public function update($id, Google_Service_AdExchangeBuyer_Account $postBody, $optParams = array())
+  public function update($id, Forminator_Google_Service_AdExchangeBuyer_Account $postBody, $optParams = array())
   {
     $params = array('id' => $id, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_AdExchangeBuyer_Account");
+    return $this->call('update', array($params), "Forminator_Google_Service_AdExchangeBuyer_Account");
   }
 }
 
@@ -669,11 +669,11 @@ class Google_Service_AdExchangeBuyer_Accounts_Resource extends Google_Service_Re
  * The "billingInfo" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $billingInfo = $adexchangebuyerService->billingInfo;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_BillingInfo_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_BillingInfo_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -682,13 +682,13 @@ class Google_Service_AdExchangeBuyer_BillingInfo_Resource extends Google_Service
    *
    * @param int $accountId The account id.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_BillingInfo
+   * @return Forminator_Google_Service_AdExchangeBuyer_BillingInfo
    */
   public function get($accountId, $optParams = array())
   {
     $params = array('accountId' => $accountId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_BillingInfo");
+    return $this->call('get', array($params), "Forminator_Google_Service_AdExchangeBuyer_BillingInfo");
   }
 
   /**
@@ -696,13 +696,13 @@ class Google_Service_AdExchangeBuyer_BillingInfo_Resource extends Google_Service
    * user. (billingInfo.listBillingInfo)
    *
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_BillingInfoList
+   * @return Forminator_Google_Service_AdExchangeBuyer_BillingInfoList
    */
   public function listBillingInfo($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_BillingInfoList");
+    return $this->call('list', array($params), "Forminator_Google_Service_AdExchangeBuyer_BillingInfoList");
   }
 }
 
@@ -710,11 +710,11 @@ class Google_Service_AdExchangeBuyer_BillingInfo_Resource extends Google_Service
  * The "budget" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $budget = $adexchangebuyerService->budget;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_Budget_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_Budget_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -724,13 +724,13 @@ class Google_Service_AdExchangeBuyer_Budget_Resource extends Google_Service_Reso
    * @param string $accountId The account id to get the budget information for.
    * @param string $billingId The billing id to get the budget information for.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Budget
+   * @return Forminator_Google_Service_AdExchangeBuyer_Budget
    */
   public function get($accountId, $billingId, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'billingId' => $billingId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_Budget");
+    return $this->call('get', array($params), "Forminator_Google_Service_AdExchangeBuyer_Budget");
   }
 
   /**
@@ -742,15 +742,15 @@ class Google_Service_AdExchangeBuyer_Budget_Resource extends Google_Service_Reso
    * updated.
    * @param string $billingId The billing id associated with the budget being
    * updated.
-   * @param Google_Budget $postBody
+   * @param Forminator_Google_Budget $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Budget
+   * @return Forminator_Google_Service_AdExchangeBuyer_Budget
    */
-  public function patch($accountId, $billingId, Google_Service_AdExchangeBuyer_Budget $postBody, $optParams = array())
+  public function patch($accountId, $billingId, Forminator_Google_Service_AdExchangeBuyer_Budget $postBody, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'billingId' => $billingId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_AdExchangeBuyer_Budget");
+    return $this->call('patch', array($params), "Forminator_Google_Service_AdExchangeBuyer_Budget");
   }
 
   /**
@@ -762,15 +762,15 @@ class Google_Service_AdExchangeBuyer_Budget_Resource extends Google_Service_Reso
    * updated.
    * @param string $billingId The billing id associated with the budget being
    * updated.
-   * @param Google_Budget $postBody
+   * @param Forminator_Google_Budget $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Budget
+   * @return Forminator_Google_Service_AdExchangeBuyer_Budget
    */
-  public function update($accountId, $billingId, Google_Service_AdExchangeBuyer_Budget $postBody, $optParams = array())
+  public function update($accountId, $billingId, Forminator_Google_Service_AdExchangeBuyer_Budget $postBody, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'billingId' => $billingId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_AdExchangeBuyer_Budget");
+    return $this->call('update', array($params), "Forminator_Google_Service_AdExchangeBuyer_Budget");
   }
 }
 
@@ -778,11 +778,11 @@ class Google_Service_AdExchangeBuyer_Budget_Resource extends Google_Service_Reso
  * The "creatives" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $creatives = $adexchangebuyerService->creatives;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_Creatives_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_Creatives_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -807,27 +807,27 @@ class Google_Service_AdExchangeBuyer_Creatives_Resource extends Google_Service_R
    * @param int $accountId The id for the account that will serve this creative.
    * @param string $buyerCreativeId The buyer-specific id for this creative.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Creative
+   * @return Forminator_Google_Service_AdExchangeBuyer_Creative
    */
   public function get($accountId, $buyerCreativeId, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'buyerCreativeId' => $buyerCreativeId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_Creative");
+    return $this->call('get', array($params), "Forminator_Google_Service_AdExchangeBuyer_Creative");
   }
 
   /**
    * Submit a new creative. (creatives.insert)
    *
-   * @param Google_Creative $postBody
+   * @param Forminator_Google_Creative $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Creative
+   * @return Forminator_Google_Service_AdExchangeBuyer_Creative
    */
-  public function insert(Google_Service_AdExchangeBuyer_Creative $postBody, $optParams = array())
+  public function insert(Forminator_Google_Service_AdExchangeBuyer_Creative $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_AdExchangeBuyer_Creative");
+    return $this->call('insert', array($params), "Forminator_Google_Service_AdExchangeBuyer_Creative");
   }
 
   /**
@@ -849,13 +849,13 @@ class Google_Service_AdExchangeBuyer_Creatives_Resource extends Google_Service_R
    * @opt_param string pageToken A continuation token, used to page through ad
    * clients. To retrieve the next page, set this parameter to the value of
    * "nextPageToken" from the previous response. Optional.
-   * @return Google_Service_AdExchangeBuyer_CreativesList
+   * @return Forminator_Google_Service_AdExchangeBuyer_CreativesList
    */
   public function listCreatives($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_CreativesList");
+    return $this->call('list', array($params), "Forminator_Google_Service_AdExchangeBuyer_CreativesList");
   }
 
   /**
@@ -879,41 +879,41 @@ class Google_Service_AdExchangeBuyer_Creatives_Resource extends Google_Service_R
  * The "marketplacedeals" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $marketplacedeals = $adexchangebuyerService->marketplacedeals;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_Marketplacedeals_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_Marketplacedeals_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Delete the specified deals from the proposal (marketplacedeals.delete)
    *
    * @param string $proposalId The proposalId to delete deals from.
-   * @param Google_DeleteOrderDealsRequest $postBody
+   * @param Forminator_Google_DeleteOrderDealsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_DeleteOrderDealsResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_DeleteOrderDealsResponse
    */
-  public function delete($proposalId, Google_Service_AdExchangeBuyer_DeleteOrderDealsRequest $postBody, $optParams = array())
+  public function delete($proposalId, Forminator_Google_Service_AdExchangeBuyer_DeleteOrderDealsRequest $postBody, $optParams = array())
   {
     $params = array('proposalId' => $proposalId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_AdExchangeBuyer_DeleteOrderDealsResponse");
+    return $this->call('delete', array($params), "Forminator_Google_Service_AdExchangeBuyer_DeleteOrderDealsResponse");
   }
 
   /**
    * Add new deals for the specified proposal (marketplacedeals.insert)
    *
    * @param string $proposalId proposalId for which deals need to be added.
-   * @param Google_AddOrderDealsRequest $postBody
+   * @param Forminator_Google_AddOrderDealsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_AddOrderDealsResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_AddOrderDealsResponse
    */
-  public function insert($proposalId, Google_Service_AdExchangeBuyer_AddOrderDealsRequest $postBody, $optParams = array())
+  public function insert($proposalId, Forminator_Google_Service_AdExchangeBuyer_AddOrderDealsRequest $postBody, $optParams = array())
   {
     $params = array('proposalId' => $proposalId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_AdExchangeBuyer_AddOrderDealsResponse");
+    return $this->call('insert', array($params), "Forminator_Google_Service_AdExchangeBuyer_AddOrderDealsResponse");
   }
 
   /**
@@ -922,13 +922,13 @@ class Google_Service_AdExchangeBuyer_Marketplacedeals_Resource extends Google_Se
    *
    * @param string $proposalId The proposalId to get deals for.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_GetOrderDealsResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_GetOrderDealsResponse
    */
   public function listMarketplacedeals($proposalId, $optParams = array())
   {
     $params = array('proposalId' => $proposalId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_GetOrderDealsResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_AdExchangeBuyer_GetOrderDealsResponse");
   }
 
   /**
@@ -936,15 +936,15 @@ class Google_Service_AdExchangeBuyer_Marketplacedeals_Resource extends Google_Se
    * (marketplacedeals.update)
    *
    * @param string $proposalId The proposalId to edit deals on.
-   * @param Google_EditAllOrderDealsRequest $postBody
+   * @param Forminator_Google_EditAllOrderDealsRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse
    */
-  public function update($proposalId, Google_Service_AdExchangeBuyer_EditAllOrderDealsRequest $postBody, $optParams = array())
+  public function update($proposalId, Forminator_Google_Service_AdExchangeBuyer_EditAllOrderDealsRequest $postBody, $optParams = array())
   {
     $params = array('proposalId' => $proposalId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse");
+    return $this->call('update', array($params), "Forminator_Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse");
   }
 }
 
@@ -952,26 +952,26 @@ class Google_Service_AdExchangeBuyer_Marketplacedeals_Resource extends Google_Se
  * The "marketplacenotes" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $marketplacenotes = $adexchangebuyerService->marketplacenotes;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_Marketplacenotes_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_Marketplacenotes_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
    * Add notes to the proposal (marketplacenotes.insert)
    *
    * @param string $proposalId The proposalId to add notes for.
-   * @param Google_AddOrderNotesRequest $postBody
+   * @param Forminator_Google_AddOrderNotesRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_AddOrderNotesResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_AddOrderNotesResponse
    */
-  public function insert($proposalId, Google_Service_AdExchangeBuyer_AddOrderNotesRequest $postBody, $optParams = array())
+  public function insert($proposalId, Forminator_Google_Service_AdExchangeBuyer_AddOrderNotesRequest $postBody, $optParams = array())
   {
     $params = array('proposalId' => $proposalId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_AdExchangeBuyer_AddOrderNotesResponse");
+    return $this->call('insert', array($params), "Forminator_Google_Service_AdExchangeBuyer_AddOrderNotesResponse");
   }
 
   /**
@@ -980,13 +980,13 @@ class Google_Service_AdExchangeBuyer_Marketplacenotes_Resource extends Google_Se
    *
    * @param string $proposalId The proposalId to get notes for.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_GetOrderNotesResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_GetOrderNotesResponse
    */
   public function listMarketplacenotes($proposalId, $optParams = array())
   {
     $params = array('proposalId' => $proposalId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_GetOrderNotesResponse");
+    return $this->call('list', array($params), "Forminator_Google_Service_AdExchangeBuyer_GetOrderNotesResponse");
   }
 }
 
@@ -994,11 +994,11 @@ class Google_Service_AdExchangeBuyer_Marketplacenotes_Resource extends Google_Se
  * The "performanceReport" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $performanceReport = $adexchangebuyerService->performanceReport;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_PerformanceReport_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_PerformanceReport_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1017,13 +1017,13 @@ class Google_Service_AdExchangeBuyer_PerformanceReport_Resource extends Google_S
    * @opt_param string pageToken A continuation token, used to page through
    * performance reports. To retrieve the next page, set this parameter to the
    * value of "nextPageToken" from the previous response. Optional.
-   * @return Google_Service_AdExchangeBuyer_PerformanceReportList
+   * @return Forminator_Google_Service_AdExchangeBuyer_PerformanceReportList
    */
   public function listPerformanceReport($accountId, $endDateTime, $startDateTime, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'endDateTime' => $endDateTime, 'startDateTime' => $startDateTime);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_PerformanceReportList");
+    return $this->call('list', array($params), "Forminator_Google_Service_AdExchangeBuyer_PerformanceReportList");
   }
 }
 
@@ -1031,11 +1031,11 @@ class Google_Service_AdExchangeBuyer_PerformanceReport_Resource extends Google_S
  * The "pretargetingConfig" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $pretargetingConfig = $adexchangebuyerService->pretargetingConfig;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1059,13 +1059,13 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Google_
    * @param string $accountId The account id to get the pretargeting config for.
    * @param string $configId The specific id of the configuration to retrieve.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_PretargetingConfig
+   * @return Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig
    */
   public function get($accountId, $configId, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'configId' => $configId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_PretargetingConfig");
+    return $this->call('get', array($params), "Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig");
   }
 
   /**
@@ -1073,15 +1073,15 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Google_
    *
    * @param string $accountId The account id to insert the pretargeting config
    * for.
-   * @param Google_PretargetingConfig $postBody
+   * @param Forminator_Google_PretargetingConfig $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_PretargetingConfig
+   * @return Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig
    */
-  public function insert($accountId, Google_Service_AdExchangeBuyer_PretargetingConfig $postBody, $optParams = array())
+  public function insert($accountId, Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig $postBody, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_AdExchangeBuyer_PretargetingConfig");
+    return $this->call('insert', array($params), "Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig");
   }
 
   /**
@@ -1090,13 +1090,13 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Google_
    *
    * @param string $accountId The account id to get the pretargeting configs for.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_PretargetingConfigList
+   * @return Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigList
    */
   public function listPretargetingConfig($accountId, $optParams = array())
   {
     $params = array('accountId' => $accountId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_AdExchangeBuyer_PretargetingConfigList");
+    return $this->call('list', array($params), "Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigList");
   }
 
   /**
@@ -1106,15 +1106,15 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Google_
    * @param string $accountId The account id to update the pretargeting config
    * for.
    * @param string $configId The specific id of the configuration to update.
-   * @param Google_PretargetingConfig $postBody
+   * @param Forminator_Google_PretargetingConfig $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_PretargetingConfig
+   * @return Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig
    */
-  public function patch($accountId, $configId, Google_Service_AdExchangeBuyer_PretargetingConfig $postBody, $optParams = array())
+  public function patch($accountId, $configId, Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig $postBody, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'configId' => $configId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_AdExchangeBuyer_PretargetingConfig");
+    return $this->call('patch', array($params), "Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig");
   }
 
   /**
@@ -1123,15 +1123,15 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Google_
    * @param string $accountId The account id to update the pretargeting config
    * for.
    * @param string $configId The specific id of the configuration to update.
-   * @param Google_PretargetingConfig $postBody
+   * @param Forminator_Google_PretargetingConfig $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_PretargetingConfig
+   * @return Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig
    */
-  public function update($accountId, $configId, Google_Service_AdExchangeBuyer_PretargetingConfig $postBody, $optParams = array())
+  public function update($accountId, $configId, Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig $postBody, $optParams = array())
   {
     $params = array('accountId' => $accountId, 'configId' => $configId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_AdExchangeBuyer_PretargetingConfig");
+    return $this->call('update', array($params), "Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig");
   }
 }
 
@@ -1139,11 +1139,11 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig_Resource extends Google_
  * The "products" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $products = $adexchangebuyerService->products;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_Products_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_Products_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1151,13 +1151,13 @@ class Google_Service_AdExchangeBuyer_Products_Resource extends Google_Service_Re
    *
    * @param string $productId The id for the product to get the head revision for.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Product
+   * @return Forminator_Google_Service_AdExchangeBuyer_Product
    */
   public function get($productId, $optParams = array())
   {
     $params = array('productId' => $productId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_Product");
+    return $this->call('get', array($params), "Forminator_Google_Service_AdExchangeBuyer_Product");
   }
 
   /**
@@ -1166,13 +1166,13 @@ class Google_Service_AdExchangeBuyer_Products_Resource extends Google_Service_Re
    * @param array $optParams Optional parameters.
    *
    * @opt_param string pqlQuery The pql query used to query for products.
-   * @return Google_Service_AdExchangeBuyer_GetOffersResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_GetOffersResponse
    */
   public function search($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('search', array($params), "Google_Service_AdExchangeBuyer_GetOffersResponse");
+    return $this->call('search', array($params), "Forminator_Google_Service_AdExchangeBuyer_GetOffersResponse");
   }
 }
 
@@ -1180,11 +1180,11 @@ class Google_Service_AdExchangeBuyer_Products_Resource extends Google_Service_Re
  * The "proposals" collection of methods.
  * Typical usage is:
  *  <code>
- *   $adexchangebuyerService = new Google_Service_AdExchangeBuyer(...);
+ *   $adexchangebuyerService = new Forminator_Google_Service_AdExchangeBuyer(...);
  *   $proposals = $adexchangebuyerService->proposals;
  *  </code>
  */
-class Google_Service_AdExchangeBuyer_Proposals_Resource extends Google_Service_Resource
+class Forminator_Google_Service_AdExchangeBuyer_Proposals_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -1192,27 +1192,27 @@ class Google_Service_AdExchangeBuyer_Proposals_Resource extends Google_Service_R
    *
    * @param string $proposalId Id of the proposal to retrieve.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Proposal
+   * @return Forminator_Google_Service_AdExchangeBuyer_Proposal
    */
   public function get($proposalId, $optParams = array())
   {
     $params = array('proposalId' => $proposalId);
     $params = array_merge($params, $optParams);
-    return $this->call('get', array($params), "Google_Service_AdExchangeBuyer_Proposal");
+    return $this->call('get', array($params), "Forminator_Google_Service_AdExchangeBuyer_Proposal");
   }
 
   /**
    * Create the given list of proposals (proposals.insert)
    *
-   * @param Google_CreateOrdersRequest $postBody
+   * @param Forminator_Google_CreateOrdersRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_CreateOrdersResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_CreateOrdersResponse
    */
-  public function insert(Google_Service_AdExchangeBuyer_CreateOrdersRequest $postBody, $optParams = array())
+  public function insert(Forminator_Google_Service_AdExchangeBuyer_CreateOrdersRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_AdExchangeBuyer_CreateOrdersResponse");
+    return $this->call('insert', array($params), "Forminator_Google_Service_AdExchangeBuyer_CreateOrdersResponse");
   }
 
   /**
@@ -1225,15 +1225,15 @@ class Google_Service_AdExchangeBuyer_Proposals_Resource extends Google_Service_R
    * will be thrown. The caller should then fetch the latest proposal at head
    * revision and retry the update at that revision.
    * @param string $updateAction The proposed action to take on the proposal.
-   * @param Google_Proposal $postBody
+   * @param Forminator_Google_Proposal $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Proposal
+   * @return Forminator_Google_Service_AdExchangeBuyer_Proposal
    */
-  public function patch($proposalId, $revisionNumber, $updateAction, Google_Service_AdExchangeBuyer_Proposal $postBody, $optParams = array())
+  public function patch($proposalId, $revisionNumber, $updateAction, Forminator_Google_Service_AdExchangeBuyer_Proposal $postBody, $optParams = array())
   {
     $params = array('proposalId' => $proposalId, 'revisionNumber' => $revisionNumber, 'updateAction' => $updateAction, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('patch', array($params), "Google_Service_AdExchangeBuyer_Proposal");
+    return $this->call('patch', array($params), "Forminator_Google_Service_AdExchangeBuyer_Proposal");
   }
 
   /**
@@ -1242,13 +1242,13 @@ class Google_Service_AdExchangeBuyer_Proposals_Resource extends Google_Service_R
    * @param array $optParams Optional parameters.
    *
    * @opt_param string pqlQuery Query string to retrieve specific proposals.
-   * @return Google_Service_AdExchangeBuyer_GetOrdersResponse
+   * @return Forminator_Google_Service_AdExchangeBuyer_GetOrdersResponse
    */
   public function search($optParams = array())
   {
     $params = array();
     $params = array_merge($params, $optParams);
-    return $this->call('search', array($params), "Google_Service_AdExchangeBuyer_GetOrdersResponse");
+    return $this->call('search', array($params), "Forminator_Google_Service_AdExchangeBuyer_GetOrdersResponse");
   }
 
   /**
@@ -1260,27 +1260,27 @@ class Google_Service_AdExchangeBuyer_Proposals_Resource extends Google_Service_R
    * will be thrown. The caller should then fetch the latest proposal at head
    * revision and retry the update at that revision.
    * @param string $updateAction The proposed action to take on the proposal.
-   * @param Google_Proposal $postBody
+   * @param Forminator_Google_Proposal $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_AdExchangeBuyer_Proposal
+   * @return Forminator_Google_Service_AdExchangeBuyer_Proposal
    */
-  public function update($proposalId, $revisionNumber, $updateAction, Google_Service_AdExchangeBuyer_Proposal $postBody, $optParams = array())
+  public function update($proposalId, $revisionNumber, $updateAction, Forminator_Google_Service_AdExchangeBuyer_Proposal $postBody, $optParams = array())
   {
     $params = array('proposalId' => $proposalId, 'revisionNumber' => $revisionNumber, 'updateAction' => $updateAction, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('update', array($params), "Google_Service_AdExchangeBuyer_Proposal");
+    return $this->call('update', array($params), "Forminator_Google_Service_AdExchangeBuyer_Proposal");
   }
 }
 
 
 
 
-class Google_Service_AdExchangeBuyer_Account extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_Account extends Forminator_Google_Collection
 {
   protected $collection_key = 'bidderLocation';
   protected $internal_gapi_mappings = array(
   );
-  protected $bidderLocationType = 'Google_Service_AdExchangeBuyer_AccountBidderLocation';
+  protected $bidderLocationType = 'Forminator_Google_Service_AdExchangeBuyer_AccountBidderLocation';
   protected $bidderLocationDataType = 'array';
   public $cookieMatchingNid;
   public $cookieMatchingUrl;
@@ -1357,7 +1357,7 @@ class Google_Service_AdExchangeBuyer_Account extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_AccountBidderLocation extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_AccountBidderLocation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1392,12 +1392,12 @@ class Google_Service_AdExchangeBuyer_AccountBidderLocation extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_AccountsList extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_AccountsList extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_AdExchangeBuyer_Account';
+  protected $itemsType = 'Forminator_Google_Service_AdExchangeBuyer_Account';
   protected $itemsDataType = 'array';
   public $kind;
 
@@ -1420,12 +1420,12 @@ class Google_Service_AdExchangeBuyer_AccountsList extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_AddOrderDealsRequest extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_AddOrderDealsRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'deals';
   protected $internal_gapi_mappings = array(
   );
-  protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
+  protected $dealsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceDeal';
   protected $dealsDataType = 'array';
   public $proposalRevisionNumber;
   public $updateAction;
@@ -1457,12 +1457,12 @@ class Google_Service_AdExchangeBuyer_AddOrderDealsRequest extends Google_Collect
   }
 }
 
-class Google_Service_AdExchangeBuyer_AddOrderDealsResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_AddOrderDealsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'deals';
   protected $internal_gapi_mappings = array(
   );
-  protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
+  protected $dealsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceDeal';
   protected $dealsDataType = 'array';
   public $proposalRevisionNumber;
 
@@ -1485,12 +1485,12 @@ class Google_Service_AdExchangeBuyer_AddOrderDealsResponse extends Google_Collec
   }
 }
 
-class Google_Service_AdExchangeBuyer_AddOrderNotesRequest extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_AddOrderNotesRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'notes';
   protected $internal_gapi_mappings = array(
   );
-  protected $notesType = 'Google_Service_AdExchangeBuyer_MarketplaceNote';
+  protected $notesType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceNote';
   protected $notesDataType = 'array';
 
 
@@ -1504,12 +1504,12 @@ class Google_Service_AdExchangeBuyer_AddOrderNotesRequest extends Google_Collect
   }
 }
 
-class Google_Service_AdExchangeBuyer_AddOrderNotesResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_AddOrderNotesResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'notes';
   protected $internal_gapi_mappings = array(
   );
-  protected $notesType = 'Google_Service_AdExchangeBuyer_MarketplaceNote';
+  protected $notesType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceNote';
   protected $notesDataType = 'array';
 
 
@@ -1523,7 +1523,7 @@ class Google_Service_AdExchangeBuyer_AddOrderNotesResponse extends Google_Collec
   }
 }
 
-class Google_Service_AdExchangeBuyer_BillingInfo extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_BillingInfo extends Forminator_Google_Collection
 {
   protected $collection_key = 'billingId';
   protected $internal_gapi_mappings = array(
@@ -1568,12 +1568,12 @@ class Google_Service_AdExchangeBuyer_BillingInfo extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_BillingInfoList extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_BillingInfoList extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_AdExchangeBuyer_BillingInfo';
+  protected $itemsType = 'Forminator_Google_Service_AdExchangeBuyer_BillingInfo';
   protected $itemsDataType = 'array';
   public $kind;
 
@@ -1596,7 +1596,7 @@ class Google_Service_AdExchangeBuyer_BillingInfoList extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_Budget extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_Budget extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1658,7 +1658,7 @@ class Google_Service_AdExchangeBuyer_Budget extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_Buyer extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_Buyer extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1675,7 +1675,7 @@ class Google_Service_AdExchangeBuyer_Buyer extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_ContactInformation extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_ContactInformation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1701,12 +1701,12 @@ class Google_Service_AdExchangeBuyer_ContactInformation extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreateOrdersRequest extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreateOrdersRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'proposals';
   protected $internal_gapi_mappings = array(
   );
-  protected $proposalsType = 'Google_Service_AdExchangeBuyer_Proposal';
+  protected $proposalsType = 'Forminator_Google_Service_AdExchangeBuyer_Proposal';
   protected $proposalsDataType = 'array';
   public $webPropertyCode;
 
@@ -1729,12 +1729,12 @@ class Google_Service_AdExchangeBuyer_CreateOrdersRequest extends Google_Collecti
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreateOrdersResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreateOrdersResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'proposals';
   protected $internal_gapi_mappings = array(
   );
-  protected $proposalsType = 'Google_Service_AdExchangeBuyer_Proposal';
+  protected $proposalsType = 'Forminator_Google_Service_AdExchangeBuyer_Proposal';
   protected $proposalsDataType = 'array';
 
 
@@ -1748,7 +1748,7 @@ class Google_Service_AdExchangeBuyer_CreateOrdersResponse extends Google_Collect
   }
 }
 
-class Google_Service_AdExchangeBuyer_Creative extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_Creative extends Forminator_Google_Collection
 {
   protected $collection_key = 'vendorType';
   protected $internal_gapi_mappings = array(
@@ -1763,21 +1763,21 @@ class Google_Service_AdExchangeBuyer_Creative extends Google_Collection
   public $attribute;
   public $buyerCreativeId;
   public $clickThroughUrl;
-  protected $correctionsType = 'Google_Service_AdExchangeBuyer_CreativeCorrections';
+  protected $correctionsType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeCorrections';
   protected $correctionsDataType = 'array';
   public $dealsStatus;
-  protected $filteringReasonsType = 'Google_Service_AdExchangeBuyer_CreativeFilteringReasons';
+  protected $filteringReasonsType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeFilteringReasons';
   protected $filteringReasonsDataType = '';
   public $height;
   public $impressionTrackingUrl;
   public $kind;
-  protected $nativeAdType = 'Google_Service_AdExchangeBuyer_CreativeNativeAd';
+  protected $nativeAdType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAd';
   protected $nativeAdDataType = '';
   public $openAuctionStatus;
   public $productCategories;
   public $restrictedCategories;
   public $sensitiveCategories;
-  protected $servingRestrictionsType = 'Google_Service_AdExchangeBuyer_CreativeServingRestrictions';
+  protected $servingRestrictionsType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeServingRestrictions';
   protected $servingRestrictionsDataType = 'array';
   public $vendorType;
   public $version;
@@ -1873,7 +1873,7 @@ class Google_Service_AdExchangeBuyer_Creative extends Google_Collection
   {
     return $this->dealsStatus;
   }
-  public function setFilteringReasons(Google_Service_AdExchangeBuyer_CreativeFilteringReasons $filteringReasons)
+  public function setFilteringReasons(Forminator_Google_Service_AdExchangeBuyer_CreativeFilteringReasons $filteringReasons)
   {
     $this->filteringReasons = $filteringReasons;
   }
@@ -1905,7 +1905,7 @@ class Google_Service_AdExchangeBuyer_Creative extends Google_Collection
   {
     return $this->kind;
   }
-  public function setNativeAd(Google_Service_AdExchangeBuyer_CreativeNativeAd $nativeAd)
+  public function setNativeAd(Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAd $nativeAd)
   {
     $this->nativeAd = $nativeAd;
   }
@@ -1987,7 +1987,7 @@ class Google_Service_AdExchangeBuyer_Creative extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeCorrections extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreativeCorrections extends Forminator_Google_Collection
 {
   protected $collection_key = 'details';
   protected $internal_gapi_mappings = array(
@@ -2014,13 +2014,13 @@ class Google_Service_AdExchangeBuyer_CreativeCorrections extends Google_Collecti
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeFilteringReasons extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreativeFilteringReasons extends Forminator_Google_Collection
 {
   protected $collection_key = 'reasons';
   protected $internal_gapi_mappings = array(
   );
   public $date;
-  protected $reasonsType = 'Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons';
+  protected $reasonsType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons';
   protected $reasonsDataType = 'array';
 
 
@@ -2042,7 +2042,7 @@ class Google_Service_AdExchangeBuyer_CreativeFilteringReasons extends Google_Col
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2068,22 +2068,22 @@ class Google_Service_AdExchangeBuyer_CreativeFilteringReasonsReasons extends Goo
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeNativeAd extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAd extends Forminator_Google_Collection
 {
   protected $collection_key = 'impressionTrackingUrl';
   protected $internal_gapi_mappings = array(
   );
   public $advertiser;
-  protected $appIconType = 'Google_Service_AdExchangeBuyer_CreativeNativeAdAppIcon';
+  protected $appIconType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdAppIcon';
   protected $appIconDataType = '';
   public $body;
   public $callToAction;
   public $clickTrackingUrl;
   public $headline;
-  protected $imageType = 'Google_Service_AdExchangeBuyer_CreativeNativeAdImage';
+  protected $imageType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdImage';
   protected $imageDataType = '';
   public $impressionTrackingUrl;
-  protected $logoType = 'Google_Service_AdExchangeBuyer_CreativeNativeAdLogo';
+  protected $logoType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdLogo';
   protected $logoDataType = '';
   public $price;
   public $starRating;
@@ -2098,7 +2098,7 @@ class Google_Service_AdExchangeBuyer_CreativeNativeAd extends Google_Collection
   {
     return $this->advertiser;
   }
-  public function setAppIcon(Google_Service_AdExchangeBuyer_CreativeNativeAdAppIcon $appIcon)
+  public function setAppIcon(Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdAppIcon $appIcon)
   {
     $this->appIcon = $appIcon;
   }
@@ -2138,7 +2138,7 @@ class Google_Service_AdExchangeBuyer_CreativeNativeAd extends Google_Collection
   {
     return $this->headline;
   }
-  public function setImage(Google_Service_AdExchangeBuyer_CreativeNativeAdImage $image)
+  public function setImage(Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdImage $image)
   {
     $this->image = $image;
   }
@@ -2154,7 +2154,7 @@ class Google_Service_AdExchangeBuyer_CreativeNativeAd extends Google_Collection
   {
     return $this->impressionTrackingUrl;
   }
-  public function setLogo(Google_Service_AdExchangeBuyer_CreativeNativeAdLogo $logo)
+  public function setLogo(Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdLogo $logo)
   {
     $this->logo = $logo;
   }
@@ -2188,7 +2188,7 @@ class Google_Service_AdExchangeBuyer_CreativeNativeAd extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeNativeAdAppIcon extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdAppIcon extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2223,7 +2223,7 @@ class Google_Service_AdExchangeBuyer_CreativeNativeAdAppIcon extends Google_Mode
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeNativeAdImage extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdImage extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2258,7 +2258,7 @@ class Google_Service_AdExchangeBuyer_CreativeNativeAdImage extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeNativeAdLogo extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_CreativeNativeAdLogo extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2293,14 +2293,14 @@ class Google_Service_AdExchangeBuyer_CreativeNativeAdLogo extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeServingRestrictions extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreativeServingRestrictions extends Forminator_Google_Collection
 {
   protected $collection_key = 'disapprovalReasons';
   protected $internal_gapi_mappings = array(
   );
-  protected $contextsType = 'Google_Service_AdExchangeBuyer_CreativeServingRestrictionsContexts';
+  protected $contextsType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeServingRestrictionsContexts';
   protected $contextsDataType = 'array';
-  protected $disapprovalReasonsType = 'Google_Service_AdExchangeBuyer_CreativeServingRestrictionsDisapprovalReasons';
+  protected $disapprovalReasonsType = 'Forminator_Google_Service_AdExchangeBuyer_CreativeServingRestrictionsDisapprovalReasons';
   protected $disapprovalReasonsDataType = 'array';
   public $reason;
 
@@ -2331,7 +2331,7 @@ class Google_Service_AdExchangeBuyer_CreativeServingRestrictions extends Google_
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeServingRestrictionsContexts extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreativeServingRestrictionsContexts extends Forminator_Google_Collection
 {
   protected $collection_key = 'platform';
   protected $internal_gapi_mappings = array(
@@ -2376,7 +2376,7 @@ class Google_Service_AdExchangeBuyer_CreativeServingRestrictionsContexts extends
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativeServingRestrictionsDisapprovalReasons extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreativeServingRestrictionsDisapprovalReasons extends Forminator_Google_Collection
 {
   protected $collection_key = 'details';
   protected $internal_gapi_mappings = array(
@@ -2403,12 +2403,12 @@ class Google_Service_AdExchangeBuyer_CreativeServingRestrictionsDisapprovalReaso
   }
 }
 
-class Google_Service_AdExchangeBuyer_CreativesList extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_CreativesList extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_AdExchangeBuyer_Creative';
+  protected $itemsType = 'Forminator_Google_Service_AdExchangeBuyer_Creative';
   protected $itemsDataType = 'array';
   public $kind;
   public $nextPageToken;
@@ -2440,20 +2440,20 @@ class Google_Service_AdExchangeBuyer_CreativesList extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_DealTerms extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $brandingType;
   public $description;
-  protected $estimatedGrossSpendType = 'Google_Service_AdExchangeBuyer_Price';
+  protected $estimatedGrossSpendType = 'Forminator_Google_Service_AdExchangeBuyer_Price';
   protected $estimatedGrossSpendDataType = '';
   public $estimatedImpressionsPerDay;
-  protected $guaranteedFixedPriceTermsType = 'Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms';
+  protected $guaranteedFixedPriceTermsType = 'Forminator_Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms';
   protected $guaranteedFixedPriceTermsDataType = '';
-  protected $nonGuaranteedAuctionTermsType = 'Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms';
+  protected $nonGuaranteedAuctionTermsType = 'Forminator_Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms';
   protected $nonGuaranteedAuctionTermsDataType = '';
-  protected $nonGuaranteedFixedPriceTermsType = 'Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedFixedPriceTerms';
+  protected $nonGuaranteedFixedPriceTermsType = 'Forminator_Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedFixedPriceTerms';
   protected $nonGuaranteedFixedPriceTermsDataType = '';
 
 
@@ -2473,7 +2473,7 @@ class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
   {
     return $this->description;
   }
-  public function setEstimatedGrossSpend(Google_Service_AdExchangeBuyer_Price $estimatedGrossSpend)
+  public function setEstimatedGrossSpend(Forminator_Google_Service_AdExchangeBuyer_Price $estimatedGrossSpend)
   {
     $this->estimatedGrossSpend = $estimatedGrossSpend;
   }
@@ -2489,7 +2489,7 @@ class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
   {
     return $this->estimatedImpressionsPerDay;
   }
-  public function setGuaranteedFixedPriceTerms(Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms $guaranteedFixedPriceTerms)
+  public function setGuaranteedFixedPriceTerms(Forminator_Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms $guaranteedFixedPriceTerms)
   {
     $this->guaranteedFixedPriceTerms = $guaranteedFixedPriceTerms;
   }
@@ -2497,7 +2497,7 @@ class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
   {
     return $this->guaranteedFixedPriceTerms;
   }
-  public function setNonGuaranteedAuctionTerms(Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms $nonGuaranteedAuctionTerms)
+  public function setNonGuaranteedAuctionTerms(Forminator_Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms $nonGuaranteedAuctionTerms)
   {
     $this->nonGuaranteedAuctionTerms = $nonGuaranteedAuctionTerms;
   }
@@ -2505,7 +2505,7 @@ class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
   {
     return $this->nonGuaranteedAuctionTerms;
   }
-  public function setNonGuaranteedFixedPriceTerms(Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedFixedPriceTerms $nonGuaranteedFixedPriceTerms)
+  public function setNonGuaranteedFixedPriceTerms(Forminator_Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedFixedPriceTerms $nonGuaranteedFixedPriceTerms)
   {
     $this->nonGuaranteedFixedPriceTerms = $nonGuaranteedFixedPriceTerms;
   }
@@ -2515,12 +2515,12 @@ class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms extends Forminator_Google_Collection
 {
   protected $collection_key = 'fixedPrices';
   protected $internal_gapi_mappings = array(
   );
-  protected $fixedPricesType = 'Google_Service_AdExchangeBuyer_PricePerBuyer';
+  protected $fixedPricesType = 'Forminator_Google_Service_AdExchangeBuyer_PricePerBuyer';
   protected $fixedPricesDataType = 'array';
   public $guaranteedImpressions;
   public $guaranteedLooks;
@@ -2552,13 +2552,13 @@ class Google_Service_AdExchangeBuyer_DealTermsGuaranteedFixedPriceTerms extends 
   }
 }
 
-class Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms extends Forminator_Google_Collection
 {
   protected $collection_key = 'reservePricePerBuyers';
   protected $internal_gapi_mappings = array(
   );
   public $privateAuctionId;
-  protected $reservePricePerBuyersType = 'Google_Service_AdExchangeBuyer_PricePerBuyer';
+  protected $reservePricePerBuyersType = 'Forminator_Google_Service_AdExchangeBuyer_PricePerBuyer';
   protected $reservePricePerBuyersDataType = 'array';
 
 
@@ -2580,12 +2580,12 @@ class Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedAuctionTerms extends 
   }
 }
 
-class Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedFixedPriceTerms extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedFixedPriceTerms extends Forminator_Google_Collection
 {
   protected $collection_key = 'fixedPrices';
   protected $internal_gapi_mappings = array(
   );
-  protected $fixedPricesType = 'Google_Service_AdExchangeBuyer_PricePerBuyer';
+  protected $fixedPricesType = 'Forminator_Google_Service_AdExchangeBuyer_PricePerBuyer';
   protected $fixedPricesDataType = 'array';
 
 
@@ -2599,7 +2599,7 @@ class Google_Service_AdExchangeBuyer_DealTermsNonGuaranteedFixedPriceTerms exten
   }
 }
 
-class Google_Service_AdExchangeBuyer_DeleteOrderDealsRequest extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_DeleteOrderDealsRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'dealIds';
   protected $internal_gapi_mappings = array(
@@ -2635,12 +2635,12 @@ class Google_Service_AdExchangeBuyer_DeleteOrderDealsRequest extends Google_Coll
   }
 }
 
-class Google_Service_AdExchangeBuyer_DeleteOrderDealsResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_DeleteOrderDealsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'deals';
   protected $internal_gapi_mappings = array(
   );
-  protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
+  protected $dealsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceDeal';
   protected $dealsDataType = 'array';
   public $proposalRevisionNumber;
 
@@ -2663,14 +2663,14 @@ class Google_Service_AdExchangeBuyer_DeleteOrderDealsResponse extends Google_Col
   }
 }
 
-class Google_Service_AdExchangeBuyer_DeliveryControl extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_DeliveryControl extends Forminator_Google_Collection
 {
   protected $collection_key = 'frequencyCaps';
   protected $internal_gapi_mappings = array(
   );
   public $creativeBlockingLevel;
   public $deliveryRateType;
-  protected $frequencyCapsType = 'Google_Service_AdExchangeBuyer_DeliveryControlFrequencyCap';
+  protected $frequencyCapsType = 'Forminator_Google_Service_AdExchangeBuyer_DeliveryControlFrequencyCap';
   protected $frequencyCapsDataType = 'array';
 
 
@@ -2700,7 +2700,7 @@ class Google_Service_AdExchangeBuyer_DeliveryControl extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_DeliveryControlFrequencyCap extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_DeliveryControlFrequencyCap extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -2735,14 +2735,14 @@ class Google_Service_AdExchangeBuyer_DeliveryControlFrequencyCap extends Google_
   }
 }
 
-class Google_Service_AdExchangeBuyer_EditAllOrderDealsRequest extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_EditAllOrderDealsRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'deals';
   protected $internal_gapi_mappings = array(
   );
-  protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
+  protected $dealsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceDeal';
   protected $dealsDataType = 'array';
-  protected $proposalType = 'Google_Service_AdExchangeBuyer_Proposal';
+  protected $proposalType = 'Forminator_Google_Service_AdExchangeBuyer_Proposal';
   protected $proposalDataType = '';
   public $proposalRevisionNumber;
   public $updateAction;
@@ -2756,7 +2756,7 @@ class Google_Service_AdExchangeBuyer_EditAllOrderDealsRequest extends Google_Col
   {
     return $this->deals;
   }
-  public function setProposal(Google_Service_AdExchangeBuyer_Proposal $proposal)
+  public function setProposal(Forminator_Google_Service_AdExchangeBuyer_Proposal $proposal)
   {
     $this->proposal = $proposal;
   }
@@ -2782,12 +2782,12 @@ class Google_Service_AdExchangeBuyer_EditAllOrderDealsRequest extends Google_Col
   }
 }
 
-class Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'deals';
   protected $internal_gapi_mappings = array(
   );
-  protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
+  protected $dealsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceDeal';
   protected $dealsDataType = 'array';
 
 
@@ -2801,12 +2801,12 @@ class Google_Service_AdExchangeBuyer_EditAllOrderDealsResponse extends Google_Co
   }
 }
 
-class Google_Service_AdExchangeBuyer_GetOffersResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_GetOffersResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'products';
   protected $internal_gapi_mappings = array(
   );
-  protected $productsType = 'Google_Service_AdExchangeBuyer_Product';
+  protected $productsType = 'Forminator_Google_Service_AdExchangeBuyer_Product';
   protected $productsDataType = 'array';
 
 
@@ -2820,12 +2820,12 @@ class Google_Service_AdExchangeBuyer_GetOffersResponse extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_GetOrderDealsResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_GetOrderDealsResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'deals';
   protected $internal_gapi_mappings = array(
   );
-  protected $dealsType = 'Google_Service_AdExchangeBuyer_MarketplaceDeal';
+  protected $dealsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceDeal';
   protected $dealsDataType = 'array';
 
 
@@ -2839,12 +2839,12 @@ class Google_Service_AdExchangeBuyer_GetOrderDealsResponse extends Google_Collec
   }
 }
 
-class Google_Service_AdExchangeBuyer_GetOrderNotesResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_GetOrderNotesResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'notes';
   protected $internal_gapi_mappings = array(
   );
-  protected $notesType = 'Google_Service_AdExchangeBuyer_MarketplaceNote';
+  protected $notesType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceNote';
   protected $notesDataType = 'array';
 
 
@@ -2858,12 +2858,12 @@ class Google_Service_AdExchangeBuyer_GetOrderNotesResponse extends Google_Collec
   }
 }
 
-class Google_Service_AdExchangeBuyer_GetOrdersResponse extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_GetOrdersResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'proposals';
   protected $internal_gapi_mappings = array(
   );
-  protected $proposalsType = 'Google_Service_AdExchangeBuyer_Proposal';
+  protected $proposalsType = 'Forminator_Google_Service_AdExchangeBuyer_Proposal';
   protected $proposalsDataType = 'array';
 
 
@@ -2877,17 +2877,17 @@ class Google_Service_AdExchangeBuyer_GetOrdersResponse extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_MarketplaceDeal extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_MarketplaceDeal extends Forminator_Google_Collection
 {
   protected $collection_key = 'sharedTargetings';
   protected $internal_gapi_mappings = array(
   );
-  protected $buyerPrivateDataType = 'Google_Service_AdExchangeBuyer_PrivateData';
+  protected $buyerPrivateDataType = 'Forminator_Google_Service_AdExchangeBuyer_PrivateData';
   protected $buyerPrivateDataDataType = '';
   public $creationTimeMs;
   public $creativePreApprovalPolicy;
   public $dealId;
-  protected $deliveryControlType = 'Google_Service_AdExchangeBuyer_DeliveryControl';
+  protected $deliveryControlType = 'Forminator_Google_Service_AdExchangeBuyer_DeliveryControl';
   protected $deliveryControlDataType = '';
   public $externalDealId;
   public $flightEndTimeMs;
@@ -2899,17 +2899,17 @@ class Google_Service_AdExchangeBuyer_MarketplaceDeal extends Google_Collection
   public $productId;
   public $productRevisionNumber;
   public $proposalId;
-  protected $sellerContactsType = 'Google_Service_AdExchangeBuyer_ContactInformation';
+  protected $sellerContactsType = 'Forminator_Google_Service_AdExchangeBuyer_ContactInformation';
   protected $sellerContactsDataType = 'array';
-  protected $sharedTargetingsType = 'Google_Service_AdExchangeBuyer_SharedTargeting';
+  protected $sharedTargetingsType = 'Forminator_Google_Service_AdExchangeBuyer_SharedTargeting';
   protected $sharedTargetingsDataType = 'array';
   public $syndicationProduct;
-  protected $termsType = 'Google_Service_AdExchangeBuyer_DealTerms';
+  protected $termsType = 'Forminator_Google_Service_AdExchangeBuyer_DealTerms';
   protected $termsDataType = '';
   public $webPropertyCode;
 
 
-  public function setBuyerPrivateData(Google_Service_AdExchangeBuyer_PrivateData $buyerPrivateData)
+  public function setBuyerPrivateData(Forminator_Google_Service_AdExchangeBuyer_PrivateData $buyerPrivateData)
   {
     $this->buyerPrivateData = $buyerPrivateData;
   }
@@ -2941,7 +2941,7 @@ class Google_Service_AdExchangeBuyer_MarketplaceDeal extends Google_Collection
   {
     return $this->dealId;
   }
-  public function setDeliveryControl(Google_Service_AdExchangeBuyer_DeliveryControl $deliveryControl)
+  public function setDeliveryControl(Forminator_Google_Service_AdExchangeBuyer_DeliveryControl $deliveryControl)
   {
     $this->deliveryControl = $deliveryControl;
   }
@@ -3053,7 +3053,7 @@ class Google_Service_AdExchangeBuyer_MarketplaceDeal extends Google_Collection
   {
     return $this->syndicationProduct;
   }
-  public function setTerms(Google_Service_AdExchangeBuyer_DealTerms $terms)
+  public function setTerms(Forminator_Google_Service_AdExchangeBuyer_DealTerms $terms)
   {
     $this->terms = $terms;
   }
@@ -3071,17 +3071,17 @@ class Google_Service_AdExchangeBuyer_MarketplaceDeal extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_MarketplaceDealParty extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_MarketplaceDealParty extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $buyerType = 'Google_Service_AdExchangeBuyer_Buyer';
+  protected $buyerType = 'Forminator_Google_Service_AdExchangeBuyer_Buyer';
   protected $buyerDataType = '';
-  protected $sellerType = 'Google_Service_AdExchangeBuyer_Seller';
+  protected $sellerType = 'Forminator_Google_Service_AdExchangeBuyer_Seller';
   protected $sellerDataType = '';
 
 
-  public function setBuyer(Google_Service_AdExchangeBuyer_Buyer $buyer)
+  public function setBuyer(Forminator_Google_Service_AdExchangeBuyer_Buyer $buyer)
   {
     $this->buyer = $buyer;
   }
@@ -3089,7 +3089,7 @@ class Google_Service_AdExchangeBuyer_MarketplaceDealParty extends Google_Model
   {
     return $this->buyer;
   }
-  public function setSeller(Google_Service_AdExchangeBuyer_Seller $seller)
+  public function setSeller(Forminator_Google_Service_AdExchangeBuyer_Seller $seller)
   {
     $this->seller = $seller;
   }
@@ -3099,13 +3099,13 @@ class Google_Service_AdExchangeBuyer_MarketplaceDealParty extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_MarketplaceLabel extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_MarketplaceLabel extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $accountId;
   public $createTimeMs;
-  protected $deprecatedMarketplaceDealPartyType = 'Google_Service_AdExchangeBuyer_MarketplaceDealParty';
+  protected $deprecatedMarketplaceDealPartyType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceDealParty';
   protected $deprecatedMarketplaceDealPartyDataType = '';
   public $label;
 
@@ -3126,7 +3126,7 @@ class Google_Service_AdExchangeBuyer_MarketplaceLabel extends Google_Model
   {
     return $this->createTimeMs;
   }
-  public function setDeprecatedMarketplaceDealParty(Google_Service_AdExchangeBuyer_MarketplaceDealParty $deprecatedMarketplaceDealParty)
+  public function setDeprecatedMarketplaceDealParty(Forminator_Google_Service_AdExchangeBuyer_MarketplaceDealParty $deprecatedMarketplaceDealParty)
   {
     $this->deprecatedMarketplaceDealParty = $deprecatedMarketplaceDealParty;
   }
@@ -3144,7 +3144,7 @@ class Google_Service_AdExchangeBuyer_MarketplaceLabel extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_MarketplaceNote extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_MarketplaceNote extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3224,7 +3224,7 @@ class Google_Service_AdExchangeBuyer_MarketplaceNote extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_PerformanceReport extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_PerformanceReport extends Forminator_Google_Collection
 {
   protected $collection_key = 'hostedMatchStatusRate';
   protected $internal_gapi_mappings = array(
@@ -3431,13 +3431,13 @@ class Google_Service_AdExchangeBuyer_PerformanceReport extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_PerformanceReportList extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_PerformanceReportList extends Forminator_Google_Collection
 {
   protected $collection_key = 'performanceReport';
   protected $internal_gapi_mappings = array(
   );
   public $kind;
-  protected $performanceReportType = 'Google_Service_AdExchangeBuyer_PerformanceReport';
+  protected $performanceReportType = 'Forminator_Google_Service_AdExchangeBuyer_PerformanceReport';
   protected $performanceReportDataType = 'array';
 
 
@@ -3459,7 +3459,7 @@ class Google_Service_AdExchangeBuyer_PerformanceReportList extends Google_Collec
   }
 }
 
-class Google_Service_AdExchangeBuyer_PretargetingConfig extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig extends Forminator_Google_Collection
 {
   protected $collection_key = 'videoPlayerSizes';
   protected $internal_gapi_mappings = array(
@@ -3468,11 +3468,11 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig extends Google_Collectio
   public $configId;
   public $configName;
   public $creativeType;
-  protected $dimensionsType = 'Google_Service_AdExchangeBuyer_PretargetingConfigDimensions';
+  protected $dimensionsType = 'Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigDimensions';
   protected $dimensionsDataType = 'array';
   public $excludedContentLabels;
   public $excludedGeoCriteriaIds;
-  protected $excludedPlacementsType = 'Google_Service_AdExchangeBuyer_PretargetingConfigExcludedPlacements';
+  protected $excludedPlacementsType = 'Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigExcludedPlacements';
   protected $excludedPlacementsDataType = 'array';
   public $excludedUserLists;
   public $excludedVerticals;
@@ -3483,14 +3483,14 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig extends Google_Collectio
   public $mobileCarriers;
   public $mobileDevices;
   public $mobileOperatingSystemVersions;
-  protected $placementsType = 'Google_Service_AdExchangeBuyer_PretargetingConfigPlacements';
+  protected $placementsType = 'Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigPlacements';
   protected $placementsDataType = 'array';
   public $platforms;
   public $supportedCreativeAttributes;
   public $userLists;
   public $vendorTypes;
   public $verticals;
-  protected $videoPlayerSizesType = 'Google_Service_AdExchangeBuyer_PretargetingConfigVideoPlayerSizes';
+  protected $videoPlayerSizesType = 'Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigVideoPlayerSizes';
   protected $videoPlayerSizesDataType = 'array';
 
 
@@ -3688,7 +3688,7 @@ class Google_Service_AdExchangeBuyer_PretargetingConfig extends Google_Collectio
   }
 }
 
-class Google_Service_AdExchangeBuyer_PretargetingConfigDimensions extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigDimensions extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3714,7 +3714,7 @@ class Google_Service_AdExchangeBuyer_PretargetingConfigDimensions extends Google
   }
 }
 
-class Google_Service_AdExchangeBuyer_PretargetingConfigExcludedPlacements extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigExcludedPlacements extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3740,12 +3740,12 @@ class Google_Service_AdExchangeBuyer_PretargetingConfigExcludedPlacements extend
   }
 }
 
-class Google_Service_AdExchangeBuyer_PretargetingConfigList extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigList extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_AdExchangeBuyer_PretargetingConfig';
+  protected $itemsType = 'Forminator_Google_Service_AdExchangeBuyer_PretargetingConfig';
   protected $itemsDataType = 'array';
   public $kind;
 
@@ -3768,7 +3768,7 @@ class Google_Service_AdExchangeBuyer_PretargetingConfigList extends Google_Colle
   }
 }
 
-class Google_Service_AdExchangeBuyer_PretargetingConfigPlacements extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigPlacements extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3794,7 +3794,7 @@ class Google_Service_AdExchangeBuyer_PretargetingConfigPlacements extends Google
   }
 }
 
-class Google_Service_AdExchangeBuyer_PretargetingConfigVideoPlayerSizes extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_PretargetingConfigVideoPlayerSizes extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3829,7 +3829,7 @@ class Google_Service_AdExchangeBuyer_PretargetingConfigVideoPlayerSizes extends 
   }
 }
 
-class Google_Service_AdExchangeBuyer_Price extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_Price extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3864,17 +3864,17 @@ class Google_Service_AdExchangeBuyer_Price extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_PricePerBuyer extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_PricePerBuyer extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $buyerType = 'Google_Service_AdExchangeBuyer_Buyer';
+  protected $buyerType = 'Forminator_Google_Service_AdExchangeBuyer_Buyer';
   protected $buyerDataType = '';
-  protected $priceType = 'Google_Service_AdExchangeBuyer_Price';
+  protected $priceType = 'Forminator_Google_Service_AdExchangeBuyer_Price';
   protected $priceDataType = '';
 
 
-  public function setBuyer(Google_Service_AdExchangeBuyer_Buyer $buyer)
+  public function setBuyer(Forminator_Google_Service_AdExchangeBuyer_Buyer $buyer)
   {
     $this->buyer = $buyer;
   }
@@ -3882,7 +3882,7 @@ class Google_Service_AdExchangeBuyer_PricePerBuyer extends Google_Model
   {
     return $this->buyer;
   }
-  public function setPrice(Google_Service_AdExchangeBuyer_Price $price)
+  public function setPrice(Forminator_Google_Service_AdExchangeBuyer_Price $price)
   {
     $this->price = $price;
   }
@@ -3892,7 +3892,7 @@ class Google_Service_AdExchangeBuyer_PricePerBuyer extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_PrivateData extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_PrivateData extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -3918,32 +3918,32 @@ class Google_Service_AdExchangeBuyer_PrivateData extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_Product extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_Product extends Forminator_Google_Collection
 {
   protected $collection_key = 'sharedTargetings';
   protected $internal_gapi_mappings = array(
   );
   public $creationTimeMs;
-  protected $creatorContactsType = 'Google_Service_AdExchangeBuyer_ContactInformation';
+  protected $creatorContactsType = 'Forminator_Google_Service_AdExchangeBuyer_ContactInformation';
   protected $creatorContactsDataType = 'array';
   public $flightEndTimeMs;
   public $flightStartTimeMs;
   public $hasCreatorSignedOff;
   public $inventorySource;
   public $kind;
-  protected $labelsType = 'Google_Service_AdExchangeBuyer_MarketplaceLabel';
+  protected $labelsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceLabel';
   protected $labelsDataType = 'array';
   public $lastUpdateTimeMs;
   public $name;
   public $productId;
   public $revisionNumber;
-  protected $sellerType = 'Google_Service_AdExchangeBuyer_Seller';
+  protected $sellerType = 'Forminator_Google_Service_AdExchangeBuyer_Seller';
   protected $sellerDataType = '';
-  protected $sharedTargetingsType = 'Google_Service_AdExchangeBuyer_SharedTargeting';
+  protected $sharedTargetingsType = 'Forminator_Google_Service_AdExchangeBuyer_SharedTargeting';
   protected $sharedTargetingsDataType = 'array';
   public $state;
   public $syndicationProduct;
-  protected $termsType = 'Google_Service_AdExchangeBuyer_DealTerms';
+  protected $termsType = 'Forminator_Google_Service_AdExchangeBuyer_DealTerms';
   protected $termsDataType = '';
   public $webPropertyCode;
 
@@ -4044,7 +4044,7 @@ class Google_Service_AdExchangeBuyer_Product extends Google_Collection
   {
     return $this->revisionNumber;
   }
-  public function setSeller(Google_Service_AdExchangeBuyer_Seller $seller)
+  public function setSeller(Forminator_Google_Service_AdExchangeBuyer_Seller $seller)
   {
     $this->seller = $seller;
   }
@@ -4076,7 +4076,7 @@ class Google_Service_AdExchangeBuyer_Product extends Google_Collection
   {
     return $this->syndicationProduct;
   }
-  public function setTerms(Google_Service_AdExchangeBuyer_DealTerms $terms)
+  public function setTerms(Forminator_Google_Service_AdExchangeBuyer_DealTerms $terms)
   {
     $this->terms = $terms;
   }
@@ -4094,18 +4094,18 @@ class Google_Service_AdExchangeBuyer_Product extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_Proposal extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_Proposal extends Forminator_Google_Collection
 {
   protected $collection_key = 'sellerContacts';
   protected $internal_gapi_mappings = array(
   );
-  protected $billedBuyerType = 'Google_Service_AdExchangeBuyer_Buyer';
+  protected $billedBuyerType = 'Forminator_Google_Service_AdExchangeBuyer_Buyer';
   protected $billedBuyerDataType = '';
-  protected $buyerType = 'Google_Service_AdExchangeBuyer_Buyer';
+  protected $buyerType = 'Forminator_Google_Service_AdExchangeBuyer_Buyer';
   protected $buyerDataType = '';
-  protected $buyerContactsType = 'Google_Service_AdExchangeBuyer_ContactInformation';
+  protected $buyerContactsType = 'Forminator_Google_Service_AdExchangeBuyer_ContactInformation';
   protected $buyerContactsDataType = 'array';
-  protected $buyerPrivateDataType = 'Google_Service_AdExchangeBuyer_PrivateData';
+  protected $buyerPrivateDataType = 'Forminator_Google_Service_AdExchangeBuyer_PrivateData';
   protected $buyerPrivateDataDataType = '';
   public $hasBuyerSignedOff;
   public $hasSellerSignedOff;
@@ -4113,7 +4113,7 @@ class Google_Service_AdExchangeBuyer_Proposal extends Google_Collection
   public $isRenegotiating;
   public $isSetupComplete;
   public $kind;
-  protected $labelsType = 'Google_Service_AdExchangeBuyer_MarketplaceLabel';
+  protected $labelsType = 'Forminator_Google_Service_AdExchangeBuyer_MarketplaceLabel';
   protected $labelsDataType = 'array';
   public $lastUpdaterOrCommentorRole;
   public $lastUpdaterRole;
@@ -4123,13 +4123,13 @@ class Google_Service_AdExchangeBuyer_Proposal extends Google_Collection
   public $proposalState;
   public $revisionNumber;
   public $revisionTimeMs;
-  protected $sellerType = 'Google_Service_AdExchangeBuyer_Seller';
+  protected $sellerType = 'Forminator_Google_Service_AdExchangeBuyer_Seller';
   protected $sellerDataType = '';
-  protected $sellerContactsType = 'Google_Service_AdExchangeBuyer_ContactInformation';
+  protected $sellerContactsType = 'Forminator_Google_Service_AdExchangeBuyer_ContactInformation';
   protected $sellerContactsDataType = 'array';
 
 
-  public function setBilledBuyer(Google_Service_AdExchangeBuyer_Buyer $billedBuyer)
+  public function setBilledBuyer(Forminator_Google_Service_AdExchangeBuyer_Buyer $billedBuyer)
   {
     $this->billedBuyer = $billedBuyer;
   }
@@ -4137,7 +4137,7 @@ class Google_Service_AdExchangeBuyer_Proposal extends Google_Collection
   {
     return $this->billedBuyer;
   }
-  public function setBuyer(Google_Service_AdExchangeBuyer_Buyer $buyer)
+  public function setBuyer(Forminator_Google_Service_AdExchangeBuyer_Buyer $buyer)
   {
     $this->buyer = $buyer;
   }
@@ -4153,7 +4153,7 @@ class Google_Service_AdExchangeBuyer_Proposal extends Google_Collection
   {
     return $this->buyerContacts;
   }
-  public function setBuyerPrivateData(Google_Service_AdExchangeBuyer_PrivateData $buyerPrivateData)
+  public function setBuyerPrivateData(Forminator_Google_Service_AdExchangeBuyer_PrivateData $buyerPrivateData)
   {
     $this->buyerPrivateData = $buyerPrivateData;
   }
@@ -4281,7 +4281,7 @@ class Google_Service_AdExchangeBuyer_Proposal extends Google_Collection
   {
     return $this->revisionTimeMs;
   }
-  public function setSeller(Google_Service_AdExchangeBuyer_Seller $seller)
+  public function setSeller(Forminator_Google_Service_AdExchangeBuyer_Seller $seller)
   {
     $this->seller = $seller;
   }
@@ -4299,7 +4299,7 @@ class Google_Service_AdExchangeBuyer_Proposal extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_Seller extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_Seller extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4325,14 +4325,14 @@ class Google_Service_AdExchangeBuyer_Seller extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_SharedTargeting extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_SharedTargeting extends Forminator_Google_Collection
 {
   protected $collection_key = 'inclusions';
   protected $internal_gapi_mappings = array(
   );
-  protected $exclusionsType = 'Google_Service_AdExchangeBuyer_TargetingValue';
+  protected $exclusionsType = 'Forminator_Google_Service_AdExchangeBuyer_TargetingValue';
   protected $exclusionsDataType = 'array';
-  protected $inclusionsType = 'Google_Service_AdExchangeBuyer_TargetingValue';
+  protected $inclusionsType = 'Forminator_Google_Service_AdExchangeBuyer_TargetingValue';
   protected $inclusionsDataType = 'array';
   public $key;
 
@@ -4363,19 +4363,19 @@ class Google_Service_AdExchangeBuyer_SharedTargeting extends Google_Collection
   }
 }
 
-class Google_Service_AdExchangeBuyer_TargetingValue extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_TargetingValue extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $creativeSizeValueType = 'Google_Service_AdExchangeBuyer_TargetingValueCreativeSize';
+  protected $creativeSizeValueType = 'Forminator_Google_Service_AdExchangeBuyer_TargetingValueCreativeSize';
   protected $creativeSizeValueDataType = '';
-  protected $dayPartTargetingValueType = 'Google_Service_AdExchangeBuyer_TargetingValueDayPartTargeting';
+  protected $dayPartTargetingValueType = 'Forminator_Google_Service_AdExchangeBuyer_TargetingValueDayPartTargeting';
   protected $dayPartTargetingValueDataType = '';
   public $longValue;
   public $stringValue;
 
 
-  public function setCreativeSizeValue(Google_Service_AdExchangeBuyer_TargetingValueCreativeSize $creativeSizeValue)
+  public function setCreativeSizeValue(Forminator_Google_Service_AdExchangeBuyer_TargetingValueCreativeSize $creativeSizeValue)
   {
     $this->creativeSizeValue = $creativeSizeValue;
   }
@@ -4383,7 +4383,7 @@ class Google_Service_AdExchangeBuyer_TargetingValue extends Google_Model
   {
     return $this->creativeSizeValue;
   }
-  public function setDayPartTargetingValue(Google_Service_AdExchangeBuyer_TargetingValueDayPartTargeting $dayPartTargetingValue)
+  public function setDayPartTargetingValue(Forminator_Google_Service_AdExchangeBuyer_TargetingValueDayPartTargeting $dayPartTargetingValue)
   {
     $this->dayPartTargetingValue = $dayPartTargetingValue;
   }
@@ -4409,15 +4409,15 @@ class Google_Service_AdExchangeBuyer_TargetingValue extends Google_Model
   }
 }
 
-class Google_Service_AdExchangeBuyer_TargetingValueCreativeSize extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_TargetingValueCreativeSize extends Forminator_Google_Collection
 {
   protected $collection_key = 'companionSizes';
   protected $internal_gapi_mappings = array(
   );
-  protected $companionSizesType = 'Google_Service_AdExchangeBuyer_TargetingValueSize';
+  protected $companionSizesType = 'Forminator_Google_Service_AdExchangeBuyer_TargetingValueSize';
   protected $companionSizesDataType = 'array';
   public $creativeSizeType;
-  protected $sizeType = 'Google_Service_AdExchangeBuyer_TargetingValueSize';
+  protected $sizeType = 'Forminator_Google_Service_AdExchangeBuyer_TargetingValueSize';
   protected $sizeDataType = '';
 
 
@@ -4437,7 +4437,7 @@ class Google_Service_AdExchangeBuyer_TargetingValueCreativeSize extends Google_C
   {
     return $this->creativeSizeType;
   }
-  public function setSize(Google_Service_AdExchangeBuyer_TargetingValueSize $size)
+  public function setSize(Forminator_Google_Service_AdExchangeBuyer_TargetingValueSize $size)
   {
     $this->size = $size;
   }
@@ -4447,12 +4447,12 @@ class Google_Service_AdExchangeBuyer_TargetingValueCreativeSize extends Google_C
   }
 }
 
-class Google_Service_AdExchangeBuyer_TargetingValueDayPartTargeting extends Google_Collection
+class Forminator_Google_Service_AdExchangeBuyer_TargetingValueDayPartTargeting extends Forminator_Google_Collection
 {
   protected $collection_key = 'dayParts';
   protected $internal_gapi_mappings = array(
   );
-  protected $dayPartsType = 'Google_Service_AdExchangeBuyer_TargetingValueDayPartTargetingDayPart';
+  protected $dayPartsType = 'Forminator_Google_Service_AdExchangeBuyer_TargetingValueDayPartTargetingDayPart';
   protected $dayPartsDataType = 'array';
   public $timeZoneType;
 
@@ -4475,7 +4475,7 @@ class Google_Service_AdExchangeBuyer_TargetingValueDayPartTargeting extends Goog
   }
 }
 
-class Google_Service_AdExchangeBuyer_TargetingValueDayPartTargetingDayPart extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_TargetingValueDayPartTargetingDayPart extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -4528,7 +4528,7 @@ class Google_Service_AdExchangeBuyer_TargetingValueDayPartTargetingDayPart exten
   }
 }
 
-class Google_Service_AdExchangeBuyer_TargetingValueSize extends Google_Model
+class Forminator_Google_Service_AdExchangeBuyer_TargetingValueSize extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );

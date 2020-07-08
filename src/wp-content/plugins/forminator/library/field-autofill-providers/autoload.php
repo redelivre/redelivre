@@ -28,7 +28,6 @@ foreach ( $forminator_autofills as $forminator_autofill ) {
 			$files_is_complete = false;
 			break;
 		}
-
 	}
 	if ( ! $files_is_complete ) {
 		continue;

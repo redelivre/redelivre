@@ -66,8 +66,10 @@ class Forminator_Upload extends Forminator_Field {
 		$mimes = get_allowed_mime_types();
 
 		return array(
-			'field_label' => __( 'Upload file', Forminator::DOMAIN ),
-			'filetypes'   => array_keys( $mimes ),
+			'field_label'  => __( 'Upload file', Forminator::DOMAIN ),
+			'filetypes'    => array_keys( $mimes ),
+			'upload-limit' => 8,
+			'filesize'     => 'MB',
 		);
 	}
 
@@ -106,30 +108,30 @@ class Forminator_Upload extends Forminator_Field {
 		$name        = $id;
 		$required    = self::get_property( 'required', $field, false );
 		$design      = $this->get_form_style( $settings );
-		$label       = self::get_property( 'field_label', $field, '' );
-		$description = self::get_property( 'description', $field, '' );
+		$label       = esc_html( self::get_property( 'field_label', $field, '' ) );
+		$description = esc_html( self::get_property( 'description', $field, '' ) );
 
 		$html .= '<div class="forminator-field">';
 
-			if ( $label ) {
+		if ( $label ) {
 
-				if ( $required ) {
+			if ( $required ) {
 
-					$html .= sprintf(
-						'<label for="%s" class="forminator-label">%s %s</label>',
-						'forminator-field-' . $id,
-						$label,
-						forminator_get_required_icon()
-					);
-				} else {
+				$html .= sprintf(
+					'<label for="%s" class="forminator-label">%s %s</label>',
+					'forminator-field-' . $id,
+					$label,
+					forminator_get_required_icon()
+				);
+			} else {
 
-					$html .= sprintf(
-						'<label for="%s" class="forminator-label">%s</label>',
-						'forminator-field-' . $id,
-						$label
-					);
-				}
+				$html .= sprintf(
+					'<label for="%s" class="forminator-label">%s</label>',
+					'forminator-field-' . $id,
+					$label
+				);
 			}
+		}
 
 			$html .= self::create_file_upload(
 				$id,
@@ -235,9 +237,10 @@ class Forminator_Upload extends Forminator_Field {
 		$field_name        = $id;
 		$custom_limit_size = true;
 		$upload_limit      = self::get_property( 'upload-limit', $field, self::FIELD_PROPERTY_VALUE_NOT_EXIST );
+		$filesize          = self::get_property( 'filesize', $field, 'MB' );
 		$custom_file_type  = self::get_property( 'custom-files', $field, false );
-        $use_library       = self::get_property( 'use_library', $field, false );
-        $use_library       = filter_var( $use_library, FILTER_VALIDATE_BOOLEAN );
+		$use_library       = self::get_property( 'use_library', $field, false );
+		$use_library       = filter_var( $use_library, FILTER_VALIDATE_BOOLEAN );
 		$mime_types        = array();
 
 		if ( self::FIELD_PROPERTY_VALUE_NOT_EXIST === $upload_limit || empty( $upload_limit ) ) {
@@ -269,7 +272,7 @@ class Forminator_Upload extends Forminator_Field {
 				$mime_types = apply_filters( 'forminator_upload_field_mime_types', $mime_types, $field );
 				$valid      = wp_check_filetype( $file_name, $mime_types );
 
-				if ( false === $valid["ext"] ) {
+				if ( false === $valid['ext'] ) {
 					return array(
 						'success' => false,
 						'message' => __( 'Error saving form. Uploaded file extension is not allowed.', Forminator::DOMAIN ),
@@ -301,10 +304,19 @@ class Forminator_Upload extends Forminator_Field {
 				$filename         = end( $exploded_name ); // Create base file name
 
 				$max_size = wp_max_upload_size();
+				$file_size = $this->file_size( $filesize );
 				if ( $custom_limit_size ) {
-					$max_size = $upload_limit * 1000000; // convert to byte
+					$max_size = $upload_limit * $file_size; // convert to byte
 				}
-				if ( 0 === $_FILES[ $field_name ]['size'] || $_FILES[ $field_name ]['size'] > $max_size ) {
+
+				if ( 0 === $_FILES[ $field_name ]['size'] ) {
+					return array(
+						'success' => false,
+						'message' => __( 'The attached file is empty and can\'t be uploaded.', Forminator::DOMAIN ),
+					);
+				}
+
+				if ( $_FILES[ $field_name ]['size'] > $max_size ) {
 
 					$rounded_max_size = round( $max_size / 1000000 );
 
@@ -324,7 +336,7 @@ class Forminator_Upload extends Forminator_Field {
 
 					return array(
 						'success' => false,
-						'message' => sprintf( __( 'Error saving form. Uploaded file size exceeds %1$s upload limit. ', Forminator::DOMAIN ), $rounded_max_size ),
+						'message' => sprintf( /* translators: ... */ __( 'Error saving form. Uploaded file size exceeds %1$s upload limit. ', Forminator::DOMAIN ), $rounded_max_size ),
 					);
 				}
 
@@ -352,21 +364,24 @@ class Forminator_Upload extends Forminator_Field {
 				// use move_uploaded_file instead of $wp_filesystem->put_contents
 				// increase performance, and avoid permission issues
 				if ( false !== move_uploaded_file( $_FILES[ $field_name ]['tmp_name'], $file_path ) ) {
-					if( $use_library ) {
-                        $upload_id = wp_insert_attachment(array(
-                            'guid' => $file_path,
-                            'post_mime_type' => $file_mime,
-                            'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-                            'post_content' => '',
-                            'post_status' => 'inherit'
-                        ), $file_path);
+					if ( $use_library ) {
+						$upload_id = wp_insert_attachment(
+							array(
+								'guid'           => $file_path,
+								'post_mime_type' => $file_mime,
+								'post_title'     => preg_replace( '/\.[^.]+$/', '', $filename ),
+								'post_content'   => '',
+								'post_status'    => 'inherit',
+							),
+							$file_path
+						);
 
-                        // wp_generate_attachment_metadata() won't work if you do not include this file
-                        require_once(ABSPATH . 'wp-admin/includes/image.php');
+						// wp_generate_attachment_metadata() won't work if you do not include this file
+						require_once ABSPATH . 'wp-admin/includes/image.php';
 
-                        // Generate and save the attachment metas into the database
-                        wp_update_attachment_metadata($upload_id, wp_generate_attachment_metadata($upload_id, $file_path));
-                    }
+						// Generate and save the attachment metas into the database
+						wp_update_attachment_metadata( $upload_id, wp_generate_attachment_metadata( $upload_id, $file_path ) );
+					}
 
 					return array(
 						'success'   => true,
@@ -379,11 +394,34 @@ class Forminator_Upload extends Forminator_Field {
 						'message' => __( 'Error saving form. Upload error. ', Forminator::DOMAIN ),
 					);
 				}
-
 			}
 		}
 
 		return false;
+	}
+
+	/**
+	 * File size
+	 *
+	 * @param $file_size
+	 *
+	 * @return mixed
+	 */
+	public function file_size( $file_size ) {
+
+		switch ( $file_size ) {
+			case 'KB' :
+				$size = 1000;
+				break;
+			case 'B' :
+				$size = 1;
+				break;
+			default:
+				$size = 1000000;
+				break;
+		}
+
+		return $size;
 	}
 
 }

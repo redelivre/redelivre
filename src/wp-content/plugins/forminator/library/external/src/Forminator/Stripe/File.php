@@ -8,13 +8,13 @@ namespace Forminator\Stripe;
  * @property string $id
  * @property string $object
  * @property int $created
- * @property string $filename
- * @property Collection $links
+ * @property string|null $filename
+ * @property \Forminator\Stripe\Collection|null $links
  * @property string $purpose
  * @property int $size
- * @property string $title
- * @property string $type
- * @property string $url
+ * @property string|null $title
+ * @property string|null $type
+ * @property string|null $url
  *
  * @package Stripe
  */
@@ -24,7 +24,7 @@ class File extends ApiResource
     // versions, only `file` is used, but since stripe-php may be used with
     // any API version, we need to support deserializing the older
     // `file_upload` object into the same class.
-    const OBJECT_NAME = "file";
+    const OBJECT_NAME = 'file';
     const OBJECT_NAME_ALT = "file_upload";
 
     use ApiOperations\All;
@@ -40,23 +40,21 @@ class File extends ApiResource
 
     /**
      * @param array|null $params
-     * @param array|string|null $options
+     * @param array|string|null $opts
+     *
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
      *
      * @return \Forminator\Stripe\File The created resource.
      */
-    public static function create($params = null, $options = null)
+    public static function create($params = null, $opts = null)
     {
-        $opts = \Forminator\Stripe\Util\RequestOptions::parse($options);
+        $opts = \Forminator\Stripe\Util\RequestOptions::parse($opts);
         if (is_null($opts->apiBase)) {
             $opts->apiBase = Stripe::$apiUploadBase;
         }
         // Manually flatten params, otherwise curl's multipart encoder will
         // choke on nested arrays.
-        // TODO: use array_column() once we drop support for PHP 5.4
-        $flatParams = [];
-        foreach (\Forminator\Stripe\Util\Util::flattenParams($params) as $pair) {
-            $flatParams[$pair[0]] = $pair[1];
-        }
+        $flatParams = array_column(\Forminator\Stripe\Util\Util::flattenParams($params), 1, 0);
         return static::_create($flatParams, $opts);
     }
 }

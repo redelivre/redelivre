@@ -1,0 +1,36 @@
+/* ELEMENT: Quiz Question (Result) */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-question--result {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-phrasing-color' ) ) { ?>
+			color: <?php echo $properties['knowledge-phrasing-color'] ?>;
+		<?php } else { ?>
+			color: #777771;
+		<?php } ?>
+	<?php } else { ?>
+		color: #777771;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-typography' ) ) { ?>
+		<?php if ( $properties['knowledge-phrasing-font-size'] != '' ) { ?>
+			font-size: <?php echo $properties['knowledge-phrasing-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 13px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-phrasing-font-family' ) ) { ?>
+			<?php if ( $properties['knowledge-phrasing-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['knowledge-phrasing-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['knowledge-phrasing-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['knowledge-phrasing-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-phrasing-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['knowledge-phrasing-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 700;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 13px;
+		font-weight: 700;
+	<?php } ?>
+}

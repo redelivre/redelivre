@@ -8,15 +8,17 @@ namespace Forminator\Stripe\Issuing;
  * @property string $id
  * @property string $object
  * @property int $amount
- * @property string $authorization
- * @property string $balance_transaction
+ * @property string|null $authorization
+ * @property string|null $balance_transaction
  * @property string $card
- * @property string $cardholder
+ * @property string|null $cardholder
  * @property int $created
  * @property string $currency
- * @property string $dispute
+ * @property string|null $dispute
  * @property bool $livemode
- * @property mixed $merchant_data
+ * @property int $merchant_amount
+ * @property string $merchant_currency
+ * @property \Forminator\Stripe\StripeObject $merchant_data
  * @property \Forminator\Stripe\StripeObject $metadata
  * @property string $type
  *
@@ -24,10 +26,9 @@ namespace Forminator\Stripe\Issuing;
  */
 class Transaction extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "issuing.transaction";
+    const OBJECT_NAME = 'issuing.transaction';
 
     use \Forminator\Stripe\ApiOperations\All;
-    use \Forminator\Stripe\ApiOperations\Create;
     use \Forminator\Stripe\ApiOperations\Retrieve;
     use \Forminator\Stripe\ApiOperations\Update;
 }

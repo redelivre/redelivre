@@ -23,16 +23,16 @@ function forminator_addon_slack_assets_url() {
 	return trailingslashit( forminator_addon_slack_url() . 'assets' );
 }
 
-require_once dirname( __FILE__ ) . '/forminator-addon-slack.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-slack.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-slack-form-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-slack-form-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-slack-form-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-slack-form-hooks.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-slack-poll-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-slack-poll-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-slack-poll-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-slack-poll-hooks.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-slack-quiz-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-slack-quiz-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-slack-quiz-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-slack-quiz-hooks.php';
 
 //Direct Load
 Forminator_Addon_Loader::get_instance()->register( 'Forminator_Addon_Slack' );

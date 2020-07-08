@@ -23,8 +23,8 @@
 
 						<div class="sui-box-banner" role="banner" aria-hidden="true">
 							<img
-								src="<?php echo forminator_plugin_url(); // WPCS: XSS ok. ?>assets/images/sca-cover.png"
-								srcset="<?php echo forminator_plugin_url(); // WPCS: XSS ok. ?>assets/images/sca-cover@2x.png 2x"
+								src="<?php echo forminator_plugin_url(); // phpcs:ignore ?>assets/images/sca-cover.png"
+								srcset="<?php echo forminator_plugin_url(); // phpcs:ignore ?>assets/images/sca-cover@2x.png 2x"
 							/>
 						</div>
 
@@ -64,13 +64,13 @@
 
 								<p class="sui-description" style="margin-bottom: 5px;"><?php esc_html_e( 'Following are the forms which are affected by this updated. We recommend going through each of them and follow the recommendations above:', Forminator::DOMAIN ); ?></p>
 
-								<?php foreach( $this->stripeModules() as $module ) : ?>
+								<?php foreach ( $this->stripeModules() as $module ) : ?>
 
 									<ul class="fui-list-fields">
 
 										<li>
 											<span class="fui-list-label"><?php echo esc_html( $module['title'] ); ?></span>
-											<a href="<?php echo menu_page_url( 'forminator-cform-wizard', false ) . '&id=' . $module['id']; ?>" class="sui-button-icon" target="_blank">
+											<a href="<?php echo esc_url( menu_page_url( 'forminator-cform-wizard', false ) . '&id=' . $module['id'] ); ?>" class="sui-button-icon" target="_blank">
 												<i class="sui-icon-pencil" aria-hidden="true"></i>
 												<span class="sui-screen-reader-text"><?php esc_html_e( 'Edit Field', Forminator::DOMAIN ); ?></span>
 											</a>

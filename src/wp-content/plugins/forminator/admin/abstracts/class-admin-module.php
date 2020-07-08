@@ -40,14 +40,14 @@ abstract class Forminator_Admin_Module {
 		$this->includes();
 
 		add_action( 'admin_menu', array( $this, 'add_menu_pages' ) );
-		add_action( 'admin_head', array( $this, "hide_menu_pages" ) );
+		add_action( 'admin_head', array( $this, 'hide_menu_pages' ) );
 
 		// admin-menu-editor compat
-		add_action( 'admin_menu_editor-menu_replaced', array( $this, "hide_menu_pages" ) );
+		add_action( 'admin_menu_editor-menu_replaced', array( $this, 'hide_menu_pages' ) );
 
-		add_filter( 'forminator_data', array( $this, "add_js_defaults" ) );
-		add_filter( 'forminator_l10n', array( $this, "add_l10n_strings" ) );
-		add_filter( 'submenu_file', array( $this, "admin_submenu_file" ), 10, 2 );
+		add_filter( 'forminator_data', array( $this, 'add_js_defaults' ) );
+		add_filter( 'forminator_l10n', array( $this, 'add_l10n_strings' ) );
+		add_filter( 'submenu_file', array( $this, 'admin_submenu_file' ), 10, 2 );
 	}
 
 	/**
@@ -109,7 +109,7 @@ abstract class Forminator_Admin_Module {
 	 * @return mixed
 	 */
 	public static function is_edit() {
-		return  (bool) filter_input( INPUT_GET, "id", FILTER_VALIDATE_INT );
+		return (bool) filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT );
 	}
 
 	/**

@@ -1,6 +1,5 @@
 <?php
 $section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : 'dashboard';
-
 $nonce                 = wp_create_nonce( 'forminator_save_accessibility_settings' );
 $accessibility_enabled = get_option( 'forminator_enable_accessibility', false );
 $accessibility_enabled = filter_var( $accessibility_enabled, FILTER_VALIDATE_BOOLEAN );
@@ -17,9 +16,9 @@ $accessibility_enabled = filter_var( $accessibility_enabled, FILTER_VALIDATE_BOO
 
 		<div class="sui-box-body">
 
-            <div class="sui-box-settings-row">
-			    <p><?php esc_html_e( 'Enable support for any accessibility enhancements available in the plugin interface.', Forminator::DOMAIN ); ?></p>
-            </div>
+			<div class="sui-box-settings-row">
+				<p><?php esc_html_e( 'Enable support for any accessibility enhancements available in the plugin interface.', Forminator::DOMAIN ); ?></p>
+			</div>
 			<div class="sui-box-settings-row">
 
 				<div class="sui-box-settings-col-1">
@@ -33,9 +32,9 @@ $accessibility_enabled = filter_var( $accessibility_enabled, FILTER_VALIDATE_BOO
 
 						<label for="forminator-color-accessibility" class="sui-toggle">
 							<input type="checkbox"
-							       name="enable_accessibility"
-							       value="true"
-							       id="forminator-color-accessibility" <?php checked( $accessibility_enabled ); ?>/>
+								name="enable_accessibility"
+								value="true"
+								id="forminator-color-accessibility" <?php checked( $accessibility_enabled ); ?>/>
 							<span class="sui-toggle-slider" aria-hidden="true"></span>
 						</label>
 
@@ -54,10 +53,10 @@ $accessibility_enabled = filter_var( $accessibility_enabled, FILTER_VALIDATE_BOO
 			<div class="sui-actions-right">
 
 				<button class="sui-button sui-button-blue wpmudev-action-done"
-				        data-title="<?php esc_attr_e( "Accessibility settings", Forminator::DOMAIN ); ?>"
-				        data-action="accessibility_settings"
-				        data-nonce="<?php echo esc_attr( $nonce ); ?>"
-				        data-is-reload="true">
+						data-title="<?php esc_attr_e( 'Accessibility settings', Forminator::DOMAIN ); ?>"
+						data-action="accessibility_settings"
+						data-nonce="<?php echo esc_attr( $nonce ); ?>"
+						data-is-reload="true">
 					<span class="sui-loading-text"><?php esc_html_e( 'Save Settings', Forminator::DOMAIN ); ?></span>
 					<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
 				</button>

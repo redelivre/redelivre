@@ -315,6 +315,18 @@ class Forminator_Poll_Page extends Forminator_Admin_Page {
 
 			//save it to create new record
 			$new_id = $model->save( true );
+
+			/**
+			 * Action called after poll cloned
+			 *
+			 * @since 1.11
+			 *
+			 * @param int    $id - poll id
+			 * @param object $model - poll model
+			 *
+			 */
+			do_action( 'forminator_poll_action_clone', $new_id, $model );
+
 			forminator_clone_poll_ip_address_retention( $id, $new_id );
 		}
 	}
@@ -350,6 +362,16 @@ class Forminator_Poll_Page extends Forminator_Admin_Page {
 			$form_view->delete_by_form( $id );
 			forminator_update_poll_ip_address_retention( $id, null, null );
 			wp_delete_post( $id );
+
+			/**
+			 * Action called after quiz deleted
+			 *
+			 * @since 1.11
+			 *
+			 * @param int    $id - quiz id
+			 *
+			 */
+			do_action( 'forminator_poll_action_delete', $id );
 		}
 	}
 
@@ -399,5 +421,19 @@ class Forminator_Poll_Page extends Forminator_Admin_Page {
 
 		// make php send the generated csv lines to the browser
 		fpassthru( $fp );
+	}
+
+	/**
+	 * Override scripts to be loaded
+	 *
+	 * @since 1.11
+	 *
+	 * @param $hook
+	 */
+	public function enqueue_scripts( $hook ) {
+		parent::enqueue_scripts( $hook );
+
+		forminator_print_polls_admin_styles( FORMINATOR_VERSION );
+		forminator_print_front_scripts( FORMINATOR_VERSION );
 	}
 }

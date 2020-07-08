@@ -23,16 +23,16 @@ function forminator_addon_trello_assets_url() {
 	return trailingslashit( forminator_addon_trello_url() . 'assets' );
 }
 
-require_once dirname( __FILE__ ) . '/forminator-addon-trello.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-trello.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-trello-form-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-trello-form-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-trello-form-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-trello-form-hooks.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-trello-poll-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-trello-poll-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-trello-poll-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-trello-poll-hooks.php';
 
-require_once dirname( __FILE__ ) . '/forminator-addon-trello-quiz-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-trello-quiz-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-trello-quiz-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-trello-quiz-hooks.php';
 
 //Direct Load
 Forminator_Addon_Loader::get_instance()->register( 'Forminator_Addon_Trello' );

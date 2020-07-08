@@ -43,7 +43,7 @@ class Forminator_Captcha extends Forminator_Field {
 	/**
 	 * @var string
 	 */
-	public $hide_advanced = "true";
+	public $hide_advanced = 'true';
 
 	/**
 	 * @var string
@@ -123,19 +123,19 @@ class Forminator_Captcha extends Forminator_Field {
 		$captcha_size  = self::get_property( 'captcha_size', $field, 'normal' );
 
 		if ( 'v2_checkbox' === $captcha_type ) {
-			$key = get_option( "forminator_captcha_key", "" );
+			$key = get_option( 'forminator_captcha_key', '' );
 		} elseif ( 'v2_invisible' === $captcha_type ) {
-			$key = get_option( "forminator_v2_invisible_captcha_key", "" );
+			$key = get_option( 'forminator_v2_invisible_captcha_key', '' );
 		} elseif ( 'v3_recaptcha' === $captcha_type ) {
-			$key = get_option( "forminator_v3_captcha_key", "" );
+			$key = get_option( 'forminator_v3_captcha_key', '' );
 		} else {
-			$key = get_option( "forminator_captcha_key", "" );
+			$key = get_option( 'forminator_captcha_key', '' );
 		}
 
 		$captcha_class = 'forminator-g-recaptcha';
 
 		if ( $this->is_invisible_recaptcha( $field ) ) {
-			$captcha_size  = 'invisible';
+			$captcha_size   = 'invisible';
 			$captcha_class .= ' recaptcha-invisible';
 		}
 
@@ -154,15 +154,15 @@ class Forminator_Captcha extends Forminator_Field {
 	 * @return bool
 	 */
 	public function is_available( $field ) {
-		$captcha_type  = self::get_property( 'captcha_type', $field, '' );
+		$captcha_type = self::get_property( 'captcha_type', $field, '' );
 		if ( 'v2_checkbox' === $captcha_type ) {
-			$key = get_option( "forminator_captcha_key", "" );
+			$key = get_option( 'forminator_captcha_key', '' );
 		} elseif ( 'v2_invisible' === $captcha_type ) {
-			$key = get_option( "forminator_v2_invisible_captcha_key", "" );
+			$key = get_option( 'forminator_v2_invisible_captcha_key', '' );
 		} elseif ( 'v3_recaptcha' === $captcha_type ) {
-			$key = get_option( "forminator_v3_captcha_key", "" );
+			$key = get_option( 'forminator_v3_captcha_key', '' );
 		} else {
-			$key = get_option( "forminator_captcha_key", "" );
+			$key = get_option( 'forminator_captcha_key', '' );
 		}
 
 		if ( ! $key ) {
@@ -183,19 +183,19 @@ class Forminator_Captcha extends Forminator_Field {
 	 * @return bool
 	 */
 	public function validate( $field, $data ) {
-		$captcha_type  = self::get_property( 'captcha_type', $field, '' );
-		$score = '';
+		$captcha_type = self::get_property( 'captcha_type', $field, '' );
+		$score        = '';
 		if ( 'v2_checkbox' === $captcha_type ) {
-			$secret = get_option( "forminator_captcha_secret", "" );
+			$secret = get_option( 'forminator_captcha_secret', '' );
 		} elseif ( 'v2_invisible' === $captcha_type ) {
-			$secret = get_option( "forminator_v2_invisible_captcha_secret", "" );
+			$secret = get_option( 'forminator_v2_invisible_captcha_secret', '' );
 		} elseif ( 'v3_recaptcha' === $captcha_type ) {
-			$secret = get_option( "forminator_v3_captcha_secret", "" );
+			$secret = get_option( 'forminator_v3_captcha_secret', '' );
 			$score  = self::get_property( 'score_threshold', $field, '' );
 		} else {
-			$secret = get_option( "forminator_captcha_secret", "" );
+			$secret = get_option( 'forminator_captcha_secret', '' );
 		}
-		$element_id = self::get_property( 'element_id', $field );
+		$element_id    = self::get_property( 'element_id', $field );
 		$error_message = self::get_property( 'recaptcha_error_message', $field, '' );
 
 		$recaptcha = new Forminator_Recaptcha( $secret );

@@ -321,6 +321,18 @@ class Forminator_CForm_Page extends Forminator_Admin_Page {
 
 			//save it to create new record
 			$new_id = $model->save( true );
+
+			/**
+			* Action called after form cloned
+			*
+			* @since 1.11
+			*
+			* @param int    $id - form id
+			* @param object $model - form model
+			*
+			*/
+			do_action( 'forminator_form_action_clone', $new_id, $model );
+
 			forminator_clone_form_submissions_retention( $id, $new_id );
 		}
 	}
@@ -356,6 +368,16 @@ class Forminator_CForm_Page extends Forminator_Admin_Page {
 			$form_view->delete_by_form( $id );
 			forminator_update_form_submissions_retention( $id, null, null );
 			wp_delete_post( $id );
+
+			/**
+			 * Action called after quiz deleted
+			 *
+			 * @since 1.11
+			 *
+			 * @param int    $id - quiz id
+			 *
+			 */
+			do_action( 'forminator_form_action_delete', $id );
 		}
 	}
 
@@ -445,5 +467,7 @@ class Forminator_CForm_Page extends Forminator_Admin_Page {
 		wp_enqueue_style( 'intlTelInput-forminator-css', $style_src, array(), $style_version ); // intlTelInput
 		wp_enqueue_script( 'forminator-intlTelInput', $script_src, array( 'jquery' ), $script_version, false ); // intlTelInput
 
+		forminator_print_forms_admin_styles( FORMINATOR_VERSION );
+		forminator_print_front_scripts( FORMINATOR_VERSION );
 	}
 }

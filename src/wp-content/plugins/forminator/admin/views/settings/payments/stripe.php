@@ -18,7 +18,7 @@ foreach ( $template_vars as $key => $val ) {
 }
 ?>
 
-<span class="sui-description"><?php printf( esc_html__( 'Enter your Stripe API keys below to connect your account. You can grab your API keys from %1$shere%2$s.' ), '<a href="https://dashboard.stripe.com/account/apikeys" target="_blank">', '</a>' ); ?></span>
+<span class="sui-description"><?php /* translators: ... */ printf( esc_html__( 'Enter your Stripe API keys below to connect your account. You can grab your API keys from %1$shere%2$s.' ), '<a href="https://dashboard.stripe.com/account/apikeys" target="_blank">', '</a>' ); ?></span>
 
 <?php if ( ! empty( $vars['error_message'] ) ) : ?>
 

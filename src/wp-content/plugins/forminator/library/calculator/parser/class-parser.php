@@ -272,7 +272,7 @@ class Forminator_Calculator_Parser {
 						if ( $left_operand instanceof Forminator_Calculator_Parser_Node_Symbol ) {
 							/** @var $left_operand Forminator_Calculator_Parser_Node_Symbol */
 							if ( $left_operand->get_symbol() instanceof Forminator_Calculator_Symbol_Operator_Abstract  // example 1`+-`5 : + = operator, - = unary
-							     || $left_operand->get_symbol() instanceof Forminator_Calculator_Symbol_Separator // example func(1`,-`5) ,= separator, - = unary
+								|| $left_operand->get_symbol() instanceof Forminator_Calculator_Symbol_Separator // example func(1`,-`5) ,= separator, - = unary
 							) {
 								// Operator is unary if positioned right to another operator
 								$left_operand = null;

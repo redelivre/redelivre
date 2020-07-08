@@ -16,7 +16,12 @@ foreach ( $template_vars as $key => $val ) {
 
 <div class="integration-header">
 
-	<h3 id="dialogTitle2" class="sui-box-title"><?php echo esc_html( sprintf( __( 'Configure %1$s API', Forminator::DOMAIN ), 'Campaign Monitor' ) ); ?></h3>
+	<h3 id="dialogTitle2" class="sui-box-title">
+	<?php
+		/* translators: ... */
+		echo esc_html( sprintf( __( 'Configure %1$s API', Forminator::DOMAIN ), 'Campaign Monitor' ) );
+	?>
+	</h3>
 
 	<span class="sui-description" style="margin-top: 20px;"><?php esc_html_e( 'Setup Campaign Monitor API Access.', Forminator::DOMAIN ); ?></span>
 
@@ -43,7 +48,7 @@ foreach ( $template_vars as $key => $val ) {
 		<div class="sui-control-with-icon">
 
 			<input name="api_key"
-				placeholder="<?php echo esc_attr( sprintf( __( 'Enter %1$s API Key', Forminator::DOMAIN ), 'Campaign Monitor' ) ); ?>"
+				placeholder="<?php /* translators: ... */ echo esc_attr( sprintf( __( 'Enter %1$s API Key', Forminator::DOMAIN ), 'Campaign Monitor' ) ); ?>"
 				value="<?php echo esc_attr( $vars['api_key'] ); ?>"
 				class="sui-form-control" />
 
@@ -58,9 +63,33 @@ foreach ( $template_vars as $key => $val ) {
 		<div class="sui-description">
 			<?php esc_html_e( 'To obtain Campaign Monitor API Credentials, follow these steps :', Forminator::DOMAIN ); ?>
 			<ol class="instructions" id="apikey-instructions">
-				<li><?php echo __( 'Login to your Campaign Monitor account <a href="https://login.createsend.com/l" target="_blank">here</a>.', Forminator::DOMAIN ); //wpcs: xss ok. ?></li>
-				<li><?php echo __( 'Go to Account Settings, then navigate to <strong>API Keys</strong> section.', Forminator::DOMAIN ); //wpcs: xss ok. ?></li>
-				<li><?php echo __( 'Click on <strong>Show API Key</strong>, select and copy on the shown up value.', Forminator::DOMAIN ); //wpcs: xss ok. ?></li>
+				<li>
+					<?php
+					echo sprintf(/* translators: ... */
+						esc_html__( 'Login to your Campaign Monitor account %1$shere%2$s.', Forminator::DOMAIN ),
+						'<a href="https://login.createsend.com/l" target="_blank">',
+						'</a>'
+					); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+					?>
+				</li>
+				<li>
+					<?php
+					echo sprintf(/* translators: ... */
+						esc_html__( 'Go to Account Settings, then navigate to %1$sAPI Keys%2$s section.', Forminator::DOMAIN ),
+						'<strong>',
+						'</strong>'
+					); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+					?>
+				</li>
+				<li>
+				<?php
+					echo sprintf(/* translators: ... */
+						esc_html__( 'Click on %1$sShow API Key%2$s, select and copy on the shown up value.', Forminator::DOMAIN ),
+						'<strong>',
+						'</strong>'
+					); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+					?>
+				</li>
 			</ol>
 		</div>
 
@@ -71,9 +100,9 @@ foreach ( $template_vars as $key => $val ) {
 		<label class="sui-label"><?php esc_html_e( 'Client ID', Forminator::DOMAIN ); ?></label>
 
 		<div class="sui-control-with-icon">
-			
+
 			<input name="client_id"
-				placeholder="<?php echo esc_attr( sprintf( __( 'Enter %1$s Client ID', Forminator::DOMAIN ), 'Campaign Monitor' ) ); ?>"
+				placeholder="<?php /* translators: ... */ echo esc_attr( sprintf( __( 'Enter %1$s Client ID', Forminator::DOMAIN ), 'Campaign Monitor' ) ); ?>"
 				value="<?php echo esc_attr( $vars['client_id'] ); ?>"
 				class="sui-form-control" />
 
@@ -85,8 +114,19 @@ foreach ( $template_vars as $key => $val ) {
 			<span class="sui-error-message"><?php echo esc_html( $vars['client_id_error'] ); ?></span>
 		<?php endif; ?>
 
-		<span class="sui-description"><?php echo __( 'Client ID is optional, unless you are on <strong>Agency-Mode</strong>, then you can find your desired Client ID on the <strong>Account Settings</strong> > <strong>API Keys</strong>', Forminator::DOMAIN ); //wpcs: xss ok. ?></span>
-
+		<span class="sui-description">
+			<?php
+				echo sprintf(/* translators: ... */
+					esc_html__( 'Client ID is optional, unless you are on %1$sAgency-Mode%2$s, then you can find your desired Client ID on the %3$sAccount Settings%4$s > %5$sAPI Keys%6$s', Forminator::DOMAIN ),
+					'<strong>',
+					'</strong>',
+					'<strong>',
+					'</strong>',
+					'<strong>',
+					'</strong>'
+				); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+				?>
+		</span>
 	</div>
 
 </form>

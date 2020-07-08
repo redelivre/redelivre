@@ -4,6 +4,7 @@ namespace Forminator\Psr\Log\Test;
 
 use Forminator\Psr\Log\LoggerInterface;
 use Forminator\Psr\Log\LogLevel;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Provides a base test class for ensuring compliance with the LoggerInterface.
@@ -11,7 +12,7 @@ use Forminator\Psr\Log\LogLevel;
  * Implementors can extend the class and implement abstract methods to run this
  * as part of their test suite.
  */
-abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
+abstract class LoggerInterfaceTest extends TestCase
 {
     /**
      * @return LoggerInterface
@@ -140,5 +141,6 @@ class DummyTest
 {
     public function __toString()
     {
+        return 'DummyTest';
     }
 }

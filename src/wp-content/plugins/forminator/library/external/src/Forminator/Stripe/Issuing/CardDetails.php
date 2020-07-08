@@ -17,5 +17,5 @@ namespace Forminator\Stripe\Issuing;
  */
 class CardDetails extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "issuing.card_details";
+    const OBJECT_NAME = 'issuing.card_details';
 }

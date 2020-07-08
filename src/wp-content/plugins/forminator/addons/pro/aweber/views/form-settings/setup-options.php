@@ -70,11 +70,11 @@ foreach ( $template_vars as $key => $val ) {
 		<label class="sui-label" for="tags"><?php esc_html_e( 'Tags', Forminator::DOMAIN ); ?></label>
 
 		<select class="sui-select fui-multi-select" name="tags[]" id="tags"
-		        multiple="multiple"
-		        data-reorder="1"
-		        data-tags="true"
-		        data-token-separators="[',']"
-		        data-placeholder=""
+				multiple="multiple"
+				data-reorder="1"
+				data-tags="true"
+				data-token-separators="[',']"
+				data-placeholder=""
 				data-allow-clear="false">
 
 			<?php foreach ( $vars['tags_selected_fields'] as $forminator_field ) : ?>

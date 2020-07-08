@@ -64,8 +64,8 @@ class Forminator_Section extends Forminator_Field {
 	 */
 	public function defaults() {
 		return array(
-			'section_title'  => __( 'Form Section', Forminator::DOMAIN ),
-			'cform-section-border-style' => "none",
+			'section_title'              => __( 'Form Section', Forminator::DOMAIN ),
+			'cform-section-border-style' => 'none',
 		);
 	}
 
@@ -97,15 +97,15 @@ class Forminator_Section extends Forminator_Field {
 	 */
 	public function markup( $field, $settings = array() ) {
 
-		$this->field  = $field;
+		$this->field = $field;
 
 		$html         = '';
 		$id           = self::get_property( 'element_id', $field );
 		$name         = $id;
 		$id           = $id . '-field';
 		$required     = self::get_property( 'required', $field, false );
-		$title        = self::get_property( 'section_title', $field );
-		$subtitle     = self::get_property( 'section_subtitle', $field );
+		$title        = esc_html( self::get_property( 'section_title', $field ) );
+		$subtitle     = esc_html( self::get_property( 'section_subtitle', $field ) );
 		$type         = self::get_property( 'section_type', $field );
 		$border       = self::get_property( 'section_border', $field, 'none' );
 		$border_width = self::get_property( 'cform-section-border-width', $field, 1 );
@@ -113,28 +113,28 @@ class Forminator_Section extends Forminator_Field {
 
 		$html .= '<div class="forminator-field">';
 
-			if ( ! empty( $title ) ) {
-				$title = $this->sanitize_output( $title );
-				$html  .= sprintf( '<h2 class="forminator-title">%s</h2>', $title );
-			}
+		if ( ! empty( $title ) ) {
+			$title = $this->sanitize_output( $title );
+			$html .= sprintf( '<h2 class="forminator-title">%s</h2>', $title );
+		}
 
-			if ( ! empty( $subtitle ) ) {
-				$subtitle = $this->sanitize_output( $subtitle );
-				$html     .= sprintf( '<h3 class="forminator-subtitle">%s</h3>', $subtitle );
-			}
+		if ( ! empty( $subtitle ) ) {
+			$subtitle = $this->sanitize_output( $subtitle );
+			$html    .= sprintf( '<h3 class="forminator-subtitle">%s</h3>', $subtitle );
+		}
 
-			if ( 'none' !== $border ) {
+		if ( 'none' !== $border ) {
 
-				$border_width = self::get_property( 'cform-section-border-width', $field, 1 );
-				$border_color = self::get_property( 'cform-section-border-color', $field, 1 );
+			$border_width = self::get_property( 'cform-section-border-width', $field, 1 );
+			$border_color = self::get_property( 'cform-section-border-color', $field, 1 );
 
-				$html .= sprintf(
-					'<hr class="forminator-border" style="border: %s %s %s;" />',
-					$border_width . 'px',
-					$border,
-					$border_color
-				);
-			}
+			$html .= sprintf(
+				'<hr class="forminator-border" style="border: %s %s %s;" />',
+				$border_width . 'px',
+				$border,
+				$border_color
+			);
+		}
 
 		$html .= '</div>';
 

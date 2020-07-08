@@ -26,7 +26,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Spectrum extends Google_Service
+class Forminator_Google_Service_Spectrum extends Forminator_Google_Service
 {
 
 
@@ -36,9 +36,9 @@ class Google_Service_Spectrum extends Google_Service
   /**
    * Constructs the internal representation of the Spectrum service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->rootUrl = 'https://www.googleapis.com/';
@@ -46,7 +46,7 @@ class Google_Service_Spectrum extends Google_Service
     $this->version = 'v1explorer';
     $this->serviceName = 'spectrum';
 
-    $this->paws = new Google_Service_Spectrum_Paws_Resource(
+    $this->paws = new Forminator_Google_Service_Spectrum_Paws_Resource(
         $this,
         $this->serviceName,
         'paws',
@@ -88,11 +88,11 @@ class Google_Service_Spectrum extends Google_Service
  * The "paws" collection of methods.
  * Typical usage is:
  *  <code>
- *   $spectrumService = new Google_Service_Spectrum(...);
+ *   $spectrumService = new Forminator_Google_Service_Spectrum(...);
  *   $paws = $spectrumService->paws;
  *  </code>
  */
-class Google_Service_Spectrum_Paws_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Spectrum_Paws_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -100,45 +100,45 @@ class Google_Service_Spectrum_Paws_Resource extends Google_Service_Resource
    * Requests from a fixed-mode device must include owner information so the
    * device can be registered with the database. (paws.getSpectrum)
    *
-   * @param Google_PawsGetSpectrumRequest $postBody
+   * @param Forminator_Google_PawsGetSpectrumRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Spectrum_PawsGetSpectrumResponse
+   * @return Forminator_Google_Service_Spectrum_PawsGetSpectrumResponse
    */
-  public function getSpectrum(Google_Service_Spectrum_PawsGetSpectrumRequest $postBody, $optParams = array())
+  public function getSpectrum(Forminator_Google_Service_Spectrum_PawsGetSpectrumRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('getSpectrum', array($params), "Google_Service_Spectrum_PawsGetSpectrumResponse");
+    return $this->call('getSpectrum', array($params), "Forminator_Google_Service_Spectrum_PawsGetSpectrumResponse");
   }
 
   /**
    * The Google Spectrum Database does not support batch requests, so this method
    * always yields an UNIMPLEMENTED error. (paws.getSpectrumBatch)
    *
-   * @param Google_PawsGetSpectrumBatchRequest $postBody
+   * @param Forminator_Google_PawsGetSpectrumBatchRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Spectrum_PawsGetSpectrumBatchResponse
+   * @return Forminator_Google_Service_Spectrum_PawsGetSpectrumBatchResponse
    */
-  public function getSpectrumBatch(Google_Service_Spectrum_PawsGetSpectrumBatchRequest $postBody, $optParams = array())
+  public function getSpectrumBatch(Forminator_Google_Service_Spectrum_PawsGetSpectrumBatchRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('getSpectrumBatch', array($params), "Google_Service_Spectrum_PawsGetSpectrumBatchResponse");
+    return $this->call('getSpectrumBatch', array($params), "Forminator_Google_Service_Spectrum_PawsGetSpectrumBatchResponse");
   }
 
   /**
    * Initializes the connection between a white space device and the database.
    * (paws.init)
    *
-   * @param Google_PawsInitRequest $postBody
+   * @param Forminator_Google_PawsInitRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Spectrum_PawsInitResponse
+   * @return Forminator_Google_Service_Spectrum_PawsInitResponse
    */
-  public function init(Google_Service_Spectrum_PawsInitRequest $postBody, $optParams = array())
+  public function init(Forminator_Google_Service_Spectrum_PawsInitRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('init', array($params), "Google_Service_Spectrum_PawsInitResponse");
+    return $this->call('init', array($params), "Forminator_Google_Service_Spectrum_PawsInitResponse");
   }
 
   /**
@@ -148,30 +148,30 @@ class Google_Service_Spectrum_Paws_Resource extends Google_Service_Resource
    * notification, so this always yields an UNIMPLEMENTED error.
    * (paws.notifySpectrumUse)
    *
-   * @param Google_PawsNotifySpectrumUseRequest $postBody
+   * @param Forminator_Google_PawsNotifySpectrumUseRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Spectrum_PawsNotifySpectrumUseResponse
+   * @return Forminator_Google_Service_Spectrum_PawsNotifySpectrumUseResponse
    */
-  public function notifySpectrumUse(Google_Service_Spectrum_PawsNotifySpectrumUseRequest $postBody, $optParams = array())
+  public function notifySpectrumUse(Forminator_Google_Service_Spectrum_PawsNotifySpectrumUseRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('notifySpectrumUse', array($params), "Google_Service_Spectrum_PawsNotifySpectrumUseResponse");
+    return $this->call('notifySpectrumUse', array($params), "Forminator_Google_Service_Spectrum_PawsNotifySpectrumUseResponse");
   }
 
   /**
    * The Google Spectrum Database implements registration in the getSpectrum
    * method. As such this always returns an UNIMPLEMENTED error. (paws.register)
    *
-   * @param Google_PawsRegisterRequest $postBody
+   * @param Forminator_Google_PawsRegisterRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Spectrum_PawsRegisterResponse
+   * @return Forminator_Google_Service_Spectrum_PawsRegisterResponse
    */
-  public function register(Google_Service_Spectrum_PawsRegisterRequest $postBody, $optParams = array())
+  public function register(Forminator_Google_Service_Spectrum_PawsRegisterRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('register', array($params), "Google_Service_Spectrum_PawsRegisterResponse");
+    return $this->call('register', array($params), "Forminator_Google_Service_Spectrum_PawsRegisterResponse");
   }
 
   /**
@@ -179,22 +179,22 @@ class Google_Service_Spectrum_Paws_Resource extends Google_Service_Resource
    * The Google Spectrum Database does not support master/slave configurations, so
    * this always yields an UNIMPLEMENTED error. (paws.verifyDevice)
    *
-   * @param Google_PawsVerifyDeviceRequest $postBody
+   * @param Forminator_Google_PawsVerifyDeviceRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_Spectrum_PawsVerifyDeviceResponse
+   * @return Forminator_Google_Service_Spectrum_PawsVerifyDeviceResponse
    */
-  public function verifyDevice(Google_Service_Spectrum_PawsVerifyDeviceRequest $postBody, $optParams = array())
+  public function verifyDevice(Forminator_Google_Service_Spectrum_PawsVerifyDeviceRequest $postBody, $optParams = array())
   {
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('verifyDevice', array($params), "Google_Service_Spectrum_PawsVerifyDeviceResponse");
+    return $this->call('verifyDevice', array($params), "Forminator_Google_Service_Spectrum_PawsVerifyDeviceResponse");
   }
 }
 
 
 
 
-class Google_Service_Spectrum_AntennaCharacteristics extends Google_Model
+class Forminator_Google_Service_Spectrum_AntennaCharacteristics extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -229,7 +229,7 @@ class Google_Service_Spectrum_AntennaCharacteristics extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_DatabaseSpec extends Google_Model
+class Forminator_Google_Service_Spectrum_DatabaseSpec extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -255,12 +255,12 @@ class Google_Service_Spectrum_DatabaseSpec extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_DbUpdateSpec extends Google_Collection
+class Forminator_Google_Service_Spectrum_DbUpdateSpec extends Forminator_Google_Collection
 {
   protected $collection_key = 'databases';
   protected $internal_gapi_mappings = array(
   );
-  protected $databasesType = 'Google_Service_Spectrum_DatabaseSpec';
+  protected $databasesType = 'Forminator_Google_Service_Spectrum_DatabaseSpec';
   protected $databasesDataType = 'array';
 
 
@@ -274,12 +274,12 @@ class Google_Service_Spectrum_DbUpdateSpec extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_DeviceCapabilities extends Google_Collection
+class Forminator_Google_Service_Spectrum_DeviceCapabilities extends Forminator_Google_Collection
 {
   protected $collection_key = 'frequencyRanges';
   protected $internal_gapi_mappings = array(
   );
-  protected $frequencyRangesType = 'Google_Service_Spectrum_FrequencyRange';
+  protected $frequencyRangesType = 'Forminator_Google_Service_Spectrum_FrequencyRange';
   protected $frequencyRangesDataType = 'array';
 
 
@@ -293,7 +293,7 @@ class Google_Service_Spectrum_DeviceCapabilities extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_DeviceDescriptor extends Google_Collection
+class Forminator_Google_Service_Spectrum_DeviceDescriptor extends Forminator_Google_Collection
 {
   protected $collection_key = 'rulesetIds';
   protected $internal_gapi_mappings = array(
@@ -392,17 +392,17 @@ class Google_Service_Spectrum_DeviceDescriptor extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_DeviceOwner extends Google_Model
+class Forminator_Google_Service_Spectrum_DeviceOwner extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $operatorType = 'Google_Service_Spectrum_Vcard';
+  protected $operatorType = 'Forminator_Google_Service_Spectrum_Vcard';
   protected $operatorDataType = '';
-  protected $ownerType = 'Google_Service_Spectrum_Vcard';
+  protected $ownerType = 'Forminator_Google_Service_Spectrum_Vcard';
   protected $ownerDataType = '';
 
 
-  public function setOperator(Google_Service_Spectrum_Vcard $operator)
+  public function setOperator(Forminator_Google_Service_Spectrum_Vcard $operator)
   {
     $this->operator = $operator;
   }
@@ -410,7 +410,7 @@ class Google_Service_Spectrum_DeviceOwner extends Google_Model
   {
     return $this->operator;
   }
-  public function setOwner(Google_Service_Spectrum_Vcard $owner)
+  public function setOwner(Forminator_Google_Service_Spectrum_Vcard $owner)
   {
     $this->owner = $owner;
   }
@@ -420,17 +420,17 @@ class Google_Service_Spectrum_DeviceOwner extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_DeviceValidity extends Google_Model
+class Forminator_Google_Service_Spectrum_DeviceValidity extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
   public $isValid;
   public $reason;
 
 
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -456,7 +456,7 @@ class Google_Service_Spectrum_DeviceValidity extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_EventTime extends Google_Model
+class Forminator_Google_Service_Spectrum_EventTime extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -482,7 +482,7 @@ class Google_Service_Spectrum_EventTime extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_FrequencyRange extends Google_Model
+class Forminator_Google_Service_Spectrum_FrequencyRange extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -526,14 +526,14 @@ class Google_Service_Spectrum_FrequencyRange extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_GeoLocation extends Google_Model
+class Forminator_Google_Service_Spectrum_GeoLocation extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
   public $confidence;
-  protected $pointType = 'Google_Service_Spectrum_GeoLocationEllipse';
+  protected $pointType = 'Forminator_Google_Service_Spectrum_GeoLocationEllipse';
   protected $pointDataType = '';
-  protected $regionType = 'Google_Service_Spectrum_GeoLocationPolygon';
+  protected $regionType = 'Forminator_Google_Service_Spectrum_GeoLocationPolygon';
   protected $regionDataType = '';
 
 
@@ -545,7 +545,7 @@ class Google_Service_Spectrum_GeoLocation extends Google_Model
   {
     return $this->confidence;
   }
-  public function setPoint(Google_Service_Spectrum_GeoLocationEllipse $point)
+  public function setPoint(Forminator_Google_Service_Spectrum_GeoLocationEllipse $point)
   {
     $this->point = $point;
   }
@@ -553,7 +553,7 @@ class Google_Service_Spectrum_GeoLocation extends Google_Model
   {
     return $this->point;
   }
-  public function setRegion(Google_Service_Spectrum_GeoLocationPolygon $region)
+  public function setRegion(Forminator_Google_Service_Spectrum_GeoLocationPolygon $region)
   {
     $this->region = $region;
   }
@@ -563,18 +563,18 @@ class Google_Service_Spectrum_GeoLocation extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_GeoLocationEllipse extends Google_Model
+class Forminator_Google_Service_Spectrum_GeoLocationEllipse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $centerType = 'Google_Service_Spectrum_GeoLocationPoint';
+  protected $centerType = 'Forminator_Google_Service_Spectrum_GeoLocationPoint';
   protected $centerDataType = '';
   public $orientation;
   public $semiMajorAxis;
   public $semiMinorAxis;
 
 
-  public function setCenter(Google_Service_Spectrum_GeoLocationPoint $center)
+  public function setCenter(Forminator_Google_Service_Spectrum_GeoLocationPoint $center)
   {
     $this->center = $center;
   }
@@ -608,7 +608,7 @@ class Google_Service_Spectrum_GeoLocationEllipse extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_GeoLocationPoint extends Google_Model
+class Forminator_Google_Service_Spectrum_GeoLocationPoint extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -634,12 +634,12 @@ class Google_Service_Spectrum_GeoLocationPoint extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_GeoLocationPolygon extends Google_Collection
+class Forminator_Google_Service_Spectrum_GeoLocationPolygon extends Forminator_Google_Collection
 {
   protected $collection_key = 'exterior';
   protected $internal_gapi_mappings = array(
   );
-  protected $exteriorType = 'Google_Service_Spectrum_GeoLocationPoint';
+  protected $exteriorType = 'Forminator_Google_Service_Spectrum_GeoLocationPoint';
   protected $exteriorDataType = 'array';
 
 
@@ -653,18 +653,18 @@ class Google_Service_Spectrum_GeoLocationPolygon extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_GeoSpectrumSchedule extends Google_Collection
+class Forminator_Google_Service_Spectrum_GeoSpectrumSchedule extends Forminator_Google_Collection
 {
   protected $collection_key = 'spectrumSchedules';
   protected $internal_gapi_mappings = array(
   );
-  protected $locationType = 'Google_Service_Spectrum_GeoLocation';
+  protected $locationType = 'Forminator_Google_Service_Spectrum_GeoLocation';
   protected $locationDataType = '';
-  protected $spectrumSchedulesType = 'Google_Service_Spectrum_SpectrumSchedule';
+  protected $spectrumSchedulesType = 'Forminator_Google_Service_Spectrum_SpectrumSchedule';
   protected $spectrumSchedulesDataType = 'array';
 
 
-  public function setLocation(Google_Service_Spectrum_GeoLocation $location)
+  public function setLocation(Forminator_Google_Service_Spectrum_GeoLocation $location)
   {
     $this->location = $location;
   }
@@ -682,29 +682,29 @@ class Google_Service_Spectrum_GeoSpectrumSchedule extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_PawsGetSpectrumBatchRequest extends Google_Collection
+class Forminator_Google_Service_Spectrum_PawsGetSpectrumBatchRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'locations';
   protected $internal_gapi_mappings = array(
   );
-  protected $antennaType = 'Google_Service_Spectrum_AntennaCharacteristics';
+  protected $antennaType = 'Forminator_Google_Service_Spectrum_AntennaCharacteristics';
   protected $antennaDataType = '';
-  protected $capabilitiesType = 'Google_Service_Spectrum_DeviceCapabilities';
+  protected $capabilitiesType = 'Forminator_Google_Service_Spectrum_DeviceCapabilities';
   protected $capabilitiesDataType = '';
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
-  protected $locationsType = 'Google_Service_Spectrum_GeoLocation';
+  protected $locationsType = 'Forminator_Google_Service_Spectrum_GeoLocation';
   protected $locationsDataType = 'array';
-  protected $masterDeviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $masterDeviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $masterDeviceDescDataType = '';
-  protected $ownerType = 'Google_Service_Spectrum_DeviceOwner';
+  protected $ownerType = 'Forminator_Google_Service_Spectrum_DeviceOwner';
   protected $ownerDataType = '';
   public $requestType;
   public $type;
   public $version;
 
 
-  public function setAntenna(Google_Service_Spectrum_AntennaCharacteristics $antenna)
+  public function setAntenna(Forminator_Google_Service_Spectrum_AntennaCharacteristics $antenna)
   {
     $this->antenna = $antenna;
   }
@@ -712,7 +712,7 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchRequest extends Google_Collect
   {
     return $this->antenna;
   }
-  public function setCapabilities(Google_Service_Spectrum_DeviceCapabilities $capabilities)
+  public function setCapabilities(Forminator_Google_Service_Spectrum_DeviceCapabilities $capabilities)
   {
     $this->capabilities = $capabilities;
   }
@@ -720,7 +720,7 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchRequest extends Google_Collect
   {
     return $this->capabilities;
   }
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -736,7 +736,7 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchRequest extends Google_Collect
   {
     return $this->locations;
   }
-  public function setMasterDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $masterDeviceDesc)
+  public function setMasterDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $masterDeviceDesc)
   {
     $this->masterDeviceDesc = $masterDeviceDesc;
   }
@@ -744,7 +744,7 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchRequest extends Google_Collect
   {
     return $this->masterDeviceDesc;
   }
-  public function setOwner(Google_Service_Spectrum_DeviceOwner $owner)
+  public function setOwner(Forminator_Google_Service_Spectrum_DeviceOwner $owner)
   {
     $this->owner = $owner;
   }
@@ -778,29 +778,29 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchRequest extends Google_Collect
   }
 }
 
-class Google_Service_Spectrum_PawsGetSpectrumBatchResponse extends Google_Collection
+class Forminator_Google_Service_Spectrum_PawsGetSpectrumBatchResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'geoSpectrumSchedules';
   protected $internal_gapi_mappings = array(
   );
-  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+  protected $databaseChangeType = 'Forminator_Google_Service_Spectrum_DbUpdateSpec';
   protected $databaseChangeDataType = '';
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
-  protected $geoSpectrumSchedulesType = 'Google_Service_Spectrum_GeoSpectrumSchedule';
+  protected $geoSpectrumSchedulesType = 'Forminator_Google_Service_Spectrum_GeoSpectrumSchedule';
   protected $geoSpectrumSchedulesDataType = 'array';
   public $kind;
   public $maxContiguousBwHz;
   public $maxTotalBwHz;
   public $needsSpectrumReport;
-  protected $rulesetInfoType = 'Google_Service_Spectrum_RulesetInfo';
+  protected $rulesetInfoType = 'Forminator_Google_Service_Spectrum_RulesetInfo';
   protected $rulesetInfoDataType = '';
   public $timestamp;
   public $type;
   public $version;
 
 
-  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+  public function setDatabaseChange(Forminator_Google_Service_Spectrum_DbUpdateSpec $databaseChange)
   {
     $this->databaseChange = $databaseChange;
   }
@@ -808,7 +808,7 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchResponse extends Google_Collec
   {
     return $this->databaseChange;
   }
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -856,7 +856,7 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchResponse extends Google_Collec
   {
     return $this->needsSpectrumReport;
   }
-  public function setRulesetInfo(Google_Service_Spectrum_RulesetInfo $rulesetInfo)
+  public function setRulesetInfo(Forminator_Google_Service_Spectrum_RulesetInfo $rulesetInfo)
   {
     $this->rulesetInfo = $rulesetInfo;
   }
@@ -890,28 +890,28 @@ class Google_Service_Spectrum_PawsGetSpectrumBatchResponse extends Google_Collec
   }
 }
 
-class Google_Service_Spectrum_PawsGetSpectrumRequest extends Google_Model
+class Forminator_Google_Service_Spectrum_PawsGetSpectrumRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $antennaType = 'Google_Service_Spectrum_AntennaCharacteristics';
+  protected $antennaType = 'Forminator_Google_Service_Spectrum_AntennaCharacteristics';
   protected $antennaDataType = '';
-  protected $capabilitiesType = 'Google_Service_Spectrum_DeviceCapabilities';
+  protected $capabilitiesType = 'Forminator_Google_Service_Spectrum_DeviceCapabilities';
   protected $capabilitiesDataType = '';
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
-  protected $locationType = 'Google_Service_Spectrum_GeoLocation';
+  protected $locationType = 'Forminator_Google_Service_Spectrum_GeoLocation';
   protected $locationDataType = '';
-  protected $masterDeviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $masterDeviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $masterDeviceDescDataType = '';
-  protected $ownerType = 'Google_Service_Spectrum_DeviceOwner';
+  protected $ownerType = 'Forminator_Google_Service_Spectrum_DeviceOwner';
   protected $ownerDataType = '';
   public $requestType;
   public $type;
   public $version;
 
 
-  public function setAntenna(Google_Service_Spectrum_AntennaCharacteristics $antenna)
+  public function setAntenna(Forminator_Google_Service_Spectrum_AntennaCharacteristics $antenna)
   {
     $this->antenna = $antenna;
   }
@@ -919,7 +919,7 @@ class Google_Service_Spectrum_PawsGetSpectrumRequest extends Google_Model
   {
     return $this->antenna;
   }
-  public function setCapabilities(Google_Service_Spectrum_DeviceCapabilities $capabilities)
+  public function setCapabilities(Forminator_Google_Service_Spectrum_DeviceCapabilities $capabilities)
   {
     $this->capabilities = $capabilities;
   }
@@ -927,7 +927,7 @@ class Google_Service_Spectrum_PawsGetSpectrumRequest extends Google_Model
   {
     return $this->capabilities;
   }
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -935,7 +935,7 @@ class Google_Service_Spectrum_PawsGetSpectrumRequest extends Google_Model
   {
     return $this->deviceDesc;
   }
-  public function setLocation(Google_Service_Spectrum_GeoLocation $location)
+  public function setLocation(Forminator_Google_Service_Spectrum_GeoLocation $location)
   {
     $this->location = $location;
   }
@@ -943,7 +943,7 @@ class Google_Service_Spectrum_PawsGetSpectrumRequest extends Google_Model
   {
     return $this->location;
   }
-  public function setMasterDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $masterDeviceDesc)
+  public function setMasterDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $masterDeviceDesc)
   {
     $this->masterDeviceDesc = $masterDeviceDesc;
   }
@@ -951,7 +951,7 @@ class Google_Service_Spectrum_PawsGetSpectrumRequest extends Google_Model
   {
     return $this->masterDeviceDesc;
   }
-  public function setOwner(Google_Service_Spectrum_DeviceOwner $owner)
+  public function setOwner(Forminator_Google_Service_Spectrum_DeviceOwner $owner)
   {
     $this->owner = $owner;
   }
@@ -985,29 +985,29 @@ class Google_Service_Spectrum_PawsGetSpectrumRequest extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_PawsGetSpectrumResponse extends Google_Collection
+class Forminator_Google_Service_Spectrum_PawsGetSpectrumResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'spectrumSchedules';
   protected $internal_gapi_mappings = array(
   );
-  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+  protected $databaseChangeType = 'Forminator_Google_Service_Spectrum_DbUpdateSpec';
   protected $databaseChangeDataType = '';
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
   public $kind;
   public $maxContiguousBwHz;
   public $maxTotalBwHz;
   public $needsSpectrumReport;
-  protected $rulesetInfoType = 'Google_Service_Spectrum_RulesetInfo';
+  protected $rulesetInfoType = 'Forminator_Google_Service_Spectrum_RulesetInfo';
   protected $rulesetInfoDataType = '';
-  protected $spectrumSchedulesType = 'Google_Service_Spectrum_SpectrumSchedule';
+  protected $spectrumSchedulesType = 'Forminator_Google_Service_Spectrum_SpectrumSchedule';
   protected $spectrumSchedulesDataType = 'array';
   public $timestamp;
   public $type;
   public $version;
 
 
-  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+  public function setDatabaseChange(Forminator_Google_Service_Spectrum_DbUpdateSpec $databaseChange)
   {
     $this->databaseChange = $databaseChange;
   }
@@ -1015,7 +1015,7 @@ class Google_Service_Spectrum_PawsGetSpectrumResponse extends Google_Collection
   {
     return $this->databaseChange;
   }
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -1055,7 +1055,7 @@ class Google_Service_Spectrum_PawsGetSpectrumResponse extends Google_Collection
   {
     return $this->needsSpectrumReport;
   }
-  public function setRulesetInfo(Google_Service_Spectrum_RulesetInfo $rulesetInfo)
+  public function setRulesetInfo(Forminator_Google_Service_Spectrum_RulesetInfo $rulesetInfo)
   {
     $this->rulesetInfo = $rulesetInfo;
   }
@@ -1097,19 +1097,19 @@ class Google_Service_Spectrum_PawsGetSpectrumResponse extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_PawsInitRequest extends Google_Model
+class Forminator_Google_Service_Spectrum_PawsInitRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
-  protected $locationType = 'Google_Service_Spectrum_GeoLocation';
+  protected $locationType = 'Forminator_Google_Service_Spectrum_GeoLocation';
   protected $locationDataType = '';
   public $type;
   public $version;
 
 
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -1117,7 +1117,7 @@ class Google_Service_Spectrum_PawsInitRequest extends Google_Model
   {
     return $this->deviceDesc;
   }
-  public function setLocation(Google_Service_Spectrum_GeoLocation $location)
+  public function setLocation(Forminator_Google_Service_Spectrum_GeoLocation $location)
   {
     $this->location = $location;
   }
@@ -1143,20 +1143,20 @@ class Google_Service_Spectrum_PawsInitRequest extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_PawsInitResponse extends Google_Model
+class Forminator_Google_Service_Spectrum_PawsInitResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+  protected $databaseChangeType = 'Forminator_Google_Service_Spectrum_DbUpdateSpec';
   protected $databaseChangeDataType = '';
   public $kind;
-  protected $rulesetInfoType = 'Google_Service_Spectrum_RulesetInfo';
+  protected $rulesetInfoType = 'Forminator_Google_Service_Spectrum_RulesetInfo';
   protected $rulesetInfoDataType = '';
   public $type;
   public $version;
 
 
-  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+  public function setDatabaseChange(Forminator_Google_Service_Spectrum_DbUpdateSpec $databaseChange)
   {
     $this->databaseChange = $databaseChange;
   }
@@ -1172,7 +1172,7 @@ class Google_Service_Spectrum_PawsInitResponse extends Google_Model
   {
     return $this->kind;
   }
-  public function setRulesetInfo(Google_Service_Spectrum_RulesetInfo $rulesetInfo)
+  public function setRulesetInfo(Forminator_Google_Service_Spectrum_RulesetInfo $rulesetInfo)
   {
     $this->rulesetInfo = $rulesetInfo;
   }
@@ -1198,22 +1198,22 @@ class Google_Service_Spectrum_PawsInitResponse extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_PawsNotifySpectrumUseRequest extends Google_Collection
+class Forminator_Google_Service_Spectrum_PawsNotifySpectrumUseRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'spectra';
   protected $internal_gapi_mappings = array(
   );
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
-  protected $locationType = 'Google_Service_Spectrum_GeoLocation';
+  protected $locationType = 'Forminator_Google_Service_Spectrum_GeoLocation';
   protected $locationDataType = '';
-  protected $spectraType = 'Google_Service_Spectrum_SpectrumMessage';
+  protected $spectraType = 'Forminator_Google_Service_Spectrum_SpectrumMessage';
   protected $spectraDataType = 'array';
   public $type;
   public $version;
 
 
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -1221,7 +1221,7 @@ class Google_Service_Spectrum_PawsNotifySpectrumUseRequest extends Google_Collec
   {
     return $this->deviceDesc;
   }
-  public function setLocation(Google_Service_Spectrum_GeoLocation $location)
+  public function setLocation(Forminator_Google_Service_Spectrum_GeoLocation $location)
   {
     $this->location = $location;
   }
@@ -1255,7 +1255,7 @@ class Google_Service_Spectrum_PawsNotifySpectrumUseRequest extends Google_Collec
   }
 }
 
-class Google_Service_Spectrum_PawsNotifySpectrumUseResponse extends Google_Model
+class Forminator_Google_Service_Spectrum_PawsNotifySpectrumUseResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1290,23 +1290,23 @@ class Google_Service_Spectrum_PawsNotifySpectrumUseResponse extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_PawsRegisterRequest extends Google_Model
+class Forminator_Google_Service_Spectrum_PawsRegisterRequest extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $antennaType = 'Google_Service_Spectrum_AntennaCharacteristics';
+  protected $antennaType = 'Forminator_Google_Service_Spectrum_AntennaCharacteristics';
   protected $antennaDataType = '';
-  protected $deviceDescType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescDataType = '';
-  protected $deviceOwnerType = 'Google_Service_Spectrum_DeviceOwner';
+  protected $deviceOwnerType = 'Forminator_Google_Service_Spectrum_DeviceOwner';
   protected $deviceOwnerDataType = '';
-  protected $locationType = 'Google_Service_Spectrum_GeoLocation';
+  protected $locationType = 'Forminator_Google_Service_Spectrum_GeoLocation';
   protected $locationDataType = '';
   public $type;
   public $version;
 
 
-  public function setAntenna(Google_Service_Spectrum_AntennaCharacteristics $antenna)
+  public function setAntenna(Forminator_Google_Service_Spectrum_AntennaCharacteristics $antenna)
   {
     $this->antenna = $antenna;
   }
@@ -1314,7 +1314,7 @@ class Google_Service_Spectrum_PawsRegisterRequest extends Google_Model
   {
     return $this->antenna;
   }
-  public function setDeviceDesc(Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
+  public function setDeviceDesc(Forminator_Google_Service_Spectrum_DeviceDescriptor $deviceDesc)
   {
     $this->deviceDesc = $deviceDesc;
   }
@@ -1322,7 +1322,7 @@ class Google_Service_Spectrum_PawsRegisterRequest extends Google_Model
   {
     return $this->deviceDesc;
   }
-  public function setDeviceOwner(Google_Service_Spectrum_DeviceOwner $deviceOwner)
+  public function setDeviceOwner(Forminator_Google_Service_Spectrum_DeviceOwner $deviceOwner)
   {
     $this->deviceOwner = $deviceOwner;
   }
@@ -1330,7 +1330,7 @@ class Google_Service_Spectrum_PawsRegisterRequest extends Google_Model
   {
     return $this->deviceOwner;
   }
-  public function setLocation(Google_Service_Spectrum_GeoLocation $location)
+  public function setLocation(Forminator_Google_Service_Spectrum_GeoLocation $location)
   {
     $this->location = $location;
   }
@@ -1356,18 +1356,18 @@ class Google_Service_Spectrum_PawsRegisterRequest extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_PawsRegisterResponse extends Google_Model
+class Forminator_Google_Service_Spectrum_PawsRegisterResponse extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+  protected $databaseChangeType = 'Forminator_Google_Service_Spectrum_DbUpdateSpec';
   protected $databaseChangeDataType = '';
   public $kind;
   public $type;
   public $version;
 
 
-  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+  public function setDatabaseChange(Forminator_Google_Service_Spectrum_DbUpdateSpec $databaseChange)
   {
     $this->databaseChange = $databaseChange;
   }
@@ -1401,12 +1401,12 @@ class Google_Service_Spectrum_PawsRegisterResponse extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_PawsVerifyDeviceRequest extends Google_Collection
+class Forminator_Google_Service_Spectrum_PawsVerifyDeviceRequest extends Forminator_Google_Collection
 {
   protected $collection_key = 'deviceDescs';
   protected $internal_gapi_mappings = array(
   );
-  protected $deviceDescsType = 'Google_Service_Spectrum_DeviceDescriptor';
+  protected $deviceDescsType = 'Forminator_Google_Service_Spectrum_DeviceDescriptor';
   protected $deviceDescsDataType = 'array';
   public $type;
   public $version;
@@ -1438,21 +1438,21 @@ class Google_Service_Spectrum_PawsVerifyDeviceRequest extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_PawsVerifyDeviceResponse extends Google_Collection
+class Forminator_Google_Service_Spectrum_PawsVerifyDeviceResponse extends Forminator_Google_Collection
 {
   protected $collection_key = 'deviceValidities';
   protected $internal_gapi_mappings = array(
   );
-  protected $databaseChangeType = 'Google_Service_Spectrum_DbUpdateSpec';
+  protected $databaseChangeType = 'Forminator_Google_Service_Spectrum_DbUpdateSpec';
   protected $databaseChangeDataType = '';
-  protected $deviceValiditiesType = 'Google_Service_Spectrum_DeviceValidity';
+  protected $deviceValiditiesType = 'Forminator_Google_Service_Spectrum_DeviceValidity';
   protected $deviceValiditiesDataType = 'array';
   public $kind;
   public $type;
   public $version;
 
 
-  public function setDatabaseChange(Google_Service_Spectrum_DbUpdateSpec $databaseChange)
+  public function setDatabaseChange(Forminator_Google_Service_Spectrum_DbUpdateSpec $databaseChange)
   {
     $this->databaseChange = $databaseChange;
   }
@@ -1494,7 +1494,7 @@ class Google_Service_Spectrum_PawsVerifyDeviceResponse extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_RulesetInfo extends Google_Collection
+class Forminator_Google_Service_Spectrum_RulesetInfo extends Forminator_Google_Collection
 {
   protected $collection_key = 'rulesetIds';
   protected $internal_gapi_mappings = array(
@@ -1539,13 +1539,13 @@ class Google_Service_Spectrum_RulesetInfo extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_SpectrumMessage extends Google_Collection
+class Forminator_Google_Service_Spectrum_SpectrumMessage extends Forminator_Google_Collection
 {
   protected $collection_key = 'frequencyRanges';
   protected $internal_gapi_mappings = array(
   );
   public $bandwidth;
-  protected $frequencyRangesType = 'Google_Service_Spectrum_FrequencyRange';
+  protected $frequencyRangesType = 'Forminator_Google_Service_Spectrum_FrequencyRange';
   protected $frequencyRangesDataType = 'array';
 
 
@@ -1567,18 +1567,18 @@ class Google_Service_Spectrum_SpectrumMessage extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_SpectrumSchedule extends Google_Collection
+class Forminator_Google_Service_Spectrum_SpectrumSchedule extends Forminator_Google_Collection
 {
   protected $collection_key = 'spectra';
   protected $internal_gapi_mappings = array(
   );
-  protected $eventTimeType = 'Google_Service_Spectrum_EventTime';
+  protected $eventTimeType = 'Forminator_Google_Service_Spectrum_EventTime';
   protected $eventTimeDataType = '';
-  protected $spectraType = 'Google_Service_Spectrum_SpectrumMessage';
+  protected $spectraType = 'Forminator_Google_Service_Spectrum_SpectrumMessage';
   protected $spectraDataType = 'array';
 
 
-  public function setEventTime(Google_Service_Spectrum_EventTime $eventTime)
+  public function setEventTime(Forminator_Google_Service_Spectrum_EventTime $eventTime)
   {
     $this->eventTime = $eventTime;
   }
@@ -1596,22 +1596,22 @@ class Google_Service_Spectrum_SpectrumSchedule extends Google_Collection
   }
 }
 
-class Google_Service_Spectrum_Vcard extends Google_Model
+class Forminator_Google_Service_Spectrum_Vcard extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
-  protected $adrType = 'Google_Service_Spectrum_VcardAddress';
+  protected $adrType = 'Forminator_Google_Service_Spectrum_VcardAddress';
   protected $adrDataType = '';
-  protected $emailType = 'Google_Service_Spectrum_VcardTypedText';
+  protected $emailType = 'Forminator_Google_Service_Spectrum_VcardTypedText';
   protected $emailDataType = '';
   public $fn;
-  protected $orgType = 'Google_Service_Spectrum_VcardTypedText';
+  protected $orgType = 'Forminator_Google_Service_Spectrum_VcardTypedText';
   protected $orgDataType = '';
-  protected $telType = 'Google_Service_Spectrum_VcardTelephone';
+  protected $telType = 'Forminator_Google_Service_Spectrum_VcardTelephone';
   protected $telDataType = '';
 
 
-  public function setAdr(Google_Service_Spectrum_VcardAddress $adr)
+  public function setAdr(Forminator_Google_Service_Spectrum_VcardAddress $adr)
   {
     $this->adr = $adr;
   }
@@ -1619,7 +1619,7 @@ class Google_Service_Spectrum_Vcard extends Google_Model
   {
     return $this->adr;
   }
-  public function setEmail(Google_Service_Spectrum_VcardTypedText $email)
+  public function setEmail(Forminator_Google_Service_Spectrum_VcardTypedText $email)
   {
     $this->email = $email;
   }
@@ -1635,7 +1635,7 @@ class Google_Service_Spectrum_Vcard extends Google_Model
   {
     return $this->fn;
   }
-  public function setOrg(Google_Service_Spectrum_VcardTypedText $org)
+  public function setOrg(Forminator_Google_Service_Spectrum_VcardTypedText $org)
   {
     $this->org = $org;
   }
@@ -1643,7 +1643,7 @@ class Google_Service_Spectrum_Vcard extends Google_Model
   {
     return $this->org;
   }
-  public function setTel(Google_Service_Spectrum_VcardTelephone $tel)
+  public function setTel(Forminator_Google_Service_Spectrum_VcardTelephone $tel)
   {
     $this->tel = $tel;
   }
@@ -1653,7 +1653,7 @@ class Google_Service_Spectrum_Vcard extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_VcardAddress extends Google_Model
+class Forminator_Google_Service_Spectrum_VcardAddress extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1715,7 +1715,7 @@ class Google_Service_Spectrum_VcardAddress extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_VcardTelephone extends Google_Model
+class Forminator_Google_Service_Spectrum_VcardTelephone extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -1732,7 +1732,7 @@ class Google_Service_Spectrum_VcardTelephone extends Google_Model
   }
 }
 
-class Google_Service_Spectrum_VcardTypedText extends Google_Model
+class Forminator_Google_Service_Spectrum_VcardTypedText extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );

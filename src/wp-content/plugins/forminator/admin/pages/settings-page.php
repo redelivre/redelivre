@@ -16,7 +16,7 @@ class Forminator_Settings_Page extends Forminator_Admin_Page {
 	 * @var array
 	 */
 	private $addons_data = array();
-	public  $addons_list = array();
+	public $addons_list  = array();
 
 	public function init() {
 		$this->process_request();
@@ -54,8 +54,7 @@ class Forminator_Settings_Page extends Forminator_Admin_Page {
 			return;
 		}
 
-		$nonce = $_POST['forminatorNonce']; // WPCS: CSRF OK
-		if ( ! wp_verify_nonce( $nonce, 'forminatorSettingsRequest' ) ) {
+		if ( ! wp_verify_nonce( $_POST['forminatorNonce'], 'forminatorSettingsRequest' ) ) {
 			return;
 		}
 

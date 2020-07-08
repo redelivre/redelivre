@@ -106,27 +106,26 @@ class Forminator_PayPal extends Forminator_Field {
 		$amount              = self::get_property( 'amount', $field, '0' );
 		$amount_variable     = self::get_property( 'variable', $field, '' );
 		$logo                = self::get_property( 'logo', $field, '' );
-		$company_name        = self::get_property( 'company_name', $field, '' );
-		$product_description = self::get_property( 'product_description', $field, '' );
+		$company_name        = esc_html( self::get_property( 'company_name', $field, '' ) );
+		$product_description = esc_html( self::get_property( 'product_description', $field, '' ) );
 		$customer_email      = self::get_property( 'customer_email', $field, '' );
-		$checkout_label      = self::get_property( 'checkout_label', $field, '' );
-		$collect_address     = self::get_property( 'collect_address', $field, 'none', 'string' );
-		$verify_zip          = self::get_property( 'verify_zip', $field, false, 'bool' );
+		$checkout_label      = esc_html( self::get_property( 'checkout_label', $field, '' ) );
+		$collect_address     = esc_html( self::get_property( 'collect_address', $field, 'none', 'string' ) );
+		$verify_zip          = esc_html( self::get_property( 'verify_zip', $field, false, 'bool' ) );
 		$language            = self::get_property( 'language', $field, 'en' );
 
-
 		$attr = array(
-			'type'                   => 'hidden',
-			'name'                   => $element_name,
-			'id'                     => 'forminator-'.$field_id.'-field',
-			'class'                  => 'forminator-paypal-input',
-			'data-is-payment'        => 'true',
-			'data-payment-type'      => $this->type,
-			'data-currency'          => esc_html( strtolower( $currency ) ),
-			'data-amount-type'       => esc_html( $amount_type ),
-			'data-amount'            => ( 'fixed' === $amount_type ? esc_html( $amount ) : $amount_variable ),
-			'data-label'             => esc_html( $checkout_label ),
-			'data-locale'            => esc_html( $language ),
+			'type'              => 'hidden',
+			'name'              => $element_name,
+			'id'                => 'forminator-' . $field_id . '-field',
+			'class'             => 'forminator-paypal-input',
+			'data-is-payment'   => 'true',
+			'data-payment-type' => $this->type,
+			'data-currency'     => esc_html( strtolower( $currency ) ),
+			'data-amount-type'  => esc_html( $amount_type ),
+			'data-amount'       => ( 'fixed' === $amount_type ? esc_html( $amount ) : $amount_variable ),
+			'data-label'        => esc_html( $checkout_label ),
+			'data-locale'       => esc_html( $language ),
 		);
 
 		if ( ! empty( $logo ) ) {
@@ -275,12 +274,12 @@ class Forminator_PayPal extends Forminator_Field {
 		$mode       = self::get_property( 'mode', $field, 'sandbox' );
 		$currency   = self::get_property( 'currency', $field, $this->get_default_currency() );
 
-		$entry_data['mode']       = $mode;
-		$entry_data['currency']   = $currency;
-		$charge_amount = $this->get_payment_amount( $field, $custom_form, $submitted_data, $pseudo_submitted_data );
+		$entry_data['mode']     = $mode;
+		$entry_data['currency'] = $currency;
+		$charge_amount          = $this->get_payment_amount( $field, $custom_form, $submitted_data, $pseudo_submitted_data );
 
-		$entry_data['amount'] = number_format( $charge_amount, 2 );
-		$entry_data['status']     = 'success';
+		$entry_data['amount']         = number_format( $charge_amount, 2 );
+		$entry_data['status']         = 'success';
 		$entry_data['transaction_id'] = $submitted_data[ $element_id ];
 
 		$transaction_link = 'https://www.paypal.com/activity/payment/' . rawurlencode( $submitted_data[ $element_id ] );
@@ -355,7 +354,6 @@ class Forminator_PayPal extends Forminator_Field {
 		$amount          = self::get_property( 'amount', $field, '0' );
 		$amount_variable = self::get_property( 'variable', $field, '' );
 
-
 		if ( 'fixed' === $amount_type ) {
 			$payment_amount = $amount;
 		} else {
@@ -371,27 +369,24 @@ class Forminator_PayPal extends Forminator_Field {
 						if ( isset( $pseudo_submitted_data[ $amount_var ] ) ) {
 							$payment_amount = $pseudo_submitted_data[ $amount_var ];
 						}
-
-					} else if ( 'currency' === $form_field['type'] ) {
+					} elseif ( 'currency' === $form_field['type'] ) {
 						// Currency field get the amount from submitted_data
-						$field_id             = $form_field['element_id'];
+						$field_id = $form_field['element_id'];
 						if ( isset( $submitted_data[ $field_id ] ) ) {
 							$payment_amount = $submitted_data[ $field_id ];
 						}
 					} else {
 						if ( isset( $fields_collection[ $form_field['type'] ] ) ) {
 							/** @var Forminator_Field $field_object */
-							$field_object   = $fields_collection[ $form_field['type'] ];
+							$field_object = $fields_collection[ $form_field['type'] ];
 
 							$field_id             = $form_field['element_id'];
 							$submitted_field_data = isset( $submitted_data[ $field_id ] ) ? $submitted_data[ $field_id ] : null;
 							$payment_amount       = $field_object->get_calculable_value( $submitted_field_data, $form_field );
 						}
 					}
-
 				}
 			}
-
 		}
 
 		if ( ! is_numeric( $payment_amount ) ) {

@@ -62,6 +62,7 @@ class Forminator_Quizzes extends Forminator_Module {
 	 * @since 1.0
 	 */
 	public function load_front() {
+		include_once dirname(__FILE__) . '/front/front-assets.php';
 		include_once dirname(__FILE__) . '/front/front-result.php';
 		include_once dirname(__FILE__) . '/front/front-render.php';
 		include_once dirname(__FILE__) . '/front/front-action.php';
@@ -71,7 +72,9 @@ class Forminator_Quizzes extends Forminator_Module {
 		new Forminator_QForm_Result();
 
 		add_action( 'wp_ajax_forminator_load_quiz', array( 'Forminator_QForm_Front', 'ajax_load_module' ) );
-		add_action( 'wp_ajax_nopriv_forminator_load_quiz', array( 'Forminator_QForm_Front', 'ajax_load_module' ) );
+
+		add_action( 'wp_ajax_forminator_reload_quiz', array( 'Forminator_QForm_Front', 'ajax_reload_module' ) );
+		add_action( 'wp_ajax_nopriv_forminator_reload_quiz', array( 'Forminator_QForm_Front', 'ajax_reload_module' ) );
 	}
 
 	/**

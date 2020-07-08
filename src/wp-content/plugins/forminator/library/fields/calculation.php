@@ -104,9 +104,9 @@ class Forminator_Calculation extends Forminator_Field {
 		$id          = $id . '-field';
 		$required    = self::get_property( 'required', $field, false );
 		$placeholder = $this->sanitize_value( self::get_property( 'placeholder', $field ) );
-		$value       = self::get_post_data( $name, self::get_property( 'default_value', $field ) );
-		$label       = self::get_property( 'field_label', $field, '' );
-		$description = self::get_property( 'description', $field, '' );
+		$value       = esc_html( self::get_post_data( $name, self::get_property( 'default_value', $field ) ) );
+		$label       = esc_html( self::get_property( 'field_label', $field, '' ) );
+		$description = esc_html( self::get_property( 'description', $field, '' ) );
 		$design      = $this->get_form_style( $settings );
 		$formula     = self::get_property( 'formula', $field, '', 'str' );
 		$is_hidden   = self::get_property( 'hidden', $field, false, 'bool' );
@@ -124,7 +124,6 @@ class Forminator_Calculation extends Forminator_Field {
 			'data-is-hidden' => $is_hidden,
 			'disabled'       => 'disabled', // mark as disabled so this value won't send to backend later
 		);
-
 
 		$html .= '<div class="forminator-field">';
 

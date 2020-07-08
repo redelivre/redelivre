@@ -12,7 +12,12 @@ foreach ( $template_vars as $key => $val ) {
 
 <div class="integration-header">
 
-	<h3 id="dialogTitle2" class="sui-box-title"><?php echo esc_html( sprintf( __( 'Connect %1$s', Forminator::DOMAIN ), 'HubSpot' ) ); ?></h3>
+	<h3 id="dialogTitle2" class="sui-box-title">
+		<?php
+			/* translators: ... */
+			echo esc_html( sprintf( __( 'Connect %1$s', Forminator::DOMAIN ), 'HubSpot' ) );
+		?>
+	</h3>
 
 	<span class="sui-description" style="color: #666666; margin-top: 20px; line-height: 22px;"><?php esc_html_e( "Authenticate your HubSpot account using the button below. Note that you'll be taken to the HubSpot website to grant access to Forminator and then redirected back.", Forminator::DOMAIN ); ?></span>
 

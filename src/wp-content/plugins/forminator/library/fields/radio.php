@@ -126,10 +126,10 @@ class Forminator_Radio extends Forminator_Field {
 		$required    = self::get_property( 'required', $field, false );
 		$ariareq     = 'false';
 		$options     = self::get_property( 'options', $field, array() );
-		$value_type  = trim( $field['value_type'] ? $field['value_type'] : "multiselect" );
+		$value_type  = isset( $field['value_type'] ) ? trim( $field['value_type'] ) : 'multiselect';
 		$post_value  = self::get_post_data( $name, false );
-		$description = self::get_property( 'description', $field, '' );
-		$label       = self::get_property( 'field_label', $field, '' );
+		$description = esc_html( self::get_property( 'description', $field, '' ) );
+		$label       = esc_html( self::get_property( 'field_label', $field, '' ) );
 		$class      = ( 'horizontal' === self::get_property( 'layout', $field, '' ) ) ? 'forminator-radio forminator-radio-inline' : 'forminator-radio';
 		$design      = $this->get_form_style( $settings );
 		$calc_enabled = self::get_property( 'calculations', $field, false, 'bool' );
@@ -142,57 +142,56 @@ class Forminator_Radio extends Forminator_Field {
 
 		$html .= '<fieldset class="forminator-field" role="radiogroup">';
 
-			if ( $label ) {
-				if ( $required ) {
-					$html .= sprintf( '<label class="forminator-label">%s %s</label>', $label, forminator_get_required_icon() );
-				} else {
-					$html .= sprintf( '<label class="forminator-label">%s</label>', $label );
+		if ( $label ) {
+			if ( $required ) {
+				$html .= sprintf( '<label class="forminator-label">%s %s</label>', $label, forminator_get_required_icon() );
+			} else {
+				$html .= sprintf( '<label class="forminator-label">%s</label>', $label );
+			}
+		}
+
+		foreach ( $options as $option ) {
+			$input_id          = $id . '-' . $i . '-' . $uniq_id;
+			$value             = $option['value'] ? esc_html( $option['value'] ) : esc_html( $option['label'] );
+			$option_default    = isset( $option['default'] ) ? filter_var( $option['default'], FILTER_VALIDATE_BOOLEAN ) : false;
+			$selected          = ( $value === $post_value || $option_default ) ? 'checked="checked"' : '';
+			$calculation_value = $calc_enabled && isset( $option['calculation'] ) ? $option['calculation'] : 0.0;
+
+			// Check if Pre-fill parameter used
+			if ( $this->has_prefill( $field ) ) {
+				// We have pre-fill parameter, use its value or $value
+				$prefill = $this->get_prefill( $field, false );
+
+				if ( $prefill === $value ) {
+					$option_default = true;
 				}
 			}
 
-			foreach ( $options as $option ) {
+			$selected = $option_default ? 'checked="checked"' : '';
 
-				$input_id          = $id . '-' . $i . '-' . $uniq_id;
-				$value             = $option['value'] ? $option['value'] : $option['label'];
-				$option_default    = isset( $option['default'] ) ? filter_var( $option['default'], FILTER_VALIDATE_BOOLEAN ) : false;
-				$selected          = ( $value === $post_value || $option_default ) ? 'checked="checked"' : '';
-				$calculation_value = $calc_enabled && isset( $option['calculation'] ) ? $option['calculation'] : 0.0;
+			$html .= '<label for="' . $input_id . '" class="' . $class . '">';
 
-                // Check if Pre-fill parameter used
-                if( $this->has_prefill( $field ) ) {
-                    // We have pre-fill parameter, use its value or $value
-                    $prefill = $this->get_prefill( $field, false );
+				$html .= sprintf(
+					'<input type="radio" name="%s" value="%s" id="%s" data-calculation="%s" %s />',
+					$name,
+					$value,
+					$input_id,
+					$calculation_value,
+					$selected
+				);
 
-                    if( $prefill === $value ) {
-                        $option_default = true;
-                    }
-                }
+				$html .= '<span aria-hidden="true"></span>';
 
-				$selected = $option_default ? 'checked="checked"' : '';
+				$html .= sprintf(
+					'<span>%s</span>',
+					esc_html( $option['label'] )
+				);
 
-				$html .= '<label for="' . $input_id . '" class="' . $class . '">';
+			$html .= '</label>';
 
-					$html .= sprintf(
-						'<input type="radio" name="%s" value="%s" id="%s" data-calculation="%s" %s />',
-						$name,
-						$value,
-						$input_id,
-						$calculation_value,
-						$selected
-					);
+			$i ++;
 
-					$html .= '<span aria-hidden="true"></span>';
-
-					$html .= sprintf(
-						'<span>%s</span>',
-						$option['label']
-					);
-
-				$html .= '</label>';
-
-				$i ++;
-
-			}
+		}
 
 			$html .= self::get_description( $description );
 
@@ -232,7 +231,6 @@ class Forminator_Radio extends Forminator_Field {
 		$id          = self::get_property( 'element_id', $field );
 		$is_required = $this->is_required( $field );
 
-
 		if ( $is_required ) {
 			$required_message = self::get_property( 'required_message', $field, '' );
 			$required_message = apply_filters(
@@ -241,7 +239,7 @@ class Forminator_Radio extends Forminator_Field {
 				$id,
 				$field
 			);
-			$messages         .= '"' . $this->get_id( $field ) . '": "' . forminator_addcslashes( $required_message ) . '",' . "\n";
+			$messages        .= '"' . $this->get_id( $field ) . '": "' . forminator_addcslashes( $required_message ) . '",' . "\n";
 		}
 
 		return $messages;
@@ -325,7 +323,6 @@ class Forminator_Radio extends Forminator_Field {
 				// this one is selected
 				$sums += floatval( $calculation_value );
 			}
-
 		}
 
 		return floatval( $sums );
@@ -348,7 +345,7 @@ class Forminator_Radio extends Forminator_Field {
 		 *
 		 * @return string|int|float
 		 */
-		$calculable_value = apply_filters( "forminator_field_radio_calculable_value", $calculable_value, $submitted_data, $field_settings );
+		$calculable_value = apply_filters( 'forminator_field_radio_calculable_value', $calculable_value, $submitted_data, $field_settings );
 
 		return $calculable_value;
 	}

@@ -275,7 +275,7 @@ abstract class Forminator_Mail {
 	 *
 	 * @return bool
 	 */
-	public function is_routing( $routing, $form_data, $pseudo_submitted_data =array() ) {
+	public function is_routing( $routing, $form_data, $pseudo_submitted_data = array() ) {
 
 		// empty conditions
 		if ( empty( $routing ) ) {
@@ -317,7 +317,7 @@ abstract class Forminator_Mail {
 		}
 
 		$condition_action = isset( $notification['condition_action'] ) ? $notification['condition_action'] : 'send';
-		$condition_rule = isset( $notification['condition_rule'] ) ? $notification['condition_rule'] : 'all';
+		$condition_rule   = isset( $notification['condition_rule'] ) ? $notification['condition_rule'] : 'all';
 
 		$condition_fulfilled = 0;
 
@@ -378,8 +378,8 @@ abstract class Forminator_Mail {
 					// possible input is "1" to be compared with 1
 					return in_array( $condition['value'], $form_field_value ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				}
-				if( is_numeric( $condition['value'] ) ) {
-					return ( ( int ) $form_field_value === ( int ) $condition['value'] );
+				if ( is_numeric( $condition['value'] ) ) {
+					return ( (int) $form_field_value === (int) $condition['value'] );
 				}
 
 				return ( $form_field_value === $condition['value'] );

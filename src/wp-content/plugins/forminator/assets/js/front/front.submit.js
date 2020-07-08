@@ -82,6 +82,39 @@
 			if (success_available.length) {
 				self.focus_to_element(self.$el.find('.forminator-response-message'), true);
 			}
+			$('.def-ajaxloader').hide();
+			var isSent = false;
+			$('body').on('click', '#lostPhone', function (e) {
+				e.preventDefault();
+				var that = $(this);
+				if (isSent === false) {
+					isSent = true;
+					$.ajax({
+						type: 'GET',
+						url: that.attr('href'),
+						beforeSend: function () {
+							that.attr('disabled', 'disabled');
+							$('.def-ajaxloader').show();
+						},
+						success: function (data) {
+							that.removeAttr('disabled');
+							$('.def-ajaxloader').hide();
+							$('.notification').text(data.data.message);
+							isSent = false;
+						}
+					})
+				}
+			});
+
+			$('body').on('click', '.auth-back', function (e) {
+				e.preventDefault();
+				var moduleId  = self.$el.attr( 'id' ),
+					authId    = moduleId + '-authentication',
+					authInput = $( '#' + authId + '-input' )
+				;
+				authInput.attr( 'disabled','disabled' );
+				FUI.closeAuthentication();
+			});
 
 			$('body').on('submit.frontSubmit', this.settings.forminator_selector, function (e) {
 				var $this = $(this),
@@ -185,10 +218,13 @@
 							}
 						});
 
+						var form_type = '';
 						if( typeof self.settings.has_loader !== "undefined" && self.settings.has_loader ) {
 							// Disable form fields
-							form.addClass('forminator-fields-disabled');
-
+							form_type = self.$el.find('input[name="form_type"]').val();
+							if( 'login' !== form_type ) {
+								form.addClass('forminator-fields-disabled');
+							}
 							$target_message.html('<p>' + self.settings.loader_label + '</p>');
 
 							$target_message.removeAttr("aria-hidden")
@@ -209,15 +245,39 @@
 								$this.find('button').attr('disabled', true);
 								$this.trigger('before:forminator:form:submit', formData);
 							},
-							success: function (data) {
+							success: function( data ) {
+
 								// Hide validation errors
-								$this.find('.forminator-error-message').remove();
-								$this.find('.forminator-field').removeClass('forminator-has_error');
+								$this.find( '.forminator-error-message' ).remove();
+								$this.find( '.forminator-field' ).removeClass( 'forminator-has_error' );
 
-								$this.find('button').removeAttr('disabled');
-								$target_message.html('').removeClass('forminator-accessible forminator-error forminator-success');
+								$this.find( 'button' ).removeAttr( 'disabled' );
+								$target_message.html( '' ).removeClass( 'forminator-accessible forminator-error forminator-success' );
 
+								if ( typeof data.data.authentication !== 'undefined' &&
+									( 'show' === data.data.authentication || 'invalid' === data.data.authentication ) ) {
+									var moduleId  = self.$el.attr( 'id' ),
+										authId    = moduleId + '-authentication',
+										authField = $( '#' + authId ),
+										authInput = $( '#' + authId + '-input' )
+									;
+									authField.find('.forminator-authentication-notice').removeClass('error');
+									authField.find('.lost-device-url').attr('href', data.data.lost_url);
+
+									if( 'show' === data.data.authentication ) {
+										authInput.removeAttr( 'disabled' );
+										FUI.openAuthentication( authId, moduleId, authId + '-input' );
+									}
+									if ( 'invalid' === data.data.authentication ) {
+										authField.find('.forminator-authentication-notice').addClass('error');
+										authField.find('.forminator-authentication-notice').html('<p>' + data.data.message + '</p>');
+									}
+
+									return false;
+
+								}
 								var $label_class = data.success ? 'forminator-success' : 'forminator-error';
+
 								if (typeof data.message !== "undefined") {
 									$target_message.removeAttr("aria-hidden")
 										.prop("tabindex", "-1")
@@ -239,11 +299,18 @@
 									}
 								} else {
 									if (typeof data.data !== "undefined") {
-										$target_message.removeAttr("aria-hidden")
-											.prop("tabindex", "-1")
-											.addClass($label_class + ' forminator-show');
-										self.focus_to_element($target_message, $label_class === 'forminator-success');
-										$target_message.html('<p>' + data.data.message + '</p>');
+										var isShowSuccessMessage = true;
+										//Remove background of the success message if form behaviour is redirect and the success message is empty
+										if ( typeof data.data.url !== 'undefined' && '' === $.trim(data.data.message) ) {
+											isShowSuccessMessage = false;
+										}
+										if ( isShowSuccessMessage ) {
+											$target_message.removeAttr("aria-hidden")
+												.prop("tabindex", "-1")
+												.addClass($label_class + ' forminator-show');
+											self.focus_to_element($target_message, $label_class === 'forminator-success');
+											$target_message.html('<p>' + data.data.message + '</p>');
+										}
 
 										if(!data.data.success && data.data.errors.length) {
 											var errors_html = '<ul class="forminator-screen-reader-only">';
@@ -269,7 +336,11 @@
 								if (data.success === true) {
 									// Reset form
 									if ($this[0]) {
-										$this[0].reset();
+										var resetEnabled = self.settings.resetEnabled;
+										if(resetEnabled) {
+											$this[0].reset();
+										}
+
 										if (typeof data.data.select_field !== "undefined") {
 											$.each(data.data.select_field, function (index, value) {
 												if (value.length > 0) {
@@ -383,74 +454,127 @@
 			});
 		},
 
-		handle_submit_quiz: function () {
+		handle_submit_quiz: function( data ) {
+
 			var self = this;
 
-			$('body').on('submit.frontSubmit', this.settings.forminator_selector, function (e) {
-				var form = $(this),
-					ajaxData = []
-				;
+			$( 'body' ).on( 'submit.frontSubmit', this.settings.forminator_selector, function( e ) {
+
+				var form      = $(this),
+					ajaxData  = [],
+					answer    = form.find( '.forminator-answer' ),
+					button    = self.$el.find('.forminator-button'),
+					loadLabel = button.data( 'loading' )
+					;
+
 				e.preventDefault();
+				e.stopPropagation();
 
 				// Enable all inputs
-				self.$el.find('.forminator-has-been-disabled').removeAttr('disabled');
+				self.$el.find( '.forminator-has-been-disabled' ).removeAttr( 'disabled' );
 
 				// Serialize fields, that should be placed here!
 				ajaxData = form.serialize();
 
 				// Disable inputs again
-				self.$el.find('.forminator-has-been-disabled').attr('disabled', 'disabled');
+				self.$el.find( '.forminator-has-been-disabled' ).attr( 'disabled', 'disabled' );
 
-				var $button = self.$el.find('.forminator-button'),
-					loadingLabel = $button.data( 'loading' );
-
-				if (loadingLabel !== '') {
-					$button.text(loadingLabel);
+				// Add loading label.
+				if ( loadLabel !== '' ) {
+					button.text( loadLabel );
 				}
+
+				answer.each( function() {
+
+					var answer = $( this ),
+						input  = answer.find( 'input' ),
+						status = answer.find( '.forminator-answer--status' ),
+						loader = '<i class="forminator-icon-loader forminator-loading"></i>'
+						;
+
+					if ( input.is( ':checked' ) ) {
+
+						if ( 0 === status.html().length ) {
+							status.html( loader );
+						}
+					}
+				});
 
 				$.ajax({
 					type: 'POST',
 					url: window.ForminatorFront.ajaxUrl,
 					data: ajaxData,
-					beforeSend: function () {
-						self.$el.find('button').attr('disabled', 'disabled');
-						form.trigger('before:forminator:quiz:submit', ajaxData);
+					beforeSend: function() {
+						self.$el.find( 'button' ).attr( 'disabled', 'disabled' );
+						form.trigger( 'before:forminator:quiz:submit', ajaxData );
 					},
-					success: function (data) {
-						if (data.success) {
-							if (data.data.type === 'nowrong') {
-								window.history.pushState('forminator', 'Forminator', data.data.result_url);
-								self.$el.find('.forminator-quiz--result').html(data.data.result);
-								self.$el.find('.forminator-answer input').attr('disabled', 'disabled');
-							} else if (data.data.type === 'knowledge') {
-								window.history.pushState('forminator', 'Forminator', data.data.result_url);
-								if (self.$el.find('.forminator-quiz--result').size() > 0) {
-									self.$el.find('.forminator-quiz--result').html(data.data.finalText);
+					success: function( data ) {
+
+						if ( data.success ) {
+
+							if ( data.data.type === 'nowrong' ) {
+
+								window.history.pushState( 'forminator', 'Forminator', data.data.result_url );
+								self.$el.find( '.forminator-quiz--result' ).html( data.data.result );
+								self.$el.find( '.forminator-answer input' ).attr( 'disabled', 'disabled' );
+
+							} else if ( data.data.type === 'knowledge' ) {
+
+								window.history.pushState( 'forminator', 'Forminator', data.data.result_url );
+
+								if ( self.$el.find( '.forminator-quiz--result' ).size() > 0 ) {
+									self.$el.find( '.forminator-quiz--result' ).html( data.data.finalText );
 								}
-								Object.keys(data.data.result).forEach(function (key) {
-									var parent = self.$el.find('#' + key);
-									parent.find('.forminator-question--result').html( '<span>' + data.data.result[key].message + '</span>' );
-									parent.find('.forminator-submit-rightaway').attr('disabled', 'disabled');
 
-									var answerClass,
-										$answer = self.$el.find('[id|="' + data.data.result[key].answer + '"]'),
-										$container = $answer.closest('.forminator-answer')
-									;
+								Object.keys( data.data.result ).forEach( function( key ) {
 
-									if (data.data.result[key].isCorrect) {
-										answerClass = 'forminator-is_correct';
+									var responseClass,
+										responseIcon,
+										parent  = self.$el.find( '#' + key ),
+										result  = parent.find( '.forminator-question--result' ),
+										submit  = parent.find( '.forminator-submit-rightaway' ),
+										answer  = parent.find( '[id|="' + data.data.result[key].answer + '"]' ).closest( '.forminator-answer' ),
+										answers = parent.find( '.forminator-answer input' )
+										;
+
+									// Check if selected answer is right or wrong.
+									if ( data.data.result[key].isCorrect ) {
+										responseClass = 'forminator-is_correct';
+										responseIcon  = '<i class="forminator-icon-check"></i>';
 									} else {
-										answerClass = 'forminator-is_incorrect';
+										responseClass = 'forminator-is_incorrect';
+										responseIcon  = '<i class="forminator-icon-cancel"></i>';
 									}
-									$container.addClass(answerClass);
+
+									// Show question result.
+									result.text( data.data.result[key].message );
+									result.addClass( 'forminator-show' );
+									submit.attr( 'disabled', true );
+									submit.attr( 'aria-disabled', true );
+
+									// Prevent user from changing answer.
+									answers.attr( 'disabled', true );
+									answers.attr( 'aria-disabled', true );
+
+									// Check if selected answer is right or wrong.
+									answer.addClass( responseClass );
+									if ( 0 === answer.find( '.forminator-answer--status' ).html().length ) {
+										answer.find( '.forminator-answer--status' ).html( responseIcon );
+									} else {
+
+										if ( 0 !== answer.find( '.forminator-answer--status .forminator-icon-loader' ).length ) {
+											answer.find( '.forminator-answer--status' ).html( responseIcon );
+										}
+									}
+
 								});
 							}
 
-							form.trigger('forminator:quiz:submit:success', ajaxData);
-						} else {
-							self.$el.find('button').removeAttr('disabled');
+							form.trigger( 'forminator:quiz:submit:success', ajaxData ) ;
 
-							form.trigger('forminator:quiz:submit:failed', ajaxData);
+						} else {
+							self.$el.find( 'button' ).removeAttr( 'disabled' );
+							form.trigger( 'forminator:quiz:submit:failed', ajaxData );
 						}
 					}
 				}).always(function () {
@@ -459,8 +583,21 @@
 				return false;
 			});
 
-			$('body').on('click', '.forminator-result--retake', function () {
-				location.reload();
+			$('body').on('click', '.forminator-result--retake', function (e) {
+				var pageId = self.$el.find('input[name="page_id"]').val();
+				var ajaxData = {
+					action: 'forminator_reload_quiz',
+					pageId: pageId,
+					nonce: self.$el.find('input[name="forminator_nonce"]').val()
+				};
+
+				e.preventDefault();
+
+				$.post( window.ForminatorFront.ajaxUrl, ajaxData, function( response ) {
+					if ( response.success == true && response.html ) {
+						window.location.replace(response.html);
+					}
+				} );
 			});
 		},
 
@@ -508,6 +645,7 @@
 				}
 
 				function response_message( message, custom_class ) {
+
 					// Print message
 					$response.html( '<p>' + message + '</p>' );
 

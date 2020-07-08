@@ -8,14 +8,14 @@ namespace Forminator\Stripe;
  * @property string $id
  * @property string $object
  * @property bool $active
- * @property mixed $attributes
+ * @property \Forminator\Stripe\StripeObject $attributes
  * @property int $created
  * @property string $currency
- * @property string $image
- * @property mixed $inventory
+ * @property string|null $image
+ * @property \Forminator\Stripe\StripeObject $inventory
  * @property bool $livemode
- * @property StripeObject $metadata
- * @property mixed $package_dimensions
+ * @property \Forminator\Stripe\StripeObject $metadata
+ * @property \Forminator\Stripe\StripeObject|null $package_dimensions
  * @property int $price
  * @property string $product
  * @property int $updated
@@ -24,8 +24,7 @@ namespace Forminator\Stripe;
  */
 class SKU extends ApiResource
 {
-
-    const OBJECT_NAME = "sku";
+    const OBJECT_NAME = 'sku';
 
     use ApiOperations\All;
     use ApiOperations\Create;

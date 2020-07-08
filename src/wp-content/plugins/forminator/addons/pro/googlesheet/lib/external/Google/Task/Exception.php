@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-if (!class_exists('Google_Client')) {
+if (!class_exists('Forminator_Google_Client')) {
   require_once dirname(__FILE__) . '/../autoload.php';
 }
 
-class Google_Task_Exception extends Google_Exception
+class Forminator_Google_Task_Exception extends Forminator_Google_Exception
 {
 }

@@ -27,10 +27,10 @@ foreach ( $template_vars as $key => $val ) {
 		<label class="sui-label"><?php esc_html_e( 'Zapier Integration Name', Forminator::DOMAIN ); ?></label>
 		<div class="sui-control-with-icon">
 			<input type="text"
-			       name="name"
-			       placeholder="<?php esc_attr_e( 'Friendly Name', Forminator::DOMAIN ); ?>"
-			       value="<?php echo esc_attr( $vars['name'] ); ?>"
-			       class="sui-form-control"
+				name="name"
+				placeholder="<?php esc_attr_e( 'Friendly Name', Forminator::DOMAIN ); ?>"
+				value="<?php echo esc_attr( $vars['name'] ); ?>"
+				class="sui-form-control"
 			/>
 			<i class="sui-icon-web-globe-world" aria-hidden="true"></i>
 		</div>
@@ -57,11 +57,14 @@ foreach ( $template_vars as $key => $val ) {
 </form>
 <div class="sui-notice sui-notice-warning">
 	<p>
-		<?php echo sprintf(//wpcs xss ok.
-			__( 'Please go %1$shere%2$s if you do not have any ZAP created. Remember to choose %3$s as Trigger App.', Forminator::DOMAIN ),
-			'<a href="' . $vars['new_zap_url'] . '" target="_blank">',
+		<?php
+		echo sprintf(/* translators: ... */
+			esc_html__( 'Please go %1$shere%2$s if you do not have any ZAP created. Remember to choose %3$sWebhooks by Zapier%4$s as Trigger App.', Forminator::DOMAIN ),
+			'<a href="' . esc_url( $vars['new_zap_url'] ) . '" target="_blank">',
 			'</a>',
-			'<strong>Webhooks by Zapier</strong>'
-		); ?>
+			'<strong>',
+			'</strong>'
+		);
+		?>
 	</p>
 </div>

@@ -1,0 +1,56 @@
+/* ELEMENT: Quiz Answers (Container) */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer .forminator-answer--design {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-border-static' ) ) { ?>
+			border-color: <?php echo $properties['knowledge-answer-border-static'] ?>;
+		<?php } else { ?>
+			border-color: #EBEDEB;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-background-static' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-answer-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #FAFAFA;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #EBEDEB;
+		background-color: #FAFAFA;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer .forminator-answer--design:hover,
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer .forminator-answer--design:focus,
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer .forminator-answer--design:active {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-border-hover' ) ) { ?>
+			border-color: <?php echo $properties['knowledge-answer-border-hover'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-background-hover' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-answer-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #F3FBFE;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #17A8E3;
+		background-color: #F3FBFE;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-answer input:checked + .forminator-answer--design {
+	<?php if ( forminator_array_value_exists( $properties, 'knowledge-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-border-active' ) ) { ?>
+			border-color: <?php echo $properties['knowledge-answer-border-active'] ?>;
+		<?php } else { ?>
+			border-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'knowledge-answer-background-active' ) ) { ?>
+			background-color: <?php echo $properties['knowledge-answer-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #F3FBFE;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #17A8E3;
+		background-color: #F3FBFE;
+	<?php } ?>
+}

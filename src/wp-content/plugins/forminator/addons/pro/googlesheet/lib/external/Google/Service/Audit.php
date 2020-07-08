@@ -29,7 +29,7 @@
  *
  * @author Google, Inc.
  */
-class Google_Service_Audit extends Google_Service
+class Forminator_Google_Service_Audit extends Forminator_Google_Service
 {
 
 
@@ -39,16 +39,16 @@ class Google_Service_Audit extends Google_Service
   /**
    * Constructs the internal representation of the Audit service.
    *
-   * @param Google_Client $client
+   * @param Forminator_Google_Client $client
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Forminator_Google_Client $client)
   {
     parent::__construct($client);
     $this->servicePath = 'apps/reporting/audit/v1/';
     $this->version = 'v1';
     $this->serviceName = 'audit';
 
-    $this->activities = new Google_Service_Audit_Activities_Resource(
+    $this->activities = new Forminator_Google_Service_Audit_Activities_Resource(
         $this,
         $this->serviceName,
         'activities',
@@ -117,11 +117,11 @@ class Google_Service_Audit extends Google_Service
  * The "activities" collection of methods.
  * Typical usage is:
  *  <code>
- *   $auditService = new Google_Service_Audit(...);
+ *   $auditService = new Forminator_Google_Service_Audit(...);
  *   $activities = $auditService->activities;
  *  </code>
  */
-class Google_Service_Audit_Activities_Resource extends Google_Service_Resource
+class Forminator_Google_Service_Audit_Activities_Resource extends Forminator_Google_Service_Resource
 {
 
   /**
@@ -148,25 +148,25 @@ class Google_Service_Audit_Activities_Resource extends Google_Service_Resource
    * time.
    * @opt_param string endTime Return events which occured at or before this time.
    * @opt_param string continuationToken Next page URL.
-   * @return Google_Service_Audit_Activities
+   * @return Forminator_Google_Service_Audit_Activities
    */
   public function listActivities($customerId, $applicationId, $optParams = array())
   {
     $params = array('customerId' => $customerId, 'applicationId' => $applicationId);
     $params = array_merge($params, $optParams);
-    return $this->call('list', array($params), "Google_Service_Audit_Activities");
+    return $this->call('list', array($params), "Forminator_Google_Service_Audit_Activities");
   }
 }
 
 
 
 
-class Google_Service_Audit_Activities extends Google_Collection
+class Forminator_Google_Service_Audit_Activities extends Forminator_Google_Collection
 {
   protected $collection_key = 'items';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Google_Service_Audit_Activity';
+  protected $itemsType = 'Forminator_Google_Service_Audit_Activity';
   protected $itemsDataType = 'array';
   public $kind;
   public $next;
@@ -198,23 +198,23 @@ class Google_Service_Audit_Activities extends Google_Collection
   }
 }
 
-class Google_Service_Audit_Activity extends Google_Collection
+class Forminator_Google_Service_Audit_Activity extends Forminator_Google_Collection
 {
   protected $collection_key = 'events';
   protected $internal_gapi_mappings = array(
   );
-  protected $actorType = 'Google_Service_Audit_ActivityActor';
+  protected $actorType = 'Forminator_Google_Service_Audit_ActivityActor';
   protected $actorDataType = '';
-  protected $eventsType = 'Google_Service_Audit_ActivityEvents';
+  protected $eventsType = 'Forminator_Google_Service_Audit_ActivityEvents';
   protected $eventsDataType = 'array';
-  protected $idType = 'Google_Service_Audit_ActivityId';
+  protected $idType = 'Forminator_Google_Service_Audit_ActivityId';
   protected $idDataType = '';
   public $ipAddress;
   public $kind;
   public $ownerDomain;
 
 
-  public function setActor(Google_Service_Audit_ActivityActor $actor)
+  public function setActor(Forminator_Google_Service_Audit_ActivityActor $actor)
   {
     $this->actor = $actor;
   }
@@ -230,7 +230,7 @@ class Google_Service_Audit_Activity extends Google_Collection
   {
     return $this->events;
   }
-  public function setId(Google_Service_Audit_ActivityId $id)
+  public function setId(Forminator_Google_Service_Audit_ActivityId $id)
   {
     $this->id = $id;
   }
@@ -264,7 +264,7 @@ class Google_Service_Audit_Activity extends Google_Collection
   }
 }
 
-class Google_Service_Audit_ActivityActor extends Google_Model
+class Forminator_Google_Service_Audit_ActivityActor extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -308,14 +308,14 @@ class Google_Service_Audit_ActivityActor extends Google_Model
   }
 }
 
-class Google_Service_Audit_ActivityEvents extends Google_Collection
+class Forminator_Google_Service_Audit_ActivityEvents extends Forminator_Google_Collection
 {
   protected $collection_key = 'parameters';
   protected $internal_gapi_mappings = array(
   );
   public $eventType;
   public $name;
-  protected $parametersType = 'Google_Service_Audit_ActivityEventsParameters';
+  protected $parametersType = 'Forminator_Google_Service_Audit_ActivityEventsParameters';
   protected $parametersDataType = 'array';
 
 
@@ -345,7 +345,7 @@ class Google_Service_Audit_ActivityEvents extends Google_Collection
   }
 }
 
-class Google_Service_Audit_ActivityEventsParameters extends Google_Model
+class Forminator_Google_Service_Audit_ActivityEventsParameters extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );
@@ -371,7 +371,7 @@ class Google_Service_Audit_ActivityEventsParameters extends Google_Model
   }
 }
 
-class Google_Service_Audit_ActivityId extends Google_Model
+class Forminator_Google_Service_Audit_ActivityId extends Forminator_Google_Model
 {
   protected $internal_gapi_mappings = array(
   );

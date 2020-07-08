@@ -1,7 +1,7 @@
 <?php
 $section              = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : 'dashboard';
 $nonce                = wp_create_nonce( 'forminator_save_popup_uninstall_settings' );
-$forminator_uninstall = get_option( "forminator_uninstall_clear_data", false );
+$forminator_uninstall = get_option( 'forminator_uninstall_clear_data', false );
 
 ?>
 
@@ -28,18 +28,18 @@ $forminator_uninstall = get_option( "forminator_uninstall_clear_data", false );
 
 							<label for="delete_uninstall-false" class="sui-tab-item<?php echo $forminator_uninstall ? '' : ' active'; ?>">
 								<input type="radio"
-								       name="delete_uninstall"
-								       value="false"
-								       id="delete_uninstall-false"
+									name="delete_uninstall"
+									value="false"
+									id="delete_uninstall-false"
 									<?php echo esc_attr( checked( $forminator_uninstall, false ) ); ?> />
 								<?php esc_html_e( 'Preserve', Forminator::DOMAIN ); ?>
 							</label>
 
 							<label for="delete_uninstall-true" class="sui-tab-item<?php echo $forminator_uninstall ? ' active' : ''; ?>">
 								<input type="radio"
-								       name="delete_uninstall"
-								       value="true"
-								       id="delete_uninstall-true"
+									name="delete_uninstall"
+									value="true"
+									id="delete_uninstall-true"
 									<?php echo esc_attr( checked( $forminator_uninstall, true ) ); ?> />
 								<?php esc_html_e( 'Reset', Forminator::DOMAIN ); ?>
 							</label>
@@ -64,7 +64,7 @@ $forminator_uninstall = get_option( "forminator_uninstall_clear_data", false );
 							data-modal="reset-plugin-settings"
 							data-modal-title="<?php esc_attr_e( 'Reset Plugin', Forminator::DOMAIN ); ?>"
 							data-modal-content="<?php esc_attr_e( 'Are you sure you want to reset the plugin to its default state?', Forminator::DOMAIN ); ?>"
-							data-nonce="<?php echo wp_create_nonce( 'forminatorSettingsRequest' ); // WPCS: XSS ok. ?>"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminatorSettingsRequest' ) ); ?>"
 					>
 
 						<span class="sui-loading-text">
@@ -74,10 +74,12 @@ $forminator_uninstall = get_option( "forminator_uninstall_clear_data", false );
 
 					</button>
 					<span class="sui-description">
-						<?php esc_html_e(
+						<?php
+						esc_html_e(
 							'Note: This will delete all the form/polls/quizzes you currently have and revert all settings to their default state.',
 							Forminator::DOMAIN
-						); ?>
+						);
+						?>
 					</span>
 				</div>
 
@@ -89,8 +91,8 @@ $forminator_uninstall = get_option( "forminator_uninstall_clear_data", false );
 
 			<div class="sui-actions-right">
 
-				<button class="sui-button sui-button-blue wpmudev-action-done" data-title="<?php esc_attr_e( "Data settings", Forminator::DOMAIN ); ?>" data-action="uninstall_settings"
-				        data-nonce="<?php echo esc_attr( $nonce ); ?>">
+				<button class="sui-button sui-button-blue wpmudev-action-done" data-title="<?php esc_attr_e( 'Data settings', Forminator::DOMAIN ); ?>" data-action="uninstall_settings"
+						data-nonce="<?php echo esc_attr( $nonce ); ?>">
 					<span class="sui-loading-text"><?php esc_html_e( 'Save Settings', Forminator::DOMAIN ); ?></span>
 					<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
 				</button>

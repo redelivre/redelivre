@@ -7,15 +7,16 @@ namespace Forminator\Stripe\Terminal;
  *
  * @property string $id
  * @property string $object
- * @property mixed $address
- * @property bool $deleted
+ * @property \Forminator\Stripe\StripeObject $address
  * @property string $display_name
+ * @property bool $livemode
+ * @property \Forminator\Stripe\StripeObject $metadata
  *
  * @package Forminator\Stripe\Terminal
  */
 class Location extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "terminal.location";
+    const OBJECT_NAME = 'terminal.location';
 
     use \Forminator\Stripe\ApiOperations\All;
     use \Forminator\Stripe\ApiOperations\Create;

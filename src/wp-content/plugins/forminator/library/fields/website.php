@@ -117,9 +117,9 @@ class Forminator_Website extends Forminator_Field {
 		$required    = $this->get_property( 'required', $field, false );
 		$ariareq     = 'false';
 		$placeholder = $this->sanitize_value( $this->get_property( 'placeholder', $field ) );
-		$value       = self::get_post_data( $name, $this->get_property( 'default', $field ) );
-		$label       = $this->get_property( 'field_label', $field, '' );
-		$description = $this->get_property( 'description', $field, '' );
+		$value       = esc_html( self::get_post_data( $name, $this->get_property( 'default', $field ) ) );
+		$label       = esc_html( $this->get_property( 'field_label', $field, '' ) );
+		$description = esc_html( $this->get_property( 'description', $field, '' ) );
 		$design      = $this->get_form_style( $settings );
 
 		if ( (bool) $required ) {
@@ -127,10 +127,10 @@ class Forminator_Website extends Forminator_Field {
 		}
 
 		// Check if Pre-fill parameter used
-		if( $this->has_prefill( $field ) ) {
-		    // We have pre-fill parameter, use its value or $value
-            $value = $this->get_prefill( $field, $value );
-        }
+		if ( $this->has_prefill( $field ) ) {
+			// We have pre-fill parameter, use its value or $value
+			$value = $this->get_prefill( $field, $value );
+		}
 
 		$website = array(
 			'type'          => 'url',
@@ -214,7 +214,6 @@ class Forminator_Website extends Forminator_Field {
 	 * @return string
 	 */
 	public function get_validation_messages() {
-
 		$field              = $this->field;
 		$id                 = $this->get_id( $field );
 		$validation_enabled = self::get_property( 'validation', $field, false, 'bool' );
@@ -236,7 +235,7 @@ class Forminator_Website extends Forminator_Field {
 				$field,
 				$id
 			);
-			$messages         .= '"required": "' . forminator_addcslashes( $required_message ) . '",' . "\n";
+			$messages        .= '"required": "' . forminator_addcslashes( $required_message ) . '",' . "\n";
 		}
 
 		$validation_message = ! empty( $validation_message ) ? $validation_message : __( 'Please enter a valid Website URL (e.g. https://premium.wpmudev.org/).', Forminator::DOMAIN );

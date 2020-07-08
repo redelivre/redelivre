@@ -121,29 +121,29 @@ class Forminator_Email extends Forminator_Field {
 		$required    = self::get_property( 'required', $field, false );
 		$ariareq     = 'false';
 		$placeholder = $this->sanitize_value( self::get_property( 'placeholder', $field ) );
-		$value       = self::get_property( 'value', $field );
-		$label       = self::get_property( 'field_label', $field );
-		$description = self::get_property( 'description', $field );
+		$value       = esc_html( self::get_property( 'value', $field ) );
+		$label       = esc_html( self::get_property( 'field_label', $field ) );
+		$description = esc_html( self::get_property( 'description', $field ) );
 
 		if ( (bool) $required ) {
 			$ariareq = 'true';
 		}
 
-        // Check if Pre-fill parameter used
-        if( $this->has_prefill( $field ) ) {
-            // We have pre-fill parameter, use its value or $value
-            $value = $this->get_prefill( $field, $value );
-        }
+		// Check if Pre-fill parameter used
+		if ( $this->has_prefill( $field ) ) {
+			// We have pre-fill parameter, use its value or $value
+			$value = $this->get_prefill( $field, $value );
+		}
 
 		$email_attr = array(
-			'type'            => 'email',
-			'name'            => $name,
-            'value'           => $value,
-			'placeholder'     => $placeholder,
-			'id'              => $id,
-			'class'           => 'forminator-input forminator-email--field',
-			'data-required'   => $required,
-			'aria-required'   => $ariareq,
+			'type'          => 'email',
+			'name'          => $name,
+			'value'         => $value,
+			'placeholder'   => $placeholder,
+			'id'            => $id,
+			'class'         => 'forminator-input forminator-email--field',
+			'data-required' => $required,
+			'aria-required' => $ariareq,
 		);
 
 		$autofill_markup = $this->get_element_autofill_markup_attr( self::get_property( 'element_id', $field ), $this->form_settings );
@@ -212,8 +212,9 @@ class Forminator_Email extends Forminator_Field {
 					$field,
 					'required_message',
 					'',
-					__( 'This field is required. Please input a valid email', Forminator::DOMAIN ) );
-			$messages                       .= '"required": "' . forminator_addcslashes( $default_required_error_message ) . '",' . "\n";
+					__( 'This field is required. Please input a valid email', Forminator::DOMAIN )
+				);
+			$messages                      .= '"required": "' . forminator_addcslashes( $default_required_error_message ) . '",' . "\n";
 		}
 
 		$validation_message = apply_filters_deprecated(
@@ -266,8 +267,8 @@ class Forminator_Email extends Forminator_Field {
 					$field,
 					'required_message',
 					'',
-					__( 'This field is required. Please input a valid email', Forminator::DOMAIN ) );
-
+					__( 'This field is required. Please input a valid email', Forminator::DOMAIN )
+				);
 
 			if ( empty( $data ) ) {
 				$this->validation_message[ $id ] = $required_error_message;

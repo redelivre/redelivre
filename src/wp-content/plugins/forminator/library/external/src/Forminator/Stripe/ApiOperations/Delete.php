@@ -13,7 +13,9 @@ trait Delete
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @return \Forminator\Stripe\ApiResource The deleted resource.
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return static The deleted resource.
      */
     public function delete($params = null, $opts = null)
     {

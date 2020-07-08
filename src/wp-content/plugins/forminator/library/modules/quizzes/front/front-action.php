@@ -145,16 +145,19 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 		$forminator_mail_sender = new Forminator_Quiz_Front_Mail();
 		$forminator_mail_sender->process_mail( $model, $post_data, $entry );
 
-
 		// dont push history on preview
 		$result_url = ! $is_preview ? $result->build_permalink() : '';
 
 		//replace tags if any
-		$final_res  = forminator_replace_quiz_form_data( $final_res, $model, $post_data, $entry );
+		foreach ( array( 'title', 'description' ) as $key ) {
+			if ( isset( $final_res[ $key ] ) ) {
+				$final_res[ $key ] = forminator_replace_quiz_form_data( $final_res[ $key ], $model, $post_data, $entry );
+			}
+		}
 
 		wp_send_json_success(
 			array(
-				'result'     => $this->_render_nowrong_result( $model, $final_res, $post_data ),
+				'result'     => $this->_render_nowrong_result( $model, $final_res, $post_data, $entry ),
 				'result_url' => $result_url,
 				'type'       => 'nowrong',
 			)
@@ -166,20 +169,25 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 	 *
 	 * @since 1.0
 	 *
-	 * @param Forminator_Quiz_Form_Model $model
-	 * @param    array                   $result
-	 * @param    array                   $data
+	 * @param Forminator_Quiz_Form_Model      $model
+	 * @param    array                        $result
+	 * @param    array                        $data
+	 * @param    Forminator_Form_Entry_Model  $entry
 	 *
 	 * @return string
 	 */
-	private function _render_nowrong_result( $model, $result, $data = array() ) {
+	private function _render_nowrong_result( $model, $result, $data = array(), Forminator_Form_Entry_Model $entry ) {
 		ob_start();
-
-		$theme = $model->settings['forminator-quiz-theme'];
+		$description = '';
+		$theme       = isset( $model->settings['forminator-quiz-theme'] ) ? $model->settings['forminator-quiz-theme'] : '';
 
 		if ( ! $theme ) {
 			$theme = 'default';
 		}
+		//replace tags if any
+        if( isset( $result['description'] ) && ! empty( $result['description'] ) ) {
+            $description = forminator_replace_quiz_form_data( $result['description'], $model, $data, $entry );
+        }
 		?>
 
 		<?php if ( 'clean' === $theme ) { ?>
@@ -188,12 +196,12 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 
 				<p><strong><?php echo esc_html( $result['title'] ); ?></strong></p>
 
-				<?php if ( isset( $result['description'] ) && ! empty( $result['description'] ) ) : ?>
-					<p><?php echo( $result['description'] ); // wpcs xss ok. ?></p>
+				<?php if ( ! empty( $description ) ) : ?>
+					<p><?php echo $description; // wpcs xss ok. ?></p>
 				<?php endif; ?>
 
 				<?php if ( isset( $result['image'] ) && ! empty( $result['image'] ) ) : ?>
-					<img src="<?php echo esc_html( $result['image'] ); ?>" aria-hidden="true" class="forminator-result--image"/>
+					<img src="<?php echo esc_html( $result['image'] ); ?>" aria-hidden="true" class="forminator-result--image" />
 				<?php endif; ?>
 
 				<button class="forminator-result--retake" type="button"><i class="wpdui-icon wpdui-icon-refresh" aria-hidden="true"></i> <?php esc_html_e( "Retake Quiz", Forminator::DOMAIN ); ?>
@@ -208,20 +216,20 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 				<?php if ( 'material' === $theme ) { ?>
 
 					<?php if ( isset( $result['image'] ) && ! empty( $result['image'] ) ) { ?>
-						<img src="<?php echo esc_html( $result['image'] ); ?>" aria-hidden="true" class="forminator-result--image"/>
+						<img src="<?php echo esc_html( $result['image'] ); ?>" class="forminator-result--image" aria-hidden="true" />
 					<?php } ?>
 
 					<div class="forminator-result--content">
 
 						<p class="forminator-result--title"><?php echo esc_html( $result['title'] ); ?></p>
 
-						<?php if ( isset( $result['description'] ) && ! empty( $result['description'] ) ) : ?>
-							<div class="forminator-result--description"><?php echo( $result['description'] ); // wpcs xss ok. ?></div>
+						<?php if ( ! empty( $description ) ) : ?>
+							<div class="forminator-result--description"><?php echo $description; // wpcs xss ok. ?></div>
 						<?php endif; ?>
 
-						<hr>
+						<hr />
 
-						<button class="forminator-result--retake" type="button"><?php esc_html_e( "Retake Quiz", Forminator::DOMAIN ); ?></button>
+						<button class="forminator-button-refresh forminator-result--retake" type="button"><?php esc_html_e( 'Retake Quiz', Forminator::DOMAIN ); ?></button>
 
 					</div>
 
@@ -231,9 +239,9 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 
 						<span class="forminator-result--quiz-name"><?php echo forminator_get_form_name( $model->id, 'quiz' ); // WPCS: XSS ok. ?></span>
 
-						<button class="forminator-result--retake" type="button">
-							<i class="wpdui-icon wpdui-icon-refresh" aria-hidden="true"></i>
-							<?php esc_html_e( "Retake Quiz", Forminator::DOMAIN ); ?>
+						<button class="forminator-button forminator-button-refresh forminator-result--retake" type="button">
+							<i class="forminator-icon-refresh" aria-hidden="true"></i>
+							<span><?php esc_html_e( "Retake Quiz", Forminator::DOMAIN ); ?></span>
 						</button>
 
 					</div>
@@ -244,14 +252,16 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 
 							<p class="forminator-result--title"><?php echo esc_html( $result['title'] ); ?></p>
 
-							<?php if ( isset( $result['description'] ) && ! empty( $result['description'] ) ): ?>
-								<div class="forminator-result--description"><?php echo( $result['description'] ); // wpcs xss ok. ?></div>
+							<?php if ( ! empty( $description ) ): ?>
+								<div class="forminator-result--description"><?php echo $description; // wpcs xss ok. ?></div>
 							<?php endif; ?>
 
 						</div>
 
 						<?php if ( isset( $result['image'] ) && ! empty( $result['image'] ) ) { ?>
-							<img src="<?php echo esc_html( $result['image'] ); ?>" aria-hidden="true" class="forminator-result--image"/>
+							<div class="forminator-result--image" style="background-image: url('<?php echo esc_html( $result['image'] ); ?>');" aria-hidden="true">
+								<img src="<?php echo esc_html( $result['image'] ); ?>" />
+							</div>
 						<?php } ?>
 
 					</div>
@@ -272,24 +282,33 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 			if ( $is_fb || $is_tw || $is_li ):
                 $result_message = forminator_get_social_message( $model->settings, $model->settings['formName'], $result['title'], $data );
 				?>
-				<div class="forminator-social--share">
+				<div class="forminator-quiz--social">
 					<p class="forminator-social--text"><?php esc_html_e( "Share your results", Forminator::DOMAIN ); ?></p>
 					<ul class="forminator-social--icons"
 						data-message="<?php echo esc_html( $result_message ); ?>"
                         data-url="<?php echo isset( $data['current_url'] ) ? esc_url( $data['current_url'] ) : forminator_get_current_url(); ?>">
 						<?php if ( $is_fb ): ?>
 							<li class="forminator-social--icon">
-								<a href="#" data-social="facebook" class="wpdui-icon wpdui-icon-social-facebook" aria-label="<?php esc_html_e( 'Share on Facebook', Forminator::DOMAIN ); ?>"></a>
+								<a href="#" data-social="facebook" aria-label="<?php esc_html_e( 'Share on Facebook', Forminator::DOMAIN ); ?>">
+									<i class="forminator-icon-social-facebook" aria-hidden="true"></i>
+									<span class="forminator-screen-reader-only"><?php esc_html_e( 'Share on Facebook', Forminator::DOMAIN ); ?></span>
+								</a>
 							</li>
 						<?php endif; ?>
 						<?php if ( $is_tw ): ?>
 							<li class="forminator-social--icon">
-								<a href="#" data-social="twitter" class="wpdui-icon wpdui-icon-social-twitter" aria-label="<?php esc_html_e( 'Share on Twitter', Forminator::DOMAIN ); ?>"></a>
+								<a href="#" data-social="twitter" aria-label="<?php esc_html_e( 'Share on Twitter', Forminator::DOMAIN ); ?>">
+									<i class="forminator-icon-social-twitter" aria-hidden="true"></i>
+									<span class="forminator-screen-reader-only"><?php esc_html_e( 'Share on Twitter', Forminator::DOMAIN ); ?></span>
+								</a>
 							</li>
 						<?php endif; ?>
 						<?php if ( $is_li ): ?>
 							<li class="forminator-social--icon">
-								<a href="#" data-social="linkedin" class="wpdui-icon wpdui-icon-social-linkedin" aria-label="<?php esc_html_e( 'Share on LinkedIn', Forminator::DOMAIN ); ?>"></a>
+								<a href="#" data-social="linkedin" aria-label="<?php esc_html_e( 'Share on LinkedIn', Forminator::DOMAIN ); ?>">
+									<i class="forminator-icon-social-linkedin" aria-hidden="true"></i>
+									<span class="forminator-screen-reader-only"><?php esc_html_e( 'Share on LinkedIn', Forminator::DOMAIN ); ?></span>
+								</a>
 							</li>
 						<?php endif; ?>
 					</ul>
@@ -512,15 +531,22 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 		ob_start();
 		?>
 
-		<div class="forminator-quiz--summary"><?php echo wpautop( $text, true ); // WPCS: XSS ok. ?></div>
+		<div role="alert" class="forminator-quiz--summary"><?php echo wpautop( $text, true ); // WPCS: XSS ok. ?></div>
+
 		<?php
-		$is_enabled = isset( $model->settings['enable-share'] ) && "on" === $model->settings['enable-share'];
+		$is_enabled = true;
 		$is_fb = isset( $model->settings['facebook'] ) && filter_var( $model->settings['facebook'], FILTER_VALIDATE_BOOLEAN );
 		$is_tw = isset( $model->settings['twitter'] ) && filter_var( $model->settings['twitter'], FILTER_VALIDATE_BOOLEAN );
 		$is_li = isset( $model->settings['linkedin'] ) && filter_var( $model->settings['linkedin'], FILTER_VALIDATE_BOOLEAN );
 
-		if( $is_enabled ) {
-			if ( $is_fb || $is_tw || $is_li ):
+		if ( isset( $model->settings['enable-share'] ) && "off" === $model->settings['enable-share'] ) {
+			$is_enabled = false;
+		}
+
+		if ( true === $is_enabled ) {
+
+			if ( $is_fb || $is_tw || $is_li ) :
+
                 $result = $right_answers . '/' . $total_answers;
                 $result_message = forminator_get_social_message( $model->settings, $model->settings['formName'], $result, $data );
 				?>
@@ -544,7 +570,9 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 					<?php endif; ?>
 				</ul>
 			<?php endif; ?>
+
 		<?php } ?>
+
 		<?php
 		$knowledge_result_html = ob_get_clean();
 

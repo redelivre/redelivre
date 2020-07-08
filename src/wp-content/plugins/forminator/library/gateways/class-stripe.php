@@ -102,8 +102,24 @@ class Forminator_Gateway_Stripe {
 		$stripe_ca_bundle_path = apply_filters( 'forminator_payments_stripe_ca_bundle_path', ABSPATH . WPINC . '/certificates/ca-bundle.crt' );
 
 		\Forminator\Stripe\Stripe::setCABundlePath( $stripe_ca_bundle_path );
-		\Forminator\Stripe\Stripe::setAppInfo( "Forminator", FORMINATOR_VERSION, "https://premium.wpmudev.org" );
+	}
 
+	/**
+	 * Set Stripe APP info
+	 *
+	 * @since 1.12
+	 */
+	public static function set_stripe_app_info() {
+		// Send our plugin info over with the API request.
+		\Forminator\Stripe\Stripe::setAppInfo(
+			'WordPress Forminator',
+			FORMINATOR_VERSION,
+			FORMINATOR_PRO_URL,
+			FORMINATOR_STRIPE_PARTNER_ID
+		);
+
+		// Send the API info over.
+		\Forminator\Stripe\Stripe::setApiVersion( FORMINATOR_STRIPE_LIB_DATE );
 	}
 
 	/**
@@ -123,6 +139,8 @@ class Forminator_Gateway_Stripe {
 
 		try {
 			\Forminator\Stripe\Stripe::setApiKey( $secret );
+			self::set_stripe_app_info();
+
 			$data = \Forminator\Stripe\Account::retrieve();
 
 			forminator_maybe_log( __METHOD__, $data );
@@ -137,7 +155,7 @@ class Forminator_Gateway_Stripe {
 	}
 
 	public static function is_available() {
-		$min_php_version = apply_filters( 'forminator_payments_stripe_min_php_version', '5.4.0' );
+		$min_php_version = apply_filters( 'forminator_payments_stripe_min_php_version', '5.6.0' );
 		$loaded          = forminator_payment_lib_stripe_version_loaded();
 
 		if ( version_compare( PHP_VERSION, $min_php_version, 'lt' ) ) {
@@ -239,6 +257,7 @@ class Forminator_Gateway_Stripe {
 	public function charge( $data ) {
 		$api_key = $this->is_live() ? $this->live_secret : $this->test_secret;
 		\Forminator\Stripe\Stripe::setApiKey( $api_key );
+		self::set_stripe_app_info();
 
 		return \Forminator\Stripe\Charge::create( $data );
 	}
@@ -252,6 +271,7 @@ class Forminator_Gateway_Stripe {
 	public function retrieve_info_from_token( $token ) {
 		$api_key = $this->is_live() ? $this->live_secret : $this->test_secret;
 		\Forminator\Stripe\Stripe::setApiKey( $api_key );
+		self::set_stripe_app_info();
 
 		return \Forminator\Stripe\Token::retrieve( $token );
 	}

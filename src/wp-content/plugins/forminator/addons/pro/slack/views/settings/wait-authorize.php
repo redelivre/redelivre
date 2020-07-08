@@ -1,8 +1,8 @@
 <?php
 // defaults
 $vars = array(
-	'auth_url'          => '',
-	'token'             => '',
+	'auth_url' => '',
+	'token'    => '',
 );
 /** @var array $template_vars */
 foreach ( $template_vars as $key => $val ) {

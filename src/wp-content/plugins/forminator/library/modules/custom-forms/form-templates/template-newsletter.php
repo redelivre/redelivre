@@ -80,6 +80,7 @@ class Forminator_Template_Newsletter extends Forminator_Template {
 	 */
 	public function settings() {
 		return array(
+			"form-type"                     => "default",
 			"submission-behaviour"          => "behaviour-thankyou",
 			"thankyou-message"              => __( "Thank you for contacting us, we will be in touch shortly.", Forminator::DOMAIN ),
 			'submitData'                    => array(

@@ -13,7 +13,7 @@ function forminator_get_all_fonts() {
 	$cached_fonts = forminator_cached_fonts();
 
 	return ! empty( $cached_fonts )
-	 	? json_decode( $cached_fonts, true ) : forminator_load_from_google();
+		? json_decode( $cached_fonts, true ) : forminator_load_from_google();
 }
 
 /**
@@ -36,7 +36,7 @@ function forminator_load_from_google() {
 function forminator_get_font_families( $is_object ) {
 	$families = forminator_get_all_fonts();
 
-	if( $is_object ) {
+	if ( $is_object ) {
 		return $families;
 	}
 

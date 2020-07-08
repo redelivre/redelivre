@@ -97,24 +97,24 @@ class Forminator_Html extends Forminator_Field {
 	public function markup( $field, $settings = array() ) {
 
 		$html    = '';
-		$label   = self::get_property( 'field_label', $field );
+		$label   = esc_html( self::get_property( 'field_label', $field ) );
 		$id      = self::get_property( 'element_id', $field );
 		$form_id = false;
 
 		$html .= '<div class="forminator-field forminator-merge-tags">';
 
-			if ( $label ) {
+		if ( $label ) {
 
-				$html .= sprintf(
-					'<label class="forminator-label">%s</label>',
-					$label
-				);
-			}
+			$html .= sprintf(
+				'<label class="forminator-label">%s</label>',
+				$label
+			);
+		}
 
 			// Check if form_id exist
-			if( isset( $settings['form_id'] ) ) {
-				$form_id = $settings['form_id'];
-			}
+		if ( isset( $settings['form_id'] ) ) {
+			$form_id = $settings['form_id'];
+		}
 
 			$html .= forminator_replace_variables(
 				self::get_property( 'variations', $field ),

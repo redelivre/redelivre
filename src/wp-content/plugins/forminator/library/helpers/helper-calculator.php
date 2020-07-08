@@ -138,7 +138,6 @@ function forminator_calculator_maybe_replace_fields_on_formula( $formula, $submi
 
 			$field_id = $field_ids[ $key ];
 
-
 			$field_settings = $custom_form->get_formatted_array_field( $field_id );
 
 			if ( is_null( $field_settings ) || ! is_array( $field_settings ) ) {

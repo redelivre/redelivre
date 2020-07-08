@@ -67,7 +67,7 @@ class Forminator_GdprCheckbox extends Forminator_Field {
 		return array(
 			'required'         => 'true',
 			'field_label'      => 'GDPR',
-			'gdpr_description' => __( 'Yes, I agree with <a href="#">privacy policy</a>, <a href="#">terms and condition</a>', Forminator::DOMAIN ),
+			'gdpr_description' => __( 'Yes, I agree with the <a href="#">privacy policy</a> and <a href="#">terms and conditions</a>.', Forminator::DOMAIN ),
 			'required_message' => __( 'This field is required. Please check it.', Forminator::DOMAIN ),
 		);
 	}
@@ -105,21 +105,21 @@ class Forminator_GdprCheckbox extends Forminator_Field {
 		$html        = '';
 		$id          = self::get_property( 'element_id', $field );
 		$name        = $id;
-		$description = self::get_property( 'gdpr_description', $field );
+		$description = wp_kses_post( self::get_property( 'gdpr_description', $field ) );
 		$id          = 'forminator-field-' . $id . '-' . uniqid();
-		$label       = self::get_property( 'field_label', $field );
+		$label       = esc_html( self::get_property( 'field_label', $field ) );
 
 		$html .= '<div class="forminator-field">';
 
-			if ( $label ) {
+		if ( $label ) {
 
-				$html .= sprintf(
-					'<label for="%s" class="forminator-label">%s %s</label>',
-					$id,
-					$label,
-					forminator_get_required_icon()
-				);
-			}
+			$html .= sprintf(
+				'<label for="%s" class="forminator-label">%s %s</label>',
+				$id,
+				$label,
+				forminator_get_required_icon()
+			);
+		}
 
 			$html .= sprintf( '<label for="%s" class="forminator-checkbox">', $id );
 
@@ -162,9 +162,9 @@ class Forminator_GdprCheckbox extends Forminator_Field {
 	 * @return string
 	 */
 	public function get_validation_messages() {
-		$messages = '';
-		$field    = $this->field;
-		$id       = $this->get_id( $field );
+		$messages         = '';
+		$field            = $this->field;
+		$id               = $this->get_id( $field );
 		$required_message = self::get_property( 'required_message', $field, '' );
 		$required_message = apply_filters(
 			'forminator_gdprcheckbox_field_required_validation_message',
@@ -172,7 +172,7 @@ class Forminator_GdprCheckbox extends Forminator_Field {
 			$id,
 			$field
 		);
-		$messages         .= '"' . $this->get_id( $field ) . '": {"required":"' . forminator_addcslashes( $required_message ) . '"},' . "\n";
+		$messages        .= '"' . $this->get_id( $field ) . '": {"required":"' . forminator_addcslashes( $required_message ) . '"},' . "\n";
 
 		return $messages;
 	}

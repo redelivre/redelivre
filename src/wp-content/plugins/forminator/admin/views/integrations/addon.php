@@ -10,14 +10,14 @@ $show_action = false;
 
 $icon_class_action = 'sui-icon-plus';
 $tooltip           = __( 'Configure Integration', Forminator::DOMAIN );
-$action            = 'forminator_addon_settings';
+$action_addon      = 'forminator_addon_settings';
 
 $multi_id   = 0;
 $multi_name = false;
 
 if ( ! empty( $form_id ) ) {
 
-	$action            = 'forminator_addon_form_settings';
+	$action_addon      = 'forminator_addon_form_settings';
 	$show_action       = false;
 	$icon_class_action = 'sui-icon-plus';
 
@@ -52,7 +52,6 @@ if ( ! empty( $form_id ) ) {
 				$tooltip           = __( 'Activate App', Forminator::DOMAIN );
 			}
 		}
-
 	}
 } else {
 
@@ -101,7 +100,12 @@ $pro_url_target = '_blank';
 <?php endif; ?></td>
 */ ?>
 
-<tr class="<?php if ( ! $is_active && true === $advertising ) { echo 'fui-app--promote '; } ?><?php echo( $is_active ? 'fui-integration-enabled' : '' ); ?>">
+<tr class="
+<?php
+if ( ! $is_active && true === $advertising ) {
+	echo 'fui-app--promote '; }
+?>
+<?php echo( $is_active ? 'fui-integration-enabled' : '' ); ?>">
 
 	<td class="sui-table-item-title">
 
@@ -135,7 +139,7 @@ $pro_url_target = '_blank';
 
 						<span><?php echo esc_html( $addon['title'] ); ?><?php if ( $show_pro_info && $addon['is_pro'] ) : ?>
 							<span class="sui-tag sui-tag-pro">
-								<?php esc_html_e( "PRO", Forminator::DOMAIN ); ?>
+								<?php esc_html_e( 'PRO', Forminator::DOMAIN ); ?>
 							</span>
 						<?php endif; ?></span>
 
@@ -150,8 +154,8 @@ $pro_url_target = '_blank';
 								data-title="<?php echo esc_attr( $addon['title'] ); ?>"
 								data-image="<?php echo esc_attr( $addon['image'] ); ?>"
 								data-imagex2="<?php echo esc_attr( $addon['image_x2'] ); ?>"
-								data-nonce="<?php echo wp_create_nonce( 'forminator_addon_action' ); // WPCS: XSS ok. ?>"
-								data-action="<?php echo esc_attr( $action ); ?>"
+								data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_addon_action' ) ); ?>"
+								data-action="<?php echo esc_attr( $action_addon ); ?>"
 								data-form-id="<?php echo esc_attr( $form_id ); ?>"
 								data-multi-id="<?php echo esc_attr( $multi_id ); ?>">
 								<i class="<?php echo esc_attr( $icon_class_action ); ?>" aria-hidden="true"></i>
@@ -189,7 +193,7 @@ $pro_url_target = '_blank';
 
 				<span><?php echo esc_html( $addon['title'] ); ?><?php if ( $show_pro_info && $addon['is_pro'] ) : ?>
 					<span class="sui-tag sui-tag-pro">
-						<?php esc_html_e( "PRO", Forminator::DOMAIN ); ?>
+						<?php esc_html_e( 'PRO', Forminator::DOMAIN ); ?>
 					</span>
 				<?php endif; ?></span>
 
@@ -200,8 +204,8 @@ $pro_url_target = '_blank';
 						data-title="<?php echo esc_attr( $addon['title'] ); ?>"
 						data-image="<?php echo esc_attr( $addon['image'] ); ?>"
 						data-imagex2="<?php echo esc_attr( $addon['image_x2'] ); ?>"
-						data-nonce="<?php echo wp_create_nonce( 'forminator_addon_action' ); // WPCS: XSS ok. ?>"
-						data-action="<?php echo esc_attr( $action ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_addon_action' ) ); ?>"
+						data-action="<?php echo esc_attr( $action_addon ); ?>"
 						data-form-id="<?php echo esc_attr( $form_id ); ?>"
 						data-multi-id="<?php echo esc_attr( $multi_id ); ?>">
 						<i class="<?php echo esc_attr( $icon_class_action ); ?>" aria-hidden="true"></i>

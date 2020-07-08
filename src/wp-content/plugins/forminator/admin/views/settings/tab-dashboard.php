@@ -1,6 +1,5 @@
 <?php
 $section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : 'dashboard';
-
 $nonce = wp_create_nonce( 'forminator_save_dashboard_settings' );
 ?>
 
@@ -71,7 +70,7 @@ $nonce = wp_create_nonce( 'forminator_save_dashboard_settings' );
 
 			<div class="sui-actions-right">
 
-				<button class="sui-button sui-button-blue wpmudev-action-done" data-title="<?php esc_attr_e( "General settings", Forminator::DOMAIN ); ?>" data-action="dashboard_settings" data-nonce="<?php echo esc_attr( $nonce ); ?>">
+				<button class="sui-button sui-button-blue wpmudev-action-done" data-title="<?php esc_attr_e( 'General settings', Forminator::DOMAIN ); ?>" data-action="dashboard_settings" data-nonce="<?php echo esc_attr( $nonce ); ?>">
 					<span class="sui-loading-text"><?php esc_html_e( 'Save Settings', Forminator::DOMAIN ); ?></span>
 					<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
 				</button>

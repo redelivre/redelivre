@@ -1,0 +1,218 @@
+/* ELEMENT: Quiz Result */
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-border-color' ) ) { ?>
+			border-color: <?php echo $properties['nowrong-result-border-color'] ?>;
+		<?php } else { ?>
+			border-color: #EBEDEB;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-background-main' ) ) { ?>
+			background-color: <?php echo $properties['nowrong-result-background-main'] ?>;
+		<?php } else { ?>
+			background-color: #FAFAFA;
+		<?php } ?>
+	<?php } else { ?>
+		border-color: #EBEDEB;
+		background-color: #FAFAFA;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-result--quiz-name {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-quiz-color' ) ) { ?>
+			color: <?php echo $properties['nowrong-result-quiz-color'] ?>;
+		<?php } else { ?>
+			color: #888888;
+		<?php } ?>
+	<?php } else { ?>
+		color: #888888;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-typography' ) ) { ?>
+		<?php if ( $properties['nowrong-result-quiz-font-size'] != '' ) { ?>
+			font-size: <?php echo $properties['nowrong-result-quiz-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 14px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-quiz-font-family' ) ) { ?>
+			<?php if ( $properties['nowrong-result-quiz-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['nowrong-result-quiz-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['nowrong-result-quiz-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['nowrong-result-quiz-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-quiz-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['nowrong-result-quiz-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 700;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 14px;
+		font-weight: 700;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-result--content .forminator-result--text {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-background-body' ) ) { ?>
+			background-color: <?php echo $properties['nowrong-result-background-body'] ?>;
+		<?php } else { ?>
+			background-color: #EBEDEB;
+		<?php } ?>
+	<?php } else { ?>
+		background-color: #EBEDEB;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-result--content .forminator-result--title {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-title-color' ) ) { ?>
+			color: <?php echo $properties['nowrong-result-title-color'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	<?php } else { ?>
+		color: #000000;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-typography' ) ) { ?>
+		<?php if ( $properties['nowrong-result-title-font-size'] != '' ) { ?>
+			font-size: <?php echo $properties['nowrong-result-title-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 16px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-title-font-family' ) ) { ?>
+			<?php if ( $properties['nowrong-result-title-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['nowrong-result-title-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['nowrong-result-title-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['nowrong-result-title-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-title-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['nowrong-result-title-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 500;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 16px;
+		font-weight: 500;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-result--content .forminator-result--description,
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-result--content .forminator-result--description p {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-description-color' ) ) { ?>
+			color: <?php echo $properties['nowrong-result-description-color'] ?>;
+		<?php } else { ?>
+			color: #000000;
+		<?php } ?>
+	<?php } else { ?>
+		color: #000000;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-typography' ) ) { ?>
+		<?php if ( $properties['nowrong-result-description-font-size'] != '' ) { ?>
+			font-size: <?php echo $properties['nowrong-result-description-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 14px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-description-font-family' ) ) { ?>
+			<?php if ( $properties['nowrong-result-description-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['nowrong-result-description-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['nowrong-result-description-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['nowrong-result-description-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-description-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['nowrong-result-description-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 14px;
+		font-weight: 400;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-button-refresh {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-background-static' ) ) { ?>
+			background-color: <?php echo $properties['nowrong-result-retake-background-static'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-color-static' ) ) { ?>
+			color: <?php echo $properties['nowrong-result-retake-color-static'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	<?php } ?>
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-typography' ) ) { ?>
+		<?php if ( $properties['nowrong-result-retake-font-size'] != '' ) { ?>
+			font-size: <?php echo $properties['nowrong-result-retake-font-size'] ?>px;
+		<?php } else { ?>
+			font-size: 14px;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-font-family' ) ) { ?>
+			<?php if ( $properties['nowrong-result-retake-font-family'] != 'custom' ) { ?>
+				font-family: <?php echo $properties['nowrong-result-retake-font-family'] ?>;
+			<?php } else { ?>
+				<?php if ( ! empty( $properties['nowrong-result-retake-custom-family'] ) ) { ?>
+					font-family: <?php echo $properties['nowrong-result-retake-custom-family'] ?>;
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-font-weight' ) ) { ?>
+			font-weight: <?php echo $properties['nowrong-result-retake-font-weight'] ?>;
+		<?php } else { ?>
+			font-weight: 400;
+		<?php } ?>
+	<?php } else { ?>
+		font-size: 14px;
+		font-weight: 400;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-button-refresh:hover {
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-background-hover' ) ) { ?>
+			background-color: <?php echo $properties['nowrong-result-retake-background-hover'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-color-hover' ) ) { ?>
+			color: <?php echo $properties['nowrong-result-retake-color-hover'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	<?php } ?>
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-button-refresh:focus,
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?> .forminator-quiz--result .forminator-result .forminator-button-refresh:active {}
+	<?php if ( forminator_array_value_exists( $properties, 'nowrong-toggle-palette' ) ) { ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-background-active' ) ) { ?>
+			background-color: <?php echo $properties['nowrong-result-retake-background-active'] ?>;
+		<?php } else { ?>
+			background-color: #17A8E3;
+		<?php } ?>
+		<?php if ( forminator_array_value_exists( $properties, 'nowrong-result-retake-color-active' ) ) { ?>
+			color: <?php echo $properties['nowrong-result-retake-color-active'] ?>;
+		<?php } else { ?>
+			color: #FFFFFF;
+		<?php } ?>
+	<?php } else { ?>
+		background-color: #17A8E3;
+		color: #FFFFFF;
+	<?php } ?>
+}

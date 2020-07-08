@@ -1,6 +1,6 @@
 <?php
 $plugin_url              = forminator_plugin_url();
-$stripe_min_php_version  = apply_filters( 'forminator_payments_stripe_min_php_version', '5.4.0' );
+$stripe_min_php_version  = apply_filters( 'forminator_payments_stripe_min_php_version', '5.6.0' );
 $stripe_loaded           = forminator_payment_lib_stripe_version_loaded();
 $stripe_is_configured    = false;
 $forminator_currencies   = forminator_currency_list();
@@ -35,7 +35,7 @@ if ( $stripe_loaded ) {
 
 		<div class="sui-notice sui-notice-warning">
 
-			<p><?php printf( esc_html__( 'To be able to use Stripe Payments feature please upgrade your PHP to %1$sversion %2$s%3$s or above.', Forminator::DOMAIN ), '<strong>', esc_html( $stripe_min_php_version ), '</strong>' ); ?></p>
+			<p><?php /* translators: ... */ printf( esc_html__( 'To be able to use Stripe Payments feature please upgrade your PHP to %1$sversion %2$s%3$s or above.', Forminator::DOMAIN ), '<strong>', esc_html( $stripe_min_php_version ), '</strong>' ); ?></p>
 
 		</div>
 
@@ -60,8 +60,8 @@ if ( $stripe_loaded ) {
 					<button
 						class="sui-button stripe-connect-modal"
 						type="button"
-						data-modal-image="<?php echo $plugin_url . 'assets/images/stripe-logo.png'; // WPCS: XSS ok. ?>"
-						data-modal-image-x2="<?php echo $plugin_url . 'assets/images/stripe-logo@2x.png'; // WPCS: XSS ok. ?>"
+						data-modal-image="<?php echo esc_url( $plugin_url . 'assets/images/stripe-logo.png' ); ?>"
+						data-modal-image-x2="<?php echo esc_url( $plugin_url . 'assets/images/stripe-logo@2x.png' ); ?>"
 						data-modal-title="<?php esc_html_e( 'Connect Stripe Account', Forminator::DOMAIN ); ?>"
 						data-modal-nonce="<?php echo esc_html( wp_create_nonce( 'forminator_stripe_settings_modal' ) ); ?>"
 					>
@@ -73,7 +73,8 @@ if ( $stripe_loaded ) {
 		<?php } else { ?>
 
 			<?php
-			// SETTINGS: Authorization ?>
+			// SETTINGS: Authorization
+			?>
 			<table class="sui-table" style="margin-top: 10px;">
 
 				<thead>
@@ -114,7 +115,7 @@ if ( $stripe_loaded ) {
 										data-modal="disconnect-stripe"
 										data-modal-title="<?php esc_attr_e( 'Disconnect Stripe Account', Forminator::DOMAIN ); ?>"
 										data-modal-content="<?php esc_attr_e( 'Are you sure you want to disconnect your Stripe Account? This will affect the forms using the Stripe field.', Forminator::DOMAIN ); ?>"
-										data-nonce="<?php echo wp_create_nonce( 'forminatorSettingsRequest' ); // WPCS: XSS ok. ?>"
+										data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminatorSettingsRequest' ) ); ?>"
 									>
 
 										<span class="sui-loading-text">
@@ -130,8 +131,8 @@ if ( $stripe_loaded ) {
 								<button
 									class="sui-button stripe-connect-modal"
 									type="button"
-									data-modal-image="<?php echo $plugin_url . 'assets/images/stripe-logo.png'; // WPCS: XSS ok. ?>"
-									data-modal-image-x2="<?php echo $plugin_url . 'assets/images/stripe-logo@2x.png'; // WPCS: XSS ok. ?>"
+									data-modal-image="<?php echo esc_url( $plugin_url . 'assets/images/stripe-logo.png' ); ?>"
+									data-modal-image-x2="<?php echo esc_url( $plugin_url . 'assets/images/stripe-logo@2x.png' ); ?>"
 									data-modal-title="<?php esc_html_e( 'Connect Stripe Account', Forminator::DOMAIN ); ?>"
 									data-modal-nonce="<?php echo esc_html( wp_create_nonce( 'forminator_stripe_settings_modal' ) ); ?>"
 								>

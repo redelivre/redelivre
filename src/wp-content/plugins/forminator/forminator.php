@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Forminator
- * Version: 1.10.1
+ * Version: 1.12.1.1
  * Plugin URI:  https://premium.wpmudev.org/project/forminator/
  * Description: Capture user information (as detailed as you like), engage users with interactive polls that show real-time results and graphs, “no wrong answer” Facebook-style quizzes and knowledge tests.
  * Author: WPMU DEV
@@ -34,15 +34,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'FORMINATOR_VERSION' ) ) {
-	define( 'FORMINATOR_VERSION', '1.10.1' );
+	define( 'FORMINATOR_VERSION', '1.12.1.1' );
 }
 
 if ( ! defined( 'FORMINATOR_SUI_VERSION' ) ) {
-	define( 'FORMINATOR_SUI_VERSION', '2.3.31' );
+	define( 'FORMINATOR_SUI_VERSION', '2.6.0' );
 }
 
 if ( ! defined( 'FORMINATOR_STRIPE_LIB_VERSION' ) ) {
-	define( 'FORMINATOR_STRIPE_LIB_VERSION', '6.31.5' );
+	define( 'FORMINATOR_STRIPE_LIB_VERSION', '7.21.1' );
+}
+
+if ( ! defined( 'FORMINATOR_STRIPE_LIB_DATE' ) ) {
+	define( 'FORMINATOR_STRIPE_LIB_DATE', '2019-12-03' );
+}
+
+if ( ! defined( 'FORMINATOR_STRIPE_PARTNER_ID' ) ) {
+	define( 'FORMINATOR_STRIPE_PARTNER_ID', 'pp_partner_GeDaq2odDgGkDJ' );
 }
 
 if ( ! defined( 'FORMINATOR_PAYPAL_LIB_VERSION' ) ) {
@@ -53,11 +61,17 @@ if ( ! defined( 'FORMINATOR_PRO' ) ) {
 	define( 'FORMINATOR_PRO', false );
 }
 
+if ( ! defined( 'FORMINATOR_PRO_URL' ) ) {
+	define( 'FORMINATOR_PRO_URL', 'https://premium.wpmudev.org/project/forminator-pro/' );
+}
+
 // Include API
 require_once plugin_dir_path( __FILE__ ) . 'library/class-api.php';
 
 // Register activation hook
 register_activation_hook( __FILE__, array( 'Forminator', 'activation_hook' ) );
+// Register deactivation hook
+register_deactivation_hook( __FILE__, array( 'Forminator', 'deactivation_hook' ) );
 
 /**
  * Class Forminator
@@ -129,6 +143,15 @@ if ( ! class_exists( 'Forminator' ) ) {
 			add_option( 'forminator_activation_hook', 'activated' );
 
 			self::set_free_installation_timestamp();
+		}
+
+		/**
+		 * Called on plugin deactivation
+		 *
+		 * @since 1.11
+		 */
+		public static function deactivation_hook() {
+			wp_clear_scheduled_hook( 'forminator_general_data_protection_cleanup' );
 		}
 
 		/**
@@ -413,11 +436,11 @@ if ( ! class_exists( 'Forminator' ) ) {
 				include_once forminator_plugin_dir() . 'library/lib/dash-notice/wpmudev-dash-notification.php';
 			}
 
-			// un-change-able 5.4.0 requirement, based on lowest version needed on vendors list
-			if ( version_compare( PHP_VERSION, '5.4.0', 'ge' ) ) {
+			// un-change-able 5.6.0 requirement, based on lowest version needed on vendors list
+			if ( version_compare( PHP_VERSION, '5.6.0', 'ge' ) ) {
 				/**
 				 * Vendors list
-				 * - Stripe PHP - Min PHP req 5.4.0 (managed internally)
+				 * - Stripe PHP - Min PHP req 5.6.0 (managed internally)
 				 * - Paypal PHP - Min PHP req 5.6.0 (managed internally)
 				 */
 				/** @noinspection PhpIncludeInspection */

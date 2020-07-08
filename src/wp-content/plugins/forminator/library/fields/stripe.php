@@ -129,8 +129,8 @@ class Forminator_Stripe extends Forminator_Field {
 		$this->form_settings = $settings;
 
 		$id                  = self::get_property( 'element_id', $field );
-		$description         = self::get_property( 'description', $field, '' );
-		$label               = self::get_property( 'field_label', $field, '' );
+		$description         = esc_html( self::get_property( 'description', $field, '' ) );
+		$label               = esc_html( self::get_property( 'field_label', $field, '' ) );
 		$element_name        = $id;
 		$field_id            = $id . '-field';
 		$mode                = self::get_property( 'mode', $field, 'test' );
@@ -163,9 +163,9 @@ class Forminator_Stripe extends Forminator_Field {
 			$company = mb_substr( $company, 0, 19 ) . '...';
 		}
 
-		$start_amount        = ( 'fixed' === $amount_type ? esc_html( $amount ) : 1 );
-		$customer_email      = forminator_clear_field_id( $customer_email );
-		$custom_fonts        = false;
+		$start_amount   = ( 'fixed' === $amount_type ? esc_html( $amount ) : 1 );
+		$customer_email = forminator_clear_field_id( $customer_email );
+		$custom_fonts   = false;
 
 		if ( 'fixed' !== $amount_type ) {
 			$currency = 'usd';
@@ -174,7 +174,7 @@ class Forminator_Stripe extends Forminator_Field {
 		// Generate payment intent object
 		$this->mode = $mode;
 
-		if( isset( $settings['form-font-family'] ) && "custom" === $settings['form-font-family'] ) {
+		if ( isset( $settings['form-font-family'] ) && 'custom' === $settings['form-font-family'] ) {
 			$custom_fonts = true;
 		}
 
@@ -207,7 +207,7 @@ class Forminator_Stripe extends Forminator_Field {
 			'data-font-color-focus' => $this->get_form_setting( 'input-color', $settings, '#000000' ),
 			'data-font-color-error' => $this->get_form_setting( 'input-color', $settings, '#000000' ),
 			'data-font-size'        => $this->get_form_setting( 'cform-input-font-size', $settings, '16' ) . 'px',
-			'data-line-height'      => '1.3em',
+			// 'data-line-height'      => '1.3em',
 			'data-font-family'      => $this->get_form_setting( 'cform-input-font-family', $settings, 'inherit' ),
 			'data-font-weight'      => $this->get_form_setting( 'cform-input-font-weight', $settings, '400' ),
 			'data-icon-color'       => $this->get_form_setting( 'input-icon', $settings, '#777771' ),
@@ -230,10 +230,10 @@ class Forminator_Stripe extends Forminator_Field {
 		}
 
 		if ( 'material' === $this->form_settings['form-style'] ) {
-			$classes = "forminator-input--wrap forminator-input--stripe";
+			$classes = 'forminator-input--wrap forminator-input--stripe';
 
-			if( empty( $label ) ) {
-				$classes .= " forminator--no_label";
+			if ( empty( $label ) ) {
+				$classes .= ' forminator--no_label';
 			}
 
 			$html .= '<div class="' . $classes . '">';
@@ -270,8 +270,8 @@ class Forminator_Stripe extends Forminator_Field {
 		$currency    = self::get_property( 'currency', $field, $this->get_default_currency() );
 		$mode        = self::get_property( 'mode', $field, 'test' );
 		$metadata    = self::get_property( 'options', $field, array() );
-		$description = self::get_property( 'product_description', $field, '' );
-		$company     = self::get_property( 'company_name', $field, '' );
+		$description = esc_html( self::get_property( 'product_description', $field, '' ) );
+		$company     = esc_html( self::get_property( 'company_name', $field, '' ) );
 
 		if ( mb_strlen( $company ) > 22 ) {
 			$company = mb_substr( $company, 0, 19 ) . '...';
@@ -280,29 +280,31 @@ class Forminator_Stripe extends Forminator_Field {
 		$key = $this->get_secret_key( 'test' !== $mode );
 		\Forminator\Stripe\Stripe::setApiKey( $key );
 
+		Forminator_Gateway_Stripe::set_stripe_app_info();
+
 		$metadata_object = array();
-		foreach( $metadata as $meta ) {
+		foreach ( $metadata as $meta ) {
 			$metadata_object[ $meta['label'] ] = $meta['value'];
 		}
 
 		// Default options
 		$options = array(
-			'amount'   => $amount * 100,
+			'amount'   => $this->calculate_amount( $amount, $currency ),
 			'currency' => $currency,
 		);
 
 		// Check if metadata is not empty and add it to the options
-		if( ! empty( $metadata_object) ) {
+		if ( ! empty( $metadata_object ) ) {
 			$options['metadata'] = $metadata_object;
 		}
 
 		// Check if statement_description is not empty and add it to the options
-		if( ! empty( $company) ) {
+		if ( ! empty( $company ) ) {
 			$options['statement_descriptor'] = $company;
 		}
 
 		// Check if description is not empty and add it to the options
-		if( ! empty( $description) ) {
+		if ( ! empty( $description ) ) {
 			$options['description'] = $description;
 		}
 
@@ -322,6 +324,56 @@ class Forminator_Stripe extends Forminator_Field {
 	}
 
 	/**
+	 * Calculate Stripe amount
+	 *
+	 * @since 1.11
+	 *
+	 * @param $amount
+	 * @param $currency
+	 *
+	 * @return float|int
+	 */
+	public function calculate_amount( $amount, $currency ) {
+		$zero_decimal_currencies = $this->get_zero_decimal_currencies();
+
+		// Check if currency is zero decimal, then return original amount
+		if ( in_array( $currency, $zero_decimal_currencies ) ) {
+			return $amount;
+		}
+
+		// Currency has decimals, multiply by 100
+		return $amount * 100;
+	}
+
+	/**
+	 * Return currencies without decimal
+	 *
+	 * @since 1.11
+	 *
+	 * @return array
+	 */
+	public function get_zero_decimal_currencies() {
+		return array(
+			'MGA',
+			'BIF',
+			'CLP',
+			'PYG',
+			'DJF',
+			'RWF',
+			'GNF',
+			'UGX',
+			'VND',
+			'JPY',
+			'VUV',
+			'XAF',
+			'KMF',
+			'XOF',
+			'KRW',
+			'XPF',
+		);
+	}
+
+	/**
 	 * Update amount
 	 *
 	 * @since 1.7.3
@@ -333,13 +385,16 @@ class Forminator_Stripe extends Forminator_Field {
 	 * @param $pseudo_submitted_data
 	 */
 	public function update_paymentIntent( $id, $amount, $submitted_data, $field, $pseudo_submitted_data ) {
-		$mode = self::get_property( 'mode', $field, 'test' );
+		$mode        = self::get_property( 'mode', $field, 'test' );
+		$currency    = self::get_property( 'currency', $field, $this->get_default_currency() );
 
 		// Get Stripe key
 		$key = $this->get_secret_key( 'test' !== $mode );
 
 		// Set Stripe key
 		\Forminator\Stripe\Stripe::setApiKey( $key );
+
+		Forminator_Gateway_Stripe::set_stripe_app_info();
 
 		// Check if we already have payment ID, if not generate new one
 		if ( empty( $id ) ) {
@@ -358,7 +413,7 @@ class Forminator_Stripe extends Forminator_Field {
 		}
 
 		// Convert object to array
-		$stored_metadata = $intent->metadata->__toArray();
+		$stored_metadata = $intent->metadata->toArray();
 
 		// New metadata array
 		$metadata = array();
@@ -392,10 +447,10 @@ class Forminator_Stripe extends Forminator_Field {
 				}
 
 				$options = array(
-					'amount' => $amount * 100,
+					'amount' => $this->calculate_amount( $amount, $currency ),
 				);
 
-				if( ! empty( $metadata ) ) {
+				if ( ! empty( $metadata ) ) {
 					$options['metadata'] = $metadata;
 				}
 
@@ -437,7 +492,7 @@ class Forminator_Stripe extends Forminator_Field {
 	 */
 	public function get_form_setting( $id, $settings, $fallback ) {
 		// Check if user settings exist
-		if( isset( $settings[ $id ] ) ) {
+		if ( isset( $settings[ $id ] ) ) {
 			return $settings[ $id ];
 		}
 
@@ -575,14 +630,16 @@ class Forminator_Stripe extends Forminator_Field {
 			'transaction_link' => '',
 		);
 
-		$mode       = self::get_property( 'mode', $field, 'test' );
-		$currency   = self::get_property( 'currency', $field, $this->get_default_currency() );
+		$mode     = self::get_property( 'mode', $field, 'test' );
+		$currency = self::get_property( 'currency', $field, $this->get_default_currency() );
 
 		// Check Stripe key
 		$key = $this->get_secret_key( 'test' !== $mode );
 
 		// Set Stripe key
 		\Forminator\Stripe\Stripe::setApiKey( $key );
+
+		Forminator_Gateway_Stripe::set_stripe_app_info();
 
 		try {
 			// Makue sure payment ID exist
@@ -602,7 +659,7 @@ class Forminator_Stripe extends Forminator_Field {
 
 			$entry_data['mode']     = $mode;
 			$entry_data['currency'] = $currency;
-			$entry_data['amount'] = $charge_amount;
+			$entry_data['amount']   = $charge_amount;
 
 			$entry_data['transaction_id'] = $intent->id;
 
@@ -613,8 +670,8 @@ class Forminator_Stripe extends Forminator_Field {
 			}
 
 			$entry_data['transaction_link'] = $transaction_link;
-			$entry_data['status']         = 'success';
-			$entry_data['transaction_id'] = $intent->id;
+			$entry_data['status']           = 'success';
+			$entry_data['transaction_id']   = $intent->id;
 		} catch ( Exception $e ) {
 			$entry_data['status']     = 'fail';
 			$entry_data['error']      = $e->getMessage();
@@ -703,28 +760,24 @@ class Forminator_Stripe extends Forminator_Field {
 						if ( isset( $pseudo_submitted_data[ $amount_var ] ) ) {
 							$payment_amount = $pseudo_submitted_data[ $amount_var ];
 						}
-
-					} else if ( 'currency' === $form_field['type'] ) {
+					} elseif ( 'currency' === $form_field['type'] ) {
 						// Currency field get the amount from submitted_data
-						$field_id             = $form_field['element_id'];
+						$field_id = $form_field['element_id'];
 						if ( isset( $submitted_data[ $field_id ] ) ) {
 							$payment_amount = $submitted_data[ $field_id ];
 						}
 					} else {
 						if ( isset( $fields_collection[ $form_field['type'] ] ) ) {
 							/** @var Forminator_Field $field_object */
-							$field_object   = $fields_collection[ $form_field['type'] ];
+							$field_object = $fields_collection[ $form_field['type'] ];
 
 							$field_id             = $form_field['element_id'];
 							$submitted_field_data = isset( $submitted_data[ $field_id ] ) ? $submitted_data[ $field_id ] : null;
 							$payment_amount       = $field_object->get_calculable_value( $submitted_field_data, $form_field );
 						}
 					}
-
 				}
-
 			}
-
 		}
 
 		if ( ! is_numeric( $payment_amount ) ) {
@@ -742,7 +795,6 @@ class Forminator_Stripe extends Forminator_Field {
 		 * @param array                        $submitted_data
 		 * @param array                        $pseudo_submitted_data
 		 */
-
 		$payment_amount = apply_filters( 'forminator_field_stripe_payment_amount', $payment_amount, $field, $custom_form, $submitted_data, $pseudo_submitted_data );
 
 		return $payment_amount;

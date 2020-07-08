@@ -126,6 +126,8 @@ class Forminator_Core {
 		include_once forminator_plugin_dir() . 'library/abstracts/abstract-class-payment-gateway.php';
 		/* @noinspection PhpIncludeInspection */
 		include_once forminator_plugin_dir() . 'library/abstracts/abstract-class-spam-protection.php';
+		/* @noinspection PhpIncludeInspection */
+		include_once forminator_plugin_dir() . 'library/abstracts/abstract-class-user.php';
 
 		// Classes
 		/* @noinspection PhpIncludeInspection */
@@ -151,12 +153,14 @@ class Forminator_Core {
 		/* @noinspection PhpIncludeInspection */
 		include_once forminator_plugin_dir() . 'library/render/class-render-form.php';
 		/* @noinspection PhpIncludeInspection */
+		include_once forminator_plugin_dir() . 'library/render/class-assets-enqueue.php';
+		/* @noinspection PhpIncludeInspection */
 
 		if ( version_compare( PHP_VERSION, '5.3.0', 'ge' ) && file_exists( forminator_plugin_dir() . 'library/gateways/class-paypal-express.php' ) ) {
 			include_once forminator_plugin_dir() . 'library/gateways/class-paypal-express.php';
 		}
 
-		if ( version_compare( PHP_VERSION, '5.4.0', 'ge' ) && file_exists( forminator_plugin_dir() . 'library/gateways/class-stripe.php' ) ) {
+		if ( version_compare( PHP_VERSION, '5.6.0', 'ge' ) && file_exists( forminator_plugin_dir() . 'library/gateways/class-stripe.php' ) ) {
 			/* @noinspection PhpIncludeInspection */
 			include_once forminator_plugin_dir() . 'library/gateways/class-stripe.php';
 		}
@@ -176,6 +180,8 @@ class Forminator_Core {
 		/* @noinspection PhpIncludeInspection */
 		include_once forminator_plugin_dir() . 'library/helpers/helper-core.php';
 		/* @noinspection PhpIncludeInspection */
+		include_once forminator_plugin_dir() . 'library/helpers/helper-importer.php';
+		/* @noinspection PhpIncludeInspection */
 		include_once forminator_plugin_dir() . 'library/helpers/helper-modules.php';
 		/* @noinspection PhpIncludeInspection */
 		include_once forminator_plugin_dir() . 'library/helpers/helper-forms.php';
@@ -192,7 +198,7 @@ class Forminator_Core {
 		/* @noinspection PhpIncludeInspection */
 		include_once forminator_plugin_dir() . 'library/helpers/helper-calculator.php';
 
-		if ( version_compare( PHP_VERSION, '5.4.0', 'ge' ) ) {
+		if ( version_compare( PHP_VERSION, '5.6.0', 'ge' ) ) {
 			/* @noinspection PhpIncludeInspection */
 			include_once forminator_plugin_dir() . 'library/helpers/helper-payment.php';
 		}
@@ -215,6 +221,8 @@ class Forminator_Core {
 			include_once forminator_plugin_dir() . 'admin/abstracts/class-admin-page.php';
 			/* @noinspection PhpIncludeInspection */
 			include_once forminator_plugin_dir() . 'admin/abstracts/class-admin-module.php';
+			/* @noinspection PhpIncludeInspection */
+			include_once forminator_plugin_dir() . 'admin/abstracts/class-admin-import-mediator.php';
 			/* @noinspection PhpIncludeInspection */
 			include_once forminator_plugin_dir() . 'admin/classes/class-admin.php';
 			/* @noinspection PhpIncludeInspection */

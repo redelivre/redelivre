@@ -1,8 +1,7 @@
-<?php $path = forminator_plugin_url(); ?>
 <p>
 	<?php
 		esc_html_e( 'Forminator integrates with your favorite third party apps. You can connect to the available apps via their API here and activate them to collect data in the Integrations tab of your forms, polls or quizzes.', Forminator::DOMAIN );
-		?>
+	?>
 </p>
 
 <div class="fui-integrations-block">
@@ -10,7 +9,8 @@
 	<span class="sui-table-title"><?php esc_html_e( 'Connected Apps', Forminator::DOMAIN ); ?></span>
 
 	<?php
-	if ( ! empty( $addons['connected'] ) ) { ?>
+	if ( ! empty( $addons['connected'] ) ) {
+		?>
 
 		<table class="sui-table fui-table--apps">
 
@@ -18,7 +18,7 @@
 
 				<?php foreach ( $addons['connected'] as $key => $provider ) : ?>
 
-					<?php echo forminator_addon_row_html_markup( $provider, 0, true, true );// wpcs xss ok. ?>
+					<?php echo forminator_addon_row_html_markup( $provider, 0, true, true );// phpcs:ignore ?>
 
 				<?php endforeach; ?>
 
@@ -43,7 +43,8 @@
 	<span class="sui-table-title"><?php esc_html_e( 'Available Apps', Forminator::DOMAIN ); ?></span>
 
 	<?php
-	if ( ! empty( $addons['not_connected'] ) ) { ?>
+	if ( ! empty( $addons['not_connected'] ) ) {
+		?>
 
 		<table class="sui-table fui-table--apps">
 
@@ -51,7 +52,7 @@
 
 				<?php foreach ( $addons['not_connected'] as $key => $provider ) : ?>
 
-					<?php echo forminator_addon_row_html_markup( $provider, 0, true );// wpcs xss ok. ?>
+					<?php echo forminator_addon_row_html_markup( $provider, 0, true );// phpcs:ignore ?>
 
 				<?php endforeach; ?>
 
@@ -60,6 +61,7 @@
 		</table>
 
 		<?php
-	} ?>
+	}
+	?>
 
 </div>

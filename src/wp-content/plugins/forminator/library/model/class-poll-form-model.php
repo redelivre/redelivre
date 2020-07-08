@@ -112,17 +112,17 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 		}
 		if ( $this->is_allow_multiple_votes() ) {
 			if ( isset( $settings['vote_limit_input'] ) && ! empty( $settings['vote_limit_input'] ) ) {
-				$duration           = is_numeric( $settings['vote_limit_input'] ) ? $settings['vote_limit_input'] : "1";
+				$duration           = is_numeric( $settings['vote_limit_input'] ) ? $settings['vote_limit_input'] : '1';
 				$vote_limit_options = isset( $settings['vote_limit_options'] ) ? $settings['vote_limit_options'] : 'm';
 				switch ( $vote_limit_options ) {
 					case 'h':
-						$interval = "hour";
+						$interval = 'hour';
 						break;
 					case 'd':
-						$interval = "day";
+						$interval = 'day';
 						break;
 					case 'W':
-						$interval = "week";
+						$interval = 'week';
 						break;
 					case 'M':
 						$interval = 'month';
@@ -138,7 +138,7 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 						break;
 				}
 				$cookie_value  = date_i18n( 'Y-m-d H:i:s', strtotime( $_COOKIE[ $poll_cookie ] ) );
-				$cookie_expire = $cookie_value . " +" . $duration . ' ' . $interval;
+				$cookie_expire = $cookie_value . ' +' . $duration . ' ' . $interval;
 				if ( time() < strtotime( $cookie_expire ) ) {
 					return false;
 				} else {
@@ -371,7 +371,6 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 		 */
 		$allow_multiple_votes = apply_filters( 'forminator_poll_allow_multiple_votes', $allow_multiple_votes, $poll_id, $settings );
 
-
 		return $allow_multiple_votes;
 	}
 
@@ -456,7 +455,6 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 			} catch ( Exception $e ) {
 				forminator_addon_maybe_log( $connected_addon->get_slug(), 'failed to get to_exportable_data', $e->getMessage() );
 			}
-
 		}
 
 		/**
@@ -487,19 +485,28 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 	 */
 	public static function create_from_import_data( $import_data, $module = __CLASS__ ) {
 		if ( Forminator::is_import_integrations_feature_enabled() ) {
-			add_filter( 'forminator_import_model', array(
-				'Forminator_Poll_Form_Model',
-				'import_integrations_data'
-			), 1, 3 );
+			add_filter(
+				'forminator_import_model',
+				array(
+					'Forminator_Poll_Form_Model',
+					'import_integrations_data',
+				),
+				1,
+				3
+			);
 		}
 
 		$model = parent::create_from_import_data( $import_data, $module );
 
 		// avoid filter executed on next cycle
-		remove_filter( 'forminator_import_model', array(
-			'Forminator_Poll_Form_Model',
-			'import_integrations_data'
-		), 1 );
+		remove_filter(
+			'forminator_import_model',
+			array(
+				'Forminator_Poll_Form_Model',
+				'import_integrations_data',
+			),
+			1
+		);
 
 		return $model;
 	}
@@ -545,7 +552,6 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 			} catch ( Exception $e ) {
 				forminator_addon_maybe_log( $slug, 'failed to get import form settings', $e->getMessage() );
 			}
-
 		}
 
 		return $model;
@@ -643,7 +649,6 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 		 * @param array $settings
 		 */
 		$browser_method = apply_filters( 'forminator_poll_method_browser_cookie', $browser_method, $poll_id, $settings );
-
 
 		return $browser_method;
 	}

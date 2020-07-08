@@ -70,6 +70,7 @@ abstract class Forminator_Addon_Poll_Hooks_Abstract {
 		$this->poll_id = $poll_id;
 		$this->poll    = Forminator_Poll_Form_Model::model()->load( $this->poll_id );
 		if ( ! $this->poll ) {
+			/* translators: ... */
 			throw new Forminator_Addon_Exception( sprintf( __( 'Poll with id %d could not be found', Forminator::DOMAIN ), $this->poll_id ) );
 		}
 
@@ -224,7 +225,6 @@ abstract class Forminator_Addon_Poll_Hooks_Abstract {
 			$poll_settings_instance
 		);
 
-
 		$is_success = true;
 		/**
 		 * Filter result of poll submit
@@ -335,7 +335,6 @@ abstract class Forminator_Addon_Poll_Hooks_Abstract {
 			$poll_settings_instance
 		);
 
-
 		$entry_fields = array();
 		/**
 		 * Filter addon entry fields to be saved to entry model
@@ -397,85 +396,85 @@ abstract class Forminator_Addon_Poll_Hooks_Abstract {
 		);
 	}
 
-//	/**
-//	 * Override this function to display another sub-row on entry detail
-//	 *
-//	 * Return a multi array with this format (at least, or it will skipped)
-//	 * [
-//	 *  'label' => LABEL,
-//	 *  'value' => VALUE (string) => its output is on html mode, so you can do styling, but please don't forgot to escape its html when needed
-//	 * ],
-//	 * [
-//	 *  'label' => LABEL,
-//	 *  'value' => VALUE
-//	 * ]
-//	 *
-//	 * @since 1.1
-//	 *
-//	 * @param Forminator_Form_Entry_Model $entry_model
-//	 * @param     array                   $addon_meta_data specific meta_data that added by current addon from @see: add_entry_fields()
-//	 *
-//	 * @return array
-//	 */
-//	public function on_render_entry( Forminator_Form_Entry_Model $entry_model, $addon_meta_data ) {
-//		$addon_slug             = $this->addon->get_slug();
-//		$form_id                = $this->poll_id;
-//		$form_settings_instance = $this->poll_settings_instance;
-//
-//		/**
-//		 *
-//		 * Filter addon metadata that previously saved on db to be processed
-//		 *
-//		 * Although it can be used for all addon.
-//		 * Please keep in mind that if the addon override this method,
-//		 * then this filter probably won't be applied.
-//		 * To be sure please check individual addon documentations.
-//		 *
-//		 * @since 1.1
-//		 *
-//		 * @param array                                        $addon_meta_data
-//		 * @param int                                          $form_id                current Form ID
-//		 * @param Forminator_Form_Entry_Model                  $entry_model            Forminator Entry Model
-//		 * @param Forminator_Addon_Form_Settings_Abstract|null $form_settings_instance of Addon Form Settings
-//		 */
-//		$addon_meta_data = apply_filters(
-//			'forminator_addon_' . $addon_slug . '_metadata',
-//			$addon_meta_data,
-//			$form_id,
-//			$entry_model,
-//			$form_settings_instance
-//		);
-//
-//
-//		$entry_items = array();
-//		/**
-//		 * Filter mailchimp row(s) to be displayed on entries page
-//		 *
-//		 * Although it can be used for all addon.
-//		 * Please keep in mind that if the addon override this method,
-//		 * then this filter probably won't be applied.
-//		 * To be sure please check individual addon documentations.
-//		 *
-//		 * @since 1.1
-//		 *
-//		 * @param array                                        $entry_items            row(s) to be displayed on entries page
-//		 * @param int                                          $form_id                current Form ID
-//		 * @param Forminator_Form_Entry_Model                  $entry_model            Form Entry Model
-//		 * @param array                                        $addon_meta_data        meta data saved by addon on entry fields
-//		 * @param Forminator_Addon_Form_Settings_Abstract|null $form_settings_instance of Addon Form Settings
-//		 */
-//		$entry_items = apply_filters(
-//			'forminator_addon_' . $addon_slug . '_entry_items',
-//			$entry_items,
-//			$form_id,
-//			$entry_model,
-//			$addon_meta_data,
-//			$form_settings_instance
-//		);
-//
-//
-//		return $entry_items;
-//	}
+	//  /**
+	//   * Override this function to display another sub-row on entry detail
+	//   *
+	//   * Return a multi array with this format (at least, or it will skipped)
+	//   * [
+	//   *  'label' => LABEL,
+	//   *  'value' => VALUE (string) => its output is on html mode, so you can do styling, but please don't forgot to escape its html when needed
+	//   * ],
+	//   * [
+	//   *  'label' => LABEL,
+	//   *  'value' => VALUE
+	//   * ]
+	//   *
+	//   * @since 1.1
+	//   *
+	//   * @param Forminator_Form_Entry_Model $entry_model
+	//   * @param     array                   $addon_meta_data specific meta_data that added by current addon from @see: add_entry_fields()
+	//   *
+	//   * @return array
+	//   */
+	//  public function on_render_entry( Forminator_Form_Entry_Model $entry_model, $addon_meta_data ) {
+	//      $addon_slug             = $this->addon->get_slug();
+	//      $form_id                = $this->poll_id;
+	//      $form_settings_instance = $this->poll_settings_instance;
+	//
+	//      /**
+	//       *
+	//       * Filter addon metadata that previously saved on db to be processed
+	//       *
+	//       * Although it can be used for all addon.
+	//       * Please keep in mind that if the addon override this method,
+	//       * then this filter probably won't be applied.
+	//       * To be sure please check individual addon documentations.
+	//       *
+	//       * @since 1.1
+	//       *
+	//       * @param array                                        $addon_meta_data
+	//       * @param int                                          $form_id                current Form ID
+	//       * @param Forminator_Form_Entry_Model                  $entry_model            Forminator Entry Model
+	//       * @param Forminator_Addon_Form_Settings_Abstract|null $form_settings_instance of Addon Form Settings
+	//       */
+	//      $addon_meta_data = apply_filters(
+	//          'forminator_addon_' . $addon_slug . '_metadata',
+	//          $addon_meta_data,
+	//          $form_id,
+	//          $entry_model,
+	//          $form_settings_instance
+	//      );
+	//
+	//
+	//      $entry_items = array();
+	//      /**
+	//       * Filter mailchimp row(s) to be displayed on entries page
+	//       *
+	//       * Although it can be used for all addon.
+	//       * Please keep in mind that if the addon override this method,
+	//       * then this filter probably won't be applied.
+	//       * To be sure please check individual addon documentations.
+	//       *
+	//       * @since 1.1
+	//       *
+	//       * @param array                                        $entry_items            row(s) to be displayed on entries page
+	//       * @param int                                          $form_id                current Form ID
+	//       * @param Forminator_Form_Entry_Model                  $entry_model            Form Entry Model
+	//       * @param array                                        $addon_meta_data        meta data saved by addon on entry fields
+	//       * @param Forminator_Addon_Form_Settings_Abstract|null $form_settings_instance of Addon Form Settings
+	//       */
+	//      $entry_items = apply_filters(
+	//          'forminator_addon_' . $addon_slug . '_entry_items',
+	//          $entry_items,
+	//          $form_id,
+	//          $entry_model,
+	//          $addon_meta_data,
+	//          $form_settings_instance
+	//      );
+	//
+	//
+	//      return $entry_items;
+	//  }
 
 	/**
 	 * Override this function to Add another Column on title Row

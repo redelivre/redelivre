@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Class Forminator_Spam_Protection
- * 
+ *
  * Spam Protection parent class
  *
  * @since 1.0
@@ -19,7 +19,7 @@ abstract class Forminator_Spam_Protection {
 	 */
 	public function __construct() {
 		if ( $this->is_enabled() ) {
-			add_filter( 'forminator_spam_protection', array( $this, '_handle_spam_protection'), 10, 4 );
+			add_filter( 'forminator_spam_protection', array( $this, '_handle_spam_protection' ), 10, 4 );
 		}
 	}
 
@@ -41,7 +41,7 @@ abstract class Forminator_Spam_Protection {
 	 * @param array $posted_params - the posted parameters
 	 * @param int $form_id - the form id
 	 * @param string $form_type - the form type
-	 * 
+	 *
 	 * @return bool $is_spam
 	 */
 	public function _handle_spam_protection( $is_spam, $posted_params, $form_id, $form_type ) {
@@ -50,7 +50,7 @@ abstract class Forminator_Spam_Protection {
 
 	/**
 	 * Handle spam protection
-	 * 
+	 *
 	 * @see _handle_spam_protection
 	 *
 	 * @since 1.0
@@ -58,7 +58,7 @@ abstract class Forminator_Spam_Protection {
 	 * @param array $posted_params - the posted parameters
 	 * @param int $form_id - the form id
 	 * @param string $form_type - the form type
-	 * 
+	 *
 	 * @return bool $is_spam
 	 */
 	protected function handle_spam_protection( $is_spam, $posted_params, $form_id, $form_type ) {

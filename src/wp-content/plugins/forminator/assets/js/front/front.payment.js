@@ -418,11 +418,12 @@
 			}
 
 			var receipt = this.getStripeData('receipt');
+			var receiptEmail = this.getStripeData('receiptEmail');
 			var receiptObject = {};
 
-			if(receipt) {
+			if( receipt && receiptEmail ) {
 				receiptObject = {
-					receipt_email: this.get_field_value(this.getStripeData('receiptEmail')) || ''
+					receipt_email: this.get_field_value(receiptEmail) || ''
 				};
 			}
 
@@ -510,10 +511,6 @@
 							':hover': {
 								iconColor: this.getStripeData( 'iconColorHover' ),
 							}
-						},
-						focus: {
-							iconColor: this.getStripeData( 'iconColorFocus' ),
-							color: this.getStripeData( 'fontColorFocus' ),
 						},
 						invalid: {
 							iconColor: this.getStripeData( 'iconColorError' ),

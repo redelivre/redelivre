@@ -1,0 +1,70 @@
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-question:not(.forminator-last) {
+	margin-bottom: <?php echo $properties['quiz-custom-spacing'] ?>px;
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-question:not(.forminator-last):after {
+	margin-top: <?php echo $properties['quiz-custom-spacing'] ?>px;
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-legend,
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-image {
+	margin: 0 0 <?php echo ($properties['quiz-custom-spacing'] / 2) ?>px;
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-answer {
+	margin-top: <?php echo ($properties['quiz-custom-spacing'] / 2) ?>px;
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-question--result {
+	margin: <?php echo ($properties['quiz-custom-spacing'] / 2) ?>px 0 0;
+}
+
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-quiz--result,
+.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-quiz--social {
+	margin-top: <?php echo $properties['quiz-custom-spacing'] ?>px;
+	padding-top: <?php echo $properties['quiz-custom-spacing'] ?>px;
+}
+
+@media (min-width: 783px) {
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-question {
+		margin-right: -<?php echo ($properties['quiz-custom-spacing'] / 4) ?>px;
+		margin-left: -<?php echo ($properties['quiz-custom-spacing'] / 4) ?>px;
+	}
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-question:not(.forminator-last) {
+		margin-bottom: <?php echo $properties['quiz-custom-spacing'] ?>px;
+	}
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-question:not(.forminator-last):after {
+		margin-top: <?php echo $properties['quiz-custom-spacing'] ?>px;
+		margin-right: <?php echo ($properties['quiz-custom-spacing'] / 4) ?>px;
+		margin-left: <?php echo ($properties['quiz-custom-spacing'] / 4) ?>px;
+	}
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-legend,
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-image {
+		padding: 0 <?php echo ($properties['quiz-custom-spacing'] / 4) ?>px;
+	}
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-legend + .forminator-image,
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-image + .forminator-image {
+		margin-top: <?php echo ($properties['quiz-custom-spacing'] / 2) ?>px;
+	}
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-answer {
+		margin-top: <?php echo ($properties['quiz-custom-spacing'] / 2) ?>px;
+		padding: 0 <?php echo ($properties['quiz-custom-spacing'] / 4) ?>px;
+	}
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-question--result {
+		margin-top: <?php echo ($properties['quiz-custom-spacing'] / 2) ?>px;
+		padding: 0 <?php echo ($properties['quiz-custom-spacing'] / 4) ?>px;
+	}
+
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-quiz--result,
+	.forminator-ui.forminator-quiz-<?php echo $properties['form_id'] ?>.forminator-quiz--grid[data-spacing=custom] .forminator-quiz--social {
+		margin-top: <?php echo $properties['quiz-custom-spacing'] ?>px;
+		padding-top: <?php echo $properties['quiz-custom-spacing'] ?>px;
+	}
+}

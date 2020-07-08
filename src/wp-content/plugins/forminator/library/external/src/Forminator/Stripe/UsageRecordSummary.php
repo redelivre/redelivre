@@ -17,6 +17,5 @@ namespace Forminator\Stripe;
  */
 class UsageRecordSummary extends ApiResource
 {
-
-    const OBJECT_NAME = "usage_record_summary";
+    const OBJECT_NAME = 'usage_record_summary';
 }

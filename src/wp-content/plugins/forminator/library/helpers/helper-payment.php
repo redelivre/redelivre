@@ -11,7 +11,7 @@
  */
 function forminator_payment_lib_stripe_version_loaded( $version = FORMINATOR_STRIPE_LIB_VERSION ) {
 	$loaded          = false;
-	$min_php_version = apply_filters( 'forminator_payments_stripe_min_php_version', '5.4.0' );
+	$min_php_version = apply_filters( 'forminator_payments_stripe_min_php_version', '5.6.0' );
 
 	if ( version_compare( PHP_VERSION, $min_php_version, 'ge' ) ) {
 		if ( class_exists( '\Forminator\Stripe\Stripe' ) ) {
@@ -20,7 +20,6 @@ function forminator_payment_lib_stripe_version_loaded( $version = FORMINATOR_STR
 			}
 		}
 	}
-
 
 	return $loaded;
 }
@@ -59,7 +58,6 @@ function forminator_payment_lib_paypal_version_loaded( $version = FORMINATOR_PAY
 			}
 		}
 	}
-
 
 	return $loaded;
 }

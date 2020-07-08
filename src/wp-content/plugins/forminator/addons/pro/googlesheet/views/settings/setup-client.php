@@ -17,7 +17,7 @@ foreach ( $template_vars as $key => $val ) {
 
 <div class="integration-header">
 
-	<h3 class="sui-box-title" id="dialogTitle2"><?php echo esc_html( sprintf( __( 'Setup %1$s Client', Forminator::DOMAIN ), 'Google Sheets' ) ); ?></h3>
+	<h3 class="sui-box-title" id="dialogTitle2"><?php echo esc_html( sprintf( /* translators: ... */ __( 'Setup %1$s Client', Forminator::DOMAIN ), 'Google Sheets' ) ); ?></h3>
 
 	<?php if ( ! empty( $vars['token'] ) ) : ?>
 		<span class="sui-description" style="margin-top: 20px;"><?php esc_html_e( 'Your Google Sheets account is already authorized. Edit info below to re-authorize.', Forminator::DOMAIN ); ?></span>
@@ -84,23 +84,86 @@ foreach ( $template_vars as $key => $val ) {
 
 		<ol class="instructions" id="clientid-instructions">
 
-			<li><?php echo sprintf( __( 'Go to the %1$s', Forminator::DOMAIN ), '<a href="https://console.developers.google.com/cloud-resource-manager" target="_blank">' . __( 'Google API Console', Forminator::DOMAIN ) . '</a>' ); //wpcs: xss ok ?></li>
+			<li>
+				<?php
+				echo sprintf(/* translators: ... */
+					esc_html__( 'Go to the %1$sGoogle API Console%2$s', Forminator::DOMAIN ),
+					'<a href="https://console.developers.google.com/cloud-resource-manager" target="_blank">',
+					'</a>'
+				); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+				?>
+			</li>
 
 			<li><?php esc_html_e( 'Select an existing project or create a new one. If creating a new project, you will need to enter a name, but the ID is not important and can be ignored.', Forminator::DOMAIN ); ?></li>
 
-			<li><?php echo sprintf( __( 'Once the Project creation is completed go to the %1$s. Here you need to enable the %2$s and %3$s.', Forminator::DOMAIN ), '<strong>' . __( 'API Manager', Forminator::DOMAIN ) . '</strong>', '<strong>' . __( 'Google Drive API', Forminator::DOMAIN ) . '</strong>', '<strong>' . __( 'Google Sheets API', Forminator::DOMAIN ) . '</strong>' ); //wpcs: xss ok ?></li>
+			<li>
+				<?php
+				echo sprintf(/* translators: ... */
+					esc_html__( 'Once the Project creation is completed go to the %1$sAPI Manager%2$s. Here you need to enable the %3$sGoogle Drive API%4$s and %5$sGoogle Sheets API%6$s.', Forminator::DOMAIN ),
+					'<strong>',
+					'</strong>',
+					'<strong>',
+					'</strong>',
+					'<strong>',
+					'</strong>'
+				); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+				?>
+			</li>
 
-			<li><?php echo sprintf( __( 'Next, go to the %1$s section.', Forminator::DOMAIN ), '<strong>' . __( 'API Manager &gt; Credentials', Forminator::DOMAIN ) . '</strong>' ); //wpcs: xss ok ?>
+			<li>
+				<?php
+				echo sprintf(/* translators: ... */
+					esc_html__( 'Next, go to the %1$sAPI Manager &gt; Credentials%2$s section.', Forminator::DOMAIN ),
+					'<strong>',
+					'</strong>'
+				); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+				?>
+			</li>
 
 				<ol style="margin-top: 15px; margin-bottom: 15px;">
 
-					<li><?php echo sprintf( __( 'Click %1$s.', Forminator::DOMAIN ), '<strong>' . __( 'Create Credentials &gt; OAuth 2.0 client ID', Forminator::DOMAIN ) . '</strong>' ); //wpcs: xss ok ?></li>
+					<li>
+						<?php
+						echo sprintf(/* translators: ... */
+							esc_html__( 'Click %1$sCreate Credentials &gt; OAuth 2.0 client ID%2$s.', Forminator::DOMAIN ),
+							'<strong>',
+							'</strong>'
+						); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+						?>
+					</li>
 
-					<li><?php echo sprintf( __( 'In the popup select the %1$s as %2$s.', Forminator::DOMAIN ), '<strong>' . __( 'Application Type', Forminator::DOMAIN ) . '</strong>', '<strong>' . __( 'Web application', Forminator::DOMAIN ) . '</strong>' ); //wpcs: xss ok ?></li>
+					<li>
+						<?php
+						echo sprintf(/* translators: ... */
+							esc_html__( 'In the popup select the %1$sApplication Type%2$s as %3$sWeb application%4$s.', Forminator::DOMAIN ),
+							'<strong>',
+							'</strong>',
+							'<strong>',
+							'</strong>'
+						); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+						?>
+					</li>
 
-					<li><?php echo sprintf( __( 'In the field %1$s, put this value below:', Forminator::DOMAIN ), '<strong>' . __( 'Authorized redirect URI', Forminator::DOMAIN ) . '</strong>' ); //wpcs: xss ok ?><pre class="sui-code-snippet"><?php echo esc_html( ! empty( $vars['redirect_url'] ) ? $vars['redirect_url'] : '' ); ?></pre></li>
+					<li>
+						<?php
+						echo sprintf(/* translators: ... */
+							esc_html__( 'In the field %1$sAuthorized redirect URI%2$s, put this value below:', Forminator::DOMAIN ),
+							'<strong>',
+							'</strong>'
+						); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+						?>
+						<pre class="sui-code-snippet"><?php echo esc_html( ! empty( $vars['redirect_url'] ) ? $vars['redirect_url'] : '' ); ?></pre>
+					</li>
 
-					<li><?php echo sprintf( __( 'Then click the %1$s button.', Forminator::DOMAIN ), '<strong>' . __( 'Create Client ID', Forminator::DOMAIN ) . '</strong>' ); //wpcs: xss ok ?></li>
+					<li>
+						<?php
+						echo sprintf(/* translators: ... */
+							esc_html__( 'Then click the %1$sCreate Client ID%2$s button, then navigate to %1$sAPI Keys%2$s section.', Forminator::DOMAIN ),
+							'<strong>',
+							'</strong>'
+						); //phpcs:ignore Standard.Category.SniffName.ErrorCode
+						?>
+					</li>
 
 				</ol>
 

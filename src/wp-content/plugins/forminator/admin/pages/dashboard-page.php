@@ -33,9 +33,12 @@ class Forminator_Dashboard_Page extends Forminator_Admin_Page {
 	 */
 	public function dashboard_create_screen() {
 		$modules = forminator_get_modules();
-		$this->template('dashboard/create-content', array(
-			'modules' => $modules
-		) );
+		$this->template(
+			'dashboard/create-content',
+			array(
+				'modules' => $modules,
+			)
+		);
 	}
 
 	/**
@@ -74,5 +77,22 @@ class Forminator_Dashboard_Page extends Forminator_Admin_Page {
 	 */
 	public function stripeModules() {
 		return Forminator_Custom_Form_Model::model()->get_models_by_field_and_version( 'stripe-1', '1.9-alpha.1' );
+	}
+
+	/**
+	 * Override scripts to be loaded
+	 *
+	 * @since 1.11
+	 *
+	 * @param $hook
+	 */
+	public function enqueue_scripts( $hook ) {
+		parent::enqueue_scripts( $hook );
+
+		forminator_print_forms_admin_styles( FORMINATOR_VERSION );
+		forminator_print_polls_admin_styles( FORMINATOR_VERSION );
+		forminator_print_front_styles( FORMINATOR_VERSION );
+
+		forminator_print_front_scripts( FORMINATOR_VERSION );
 	}
 }

@@ -42,8 +42,8 @@ abstract class Forminator_Module {
 	 * @param $name
 	 */
 	public function __construct( $id, $name ) {
-		$this->id = $id;
-		$this->name = $name;
+		$this->id      = $id;
+		$this->name    = $name;
 		$this->options = $this->options();
 
 		$this->init();
@@ -91,7 +91,7 @@ abstract class Forminator_Module {
 	 * @return string
 	 */
 	public function get_description() {
-		return $this->get_option('description');
+		return $this->get_option( 'description' );
 	}
 
 	/**
@@ -112,7 +112,7 @@ abstract class Forminator_Module {
 	 * @return string
 	 */
 	public function get_icon() {
-		return $this->get_option('icon');
+		return $this->get_option( 'icon' );
 	}
 
 	/**
@@ -122,7 +122,7 @@ abstract class Forminator_Module {
 	 * @return string
 	 */
 	public function get_label() {
-		return $this->get_option('button_label');
+		return $this->get_option( 'button_label' );
 	}
 
 	/**
@@ -146,7 +146,9 @@ abstract class Forminator_Module {
 	 * @return mixed|string
 	 */
 	public function get_option( $option, $default = '' ) {
-		if( isset( $this->options[ $option ] ) ) return $this->options[ $option ];
+		if ( isset( $this->options[ $option ] ) ) {
+			return $this->options[ $option ];
+		}
 		return $default;
 	}
 

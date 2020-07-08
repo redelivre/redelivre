@@ -12,21 +12,21 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 
 	/**
 	 * The current form model
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $model = null;
 
 	/**
 	 * The visible header fields
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $visible_fields = array();
 
 	/**
 	 * Total items to display
-	 * 
+	 *
 	 * @var int
 	 */
 	protected $total_items = 0;
@@ -46,11 +46,16 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 			$this->visible_fields = $args['visible_fields'];
 			unset( $args['visible_fields'] );
 		}
-		parent::__construct( array_merge( array(
-			'plural'     => '',
-			'autoescape' => false,
-			'screen'     => 'forminator-entries'
-		), $args ) );
+		parent::__construct(
+			array_merge(
+				array(
+					'plural'     => '',
+					'autoescape' => false,
+					'screen'     => 'forminator-entries',
+				),
+				$args
+			)
+		);
 	}
 
 	/**
@@ -70,24 +75,24 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = array(
-			'cb'	=> '<input type="checkbox" />',
-			'date'	=> esc_html__( 'Date added', Forminator::DOMAIN ),
+			'cb'   => '<input type="checkbox" />',
+			'date' => esc_html__( 'Date added', Forminator::DOMAIN ),
 		);
 
-		if ( !empty( $this->visible_fields ) && !in_array( 'date', $this->visible_fields, true ) ) {
+		if ( ! empty( $this->visible_fields ) && ! in_array( 'date', $this->visible_fields, true ) ) {
 			unset( $columns['date'] );
 		}
 
 		if ( is_object( $this->model ) ) {
 			$fields = $this->model->get_fields();
-			if ( !is_null( $fields ) ) {
-				foreach ( $fields as $field ) { 
+			if ( ! is_null( $fields ) ) {
+				foreach ( $fields as $field ) {
 					$label = $field->__get( 'field_label' );
-					if ( !$label ) {
-						$label =  $field->title;
+					if ( ! $label ) {
+						$label = $field->title;
 					}
-					$slug	= isset( $field->slug ) ? $field->slug : sanitize_title( $label );
-					if ( !empty( $this->visible_fields ) ) {
+					$slug = isset( $field->slug ) ? $field->slug : sanitize_title( $label );
+					if ( ! empty( $this->visible_fields ) ) {
 						if ( in_array( $slug, $this->visible_fields, true ) ) {
 							$columns[ $slug ] = $label;
 						}
@@ -117,14 +122,16 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 
 		$this->total_items = Forminator_Form_Entry_Model::count_entries( $form_id );
 
-		$this->set_pagination_args( array(
-			'total_items' => $this->total_items,
-			'total_pages' => ceil( $this->total_items / $per_page ),
-			'per_page'    => $per_page
-		) );
-		
-		$this->items 			= Forminator_Form_Entry_Model::list_entries( $form_id, $per_page, $offset );
-		$this->_column_headers 	= array( $this->get_columns(), array(), array() );
+		$this->set_pagination_args(
+			array(
+				'total_items' => $this->total_items,
+				'total_pages' => ceil( $this->total_items / $per_page ),
+				'per_page'    => $per_page,
+			)
+		);
+
+		$this->items           = Forminator_Form_Entry_Model::list_entries( $form_id, $per_page, $offset );
+		$this->_column_headers = array( $this->get_columns(), array(), array() );
 	}
 
 	/**
@@ -146,7 +153,7 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 			$current_orderby = '';
 		}
 
-		if ( isset( $_GET['order'] ) && 'desc' === $_GET['order'] ) { // WPCS: CSRF OK
+		if ( isset( $_GET['order'] ) && 'desc' === $_GET['order'] ) { // phpcs:ignore
 			$current_order = 'desc';
 		} else {
 			$current_order = 'asc';
@@ -154,7 +161,7 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 
 		if ( ! empty( $columns['cb'] ) ) {
 			static $cb_counter = 1;
-			$columns['cb'] = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
+			$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
 				. '<div class="wpmudev-checkbox"><input id="cb-select-all-' . $cb_counter . '" type="checkbox" /><label for="cb-select-all-' . $cb_counter . '" class="wpdui-icon wpdui-icon-check"></label></div>';
 			$cb_counter++;
 		}
@@ -166,22 +173,23 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 				$class[] = 'hidden';
 			}
 
-			if ( 'cb' === $column_key )
+			if ( 'cb' === $column_key ) {
 				$class[] = 'wpmudev-head-check check-column';
+			}
 
 			if ( $column_key === $primary ) {
 				$class[] = 'column-primary';
 			}
 
-			if ( isset( $sortable[$column_key] ) ) {
-				list( $orderby, $desc_first ) = $sortable[$column_key];
+			if ( isset( $sortable[ $column_key ] ) ) {
+				list( $orderby, $desc_first ) = $sortable[ $column_key ];
 
 				if ( $current_orderby === $orderby ) {
-					$order = 'asc' === $current_order ? 'desc' : 'asc';
+					$order   = 'asc' === $current_order ? 'desc' : 'asc';
 					$class[] = 'sorted';
 					$class[] = $current_order;
 				} else {
-					$order = $desc_first ? 'desc' : 'asc';
+					$order   = $desc_first ? 'desc' : 'asc';
 					$class[] = 'sortable';
 					$class[] = $desc_first ? 'asc' : 'desc';
 				}
@@ -189,14 +197,15 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 				$column_display_name = '<a href="' . esc_url( add_query_arg( compact( 'orderby', 'order' ), $current_url ) ) . '"><span>' . $column_display_name . '</span><span class="sorting-indicator"></span></a>';
 			}
 
-			$tag = 'th';
+			$tag   = 'th';
 			$scope = ( 'th' === $tag ) ? 'scope="col"' : '';
-			$id = $with_id ? "id='$column_key'" : '';
+			$id    = $with_id ? "id='$column_key'" : '';
 
-			if ( !empty( $class ) )
+			if ( ! empty( $class ) ) {
 				$class = "class='" . join( ' ', $class ) . "'";
+			}
 
-			echo "<$tag $scope $id $class>$column_display_name</$tag>"; // WPCS: XSS ok.
+			echo "<$tag $scope $id $class>$column_display_name</$tag>"; // phpcs:ignore
 		}
 	}
 
@@ -269,25 +278,25 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 	 * @return mixed
 	 */
 	public function column_default( $item, $column_name ) {
-		$data =  $item->get_meta( $column_name, '' );
+		$data = $item->get_meta( $column_name, '' );
 		if ( $data ) {
 			if ( is_array( $data ) ) {
-				$output 		= '';
-				$product_cost 	= 0;
-				$is_product 	= false;
+				$output       = '';
+				$product_cost = 0;
+				$is_product   = false;
 				foreach ( $data as $key => $value ) {
 					if ( is_array( $value ) ) {
 						if ( 'file' === $key && isset( $value['file_url'] ) ) {
-							$file_name 	= basename( $value['file_url'] );
-							$file_name 	= "<a href='" .$value['file_url'] . "' target='_blank' rel='noreferrer' title='". __( 'View File', Forminator::DOMAIN ) ."'>$file_name</a> ,";
-							$output 	.= $file_name;
+							$file_name = basename( $value['file_url'] );
+							$file_name = "<a href='" . $value['file_url'] . "' target='_blank' rel='noreferrer' title='" . __( 'View File', Forminator::DOMAIN ) . "'>$file_name</a> ,";
+							$output   .= $file_name;
 						}
 					} else {
-						if ( !is_int( $key ) ) {
+						if ( ! is_int( $key ) ) {
 							if ( 'postdata' === $key ) {
-								$url 	= get_edit_post_link( $value );
-								$name 	= get_the_title( $value );
-								$output .= "<a href='" .$url . "' target='_blank' rel='noreferrer' title='". __( 'Edit Post', Forminator::DOMAIN ) ."'>$name</a> ,";
+								$url     = get_edit_post_link( $value );
+								$name    = get_the_title( $value );
+								$output .= "<a href='" . $url . "' target='_blank' rel='noreferrer' title='" . __( 'Edit Post', Forminator::DOMAIN ) . "'>$name</a> ,";
 							} else {
 								if ( is_string( $key ) ) {
 									if ( 'product-id' === $key || 'product-quantity' === $key ) {
@@ -306,12 +315,12 @@ class Forminator_Entries_List_Table extends WP_List_Table {
 					}
 				}
 				if ( $is_product ) {
-					$output = sprintf( __( 'Total %d', Forminator::DOMAIN ), $product_cost );
+					$output = sprintf( /* translators: ... */ __( 'Total %d', Forminator::DOMAIN ), $product_cost );
 				} else {
-					if ( !empty( $output ) ) {
+					if ( ! empty( $output ) ) {
 						$output = substr( trim( $output ), 0, -1 );
 					} else {
-						$output = implode( ",", $data );
+						$output = implode( ',', $data );
 					}
 				}
 

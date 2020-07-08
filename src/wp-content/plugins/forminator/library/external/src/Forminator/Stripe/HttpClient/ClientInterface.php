@@ -10,10 +10,10 @@ interface ClientInterface
      * @param array $headers Headers to be used in the request (full strings, not KV pairs)
      * @param array $params KV pairs for parameters. Can be nested for arrays and hashes
      * @param boolean $hasFile Whether or not $params references a file (via an @ prefix or
-     *                         CurlFile)
+     *                         CURLFile)
      *
-     * @throws \Forminator\Stripe\Error\Api
-     * @throws \Forminator\Stripe\Error\ApiConnection
+     * @throws \Forminator\Stripe\Exception\ApiConnectionException
+     * @throws \Forminator\Stripe\Exception\UnexpectedValueException
      * @return array An array whose first element is raw request body, second
      *    element is HTTP status code and third array of HTTP headers.
      */

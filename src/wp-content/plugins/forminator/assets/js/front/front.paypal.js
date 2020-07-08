@@ -101,8 +101,8 @@
 				onInit: function(data, actions) {
 					actions.disable();
 
-					if ( paypalData.amount_type === 'variable' ) {
-						paypalData.amount = self.get_field_calculation(paypalData.variable);
+					if ( paypalData.amount_type === 'variable' && paypalData.variable !== '' ) {
+						paypalData.amount = self.get_field_calculation( paypalData.variable );
 					}
 
 					// Listen for form field changes
@@ -131,8 +131,8 @@
 						self.focus_to_element($target_message);
 					}
 
-					if ( paypalData.amount_type === 'variable' ) {
-						paypalData.amount = self.get_field_calculation(paypalData.variable);
+					if ( paypalData.amount_type === 'variable' && paypalData.variable !== '' ) {
+						paypalData.amount = self.get_field_calculation( paypalData.variable );
 					}
 				},
 				createOrder: function(data, actions) {
@@ -249,9 +249,10 @@
 			var	amountType = this.getPayPalData('amount_type');
 			if (amountType === 'fixed') {
 				paypalConfig.amount = this.getPayPalData('amount');
-			} else {
-				paypalConfig.amount = this.get_field_calculation(this.getPayPalData('variable'));
+			} else if( amountType === 'variable' && paypalConfig.variable !== '' ) {
+				paypalConfig.amount =  this.get_field_calculation( paypalConfig.variable );
 			}
+
 
 			return paypalConfig;
 		},

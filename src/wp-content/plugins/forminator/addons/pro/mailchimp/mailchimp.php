@@ -18,8 +18,8 @@ function forminator_addon_mailchimp_assets_url() {
 	return trailingslashit( forminator_addon_mailchimp_url() . 'assets' );
 }
 
-require_once dirname( __FILE__ ) . '/forminator-addon-mailchimp.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-mailchimp-form-settings.php';
-require_once dirname( __FILE__ ) . '/forminator-addon-mailchimp-form-hooks.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-mailchimp.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-mailchimp-form-settings.php';
+require_once dirname( __FILE__ ) . '/class-forminator-addon-mailchimp-form-hooks.php';
 //Direct Load
 Forminator_Addon_Loader::get_instance()->register( 'Forminator_Addon_Mailchimp' );

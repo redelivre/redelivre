@@ -15,7 +15,9 @@ trait Update
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @return \Forminator\Stripe\ApiResource The updated resource.
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return static The updated resource.
      */
     public static function update($id, $params = null, $opts = null)
     {
@@ -31,7 +33,9 @@ trait Update
     /**
      * @param array|string|null $opts
      *
-     * @return \Forminator\Stripe\ApiResource The saved resource.
+     * @throws \Forminator\Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return static The saved resource.
      */
     public function save($opts = null)
     {

@@ -34,7 +34,7 @@ if ( 0 === $num_recent ) {
 
 			<?php if ( 0 === forminator_cforms_total() ) { ?>
 
-				<p><button href="/" class="sui-button sui-button-blue wpmudev-open-modal" data-modal="custom_forms"><i class="sui-icon-plus" aria-hidden="true"></i> <?php esc_html_e( "Create", Forminator::DOMAIN ); ?></button></p>
+				<p><button href="/" class="sui-button sui-button-blue wpmudev-open-modal" data-modal="custom_forms"><i class="sui-icon-plus" aria-hidden="true"></i> <?php esc_html_e( 'Create', Forminator::DOMAIN ); ?></button></p>
 
 			<?php } ?>
 
@@ -58,21 +58,23 @@ if ( 0 === $num_recent ) {
 
 				<tbody>
 
-					<?php foreach( forminator_cform_modules( $num_recent, $statuses ) as $module ) { ?>
+					<?php foreach ( forminator_cform_modules( $num_recent, $statuses ) as $module ) { ?>
 
 						<tr>
 
-							<td class="sui-table-item-title"><?php echo forminator_get_form_name( $module['id'], 'custom_form'); // WPCS: XSS ok. ?></td>
+							<td class="sui-table-item-title"><?php echo forminator_get_form_name( $module['id'], 'custom_form' ); // phpcs:ignore ?></td>
 
 							<td class="fui-col-status">
 
-								<?php if ( 'publish' === $module['status'] ) {
+								<?php
+								if ( 'publish' === $module['status'] ) {
 									$status_class = 'published';
 									$status_text  = esc_html__( 'Published', Forminator::DOMAIN );
 								} else {
 									$status_class = 'draft';
 									$status_text  = esc_html__( 'Draft', Forminator::DOMAIN );
-								} ?>
+								}
+								?>
 
 								<span
 									class="sui-status-dot sui-<?php echo esc_html( $status_class ); ?> sui-tooltip"
@@ -81,7 +83,7 @@ if ( 0 === $num_recent ) {
 									<span aria-hidden="true"></span>
 								</span>
 
-								<a href="<?php echo admin_url( 'admin.php?page=forminator-cform&view-stats=' . esc_attr( $module['id'] ) ); // WPCS: XSS ok. ?>"
+								<a href="<?php echo admin_url( 'admin.php?page=forminator-cform&view-stats=' . esc_attr( $module['id'] ) ); // phpcs:ignore ?>"
 									class="sui-button-icon sui-tooltip sui-tooltip-top-right-mobile"
 									data-tooltip="<?php esc_html_e( 'View Stats', Forminator::DOMAIN ); ?>">
 									<i class="sui-icon-graph-line" aria-hidden="true"></i>
@@ -97,23 +99,23 @@ if ( 0 === $num_recent ) {
 
 									<ul>
 										<li>
-											<a href="<?php echo admin_url( 'admin.php?page=forminator-cform-wizard&id=' . $module['id'] ); // WPCS: XSS ok. ?>">
-												<i class="sui-icon-pencil" aria-hidden="true"></i> <?php esc_html_e( "Edit", Forminator::DOMAIN ); ?>
+											<a href="<?php echo admin_url( 'admin.php?page=forminator-cform-wizard&id=' . $module['id'] ); // phpcs:ignore ?>">
+												<i class="sui-icon-pencil" aria-hidden="true"></i> <?php esc_html_e( 'Edit', Forminator::DOMAIN ); ?>
 											</a>
 										</li>
 										<li><button class="wpmudev-open-modal"
 											data-modal="preview_cforms"
-											data-modal-title="<?php echo sprintf( '%s - %s', esc_html__( 'Preview Custom Form', Forminator::DOMAIN ), forminator_get_form_name( $module['id'], 'custom_form' ) ); // WPCS: XSS ok. ?>"
+											data-modal-title="<?php echo sprintf( '%s - %s', esc_html__( 'Preview Custom Form', Forminator::DOMAIN ), forminator_get_form_name( $module['id'], 'custom_form' ) ); // phpcs:ignore ?>"
 											data-form-id="<?php echo esc_attr( $module['id'] ); ?>"
-											data-nonce="<?php echo wp_create_nonce( 'forminator_popup_preview_cforms' ); // WPCS: XSS ok. ?>">
+											data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminator_popup_preview_cforms' ) ); ?>">
 											<i class="sui-icon-eye" aria-hidden="true"></i> <?php esc_html_e( 'Preview', Forminator::DOMAIN ); ?>
 										</button></li>
 
 										<li>
-											<button class="copy-clipboard" data-shortcode='[forminator_form id="<?php echo esc_attr( $module['id'] ); ?>"]'><i class="sui-icon-code" aria-hidden="true"></i> <?php esc_html_e( "Copy Shortcode", Forminator::DOMAIN ); ?></button>
+											<button class="copy-clipboard" data-shortcode='[forminator_form id="<?php echo esc_attr( $module['id'] ); ?>"]'><i class="sui-icon-code" aria-hidden="true"></i> <?php esc_html_e( 'Copy Shortcode', Forminator::DOMAIN ); ?></button>
 										</li>
 
-										<li><a href="<?php echo admin_url( 'admin.php?page=forminator-entries&form_type=forminator_forms&form_id=' . $module['id'] ); // WPCS: XSS ok. ?>"><i class="sui-icon-community-people" aria-hidden="true"></i> <?php esc_html_e( 'View Submissions', Forminator::DOMAIN ); ?></a></li>
+										<li><a href="<?php echo admin_url( 'admin.php?page=forminator-entries&form_type=forminator_forms&form_id=' . $module['id'] ); // phpcs:ignore ?>"><i class="sui-icon-community-people" aria-hidden="true"></i> <?php esc_html_e( 'View Submissions', Forminator::DOMAIN ); ?></a></li>
 
 										<li><form method="post">
 											<input type="hidden" name="forminator_action" value="clone">
@@ -143,7 +145,7 @@ if ( 0 === $num_recent ) {
 													data-modal-title="<?php esc_attr_e( 'Delete Form', Forminator::DOMAIN ); ?>"
 													data-modal-content="<?php esc_attr_e( 'Are you sure you wish to permanently delete this form?', Forminator::DOMAIN ); ?>"
 													data-form-id="<?php echo esc_attr( $module['id'] ); ?>"
-													data-nonce="<?php echo wp_create_nonce( 'forminatorCustomFormRequest' ); // WPCS: XSS ok. ?>">
+													data-nonce="<?php echo esc_attr( wp_create_nonce( 'forminatorCustomFormRequest' ) ); ?>">
 												<i class="sui-icon-trash" aria-hidden="true"></i> <?php esc_html_e( 'Delete', Forminator::DOMAIN ); ?>
 											</button>
 										</li>
@@ -166,11 +168,11 @@ if ( 0 === $num_recent ) {
 
 				<button class="sui-button sui-button-blue wpmudev-open-modal"
 					data-modal="custom_forms">
-					<i class="sui-icon-plus" aria-hidden="true"></i> <?php esc_html_e( "Create", Forminator::DOMAIN ); ?>
+					<i class="sui-icon-plus" aria-hidden="true"></i> <?php esc_html_e( 'Create', Forminator::DOMAIN ); ?>
 				</button>
 
 				<div class="sui-actions-right">
-					<p class="sui-description"><a href="<?php echo admin_url( 'admin.php?page=forminator-cform' ); // WPCS: XSS ok. ?>" class="sui-link-gray"><?php esc_html_e( 'View all forms', Forminator::DOMAIN ); ?></a></p>
+					<p class="sui-description"><a href="<?php echo admin_url( 'admin.php?page=forminator-cform' ); // phpcs:ignore ?>" class="sui-link-gray"><?php esc_html_e( 'View all forms', Forminator::DOMAIN ); ?></a></p>
 				</div>
 
 			</div>

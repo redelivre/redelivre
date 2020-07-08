@@ -112,7 +112,7 @@ abstract class Forminator_Base_Form_Model {
 		update_post_meta( $id, self::META_KEY, $meta_data );
 
 		return $id;
-	}
+	}	
 
 	/**
 	 * @since 1.0
@@ -346,14 +346,14 @@ abstract class Forminator_Base_Form_Model {
 	 * @return array
 	 */
 	public function get_models_by_field( $id ) {
-		$modules   = array();
-		$data      = $this->get_models(999);
+		$modules = array();
+		$data    = $this->get_models( 999 );
 
 		foreach ( $data as $model ) {
-			if( $model->get_field( $id ) ) {
+			if ( $model->get_field( $id ) ) {
 				$modules[] = array(
-					'id' => $model->id,
-					'title' => $model->name,
+					'id'      => $model->id,
+					'title'   => $model->name,
 					'version' => $model->version
 				);
 			}
@@ -376,8 +376,8 @@ abstract class Forminator_Base_Form_Model {
 		foreach ( $data as $model ) {
 			if( $model->get_field( $id ) && version_compare( $model->settings['version'], $version, 'lt' ) ) {
 				$modules[] = array(
-					'id' => $model->id,
-					'title' => $model->name,
+					'id'      => $model->id,
+					'title'   => $model->name,
 					'version' => $model->settings['version']
 				);
 			}
@@ -430,7 +430,7 @@ abstract class Forminator_Base_Form_Model {
 			$object        = new $class();
 			$meta          = get_post_meta( $post->ID, self::META_KEY, true );
 			$maps          = array_merge( $this->get_default_maps(), $this->get_maps() );
-			$fields =   ! empty( $meta['fields'] ) ? $meta['fields'] : array();
+			$fields        = ! empty( $meta['fields'] ) ? $meta['fields'] : array();
 			$form_settings = array(
 				'version'                    => '1.0',
 				'cform-section-border-color' => '#E9E9E9',
@@ -473,7 +473,7 @@ abstract class Forminator_Base_Form_Model {
 
 			// Migrate settings Custom Form
 			if ( 'forminator_forms' === $this->post_type ) {
-				$object->settings = Forminator_Migration::migrate_custom_form_settings( $object->settings, $fields );
+				$object->settings      = Forminator_Migration::migrate_custom_form_settings( $object->settings, $fields );
 				$object->notifications = Forminator_Migration::migrate_custom_form_notifications( $object->notifications, $object->settings, $meta );
 			}
 
@@ -589,17 +589,18 @@ abstract class Forminator_Base_Form_Model {
 			}
 		}
 
-		$settings = $this->settings;
+		$settings      = $this->settings;
 		$notifications = $this->notifications;
-		$data     = array_merge(
+		$data          = array_merge(
 			array(
 				'wrappers' => array(
 					'fields' => $wrappers,
 				),
 			),
 			$settings,
-			$notifications );
-		$ret      = array(
+			$notifications
+		);
+		$ret           = array(
 			'formName' => $this->name,
 			'data'     => $data,
 		);
@@ -840,6 +841,18 @@ abstract class Forminator_Base_Form_Model {
 				throw new Exception( __( 'Failed to load imported Forminator model', Forminator::DOMAIN ) );
 			}
 
+
+			/**
+			 * Action called after module imported
+			 *
+			 * @since 1.11
+			 *
+			 * @param int    $post_id - module id
+			 * @param string $post_status - module status
+			 * @param object $model - module model
+			 *
+			 */
+			do_action( 'forminator_' . $type . '_action_imported', $post_id, $post_status, $model );
 		} catch ( Exception $e ) {
 			$code = $e->getCode();
 			if ( empty( $code ) ) {

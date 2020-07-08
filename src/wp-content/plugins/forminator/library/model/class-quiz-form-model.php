@@ -383,7 +383,6 @@ class Forminator_Quiz_Form_Model extends Forminator_Base_Form_Model {
 			return array();
 		}
 
-
 		// default top_result is first on the pool
 		$top_result_id = $top_results[0];
 		$top_result    = $this->getResult( $top_result_id );
@@ -418,12 +417,10 @@ class Forminator_Quiz_Form_Model extends Forminator_Base_Form_Model {
 					$top_result   = $top_result_to_compare;
 					$top_priority = $top_priority_to_compare;
 				}
-
 			}
 		}
 
 		return $top_result;
-
 
 	}
 

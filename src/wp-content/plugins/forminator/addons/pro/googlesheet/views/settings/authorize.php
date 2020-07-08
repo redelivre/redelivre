@@ -12,7 +12,7 @@ foreach ( $template_vars as $key => $val ) {
 
 <div class="integration-header">
 
-	<h3 id="dialogTitle2" class="sui-box-title"><?php echo esc_html( sprintf( __( 'Connect %1$s', Forminator::DOMAIN ), 'Google Sheets' ) ); ?></h3>
+	<h3 id="dialogTitle2" class="sui-box-title"><?php echo esc_html( sprintf( /* translators: ... */ __( 'Connect %1$s', Forminator::DOMAIN ), 'Google Sheets' ) ); ?></h3>
 
 	<?php if ( ! empty( $vars['token'] ) ) : ?>
 		<span class="sui-description" style="margin-top: 20px;"><?php esc_html_e( 'Click button below to re-authorize.', Forminator::DOMAIN ); ?></span>

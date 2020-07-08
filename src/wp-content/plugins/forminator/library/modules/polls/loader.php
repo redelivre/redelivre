@@ -68,6 +68,8 @@ class Forminator_Polls extends Forminator_Module {
 		include_once dirname(__FILE__) . '/front/front-action.php';
 		include_once dirname(__FILE__) . '/front/front-render.php';
 		include_once dirname(__FILE__) . '/front/front-mail.php';
+		include_once dirname(__FILE__) . '/front/front-assets.php';
+
 		new Forminator_Poll_Front_Action();
 		new Forminator_Poll_Front();
 

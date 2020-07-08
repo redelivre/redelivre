@@ -11,18 +11,16 @@ namespace Forminator\Stripe\Radar;
  * @property int $created
  * @property string $created_by
  * @property string $item_type
- * @property Collection $list_items
+ * @property \Forminator\Stripe\Collection $list_items
  * @property bool $livemode
- * @property StripeObject $metadata
- * @property mixed $name
- * @property int $updated
- * @property string $updated_by
+ * @property \Forminator\Stripe\StripeObject $metadata
+ * @property string $name
  *
  * @package Forminator\Stripe\Radar
  */
 class ValueList extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "radar.value_list";
+    const OBJECT_NAME = 'radar.value_list';
 
     use \Forminator\Stripe\ApiOperations\All;
     use \Forminator\Stripe\ApiOperations\Create;

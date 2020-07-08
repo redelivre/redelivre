@@ -20,6 +20,8 @@ admin/popup/preview.js
 admin/popup/reset-plugin-settings.js
 admin/popup/disconnect-stripe.js
 admin/popup/disconnect-paypal.js
+admin/popup/approve-user.js
+admin/popup/delete-unconfirmed-user.js
 admin/popups.js
 text!tpl/popups.html
 admin/addons/view.js

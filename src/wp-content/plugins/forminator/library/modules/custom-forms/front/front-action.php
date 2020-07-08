@@ -176,6 +176,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 						if ( in_array( $field_type, $ignored_field_types, true ) ) {
 							continue;
 						}
+						$form_field_obj = isset( $field_classes[ $field_type ] ) ? $field_classes[ $field_type ] : null;
 
 						if ( ! isset( $submitted_data[ $field_id ] ) ) {
 							foreach ( $field_suffix as $suffix ) {
@@ -189,7 +190,14 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 								}
 							}
 
-							if ( "postdata" === $field_type ) {
+							if ( 'upload' === $field_type ) {
+								/** @var  Forminator_Upload $form_field_obj */
+								$upload_data = $form_field_obj->handle_file_upload( $field_array );
+								if ( isset( $upload_data['success'] ) && $upload_data['success'] ) {
+									$field_data['file'] = $upload_data;
+								}
+							}
+							if ( 'postdata' === $field_type ) {
 								$post_type     = Forminator_Field::get_property( 'post_type', $field_array, 'post' );
 								$category_list = forminator_post_categories( $post_type );
 								if ( ! empty( $category_list ) ) {
@@ -221,9 +229,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 							}
 						} else {
 							$field_data = $submitted_data[ $field_id ];
-						};
-
-						$form_field_obj = isset( $field_classes[ $field_type ] ) ? $field_classes[ $field_type ] : null;
+						}
 
 						// Validate data when its available and not hidden on front end
 						if ( $form_field_obj->is_available( $field_array ) && ! $form_field_obj->is_hidden( $field_array, $submitted_data, $pseudo_submitted_data, $custom_form ) ) {
@@ -383,7 +389,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 						if ( isset( $response['url'] ) && ( ! isset( $response['newtab'] ) || 'sametab' === $response['newtab'] ) ) {
 
 							//wp redirect for sametab
-							wp_safe_redirect( $response['url'] );
+							wp_redirect( $response['url'] );
 							exit;
 
 						} else {
@@ -627,19 +633,21 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 			$can_submit = apply_filters( 'forminator_custom_form_handle_form_user_can_submit', $can_submit, $form_id );
 
 			if ( $can_submit ) {
-				$submit_errors      = array();
-				$entry              = new Forminator_Form_Entry_Model();
-				$entry->entry_type  = $this->entry_type;
-				$entry->form_id     = $form_id;
-				$field_data_array   = array();
-				$fields             = $custom_form->get_fields();
-				$field_suffix       = Forminator_Form_Entry_Model::field_suffix();
-				$field_forms        = forminator_fields_to_array();
-				$product_fields     = array();
-				$calculation_exists = false;
-				$stripe_exists      = false;
-				$paypal_exists      = false;
-				$select_field_value = array();
+				$submit_errors       = array();
+				$entry               = new Forminator_Form_Entry_Model();
+				$entry->entry_type   = $this->entry_type;
+				$entry->form_id      = $form_id;
+				$field_data_array    = array();
+				$fields              = $custom_form->get_fields();
+				$field_suffix        = Forminator_Form_Entry_Model::field_suffix();
+				$field_forms         = forminator_fields_to_array();
+				$product_fields      = array();
+				$calculation_exists  = false;
+				$stripe_exists       = false;
+				$paypal_exists       = false;
+				$registration_exists = false;
+				$select_field_value  = array();
+				$login_user          = array();
 
 				// set default response to error message
 				$response = array(
@@ -790,7 +798,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 								$form_field_obj = $field_forms[ $field_type ];
 
 								// is conditionally hidden go to next field
-								if ( $form_field_obj->is_hidden( $field_array, $submitted_data, $pseudo_submitted_data, $custom_form ) ) {
+								if ( $form_field_obj->is_hidden( $field_array, $submitted_data, $pseudo_submitted_data ) ) {
 									continue;
 								}
 
@@ -878,17 +886,22 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 										if ( "postdata" === $field_type && ! $form_field_obj->is_hidden( $field_array, $submitted_data, $pseudo_submitted_data, $custom_form ) ) {
 											// check if field_data of post values not empty (happen when postdata is not required)
 											$filtered = array_filter( $field_data );
+											$post_value = $field_data;
 											if ( ! empty( $filtered ) ) {
 												$post_id = $form_field_obj->save_post( $field_array, $field_data );
 												if ( $post_id ) {
-													$field_data             = array();
-													$field_data['postdata'] = $post_id;
+													$field_data = [
+														'postdata' => $post_id,
+														'value' => $post_value,
+													];
 												} else {
 													$submit_errors[][ $field->slug ] = __( 'There was an error saving the post data. Please try again', Forminator::DOMAIN );
 												}
 											} else {
-												$field_data             = array();
-												$field_data['postdata'] = null;
+												$field_data             = [
+													'postdata' => null,
+													'value' => $post_value,
+												];
 											}
 
 										}
@@ -935,6 +948,68 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 						}
 					}
 
+					/**
+					 * @since 1.11
+					 * For login or registration forms
+					 */
+					if ( isset( $setting['form-type'] ) && in_array( $setting['form-type'], array( 'login', 'registration' ) ) && ! is_user_logged_in() ) {
+						$user_response = array(
+							'message' => '',
+							'errors'  => array(),
+							'success' => false,
+							'behav'   => $submission_behav,
+						);
+
+						if ( 'login' === $setting['form-type'] ) {
+							$forminator_user_login = new Forminator_CForm_Front_User_Login();
+							$login_user = $forminator_user_login->process_login( $custom_form, $submitted_data, $entry, $field_data_array );
+							if ( is_wp_error( $login_user['user'] ) ) {
+								$message = '';
+
+								if ( forminator_get_property( $login_user['user']->errors, 'invalid_email' ) ) {
+									$message = $login_user['user']->errors['invalid_email'][0];
+								}
+
+								if ( forminator_get_property( $login_user['user']->errors, 'invalid_username' ) ) {
+									$message = $login_user['user']->errors['invalid_username'][0];
+								}
+
+								if ( forminator_get_property( $login_user['user']->errors, 'incorrect_password' ) ) {
+									$message = $login_user['user']->errors['incorrect_password'][0];
+								}
+
+								$user_response['message'] = $message;
+
+								return $user_response;
+							}
+
+							if ( ! empty( $login_user['authentication'] ) && 'invalid' === $login_user['authentication'] ) {
+								$user_response['authentication'] = 'invalid';
+							    $user_response['message'] = __( 'Whoops, the passcode you entered was incorrect or expired.', Forminator::DOMAIN );
+
+								return $user_response;
+							}
+
+							$field_data_array = $forminator_user_login->remove_password( $field_data_array );
+						} else {
+							$forminator_user_registration = new Forminator_CForm_Front_User_Registration();
+							$registration_error = $forminator_user_registration->process_validation( $custom_form, $submitted_data, $field_data_array );
+							if ( true !== $registration_error ) {
+								$user_response['message'] = $registration_error;
+
+								return $user_response;
+							}
+
+							$custom_error = apply_filters( 'forminator_custom_registration_form_errors', $registration_error, $form_id, $field_data_array );
+							if ( true !== $custom_error ) {
+								$user_response['message'] = $custom_error;
+
+								return $user_response;
+							}
+
+							$registration_exists = true;
+						}
+					}
 				}
 
 				/**
@@ -1003,7 +1078,6 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 						}
 
 						if ( $prevent_store || $entry->save() ) {
-
 							$response = array(
 								'message' => __( "Form entry saved", Forminator::DOMAIN ),
 								'success' => true,
@@ -1123,30 +1197,74 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 							//ADDON after_entry_saved
 							$this->attach_addons_after_entry_saved( $form_id, $entry );
 
+							//After $entry->set_fields() to get all data for {all_fields}
+							if ( $registration_exists ) {
+								$new_user_data = $forminator_user_registration->process_registration( $custom_form, $submitted_data, $entry );
+
+								if ( ! is_array( $new_user_data ) ) {
+									$user_response['message'] = $new_user_data;
+
+									return $user_response;
+								}
+
+								$field_data_array = $forminator_user_registration->remove_password( $field_data_array );
+								//Do not send emails later
+								$custom_form      = $forminator_user_registration->change_custom_form( $custom_form );
+							}
+
 							$forminator_mail_sender = new Forminator_CForm_Front_Mail();
 							$forminator_mail_sender->process_mail( $custom_form, $submitted_data, $entry, $pseudo_submitted_data );
-							if ( isset( $setting['submission-behaviour'] ) && 'behaviour-redirect' === $setting['submission-behaviour'] ) {
-								if ( isset( $setting['redirect-url'] ) && ! empty( $setting['redirect-url'] ) ) {
-									$response['redirect'] = true;
-									//replace form data vars with value
-									$redirect_url = forminator_replace_form_data( $setting['redirect-url'], $submitted_data, $custom_form, $entry );
-									$newtab       = forminator_replace_form_data( $setting['newtab'], $submitted_data, $custom_form, $entry );
-									//replace misc data vars with value
-									$redirect_url       = forminator_replace_variables( $redirect_url, $form_id );
-									$newtab             = forminator_replace_variables( $newtab, $form_id );
-									$response['url']    = esc_url( $redirect_url );
-									$response['newtab'] = esc_html( $newtab );
-								}
-							}
-							//also run if newtab redirection with thankyou message is selected.
-							if ( ( isset( $setting['submission-behaviour'] ) && ( 'behaviour-thankyou' === $setting['submission-behaviour'] || 'behaviour-hide' === $setting['submission-behaviour'] ) ) || 'newtab_thankyou' === $response['newtab'] ) {
+
+							$all_behaviours = array( 'behaviour-thankyou', 'behaviour-hide', 'behaviour-redirect' );
+							if ( isset( $setting['submission-behaviour'] ) && in_array( $setting['submission-behaviour'], $all_behaviours, true ) ) {
+								$exist_thankyou_message = false;
 								if ( isset( $setting['thankyou-message'] ) && ! empty( $setting['thankyou-message'] ) ) {
+									/**
+									 * Filter thankyou message
+									 *
+									 * @since 1.11
+									 *
+									 * @param string $setting['thankyou-message']
+									 * @param array $submitted_data
+									 * @param Forminator_Custom_Form_Model $custom_form
+									 *
+									 * @return string
+									 */
+									$setting['thankyou-message'] = apply_filters( 'forminator_custom_form_thankyou_message', $setting['thankyou-message'], $submitted_data, $custom_form );
 									//replace form data vars with value
 									$thankyou_message = forminator_replace_form_data( $setting['thankyou-message'], $submitted_data, $custom_form, $entry );
 									//replace misc data vars with value
 									$thankyou_message    = forminator_replace_variables( $thankyou_message, $form_id );
 									$response['message'] = $thankyou_message;
+									$exist_thankyou_message = true;
 								}
+
+								if ( 'behaviour-redirect' === $setting['submission-behaviour'] && isset( $setting['redirect-url'] ) && ! empty( $setting['redirect-url'] ) ) {
+									$response['redirect'] = true;
+									//replace form data vars with value
+									$redirect_url = forminator_replace_form_data( $setting['redirect-url'], $submitted_data, $custom_form, $entry );
+									$tab_value = isset( $setting['newtab'] ) ? $setting['newtab'] : 'sametab';
+									$newtab       = forminator_replace_form_data( $tab_value, $submitted_data, $custom_form, $entry );
+									//replace misc data vars with value
+									$redirect_url       = forminator_replace_variables( $redirect_url, $form_id );
+									$newtab             = forminator_replace_variables( $newtab, $form_id );
+									$response['url']    = esc_url( $redirect_url );
+									$response['newtab'] = esc_html( $newtab );
+									//Empty message if behaviour is redirect
+									if ( ! $exist_thankyou_message ) {
+										$response['message'] = '';
+									}
+								}
+							}
+
+							if ( isset( $login_user['user']->ID ) ) {
+								$response['user_id'] = $login_user['user']->ID;
+							}
+							if ( isset( $login_user['authentication'] ) ) {
+								$response['authentication'] = $login_user['authentication'];
+							}
+							if ( isset( $login_user['lost_url'] ) ) {
+								$response['lost_url'] = $login_user['lost_url'];
 							}
 
 							if ( ! isset( $setting['enable-ajax'] ) || empty( $setting['enable-ajax'] ) ) {
@@ -1690,7 +1808,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 				if ( isset( $fields_collection['paypal'] ) ) {
 
 					/**
-					 * Fires before process stripe
+					 * Fires before process paypal
 					 *
 					 * @since 1.7
 					 *
@@ -1701,7 +1819,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 					 */
 					do_action( 'forminator_custom_form_before_paypal_charge', $custom_form, $field, $submitted_data, $field_data_array );
 
-					/** @var Forminator_Stripe $field_object */
+					/** @var Forminator_PayPal $field_object */
 					$field_object = $fields_collection['paypal'];
 
 
@@ -1712,7 +1830,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 					);
 
 					/**
-					 * Filter stripe entry data that might be stored/used later
+					 * Filter paypal entry data that might be stored/used later
 					 *
 					 * @since 1.7
 					 *
@@ -1728,13 +1846,13 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 					$entry_data_array [] = $paypal_entry_data;
 
 					/**
-					 * Fires after charge stripe
+					 * Fires after charge paypal
 					 *
 					 * @since 1.7
 					 *
 					 * @param Forminator_Custom_Form_Model $custom_form
 					 * @param array $field field properties
-					 * @param array $stripe_entry_data
+					 * @param array $paypal_entry_data
 					 * @param array $submitted_data
 					 * @param array $field_data_array
 					 */
@@ -1828,7 +1946,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 						$pseudo_submitted_data[ $field_id ] = $forminator_paypal_field->get_payment_amount( $field_array, $custom_form, $submitted_data, $pseudo_submitted_data );
 					}
 
-					// only process first single stripe
+					// only process first single paypal
 					break;
 
 				}
@@ -1920,6 +2038,6 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 				break;
 		}
 
-		return $submitted_data;
+		return $format;
 	}
 }

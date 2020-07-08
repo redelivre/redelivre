@@ -223,8 +223,9 @@ class Forminator_CForm_Front_Mail extends Forminator_Mail {
 					$from_name = apply_filters( 'forminator_custom_form_mail_admin_from_name', $from_name, $custom_form, $data, $entry, $this );
 
 					$from_email = $this->sender_email;
-					if ( isset( $notification['from-email'] ) && ! empty( $notification['from-email'] ) ) {
-						$notification_from_address = $notification['from-email'];
+
+					if ( isset( $notification['form-email'] ) && ! empty( $notification['form-email'] ) ) {
+						$notification_from_address = $notification['form-email'];
 						$notification_from_address = forminator_replace_form_data( $notification_from_address, $data );
 						$notification_from_address = forminator_replace_variables( $notification_from_address, $custom_form->id, $data['current_url'] );
 						$notification_from_address = forminator_replace_custom_form_data( $notification_from_address, $custom_form, $data, $entry, $this->skip_custom_form_data['admin'] );

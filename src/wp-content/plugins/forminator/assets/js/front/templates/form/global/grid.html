@@ -1,35 +1,58 @@
 <?php if ( forminator_array_value_exists( $properties, 'fields-style' ) && forminator_array_value_exists( $properties, 'spacing' ) ) { ?>
 
-	<?php if ( $properties['fields-style'] === "custom" ) { ?>
+	<?php if ( $properties['fields-style'] === "custom" && '' !== $properties['spacing'] ) { ?>
 
-		.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-custom .forminator-row:not(:last-child) {
+		.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-row:not(:last-child),
+		.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-row:not(:last-child) {
 			margin-bottom: <?php echo $properties['spacing'] ?>px;
 		}
 
-		.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-custom .forminator-col:not(:last-child) {
+		.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col:not(:last-child),
+		.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col:not(:last-child) {
 			margin-bottom: <?php echo $properties['spacing'] ?>px;
 		}
 
 		@media (min-width: 783px) {
 
-			.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-custom .forminator-row {
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-row,
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-row {
+				display: flex;
+				flex-wrap: wrap;
 				margin-right: -<?php echo ($properties['spacing'] / 2) ?>px;
 				margin-left: -<?php echo ($properties['spacing'] / 2) ?>px;
 			}
 
-			.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-custom .forminator-row:not(:last-child) {
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-row:not(:last-child),
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-row:not(:last-child) {
 				margin-bottom: <?php echo $properties['spacing'] ?>px;
 			}
 
-			.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-custom .forminator-col {
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col,
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col {
+				min-width: 0;
+				flex: 1;
 				padding: 0 <?php echo ($properties['spacing'] / 2) ?>px;
 			}
 
-			.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-custom .forminator-col-3 .forminator-row[data-multiple="true"] .forminator-col:not(:last-child) {
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col:not(:last-child),
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col:not(:last-child) {
+				margin-bottom: 0;
+			}
+
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-3 .forminator-row[data-multiple="true"],
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-4 .forminator-row[data-multiple="true"],
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-3 .forminator-row[data-multiple="true"],
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-4 .forminator-row[data-multiple="true"] {
+				display: block;
+			}
+
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-3 .forminator-row[data-multiple="true"] .forminator-col:not(:last-child),
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-3 .forminator-row[data-multiple="true"] .forminator-col:not(:last-child) {
 				margin-bottom: <?php echo $properties['spacing'] ?>px;
 			}
 
-			.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-custom .forminator-col-4 .forminator-row[data-multiple="true"] .forminator-col:not(:last-child) {
+			.forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-4 .forminator-row[data-multiple="true"] .forminator-col:not(:last-child),
+			.et-db #et-boc .et_pb_module .forminator-custom-form-<?php echo $properties['form_id'] ?>[data-grid="custom"] .forminator-col-4 .forminator-row[data-multiple="true"] .forminator-col:not(:last-child) {
 				margin-bottom: <?php echo $properties['spacing'] ?>px;
 			}
 		}

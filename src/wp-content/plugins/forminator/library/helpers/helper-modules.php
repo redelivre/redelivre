@@ -27,5 +27,5 @@ function forminator_get_modules() {
 function forminator_get_module( $id ) {
 	$modules = forminator_get_modules();
 
-	return isset( $modules[ $id ] ) && ! empty( $modules[ $id] ) ? $modules[ $id] : false;
+	return isset( $modules[ $id ] ) && ! empty( $modules[ $id ] ) ? $modules[ $id ] : false;
 }

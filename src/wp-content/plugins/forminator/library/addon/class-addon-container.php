@@ -37,7 +37,6 @@ class Forminator_Addon_Container implements ArrayAccess, Countable, Iterator {
 			return $this->addons[ $offset ];
 		}
 
-
 		return null;
 	}
 

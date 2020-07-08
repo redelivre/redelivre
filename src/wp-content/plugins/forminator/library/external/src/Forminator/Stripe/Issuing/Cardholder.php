@@ -7,13 +7,18 @@ namespace Forminator\Stripe\Issuing;
  *
  * @property string $id
  * @property string $object
- * @property mixed $billing
+ * @property \Forminator\Stripe\StripeObject|null $authorization_controls
+ * @property \Forminator\Stripe\StripeObject $billing
+ * @property \Forminator\Stripe\StripeObject|null $company
  * @property int $created
- * @property string $email
+ * @property string|null $email
+ * @property \Forminator\Stripe\StripeObject|null $individual
+ * @property bool $is_default
  * @property bool $livemode
  * @property \Forminator\Stripe\StripeObject $metadata
  * @property string $name
- * @property string $phone_number
+ * @property string|null $phone_number
+ * @property \Forminator\Stripe\StripeObject $requirements
  * @property string $status
  * @property string $type
  *
@@ -21,7 +26,7 @@ namespace Forminator\Stripe\Issuing;
  */
 class Cardholder extends \Forminator\Stripe\ApiResource
 {
-    const OBJECT_NAME = "issuing.cardholder";
+    const OBJECT_NAME = 'issuing.cardholder';
 
     use \Forminator\Stripe\ApiOperations\All;
     use \Forminator\Stripe\ApiOperations\Create;

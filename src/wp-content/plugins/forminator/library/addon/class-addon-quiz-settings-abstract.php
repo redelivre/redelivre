@@ -105,6 +105,7 @@ abstract class Forminator_Addon_Quiz_Settings_Abstract {
 		$this->quiz_id = $quiz_id;
 		$this->quiz    = Forminator_Quiz_Form_Model::model()->load( $this->quiz_id );
 		if ( ! $this->quiz ) {
+			/* translators: ... */
 			throw new Forminator_Addon_Exception( sprintf( __( 'Quiz with id %d could not be found', Forminator::DOMAIN ), $this->quiz_id ) );
 		}
 		$this->quiz_settings = forminator_addon_format_quiz_settings( $this->quiz );
@@ -229,7 +230,6 @@ abstract class Forminator_Addon_Quiz_Settings_Abstract {
 	 */
 	final public function is_force_quiz_disconnected() {
 		$disconnected = get_post_meta( $this->quiz_id, 'forminator_addon_' . $this->addon->get_slug() . '_quiz_disconnect', true );
-
 
 		if ( ! empty( $disconnected ) && isset( $disconnected['disconnect'] ) && $disconnected['disconnect'] ) {
 			$this->is_force_quiz_disconnected     = true;

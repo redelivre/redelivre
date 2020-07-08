@@ -36,11 +36,15 @@ $total_page       = ceil( $count / $entries_per_page );
 					<div class="sui-pagination-wrap">
 
 						<span class="sui-pagination-results">
-							<?php if ( 1 === $count ) {
+							<?php
+							if ( 1 === $count ) {
+								/* translators: ... */
 								printf( esc_html__( '%s result', Forminator::DOMAIN ), esc_html( $count ) );
 							} else {
+								/* translators: ... */
 								printf( esc_html__( '%s results', Forminator::DOMAIN ), esc_html( $count ) );
-							} // phpcs:ignore ?>
+							}
+							?>
 						</span>
 
 						<?php $this->paginate(); ?>
@@ -61,10 +65,10 @@ $total_page       = ceil( $count / $entries_per_page );
 					<label class="sui-checkbox">
 						<input id="wpf-cform-check_all" type="checkbox">
 						<span></span>
-						<div class="sui-description"><?php esc_html_e( "ID", Forminator::DOMAIN ); ?></div>
+						<div class="sui-description"><?php esc_html_e( 'ID', Forminator::DOMAIN ); ?></div>
 					</label>
 				</th>
-				<th colspan="5"><?php esc_html_e( "Date Submitted", Forminator::DOMAIN ); ?></th>
+				<th colspan="5"><?php esc_html_e( 'Date Submitted', Forminator::DOMAIN ); ?></th>
 			</tr>
 
 			</thead>
@@ -92,7 +96,7 @@ $total_page       = ceil( $count / $entries_per_page );
 					</td>
 
 					<td colspan="5">
-						<?php echo date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $entry->date_created_sql ) ); // WPCS: XSS ok. ?>
+						<?php echo date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $entry->date_created_sql ) ); // phpcs:ignore ?>
 						<span class="sui-accordion-open-indicator">
 							<i class="sui-icon-chevron-down"></i>
 						</span>
@@ -109,7 +113,7 @@ $total_page       = ceil( $count / $entries_per_page );
 							<div class="sui-box-body">
 
 								<h2>
-									<?php echo forminator_get_form_name( $this->form_id, 'quiz' ); // WPCS: XSS ok. ?>
+									<?php echo forminator_get_form_name( $this->form_id, 'quiz' ); // phpcs:ignore ?>
 								</h2>
 
 								<?php if ( 'knowledge' === $form_type ) { ?>
@@ -126,9 +130,9 @@ $total_page       = ceil( $count / $entries_per_page );
 
 										<tr>
 
-											<th><?php esc_html_e( "Question", Forminator::DOMAIN ); ?></th>
+											<th><?php esc_html_e( 'Question', Forminator::DOMAIN ); ?></th>
 
-											<th><?php esc_html_e( "Answer", Forminator::DOMAIN ); ?></th>
+											<th><?php esc_html_e( 'Answer', Forminator::DOMAIN ); ?></th>
 
 										</tr>
 
@@ -155,11 +159,11 @@ $total_page       = ceil( $count / $entries_per_page );
 													<?php
 													if ( $answer['isCorrect'] ) {
 
-														echo '<span class="sui-tag sui-tag-success">' . $user_answer . '</span>'; // WPCS: XSS ok.
+														echo '<span class="sui-tag sui-tag-success">' . esc_html( $user_answer ) . '</span>';
 
 													} else {
 
-														echo '<span class="sui-tag sui-tag-error">' . $user_answer . '</span>'; // WPCS: XSS ok.
+														echo '<span class="sui-tag sui-tag-error">' . esc_html( $user_answer ) . '</span>';
 
 													}
 													?>
@@ -173,7 +177,7 @@ $total_page       = ceil( $count / $entries_per_page );
 										<?php if ( ! empty( $integrations_data ) ) : ?>
 											<?php foreach ( $integrations_data as $integrations_datum ) : ?>
 												<tr>
-													<td><?php echo $integrations_datum['label']; // wpcs xss ok. html output intended ?></td>
+													<td><?php echo $integrations_datum['label']; // phpcs:ignore -- html output intended ?></td>
 													<td>
 														<?php
 														$sub_entries = isset( $integrations_datum['sub_entries'] ) ? $integrations_datum['sub_entries'] : array();
@@ -182,11 +186,11 @@ $total_page       = ceil( $count / $entries_per_page );
 															<?php foreach ( $sub_entries as $sub_entry ) : ?>
 																<div class="">
 																	<span class="sui-settings-label"><?php echo esc_html( $sub_entry['label'] ); ?></span>
-																	<span class="sui-description"><?php echo( $sub_entry['value'] ); // wpcs xss ok. html output intended ?></span>
+																	<span class="sui-description"><?php echo( $sub_entry['value'] ); // phpcs:ignore -- html output intended ?></span>
 																</div>
 															<?php endforeach; ?>
-														<?php else: ?>
-															<?php echo( $integrations_datum['value'] ); // wpcs xss ok. html output intended ?>
+														<?php else : ?>
+															<?php echo( $integrations_datum['value'] ); // phpcs:ignore -- html output intended ?>
 														<?php endif; ?>
 													</td>
 												</tr>
@@ -216,9 +220,9 @@ $total_page       = ceil( $count / $entries_per_page );
 
 											<tr>
 
-												<th><?php esc_html_e( "Question", Forminator::DOMAIN ); ?></th>
+												<th><?php esc_html_e( 'Question', Forminator::DOMAIN ); ?></th>
 
-												<th><?php esc_html_e( "Answer", Forminator::DOMAIN ); ?></th>
+												<th><?php esc_html_e( 'Answer', Forminator::DOMAIN ); ?></th>
 
 											</tr>
 
@@ -230,9 +234,9 @@ $total_page       = ceil( $count / $entries_per_page );
 
 												<tr>
 
-													<td><?php echo $answer['question']; // WPCS: XSS ok. ?></td>
+													<td><?php echo esc_html( $answer['question'] ); ?></td>
 
-													<td><?php echo $answer['answer']; // WPCS: XSS ok. ?></td>
+													<td><?php echo esc_html( $answer['answer'] ); ?></td>
 
 												</tr>
 
@@ -242,7 +246,7 @@ $total_page       = ceil( $count / $entries_per_page );
 											<?php if ( ! empty( $integrations_data ) ) : ?>
 												<?php foreach ( $integrations_data as $integrations_datum ) : ?>
 													<tr>
-														<td><?php echo $integrations_datum['label']; // wpcs xss ok. html output intended ?></td>
+														<td><?php echo $integrations_datum['label']; // phpcs:ignore -- html output intended ?></td>
 														<td>
 															<?php
 															$sub_entries = isset( $integrations_datum['sub_entries'] ) ? $integrations_datum['sub_entries'] : array();
@@ -251,11 +255,11 @@ $total_page       = ceil( $count / $entries_per_page );
 																<?php foreach ( $sub_entries as $sub_entry ) : ?>
 																	<div class="">
 																		<span class="sui-settings-label"><?php echo esc_html( $sub_entry['label'] ); ?></span>
-																		<span class="sui-description"><?php echo( $sub_entry['value'] ); // wpcs xss ok. html output intended ?></span>
+																		<span class="sui-description"><?php echo( $sub_entry['value'] ); // phpcs:ignore -- html output intended ?></span>
 																	</div>
 																<?php endforeach; ?>
-															<?php else: ?>
-																<?php echo( $integrations_datum['value'] ); // wpcs xss ok. html output intended ?>
+															<?php else : ?>
+																<?php echo( $integrations_datum['value'] ); // phpcs:ignore -- html output intended ?>
 															<?php endif; ?>
 														</td>
 													</tr>
@@ -271,7 +275,7 @@ $total_page       = ceil( $count / $entries_per_page );
 
 									<div class="sui-box-footer">
 
-										<p><?php printf( __( "<strong>Quiz Result:</strong> %s", Forminator::DOMAIN ), $meta['result']['title'] ); // WPCS: XSS ok. ?></p>
+										<p><?php printf( __( '<strong>Quiz Result:</strong> %s', Forminator::DOMAIN ), $meta['result']['title'] ); // phpcs:ignore ?></p>
 
 									</div>
 
@@ -310,11 +314,15 @@ $total_page       = ceil( $count / $entries_per_page );
 					<div class="sui-pagination-wrap">
 
 						<span class="sui-pagination-results">
-							<?php if ( 1 === $count ) {
+							<?php
+							if ( 1 === $count ) {
+								/* translators: ... */
 								printf( esc_html__( '%s result', Forminator::DOMAIN ), esc_html( $count ) );
 							} else {
+								/* translators: ... */
 								printf( esc_html__( '%s results', Forminator::DOMAIN ), esc_html( $count ) );
-							} // phpcs:ignore ?>
+							}
+							?>
 						</span>
 
 						<?php $this->paginate(); ?>
@@ -333,20 +341,20 @@ $total_page       = ceil( $count / $entries_per_page );
 
 	<div class="sui-box sui-message">
 
-		<?php if ( forminator_is_show_branding() ): ?>
-			<img src="<?php echo $plugin_path . 'assets/img/forminator-submissions.png'; // WPCS: XSS ok. ?>"
-			     srcset="<?php echo $plugin_path . 'assets/img/forminator-submissions.png'; // WPCS: XSS ok. ?> 1x,
-			     <?php echo $plugin_path . 'assets/img/forminator-submissions@2x.png'; // WPCS: XSS ok. ?> 2x"
-			     alt="<?php esc_html_e( 'Forminator', Forminator::DOMAIN ); ?>"
-			     class="sui-image"
-			     aria-hidden="true"/>
+		<?php if ( forminator_is_show_branding() ) : ?>
+			<img src="<?php echo esc_url( $plugin_path . 'assets/img/forminator-submissions.png' ); ?>"
+				srcset="<?php echo esc_url( $plugin_path . 'assets/img/forminator-submissions.png' ); ?> 1x,
+				<?php echo esc_url( $plugin_path . 'assets/img/forminator-submissions@2x.png' ); ?> 2x"
+				alt="<?php esc_html_e( 'Forminator', Forminator::DOMAIN ); ?>"
+				class="sui-image"
+				aria-hidden="true"/>
 		<?php endif; ?>
 
 		<div class="sui-message-content">
 
-			<h2><?php echo forminator_get_form_name( $this->form_id, 'quiz' ); // WPCS: XSS ok. ?></h2>
+			<h2><?php echo forminator_get_form_name( $this->form_id, 'quiz' ); // phpcs:ignore ?></h2>
 
-			<p><?php esc_html_e( "You haven’t received any submissions for this quiz yet. When you do, you’ll be able to view all the data here.", Forminator::DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'You haven’t received any submissions for this quiz yet. When you do, you’ll be able to view all the data here.', Forminator::DOMAIN ); ?></p>
 
 		</div>
 
