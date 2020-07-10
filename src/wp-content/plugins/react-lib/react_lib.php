@@ -6,7 +6,8 @@
 
 function add_react() {
 	if ( ! wp_script_is( 'react', 'registered' ) ) {
-		wp_register_script( 'react', plugins_url( 'react.min.js', __FILE__ ) );
+		wp_register_script( 'wp-editor', plugins_url( 'editor.js', __FILE__ ) );
+		wp_register_script( 'react', plugins_url( 'react.min.js', __FILE__ ), array('wp-editor') );
 	}
 
 	if ( ! wp_script_is( 'react-dom', 'registered' ) ) {
