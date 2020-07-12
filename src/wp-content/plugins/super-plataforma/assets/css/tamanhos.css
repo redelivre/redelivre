@@ -1,0 +1,288 @@
+/* Media queries */
+/* xs < 768 */
+
+.nome-video{
+  color:white; 
+  opacity: 0.5; 
+  font-size:20px; 
+  text-shadow: 1px 1px white, -1px -1px #444;
+}
+
+
+@media screen and (max-width: 767px) {
+  .tamanho{
+    height: 320px;
+  }
+
+    .modulos-tam{
+      width: 128px;
+      height: 66px;
+    }
+
+  .container-certificado{
+    margin-top: 100px;
+  }
+
+  .certificado_input{
+    width:50%;
+    height: 15%; 
+    margin-left:85px; 
+    text-align: center;
+    font-size: 8px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+    .certificado_texto{
+    width:50%;
+    margin-top: -10px; 
+    margin-bottom: -10px; 
+    margin-left:85px;
+    height: 15%; 
+    text-align: center;
+    font-size: 10px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+    .certificado_titulo{
+    width:50%; 
+    margin-left:85px;
+    height: 15%; 
+    text-align: center;
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado-footer{
+    width:60%; 
+    margin-left:70px;
+    text-align: center;
+    font-size: 6px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+}
+
+/* sm */
+@media screen and (min-width: 768px) {
+    .tamanho {
+	     height: 310px;
+  	}
+
+  .modulos-tam{
+    width: 235px;
+    height: 124px;  
+  }
+
+      .certificado_input{
+    width:50%; 
+    margin-left:182px; 
+    text-align: center;
+    font-size: 16px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+    .certificado_texto{
+    width:50%; 
+    margin-left:182px; 
+    text-align: center;
+    font-size: 16px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado_titulo{
+    width:50%; 
+    margin-left:182px; 
+    text-align: center;
+    font-size: 25px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .container-certificado{
+    margin-top: 150px;
+  }
+
+  .certificado-footer{
+    width:50%; 
+    margin-left:180px; 
+    text-align: center;
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+}
+
+/* md */
+@media screen and (min-width: 992px) {
+    .tamanho {
+	    height: 360px; 
+  	}
+    .modulos-tam{
+      width: 219px;
+      height: 116px;
+    }
+
+    .botao{
+      margin-top: -30px;
+      width: 310px;
+    }
+
+  .container-certificado{
+    margin-top: 130px;
+  }
+
+  .certificado_input{
+    width:60%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 16px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado_texto{
+    width:60%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado_titulo{
+    width:60%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 40px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado-footer{
+    width:40%; 
+    margin-left:250px; 
+    text-align: center;
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+  }
+}
+
+/* lg */
+@media screen and (min-width: 1200px) {
+    .tamanho {
+      height: 290px; 
+      width: 310px;
+    }
+
+  .modulos-tam{
+    width: 185px;
+    height: 115px;
+  }
+
+
+    .botao{
+      margin-top: -30px;
+      width: 310px;
+    }
+
+  .container-certificado{
+    margin-top: 130px;
+  }
+
+  .certificado_input{
+    width:60%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado_texto{
+    width:60%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 25px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado_titulo{
+    width:60%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 50px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado-footer{
+    width:40%; 
+    margin-left:280px; 
+    text-align: center;
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+  }
+}
+
+@media screen and (min-width: 1439px) {
+    .tamanho {
+      height: 300px; 
+      width: 350px;
+    }
+
+      .modulos-tam{
+    width: 282px;
+    height: 149px;
+  }
+
+}
+
+@media screen and (min-width: 1800px) {
+    .tamanho {
+      height: 300px; 
+      width: 350px;
+    }
+
+  .modulos-tam{
+    width: 362px;
+    height: 192px
+  }
+
+    .col-lg-4 {
+        width: 25%;
+    }
+
+      .container-certificado{
+    margin-top: 110px;
+  }
+
+  .certificado_input{
+    width:40%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado_texto{
+    width:40%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 25px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .certificado_titulo{
+    width:40%; 
+    margin-left:162px; 
+    text-align: center;
+    font-size: 50px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+    .certificado-footer{
+    width:60%; 
+    margin-left:0px; 
+    text-align: center;
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+  }
+}
+
+/* Fim Media queries */
+
+

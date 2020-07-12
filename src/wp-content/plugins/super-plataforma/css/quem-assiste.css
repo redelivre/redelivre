@@ -1,0 +1,118 @@
+body{background-color:#221F1F; margin:0;}
+
+.topo-logo {
+	padding-bottom:; 50px;
+}
+#logo{
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 200px;
+}
+
+
+
+.container-perfil{
+  margin-top:30%;
+  width: 80%;
+  margin: 0 auto;	
+  text-align: center;  
+}
+
+
+
+h1{
+	color:white;
+	font-size:45px;
+	text-align: center;
+}
+
+
+.class1{ 
+		float:left; 
+		margin:10px; 
+		cursor:pointer;
+		width:150px;
+		height:150px;	
+}  
+
+p.nome-perfil { color: #FFF; padding-top: 10px; font-size:  16px; }
+
+.img-perfil {
+		width:150px;
+		height:150x;	
+}
+
+
+.buttongp {
+	border:1px solid grey;
+	background-color:transparent;
+	width:250px;
+	height:40px;
+	margin-top:25px;
+	color:grey;
+	font-size:18px;
+	letter-spacing:2px;
+	margin-bottom: 30px;
+}
+
+.buttongp:hover {
+	color: #FFF;
+	border:2px solid #FFF;
+}
+
+.class1:hover {
+    outline: 4px solid white;
+}
+
+
+.modal-title {
+	font-size: 25px;
+	text-align: center;
+}
+
+.button-cancelar {
+	border:1px solid #808080;
+	background-color:#000;
+	width:220px;
+	height:45px;
+	margin-top:3%;
+	margin-left:40%;
+	color:grey;
+	font-size:18px;
+	letter-spacing:2px;
+	margin-bottom: 30px;
+}
+.button-cancelar:hover {
+	color: #FFF;
+	border:2px solid #FFF;
+}
+
+.button-continuar {
+	border:0px;
+	background-color:#FFF;
+	width:220px;
+	height:45px;
+	margin-top:3%;
+	color:#000;
+	font-size:18px;
+	letter-spacing:2px;
+	margin-bottom: 30px;
+
+}
+.button-continuar:hover {
+	color: #FFF;
+	background-color:#cc0000;
+}
+
+.modal-content {
+background-color: #000; 
+color: #FFF;	
+padding: 15px;
+}
+
+h5.modal-title {
+	font-size: 35px;
+	text-align: left;
+}
+
+
