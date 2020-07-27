@@ -33,11 +33,14 @@ add_action('after_setup_theme', 'campanha_setup');
 
 // REDIRECIONAMENTOS
 function custom_url_rewrites($rules) {
-    $new_rules = array(
-        "cadastro/?$" => "index.php?tpl=cadastro",
-    );
-    
-    return $new_rules + $rules;
+	if(get_current_blog_id() == 1) {
+	    $new_rules = array(
+	        "cadastro/?$" => "index.php?tpl=cadastro",
+	    );
+	    
+	    return $new_rules + $rules;
+	}
+	return $rules;
 }
 
 add_filter('rewrite_rules_array', 'custom_url_rewrites', 10, 1);
