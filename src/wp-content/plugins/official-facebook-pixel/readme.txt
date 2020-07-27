@@ -1,0 +1,102 @@
+=== Official Facebook Pixel ===
+Contributors: facebook
+Tags: Facebook, Facebook Conversion Pixel, Facebook Pixel, Facebook Pixel Events, facebook retargeting, facebook standard events
+Requires at least: 4.4
+Tested up to: 5.4
+Requires PHP: 5.3
+Stable tag: 2.0.2
+License: GPLv2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Grow your business with Official Facebook Pixel!
+
+== Description ==
+This plugin will install a Facebook Pixel for your page so you can capture the actions people take when they interact with your page, such as Lead, ViewContent, AddToCart, InitiateCheckout and Purchase events. Version 2.0.0 also includes support for the server-side API, which lets you send events directly from your page's server so you can capture a more of these events when they happen. This can help you better understand your customer's journey from the moment they show interest in your business to the moment they complete a conversion. You can use this information to create ad campaigns that are relevant to your audience. [Learn More](https://www.facebook.com/business/learn/facebook-ads-pixel)
+
+This plugin also includes built-in support for these other WordPress plugins:
+* Caldera Forms
+* Contact Form 7
+* Easy Digital Downloads
+* Formidable Forms
+* Gravity Forms
+* MailChimp for WordPress
+* Ninja Forms
+* WP eCommerce
+* WPForms
+
+== Installation ==
+__To install from your WordPress site__ <br />
+1. Log in to your WordPress dashboard, navigate to the Plugins menu and click Add New. <br />
+2. In the search field, type 'Official Facebook Pixel' and click 'Search Plugins'. Select the plugin authored by 'Facebook'. You can install it by simply clicking 'Install Now'. <br />
+
+__To download and install plugin from Facebook Events Manager__ <br />
+[Facebook Help Page](https://www.facebook.com/business/help/881403525362441) <br />
+
+__Configure plugin for first use__ <br />
+After plugin installed, go to settings page of the plugin, input your pixel ID in the text box, check 'Enabling Advanced Matching improves audience building' if you want to enable Advanced Matching. <br />
+
+== Frequently Asked Questions ==
+= Where can I find more information on Facebook Pixel? =
+You can find more information on the [Facebook Pixel](https://www.facebook.com/business/learn/facebook-ads-pixel).
+
+= Where can I find more information on Official Facebook Pixel plugin? =
+You can refer to [this page](https://www.facebook.com/business/help/881403525362441?helpref=faq_content)
+
+= Where can I find support? =
+If you get stuck, or have any questions, you can ask for help in the [Official Facebook Pixel plugin forum](https://wordpress.org/support/plugin/official-facebook-pixel).
+
+= I am a developer. Can I help improve the plugin? =
+Of course! This plugin is open sourced on the Facebook Incubator GitHub. You can find the code and contribution instructions in the [plugin repository](https://github.com/facebookincubator/Facebook-Pixel-for-WordPress).
+
+== Changelog ==
+= 2020-04-17 version 2.0.2 =
+* Support for WordPress 5.4
+* Fixing an Illegal string offset error with WP Forms
+* Fixing the event source url for Server-Side API events
+
+= 2020-03-23 version 2.0.1 =
+* Fixing an Undefined index error
+
+= 2020-03-09 version 2.0.0 =
+* Added support for Server-Side API [Learn More](https://developers.facebook.com/docs/marketing-api/server-side-api)
+
+= 2019-12-02 version 1.8.0 =
+* Support for WordPress 5.3
+* Fix Gravity Forms confirmation redirect
+
+= 2019-02-18 version 1.7.25 =
+* remove get_called_class from the codebase
+
+= 2019-02-10 version 1.7.24 =
+* Fix for PHP 5.3
+* Fix the Util function
+* Fix Ninja Form
+
+= 2019-01-29 version 1.7.23 =
+* Add Gravity Forms
+* Add Caldera Form
+* Add Formidable Form
+
+= 2019-01-20 version 1.7.22 =
+* fix css asset error
+
+= 2018-11-30 version 1.7.21 =
+* fix abstract static function
+
+= 2018-11-28 version 1.7.20 =
+* Change plugin file name, Add Supports for MailChimp for WordPress and WP eCommerce
+
+= 2018-11-20 version 1.7.19 =
+* Support php 5.3 onwards
+
+= 2018-11-09 version 1.7.18 =
+* Fix translation and set the advanced matching on by default
+
+= 2018-11-09 version 1.7.17 =
+* Fix Lead event
+
+= 2018-11-02 version 1.7.16 =
+* Fix advance matching
+
+== Upgrade Notice ==
+By upgrading to latest version you will have built in support to fire lower funnel events: Lead, ViewContent, AddToCart, InitiateCheckout and Purchase out of the most popular plugins.
