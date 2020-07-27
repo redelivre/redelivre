@@ -1,0 +1,14 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+ .select2-container--default .select2-selection--multiple .select2-selection__choice{
+    background:#ee6443!important;
+    color:#fff;
+    padding:5px !important;
+    border:0px !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+   color:#fff !important;
+}
