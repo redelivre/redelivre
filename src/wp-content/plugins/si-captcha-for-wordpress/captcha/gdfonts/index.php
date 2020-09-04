@@ -1,2 +1,0 @@
-<?php
-//do not delete 

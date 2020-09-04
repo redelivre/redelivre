@@ -30,16 +30,13 @@ RUN apt-get update \
         libmcrypt-dev \
         libpng-dev \
         git\
-		libxml2-dev \
-		libcurl4-gnutls-dev \
-		libapache2-mod-evasive \
-		libapache2-mod-security2 \
-		unzip\
+        libxml2-dev \
+	libcurl4-gnutls-dev \
+	unzip \
+	zip \
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) iconv mcrypt mysqli pdo pdo_mysql mbstring curl xml gd soap zip \ 
     && a2enmod rewrite \
-    && a2enmod evasive \
-    && a2dismod security2 \
     && touch /etc/apache2/wpupgrade.passwd \
     && a2enconf wordpress \
     && chown root:root /root/.ssh \
@@ -75,35 +72,16 @@ RUN apt-get update \
 	;fi \
 	&& sh scripts/updatesubs.sh \
 	&& mkdir -p src/wp-content/uploads \
-	&& mkdir -p src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache \
-	&& mkdir -p src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp \
 	&& mkdir -p src/wp-content/cache \
 	&& mkdir -p src/wp-content/blogs.dir \
 	&& mkdir -p src/wp-content/w3tc-config \
 	&& chown -R "$APACHE_RUN_USER:$APACHE_RUN_GROUP" src/wp-content/uploads \
-	src/wp-content/plugins/si-captcha-for-wordpress/captcha/cache \
-	src/wp-content/plugins/si-captcha-for-wordpress/captcha/temp \
 	src/wp-content/cache \
 	src/wp-content/w3tc-config \
 	src/wp-content/blogs.dir \
 	&& if [ "$WORDPRESS_UPGRADE_USER" != "some_user" ] ; then \
 		htpasswd -b /etc/apache2/wpupgrade.passwd $WORDPRESS_UPGRADE_USER $WORDPRESS_UPGRADE_PASS \
     ;fi \
-    && cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf \
-    && sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/modsecurity/modsecurity.conf \
-    && sed -i 's/#DOS/DOS/g' /etc/apache2/mods-available/evasive.conf \
-    && mkdir /var/log/mod_evasive \
-    && if [ "$DOSSystemCommand" != "some_command" ] ; then \
-    	 cat  /etc/apache2/mods-available/evasive.conf|awk -v DOSSystemCommand="$DOSSystemCommand" '{if($1 == "DOSSystemCommand"){print "    "$1"\t\""DOSSystemCommand"\"";} else {print $0;}}' > /etc/apache2/mods-available/evasive.conf.new \
-    	 && mv /etc/apache2/mods-available/evasive.conf.new /etc/apache2/mods-available/evasive.conf \
-	;else \
-		sed -i 's/DOSSystemCommand/\#DOSSystemCommand/g' /etc/apache2/mods-available/evasive.conf \
-	;fi \
-	&& if [ "$DOSEmailNotify" != "some_email" ] ; then \
-		sed -i "s/you@yourdomain.com/$DOSEmailNotify/" /etc/apache2/mods-available/evasive.conf \
-	;else \
-		sed -i "s/DOSEmailNotify/\#DOSEmailNotify/" /etc/apache2/mods-available/evasive.conf \
-	;fi \
     && find /var/www/ -type f -exec chmod 644 '{}' \; \
     && find /var/www/ -type d -exec chmod 755 '{}' \; \
 	
