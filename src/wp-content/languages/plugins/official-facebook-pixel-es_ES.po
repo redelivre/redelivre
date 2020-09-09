@@ -1,0 +1,76 @@
+# Translation of Plugins - Official Facebook Pixel - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Official Facebook Pixel - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-03-11 12:26:28+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Official Facebook Pixel - Stable (latest release)\n"
+
+#: core/FacebookWordpressSettingsPage.php:231
+msgid ""
+"Also send events directly from your web server to Facebook through the\n"
+"        server-side API. This can help you capture more events."
+msgstr ""
+"También envía eventos directamente desde tu servidor web a Facebook a través de la\n"
+"        API del lado del servidor. Esto puede ayudarte a capturar más eventos."
+
+#: core/FacebookWordpressSettingsPage.php:205
+msgid ""
+"An access token is required to use the server-side API.<br>\n"
+"          <a href=\"%s\" target=\"_blank\"> Generate Access Token</a>"
+msgstr ""
+"Se necesita un token de acceso para usar la API del lado del servidor.<br>\n"
+"          <a href=\"%s\" target=\"_blank\">Generar el token de acceso</a>"
+
+#. Description of the plugin
+msgid "<strong><em>***ATTENTION: After upgrade the plugin may be deactivated due to a known issue, to workaround please refresh this page and activate plugin.***</em></strong> The Facebook pixel is an analytics tool that helps you measure the effectiveness of your advertising. You can use the Facebook pixel to understand the actions people are taking on your website and reach audiences you care about."
+msgstr "<strong><em>***ATENCIÓN: Después de actualizar el plugin, es posible que se desactive debido a un problema conocido. Para solucionarlo, por favor, recarga esta página y activa el plugin.***</em></strong> El píxel de Facebook es una herramienta de análisis que te ayuda a medir la efectividad de tu publicidad. Puedes usar el píxel de Facebook para entender las acciones que realiza la gente en tu web y llegar a las audiencias que te importan."
+
+#. Author URI of the plugin
+msgid "https://www.facebook.com/"
+msgstr "https://www.facebook.com/"
+
+#. Author of the plugin
+msgid "Facebook"
+msgstr "Facebook"
+
+#. Plugin URI of the plugin
+msgid "https://www.facebook.com/business/help/881403525362441"
+msgstr "https://www.facebook.com/business/help/881403525362441"
+
+#. Plugin Name of the plugin
+msgid "Official Facebook Pixel"
+msgstr "Official Facebook Pixel"
+
+#: core/FacebookWordpressSettingsPage.php:282
+msgid "Dismiss this notice."
+msgstr "Descartar este aviso."
+
+#: core/FacebookWordpressSettingsPage.php:263
+msgid "The Facebook Pixel plugin requires a Pixel ID. Click <a href=\"%s\">here</a> to configure the plugin."
+msgstr "El plugin Facebook Pixel necesita un ID de píxel. Haz clic <a href=\"%s\">aquí</a> para configurar el plugin."
+
+#: core/FacebookWordpressSettingsPage.php:195
+msgid "Enabling Advanced Matching improves audience building."
+msgstr "Activar la correspondencia avanzada mejora la creación de la audiencia."
+
+#: core/FacebookWordpressSettingsPage.php:170
+msgid "For businesses that operate in the European Union, you may need to take additional action. Read the <a href=\"%s\" target=\"_blank\">Cookie Consent Guide for Sites and Apps</a> for suggestions on complying with EU privacy requirements."
+msgstr "Para negocios que operan en la Unión Europea, es posible que tengas que tomar medidas adicionales. Lee la <a href=\"%s\" target=\"_blank\">Guía de consentimiento de cookies para sitios y aplicaciones</a> para obtener sugerencias sobre el cumplimiento de los requisitos de privacidad de la UE."
+
+#: core/FacebookWordpressSettingsPage.php:127
+msgid "The unique identifier for your Facebook pixel."
+msgstr "El identificador único de tu píxel de Facebook."
+
+#: core/FacebookWordpressSettingsPage.php:121
+msgid "Please note that we are now also supporting lower funnel pixel events for Contact Form 7, Easy Digital Downloads, Ninja Forms and WP Forms"
+msgstr "Por favor, ten en cuenta que ahora también es compatible con eventos inferiores de embudo de píxel para Contact Form 7, Easy Digital Downloads, Ninja Forms y WP Forms"
+
+#: core/FacebookWordpressSettingsPage.php:47
+msgid "You do not have sufficient permissions to access this page"
+msgstr "No tienes suficientes permisos para acceder a esta página"

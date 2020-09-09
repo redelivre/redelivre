@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Blogger Importer - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-11 09:35:30+0000\n"
+"PO-Revision-Date: 2020-08-25 10:10:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - Blogger Importer - Stable (latest release)\n"
 
@@ -74,7 +74,7 @@ msgstr "Recuerda actualizar las contraseñas y los perfiles de los usuarios impo
 
 #: blogger-importer.php:197
 msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
-msgstr "El archivo de exportación no se ha podido encontrar en <code>%s</code>. Es probable que sea debido a un problema de permisos."
+msgstr "No se ha podido encontrar el archivo de exportación en <code>%s</code>. Es probable que esto haya sido causado por un problema de permisos."
 
 #: blogger-importer.php:249
 msgid "Assign Authors"
@@ -100,24 +100,8 @@ msgstr "Blogger"
 msgid "Import Blogger"
 msgstr "Importar desde Blogger"
 
-#. Plugin URI of the plugin/theme
-msgid "http://wordpress.org/extend/plugins/blogger-importer/"
-msgstr "https://es.wordpress.org/plugins/blogger-importer/"
-
-#. Plugin Name of the plugin/theme
-msgid "Blogger Importer"
-msgstr "Blogger Importer"
-
 #. #-#-#-#-#  tmp-blogger-importer.pot (Blogger Importer 0.9)  #-#-#-#-#
 #. Description of the plugin/theme
 #: blogger-importer.php:915
 msgid "Import posts, comments, and categories from a Blogger blog and migrate authors to WordPress users."
 msgstr "Importa las entradas, comentarios y categorías de un blog de Blogger y migra los autores a usuarios de WordPress."
-
-#. Author URI of the plugin/theme
-msgid "http://wordpress.org/"
-msgstr "https://es.wordpress.org/"
-
-#. Author of the plugin/theme
-msgid "wordpressdotorg"
-msgstr "wordpressdotorg"
