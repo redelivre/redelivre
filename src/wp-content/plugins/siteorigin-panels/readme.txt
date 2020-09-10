@@ -1,9 +1,9 @@
 === Page Builder by SiteOrigin ===
 Tags: page builder, responsive, widget, widgets, builder, page, admin, gallery, content, cms, pages, post, css, layout, grid
 Requires at least: 4.7
-Tested up to: 5.4
-Stable tag: 2.10.16
-Build time: 2020-05-05T16:17:06+02:00
+Tested up to: 5.5
+Stable tag: 2.11.2
+Build time: 2020-08-12T17:13:16+02:00
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: https://siteorigin.com/downloads/premium/
@@ -96,9 +96,39 @@ We've tried to ensure that Page Builder is compatible with most plugin widgets. 
 
 == Changelog ==
 
+= 2.11.2 - 12 August 2020 =
+* Updated build scripts.
+
+= 2.11.1 - 17 July 2020 =
+* Added Rank Math SEO plugin support.
+* Added [siteorigin_panels_layout_builder_supports](https://siteorigin.com/docs/page-builder/hooks/builder-features-actions/) filter.
+* Block Editor: Added History and Live Editor functionality to the SiteOrigin Layout Block.
+* Resolved a plugin conflict between the AMP by AMP Project Contributors plugin and the Text widget.
+* Block Editor: Prevented the page saving until the SiteOrigin Layout Block is finished setting up widgets using AJAX.
+* Mobile: Several minor improvements to the Page Builder interface to improve usability while editing on mobile devices.
+* Fixed `undefined` Page Builder tab in WordPress 5.5.
+* Added a new "Disable Background Parallax On Mobile" global setting to `Settings > Page Builder > General`.
+* Post Loop: Added custom pagination format support to allow developers to use two Post Loop widgets with independent pagination on a page.
+* Removed all HTML from the CSS Declarations field and strip slashes from textarea/code fields.
+
+= 2.11.0 - 02 June 2020 =
+* Live Editor: Ensured device viewing mode retained after update.
+* Live Editor: Improved device preview transition.
+* Legacy Layout: Detect IE 11 as legacy browser.
+* Yoast SEO: Improved Classic Editor support.
+* Yoast SEO: Added Block Editor support for the SiteOrigin Layout block.
+* CSS Builder: Prevented rules without declarations from outputting.
+* Widget Previews: Prevented boolean values from being used as widget descriptions.
+* Live Editor: Resolved Chrome bug by setting preview url for iframe.
+
+= 2.10.17 - 18 May 2020 =
+* Live Editor: Improved mobile device previews.
+* Excluded Black Studio TinyMCE Widget title from excerpts.
+* Fixed Live Editor draft post functionality.
+
 = 2.10.16 - 05 May 2020 =
-* Security: Added nonce checks to Live Editor.
-* Security: Added nonce check to builder_content action.
+* Security: Added nonce check to Live Editor.
+* Security: Added nonce check to `builder_content` action.
 
 = 2.10.15 - 07 April 2020 =
 * Minor styling fixes.

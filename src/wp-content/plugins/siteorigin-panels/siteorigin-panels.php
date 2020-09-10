@@ -3,7 +3,7 @@
 Plugin Name: Page Builder by SiteOrigin
 Plugin URI: https://siteorigin.com/page-builder/
 Description: A drag and drop, responsive page builder that simplifies building your website.
-Version: 2.10.16
+Version: 2.11.2
 Author: SiteOrigin
 Author URI: https://siteorigin.com
 License: GPL3
@@ -11,12 +11,11 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: http://siteorigin.com/page-builder/#donate
 */
 
-define( 'SITEORIGIN_PANELS_VERSION', '2.10.16' );
+define( 'SITEORIGIN_PANELS_VERSION', '2.11.2' );
 if ( ! defined( 'SITEORIGIN_PANELS_JS_SUFFIX' ) ) {
 	define( 'SITEORIGIN_PANELS_JS_SUFFIX', '.min' );
 }
 define( 'SITEORIGIN_PANELS_CSS_SUFFIX', '.min' );
-define( 'SITEORIGIN_PANELS_VERSION_SUFFIX', '-21016' );
 
 require_once plugin_dir_path( __FILE__ ) . 'inc/functions.php';
 
@@ -30,6 +29,7 @@ class SiteOrigin_Panels {
 
 		add_action( 'plugins_loaded', array( $this, 'version_check' ) );
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
+		add_action( 'plugins_loaded', array( $this, 'init_compat' ), 100 );
 		add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ), 100 );
 		
 		add_action('widgets_init', array( $this, 'widgets_init' ) );
@@ -125,8 +125,8 @@ class SiteOrigin_Panels {
 		if( empty( $agent ) ) return false;
 		
 		return
-			// IE lte 10
-			( preg_match('/MSIE\s(?P<v>\d+)/i', $agent, $B) && $B['v'] <= 10 ) ||
+			// IE lte 11
+			( preg_match('/Trident\/(?P<v>\d+)/i', $agent, $B) && $B['v'] <= 7 ) ||
 			// Chrome lte 25
 			( preg_match('/Chrome\/(?P<v>\d+)/i', $agent, $B) && $B['v'] <= 25 ) ||
 			// Firefox lte 21
@@ -191,10 +191,20 @@ class SiteOrigin_Panels {
 		if ( is_admin() ) {
 			SiteOrigin_Panels_Admin::single();
 		}
-		
+	}
+
+	/**
+	 * Loads Page Builder compatibility to allow other plugins/themes
+	 */
+	public function init_compat() {
 		// Compatibility with Widget Options plugin
-		if( class_exists('WP_Widget_Options') ) {
+		if ( class_exists( 'WP_Widget_Options' ) ) {
 			require_once plugin_dir_path( __FILE__ ) . 'compat/widget-options.php';
+		}
+
+		// Compatibility with AMP plugin
+		if ( is_admin() && function_exists( 'amp_bootstrap_plugin' ) ) {
+			require_once plugin_dir_path( __FILE__ ) . 'compat/amp.php';
 		}
 	}
 
@@ -245,7 +255,7 @@ class SiteOrigin_Panels {
 				admin_url( 'admin-ajax.php?action=so_panels_live_editor_preview' )
 			);
 		} else {
-			$preview_url = esc_url( add_query_arg( 'siteorigin_panels_live_editor', 'true', set_url_scheme( get_permalink() ) ) );
+			$preview_url = add_query_arg( 'siteorigin_panels_live_editor', 'true', set_url_scheme( get_permalink() ) );
 		}
 		$preview_url = wp_nonce_url( $preview_url, 'live-editor-preview', '_panelsnonce' );
 
@@ -375,7 +385,7 @@ class SiteOrigin_Panels {
 					// that's very far down in a post.
 					break;
 				}
-				if ( $panels_info['class'] == 'SiteOrigin_Widget_Editor_Widget' || $panels_info['class'] == 'WP_Widget_Text' ) {
+				if ( $panels_info['class'] == 'SiteOrigin_Widget_Editor_Widget' || $panels_info['class'] == 'WP_Widget_Text' || $panels_info['class'] == 'WP_Widget_Black_Studio_TinyMCE' ) {
 					$raw_excerpt .= ' ' . $widget['text'];
 					// This is all effectively default behavior for excerpts, copied from the `wp_trim_excerpt` function.
 					// We're just applying it to text type widgets content in the first two rows.
