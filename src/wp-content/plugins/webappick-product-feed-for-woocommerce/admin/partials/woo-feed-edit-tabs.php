@@ -3,14 +3,14 @@
  * globals
  *
  * @global array $feedRules
- * @global Woo_Feed_Dropdown_Pro $wooFeedDropDown
- * @global Woo_Feed_Products $wooFeedProduct
+ * @global Woo_Feed_Dropdown $wooFeedDropDown
+ * @global Woo_Feed_Merchant $merchant
+ * @global string $provider
  * @global string $feedName
  * @global int $feedId
- * @global string $provider
  * @global array $wp_meta_boxes
  */
-global $feedRules, $wooFeedDropDown, $wooFeedProduct, $provider;
+global $feedRules, $wooFeedDropDown, $merchant, $provider;
 $editorTabs = array(
 	'config' => array(
 		'label'    => __( 'Feed Config', 'woo-feed' ),

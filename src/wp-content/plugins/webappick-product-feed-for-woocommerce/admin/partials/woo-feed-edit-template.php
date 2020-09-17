@@ -12,30 +12,25 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
-/** @define "WOO_FEED_PRO_ADMIN_PATH" "./../" */
+/** @define "WOO_FEED_FREE_ADMIN_PATH" "./../" */
 /**
  * globals
  *
  * @global array $feedRules
  * @global Woo_Feed_Dropdown $wooFeedDropDown
- * @global Woo_Feed_Products $wooFeedProduct
+ * @global Woo_Feed_Merchant $merchant
  * @global string $feedName
  * @global int $feedId
  * @global string $provider
  * @global array $wp_meta_boxes
  */
-global $feedRules, $wooFeedDropDown, $wooFeedProduct, $feedName, $feedId, $provider, $wp_meta_boxes;
-$current_screen  = get_current_screen();
-$page            = $current_screen->id;
-$wooFeedDropDown = new Woo_Feed_Dropdown();
-$wooFeedProduct  = new Woo_Feed_Products();
-$wooFeedProduct->load_attributes();
+global $feedRules, $wooFeedDropDown, $merchant, $feedName, $feedId, $provider, $wp_meta_boxes;
+$wf_current_screen = get_current_screen();
+$wf_page           = $wf_current_screen->id;
+$wooFeedDropDown   = new Woo_Feed_Dropdown();
 // Condition is for those merchants which support another merchant feed requirements.
 $feedRules = woo_feed_parse_feed_rules( $feedRules );
-if ( 'adroll' == $feedRules['provider'] ) {
-	$feedRules['provider'] = 'google';
-}
-register_and_do_woo_feed_meta_boxes( $current_screen, $feedRules );
+woo_feed_register_and_do_woo_feed_meta_boxes( $wf_current_screen, $feedRules );
 ?>
 <!--suppress SpellCheckingInspection, HtmlFormInputWithoutLabel, HtmlDeprecatedAttribute -->
 <div class="wrap wapk-admin" id="Feed">

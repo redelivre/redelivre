@@ -10,6 +10,8 @@
 
 namespace WebAppick\AppServices;
 
+use WP_Theme;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
@@ -20,64 +22,81 @@ if ( ! defined( 'ABSPATH' ) ) {
 class License {
 	
 	/**
-	 * WebAppick\AppServices\Client
+	 * WebAppick\AppServices\Client.
 	 *
 	 * @var Client
 	 */
 	protected $client;
 	
 	/**
+	 * Unique string for handling post data array for a instance.
+	 * @var string
+	 */
+	protected $data_key;
+	
+	/**
+	 * List of product id and associated label for rendering product id input dropdown.
+	 * @var array
+	 */
+	private $product_data = [];
+	
+	/**
 	 * Flag for checking if the init method is already called.
+	 *
 	 * @var bool
 	 */
 	private $didInit = false;
 	
 	/**
-	 * Arguments of create menu
+	 * Arguments of create menu.
 	 *
 	 * @var array
 	 */
 	protected $menu_args;
 	
 	/**
-	 * `option_name` of `wp_options` table
+	 * `option_name` of `wp_options` table.
 	 *
 	 * @var string
 	 */
 	protected $option_key;
 	
 	/**
-	 * Error message of HTTP request
+	 * Error message of HTTP request.
 	 *
 	 * @var string
 	 */
 	protected $error;
 	
 	/**
-	 * Success message on form submit
+	 * Success message on form submit.
 	 *
 	 * @var string
 	 */
 	protected $success;
 	
 	/**
-	 * Corn schedule hook name
+	 * Corn schedule hook name.
 	 *
 	 * @var string
 	 */
 	protected $schedule_hook;
 	
 	/**
-	 * Set value for valid license
+	 * Set value for valid license.
 	 *
 	 * @var boolean
 	 */
 	private $is_valid_license = null;
+	
 	/**
-	 * The license data
+	 * The license data.
+	 *
 	 * @var array {
 	 *     Optional. License Data.
 	 *     @type string     $key                The License Key
+	 *     @type string     $instance           Unique instance id
+	 *     @type string     $product_id         Product (wc-store) variation id
 	 *     @type string     $status             Activation Status
 	 *     @type int        $remaining          Remaining Activation
 	 *     @type int        $activation_limit   Number of activation allowed for the license key
@@ -87,19 +106,21 @@ class License {
 	protected $license;
 	
 	/**
-	 * Current User Permission for managing License
+	 * Current User Permission for managing License.
+	 *
 	 * @var bool
 	 */
 	protected $currentUserCanManage = false;
 	
 	/**
-	 * Is Current Page is the license manage page
+	 * Is Current Page is the license manage page.
+	 *
 	 * @var bool
 	 */
 	protected $isLicensePage = false;
 	
 	/**
-	 * Initialize the class
+	 * Initialize the class.
 	 *
 	 * @param Client $client The Client.
 	 */
@@ -114,7 +135,7 @@ class License {
 	}
 	
 	/**
-	 * Initialize License
+	 * Initialize License.
 	 *
 	 * @return void
 	 */
@@ -133,7 +154,8 @@ class License {
 	}
 	
 	/**
-	 * Expose the License Key
+	 * Expose the License Key.
+	 *
 	 * @return void|string
 	 */
 	public function get_key() {
@@ -142,7 +164,8 @@ class License {
 	}
 	
 	/**
-	 * Display Admin Notices
+	 * Display Admin Notices.
+	 *
 	 * @return void
 	 */
 	public function __admin_notices() {
@@ -199,7 +222,8 @@ class License {
 	}
 	
 	/**
-	 * Setup plugin action link to the license page
+	 * Setup plugin action link to the license page.
+	 *
 	 * @param array $links plugin action links.
 	 * @return array
 	 */
@@ -212,7 +236,8 @@ class License {
 	}
 	
 	/**
-	 * Check license
+	 * Check license.
+	 *
 	 * @return array
 	 */
 	public function check() {
@@ -220,7 +245,8 @@ class License {
 	}
 	
 	/**
-	 * Check Plugin Update
+	 * Check Plugin Update.
+	 *
 	 * @return array
 	 */
 	public function check_update() {
@@ -228,7 +254,8 @@ class License {
 	}
 	
 	/**
-	 * Get Plugin data
+	 * Get Plugin data.
+	 *
 	 * @return array {
      *     Plugin Information
      *     @type bool $success                      API response status
@@ -277,7 +304,8 @@ class License {
 	}
 	
 	/**
-	 * Active a license
+	 * Active a license.
+	 *
 	 * @param array $license license data.
 	 * @return array
 	 */
@@ -286,7 +314,8 @@ class License {
 	}
 	
 	/**
-	 * Deactivate current license
+	 * Deactivate current license.
+	 *
 	 * @return array
 	 */
 	public function deactivate() {
@@ -294,7 +323,7 @@ class License {
 	}
 	
 	/**
-	 * Send common request
+	 * Send common request.
 	 *
 	 * @param string $action    request action.
 	 * @param array $license    license data.
@@ -320,24 +349,20 @@ class License {
 		}
 		// parse license data
 		$license = wp_parse_args( $license, $this->getLicense() );
-		if ( empty( $license['key'] ) || empty( $license['instance'] ) ) {
+		// validate license data.
+		if ( ! $this->validate_license_data( $license ) ) {
 			return [
 				'success' => false,
 				'error'   => esc_html__( 'Invalid/Empty License Data.', 'webappick' ),
 			];
 		}
-		if ( empty( $this->client->getProjectId() ) && empty( $this->client->getName() ) ) {
-			return [
-				'success' => false,
-				'error'   => esc_html__( 'A valid project name/id is required.', 'webappick' ),
-			];
-		}
+		
 		$params = [
 			'object'       => str_ireplace( array( 'http://', 'https://' ), '', home_url() ),
 			'api_key'      => $license['key'],
 			'version'      => $this->client->getProjectVersion(),
 			'instance'     => $license['instance'],
-			'product_id'   => $this->client->getName(),
+			'product_id'   => $license['product_id'],
 			'plugin_name'  => $this->client->getBasename(),
 			'wc_am_action' => $action,
 		];
@@ -350,33 +375,41 @@ class License {
 				$response = json_decode( $response, true );
 			} else {
 				$response = maybe_unserialize( $response );
-				// @TODO check wc-am error ..
-				return $response;
+				if( is_string( $response ) && 0 === strpos( $response, '{' ) )  {
+					// WC-AM returns error with json.
+					$response = json_decode( $response, true );
+				} else {
+					return [
+						'success' => true,
+						'data'    => (array) $response,
+						// for sanity.
+						'api_call_execution_time' => '',
+					];
+				}
 			}
-			if ( empty( $response ) || ! isset( $response['success'] ) ) {
+			if ( empty( $response ) || ! isset( $response['success'] ) || ( isset( $response['success'] ) && ! $response['success'] ) ) {
 				return [
 					'success' => false,
-					'error'   => esc_html__( 'Unknown error occurred, Please try again.', 'webappick' ),
-				];
-			}
-			if ( ! $response['success'] ) {
-				$response = [
-					'success' => false,
-					'error'   => isset( $response['error'] ) ? sanitize_text_field( $response['error'] ) : esc_html__( 'Unknown error occurred in API server.', 'webappick' ),
+					'error'   => isset( $response['error'] ) ? sanitize_text_field( $response['error'] ) : esc_html__( 'Unknown error occurred, Please try again.', 'webappick' ),
 					'code'    => isset( $response['code'] ) ? sanitize_text_field( $response['code'] ) : 'UNKNOWN',
+					'data'    => isset( $response['data'] ) ? sanitize_text_field( $response['data'] ) : '',
 				];
 			}
+			
 			return $response;
 		} else {
 			return [
 				'success' => false,
 				'error'   => $response->get_error_message(),
+				'code'    => $response->get_error_code(),
+				'data'    => $response->get_error_data( $response->get_error_code() ),
 			];
 		}
 	}
 	
 	/**
-	 * License API URL
+	 * License API URL.
+	 *
 	 * @return string
 	 */
 	public function __getLicenceAPI() {
@@ -384,7 +417,8 @@ class License {
 	}
 	
 	/**
-	 * Filter api url for licensing api
+	 * Filter api url for licensing api.
+	 *
 	 * @return void
 	 */
 	private function setAPI_URL() {
@@ -392,7 +426,8 @@ class License {
 	}
 	
 	/**
-	 * Remove filter for changing wpi url
+	 * Remove filter for changing wpi url.
+	 *
 	 * @see License::setAPI_URL()
 	 * @return void
 	 */
@@ -401,7 +436,7 @@ class License {
 	}
 	
 	/**
-	 * Add settings page for license
+	 * Add settings page for license.
 	 *
 	 * @param array $args settings for rendering the menu.
 	 *
@@ -435,7 +470,7 @@ class License {
 	}
 	
 	/**
-	 * Admin Menu hook
+	 * Admin Menu hook.
 	 *
 	 * @return void
 	 */
@@ -455,11 +490,14 @@ class License {
 	}
 	
 	/**
-	 * License menu output
+	 * License menu output.
+	 *
+	 * @return void
 	 */
 	public function menu_output() {
 		$this->licenses_style();
 		$action = ( isset( $this->license['status'] ) && 'active' == $this->license['status'] ) ? 'deactivate' : 'activate';
+		$need_prod_id = empty( $this->client->getProductId() );
 		?>
 		<div class="wrap webappick-license-settings-wrapper">
 			<h1 class="wp-heading-inline"><?php esc_html_e( 'License Settings', 'webappick' ); ?></h1>
@@ -474,21 +512,100 @@ class License {
 						printf( esc_html__( 'Active %s by your license key to get professional support and automatic update from your WordPress dashboard.', 'webappick' ), '<strong>' . esc_html( $this->client->getName() ) . '</strong>' );
 					?></p>
 					<?php } ?>
-					<form method="post" action="<?php $this->formActionUrl(); ?>" novalidate="novalidate" spellcheck="false" autocomplete="off">
+					<form method="post" action="<?php $this->formActionUrl(); ?>" spellcheck="false" autocomplete="off">
 						<?php wp_nonce_field( $this->data_key ); ?>
 						<input type="hidden" name="<?php echo esc_attr( $this->data_key ); ?>[_action]" value="<?php echo esc_attr( $action ); ?>">
 						<div class="license-input-fields">
-							<div class="license-input-key">
-								<svg enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m463.75 48.251c-64.336-64.336-169.01-64.335-233.35 1e-3 -43.945 43.945-59.209 108.71-40.181 167.46l-185.82 185.82c-2.813 2.813-4.395 6.621-4.395 10.606v84.858c0 8.291 6.709 15 15 15h84.858c3.984 0 7.793-1.582 10.605-4.395l21.211-21.226c3.237-3.237 4.819-7.778 4.292-12.334l-2.637-22.793 31.582-2.974c7.178-0.674 12.847-6.343 13.521-13.521l2.974-31.582 22.793 2.651c4.233 0.571 8.496-0.85 11.704-3.691 3.193-2.856 5.024-6.929 5.024-11.206v-27.929h27.422c3.984 0 7.793-1.582 10.605-4.395l38.467-37.958c58.74 19.043 122.38 4.929 166.33-39.046 64.336-64.335 64.336-169.01 0-233.35zm-42.435 106.07c-17.549 17.549-46.084 17.549-63.633 0s-17.549-46.084 0-63.633 46.084-17.549 63.633 0 17.548 46.084 0 63.633z"/>
-                                </svg>
-								<label for="license_key" class="screen-reader-text"><?php esc_html_e( 'License Key', 'webappick' ); ?></label>
-								<input class="regular-text" id="license_key" type="text"
-								value="<?php echo esc_attr( $this->get_input_license_value( $action, $this->license ) ); ?>"
-								placeholder="<?php esc_attr_e( 'Enter your license key to activate', 'webappick' ); ?>"
-								name="<?php echo esc_attr( $this->data_key ); ?>[license_key]"<?php readonly( ( 'deactivate' == $action ), true, true ); ?>
-								autocomplete="off">
+							<div class="input-group">
+								<div class="license-input code<?php echo $need_prod_id ? ' has-product-id' : '' ?>">
+									<svg enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+	                                    <path d="m463.75 48.251c-64.336-64.336-169.01-64.335-233.35 1e-3 -43.945 43.945-59.209 108.71-40.181 167.46l-185.82 185.82c-2.813 2.813-4.395 6.621-4.395 10.606v84.858c0 8.291 6.709 15 15 15h84.858c3.984 0 7.793-1.582 10.605-4.395l21.211-21.226c3.237-3.237 4.819-7.778 4.292-12.334l-2.637-22.793 31.582-2.974c7.178-0.674 12.847-6.343 13.521-13.521l2.974-31.582 22.793 2.651c4.233 0.571 8.496-0.85 11.704-3.691 3.193-2.856 5.024-6.929 5.024-11.206v-27.929h27.422c3.984 0 7.793-1.582 10.605-4.395l38.467-37.958c58.74 19.043 122.38 4.929 166.33-39.046 64.336-64.335 64.336-169.01 0-233.35zm-42.435 106.07c-17.549 17.549-46.084 17.549-63.633 0s-17.549-46.084 0-63.633 46.084-17.549 63.633 0 17.548 46.084 0 63.633z"/>
+	                                </svg>
+									<label for="license_key" class="screen-reader-text"><?php esc_html_e( 'License Key', 'webappick' ); ?></label>
+									<input class="regular-text" id="license_key" type="text"
+									       value="<?php echo esc_attr( $this->get_input_license_value( $action, $this->license ) ); ?>"
+									       placeholder="<?php esc_attr_e( 'Enter your license key to activate', 'webappick' ); ?>"
+									       name="<?php echo esc_attr( $this->data_key ); ?>[license_key]"<?php readonly( ( 'deactivate' == $action ), true, true ); ?>
+									       autocomplete="off" required>
+								</div>
+								<?php if( ! $need_prod_id ) { ?>
+									<input type="hidden" name="<?php echo esc_attr( $this->data_key ); ?>[product_id]" value="<?php echo esc_attr( $this->client->getProductId() ); ?>">
+								<?php } else {
+									if ( empty( $this->product_data ) ) {
+										?>
+										<div class="license-input product-id">
+											<svg enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
+												<g>
+													<path d="m30 30h53.857v-30h-83.857v83.857h30z"/><path d="m428.143 0v30h53.857v53.857h30v-83.857z"/>
+													<path d="m30 428.143h-30v83.857h83.857v-30h-53.857z"/>
+													<path d="m482 482h-53.857v30h83.857v-83.857h-30z"/>
+													<path d="m68.857 236.571h167.714v-167.714h-167.714zm30-137.714h107.714v107.714h-107.714z"/>
+													<path d="m443.143 275.429h-167.714v167.714h167.714zm-137.714 30h107.714v38.857h-68.856v68.856h-38.857v-107.713zm68.857 107.714v-38.856h38.856v38.856z"/>
+													<path d="m206.571 344.286h-38.857v-68.857h-98.857v167.714h167.714v-152.714h-30zm0 68.857h-107.714v-107.714h38.857v68.857h68.857z"/>
+													<path d="m137.714 137.714h30v30h-30z"/>
+													<path d="m305.429 98.857h38.857v68.856h68.856v38.857h-137.705v30h167.705v-167.713h-167.713v98.643h30zm68.857 0h38.856v38.856h-38.856z"/>
+												</g>
+											</svg>
+											<label for="product_id" class="screen-reader-text"><?php esc_html_e( 'Product ID', 'webappick' ); ?></label>
+											<input class="regular-text" id="product_id" type="text"
+											       value="<?php echo esc_attr( $this->license['product_id'] ); ?>"
+											       placeholder="<?php esc_attr_e( 'Product ID', 'webappick' ); ?>"
+											       name="<?php echo esc_attr( $this->data_key ); ?>[product_id]"<?php readonly( ( 'deactivate' == $action ), true, true ); ?>
+											       autocomplete="off" required>
+										</div>
+										<!-- /.product-id-input -->
+										<?php
+									} else {
+										?>
+										<div class="license-input product-id">
+											<svg enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
+												<g>
+													<path d="m30 30h53.857v-30h-83.857v83.857h30z"/><path d="m428.143 0v30h53.857v53.857h30v-83.857z"/>
+													<path d="m30 428.143h-30v83.857h83.857v-30h-53.857z"/>
+													<path d="m482 482h-53.857v30h83.857v-83.857h-30z"/>
+													<path d="m68.857 236.571h167.714v-167.714h-167.714zm30-137.714h107.714v107.714h-107.714z"/>
+													<path d="m443.143 275.429h-167.714v167.714h167.714zm-137.714 30h107.714v38.857h-68.856v68.856h-38.857v-107.713zm68.857 107.714v-38.856h38.856v38.856z"/>
+													<path d="m206.571 344.286h-38.857v-68.857h-98.857v167.714h167.714v-152.714h-30zm0 68.857h-107.714v-107.714h38.857v68.857h68.857z"/>
+													<path d="m137.714 137.714h30v30h-30z"/>
+													<path d="m305.429 98.857h38.857v68.856h68.856v38.857h-137.705v30h167.705v-167.713h-167.713v98.643h30zm68.857 0h38.856v38.856h-38.856z"/>
+												</g>
+											</svg>
+											<label for="product_id" class="screen-reader-text"><?php esc_html_e( 'Select License Type', 'webappick' ); ?></label>
+											<input type="hidden" name="<?php echo esc_attr( $this->data_key ); ?>[product_id]" value="<?php echo esc_attr( $this->client->getName() ); ?>">
+											<select class="regular-text" id="product_id" name="<?php echo esc_attr( $this->data_key ); ?>[product_id]" <?php readonly( ( 'deactivate' == $action ), true ); ?><?php disabled( ( 'deactivate' == $action ), true ); ?>>
+												<option value="" disabled selected><?php esc_html_e( 'Select A License Type', 'webappick' ); ?></option>
+												<?php
+												foreach ( $this->product_data as $id => $item ) {
+													if( is_array( $item ) && isset( $item['label'], $item['products'] ) && is_array( $item['products'] ) ) {
+														echo '<optgroup label="' . esc_html( $item['label'] ) . '">';
+														$item['products'] = array_unique( $item['products'] );
+														foreach ( $item['products'] as $k => $label ) {
+															printf(
+																'<option value="%s"%s>%s</option>',
+																esc_attr( $k ),
+																selected( $k, $this->license['product_id'], false ),
+																esc_html( $label )
+															);
+														}
+														echo '</optgroup>';
+													} else {
+														printf(
+															'<option value="%s"%s>%s</option>',
+															esc_attr( $id ),
+															selected( $id, $this->license['product_id'], false ),
+															esc_html( $item )
+														);
+													}
+												}
+												?>
+											</select>
+										</div>
+										<!-- /.product-id-input -->
+										<?php
+									}
+								} ?>
 							</div>
+							<!-- /.input-group -->
 							<button type="submit" name="<?php echo esc_attr( $this->data_key); ?>[submit]" class="<?php printf( '%s-button', esc_attr( $action ) );?>"><?php
 								'activate' == $action ? esc_html_e( 'Activate License', 'webappick' ) : esc_html_e( 'Deactivate License', 'webappick' );
 							?></button>
@@ -504,7 +621,21 @@ class License {
 	}
 	
 	/**
-	 * License form submit
+	 * Set Product ID Data for dropdown.
+	 *
+	 * @param int[] $data Product id => label information for variable product. So user can select from the dropdown.
+	 *
+	 * @return void
+	 */
+	public function set_product_data( $data = [] ) {
+		if ( ! empty( $data ) ) {
+			$this->product_data = $data;
+		}
+	}
+	
+	/**
+	 * License form submit.
+	 *
 	 * @return void
 	 */
 	public function handle_license_page_form() {
@@ -525,7 +656,8 @@ class License {
 	
 	/**
 	 * Check license status on schedule.
-	 * Check and update license status on db
+	 * Check and update license status on db.
+	 *
 	 * @return void
 	 */
 	public function check_license_status() {
@@ -569,15 +701,24 @@ class License {
 	
 	/**
 	 * Check this is a valid license.
+	 *
+	 * @param array $license Optional. A license instance to check.
+	 *                       Default blank.
+	 *                       If blank it will test against license from database..
+	 *
 	 * @return bool
 	 */
-	public function is_valid() {
+	public function is_valid( $license = [] ) {
 		if ( null !== $this->is_valid_license ) {
 			return $this->is_valid_license;
 		}
+		
 		// load the license if already not loaded.
-		$this->getLicense();
-		if ( isset( $this->license['status'] ) && 'active' == $this->license['status'] ) {
+		if ( empty( $license ) ) {
+			$license = $this->getLicense();
+		}
+		
+		if ( isset( $license['key'], $license['instance'], $license['product_id'], $license['status'] ) && 'active' == $license['status'] ) {
 			$this->is_valid_license = true;
 		} else {
 			$this->is_valid_license = false;
@@ -587,7 +728,24 @@ class License {
 	}
 	
 	/**
+	 * Validate license data for request.
+	 *
+	 * @param array $license license data.
+	 *
+	 * @return bool
+	 */
+	public function validate_license_data( $license = [] ) {
+		$license = $this->parse_license_data( $license );
+		return (
+			! empty( $license['key'] ) &&
+			! empty( $license['instance'] ) &&
+			! empty( $license['product_id'] )
+		);
+	}
+	
+	/**
 	 * Read WooCommerce API Manager Data, Convert to new license format and save in db.
+	 *
 	 * @param bool $override override current settings.
 	 * @return bool
 	 */
@@ -614,21 +772,27 @@ class License {
 			'status'   => 'deactivate', // activate.
 			'instance' => '', // max len 190.
 		];
+		
 		// get key.
 		$data = get_option( $wcAmPrefix . '_data', false );
 		if ( $data && isset( $data['api_key'] ) ) {
 			$license['key'] = $data['api_key'];
 		}
-		// instance id.
-		$data = get_option( $wcAmPrefix . '_instance', false );
-		if ( $data ) {
-			$license['instance'] = $data;
+		if ( $data && isset( $data['product_id'] ) ) {
+			$license['product_id'] = $data['product_id'];
 		}
+		// id found?.
+		if ( ! isset( $license['product_id'] ) ) {
+			$license['product_id'] = get_option( $wcAmPrefix . '_product_id', '' );
+		}
+		// instance id.
+		$license['instance'] = get_option( $wcAmPrefix . '_instance', '' );
 		// activation status.
 		$data = get_option( $wcAmPrefix . '_activated', false );
 		if ( $data ) {
 			$license['status'] = strtolower( $data ) === 'activated' ? 'active' : 'inactive'; // Deactivated.
 		}
+		// save license.
 		$this->setLicense( $license );
 		$this->check_license_status();
 		update_option( $this->option_key . '_wc_am_migrated', 1, false );
@@ -636,7 +800,9 @@ class License {
 	}
 	
 	/**
-	 * Styles for licenses page
+	 * Styles for licenses page.
+	 *
+	 * @return void
 	 */
 	private function licenses_style() {
 		?>
@@ -650,10 +816,18 @@ class License {
 			.webappick-license-title span{font-size:17px;color:#444;margin-left:10px}
 			.webappick-license-details{padding:20px}
 			.webappick-license-details p{font-size:15px;margin:0 0 20px 0}
-			.license-input-key{position:relative;-webkit-box-flex:0;-ms-flex:0 0 72%;flex:0 0 72%;max-width:72%}
-			.license-input-key input{background-color:#f9f9f9;padding:10px 15px 10px 48px;border:1px solid #e8e5e5;border-radius:3px;height:45px;font-size:16px;color:#71777d;width:100%;-webkit-box-shadow:0 0 0 transparent;box-shadow:0 0 0 transparent}
-			.license-input-key input:focus{outline:0 none;border:1px solid #e8e5e5;-webkit-box-shadow:0 0 0 transparent;box-shadow:0 0 0 transparent}
-			.license-input-key svg{width:22px;height:22px;fill:#0082bf;position:absolute;left:14px;top:13px}
+			.input-group{position:relative;-webkit-box-flex:0;-ms-flex:0 0 72%;flex:0 0 72%;max-width:72%}
+			.input-group input,
+			.input-group select{background-color:#f9f9f9;padding:10px 15px 10px 38px;border:1px solid #e8e5e5;border-radius:3px;height:45px;font-size:14px;line-height:1;color:#71777d;width:100%;-webkit-box-shadow:0 0 0 transparent;box-shadow:0 0 0 transparent}
+			.input-group input[readonly],
+			.input-group select[readonly]{cursor:default}
+			.input-group input:focus,
+			.input-group select:focus{outline:0 none;border:1px solid #e8e5e5;-webkit-box-shadow:0 0 0 transparent;box-shadow:0 0 0 transparent}
+			.input-group .license-input{position:relative;display:block;float:left;padding:0 2px}
+			.input-group svg{width:22px;height:22px;fill:#0082bf;position:absolute;left:14px;top:13px;z-index: 99}
+			.input-group .license-input.code{width:100%}
+			.input-group .license-input.code.has-product-id{width:calc(100% - 210px)}
+			.input-group .license-input.product-id{width:210px}
 			.license-input-fields{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;margin:20px 0;max-width:850px;width:100%}
 			.license-input-fields button{margin-left:20px;color:#fff;font-size:17px;padding:8px;height:46px;background-color:#0082bf;border-radius:3px;cursor:pointer;-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%;border:1px solid #0082bf}
 			.license-input-fields button.deactivate-button{background-color:#e40055;border-color:#e40055}
@@ -670,7 +844,8 @@ class License {
 	}
 	
 	/**
-	 * Show active license information
+	 * Show active license information.
+	 *
 	 * @return void
 	 */
 	private function show_active_license_info() {
@@ -716,7 +891,8 @@ class License {
 	}
 	
 	/**
-	 * Card header
+	 * Card header.
+	 *
 	 * @return void
 	 */
 	private function show_license_page_card_header() {
@@ -733,7 +909,8 @@ class License {
 	}
 	
 	/**
-	 * Active client license
+	 * Active client license.
+	 *
 	 * @param array $postData Sanitized Form $_POST Data.
 	 * @return void
 	 */
@@ -745,7 +922,7 @@ class License {
 		
 		$license = (array) $this->getLicense();
 		// check if it's a change request.
-		$updateKey = ( isset( $this->license['key'] ) && $postData['license_key'] === $this->license['key'] ) ? true : false;
+		$updateKey = ( $this->validate_license_data( $license ) ) ? true : false;
 		if ( $updateKey ) {
 			$deactivate = $this->deactivate(); // deactivate first.
 			if ( ! $deactivate['success'] ) {
@@ -756,7 +933,9 @@ class License {
 				}
 			}
 		}
+		// set new license info.
 		$license['key'] = $postData['license_key'];
+		$license['product_id'] = $postData['product_id'];
 		if ( empty( $license['instance'] ) ) $license['instance'] = $this->generateInstanceId();
 		$response = $this->activate( $license );
 		if ( ! $response['success'] ) {
@@ -786,6 +965,7 @@ class License {
 	
 	/**
 	 * deactivate client license.
+	 *
 	 * @return void
 	 */
 	private function deactivate_client_license() {
@@ -808,6 +988,7 @@ class License {
 	
 	/**
 	 * Add license menu page.
+	 *
 	 * @return void
 	 */
 	private function add_menu_page() {
@@ -824,6 +1005,7 @@ class License {
 	
 	/**
 	 * Add submenu page.
+	 *
 	 * @return void
 	 */
 	private function add_submenu_page() {
@@ -839,6 +1021,7 @@ class License {
 	
 	/**
 	 * Add submenu page.
+	 *
 	 * @return void
 	 */
 	private function add_options_page() {
@@ -852,7 +1035,9 @@ class License {
 	}
 	
 	/**
-	 * Schedule daily license checker event
+	 * Schedule daily license checker event.
+	 *
+	 * @return void
 	 */
 	public function schedule_cron_event() {
 		if ( ! wp_next_scheduled( $this->schedule_hook ) ) {
@@ -863,6 +1048,7 @@ class License {
 	
 	/**
 	 * Clear any scheduled hook.
+	 *
 	 * @return void
 	 */
 	public function clear_scheduler() {
@@ -871,6 +1057,7 @@ class License {
 	
 	/**
 	 * Register Activation And Deactivation Hooks.
+	 *
 	 * @return void
 	 */
 	private function activation_deactivation() {
@@ -890,6 +1077,7 @@ class License {
 	
 	/**
 	 * Project Deactivation Callback.
+	 *
 	 * @return void
 	 */
 	public function project_deactivation() {
@@ -900,12 +1088,15 @@ class License {
 	
 	/**
 	 * Redirect to the license activation page after plugin/theme is activated.
-	 * @TODO make option for the plugin/theme (which is using this lib) can alter this method with their custom function. 
-	 * @param string        $param1         Plugin: base file|Theme: old theme name.
-	 * @param bool|WP_Theme $param2  Plugin: network wide activation status|Theme: WP_Theme instance of the old theme.
+	 *
+	 * @TODO make option for the plugin/theme (which is using this lib) can alter this method with their custom function.
+	 *
+	 * @param string        $param1 Plugin: base file|Theme: old theme name.
+	 * @param bool|WP_Theme $param2 Plugin: network wide activation status|Theme: WP_Theme instance of the old theme.
+	 *
 	 * @return void
 	 */
-	public function redirect_to_license_page( $param1, $param2 ) {
+	public function redirect_to_license_page( $param1, $param2 = null ) {
 		$canRedirect = false;
 		if ( 'plugin' == $this->client->getType() ) {
 			$canRedirect = ( $param1 == $this->client->getBasename() );
@@ -920,7 +1111,8 @@ class License {
 	}
 	
 	/**
-	 * Form action URL
+	 * Form action URL.
+	 *
 	 * @return void
 	 */
 	private function formActionUrl() {
@@ -935,7 +1127,8 @@ class License {
 	}
 	
 	/**
-	 * Get input license key
+	 * Get input license key.
+	 *
 	 * @param  string $action   current license action.
 	 * @param  array  $license  license data.
 	 * @return string
@@ -950,14 +1143,15 @@ class License {
 	}
 	
 	/**
-	 * get Plugin/Theme License
+	 * Get Plugin/Theme License.
+	 *
 	 * @return array {
 	 *     Optional. License Data.
-	 *     @type string     $key                The License Key
-	 *     @type string     $status             Activation Status
-	 *     @type int        $remaining          Remaining Activation
-	 *     @type int        $activation_limit   Number of activation allowed for the license key
-	 *     @type int        $expiry_day         Number of day remaining before the license expires
+	 *     @type string     $key                The License Key.
+	 *     @type string     $status             Activation Status.
+	 *     @type int        $remaining          Remaining Activation.
+	 *     @type int        $activation_limit   Number of activation allowed for the license key.
+	 *     @type int        $expiry_day         Number of day remaining before the license expires.
 	 * }
 	 */
 	private function getLicense() {
@@ -969,19 +1163,21 @@ class License {
 		if ( false === $this->license ) {
 			$this->setLicense();
 		}
+		$this->license = $this->parse_license_data( $this->license );
 		return $this->license;
 	}
 	
 	/**
-	 * Update License Data
-	 * call this method without license data will deactivate the license (set empty data)
+	 * Update License Data.
+	 * Call this method without license data will deactivate the license (set empty data).
+	 *
 	 * @param array $license {
 	 *     Optional. License Data.
-	 *     @type string     $key                The License Key
-	 *     @type string     $status             Activation Status
-	 *     @type int        $remaining          Remaining Activation
-	 *     @type int        $activation_limit   Number of activation allowed for the license key
-	 *     @type int        $expiry_day         Number of day remaining before the license expires
+	 *     @type string     $key                The License Key.
+	 *     @type string     $status             Activation Status.
+	 *     @type int        $remaining          Remaining Activation.
+	 *     @type int        $activation_limit   Number of activation allowed for the license key.
+	 *     @type int        $expiry_day         Number of day remaining before the license expires.
 	 * }
 	 * @return bool     False if value was not updated and true if value was updated.
 	 */
@@ -993,20 +1189,22 @@ class License {
 	
 	/**
 	 * Parse License data.
+	 *
 	 * @param array $data license data.
 	 *
 	 * @return array
 	 */
 	private function parse_license_data( $data = [] ) {
 		$defaults = [
-			'key'         => '',            // license key.
-			'status'      => 'inactive',    // current status.
-			'instance'    => '',            // instance unique id.
-			'remaining'   => 0,             // remaining activation.
-			'activations' => 0,             // total activation.
-			'limit'       => 0,             // activation limit.
-			'unlimited'   => false,         // is unlimited activation.
-			'expiry_date' => 0,             // expires set this to a unix timestamp.
+			'key'         => '', // license key.
+			'status'      => 'inactive', // current status.
+			'instance'    => '', // instance unique id.
+			'product_id'  => !empty( $this->client->getProductId() ) ? $this->client->getProductId() : $this->client->getName(), // product id.
+			'remaining'   => 0, // remaining activation.
+			'activations' => 0, // total activation.
+			'limit'       => 0, // activation limit.
+			'unlimited'   => false, // is unlimited activation.
+			'expiry_date' => 0, // expires set this to a unix timestamp.
 		];
 		// parse
 		$data    = wp_parse_args( $data, $defaults );
@@ -1015,6 +1213,7 @@ class License {
 		$license['key']         = sanitize_text_field( $data['key'] );
 		$license['status']      = strtolower( $data['status'] ) === 'active' ? 'active' : 'inactive';
 		$license['instance']    = sanitize_text_field( $data['instance'] );
+		$license['product_id']  = sanitize_text_field( $data['product_id'] );
 		$license['remaining']   = absint( $data['remaining'] );
 		$license['activations'] = absint( $data['activations'] );
 		$license['limit']       = absint( $data['limit'] );
@@ -1024,7 +1223,8 @@ class License {
 	}
 	
 	/**
-	 * Generate a random Instance ID
+	 * Generate a random Instance ID.
+	 *
 	 * @return string
 	 */
 	private function generateInstanceId() {

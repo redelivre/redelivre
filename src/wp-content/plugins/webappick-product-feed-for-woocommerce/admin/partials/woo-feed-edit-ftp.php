@@ -50,6 +50,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<td><label for="ftppath"><?php _e( 'Path', 'woo-feed' ); ?></label></td>
 			<td><input type="text" id="ftppath" value="<?php echo esc_attr( $feedRules['ftppath'] ); ?>" name="ftppath" autocomplete="off"/></td>
 		</tr>
-		</tbody>
+        <tr>
+            <td><label for="ftpmode"><?php _e( 'Connection Mode', 'woo-feed' ); ?></label></td>
+            <td>
+                <select name="ftpmode" id="ftpmode" class="ftpmode">
+                    <option <?php echo (isset($feedRules['ftpmode']) && 'active' == $feedRules['ftpmode'] ) ? 'selected="selected" ' : ''; ?> value="active"><?php _e( 'Active', 'woo-feed' ); ?></option>
+                    <option <?php echo (isset($feedRules['ftpmode']) && 'passive' == $feedRules['ftpmode'] ) ? 'selected="selected" ' : ''; ?>value="passive"><?php _e( 'Passive', 'woo-feed' ); ?></option>
+                </select>
+            </td>
+        </tr>
+        </tbody>
 	<?php } ?>
 </table>

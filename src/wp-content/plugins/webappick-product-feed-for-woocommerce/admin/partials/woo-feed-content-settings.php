@@ -15,20 +15,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * @global array $feedRules
  * @global Woo_Feed_Dropdown $wooFeedDropDown
- * @global Woo_Feed_Products $wooFeedProduct
+ * @global Woo_Feed_Merchant $merchant
  */
-global $feedRules, $wooFeedDropDown, $wooFeedProduct;
-$feedRules = woo_feed_parse_feed_rules( $feedRules );
+global $feedRules, $wooFeedDropDown, $merchant;
 ?>
 <table class="widefat fixed">
 	<thead>
 		<tr>
-			<th colspan="2"><?php _e('Content Settings', 'woo-feed'); ?></th>
+			<th colspan="2"><?php _e( 'Content Settings', 'woo-feed' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<th><label for="provider"><?php _e('Template', 'woo-feed'); ?> <span class="requiredIn">*</span></label></th>
+			<th><label for="provider"><?php _e( 'Template', 'woo-feed' ); ?> <span class="requiredIn">*</span></label></th>
 			<td>
 				<select wftitle="<?php esc_attr_e( 'Select a template', 'woo-feed' ); ?>" name="provider" id="provider" class="generalInput wfmasterTooltip" required>
 					<?php
@@ -39,19 +38,19 @@ $feedRules = woo_feed_parse_feed_rules( $feedRules );
 			</td>
 		</tr>
 		<tr>
-			<th><label for="filename"><?php _e('File Name', 'woo-feed'); ?> <span class="requiredIn">*</span></label></th>
+			<th><label for="filename"><?php _e( 'File Name', 'woo-feed' ); ?> <span class="requiredIn">*</span></label></th>
 			<td>
-				<input name="filename" value="<?php echo isset($feedRules['filename']) ? esc_attr($feedRules['filename']) : ''; ?>" type="text" id="filename" class="generalInput wfmasterTooltip" wftitle="<?php esc_attr_e( 'Filename should be unique. Otherwise it will override the existing filename.', 'woo-feed' ); ?>" required>
+				<input name="filename" value="<?php echo isset( $feedRules['filename'] ) ? esc_attr( $feedRules['filename'] ) : ''; ?>" type="text" id="filename" class="generalInput wfmasterTooltip" wftitle="<?php esc_attr_e( 'Filename should be unique. Otherwise it will override the existing filename.', 'woo-feed' ); ?>" required>
 			</td>
 		</tr>
 		<tr>
-			<th><label for="feedType"><?php _e('Feed Type', 'woo-feed'); ?> <span class="requiredIn">*</span></label></th>
+			<th><label for="feedType"><?php _e( 'Feed Type', 'woo-feed' ); ?> <span class="requiredIn">*</span></label></th>
 			<td>
 				<select name="feedType" id="feedType" class="generalInput" required>
 					<option value=""></option>
 					<?php
-					foreach ( woo_feed_get_file_types() as $type => $label ) {
-						printf( '<option value="%1$s" %3$s>%2$s</option>', esc_attr( $type ), esc_html( $label ), selected( $feedRules['feedType'], $type, false ) );
+					foreach ( woo_feed_get_file_types() as $file_type => $label ) {
+						printf( '<option value="%1$s" %3$s>%2$s</option>', esc_attr( $file_type ), esc_html( $label ), selected( $feedRules['feedType'], $file_type, false ) );
 					}
 					?>
 				</select>
@@ -59,15 +58,15 @@ $feedRules = woo_feed_parse_feed_rules( $feedRules );
 			</td>
 		</tr>
 		<tr class="itemWrapper" style="display: none;">
-			<th><label for="itemsWrapper"><?php _e('Items Wrapper', 'woo-feed'); ?> <span class="requiredIn">*</span></label></th>
+			<th><label for="itemsWrapper"><?php _e( 'Items Wrapper', 'woo-feed' ); ?> <span class="requiredIn">*</span></label></th>
 			<td>
-				<input name="itemsWrapper" id="itemsWrapper" type="text" value="<?php echo ( 'xml' == $feedRules['feedType'] ) && isset( $feedRules['itemsWrapper'] ) ? esc_attr( $feedRules['itemsWrapper'] ) : 'products'; ?>" class="generalInput" required="required">
+				<input name="itemsWrapper" id="itemsWrapper" type="text" value="<?php echo esc_attr( $feedRules['itemsWrapper'] ); ?>" class="generalInput" required="required">
 			</td>
 		</tr>
 		<tr class="itemWrapper" style="display: none;">
-			<th><label for="itemWrapper"><?php _e('Single Item Wrapper', 'woo-feed'); ?> <span class="requiredIn">*</span></label></th>
+			<th><label for="itemWrapper"><?php _e( 'Single Item Wrapper', 'woo-feed' ); ?> <span class="requiredIn">*</span></label></th>
 			<td>
-				<input name="itemWrapper" id="itemWrapper" type="text" value="<?php echo ( 'xml' == $feedRules['feedType'] ) && isset( $feedRules['itemWrapper'] ) ? esc_attr( $feedRules['itemWrapper'] ) : 'product'; ?>" class="generalInput" required="required">
+				<input name="itemWrapper" id="itemWrapper" type="text" value="<?php echo esc_attr( $feedRules['itemWrapper'] ); ?>" class="generalInput" required="required">
 			</td>
 		</tr>
 		<?php
@@ -88,7 +87,6 @@ $feedRules = woo_feed_parse_feed_rules( $feedRules );
 			<td>
 				<select name="delimiter" id="delimiter" class="generalInput">
 					<?php
-					
 					foreach ( woo_feed_get_csv_delimiters() as $k => $v ) {
 						printf( '<option value="%1$s" %3$s>%2$s</option>', esc_attr( $k ), esc_html( $v ), selected( $feedRules['delimiter'], $k, false ) );
 					}

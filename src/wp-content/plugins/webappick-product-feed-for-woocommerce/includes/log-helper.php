@@ -12,11 +12,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die(); // Silence...
 }
-/** @define "WOO_FEED_ADMIN_PATH" "./../admin/" */ // phpcs:ignore
+/** @define "WOO_FEED_FREE_ADMIN_PATH" "./../admin/" */ // phpcs:ignore
 
 if ( ! function_exists( 'woo_feed_is_debugging_enabled' ) ) {
 	function woo_feed_is_debugging_enabled() {
-		return get_option( 'woo_feed_enable_error_debugging', false ) === 'on';
+		return woo_feed_get_options( 'enable_error_debugging', false ) === 'on';
 	}
 }
 if ( ! function_exists( 'woo_feed_get_logger' ) ) {
@@ -74,9 +74,9 @@ if ( ! function_exists( 'woo_feed_log' ) ) {
 	 *     'notice': Normal but significant condition.
 	 *     'info': Informational messages.
 	 *     'debug': Debug-level messages.
-	 * @param mixed $data Extra data for the log handler.
-	 * @param bool $force_log ignore debugging settings
-	 * @param bool $wc_log log data in wc-logs directory
+	 * @param mixed  $data Extra data for the log handler.
+	 * @param bool   $force_log ignore debugging settings
+	 * @param bool   $wc_log log data in wc-logs directory
 	 *
 	 * @return void
 	 */
@@ -121,7 +121,7 @@ if ( ! function_exists( 'woo_feed_log_fatal_error' ) ) {
 	 * Log Fatal Errors in both wc-logs and woo-feed/logs
 	 *
 	 * @param string $message The log message.
-	 * @param mixed $data Extra data for the log handler.
+	 * @param mixed  $data Extra data for the log handler.
 	 */
 	function woo_feed_log_fatal_error( $message, $data = null ) {
 		// woocommerce use 'fatal-errors' as log handler...
@@ -134,7 +134,7 @@ if ( ! function_exists( 'woo_feed_log_debug_message' ) ) {
 	 * Log Fatal Errors in both wc-logs and woo-feed/logs
 	 *
 	 * @param string $message The log message.
-	 * @param mixed $data Extra data for the log handler.
+	 * @param mixed  $data Extra data for the log handler.
 	 */
 	function woo_feed_log_debug_message( $message, $data = null ) {
 		// woocommerce use 'fatal-errors' as log handler...
@@ -147,7 +147,7 @@ if ( ! function_exists( 'woo_feed_delete_log' ) ) {
 	 * Delete Log file by source or handle name
 	 *
 	 * @param string $source log source or handle name
-	 * @param bool $handle use source as handle
+	 * @param bool   $handle use source as handle
 	 *
 	 * @return bool
 	 */
@@ -186,8 +186,8 @@ if ( ! function_exists( 'woo_feed_log_feed_process' ) ) {
 	 *
 	 * @param string $feed_name Feed name, will be use for log file name.
 	 * @param string $message Log message.
-	 * @param mixed $data Extra data for the log handler.
-	 * @param bool $force_log ignore debugging settings
+	 * @param mixed  $data Extra data for the log handler.
+	 * @param bool   $force_log ignore debugging settings
 	 *
 	 * @return void
 	 */

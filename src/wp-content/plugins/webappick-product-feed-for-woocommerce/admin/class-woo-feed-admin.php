@@ -68,6 +68,7 @@ class Woo_Feed_Admin {
 		$mainDeps = array();
 		$ext = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.css' : '.min.css';
 		if ( false !== strpos( $hook, 'webappick' ) && false !== strpos( $hook, 'feed' ) ) {
+			wp_enqueue_style('thickbox');
 			wp_register_style( 'selectize', plugin_dir_url( __FILE__ ) . 'css/selectize' . $ext, array(), $this->version );
 			wp_enqueue_style( 'fancy-select', plugin_dir_url( __FILE__ ) . 'css/fancy-select' . $ext, array(), $this->version );
 			wp_register_style( 'slick', plugin_dir_url( __FILE__ ) . 'css/slick' . $ext, array(), $this->version );
@@ -104,6 +105,10 @@ class Woo_Feed_Admin {
 		 */
 		$ext = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.js' : '.min.js';
 		if ( false !== strpos( $hook, 'webappick' ) && false !== strpos( $hook, 'feed' ) ) {
+			wp_enqueue_script('thickbox');
+			if ( is_network_admin() ) {
+				add_action( 'admin_head', '_thickbox_path_admin_subfolder' );
+			}
 			wp_register_script( 'jquery-selectize', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
 			wp_register_script( 'fancy-select', plugin_dir_url( __FILE__ ) . 'js/fancy-select' . $ext, array( 'jquery' ), $this->version, false );
 			wp_register_script( 'jquery-validate', plugin_dir_url( __FILE__ ) . 'js/jquery.validate.min.js', array( 'jquery' ), $this->version, false );
@@ -132,34 +137,57 @@ class Woo_Feed_Admin {
 			];
 			
 			wp_register_script( $this->woo_feed, plugin_dir_url( __FILE__ ) . 'js/woo-feed-admin' . $ext, $feedScriptDependency, $this->version, false );
-			wp_localize_script(
-				$this->woo_feed,
-				'wpf_ajax_obj',
-				array(
-					'wpf_ajax_url' => admin_url( 'admin-ajax.php' ),
-					'nonce'        => wp_create_nonce( 'wpf_feed_nonce' ),
-					'is_feed_edit' => isset( $_GET['page'], $_GET['action'] ) && 'webappick-manage-feeds' == $_GET['page'] && 'edit-feed' == $_GET['action'], // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					'is_feed_add'  => isset( $_GET['page'] ) && 'webappick-new-feed' == $_GET['page'], // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					'na'           => esc_html__( 'N/A', 'woo-feed' ),
-					'regenerate'   => esc_html__( 'Generating...', 'woo-feed' ),
-					'learn_more'   => esc_html__( 'Learn More..', 'woo-feed' ),
-					'form'         => array(
-						'select_category'   => esc_attr__( 'Select A Category', 'woo-feed' ),
-						'loading_tmpl'      => esc_html__( 'Loading Template...', 'woo-feed' ),
-						'generate'          => esc_html__( 'Delivering Configuration...', 'woo-feed' ),
-						'save'              => esc_html__( 'Saving Configuration...', 'woo-feed' ),
-						'sftp_checking'     => esc_html__( 'Wait! Checking Extensions ...', 'woo-feed' ),
-						'sftp_warning'      => esc_html__( 'Warning! Enable PHP ssh2 extension to use SFTP. Contact your server administrator.', 'woo-feed' ),
-						'sftp_available'    => esc_html__( 'SFTP Available!', 'woo-feed' ),
-						'one_item_required' => esc_html__( 'Please add one or more items to continue.', 'woo-feed' ),
-					),
-					'ajax'         => [
-						'url'   => admin_url( 'admin-ajax.php' ),
-						'nonce' => wp_create_nonce( 'wpf_feed_nonce' ),
-						'error' => esc_html__( 'There was an error processing ajax request.', 'woo-feed' ),
+			
+			$js_opts = array(
+				'wpf_ajax_url' => admin_url( 'admin-ajax.php' ),
+				'wpf_debug'    => woo_feed_is_debugging_enabled(),
+				'pages'        => [
+					'list' => [
+						'feed' => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
 					],
-				)
+				],
+				'nonce'        => wp_create_nonce( 'wpf_feed_nonce' ),
+				'is_feed_edit' => isset( $_GET['page'], $_GET['action'] ) && 'webappick-manage-feeds' == $_GET['page'] && 'edit-feed' == $_GET['action'], // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				'is_feed_add'  => isset( $_GET['page'] ) && 'webappick-new-feed' == $_GET['page'], // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				'na'           => esc_html__( 'N/A', 'woo-feed' ),
+				'regenerate'   => esc_html__( 'Generating...', 'woo-feed' ),
+				'learn_more'   => esc_html__( 'Learn More..', 'woo-feed' ),
+				'form'         => array(
+					'select_category'     => esc_attr__( 'Select A Category', 'woo-feed' ),
+					'loading_tmpl'        => esc_html__( 'Loading Template...', 'woo-feed' ),
+					'generate'            => esc_html__( 'Delivering Configuration...', 'woo-feed' ),
+					'save'                => esc_html__( 'Saving Configuration...', 'woo-feed' ),
+					'sftp_checking'       => esc_html__( 'Wait! Checking Extensions ...', 'woo-feed' ),
+					'sftp_warning'        => esc_html__( 'Warning! Enable PHP ssh2 extension to use SFTP. Contact your server administrator.', 'woo-feed' ),
+					'sftp_available'      => esc_html__( 'SFTP Available!', 'woo-feed' ),
+					'one_item_required'   => esc_html__( 'Please add one or more items to continue.', 'woo-feed' ),
+					'google_category'     => woo_feed_merchant_require_google_category(),
+					'del_confirm'         => esc_html__( 'Are you sure you want to delete this item?', 'woo-feed' ),
+					'del_confirm_multi'   => esc_html__( 'Are you sure you want to delete selected items?', 'woo-feed' ),
+					'item_wrapper_hidden' => woo_feed_get_item_wrapper_hidden_merchant(),
+				),
+				'generator'    => [
+					'limit'      => woo_feed_get_options( 'per_batch' ),
+					'feed'       => '',
+					'regenerate' => false,
+				],
+				'ajax'         => [
+					'url'   => admin_url( 'admin-ajax.php' ),
+					'nonce' => wp_create_nonce( 'wpf_feed_nonce' ),
+					'error' => esc_html__( 'There was an error processing ajax request.', 'woo-feed' ),
+				],
 			);
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( ( isset( $_GET['feed_created'] ) || isset( $_GET['feed_updated'] ) || isset( $_GET['feed_imported'] ) ) && isset( $_GET['feed_regenerate'] ) && 1 == $_GET['feed_regenerate'] ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$fileName = isset( $_GET['feed_name'] ) && ! empty( $_GET['feed_name'] ) ? sanitize_text_field( $_GET['feed_name'] ) : ''; // trigger feed regenerate...
+				if ( ! empty( $fileName ) ) {
+					// filename must be wf_config+XXX format for js to work.
+					$js_opts['generator']['feed'] = 'wf_config' . woo_feed_extract_feed_option_name( $fileName );
+					$js_opts['generator']['regenerate'] = true;
+				}
+			}
+			wp_localize_script( $this->woo_feed, 'wpf_ajax_obj', $js_opts );
 			wp_enqueue_script( $this->woo_feed );
 			
 			if ( 'woo-feed_page_webappick-feed-pro-vs-free' === $hook ) {
@@ -206,6 +234,7 @@ class Woo_Feed_Admin {
 			add_menu_page( __( 'Woo Feed', 'woo-feed' ), __( 'Woo Feed', 'woo-feed' ), 'manage_woocommerce', 'webappick-manage-feeds', 'woo_feed_manage_feed', 'dashicons-rss' );
 			add_submenu_page( 'webappick-manage-feeds', __( 'Manage Feeds', 'woo-feed' ), __( 'Manage Feeds', 'woo-feed' ), 'manage_woocommerce', 'webappick-manage-feeds', 'woo_feed_manage_feed' );
 			add_submenu_page( 'webappick-manage-feeds', __( 'Make Feed', 'woo-feed' ), __( 'Make Feed', 'woo-feed' ), 'manage_woocommerce', 'webappick-new-feed', 'woo_feed_generate_new_feed' );
+            add_submenu_page( 'webappick-manage-feeds', __( 'Category Mapping', 'woo-feed' ), __( 'Category Mapping', 'woo-feed' ), 'manage_woocommerce', 'webappick-feed-category-mapping', 'woo_feed_category_mapping' );
 			add_submenu_page( 'webappick-manage-feeds', __( 'Settings', 'woo-feed' ), __( 'Settings', 'woo-feed' ), 'manage_woocommerce', 'webappick-feed-settings', 'woo_feed_config_feed' );
 			add_submenu_page( 'webappick-manage-feeds', __( 'Documentation', 'woo-feed' ), '<span class="woo-feed-docs">' . __( 'Docs', 'woo-feed' ) . '</span>', 'manage_woocommerce', 'webappick-feed-docs', array( WooFeedDocs::getInstance(), 'woo_feed_docs' ) );
 		}

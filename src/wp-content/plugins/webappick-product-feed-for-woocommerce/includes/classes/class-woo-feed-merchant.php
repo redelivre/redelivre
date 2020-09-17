@@ -1,166 +1,124 @@
-<?php
+<?php /** @noinspection PhpUnused */
+
 /**
  * Created by PhpStorm.
  * User: wahid
  * Date: 12/9/19
  * Time: 12:35 PM
  */
+/** @define "WOO_FEED_FREE_PATH" "./../../" */ // phpcs:ignore
 
+/**
+ * Class Woo_Feed_Merchant
+ */
 class Woo_Feed_Merchant {
-	
+
+	/**
+	 * Brand Name that going to be used as default pattern for the template.
+	 *
+	 * @var string
+	 * @since 3.3.10
+	 */
+	public $brand_pattern;
+	/**
+	 * Store's default Currency
+	 *
+	 * @var string
+	 * @since 3.3.10
+	 */
+	public $currency;
+	/**
+	 * List of merchant
+	 * @var array
+	 * @since 3.3.11
+	 */
+	protected $merchants;
 	/**
 	 * Merchant Templates
+	 *
 	 * @var array
 	 */
-	private $templates;
-	
+	protected $templates;
+	/**
+	 * Merchant Infos
+	 *
+	 * @var array
+	 */
+	protected $merchant_infos;
 	/**
 	 * Current Merchant
+	 *
 	 * @var string
 	 */
-	private $merchant;
-	
+	protected $merchant;
 	/**
 	 * Current Template
+	 *
 	 * @var array
 	 */
-	private $template_raw;
-	
+	protected $template_raw;
 	/**
 	 * Parsed Template (Rules) For rendering create form
+	 *
 	 * @var array
 	 */
-	private $template;
-	
+	protected $template;
 	/**
 	 * Allowed Feed Type for current Merchant
+	 *
 	 * @var array
 	 */
-	private $feed_types;
-	
+	protected $feed_types;
 	/**
 	 * Current Merchant Info
+	 *
 	 * @var array
 	 */
-	private $info;
-	
+	protected $info;
 	/**
 	 * is default template.
 	 * Flag that indicates if merchant template not exists and fallback to default template.
+	 *
 	 * @var bool
 	 */
-	private $is_default_template = false;
-	
+	protected $is_default_template = false;
+
 	/**
 	 * Woo_Feed_Merchant constructor.
 	 *
-	 * @param string $merchant
+	 * @param string $merchant      merchant slug
+	 *                              if merchant not found default template params will be loaded.
+	 * @param string $currency      currency code.
+	 * @param string $brand_pattern brand name (pattern).
+	 *
+	 * @return void
+	 *
+	 * @see    Woo_Feed_Merchant::load_merchant_templates
+	 * @since  3.3.10 $this->currency parameter
+	 * @since  3.3.10 $brand_pattern
 	 */
-	
-	//adroll - smartly.io google
-	//admarkt custom 2
-	
-	public function __construct( $merchant = null ) {
-		$this->merchant_templates();
+	public function __construct( $merchant = null, $currency = null, $brand_pattern = null ) {
 		$this->merchant = $merchant;
+		if ( ! empty( $currency ) ) {
+			$this->currency = $currency;
+		} else {
+			$this->currency = get_woocommerce_currency();
+		}
+		if ( ! empty( $brand_pattern ) ) {
+			$this->brand_pattern = $brand_pattern;
+		} else {
+			$this->brand_pattern = woo_feed_get_default_brand();
+		}
+
+		$this->load_merchant_infos();
+		$this->load_merchant_templates();
 		$this->get_template_raw();
 		$this->merchantInfo();
 	}
-	
+
 	/**
-	 * Get Merchant Template
-	 * @deprecated 3.3.7
-	 * @return bool|array
-	 */
-	public function get_merchant_template() {
-		if ( ! is_null( $this->merchant ) && array_key_exists( $this->merchant, $this->templates ) ) {
-			return $this->templates[ $this->merchant ];
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Get Default template (blank template with some attribute for creating a base config).
-	 * @deprecated 3.3.7
-	 * @return array
-	 */
-	public function get_default_template() {
-		return $this->templates['default'];
-	}
-	
-	public function get_template_raw() {
-		if ( is_array( $this->template_raw ) ) {
-			return $this->template_raw;
-		}
-		
-		if ( ! is_null( $this->merchant ) && array_key_exists( $this->merchant, $this->templates ) ) {
-			$this->template_raw = $this->templates[ $this->merchant ];
-		} else {
-			$this->is_default_template = true;
-			
-			$this->template_raw = $this->templates['default'];
-		}
-		
-		return $this->template_raw;
-	}
-	
-	/**
-	 * Get Merchant template with fallback to default template.
-	 * @return array
-	 */
-	public function get_template() {
-		if ( is_array( $this->template ) ) {
-			return $this->template;
-		}
-		$this->template = array_merge( $this->template_raw, [
-			'provider' => $this->merchant,
-			'feedType' => $this->get_feed_types( true ),
-		] );
-		$this->template = woo_feed_parse_feed_rules( $this->template, 'create' );
-		return $this->template;
-	}
-	
-	/**
-	 * Get Feed Types
+	 * Sets Merchant Info
 	 *
-	 * @param bool $default     get the default type
-	 *
-	 * @return string[]|string|false
-	 */
-	public function get_feed_types( $default = false ) {
-		
-		if ( false === $default ) return $this->feed_types;
-		
-		return reset( $this->feed_types );
-	}
-	
-	/**
-	 * Get Selected Merchant Name (slug)
-	 * @return string|null
-	 */
-	public function get_name() {
-		return $this->merchant;
-	}
-	
-	/**
-	 * check if fallback to default template
-	 * @return bool
-	 */
-	public function is_default_template() {
-		return $this->is_default_template;
-	}
-	
-	/**
-	 * Get Merchant Info
-	 * @return array
-	 */
-	public function get_info() {
-		return $this->info;
-	}
-	
-	/**
-	 * Merchant info array
 	 * Follow this common format to add new merchant info
 	 * [
 	 *      'link'           => '',         # Merchant's feed specification url
@@ -172,3039 +130,339 @@ class Woo_Feed_Merchant {
 	 *      'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),    # Feed file type (XML or CSV or TXT). Can be multiple.
 	 * ];
 	 *
+	 * @return void
+	 * @since 3.3.10
 	 */
-	private function merchantInfo() {
-		
-		$merchant_info = array(
-			'google'                 => array(
-				'link'           => 'http://bit.ly/38kmDrl',
-				'video'          => 'https://youtu.be/PTUYgF7DwEo',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-				'doc'            => array(
-					esc_html__( 'How to make google merchant feed?', 'woo-feed' )           => 'http://bit.ly/355q0jY',
-					esc_html__( 'How to configure shipping info?', 'woo-feed' )             => 'http://bit.ly/2Rzr0sI',
-					esc_html__( 'How to set price with tax?', 'woo-feed' )                  => 'http://bit.ly/2PuzWga',
-					esc_html__( 'How to solve micro data error?', 'woo-feed' )              => 'http://bit.ly/345nIQz',
-					esc_html__( 'How to configure google product categories?', 'woo-feed' ) => 'http://bit.ly/2RFWRrP',
-				),
-			), // Google.
-			'google_local'           => '',
-			'google_local_inventory' => '',
-			'adwords'                => '',
-			'facebook'               => array(
-				'link'           => 'http://bit.ly/2P5cA1V',
-				'video'          => 'https://youtu.be/Wo3V_nf_eUU',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-				'doc'            => array(
-					esc_html__( 'How to configure google product categories?', 'woo-feed' ) => 'http://bit.ly/2RFWRrP',
-				),
-			), // Facebook.
-			'pinterest'              => array(
-				'link'           => 'http://bit.ly/35h6YXG',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-				'doc'            => array(
-					esc_html__( 'How to configure google product categories?', 'woo-feed' ) => 'http://bit.ly/2RFWRrP',
-				),
-			), // Pinterest.
-			'bing'                   => array(
-				'link'           => 'http://bit.ly/33ZeuVS',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-			), // Bing.
-			'pricespy'               => array(
-				'link'           => 'http://bit.ly/2t0rEFm',
-				'feed_file_type' => array( 'TXT' ),
-			), // PriceSpy.
-			'prisjakt'               => array(
-				'link'           => 'http://bit.ly/36iRT8a',
-				'feed_file_type' => array( 'TXT' ),
-			), // Prisjakt.
-			'idealo'                 => array(
-				'link'           => 'http://bit.ly/2LDgJI0',
-				'feed_file_type' => array( 'CSV', 'TXT' ),
-			), // Idealo.
-			'yandex_csv'             => array(
-				'link'           => 'http://bit.ly/2t0tsy8',
-				'feed_file_type' => array( 'CSV', 'TXT' ),
-			), // Yandex (CSV).
-			'adroll'                 => array(
-				'link'           => 'http://bit.ly/2qzPtmt',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // adroll
-			'adform'                 => array(
-				'link'           => 'http://bit.ly/2s6yatQ',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // adform
-			'kelkoo'                 => array(
-				'link'           => 'http://bit.ly/2RAcqkL',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // Kelkoo.
-			'shopmania'              => array(
-				'link'           => 'http://bit.ly/38pE2PA',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // Shop Mania.
-			'connexity'              => array(
-				'link'           => 'http://bit.ly/36lPaLw',
-				'feed_file_type' => array( 'TXT' ),
-			), // Connexity.
-			'twenga'                 => array(
-				'link'           => 'http://bit.ly/2RwTIud',
-				'feed_file_type' => array( 'XML', 'TXT' ),
-			), // Twenga.
-			'fruugo'                 => array(
-				'link'           => 'http://bit.ly/2Yxabjn',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // Fruugo.
-			'fruugo.au'              => array(
-				'link'           => 'http://bit.ly/2Yxabjn',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // Fruugo Australia.
-			'pricerunner'            => array(
-				'link'           => 'http://bit.ly/2Pznn3s',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-			), // Price Runner.
-			'bonanza'                => array(
-				'link'           => 'http://bit.ly/2Rxi9aK',
-				'feed_file_type' => array( 'CSV' ),
-			), // Bonanza
-			'bol'                    => array(
-				'link'           => 'http://bit.ly/2P3MUCu',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // Bol.
-			'wish'                   => array(
-				'link'           => 'http://bit.ly/348iYtc',
-				'feed_file_type' => array( 'CSV' ),
-			), // Wish.com.
-			'myshopping.com.au'      => array(
-				'link'           => 'http://bit.ly/2E6jugI',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-			), // Myshopping.com.au.
-			'skinflint.co.uk'        => array(
-				'link'           => 'http://bit.ly/2sg09qJ',
-				'feed_file_type' => array( 'CSV' ),
-			), // SkinFlint.co.uk.
-			'yahoo_nfa'              => array(
-				'link'           => 'http://bit.ly/2LCC58k',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-			), // Yahoo NFA.
-			'comparer.be'            => array(
-				'link'           => 'http://bit.ly/38xz2sa',
-				'feed_file_type' => array( 'XML', 'CSV' ),
-			), // Comparer.be.
-			'rakuten.de'             => array(
-				'link'           => 'http://bit.ly/2YCDdym',
-				'feed_file_type' => array( 'CSV', 'TXT' ),
-			), // rakuten.
-			'avantlink'              => array(
-				'link'           => 'http://bit.ly/2PuExPv',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-			), // Avantlink
-			'shareasale'             => array(
-				'link'           => 'http://bit.ly/36uT1pF',
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-			), // ShareASale.
-			'trovaprezzi'            => array(
-				'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
-			), // trovaprezzi.it.
-		);
-		
-		$this->info  = ( isset( $merchant_info[ $this->merchant ] ) ) ? $merchant_info[ $this->merchant ] : [];
+	protected function load_merchant_infos() {
+		$this->merchant_infos = include WOO_FEED_FREE_PATH . 'includes/feeds/merchant_infos.php';
+	}
+
+	/**
+	 * Sets Merchant Templates
+	 *
+	 * @return void
+	 */
+	protected function load_merchant_templates() {
+		$this->templates = include WOO_FEED_FREE_PATH . 'includes/feeds/merchant_templates.php';
+
+		// reduce duplicate data.
+		//$this->templates['facebook']   = $this->templates['google'];
+		$this->templates['pinterest']  = $this->templates['google'];
+		$this->templates['adroll']     = $this->templates['google'];
+		$this->templates['smartly.io'] = $this->templates['google'];
+		$this->templates['connexity'] = $this->templates['become'];
+		$this->templates['shopzilla'] = $this->templates['become'];
+		$this->templates['fruugo.au'] = $this->templates['fruugo'];
+		$this->templates['shopalike.fr'] = $this->templates['kijiji.ca'];
+	}
+
+	public function get_template_raw() {
+		if ( is_array( $this->template_raw ) ) {
+			return $this->template_raw;
+		}
+
+		if ( ! is_null( $this->merchant ) && array_key_exists( $this->merchant, $this->templates ) ) {
+			$this->template_raw = $this->templates[ $this->merchant ];
+		} else {
+			$this->is_default_template = true;
+
+			$this->template_raw = $this->templates['default'];
+		}
+
+		return $this->template_raw;
+	}
+
+	/**
+	 * Set Merchant info array
+	 * @return void
+	 */
+	protected function merchantInfo() {
+
+		if ( ! is_null( $this->merchant ) && array_key_exists( $this->merchant, $this->merchant_infos ) ) {
+			$this->info = $this->merchant_infos[ $this->merchant ];
+		} else {
+			$this->info = $this->merchant_infos['default'];
+		}
+
 		// ensure common data structure
-		$this->info = wp_parse_args( $this->info, [
-			'link'           => '',
-			'video'          => '',
-			'feed_file_type' => [],
-			'doc'            => [],
-		] );
-		
-		$this->feed_types = ( false === $this->is_default_template ) ? $this->info['feed_file_type'] : [ 'XML', 'CSV', 'TXT' ];
-		
+		$this->info = wp_parse_args(
+			$this->info,
+			[
+				'link'           => '',
+				'video'          => '',
+				'feed_file_type' => [],
+				'doc'            => [],
+			]
+		);
+
+		$this->feed_types = ( ! empty( $this->info['feed_file_type'] ) ) ? $this->info['feed_file_type'] : [ 'XML', 'CSV', 'TXT' ];
+
 		/**
 		 * Filter single merchant data before retrieve
-		 * @param array $feed_types
+		 *
+		 * @param array  $feed_types
 		 * @param string $merchant
 		 */
 		$this->feed_types = apply_filters( 'woo_feed_get_feed_types', $this->feed_types, $this->merchant );
-		
+
 		$this->info['feed_file_type'] = $this->feed_types;
-		
+
 		/**
 		 * Filter single merchant data before retrieve
-		 * @param array $info
+		 *
+		 * @param array  $info
 		 * @param string $merchant
 		 */
 		$this->info = apply_filters( 'woo_feed_get_merchant_info', $this->info, $this->merchant );
-		
-		return $merchant_info;
 	}
-	
+
 	/**
-	 * Sets Merchant Templates
-	 * @return void
+	 * Get Merchant Template
+	 *
+	 * @return bool|array
+	 * @deprecated 3.3.7
 	 */
-	private function merchant_templates() {
-		
-		$this->templates = array(
-			'default'                => array(
-				'mattributes' => array(
-					'id',
-					'title',
-					'description',
-					'link',
-					'image_link',
-					'price',
-					'categories',
-					'brand',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'id', 'title', 'description', 'link', 'image', 'price', 'product_type', '' ),
-				'default'     => array( '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '' ),
-			),
-			'bol'                    => array(
-				'mattributes' => array(
-					'EAN',
-					'Internal Reference',
-					'Name',
-					'Product Classification',
-					'Description',
-					'Cover Image URL',
-					'Brand',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-				),
-				'attributes'  => array( 'sku', 'id', 'title', 'product_type', 'description', 'image', '' ),
-				'default'     => array( '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '2', '1', '' ),
-				'limit'       => array( '', '', '', '', '', '500', '5000' ),
-			),
-			'adform'                 => array(
-				'mattributes' => array(
-					'product_id',
-					'product_name',
-					'product_category_id',
-					'product_deeplink',
-					'product_image',
-					'product_price',
-				),
-				'prefix'      => array( '', '', '', '', '', '' ),
-				'type'        => array( 'attribute', 'attribute', 'attribute', 'attribute', 'attribute', 'attribute' ),
-				'attributes'  => array( 'id', 'title', 'product_type', 'link', 'image', 'price' ),
-				'default'     => array( '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '' ),
-			),
-			'avantlink'              => array(
-				'mattributes' => array(
-					'SKU',
-					'Brand Name',
-					'Product Name',
-					'Long Description',
-					'Category',
-					'Standardized Categorization',
-					'Image URL',
-					'Buy Link',
-					'Retail Price',
-					'Sale Price',
-					'UPC',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'sku',
-					'',
-					'title',
-					'description',
-					'product_type',
-					'',
-					'image',
-					'link',
-					'price',
-					'sale_price',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'become'                 => array(
-				'mattributes' => array(
-					'Unique ID',
-					'Title',
-					'Description',
-					'Category',
-					'Product URL',
-					'Image URL',
-					'Condition',
-					'Availability',
-					'Current Price',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'description',
-					'product_type',
-					'link',
-					'image',
-					'condition',
-					'availability',
-					'price',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'bonanza'                => array(
-				'mattributes' => array(
-					'id',
-					'title',
-					'description',
-					'price',
-					'images',
-					'category',
-					'booth_category',
-					'shipping_price',
-					'shipping_type',
-					'shipping_service',
-					'shipping_lbs',
-					'shipping_oz',
-					'shipping_carrier',
-					'shipping_package',
-					'sku',
-					'worldwide_shipping_price',
-					'worldwide_shipping_type',
-					'worldwide_shipping_carrier',
-					'quantity',
-					'trait',
-					'force_update',
-				),
-				'prefix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'attribute',
-					'pattern',
-					'pattern',
-					'pattern',
-					'attribute',
-					'pattern',
-					'pattern',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'description',
-					'price',
-					'image',
-					'',
-					'product_type',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'sku',
-					'',
-					'',
-					'',
-					'quantity',
-					'',
-					'',
-				),
-				'default'     => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'suffix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-			),
-			'connexity'              => array(
-				'mattributes' => array(
-					'Unique ID',
-					'Title',
-					'Description',
-					'Category',
-					'Product URL',
-					'Image URL',
-					'Condition',
-					'Availability',
-					'Current Price',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'description',
-					'product_type',
-					'link',
-					'image',
-					'condition',
-					'availability',
-					'price',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'criteo'                 => array(
-				'mattributes' => array(
-					'ID',
-					'title',
-					'description',
-					'google_product_category',
-					'link',
-					'image_link',
-					'additional_image_link',
-					'availability',
-					'price',
-					'sale_price',
-					'gtin',
-					'mpn',
-					'brand',
-					'product_type',
-					'product_type_key',
-					'number_of_reviews',
-					'product_rating',
-					'filters',
-					'adult',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'description',
-					'product_type',
-					'link',
-					'image',
-					'images',
-					'availability',
-					'price',
-					'sale_price',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array(
-					'240',
-					'150',
-					'5000',
-					'',
-					'1024',
-					'2000',
-					'2000',
-					'25',
-					'14',
-					'50',
-					'50',
-					'70',
-					'70',
-					'500',
-					'500',
-					'8',
-					'8',
-					'2000',
-					'',
-				),
-			),
-			'crowdfox'               => array(
-				'mattributes' => array(
-					'sku ',
-					'image',
-					'name',
-					'price',
-					'ean',
-					'dlv_time',
-					'dlv_cost',
-					'obl_info',
-					'brand',
-					'mpn',
-					'link',
-					'desc',
-					'sell_max',
-					'shop_cat',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'sku',
-					'image',
-					'title',
-					'price',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'link',
-					'description',
-					'quantity',
-					'product_type',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'fruugo'                 => array(
-				'mattributes' => array(
-					'ProductId',
-					'SkuId',
-					'EAN',
-					'Brand',
-					'Category',
-					'Imageurl1',
-					'StockStatus',
-					'StockQuantity',
-					'Title',
-					'Description',
-					'NormalPriceWithoutVat',
-					'DiscountPriceWithoutVAT',
-					'VatRate',
-					'Currency',
-					'Country',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'sku',
-					'',
-					'',
-					'product_type',
-					'image',
-					'availability',
-					'quantity',
-					'title',
-					'description',
-					'price',
-					'sale_price',
-					'',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '', 'USD', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'fruugo.au'              => array(
-				'mattributes' => array(
-					'ProductId',
-					'SkuId',
-					'EAN',
-					'Brand',
-					'Category',
-					'Imageurl1',
-					'StockStatus',
-					'StockQuantity',
-					'Title',
-					'Description',
-					'NormalPriceWithoutVat',
-					'DiscountPriceWithoutVAT',
-					'VatRate',
-					'Currency',
-					'Country',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'sku',
-					'',
-					'',
-					'product_type',
-					'image',
-					'availability',
-					'quantity',
-					'title',
-					'description',
-					'price',
-					'sale_price',
-					'',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '', 'USD', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'jet'                    => array(
-				'mattributes' => array(
-					'Merchant SKU ID',
-					'Unique ID',
-					'Multi-pack Quantity',
-					'Product Title',
-					'Description',
-					'Image',
-					'Product Price',
-					'Jet Category',
-					'Brand',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-				),
-				'attributes'  => array( 'sku', 'id', '', 'title', 'description', 'image', 'price', '', '' ),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'kelkoo'                 => array(
-				'mattributes' => array(
-					'title',
-					'product-url',
-					'price',
-					'merchant-category',
-					'ean',
-					'delivery-cost',
-					'brand',
-					'description',
-					'image-url',
-					'availability',
-					'mpn',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'title',
-					'link',
-					'price',
-					'',
-					'',
-					'',
-					'',
-					'description',
-					'image',
-					'availability',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'kieskeurig.nl'          => array(
-				'mattributes' => array(
-					'id',
-					'productgroep',
-					'merk',
-					'type',
-					'toevoeging-type',
-					'extra-productbeschrijving',
-					'partnumber',
-					'ean-code',
-					'prijs',
-					'verzendkosten',
-					'afhaalkosten',
-					'levertijd',
-					'deeplink',
-					'imagelink',
-					'voorraad',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'product_type',
-					'title',
-					'type',
-					'',
-					'description',
-					'',
-					'',
-					'price',
-					'',
-					'',
-					'',
-					'link',
-					'image',
-					'quantity',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'kijiji.ca'              => array(
-				'mattributes' => array(
-					'id',
-					'title',
-					'description',
-					'link',
-					'image_link',
-					'price',
-					'categories',
-					'brand',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'id', 'title', 'description', 'link', 'image', 'price', 'product_type', '' ),
-				'default'     => array( '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '' ),
-			),
-			'leguide'                => array(
-				'mattributes' => array(
-					'category',
-					'unique_id',
-					'title',
-					'description',
-					'price',
-					'product_URL',
-					'landing_URL',
-					'image_URL',
-					'EAN',
-					'delivery_charge',
-					'delivery_time',
-					'availability',
-					'guarantee',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-				),
-				'attributes'  => array(
-					'product_type',
-					'id',
-					'title',
-					'description',
-					'price',
-					'link',
-					'',
-					'image',
-					'sku',
-					'',
-					'',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'modina.de'              => array(
-				'mattributes' => array(
-					'id',
-					'brand',
-					'title',
-					'description',
-					'productLink',
-					'imageLink',
-					'imageLinkAdditional',
-					'price',
-					'priceOld',
-					'shippingCost',
-					'shippingDuration',
-					'availability',
-					'gtin',
-					'mpn',
-					'category',
-					'subcategory',
-					'color',
-					'gender',
-					'material',
-					'pattern',
-					'size',
-				),
-				'prefix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'',
-					'title',
-					'description',
-					'link',
-					'image',
-					'images',
-					'price',
-					'',
-					'',
-					'',
-					'availability',
-					'',
-					'',
-					'product_type',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'default'     => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'suffix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-			),
-			'myshopping.com.au'      => array(
-				'mattributes' => array(
-					'Code',
-					'Id',
-					'Name',
-					'Description',
-					'Category',
-					'price',
-					'Product_URL',
-					'Image_URL',
-					'Brand',
-					'InStock',
-					'MPN',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-				),
-				'attributes'  => array(
-					'',
-					'id',
-					'title',
-					'description',
-					'product_type',
-					'price',
-					'link',
-					'image',
-					'',
-					'',
-					'sku',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', 'Y', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'nextag'                 => array(
-				'mattributes' => array(
-					'Manufacturer',
-					'Product Name',
-					'Product Description',
-					'Price',
-					'Click-Out URL',
-					'Category',
-					'Image URL',
-					'Stock Status',
-					'Condition',
-				),
-				'prefix'      => array( '', '', '', '$', '', '', '', '', '' ),
-				'type'        => array(
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'',
-					'title',
-					'description',
-					'price',
-					'link',
-					'product_type',
-					'image',
-					'availability',
-					'condition',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'polyvore'               => array(
-				'mattributes' => array(
-					'title',
-					'brand',
-					'url',
-					'imgurl',
-					'price',
-					'currency',
-					'description',
-					'subject',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'pattern',
-				),
-				'attributes'  => array( 'title', '', 'link', 'image', 'price', '', 'description', '' ),
-				'default'     => array( '', '', '', '', '', 'USD', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '' ),
-			),
-			'pricegrabber'           => array(
-				'mattributes' => array(
-					'Retsku',
-					'Product Title',
-					'Detailed Description',
-					'Categorization',
-					'Product URL',
-					'Primary Image URL',
-					'Selling Price',
-					'Regular Price',
-					'Condition',
-					'Availability',
-					'Manufacturer Name',
-					'GTIN',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'sku',
-					'title',
-					'description',
-					'product_type',
-					'link',
-					'image',
-					'sale_price',
-					'price',
-					'condition',
-					'availability',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'pricerunner'            => array(
-				'mattributes' => array(
-					'Category',
-					'SKU',
-					'Price',
-					'Product URL',
-					'Product name',
-					'Manufacturer SKU',
-					'Manufacturer',
-					'EAN',
-					'Description',
-					'Graphic URL',
-					'In Stock',
-					'Stock Level',
-					'Shipping Cost',
-					'Delivery time',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'pattern',
-					'pattern',
-				),
-				'attributes'  => array(
-					'product_type',
-					'id',
-					'price',
-					'link',
-					'title',
-					'sku',
-					'',
-					'sku',
-					'description',
-					'image',
-					'',
-					'quantity',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', 'Yes', '', '10.00', '5-7 days' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'prisjakt'               => array(
-				'mattributes' => array(
-					'Produktnamn',
-					'Art.nr.',
-					'Kategori',
-					'Pris inkl.moms',
-					'Produkt-URL',
-					'Tillverkare',
-					'Tillverkar-SKU',
-					'Frakt',
-					'Bild-URL',
-					'Lagerstatus',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'title',
-					'id',
-					'product_type',
-					'price',
-					'link',
-					'',
-					'sku',
-					'',
-					'image',
-					'condition',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', 'mens, womens', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'real'                   => array(
-				'mattributes' => array( 'ean', 'category', 'title', 'description', 'picture', 'manufacturer' ),
-				'prefix'      => array( '', '', '', '', '', '' ),
-				'type'        => array( 'attribute', 'attribute', 'attribute', 'attribute', 'attribute', 'pattern' ),
-				'attributes'  => array( 'sku', 'product_type', 'title', 'description', 'image', '' ),
-				'default'     => array( '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '' ),
-			),
-			'shareasale'             => array(
-				'mattributes' => array(
-					'ProductID',
-					'Name',
-					'MerchantID',
-					'Merchant',
-					'Link',
-					'Thumbnail',
-					'BigImage',
-					'Price',
-					'RetailPrice',
-					'Category',
-					'Subcategory',
-					'Description',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'',
-					'',
-					'link',
-					'image',
-					'feature_image',
-					'sale_price',
-					'price',
-					'product_type',
-					'',
-					'description',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '8', '255', '8', '255', '255', '255', '255', '', '', '50', '50', '' ),
-			),
-			'shopalike.fr'           => array(
-				'mattributes' => array(
-					'id',
-					'title',
-					'description',
-					'link',
-					'image_link',
-					'price',
-					'categories',
-					'brand',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'id', 'title', 'description', 'link', 'image', 'price', 'product_type', '' ),
-				'default'     => array( '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '' ),
-			),
-			'shopbot'                => array(
-				'mattributes' => array(
-					'ID',
-					'Product Name',
-					'URL',
-					'Category',
-					'Photo URL',
-					'Price',
-					'Original Price',
-					'Description',
-					'MPN',
-					'Brand',
-					'Shipment Cost',
-					'Stock',
-					'Promotional Phrase',
-					'Model',
-					'Color',
-					'Product Type',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'link',
-					'product_type',
-					'image',
-					'sale_price',
-					'price',
-					'description',
-					'sku',
-					'',
-					'',
-					'quantity',
-					'',
-					'',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', 'mens, womens', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'shopmania'              => array(
-				'mattributes' => array(
-					'Category',
-					'Manufacturer',
-					'Model',
-					'MPC',
-					'Name',
-					'Description',
-					'URL',
-					'Image',
-					'Price',
-					'Currency',
-					'Shipping',
-					'Availability',
-					'GTIN',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'product_type',
-					'',
-					'',
-					'',
-					'title',
-					'description',
-					'link',
-					'image',
-					'price',
-					'',
-					'',
-					'availability',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'shopping'               => array(
-				'mattributes' => array(
-					'Unique Merchant SKU',
-					'Product Name',
-					'Product URL',
-					'Image URL',
-					'Current Price',
-					'Stock Availability',
-					'Condition',
-					'MPN',
-					'UPC',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'sku', 'title', 'link', 'image', 'price', 'availability', 'condition', '', '' ),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'shopzilla'              => array(
-				'mattributes' => array(
-					'Unique ID',
-					'Title',
-					'Description',
-					'Category',
-					'Product URL',
-					'Image URL',
-					'Condition',
-					'Availability',
-					'Current Price',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'description',
-					'product_type',
-					'link',
-					'image',
-					'condition',
-					'availability',
-					'price',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'spartoo.fi'             => array(
-				'mattributes' => array(
-					'SKU',
-					'Parent / Child',
-					'Parent SKU',
-					'Product name',
-					'Manufacturer name',
-					'Gender',
-					'Product_description',
-					'Product price',
-					'Discount price',
-					'Quantity',
-					'Category',
-					'Products selection',
-					'Photo 1',
-					'Photo 2',
-					'Photo 3',
-					'Photo 4',
-					'Photo 5',
-					'Photo 6',
-					'Photo 7',
-					'Photo 8',
-					'Color id',
-					'Color name',
-					'Size name',
-					'ean',
-				),
-				'prefix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'sku',
-					'type',
-					'parent_sku',
-					'title',
-					'',
-					'',
-					'description',
-					'price',
-					'sale_price',
-					'quantity',
-					'product_type',
-					'',
-					'image_1',
-					'image_2',
-					'image_3',
-					'image_4',
-					'image_5',
-					'image_6',
-					'image_7',
-					'image_8',
-					'',
-					'',
-					'',
-					'',
-				),
-				'default'     => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'suffix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-			),
-			'trovaprezzi'            => array(
-				'mattributes' => array(
-					'Code',
-					'Name',
-					'Description',
-					'Link',
-					'Price',
-					'Categories',
-					'Image',
-					'Stock',
-					'Availability',
-					'ShippingCost',
-					'SKU',
-					'Brand',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'pattern',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'short_description',
-					'link',
-					'current_price',
-					'product_type',
-					'image',
-					'wf_cattr__stock',
-					'availability',
-					'',
-					'sku',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '0', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '2', '1', '6', '1', '1', '5', '1', '6', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'twenga'                 => array(
-				'mattributes' => array(
-					'merchant_ref',
-					'merchant_id',
-					'upc_ean',
-					'manufacturer_id',
-					'product_url',
-					'image_url',
-					'price',
-					'regular_price',
-					'shipping_cost',
-					'designation',
-					'description',
-					'category',
-					'brand',
-					'in_stock',
-					'availability',
-					'stock_detail',
-					'unit_price',
-					'merchant_margin',
-					'ecotax',
-					'item_display',
-					'condition',
-					'merchant_ref',
-				),
-				'prefix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'pattern',
-					'pattern',
-					'pattern',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'attribute',
-				),
-				'attributes'  => array(
-					'sku',
-					'id',
-					'',
-					'sku',
-					'link',
-					'image',
-					'sale_price',
-					'price',
-					'',
-					'',
-					'description',
-					'product_type',
-					'',
-					'availability',
-					'quantity',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'sku',
-				),
-				'default'     => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'suffix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-			),
-			'vertaa.fi'              => array(
-				'mattributes' => array(
-					'Product category',
-					'Product name',
-					'Product brand',
-					'Product price',
-					'Product URL',
-					'Delivery time',
-					'Shipping method',
-					'Delivery price',
-					'Service country code',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'product_type', 'title', '', 'price', 'link', '', '', '', '' ),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'walmart'                => array(
-				'mattributes' => array(
-					'Product Name',
-					'SKU',
-					'Product Tax Code',
-					'Product ID Type',
-					'Product ID',
-					'Product Identifiers',
-					'Description',
-					'Brand',
-					'Price',
-					'Shipping Weight',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'title', 'sku', '', '', 'id', '', 'description', '', 'price', '' ),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'wish'                   => array(
-				'mattributes' => array(
-					'Main Image URL',
-					'Price',
-					'Product Name',
-					'Quantity',
-					'Shipping',
-					'Tags',
-					'Parent Unique Id',
-					'Unique ID/SKU',
-					'Description',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'image',
-					'price',
-					'title',
-					'quantity',
-					'',
-					'tags',
-					'item_group_id',
-					'id',
-					'description',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'yahoo_nfa'              => array(
-				'mattributes' => array(
-					'id',
-					'title',
-					'description',
-					'image_link',
-					'link',
-					'availability',
-					'condition',
-					'price',
-					'gtin',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'description',
-					'image',
-					'link',
-					'availability',
-					'condition',
-					'price',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'zap.co.il'              => array(
-				'mattributes' => array(
-					'PRODUCT_URL',
-					'PRODUCT_NAME',
-					'DETAILS',
-					'PRODUCTCODE',
-					'CURRENCY',
-					'PRICE',
-					'SHIPMENT_COST',
-					'DELIVERY_TIME',
-					'IMAGE',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'link', 'title', 'description', 'id', '', 'price', '', '', 'image' ),
-				'default'     => array( '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'adwords'                => array(
-				'mattributes' => array(
-					'ID',
-					'ID2',
-					'Item title',
-					'Final URL',
-					'Image URL',
-					'Item subtitle',
-					'Item description',
-					'Item category',
-					'Price',
-					'Sale price',
-					'Contextual keywords',
-					'Item address',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-				),
-				'attributes'  => array(
-					'id',
-					'sku',
-					'title',
-					'link',
-					'image',
-					'short_description',
-					'description',
-					'product_type',
-					'price',
-					'sale_price',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'bing'                   => array(
-				'mattributes' => array( 'id', 'title', 'link', 'price', 'description', 'image_link', 'shipping' ),
-				'prefix'      => array( '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array( 'id', 'title', 'link', 'price', 'description', 'image', '' ),
-				'default'     => array( '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '' ),
-			),
-			'google_local_inventory' => array(
-				'mattributes' => array(
-					'store code',
-					'itemid',
-					'quantity',
-					'price',
-					'sale price',
-					'availability',
-					'sale price effective date',
-					'pickup method',
-					'pickup sla',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-				),
-				'attributes'  => array(
-					'',
-					'id',
-					'quantity',
-					'price',
-					'sale_price',
-					'availability',
-					'sale_price_effective_date',
-					'',
-					'',
-				),
-				'default'     => array( ' ', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '' ),
-			),
-			'google_local'           => array(
-				'mattributes' => array(
-					'store code',
-					'itemid',
-					'title',
-					'description',
-					'image_link',
-					'condition',
-					'gtin',
-					'brand',
-					'google_product_category',
-					'webitemid',
-					'mpn',
-					'price',
-					'sale price',
-					'sale price effective date',
-					'unit_pricing_measure',
-					'unit_pricing_base_measure',
-					'pickup method',
-					'pickup SLA',
-					'pickup_link_template',
-					'mobile_pickup_link_template',
-					'link_template',
-					'mobile_link_template',
-					'ads_redirect',
-					'energy_efficiency_class',
-					'energy_efficiency_class_min',
-					'energy_efficiency_class_max',
-				),
-				'prefix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'type'        => array(
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-					'pattern',
-				),
-				'attributes'  => array(
-					'',
-					'id',
-					'title',
-					'description',
-					'image',
-					'condition',
-					'sku',
-					'',
-					'',
-					'',
-					'',
-					'price',
-					'sale_price',
-					'sale_price_effective_date',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'default'     => array(
-					' ',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'suffix'      => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array(
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-			),
-			'idealo'                 => array(
-				'mattributes' => array(
-					'Article number in shop',
-					'EAN',
-					'MPN',
-					'Manufacturer',
-					'Product name',
-					'Price',
-					'Delivery time',
-					'Product group in shop',
-					'Product description',
-					'Product characteristics',
-					'Product URL',
-					'Image URL',
-					'Colour',
-					'Size',
-					'Cash in advance',
-					'Unit price',
-					'Energy efficiency rating',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'',
-					'',
-					'',
-					'',
-					'title',
-					'price',
-					'',
-					'product_type',
-					'description',
-					'',
-					'link',
-					'image',
-					'',
-					'',
-					'',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array(
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-					'1',
-				),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'pricespy'               => array(
-				'mattributes' => array(
-					'Product-name',
-					'Your-item-number',
-					'category',
-					'price-including-gst',
-					'Product-URL',
-					'manufacturer',
-					'manufacturer-SKU',
-					'shipping',
-					'image-URL',
-					'stock status',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'title',
-					'id',
-					'product_type',
-					'price',
-					'link',
-					'',
-					'sku',
-					'',
-					'image',
-					'condition',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', 'mens, womens', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'yandex_csv'             => array(
-				'mattributes' => array(
-					'id',
-					'available',
-					'price',
-					'currencyId',
-					'category',
-					'picture',
-					'name',
-					'description',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'availability',
-					'price',
-					'',
-					'product_type',
-					'image',
-					'title',
-					'description',
-				),
-				'default'     => array( '', '', '', 'RUR', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '' ),
-			),
-			'fyndiq.se'              => array(
-				'mattributes' => array(
-					'product-id',
-					'product-title',
-					'product-description',
-					'product-market',
-					'product-currency',
-					'product-price',
-					'product-oldprice',
-					'product-var-percent',
-					'product-image-1-url',
-					'product-image-1-identifier',
-					'article-sku',
-					'article-quantity',
-					'article-name',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'pattern',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'id',
-					'title',
-					'description',
-					'',
-					'',
-					'price',
-					'',
-					'',
-					'image',
-					'',
-					'sku',
-					'quantity',
-					'',
-				),
-				'default'     => array( '', '', '', '', 'USD', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-			'miinto.nl'              => array(
-				'mattributes' => array(
-					'gtin',
-					'item_group_id',
-					'brand',
-					'title',
-					'product_type',
-					'gender',
-					'color',
-					'size',
-					'image_link',
-					'stock_level',
-					'season_tag',
-					'description',
-					'material',
-					'washing',
-					'retail_price_currencyCode',
-				),
-				'prefix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'type'        => array(
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-					'attribute',
-				),
-				'attributes'  => array(
-					'',
-					'item_group_id',
-					'',
-					'title',
-					'product_type',
-					'',
-					'',
-					'',
-					'image',
-					'quantity',
-					'',
-					'description',
-					'',
-					'',
-					'',
-				),
-				'default'     => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'suffix'      => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-				'output_type' => array( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ),
-				'limit'       => array( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ),
-			),
-		);
+	public function get_merchant_template() {
+		if ( ! is_null( $this->merchant ) && array_key_exists( $this->merchant, $this->templates ) ) {
+			return $this->templates[ $this->merchant ];
+		}
+
+		return false;
 	}
-	
+
+	/**
+	 * Get Default template (blank template with some attribute for creating a base config).
+	 *
+	 * @return array
+	 * @deprecated 3.3.7
+	 */
+	public function get_default_template() {
+		return $this->templates['default'];
+	}
+
+	/**
+	 * Get Merchant template with fallback to default template.
+	 *
+	 * @return array
+	 */
+	public function get_template() {
+		if ( is_array( $this->template ) ) {
+			return $this->template;
+		}
+		$this->template = array_merge( $this->template_raw,
+			[
+				'provider' => $this->merchant,
+				'feedType' => $this->get_feed_types( true ),
+			] );
+		$this->template = woo_feed_parse_feed_rules( $this->template, 'create' );
+
+		return $this->template;
+	}
+
+	/**
+	 * Get Feed Types
+	 *
+	 * @param bool $default get the default type
+	 *
+	 * @return string[]|string|false
+	 */
+	public function get_feed_types( $default = false ) {
+
+		if ( false === $default ) {
+			return $this->feed_types;
+		}
+
+		return reset( $this->feed_types );
+	}
+
+	/**
+	 * Get Selected Merchant Name (slug)
+	 *
+	 * @return string|null
+	 */
+	public function get_name() {
+		return $this->merchant;
+	}
+
+	/**
+	 * check if fallback to default template
+	 *
+	 * @return bool
+	 */
+	public function is_default_template() {
+		return $this->is_default_template;
+	}
+
 	/**
 	 * Get Merchant Info
 	 *
-	 * @deprecated 3.3.7
+	 * @return array
+	 */
+	public function get_info() {
+		return $this->info;
+	}
+
+	/**
+	 * Custom Template List
+	 * @return array
+	 */
+	protected function custom_merchants() {
+		return array(
+			'--1'    => esc_html__( 'Custom Template', 'woo-feed' ),
+			'custom' => esc_html__( 'Custom Template 1', 'woo-feed' ),
+			'---1'   => '',
+		);
+	}
+
+	/**
+	 * Popular Template List
+	 * @return array
+	 */
+	protected function popular_merchants() {
+		return array(
+			'--2'                    => esc_html__( 'Popular Templates', 'woo-feed' ),
+            'google'                 => esc_html__( 'Google Shopping', 'woo-feed' ),
+            'google_local'           => esc_html__( 'Google Local Product', 'woo-feed' ),
+            'google_local_inventory' => esc_html__( 'Google Local Product Inventory', 'woo-feed' ),
+            'google_shopping_action' => esc_html__( 'Google Shopping Action', 'woo-feed' ),
+			'adwords'                => esc_html__( 'Google Adwords', 'woo-feed' ),
+            'facebook'               => esc_html__( 'Facebook', 'woo-feed' ),
+            'pinterest'              => esc_html__( 'Pinterest', 'woo-feed' ),
+			'bing'                   => esc_html__( 'Bing', 'woo-feed' ),
+			'idealo'                 => esc_html__( 'Idealo', 'woo-feed' ),
+			'pricespy'               => esc_html__( 'PriceSpy', 'woo-feed' ),
+            'pricerunner'            => esc_html__( 'Price Runner', 'woo-feed' ),
+			'yandex_csv'             => esc_html__( 'Yandex (CSV)', 'woo-feed' ),
+			'---2'                   => '',
+		);
+	}
+
+	/**
+	 * Other Template LIst
+	 * @return array
+	 */
+	protected function others_merchants() {
+		return array(
+			'--3'                               => esc_html__( 'Templates', 'woo-feed' ),
+			'adform'                            => esc_html__( 'AdForm', 'woo-feed' ),
+			'adroll'                            => esc_html__( 'AdRoll', 'woo-feed' ),
+			'avantlink'                         => esc_html__( 'Avantlink', 'woo-feed' ),
+			'become'                            => esc_html__( 'Become', 'woo-feed' ),
+			'beslist.nl'                        => esc_html__( 'Beslist.nl', 'woo-feed' ),
+            'bestprice'                         => esc_html__( 'Bestprice', 'woo-feed' ),
+			'billiger.de'                       => esc_html__( 'Billiger.de', 'woo-feed' ),
+			'bol'                               => esc_html__( 'Bol.com', 'woo-feed' ),
+			'bonanza'                           => esc_html__( 'Bonanza', 'woo-feed' ),
+			'cdiscount.fr'                      => esc_html__( 'CDiscount.fr', 'woo-feed' ),
+			'comparer.be'                       => esc_html__( 'Comparer.be', 'woo-feed' ),
+			'connexity'                         => esc_html__( 'Connexity', 'woo-feed' ),
+			'criteo'                            => esc_html__( 'Criteo', 'woo-feed' ),
+			'crowdfox'                          => esc_html__( 'Crowdfox', 'woo-feed' ),
+			'daisycon'                          => esc_html__( 'Daisycon Advertiser (General)', 'woo-feed' ),
+			'daisycon_automotive'               => esc_html__( 'Daisycon Advertiser (Automotive)', 'woo-feed' ),
+			'daisycon_books'                    => esc_html__( 'Daisycon Advertiser (Books)', 'woo-feed' ),
+			'daisycon_cosmetics'                => esc_html__( 'Daisycon Advertiser (Cosmetics)', 'woo-feed' ),
+			'daisycon_daily_offers'             => esc_html__( 'Daisycon Advertiser (Daily Offers)', 'woo-feed' ),
+			'daisycon_electronics'              => esc_html__( 'Daisycon Advertiser (Electronics)', 'woo-feed' ),
+			'daisycon_fashion'                  => esc_html__( 'Daisycon Advertiser (Fashion)', 'woo-feed' ),
+			'daisycon_food_drinks'              => esc_html__( 'Daisycon Advertiser (Food & Drinks)', 'woo-feed' ),
+			'daisycon_holidays_accommodations_and_transport' => esc_html__( 'Daisycon Advertiser (Holidays: Accommodations and transport)', 'woo-feed' ),
+			'daisycon_holidays_accommodations'  => esc_html__( 'Daisycon Advertiser (Holidays: Accommodations)', 'woo-feed' ),
+			'daisycon_holidays_trips'           => esc_html__( 'Daisycon Advertiser (Holidays: Trips)', 'woo-feed' ),
+			'daisycon_home_garden'              => esc_html__( 'Daisycon Advertiser (Home & Garden)', 'woo-feed' ),
+			'daisycon_housing'                  => esc_html__( 'Daisycon Advertiser (Housing)', 'woo-feed' ),
+			'daisycon_magazines'                => esc_html__( 'Daisycon Advertiser (Magazines)', 'woo-feed' ),
+			'daisycon_studies_trainings'        => esc_html__( 'Daisycon Advertiser (Studies & Trainings)', 'woo-feed' ),
+			'daisycon_telecom_accessories'      => esc_html__( 'Daisycon Advertiser (Telecom: Accessories)', 'woo-feed' ),
+			'daisycon_telecom_all_in_one'       => esc_html__( 'Daisycon Advertiser (Telecom: All-in-one)', 'woo-feed' ),
+			'daisycon_telecom_gsm_subscription' => esc_html__( 'Daisycon Advertiser (Telecom: GSM + Subscription)', 'woo-feed' ),
+			'daisycon_telecom_gsm'              => esc_html__( 'Daisycon Advertiser (Telecom: GSM only)', 'woo-feed' ),
+			'daisycon_telecom_sim'              => esc_html__( 'Daisycon Advertiser (Telecom: Sim only)', 'woo-feed' ),
+			'daisycon_work_jobs'                => esc_html__( 'Daisycon Advertiser (Work & Jobs)', 'woo-feed' ),
+			'dooyoo'                            => esc_html__( 'Dooyoo', 'woo-feed' ),
+            'etsy'                              => esc_html__( 'Etsy', 'woo-feed' ),
+			'fruugo'                            => esc_html__( 'Fruugo', 'woo-feed' ),
+			'fruugo.au'                         => esc_html__( 'Fruugoaustralia.com', 'woo-feed' ),
+			'fyndiq.se'                         => esc_html__( 'Fyndiq.se', 'woo-feed' ),
+			'hintaseuranta.fi'                  => esc_html__( 'Hintaseuranta.fi', 'woo-feed' ),
+			'incurvy'                           => esc_html__( 'Incurvy', 'woo-feed' ),
+			'jet'                               => esc_html__( 'Jet.com', 'woo-feed' ),
+			'kelkoo'                            => esc_html__( 'Kelkoo', 'woo-feed' ),
+			'kieskeurig.nl'                     => esc_html__( 'Kieskeurig.nl', 'woo-feed' ),
+			'kijiji.ca'                         => esc_html__( 'Kijiji.ca', 'woo-feed' ),
+			'leguide'                           => esc_html__( 'LeGuide', 'woo-feed' ),
+			'marktplaats.nl'                    => esc_html__( 'Marktplaats.nl', 'woo-feed' ),
+			'miinto.nl'                         => esc_html__( 'Miinto.nl', 'woo-feed' ),
+			'modina.de'                         => esc_html__( 'Modina.de', 'woo-feed' ),
+			'myshopping.com.au'                 => esc_html__( 'Myshopping.com.au', 'woo-feed' ),
+			'nextad'                            => esc_html__( 'TheNextAd', 'woo-feed' ),
+			'nextag'                            => esc_html__( 'Nextag', 'woo-feed' ),
+			'polyvore'                          => esc_html__( 'Polyvore', 'woo-feed' ),
+			'pricegrabber'                      => esc_html__( 'Price Grabber', 'woo-feed' ),
+			'prisjakt'                          => esc_html__( 'Prisjakt', 'woo-feed' ),
+            'profit_share'                      => esc_html__( 'Profit Share', 'woo-feed' ),
+			'rakuten.de'                        => esc_html__( 'Rakuten.de', 'woo-feed' ),
+			'real'                              => esc_html__( 'Real', 'woo-feed' ),
+			'shareasale'                        => esc_html__( 'ShareASale', 'woo-feed' ),
+			'shopalike.fr'                      => esc_html__( 'Shopalike.fr', 'woo-feed' ),
+			'shopbot'                           => esc_html__( 'Shopbot', 'woo-feed' ),
+			'shopmania'                         => esc_html__( 'Shopmania', 'woo-feed' ),
+			'shopping'                          => esc_html__( 'Shopping.com', 'woo-feed' ),
+			'shopzilla'                         => esc_html__( 'Shopzilla', 'woo-feed' ),
+			'skinflint.co.uk'                   => esc_html__( 'SkinFlint.co.uk', 'woo-feed' ),
+			'skroutz'                           => esc_html__( 'Skroutz.gr', 'woo-feed' ),
+			'smartly.io'                        => esc_html__( 'Smartly.io', 'woo-feed' ),
+			'spartoo.fi'                        => esc_html__( 'Spartoo.fi', 'woo-feed' ),
+            'shopee'                            => esc_html__( 'Shopee', 'woo-feed' ),
+			'stylight.com'                      => esc_html__( 'Stylight.com', 'woo-feed' ),
+			'trovaprezzi'                       => esc_html__( 'Trovaprezzi.it', 'woo-feed' ),
+			'twenga'                            => esc_html__( 'Twenga', 'woo-feed' ),
+            'tweaker_xml'                       => esc_html__( 'Tweakers (XML)', 'woo-feed' ),
+            'tweaker_csv'                       => esc_html__( 'Tweakers (CSV)', 'woo-feed' ),
+            'vertaa.fi'                         => esc_html__( 'Vertaa.fi', 'woo-feed' ),
+			'walmart'                           => esc_html__( 'Walmart', 'woo-feed' ),
+			'webmarchand'                       => esc_html__( 'Webmarchand', 'woo-feed' ),
+			'wish'                              => esc_html__( 'Wish.com', 'woo-feed' ),
+			'yahoo_nfa'                         => esc_html__( 'Yahoo NFA', 'woo-feed' ),
+			'zap.co.il'                         => esc_html__( 'Zap.co.il', 'woo-feed' ),
+			'zalando'                           => esc_html__( 'Zalando', 'woo-feed' ),
+            '---3'                              => '',
+		);
+	}
+
+	/**
+	 * Available Merchant Template list
+	 * @return array
+	 */
+	public function merchants() {
+		if ( is_array( $this->merchants ) ) return $this->merchants;
+		$this->merchants = $this->custom_merchants() + $this->popular_merchants() + $this->others_merchants();
+		return $this->merchants;
+	}
+
+	/**
+	 * Get Merchant Info
 	 *
 	 * @param string $merchant
 	 *
 	 * @return array
+	 * @deprecated 3.3.7
+	 *
 	 */
 	public function getInfo( $merchant = '' ) {
 		_deprecated_function( __METHOD__, '3.3.7', __CLASS__ . '::get_info' );
-		if ( ! empty( $merchant ) && is_string( $merchant ) && empty( $this->merchant ) ) {
+		$_info     = $this->get_info();
+		$_merchant = $this->merchant;
+		if ( ! empty( $merchant ) && is_string( $merchant ) ) {
 			$this->merchant = $merchant;
-			// reload
+			// reload info
 			$this->merchantInfo();
 		}
-		return $this->get_info();
+		$info = $this->get_info();
+		// restore info for the instance
+		$this->merchant = $_merchant;
+		$this->info     = $_info;
+
+		return $info;
 	}
 }

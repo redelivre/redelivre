@@ -23,67 +23,73 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Client {
 	
 	/**
-	 * The client version
+	 * The client version.
+	 *
 	 * @var string
 	 */
-	protected $clientVersion = '1.0.0';
+	protected $clientVersion = '1.0.3';
 	
 	/**
-	 * API EndPoint
+	 * API EndPoint.
+	 *
 	 * @var string
 	 */
 	protected $API_EndPoint = 'https://track.webappick.com/api/';
 	
 	/**
-	 * API Version
+	 * API Version.
+	 *
 	 * @var string
 	 */
 	protected $apiVersion = 'v1';
 	
 	/**
-	 * Hash identifier of the Plugin/Theme
+	 * Hash identifier of the Plugin/Theme.
+	 *
 	 * @var string
 	 */
 	protected $hash;
 	
 	/**
-	 * Name of the Plugin/Theme
+	 * Name of the Plugin/Theme.
+	 *
 	 * @var string
 	 */
 	protected $name;
 	
 	/**
-	 * The Plugin/Theme file path
-	 * @example .../wp-content/Plugin/test-slug/test-slug.php
+	 * The Plugin/Theme file path.
+	 * Example .../wp-content/Plugin/test-slug/test-slug.php.
 	 *
 	 * @var string
 	 */
 	protected $file;
 	
 	/**
-	 * Main Plugin/Theme file
-	 * @example test-slug/test-slug.php
+	 * Main Plugin/Theme file.
+	 * Example: test-slug/test-slug.php.
+	 *
 	 * @var string
 	 */
 	protected $basename;
 	
 	/**
-	 * Slug of the Plugin/Theme
-	 * @example test-slug
+	 * Slug of the Plugin/Theme.
+	 * Example: test-slug.
 	 *
 	 * @var string
 	 */
 	protected $slug;
 	
 	/**
-	 * The project version
+	 * The project version.
 	 *
 	 * @var string
 	 */
 	protected $project_version;
 	
 	/**
-	 * The project type
+	 * The project type.
 	 *
 	 * @var string
 	 */
@@ -91,82 +97,155 @@ class Client {
 	
 	/**
 	 * Store Product (unique) id for current Product
-	 * Required by WooCommerce API Manager > 2.0
+	 * Required by WooCommerce API Manager > 2.0.
+	 *
 	 * @var bool|int
 	 */
-	protected $ProjectId;
+	protected $product_id;
 	
 	/**
-	 * Initialize the class
+	 * Instance of Insights class.
 	 *
-	 * @param string $hash      hash of the Plugin/Theme.
-	 * @param string $name      readable name of the Plugin/Theme.
-	 * @param string $file      main Plugin/Theme file path.
-	 * @param string $ProjectId Store Product id for pro product.
+	 * @since 1.0.3
+	 * @var Insights
 	 */
-	public function __construct( $hash, $name, $file, $ProjectId = null ) {
+	private $insights;
+	
+	/**
+	 * Instance of Promotions class.
+	 *
+	 * @since 1.0.3
+	 * @var Promotions
+	 */
+	private $promotions;
+	
+	/**
+	 * Instance of License class.
+	 *
+	 * @since 1.0.3
+	 * @var License
+	 */
+	private $license;
+	
+	/**
+	 * Instance of Updater class.
+	 *
+	 * @since 1.0.3
+	 * @var Updater
+	 */
+	private $updater;
+	
+	/**
+	 * Initialize the class.
+	 *
+	 * @param string $hash       hash of the Plugin/Theme.
+	 * @param string $name       readable name of the Plugin/Theme.
+	 * @param string $file       main Plugin/Theme file path.
+	 * @param string $product_id Store Product id for pro product.
+	 *                           If null license page will show field for product id input.
+	 * @return void
+	 */
+	public function __construct( $hash, $name, $file, $product_id = null ) {
 		$this->hash = $hash;
 		$this->name = $name;
 		$this->file = $file;
-		$this->ProjectId = ! empty( $ProjectId ) ? (int) $ProjectId : false;
+		$this->product_id = ! empty( $product_id ) ? (int) $product_id : false;
 		$this->set_basename_and_slug();
 	}
 	
 	/**
-	 * Initialize insights class
+	 * Initialize insights class.
 	 *
 	 * @return Insights
 	 */
 	public function insights() {
+		if ( ! is_null( $this->insights ) ) {
+			return $this->insights;
+		}
 		
 		if ( ! class_exists( __NAMESPACE__ . '\Insights' ) ) {
 			require_once __DIR__ . '/Insights.php';
 		}
+		$this->insights = new Insights( $this );
 		
-		return new Insights( $this );
+		return $this->insights;
 	}
 	
 	/**
-	 * Initialize Promotions class
+	 * Initialize Promotions class.
+	 *
 	 * @return Promotions
 	 */
 	public function promotions() {
+		if ( ! is_null( $this->promotions ) ) {
+			return $this->promotions;
+		}
 		if ( ! class_exists( __NAMESPACE__ . '\Promotions' ) ) {
 			require_once __DIR__ . '/Promotions.php';
 		}
-		return new Promotions( $this );
+		$this->promotions = new Promotions( $this );
+		
+		return $this->promotions;
 	}
 	
 	/**
-	 * Initialize Plugin/Theme updater
-	 * @param License $license  The license class.
-	 * @return Updater
-	 */
-	public function updater( License $license ) {
-		if ( ! class_exists( __NAMESPACE__ . '\Updater') ) {
-			require_once __DIR__ . '/Updater.php';
-		}
-		return new Updater( $this, $license );
-	}
-	
-	/**
-	 * Initialize license checker
+	 * Initialize license checker.
 	 *
 	 * @return License
 	 */
 	public function license() {
+		if ( ! is_null( $this->license ) ) {
+			return $this->license;
+		}
 		
 		if ( ! class_exists( __NAMESPACE__ . '\License') ) {
 			require_once __DIR__ . '/License.php';
 		}
+		$this->license = new License( $this );
 		
-		return new License( $this );
+		return $this->license;
 	}
 	
 	/**
-	 * API Endpoint
+	 * Initialize Plugin/Theme updater.
 	 *
-	 * @param string $route     route to send the request.
+	 * @since 1.0.3 $license param is removed.
+	 *
+	 * @return Updater
+	 */
+	public function updater() {
+		if ( ! is_null( $this->updater ) ) {
+			return $this->updater;
+		}
+		
+		// check for deprecated argument.
+		if ( func_num_args() > 0 ) {
+			_deprecated_argument( __METHOD__, '1.0.3', '$license param is deprecated.' );
+		}
+		
+		// check if license instance is created.
+		if ( is_null( $this->license ) ) {
+			_doing_it_wrong( __METHOD__, esc_html(
+				sprintf(
+					'Updater needs License instance to be created before it. Please call %s first.',
+					__CLASS__ . '::license'
+				)
+			), '1.0.3' );
+			return;
+		}
+		
+		if ( ! class_exists( __NAMESPACE__ . '\Updater') ) {
+			require_once __DIR__ . '/Updater.php';
+		}
+		$this->updater = new Updater( $this, $this->license );
+		
+		return $this->updater;
+	}
+	
+	/**
+	 * API Endpoint.
+	 *
+	 * @param string $route route to send the request.
 	 *
 	 * @return string
 	 */
@@ -203,7 +282,7 @@ class Client {
 	}
 	
 	/**
-	 * Set project basename, slug and version
+	 * Set project basename, slug and version.
 	 *
 	 * @return void
 	 */
@@ -229,7 +308,8 @@ class Client {
 	}
 	
 	/**
-	 * Client UserAgent String
+	 * Client UserAgent String.
+	 *
 	 * @return string
 	 */
 	private function __user_agent() {
@@ -237,7 +317,7 @@ class Client {
 	}
 	
 	/**
-	 * Send request to remote endpoint
+	 * Send request to remote endpoint.
 	 *
 	 * @param array  $params        Parameters/Data that being sent.
 	 * @param string $route         Route to send the request to.
@@ -253,7 +333,8 @@ class Client {
 		);
 		
 		/**
-		 * before request to api server
+		 * before request to api server.
+		 *
 		 * @since 1.0.2
 		 * @param array $params
 		 * @param string $route
@@ -264,7 +345,7 @@ class Client {
 		do_action( $this->getSlug() . '_before_request', $params, $route, $headers, $this->clientVersion, $url );
 		if ( ! empty( $route ) ) {
 			/**
-			 * before request to api server to route
+			 * before request to api server to route.
 			 * @since 1.0.2
 			 * @param array $params
 			 * @param string $route
@@ -276,7 +357,8 @@ class Client {
 		}
 		/**
 		 * Request Blocking mode.
-		 * Set it to true for debugging the response with after request action
+		 * Set it to true for debugging the response with after request action.
+		 *
 		 * @since 1.0.2
 		 * @param bool $blocking
 		 */
@@ -295,7 +377,8 @@ class Client {
 			]
 		);
 		/**
-		 * after request to api server
+		 * After request to api server.
+		 *
 		 * @since 1.0.2
 		 * @param array $response
 		 * @param string $route
@@ -303,7 +386,8 @@ class Client {
 		do_action( $this->getSlug() . '_after_request', $response, $route );
 		if ( ! empty( $route ) ) {
 			/**
-			 * after request to api server to route
+			 * After request to api server to route.
+			 *
 			 * @since 1.0.2
 			 * @param array $response
 			 * @param string $route
@@ -316,7 +400,8 @@ class Client {
 	//===> Getters.
 	
 	/**
-	 * Get Version of this client
+	 * Get Version of this client.
+	 *
 	 * @return string
 	 */
 	public function getClientVersion() {
@@ -324,7 +409,8 @@ class Client {
 	}
 	
 	/**
-	 * Get API URI
+	 * Get API URI.
+	 *
 	 * @return string
 	 */
 	public function getApi() {
@@ -332,7 +418,8 @@ class Client {
 	}
 	
 	/**
-	 * Get API Version using by this client
+	 * Get API Version using by this client.
+	 *
 	 * @return string
 	 */
 	public function getApiVersion() {
@@ -340,7 +427,8 @@ class Client {
 	}
 	
 	/**
-	 * Get Hash of current Plugin/Theme
+	 * Get Hash of current Plugin/Theme.
+	 *
 	 * @return string
 	 */
 	public function getHash() {
@@ -348,7 +436,8 @@ class Client {
 	}
 	
 	/**
-	 * Get Plugin/Theme Name
+	 * Get Plugin/Theme Name.
+	 *
 	 * @return string
 	 */
 	public function getName() {
@@ -356,15 +445,17 @@ class Client {
 	}
 	
 	/**
-	 * Store Product ID
+	 * Store Product ID.
+	 *
 	 * @return bool|int
 	 */
-	public function getProjectId() {
-		return $this->ProjectId;
+	public function getProductId() {
+		return $this->product_id;
 	}
 	
 	/**
-	 * Get Plugin/Theme file
+	 * Get Plugin/Theme file.
+	 *
 	 * @return string
 	 */
 	public function getFile() {
@@ -372,7 +463,8 @@ class Client {
 	}
 	
 	/**
-	 * Get Plugin/Theme base name
+	 * Get Plugin/Theme base name.
+	 *
 	 * @return string
 	 */
 	public function getBasename() {
@@ -380,7 +472,8 @@ class Client {
 	}
 	
 	/**
-	 * Get Plugin/Theme Slug
+	 * Get Plugin/Theme Slug.
+	 *
 	 * @return string
 	 */
 	public function getSlug() {
@@ -388,7 +481,8 @@ class Client {
 	}
 	
 	/**
-	 * Get Plugin/Theme Project Version
+	 * Get Plugin/Theme Project Version.
+	 *
 	 * @return string
 	 */
 	public function getProjectVersion() {
@@ -396,7 +490,8 @@ class Client {
 	}
 	
 	/**
-	 * Get Project Type Plugin/Theme
+	 * Get Project Type Plugin/Theme.
+	 *
 	 * @return string
 	 */
 	public function getType() {

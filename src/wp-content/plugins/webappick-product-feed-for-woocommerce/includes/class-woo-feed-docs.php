@@ -53,15 +53,17 @@ if ( ! class_exists( 'WooFeedDocs' ) ) {
 					<?php if ( ! empty( $faqs ) ) { ?>
 					<?php
 					foreach ( $faqs as $faq ) {
-						$boxId = ( isset( $faq->id ) ) ? $faq->id : sanitize_title( $faq->title );
-						if ( ! isset( $faq->icon ) ) $faq->icon = 'dashicons-admin-generic';
-					?>
+							$boxId = ( isset( $faq->id ) ) ? $faq->id : sanitize_title( $faq->title );
+							if ( ! isset( $faq->icon ) ) $faq->icon = 'dashicons-admin-generic';
+							?>
 					<div id="<?php echo esc_attr( $boxId ); ?>" class="postbox <?php echo esc_attr( postbox_classes( $boxId, $current_screen->id ) ); ?>">
 						<button type="button" class="handlediv" aria-expanded="true">
-							<span class="screen-reader-text"><?php
+							<span class="screen-reader-text">
+                            <?php
 							/* translators: %s: FAQ Title */
 							printf( esc_html__( 'Toggle panel: %s', 'woo-feed' ), esc_html( $faq->title ) )
-							?></span>
+							?>
+                            </span>
 							<span class="toggle-indicator" aria-hidden="true"></span>
 						</button>
 						<h2 class="hndle">
@@ -84,10 +86,11 @@ if ( ! class_exists( 'WooFeedDocs' ) ) {
 							</div>
 						</div>
 					</div>
-					<?php } ?>
+									<?php } ?>
 					<?php } else { ?>
 					<div class="notice notice-warning">
-						<p><?php
+						<p>
+                        <?php
 							printf(
 							/* translators: %s: Reload Button */
 								esc_html__( 'There\'s some problem loading the docs. Please Click %s To Fetch Again.', 'woo-feed' ),
@@ -97,7 +100,8 @@ if ( ! class_exists( 'WooFeedDocs' ) ) {
 									esc_html__( 'Here', 'woo-feed' )
 								)
 							);
-						?></p>
+						?>
+                        </p>
 					</div>
 					<?php } ?>
 				</div>
@@ -112,7 +116,7 @@ if ( ! class_exists( 'WooFeedDocs' ) ) {
 							<p><?php _e( 'Have we not answered your question?<br>Don\'t worry, you can contact us for more information...', 'woo-feed' ); ?></p>
 						</div>
 						<div class="wapk-cta-action">
-							<a href="https://wordpress.org/support/plugin/webappick-product-feed-for-woocommerce/#new-topic-0" class="wapk-button wapk-button-primary wapk-button-hero" rel="noopener" target="_blank"><?php _e( 'Get Support', 'woo-feed' ); ?></a>
+							<a href="https://webappick.com/my-account/contact-support/" class="wapk-button wapk-button-primary wapk-button-hero" rel="noopener" target="_blank"><?php _e( 'Get Support', 'woo-feed' ); ?></a>
 						</div>
 					</div>
 				</div>

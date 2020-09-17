@@ -10,26 +10,26 @@
  * @author     Ohidul Islam <wahid@webappick.com>
  */
 final class Woo_Feed_Message {
-	
+
 	/**
 	 * @var Woo_Feed_Message
 	 */
 	protected static $instance;
-	
+
 	/**
 	 * Holds Messages & Notices
 	 *
 	 * @var array
 	 */
 	private $messages = array();
-	
+
 	/**
 	 * Is Output Sent Flag
 	 *
 	 * @var bool
 	 */
 	private $is_displayed = false;
-	
+
 	/**
 	 * Get Woo_Feed_Message Singleton Instance
 	 *
@@ -41,7 +41,7 @@ final class Woo_Feed_Message {
 		}
 		return self::$instance;
 	}
-	
+
 	/**
 	 * Woo_Feed_Message constructor.
 	 * Initialize default messages and notices
@@ -54,7 +54,7 @@ final class Woo_Feed_Message {
 		$this->set_schedule_update_messages();
 		$this->set_settings_messages();
 	}
-	
+
 	/**
 	 * Display Admin Messages & Notices
 	 *
@@ -65,7 +65,7 @@ final class Woo_Feed_Message {
 		$this->display_support_links();
 		$this->display_admin_messages();
 	}
-	
+
 	/**
 	 * Set Message/Notice to be displayed in admin area within WooFeed Pages.
 	 *
@@ -85,7 +85,7 @@ final class Woo_Feed_Message {
 			);
 		}
 	}
-	
+
 	/**
 	 * Display The tob bar (support and documentation links)
 	 *
@@ -97,49 +97,34 @@ final class Woo_Feed_Message {
 		<table class="wf-info-table widefat fixed">
 			<tbody>
 			<tr>
+                <th>
+                    <strong>
+                        <a class="get-woo-feed-pro" href="http://bit.ly/2KIwvTt" target="_blank" aria-label="<?php esc_attr_e( 'Get Woo Feed Pro', 'woo-feed' ); ?>">
+                            <img src="<?php echo esc_url( WOO_FEED_PLUGIN_URL ); ?>admin/images/get-woo-feed-pro.svg" alt="<?php esc_attr_e( 'Get Woo Feed Pro', 'woo-feed' ); ?>">
+                        </a>
+                    </strong>
+                </th>
 				<th>
 					<strong>
-						<a class="get-woo-feed-pro" href="http://bit.ly/2KIwvTt" target="_blank" aria-label="<?php esc_attr_e( 'Get Woo Feed Pro', 'woo-feed' ); ?>">
-							<img src="<?php echo esc_url( WOO_FEED_PLUGIN_URL ); ?>admin/images/get-woo-feed-pro.svg" alt="<?php esc_attr_e( 'Get Woo Feed Pro', 'woo-feed' ); ?>">
-						</a>
+						<a style="color:#0073aa;" href="https://webappick.helpscoutdocs.com/collection/1-woocommerce-product-feed" target="_blank" ><?php _e( 'Documentation', 'woo-feed' ); ?></a>
 					</strong>
 				</th>
 				<th>
 					<strong>
-						<a class="documentation button button-secondary button-hero" href="http://webappick.helpscoutdocs.com/" target="_blank" ><?php _e( 'Documentation', 'woo-feed' ); ?></a>
+						<a style="color:#ee264a;" href="http://bit.ly/2u6giNz" target="_blank"><?php _e( 'Video Tutorials', 'woo-feed' ); ?></a>
 					</strong>
 				</th>
 				<th>
 					<strong>
-						<a class="tutorial button button-secondary button-hero" href="http://bit.ly/2u6giNz" target="_blank"><?php _e( 'Video Tutorials', 'woo-feed' ); ?></a>
+						<a style="color:#0DD41E;" href="https://webappick.com/support/" target="_blank"><?php _e( 'Get Support', 'woo-feed' ); ?></a>
 					</strong>
 				</th>
-				<th>
-					<strong>
-						<a class="support button button-secondary button-hero" href="https://wordpress.org/support/plugin/webappick-product-feed-for-woocommerce/#new-topic-0" target="_blank"><?php _e( 'Get Free Support', 'woo-feed' ); ?></a>
-					</strong>
-				</th>
-			</tr>
-			</tbody>
-		</table>
-		<table class="wf-rate-table widefat fixed">
-			<tbody>
-			<tr>
-				<th><?php
-					printf(
-						/* translators: 1: This plugin name, 2: Rating page link with star, 3: Rating page link */
-						esc_html__( 'If you like %1$s, Please leave us a %2$s rating %3$s', 'woo-feed' ),
-						'<strong>'.esc_html__( 'WooCommerce Product Feed', 'woo-feed' ).'</strong>',
-						'<a class="review-star" href="https://wordpress.org/support/plugin/webappick-product-feed-for-woocommerce/reviews/?rate=5#new-post" target="_blank" aria-label="5 Star"><span aria-hidden="true"></span></a>',
-						'<a href="https://wordpress.org/support/plugin/webappick-product-feed-for-woocommerce/reviews/?rate=5#new-post" target="_blank">' . esc_html__( 'here.', 'woo-feed' ) . '</a>'
-					);
-					?></th>
 			</tr>
 			</tbody>
 		</table><br>
 		<?php
 	}
-	
+
 	/**
 	 * Prints Admin Messages & Notices
 	 *
@@ -161,7 +146,7 @@ final class Woo_Feed_Message {
 			}
 		}
 	}
-	
+
 	/**
 	 * Set Messages From DB
 	 *
@@ -170,28 +155,47 @@ final class Woo_Feed_Message {
 	private function set_saved_messages() {
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['wpf_message'] ) && ! empty( $_GET['wpf_message'] ) ) {
+			$message = get_option( 'wpf_message' );
 			$type    = sanitize_text_field( $_GET['wpf_message'] );
-			$message = esc_html( get_option( 'wpf_message' ) );
 			delete_option( 'wpf_message' ); // empty message cache.
+			if ( ! empty( $message ) ) {
+				if ( is_array( $message ) ) {
+					foreach ( $message as $m ) {
+						$m = isset( $m['message'] ) ? $m['message'] : $m;
+						$t = isset( $m['type'] ) ? $m['type'] : $type;
+						$this->setMessage(
+							array(
+								'notice'      => esc_html( $m ),
+								'type'        => $t,
+								'dismissible' => true,
+							)
+						);
+					}
+				} else {
+					$this->setMessage(
+						array(
+							'notice'      => esc_html( $message ),
+							'type'        => $type,
+							'dismissible' => true,
+						)
+					);
+				}
+			}
 			$dir = get_option( 'WPF_DIRECTORY_PERMISSION_CHECK', false );
 			if ( $dir ) {
-				$message .= ' ' . esc_html( $dir );
-				delete_option( 'WPF_DIRECTORY_PERMISSION_CHECK' ); // empty message cache.
-			}
-			$message = trim( $message );
-			if ( ! empty( $message ) ) {
 				$this->setMessage(
 					array(
-						'notice'      => $message,
-						'type'        => $type,
+						'notice'      => esc_html( $dir ),
+						'type'        => 'error',
 						'dismissible' => true,
 					)
 				);
+				delete_option( 'WPF_DIRECTORY_PERMISSION_CHECK' ); // empty message cache.
 			}
 		}
 		// phpcs:enable
 	}
-	
+
 	/**
 	 * Set Feed Edit/Update Messages
 	 *
@@ -199,9 +203,9 @@ final class Woo_Feed_Message {
 	 */
 	private function set_feed_edit_update_messages() {
 		global $plugin_page;
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+    	// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( 'webappick-manage-feeds' == $plugin_page ) {
-			if ( ( isset( $_GET['feed_updated'] ) || isset( $_GET['feed_created'] ) ) && isset( $_GET['feed_name'] ) ) {
+			if ( ( isset( $_GET['feed_created'] ) || isset( $_GET['feed_updated'] ) || isset( $_GET['feed_imported'] ) ) && isset( $_GET['feed_name'] ) ) {
 				if ( isset( $_GET['feed_created'] ) ) {
 					$this->setMessage(
 						array(
@@ -215,6 +219,15 @@ final class Woo_Feed_Message {
 					$this->setMessage(
 						array(
 							'notice'      => esc_html__( 'Feed Config Updated Successfully.', 'woo-feed' ),
+							'type'        => 'updated',
+							'dismissible' => true,
+						)
+					);
+				}
+				if ( isset( $_GET['feed_imported'] ) ) {
+					$this->setMessage(
+						array(
+							'notice'      => esc_html__( 'Feed Config Successfully Imported.', 'woo-feed' ),
 							'type'        => 'updated',
 							'dismissible' => true,
 						)
@@ -239,7 +252,7 @@ final class Woo_Feed_Message {
 						$link    = 'https://webappick.helpscoutdocs.com/article/19-how-to-map-store-category-with-merchant-category';
 						/** @noinspection HtmlUnknownTarget */
 						$link    = sprintf( '<a href="%s" target="_blank">%s</a>', esc_url( $link ), esc_html__( 'Learn more...', 'woo-feed' ) );
-						$notice .= sprintf( '<ul><li>%s %s</li></ul>', esc_html__( 'Google Product category is not selected. Your AdWords CPC rate will be high. Add proper Google Product Category to each product & reduce CPC rate.', 'woo-feed' ), $link );
+						$notice .= sprintf( '<ul><li>%s %s</li></ul>', esc_html__( 'Google Product category is not selected. Your Google Ads CPC rate will be high. Add proper Google Product Category to each product & reduce CPC rate.', 'woo-feed' ), $link );
 					}
 					$this->setMessage(
 						array(
@@ -251,9 +264,9 @@ final class Woo_Feed_Message {
 				}
 			}
 		}
-		// phpcs:enable
+	    // phpcs:enable
 	}
-	
+
 	/**
 	 * Set Schedule Update Response Message
 	 *
@@ -261,7 +274,7 @@ final class Woo_Feed_Message {
 	 */
 	private function set_schedule_update_messages() {
 		global $plugin_page;
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+	    // phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( 'webappick-manage-feeds' == $plugin_page ) {
 			if ( isset( $_GET['schedule_updated'] ) && ! empty( $_GET['schedule_updated'] ) ) {
 				if ( 1 == $_GET['schedule_updated'] ) {
@@ -302,9 +315,9 @@ final class Woo_Feed_Message {
 				}
 			}
 		}
-		// phpcs:enable
+	    // phpcs:enable
 	}
-	
+
 	/**
 	 * Set Settings Notices
 	 *
@@ -312,7 +325,7 @@ final class Woo_Feed_Message {
 	 */
 	private function set_settings_messages() {
 		global $plugin_page;
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+	    // phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( 'webappick-feed-settings' == $plugin_page ) {
 			if ( isset( $_GET['settings_updated'] ) && '1' == $_GET['settings_updated'] ) {
 				$this->setMessage(
@@ -324,9 +337,9 @@ final class Woo_Feed_Message {
 				);
 			}
 		}
-		// phpcs:enable
+	    // phpcs:enable
 	}
-	
+
 	/**
 	 * Define private clone method to disallow cloning
 	 */

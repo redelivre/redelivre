@@ -18,25 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @global array $feedRules
  * @global Woo_Feed_Dropdown $wooFeedDropDown
- * @global Woo_Feed_Products $wooFeedProduct
+ * @global Woo_Feed_Merchant $merchant
  * @global string $feedName
  * @global int $feedId
  * @global string $provider
  * @global array $wp_meta_boxes
  */
-global $feedRules, $wooFeedDropDown, $wooFeedProduct, $feedName, $feedId, $provider, $wp_meta_boxes;
-$feedName        = '';
-$feedId          = '';
-$current_screen  = get_current_screen();
-$page            = $current_screen->id;
-$wooFeedDropDown = new Woo_Feed_Dropdown();
-$wooFeedProduct  = new Woo_Feed_Products();
-$wooFeedProduct->load_attributes();
-$feedRules = woo_feed_parse_feed_rules( $feedRules );
-if ( 'adroll' == $feedRules['provider'] ) {
-	$feedRules['provider'] = 'google';
-}
-register_and_do_woo_feed_meta_boxes( $current_screen, $feedRules );
+global $feedRules, $wooFeedDropDown, $merchant, $feedName, $feedId, $provider, $wp_meta_boxes;
+$feedName          = '';
+$feedId            = '';
+$wf_current_screen = get_current_screen();
+$wf_page           = $wf_current_screen->id;
+$wooFeedDropDown   = new Woo_Feed_Dropdown();
+$feedRules         = woo_feed_parse_feed_rules( $feedRules );
+woo_feed_register_and_do_woo_feed_meta_boxes( $wf_current_screen, $feedRules );
 ?>
 <div class="wrap wapk-admin" id="Feed">
 	<div class="wapk-section">

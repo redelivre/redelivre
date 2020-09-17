@@ -169,15 +169,21 @@ class Woo_Feed {
 		 * The class responsible for making list table
 		 */
 		require_once WOO_FEED_FREE_PATH . 'includes/classes/class-woo-feed-list-table.php';
-		
-		
+
 		/**
 		 * The class responsible for making feed list
 		 */
 		require_once WOO_FEED_FREE_PATH . 'admin/class-woo-feed-manage-list.php';
+
+        /**
+         * The class responsible for making category list
+         */
+        require_once WOO_FEED_FREE_PATH . 'admin/class-woo-feed-category-list.php';
 		
 		require_once WOO_FEED_FREE_PATH . 'includes/classes/class-woo-feed-sftp.php';
-		
+		require_once WOO_FEED_FREE_PATH . 'includes/widget.php';
+		require_once WOO_FEED_FREE_PATH . 'includes/feeds/merchant_templates_override.php';
+
 		$this->loader = new Woo_Feed_Loader();
 	}
 	

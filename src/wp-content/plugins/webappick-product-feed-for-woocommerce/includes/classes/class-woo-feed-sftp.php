@@ -20,7 +20,7 @@ class SFTPConnection
 		
 		$this->sftp = ssh2_sftp( $this->connection );
 		if ( ! $this->sftp ) {
-			throw new Exception( "Could not initialize SFTP subsystem." );
+			throw new Exception( 'Could not initialize SFTP subsystem.' );
 		}
     }
 	

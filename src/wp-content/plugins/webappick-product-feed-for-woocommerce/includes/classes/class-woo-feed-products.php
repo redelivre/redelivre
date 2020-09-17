@@ -1700,7 +1700,7 @@ class Woo_Feed_Products {
 	public function attributeDropdown( $selected = '' ) {
 		
 		$attributeDropdown = wp_cache_get( 'woo_feed_dropdown_product_attributes' );
-		
+
 		if ( false === $attributeDropdown ) {
 			$attributes = array(
 				'id'                        => esc_attr__( 'Product Id', 'woo-feed' ),
@@ -1795,7 +1795,7 @@ class Woo_Feed_Products {
 			# Get All WooCommerce Attributes
 			$vAttributes = get_option( 'wpfw_vAttributes', array() );
 			if ( is_array( $vAttributes ) && ! empty( $vAttributes ) ) {
-				$attributeDropdown .= sprintf( '<optgroup label="%s">', esc_attr__( 'Product Attributes', 'woo-feed' ) );
+				$attributeDropdown .= sprintf( '<optgroup label="%s">', esc_attr__( 'Select Attributes', 'woo-feed' ) );
 				foreach ( $vAttributes as $key => $value ) {
 					$attributeDropdown .= sprintf( '<option value="%s">%s</option>', $key, $value );
 				}

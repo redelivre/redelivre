@@ -400,7 +400,7 @@ class Insights {
 	 *
 	 * @return boolean
 	 */
-	private function __is_local_server() {
+	public function __is_local_server() {
 		// phpcs:disable
 		return apply_filters( 'WebAppick_is_local', in_array( $_SERVER['REMOTE_ADDR'], [ '127.0.0.1', '::1' ] ) );
 		// phpcs:enable
@@ -507,7 +507,7 @@ class Insights {
 	 * @return void
 	 */
 	public function handle_optIn_optOut() {
-		if ( isset( $_REQUEST['_wpnonce'] ) && ( isset( $_GET[ $this->client->getSlug() . '_tracker_optIn' ] ) || isset( $_GET[ $this->client->getSlug() . '_tracker_optIn' ] ) ) ) {
+		if ( isset( $_REQUEST['_wpnonce'] ) && ( isset( $_GET[ $this->client->getSlug() . '_tracker_optIn' ] ) || isset( $_GET[ $this->client->getSlug() . '_tracker_optOut' ] ) ) ) {
 			check_admin_referer( $this->client->getSlug() . '_insight_action' );
 			if ( isset( $_GET[ $this->client->getSlug() . '_tracker_optIn' ] ) && 'true' == $_GET[ $this->client->getSlug() . '_tracker_optIn' ] ) {
 				$this->optIn();

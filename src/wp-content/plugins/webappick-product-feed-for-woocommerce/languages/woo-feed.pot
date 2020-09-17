@@ -1,0 +1,1716 @@
+# Copyright (C) 2020 WooFeed
+# This file is distributed under the same license as the WooFeed package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooFeed\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: support@webappick.com\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/webappick-product-feed-for-woocommerce/\n"
+"X-Domain: woo-feed\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: woo-feed.php:199, woo-feed.php:301, woo-feed.php:369, woo-feed.php:697, woo-feed.php:734, woo-feed.php:753, woo-feed.php:778
+msgid "Unauthorized Action."
+msgstr ""
+
+#: woo-feed.php:204, woo-feed.php:305, includes/helper.php:1652, includes/classes/class-woo-feed-webappick-api.php:431, includes/classes/class-woo-feed-webappick-api.php:447
+msgid "Invalid Request."
+msgstr ""
+
+#: woo-feed.php:260
+msgid "Failed to fetch products."
+msgstr ""
+
+#: woo-feed.php:373
+msgid "Invalid Feed."
+msgstr ""
+
+#: woo-feed.php:489
+msgid "Feed Making Complete"
+msgstr ""
+
+#: woo-feed.php:572, woo-feed.php:609
+msgid "Failed security check"
+msgstr ""
+
+#: woo-feed.php:576, woo-feed.php:613
+msgid "Invalid Feed Type!"
+msgstr ""
+
+#: woo-feed.php:703
+msgid "Invalid Merchant"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:152, includes/helper.php:645
+msgid "N/A"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:153
+msgid "Generating..."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:154
+msgid "Learn More.."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:156, admin/partials/woo-feed-edit-config.php:66
+msgid "Select A Category"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:157
+msgid "Loading Template..."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:158
+msgid "Delivering Configuration..."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:159
+msgid "Saving Configuration..."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:160
+msgid "Wait! Checking Extensions ..."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:161
+msgid "Warning! Enable PHP ssh2 extension to use SFTP. Contact your server administrator."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:162
+msgid "SFTP Available!"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:163
+msgid "Please add one or more items to continue."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:165
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:166
+msgid "Are you sure you want to delete selected items?"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:177
+msgid "There was an error processing ajax request."
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:210
+msgid "Docs"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:212, admin/class-woo-feed-admin.php:237, admin/class-woo-feed-admin.php:237, admin/partials/woo-feed-settings.php:17
+msgid "Settings"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:234, admin/class-woo-feed-admin.php:234
+msgid "Woo Feed"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:235, admin/class-woo-feed-admin.php:235
+msgid "Manage Feeds"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:236, admin/class-woo-feed-admin.php:236
+msgid "Make Feed"
+msgstr ""
+
+#: admin/class-woo-feed-admin.php:238, includes/classes/class-woo-feed-admin-message.php:102, includes/classes/class-woo-feed-webappick-api.php:180
+msgid "Documentation"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:36
+msgid "feed"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:37
+msgid "feeds"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:113
+msgid "View"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:115
+msgid "Regenerate"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:116
+msgid "Download"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:119
+msgid "Export Feed Config"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:211
+msgid "No feed available."
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:277
+msgid "Auto Update"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:278
+msgid "Feed Name"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:279
+msgid "Provider"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:280, admin/partials/woo-feed-edit-config.php:12
+msgid "Type"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:281
+msgid "Feed URL"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:282
+msgid "Last Updated"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:283
+msgid "Action"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:329
+msgid "Delete"
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:349
+msgid "Failed To Delete Feed. You do not have sufficient permission to delete."
+msgstr ""
+
+#: admin/class-woo-feed-manage-list.php:370, admin/class-woo-feed-manage-list.php:379
+msgid "You do not have sufficient permission to delete!"
+msgstr ""
+
+#. translators: %s: FAQ Title
+#: includes/class-woo-feed-docs.php:64
+msgid "Toggle panel: %s"
+msgstr ""
+
+#: includes/class-woo-feed-docs.php:115, admin/partials/woo-feed-pro-vs-free.php:493
+msgid "Still need help?"
+msgstr ""
+
+#: includes/class-woo-feed-docs.php:116, admin/partials/woo-feed-pro-vs-free.php:494
+msgid "Have we not answered your question?<br>Don't worry, you can contact us for more information..."
+msgstr ""
+
+#: includes/class-woo-feed-docs.php:119, admin/partials/woo-feed-pro-vs-free.php:497, includes/classes/class-woo-feed-admin-message.php:112, includes/classes/class-woo-feed-webappick-api.php:200
+msgid "Get Support"
+msgstr ""
+
+#: includes/class-woo-feed-installer.php:46
+msgid "Woo Feed Update Interval"
+msgstr ""
+
+#: includes/helper.php:203, includes/helper.php:205, includes/helper.php:220, includes/helper.php:222
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/helper.php:204, includes/helper.php:221, includes/classes/class-woo-feed-webappick-api.php:296
+msgid "WooCommerce Product Feed"
+msgstr ""
+
+#. translators: 1: this plugin name, 2: required plugin name, 3: required plugin name and installation url
+#: includes/helper.php:208
+msgid "%1$s requires %2$s to be installed and active. You can installed/activate %3$s here."
+msgstr ""
+
+#. translators: 1: this plugin name, 2: required plugin name, 3: required plugin required version, 4: required plugin current version, 5: required plugin update url and name
+#: includes/helper.php:225
+msgid "%1$s requires %2$s version %3$s or above and %4$s found. Please upgrade %2$s to the latest version here %5$s"
+msgstr ""
+
+#: includes/helper.php:292
+msgid "WC_Product_Query"
+msgstr ""
+
+#: includes/helper.php:293
+msgid "WP_Query"
+msgstr ""
+
+#: includes/helper.php:294
+msgid "Both"
+msgstr ""
+
+#: includes/helper.php:307
+msgid "No Expiration "
+msgstr ""
+
+#: includes/helper.php:308
+msgid "1 Month"
+msgstr ""
+
+#: includes/helper.php:309, includes/helper.php:1744
+msgid "1 Week"
+msgstr ""
+
+#: includes/helper.php:310, includes/helper.php:1745
+msgid "24 Hours"
+msgstr ""
+
+#: includes/helper.php:311, includes/helper.php:1746
+msgid "12 Hours"
+msgstr ""
+
+#: includes/helper.php:312, includes/helper.php:1747
+msgid "6 Hours"
+msgstr ""
+
+#: includes/helper.php:313, includes/helper.php:1748
+msgid "1 Hours"
+msgstr ""
+
+#: includes/helper.php:703
+msgid "Feed Specification:"
+msgstr ""
+
+#: includes/helper.php:1479, includes/helper.php:1479, includes/helper.php:1653
+msgid "Invalid Request"
+msgstr ""
+
+#: includes/helper.php:1538
+msgid "Empty File Uploaded. Try again."
+msgstr ""
+
+#: includes/helper.php:1539
+msgid "Empty File"
+msgstr ""
+
+#: includes/helper.php:1542, includes/helper.php:1553, includes/helper.php:1565, includes/helper.php:1576, includes/helper.php:1590, includes/helper.php:1600, includes/helper.php:1612, includes/helper.php:1656
+msgid "&laquo; Back"
+msgstr ""
+
+#: includes/helper.php:1549
+msgid "Unable to read file content"
+msgstr ""
+
+#: includes/helper.php:1550, includes/helper.php:1562, includes/helper.php:1573, includes/helper.php:1587, includes/helper.php:1597, includes/helper.php:1609
+msgid "Invalid File"
+msgstr ""
+
+#: includes/helper.php:1561
+msgid "Unable to read data from file."
+msgstr ""
+
+#: includes/helper.php:1572
+msgid "Unable to read file info."
+msgstr ""
+
+#: includes/helper.php:1586
+msgid "Unable to read feed data from file."
+msgstr ""
+
+#: includes/helper.php:1596
+msgid "Unable to verify the file."
+msgstr ""
+
+#: includes/helper.php:1608
+msgid "Invalid or corrupted config file."
+msgstr ""
+
+#. translators: 1: error message 2: file name and path 3: line number
+#: includes/log-helper.php:53
+msgid "%1$s in %2$s on line %3$s"
+msgstr ""
+
+#: admin/partials/woo-feed-admin-display.php:38
+msgid "New WooCommerce Product Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:25
+msgid "Content Settings"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:30
+msgid "Template"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:32
+msgid "Select a template"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:41
+msgid "File Name"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:43
+msgid "Filename should be unique. Otherwise it will override the existing filename."
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:47
+msgid "Feed Type"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:61
+msgid "Items Wrapper"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:67
+msgid "Single Item Wrapper"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:86
+msgid "Delimiter"
+msgstr ""
+
+#: admin/partials/woo-feed-content-settings.php:98
+msgid "Enclosure"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:10
+msgid "Attributes"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:11
+msgid "Prefix"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:13
+msgid "Value"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:14
+msgid "Suffix"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:15
+msgid "Output Type"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:16
+msgid "Command"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:53, admin/partials/woo-feed-edit-config.php:124
+msgid "Attribute"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:54, admin/partials/woo-feed-edit-config.php:125
+msgid "Pattern"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:82, admin/partials/woo-feed-edit-config.php:141
+msgid "Select Output Type"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-config.php:156
+msgid "Add New Attribute"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:9
+msgid "Campaign URL Builder"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:17, admin/partials/woo-feed-edit-filter.php:18
+msgid "Campaign Source"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:17, admin/partials/woo-feed-edit-filter.php:24, admin/partials/woo-feed-edit-filter.php:31
+msgid "Required"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:20
+msgid "The referrer: (e.g. google, newsletter)"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:24, admin/partials/woo-feed-edit-filter.php:25
+msgid "Campaign Medium"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:27
+msgid "Marketing medium: (e.g. cpc, banner, email)"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:31, admin/partials/woo-feed-edit-filter.php:32
+msgid "Campaign Name"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:34
+msgid "Product, promo code, or slogan (e.g. spring_sale)"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:38, admin/partials/woo-feed-edit-filter.php:39
+msgid "Campaign Term"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:41
+msgid "Identify the keywords"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:45, admin/partials/woo-feed-edit-filter.php:46
+msgid "Campaign Content"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:48
+msgid "Use to differentiate ads"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:57
+msgid "Fill out the required fields (marked with *) in the form above, if any required field is empty, then the parameters will not be applied."
+msgstr ""
+
+#: admin/partials/woo-feed-edit-filter.php:58
+msgid "Learn more about Campaign URL"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-ftp.php:9
+msgid "FTP/SFTP module is not found in your server. Please contact your service provider or system administrator to install/enable FTP/SFTP module."
+msgstr ""
+
+#: admin/partials/woo-feed-edit-tabs.php:16
+msgid "Feed Config"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-tabs.php:20
+msgid "Filter"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-tabs.php:24
+msgid "FTP/SFTP"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-tabs.php:96
+msgid "Save"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-tabs.php:98
+msgid "Update and Generate Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-edit-template.php:38
+msgid "Edit WooCommerce Product Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:34
+msgid "Manage Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:35
+msgid "New Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:36
+msgid "Import Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:44
+msgid "Import Feed File"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:50, admin/partials/woo-feed-manage-list.php:51
+msgid "Feed File Name"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:56
+msgid "Import Now"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:68
+msgid "Generating Product Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:95
+msgid "Auto Update Feed Interval"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:103
+msgid "Interval"
+msgstr ""
+
+#: admin/partials/woo-feed-manage-list.php:112
+msgid "Update Interval"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:74, admin/partials/woo-feed-pro-vs-free.php:185
+msgid "Unlimited Products"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:75
+msgid "Support for 1 Year"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:76
+msgid "Updates for 1 Year"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:77
+msgid "Support 100+ Merchants"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:78
+msgid "Advanced Commands"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:79
+msgid "Dynamic Attribute"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:80
+msgid "Extended Product Title"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:81
+msgid "Custom taxonomy"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:82
+msgid "WP Options"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:83
+msgid "Product/Post Meta"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:84
+msgid "Multilingual Support"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:85
+msgid "Multi-vendor Support"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:86
+msgid "Smart Filter & Conditions"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:87
+msgid "3<sup>rd</sup> Party Plugin Supports"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:91
+msgid "Personal"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:94, admin/partials/woo-feed-pro-vs-free.php:103, admin/partials/woo-feed-pro-vs-free.php:112
+msgid "Yearly"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:96
+msgid "Popular"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:100
+msgid "Plus"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:109
+msgid "Expert"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:141
+msgid "Export Product Variations"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:145
+msgid "Custom Feed Template"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:149
+msgid "Support All Comparison Shopping Engines"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:153
+msgid "Support All Affiliate Networks"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:157
+msgid "Auto Feed Update"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:161, includes/classes/class-woo-feed-dropdown.php:244, includes/classes/class-woo-feed-dropdown.php:264, includes/classes/class-woo-feed-products.php:1798
+msgid "Product Attributes"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:165
+msgid "Unlimited Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:169
+msgid "CSV, TXT and XML Feed"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:173
+msgid "Pre Configured Feed Template"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:177
+msgid "Variations & Custom Attribute Value"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:181
+msgid "Upload Feed via FTP"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:189
+msgid "Product Filtering by Id,SKU, Title, Category and Others Attributes."
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:193
+msgid "Feed By Category"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:197
+msgid "Customized Product Title"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:201
+msgid "Multilingual Feed With WPML"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:205
+msgid "Product Taxonomy value like Brand or Others Plugin data"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:209
+msgid "WooCommerce Composite Products"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:213
+msgid "WooCommerce Bundle Products"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:217
+msgid "Remove Variation Products"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:221
+msgid "Remove Parent Products"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:225
+msgid "Category Mapping"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:229
+msgid "Dynamic Attributes"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:233, includes/classes/class-woo-feed-dropdown.php:184, includes/classes/class-woo-feed-products.php:1723
+msgid "Price With Tax"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:237
+msgid "Conditional Pricing"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:241
+msgid "WP Post Meta Value"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:245
+msgid "WP Options Value"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:249
+msgid "Output Customization"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:320
+msgid "Upgrade to WooFeed Pro to unlock more powerful features."
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:327
+msgid "Why Upgrade"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:328
+msgid "Super charge your Store with awesome features"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:344
+msgid "See All Features"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:350
+msgid "Free"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:350
+msgid "vs"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:350
+msgid "Pro"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:351
+msgid "Find the plan that suits best for you business"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:356
+msgid "WooFeed Lite"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:367
+msgid "WooFeed Pro"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:381
+msgid "Take Your Products To The Next Level"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:382
+msgid "Choose your subscription plan and get started"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:401
+msgctxt "Free Package Price Display"
+msgid "Free"
+msgstr ""
+
+#. translators: %d: number of allowed domain.
+#: admin/partials/woo-feed-pro-vs-free.php:410
+msgid "For %d Site"
+msgid_plural "For %d Sites"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:419
+msgid "Buy Now"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:436, admin/partials/woo-feed-pro-vs-free.php:439
+msgid "14 Days Money Back Guarantee"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:440
+msgid "After successful purchase, you will be eligible for conditional refund"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:441
+msgid "Terms &amp; Condition Applied"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:445
+msgid "Payment Options:"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:447
+msgid "Credit Cards (Stripe)"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:449
+msgid "Visa"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:450
+msgid "American Express"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:451
+msgid "Mastercard"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:452
+msgid "Discover"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:453
+msgid "JCB"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:454
+msgid "Diners"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:462
+msgid "Our Happy Customer"
+msgstr ""
+
+#: admin/partials/woo-feed-pro-vs-free.php:463
+msgid "Join the squad today!"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:25
+msgid "Common Settings"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:31
+msgid "Product per batch"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:34, admin/partials/woo-feed-settings.php:45
+msgid "Don't change the value if you are not sure about this. Plugin may fail to make feed."
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:38
+msgid "Product Query Type"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:49
+msgid "Debug Mode"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:53
+msgid "Off"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:54
+msgid "On"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:57
+msgid "Clear All Log Data"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:59
+msgid "Enabling Logging will decrease performance of feed generation."
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:63
+msgid "Send Debug Info"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:66
+msgid "Allow WooFeed To Collect Debug Info."
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:68
+msgid "To opt out, leave this box unchecked. Your Feed Data remains un-tracked, and no data will be collected. No sensitive data is tracked."
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:68
+msgid "See What We Collect."
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:80
+msgid "WooFeed Cache TTL"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:88
+msgid "Purge Cache Now"
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:90
+msgid "When to expire the Cache."
+msgstr ""
+
+#: admin/partials/woo-feed-settings.php:97
+msgid "Save Changes"
+msgstr ""
+
+#. translators: 1: Method Name 2: Method Name
+#: includes/classes/class-woo-feed-admin-message.php:78
+msgid "%1$s Should be called before %2$s"
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:107, includes/classes/class-woo-feed-webappick-api.php:181
+msgid "Video Tutorials"
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:205
+msgid "Feed Config Created Successfully."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:214
+msgid "Feed Config Updated Successfully."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:223
+msgid "Feed Config Successfully Imported."
+msgstr ""
+
+#. translators: Feed URL
+#: includes/classes/class-woo-feed-admin-message.php:241
+msgid "Feed Generated Successfully. Feed URL: %s"
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:244
+msgid "Warning:"
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:247
+msgid "Learn more..."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:248
+msgid "Google Product category is not selected. Your AdWords CPC rate will be high. Add proper Google Product Category to each product & reduce CPC rate."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:276
+msgid "Feed auto update interval updated."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:285
+msgid "Unable to save auto update interval."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:294
+msgid "Invalid interval value."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:303
+msgid "Invalid request."
+msgstr ""
+
+#: includes/classes/class-woo-feed-admin-message.php:326
+msgid "Settings Updated."
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:165, includes/classes/class-woo-feed-products.php:1779
+msgid "Primary Attributes"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:166, includes/classes/class-woo-feed-products.php:1706
+msgid "Product Id"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:167, includes/classes/class-woo-feed-products.php:1707
+msgid "Product Title"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:168, includes/classes/class-woo-feed-products.php:1708
+msgid "Product Description"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:169, includes/classes/class-woo-feed-products.php:1709
+msgid "Product Short Description"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:170
+msgid "Primary Category"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:171
+msgid "Product Local Category [Category Path]"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:172, includes/classes/class-woo-feed-products.php:1711
+msgid "Product URL"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:173, includes/classes/class-woo-feed-products.php:1712
+msgid "External Product URL"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:174, includes/classes/class-woo-feed-products.php:1713
+msgid "Condition"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:175, includes/classes/class-woo-feed-products.php:1714
+msgid "Parent Id [Group Id]"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:176, includes/classes/class-woo-feed-products.php:1715
+msgid "SKU"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:177, includes/classes/class-woo-feed-products.php:1716
+msgid "Parent SKU"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:178, includes/classes/class-woo-feed-products.php:1717
+msgid "Availability"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:179, includes/classes/class-woo-feed-products.php:1718
+msgid "Quantity"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:180, includes/classes/class-woo-feed-products.php:1719
+msgid "Regular Price"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:181, includes/classes/class-woo-feed-products.php:1720
+msgid "Price"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:182, includes/classes/class-woo-feed-products.php:1721
+msgid "Sale Price"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:183, includes/classes/class-woo-feed-products.php:1722
+msgid "Regular Price With Tax"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:185, includes/classes/class-woo-feed-products.php:1724
+msgid "Sale Price With Tax"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:186, includes/classes/class-woo-feed-products.php:1725
+msgid "Sale Start Date"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:187, includes/classes/class-woo-feed-products.php:1726
+msgid "Sale End Date"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:188, includes/classes/class-woo-feed-products.php:1727
+msgid "Weight"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:189, includes/classes/class-woo-feed-products.php:1728
+msgid "Width"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:190, includes/classes/class-woo-feed-products.php:1729
+msgid "Height"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:191, includes/classes/class-woo-feed-products.php:1730
+msgid "Length"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:192, includes/classes/class-woo-feed-products.php:1731
+msgid "Shipping Class"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:193, includes/classes/class-woo-feed-products.php:1732
+msgid "Product Type"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:194, includes/classes/class-woo-feed-products.php:1733
+msgid "Variation Type"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:195, includes/classes/class-woo-feed-products.php:1734
+msgid "Visibility"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:196, includes/classes/class-woo-feed-products.php:1735
+msgid "Total Rating"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:197, includes/classes/class-woo-feed-products.php:1736
+msgid "Average Rating"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:198, includes/classes/class-woo-feed-products.php:1737
+msgid "Tags"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:199, includes/classes/class-woo-feed-products.php:1738
+msgid "Sale Price Effective Date"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:200, includes/classes/class-woo-feed-products.php:1739
+msgid "Is Bundle"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:201, includes/classes/class-woo-feed-products.php:1740
+msgid "Author Name"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:202, includes/classes/class-woo-feed-products.php:1741
+msgid "Author Email"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:203, includes/classes/class-woo-feed-products.php:1742
+msgid "Date Created"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:204, includes/classes/class-woo-feed-products.php:1743
+msgid "Date Updated"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:210, includes/classes/class-woo-feed-products.php:1764
+msgid "Title [All in One SEO]"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:211, includes/classes/class-woo-feed-products.php:1765
+msgid "Description [All in One SEO]"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:217, includes/classes/class-woo-feed-products.php:1771
+msgid "Title [Yoast SEO]"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:218, includes/classes/class-woo-feed-products.php:1772
+msgid "Description [Yoast SEO]"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:223, includes/classes/class-woo-feed-products.php:1788
+msgid "Image Attributes"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:225, includes/classes/class-woo-feed-products.php:1746
+msgid "Main Image"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:226, includes/classes/class-woo-feed-products.php:1747
+msgid "Featured Image"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:227, includes/classes/class-woo-feed-products.php:1748
+msgid "Images [Comma Separated]"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:228, includes/classes/class-woo-feed-products.php:1749
+msgid "Additional Image 1"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:229, includes/classes/class-woo-feed-products.php:1750
+msgid "Additional Image 2"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:230, includes/classes/class-woo-feed-products.php:1751
+msgid "Additional Image 3"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:231, includes/classes/class-woo-feed-products.php:1752
+msgid "Additional Image 4"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:232, includes/classes/class-woo-feed-products.php:1753
+msgid "Additional Image 5"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:233, includes/classes/class-woo-feed-products.php:1754
+msgid "Additional Image 6"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:234, includes/classes/class-woo-feed-products.php:1755
+msgid "Additional Image 7"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:235, includes/classes/class-woo-feed-products.php:1756
+msgid "Additional Image 8"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:236, includes/classes/class-woo-feed-products.php:1757
+msgid "Additional Image 9"
+msgstr ""
+
+#: includes/classes/class-woo-feed-dropdown.php:237, includes/classes/class-woo-feed-products.php:1758
+msgid "Additional Image 10"
+msgstr ""
+
+#: includes/classes/class-woo-feed-ftp.php:79
+msgid "FTP connection has failed!"
+msgstr ""
+
+#. translators: 1: ftp username, 2: server host, 3: server port
+#: includes/classes/class-woo-feed-ftp.php:81
+msgid "Attempted to connect to %1$s@%2$s:%3$s"
+msgstr ""
+
+#: includes/classes/class-woo-feed-ftp.php:90
+msgid "FTP Login has failed!"
+msgstr ""
+
+#. translators: 1: ftp username, 2: server host, 3: server port
+#: includes/classes/class-woo-feed-ftp.php:92
+msgid "Attempted to login %1$s@%2$s:%3$s"
+msgstr ""
+
+#: includes/classes/class-woo-feed-ftp.php:124
+msgid "File Permission Granted"
+msgstr ""
+
+#. translators: Permission Mode
+#: includes/classes/class-woo-feed-ftp.php:150
+msgid "Directory \"%s\" created successfully."
+msgstr ""
+
+#: includes/classes/class-woo-feed-list-table.php:182
+msgid "List View"
+msgstr ""
+
+#: includes/classes/class-woo-feed-list-table.php:183
+msgid "Excerpt View"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:311
+msgid "Custom Template"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:312
+msgid "Custom Template 1"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:323
+msgid "Popular Templates"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:324
+msgid "Google Adwords"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:325
+msgid "Bing"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:326
+msgid "Facebook"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:327
+msgid "Google Shopping"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:328
+msgid "Google Local Product"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:329
+msgid "Google Local Product Inventory"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:330
+msgid "Google Shopping Action"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:331
+msgid "Idealo"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:332
+msgid "Pinterest"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:333
+msgid "PriceSpy"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:334
+msgid "Yandex (CSV)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:345
+msgid "Templates"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:346
+msgid "AdForm"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:347
+msgid "AdRoll"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:348
+msgid "Avantlink"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:349
+msgid "Become"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:350
+msgid "Beslist.nl"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:351
+msgid "Billiger.de"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:352
+msgid "Bol.com"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:353
+msgid "Bonanza"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:354
+msgid "CDiscount.fr"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:355
+msgid "Comparer.be"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:356
+msgid "Connexity"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:357
+msgid "Criteo"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:358
+msgid "Crowdfox"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:359
+msgid "Daisycon Advertiser (General)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:360
+msgid "Daisycon Advertiser (Automotive)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:361
+msgid "Daisycon Advertiser (Books)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:362
+msgid "Daisycon Advertiser (Cosmetics)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:363
+msgid "Daisycon Advertiser (Daily Offers)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:364
+msgid "Daisycon Advertiser (Electronics)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:365
+msgid "Daisycon Advertiser (Fashion)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:366
+msgid "Daisycon Advertiser (Food & Drinks)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:367
+msgid "Daisycon Advertiser (Holidays: Accommodations and transport)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:368
+msgid "Daisycon Advertiser (Holidays: Accommodations)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:369
+msgid "Daisycon Advertiser (Holidays: Trips)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:370
+msgid "Daisycon Advertiser (Home & Garden)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:371
+msgid "Daisycon Advertiser (Housing)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:372
+msgid "Daisycon Advertiser (Magazines)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:373
+msgid "Daisycon Advertiser (Studies & Trainings)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:374
+msgid "Daisycon Advertiser (Telecom: Accessories)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:375
+msgid "Daisycon Advertiser (Telecom: All-in-one)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:376
+msgid "Daisycon Advertiser (Telecom: GSM + Subscription)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:377
+msgid "Daisycon Advertiser (Telecom: GSM only)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:378
+msgid "Daisycon Advertiser (Telecom: Sim only)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:379
+msgid "Daisycon Advertiser (Work & Jobs)"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:380
+msgid "Dooyoo"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:381
+msgid "Fruugo"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:382
+msgid "Fruugoaustralia.com"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:383
+msgid "Fyndiq.se"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:384
+msgid "Hintaseuranta.fi"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:385
+msgid "Incurvy"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:386
+msgid "Jet.com"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:387
+msgid "Kelkoo"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:388
+msgid "Kieskeurig.nl"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:389
+msgid "Kijiji.ca"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:390
+msgid "LeGuide"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:391
+msgid "Marktplaats.nl"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:392
+msgid "Miinto.nl"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:393
+msgid "Modina.de"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:394
+msgid "Myshopping.com.au"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:395
+msgid "TheNextAd"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:396
+msgid "Nextag"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:397
+msgid "Polyvore"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:398
+msgid "Price Grabber"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:399
+msgid "Price Runner"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:400
+msgid "Prisjakt"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:401
+msgid "Rakuten.de"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:402
+msgid "Real"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:403
+msgid "ShareASale"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:404
+msgid "Shopalike.fr"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:405
+msgid "Shopbot"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:406
+msgid "Shopmania"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:407
+msgid "Shopping.com"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:408
+msgid "Shopzilla"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:409
+msgid "SkinFlint.co.uk"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:410
+msgid "Skroutz.gr"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:411
+msgid "Smartly.io"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:412
+msgid "Spartoo.fi"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:413
+msgid "Stylight.com"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:414
+msgid "Trovaprezzi.it"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:415
+msgid "Twenga"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:416
+msgid "Vertaa.fi"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:417
+msgid "Walmart"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:418
+msgid "Webmarchand"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:419
+msgid "Wish.com"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:420
+msgid "Yahoo NFA"
+msgstr ""
+
+#: includes/classes/class-woo-feed-merchant.php:421
+msgid "Zap.co.il"
+msgstr ""
+
+#: includes/classes/class-woo-feed-products.php:1710
+msgid "Product Local Category"
+msgstr ""
+
+#: includes/classes/class-woo-feed-products.php:1808
+msgid "Product Custom Attributes"
+msgstr ""
+
+#: includes/classes/class-woo-feed-products.php:1816
+msgid "Custom Fields/Post Meta"
+msgstr ""
+
+#: includes/classes/class-woo-feed-products.php:1826
+msgid "Custom Taxonomies"
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:96
+msgid "Cloning is forbidden."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:173
+msgid "Thank you -- Support Ticket Submitted."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:174
+msgid "Your ticket has been successfully submitted."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:175
+msgid "24 hours"
+msgstr ""
+
+#. translators: %s: Approx. time to response after ticket submission.
+#: includes/classes/class-woo-feed-webappick-api.php:177
+msgid "You will receive an email notification from \"support@webappick.com\" in your inbox within %s."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:178
+msgid "Please Follow the email and WebAppick Support Team will get back with you shortly."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:184
+msgid "Terms & Conditions"
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:185
+msgid "Privacy Policy"
+msgstr ""
+
+#. translators: 1: Link to the Trams And Condition Page, 2: Link to the Privacy Policy Page
+#: includes/classes/class-woo-feed-webappick-api.php:187
+msgid "Please read our %1$s and %2$s"
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:199
+msgid "Something Went Wrong. Please Try The Support Ticket Form On Our Website."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:201
+msgid "Support Ticket form will open in new tab in 5 seconds."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:213
+msgid "Number of products in your site."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:214
+msgid "Number of product categories in your site."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:215
+msgid "Feed Configuration."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:216
+msgid "Site name, language and url."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:217
+msgid "Number of active and inactive plugins."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:218
+msgid "Your name and email address."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:259, includes/classes/class-woo-feed-webappick-api.php:297
+msgid "Premium"
+msgstr ""
+
+#. translators: 1: plugin name,2: Slightly Smiling Face (Emoji), 3: line break 'br' tag
+#: includes/classes/class-woo-feed-webappick-api.php:323
+msgid "%2$s We have spent countless hours developing this free plugin for you, and we would really appreciate it if you dropped us a quick rating. Your opinion matters a lot to us.%3$s It helps us to get better. Thanks for using %1$s."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:330
+msgid "Remind me later"
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:331
+msgid "I would not"
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:332
+msgid "Review Here"
+msgstr ""
+
+#. translators: 1: This plugin name, 2: Opening Bold Tag 3: Closing Bold Tad
+#: includes/classes/class-woo-feed-webappick-api.php:346
+msgid "You are awesome for using %1$s. Free version works great for up to %2$s2000 products including variations.%3$s"
+msgstr ""
+
+#. translators: 1: This plugin name, 2: Pro version purchase link
+#: includes/classes/class-woo-feed-webappick-api.php:363
+msgid "You are awesome for using %1$s. Using the %2$s version you can make multilingual feed for your WPML languages."
+msgstr ""
+
+#. translators: 1: This plugin Name, 2: Incompatible plugin name, 3: Pro version purchase link
+#: includes/classes/class-woo-feed-webappick-api.php:378
+msgid "%1$s isn't fully compatible with %2$s. Get the %3$s version for full support."
+msgstr ""
+
+#: includes/classes/class-woo-feed-webappick-api.php:444
+msgid "Request Successful."
+msgstr ""
+
+#: includes/feeds/class-woo-feed-facebook.php:500, includes/feeds/class-woo-feed-google.php:584, includes/feeds/class-woo-feed-pinterest.php:585
+msgid "Shorting Products"
+msgstr ""

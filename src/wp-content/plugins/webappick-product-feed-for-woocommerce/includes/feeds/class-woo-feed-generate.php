@@ -13,7 +13,7 @@ class Woo_Generate_Feed {
 	 * Woo_Generate_Feed constructor.
 	 *
 	 * @param string $feedService
-	 * @param array $feedRule
+	 * @param array  $feedRule
 	 */
 	public function __construct( $feedService, $feedRule ) {
 		$feedService   = woo_feed_get_merchant_class( $feedService );

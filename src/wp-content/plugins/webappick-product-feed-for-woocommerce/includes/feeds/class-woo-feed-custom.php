@@ -55,18 +55,18 @@ class Woo_Feed_Custom {
 	    $this->products->get_products($feedRule['productIds']);
 	    $this->rules = $feedRule;
 
-//        $products = new Woo_Feed_Products();
-//        $limit =isset($feedRule['Limit'])?esc_html($feedRule['Limit']):'';
-//        $offset = isset($feedRule['Offset'])?esc_html($feedRule['Offset']):'';
-//        $categories = isset($feedRule['categories']) ? $feedRule['categories']: '';
-//        $storeProducts = $products->woo_feed_get_visible_product($limit, $offset,$categories,$feedRule);
-//        $feedRule=$products->feedRule;
-//        $engine = new WF_Engine($storeProducts,$feedRule);
-//        $this->products = $engine->mapProductsByRules();
-//        $this->rules = $feedRule;
-//        if ($feedRule['feedType'] == 'xml') {
-//            $this->mapAttributeForXML();
-//        }
+// $products = new Woo_Feed_Products();
+// $limit =isset($feedRule['Limit'])?esc_html($feedRule['Limit']):'';
+// $offset = isset($feedRule['Offset'])?esc_html($feedRule['Offset']):'';
+// $categories = isset($feedRule['categories']) ? $feedRule['categories']: '';
+// $storeProducts = $products->woo_feed_get_visible_product($limit, $offset,$categories,$feedRule);
+// $feedRule=$products->feedRule;
+// $engine = new WF_Engine($storeProducts,$feedRule);
+// $this->products = $engine->mapProductsByRules();
+// $this->rules = $feedRule;
+// if ($feedRule['feedType'] == 'xml') {
+// $this->mapAttributeForXML();
+// }
     }
 
     /**
@@ -88,12 +88,12 @@ class Woo_Feed_Custom {
      *
      * @param $attribute
      * @param $value
-     * @param string $space
+     * @param string    $space
      * @return string
      */
     function formatXMLLine( $attribute, $value, $space = '' ) {
         $attribute = str_replace( ' ', '_', $attribute );
-        //Make child node for XML
+        // Make child node for XML
 	    if ( ! empty( $value ) )
 	        $value = trim( $value );
         if ( false === strpos($value, '<![CDATA[' ) && 'http' == substr(trim($value), 0, 4) ) {
@@ -117,9 +117,9 @@ class Woo_Feed_Custom {
 	    if ( ! empty($this->products) ) {
 		    if ( 'xml' == $this->rules['feedType'] ) {
 			    $feed = array(
-				    "body"   => $this->products->feedBody,
-				    "header" => $this->products->feedHeader,
-				    "footer" => $this->products->feedFooter,
+				    'body'   => $this->products->feedBody,
+				    'header' => $this->products->feedHeader,
+				    'footer' => $this->products->feedFooter,
 			    );
 			    return $feed;
 		    } elseif ( 'txt' == $this->rules['feedType'] ) {
@@ -141,143 +141,124 @@ class Woo_Feed_Custom {
 	    }
 
         $feed = array(
-            "body"   => '',
-            "header" => '',
-            "footer" => '',
+            'body'   => '',
+            'header' => '',
+            'footer' => '',
         );
         return $feed;
     }
 
     public function get_header( $engine ) {
-        $datetime_now = gmdate('Y-m-d H:i:s');
-        if ( 'fruugo.au' == $this->rules["provider"] ) {
+        $datetime_now = date('Y-m-d H:i:s', strtotime( current_time( 'mysql' ) ) );
+        if ( 'fruugo.au' == $this->rules['provider'] ) {
             $fruugo_au = "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
             return $fruugo_au;
-        }
-        elseif ( 'zap.co.il' == $this->rules['provider'] ) {
+        } elseif ( 'zap.co.il' == $this->rules['provider'] ) {
             $zap = "<STORE>
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>
-                <agency>". get_bloginfo('name') ."</agency>
-                <email>". get_bloginfo('admin_email') ."</email>";
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>
+                <agency>' . get_bloginfo('name') . '</agency>
+                <email>' . get_bloginfo('admin_email') . '</email>';
             return $zap;
-        }
-        elseif ( 'myshopping.com.au' == $this->rules['provider'] ) {
-            return "<productset>";
-        }
-        elseif ( 'stylight.com' == $this->rules['provider'] ) {
+        } elseif ( 'myshopping.com.au' == $this->rules['provider'] ) {
+            return '<productset>';
+        } elseif ( 'stylight.com' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'nextad' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'nextad' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'skinflint.co.uk' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'skinflint.co.uk' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'comparer.be' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'comparer.be' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'dooyoo' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'dooyoo' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'hintaseuranta.fi' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'hintaseuranta.fi' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'incurvy' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'incurvy' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'kijiji.ca' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'kijiji.ca' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'marktplaats.nl' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'marktplaats.nl' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'rakuten.de' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'rakuten.de' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'shopalike.fr' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'shopalike.fr' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'spartoo.fi' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'spartoo.fi' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        elseif ( 'webmarchand' == $this->rules['provider'] ) {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } elseif ( 'webmarchand' == $this->rules['provider'] ) {
             return "<products version=\"1.0\" standalone=\"yes\">
                 <datetime>$datetime_now</datetime>
-                <title>". get_bloginfo('name') ."</title>
-                <link>". get_bloginfo('url') ."</link>
-                <description>". get_bloginfo('description') ."</description>";
-        }
-        else {
+                <title>" . get_bloginfo('name') . '</title>
+                <link>' . get_bloginfo('url') . '</link>
+                <description>' . get_bloginfo('description') . '</description>';
+        } else {
             return $engine->get_xml_feed_header();
         }
     }
 
     public function get_footer( $engine ) {
         if ( in_array($this->rules['provider'], [ 'fruugo.au', 'stylight.com', 'nextad', 'skinflint.co.uk', 'comparer.be', 'dooyoo', 'hintaseuranta.fi', 'incurvy', 'kijiji.ca', 'marktplaats.nl', 'rakuten.de', 'shopalike.fr', 'spartoo.fi', 'webmarchand' ]) ) {
-            return "</products>";
-        }
-        elseif ( 'zap.co.il' == $this->rules['provider'] ) {
-            return "</STORE>";
-        }
-        elseif ( 'myshopping.com.au' == $this->rules['provider'] ) {
-            return "</productset>";
-        }
-        else {
+            return '</products>';
+        } elseif ( 'zap.co.il' == $this->rules['provider'] ) {
+            return '</STORE>';
+        } elseif ( 'myshopping.com.au' == $this->rules['provider'] ) {
+            return '</productset>';
+        } else {
             return $engine->get_xml_feed_footer();
         }
     }

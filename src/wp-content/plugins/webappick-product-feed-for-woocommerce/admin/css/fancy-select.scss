@@ -1,0 +1,201 @@
+/**!
+ * WooFeed Fancy Select
+ * @version 1.0.0
+ * @copyright 2020 Webappick
+ * @author Kudratullah <mhamudul.hk@gmail.com>
+ */
+
+.fancy-picker, .fancy-picker * {
+    box-sizing: border-box;
+    cursor: default;
+    user-select: none;
+}
+
+.fancy-picker {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.fancy-picker-picked {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    border: 1px solid #7e8993;
+    border-radius: 4px;
+    padding: 3.5px 0;
+    box-shadow: 0 0 4px -1px rgba(0, 0, 0, 0.45);
+}
+
+.fancy-picker-placeholder,
+.fancy-picker-data {
+    display: block;
+    width: calc( 100% - 25px );
+    float: left;
+    font-weight: 500;
+    padding: 1px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+    top: -1px;
+    > span {
+        display: inline;
+        position: relative;
+        &:empty {
+            display: none;
+        }
+    }
+    &:empty {
+        display: none;
+    }
+}
+
+.fancy-picker-separator {
+    margin-right: 3px;
+}
+
+.fancy-picker-count {
+    position: absolute;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 21px;
+    color: #ffffff;
+    background: rgba(35, 40, 45, 0.7);
+    z-index: 1;
+    padding: 1px 3px;
+    font-size: 12px;
+    line-height: normal;
+    border-radius: 5px;
+    &:empty {
+        display: none;
+    }
+}
+.fancy-picker-option {
+    font-weight: 500;
+    width: 100%;
+    display: block;
+    float: left;
+    cursor: default;
+    padding: 2px 8px;
+    transition: background 300ms linear;
+    &:nth-child(odd) {
+        background: #f3f3f3;
+    }
+    &.selected {
+        color: #000;
+        background: #acf;
+    }
+    &.disabled {
+        color: #464646;
+        background: #e8e8e8;
+        cursor: not-allowed;
+    }
+    &:not(.disabled) {
+        &:hover {
+            background: #00a1ff;
+            color: #FFF;
+        }
+    }
+}
+
+.fancy-picker-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 200px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    padding: 3px 0 20px 0;
+    background: #FFF;
+}
+
+.fancy-picker-ui {
+    position: absolute;
+    display: none;
+    background: #FFF;
+    z-index: 999;
+    border: 1px solid #7e8993;
+    top: 36px;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.96);
+    &:before {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-top: 1px solid #4f555a;
+        border-left: 1px solid #4f555a;
+        top: -6px;
+        left: 10px;
+        transform: rotate(45deg);
+        z-index: -1;background: #4f555a;
+    }
+}
+
+.fancy-picker-picked {
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        float: right;
+        background: transparent;
+        border-style: solid;
+        border-color: #7e8993 transparent;
+        border-width: 7px 5px 0 5px;
+        top: 50%;
+        transform: translateY(-50%) rotate(0deg);
+        right: 5px;
+        transition: all 350ms linear;
+        cursor: pointer;
+    }
+    &:before {
+        position: relative;
+        display: block;
+        content: "";
+        width: 5px;
+        height: 15px;
+        padding: 1px 0;
+        background: transparent;
+        border-left-width: 4px;
+        border-left-color: #7e8993;
+        border-left-style: dotted;
+        float: left;
+        left: 5px;
+        top: 2px;
+        transition: all 350ms linear;
+    }
+}
+
+.fancy-picker {
+    &.active {
+        .fancy-picker-ui {
+            display: block;
+        }
+        .fancy-picker-picked {
+            box-shadow: 0 0 3px -1px rgba(0, 0, 0, 0.45),
+            inset 0 0 4px -1px rgba(0, 0, 0, 0.27);
+            &:after {
+                border-color: #31363a transparent;
+                transform:translateY(-50%) rotate3d(1, 0, 0, 180deg);
+            }
+            &:before {
+                border-left-color: #31363a;
+            }
+        }
+    }
+    &:hover {
+        .fancy-picker-picked {
+            &:before {
+                border-left-color: #31363a;
+            }
+        }
+    }
+}

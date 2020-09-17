@@ -91,21 +91,6 @@ class Woo_Feed_Pinterest {
 		}
 		$this->products->get_products( $feedRule['productIds'] );
 		$this->rules = $feedRule;
-
-//        $products = new Woo_Feed_Products();
-//        $limit = isset($feedRule['Limit']) ? esc_html($feedRule['Limit']) : '';
-//        $offset = isset($feedRule['Offset']) ? esc_html($feedRule['Offset']) : '';
-//        $categories = isset($feedRule['categories']) ? $feedRule['categories']: '';
-//        $storeProducts = $products->woo_feed_get_visible_product($limit, $offset,$categories,$feedRule);
-//        $feedRule=$products->feedRule;
-//        $engine = new WF_Engine($storeProducts, $feedRule);
-//        $this->products = $engine->mapProductsByRules();
-//        $this->rules = $feedRule;
-//        if ($feedRule['feedType'] == 'xml') {
-//            $this->mapAttributeForXML();
-//        } else {
-//            $this->mapAttributeForCSVTXT();
-//        }
 	}
 	
 	
@@ -117,30 +102,29 @@ class Woo_Feed_Pinterest {
 		if ( ! empty( $this->products ) ) {
 			
 			if ( 'xml' == $this->rules['feedType'] ) {
-				//return $this->get_feed($this->products);
+				// return $this->get_feed($this->products);
 				$feed = array(
-					"header" => $this->get_xml_feed_header(),
-					"body"   => $this->products->feedBody,
-					"footer" => $this->get_xml_feed_footer(),
+					'header' => $this->get_xml_feed_header(),
+					'body'   => $this->products->feedBody,
+					'footer' => $this->get_xml_feed_footer(),
 				);
 				
 				return $feed;
 			} elseif ( 'txt' == $this->rules['feedType'] ) {
 				
 				$feed = array(
-					"body"   => $this->products->feedBody,
-					"header" => $this->products->feedHeader,
-					"footer" => '',
+					'body'   => $this->products->feedBody,
+					'header' => $this->products->feedHeader,
+					'footer' => '',
 				);
 				
-				//echo "<pre>";print_r($feed);die();
 				return $feed;
 			} elseif ( 'csv' == $this->rules['feedType'] ) {
 				
 				$feed = array(
-					"body"   => $this->products->feedBody,
-					"header" => $this->products->feedHeader,
-					"footer" => '',
+					'body'   => $this->products->feedBody,
+					'header' => $this->products->feedHeader,
+					'footer' => '',
 				);
 				
 				return $feed;
@@ -148,9 +132,9 @@ class Woo_Feed_Pinterest {
 		}
 		
 		$feed = array(
-			"body"   => '',
-			"header" => '',
-			"footer" => '',
+			'body'   => '',
+			'header' => '',
+			'footer' => '',
 		);
 		
 		return $feed;
@@ -162,85 +146,83 @@ class Woo_Feed_Pinterest {
 	public function mapAttributeForXML() {
 		
 		$googleXMLAttribute = array(
-			"id"                        => array( "g:id", false ),
-			"title"                     => array( "title", true ),
-			"description"               => array( "description", true ),
-			"link"                      => array( "link", true ),
-			"mobile_link"               => array( "mobile_link", true ),
-			"product_type"              => array( "g:product_type", true ),
-			"current_category"          => array( "g:google_product_category", true ),
-			"image"                     => array( "g:image_link", true ),
-			"images"                    => array( "g:additional_image_link", false ),
-			"images_1"                  => array( "g:additional_image_link_1", true ),
-			"images_2"                  => array( "g:additional_image_link_2", true ),
-			"images_3"                  => array( "g:additional_image_link_3", true ),
-			"images_4"                  => array( "g:additional_image_link_4", true ),
-			"images_5"                  => array( "g:additional_image_link_5", true ),
-			"images_6"                  => array( "g:additional_image_link_6", true ),
-			"images_7"                  => array( "g:additional_image_link_7", true ),
-			"images_8"                  => array( "g:additional_image_link_8", true ),
-			"images_9"                  => array( "g:additional_image_link_9", true ),
-			"images_10"                 => array( "g:additional_image_link_10", true ),
-			"condition"                 => array( "g:condition", false ),
-			"availability"              => array( "g:availability", false ),
-			"availability_date"         => array( "g:availability_date", false ),
-			"inventory"                 => array( "g:inventory", false ),
-			"price"                     => array( "g:price", true ),
-			"sale_price"                => array( "g:sale_price", true ),
-			"sale_price_effective_date" => array( "g:sale_price_effective_date", true ),
-			"brand"                     => array( "g:brand", true ),
-			"sku"                       => array( "g:mpn", true ),
-			"upc"                       => array( "g:gtin", true ),
-			"identifier_exists"         => array( "g:identifier_exists", true ),
-			"item_group_id"             => array( "g:item_group_id", false ),
-			"color"                     => array( "g:color", true ),
-			"gender"                    => array( "g:gender", true ),
-			"age_group"                 => array( "g:age_group", true ),
-			"material"                  => array( "g:material", true ),
-			"pattern"                   => array( "g:pattern", true ),
-			"size"                      => array( "g:size", true ),
-			"size_type"                 => array( "g:size_type", true ),
-			"size_system"               => array( "g:size_system", true ),
-			"tax"                       => array( "tax", true ),
-			"tax_country"               => array( "g:tax_country", true ),
-			"tax_region"                => array( "g:tax_region", true ),
-			"tax_rate"                  => array( "g:tax_rate", true ),
-			"tax_ship"                  => array( "g:tax_ship", true ),
-			"tax_category"              => array( "g:tax_category", true ),
-			"weight"                    => array( "g:shipping_weight", false ),
-			"length"                    => array( "g:shipping_length", false ),
-			"width"                     => array( "g:shipping_width", false ),
-			"height"                    => array( "g:shipping_height", false ),
-			"shipping_label"            => array( "g:shipping_label", false ),
-			"shipping_country"          => array( "g:shipping_country", false ),
-			"shipping_service"          => array( "g:shipping_service", false ),
-			"shipping_price"            => array( "g:shipping_price", false ),
-			"shipping_region"           => array( "g:shipping_region", false ),
-			"multipack"                 => array( "g:multipack", true ),
-			"is_bundle"                 => array( "g:is_bundle", true ),
-			"adult"                     => array( "g:adult", true ),
-			"adwords_redirect"          => array( "g:adwords_redirect", true ),
-			"custom_label_0"            => array( "g:custom_label_0", true ),
-			"custom_label_1"            => array( "g:custom_label_1", true ),
-			"custom_label_2"            => array( "g:custom_label_2", true ),
-			"custom_label_3"            => array( "g:custom_label_3", true ),
-			"custom_label_4"            => array( "g:custom_label_4", true ),
-			"excluded_destination"      => array( "g:excluded_destination", true ),
-			"included_destination"      => array( "g:included_destination", true ),
-			"expiration_date"           => array( "g:expiration_date", true ),
-			"unit_pricing_measure"      => array( "g:unit_pricing_measure", true ),
-			"unit_pricing_base_measure" => array( "g:unit_pricing_base_measure", true ),
-			"energy_efficiency_class"   => array( "g:energy_efficiency_class", true ),
-			"loyalty_points"            => array( "g:loyalty_points", true ),
-			"installment"               => array( "g:installment", true ),
-			"promotion_id"              => array( "g:promotion_id", true ),
-			"cost_of_goods_sold"        => array( "g:cost_of_goods_sold", true ),
+			'id'                        => array( 'g:id', false ),
+			'title'                     => array( 'title', true ),
+			'description'               => array( 'description', true ),
+			'link'                      => array( 'link', true ),
+			'mobile_link'               => array( 'mobile_link', true ),
+			'product_type'              => array( 'g:product_type', true ),
+			'current_category'          => array( 'g:google_product_category', true ),
+			'image'                     => array( 'g:image_link', true ),
+			'images'                    => array( 'g:additional_image_link', false ),
+			'images_1'                  => array( 'g:additional_image_link_1', true ),
+			'images_2'                  => array( 'g:additional_image_link_2', true ),
+			'images_3'                  => array( 'g:additional_image_link_3', true ),
+			'images_4'                  => array( 'g:additional_image_link_4', true ),
+			'images_5'                  => array( 'g:additional_image_link_5', true ),
+			'images_6'                  => array( 'g:additional_image_link_6', true ),
+			'images_7'                  => array( 'g:additional_image_link_7', true ),
+			'images_8'                  => array( 'g:additional_image_link_8', true ),
+			'images_9'                  => array( 'g:additional_image_link_9', true ),
+			'images_10'                 => array( 'g:additional_image_link_10', true ),
+			'condition'                 => array( 'g:condition', false ),
+			'availability'              => array( 'g:availability', false ),
+			'availability_date'         => array( 'g:availability_date', false ),
+			'inventory'                 => array( 'g:inventory', false ),
+			'price'                     => array( 'g:price', true ),
+			'sale_price'                => array( 'g:sale_price', true ),
+			'sale_price_effective_date' => array( 'g:sale_price_effective_date', true ),
+			'brand'                     => array( 'g:brand', true ),
+			'sku'                       => array( 'g:mpn', true ),
+			'upc'                       => array( 'g:gtin', true ),
+			'identifier_exists'         => array( 'g:identifier_exists', true ),
+			'item_group_id'             => array( 'g:item_group_id', false ),
+			'color'                     => array( 'g:color', true ),
+			'gender'                    => array( 'g:gender', true ),
+			'age_group'                 => array( 'g:age_group', true ),
+			'material'                  => array( 'g:material', true ),
+			'pattern'                   => array( 'g:pattern', true ),
+			'size'                      => array( 'g:size', true ),
+			'size_type'                 => array( 'g:size_type', true ),
+			'size_system'               => array( 'g:size_system', true ),
+			'tax'                       => array( 'tax', true ),
+			'tax_country'               => array( 'g:tax_country', true ),
+			'tax_region'                => array( 'g:tax_region', true ),
+			'tax_rate'                  => array( 'g:tax_rate', true ),
+			'tax_ship'                  => array( 'g:tax_ship', true ),
+			'tax_category'              => array( 'g:tax_category', true ),
+			'weight'                    => array( 'g:shipping_weight', false ),
+			'length'                    => array( 'g:shipping_length', false ),
+			'width'                     => array( 'g:shipping_width', false ),
+			'height'                    => array( 'g:shipping_height', false ),
+			'shipping_label'            => array( 'g:shipping_label', false ),
+			'shipping_country'          => array( 'g:shipping_country', false ),
+			'shipping_service'          => array( 'g:shipping_service', false ),
+			'shipping_price'            => array( 'g:shipping_price', false ),
+			'shipping_region'           => array( 'g:shipping_region', false ),
+			'multipack'                 => array( 'g:multipack', true ),
+			'is_bundle'                 => array( 'g:is_bundle', true ),
+			'adult'                     => array( 'g:adult', true ),
+			'adwords_redirect'          => array( 'g:adwords_redirect', true ),
+			'custom_label_0'            => array( 'g:custom_label_0', true ),
+			'custom_label_1'            => array( 'g:custom_label_1', true ),
+			'custom_label_2'            => array( 'g:custom_label_2', true ),
+			'custom_label_3'            => array( 'g:custom_label_3', true ),
+			'custom_label_4'            => array( 'g:custom_label_4', true ),
+			'excluded_destination'      => array( 'g:excluded_destination', true ),
+			'included_destination'      => array( 'g:included_destination', true ),
+			'expiration_date'           => array( 'g:expiration_date', true ),
+			'unit_pricing_measure'      => array( 'g:unit_pricing_measure', true ),
+			'unit_pricing_base_measure' => array( 'g:unit_pricing_base_measure', true ),
+			'energy_efficiency_class'   => array( 'g:energy_efficiency_class', true ),
+			'loyalty_points'            => array( 'g:loyalty_points', true ),
+			'installment'               => array( 'g:installment', true ),
+			'promotion_id'              => array( 'g:promotion_id', true ),
+			'cost_of_goods_sold'        => array( 'g:cost_of_goods_sold', true ),
 		);
 		
 		if ( ! empty( $this->products ) ) {
 			foreach ( $this->products as $no => $product ) {
-				//echo "<pre>";
-				//print_r($product);die();
 				$this->identifier_status_add( $no );
 				foreach ( $product as $key => $value ) {
 					$this->mapAttribute( $no,
@@ -260,81 +242,81 @@ class Woo_Feed_Pinterest {
 	 * Configure merchant attributes for XML feed
 	 */
 	public function mapAttributeForCSVTXT() {
-		//Basic product information
+		// Basic product information
 		$googleCSVTXTAttribute = array(
-			"id"                        => array( "id", false ),
-			"title"                     => array( "title", true ),
-			"description"               => array( "description", true ),
-			"link"                      => array( "link", true ),
-			"mobile_link"               => array( "mobile_link", true ),
-			"product_type"              => array( "product_type", true ),
-			"current_category"          => array( "google_product_category", true ),
-			"image"                     => array( "image_link", true ),
-			"images"                    => array( "additional_image_link", true ),
-			"images_1"                  => array( "additional_image_link_1", true ),
-			"images_2"                  => array( "additional_image_link_2", true ),
-			"images_3"                  => array( "additional_image_link_3", true ),
-			"images_4"                  => array( "additional_image_link_4", true ),
-			"images_5"                  => array( "additional_image_link_5", true ),
-			"images_6"                  => array( "additional_image_link_6", true ),
-			"images_7"                  => array( "additional_image_link_7", true ),
-			"images_8"                  => array( "additional_image_link_8", true ),
-			"images_9"                  => array( "additional_image_link_9", true ),
-			"images_10"                 => array( "additional_image_link_10", true ),
-			"condition"                 => array( "condition", false ),
-			"availability"              => array( "availability", false ),
-			"availability_date"         => array( "availability_date", false ),
-			"inventory"                 => array( "inventory", false ),
-			"price"                     => array( "price", true ),
-			"sale_price"                => array( "sale_price", true ),
-			"sale_price_effective_date" => array( "sale_price_effective_date", true ),
-			"brand"                     => array( "brand", true ),
-			"sku"                       => array( "mpn", true ),
-			"upc"                       => array( "gtin", true ),
-			"identifier_exists"         => array( "identifier exists", true ),
-			"item_group_id"             => array( "item_group_id", false ),
-			"color"                     => array( "color", true ),
-			"gender"                    => array( "gender", true ),
-			"age_group"                 => array( "age_group", true ),
-			"material"                  => array( "material", true ),
-			"pattern"                   => array( "pattern", true ),
-			"size"                      => array( "size", true ),
-			"size_type"                 => array( "size_type", true ),
-			"size_system"               => array( "size_system", true ),
-			"tax"                       => array( "tax", true ),
-			"tax_country"               => array( "tax_country", true ),
-			"tax_region"                => array( "tax_region", true ),
-			"tax_rate"                  => array( "tax_rate", true ),
-			"tax_ship"                  => array( "tax_ship", true ),
-			"tax_category"              => array( "tax_category", true ),
-			"weight"                    => array( "shipping_weight", false ),
-			"length"                    => array( "shipping_length", false ),
-			"width"                     => array( "shipping_width", false ),
-			"height"                    => array( "shipping_height", false ),
-			"shipping_label"            => array( "shipping_label", false ),
-			"shipping_country"          => array( "shipping_country", false ),
-			"shipping_service"          => array( "shipping_service", false ),
-			"shipping_price"            => array( "shipping_price", false ),
-			"shipping_region"           => array( "shipping_region", false ),
-			"multipack"                 => array( "multipack", true ),
-			"is_bundle"                 => array( "is_bundle", true ),
-			"adult"                     => array( "adult", true ),
-			"adwords_redirect"          => array( "adwords_redirect", true ),
-			"custom_label_0"            => array( "custom_label_0", true ),
-			"custom_label_1"            => array( "custom_label_1", true ),
-			"custom_label_2"            => array( "custom_label_2", true ),
-			"custom_label_3"            => array( "custom_label_3", true ),
-			"custom_label_4"            => array( "custom_label_4", true ),
-			"excluded_destination"      => array( "excluded_destination", true ),
-			"included_destination"      => array( "included_destination", true ),
-			"expiration_date"           => array( "expiration_date", true ),
-			"unit_pricing_measure"      => array( "unit_pricing_measure", true ),
-			"unit_pricing_base_measure" => array( "unit_pricing_base_measure", true ),
-			"energy_efficiency_class"   => array( "energy_efficiency_class", true ),
-			"loyalty_points"            => array( "loyalty_points", true ),
-			"installment"               => array( "installment", true ),
-			"promotion_id"              => array( "promotion_id", true ),
-			"cost_of_goods_sold"        => array( "cost_of_goods_sold", true ),
+			'id'                        => array( 'id', false ),
+			'title'                     => array( 'title', true ),
+			'description'               => array( 'description', true ),
+			'link'                      => array( 'link', true ),
+			'mobile_link'               => array( 'mobile_link', true ),
+			'product_type'              => array( 'product_type', true ),
+			'current_category'          => array( 'google_product_category', true ),
+			'image'                     => array( 'image_link', true ),
+			'images'                    => array( 'additional_image_link', true ),
+			'images_1'                  => array( 'additional_image_link_1', true ),
+			'images_2'                  => array( 'additional_image_link_2', true ),
+			'images_3'                  => array( 'additional_image_link_3', true ),
+			'images_4'                  => array( 'additional_image_link_4', true ),
+			'images_5'                  => array( 'additional_image_link_5', true ),
+			'images_6'                  => array( 'additional_image_link_6', true ),
+			'images_7'                  => array( 'additional_image_link_7', true ),
+			'images_8'                  => array( 'additional_image_link_8', true ),
+			'images_9'                  => array( 'additional_image_link_9', true ),
+			'images_10'                 => array( 'additional_image_link_10', true ),
+			'condition'                 => array( 'condition', false ),
+			'availability'              => array( 'availability', false ),
+			'availability_date'         => array( 'availability_date', false ),
+			'inventory'                 => array( 'inventory', false ),
+			'price'                     => array( 'price', true ),
+			'sale_price'                => array( 'sale_price', true ),
+			'sale_price_effective_date' => array( 'sale_price_effective_date', true ),
+			'brand'                     => array( 'brand', true ),
+			'sku'                       => array( 'mpn', true ),
+			'upc'                       => array( 'gtin', true ),
+			'identifier_exists'         => array( 'identifier exists', true ),
+			'item_group_id'             => array( 'item_group_id', false ),
+			'color'                     => array( 'color', true ),
+			'gender'                    => array( 'gender', true ),
+			'age_group'                 => array( 'age_group', true ),
+			'material'                  => array( 'material', true ),
+			'pattern'                   => array( 'pattern', true ),
+			'size'                      => array( 'size', true ),
+			'size_type'                 => array( 'size_type', true ),
+			'size_system'               => array( 'size_system', true ),
+			'tax'                       => array( 'tax', true ),
+			'tax_country'               => array( 'tax_country', true ),
+			'tax_region'                => array( 'tax_region', true ),
+			'tax_rate'                  => array( 'tax_rate', true ),
+			'tax_ship'                  => array( 'tax_ship', true ),
+			'tax_category'              => array( 'tax_category', true ),
+			'weight'                    => array( 'shipping_weight', false ),
+			'length'                    => array( 'shipping_length', false ),
+			'width'                     => array( 'shipping_width', false ),
+			'height'                    => array( 'shipping_height', false ),
+			'shipping_label'            => array( 'shipping_label', false ),
+			'shipping_country'          => array( 'shipping_country', false ),
+			'shipping_service'          => array( 'shipping_service', false ),
+			'shipping_price'            => array( 'shipping_price', false ),
+			'shipping_region'           => array( 'shipping_region', false ),
+			'multipack'                 => array( 'multipack', true ),
+			'is_bundle'                 => array( 'is_bundle', true ),
+			'adult'                     => array( 'adult', true ),
+			'adwords_redirect'          => array( 'adwords_redirect', true ),
+			'custom_label_0'            => array( 'custom_label_0', true ),
+			'custom_label_1'            => array( 'custom_label_1', true ),
+			'custom_label_2'            => array( 'custom_label_2', true ),
+			'custom_label_3'            => array( 'custom_label_3', true ),
+			'custom_label_4'            => array( 'custom_label_4', true ),
+			'excluded_destination'      => array( 'excluded_destination', true ),
+			'included_destination'      => array( 'included_destination', true ),
+			'expiration_date'           => array( 'expiration_date', true ),
+			'unit_pricing_measure'      => array( 'unit_pricing_measure', true ),
+			'unit_pricing_base_measure' => array( 'unit_pricing_base_measure', true ),
+			'energy_efficiency_class'   => array( 'energy_efficiency_class', true ),
+			'loyalty_points'            => array( 'loyalty_points', true ),
+			'installment'               => array( 'installment', true ),
+			'promotion_id'              => array( 'promotion_id', true ),
+			'cost_of_goods_sold'        => array( 'cost_of_goods_sold', true ),
 		);
 		
 		if ( ! empty( $this->products ) ) {
@@ -359,7 +341,7 @@ class Woo_Feed_Pinterest {
 	 * @param $from
 	 * @param $to
 	 * @param $value
-	 * @param bool $cdata
+	 * @param bool  $cdata
 	 *
 	 * @return array|string
 	 */
@@ -381,7 +363,7 @@ class Woo_Feed_Pinterest {
 		
 		if ( ! array_key_exists( 'g:identifier_exists', $product ) ) {
 			if ( count( array_intersect_key( array_flip( $identifier ), $product ) ) >= 2 ) {
-				# Any 2 required keys exist!
+				// Any 2 required keys exist!
 				$countIdentifier = 0;
 				if ( array_key_exists( 'brand', $product ) && ! empty( $product['brand'] ) ) {
 					$countIdentifier ++;
@@ -399,16 +381,16 @@ class Woo_Feed_Pinterest {
 					$countIdentifier ++;
 				}
 				if ( $countIdentifier >= 2 ) {
-					$this->products[ $no ]["g:identifier_exists"] = $this->formatXMLLine( "g:identifier_exists",
-						"yes",
+					$this->products[ $no ]['g:identifier_exists'] = $this->formatXMLLine( 'g:identifier_exists',
+						'yes',
 						$cdata = true );
 				} else {
-					$this->products[ $no ]["g:identifier_exists"] = $this->formatXMLLine( "g:identifier_exists",
+					$this->products[ $no ]['g:identifier_exists'] = $this->formatXMLLine( 'g:identifier_exists',
 						'no',
 						$cdata = true );
 				}
 			} else {
-				$this->products[ $no ]["g:identifier_exists"] = $this->formatXMLLine( "g:identifier_exists",
+				$this->products[ $no ]['g:identifier_exists'] = $this->formatXMLLine( 'g:identifier_exists',
 					'no',
 					$cdata = true );
 			}
@@ -416,8 +398,7 @@ class Woo_Feed_Pinterest {
 	}
 	
 	
-	public
-	function process_google_shipping_attribute_for_xml(
+	public function process_google_shipping_attribute_for_xml(
 		$no
 	) {
 		$shipping     = array( 'g:shipping_country', 'g:shipping_service', 'g:shipping_price', 'g:shipping_region' );
@@ -437,14 +418,13 @@ class Woo_Feed_Pinterest {
 				}
 			}
 			
-			return $this->products[ $no ]['g:shipping'] = $this->formatXMLLine( "g:shipping", $str, false );
+			return $this->products[ $no ]['g:shipping'] = $this->formatXMLLine( 'g:shipping', $str, false );
 		}
 		
 		return false;
 	}
 	
-	public
-	function process_google_tax_attribute_for_xml(
+	public function process_google_tax_attribute_for_xml(
 		$no
 	) {
 		$tax      = array( 'g:tax_country', 'g:tax_region', 'g:tax_rate', 'g:tax_ship' );
@@ -467,19 +447,18 @@ class Woo_Feed_Pinterest {
 					// }
 					// else
 					// {
-					//     $str .= $valueAttr;
+					// $str .= $valueAttr;
 					// }
 				}
 			}
 			
-			return $this->products[ $no ]['g:tax'] = $this->formatXMLLine( "g:tax", $str, false );
+			return $this->products[ $no ]['g:tax'] = $this->formatXMLLine( 'g:tax', $str, false );
 		}
 		
 		return false;
 	}
 	
-	public
-	function process_google_shipping_attribute_for_CSVTXT(
+	public function process_google_shipping_attribute_for_CSVTXT(
 		$no
 	) {
 		$shipping     = array( 'shipping country', 'shipping service', 'shipping price', 'shipping region' );
@@ -536,16 +515,16 @@ class Woo_Feed_Pinterest {
 	}
 	
 	function formatXMLLine( $attribute, $value, $cdata, $space = '' ) {
-		//Make single XML  node
+		// Make single XML  node
 		if ( ! empty( $value ) ) {
 			$value = trim( $value );
 		}
 		if ( 'array' == gettype( $value ) ) {
 			$value = wp_json_encode( $value );
 		}
-		if ( false === strpos( $value, "<![CDATA[" ) && 'http' == substr( trim( $value ), 0, 4 ) ) {
+		if ( false === strpos( $value, '<![CDATA[' ) && 'http' == substr( trim( $value ), 0, 4 ) ) {
 			$value = "<![CDATA[$value]]>";
-		} elseif ( false === strpos( $value, "<![CDATA[" ) && true === $cdata && ! empty( $value ) ) {
+		} elseif ( false === strpos( $value, '<![CDATA[' ) && true === $cdata && ! empty( $value ) ) {
 			$value = "<![CDATA[$value]]>";
 		} elseif ( $cdata ) {
 			if ( ! empty( $value ) ) {
@@ -553,7 +532,7 @@ class Woo_Feed_Pinterest {
 			}
 		}
 		if ( 'g:additional_image_link' === substr( $attribute, 0, 23 ) ) {
-			$attribute = "g:additional_image_link";
+			$attribute = 'g:additional_image_link';
 		}
 		
 		return "$space<$attribute>$value</$attribute>";
@@ -573,11 +552,11 @@ class Woo_Feed_Pinterest {
 	
 	public function get_xml_feed( $items ) {
 		$feed = '';
-		//$feed .= $this->get_feed_header();
+		// $feed .= $this->get_feed_header();
 		$feed .= "\n";
 		if ( $items ) {
 			foreach ( $items as $item => $products ) {
-				$feed .= "      <" . $this->feedWrapper . ">";
+				$feed .= '      <' . $this->feedWrapper . '>';
 				foreach ( $products as $key => $value ) {
 					if ( ! empty( $value ) ) {
 						$feed .= $value;
@@ -586,7 +565,7 @@ class Woo_Feed_Pinterest {
 				$feed .= "\n      </" . $this->feedWrapper . ">\n";
 			}
 			
-			//$feed .= $this->get_feed_footer();
+			// $feed .= $this->get_feed_footer();
 			
 			return $feed;
 		}
@@ -594,16 +573,14 @@ class Woo_Feed_Pinterest {
 		return false;
 	}
 	
-	public
-	function get_xml_feed_footer() {
-		$footer = "  </channel>
-</rss>";
+	public function get_xml_feed_footer() {
+		$footer = '  </channel>
+</rss>';
 		
 		return $footer;
 	}
 	
-	public
-	function short_products() {
+	public function short_products() {
 		if ( $this->products ) {
 			update_option( 'wpf_progress', esc_html__( 'Shorting Products', 'woo-feed' ), false );
 			sleep( 1 );
@@ -625,16 +602,15 @@ class Woo_Feed_Pinterest {
 	 * Responsible to make CSV feed
 	 * @return string
 	 */
-	public
-	function get_csv_feed() {
+	public function get_csv_feed() {
 		if ( $this->products ) {
 			$headers = array_keys( $this->products[0] );
 			$feed[]  = $headers;
 			foreach ( $this->products as $no => $product ) {
 				$row = array();
 				foreach ( $headers as $key => $header ) {
-					if ( false !== strpos( $header, "additional_image_link" ) ) {
-						$header = "additional_image_link";
+					if ( false !== strpos( $header, 'additional_image_link' ) ) {
+						$header = 'additional_image_link';
 					}
 					$row[] = isset( $product[ $header ] ) ? $product[ $header ] : '';
 				}

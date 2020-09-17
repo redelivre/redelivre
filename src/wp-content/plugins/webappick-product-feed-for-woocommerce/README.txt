@@ -3,9 +3,9 @@ Contributors: wahid0003, webappick, mhamudul_hk, shuvo586
 Donate link: https://webappick.com
 Tags:product feed,woocommerce product feed,google shopping feed,google shopping, XML CSV TXT product feed
 Requires at least: 3.6
-Tested Up To: 5.3.2
+Tested Up To: 5.5
 Requires PHP: 5.6
-Stable tag: 3.4.0
+Stable tag: 3.7.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,11 +129,13 @@ In one word WooCommerce Product Feed is a revolution. Yah, it’s a revolution o
    *  <a target="_blank" href="https://www.polyvore.com/">Polyvore.com</a>
    *  <a target="_blank" href="https://www.stylight.com/">Stylight.com</a>
    *  <a target="_blank" href="https://www.spartoo.co.uk/">Spartoo.co.uk</a>
+   *  <a target="_blank" href="https://shopee.com/">Shopee</a>
    *  <a target="_blank" href="http://www.choozen.co.uk/">Choozen</a>
    *  <a target="_blank" href="https://www.ciao.co.uk/">Ciao</a>
    *  <a target="_blank" href="http://www.priceminister.com/">PriceMinister.com</a>
    *  <a target="_blank" href="https://skinflint.co.uk/">Skinflint</a>
    *  <a target="_blank" href="https://www.rakuten.com/">Rakuten</a>
+   *  <a target="_blank" href="https://www.etsy.com/">Etsy</a>
    *  <a target="_blank" href="https://www.bol.com/nl/index.html">Bol.com</a>
    *  <a target="_blank" href="https://www.crowdfox.com/">CrowdFox.com</a>
    *  <a target="_blank" href="https://www.real.de/">Real.de</a>
@@ -175,6 +177,7 @@ In one word WooCommerce Product Feed is a revolution. Yah, it’s a revolution o
    *  <a target="_blank" href="https://www.ricardo.ch/">Ricardo.ch</a>
    *  <a target="_blank" href="https://www.kauftipp.ch/">Kauftipp.ch</a>
    *  <a target="_blank" href="https://zap.co.il/">Zap.co.il</a>
+   *  <a target="_blank" href="https://www.zalando.com/">Zalando</a>
    *  <a target="_blank" href="https://smartly.io/">Smartly.io</a>
    *  <a target="_blank" href="https://www.stylight.com/">Stylight.com</a>
    *  <a target="_blank" href="https://developer.yahoo.com/nativeandsearch/guide/dynamic-product-ads/operations-dpa/">Yahoo Dynamic Product Ads</a>
@@ -295,7 +298,7 @@ Using pro version:
 
 *  You can filter product using price, quantity, product name
 *  You can use custom taxonomies or other plugins taxonomy value into feed
-*  Using Category Mapping You can map your store category with your merchant category which is    very useful for visitor to find out your product into merchant site.
+*  Using Category Mapping You can map your store category with your merchant category which is very useful for visitor to find out your product into merchant site.
 *  You can make different price for different merchant using Dynamic Attribute. Also it is possible to set different value for different product using Dynamic Attribute Conditions.
 
 == Screenshots ==
@@ -305,15 +308,180 @@ Using pro version:
 
 == Changelog ==
 
-= 3.4.0 (2020-03-26) =
-* Feature: Google Shopping Action template added.
-* Feature: Skroutz template added.
-* Feature: Glami.gr template added.
-* Improvement: Reduce duplicate codes.
-* Improvement: Improve caching for generated dropdown content with separate caching handler.
-* Improvement: improve loading google category for supported merchant.
-* Fix: JS syntax error fixed.
-* Fix: Auto generate gets disabled on feed config “Save” action
+= 3.7.20 (2020-09-17) =
+* Fix: availability will return `preorder` for on backorder into Google Merchant and Pinterest template.
+* Fix: availability will return `available for order` for on backorder into Facebook template.
+
+= 3.7.19 (2020-09-16) =
+* Tweak: itemid renamed to id for google local product inventory template.
+
+= 3.7.18 (2020-09-15) =
+* Tweak: Strip old Visual Composer shortcodes from product description.
+* Tweak: Setting page save button alignment fix.
+
+= 3.7.17 (2020-09-14) =
+* Tweak: Feed last updated time will show wordpress local time.
+
+= 3.7.16 (2020-09-13) =
+* Added: Custom fields for unique identifier (GTIN,MPN,EAN) added to product edit page.
+
+= 3.7.15 (2020-09-09) =
+* Tweak: stock status on backorder will be returned as out of stock for Google Shopping, Facebook and Pinterest template.
+
+= 3.7.14 (2020-09-08) =
+* Fix: Auto feed update not working issue fixed.
+
+= 3.7.13 (2020-09-05) =
+* Fix: Feed file was renamed while feed name changing.
+
+= 3.7.12 (2020-09-03) =
+* Added: ProfitShare template added.
+
+= 3.7.11 (2020-09-02) =
+* Added: Individual scheduled events added for each feed.
+
+= 3.7.10 (2020-09-01) =
+* Added: Parent Category Id attribute added.
+
+= 3.7.9 (2020-08-31) =
+* Added: Facebook inventory attribute added to Facebook catalog template as default.
+
+= 3.7.8 (2020-08-28) =
+* Added: Tweakers Pricewatch XML & CSV template added.
+
+= 3.7.7 (2020-08-26) =
+* Fix: Multiple additional_image_link attribute missing on Google Shopping template for CSV & TXT feed.
+
+= 3.7.6 (2020-08-25) =
+* Fix: XML Opening and Ending tag mismatch issue fixed.
+
+= 3.7.5 (2020-08-24) =
+* Tweak: do_shortcode() function applied to product title to filter shortcodes through their hooks.
+
+= 3.7.4 (2020-08-22) =
+* Fixed: Category mapping file missing issue fixed.
+
+= 3.7.3 (2020-08-22) =
+* Added: Category mapping feature added. Option to map store category with merchant category
+
+= 3.7.2 (2020-08-20) =
+* Fixed: g:additional_image_link attribute issue fixed.
+
+= 3.7.1 (2020-08-19) =
+* Added: sale_price added as default into Google Shopping product feed template.
+* Fix: shopping_ads_excluded_country structure fixed into Google Shopping product feed template.
+
+= 3.7.0 (2020-08-18) =
+* Added: Below attributes are added to google shopping template.
+* min_energy_​​efficiency_​​class
+* max_energy_​​efficiency_​​class
+* ads_​​redirect
+* shopping_ads_excluded_country
+
+
+= 3.6.20 (2020-08-17) =
+* Added: canonical_link attribute added to google shopping template.
+
+= 3.6.19 (2020-08-17) =
+* Tweak: WordPress 5.5 compatibility checked.
+* Tweak: API Library updated.
+
+= 3.6.18 (2020-08-15) =
+* Fix: Tax Class & Tax Status Product attribute added.
+
+= 3.6.17 (2020-08-13) =
+* Fix: Product missing issue fixed.
+
+= 3.6.16 (2020-08-10) =
+* Added: Google product_details attribute added to Google Shopping template.
+
+= 3.6.15 (2020-08-03) =
+* Added: Google product highlight attribute added to Google Shopping template.
+
+= 3.6.14 (2020-07-25) =
+* Added: Etsy template added.
+* Tweak: Pricerunner stock status will return Yes or No instead of in stock or out of stock.
+
+= 3.6.13 (2020-07-20) =
+* Added: Zalando template added.
+
+= 3.6.12 (2020-07-13) =
+* Tweak: WC 4.3 compatibility checked.
+
+= 3.6.11 (2020-07-09) =
+* Added: YITH Bundle Product compatibility added.
+
+= 3.6.10 (2020-06-30) =
+* Added: Shopee template added.
+
+= 3.6.9 (2020-06-29) =
+* Added: WooCommerce Bundle Product compatibility.
+
+= 3.6.8 (2020-06-24) =
+* Added: Google Shopping subscription_cost attribute added.
+* Added: Subscription amount attribute added for WooCommerce Subscription.
+
+= 3.6.7 (2020-06-23) =
+* Added: Subscription period interval attribute added for WooCommerce Subscription.
+
+= 3.6.6 (2020-06-18) =
+* Added: WooCommerce Subscription product compatibility added.
+
+= 3.6.5 (2020-06-13) =
+* Added: FTP passive mode selection option added.
+
+= 3.6.4 (2020-06-03) =
+* Fixed: Yoast SEO Title (manually added title) issue fixed.
+
+= 3.6.3 (2020-06-02) =
+* Fixed: Yoast SEO Title issue fixed.
+
+= 3.6.2 (2020-06-02) =
+* Fixed: DB query timeout issue fixed.
+
+= 3.6.1 (2020-05-28) =
+* Fixed: Feed file rename issue fixed.
+
+= 3.6.0 (2020-05-27) =
+* Added: new output types added to format attribute output.
+
+= 3.5.7 (2020-05-26) =
+* Added: Bestprice template added.
+
+= 3.5.6 (2020-05-23) =
+* Fix: Skroutz template items wrapper and availability issue fixed.
+* Added: Dashboard widget.
+
+= 3.5.5 (2020-05-18) =
+* Fix: Spartoo.fi Parent/Child attribute value now return child for variation and Parent for other product type instead of woocommerce product type.
+
+= 3.5.4 (2020-05-14) =
+* Tweak: Plugin cache flashed after adding/updating a attribute.
+
+= 3.5.3 (2020-05-12) =
+* Fix: Fruugo template NormalPriceWithoutVat attribute replaced with NormalPriceWithoutVAT
+
+= 3.5.2 (2020-04-28) =
+* Fix: Tracking notice dismiss error fixed.
+* Fix: Minor php error fixed.
+
+= 3.5.1 (2020-04-20) =
+* Fix: Review notice dismiss error fixed.
+
+= 3.5.0 (2020-04-01) =
+* Template: Google Shopping Action Template
+* Template: Daisycon Feed Template (All 21 Standards)
+* Fix: Custom Template XML issue fixed.
+* Fix: Fixed PHPCS Recommended issue with proper coding standard and comments.
+* Improvement: Move all inline JavaScripts to .js file
+* Improvement: Caching with expiration and purge settings.
+* Improvement: Refactor and removed deprecated codes.
+* Improvement: JS & CSS Optimized. Minor UI Issues fixed.
+* Improvement: Sort Template List (Merchant Dropdown)
+* Feature: Debugging Option.
+* Feature: Import Export Feed Config.
+* Feature: Added Support for Main Category (With Support for Yoast SEO Primary Category).
+* Feature: Add support for Google Category For Supporting Merchant.
 
 = 3.3.9 (2020-03-18) =
 * Fix: Replace space character with underscore (`_`).

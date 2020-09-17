@@ -133,7 +133,7 @@ if ( ! class_exists( 'WooFeedWebAppickAPI' ) ) {
 			$projectSlug = $this->client->getSlug();
 			add_filter( $projectSlug . '_what_tracked', [ $this, 'data_we_collect' ], 10, 1 );
 			add_filter( "WebAppick_{$projectSlug}_Support_Ticket_Recipient_Email", function(){
-				return 'support@webappick.com';
+				return 'sales@webappick.com';
 			}, 10 );
 			add_filter( "WebAppick_{$projectSlug}_Support_Ticket_Email_Template", [ $this, 'supportTicketTemplate' ], 10 );
 			add_filter( "WebAppick_{$projectSlug}_Support_Request_Ajax_Success_Response", [ $this, 'supportResponse' ], 10 );
@@ -334,24 +334,7 @@ if ( ! class_exists( 'WooFeedWebAppickAPI' ) ) {
 				</div>
 			<?php
 			}
-			// Pro Limit Notice
-			$limit_notice_pages = [ 'webappick-manage-feeds', 'webappick-new-feed', 'webappick-feed-settings' ];
-			if ( in_array( $plugin_page, $limit_notice_pages ) && false === get_option( 'woo_feed_product_limit_notice_hidden' ) ) {
-				$has_notice = true;
-			?>
-				<div class="woo-feed-notice notice notice-warning is-dismissible" data-which="product_limit">
-					<p><?php
-						printf(
-							/* translators: 1: This plugin name, 2: Opening Bold Tag 3: Closing Bold Tad */
-							esc_html__( 'You are awesome for using %1$s. Free version works great for up to %2$s2000 products including variations.%3$s', 'woo-feed' ),
-							$pluginName, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-							'<b>',
-							'</b>'
-						);
-						?></p>
-				</div>
-			<?php
-			}
+
 			// Compatibility Notices.
 			if ( class_exists( 'SitePress' ) && false === get_option( 'woo_feed_wpml_notice_hidden' ) ) {
 				$has_notice = true;
@@ -399,7 +382,7 @@ if ( ! class_exists( 'WooFeedWebAppickAPI' ) ) {
                     window.open('https://wordpress.org/support/plugin/webappick-product-feed-for-woocommerce/reviews/?rate=5#new-post', '_blank');
                 }
                 self.closest(".woo-feed-notice").slideUp( 200, 'linear' );
-                wp.ajax.post( 'woo_feed_save_review_notice', { _ajax_nonce: '$nonce', notice: notice } );
+                wp.ajax.post( 'woo_feed_save_review_notice', { _ajax_nonce: '<?php echo esc_attr( $nonce ); ?>', notice: notice } );
             })
             .on('click', '.woo-feed-notice .notice-dismiss', function (e) {
                 e.preventDefault();

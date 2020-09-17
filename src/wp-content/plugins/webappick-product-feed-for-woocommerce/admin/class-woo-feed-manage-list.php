@@ -11,7 +11,7 @@
  * @author     Ohidul Islam <wahid@webappick.com>
  */
 class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
-	
+
 	/** ************************************************************************
 	 * Normally we would be querying data from a database and manipulating that
 	 * for use in your list table. For this example, we're going to simplify it
@@ -23,23 +23,25 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 	 *
 	 * @var array
 	 **************************************************************************/
-	
-	
+
+
 	/** ************************************************************************
 	 * REQUIRED. Set up a constructor that references the parent constructor. We
 	 * use the parent reference to set some default configs.
 	 ***************************************************************************/
 	function __construct() {
-		//Set parent defaults
-		parent::__construct( array(
-			'singular' => __( 'feed', 'woo-feed' ),     //singular name of the listed records
-			'plural'   => __( 'feeds', 'woo-feed' ),    //plural name of the listed records
-			'ajax'     => false,        //does this table support ajax?
-		) );
-		
+		// Set parent defaults
+		parent::__construct(
+			array(
+				'singular' => __( 'feed', 'woo-feed' ),     // singular name of the listed records
+				'plural'   => __( 'feeds', 'woo-feed' ),    // plural name of the listed records
+				'ajax'     => false,        // does this table support ajax?
+			)
+		);
+
 	}
-	
-	
+
+
 	/** ************************************************************************
 	 * Recommended. This method is called when the parent class can't find a method
 	 * specifically build for a given column. Generally, it's recommended to include
@@ -57,11 +59,10 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 	 * For more detailed insight into how columns are handled, take a look at
 	 * WP_List_Table::single_row_columns()
 	 *
-	 * @param array $item A singular item (one full row's worth of data)
+	 * @param array  $item A singular item (one full row's worth of data)
 	 * @param string $column_name The name/slug of the column to be processed
 	 *
 	 * @return string Text or HTML to be placed inside the column <td>
-	 *
 	 **************************************************************************/
 	function column_default( $item, $column_name ) {
 		$getItem  = $item['option_name'];
@@ -69,7 +70,7 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		$itemInfo = maybe_unserialize( get_option( $getItem ) );
 		global $regenerating, $regeneratingName;
 		$optionName = str_replace( 'wf_feed_', '', $getItem );
-		$spinIcon   = ( true === $regenerating && $optionName === $regeneratingName ) ? ' wpf_spin_reverse' : '';
+		$spinIcon   = ( true === $regenerating && $optionName === $regeneratingName ) ? ' wpf_spin reverse_spin' : '';
 		$disableBtn = true === $regenerating ? ' disabled' : '';
 		switch ( $column_name ) {
 			case 'option_name':
@@ -84,11 +85,11 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 				}
 			case 'provider':
 				$provider = $itemInfo['feedrules']['provider'];
-				
+
 				return ucwords( str_replace( '_', ' ', $provider ) );
 			case 'type':
 				$feedType = $itemInfo['feedrules']['feedType'];
-				
+
 				return strtoupper( str_replace( '_', ' ', $feedType ) );
 			case 'url':
 				/** @noinspection SpellCheckingInspection */
@@ -101,27 +102,29 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 			case 'last_updated':
 				return $itemInfo[ $column_name ];
 			case 'view':
-				$view = $itemInfo['url'];
-				
+				$export_url = wp_nonce_url( admin_url( 'admin-post.php?action=wf_export_feed&feed=' . $getItem ), 'wpf-export' );
 				/** @noinspection HtmlUnknownTarget */
 				return sprintf(
 					'<a href="%1$s" title="%2$s" aria-label="%2$s" target="_blank"><span class="dashicons dashicons-external" aria-hidden="true"></span></a>
                         <a id="%3$s" class="wpf_regenerate%6$s" href="#" title="%4$s" aria-label="%4$s"><span class="dashicons dashicons-update-alt%7$s" aria-hidden="true"></span></a>
-                        <a href="%1$s" title="%5$s" aria-label="%5$s" download><span class="dashicons dashicons-download" aria-hidden="true"></span></a>',
-					$view,
-					__( 'View', 'woo-feed' ),
+                        <a href="%1$s" title="%5$s" aria-label="%5$s" download><span class="dashicons dashicons-download" aria-hidden="true"></span></a>
+                        <a href="%9$s" title="%8$s" aria-label="%8$s"><span class="dashicons dashicons-media-code" aria-hidden="true"></span></a>',
+					$itemInfo['url'],
+					esc_html__( 'View', 'woo-feed' ),
 					$getItem,
-					__( 'Regenerate', 'woo-feed' ),
-					__( 'Download', 'woo-feed' ),
+					esc_html__( 'Regenerate', 'woo-feed' ),
+					esc_html__( 'Download', 'woo-feed' ),
 					$disableBtn,
-					$spinIcon
+					$spinIcon,
+					esc_html__( 'Export Feed Config', 'woo-feed' ),
+					esc_url( $export_url )
 				);
 			default:
 				return false;
 		}
 	}
-	
-	
+
+
 	/** ************************************************************************
 	 * Recommended. This is a custom column method and is responsible for what
 	 * is rendered in any column with a name/slug of 'title'. Every time the class
@@ -133,35 +136,34 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 	 * should be an associative array formatted as 'slug'=>'link html' - and you
 	 * will need to generate the URLs yourself. You could even ensure the links
 	 *
-	 *
 	 * @param array $item A singular item (one full row's worth of data)
 	 *
 	 * @return string Text to be placed inside the column <td> (movie title only)
-	 **************************************************************************@see WP_List_Table::::single_row_columns()
+	 * *************************************************************************@see WP_List_Table::::single_row_columns()
 	 */
 	function column_option_name( $item ) {
 		global $plugin_page;
-		//Build row actions
-		$edit_nonce   = wp_create_nonce( 'wf_edit_feed' );
-		$delete_nonce = wp_create_nonce( 'wf_delete_feed' );
-		//$title = '<strong>' . $item['option_name'] . '</strong>';
+		// Build row actions
+		$edit_nonce      = wp_create_nonce( 'wf_edit_feed' );
+		$delete_nonce    = wp_create_nonce( 'wf_delete_feed' );
+		// $title = '<strong>' . $item['option_name'] . '</strong>';
 		$actions = array(
 			'edit'   => sprintf(
 				'<a href="?page=%s&action=%s&feed=%s&_wpnonce=%s">' . __( 'Edit', 'woo-feed' ) . '</a>',
-				$plugin_page,
+				esc_attr( $plugin_page ),
 				'edit-feed',
 				$item['option_name'],
 				$edit_nonce
 			),
 			'delete' => sprintf(
 				'<a val="?page=%s&action=%s&feed=%s&_wpnonce=%s" class="single-feed-delete" style="cursor: pointer;">' . __( 'Delete', 'woo-feed' ) . '</a>',
-				$plugin_page,
+				esc_attr( $plugin_page ),
 				'delete-feed',
 				absint( $item['option_id'] ),
 				$delete_nonce
 			),
 		);
-		//Return the title contents
+		// Return the title contents
 		$name = str_replace( 'wf_feed_', '', $item['option_name'] );
 		$config = maybe_unserialize( maybe_unserialize( $item['option_value'] ) );
 		if ( isset( $config['feedrules'], $config['feedrules']['filename'] ) ) {
@@ -174,37 +176,42 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 			$this->row_actions( $actions )
 		);
 	}
-	
+
 	public static function get_feeds() {
 		global $wpdb;
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$result = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->options WHERE option_name LIKE %s ORDER BY option_id DESC;", 'wf_feed_%' ), 'ARRAY_A' );
 		return $result;
 	}
-	
+
 	/**
 	 * Delete a Feed.
 	 *
 	 * @param int $id Feed ID
 	 *
-	 * @return false|int
+	 * @return false
 	 */
 	public static function delete_feed( $id ) {
 		return woo_feed_delete_feed( $id );
 	}
-	
+
+	/**
+	 * Returns the count of records in the database.
+	 *
+	 * @return null|string
+	 */
 	public static function record_count() {
 		global $wpdb;
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		return $wpdb->get_var( $wpdb->prepare( "SELECT * FROM $wpdb->options WHERE option_name like %s", 'wf_feed_%' ) );
 	}
-	
+
 	/** Text displayed when no data is available */
 	public function no_items() {
 		_e( 'No feed available.', 'woo-feed' );
 	}
-	
-	
+
+
 	/** ************************************************************************
 	 * REQUIRED if displaying checkboxes or using bulk actions! The 'cb' column
 	 * is given special treatment when columns are processed. It ALWAYS needs to
@@ -213,44 +220,44 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 	 * @param array $item A singular item (one full row's worth of data)
 	 *
 	 * @return string Text to be placed inside the column <td> (movie title only)
-	 **************************************************************************@see WP_List_Table::::single_row_columns()
+	 * *************************************************************************@see WP_List_Table::::single_row_columns()
 	 */
 	function column_cb( $item ) {
 		return sprintf(
 			'<input type="checkbox" name="%1$s[]" value="%2$s" />',
 			/*$1%s*/
-			$this->_args['singular'],  //Let's simply repurpose the table's singular label ("movie")
+			$this->_args['singular'],  // Let's simply repurpose the table's singular label ("movie")
 			/*$2%s*/
-			$item['option_id']                //The value of the checkbox should be the record's id
+			$item['option_id']                // The value of the checkbox should be the record's id
 		);
 	}
-	
-	
+
+
 	function column_name( $item ) {
 		global $plugin_page;
-		$edit_nonce   = wp_create_nonce( 'wf_edit_feed' );
-		$delete_nonce = wp_create_nonce( 'wf_delete_feed' );
-		$title        = '<strong>' . $item['option_name'] . '</strong>';
-		$actions      = array(
+		$edit_nonce      = wp_create_nonce( 'wf_edit_feed' );
+		$delete_nonce    = wp_create_nonce( 'wf_delete_feed' );
+		$title           = '<strong>' . $item['option_name'] . '</strong>';
+		$actions         = array(
 			'edit'   => sprintf(
 				'<a href="?page=%s&action=%s&feed=%s&_wpnonce=%s">' . __( 'Edit', 'woo-feed' ) . '</a>',
-				$plugin_page,
+				esc_attr( $plugin_page ),
 				'edit-feed',
 				absint( $item['option_id'] ),
 				$edit_nonce
 			),
 			'delete' => sprintf(
 				'<a val="?page=%s&action=%s&feed=%s&_wpnonce=%s" class="single-feed-delete" style="cursor: pointer;">' . __( 'Delete', 'woo-feed' ) . '</a>',
-				$plugin_page,
+				esc_attr( $plugin_page ),
 				'delete-feed',
 				absint( $item['option_id'] ),
 				$delete_nonce
 			),
 		);
-		
+
 		return $title . $this->row_actions( $actions );
 	}
-	
+
 	/** ************************************************************************
 	 * REQUIRED! This method dictates the table's columns and titles. This should
 	 * return an array where the key is the column slug (and class) and the value
@@ -262,11 +269,11 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 	 * bulk actions or checkboxes, simply leave the 'cb' entry out of your array.
 	 *
 	 * @return array An associative array containing column information: 'slugs'=>'Visible Titles'
-	 **************************************************************************@see WP_List_Table::::single_row_columns()
+	 * *************************************************************************@see WP_List_Table::::single_row_columns()
 	 */
 	function get_columns() {
 		$columns = array(
-			'cb'           => '<input type="checkbox" />', //Render a checkbox instead of text
+			'cb'           => '<input type="checkbox" />', // Render a checkbox instead of text
 			'status'       => __( 'Auto Update', 'woo-feed' ),
 			'option_name'  => __( 'Feed Name', 'woo-feed' ),
 			'provider'     => __( 'Provider', 'woo-feed' ),
@@ -275,11 +282,11 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 			'last_updated' => __( 'Last Updated', 'woo-feed' ),
 			'view'         => __( 'Action', 'woo-feed' ),
 		);
-		
+
 		return $columns;
 	}
-	
-	
+
+
 	/** ************************************************************************
 	 * Optional. If you want one or more columns to be sortable (ASC/DESC toggle),
 	 * you will need to register it here. This should return an array where the
@@ -298,11 +305,11 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		$sortable_columns = array(
 			'option_name' => array( 'option_name', false ),
 		);
-		
+
 		return $sortable_columns;
 	}
-	
-	
+
+
 	/** ************************************************************************
 	 * Optional. If you need to include bulk actions in your list table, this is
 	 * the place to define them. Bulk actions are an associative array in the format
@@ -321,11 +328,11 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		$actions = array(
 			'bulk-delete' => __( 'Delete', 'woo-feed' ),
 		);
-		
+
 		return $actions;
 	}
-	
-	
+
+
 	/** ************************************************************************
 	 * Optional. You can handle your bulk actions anywhere or anyhow you prefer.
 	 * For this example package, we will handle it in the class to keep things
@@ -334,42 +341,42 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 	 * @see $this->prepare_items()
 	 **************************************************************************/
 	public function process_bulk_action() {
-		//Detect when a bulk action is being triggered...
+		// Detect when a bulk action is being triggered...
 		if ( 'delete-feed' === $this->current_action() ) {
 			// In our file that handles the request, verify the nonce.
-			if ( ! isset( $_REQUEST['_wpnonce'] ) || isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ), 'wf_delete_feed' ) ) {
+			$nonce = isset( $_REQUEST['_wpnonce'] ) && ! empty( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( $_REQUEST['_wpnonce'] ) : '';
+			if ( ! wp_verify_nonce( $nonce, 'wf_delete_feed' ) ) {
 				update_option( 'wpf_message', esc_html__( 'Failed To Delete Feed. You do not have sufficient permission to delete.', 'woo-feed' ), false );
-				wp_safe_redirect( admin_url( "admin.php?page=webappick-manage-feeds&wpf_message=error" ) );
+				wp_safe_redirect( admin_url( 'admin.php?page=webappick-manage-feeds&wpf_message=error' ) );
 				die();
 			} else {
 				if ( isset( $_GET['feed'] ) && self::delete_feed( absint( $_GET['feed'] ) ) ) {
 					update_option( 'wpf_message', esc_html__( 'Feed Deleted Successfully', 'woo-feed' ), false );
-					wp_safe_redirect( admin_url( "admin.php?page=webappick-manage-feeds&wpf_message=success" ) );
+					wp_safe_redirect( admin_url( 'admin.php?page=webappick-manage-feeds&wpf_message=success' ) );
 					die();
 				} else {
 					update_option( 'wpf_message', esc_html__( 'Failed To Delete Feed', 'woo-feed' ), false );
-					wp_safe_redirect( admin_url( "admin.php?page=webappick-manage-feeds&wpf_message=error" ) );
+					wp_safe_redirect( admin_url( 'admin.php?page=webappick-manage-feeds&wpf_message=error' ) );
 					die();
 				}
 			}
 		}
 		
-		//Detect when a bulk action is being triggered...
+		// Detect when a bulk action is being triggered...
 		if ( 'edit-feed' === $this->current_action() ) {
 			// In our file that handles the request, verify the nonce.
-			if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ), 'wf_edit_feed' ) ) {
-				wp_die( esc_html__( 'You do not have sufficient permission to delete!', 'woo-feed' ) );
+			$nonce = isset( $_REQUEST['_wpnonce'] ) && ! empty( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( $_REQUEST['_wpnonce'] ) : '';
+			if ( ! wp_verify_nonce( $nonce, 'wf_edit_feed' ) ) {
+				wp_die( esc_html__( 'You do not have sufficient permission to delete!', 'woo-feed' ), 403 );
 			}
 		}
 		
 		// If the delete bulk action is triggered
-		if (
-			( isset( $_POST['feed'] ) ) && ( isset( $_POST['action'] ) && 'bulk-delete' == $_POST['action'] ) ||
-			( isset( $_POST['action2'] ) && 'bulk-delete' == $_POST['action2'] )
-		) {
+		if ( ( isset( $_POST['feed'] ) ) && ( isset( $_POST['action'] ) && 'bulk-delete' == $_POST['action'] ) || ( isset( $_POST['action2'] ) && 'bulk-delete' == $_POST['action2'] ) ) {
 			if ( 'bulk-delete' === $this->current_action() ) {
-				if ( ! isset( $_REQUEST['_wpnonce'] ) || isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ), "bulk-" . $this->_args['plural'] ) ) {
-					wp_die( esc_html__( 'You do not have sufficient permission to delete!', 'woo-feed' ) );
+				$nonce = isset( $_REQUEST['_wpnonce'] ) && ! empty( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( $_REQUEST['_wpnonce'] ) : '';
+				if ( ! wp_verify_nonce( $nonce, 'bulk-' . $this->_args['plural'] ) ) {
+					wp_die( esc_html__( 'You do not have sufficient permission to delete!', 'woo-feed' ), 403 );
 				} else {
 					$delete_ids = array_map( 'absint', $_POST['feed'] );
 					$delete_ids = array_filter( $delete_ids );
@@ -381,7 +388,7 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 						}
 						$message = sprintf(
 							esc_html(
-							/* translators: %d: number of item deleted. */
+								/* translators: %d: number of item deleted. */
 								_n(
 									'%d Feed Successfully Deleted.',
 									'%d Feeds Successfully Deleted.',
@@ -399,8 +406,8 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 			}
 		}
 	}
-	
-	
+
+
 	/** ************************************************************************
 	 * REQUIRED! This is where you prepare your data for display. This method will
 	 * usually be used to query the database, sort and filter the data, and generally
@@ -421,8 +428,7 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		 * First, lets decide how many records per page to show
 		 */
 		$per_page = 10;
-		
-		
+
 		/**
 		 * REQUIRED. Now we need to define our column headers. This includes a complete
 		 * array of columns to be displayed (slugs & titles), a list of columns
@@ -433,8 +439,7 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		$columns  = $this->get_columns();
 		$hidden   = array();
 		$sortable = $this->get_sortable_columns();
-		
-		
+
 		/**
 		 * REQUIRED. Finally, we build an array to be used by the class for column
 		 * headers. The $this->_column_headers property takes an array which contains
@@ -442,15 +447,13 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		 * for sortable columns.
 		 */
 		$this->_column_headers = array( $columns, $hidden, $sortable );
-		
-		
+
 		/**
 		 * Optional. You can handle your bulk actions however you see fit. In this
 		 * case, we'll handle them within our package just to keep things clean.
 		 */
 		$this->process_bulk_action();
-		
-		
+
 		/**
 		 * Instead of querying a database, we're going to fetch the example data
 		 * property we created for use in this plugin. This makes this example
@@ -463,10 +466,10 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		$data = $this->get_feeds();
 		
 		usort( $data, 'woo_feed_usort_reorder' );
-		
-		
+
 		/***********************************************************************
 		 * ---------------------------------------------------------------------
+		 * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 		 *
 		 * In a real-world situation, this is where you would place your query.
 		 *
@@ -475,16 +478,15 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		 *
 		 * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 		 * ---------------------------------------------------------------------
-		 **********************************************************************/
-		
-		
+		 */
+
 		/**
 		 * REQUIRED for pagination. Let's figure out what page the user is currently
 		 * looking at. We'll need this later, so you should always include it in
 		 * your own package classes.
 		 */
 		$current_page = $this->get_pagenum();
-		
+
 		/**
 		 * REQUIRED for pagination. Let's check how many items are in our data array.
 		 * In real-world use, this would be the total number of items in your database,
@@ -492,30 +494,30 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		 * in your own package classes.
 		 */
 		$total_items = count( $data );
-		
-		
+
 		/**
 		 * The WP_List_Table class does not handle pagination for us, so we need
 		 * to ensure that the data is trimmed to only the current page. We can use
 		 * array_slice() to
 		 */
 		$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
-		
-		
+
 		/**
 		 * REQUIRED. We also have to register our pagination options & calculations.
 		 */
-		$this->set_pagination_args( array(
-			'total_items' => $total_items,                  //WE have to calculate the total number of items
-			'per_page'    => $per_page,                     //WE have to determine how many items to show on a page
-			'total_pages' => ceil( $total_items / $per_page ),   //WE have to calculate the total number of pages
-		) );
+		$this->set_pagination_args(
+			array(
+				'total_items' => $total_items,                  // WE have to calculate the total number of items
+				'per_page'    => $per_page,                     // WE have to determine how many items to show on a page
+				'total_pages' => ceil( $total_items / $per_page ),   // WE have to calculate the total number of pages
+			)
+		);
 
-//        $this->set_pagination_args( array(
-//            'total_items' => $total_items,                  //WE have to calculate the total number of items
-//            'per_page'    => $per_page                     //WE have to determine how many items to show on a page
-//        ) );
-		
+		// $this->set_pagination_args( array(
+		// 'total_items' => $total_items,                  //WE have to calculate the total number of items
+		// 'per_page'    => $per_page                     //WE have to determine how many items to show on a page
+		// ) );
+
 		/**
 		 * REQUIRED. Now we can add our *sorted* data to the items property, where
 		 * it can be used by the rest of the class.

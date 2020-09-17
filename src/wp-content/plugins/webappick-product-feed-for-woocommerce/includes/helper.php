@@ -19,7 +19,7 @@ if ( ! function_exists( 'woo_feed_maybe_define_constant' ) ) {
 	 * Define a constant if it is not already defined.
 	 *
 	 * @param string $name Constant name.
-	 * @param mixed $value Value.
+	 * @param mixed  $value Value.
 	 *
 	 * @return void
 	 * @since 3.2.1
@@ -109,8 +109,8 @@ if ( ! function_exists( 'wooFeed_deactivate_plugins' ) ) {
 	 * Wrapper for core deactivate_plugins() function
 	 *
 	 * @param string|array $plugins Single plugin or list of plugins to deactivate.
-	 * @param bool $silent Prevent calling deactivation hooks. Default is false.
-	 * @param mixed $network_wide Whether to deactivate the plugin for all sites in the network.
+	 * @param bool         $silent Prevent calling deactivation hooks. Default is false.
+	 * @param mixed        $network_wide Whether to deactivate the plugin for all sites in the network.
 	 *
 	 * @return void
 	 * @see deactivate_plugins()
@@ -160,7 +160,7 @@ if ( ! function_exists( 'woo_feed_wc_version_check' ) ) {
 		$plugins = get_plugins();
 		if ( array_key_exists( 'woocommerce/woocommerce.php', $plugins ) ) {
 			$currentVersion = $plugins['woocommerce/woocommerce.php']['Version'];
-			if ( version_compare( $currentVersion, $version, ">=" ) ) {
+			if ( version_compare( $currentVersion, $version, '>=' ) ) {
 				return true;
 			}
 		}
@@ -179,7 +179,7 @@ if ( ! function_exists( 'woo_feed_wpml_version_check' ) ) {
 	function woo_feed_wpml_version_check( $version = '3.2' ) {
 		// calling this function too early (before wc loaded) will not give correct output
 		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-			if ( version_compare( ICL_SITEPRESS_VERSION, $version, ">=" ) ) {
+			if ( version_compare( ICL_SITEPRESS_VERSION, $version, '>=' ) ) {
 				return true;
 			}
 		}
@@ -195,7 +195,7 @@ if ( ! function_exists( 'wooFeed_Admin_Notices' ) ) {
 	 * @since 3.1.41
 	 */
 	function wooFeed_Admin_Notices() {
-		//@TODO Refactor this function with admin message class
+		// @TODO Refactor this function with admin message class
 		// WC Missing Notice..
 		if ( ! wooFeed_check_WC() ) {
 			$plugin_url = self_admin_url( 'plugin-install.php?s=woocommerce&tab=search&type=term' );
@@ -203,12 +203,13 @@ if ( ! function_exists( 'wooFeed_Admin_Notices' ) ) {
 			$plugin_url  = sprintf( '<a href="%s">%s</a>', $plugin_url, esc_html__( 'WooCommerce', 'woo-feed' ) );
 			$plugin_name = sprintf( '<code>%s</code>', esc_html__( 'WooCommerce Product Feed', 'woo-feed' ) );
 			$wc_name     = sprintf( '<code>%s</code>', esc_html__( 'WooCommerce', 'woo-feed' ) );
-			/* translators: 1: this plugin name, 2: required plugin name, 3: required plugin name and installation url */
-			$message = sprintf( esc_html__( '%1$s requires %2$s to be installed and active. You can installed/activate %3$s here.',
-				'woo-feed' ),
+			$message = sprintf(
+				/* translators: 1: this plugin name, 2: required plugin name, 3: required plugin name and installation url */
+				esc_html__( '%1$s requires %2$s to be installed and active. You can installed/activate %3$s here.', 'woo-feed' ),
 				$plugin_name,
 				$wc_name,
-				$plugin_url );
+				$plugin_url
+			);
 			printf( '<div class="error"><p><strong>%1$s</strong></p></div>', $message ); // phpcs:ignore
 		}
 		if ( wooFeed_check_WC() && ! wooFeed_is_WC_supported() ) {
@@ -219,14 +220,15 @@ if ( ! function_exists( 'wooFeed_Admin_Notices' ) ) {
 			$plugin_url  = sprintf( '<a href="%s">%s</a>', $plugin_url, esc_html__( 'WooCommerce', 'woo-feed' ) );
 			$plugin_name = sprintf( '<code>%s</code>', esc_html__( 'WooCommerce Product Feed', 'woo-feed' ) );
 			$wc_name     = sprintf( '<code>%s</code>', esc_html__( 'WooCommerce', 'woo-feed' ) );
-			/* translators: 1: this plugin name, 2: required plugin name, 3: required plugin required version, 4: required plugin current version, 5: required plugin update url and name */
-			$message = sprintf( esc_html__( '%1$s requires %2$s version %3$s or above and %4$s found. Please upgrade %2$s to the latest version here %5$s',
-				'woo-feed' ),
+			$message = sprintf(
+				/* translators: 1: this plugin name, 2: required plugin name, 3: required plugin required version, 4: required plugin current version, 5: required plugin update url and name */
+                esc_html__( '%1$s requires %2$s version %3$s or above and %4$s found. Please upgrade %2$s to the latest version here %5$s', 'woo-feed' ),
 				$plugin_name,
 				$wc_name,
 				$minVersion,
 				$wcVersion,
-				$plugin_url );
+				$plugin_url
+            );
 			printf( '<div class="error"><p><strong>%1$s</strong></p></div>', $message ); // phpcs:ignore
 		}
 	}
@@ -256,10 +258,10 @@ if ( ! function_exists( 'array_splice_assoc' ) ) {
 	 * Array Splice Associative Array
 	 * @see https://www.php.net/manual/en/function.array-splice.php#111204
 	 *
-	 * @param array $input
+	 * @param array      $input
 	 * @param string|int $offset
 	 * @param string|int $length
-	 * @param array $replacement
+	 * @param array      $replacement
 	 *
 	 * @return array
 	 */
@@ -273,12 +275,53 @@ if ( ! function_exists( 'array_splice_assoc' ) ) {
 			$length = $key_indices[ $length ] - $offset;
 		}
 		
-		$input = array_slice( $input, 0, $offset, true ) + $replacement + array_slice( $input,
-				$offset + $length,
-				null,
-				true );
+		$input = array_slice( $input, 0, $offset, true ) + $replacement + array_slice( $input, $offset + $length, null, true );
 		
 		return $input;
+	}
+}
+if ( ! function_exists( 'woo_feed_get_query_type_options' ) ) {
+	/**
+	 * Get Query available Types
+	 *
+	 * @return array
+	 * @since 3.3.11
+	 */
+	function woo_feed_get_query_type_options() {
+		return [
+			'wc'   => __( 'WC_Product_Query', 'woo-feed' ),
+			'wp'   => __( 'WP_Query', 'woo-feed' ),
+			'both' => __( 'Both', 'woo-feed' ),
+		];
+	}
+}
+if ( ! function_exists( 'woo_feed_get_cache_ttl_options' ) ) {
+	/**
+	 * Cache Expiration Options
+	 * @return array
+	 */
+	function woo_feed_get_cache_ttl_options() {
+		return apply_filters(
+			'woo_feed_cache_ttl_options',
+			[
+				0                    => esc_html__( 'No Expiration ', 'woo-feed' ),
+				MONTH_IN_SECONDS     => esc_html__( '1 Month', 'woo-feed' ),
+				WEEK_IN_SECONDS      => esc_html__( '1 Week', 'woo-feed' ),
+				DAY_IN_SECONDS       => esc_html__( '24 Hours', 'woo-feed' ),
+				12 * HOUR_IN_SECONDS => esc_html__( '12 Hours', 'woo-feed' ),
+				6 * HOUR_IN_SECONDS  => esc_html__( '6 Hours', 'woo-feed' ),
+				HOUR_IN_SECONDS      => esc_html__( '1 Hours', 'woo-feed' ),
+			]
+		);
+	}
+}
+if ( ! function_exists( 'woo_feed_get_custom2_merchant' ) ) {
+	/**
+	 * Get Merchant list that are allowed on Custom2 Template
+	 * @return array
+	 */
+	function woo_feed_get_custom2_merchant() {
+		return array( 'custom2', 'admarkt', 'yandex_xml', 'glami' );
 	}
 }
 if ( ! function_exists( 'woo_feed_get_merchant_class' ) ) {
@@ -296,6 +339,8 @@ if ( ! function_exists( 'woo_feed_get_merchant_class' ) ) {
 			return 'Woo_Feed_Facebook';
 		} elseif ( strpos( $provider, 'amazon' ) !== false ) {
 			return 'Woo_Feed_Amazon';
+		} elseif ( in_array( $provider, woo_feed_get_custom2_merchant() ) ) {
+			return 'Woo_Feed_Custom_XML';
 		} else {
 			return 'Woo_Feed_Custom';
 		}
@@ -307,28 +352,39 @@ if ( ! function_exists( 'woo_feed_handle_file_transfer' ) ) {
 	 *
 	 * @param string $fileFrom
 	 * @param string $fileTo
-	 * @param array $info
+	 * @param array  $info
 	 *
 	 * @return bool
 	 */
 	function woo_feed_handle_file_transfer( $fileFrom, $fileTo, $info ) {
-		try {
-			// Upload file to ftp server.
-			if ( 1 == (int) $info['ftpenabled'] ) {
-				if ( ! file_exists( $fileFrom ) ) {
-//				    woo_feed_log_feed_process( $info['filename'], 'Unable to process file transfer request. File does not exists.' );
-					return false;
-				}
-				$ftpHost      = sanitize_text_field( $info['ftphost'] );
-				$ftp_user     = sanitize_text_field( $info['ftpuser'] );
-				$ftp_password = sanitize_text_field( $info['ftppassword'] );
-				$ftpPath      = trailingslashit( untrailingslashit( sanitize_text_field( $info['ftppath'] ) ) );
-				$ftporsftp    = isset( $info['ftporsftp'] ) ? sanitize_text_field( $info['ftporsftp'] ) : 'ftp';
-				$ftp_port     = isset( $info['ftpport'] ) && ! empty( $info['ftpport'] ) ? absint( $info['ftpport'] ) : 21;
-//				woo_feed_log_feed_process( $info['filename'], sprintf( 'Uploading Feed file via %s.', $ftporsftp ) );
+		if ( 1 == (int) $info['ftpenabled'] ) {
+			if ( ! file_exists( $fileFrom ) ) {
+				woo_feed_log_feed_process( $info['filename'], 'Unable to process file transfer request. File does not exists.' );
+				return false;
+			}
+			$ftpHost      = sanitize_text_field( $info['ftphost'] );
+			$ftp_user     = sanitize_text_field( $info['ftpuser'] );
+			$ftp_password = sanitize_text_field( $info['ftppassword'] );
+			$ftpPath      = trailingslashit( untrailingslashit( sanitize_text_field( $info['ftppath'] ) ) );
+            $ftp_passive_mode = (isset($info['ftpmode']) && sanitize_text_field( $info['ftpmode'] ) == 'passive') ? true : false;
+			if ( isset( $info['ftporsftp'] ) & 'ftp' === $info['ftporsftp'] ) {
+				$ftporsftp = 'ftp';
+			} else {
+				$ftporsftp = 'sftp';
+			}
+			if ( isset( $info['ftpport'] ) && ! empty( $info['ftpport'] ) ) {
+				$ftp_port = absint( $info['ftpport'] );
+			} else {
+				$ftp_port = false;
+			}
+			if ( ! $ftp_port || ( ( 1 <= $ftp_port ) && ( $ftp_port <= 65535 ) ) ) {
+				$ftp_port = 'sftp' === $ftporsftp ? 22 : 21;
+			}
+			woo_feed_log_feed_process( $info['filename'], sprintf( 'Uploading Feed file via %s.', $ftporsftp ) );
+			try {
 				if ( 'ftp' == $ftporsftp ) {
 					$ftp = new FTPClient();
-					if ( $ftp->connect( $ftpHost, $ftp_user, $ftp_password, false, $ftp_port ) ) {
+					if ( $ftp->connect( $ftpHost, $ftp_user, $ftp_password, $ftp_passive_mode, $ftp_port ) ) {
 						return $ftp->upload_file( $fileFrom, $ftpPath . $fileTo );
 					}
 				} elseif ( 'sftp' == $ftporsftp ) {
@@ -337,15 +393,14 @@ if ( ! function_exists( 'woo_feed_handle_file_transfer' ) ) {
 					
 					return $sftp->upload_file( $fileFrom, $fileTo, $ftpPath );
 				}
+			} catch ( Exception $e ) {
+				$message = 'Error Uploading Feed Via ' . $ftporsftp . PHP_EOL . 'Caught Exception :: ' . $e->getMessage();
+				woo_feed_log( $info['filename'], $message, 'critical', $e, true );
+				woo_feed_log_fatal_error( $message, $e );
+				return false;
 			}
-			
-			return false;
-		} catch ( Exception $e ) {
-//			$message = 'Error Uploading Feed Via ' . $ftporsftp . PHP_EOL . 'Caught Exception :: ' . $e->getMessage();
-//			woo_feed_log( $info['filename'], $message, 'critical', $e, true );
-//			woo_feed_log_fatal_error( $message, $e );
-			return false;
 		}
+		return false;
 	}
 }
 if ( ! function_exists( 'woo_feed_get_file_types' ) ) {
@@ -358,46 +413,121 @@ if ( ! function_exists( 'woo_feed_get_file_types' ) ) {
 	}
 }
 if ( ! function_exists( 'woo_feed_get_default_brand' ) ) {
+    /**
+     * Guess Brand name from Site URL
+     * @return string
+     */
+    function woo_feed_get_default_brand() {
+        $brand = apply_filters( 'woo_feed_pre_get_default_brand_name', null );
+        if ( ! is_null( $brand ) ) {
+            return $brand;
+        }
+        $brand = '';
+        $url   = filter_var( site_url(), FILTER_SANITIZE_URL );
+        if ( false !== $url ) {
+            $url = wp_parse_url( $url );
+            if ( array_key_exists( 'host', $url ) ) {
+                if(strpos($url['host'], ".") !== false){
+                    $arr   = explode( '.', $url['host'] );
+                    $brand = $arr[ count( $arr ) - 2 ];
+                    $brand = ucfirst( $brand );
+                } else{
+                    $brand = $url['host'];
+                    $brand = ucfirst( $brand );
+                }
+            }
+        }
+
+        return apply_filters( 'woo_feed_get_default_brand_name', $brand );
+    }
+}
+if ( ! function_exists( 'woo_feed_merchant_require_google_category' ) ) {
 	/**
-	 * Guess Brand name from Site URL
-	 * @return string
+	 * Check if current merchant supports google taxonomy for current attribute.
+	 * @param string $merchant
+	 * @param string $attribute
+	 *
+	 * @return array|bool
 	 */
-	function woo_feed_get_default_brand() {
-		$brand = apply_filters( 'woo_feed_pre_get_default_brand_name', null );
-		if ( ! is_null( $brand ) ) {
-			return $brand;
+	function woo_feed_merchant_require_google_category( $merchant = null, $attribute = null ) {
+		$list = [
+			'current_category'        => [
+				'google',
+				'google_shopping_action',
+				'google_local',
+				'google_local_inventory',
+				'adroll',
+				'smartly.io',
+				'facebook',
+				'pinterest',
+				'rakuten.de',
+			],
+			'google_product_category' => [ 'rakuten.de' ],
+			'google_category_id'      => [ 'daisycon', 'daisycon_automotive', 'daisycon_books', 'daisycon_cosmetics', 'daisycon_daily_offers', 'daisycon_electronics', 'daisycon_food_drinks', 'daisycon_home_garden', 'daisycon_housing', 'daisycon_fashion', 'daisycon_studies_trainings', 'daisycon_telecom_accessories', 'daisycon_telecom_all_in_one', 'daisycon_telecom_gsm_subscription', 'daisycon_telecom_gsm', 'daisycon_telecom_sim', 'daisycon_magazines', 'daisycon_holidays_accommodations', 'daisycon_holidays_accommodations_and_transport', 'daisycon_holidays_trips', 'daisycon_work_jobs' ],
+		];
+		if ( null !== $merchant && null !== $attribute ) {
+			return ( isset( $list[ $attribute ] ) && in_array( $merchant, $list[ $attribute ] ) );
 		}
-		$brand = '';
-		$url   = filter_var( site_url(), FILTER_SANITIZE_URL );
-		if ( false !== $url ) {
-			$url = wp_parse_url( $url );
-			if ( array_key_exists( 'host', $url ) ) {
-				$arr   = explode( '.', $url['host'] );
-				$brand = $arr[ count( $arr ) - 2 ];
-				$brand = ucfirst( $brand );
-			}
-		}
-		
-		return apply_filters( 'woo_feed_get_default_brand_name', $brand );
+		return $list;
 	}
+}
+if ( ! function_exists( 'woo_feed_get_item_wrapper_hidden_merchant' ) ) {
+    function woo_feed_get_item_wrapper_hidden_merchant(){
+	    return apply_filters(
+		    'woo_feed_item_wrapper_hidden_merchant',
+		    [
+			    'google',
+				'google_shopping_action',
+				'facebook',
+				'pinterest',
+				'fruugo.au',
+			    'stylight.com',
+				'nextad',
+				'skinflint.co.uk',
+				'comparer.be',
+				'dooyoo',
+				'hintaseuranta.fi',
+			    'incurvy',
+				'kijiji.ca',
+				'marktplaats.nl',
+				'rakuten.de',
+				'shopalike.fr',
+				'spartoo.fi',
+			    'webmarchand',
+				'skroutz',
+				'daisycon',
+				'daisycon_automotive',
+				'daisycon_books',
+			    'daisycon_cosmetics',
+				'daisycon_daily_offers',
+				'daisycon_electronics',
+			    'daisycon_food_drinks',
+				'daisycon_home_garden',
+				'daisycon_housing',
+				'daisycon_fashion',
+			    'daisycon_studies_trainings',
+				'daisycon_telecom_accessories',
+				'daisycon_telecom_all_in_one',
+			    'daisycon_telecom_gsm_subscription',
+				'daisycon_telecom_gsm',
+				'daisycon_telecom_sim',
+			    'daisycon_magazines',
+				'daisycon_holidays_accommodations',
+			    'daisycon_holidays_accommodations_and_transport',
+				'daisycon_holidays_trips',
+				'daisycon_work_jobs',
+		    ]
+	    );
+    }
 }
 
 // The Editor.
-if ( ! function_exists( 'woo_feed_get_custom2_merchant' ) ) {
-	/**
-	 * Get Merchant list that are allowed on Custom2 Template
-	 * @return array
-	 */
-	function woo_feed_get_custom2_merchant() {
-		return array( 'custom2', 'admarkt', 'yandex_xml' );
-	}
-}
 if ( ! function_exists( 'woo_feed_parse_feed_rules' ) ) {
 	/**
 	 * Parse Feed Config/Rules to make sure that necessary array keys are exists
 	 * this will reduce the uses of isset() checking
 	 *
-	 * @param array $rules rules to parse.
+	 * @param array  $rules rules to parse.
 	 * @param string $context parsing context. useful for filtering, view, save, db, create etc.
 	 *
 	 * @return array
@@ -422,6 +552,7 @@ if ( ! function_exists( 'woo_feed_parse_feed_rules' ) ) {
 			'ftpuser'               => '',
 			'ftppassword'           => '',
 			'ftppath'               => '',
+            'ftpmode'               => 'active',
 			'is_variations'         => 'n',
 			'variable_price'        => 'first',
 			'variable_quantity'     => 'first',
@@ -449,10 +580,10 @@ if ( ! function_exists( 'woo_feed_parse_feed_rules' ) ) {
 			'post_status'           => [ 'publish' ],
 			'filter_mode'           => [],
 			'campaign_parameters'   => [],
-			'is_outOfStock'         => 'n',
-			'product_visibility'    => 0,
+			//'is_outOfStock'         => 'y',
+			//'product_visibility'    => 0,
 			// include hidden ? 1 yes 0 no
-			'outofstock_visibility' => 0,
+			//'outofstock_visibility' => 1,
 			// override wc global option for out-of-stock product hidden from catalog? 1 yes 0 no
 			'ptitle_show'           => '',
 			'decimal_separator'     => wc_get_price_decimal_separator(),
@@ -503,7 +634,7 @@ if ( ! function_exists( 'woo_feed_parse_feed_rules' ) ) {
 		return apply_filters( 'woo_feed_parsed_rules', $rules, $context );
 	}
 }
-if ( ! function_exists( 'register_and_do_woo_feed_meta_boxes' ) ) {
+if ( ! function_exists( 'woo_feed_register_and_do_woo_feed_meta_boxes' ) ) {
 	/**
 	 * Registers the default Feed Editor MetaBoxes, and runs the `do_meta_boxes` actions.
 	 *
@@ -511,7 +642,7 @@ if ( ! function_exists( 'register_and_do_woo_feed_meta_boxes' ) ) {
 	 *                                      add_submenu_page() to create a new screen (and hence screen_id)
 	 *                                      make sure your menu slug conforms to the limits of sanitize_key()
 	 *                                      otherwise the 'screen' menu may not correctly render on your page.
-	 * @param array $feedRules current feed being processed.
+	 * @param array            $feedRules current feed being processed.
 	 *
 	 * @return void
 	 * @see register_and_do_post_meta_boxes()
@@ -519,7 +650,7 @@ if ( ! function_exists( 'register_and_do_woo_feed_meta_boxes' ) ) {
 	 * @since 3.2.6
 	 *
 	 */
-	function register_and_do_woo_feed_meta_boxes( $screen, $feedRules = array() ) {
+	function woo_feed_register_and_do_woo_feed_meta_boxes( $screen, $feedRules = array() ) {
 		if ( empty( $screen ) ) {
 			$screen = get_current_screen();
 		} elseif ( is_string( $screen ) ) {
@@ -527,12 +658,7 @@ if ( ! function_exists( 'register_and_do_woo_feed_meta_boxes' ) ) {
 		}
 		// edit page MetaBoxes
 		if ( 'woo-feed_page_webappick-new-feed' === $screen->id || 'toplevel_page_webappick-manage-feeds' === $screen->id ) {
-			add_meta_box( 'feed_merchant_info',
-				'Feed Merchant Info',
-				'woo_feed_merchant_info_metabox',
-				null,
-				'side',
-				'default' );
+			add_meta_box( 'feed_merchant_info', 'Feed Merchant Info', 'woo_feed_merchant_info_metabox', null, 'side', 'default' );
 		}
 		/**
 		 * This action is documented in wp-admin/includes/meta-boxes.php
@@ -610,42 +736,48 @@ if ( ! function_exists( 'woo_feed_merchant_info_metabox' ) ) {
 			<?php foreach ( $merchantInfo->get_info() as $k => $v ) { ?>
                 <div class="merchant-info-section <?php echo esc_attr( $k ); ?>">
 					<?php if ( 'link' == $k ) { ?>
-                        <span class="dashicons dashicons-media-document" style="color: #82878c;"
-                              aria-hidden="true"></span>
-                        <span><?php esc_html_e( 'Feed Specification:', 'woo-feed' ) ?></span>
-                        <strong class="data"><?php
+                        <span class="dashicons dashicons-media-document" style="color: #82878c;" aria-hidden="true"></span>
+                        <span><?php esc_html_e( 'Feed Specification:', 'woo-feed' ); ?></span>
+                        <strong class="data">
+                        <?php
 							/** @noinspection HtmlUnknownTarget */
 							( empty( $v ) ) ? esc_html_e( 'N/A',
 								'woo-feed' ) : printf( '<a href="%s" target="_blank">%s</a>',
 								esc_url( $v ),
 								esc_html__( 'Read Article', 'woo-feed' ) );
-							?></strong>
+							?>
+                            </strong>
 					<?php } elseif ( 'video' == $k ) { ?>
                         <span class="dashicons dashicons-video-alt3" style="color: #82878c;" aria-hidden="true"></span>
-                        <span><?php esc_html_e( 'Video Documentation:', 'woo-feed' ) ?></span>
-                        <strong class="data"><?php
+                        <span><?php esc_html_e( 'Video Documentation:', 'woo-feed' ); ?></span>
+                        <strong class="data">
+                        <?php
 							/** @noinspection HtmlUnknownTarget */
 							( empty( $v ) ) ? esc_html_e( 'N/A',
 								'woo-feed' ) : printf( '<a href="%s" target="_blank">%s</a>',
 								esc_url( $v ),
 								esc_html__( 'Watch now', 'woo-feed' ) );
-							?></strong>
+							?>
+                            </strong>
 					<?php } elseif ( 'feed_file_type' == $k ) { ?>
-                        <span class="dashicons dashicons-media-text" style="color: #82878c;"
-                              aria-hidden="true"></span> <?php esc_html_e( 'Format Supported:', 'woo-feed' ) ?>
-                        <strong class="data"><?php
+                        <span class="dashicons dashicons-media-text" style="color: #82878c;" aria-hidden="true"></span> <?php esc_html_e( 'Format Supported:', 'woo-feed' ); ?>
+                        <strong class="data">
+                        <?php
 							if ( empty( $v ) ) {
-								esc_html_e( 'N/A', 'woo-feed' );
+							esc_html_e( 'N/A', 'woo-feed' );
 							} else {
-								$v = implode( ', ',
-									array_map( function ( $type ) {
-										return esc_html( strtoupper( $type ) );
-									},
-										(array) $v ) );
-								echo esc_html( $v );
-							} ?></strong>
+							$v = implode( ', ',
+							array_map( function ( $type ) {
+								return esc_html( strtoupper( $type ) );
+								},
+							(array) $v ) );
+							echo esc_html( $v );
+							} 
+                            ?>
+                            </strong>
 						<?php
-					} elseif ( 'doc' == $k ) { ?>
+					} elseif ( 'doc' == $k ) { 
+                    ?>
                         <span class="dashicons dashicons-editor-help" style="color: #82878c;" aria-hidden="true"></span>
                         <span><?php esc_html_e( 'Support Docs:', 'woo-feed' ); ?></span>
                         <ul class="data">
@@ -663,7 +795,8 @@ if ( ! function_exists( 'woo_feed_merchant_info_metabox' ) ) {
 							?>
                         </ul>
 						<?php
-					} ?>
+					} 
+                    ?>
                 </div>
 			<?php } ?>
         </div>
@@ -704,43 +837,33 @@ if ( ! function_exists( 'woo_feed_get_csv_enclosure' ) ) {
 if ( ! function_exists( 'render_feed_config' ) ) {
 	/**
 	 * @param string $tabId
-	 * @param array $feedRules
-	 * @param bool $idEdit
+	 * @param array  $feedRules
+	 * @param bool   $idEdit
 	 */
 	function render_feed_config( $tabId, $feedRules, $idEdit ) {
-		global $provider, $wooFeedDropDown, $wooFeedProduct;
-		if ( $idEdit ) {
-			include WOO_FEED_FREE_ADMIN_PATH . 'partials/woo-feed-edit-config.php';
-		} else {
-			if ( 'smartly.io' == $provider ) {
-				include WOO_FEED_FREE_ADMIN_PATH . 'partials/templates/google_add-feed.php';
-			} elseif ( file_exists( WOO_FEED_FREE_ADMIN_PATH . 'partials/templates/' . $provider . '_add-feed.php' ) ) {
-				include WOO_FEED_FREE_ADMIN_PATH . 'partials/templates/' . $provider . '_add-feed.php';
-			} else {
-				include WOO_FEED_FREE_ADMIN_PATH . 'partials/templates/common_add-feed.php';
-			}
-		}
+		global $provider, $wooFeedDropDown, $merchant;
+		include WOO_FEED_FREE_ADMIN_PATH . 'partials/woo-feed-edit-config.php';
 	}
 }
 if ( ! function_exists( 'render_filter_config' ) ) {
 	/**
 	 * @param string $tabId
-	 * @param array $feedRules
-	 * @param bool $idEdit
+	 * @param array  $feedRules
+	 * @param bool   $idEdit
 	 */
 	function render_filter_config( $tabId, $feedRules, $idEdit ) {
-		global $provider, $wooFeedDropDown, $wooFeedProduct;
+		global $provider, $wooFeedDropDown, $merchant;
 		include WOO_FEED_FREE_ADMIN_PATH . 'partials/woo-feed-edit-filter.php';
 	}
 }
 if ( ! function_exists( 'render_ftp_config' ) ) {
 	/**
 	 * @param string $tabId
-	 * @param array $feedRules
-	 * @param bool $idEdit
+	 * @param array  $feedRules
+	 * @param bool   $idEdit
 	 */
 	function render_ftp_config( $tabId, $feedRules, $idEdit ) {
-		global $provider, $wooFeedDropDown, $wooFeedProduct;
+		global $provider, $wooFeedDropDown, $merchant;
 		include WOO_FEED_FREE_ADMIN_PATH . 'partials/woo-feed-edit-ftp.php';
 	}
 }
@@ -753,21 +876,27 @@ if ( ! function_exists( 'woo_feed_check_google_category' ) ) {
 	 * @return string
 	 */
 	function woo_feed_check_google_category( $feedInfo ) {
-		# Check Google Product Category for Google & Facebook Template and show message
+		// Check Google Product Category for Google & Facebook Template and show message.
+		$list              = woo_feed_merchant_require_google_category();
+		$cat_keys          = array_keys( $list );
+		$merchants         = call_user_func_array( 'array_merge', array_values( $list ) );
 		$checkCategory     = isset( $feedInfo['feedrules']['mattributes'] ) ? $feedInfo['feedrules']['mattributes'] : [];
 		$checkCategoryType = isset( $feedInfo['feedrules']['type'] ) ? $feedInfo['feedrules']['type'] : [];
 		$merchant          = isset( $feedInfo['feedrules']['provider'] ) ? $feedInfo['feedrules']['provider'] : [];
-		$cat               = "yes";
-		if ( in_array( $merchant, array( 'google', 'facebook' ) ) && in_array( "current_category", $checkCategory ) ) {
-			$catKey = array_search( 'current_category', $checkCategory );
-			if ( 'pattern' == $checkCategoryType[ $catKey ] ) {
-				$checkCategoryValue = $feedInfo['feedrules']['default'];
-			} else {
-				$checkCategoryValue = $feedInfo['feedrules']['attributes'];
-			}
-			
-			if ( empty( $checkCategoryValue[ $catKey ] ) ) {
-				$cat = 'no';
+		$cat               = 'yes';
+		foreach ( $list as $attribute => $merchants ) {
+			if ( in_array( $merchant, $merchants ) && in_array( $attribute, $checkCategory ) ) {
+				$catKey = array_search( $attribute, $checkCategory );
+				if ( 'pattern' == $checkCategoryType[ $catKey ] ) {
+					$checkCategoryValue = $feedInfo['feedrules']['default'];
+				} else {
+					$checkCategoryValue = $feedInfo['feedrules']['attributes'];
+				}
+				
+				if ( empty( $checkCategoryValue[ $catKey ] ) ) {
+					$cat = 'no';
+				}
+				break;
 			}
 		}
 		
@@ -819,7 +948,7 @@ if ( ! function_exists( 'woo_feed_sanitize_form_fields' ) ) {
 				if ( is_array( $v ) ) {
 					$v = woo_feed_sanitize_form_fields( $v );
 				} else {
-					//$v = sanitize_text_field( $v ); #TODO should not trim Prefix and Suffix field
+					// $v = sanitize_text_field( $v ); #TODO should not trim Prefix and Suffix field
 				}
 			}
 			$data[ $k ] = apply_filters( 'woo_feed_sanitize_form_field', $v, $k );
@@ -836,7 +965,7 @@ if ( ! function_exists( 'woo_feed_unique_feed_slug' ) ) {
 	 *
 	 * @param string $slug slug for checking uniqueness.
 	 * @param string $prefix prefix to check with. Optional.
-	 * @param int $option_id option id. Optional option id to exclude specific option.
+	 * @param int    $option_id option id. Optional option id to exclude specific option.
 	 *
 	 * @return string
 	 * @see wp_unique_post_slug()
@@ -877,7 +1006,7 @@ if ( ! function_exists( 'woo_feed_unique_option_name' ) ) {
 	 *
 	 * @param string $slug
 	 * @param string $prefix
-	 * @param null $option_id
+	 * @param null   $option_id
 	 *
 	 * @return string
 	 * @see woo_feed_unique_feed_slug
@@ -932,8 +1061,8 @@ if ( ! function_exists( 'woo_feed_save_feed_config_data' ) ) {
 	 * Sanitize And Save Feed config data (array) to db (option table)
 	 *
 	 * @param array $data data to be saved in db
-	 * @param null $feed_option_name feed (file) name. optional, if empty or null name will be auto generated
-	 * @param bool $configOnly save only wf_config or both wf_config and wf_feed_. default is only wf_config
+	 * @param null  $feed_option_name feed (file) name. optional, if empty or null name will be auto generated
+	 * @param bool  $configOnly save only wf_config or both wf_config and wf_feed_. default is only wf_config
 	 *
 	 * @return bool|string          return false if failed to update. return filename if success
 	 */
@@ -1011,10 +1140,11 @@ if ( ! function_exists( 'woo_feed_save_feed_config_data' ) ) {
 			$feed_data = array(
 				'feedrules'    => $data,
 				'url'          => woo_feed_get_file_url( $feed_option_name, $data['provider'], $data['feedType'] ),
-				'last_updated' => gmdate( 'Y-m-d H:i:s' ),
-				'status'       => isset( $oldFeed['status'] ) && 1 == $old_feed['status'] ? 1 : 0,
+				'last_updated' => date('Y-m-d H:i:s', strtotime( current_time( 'mysql' ) ) ),
+				'status'       => isset( $old_feed['status'] ) && 1 == $old_feed['status'] ? 1 : 0,
 				// set old status or disable auto update.
 			);
+			
 			$saved2    = update_option( 'wf_feed_' . $feed_option_name, maybe_serialize( $feed_data ), false );
 		}
 		
@@ -1146,11 +1276,11 @@ if ( ! function_exists( 'woo_feed_save_batch_feed_info' ) ) {
 	/**
 	 * Save Feed Batch Chunk
 	 *
-	 * @param string $feedService merchant.
-	 * @param string $type file type (ext).
+	 * @param string       $feedService merchant.
+	 * @param string       $type file type (ext).
 	 * @param string|array $string data.
-	 * @param string $fileName file name.
-	 * @param array $info feed config.
+	 * @param string       $fileName file name.
+	 * @param array        $info feed config.
 	 *
 	 * @return bool
 	 */
@@ -1160,19 +1290,19 @@ if ( ! function_exists( 'woo_feed_save_batch_feed_info' ) ) {
 			$string = wp_json_encode( $string );
 			$ext    = 'json';
 		}
-		# Save File.
+		// Save File.
 		$path   = woo_feed_get_file_dir( $feedService, $type );
 		$file   = $path . '/' . $fileName . '.' . $ext;
 		$save   = new Woo_Feed_Savefile();
 		$status = $save->saveFile( $path, $file, $string );
-//		if ( woo_feed_is_debugging_enabled() ) {
-//			if ( $status ) {
-//				$message = sprintf( 'Batch chunk file (%s) saved.', $fileName );
-//			} else {
-//				$message = sprintf( 'Unable to save batch chunk file %s.', $fileName );
-//			}
-//			woo_feed_log_feed_process( $info['filename'], $message );
-//		}
+		if ( woo_feed_is_debugging_enabled() ) {
+			if ( $status ) {
+				$message = sprintf( 'Batch chunk file (%s) saved.', $fileName );
+			} else {
+				$message = sprintf( 'Unable to save batch chunk file %s.', $fileName );
+			}
+			woo_feed_log_feed_process( $info['filename'], $message );
+		}
 		
 		return $status;
 	}
@@ -1183,42 +1313,42 @@ if ( ! function_exists( 'woo_feed_get_batch_feed_info' ) ) {
 	 * @param string $type
 	 * @param string $fileName
 	 *
-	 * @return bool|false|mixed|string
+	 * @return bool|array|string
 	 */
 	function woo_feed_get_batch_feed_info( $feedService, $type, $fileName ) {
 		$ext = $type;
 		if ( 'csv' == $type ) {
 			$ext = 'json';
 		}
-		# Save File
+		// Save File
 		$path = woo_feed_get_file_dir( $feedService, $type );
 		$file = $path . '/' . $fileName . '.' . $ext;
-		if ( 'csv' == $type && file_exists( $file ) ) {
-			// should not cache
-			$file = file_get_contents( $file ); // phpcs:ignore
-			
-			return ( $file ) ? json_decode( $file, true ) : false;
-		} elseif ( file_exists( $file ) ) {
-			// should not cache
-			return file_get_contents( $file ); // phpcs:ignore
+		if ( ! file_exists( $file ) ) {
+			return false;
 		}
 		
-		return false;
+		$data = file_get_contents( $file ); // phpcs:ignore
+		
+		if ( 'csv' == $type ) {
+			$data = ( $data ) ? json_decode( $data, true ) : false;
+		}
+		return $data;
 	}
 }
 if ( ! function_exists( 'woo_feed_unlink_tempFiles' ) ) {
 	/**
 	 * Remove temporary feed files
 	 *
-	 * @param string $feedService merchant name.
-	 * @param string $fileName feed file name.
-	 * @param string $type file type (ext).
+	 * @param array  $config      Feed config
+	 * @param string $fileName    feed file name.
 	 *
-	 * @return bool
+	 * @return void
 	 */
-	function woo_feed_unlink_tempFiles( $feedService, $fileName, $type ) {
-		$path = woo_feed_get_file_dir( $feedService, $type );
+	function woo_feed_unlink_tempFiles( $config, $fileName ) {
+		$type = $config['feedType'];
 		$ext  = $type;
+		$path = woo_feed_get_file_dir( $config['provider'], $type );
+		
 		if ( 'csv' == $type ) {
 			$ext = 'json';
 		}
@@ -1228,18 +1358,12 @@ if ( ! function_exists( 'woo_feed_unlink_tempFiles' ) ) {
 			'footerFile' => $path . '/' . 'wf_store_feed_footer_info_' . $fileName . '.' . $ext,
 		];
 		
-		if ( ! empty( $files ) ) {
-//			woo_feed_log_feed_process( $fileName, sprintf( 'Deleting Temporary Files (%s).', implode( ', ', array_values( $tempFiles ) ) ) );
-			foreach ( $files as $key => $file ) {
-				if ( file_exists( $file ) ) {
-					unlink( $file ); // phpcs:ignore
-				}
+		woo_feed_log_feed_process( $config['filename'], sprintf( 'Deleting Temporary Files (%s).', implode( ', ', array_values( $files ) ) ) );
+		foreach ( $files as $key => $file ) {
+			if ( file_exists( $file ) ) {
+				unlink( $file ); // phpcs:ignore
 			}
-			
-			return true;
 		}
-		
-		return false;
 	}
 }
 if ( ! function_exists( 'woo_feed_delete_feed' ) ) {
@@ -1255,8 +1379,7 @@ if ( ! function_exists( 'woo_feed_delete_feed' ) ) {
 		if ( ! is_numeric( $feed_id ) ) {
 			$feed_name = woo_feed_extract_feed_option_name( $feed_id );
 		} else {
-			$feed_data   = $wpdb->get_row( $wpdb->prepare( "SELECT option_name FROM $wpdb->options WHERE option_id = %d",
-				$feed_id ) ); // phpcs:ignore
+			$feed_data   = $wpdb->get_row( $wpdb->prepare( "SELECT option_name FROM $wpdb->options WHERE option_id = %d", $feed_id ) ); // phpcs:ignore
 			$option_name = $feed_data->option_name;
 			$feed_name   = woo_feed_extract_feed_option_name( $feed_data->option_name );
 		}
@@ -1268,6 +1391,8 @@ if ( ! function_exists( 'woo_feed_delete_feed' ) ) {
 		}
 		$deleted = false;
 		$file    = woo_feed_get_file( $feed_name, $feedInfo['provider'], $feedInfo['feedType'] );
+		// delete any leftover
+		woo_feed_unlink_tempFiles( $feedInfo, $feed_name );
 		if ( file_exists( $file ) ) {
 			// file exists in upload directory
 			if ( unlink( $file ) ) { // phpcs:ignore
@@ -1280,6 +1405,10 @@ if ( ! function_exists( 'woo_feed_delete_feed' ) ) {
 			delete_option( 'wf_config' . $feed_name );
 			$deleted = true;
 		}
+
+		// Delete cron schedule.
+		$feed_cron_param='wf_config' . $feed_name;
+        wp_clear_scheduled_hook( 'woo_feed_update_single_feed',[$feed_cron_param]);
 		
 		return $deleted;
 	}
@@ -1299,6 +1428,7 @@ if ( ! function_exists( 'woo_feed_remove_query_args' ) ) {
 		if ( strpos( $plugin_page, 'webappick' ) !== false ) {
 			$removable_query_args[] = 'feed_created';
 			$removable_query_args[] = 'feed_updated';
+			$removable_query_args[] = 'feed_imported';
 			$removable_query_args[] = 'feed_regenerate';
 			$removable_query_args[] = 'feed_name';
 			$removable_query_args[] = 'link';
@@ -1325,6 +1455,7 @@ if ( ! function_exists( 'woo_feed_usort_reorder' ) ) {
 	 * sorting technique would be unnecessary.
 	 *
 	 * @param array $a first data.
+	 *
 	 * @param array $b second data.
 	 *
 	 * @return bool
@@ -1343,13 +1474,13 @@ if ( ! function_exists( 'str_replace_trim' ) ) {
 	/**
 	 * str_replace() wrapper with trim()
 	 *
-	 * @param mixed $search The value being searched for, otherwise known as the needle.
+	 * @param mixed  $search    The value being searched for, otherwise known as the needle.
 	 *                          An array may be used to designate multiple needles.
-	 * @param mixed $replace The replacement value that replaces found search values.
+	 * @param mixed  $replace   The replacement value that replaces found search values.
 	 *                          An array may be used to designate multiple replacements.
-	 * @param mixed $subject The string or array being searched and replaced on,
+	 * @param mixed  $subject   The string or array being searched and replaced on,
 	 *                          otherwise known as the haystack.
-	 * @param string $charlist [optional]
+	 * @param string $charlist  [optional]
 	 *                          Optionally, the stripped characters can also be specified using the charlist parameter.
 	 *                          Simply list all characters that you want to be stripped.
 	 *                          With this you can specify a range of characters.
@@ -1370,13 +1501,211 @@ if ( ! function_exists( 'str_replace_trim' ) ) {
 		}
 	}
 }
+if ( ! function_exists( 'woo_feed_export_config' ) ) {
+	/**
+	 * Handle config export request
+	 *
+	 * @return void
+	 * @since 3.3.10
+	 */
+    function woo_feed_export_config(){
+        if ( isset( $_REQUEST['feed'], $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ), 'wpf-export' ) ) {
+        	$feed = sanitize_text_field( $_REQUEST['feed'] );
+        	$feed = woo_feed_extract_feed_option_name( $feed );
+        	if ( ! empty( $feed ) ) {
+        		$feed = maybe_unserialize( get_option( 'wf_feed_' . $feed ) );
+        		$feed = ( isset( $feed['feedrules'] ) && is_array( $feed['feedrules'] ) ) ? $feed['feedrules'] : [];
+	        }
+	        if ( ! is_array( $feed ) ) {
+		        wp_die( esc_html__( 'Invalid Request', 'woo-feed' ), esc_html__( 'Invalid Request', 'woo-feed' ), [ 'back_link' => true ] );
+	        }
+	        $file_name = sprintf(
+		        '%s-%s-%s.wpf',
+		        sanitize_title( $feed['filename'] ),
+		        $feed['provider'],
+		        time()
+	        );
+	        $feed      = wp_json_encode( $feed );
+	        $meta      = wp_json_encode( [
+		        'version'   => WOO_FEED_FREE_VERSION,
+		        'file_name' => $file_name,
+		        'hash'      => md5( $feed ),
+	        ] );
+	        $bin       = pack( 'VA*VA*', strlen( $meta ), $meta, strlen( $feed ), $feed );
+	        $feed      = gzdeflate( $bin, 9 );
+	        // Let set the header...
+	        if ( ! headers_sent() ) {
+		        status_header( 200 );
+		        header( 'Content-Type: application/octet-stream;' );
+		        header( 'Content-disposition: attachment; filename=' . $file_name );
+		        header( 'Content-Length: ' . strlen( $feed ) );
+		        header( 'Pragma: no-cache' );
+		        header( 'Expires: 0' );
+	        }
+	        // exporting data.
+	        echo $feed; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        } else {
+	        wp_die(
+	        	esc_html__( 'Invalid Request', 'woo-feed' ),
+		        esc_html__( 'Invalid Request', 'woo-feed' ),
+		        [ 'back_link' => true ]
+	        );
+        }
+    }
+}
+if ( ! function_exists( 'woo_feed_import_config' ) ) {
+	/**
+	 * Handle config import request
+	 *
+	 * @return void
+	 * @since 3.3.10
+	 */
+    function woo_feed_import_config() {
+	    check_admin_referer( 'wpf_import' );
+	    
+	    if (
+	    	isset(
+	    		$_FILES['wpf_import_file'],
+			    $_POST['wpf_import_feed_name'],
+			    $_FILES['wpf_import_file']['name'],
+			    $_FILES['wpf_import_file']['tmp_name']
+		    ) &&
+		    'wpf' === pathinfo( $_FILES['wpf_import_file']['name'], PATHINFO_EXTENSION ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	    ) {
+		    $file_name = sanitize_text_field( $_FILES['wpf_import_file']['name'] );
+		    $data      = file_get_contents( sanitize_text_field( $_FILES['wpf_import_file']['tmp_name'] ) );
+		    if ( empty( $data ) ) {
+			    wp_die(
+				    esc_html__( 'Empty File Uploaded. Try again.', 'woo-feed' ),
+				    esc_html__( 'Empty File', 'woo-feed' ),
+				    [
+					    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+					    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+				    ]
+			    );
+		    }
+		    $feed = gzinflate( $data );
+		    if ( false === $feed ) {
+			    wp_die(
+				    esc_html__( 'Unable to read file content', 'woo-feed' ),
+				    esc_html__( 'Invalid File', 'woo-feed' ),
+				    [
+					    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+					    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+				    ]
+			    );
+		    }
+		    // unpack meta data.
+		    $meta_length = unpack( 'V', $feed );
+		    if ( false === $meta_length ) {
+			    wp_die(
+				    esc_html__( 'Unable to read data from file.', 'woo-feed' ),
+				    esc_html__( 'Invalid File', 'woo-feed' ),
+				    [
+					    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+					    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+				    ]
+			    );
+		    }
+		    $meta = unpack( 'A*', substr( $feed, 4, $meta_length[1] ) )[1];
+		    if ( false === $meta || 0 !== strpos( $meta, '{' ) ) {
+			    wp_die(
+				    esc_html__( 'Unable to read file info.', 'woo-feed' ),
+				    esc_html__( 'Invalid File', 'woo-feed' ),
+				    [
+					    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+					    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+				    ]
+			    );
+		    }
+		    $meta = json_decode( $meta, true );
+		    // unpack feed data.
+		    $feed = substr( $feed, $meta_length[1] + 8 ); // 4 bytes for each V (length data)
+		    $feed = unpack( 'A*', $feed )[1];
+		    if ( false === $feed || 0 !== strpos( $feed, '{' ) ) {
+			    wp_die(
+				    esc_html__( 'Unable to read feed data from file.', 'woo-feed' ),
+				    esc_html__( 'Invalid File', 'woo-feed' ),
+				    [
+					    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+					    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+				    ]
+			    );
+		    }
+		    if ( md5( $feed ) !== $meta['hash'] ) {
+			    wp_die(
+				    esc_html__( 'Unable to verify the file.', 'woo-feed' ),
+				    esc_html__( 'Invalid File', 'woo-feed' ),
+				    [
+					    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+					    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+				    ]
+			    );
+		    }
+		
+		    $feed = json_decode( $feed, true );
+		    if ( ! is_array( $feed ) ) {
+			    wp_die(
+				    esc_html__( 'Invalid or corrupted config file.', 'woo-feed' ),
+				    esc_html__( 'Invalid File', 'woo-feed' ),
+				    [
+					    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+					    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+				    ]
+			    );
+		    }
+		
+		    $feed     = woo_feed_parse_feed_rules( $feed );
+		    $new_name = sanitize_text_field( $_POST['wpf_import_feed_name'] );
+		    $new_name = trim( $new_name );
+		    if ( ! empty( $new_name ) ) {
+			    $opt_name         = $new_name;
+			    $feed['filename'] = $new_name;
+		    } else {
+			    $opt_name         = $feed['filename'];
+			    $feed['filename'] = str_replace_trim( [ '-', '_' ], ' ', $feed['filename'] );
+			    $feed['filename'] = sprintf(
+				    '%s: %s',
+				    esc_html__( ' Imported', 'woo-feed' ),
+				    ucwords( $feed['filename'] )
+			    );
+		    }
+		    // New Slug.
+		    $opt_name = generate_unique_feed_file_name( $opt_name,
+			    $feed['feedType'],
+			    $feed['provider'] );
+		    // save config.
+		    $fileName = woo_feed_save_feed_config_data( $feed, $opt_name, false );
+		    // Redirect back to the list.
+		    wp_safe_redirect(
+			    add_query_arg(
+				    [
+					    'feed_imported'   => (int) false !== $fileName,
+					    'feed_regenerate' => 1,
+					    'feed_name'       => $fileName ? $fileName : '',
+				    ],
+				    esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) )
+			    )
+		    );
+		    die();
+	    }
+	    wp_die(
+		    esc_html__( 'Invalid Request.', 'woo-feed' ),
+		    esc_html__( 'Invalid Request', 'woo-feed' ),
+		    [
+			    'link_url'  => esc_url( admin_url( 'admin.php?page=webappick-manage-feeds' ) ),
+			    'link_text' => esc_html__( '&laquo; Back', 'woo-feed' ),
+		    ]
+	    );
+    }
+}
 
 // Feed Functions.
 if ( ! function_exists( 'woo_feed_generate_feed' ) ) {
 	/**
 	 * Update Feed Information
 	 *
-	 * @param array $info feed config array
+	 * @param array  $info feed config array
 	 * @param string $feed_option_name feed option/file name
 	 *
 	 * @return string|bool
@@ -1428,10 +1757,10 @@ if ( ! function_exists( 'woo_feed_generate_feed' ) ) {
 			$feedInfo = array(
 				'feedrules'    => $info,
 				'url'          => $feed_URL,
-				'last_updated' => gmdate( 'Y-m-d H:i:s' ),
+				'last_updated' => date('Y-m-d H:i:s', strtotime( current_time( 'mysql' ) ) ),
 				'status'       => 1,
 			);
-			update_option( 'wf_feed_' . $feed_option_name, serialize( $feedInfo ), false );
+			update_option( 'wf_feed_' . $feed_option_name, serialize( $feedInfo ), false ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 			do_action( 'after_woo_feed_generate_feed', $info );
 			if ( $saveFile ) {
 				return $feed_URL;
@@ -1443,13 +1772,7 @@ if ( ! function_exists( 'woo_feed_generate_feed' ) ) {
 		return false;
 	}
 }
-if ( ! function_exists( 'woo_feed_get_field_output_type_options' ) ) {
-	function woo_feed_get_field_output_type_options() {
-		$wooFeedDropDown = new Woo_Feed_Dropdown();
-		
-		return apply_filters( 'woo_feed_field_output_options', $wooFeedDropDown->output_types );
-	}
-}
+
 if ( ! function_exists( 'woo_feed_get_schedule_interval_options' ) ) {
 	/**
 	 * Get Schedule Intervals
@@ -1514,9 +1837,9 @@ if ( ! function_exists( 'woo_feed_get_formatted_url' ) ) {
 	 */
 	function woo_feed_get_formatted_url( $url = '' ) {
 		if ( ! empty( $url ) ) {
-			if ( substr( trim( $url ), 0, 4 ) === "http" || substr( trim( $url ),
+			if ( substr( trim( $url ), 0, 4 ) === 'http' || substr( trim( $url ),
 					0,
-					3 ) === "ftp" || substr( trim( $url ), 0, 4 ) === "sftp" ) {
+					3 ) === 'ftp' || substr( trim( $url ), 0, 4 ) === 'sftp' ) {
 				return rtrim( $url, '/' );
 			} else {
 				$base = get_site_url();
@@ -1592,32 +1915,32 @@ if ( ! function_exists( 'woo_feed_parse_string' ) ) {
 	 */
 	function woo_feed_parse_string( $str = '' ) {
 		
-		# result array
+		// result array
 		$arr = array();
 		
 		if ( empty( $str ) ) {
 			return $arr;
 		}
 		
-		# split on outer delimiter
+		// split on outer delimiter
 		$pairs = explode( '&', $str );
 		
 		if ( ! empty( $pairs ) ) {
 			
-			# loop through each pair
+			// loop through each pair
 			foreach ( $pairs as $i ) {
-				# split into name and value
+				// split into name and value
 				list( $name, $value ) = explode( '=', $i, 2 );
 				
-				# if name already exists
+				// if name already exists
 				if ( isset( $arr[ $name ] ) ) {
-					# stick multiple values into an array
+					// stick multiple values into an array
 					if ( is_array( $arr[ $name ] ) ) {
 						$arr[ $name ][] = $value;
 					} else {
 						$arr[ $name ] = array( $arr[ $name ], $value );
 					}
-				} # otherwise, simply stick it in a scalar
+				} // otherwise, simply stick it in a scalar
 				else {
 					$arr[ $name ] = $value;
 				}
@@ -1627,7 +1950,7 @@ if ( ! function_exists( 'woo_feed_parse_string' ) ) {
 			$arr[ $name ] = $value;
 		}
 		
-		# return result array
+		// return result array
 		return $arr;
 	}
 }
@@ -1635,8 +1958,8 @@ if ( ! function_exists( 'woo_feed_replace_to_merchant_attribute' ) ) {
 	/**
 	 * Parse URL parameter
 	 *
-	 * @param string $pluginAttribute
-	 * @param string $merchant
+	 * @param string                      $pluginAttribute
+	 * @param string                      $merchant
 	 * @param string feedType CSV XML TXT
 	 *
 	 * @return string
@@ -1644,18 +1967,28 @@ if ( ! function_exists( 'woo_feed_replace_to_merchant_attribute' ) ) {
 	function woo_feed_replace_to_merchant_attribute( $pluginAttribute, $merchant, $feedType ) {
 		$attributeClass     = new Woo_Feed_Default_Attributes();
 		$merchantAttributes = '';
-		if ( 'google' == $merchant && 'xml' == $feedType ) {
-			$merchantAttributes = $attributeClass->googleXMLAttribute;
-		} elseif ( 'google' == $merchant && ( 'csv' == $feedType || 'txt' == $feedType ) ) {
-			$merchantAttributes = $attributeClass->googleCSVTXTAttribute;
-		} elseif ( 'facebook' == $merchant && 'xml' == $feedType ) {
-			$merchantAttributes = $attributeClass->facebookXMLAttribute;
-		} elseif ( 'facebook' == $merchant && ( 'csv' == $feedType || 'txt' == $feedType ) ) {
-			$merchantAttributes = $attributeClass->facebookCSVTXTAttribute;
-		} elseif ( 'pinterest' == $merchant && 'xml' == $feedType ) {
-			$merchantAttributes = $attributeClass->pinterestXMLAttribute;
-		} elseif ( 'pinterest' == $merchant && ( 'csv' == $feedType || 'txt' == $feedType ) ) {
-			$merchantAttributes = $attributeClass->pinterestCSVTXTAttribute;
+		if ( 'google' == $merchant || 'adroll' == $merchant || 'smartly.io' == $merchant ) {
+			if ( 'xml' == $feedType ) {
+				$merchantAttributes = $attributeClass->googleXMLAttribute;
+			} elseif ( 'csv' == $feedType || 'txt' == $feedType ) {
+				$merchantAttributes = $attributeClass->googleCSVTXTAttribute;
+			}
+		} elseif ( 'facebook' == $merchant ) {
+			if ( 'xml' == $feedType ) {
+				$merchantAttributes = $attributeClass->facebookXMLAttribute;
+			} elseif ( 'csv' == $feedType || 'txt' == $feedType ) {
+				$merchantAttributes = $attributeClass->facebookCSVTXTAttribute;
+			}
+		} elseif ( 'pinterest' == $merchant ) {
+			if ( 'xml' == $feedType ) {
+				$merchantAttributes = $attributeClass->pinterestXMLAttribute;
+			} elseif ( 'csv' == $feedType || 'txt' == $feedType ) {
+				$merchantAttributes = $attributeClass->pinterestCSVTXTAttribute;
+			}
+		} elseif ( 'skroutz' == $merchant ) {
+			if ( 'xml' == $feedType ) {
+				$merchantAttributes = $attributeClass->skroutzXMLAttributes;
+			}
 		}
 		
 		if ( ! empty( $merchantAttributes ) && array_key_exists( $pluginAttribute, $merchantAttributes ) ) {
@@ -1676,7 +2009,7 @@ if ( ! function_exists( 'woo_feed_add_cdata' ) ) {
 	 * @return string
 	 */
 	function woo_feed_add_cdata( $pluginAttribute, $attributeValue, $merchant ) {
-		if ( strpos( $attributeValue, "<![CDATA[" ) !== false ) {
+		if ( strpos( $attributeValue, '<![CDATA[' ) !== false ) {
 			return "$attributeValue";
 		}
 		
@@ -1688,6 +2021,8 @@ if ( ! function_exists( 'woo_feed_add_cdata' ) ) {
 			$merchantAttributes = $attributeClass->facebookXMLAttribute;
 		} elseif ( 'pinterest' == $merchant ) {
 			$merchantAttributes = $attributeClass->pinterestXMLAttribute;
+		} elseif ( 'skroutz' == $merchant ) {
+			$merchantAttributes = $attributeClass->skroutzXMLAttributes;
 		}
 		
 		if ( ! empty( $merchantAttributes ) && array_key_exists( $pluginAttribute, $merchantAttributes ) ) {
@@ -1696,11 +2031,190 @@ if ( ! function_exists( 'woo_feed_add_cdata' ) ) {
 			} else {
 				return "$attributeValue";
 			}
-		} elseif ( false !== strpos( $attributeValue, "&" ) || 'http' == substr( trim( $attributeValue ), 0, 4 ) ) {
+		} elseif ( false !== strpos( $attributeValue, '&' ) || 'http' == substr( trim( $attributeValue ), 0, 4 ) ) {
 			return "<![CDATA[$attributeValue]]>";
 		} else {
 			return "$attributeValue";
 		}
+	}
+}
+
+// WooFeed Settings API
+if ( ! function_exists( 'woo_feed_get_options' ) ) {
+	/**
+	 * Get saved settings.
+	 *
+	 * @param string $key     Option name.
+	 *                        All default values will be returned if this set to 'defaults',
+	 *                        all settings will be return if set to 'all'.
+	 * @param bool   $default value to return if no matching data found for the key (option)
+	 *
+	 * @return array|bool|string|mixed
+	 * @since 3.3.11
+	 */
+	function woo_feed_get_options( $key, $default = false ) {
+		$defaults = [
+			'per_batch'              => 200,
+			'product_query_type'     => 'both',
+			'enable_error_debugging' => 'off',
+			'cache_ttl'              => 6 * HOUR_IN_SECONDS,
+		];
+		
+		/**
+		 * Add defaults without chainging the core values.
+		 *
+		 * @param array $defaults
+		 *
+		 * @since 3.3.11
+		 */
+		$defaults = wp_parse_args( apply_filters( 'woo_feed_settings_extra_defaults', [] ), $defaults );
+		
+		if ( 'defaults' === $key ) {
+			return $defaults;
+		}
+		
+		$settings = wp_parse_args( get_option( 'woo_feed_settings', [] ), $defaults );
+		
+		if ( 'all' === $key ) {
+			return $settings;
+		}
+		
+		if ( array_key_exists( $key, $settings ) ) {
+			return $settings[ $key ];
+		}
+		
+		return $default;
+	}
+}
+if ( ! function_exists( 'woo_feed_save_options' ) ) {
+	/**
+	 * Save Settings.
+	 *
+	 * @param array $args Required. option key value paired array to save.
+	 *
+	 * @return bool
+	 * @since 3.3.11
+	 */
+	function woo_feed_save_options( $args ) {
+		$data = woo_feed_get_options( 'all' );
+		$defaults = woo_feed_get_options( 'defaults' );
+		$_data = $data;
+		
+		if ( array_key_exists( 'per_batch', $args ) ) {
+			$data['per_batch'] = absint( $args['per_batch'] );
+			if ( $data['per_batch'] <= 0 ) {
+				$data['per_batch'] = $_data['per_batch'] > 0 ? $_data['per_batch'] : $defaults['per_batch'];
+			}
+			unset( $args['unset'] );
+		}
+		if ( array_key_exists( 'product_query_type', $args ) ) {
+			$data['product_query_type'] = strtolower( $args['product_query_type'] );
+			$query_types                = array_keys( woo_feed_get_query_type_options() );
+			if ( ! in_array( $data['product_query_type'], $query_types ) ) {
+				$data['product_query_type'] = in_array( $_data['product_query_type'], $query_types ) ? $_data['product_query_type'] : $defaults['product_query_type'];
+			}
+			unset( $args['product_query_type'] );
+		}
+		if ( array_key_exists( 'enable_error_debugging', $args ) ) {
+			$data['enable_error_debugging'] = strtolower( $args['enable_error_debugging'] );
+			if ( ! in_array( $data['enable_error_debugging'], [ 'on', 'off' ] ) ) {
+				$data['enable_error_debugging'] = in_array( $_data['enable_error_debugging'], [ 'on', 'off' ] ) ? $_data['enable_error_debugging'] : $defaults['enable_error_debugging'];
+			}
+			unset( $args['enable_error_debugging'] );
+		}
+		if ( array_key_exists( 'cache_ttl', $args ) ) {
+			$data['cache_ttl'] = absint( $args['cache_ttl'] ); // cache ttl can be zero.
+			unset( $args['cache_ttl'] );
+		}
+		if ( ! empty( $args ) ) {
+			foreach ( $args as $key => $value ) {
+				if ( has_filter( "woo_feed_save_{$key}_option" ) ) {
+					$data[ $key ] = apply_filters( "woo_feed_save_{$key}_option", sanitize_text_field( $value ) );
+				}
+			}
+		}
+		
+		return update_option( 'woo_feed_settings', $data, false );
+	}
+}
+if ( ! function_exists( 'woo_feed_reset_options' ) ) {
+	/**
+	 * Restore the default settings.
+	 *
+	 * @return bool
+	 * @since 3.3.11
+	 */
+	function woo_feed_reset_options() {
+		return update_option( 'woo_feed_settings', woo_feed_get_options( 'defaults' ), false );
+	}
+}
+
+// Caching. Wrapper for Transient API.
+if ( ! function_exists( 'woo_feed_get_cached_data' ) ) {
+	/**
+	 * Get Cached Data
+	 *
+	 * @param string $key   Cache Name
+	 *
+	 * @return mixed|false  false if cache not found.
+	 * @since 3.3.10
+	 */
+	function woo_feed_get_cached_data( $key ) {
+		if ( empty( $key ) ) {
+			return false;
+		}
+		
+		return get_transient( '__woo_feed_cache_' . $key );
+	}
+}
+if ( ! function_exists( 'woo_feed_set_cache_data' ) ) {
+	/**
+	 *
+	 * @param string   $key        Cache name. Expected to not be SQL-escaped. Must be
+	 *                             172 characters or fewer in length.
+	 * @param mixed    $data       Data to cache. Must be serializable if non-scalar.
+	 *                             Expected to not be SQL-escaped.
+	 * @param int|bool $expiration Optional. Time until expiration in seconds. Default 0 (no expiration).
+	 *
+	 * @return bool
+	 */
+	function woo_feed_set_cache_data( $key, $data, $expiration = false ) {
+		
+		if ( empty( $key ) ) {
+			return false;
+		}
+		
+		if ( false === $expiration ) $expiration = WOO_FEED_CACHE_TTL;
+		
+		return set_transient( '__woo_feed_cache_' . $key, $data, (int) $expiration );
+	}
+}
+if ( ! function_exists( 'woo_feed_delete_cache_data' ) ) {
+	/**
+	 * Delete Cached Data
+	 * @param string $key  cache name.
+	 *
+	 * @return bool
+	 */
+	function woo_feed_delete_cache_data( $key ) {
+		if ( empty( $key ) ) {
+			return false;
+		}
+		
+		return delete_transient( '__woo_feed_cache_' . $key );
+	}
+}
+if ( ! function_exists( 'woo_feed_flush_cache_data' ) ) {
+	/**
+	 * Delete All Cached Data
+	 *
+	 * @return void
+	 */
+	function woo_feed_flush_cache_data() {
+		global $wpdb;
+//		$wpdb->query( "DELETE FROM $wpdb->options WHERE {$wpdb->options}.option_name LIKE '_transient___woo_feed_cache_%' " ); // phpcs:ignore
+//		$wpdb->query( "DELETE FROM $wpdb->options WHERE {$wpdb->options}.option_name LIKE '_transient_timeout___woo_feed_cache_%'" ); // phpcs:ignore
+        $wpdb->query( "DELETE FROM $wpdb->options WHERE ({$wpdb->options}.option_name LIKE '_transient_timeout___woo_feed_cache_%') OR ({$wpdb->options}.option_name LIKE '_transient___woo_feed_cache_%')" ); // phpcs:ignore
 	}
 }
 
@@ -1709,8 +2223,8 @@ if ( ! function_exists( 'woo_feed_apply_tax_location_data' ) ) {
 	/**
 	 * Filter and Change Location data for tax calculation
 	 *
-	 * @param array $location Location array.
-	 * @param string $tax_class Tax class.
+	 * @param array       $location Location array.
+	 * @param string      $tax_class Tax class.
 	 * @param WC_Customer $customer WooCommerce Customer Object.
 	 *
 	 * @return array
@@ -1766,42 +2280,64 @@ if ( ! function_exists( 'woo_feed_remove_hooks_before_product_loop' ) ) {
 		remove_filter( 'woocommerce_get_tax_location', 'woo_feed_apply_tax_location_data', 10 );
 	}
 }
-if ( ! function_exists( 'woo_feed_product_type_separator' ) ) {
+if ( ! function_exists( 'woo_feed_product_taxonomy_term_separator' ) ) {
 	/**
 	 * Filter Product local category (type) separator
 	 *
 	 * @param string $separator
-	 * @param array $config
+	 * @param array  $config
 	 *
 	 * @return string
 	 */
-	function woo_feed_product_type_separator( $separator, $config ) {
+	function woo_feed_product_taxonomy_term_separator( $separator, $config ) {
 		if ( 'trovaprezzi' === $config['provider'] ) {
 			$separator = ',';
+		}
+		
+		if ( false !== strpos( $config['provider'], 'daisycon' ) ) {
+			$separator = '|';
 		}
 		
 		return $separator;
 	}
 }
-if ( ! function_exists( 'woo_feed_get_trovaprezzi_availability_attribute_filter' ) ) {
+if ( ! function_exists( 'woo_feed_get_availability_attribute_filter' ) ) {
 	/**
-	 * Filter Product Availability Attribute Output For Trovaprezzi.it Template
+	 * Filter Product Availability Attribute Output For Template
 	 *
-	 * @param string $output
-	 * @param WC_Product $product
+	 * @param string     $output    Output string.
+	 * @param WC_Product $product   Product Object
+	 * @param array      $config    Feed Config
 	 *
 	 * @return int
 	 */
-	function woo_feed_get_trovaprezzi_availability_attribute_filter( $output, $product ) {
+	function woo_feed_get_availability_attribute_filter( $output, $product, $config ) {
 		$status = $product->get_stock_status();
-		$output = 2;
-		if ( $status ) {
-			if ( 'instock' == $status ) {
-				$output = 2;
-			} elseif ( 'outofstock' == $status ) {
-				$output = 0;
-			} elseif ( 'onbackorder' == $status ) {
-				$output = 1;
+		$provider = $config['provider'];
+		
+		if ( 'trovaprezzi' === $provider ) {
+			$output = 2;
+			if ( $status ) {
+				if ( 'instock' == $status ) {
+					$output = 2;
+				} elseif ( 'outofstock' == $status ) {
+					$output = 0;
+				} elseif ( 'onbackorder' == $status ) {
+					$output = 1;
+				}
+			}
+		}
+		
+		if ( false !== strpos( $provider, 'daisycon' ) ) {
+			$output = 'true';
+			if ( $status ) {
+				if ( 'instock' == $status ) {
+					$output = 'true';
+				} elseif ( 'outofstock' == $status ) {
+					$output = 'false';
+				} elseif ( 'onbackorder' == $status ) {
+					$output = 'false';
+				}
 			}
 		}
 		
@@ -1810,48 +2346,386 @@ if ( ! function_exists( 'woo_feed_get_trovaprezzi_availability_attribute_filter'
 }
 
 // Parse feed rules.
-if ( ! function_exists( 'woo_feed_filter_parsed_trovaprezzi_rules' ) ) {
+if ( ! function_exists( 'woo_feed_filter_parsed_rules' ) ) {
 	/**
-	 * Filter Feed parsed rules for trovaprezzi.it
+	 * Filter Feed parsed rules
 	 *
-	 * @param array $rules
-	 * @param string $context
+	 * @param array  $rules     Feed Config
+	 * @param string $context   Parsing context
 	 *
 	 * @return array
 	 * @since 3.3.7
 	 */
-	function woo_feed_filter_parsed_trovaprezzi_rules( $rules, $context ) {
+	function woo_feed_filter_parsed_rules( $rules, $context ) {
+		$provider = $rules['provider'];
 		if ( 'create' === $context ) {
-			$rules['decimal_separator']  = ',';
-			$rules['thousand_separator'] = '';
-			$rules['decimals']           = 2;
-			$rules['itemsWrapper']       = 'Products';
-			$rules['itemWrapper']        = 'Offer';
-			$rules['delimiter']          = '|';
-			$rules['enclosure']          = ' ';
+			if ( 'criteo' === $provider ) {
+				$rules['itemsWrapper'] = 'channel';
+				$rules['itemWrapper']  = 'item';
+			}
+			
+			if ( 'trovaprezzi' === $provider ) {
+				$rules['decimal_separator']  = ',';
+				$rules['thousand_separator'] = '';
+				$rules['decimals']           = 2;
+				$rules['itemsWrapper']       = 'Products';
+				$rules['itemWrapper']        = 'Offer';
+				$rules['delimiter']          = '|';
+				$rules['enclosure']          = ' ';
+			}
+			
+			if ( false !== strpos( $provider, 'daisycon' ) ) {
+				$rules['itemsWrapper'] = 'channel';
+				$rules['itemWrapper']  = 'item';
+			}
 		}
 		
 		return $rules;
 	}
 }
-if ( ! function_exists( 'woo_feed_filter_parsed_criteo_rules' ) ) {
-	/**
-	 * Filter Feed parsed rules for criteo
-	 *
-	 * @param array $rules
-	 * @param string $context
-	 *
-	 * @return array
-	 * @since 3.3.7
-	 */
-	function woo_feed_filter_parsed_criteo_rules( $rules, $context ) {
-		if ( 'create' === $context ) {
-			$rules['itemsWrapper'] = 'channel';
-			$rules['itemWrapper']  = 'item';
-		}
-		
-		return $rules;
-	}
+
+if ( ! function_exists( 'woo_feed_category_mapping' ) ) {
+    /**
+     * Category Mapping
+     */
+    function woo_feed_category_mapping() {
+        // Manage action for category mapping.
+        if ( isset( $_GET['action'], $_GET['cmapping'] ) && 'edit-mapping' == $_GET['action'] ) {
+            if ( count( $_POST ) && isset( $_POST['mappingname'] ) && isset( $_POST['edit-mapping'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                check_admin_referer( 'category-mapping' );
+
+                $mappingOption = sanitize_text_field( $_POST['mappingname'] );
+                $mappingOption = 'wf_cmapping_' . sanitize_title( $mappingOption );
+                $mappingData = woo_feed_array_sanitize( $_POST );
+                $oldMapping = maybe_unserialize( get_option( $mappingOption, array() ) );
+
+                # Delete product attribute drop-down cache
+                delete_transient( '__woo_feed_cache_woo_feed_dropdown_product_attributes');
+
+                if ( $oldMapping === $mappingData ) {
+                    update_option( 'wpf_message', esc_html__( 'Mapping Not Changed', 'woo-feed' ), false );
+                    wp_safe_redirect( admin_url( 'admin.php?page=webappick-feed-category-mapping&wpf_message=warning' ) );
+                    die();
+                }
+
+                if ( update_option( $mappingOption, serialize( $mappingData ), false ) ) { // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+                    update_option( 'wpf_message', esc_html__( 'Mapping Updated Successfully', 'woo-feed' ), false );
+                    wp_safe_redirect( admin_url( 'admin.php?page=webappick-feed-category-mapping&wpf_message=success' ) );
+                    die();
+                } else {
+                    update_option( 'wpf_message', esc_html__( 'Failed To Updated Mapping', 'woo-feed' ), false );
+                    wp_safe_redirect( admin_url( 'admin.php?page=webappick-feed-category-mapping&wpf_message=error' ) );
+                    die();
+                }
+            }
+            require WOO_FEED_FREE_ADMIN_PATH . 'partials/woo-feed-category-mapping.php';
+        } elseif ( isset( $_GET['action'] ) && 'add-mapping' == $_GET['action'] ) {
+            if ( count( $_POST ) && isset( $_POST['mappingname'] ) && isset( $_POST['add-mapping'] ) ) {
+                check_admin_referer( 'category-mapping' );
+
+                $mappingOption = 'wf_cmapping_' . sanitize_text_field( $_POST['mappingname'] );
+
+                # Delete product attribute drop-down cache
+                delete_transient( '__woo_feed_cache_woo_feed_dropdown_product_attributes');
+
+                if ( false !== get_option( $mappingOption, false ) ) {
+                    update_option( 'wpf_message', esc_html__( 'Another category mapping exists with the same name.', 'woo-feed' ), false );
+                    wp_safe_redirect( admin_url( 'admin.php?page=webappick-feed-category-mapping&wpf_message=warning' ) );
+                    die();
+                }
+                if ( update_option( $mappingOption, serialize( woo_feed_array_sanitize( $_POST ) ), false ) ) { // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+                    update_option( 'wpf_message', esc_html__( 'Mapping Added Successfully', 'woo-feed' ), false );
+                    wp_safe_redirect( admin_url( 'admin.php?page=webappick-feed-category-mapping&wpf_message=success' ) );
+                    die();
+                } else {
+                    update_option( 'wpf_message', esc_html__( 'Failed To Add Mapping', 'woo-feed' ), false );
+                    wp_safe_redirect( admin_url( 'admin.php?page=webappick-feed-category-mapping&wpf_message=error' ) );
+                    die();
+                }
+            }
+            require WOO_FEED_FREE_ADMIN_PATH . 'partials/woo-feed-category-mapping.php';
+        } else {
+            require WOO_FEED_FREE_ADMIN_PATH . 'partials/woo-feed-category-mapping-list.php';
+        }
+    }
 }
+
+// Category mapping.
+if ( ! function_exists( 'woo_feed_render_categories' ) ) {
+    /**
+     * Get Product Categories
+     *
+     * @param int    $parent Parent ID.
+     * @param string $par separator.
+     * @param string $value mapped values.
+     */
+    function woo_feed_render_categories( $parent = 0, $par = '', $value = '' ) {
+        $categoryArgs = [
+            'taxonomy'     => 'product_cat',
+            'parent'       => $parent,
+            'orderby'      => 'term_group',
+            'show_count'   => 1,
+            'pad_counts'   => 1,
+            'hierarchical' => 1,
+            'title_li'     => '',
+            'hide_empty'   => 0,
+        ];
+        $categories   = get_categories( $categoryArgs );
+        if ( ! empty( $categories ) ) {
+            if ( ! empty( $par ) ) {
+                $par = $par . ' > ';
+            }
+            foreach ( $categories as $cat ) {
+                $class = $parent ? "treegrid-parent-{$parent} category-mapping" : 'treegrid-parent category-mapping';
+                ?>
+                <tr class="treegrid-1 ">
+                    <th>
+                        <label for="cat_mapping_<?php echo esc_attr( $cat->term_id ); ?>"><?php echo esc_html( $par . $cat->name ); ?></label>
+                    </th>
+                    <td><!--suppress HtmlUnknownAttribute -->
+                        <input id="cat_mapping_<?php echo esc_attr( $cat->term_id ); ?>"
+                               class="<?php echo esc_attr( $class ); ?> woo-feed-mapping-input"
+                               autocomplete="off"
+                               type="text"
+                               name="cmapping[<?php echo esc_attr( $cat->term_id ); ?>]"
+                               placeholder="<?php echo esc_attr( $par . $cat->name ); ?>"
+                               data-cat_id="<?php echo esc_attr( $cat->term_id ); ?>"
+                               value="<?php echo is_array( $value ) && isset( $value['cmapping'][ $cat->term_id ] ) ? esc_attr( $value['cmapping'][ $cat->term_id ] ) : ''; ?>"
+                        >
+                    </td>
+                </tr>
+                <?php
+                // call and render the child category if any.
+                woo_feed_render_categories( $cat->term_id, $par . $cat->name, $value );
+            }
+        }
+    }
+}
+
+if ( ! function_exists( 'woo_feed_get_category_mapping_value' ) ) {
+    /**
+     * Return Category Mapping Values by Parent Product Id
+     *
+     * @param string $cmappingName Category Mapping Name
+     * @param int    $parent Parent id of the product
+     *
+     * @return mixed
+     */
+    function woo_feed_get_category_mapping_value( $cmappingName, $parent ) {
+        $getValue = maybe_unserialize( get_option( $cmappingName ) );
+        if ( ! isset( $getValue['cmapping'] ) ) {
+            return '';
+        }
+        $cmapping   = is_array( $getValue['cmapping'] ) ? array_reverse( $getValue['cmapping'], true ) : $getValue['cmapping'];
+        $categories = '';
+        if ( get_the_terms( $parent, 'product_cat' ) ) {
+            $categories = array_reverse( get_the_terms( $parent, 'product_cat' ) );
+        }
+        if ( ! empty( $categories ) && is_array( $categories ) && count( $categories ) ) {
+            foreach ( $categories as $key => $category ) {
+                if ( isset( $cmapping[ $category->term_id ] ) && ! empty( $cmapping[ $category->term_id ] ) ) {
+                    return $cmapping[ $category->term_id ];
+                } else {
+                    return '';
+                }
+            }
+        }
+
+        return '';
+    }
+}
+
+
+if( ! function_exists( 'woo_feed_add_identifier_fields' ) ) {
+    /**
+     * Add Custom fields into product inventory tab for Unique Identifier (GTIN,MPN,EAN)
+     *
+     * @since 3.7.8
+     */
+    function woo_feed_add_identifier_fields() {
+
+        echo '<div class="options_group">';
+        echo sprintf( '<h4 class="%s" style="padding-left: 10px;">%s</h4>', esc_attr( 'woo-feed-option-title' ), esc_html( 'Unique Identifier - Woo Feed', 'woo-feed' ) );
+
+        //GTIN input field
+        woocommerce_wp_text_input( array(
+            'id'      => 'woo_feed_gtin',
+            'value'   => get_post_meta( get_the_ID(), 'woo_feed_gtin', true ),
+            'placeholder'   => esc_html( 'Set product GTIN', 'woo-feed' ),
+            'label'   => esc_html( 'GTIN', 'woo-feed' ),
+            'desc_tip' => true,
+            'description' => esc_html( 'Set product GTIN code here.', 'woo-feed' ),
+        ) );
+
+        //MPN input field
+        woocommerce_wp_text_input( array(
+            'id'      => 'woo_feed_mpn',
+            'value'   => get_post_meta( get_the_ID(), 'woo_feed_mpn', true ),
+            'placeholder'   => esc_html( 'Set product MPN', 'woo-feed' ),
+            'label'   => esc_html( 'MPN', 'woo-feed' ),
+            'desc_tip' => true,
+            'description' => esc_html( 'Set product MPN code here.', 'woo-feed' ),
+        ) );
+
+        //EAN input field
+        woocommerce_wp_text_input( array(
+            'id'      => 'woo_feed_ean',
+            'value'   => get_post_meta( get_the_ID(), 'woo_feed_ean', true ),
+            'placeholder'   => esc_html( 'Set product EAN', 'woo-feed' ),
+            'label'   => esc_html( 'EAN', 'woo-feed' ),
+            'desc_tip' => true,
+            'description' => esc_html( 'Set product EAN code here.', 'woo-feed' ),
+        ) );
+
+        echo '</div>';
+
+    }
+    add_action( 'woocommerce_product_options_inventory_product_data', 'woo_feed_add_identifier_fields');
+}
+
+if( ! function_exists( 'woo_feed_save_identifier_fields_data' ) ) {
+
+    /**
+     * Updating custom fields data. (Unique Identifier (GTIN,MPN,EAN))
+     *
+     * @param int $id Post Id
+     * @param WP_Post $post Wp Post Object.
+     * @since 3.7.8
+     */
+    function woo_feed_save_identifier_fields_data( $id, $post ) {
+
+        //save gtin fields value
+        if( isset( $_POST['woo_feed_gtin'] ) && ! empty( $_POST['woo_feed_gtin'] ) ) {
+            update_post_meta( $id, 'woo_feed_gtin', $_POST['woo_feed_gtin'] );
+        } else {
+            delete_post_meta( $id, 'woo_feed_gtin' );
+        }
+
+        //save mpn fields value
+        if( isset( $_POST['woo_feed_mpn'] ) && ! empty( $_POST['woo_feed_mpn'] ) ) {
+            update_post_meta( $id, 'woo_feed_mpn', $_POST['woo_feed_mpn'] );
+        } else {
+            delete_post_meta( $id, 'woo_feed_mpn' );
+        }
+
+        //save ean fields value
+        if( isset( $_POST['woo_feed_ean'] ) && ! empty( $_POST['woo_feed_ean'] ) ) {
+            update_post_meta( $id, 'woo_feed_ean', $_POST['woo_feed_ean'] );
+        } else {
+            delete_post_meta( $id, 'woo_feed_ean' );
+        }
+    }
+
+    add_action( 'woocommerce_process_product_meta', 'woo_feed_save_identifier_fields_data', 10, 2 );
+}
+
+if( ! function_exists( 'woo_feed_add_identifier_fields_for_variation' ) ) {
+
+    /**
+     * Custom options in variation tab, here we are putting gtin, mpn, ean input fields in product variation tab
+     *
+     * @param int $loop Variation loop index.
+     * @param array $variation_data Variation info.
+     * @param WP_Post $variation Post Object.
+     *
+     * @since 3.7.8
+     */
+    function woo_feed_add_identifier_fields_for_variation( $loop, $variation_data, $variation ) {
+
+        echo '<div class="woo-feed-variation-options">';
+        echo sprintf( '<h4 class="%s">%s</h4>', esc_attr( 'woo-feed-variation-option-title' ), esc_html( 'Unique Identifier - Woo Feed', 'woo-feed' ) );
+        ?>
+        <style>
+            .woo-feed-variation-options {
+                border-top: 1px solid #ccc;
+                margin-top: 20px;
+            }
+            .woo-feed-variation-options h4 {
+                margin-bottom: 0;
+            }
+            .woo-feed-variation-options .form-field input[type="text"] {
+                width: 100%;
+                padding: 5px;
+            }
+            .woo-feed-variation-items {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .woo-feed-variation-items p {
+                width: 33.33%;
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+            .woo-feed-variation-items p:first-child,.woo-feed-variation-items p:last-child {
+                padding: 0;
+            }
+        </style>
+        <?php
+
+        echo '<div class="woo-feed-variation-items">';
+        //GTIN variation input field
+        woocommerce_wp_text_input( array(
+            'id'      => "woo_feed_gtin_var[$variation->ID]",
+            'value'   => get_post_meta( $variation->ID, "woo_feed_gtin_var", true ),
+            'placeholder'   => esc_html( 'Set product GTIN', 'woo-feed' ),
+            'label'   => esc_html( 'GTIN', 'woo-feed' ),
+        ) );
+
+        //MPN variation input field
+        woocommerce_wp_text_input( array(
+            'id'      => "woo_feed_mpn_var[$variation->ID]",
+            'value'   => get_post_meta( $variation->ID, 'woo_feed_mpn_var', true ),
+            'placeholder'   => esc_html( 'Set product MPN', 'woo-feed' ),
+            'label'   => esc_html( 'MPN', 'woo-feed' ),
+        ) );
+
+        //EAN variation input field
+        woocommerce_wp_text_input( array(
+            'id'      => "woo_feed_ean_var[$variation->ID]",
+            'value'   => get_post_meta( $variation->ID, 'woo_feed_ean_var', true ),
+            'placeholder'   => esc_html( 'Set product EAN', 'woo-feed' ),
+            'label'   => esc_html( 'EAN', 'woo-feed' ),
+        ) );
+
+        echo '</div></div>';
+
+    }
+    add_action( 'woocommerce_product_after_variable_attributes', 'woo_feed_add_identifier_fields_for_variation', 10, 3 );
+}
+
+if( ! function_exists( 'woo_feed_save_identifier_fields_data_for_variation' ) ) {
+
+    /**
+     * Saving variation custom fields.
+     *
+     * @param int $variation_id Variation Id.
+     * @param int $i variations loop index.
+     *
+     * @since 3.7.8
+     */
+    function woo_feed_save_identifier_fields_data_for_variation( $variation_id, $i ) {
+
+        //save gtin field
+        if( isset($_POST['woo_feed_gtin_var'][$variation_id]) ) {
+            $woo_feed_gtin_field = $_POST['woo_feed_gtin_var'][$variation_id];
+            if ( isset( $woo_feed_gtin_field ) ) update_post_meta( $variation_id, 'woo_feed_gtin_var', esc_attr( $woo_feed_gtin_field ) );
+        }
+
+        //save mpn field
+        if( isset($_POST['woo_feed_mpn_var'][$variation_id]) ) {
+            $woo_feed_mpn_field = $_POST['woo_feed_mpn_var'][$variation_id];
+            if ( isset( $woo_feed_mpn_field ) ) update_post_meta( $variation_id, 'woo_feed_mpn_var', esc_attr( $woo_feed_mpn_field ) );
+        }
+
+        //save ean field
+        if( isset($_POST['woo_feed_ean_var'][$variation_id]) ) {
+            $woo_feed_ean_field = $_POST['woo_feed_ean_var'][$variation_id];
+            if ( isset( $woo_feed_ean_field ) ) update_post_meta( $variation_id, 'woo_feed_ean_var', esc_attr( $woo_feed_ean_field ) );
+        }
+
+    }
+    add_action( 'woocommerce_save_product_variation', 'woo_feed_save_identifier_fields_data_for_variation', 10, 2 );
+}
+
 
 // End of file helper.php.

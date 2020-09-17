@@ -41,9 +41,9 @@ class Woo_Feed_installer {
 	 * @return array
 	 */
 	public static function cron_schedules( $schedules ) {
-		$interval = get_option('wf_schedule');
+		$interval                   = get_option( 'wf_schedule' );
 		$schedules['woo_feed_corn'] = array(
-			'display'  => __( 'Woo Feed Update Interval', 'woo-feed' ),
+			'display'  => esc_html__( 'Woo Feed Update Interval', 'woo-feed' ),
 			'interval' => $interval,
 		);
 		return $schedules;
@@ -69,14 +69,20 @@ class Woo_Feed_installer {
 			return;
 		}
 		
+		if ( ! defined( 'WOO_FEED_INSTALLING' ) ) {
+			define( 'WOO_FEED_INSTALLING', true );
+		}
+		
 		// If we made it till here nothing is running yet, lets set the transient now.
-		set_transient( 'woo_feed_installing', 'yes', MINUTE_IN_SECONDS * 10 );
-		woo_feed_maybe_define_constant( 'WOO_FEED_INSTALLING', true );
+		set_transient( 'woo_feed_installing', 'yes', 10 * MINUTE_IN_SECONDS );
 		
 		self::pro_version_warning();
+		self::migrate_db();
 		self::create_cron_jobs();
 		self::create_files();
 		self::update_woo_feed_version();
+		
+		// installation finished.
 		delete_transient( 'woo_feed_installing' );
 	}
 	
@@ -85,6 +91,25 @@ class Woo_Feed_installer {
 		if ( woo_feed_is_plugin_active( "webappick-product-feed-for-woocommerce-pro/webappick-product-feed-for-woocommerce-pro.php" ) ) {
 			echo '<div class="notice error"><p>'. __( 'Please deactivate the <b>WooCommerce Product Feed Pro</b> version to activate free version again.', 'woo-feed' ) .'</p></div>'; // phpcs:ignore
 			die();
+		}
+	}
+	
+	/**
+	 * DB Updates
+	 */
+	private static function migrate_db() {
+		if ( ! defined( 'WOO_FEED_UPDATING' ) ) {
+			return;
+		}
+		// settings api update.
+		if ( version_compare( '3.3.10', WOO_FEED_FREE_VERSION, '<' ) ) {
+			$keys = [ 'per_batch', 'product_query_type', 'enable_error_debugging', 'woo_feed_cache_ttl' ];
+			$data = [];
+			foreach ( $keys as $key ) {
+				$data[ $key ] = get_option( 'woo_feed_' . $key );
+				delete_option( 'woo_feed_' . $key );
+			}
+			woo_feed_save_options( $data );
 		}
 	}
 	
