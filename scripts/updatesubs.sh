@@ -3,13 +3,17 @@
 PWDAtual=`pwd`
 echo "Working On: $PWDAtual"
 APACHEUSER=""
-if [ hash apachectl 2>/dev/null ]; then 
-	APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
+
+if [ hash apachectl 2>/dev/null ]; then
+        APACHEUSER=`apachectl -S|grep User|awk '{print $2;}'|sed 's/name=//;s/\"//g'`
+else
+        APACHEUSER=www-data
 fi
 echo "Apache user is: $APACHEUSER"
+ROOTREPOS=`git config --get remote.origin.url`
 checkIfRootRepos() {
-        REPOS=$(basename -s .git `git config --get remote.origin.url`)
-        if [ "$REPOS" = "redelivre" ]; then 
+        REPOS=`git config --get remote.origin.url`
+        if [ "$REPOS" = "$ROOTREPOS" ]; then
                 return 1;
         fi
         return 0;
