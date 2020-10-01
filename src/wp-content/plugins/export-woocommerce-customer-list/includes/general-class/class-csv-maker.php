@@ -106,7 +106,7 @@ class class_pisol_ewcl_csv_maker{
     }
 
     private function triggerDownload(){
-        header('Content-Type: text/csv');
+        header('Content-Type: text/csv; charset=UTF-8');
         // tell the browser we want to save it instead of displaying it
         header('Content-Disposition: attachment; filename="'.$this->file_name.'";');
         // make php send the generated csv lines to the browser

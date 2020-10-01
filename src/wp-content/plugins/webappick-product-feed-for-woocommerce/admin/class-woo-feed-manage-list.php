@@ -167,11 +167,18 @@ class Woo_Feed_Manage_list extends Woo_Feed_List_Table {
 		$name = str_replace( 'wf_feed_', '', $item['option_name'] );
 		$config = maybe_unserialize( maybe_unserialize( $item['option_value'] ) );
 		if ( isset( $config['feedrules'], $config['feedrules']['filename'] ) ) {
-			$name = $config['feedrules']['filename'];
+            $name = sprintf(
+                '<a class="wf_feed_option_name_link" href="?page=%s&action=%s&feed=%s&_wpnonce=%s">' . __( "%s", 'woo-feed' ) . '</a>',
+                esc_attr( $plugin_page ),
+                'edit-feed',
+                $item['option_name'],
+                $edit_nonce,
+                $config['feedrules']['filename']
+            );
 		}
 		
 		return sprintf( '%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
-			esc_html( $name ),
+			$name,
 			esc_html( $item['option_id'] ),
 			$this->row_actions( $actions )
 		);

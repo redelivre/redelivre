@@ -7,7 +7,7 @@
  * Time: 5:10 PM
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH') ) {
     die();
 }
 
@@ -79,7 +79,7 @@ class Woo_Feed_Products_v3
      * To replace google product highlight attribute for CSV & TXT feed
      * @var array
      */
-    protected $google_product_highlights=array(
+    protected $google_product_highlights = array(
         'product highlight 1',
         'product highlight 2',
         'product highlight 3',
@@ -96,7 +96,7 @@ class Woo_Feed_Products_v3
      * To replace google additional image link attribute for CSV & TXT feed
      * @var array
      */
-    protected $google_additional_image=array(
+    protected $google_additional_image = array(
         'additional image link 1',
         'additional image link 2',
         'additional image link 3',
@@ -142,7 +142,7 @@ class Woo_Feed_Products_v3
      * @var array
      */
     protected $skipped_merchant_attributes = array(
-        'google' => array(
+        'google'   => array(
             'shipping_country',
             'shipping_region',
             'shipping_service',
@@ -201,7 +201,8 @@ class Woo_Feed_Products_v3
         'subscription',
         'variable-subscription',
         'bundle',
-        'yith_bundle'
+        'yith_bundle',
+        'woosb',
     );
     /**
      * Post meta prefix for dropdown item
@@ -228,8 +229,7 @@ class Woo_Feed_Products_v3
      */
     const PRODUCT_CATEGORY_MAPPING_PREFIX = 'wf_cmapping_';
 
-    public function __construct($config)
-    {
+    public function __construct( $config ) {
         $this->config = woo_feed_parse_feed_rules($config);
         $this->queryType = woo_feed_get_options('product_query_type');
         $this->process_xml_wrapper();
@@ -241,31 +241,30 @@ class Woo_Feed_Products_v3
      * @param string $type
      * @return array
      */
-    protected function get_query_args($type = 'wc')
-    {
+    protected function get_query_args( $type = 'wc' ) {
         $args = [];
-        if ('wc' === $type) {
+        if ( 'wc' === $type ) {
             $args = array(
                 'limit' => -1, // phpcs:ignore
-                'status' => $this->post_status,
-                'type' => ['simple', 'variable', 'grouped', 'external','subscription', 'variable-subscription', 'bundle','yith_bundle'],
-                'orderby' => 'date',
-                'order' => 'DESC',
-                'return' => 'ids',
+                'status'           => $this->post_status,
+                'type'             => [ 'simple', 'variable', 'grouped', 'external', 'subscription', 'variable-subscription', 'bundle', 'yith_bundle', 'woosb' ],
+                'orderby'          => 'date',
+                'order'            => 'DESC',
+                'return'           => 'ids',
                 'suppress_filters' => false,
             );
         }
-        if ('wp' === $type) {
+        if ( 'wp' === $type ) {
             $args = array(
                 'posts_per_page' => -1, // phpcs:ignore
-                'post_type' => 'product',
-                'post_status' => 'publish',
-                'order' => 'DESC',
-                'fields' => 'ids',
-                'cache_results' => false,
+                'post_type'              => 'product',
+                'post_status'            => 'publish',
+                'order'                  => 'DESC',
+                'fields'                 => 'ids',
+                'cache_results'          => false,
                 'update_post_meta_cache' => false,
                 'update_post_term_cache' => false,
-                'suppress_filters' => false,
+                'suppress_filters'       => false,
             );
         }
         return $args;
@@ -276,15 +275,14 @@ class Woo_Feed_Products_v3
      *
      * @return array
      */
-    public function get_wc_query_products()
-    {
+    public function get_wc_query_products() {
         $args = $this->get_query_args('wc');
-        if (woo_feed_is_debugging_enabled()) {
+        if ( woo_feed_is_debugging_enabled() ) {
             woo_feed_log_feed_process($this->config['filename'], 'WC_Product_Query Args::' . PHP_EOL . print_r($args, true)); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
             woo_feed_log($this->config['filename'], 'WC_Product_Query Args::' . PHP_EOL . print_r($args, true), 'info'); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
         }
         $query = new WC_Product_Query($args);
-        if (woo_feed_is_debugging_enabled()) {
+        if ( woo_feed_is_debugging_enabled() ) {
             woo_feed_log_feed_process($this->config['filename'], sprintf('WC_Product_Query Args ::' . PHP_EOL . '%s', print_r($args, true))); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
         }
         return $query->get_products();
@@ -295,11 +293,10 @@ class Woo_Feed_Products_v3
      *
      * @return array
      */
-    public function get_wp_query_products()
-    {
+    public function get_wp_query_products() {
         $args = $this->get_query_args('wp');
         $query = new WP_Query($args);
-        if (woo_feed_is_debugging_enabled()) {
+        if ( woo_feed_is_debugging_enabled() ) {
             woo_feed_log_feed_process($this->config['filename'], 'WC_Product_Query Args::' . PHP_EOL . print_r($args, true)); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
             woo_feed_log_feed_process($this->config['filename'], sprintf('WP_Query Request ::' . PHP_EOL . '%s', $query->request));
             woo_feed_log($this->config['filename'], 'WC_Product_Query Args::' . PHP_EOL . print_r($args, true), 'info'); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
@@ -313,14 +310,13 @@ class Woo_Feed_Products_v3
      *
      * @return array
      */
-    public function query_products()
-    {
+    public function query_products() {
         $products = [];
-        if ('wc' == $this->queryType) {
+        if ( 'wc' == $this->queryType ) {
             $products = $this->get_wc_query_products();
-        } elseif ('wp' == $this->queryType) {
+        } elseif ( 'wp' == $this->queryType ) {
             $products = $this->get_wp_query_products();
-        } elseif ('both' == $this->queryType) {
+        } elseif ( 'both' == $this->queryType ) {
             $wc = $this->get_wc_query_products();
             $wp = $this->get_wp_query_products();
             $products = array_unique(array_merge($wc, $wp));
@@ -333,25 +329,24 @@ class Woo_Feed_Products_v3
      * Organize Feed Attribute config
      * @return array|bool
      */
-    public function get_attribute_config()
-    {
-        if (empty($this->config)) {
+    public function get_attribute_config() {
+        if ( empty($this->config) ) {
             return false;
         }
 
         $attributeConfig = array();
         $merchantAttributes = $this->config['mattributes'];
-        if (!empty($merchantAttributes)) {
+        if ( ! empty($merchantAttributes) ) {
             $i = 0;
-            foreach ($merchantAttributes as $key => $value) {
-                $attributeConfig[$i]['mattributes'] = $value;
-                $attributeConfig[$i]['prefix'] = $this->config['prefix'][$key];
-                $attributeConfig[$i]['type'] = $this->config['type'][$key];
-                $attributeConfig[$i]['attributes'] = $this->config['attributes'][$key];
-                $attributeConfig[$i]['default'] = $this->config['default'][$key];
-                $attributeConfig[$i]['suffix'] = $this->config['suffix'][$key];
-                $attributeConfig[$i]['output_type'] = $this->config['output_type'][$key];
-                $attributeConfig[$i]['limit'] = $this->config['limit'][$key];
+            foreach ( $merchantAttributes as $key => $value ) {
+                $attributeConfig[ $i ]['mattributes'] = $value;
+                $attributeConfig[ $i ]['prefix'] = $this->config['prefix'][ $key ];
+                $attributeConfig[ $i ]['type'] = $this->config['type'][ $key ];
+                $attributeConfig[ $i ]['attributes'] = $this->config['attributes'][ $key ];
+                $attributeConfig[ $i ]['default'] = $this->config['default'][ $key ];
+                $attributeConfig[ $i ]['suffix'] = $this->config['suffix'][ $key ];
+                $attributeConfig[ $i ]['output_type'] = $this->config['output_type'][ $key ];
+                $attributeConfig[ $i ]['limit'] = $this->config['limit'][ $key ];
                 $i++;
             }
         }
@@ -368,10 +363,9 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    public function get_products($productIds)
-    {
+    public function get_products( $productIds ) {
 
-        if (empty($productIds)) {
+        if ( empty($productIds) ) {
             return [];
         }
 
@@ -385,19 +379,19 @@ class Woo_Feed_Products_v3
          */
         do_action('woo_feed_before_product_loop', $productIds, $this->config);
 
-        foreach ($productIds as $key => $pid) {
+        foreach ( $productIds as $key => $pid ) {
             woo_feed_log_feed_process($this->config['filename'], sprintf('Loading Product Data For %d.', $pid));
             $product = wc_get_product($pid);
 
-            if ($this->exclude_from_loop($product)) {
+            if ( $this->exclude_from_loop($product) ) {
                 continue;
             }
 
-            if ($this->process_variation($product)) {
+            if ( $this->process_variation($product) ) {
                 continue;
             }
 
-            if (!$this->filter_product($product)) {
+            if ( ! $this->filter_product($product) ) {
                 woo_feed_log_feed_process($this->config['filename'], 'Skipping Product :: Matched with filter conditions');
                 continue;
             }
@@ -405,7 +399,7 @@ class Woo_Feed_Products_v3
             woo_feed_log_feed_process($this->config['filename'], 'Formatting Feed Data...');
 
             // Add Single item wrapper before product info loop start
-            if ('xml' == $this->config['feedType']) {
+            if ( 'xml' == $this->config['feedType'] ) {
                 $this->feedBody .= "\n";
                 $this->feedBody .= '<' . $this->config['itemWrapper'] . '>';
                 $this->feedBody .= "\n";
@@ -420,14 +414,14 @@ class Woo_Feed_Products_v3
                 woo_feed_log_feed_process($this->config['filename'], 'Processing Merchant Specific Fields');
                 // Process feed data for uncommon merchant feed like Google,Facebook,Pinterest
                 $this->process_for_merchant($product, $this->pi);
-            } catch (Exception $e) {
+            } catch ( Exception $e ) {
                 $message = 'Error Processing Merchant Specific Fields.' . PHP_EOL . 'Caught Exception :: ' . $e->getMessage();
                 woo_feed_log($this->config['filename'], $message, 'critical', $e, true);
                 woo_feed_log_fatal_error($message, $e);
             }
 
-            if ('xml' == $this->config['feedType']) {
-                if (empty($this->feedHeader)) {
+            if ( 'xml' == $this->config['feedType'] ) {
+                if ( empty($this->feedHeader) ) {
                     $this->feedHeader = $this->process_xml_feed_header();
                     $this->feedFooter = $this->process_xml_feed_footer();
 
@@ -436,13 +430,13 @@ class Woo_Feed_Products_v3
                 $this->feedBody .= '</' . $this->config['itemWrapper'] . '>';
 
 
-            } elseif ('txt' == $this->config['feedType']) {
-                if (empty($this->feedHeader)) {
+            } elseif ( 'txt' == $this->config['feedType'] ) {
+                if ( empty($this->feedHeader) ) {
                     $this->process_txt_feed_header();
                 }
                 $this->process_txt_feed_body();
             } else {
-                if (empty($this->feedHeader)) {
+                if ( empty($this->feedHeader) ) {
                     $this->process_csv_feed_header();
                 }
                 $this->process_csv_feed_body();
@@ -471,14 +465,13 @@ class Woo_Feed_Products_v3
      * @return bool
      * @since 3.3.9
      */
-    protected function process_variation($product)
-    {
+    protected function process_variation( $product ) {
         // Apply variable and variation settings
-        if ($product->is_type('variable') && $product->has_child()) {
+        if ( $product->is_type('variable') && $product->has_child() ) {
             $this->pi++;
             $variations = $product->get_visible_children();
-            if (is_array($variations) && (sizeof($variations) > 0)) {
-                if (woo_feed_is_debugging_enabled()) {
+            if ( is_array($variations) && (sizeof($variations) > 0) ) {
+                if ( woo_feed_is_debugging_enabled() ) {
                     woo_feed_log_feed_process($this->config['filename'], sprintf('Getting Variation Product(s) :: %s', implode(', ', $variations)));
                 }
                 $this->get_products($variations);
@@ -496,44 +489,43 @@ class Woo_Feed_Products_v3
      * @return void
      * @since 3.3.9
      */
-    protected function process_attributes($product)
-    {
+    protected function process_attributes( $product ) {
         // Get Product Attribute values by type and assign to product array
-        foreach ($this->config['attributes'] as $attr_key => $attribute) {
+        foreach ( $this->config['attributes'] as $attr_key => $attribute ) {
 
-            $merchant_attribute = isset($this->config['mattributes'][$attr_key])?$this->config['mattributes'][$attr_key]:'';
+            $merchant_attribute = isset($this->config['mattributes'][ $attr_key ]) ? $this->config['mattributes'][ $attr_key ] : '';
 
-            if ($this->exclude_current_attribute($product, $merchant_attribute, $attribute)) {
+            if ( $this->exclude_current_attribute($product, $merchant_attribute, $attribute) ) {
                 continue;
             }
 
             // Add Prefix and Suffix into Output
-            $prefix = $this->config['prefix'][$attr_key];
-            $suffix = $this->config['suffix'][$attr_key];
+            $prefix = $this->config['prefix'][ $attr_key ];
+            $suffix = $this->config['suffix'][ $attr_key ];
             $merchant = $this->config['provider'];
             $feedType = $this->config['feedType'];
 
-            if ('pattern' == $this->config['type'][$attr_key]) {
-                $attributeValue = $this->config['default'][$attr_key];
+            if ( 'pattern' == $this->config['type'][ $attr_key ] ) {
+                $attributeValue = $this->config['default'][ $attr_key ];
             } else { // Get Pattern value
                 $attributeValue = $this->getAttributeValueByType($product, $attribute);
             }
 
             // Format Output according to Output Type config.
-            if (isset($this->config['output_type'][$attr_key])) {
-                $outputType = $this->config['output_type'][$attr_key];
-                $attributeValue = $this->format_output($attributeValue, $this->config['output_type'][$attr_key], $product, $attribute);
+            if ( isset($this->config['output_type'][ $attr_key ]) ) {
+                $outputType = $this->config['output_type'][ $attr_key ];
+                $attributeValue = $this->format_output($attributeValue, $this->config['output_type'][ $attr_key ], $product, $attribute);
             }
 
             // Limit Output.
-            if (isset($this->config['limit'][$attr_key])) {
-                $attributeValue = $this->crop_string($attributeValue, 0, $this->config['limit'][$attr_key]);
+            if ( isset($this->config['limit'][ $attr_key ]) ) {
+                $attributeValue = $this->crop_string($attributeValue, 0, $this->config['limit'][ $attr_key ]);
             }
 
             // Process prefix and suffix.
             $attributeValue = $this->process_prefix_suffix($attributeValue, $prefix, $suffix, $attribute);
 
-            if ('xml' == $feedType) {
+            if ( 'xml' == $feedType ) {
 
                 // Replace XML Nodes according to merchant requirement.
                 $getReplacedAttribute = woo_feed_replace_to_merchant_attribute($merchant_attribute, $merchant, $feedType);
@@ -541,18 +533,18 @@ class Woo_Feed_Products_v3
                 // XML does not support space in node. So replace Space with Underscore.
                 $getReplacedAttribute = str_replace(' ', '_', $getReplacedAttribute);
 
-                if (!empty($attributeValue)) {
+                if ( ! empty($attributeValue) ) {
                     $attributeValue = trim($attributeValue);
                 }
 
                 // Add closing XML node if value is empty
-                if ('' != $attributeValue) {
+                if ( '' != $attributeValue ) {
                     // Add CDATA wrapper for XML feed to prevent XML error.
                     $attributeValue = woo_feed_add_cdata($merchant_attribute, $attributeValue, $merchant);
 
                     // TODO Move to proper place
                     // Replace Google Color attribute value according to requirements
-                    if ('g:color' == $getReplacedAttribute) {
+                    if ( 'g:color' == $getReplacedAttribute ) {
                         $attributeValue = str_replace(', ', '/', $attributeValue);
                     }
 
@@ -566,17 +558,17 @@ class Woo_Feed_Products_v3
                     $this->feedBody .= '<' . $getReplacedAttribute . '/>';
                     $this->feedBody .= "\n";
                 }
-            } elseif ('csv' == $feedType) {
+            } elseif ( 'csv' == $feedType ) {
                 $merchant_attribute = woo_feed_replace_to_merchant_attribute($merchant_attribute, $merchant, $feedType);
                 $merchant_attribute = $this->processStringForCSV($merchant_attribute);
                 $attributeValue = $this->processStringForCSV($attributeValue);
-            } elseif ('txt' == $feedType) {
+            } elseif ( 'txt' == $feedType ) {
                 $merchant_attribute = woo_feed_replace_to_merchant_attribute($merchant_attribute, $merchant, $feedType);
                 $merchant_attribute = $this->processStringForTXT($merchant_attribute);
                 $attributeValue = $this->processStringForTXT($attributeValue);
             }
 
-            $this->products[$this->pi][$merchant_attribute] = $attributeValue;
+            $this->products[ $this->pi ][ $merchant_attribute ] = $attributeValue;
         }
     }
 
@@ -590,22 +582,21 @@ class Woo_Feed_Products_v3
      * @since 3.3.9
      *
      */
-    protected function exclude_from_loop($product)
-    {
+    protected function exclude_from_loop( $product ) {
         // For WP_Query check available product types
-        if ('wp' == $this->queryType && !in_array($product->get_type(), $this->product_types)) {
+        if ( 'wp' == $this->queryType && ! in_array($product->get_type(), $this->product_types) ) {
             woo_feed_log_feed_process($this->config['filename'], sprintf('Skipping Product :: Invalid Post/Product Type : %s.', $product->get_type()));
             return true;
         }
 
         // Skip for invalid products
-        if (!is_object($product)) {
+        if ( ! is_object($product) ) {
             woo_feed_log_feed_process($this->config['filename'], 'Skipping Product :: Product data is not a valid WC_Product object.');
             return true;
         }
 
         // Skip for invisible products
-        if (!$product->is_visible()) {
+        if ( ! $product->is_visible() ) {
             woo_feed_log_feed_process($this->config['filename'], 'Skipping Product :: Product is not visible.');
             return true;
         }
@@ -626,22 +617,21 @@ class Woo_Feed_Products_v3
      * @since 3.3.9
      *
      */
-    protected function exclude_current_attribute($product, $merchant_attribute, $product_attribute, $feedType = 'xml')
-    {
-        if(empty($merchant_attribute)){
+    protected function exclude_current_attribute( $product, $merchant_attribute, $product_attribute, $feedType = 'xml' ) {
+        if ( empty($merchant_attribute) ) {
             return true;
         }
 
         if (
             $feedType == $this->config['feedType'] &&
             in_array($this->config['provider'], array_keys($this->skipped_merchant_attributes)) &&
-            in_array($merchant_attribute, $this->skipped_merchant_attributes[$this->config['provider']])
+            in_array($merchant_attribute, $this->skipped_merchant_attributes[ $this->config['provider'] ])
 
         ) {
             return true;
         }
 
-        if ('shopping_ads_excluded_country'!== $merchant_attribute && in_array($merchant_attribute, $this->processed_merchant_attributes)) {
+        if ( 'shopping_ads_excluded_country' !== $merchant_attribute && in_array($merchant_attribute, $this->processed_merchant_attributes) ) {
             return true;
         }
 
@@ -661,13 +651,12 @@ class Woo_Feed_Products_v3
      *
      * @return string
      */
-    protected function crop_string($string, $start = 0, $limit = null)
-    {
+    protected function crop_string( $string, $start = 0, $limit = null ) {
         $limit = absint($limit);
-        if ($limit > 0) {
+        if ( $limit > 0 ) {
             $start = absint($start);
-            if (strpos($string, '<![CDATA[') !== false) {
-                $string = str_replace(array('<![CDATA[', ']]>'), array('', ''), $string);
+            if ( strpos($string, '<![CDATA[') !== false ) {
+                $string = str_replace(array( '<![CDATA[', ']]>' ), array( '', '' ), $string);
                 $string = substr($string, $start, $limit);
                 $string = '<![CDATA[' . $string . ']]>';
             } else {
@@ -686,18 +675,17 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function process_for_merchant($productObj, $index)
-    {
-        $product = $this->products[$index];
+    protected function process_for_merchant( $productObj, $index ) {
+        $product = $this->products[ $index ];
         $merchantAttributes = $this->config['mattributes'];
 
         // Format Shipping and Tax data for CSV and TXT feed only for google and facebook
-        if ('xml' != $this->config['feedType'] && in_array($this->config['provider'], ['google', 'facebook'])) {
+        if ( 'xml' != $this->config['feedType'] && in_array($this->config['provider'], [ 'google', 'facebook' ]) ) {
 
             $shipping = array();
             $tax = array();
             $installment = array();
-            $product_detail=array();
+            $product_detail = array();
             $s = 0; // Shipping Index
             $t = 0; // Tax Index
             $i = 0; // Installment Index
@@ -715,46 +703,46 @@ class Woo_Feed_Products_v3
                 'attribute_name',
                 'attribute_value',
             );
-            foreach ($this->products[$this->pi] as $attribute => $value) {
-                if (in_array($attribute, $shippingAttr)) {
+            foreach ( $this->products[ $this->pi ] as $attribute => $value ) {
+                if ( in_array($attribute, $shippingAttr) ) {
 
-                    if ('tax_country' == $attribute) {
+                    if ( 'tax_country' == $attribute ) {
                         $t++;
-                        $tax[$t] .= $value . ':';
-                    } elseif ('tax_region' == $attribute) {
-                        $tax[$t] .= $value . ':';
-                    } elseif ('tax_rate' == $attribute) {
-                        $tax[$t] .= $value . ':';
-                    } elseif ('tax_ship' == $attribute) {
-                        $tax[$t] .= $value . ':';
+                        $tax[ $t ] .= $value . ':';
+                    } elseif ( 'tax_region' == $attribute ) {
+                        $tax[ $t ] .= $value . ':';
+                    } elseif ( 'tax_rate' == $attribute ) {
+                        $tax[ $t ] .= $value . ':';
+                    } elseif ( 'tax_ship' == $attribute ) {
+                        $tax[ $t ] .= $value . ':';
                     }
 
-                    if ('shipping_country' == $attribute) {
+                    if ( 'shipping_country' == $attribute ) {
                         $s++;
-                        $shipping[$s] .= $value . ':';
-                    } elseif ('shipping_service' == $attribute) {
-                        $shipping[$s] .= $value . ':';
-                    } elseif ('shipping_price' == $attribute) {
-                        $shipping[$s] .= $value . ':';
-                    } elseif ('shipping_region' == $attribute) {
-                        $shipping[$s] .= $value . ':';
+                        $shipping[ $s ] .= $value . ':';
+                    } elseif ( 'shipping_service' == $attribute ) {
+                        $shipping[ $s ] .= $value . ':';
+                    } elseif ( 'shipping_price' == $attribute ) {
+                        $shipping[ $s ] .= $value . ':';
+                    } elseif ( 'shipping_region' == $attribute ) {
+                        $shipping[ $s ] .= $value . ':';
                     }
 
 
-                    unset($this->products[$this->pi][$attribute]);
+                    unset($this->products[ $this->pi ][ $attribute ]);
                 }
             }
 
-            foreach ($shipping as $key => $val) {
-                $this->products[$this->pi]['shipping(country:region:service:price)'] = $val;
+            foreach ( $shipping as $key => $val ) {
+                $this->products[ $this->pi ]['shipping(country:region:service:price)'] = $val;
             }
 
-            foreach ($tax as $key => $val) {
-                $this->products[$this->pi]['tax(country:region:rate:tax_ship)'] = $val;
+            foreach ( $tax as $key => $val ) {
+                $this->products[ $this->pi ]['tax(country:region:rate:tax_ship)'] = $val;
             }
         }
 
-        if ('google' == $this->config['provider']) {
+        if ( 'google' == $this->config['provider'] ) {
 
             // Reformat Shipping attributes for google, facebook
             $t = 0;
@@ -763,42 +751,42 @@ class Woo_Feed_Products_v3
             $shipping = '';
             $sub      = 0;
             $subscription = '';
-            $product_detail='';
-            $pd=0;
-            if ('xml' == $this->config['feedType']) {
-                foreach ($merchantAttributes as $key => $value) {
+            $product_detail = '';
+            $pd = 0;
+            if ( 'xml' == $this->config['feedType'] ) {
+                foreach ( $merchantAttributes as $key => $value ) {
 
-                    if (!in_array($value, $this->google_shipping_tax)) {
+                    if ( ! in_array($value, $this->google_shipping_tax) ) {
                         continue;
                     }
 
-                    $prefix = $this->config['prefix'][$key];
-                    $suffix = $this->config['suffix'][$key];
+                    $prefix = $this->config['prefix'][ $key ];
+                    $suffix = $this->config['suffix'][ $key ];
 
-                    if ('pattern' == $this->config['type'][$key]) {
-                        $output = $this->config['default'][$key];
+                    if ( 'pattern' == $this->config['type'][ $key ] ) {
+                        $output = $this->config['default'][ $key ];
                     } else { // Get Pattern value.
-                        $attribute = $this->config['attributes'][$key];
+                        $attribute = $this->config['attributes'][ $key ];
                         $output = $this->getAttributeValueByType($productObj, $attribute);
                     }
 
-                    if (false !== strpos($value, 'price') || false !== strpos($value, 'rate')) {
+                    if ( false !== strpos($value, 'price') || false !== strpos($value, 'rate') ) {
                         $suffix = '' . $suffix;
                     }
 
 
                     $output = $prefix . $output . $suffix;
 
-                    if ('shipping_country' == $value) {
-                        if (0 == $s) {
+                    if ( 'shipping_country' == $value ) {
+                        if ( 0 == $s ) {
                             $shipping .= '<g:shipping>';
                             $s = 1;
                         } else {
                             $shipping .= '</g:shipping>' . "\n";
                             $shipping .= '<g:shipping>';
                         }
-                    } elseif (!in_array('shipping_country', $merchantAttributes) && 'shipping_price' == $value) {
-                        if (0 == $s) {
+                    } elseif ( ! in_array('shipping_country', $merchantAttributes) && 'shipping_price' == $value ) {
+                        if ( 0 == $s ) {
                             $shipping .= '<g:shipping>';
                             $s = 1;
                         } else {
@@ -807,16 +795,16 @@ class Woo_Feed_Products_v3
                         }
                     }
 
-                    if ('shipping_country' == $value) {
+                    if ( 'shipping_country' == $value ) {
                         $shipping .= '<g:country>' . $output . '</g:country>' . "\n";
-                    } elseif ('shipping_region' == $value) {
+                    } elseif ( 'shipping_region' == $value ) {
                         $shipping .= '<g:region>' . $output . '</g:region>' . "\n";
-                    } elseif ('shipping_service' == $value) {
+                    } elseif ( 'shipping_service' == $value ) {
                         $shipping .= '<g:service>' . $output . '</g:service>' . "\n";
-                    } elseif ('shipping_price' == $value) {
+                    } elseif ( 'shipping_price' == $value ) {
                         $shipping .= '<g:price>' . $output . '</g:price>' . "\n";
-                    } elseif ('tax_country' == $value) {
-                        if (0 == $t) {
+                    } elseif ( 'tax_country' == $value ) {
+                        if ( 0 == $t ) {
                             $tax .= '<g:tax>';
                             $t = 1;
                         } else {
@@ -824,11 +812,11 @@ class Woo_Feed_Products_v3
                             $tax .= '<g:tax>';
                         }
                         $tax .= '<g:country>' . $output . '</g:country>' . "\n";
-                    } elseif ('tax_region' == $value) {
+                    } elseif ( 'tax_region' == $value ) {
                         $tax .= '<g:region>' . $output . '</g:region>' . "\n";
-                    } elseif ('tax_rate' == $value) {
+                    } elseif ( 'tax_rate' == $value ) {
                         $tax .= '<g:rate>' . $output . '</g:rate>' . "\n";
-                    } elseif ('tax_ship' == $value) {
+                    } elseif ( 'tax_ship' == $value ) {
                         $tax .= '<g:tax_ship>' . $output . '</g:tax_ship>' . "\n";
                     }elseif ( 'subscription_period' == $value ) {
                         if ( 0 == $sub ) {
@@ -843,16 +831,16 @@ class Woo_Feed_Products_v3
                         $subscription .= '<g:period_length>' . $output . '</g:period_length>' . "\n";
                     }elseif ( 'subscription_amount' == $value ) {
                         $subscription .= '<g:amount>' . $output . '</g:amount>' . "\n";
-                    }else if ('section_name' == $value) {
-                        if (0 == $pd) {
+                    }elseif ( 'section_name' == $value ) {
+                        if ( 0 == $pd ) {
                             $product_detail .= '<g:product_detail>';
                             $pd = 1;
                         } else {
                             $product_detail .= '</g:product_detail>' . "\n";
                             $product_detail .= '<g:product_detail>';
                         }
-                    } elseif (!in_array('section_name', $merchantAttributes) && 'attribute_name' == $value) {
-                        if (0 == $pd) {
+                    } elseif ( ! in_array('section_name', $merchantAttributes) && 'attribute_name' == $value ) {
+                        if ( 0 == $pd ) {
                             $product_detail .= '<g:product_detail>';
                             $pd = 1;
                         } else {
@@ -870,14 +858,14 @@ class Woo_Feed_Products_v3
                     }
                 }
 
-                if (1 == $pd) {
+                if ( 1 == $pd ) {
                     $product_detail .= '</g:product_detail>';
                 }
 
-                if (1 == $s) {
+                if ( 1 == $s ) {
                     $shipping .= '</g:shipping>';
                 }
-                if (1 == $t) {
+                if ( 1 == $t ) {
                     $tax .= '</g:tax>';
                 }
 
@@ -889,47 +877,47 @@ class Woo_Feed_Products_v3
                 $this->feedBody .= $tax;
                 $this->feedBody .= $product_detail;
 
-                if($productObj->is_type('subscription') ||
+                if ( $productObj->is_type('subscription') ||
                     $productObj->is_type('variable-subscription') ||
-                    $productObj->is_type('subscription_variation')){
+                    $productObj->is_type('subscription_variation') ) {
                     $this->feedBody .= $subscription;
                 }
             }
             // ADD g:identifier_exists
-            $identifier = array('brand', 'upc', 'sku', 'mpn', 'gtin');
+            $identifier = array( 'brand', 'upc', 'sku', 'mpn', 'gtin' );
             $countIdentifier = 0;
-            if (!in_array('identifier_exists', $merchantAttributes)) {
-                if (count(array_intersect_key(array_flip($identifier), $product)) >= 2) {
+            if ( ! in_array('identifier_exists', $merchantAttributes) ) {
+                if ( count(array_intersect_key(array_flip($identifier), $product)) >= 2 ) {
                     // Any 2 required keys exist!
                     // @TODO Refactor with OR
-                    if (array_key_exists('brand', $product) && !empty($product['brand'])) {
+                    if ( array_key_exists('brand', $product) && ! empty($product['brand']) ) {
                         $countIdentifier++;
                     }
-                    if (array_key_exists('upc', $product) && !empty($product['upc'])) {
+                    if ( array_key_exists('upc', $product) && ! empty($product['upc']) ) {
                         $countIdentifier++;
                     }
-                    if (array_key_exists('sku', $product) && !empty($product['sku'])) {
+                    if ( array_key_exists('sku', $product) && ! empty($product['sku']) ) {
                         $countIdentifier++;
                     }
-                    if (array_key_exists('mpn', $product) && !empty($product['mpn'])) {
+                    if ( array_key_exists('mpn', $product) && ! empty($product['mpn']) ) {
                         $countIdentifier++;
                     }
-                    if (array_key_exists('gtin', $product) && !empty($product['gtin'])) {
+                    if ( array_key_exists('gtin', $product) && ! empty($product['gtin']) ) {
                         $countIdentifier++;
                     }
                 }
 
-                if ('xml' == $this->config['feedType']) {
-                    if ($countIdentifier >= 2) {
+                if ( 'xml' == $this->config['feedType'] ) {
+                    if ( $countIdentifier >= 2 ) {
                         $this->feedBody .= '<g:identifier_exists>yes</g:identifier_exists>';
                     } else {
                         $this->feedBody .= '<g:identifier_exists>no</g:identifier_exists>';
                     }
                 } else {
-                    if ($countIdentifier >= 2) {
-                        $this->products[$this->pi]['identifier exists'] = 'yes';
+                    if ( $countIdentifier >= 2 ) {
+                        $this->products[ $this->pi ]['identifier exists'] = 'yes';
                     } else {
-                        $this->products[$this->pi]['identifier exists'] = 'no';
+                        $this->products[ $this->pi ]['identifier exists'] = 'no';
                     }
                 }
             }
@@ -940,13 +928,11 @@ class Woo_Feed_Products_v3
      * Get Query Type Settings
      * @return string
      */
-    public function get_query_type()
-    {
+    public function get_query_type() {
         return $this->queryType;
     }
 
-    public function get_product_types()
-    {
+    public function get_product_types() {
         return $this->product_types;
     }
 
@@ -957,21 +943,20 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function process_txt_feed_header()
-    {
+    protected function process_txt_feed_header() {
         // Set Delimiter
-        if ('tab' == $this->config['delimiter']) {
+        if ( 'tab' == $this->config['delimiter'] ) {
             $this->delimiter = "\t";
         } else {
             $this->delimiter = $this->config['delimiter'];
         }
 
         // Set Enclosure
-        if (!empty($this->config['enclosure'])) {
+        if ( ! empty($this->config['enclosure']) ) {
             $this->enclosure = $this->config['enclosure'];
-            if ('double' == $this->enclosure) {
+            if ( 'double' == $this->enclosure ) {
                 $this->enclosure = '"';
-            } elseif ('single' == $this->enclosure) {
+            } elseif ( 'single' == $this->enclosure ) {
                 $this->enclosure = "'";
             } else {
                 $this->enclosure = '';
@@ -981,17 +966,17 @@ class Woo_Feed_Products_v3
         }
 
         $eol = PHP_EOL;
-        if ('trovaprezzi' === $this->config['provider']) {
+        if ( 'trovaprezzi' === $this->config['provider'] ) {
             $eol = '<endrecord>' . PHP_EOL;
         }
 
-        $product = $this->products[$this->pi];
+        $product = $this->products[ $this->pi ];
         $headers = array_keys($product);
         $this->feedHeader .= $this->enclosure . implode("$this->enclosure$this->delimiter$this->enclosure", $headers) . $this->enclosure . $eol;
 
-        if('google'===$this->config['provider']){
-            $this->feedHeader=str_replace($this->google_product_highlights,'product highlight',$this->feedHeader);
-            $this->feedHeader=str_replace($this->google_additional_image,'additional image link',$this->feedHeader);
+        if ( 'google' === $this->config['provider'] ) {
+            $this->feedHeader = str_replace($this->google_product_highlights,'product highlight',$this->feedHeader);
+            $this->feedHeader = str_replace($this->google_additional_image,'additional image link',$this->feedHeader);
         }
 
         return $this->feedHeader;
@@ -1004,11 +989,10 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function process_txt_feed_body()
-    {
-        $productInfo = array_values($this->products[$this->pi]);
+    protected function process_txt_feed_body() {
+        $productInfo = array_values($this->products[ $this->pi ]);
         $eol = PHP_EOL;
-        if ('trovaprezzi' === $this->config['provider']) {
+        if ( 'trovaprezzi' === $this->config['provider'] ) {
             $eol = '<endrecord>' . PHP_EOL;
         }
         $this->feedBody .= $this->enclosure . implode("$this->enclosure$this->delimiter$this->enclosure", $productInfo) . $this->enclosure . $eol;
@@ -1023,21 +1007,20 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function process_csv_feed_header()
-    {
+    protected function process_csv_feed_header() {
         // Set Delimiter
-        if ('tab' == $this->config['delimiter']) {
+        if ( 'tab' == $this->config['delimiter'] ) {
             $this->delimiter = "\t";
         } else {
             $this->delimiter = $this->config['delimiter'];
         }
 
         // Set Enclosure
-        if (!empty($this->config['enclosure'])) {
+        if ( ! empty($this->config['enclosure']) ) {
             $this->enclosure = $this->config['enclosure'];
-            if ('double' == $this->enclosure) {
+            if ( 'double' == $this->enclosure ) {
                 $this->enclosure = '"';
-            } elseif ('single' == $this->enclosure) {
+            } elseif ( 'single' == $this->enclosure ) {
                 $this->enclosure = "'";
             } else {
                 $this->enclosure = '';
@@ -1046,12 +1029,12 @@ class Woo_Feed_Products_v3
             $this->enclosure = '';
         }
 
-        $product = $this->products[$this->pi];
+        $product = $this->products[ $this->pi ];
         $this->feedHeader = array_keys($product);
 
-        if('google'===$this->config['provider']){
-            $this->feedHeader=str_replace($this->google_product_highlights,'product highlight',$this->feedHeader);
-            $this->feedHeader=str_replace($this->google_additional_image,'additional image link',$this->feedHeader);
+        if ( 'google' === $this->config['provider'] ) {
+            $this->feedHeader = str_replace($this->google_product_highlights,'product highlight',$this->feedHeader);
+            $this->feedHeader = str_replace($this->google_additional_image,'additional image link',$this->feedHeader);
         }
 
         return $this->feedHeader;
@@ -1062,16 +1045,14 @@ class Woo_Feed_Products_v3
      * @return array
      * @since 3.2.0
      */
-    protected function process_csv_feed_body()
-    {
-        $product = $this->products[$this->pi];
+    protected function process_csv_feed_body() {
+        $product = $this->products[ $this->pi ];
         $this->feedBody[] = array_values($product);
 
         return $this->feedBody;
     }
 
-    protected function process_xml_wrapper()
-    {
+    protected function process_xml_wrapper() {
 
         $this->xml_wrapper = [
             'header' => '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL . '<' . $this->config['itemsWrapper'] . '>',
@@ -1080,17 +1061,17 @@ class Woo_Feed_Products_v3
         $this->config['itemWrapper'] = str_replace(' ', '_', $this->config['itemWrapper']);
         $this->config['itemsWrapper'] = str_replace(' ', '_', $this->config['itemsWrapper']);
 
-        if (file_exists(WOO_FEED_FREE_ADMIN_PATH . 'partials/templates/' . $this->config['provider'] . '.txt')) {
+        if ( file_exists(WOO_FEED_FREE_ADMIN_PATH . 'partials/templates/' . $this->config['provider'] . '.txt') ) {
             $txt = file_get_contents(WOO_FEED_FREE_ADMIN_PATH . 'partials/templates/' . $this->config['provider'] . '.txt');
             $txt = trim($txt);
             $txt = explode('{separator}', $txt);
-            if (2 === count($txt)) {
+            if ( 2 === count($txt) ) {
                 $this->xml_wrapper['header'] = trim($txt[0]);
                 $this->xml_wrapper['footer'] = trim($txt[1]);
             }
         }
 
-        if (!empty($this->config['extraHeader'])) {
+        if ( ! empty($this->config['extraHeader']) ) {
             $this->xml_wrapper['header'] .= PHP_EOL . $this->config['extraHeader'];
         }
 
@@ -1102,8 +1083,8 @@ class Woo_Feed_Products_v3
         $blog_email = get_bloginfo('admin_email'); // {BlogEmail}
 
         $this->xml_wrapper['header'] = str_replace(
-            ['{DateTimeNow}', '{BlogName}', '{BlogURL}', '{BlogDescription}', '{BlogEmail}'],
-            [$datetime_now, $blog_name, $blog_url, $blog_desc, $blog_email],
+            [ '{DateTimeNow}', '{BlogName}', '{BlogURL}', '{BlogDescription}', '{BlogEmail}' ],
+            [ $datetime_now, $blog_name, $blog_url, $blog_desc, $blog_email ],
             $this->xml_wrapper['header']
         );
     }
@@ -1113,8 +1094,7 @@ class Woo_Feed_Products_v3
      * @return string
      * @since 3.2.0
      */
-    protected function process_xml_feed_header()
-    {
+    protected function process_xml_feed_header() {
         return $this->xml_wrapper['header'];
     }
 
@@ -1123,8 +1103,7 @@ class Woo_Feed_Products_v3
      * @return string
      * @since 3.2.0
      */
-    protected function process_xml_feed_footer()
-    {
+    protected function process_xml_feed_footer() {
         return $this->xml_wrapper['footer'];
     }
 
@@ -1137,12 +1116,11 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function processStringForTXT($string)
-    {
-        if (!empty($string)) {
+    protected function processStringForTXT( $string ) {
+        if ( ! empty($string) ) {
             $string = html_entity_decode($string, ENT_HTML401 | ENT_QUOTES); // Convert any HTML entities
 
-            if (stristr($string, '"')) {
+            if ( stristr($string, '"') ) {
                 $string = str_replace('"', '""', $string);
             }
             $string = str_replace("\n", ' ', $string);
@@ -1152,7 +1130,7 @@ class Woo_Feed_Products_v3
             $string = stripslashes($string);
 
             return $string;
-        } elseif ('0' == $string) {
+        } elseif ( '0' == $string ) {
             return '0';
         } else {
             return '';
@@ -1168,16 +1146,15 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function processStringForCSV($string)
-    {
-        if (!empty($string)) {
+    protected function processStringForCSV( $string ) {
+        if ( ! empty($string) ) {
             $string = str_replace("\n", ' ', $string);
             $string = str_replace("\r", ' ', $string);
             $string = trim($string);
             $string = stripslashes($string);
 
             return $string;
-        } elseif ('0' == $string) {
+        } elseif ( '0' == $string ) {
             return '0';
         } else {
             return '';
@@ -1194,37 +1171,36 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function getAttributeValueByType($product, $attribute)
-    {
+    protected function getAttributeValueByType( $product, $attribute ) {
 
-        if (method_exists($this, $attribute)) {
-            $output = call_user_func_array(array($this, $attribute), array($product));
-        } elseif (false !== strpos($attribute, self::PRODUCT_ATTRIBUTE_PREFIX)) {
+        if ( method_exists($this, $attribute) ) {
+            $output = call_user_func_array(array( $this, $attribute ), array( $product ));
+        } elseif ( false !== strpos($attribute, self::PRODUCT_ATTRIBUTE_PREFIX) ) {
             $attribute = str_replace(self::PRODUCT_ATTRIBUTE_PREFIX, '', $attribute);
             $output = $this->getProductAttribute($product, $attribute);
-        } elseif (false !== strpos($attribute, self::POST_META_PREFIX)) {
+        } elseif ( false !== strpos($attribute, self::POST_META_PREFIX) ) {
             $attribute = str_replace(self::POST_META_PREFIX, '', $attribute);
             $output = $this->getProductMeta($product, $attribute);
-        } elseif (false !== strpos($attribute, self::PRODUCT_TAXONOMY_PREFIX)) {
+        } elseif ( false !== strpos($attribute, self::PRODUCT_TAXONOMY_PREFIX) ) {
             $attribute = str_replace(self::PRODUCT_TAXONOMY_PREFIX, '', $attribute);
             $output = $this->getProductTaxonomy($product, $attribute);
         }elseif ( false !== strpos( $attribute, self::PRODUCT_CATEGORY_MAPPING_PREFIX ) ) {
             $id     = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
             $output = woo_feed_get_category_mapping_value( $attribute, $id );
-        } elseif ('image_' == substr($attribute, 0, 6)) {
+        } elseif ( 'image_' == substr($attribute, 0, 6) ) {
             // For additional image method images() will be used with extra parameter - image number
             $imageKey = explode('_', $attribute);
-            if (!isset($imageKey[1]) || (isset($imageKey[1]) && (empty($imageKey[1]) || !is_numeric($imageKey[1])))) {
+            if ( ! isset($imageKey[1]) || (isset($imageKey[1]) && (empty($imageKey[1]) || ! is_numeric($imageKey[1]))) ) {
                 $imageKey[1] = '';
             }
-            $output = call_user_func_array(array($this, 'images'), array($product, $imageKey[1]));
+            $output = call_user_func_array(array( $this, 'images' ), array( $product, $imageKey[1] ));
         } else {
             // return the attribute so multiple attribute can be join with separator to make custom attribute.
             $output = $attribute;
         }
 
         // Json encode if value is an array
-        if (is_array($output)) {
+        if ( is_array($output) ) {
             $output = wp_json_encode($output);
         }
 
@@ -1275,8 +1251,7 @@ class Woo_Feed_Products_v3
      * @return mixed
      * @since 3.2.0
      */
-    protected function id($product)
-    {
+    protected function id( $product ) {
         return $product->get_id();
     }
 
@@ -1289,8 +1264,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function title($product)
-    {
+    protected function title( $product ) {
 
         return $this->remove_short_codes($product->get_name());
     }
@@ -1304,19 +1278,18 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function yoast_wpseo_title($product)
-    {
+    protected function yoast_wpseo_title( $product ) {
         $yoast_title = get_post_meta($product->get_id(), '_yoast_wpseo_title', true);
-        if (strpos($yoast_title, '%%') !== false) {
+        if ( strpos($yoast_title, '%%') !== false ) {
             $title = strstr($yoast_title, '%%', true);
-            if (empty($title)) {
+            if ( empty($title) ) {
                 $title = get_the_title($product->get_id());
             }
             $wpseo_titles = get_option('wpseo_titles');
 
             $sep_options = WPSEO_Option_Titles::get_instance()->get_separator_options();
-            if (isset($wpseo_titles['separator']) && isset($sep_options[$wpseo_titles['separator']])) {
-                $sep = $sep_options[$wpseo_titles['separator']];
+            if ( isset($wpseo_titles['separator']) && isset($sep_options[ $wpseo_titles['separator'] ]) ) {
+                $sep = $sep_options[ $wpseo_titles['separator'] ];
             } else {
                 $sep = '-'; //setting default separator if Admin didn't set it from backed
             }
@@ -1325,10 +1298,10 @@ class Woo_Feed_Products_v3
 
             $meta_title = $title . ' ' . $sep . ' ' . $site_title;
 
-            if (!empty($meta_title)) {
+            if ( ! empty($meta_title) ) {
                 return $meta_title;
             }
-        }elseif (!empty($yoast_title)){
+        }elseif ( ! empty($yoast_title) ) {
             return $yoast_title;
         }
 
@@ -1352,27 +1325,26 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function _aioseop_title($product)
-    {
+    protected function _aioseop_title( $product ) {
         $title = '';
-        if (class_exists('All_in_One_SEO_Pack')) {
+        if ( class_exists('All_in_One_SEO_Pack') ) {
             global $aioseop_options, $aiosp;
-            if (!is_array($aioseop_options)) {
+            if ( ! is_array($aioseop_options) ) {
                 $aioseop_options = get_option('aioseop_options');
             }
-            if (!($aiosp instanceof All_in_One_SEO_Pack)) {
+            if ( ! ($aiosp instanceof All_in_One_SEO_Pack) ) {
                 $aiosp = new All_in_One_SEO_Pack();
             }
 
-            if (in_array('product', $aioseop_options['aiosp_cpostactive'], true)) {
-                if (!empty($aioseop_options['aiosp_rewrite_titles'])) {
+            if ( in_array('product', $aioseop_options['aiosp_cpostactive'], true) ) {
+                if ( ! empty($aioseop_options['aiosp_rewrite_titles']) ) {
                     $title = $aiosp->get_aioseop_title(get_post($product->get_id()));
                     $title = $aiosp->apply_cf_fields($title);
                 }
                 $title = apply_filters('aioseop_title', $title);
             }
         }
-        if (!empty($title)) {
+        if ( ! empty($title) ) {
             return $title;
         }
 
@@ -1388,22 +1360,21 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function description($product)
-    {
+    protected function description( $product ) {
 
         $description = $product->get_description();
 
         // Get Variation Description
-        if ($product->is_type('variation') && empty($description)) {
+        if ( $product->is_type('variation') && empty($description) ) {
             $parent = wc_get_product($product->get_parent_id());
             $description = $parent->get_description();
         }
         $description = $this->remove_short_codes($description);
 
         // Add variations attributes after description to prevent Facebook error
-        if ('facebook' == $this->config['provider']) {
+        if ( 'facebook' == $this->config['provider'] ) {
             $variationInfo = explode('-', $product->get_name());
-            if (isset($variationInfo[1])) {
+            if ( isset($variationInfo[1]) ) {
                 $extension = $variationInfo[1];
             } else {
                 $extension = $product->get_id();
@@ -1423,14 +1394,13 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function yoast_wpseo_metadesc($product)
-    {
+    protected function yoast_wpseo_metadesc( $product ) {
         $description = '';
-        if (class_exists('WPSEO_Frontend')) {
+        if ( class_exists('WPSEO_Frontend') ) {
             $description = wpseo_replace_vars(WPSEO_Meta::get_value('metadesc', $product->get_id()),
                 get_post($product->get_id()));
         }
-        if (!empty($description)) {
+        if ( ! empty($description) ) {
             return $description;
         }
 
@@ -1446,25 +1416,24 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function _aioseop_description($product)
-    {
+    protected function _aioseop_description( $product ) {
         $description = '';
-        if (class_exists('All_in_One_SEO_Pack')) {
+        if ( class_exists('All_in_One_SEO_Pack') ) {
             global $aioseop_options, $aiosp;
-            if (!is_array($aioseop_options)) {
+            if ( ! is_array($aioseop_options) ) {
                 $aioseop_options = get_option('aioseop_options');
             }
-            if (!($aiosp instanceof All_in_One_SEO_Pack)) {
+            if ( ! ($aiosp instanceof All_in_One_SEO_Pack) ) {
                 $aiosp = new All_in_One_SEO_Pack();
             }
-            if (in_array('product', $aioseop_options['aiosp_cpostactive'], true)) {
+            if ( in_array('product', $aioseop_options['aiosp_cpostactive'], true) ) {
                 $description = $aiosp->get_main_description(get_post($product->get_id()));    // Get the description.
                 $description = $aiosp->trim_description($description);
                 $description = apply_filters('aioseop_description_full',
                     $aiosp->apply_description_format($description, get_post($product->get_id())));
             }
         }
-        if (!empty($description)) {
+        if ( ! empty($description) ) {
             return $description;
         }
 
@@ -1480,13 +1449,12 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function short_description($product)
-    {
+    protected function short_description( $product ) {
 
         $short_description = $product->get_short_description();
 
         // Get Variation Short Description
-        if ($product->is_type('variation') && empty($short_description)) {
+        if ( $product->is_type('variation') && empty($short_description) ) {
             $parent = wc_get_product($product->get_parent_id());
             $short_description = $parent->get_short_description();
         }
@@ -1537,22 +1505,21 @@ class Woo_Feed_Products_v3
      * @return string
      *
      */
-    protected function primary_category($product)
-    {
+    protected function primary_category( $product ) {
         $id = $product->get_id();
-        if ($product->is_type('variation')) {
+        if ( $product->is_type('variation') ) {
             $id = $product->get_parent_id();
         }
         $wpseo_primary_term = false;
         $main_category = '';
-        if (class_exists('WPSEO_Primary_Term')) {
+        if ( class_exists('WPSEO_Primary_Term') ) {
             $wpseo_primary_term = new WPSEO_Primary_Term('product_cat', $id);
             $main_category = $wpseo_primary_term->get_primary_term();
             $main_category = get_term($main_category, 'product_cat');
         }
-        if (!($wpseo_primary_term instanceof WPSEO_Primary_Term) || empty($main_category)) {
+        if ( ! ($wpseo_primary_term instanceof WPSEO_Primary_Term) || empty($main_category) ) {
             $term = wp_get_post_terms($id, 'product_cat');
-            if (!is_wp_error($term) && !empty($term)) {
+            if ( ! is_wp_error($term) && ! empty($term) ) {
                 $main_category = $term[0];
             }
         }
@@ -1568,27 +1535,56 @@ class Woo_Feed_Products_v3
      * @return string
      *
      */
-    protected function primary_category_id($product)
-    {
+    protected function primary_category_id( $product ) {
         $id = $product->get_id();
-        if ($product->is_type('variation')) {
+        if ( $product->is_type('variation') ) {
             $id = $product->get_parent_id();
         }
         $wpseo_primary_term = false;
         $main_category = '';
-        if (class_exists('WPSEO_Primary_Term')) {
+        if ( class_exists('WPSEO_Primary_Term') ) {
             $wpseo_primary_term = new WPSEO_Primary_Term('product_cat', $id);
             $main_category = $wpseo_primary_term->get_primary_term();
             $main_category = get_term($main_category, 'product_cat');
         }
-        if (!($wpseo_primary_term instanceof WPSEO_Primary_Term) || empty($main_category)) {
+        if ( ! ($wpseo_primary_term instanceof WPSEO_Primary_Term) || empty($main_category) ) {
             $term = wp_get_post_terms($id, 'product_cat');
-            if (!is_wp_error($term) && !empty($term)) {
+            if ( ! is_wp_error($term) && ! empty($term) ) {
                 $main_category = $term[0];
             }
         }
 
         return $main_category instanceof WP_Term ? $main_category->term_id : '';
+    }
+
+    /**
+     * Get Product Child Category
+     *
+     * @param WC_Product $product
+     *
+     * @return string
+     */
+    protected function child_category( $product ) {
+        $id = $product->get_id();
+        $terms = get_the_terms( $id, 'product_cat' );
+        $last_cat = ! empty($terms) && is_array($terms) ? end($terms) : [];
+        $child_category = isset($last_cat->name) && ! empty($last_cat->name) ? $last_cat->name : '';
+
+        return $child_category;
+    }
+
+    /**
+     * Get Product Child Category ID
+     *
+     * @param WC_Product $product
+     *
+     * @return string
+     */
+    protected function child_category_id( $product ) {
+        $id = $product->get_id();
+        $cat_ids = $product->get_category_ids();
+
+        return ! empty($cat_ids) && is_array($cat_ids) ? end($cat_ids) : '';
     }
 
     /**
@@ -1600,10 +1596,9 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function product_type($product)
-    {
+    protected function product_type( $product ) {
         $id = $product->get_id();
-        if ($product->is_type('variation')) {
+        if ( $product->is_type('variation') ) {
             $id = $product->get_parent_id();
         }
 
@@ -1621,16 +1616,15 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function link($product)
-    {
+    protected function link( $product ) {
         $utm = $this->config['campaign_parameters'];
-        if (!empty($utm['utm_source']) && !empty($utm['utm_medium']) && !empty($utm['utm_campaign'])) {
+        if ( ! empty($utm['utm_source']) && ! empty($utm['utm_medium']) && ! empty($utm['utm_campaign']) ) {
             $utm = [
-                'utm_source' => $utm['utm_source'],
-                'utm_medium' => $utm['utm_medium'],
+                'utm_source'   => $utm['utm_source'],
+                'utm_medium'   => $utm['utm_medium'],
                 'utm_campaign' => $utm['utm_campaign'],
-                'utm_term' => $utm['utm_term'],
-                'utm_content' => $utm['utm_content'],
+                'utm_term'     => $utm['utm_term'],
+                'utm_content'  => $utm['utm_content'],
             ];
 
             return add_query_arg(array_filter($utm), $product->get_permalink());
@@ -1644,9 +1638,9 @@ class Woo_Feed_Products_v3
      * @param WC_Product $product
      * @return mixed
      */
-    protected function canonical_link($product){
-        if ($product->is_type('variation')) {
-            $product=wc_get_product($product->get_parent_id());
+    protected function canonical_link( $product ) {
+        if ( $product->is_type('variation') ) {
+            $product = wc_get_product($product->get_parent_id());
             return $product->get_permalink();
         }
 
@@ -1662,9 +1656,8 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function ex_link($product)
-    {
-        if ($product->is_type('external')) {
+    protected function ex_link( $product ) {
+        if ( $product->is_type('external') ) {
             return $product->get_product_url();
         }
 
@@ -1680,12 +1673,11 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function image($product)
-    {
-        if ($product->is_type('variation')) {
+    protected function image( $product ) {
+        if ( $product->is_type('variation') ) {
             $getImage = wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()),
                 'single-post-thumbnail');
-            if (has_post_thumbnail($product->get_id()) && !empty($getImage[0])) :
+            if ( has_post_thumbnail($product->get_id()) && ! empty($getImage[0]) ) :
                 $image = woo_feed_get_formatted_url($getImage[0]);
             else :
                 $getImage = wp_get_attachment_image_src(get_post_thumbnail_id($product->get_parent_id()),
@@ -1693,7 +1685,7 @@ class Woo_Feed_Products_v3
                 $image = woo_feed_get_formatted_url($getImage[0]);
             endif;
         } else {
-            if (has_post_thumbnail($product->get_id())) :
+            if ( has_post_thumbnail($product->get_id()) ) :
                 $getImage = wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()),
                     'single-post-thumbnail');
                 $image = woo_feed_get_formatted_url($getImage[0]);
@@ -1714,8 +1706,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function feature_image($product)
-    {
+    protected function feature_image( $product ) {
         return $this->image($product);
     }
 
@@ -1729,9 +1720,8 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function images($product, $additionalImg = '')
-    {
-        if ($product->is_type('variation')) {
+    protected function images( $product, $additionalImg = '' ) {
+        if ( $product->is_type('variation') ) {
             // TODO Test Variation Images
             $imgUrls = $this->get_product_gallery(wc_get_product($product->get_parent_id()));
         } else {
@@ -1739,9 +1729,9 @@ class Woo_Feed_Products_v3
         }
 
         // Return Specific Additional Image URL
-        if ('' != $additionalImg) {
-            if (array_key_exists($additionalImg, $imgUrls)) {
-                return $imgUrls[$additionalImg];
+        if ( '' != $additionalImg ) {
+            if ( array_key_exists($additionalImg, $imgUrls) ) {
+                return $imgUrls[ $additionalImg ];
             } else {
                 return '';
             }
@@ -1759,14 +1749,13 @@ class Woo_Feed_Products_v3
      * @return string[]
      * @since 3.2.6
      */
-    protected function get_product_gallery($product)
-    {
+    protected function get_product_gallery( $product ) {
         $attachmentIds = $product->get_gallery_image_ids();
         $imgUrls = array();
-        if ($attachmentIds && is_array($attachmentIds)) {
+        if ( $attachmentIds && is_array($attachmentIds) ) {
             $mKey = 1;
-            foreach ($attachmentIds as $attachmentId) {
-                $imgUrls[$mKey] = woo_feed_get_formatted_url(wp_get_attachment_url($attachmentId));
+            foreach ( $attachmentIds as $attachmentId ) {
+                $imgUrls[ $mKey ] = woo_feed_get_formatted_url(wp_get_attachment_url($attachmentId));
                 $mKey++;
             }
         }
@@ -1783,8 +1772,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function condition($product)
-    {
+    protected function condition( $product ) {
         return apply_filters('woo_feed_product_condition', 'new', $product);
     }
 
@@ -1797,8 +1785,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function type($product)
-    {
+    protected function type( $product ) {
         return $product->get_type();
     }
 
@@ -1811,9 +1798,8 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function is_bundle($product)
-    {
-        if ($product->is_type('bundle') || $product->is_type('yith_bundle')) {
+    protected function is_bundle( $product ) {
+        if ( $product->is_type('bundle') || $product->is_type('yith_bundle') ) {
             return 'yes';
         }
 
@@ -1829,11 +1815,10 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function multipack($product)
-    {
+    protected function multipack( $product ) {
         $multi_pack = '';
-        if ($product->is_type('grouped')) {
-            $multi_pack = (!empty($product->get_children())) ? count($product->get_children()) : '';
+        if ( $product->is_type('grouped') ) {
+            $multi_pack = ( ! empty($product->get_children())) ? count($product->get_children()) : '';
         }
 
         return $multi_pack;
@@ -1848,8 +1833,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function visibility($product)
-    {
+    protected function visibility( $product ) {
         return $product->get_catalog_visibility();
     }
 
@@ -1862,8 +1846,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function rating_total($product)
-    {
+    protected function rating_total( $product ) {
         return $product->get_rating_count();
     }
 
@@ -1876,8 +1859,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function rating_average($product)
-    {
+    protected function rating_average( $product ) {
         return $product->get_average_rating();
     }
 
@@ -1890,10 +1872,9 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function tags($product)
-    {
+    protected function tags( $product ) {
         $id = $product->get_id();
-        if ($product->is_type('variation')) {
+        if ( $product->is_type('variation') ) {
             $id = $product->get_parent_id();
         }
 
@@ -1918,10 +1899,9 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function item_group_id($product)
-    {
+    protected function item_group_id( $product ) {
         $id = $product->get_id();
-        if ($product->is_type('variation')) {
+        if ( $product->is_type('variation') ) {
             $id = $product->get_parent_id();
         }
 
@@ -1937,8 +1917,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function sku($product)
-    {
+    protected function sku( $product ) {
         return $product->get_sku();
     }
 
@@ -1951,9 +1930,8 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function parent_sku($product)
-    {
-        if ($product->is_type('variation')) {
+    protected function parent_sku( $product ) {
+        if ( $product->is_type('variation') ) {
             $id = $product->get_parent_id();
             $parent = wc_get_product($id);
 
@@ -1972,14 +1950,13 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function availability($product)
-    {
+    protected function availability( $product ) {
         $status = $product->get_stock_status();
-        if ('instock' == $status) {
+        if ( 'instock' == $status ) {
             return 'in stock';
-        } elseif ('outofstock' == $status) {
+        } elseif ( 'outofstock' == $status ) {
             return 'out of stock';
-        } elseif ('onbackorder' == $status) {
+        } elseif ( 'onbackorder' == $status ) {
             return 'on backorder';
         } else {
             return 'in stock';
@@ -1995,26 +1972,25 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function quantity($product)
-    {
-        if ($product->is_type('variable') && $product->has_child()) {
+    protected function quantity( $product ) {
+        if ( $product->is_type('variable') && $product->has_child() ) {
             $visible_children = $product->get_visible_children();
             $qty = array();
-            foreach ($visible_children as $key => $child) {
+            foreach ( $visible_children as $key => $child ) {
                 $childQty = get_post_meta($child, '_stock', true);
                 $qty[] = (int)$childQty + 0;
             }
 
-            if (isset($this->config['variable_quantity'])) {
+            if ( isset($this->config['variable_quantity']) ) {
                 $vaQty = $this->config['variable_quantity'];
-                if ('max' == $vaQty) {
+                if ( 'max' == $vaQty ) {
                     return max($qty);
-                } elseif ('min' == $vaQty) {
+                } elseif ( 'min' == $vaQty ) {
                     return min($qty);
-                } elseif ('sum' == $vaQty) {
+                } elseif ( 'sum' == $vaQty ) {
                     return array_sum($qty);
-                } elseif ('first' == $vaQty) {
-                    return ((int)$qty[0]);
+                } elseif ( 'first' == $vaQty ) {
+                    return ( (int)$qty[0]);
                 }
 
                 return array_sum($qty);
@@ -2033,10 +2009,9 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function sale_price_sdate($product)
-    {
+    protected function sale_price_sdate( $product ) {
         $startDate = $product->get_date_on_sale_from();
-        if (is_object($startDate)) {
+        if ( is_object($startDate) ) {
             return $startDate->date_i18n();
         }
 
@@ -2052,10 +2027,9 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function sale_price_edate($product)
-    {
+    protected function sale_price_edate( $product ) {
         $endDate = $product->get_date_on_sale_to();
-        if (is_object($endDate)) {
+        if ( is_object($endDate) ) {
             return $endDate->date_i18n();
         }
 
@@ -2071,11 +2045,10 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function price($product)
-    {
-        if ($product->is_type('variable')) {
+    protected function price( $product ) {
+        if ( $product->is_type('variable') ) {
             return $this->getVariableProductPrice($product, 'regular_price');
-        } elseif ($product->is_type('grouped')) {
+        } elseif ( $product->is_type('grouped') ) {
             return $this->getGroupProductPrice($product,
                 'regular'); // this calls self::price() so no need to use self::getWPMLPrice()
         } else {
@@ -2092,11 +2065,10 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function current_price($product)
-    {
-        if ($product->is_type('variable')) {
+    protected function current_price( $product ) {
+        if ( $product->is_type('variable') ) {
             return $this->getVariableProductPrice($product, 'price');
-        } elseif ($product->is_type('grouped')) {
+        } elseif ( $product->is_type('grouped') ) {
             return $this->getGroupProductPrice($product, 'current');
         } else {
             return $product->get_price();
@@ -2112,11 +2084,10 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function sale_price($product)
-    {
-        if ($product->is_type('variable')) {
+    protected function sale_price( $product ) {
+        if ( $product->is_type('variable') ) {
             return $this->getVariableProductPrice($product, 'sale_price');
-        } elseif ($product->is_type('grouped')) {
+        } elseif ( $product->is_type('grouped') ) {
             return $this->getGroupProductPrice($product, 'sale');
         } else {
             $price = $product->get_sale_price();
@@ -2134,17 +2105,16 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function price_with_tax($product)
-    {
-        if ($product->is_type('variable')) {
+    protected function price_with_tax( $product ) {
+        if ( $product->is_type('variable') ) {
             return $this->getVariableProductPrice($product, 'regular_price', true);
-        } elseif ($product->is_type('grouped')) {
+        } elseif ( $product->is_type('grouped') ) {
             return $this->getGroupProductPrice($product, 'regular', true);
         } else {
             $price = $this->price($product);
 
             // Get price with tax.
-            return ($product->is_taxable() && !empty($price)) ? $this->get_price_with_tax($product,
+            return ($product->is_taxable() && ! empty($price)) ? $this->get_price_with_tax($product,
                 $price) : $price;
         }
     }
@@ -2158,17 +2128,16 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function current_price_with_tax($product)
-    {
-        if ($product->is_type('variable')) {
+    protected function current_price_with_tax( $product ) {
+        if ( $product->is_type('variable') ) {
             return $this->getVariableProductPrice($product, 'current_price', true);
-        } elseif ($product->is_type('grouped')) {
+        } elseif ( $product->is_type('grouped') ) {
             return $this->getGroupProductPrice($product, 'current', true);
         } else {
             $price = $this->current_price($product);
 
             // Get price with tax
-            return ($product->is_taxable() && !empty($price)) ? $this->get_price_with_tax($product,
+            return ($product->is_taxable() && ! empty($price)) ? $this->get_price_with_tax($product,
                 $price) : $price;
         }
     }
@@ -2182,15 +2151,14 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function sale_price_with_tax($product)
-    {
-        if ($product->is_type('variable')) {
+    protected function sale_price_with_tax( $product ) {
+        if ( $product->is_type('variable') ) {
             return $this->getVariableProductPrice($product, 'sale_price', true);
-        } elseif ($product->is_type('grouped')) {
+        } elseif ( $product->is_type('grouped') ) {
             return $this->getGroupProductPrice($product, 'sale', true);
         } else {
             $price = $this->sale_price($product);
-            if ($product->is_taxable() && !empty($price)) {
+            if ( $product->is_taxable() && ! empty($price) ) {
                 $price = $this->get_price_with_tax($product, $price);
             }
 
@@ -2209,23 +2177,22 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function getGroupProductPrice($grouped, $type, $tax = false)
-    {
+    protected function getGroupProductPrice( $grouped, $type, $tax = false ) {
         $groupProductIds = $grouped->get_children();
         $sum = 0;
-        if (!empty($groupProductIds)) {
-            foreach ($groupProductIds as $id) {
+        if ( ! empty($groupProductIds) ) {
+            foreach ( $groupProductIds as $id ) {
                 $product = wc_get_product($id);
 
-                if (!is_object($product)) {
+                if ( ! is_object($product) ) {
                     continue; // make sure that the product exists..
                 }
 
-                if ($tax) {
-                    if ('regular' == $type) {
+                if ( $tax ) {
+                    if ( 'regular' == $type ) {
                         $regularPrice = $this->price_with_tax($product);
                         $sum += (float)$regularPrice;
-                    } elseif ('current' == $type) {
+                    } elseif ( 'current' == $type ) {
                         $currentPrice = $this->current_price_with_tax($product);
                         $sum += (float)$currentPrice;
                     } else {
@@ -2233,10 +2200,10 @@ class Woo_Feed_Products_v3
                         $sum += (float)$salePrice;
                     }
                 } else {
-                    if ('regular' == $type) {
+                    if ( 'regular' == $type ) {
                         $regularPrice = $this->price($product);
                         $sum += (float)$regularPrice;
-                    } elseif ('current' == $type) {
+                    } elseif ( 'current' == $type ) {
                         $currentPrice = $this->current_price($product);
                         $sum += (float)$currentPrice;
                     } else {
@@ -2247,7 +2214,7 @@ class Woo_Feed_Products_v3
             }
         }
 
-        if ('sale' == $type) {
+        if ( 'sale' == $type ) {
             $sum = $sum > 0 ? $sum : '';
         }
 
@@ -2265,20 +2232,19 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function getVariableProductPrice($variable, $type, $tax = false)
-    {
+    protected function getVariableProductPrice( $variable, $type, $tax = false ) {
         $price = 0;
-        if ('regular_price' == $type) {
+        if ( 'regular_price' == $type ) {
             $price = $variable->get_variation_regular_price();
-        } elseif ('sale_price' == $type) {
+        } elseif ( 'sale_price' == $type ) {
             $price = $variable->get_variation_sale_price();
         } else {
             $price = $variable->get_variation_price();
         }
-        if (true === $tax && $variable->is_taxable()) {
+        if ( true === $tax && $variable->is_taxable() ) {
             $price = $this->get_price_with_tax($variable, $price);
         }
-        if ('sale_price' != $type) {
+        if ( 'sale_price' != $type ) {
             $price = $price > 0 ? $price : '';
         }
 
@@ -2295,10 +2261,9 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function get_price_with_tax($product, $price)
-    {
-        if (woo_feed_wc_version_check(3.0)) {
-            return wc_get_price_including_tax($product, array('price' => $price));
+    protected function get_price_with_tax( $product, $price ) {
+        if ( woo_feed_wc_version_check(3.0) ) {
+            return wc_get_price_including_tax($product, array( 'price' => $price ));
         } else {
             return $product->get_price_including_tax(1, $price);
         }
@@ -2313,8 +2278,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function weight($product)
-    {
+    protected function weight( $product ) {
         return $product->get_weight();
     }
 
@@ -2327,8 +2291,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function width($product)
-    {
+    protected function width( $product ) {
         return $product->get_width();
     }
 
@@ -2341,8 +2304,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function height($product)
-    {
+    protected function height( $product ) {
         return $product->get_height();
     }
 
@@ -2355,8 +2317,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function length($product)
-    {
+    protected function length( $product ) {
         return $product->get_length();
     }
 
@@ -2369,8 +2330,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function shipping_class($product)
-    {
+    protected function shipping_class( $product ) {
         return $product->get_shipping_class();
     }
 
@@ -2383,8 +2343,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function author_name($product)
-    {
+    protected function author_name( $product ) {
         $post = get_post($product->get_id());
 
         return get_the_author_meta('user_login', $post->post_author);
@@ -2399,8 +2358,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function author_email($product)
-    {
+    protected function author_email( $product ) {
         $post = get_post($product->get_id());
 
         return get_the_author_meta('user_email', $post->post_author);
@@ -2415,8 +2373,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function date_created($product)
-    {
+    protected function date_created( $product ) {
         return gmdate('Y-m-d', strtotime($product->get_date_created()));
     }
 
@@ -2429,8 +2386,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function date_updated($product)
-    {
+    protected function date_updated( $product ) {
         return gmdate('Y-m-d', strtotime($product->get_date_modified()));
     }
 
@@ -2439,7 +2395,7 @@ class Woo_Feed_Products_v3
      * @param WC_Product $product Product object.
      * @return string
      */
-    protected function tax_class($product){
+    protected function tax_class( $product ) {
         return $product->get_tax_class();
     }
 
@@ -2448,7 +2404,7 @@ class Woo_Feed_Products_v3
      * @param WC_Product $product Product object.
      * @return string
      */
-    protected function tax_status($product){
+    protected function tax_status( $product ) {
         return $product->get_tax_status();
     }
 
@@ -2457,11 +2413,11 @@ class Woo_Feed_Products_v3
      * @param WC_Product $product Product object.
      * @return string
      */
-    protected  function woo_feed_gtin($product) {
-        $id=$product->get_id();
-        $meta='woo_feed_gtin';
-        if($product->is_type('variation')) {
-            $meta='woo_feed_gtin_var';
+    protected  function woo_feed_gtin( $product ) {
+        $id = $product->get_id();
+        $meta = 'woo_feed_gtin';
+        if ( $product->is_type('variation') ) {
+            $meta = 'woo_feed_gtin_var';
         }
         return $this->getProductMeta($product,$meta);
     }
@@ -2471,11 +2427,11 @@ class Woo_Feed_Products_v3
      * @param WC_Product $product Product object.
      * @return string
      */
-    protected  function woo_feed_mpn($product) {
-        $id=$product->get_id();
-        $meta='woo_feed_mpn';
-        if($product->is_type('variation')) {
-            $meta='woo_feed_mpn_var';
+    protected  function woo_feed_mpn( $product ) {
+        $id = $product->get_id();
+        $meta = 'woo_feed_mpn';
+        if ( $product->is_type('variation') ) {
+            $meta = 'woo_feed_mpn_var';
         }
         return $this->getProductMeta($product,$meta);
     }
@@ -2485,11 +2441,11 @@ class Woo_Feed_Products_v3
      * @param WC_Product $product Product object.
      * @return string
      */
-    protected  function woo_feed_ean($product) {
-        $id=$product->get_id();
-        $meta='woo_feed_ean';
-        if($product->is_type('variation')) {
-            $meta='woo_feed_ean_var';
+    protected  function woo_feed_ean( $product ) {
+        $id = $product->get_id();
+        $meta = 'woo_feed_ean';
+        if ( $product->is_type('variation') ) {
+            $meta = 'woo_feed_ean_var';
         }
         return $this->getProductMeta($product,$meta);
     }
@@ -2503,12 +2459,11 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function sale_price_effective_date($product)
-    {
+    protected function sale_price_effective_date( $product ) {
         $effective_date = '';
         $from = $this->sale_price_sdate($product);
         $to = $this->sale_price_edate($product);
-        if (!empty($from) && !empty($to)) {
+        if ( ! empty($from) && ! empty($to) ) {
             $from = gmdate('c', strtotime($from));
             $to = gmdate('c', strtotime($to));
 
@@ -2528,19 +2483,18 @@ class Woo_Feed_Products_v3
      * @since 2.2.3
      *
      */
-    protected function getProductAttribute($product, $attr)
-    {
+    protected function getProductAttribute( $product, $attr ) {
         $id = $product->get_id();
 
-        if (woo_feed_wc_version_check(3.2)) {
-            if (woo_feed_wc_version_check(3.6)) {
+        if ( woo_feed_wc_version_check(3.2) ) {
+            if ( woo_feed_wc_version_check(3.6) ) {
                 $attr = str_replace('pa_', '', $attr);
             }
             $value = $product->get_attribute($attr);
 
             return $value;
         } else {
-            return implode(',', wc_get_product_terms($id, $attr, array('fields' => 'names')));
+            return implode(',', wc_get_product_terms($id, $attr, array( 'fields' => 'names' )));
         }
     }
 
@@ -2554,11 +2508,10 @@ class Woo_Feed_Products_v3
      * @since 2.2.3
      *
      */
-    protected function getProductMeta($product, $meta)
-    {
+    protected function getProductMeta( $product, $meta ) {
         $value = get_post_meta($product->get_id(), $meta, true);
         // if empty get meta value of parent post
-        if ('' == $value && $product->get_parent_id()) {
+        if ( '' == $value && $product->get_parent_id() ) {
             $value = get_post_meta($product->get_parent_id(), $meta, true);
         }
 
@@ -2574,8 +2527,7 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    public function filter_product($product)
-    {
+    public function filter_product( $product ) {
         return true;
     }
 
@@ -2589,10 +2541,9 @@ class Woo_Feed_Products_v3
      * @since 2.2.3
      *
      */
-    protected function getProductTaxonomy($product, $taxonomy)
-    {
+    protected function getProductTaxonomy( $product, $taxonomy ) {
         $id = $product->get_id();
-        if ($product->is_type('variation')) {
+        if ( $product->is_type('variation') ) {
             $id = $product->get_parent_id();
         }
 
@@ -2612,33 +2563,32 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function price_format($name, $conditionName, $result)
-    {
+    protected function price_format( $name, $conditionName, $result ) {
         $plus = '+';
         $minus = '-';
         $percent = '%';
 
-        if (strpos($name, 'price') !== false) {
-            if (strpos($result, $plus) !== false && strpos($result, $percent) !== false) {
+        if ( strpos($name, 'price') !== false ) {
+            if ( strpos($result, $plus) !== false && strpos($result, $percent) !== false ) {
                 $result = str_replace('+', '', $result);
                 $result = str_replace('%', '', $result);
-                if (is_numeric($result)) {
+                if ( is_numeric($result) ) {
                     $result = $conditionName + (($conditionName * $result) / 100);
                 }
-            } elseif (strpos($result, $minus) !== false && strpos($result, $percent) !== false) {
+            } elseif ( strpos($result, $minus) !== false && strpos($result, $percent) !== false ) {
                 $result = str_replace('-', '', $result);
                 $result = str_replace('%', '', $result);
-                if (is_numeric($result)) {
+                if ( is_numeric($result) ) {
                     $result = $conditionName - (($conditionName * $result) / 100);
                 }
-            } elseif (strpos($result, $plus) !== false) {
+            } elseif ( strpos($result, $plus) !== false ) {
                 $result = str_replace('+', '', $result);
-                if (is_numeric($result)) {
+                if ( is_numeric($result) ) {
                     $result = ($conditionName + $result);
                 }
-            } elseif (strpos($result, $minus) !== false) {
+            } elseif ( strpos($result, $minus) !== false ) {
                 $result = str_replace('-', '', $result);
-                if (is_numeric($result)) {
+                if ( is_numeric($result) ) {
                     $result = $conditionName - $result;
                 }
             }
@@ -2659,98 +2609,97 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    protected function format_output($output, $outputTypes, $product, $productAttribute)
-    {
-        if (!empty($outputTypes) && is_array($outputTypes)) {
+    protected function format_output( $output, $outputTypes, $product, $productAttribute ) {
+        if ( ! empty($outputTypes) && is_array($outputTypes) ) {
 
             // Format Output According to output type
-            if (in_array(2, $outputTypes)) { // Strip Tags
+            if ( in_array(2, $outputTypes) ) { // Strip Tags
                 $output = wp_strip_all_tags(html_entity_decode($output));
             }
 
-            if (in_array(3, $outputTypes)) { // UTF-8 Encode
+            if ( in_array(3, $outputTypes) ) { // UTF-8 Encode
                 $output = utf8_encode($output);
             }
 
-            if (in_array(4, $outputTypes)) { // htmlentities
+            if ( in_array(4, $outputTypes) ) { // htmlentities
                 $output = htmlentities($output, ENT_QUOTES, 'UTF-8');
             }
 
-            if (in_array(5, $outputTypes)) { // Integer
+            if ( in_array(5, $outputTypes) ) { // Integer
                 $output = intval($output);
             }
 
-            if (in_array(6, $outputTypes)) { // Format Price
-                if (!empty($output) && $output > 0) {
+            if ( in_array(6, $outputTypes) ) { // Format Price
+                if ( ! empty($output) && $output > 0 ) {
                     $output = (float)$output;
                     $output = number_format($output, 2, '.', '');
                 }
             }
 
-            if (in_array(7, $outputTypes)) { // Delete Space
+            if ( in_array(7, $outputTypes) ) { // Delete Space
                 $output = trim($output);
                 $output = preg_replace('!\s+!', ' ', $output);
             }
 
-            if (in_array(9, $outputTypes)) { // Remove Invalid Character
+            if ( in_array(9, $outputTypes) ) { // Remove Invalid Character
                 $output = woo_feed_stripInvalidXml($output);
             }
 
-            if (in_array(10, $outputTypes)) {  // Remove ShortCodes
+            if ( in_array(10, $outputTypes) ) {  // Remove ShortCodes
                 $output = $this->remove_short_codes($output);
             }
 
-            if (in_array(11, $outputTypes)) {
+            if ( in_array(11, $outputTypes) ) {
                 $output = ucwords(strtolower($output));
             }
 
-            if (in_array(12, $outputTypes)) {
+            if ( in_array(12, $outputTypes) ) {
                 $output = ucfirst(strtolower($output));
             }
 
-            if (in_array(13, $outputTypes)) {
+            if ( in_array(13, $outputTypes) ) {
                 $output = strtoupper(strtolower($output));
             }
 
-            if (in_array(14, $outputTypes)) {
+            if ( in_array(14, $outputTypes) ) {
                 $output = strtolower($output);
             }
 
-            if (in_array(15, $outputTypes)) {
-                if ('http' == substr($output, 0, 4)) {
+            if ( in_array(15, $outputTypes) ) {
+                if ( 'http' == substr($output, 0, 4) ) {
                     $output = str_replace('http://', 'https://', $output);
                 }
             }
 
-            if (in_array(16, $outputTypes)) {
-                if ('http' == substr($output, 0, 4)) {
+            if ( in_array(16, $outputTypes) ) {
+                if ( 'http' == substr($output, 0, 4) ) {
                     $output = str_replace('https://', 'http://', $output);
                 }
             }
 
-            if (in_array(17, $outputTypes)) { // only parent
-                if ($product->is_type('variation')) {
+            if ( in_array(17, $outputTypes) ) { // only parent
+                if ( $product->is_type('variation') ) {
                     $id = $product->get_parent_id();
                     $parentProduct = wc_get_product($id);
                     $output = $this->getAttributeValueByType($parentProduct, $productAttribute);
                 }
             }
 
-            if (in_array(18, $outputTypes)) { // child if parent empty
-                if ($product->is_type('variation')) {
+            if ( in_array(18, $outputTypes) ) { // child if parent empty
+                if ( $product->is_type('variation') ) {
                     $id = $product->get_parent_id();
                     $parentProduct = wc_get_product($id);
                     $output = $this->getAttributeValueByType($parentProduct, $productAttribute);
-                    if (empty($output)) {
+                    if ( empty($output) ) {
                         $output = $this->getAttributeValueByType($product, $productAttribute);
                     }
                 }
             }
 
-            if (in_array(19, $outputTypes)) { // parent if child empty
-                if ($product->is_type('variation')) {
+            if ( in_array(19, $outputTypes) ) { // parent if child empty
+                if ( $product->is_type('variation') ) {
                     $output = $this->getAttributeValueByType($product, $productAttribute);
-                    if (empty($output)) {
+                    if ( empty($output) ) {
                         $id = $product->get_parent_id();
                         $parentProduct = wc_get_product($id);
                         $output = $this->getAttributeValueByType($parentProduct, $productAttribute);
@@ -2758,7 +2707,7 @@ class Woo_Feed_Products_v3
                 }
             }
 
-            if (in_array(8, $outputTypes) && !empty($output)) { // Add CDATA
+            if ( in_array(8, $outputTypes) && ! empty($output) ) { // Add CDATA
                 $output = '<![CDATA[' . $output . ']]>';
             }
         }
@@ -2778,20 +2727,19 @@ class Woo_Feed_Products_v3
      * @since 3.2.0
      *
      */
-    public function process_prefix_suffix($output, $prefix, $suffix, $attribute = '')
-    {
+    public function process_prefix_suffix( $output, $prefix, $suffix, $attribute = '' ) {
 
-        if ('' == $output) {
+        if ( '' == $output ) {
             return $output;
         }
 
         // Add Prefix before Output
-        if ('' != $prefix) {
+        if ( '' != $prefix ) {
             $output = "$prefix" . $output;
         }
 
         // Add Suffix after Output
-        if ('' !== $suffix) {
+        if ( '' !== $suffix ) {
             if (
                 'price' == $attribute
                 || 'sale_price' == $attribute
@@ -2803,7 +2751,7 @@ class Woo_Feed_Products_v3
                 || 'tax_rate' == $attribute
             ) { // Add space before suffix if attribute contain price.
                 $output = $output . ' ' . $suffix;
-            } elseif (substr($output, 0, 4) === 'http') {
+            } elseif ( substr($output, 0, 4) === 'http' ) {
                 // Parse URL Parameters if available into suffix field
                 $output = woo_feed_make_url_with_parameter($output, $suffix);
 
@@ -2824,7 +2772,7 @@ class Woo_Feed_Products_v3
      * @since 3.6.3
      *
      */
-    protected function subscription_period($product){
+    protected function subscription_period( $product ) {
         if ( class_exists( 'WC_Subscriptions' ) ) {
             return $this->getProductMeta($product,'_subscription_period');
         }
@@ -2839,7 +2787,7 @@ class Woo_Feed_Products_v3
      * @since 3.6.3
      *
      */
-    protected function subscription_period_interval($product){
+    protected function subscription_period_interval( $product ) {
         if ( class_exists( 'WC_Subscriptions' ) ) {
             return $this->getProductMeta($product,'_subscription_period_interval');
         }
@@ -2855,7 +2803,7 @@ class Woo_Feed_Products_v3
      * @since 3.6.3
      *
      */
-    protected function subscription_amount($product){
+    protected function subscription_amount( $product ) {
         return $this->price($product);
     }
 }

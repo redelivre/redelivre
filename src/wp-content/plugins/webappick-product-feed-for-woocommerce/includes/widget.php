@@ -7,7 +7,7 @@
  */
 
 
-if(!function_exists('webappick_add_dashboard_widgets')){
+if ( ! function_exists('webappick_add_dashboard_widgets') ) {
     /**
      * Add a widget to the dashboard.
      *
@@ -22,7 +22,7 @@ if(!function_exists('webappick_add_dashboard_widgets')){
     add_action( 'wp_dashboard_setup', 'webappick_add_dashboard_widgets',1);
 }
 
-if(!function_exists('webappick_dashboard_widget_render')){
+if ( ! function_exists('webappick_dashboard_widget_render') ) {
     /**
      * Function to get dashboard widget data.
      */

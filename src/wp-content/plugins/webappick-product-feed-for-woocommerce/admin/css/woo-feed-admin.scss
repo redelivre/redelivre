@@ -350,6 +350,14 @@ body.no-js select.selectize {
     display: block !important;
 }
 
+.wp-list-table {
+    .option_name {
+        .wf_feed_option_name_link {
+            font-weight: 700;
+        }
+    }
+}
+
 /* fallback combat */
 .selectize-dropdown .active {
     background-color: #edf9ff;
@@ -1663,5 +1671,55 @@ table {
 .woo-feed-filters,
 .woo-feed-ftp {
     margin: 15px auto 25px;
+}
+.wf_clean_cache_wrapper {
+    display: flex;
+    margin-left: auto;
+}
+@keyframes LoaderClockWise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.woo-feed-cache-loader {
+    width: 18px;
+    margin-right: 5px;
+    animation: LoaderClockWise 1s linear infinite;
+    -webkit-animation: LoaderClockWise 1s linear infinite;
+    display: none;
+}
+.woo-feed-table-heading .woo-feed-table-heading-title {
+    float: left;
+    margin-right: auto;
+    display: inline-block;
+    line-height: 30px;
+}
+.woo-feed-table-heading .wf_clean_cache_wrapper {
+    float: right;
+    font-weight: normal;
+}
+.wf_clean_cache_wrapper button {
+    background: #eb4d4b;
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+}
+
+.wf_clean_cache_wrapper button:hover {
+    background: #ff7979;
+    color: #fff;
 }
 

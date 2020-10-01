@@ -176,8 +176,10 @@ class Woo_Feed_Dropdown {
 			'title'                     => esc_html__( 'Product Title', 'woo-feed' ),
 			'description'               => esc_html__( 'Product Description', 'woo-feed' ),
 			'short_description'         => esc_html__( 'Product Short Description', 'woo-feed' ),
-			'primary_category'          => esc_html__( 'Primary Category', 'woo-feed' ),
-			'primary_category_id'       => esc_html__( 'Primary Category ID', 'woo-feed' ),
+            'primary_category'          => esc_html__( 'Parent Category', 'woo-feed' ),
+            'primary_category_id'       => esc_html__( 'Parent Category ID', 'woo-feed' ),
+            'child_category'            => esc_html__( 'Child Category', 'woo-feed' ),
+            'child_category_id'         => esc_html__( 'Child Category ID', 'woo-feed' ),
 			'product_type'              => esc_html__( 'Product Local Category [Category Path]', 'woo-feed' ),
 			'link'                      => esc_html__( 'Product URL', 'woo-feed' ),
 			'canonical_link'            => esc_html__( 'Canonical URL', 'woo-feed' ),
@@ -238,9 +240,9 @@ class Woo_Feed_Dropdown {
         if ( class_exists( 'WC_Subscriptions' ) ) {
             $attributes = array_merge( $attributes,
                 [
-                    'subscription_period'    => esc_html__( 'Subscription Period', 'woo-feed' ),
-                    'subscription_period_interval'    => esc_html__( 'Subscription Period Interval', 'woo-feed' ),
-                    'subscription_amount'    => esc_html__( 'Subscription Amount', 'woo-feed' ),
+                    'subscription_period'          => esc_html__( 'Subscription Period', 'woo-feed' ),
+                    'subscription_period_interval' => esc_html__( 'Subscription Period Interval', 'woo-feed' ),
+                    'subscription_amount'          => esc_html__( 'Subscription Amount', 'woo-feed' ),
                 ] );
         }
 		

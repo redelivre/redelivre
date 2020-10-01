@@ -650,6 +650,73 @@
 					window.location.href = $(this).attr('val');
 				}
 			})
+			// clear cache data.
+			.on('click', '.wf_clean_cache_wrapper', function(event) {
+				event.preventDefault();
+				var nonce = $('.woo-feed-clean-cache-nonce').val();
+				var loader = $('.woo-feed-cache-loader');
+
+				//show loader
+				loader.show();
+
+				// passed cache nonce
+				wpAjax.post('clear_cache_data', {
+					_ajax_clean_nonce: nonce
+				}).then(function (response) {
+					if( response.success ) {
+						loader.hide(); //hide loader
+					}
+				}).fail(function (e) {
+					console.log('something wrong');
+				});
+
+			})
+			// feed value dropdown change.
+			.on('change', '.wf_attr.wf_attributes', function(event) {
+				event.preventDefault();
+
+				$('.fancy-picker-picked').trigger("click"); // trigger fancy select box clicked
+
+				// price attributes
+				var price_attributes = ['price', 'current_price', 'sale_price', 'price_with_tax', 'current_price_with_tax', 'sale_price_with_tax'];
+				// current value
+				var current_attribute_value = $(this).val();
+				var outputSelect = $(this).parents('tr').find('.outputType');
+				var fancyOption = $(this).parents('tr').find('.fancy-picker-content .fancy-picker-option');
+				var fancyDataPicker = $(this).parents('tr').find('.fancy-picker-data span');
+				var selectIf, selectKey;
+
+				// when select any custom taxonomy
+				if( "" !== current_attribute_value && -1 !== current_attribute_value.indexOf('wf_taxo') ) {
+					selectIf = 'for_custom_taxo';
+					selectKey = "parent_if_empty";
+				}
+
+				// when select any price attribute
+				if( price_attributes.includes(current_attribute_value)  ) {
+					selectIf = 'for_price';
+					selectKey = "Price";
+				}
+
+				// remove selected class from old selected option
+				fancyOption.removeClass('selected');
+
+				// when value dropdown is selected as price or any custom taxonomy
+				if( selectIf === 'for_custom_taxo' || selectIf === 'for_price' ) {
+
+					// update "Option Type" when select key matches
+					fancyOption.each(function(item) {
+						if( selectKey === $(this).text() ) {
+							$(this).addClass('selected');
+							fancyDataPicker.text(selectKey);
+							outputSelect.find("option").text(selectKey);
+							outputSelect.find("option").val( $(this).data('value') );
+						}
+					});
+
+				}
+
+			})
 			// bulk delete alert.
 			.on('click', '#doaction, #doaction2', function () {
 				// noinspection JSUnresolvedVariable

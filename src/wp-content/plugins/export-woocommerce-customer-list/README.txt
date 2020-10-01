@@ -1,9 +1,9 @@
-=== Export WooCommerce customers list csv, WordPress users csv, Email customer list daily ===
+=== Export WooCommerce customers list csv, WordPress users csv, export Guest customer list ===
 Contributors: rajeshsingh520
-Donate link: piwebsolution.com
+Donate link: http://piwebsolution.com
 Tags: Customer list, Export user, Export users, User export, Export customer, users, customer csv, export guest, guest csv
 Requires at least: 3.0.1
-Tested up to: 5.4.2
+Tested up to: 5.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

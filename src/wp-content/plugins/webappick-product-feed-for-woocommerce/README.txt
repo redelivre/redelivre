@@ -5,7 +5,7 @@ Tags:product feed,woocommerce product feed,google shopping feed,google shopping,
 Requires at least: 3.6
 Tested Up To: 5.5
 Requires PHP: 5.6
-Stable tag: 3.7.20
+Stable tag: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -307,6 +307,35 @@ Using pro version:
 2. FTP info config
 
 == Changelog ==
+
+= 3.9.1 (2020-10-01) =
+* Added: Plugin version in setting page.
+
+= 3.9.0 (2020-09-30) =
+* Added: The Moebel.de template.
+
+= 3.8.9 (2020-09-29) =
+* Added: The Heureka Slovakia template.
+
+= 3.8.7 (2020-09-28) =
+* Added: `Child Category` and `Child Category id` option to feed.
+* Tweak: Profit share template new structure.
+
+= 3.8.6 (2020-09-27) =
+* Tweak: Action button's label styling.
+
+= 3.8.5 (2020-09-24) =
+* Added: Clear cache button to feed pages.
+
+= 3.8.3 (2020-09-23) =
+* Fix: Cron scheduled back date issue.
+
+= 3.8.1 (2020-09-22) =
+* Tweak: Added `WPC product bundles` plugin support.
+
+= 3.8.0 (2020-09-21) =
+* Fix: remove visual composer old short codes.
+* Tweak: short product ids in descending order into feed.
 
 = 3.7.20 (2020-09-17) =
 * Fix: availability will return `preorder` for on backorder into Google Merchant and Pinterest template.

@@ -98,10 +98,10 @@ if ( ( isset( $_GET['feed_created'] ) || isset( $_GET['feed_updated'] ) || isset
 			<tbody>
 			<tr>
 				<td>
-					<form action="" method="post">
+					<form action="" method="post" style="display: flex;align-items: center;">
 						<?php wp_nonce_field( 'wf_schedule', 'wf_schedule_nonce' ); ?>
 						<label for="wf_schedule"><b><?php _e( 'Interval', 'woo-feed' ); ?></b></label>
-						<select name="wf_schedule" id="wf_schedule">
+						<select name="wf_schedule" id="wf_schedule" style="margin: 0 5px;">
 						<?php
 						$interval = get_option( 'wf_schedule' );
 						foreach ( woo_feed_get_schedule_interval_options() as $k => $v ) {
@@ -110,6 +110,7 @@ if ( ( isset( $_GET['feed_created'] ) || isset( $_GET['feed_updated'] ) || isset
 						?>
 						</select>
 						<button type="submit" class="button button-primary"><?php esc_html_e( 'Update Interval', 'woo-feed' ); ?></button>
+                        <?php woo_feed_clear_cache_button(); ?>
 					</form>
 				</td>
 			</tr>

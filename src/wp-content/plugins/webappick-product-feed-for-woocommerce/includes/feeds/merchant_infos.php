@@ -382,5 +382,13 @@ return array(
         'link'           => 'https://support.profitshare.ro/hc/ro/articles/211436229-Importul-produselor-prin-CSV',
         'feed_file_type' => array( 'CSV' ),
     ),
+    'heureka.sk'                  => array(
+        'link'           => 'https://sluzby.heureka.sk/napoveda/xml-feed/',
+        'feed_file_type' => array( 'XML' ),
+    ),
+    'moebel.de'                                   => array(
+        'link'           => 'https://feedonomics.com/supported-channels/moebel-de-feed-specifications/',
+        'feed_file_type' => array( 'XML', 'CSV', 'TXT' ),
+    ),
 );
 // End of file merchant_infos.php

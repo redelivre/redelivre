@@ -22,7 +22,10 @@ $settings = woo_feed_get_options( 'all' );
 			<table class="widefat fixed" role="presentation">
 				<thead>
 				<tr>
-					<th colspan="2"><b><?php _e( 'Common Settings', 'woo-feed' ); ?></b></th>
+					<th colspan="2">
+                        <b><?php _e( 'Common Settings', 'woo-feed' ); ?></b>
+                        <span style="float: right;"><?php echo sprintf( 'Version %s', WOO_FEED_FREE_VERSION ); ?></span>
+                    </th>
 				</tr>
 				</thead>
 				<tbody>

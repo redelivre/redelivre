@@ -11,7 +11,7 @@
  * Plugin URI:        https://webappick.com/
  * Description:       Easily generate woocommerce product feed for any marketing channel like Google Shopping(Merchant), Facebook Remarketing, Bing, eBay & more. Support 100+ Merchants.
  *
- * Version:           3.7.20
+ * Version:           3.9.1
  * Author:            WebAppick
  * Author URI:        https://webappick.com/
  * License:           GPL v2
@@ -26,7 +26,7 @@
  *
  * WC Requirement & Test
  * WC requires at least: 3.2
- * WC tested up to: 4.4
+ * WC tested up to: 4.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,7 +39,7 @@ if ( ! defined( 'WOO_FEED_FREE_VERSION' ) ) {
 	 * @var string
 	 * @since 3.1.6
 	 */
-	define( 'WOO_FEED_FREE_VERSION', '3.7.20' );
+	define( 'WOO_FEED_FREE_VERSION', '3.9.1' );
 }
 
 if ( ! defined( 'WOO_FEED_FREE_FILE' ) ) {
@@ -225,6 +225,7 @@ if ( ! function_exists( 'woo_feed_get_product_information' ) ) {
 				do_action( 'after_woo_feed_get_product_information', $getConfig );
 				woo_feed_log_feed_process( $getConfig['filename'], sprintf( 'Total %d product found', is_array( $ids ) && ! empty( $ids ) ? count( $ids ) : 0 ) );
 				if ( is_array( $ids ) && ! empty( $ids ) ) {
+                    rsort($ids); //sorting ids in descending order
 					if ( count( $ids ) > $limit ) {
 						$batches = array_chunk( $ids, $limit );
 					} else {
@@ -795,17 +796,17 @@ if ( ! function_exists( 'woo_feed_update_feed_status' ) ) {
 			wp_die();
 		}
 
-		$feedName=sanitize_text_field( $_POST['feedName'] );
+		$feedName = sanitize_text_field( $_POST['feedName'] );
 		if ( ! empty( $feedName ) ) {
 			$feedInfo           = maybe_unserialize( get_option( $feedName ) );
 			$feedInfo['status'] = isset( $_POST['status'] ) && 1 == $_POST['status'] ? 1 : 0;
 
-            $feed_slug=str_replace('wf_feed_','wf_config',$feedName);
-			if(1===$feedInfo['status']){
-                if(!wp_next_scheduled('woo_feed_update_single_feed',[ $feed_slug ])){
+            $feed_slug = str_replace('wf_feed_','wf_config',$feedName);
+			if ( 1 === $feedInfo['status'] ) {
+                if ( ! wp_next_scheduled('woo_feed_update_single_feed',[ $feed_slug ]) ) {
                     wp_schedule_event( time(), 'woo_feed_corn', 'woo_feed_update_single_feed', [ $feed_slug ] );
                 }
-            }else{
+            }else {
                 wp_clear_scheduled_hook( 'woo_feed_update_single_feed',[ $feed_slug ]);
             }
 
@@ -874,36 +875,35 @@ if ( ! function_exists( 'woo_feed_flash_cache_action' ) ) {
 
 
 // Suggest other plugins of webappick.
-if(!class_exists('webappick_suggest_plugin')){
+if ( ! class_exists('webappick_suggest_plugin') ) {
     class webappick_suggest_plugin
     {
-        static function init()
-        {
-            if (is_admin()) {
-                add_filter('install_plugins_table_api_args_featured', array(__CLASS__, 'featured_plugins_tab'));
+        static function init() {
+            if ( is_admin() ) {
+                add_filter('install_plugins_table_api_args_featured', array( __CLASS__, 'featured_plugins_tab' ));
             }
         } // init
         // add our plugins to recommended list
-        static function plugins_api_result($res, $action, $args) {
-            remove_filter('plugins_api_result', array(__CLASS__, 'plugins_api_result'), 10, 1);
+        static function plugins_api_result( $res, $action, $args ) {
+            remove_filter('plugins_api_result', array( __CLASS__, 'plugins_api_result' ), 10, 1);
             $res = self::add_plugin_favs('webappick-pdf-invoice-for-woocommerce', $res);
             return $res;
         } // plugins_api_result
         // helper function for adding plugins to fav list
-        static function featured_plugins_tab($args) {
-            add_filter('plugins_api_result', array(__CLASS__, 'plugins_api_result'), 10, 3);
+        static function featured_plugins_tab( $args ) {
+            add_filter('plugins_api_result', array( __CLASS__, 'plugins_api_result' ), 10, 3);
             return $args;
         } // featured_plugins_tab
         // add single plugin to list of favs
-        static function add_plugin_favs($plugin_slug, $res) {
-            if (!empty($res->plugins) && is_array($res->plugins)) {
-                foreach ($res->plugins as $plugin) {
-                    if (is_object($plugin) && !empty($plugin->slug) && $plugin->slug == $plugin_slug) {
+        static function add_plugin_favs( $plugin_slug, $res ) {
+            if ( ! empty($res->plugins) && is_array($res->plugins) ) {
+                foreach ( $res->plugins as $plugin ) {
+                    if ( is_object($plugin) && ! empty($plugin->slug) && $plugin->slug == $plugin_slug ) {
                         return $res;
                     }
                 } // foreach
             }
-            if ($plugin_info = get_transient('wf-plugin-info-' . $plugin_slug)) {
+            if ( $plugin_info = get_transient('wf-plugin-info-' . $plugin_slug) ) {
                 array_unshift($res->plugins, $plugin_info);
             } else {
                 $plugin_info = plugins_api('plugin_information', array(
@@ -916,9 +916,9 @@ if(!class_exists('webappick_suggest_plugin')){
                         'active_installs'   => true,
                         'icons'             => true,
                         'short_description' => true,
-                    )
+                    ),
                 ));
-                if (!is_wp_error($plugin_info)) {
+                if ( ! is_wp_error($plugin_info) ) {
                     $res->plugins[] = $plugin_info;
                     set_transient('wf-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
                 }
@@ -926,7 +926,7 @@ if(!class_exists('webappick_suggest_plugin')){
             return $res;
         } // add_plugin_favs
     }
-    add_action('init', array('webappick_suggest_plugin', 'init'));
+    add_action('init', array( 'webappick_suggest_plugin', 'init' ));
 }
 
 

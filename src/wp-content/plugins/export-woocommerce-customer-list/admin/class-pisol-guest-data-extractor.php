@@ -16,7 +16,7 @@ class class_guest_data_extractor{
 
         if($this->after_date != "" || $this->before_date !=""){
             $time_range = $this->after_date.'...'.$this->before_date;
-            $args['date_paid'] = $time_range;
+            $args['date_created'] = $time_range;
         }
 
         if(count($this->order_status) > 0){

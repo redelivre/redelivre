@@ -427,11 +427,11 @@ if ( ! function_exists( 'woo_feed_get_default_brand' ) ) {
         if ( false !== $url ) {
             $url = wp_parse_url( $url );
             if ( array_key_exists( 'host', $url ) ) {
-                if(strpos($url['host'], ".") !== false){
+                if ( strpos($url['host'], ".") !== false ) {
                     $arr   = explode( '.', $url['host'] );
                     $brand = $arr[ count( $arr ) - 2 ];
                     $brand = ucfirst( $brand );
-                } else{
+                } else {
                     $brand = $url['host'];
                     $brand = ucfirst( $brand );
                 }
@@ -542,53 +542,53 @@ if ( ! function_exists( 'woo_feed_parse_feed_rules' ) ) {
 			$rules = [];
 		}
 		$defaults             = [
-			'provider'              => '',
-			'filename'              => '',
-			'feedType'              => '',
-			'ftpenabled'            => 0,
-			'ftporsftp'             => 'ftp',
-			'ftphost'               => '',
-			'ftpport'               => '21',
-			'ftpuser'               => '',
-			'ftppassword'           => '',
-			'ftppath'               => '',
-            'ftpmode'               => 'active',
-			'is_variations'         => 'n',
-			'variable_price'        => 'first',
-			'variable_quantity'     => 'first',
-			'feedLanguage'          => apply_filters( 'wpml_current_language', null ),
-			'feedCurrency'          => get_woocommerce_currency(),
-			'itemsWrapper'          => 'products',
-			'itemWrapper'           => 'product',
-			'delimiter'             => ',',
-			'enclosure'             => 'double',
-			'extraHeader'           => '',
-			'vendors'               => [],
+			'provider'            => '',
+			'filename'            => '',
+			'feedType'            => '',
+			'ftpenabled'          => 0,
+			'ftporsftp'           => 'ftp',
+			'ftphost'             => '',
+			'ftpport'             => '21',
+			'ftpuser'             => '',
+			'ftppassword'         => '',
+			'ftppath'             => '',
+            'ftpmode'             => 'active',
+			'is_variations'       => 'n',
+			'variable_price'      => 'first',
+			'variable_quantity'   => 'first',
+			'feedLanguage'        => apply_filters( 'wpml_current_language', null ),
+			'feedCurrency'        => get_woocommerce_currency(),
+			'itemsWrapper'        => 'products',
+			'itemWrapper'         => 'product',
+			'delimiter'           => ',',
+			'enclosure'           => 'double',
+			'extraHeader'         => '',
+			'vendors'             => [],
 			// Feed Config
-			'mattributes'           => [], // merchant attributes
-			'prefix'                => [], // prefixes
-			'type'                  => [], // value (attribute) types
-			'attributes'            => [], // product attribute mappings
-			'default'               => [], // default values (patterns) if value type set to pattern
-			'suffix'                => [], // suffixes
-			'output_type'           => [], // output type (output filter)
-			'limit'                 => [], // limit or command
+			'mattributes'         => [], // merchant attributes
+			'prefix'              => [], // prefixes
+			'type'                => [], // value (attribute) types
+			'attributes'          => [], // product attribute mappings
+			'default'             => [], // default values (patterns) if value type set to pattern
+			'suffix'              => [], // suffixes
+			'output_type'         => [], // output type (output filter)
+			'limit'               => [], // limit or command
 			// filters tab
-			'composite_price'       => '',
-			'product_ids'           => '',
-			'categories'            => [],
-			'post_status'           => [ 'publish' ],
-			'filter_mode'           => [],
-			'campaign_parameters'   => [],
+			'composite_price'     => '',
+			'product_ids'         => '',
+			'categories'          => [],
+			'post_status'         => [ 'publish' ],
+			'filter_mode'         => [],
+			'campaign_parameters' => [],
 			//'is_outOfStock'         => 'y',
 			//'product_visibility'    => 0,
 			// include hidden ? 1 yes 0 no
 			//'outofstock_visibility' => 1,
 			// override wc global option for out-of-stock product hidden from catalog? 1 yes 0 no
-			'ptitle_show'           => '',
-			'decimal_separator'     => wc_get_price_decimal_separator(),
-			'thousand_separator'    => wc_get_price_thousand_separator(),
-			'decimals'              => wc_get_price_decimals(),
+			'ptitle_show'         => '',
+			'decimal_separator'   => wc_get_price_decimal_separator(),
+			'thousand_separator'  => wc_get_price_thousand_separator(),
+			'decimals'            => wc_get_price_decimals(),
 		];
 		$rules                = wp_parse_args( $rules, $defaults );
 		$rules['filter_mode'] = wp_parse_args( $rules['filter_mode'],
@@ -1407,8 +1407,8 @@ if ( ! function_exists( 'woo_feed_delete_feed' ) ) {
 		}
 
 		// Delete cron schedule.
-		$feed_cron_param='wf_config' . $feed_name;
-        wp_clear_scheduled_hook( 'woo_feed_update_single_feed',[$feed_cron_param]);
+		$feed_cron_param = 'wf_config' . $feed_name;
+        wp_clear_scheduled_hook( 'woo_feed_update_single_feed',[ $feed_cron_param ]);
 		
 		return $deleted;
 	}
@@ -2536,7 +2536,7 @@ if ( ! function_exists( 'woo_feed_get_category_mapping_value' ) ) {
 }
 
 
-if( ! function_exists( 'woo_feed_add_identifier_fields' ) ) {
+if ( ! function_exists( 'woo_feed_add_identifier_fields' ) ) {
     /**
      * Add Custom fields into product inventory tab for Unique Identifier (GTIN,MPN,EAN)
      *
@@ -2549,31 +2549,31 @@ if( ! function_exists( 'woo_feed_add_identifier_fields' ) ) {
 
         //GTIN input field
         woocommerce_wp_text_input( array(
-            'id'      => 'woo_feed_gtin',
-            'value'   => get_post_meta( get_the_ID(), 'woo_feed_gtin', true ),
-            'placeholder'   => esc_html( 'Set product GTIN', 'woo-feed' ),
-            'label'   => esc_html( 'GTIN', 'woo-feed' ),
-            'desc_tip' => true,
+            'id'          => 'woo_feed_gtin',
+            'value'       => get_post_meta( get_the_ID(), 'woo_feed_gtin', true ),
+            'placeholder' => esc_html( 'Set product GTIN', 'woo-feed' ),
+            'label'       => esc_html( 'GTIN', 'woo-feed' ),
+            'desc_tip'    => true,
             'description' => esc_html( 'Set product GTIN code here.', 'woo-feed' ),
         ) );
 
         //MPN input field
         woocommerce_wp_text_input( array(
-            'id'      => 'woo_feed_mpn',
-            'value'   => get_post_meta( get_the_ID(), 'woo_feed_mpn', true ),
-            'placeholder'   => esc_html( 'Set product MPN', 'woo-feed' ),
-            'label'   => esc_html( 'MPN', 'woo-feed' ),
-            'desc_tip' => true,
+            'id'          => 'woo_feed_mpn',
+            'value'       => get_post_meta( get_the_ID(), 'woo_feed_mpn', true ),
+            'placeholder' => esc_html( 'Set product MPN', 'woo-feed' ),
+            'label'       => esc_html( 'MPN', 'woo-feed' ),
+            'desc_tip'    => true,
             'description' => esc_html( 'Set product MPN code here.', 'woo-feed' ),
         ) );
 
         //EAN input field
         woocommerce_wp_text_input( array(
-            'id'      => 'woo_feed_ean',
-            'value'   => get_post_meta( get_the_ID(), 'woo_feed_ean', true ),
-            'placeholder'   => esc_html( 'Set product EAN', 'woo-feed' ),
-            'label'   => esc_html( 'EAN', 'woo-feed' ),
-            'desc_tip' => true,
+            'id'          => 'woo_feed_ean',
+            'value'       => get_post_meta( get_the_ID(), 'woo_feed_ean', true ),
+            'placeholder' => esc_html( 'Set product EAN', 'woo-feed' ),
+            'label'       => esc_html( 'EAN', 'woo-feed' ),
+            'desc_tip'    => true,
             'description' => esc_html( 'Set product EAN code here.', 'woo-feed' ),
         ) );
 
@@ -2583,7 +2583,7 @@ if( ! function_exists( 'woo_feed_add_identifier_fields' ) ) {
     add_action( 'woocommerce_product_options_inventory_product_data', 'woo_feed_add_identifier_fields');
 }
 
-if( ! function_exists( 'woo_feed_save_identifier_fields_data' ) ) {
+if ( ! function_exists( 'woo_feed_save_identifier_fields_data' ) ) {
 
     /**
      * Updating custom fields data. (Unique Identifier (GTIN,MPN,EAN))
@@ -2595,21 +2595,21 @@ if( ! function_exists( 'woo_feed_save_identifier_fields_data' ) ) {
     function woo_feed_save_identifier_fields_data( $id, $post ) {
 
         //save gtin fields value
-        if( isset( $_POST['woo_feed_gtin'] ) && ! empty( $_POST['woo_feed_gtin'] ) ) {
+        if ( isset( $_POST['woo_feed_gtin'] ) && ! empty( $_POST['woo_feed_gtin'] ) ) {
             update_post_meta( $id, 'woo_feed_gtin', $_POST['woo_feed_gtin'] );
         } else {
             delete_post_meta( $id, 'woo_feed_gtin' );
         }
 
         //save mpn fields value
-        if( isset( $_POST['woo_feed_mpn'] ) && ! empty( $_POST['woo_feed_mpn'] ) ) {
+        if ( isset( $_POST['woo_feed_mpn'] ) && ! empty( $_POST['woo_feed_mpn'] ) ) {
             update_post_meta( $id, 'woo_feed_mpn', $_POST['woo_feed_mpn'] );
         } else {
             delete_post_meta( $id, 'woo_feed_mpn' );
         }
 
         //save ean fields value
-        if( isset( $_POST['woo_feed_ean'] ) && ! empty( $_POST['woo_feed_ean'] ) ) {
+        if ( isset( $_POST['woo_feed_ean'] ) && ! empty( $_POST['woo_feed_ean'] ) ) {
             update_post_meta( $id, 'woo_feed_ean', $_POST['woo_feed_ean'] );
         } else {
             delete_post_meta( $id, 'woo_feed_ean' );
@@ -2619,7 +2619,7 @@ if( ! function_exists( 'woo_feed_save_identifier_fields_data' ) ) {
     add_action( 'woocommerce_process_product_meta', 'woo_feed_save_identifier_fields_data', 10, 2 );
 }
 
-if( ! function_exists( 'woo_feed_add_identifier_fields_for_variation' ) ) {
+if ( ! function_exists( 'woo_feed_add_identifier_fields_for_variation' ) ) {
 
     /**
      * Custom options in variation tab, here we are putting gtin, mpn, ean input fields in product variation tab
@@ -2665,26 +2665,26 @@ if( ! function_exists( 'woo_feed_add_identifier_fields_for_variation' ) ) {
         echo '<div class="woo-feed-variation-items">';
         //GTIN variation input field
         woocommerce_wp_text_input( array(
-            'id'      => "woo_feed_gtin_var[$variation->ID]",
-            'value'   => get_post_meta( $variation->ID, "woo_feed_gtin_var", true ),
-            'placeholder'   => esc_html( 'Set product GTIN', 'woo-feed' ),
-            'label'   => esc_html( 'GTIN', 'woo-feed' ),
+            'id'          => "woo_feed_gtin_var[$variation->ID]",
+            'value'       => get_post_meta( $variation->ID, "woo_feed_gtin_var", true ),
+            'placeholder' => esc_html( 'Set product GTIN', 'woo-feed' ),
+            'label'       => esc_html( 'GTIN', 'woo-feed' ),
         ) );
 
         //MPN variation input field
         woocommerce_wp_text_input( array(
-            'id'      => "woo_feed_mpn_var[$variation->ID]",
-            'value'   => get_post_meta( $variation->ID, 'woo_feed_mpn_var', true ),
-            'placeholder'   => esc_html( 'Set product MPN', 'woo-feed' ),
-            'label'   => esc_html( 'MPN', 'woo-feed' ),
+            'id'          => "woo_feed_mpn_var[$variation->ID]",
+            'value'       => get_post_meta( $variation->ID, 'woo_feed_mpn_var', true ),
+            'placeholder' => esc_html( 'Set product MPN', 'woo-feed' ),
+            'label'       => esc_html( 'MPN', 'woo-feed' ),
         ) );
 
         //EAN variation input field
         woocommerce_wp_text_input( array(
-            'id'      => "woo_feed_ean_var[$variation->ID]",
-            'value'   => get_post_meta( $variation->ID, 'woo_feed_ean_var', true ),
-            'placeholder'   => esc_html( 'Set product EAN', 'woo-feed' ),
-            'label'   => esc_html( 'EAN', 'woo-feed' ),
+            'id'          => "woo_feed_ean_var[$variation->ID]",
+            'value'       => get_post_meta( $variation->ID, 'woo_feed_ean_var', true ),
+            'placeholder' => esc_html( 'Set product EAN', 'woo-feed' ),
+            'label'       => esc_html( 'EAN', 'woo-feed' ),
         ) );
 
         echo '</div></div>';
@@ -2693,7 +2693,7 @@ if( ! function_exists( 'woo_feed_add_identifier_fields_for_variation' ) ) {
     add_action( 'woocommerce_product_after_variable_attributes', 'woo_feed_add_identifier_fields_for_variation', 10, 3 );
 }
 
-if( ! function_exists( 'woo_feed_save_identifier_fields_data_for_variation' ) ) {
+if ( ! function_exists( 'woo_feed_save_identifier_fields_data_for_variation' ) ) {
 
     /**
      * Saving variation custom fields.
@@ -2706,26 +2706,74 @@ if( ! function_exists( 'woo_feed_save_identifier_fields_data_for_variation' ) ) 
     function woo_feed_save_identifier_fields_data_for_variation( $variation_id, $i ) {
 
         //save gtin field
-        if( isset($_POST['woo_feed_gtin_var'][$variation_id]) ) {
-            $woo_feed_gtin_field = $_POST['woo_feed_gtin_var'][$variation_id];
+        if ( isset($_POST['woo_feed_gtin_var'][ $variation_id ]) ) {
+            $woo_feed_gtin_field = $_POST['woo_feed_gtin_var'][ $variation_id ];
             if ( isset( $woo_feed_gtin_field ) ) update_post_meta( $variation_id, 'woo_feed_gtin_var', esc_attr( $woo_feed_gtin_field ) );
         }
 
         //save mpn field
-        if( isset($_POST['woo_feed_mpn_var'][$variation_id]) ) {
-            $woo_feed_mpn_field = $_POST['woo_feed_mpn_var'][$variation_id];
+        if ( isset($_POST['woo_feed_mpn_var'][ $variation_id ]) ) {
+            $woo_feed_mpn_field = $_POST['woo_feed_mpn_var'][ $variation_id ];
             if ( isset( $woo_feed_mpn_field ) ) update_post_meta( $variation_id, 'woo_feed_mpn_var', esc_attr( $woo_feed_mpn_field ) );
         }
 
         //save ean field
-        if( isset($_POST['woo_feed_ean_var'][$variation_id]) ) {
-            $woo_feed_ean_field = $_POST['woo_feed_ean_var'][$variation_id];
+        if ( isset($_POST['woo_feed_ean_var'][ $variation_id ]) ) {
+            $woo_feed_ean_field = $_POST['woo_feed_ean_var'][ $variation_id ];
             if ( isset( $woo_feed_ean_field ) ) update_post_meta( $variation_id, 'woo_feed_ean_var', esc_attr( $woo_feed_ean_field ) );
         }
 
     }
     add_action( 'woocommerce_save_product_variation', 'woo_feed_save_identifier_fields_data_for_variation', 10, 2 );
 }
+
+
+if ( ! function_exists( 'woo_feed_clear_cache_button' ) ) {
+    /**
+     * Clear cache button.
+     *
+     * @return void
+     * @since 4.1.2
+     */
+    function woo_feed_clear_cache_button() {
+        ?>
+        <div class="wf_clean_cache_wrapper">
+            <img class="woo-feed-cache-loader" src="data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0D%0A%3C%21--%20Generator%3A%20Adobe%20Illustrator%2019.0.0%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200%29%20%20--%3E%0D%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0D%0A%09%20viewBox%3D%220%200%20458.186%20458.186%22%20style%3D%22enable-background%3Anew%200%200%20458.186%20458.186%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0D%0A%3Cg%3E%0D%0A%09%3Cg%3E%0D%0A%09%09%3Cpath%20d%3D%22M445.651%2C201.95c-1.485-9.308-10.235-15.649-19.543-14.164c-9.308%2C1.485-15.649%2C10.235-14.164%2C19.543%0D%0A%09%09%09c0.016%2C0.102%2C0.033%2C0.203%2C0.051%2C0.304c17.38%2C102.311-51.47%2C199.339-153.781%2C216.719c-102.311%2C17.38-199.339-51.47-216.719-153.781%0D%0A%09%09%09S92.966%2C71.232%2C195.276%2C53.852c62.919-10.688%2C126.962%2C11.29%2C170.059%2C58.361l-75.605%2C25.19%0D%0A%09%09%09c-8.944%2C2.976-13.781%2C12.638-10.806%2C21.582c0.001%2C0.002%2C0.002%2C0.005%2C0.003%2C0.007c2.976%2C8.944%2C12.638%2C13.781%2C21.582%2C10.806%0D%0A%09%09%09c0.003-0.001%2C0.005-0.002%2C0.007-0.002l102.4-34.133c6.972-2.322%2C11.675-8.847%2C11.674-16.196v-102.4%0D%0A%09%09%09C414.59%2C7.641%2C406.949%2C0%2C397.523%2C0s-17.067%2C7.641-17.067%2C17.067v62.344C292.564-4.185%2C153.545-0.702%2C69.949%2C87.19%0D%0A%09%09%09s-80.114%2C226.911%2C7.779%2C310.508s226.911%2C80.114%2C310.508-7.779C435.905%2C339.799%2C457.179%2C270.152%2C445.651%2C201.95z%22%2F%3E%0D%0A%09%3C%2Fg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3Cg%3E%0D%0A%3C%2Fg%3E%0D%0A%3C%2Fsvg%3E%0D%0A" alt="loader">
+            <input type="hidden" class="woo-feed-clean-cache-nonce" value="<?php echo wp_create_nonce( 'clean_cache_nonce', 'clean_cache_nonce' ); ?>">
+            <button type="button"><?php esc_html_e( 'Clear Cache', 'woo-feed' ); ?></button>
+        </div>
+        <?php
+    }
+}
+
+if ( ! function_exists( 'woo_feed_clear_cache_data' ) ) {
+    /**
+     * Clear cache data.
+     *
+     * @param int _ajax_clean_nonce nonce number.
+     *
+     * @since 4.1.2
+     */
+    function woo_feed_clear_cache_data() {
+        if ( isset( $_REQUEST['_ajax_clean_nonce'] ) ) {
+
+            if ( wp_verify_nonce( sanitize_text_field( $_REQUEST['_ajax_clean_nonce'] ), 'clean_cache_nonce' ) ) {
+                $data = [];
+
+                global $wpdb;
+                $wpdb->query( "DELETE FROM $wpdb->options WHERE ({$wpdb->options}.option_name LIKE '_transient_timeout___woo_feed_cache_%') OR ({$wpdb->options}.option_name LIKE '_transient___woo_feed_cache_%')" ); // phpcs:ignore
+
+                $data = [ 'success' => true ];
+
+                wp_send_json_success( $data );
+            }        
+} else {
+            wp_send_json_error( esc_html__( 'Invalid Request.', 'woo-feed' ) );
+        }
+        wp_die();
+    }
+}
+add_action( 'wp_ajax_clear_cache_data', 'woo_feed_clear_cache_data' );
 
 
 // End of file helper.php.

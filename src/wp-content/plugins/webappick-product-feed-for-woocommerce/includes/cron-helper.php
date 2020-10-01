@@ -70,11 +70,11 @@ if ( ! function_exists( 'woo_feed_cron_update_single_feed' ) ) {
 	 */
     function woo_feed_cron_update_single_feed( $feedName ) {
         global $wpdb;
-        if(is_array($feedName)){
-            $feedName=$feedName[0];
+        if ( is_array($feedName) ) {
+            $feedName = $feedName[0];
         }
 
-        $cron_param_feedName=$feedName;
+        $cron_param_feedName = $feedName;
 
         if ( woo_feed_is_debugging_enabled() ) {
             woo_feed_delete_log( 'woo-feed-cron' );
@@ -84,13 +84,15 @@ if ( ! function_exists( 'woo_feed_cron_update_single_feed' ) ) {
 
         $feedName = str_replace('wf_config','wf_feed_',$feedName);
 
-        // Delete old duplicate cron.
-        $old_cron_clean=get_option('woo_feed_old_cron_clean_'.$cron_param_feedName);
-        if('cleaned'!==$old_cron_clean){
-            wp_clear_scheduled_hook( 'woo_feed_update_single_feed',[$cron_param_feedName]);
-            update_option('woo_feed_old_cron_clean_'.$cron_param_feedName,'cleaned');
-            wp_schedule_event( time(), 'woo_feed_corn', 'woo_feed_update_single_feed', [ $cron_param_feedName ] );
+        // get interval
+        $interval = absint( get_option( 'wf_schedule' ) );
+
+        // schedule single feed update
+        wp_clear_scheduled_hook( 'woo_feed_update_single_feed', array( $cron_param_feedName ) );
+        if ( ! wp_next_scheduled( 'woo_feed_update_single_feed', array( $cron_param_feedName ) ) ) {
+            wp_schedule_event( time() + $interval, 'woo_feed_corn', 'woo_feed_update_single_feed', array( $cron_param_feedName ) );
         }
+
         $result   = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->options WHERE option_name = %s", $feedName ), 'ARRAY_A' ); // phpcs:ignore
 
         if ( ! empty( $result ) ) {
@@ -126,7 +128,7 @@ if ( ! function_exists( 'woo_feed_cron_update_single_feed' ) ) {
 
 add_action( 'woo_feed_after_update_config', function( $data, $feed_slug ) {
     // Schedule Cron.
-    if(!wp_next_scheduled('woo_feed_update_single_feed',[ $feed_slug ])){
+    if ( ! wp_next_scheduled('woo_feed_update_single_feed',[ $feed_slug ]) ) {
         wp_schedule_event( time(), 'woo_feed_corn', 'woo_feed_update_single_feed', [ $feed_slug ] );
     }
 
@@ -134,7 +136,7 @@ add_action( 'woo_feed_after_update_config', function( $data, $feed_slug ) {
 
 add_action( 'woo_feed_after_insert_config', function( $data, $feed_slug ) {
     // Schedule Cron.
-    if(!wp_next_scheduled('woo_feed_update_single_feed',[ $feed_slug ])){
+    if ( ! wp_next_scheduled('woo_feed_update_single_feed',[ $feed_slug ]) ) {
         wp_schedule_event( time(), 'woo_feed_corn', 'woo_feed_update_single_feed', [ $feed_slug ] );
     }
 

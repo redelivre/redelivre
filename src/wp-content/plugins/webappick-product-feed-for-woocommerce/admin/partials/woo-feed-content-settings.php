@@ -22,7 +22,10 @@ global $feedRules, $wooFeedDropDown, $merchant;
 <table class="widefat fixed">
 	<thead>
 		<tr>
-			<th colspan="2"><?php _e( 'Content Settings', 'woo-feed' ); ?></th>
+            <th colspan="2" class="woo-feed-table-heading">
+                <span class="woo-feed-table-heading-title"><?php _e( 'Content Settings', 'woo-feed' ); ?></span>
+                <?php woo_feed_clear_cache_button(); ?>
+            </th>
 		</tr>
 	</thead>
 	<tbody>
