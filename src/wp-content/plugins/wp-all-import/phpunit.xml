@@ -1,0 +1,39 @@
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    >
+    <testsuites>                  
+          <testsuite name="basic">
+            <file>tests/test-posts.php</file>            
+            <file>tests/test-pages.php</file>              
+          </testsuite>
+          <testsuite name="products">
+            <directory prefix="test-products-" suffix=".php">tests</directory>
+          </testsuite>
+          <testsuite name="simple-products">
+            <directory prefix="test-products-simple" suffix=".php">tests</directory>
+          </testsuite>
+          <testsuite name="external-products">
+            <directory prefix="test-products-external" suffix=".php">tests</directory>
+          </testsuite>      
+          <testsuite name="grouped-products">
+            <directory prefix="test-products-grouped" suffix=".php">tests</directory>
+          </testsuite>      
+          <testsuite name="variable-products">
+            <directory prefix="test-products-variable" suffix=".php">tests</directory>
+          </testsuite>          
+          <testsuite name="images">
+            <directory prefix="test-images" suffix=".php">tests</directory>
+          </testsuite>
+          <!-- <testsuite name="user">
+            <file>tests/test-users.php</file>            
+          </testsuite> -->
+        <!--testsuite name="acf">
+            <file>tests/test-acf.php</file>            
+        </testsuite-->        
+    </testsuites>
+</phpunit>
