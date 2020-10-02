@@ -1,0 +1,3268 @@
+# Translation of Plugins - Import any XML or CSV File to WordPress - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Import any XML or CSV File to WordPress - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-02-23 21:18:28+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Import any XML or CSV File to WordPress - Stable (latest release)\n"
+
+#: views/admin/import/template.php:160 views/admin/settings/index.php:146
+msgid "Add functions here for use during your import. You can access this file at %s"
+msgstr "Añade aquí las funciones que quieras usar durante tu importación. Puedes acceder a este archivo en %s"
+
+#: views/admin/import/template.php:159 views/admin/settings/index.php:145
+msgid "Save Functions"
+msgstr "Guardar funciones"
+
+#: views/admin/import/template.php:151 views/admin/settings/index.php:138
+msgid "Upgrade to the professional edition of WP All Import to enable the Function Editor."
+msgstr "Mejora a la versión profesional de WP All Import para tener acceso al editor de funciones."
+
+#: views/admin/import/template.php:146 views/admin/settings/index.php:136
+msgid "Function Editor"
+msgstr "Editor de funciones"
+
+#: views/admin/import/template/_other_template.php:284
+msgid "If records in this import have different post types specify the slug of the desired post type here.\n"
+msgstr "Si los registros de esta importación tienen diferentes tipos de entrada especifica el slug que desees emplear para cada uno de ellos aquí.\n"
+
+#: views/admin/import/template/_other_template.php:274
+msgid "Dynamic Post Type"
+msgstr "Tipo de contenido dinámico"
+
+#: views/admin/import/preview_images.php:26
+msgid "Run Test"
+msgstr "Probar"
+
+#: views/admin/import/preview_images.php:24
+msgid "Click to test that your images are able to be accessed by WP All Import."
+msgstr "Haz clic para comprobar que tus imágenes sean accesibles por WP All Import."
+
+#: views/admin/import/preview_images.php:17
+msgid "Test Images"
+msgstr "Imágenes de prueba"
+
+#. Author of the plugin/theme
+msgid "Soflyy"
+msgstr "Soflyy"
+
+#. Description of the plugin/theme
+msgid "The most powerful solution for importing XML and CSV files to WordPress. Create Posts and Pages with content from any XML or CSV file. A paid upgrade to WP All Import Pro is available for support and additional features."
+msgstr "La mejor solución para importar archivos XML y CSV a WordPress. Crea entradas y páginas con contenido desde cualquier archivo XML y CSV. Pásate a WP All Import Pro para soporte y funciones adicionales."
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.wpallimport.com/upgrade-to-pro?utm_source=wordpress.org&utm_medium=plugins-page&utm_campaign=free+plugin"
+msgstr "http://www.wpallimport.com/upgrade-to-pro?utm_source=wordpress.org&utm_medium=plugins-page&utm_campaign=free+plugin"
+
+#: views/admin/settings/index.php:114
+msgid "Specify the port number to add if you're having problems continuing to Step 2 and are running things on a custom port. Default is blank."
+msgstr "Especifica un número de puerto distinto si tienes problemas para continuar con el Paso 2 y estás ejecutando tareas en un puerto personalizado. El valor predeterminado es en blanco."
+
+#: views/admin/settings/index.php:111
+msgid "Add Port To URL"
+msgstr "Añadir puerto a la URL"
+
+#: views/admin/settings/index.php:107
+msgid "Setting this constant avoids triggering pingback."
+msgstr "Si configuras esta constante evitarás que se dispare el pingback."
+
+#: views/admin/settings/index.php:105
+msgid "Enable WP_IMPORTING"
+msgstr "Activar WP_IMPORTING"
+
+#: views/admin/settings/index.php:100
+msgid "WP_IMPORTING"
+msgstr "WP_IMPORTING"
+
+#: views/admin/settings/index.php:96
+msgid "Split file into chunks containing the specified number of records."
+msgstr "Dividir el archivo en fragmentos que contengan el número de registros especificado."
+
+#: views/admin/settings/index.php:93
+msgid "Chunk Size"
+msgstr "Tamaño de fragmento"
+
+#: views/admin/settings/index.php:88
+msgid "Advanced Settings"
+msgstr "Ajustes avanzados"
+
+#: views/admin/settings/index.php:80
+msgid "Attempt to remove temp files left over by imports that were improperly terminated."
+msgstr "Intentar eliminar los archivos temporales dejados por importaciones mal terminadas."
+
+#: views/admin/settings/index.php:79
+msgid "Clean Up"
+msgstr "Limpiar"
+
+#: views/admin/settings/index.php:77
+msgid "Clean Up Temp Files"
+msgstr "Limpiar los archivos temporales"
+
+#: views/admin/settings/index.php:73
+msgid "Number of logs to store for each import. Enter 0 to never store logs."
+msgstr "Número de registros a almacenar para cada importación. Introduce 0 para no almacenar registros nunca."
+
+#: views/admin/settings/index.php:70
+msgid "Log Storage"
+msgstr "Almacenamiento de registro"
+
+#: views/admin/settings/index.php:65
+msgid "Imported files, chunks, logs and temporary files will be placed in a folder with a randomized name inside of %s."
+msgstr "Los archivos importados, fragmentos, registros y archivos temporales se colocarán en una carpeta con un nombre aleatorio dentro de %s."
+
+#: views/admin/settings/index.php:59
+msgid "Randomize folder names"
+msgstr "Aleatorizar los nombres de las carpetas"
+
+#: views/admin/settings/index.php:54 views/admin/settings/index.php:57
+msgid "Secure Mode"
+msgstr "Modo seguro"
+
+#: views/admin/settings/index.php:41
+msgid "Import Templates"
+msgstr "Importar plantillas"
+
+#: views/admin/settings/index.php:36
+msgid "There are no templates saved"
+msgstr "No hay plantillas guardadas"
+
+#: views/admin/settings/index.php:33
+msgid "Export Selected"
+msgstr "Exporta la selección"
+
+#: views/admin/settings/index.php:32
+msgid "Delete Selected"
+msgstr "Borra la selección"
+
+#: views/admin/settings/index.php:18
+msgid "Import/Export Templates"
+msgstr "Importar/exportar plantillas"
+
+#: views/admin/manage/update.php:21
+msgid "Update feature is not available for this import since it has no external path linked."
+msgstr "La función de actualización no está disponible para esta importación ya que no tiene ninguna ruta externa vinculada."
+
+#: views/admin/manage/update.php:10
+msgid "Source path is <strong>%s</strong>"
+msgstr "La ruta de origen es <strong>%s</strong>"
+
+#: views/admin/manage/update.php:9
+msgid "Are you sure you want to update <strong>%s</strong> import?"
+msgstr "¿Estás seguro de que quieres actualizar la importación <strong>%s</strong>?"
+
+#: views/admin/manage/update.php:1
+msgid "Update Import"
+msgstr "Actualiza la importación"
+
+#: views/admin/manage/scheduling.php:57
+msgid "Go to Import Settings now..."
+msgstr "Ve a ajustes de importación ..."
+
+#: views/admin/manage/scheduling.php:54
+msgid "To schedule this import with a cron job, you must use the \"Download from URL\" option on the Import Settings screen of WP All Import."
+msgstr "Para programar esta importación con un tarea cron, debes usar la opción \"Descargar desde URL\" en la pantalla Importar ajustes de WP All Import."
+
+#: views/admin/manage/scheduling.php:44
+msgid "Your web host may require you to use a command other than wget, although wget is most common. In this case, you must asking your web hosting provider for help."
+msgstr "Tu servidor web puede pedirte que uses un comando que no sea wget, aunque wget es el más común. En este caso, debes pedir ayuda a tu proveedor de alojamiento web."
+
+#: views/admin/manage/scheduling.php:41
+msgid "Notes"
+msgstr "Notas"
+
+#: views/admin/manage/scheduling.php:35
+msgid "It also operates this way in case of unexpected crashes by your web host. If it crashes before the import is finished, the next run of the cron job two minutes later will continue it where it left off, ensuring reliability."
+msgstr "También funciona así en caso de errores inesperados de tu servidor web. Si falla antes de que finalice la importación, la siguiente ejecución de la tarea cron dos minutos más tarde continuará donde lo dejó, lo que garantiza la fiabilidad."
+
+#: views/admin/manage/scheduling.php:33
+msgid "It processes in iteration (only importing a few records each time it runs) to optimize server load. It is recommended you run the execution script every 2 minutes."
+msgstr "Procesa en iteración (solo importa algunos registros cada vez que se ejecuta) para optimizar la carga del servidor. Se recomienda ejecutar el script de ejecución cada 2 minutos."
+
+#: views/admin/manage/scheduling.php:31
+msgid "The Execution script actually executes the import, once it has been triggered with the Trigger script."
+msgstr "El script de ejecución ejecuta la importación, una vez que se ha activado con el script de activación."
+
+#: views/admin/manage/scheduling.php:29
+msgid "Execution Script"
+msgstr "Script de ejecución"
+
+#: views/admin/manage/scheduling.php:25 views/admin/manage/scheduling.php:37
+msgid "Example:"
+msgstr "Ejemplo:"
+
+#: views/admin/manage/scheduling.php:23
+msgid "To schedule the import to run once every 24 hours, run the trigger script every 24 hours. Most hosts require you to use “wget” to access a URL. Ask your host for details."
+msgstr "Para programar la importación para que se ejecute una vez cada 24 horas, ejecuta el script de activación cada 24 horas. La mayoría de servidores requieren que uses \"wget\" para acceder a una URL. Pregunta a tu proveedor para obtener más detalles."
+
+#: views/admin/manage/scheduling.php:21
+msgid "Every time you want to schedule the import, run the trigger script."
+msgstr "Cada vez que quieras programar la importación, ejecuta el script de activación."
+
+#: views/admin/manage/scheduling.php:19
+msgid "Trigger Script"
+msgstr "Script de activación"
+
+#: views/admin/manage/scheduling.php:8
+msgid "To schedule an import, you must create two cron jobs in your web hosting control panel. One cron job will be used to run the Trigger script, the other to run the Execution script."
+msgstr "Para programar una importación, tienes que crear dos tareas cron en el panel de control de tu alojamiento web. Se usará una tarea cron para ejecutar el script Trigger, y la otra para ejecutar el script de ejecución."
+
+#: views/admin/manage/index.php:375
+msgid "Find out more about the professional edition of WP All Import."
+msgstr "Más información sobre la edición profesional de WP All Import."
+
+#: views/admin/manage/index.php:368
+msgid "<a href=\"https://wordpress.org/support/view/plugin-reviews/wp-all-import#postform\" target=\"_blank\">If our plugin helped you, please rate us on WordPress.org. It would really help us!</a> <a href=\"https://wordpress.org/support/view/plugin-reviews/wp-all-import#postform\" class=\"pmxi_stars\" target=\"_blank\"></a> <br/><br/><a href=\"javascript:void(0);\" id=\"dismiss_manage_bottom\">dismiss</a>"
+msgstr "<a href=\"https://wordpress.org/support/view/plugin-reviews/wp-all-import#postform\" target=\"_blank\">Si nuestro plugin te ha ayudado, deja una valoración en WordPress.org. ¡Nos será de mucha ayuda!</a> <a href=\"https://wordpress.org/support/view/plugin-reviews/wp-all-import#postform\" class=\"pmxi_stars\" target=\"_blank\"></a> <br/><br/><a href=\"javascript:void(0);\" id=\"dismiss_manage_bottom\">descartar</a>"
+
+#: views/admin/manage/index.php:322
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: views/admin/manage/index.php:320
+msgid "Cancel Cron"
+msgstr "Cancelar Cron"
+
+#: views/admin/manage/index.php:318
+msgid "Run Import"
+msgstr "Ejecutar importación"
+
+#: views/admin/manage/index.php:308
+msgid "History Logs"
+msgstr "Registros históricos"
+
+#: views/admin/manage/index.php:306 views/admin/manage/scheduling.php:2
+msgid "Cron Scheduling"
+msgstr "Programación de cron"
+
+#: views/admin/manage/index.php:294
+msgid "settings edited since last run"
+msgstr "configuraciones editadas desde la última ejecución"
+
+#: views/admin/manage/index.php:287
+msgid "%d updated, %d skipped, %d deleted"
+msgstr "%d actualizadas, %d saltadas, %d eliminadas"
+
+#: views/admin/manage/index.php:286
+msgid "%d %s created"
+msgstr "Creados %d %s"
+
+#: views/admin/manage/index.php:285
+msgid "never"
+msgstr "nunca"
+
+#: views/admin/manage/index.php:285
+msgid "Last run: %s"
+msgstr "Última ejecución: %s"
+
+#: views/admin/manage/index.php:275
+msgid "Import failed, please check logs"
+msgstr "Error de importación, por favor, consulta los registros"
+
+#: views/admin/manage/index.php:270 views/admin/manage/index.php:274
+msgid "Import Attempt at %s"
+msgstr "Intento de importación el %s"
+
+#: views/admin/manage/index.php:256
+msgid "Import currently in progress"
+msgstr "Importación actualmente en curso"
+
+#: views/admin/manage/index.php:241
+msgid "currently processing with cron"
+msgstr "procesando actualmente con cron"
+
+#: views/admin/manage/index.php:234 views/admin/manage/index.php:249
+#: views/admin/manage/index.php:263
+msgid "last activity %s ago"
+msgstr "actividad reciente hace %s"
+
+#: views/admin/manage/index.php:227
+msgid "triggered with cron"
+msgstr "activado mediante cron"
+
+#: views/admin/manage/index.php:186
+msgid "Import Settings"
+msgstr "Ajustes de importación"
+
+#: views/admin/manage/index.php:181
+msgid "Edit Import"
+msgstr "Editar importación"
+
+#: views/admin/manage/index.php:100
+msgid "No previous imports found. <a href=\"%s\">Start a new import...</a>"
+msgstr "Ninguna importación anterior encontrada. <a href=\"%s\">Iniciar una nueva importación...</a>"
+
+#: views/admin/manage/index.php:31
+msgid "Info & Options"
+msgstr "Información y opciones"
+
+#: views/admin/manage/index.php:28
+msgid "File"
+msgstr "Archivo"
+
+#: views/admin/manage/index.php:18 views/admin/manage/index.php:20
+msgid "Search Imports"
+msgstr "Buscar importaciones"
+
+#: views/admin/manage/delete.php:4
+msgid "Are you sure you want to delete <strong>%s</strong> import?"
+msgstr "¿Estás seguro de que quieres eliminar la importación <strong>%s</strong>?"
+
+#: views/admin/manage/delete.php:1
+msgid "Delete Import"
+msgstr "Eliminar importación"
+
+#: views/admin/manage/bulk.php:30 views/admin/manage/delete.php:24
+msgid "<p class=\"wpallimport-delete-posts-warning\"><strong>Important</strong>: this import was created automatically by WP All Export. All posts exported by the \"%s\" export job have been automatically associated with this import.</p>"
+msgstr "<p class=\"wpallimport-delete-posts-warning\"><strong>Importante</strong>: esta importación fue creada automáticamente por WP All Export. Todas las entradas exportadas por la tarea de exportación \"%s\" se han asociado automáticamente con esta importación.</p>"
+
+#: views/admin/manage/bulk.php:22 views/admin/manage/delete.php:16
+msgid "Delete associated files from media gallery"
+msgstr "Eliminar los archivos asociados de la galería de medios"
+
+#: views/admin/manage/bulk.php:17 views/admin/manage/delete.php:11
+msgid "Delete associated images from media gallery"
+msgstr "Eliminar las imágenes asociadas de la galería de medios"
+
+#: views/admin/manage/bulk.php:12 views/admin/manage/delete.php:6
+msgid "Delete associated posts as well"
+msgstr "Eliminar también las entradas asociadas"
+
+#: views/admin/manage/bulk.php:10
+msgid "Are you sure you want to delete <strong>%s</strong> selected %s?"
+msgstr "¿Estás seguro de que quieres eliminar <strong>%s</strong> %s seleccionados?"
+
+#: views/admin/import/template.php:213
+msgid "Back to Step 2"
+msgstr "Volver al paso 2"
+
+#: views/admin/import/template.php:193
+msgid "Load Template..."
+msgstr "Cargar plantilla..."
+
+#: views/admin/import/template.php:188
+msgid "Template name..."
+msgstr "Nombre de la plantilla..."
+
+#: views/admin/import/template.php:185
+msgid "Save settings as a template"
+msgstr "Guardar ajustes como plantilla"
+
+#: views/admin/import/template.php:89
+msgid "Decode HTML entities with <b>html_entity_decode</b>"
+msgstr "Decodificar las entidades HTML con <b>html_entity_decode</b>"
+
+#: views/admin/import/template.php:84
+msgid "Keep line breaks from file"
+msgstr "Mantener los saltos de línea del archivo"
+
+#: views/admin/import/template.php:77
+msgid "Advanced Options"
+msgstr "Opciones avanzadas"
+
+#: views/admin/import/template.php:67
+msgid "WooCommerce Short Description"
+msgstr "Descripción corta de WooCommerce"
+
+#: views/admin/import/template.php:48
+msgid "Drag & drop any element on the right to set the title."
+msgstr "Arrastra y suelta cualquier elemento a la derecha para establecer el título."
+
+#: views/admin/import/template.php:41
+msgid "Title & Content"
+msgstr "Título y contenido"
+
+#: views/admin/import/template/_taxonomies_template.php:316
+msgid "To import to existing hierarchical taxonomies, create the entire hierarchy using the taxonomy names or slugs."
+msgstr "Para importar a taxonomías jerárquicas existentes, crear toda la jerarquía usando los nombres de la taxonomía o lingotes."
+
+#: views/admin/import/template/_taxonomies_template.php:315
+msgid "To import to existing parent taxonomies, use the existing taxonomy name or slug."
+msgstr "Para importar a taxonomías padre existentes, usa el nombre de taxonomía o el slug existente."
+
+#: views/admin/import/template/_taxonomies_template.php:314
+msgid "Taxonomies that don't already exist on your site will be created."
+msgstr "Se crearán las taxonomías que aún no existen en tu sitio."
+
+#: views/admin/import/template/_taxonomies_template.php:303
+msgid "Show \"private\" taxonomies"
+msgstr "Mostrar taxonomías \"privadas\""
+
+#: views/admin/import/template/_taxonomies_template.php:288
+msgid "Apply mapping rules before splitting via separator symbol"
+msgstr "Aplicar las reglas de asignación antes de dividir mediante el símbolo separador"
+
+#: views/admin/import/template/_taxonomies_template.php:209
+msgid "Enable Mapping for %s"
+msgstr "Activar asignación para %s"
+
+#: views/admin/import/template/_taxonomies_template.php:149
+msgid "Drag the <img src=\"%s\" class=\"wpallimport-drag-icon\"/> to the right to create a child, drag up and down to re-order."
+msgstr "Arrastra el <img src=\"%s\" class=\"wpallimport-drag-icon\"/> a la derecha para crear un hijo, arrastra arriba y abajo para cambiar el orden."
+
+#: views/admin/import/template/_taxonomies_template.php:147
+msgid "Manually design the hierarchy with drag & drop"
+msgstr "Diseñar la jerarquía manualmente mediante arrastrar y soltar"
+
+#: views/admin/import/template/_taxonomies_template.php:140
+msgid "Add Another Hierarchy Group"
+msgstr "Añadir otro grupo de jerarquía"
+
+#: views/admin/import/template/_taxonomies_template.php:138
+#: views/admin/import/template.php:71
+msgid "Preview"
+msgstr "Vista previa"
+
+#: views/admin/import/template/_taxonomies_template.php:132
+msgid "Separate hierarchy groups via symbol"
+msgstr "Separar grupos de jerarquía mediante el símbolo"
+
+#: views/admin/import/template/_taxonomies_template.php:127
+msgid "Only assign %s to the bottom level term in the hierarchy"
+msgstr "Sólo asignar %s al término nivel inferior en la jerarquía"
+
+#: views/admin/import/template/_taxonomies_template.php:90
+msgid "An element in my file contains the entire hierarchy (i.e. you have an element with a value = Sports > Golf > Clubs > Putters)"
+msgstr "Un elemento en mi archivo contiene toda la jerarquía (por ejemplo, tiene un elemento con un valor = Deportes > Golf > Clubes > Putters)"
+
+#: views/admin/import/template/_taxonomies_template.php:85
+msgid "%ss have hierarchical (parent/child) %s (i.e. Sports > Golf > Clubs > Putters)"
+msgstr "%ss tienen (padre/hijo) %s jerárquico (por ejemplo, Deportes > Golf > Clubes > Putters)"
+
+#: views/admin/import/template/_taxonomies_template.php:60
+msgid "Each %s has multiple %s"
+msgstr "Cada %s tiene múltiples %s"
+
+#: views/admin/import/template/_taxonomies_template.php:52
+#: views/admin/import/template/_taxonomies_template.php:76
+msgid "By default all categories above the matched category will also be assigned to the post. If enabled, only the imported category will be assigned to the post."
+msgstr "Por defecto todas las categorías por encima de la categoría coincidente también se asignarán a la entrada. Si está activado, sólo la categoría importada se asignará a la entrada."
+
+#: views/admin/import/template/_taxonomies_template.php:51
+#: views/admin/import/template/_taxonomies_template.php:75
+msgid "Only assign %s to the imported %s, not the entire hierarchy"
+msgstr "Asignar solo %s al %s importado, no a toda la jerarquía"
+
+#: views/admin/import/template/_taxonomies_template.php:46
+#: views/admin/import/template/_taxonomies_template.php:70
+msgid "Try to match terms to existing child %s"
+msgstr "Intentar asociar los términos con hijos existentes %s"
+
+#: views/admin/import/template/_taxonomies_template.php:38
+msgid "Each %s has just one %s"
+msgstr "Cada %s tiene solo un %s"
+
+#: views/admin/import/template/_taxonomies_template.php:17
+msgid "Show Hints"
+msgstr "Mostrar pistas"
+
+#: views/admin/import/template/_taxonomies_template.php:13
+msgid "Taxonomies, Categories, Tags"
+msgstr "Taxonomías, categorías, etiquetas"
+
+#: views/admin/import/template/_other_template.php:265
+msgid "Menu Order"
+msgstr "Orden del menú"
+
+#: views/admin/import/template/_other_template.php:241
+msgid "Set post parent"
+msgstr "Establecer padre de la entrada"
+
+#: views/admin/import/template/_other_template.php:237
+msgid "Enter the slug of the desired post parent. If adding the child and parent posts in the same import, set 'Records per Iteration' to 1, run the import twice, or run separate imports for child and parent posts."
+msgstr "Introduce el slug del padre de la entrada deseado. Si añades las entradas hijo y padre en la misma importación, establece la opción \"Registros por iteración\" a 1, ejecuta la importación dos veces o ejecuta importaciones separadas para las entradas hijo y las entradas padre."
+
+#: views/admin/import/template/_other_template.php:237
+msgid "Post Parent"
+msgstr "Padre de la entrada"
+
+#: views/admin/import/template/_other_template.php:218
+msgid "(no parent)"
+msgstr "(sin superior)"
+
+#: views/admin/import/template/_other_template.php:215
+msgid "Select page parent"
+msgstr "Seleccionar padre de la página"
+
+#: views/admin/import/template/_other_template.php:211
+msgid "Enter the slug of the desired page parent. If adding the child and parent pages in the same import, set 'Records per Iteration' to 1, run the import twice, or run separate imports for child and parent pages."
+msgstr "Introduce el slug del padre de la página deseado. Si añades las páginas hijo y padre en la misma importación, establece la opción \"Registros por iteración\" a 1, ejecuta la importación dos veces o ejecuta importaciones separadas para las páginas hijo y las páginas padre."
+
+#: views/admin/import/template/_other_template.php:211
+msgid "Page Parent"
+msgstr "Padre de la página"
+
+#: views/admin/import/template/_other_template.php:189
+msgid "Default"
+msgstr "Por defecto"
+
+#: views/admin/import/template/_other_template.php:185
+msgid "Select a template"
+msgstr "Seleccionar plantilla"
+
+#: views/admin/import/template/_other_template.php:182
+msgid "Page Template"
+msgstr "Plantilla de página"
+
+#: views/admin/import/template/_other_template.php:150
+msgid "Standard"
+msgstr "Estándar"
+
+#: views/admin/import/template/_other_template.php:144
+msgid "Post Format"
+msgstr "Formato de entrada"
+
+#: views/admin/import/template/_other_template.php:137
+msgid "Search for existing attachments to prevent duplicates in media library"
+msgstr "Buscar adjuntos existentes para evitar duplicados en la biblioteca"
+
+#: views/admin/import/template/_other_template.php:129
+#: views/admin/import/template/_taxonomies_template.php:65
+#: views/admin/import/template/_taxonomies_template.php:122
+#: views/admin/import/template/_taxonomies_template.php:134
+#: views/admin/import/template/_taxonomies_template.php:194
+msgid "Separated by"
+msgstr "Separado por"
+
+#: views/admin/import/template/_other_template.php:128
+msgid "Download & Import Attachments"
+msgstr "Descargar e importar adjuntos"
+
+#: views/admin/import/template/_other_template.php:122
+msgid "Assign the post to an existing user account by specifying the user ID, username, or e-mail address."
+msgstr "Asignar la entrada a una cuenta de usuario existente especificando el ID de usuario, el nombre de usuario o la dirección de correo electrónico."
+
+#: views/admin/import/template/_other_template.php:120
+msgid "Post Author"
+msgstr "Autor de la entrada"
+
+#: views/admin/import/template/_other_template.php:112
+msgid "Post Slug"
+msgstr "Slug de la entrada"
+
+#: views/admin/import/template/_other_template.php:89
+msgid "Trackbacks and Pingbacks"
+msgstr "Trackbacks y pingbacks"
+
+#: views/admin/import/template/_other_template.php:81
+#: views/admin/import/template/_other_template.php:104
+msgid "The value of presented XPath should be one of the following: ('open', 'closed')."
+msgstr "El valor del XPath presentado debe ser uno de los siguientes: ('open', 'closed')."
+
+#: views/admin/import/template/_other_template.php:73
+#: views/admin/import/template/_other_template.php:96
+msgid "Closed"
+msgstr "Cerrada"
+
+#: views/admin/import/template/_other_template.php:69
+#: views/admin/import/template/_other_template.php:92
+msgid "Open"
+msgstr "Abierta"
+
+#: views/admin/import/template/_other_template.php:66
+msgid "Comments"
+msgstr "Comentarios"
+
+#: views/admin/import/template/_other_template.php:58
+msgid "and"
+msgstr "y"
+
+#: views/admin/import/template/_other_template.php:54
+msgid "Posts will be randomly assigned dates in this range. WordPress ensures posts with dates in the future will not appear until their date has been reached."
+msgstr "Se asignarán fechas al azar dentro de este rango a las entradas. WordPress asegura que las entradas con fechas en el futuro no aparecerán hasta que lleguen esas fechas."
+
+#: views/admin/import/template/_other_template.php:54
+msgid "Random dates"
+msgstr "Fechas aleatorias"
+
+#: views/admin/import/template/_other_template.php:45
+msgid "As specified"
+msgstr "Según se ha especificado"
+
+#: views/admin/import/template/_other_template.php:41
+msgid "Use any format supported by the PHP <b>strtotime</b> function. That means pretty much any human-readable date will work."
+msgstr "Usa cualquier formato compatible con la función <b>strtotime</b> de PHP. Eso significa que casi cualquier fecha entendible funcionará."
+
+#: views/admin/import/template/_other_template.php:41
+msgid "Post Dates"
+msgstr "Fechas de la entrada"
+
+#: views/admin/import/template/_other_template.php:32
+msgid "The value of presented XPath should be one of the following: ('publish', 'draft', 'trash')."
+msgstr "El valor del XPath presentado debe ser uno de los siguientes: ('publish', draft', 'trash')."
+
+#: views/admin/import/template/_other_template.php:24
+msgid "Draft"
+msgstr "Borrador"
+
+#: views/admin/import/template/_other_template.php:20
+msgid "Published"
+msgstr "Publicado"
+
+#: views/admin/import/template/_other_template.php:17
+msgid "Post Status"
+msgstr "Estado de la entrada"
+
+#: views/admin/import/template/_other_template.php:5
+msgid "Other %s Options"
+msgstr "Otras %s opciones"
+
+#: views/admin/import/template/_nested_template.php:73
+msgid "Add"
+msgstr "Añadir"
+
+#: views/admin/import/template/_nested_template.php:69
+msgid "Specify the URL of the nested file to use."
+msgstr "Especifica la URL del archivo anidado a usar."
+
+#: views/admin/import/template/_nested_template.php:48
+msgid "remove"
+msgstr "eliminar"
+
+#: views/admin/import/template/_nested_template.php:35
+msgid "Nested XML/CSV files"
+msgstr "Archivos XML/CSV anidados"
+
+#: views/admin/import/template/_featured_template.php:140
+msgid "Change image file extensions"
+msgstr "Cambiar extensiones de archivos de imagen"
+
+#: views/admin/import/template/_featured_template.php:134
+msgid "Multiple image will have numbers appended, i.e. image-name-1.jpg, image-name-2.jpg "
+msgstr "Se añadirán números a las imágenes con nombres de archivo idénticos, por ejemplo, nombre-imagen-1.jpg, nombre-imagen-2.jpg "
+
+#: views/admin/import/template/_featured_template.php:131
+msgid "Change image file names to"
+msgstr "Cambiar nombres de archivo de imagen a"
+
+#: views/admin/import/template/_featured_template.php:127
+msgid "These options only available if Download image(s) hosted elsewhere is selected above."
+msgstr "Esta opciones solo están disponible si Descargar imagen(es) alojada(s) en otra parte está seleccionada arriba."
+
+#: views/admin/import/template/_featured_template.php:125
+#: views/admin/settings/index.php:49
+msgid "Files"
+msgstr "Archivos"
+
+#: views/admin/import/template/_featured_template.php:121
+msgid "The first description will be linked to the first image, the second description will be linked to the second image, ..."
+msgstr "La primera descripción se vinculará a la primera imagen, la segunda descripción se vinculará a la segunda imagen, ..."
+
+#: views/admin/import/template/_featured_template.php:117
+msgid "Set Description(s)"
+msgstr "Establecer descripción(es)"
+
+#: views/admin/import/template/_featured_template.php:110
+msgid "The first alt text will be linked to the first image, the second alt text will be linked to the second image, ..."
+msgstr "El primer texto alternativo se vinculará a la primera imagen, el segundo texto alternativo se vinculará a la segunda imagen, ..."
+
+#: views/admin/import/template/_featured_template.php:106
+msgid "Set Alt Text(s)"
+msgstr "Establecer texto(s) alternativo(s)"
+
+#: views/admin/import/template/_featured_template.php:99
+msgid "The first caption will be linked to the first image, the second caption will be linked to the second image, ..."
+msgstr "La primera leyenda se vinculará a la primera imagen, la segunda leyenda se vinculará a la segunda imagen, ..."
+
+#: views/admin/import/template/_featured_template.php:95
+msgid "Set Caption(s)"
+msgstr "Establecer leyenda(s)"
+
+#: views/admin/import/template/_featured_template.php:88
+msgid "The first title will be linked to the first image, the second title will be linked to the second image, ..."
+msgstr "El primer título se vinculará a la primera imagen, el segundo título se vinculará a la segunda imagen, ..."
+
+#: views/admin/import/template/_featured_template.php:86
+#: views/admin/import/template/_featured_template.php:97
+#: views/admin/import/template/_featured_template.php:108
+#: views/admin/import/template/_featured_template.php:119
+msgid "Enter one per line, or separate them with a "
+msgstr "Introduce uno por línea o separados con una "
+
+#: views/admin/import/template/_featured_template.php:84
+msgid "Set Title(s)"
+msgstr "Establecer título(s)"
+
+#: views/admin/import/template/_featured_template.php:80
+msgid "Meta Data"
+msgstr "Metadatos"
+
+#: views/admin/import/template/_featured_template.php:72
+msgid "SEO & Advanced Options"
+msgstr "SEO y opciones avanzadas"
+
+#: views/admin/import/template/_featured_template.php:61
+msgid "If no images are downloaded successfully, create entry as Draft."
+msgstr "Si ninguna imagen se descarga correctamente, crea la entrada como borrador."
+
+#: views/admin/import/template/_featured_template.php:55
+msgid "Set the first image to the Featured Image (_thumbnail_id)"
+msgstr "Establecer la primera imagen como imagen destacada (_thumbnail_id)"
+
+#: views/admin/import/template/_featured_template.php:51
+msgid "Featured Image"
+msgstr "Imagen destacada"
+
+#: views/admin/import/template/_featured_template.php:49
+msgid "Preview & Test"
+msgstr "Vista previa y pruebas"
+
+#: views/admin/import/template/_featured_template.php:44
+msgid "If an image with the same file name is found in the Media Library then that image will be attached to this record instead of importing a new image. Disable this setting if your import has different images with the same file name."
+msgstr "Si se encuentra en la biblioteca una imagen con el mismo nombre de archivo entonces esa imagen se adjuntará a este registro en lugar de importar una nueva imagen. Desactiva este ajuste si tu importación tiene imágenes diferentes con el mismo nombre de archivo."
+
+#: views/admin/import/template/_featured_template.php:43
+msgid "Search through the Media Library for existing images before importing new images"
+msgstr "Buscar en la biblioteca imágenes existentes antes de importar nuevas imágenes"
+
+#: views/admin/import/template/_featured_template.php:35
+msgid "Enter image filenames one per line, or separate them with a "
+msgstr "Introduce los nombres de archivo de las imágenes uno por línea o separarlos con una "
+
+#: views/admin/import/template/_featured_template.php:25
+msgid "Enter image URL one per line, or separate them with a "
+msgstr "Introduce las URLs de las imágenes una por línea o separadas con una "
+
+#: views/admin/import/template/_featured_template.php:21
+msgid "Download image(s) hosted elsewhere"
+msgstr "Descargar imagen(es) alojada(s) en otra parte"
+
+#: views/admin/import/template/_featured_template.php:11
+msgid "Upgrade to the professional edition of WP All Import to import images."
+msgstr "Actualiza a la edición profesional de WP All Import para importar imágenes."
+
+#: views/admin/import/template/_custom_fields_template.php:158
+#: views/admin/import/template/_custom_fields_template.php:326
+#: views/admin/import/template/_custom_fields_template.php:460
+msgid "Save"
+msgstr "Guardar"
+
+#: views/admin/import/template/_custom_fields_template.php:153
+#: views/admin/import/template/_custom_fields_template.php:321
+#: views/admin/import/template/_custom_fields_template.php:455
+msgid "Auto-Detect"
+msgstr "Detección automática"
+
+#: views/admin/import/template/_custom_fields_template.php:147
+#: views/admin/import/template/_custom_fields_template.php:527
+msgid "Add Custom Field"
+msgstr "Añadir un campo personalizado"
+
+#: views/admin/import/template/_custom_fields_template.php:76
+#: views/admin/import/template/_custom_fields_template.php:285
+#: views/admin/import/template/_custom_fields_template.php:419
+msgid "Key"
+msgstr "Clave"
+
+#: views/admin/import/template/_custom_fields_template.php:63
+#: views/admin/import/template/_custom_fields_template.php:272
+#: views/admin/import/template/_custom_fields_template.php:406
+msgid "Serialized"
+msgstr "Serializado"
+
+#: views/admin/import/template/_custom_fields_template.php:58
+#: views/admin/import/template/_custom_fields_template.php:267
+#: views/admin/import/template/_custom_fields_template.php:401
+msgid "Click to specify"
+msgstr "Haz clic para especificar"
+
+#: views/admin/import/template/_custom_fields_template.php:31
+msgid "If not all fields were detected, manually create a %s, and fill out each field you want to import data to. Then create a new import, and WP All Import will display these fields as available for import below."
+msgstr "Si no se han detectado todos los campos, crea manualmente un %s y rellena cada campo de los que quieras importar datos. A continuación, crea una nueva importación y WP All Import mostrará estos campos como disponibles para la importación a continuación."
+
+#: views/admin/import/template/_custom_fields_template.php:29
+msgid "Clear All Fields"
+msgstr "Limpiar todos los campos"
+
+#: views/admin/import/template/_custom_fields_template.php:24
+#: views/admin/import/template/_custom_fields_template.php:32
+msgid "Hide Notice"
+msgstr "Ocultar aviso"
+
+#: views/admin/import/template/_custom_fields_template.php:22
+msgid "Manually create a %s, and fill out each field you want to import data to. WP All Import will then display these fields as available for import below."
+msgstr "Crea manualmente un %s y rellena cada campo del que quieras importar datos. WP All Import mostrará a continuación estos campos como disponibles para la importación."
+
+#: views/admin/import/template/_custom_fields_template.php:21
+msgid "No Custom Fields are present in your database for %s."
+msgstr "Ningún campo personalizado está presente en tu base de datos para %s."
+
+#: views/admin/import/template/_custom_fields_template.php:19
+msgid "See Detected Fields"
+msgstr "Ver campos detectados"
+
+#: views/admin/import/template/_custom_fields_template.php:18
+msgid "Your website is using Custom Fields to store data for %s."
+msgstr "Tu web está usando campos personalizados para almacenar datos para %s."
+
+#: views/admin/import/template/_custom_fields_template.php:10
+msgid "Upgrade to the professional edition of WP All Import to import data to Custom Fields."
+msgstr "Actualiza a la edición profesional de WP All Import para importar datos de campos personalizados."
+
+#: views/admin/import/tag.php:27
+msgid "History file not found. Probably you are using wrong encoding."
+msgstr "Archivo de historial no encontrado. Probablemente usted está utilizando codificación incorrecta."
+
+#: views/admin/import/tag.php:5
+msgid "Elements"
+msgstr "Elementos"
+
+#: views/admin/import/process.php:68
+msgid "Unfortunately, your server terminated the import process. Click here for our <a href=\"%s\" target=\"_blank\">troubleshooting guide</a>, or ask your web host to look in your error_log file for an error that takes place at the same time you are trying to run your import, and fix whatever setting is causing the import to fail."
+msgstr "Desafortunadamente, tu servidor ha abortado el proceso de importación. Haz clic aquí para ver nuestra <a href=\"%s\" target=\"_blank\">guía de solución de problemas</a>, o pide a tu proveedor web que busque en su archivo error_log un error que se produzca al mismo tiempo que cuando intentas ejecutar tu importación, y corrige cualquier ajuste que esté causando que la importación falle."
+
+#: views/admin/import/process.php:62
+msgid "Log"
+msgstr "Registro"
+
+#: views/admin/import/process.php:59
+msgid "WP All Import tried to process <span id=\"wpallimport-records-per-iteration\">%s</span> records in one iteration, but your server terminated the process before it could finish. <a href=\"javascript:void(0);\" id=\"wpallimport-try-again\">Click here to try again</a>, but with only <span id=\"wpallimport-new-records-per-iteration\">%s</span> records per iteration."
+msgstr "WP All Import ha intentado procesar <span id=\"wpallimport-records-per-iteration\">%s</span> registros en una iteración, pero tu servidor ha abortado el proceso antes de que pudiera terminar. <a href=\"javascript:void(0);\" id=\"wpallimport-try-again\">Haz clic aquí para intentarlo de nuevo</a>, pero con solo <span id=\"wpallimport-new-records-per-iteration\">%s</span> registros por iteración."
+
+#: views/admin/import/process.php:53
+msgid "View Logs"
+msgstr "Ver registros"
+
+#: views/admin/import/process.php:48 views/admin/import/process.php:50
+msgid "There were <span class=\"wpallimport-errors-count\">%s</span> errors and <span class=\"wpallimport-warnings-count\">%s</span> warnings in this import. You can see these in the import log."
+msgstr "Ha habido <span class=\"wpallimport-errors-count\">%s</span> errores y <span class=\"wpallimport-warnings-count\">%s</span> advertencias en esta importación. Puedes verlos en el registro de importación."
+
+#: views/admin/import/process.php:46
+msgid "WP All Import successfully imported your file <span>%s</span> into your WordPress installation!"
+msgstr "¡WP All Import ha importado correctamente tu archivo <span>%s</span> en tu instalación de WordPress!"
+
+#: views/admin/import/process.php:44
+msgid "Delete & Edit"
+msgstr "Borrar y editar"
+
+#: views/admin/import/process.php:42
+msgid "The file you are importing has %s records, but WP All Import only created <span class=\"inserted_count\"></span> %s. It detected the other records in your file as duplicates. This could be because they actually are duplicates or it could be because your Unique Identifier is not unique for each record.<br><br>If your import file has no duplicates and you want to import all %s records, you should delete everything that was just imported and then edit your Unique Identifier so it's unique for each item."
+msgstr "El archivo que estás importando tiene %s registros, pero WP All Import solo ha creado <span class=\"inserted_count\"></span>%s. Ha identificado los demás registros del archivo como duplicados. Esto podría deberse a que en realidad son duplicados o podría deberse a que su identificador único no es exclusivo para cada registro.<br><br> Si tu archivo de importación no tiene duplicados y quieres importar todos los %s registros, deberías eliminar todo lo que acaba de importarse y a continuación edita tu identificador único para que sea único para cada elemento."
+
+#: views/admin/import/process.php:40
+msgid "The unique identifier is how WP All Import tells two items in your import file apart. If it is the same for two items, then the first item will be overwritten when the second is imported."
+msgstr "El identificador único es la manera cómo WP All Import distingue dos elementos en tu archivo de importación. Si es el mismo para los dos elementos, entonces el primer elemento se sobrescribirá cuando se importe el segundo."
+
+#: views/admin/import/process.php:40
+msgid "Duplicate records detected during import"
+msgstr "Se han detectado registros duplicados durante la importación"
+
+#: views/admin/import/process.php:38
+msgid "Import Complete!"
+msgstr "¡Importación completada!"
+
+#: views/admin/import/process.php:31
+msgid "of"
+msgstr "de"
+
+#: views/admin/import/process.php:31
+msgid "Updated"
+msgstr "Actualizado"
+
+#: views/admin/import/process.php:31
+msgid "Created"
+msgstr "Creado"
+
+#: views/admin/import/process.php:29
+msgid "Time Elapsed"
+msgstr "Tiempo transcurrido"
+
+#: views/admin/import/process.php:22
+msgid "Importing may take some time. Please do not close your browser or refresh the page until the process is complete."
+msgstr "La importación puede tardar un tiempo. Por favor, no cierres tu navegador ni recargues la página hasta completar el proceso."
+
+#: views/admin/import/process.php:21
+msgid "Import <span id=\"status\">in Progress</span>"
+msgstr "Importación <span id=\"status\">en progreso</span>"
+
+#: views/admin/import/preview_taxonomies.php:16
+msgid "Test Taxonomies Hierarchy"
+msgstr "Jerarquía de las taxonomías de prueba"
+
+#: views/admin/import/preview_prices.php:19
+msgid "Sale Price"
+msgstr "Precio rebajado"
+
+#: views/admin/import/preview_prices.php:18
+msgid "Regular Price"
+msgstr "Precio habitual"
+
+#: views/admin/import/preview_prices.php:16
+msgid "Preview Prices"
+msgstr "Previsualizar precios"
+
+#: views/admin/import/preview_images.php:100
+msgid "Images not found for current record."
+msgstr "Imágenes no encontradas para el registro actual."
+
+#: views/admin/import/preview_images.php:77
+msgid "Please ensure the images exists at these file paths"
+msgstr "Por favor, asegúrate de que hay imágenes en estas rutas de archivo"
+
+#: views/admin/import/preview_images.php:76
+msgid "WP All Import will import images from the following file paths:"
+msgstr "WP All Import importará imágenes de las siguientes rutas de archivo:"
+
+#: views/admin/import/preview_images.php:72
+msgid "Retrieving images..."
+msgstr "Recuperando imágenes..."
+
+#: views/admin/import/preview_images.php:57
+#: views/admin/import/preview_images.php:85
+msgid "Here are the above URLs, in &lt;img&gt; tags. "
+msgstr "Aquí están las URLs anteriores, en etiquetas &lt;img&gt; tags. "
+
+#: views/admin/import/preview_images.php:49
+msgid "Please check the URLs to ensure they point to valid images"
+msgstr "Por favor, comprueba las URLs para asegurarte de que apuntan a imágenes válidas"
+
+#: views/admin/import/preview_images.php:48
+msgid "WP All Import will attempt to import images from the following URLs:"
+msgstr "WP All Import intentará importar imágenes de las siguientes URLs:"
+
+#: views/admin/import/preview_images.php:44
+msgid "Download in progress..."
+msgstr "Descarga en curso..."
+
+#: views/admin/import/preview.php:6 views/admin/import/preview_images.php:6
+#: views/admin/import/preview_prices.php:6
+#: views/admin/import/preview_taxonomies.php:6 views/admin/import/tag.php:8
+msgid "<strong><input type=\"text\" value=\"%s\" name=\"tagno\" class=\"tagno\"/></strong><span class=\"out_of\"> of <strong class=\"pmxi_count\">%s</strong></span>"
+msgstr "<strong><input type=\"text\" value=\"%s\" name=\"tagno\" class=\"tagno\"/></strong><span class=\"out_of\"> de <strong class=\"pmxi_count\">%s</strong></span>"
+
+#: views/admin/import/options.php:115
+msgid "Manual record matching allows WP All Import to update any records, even records that were not imported with WP All Import, or are part of a different import."
+msgstr "El emparejamiento de registros manual permite a WP All Import actualizar cualquier registro, incluso aquellos registros que no se importaron con WP All Import o son parte de una importación diferente."
+
+#: views/admin/import/options.php:112
+msgid "MANUAL RECORD MATCHING"
+msgstr "EMPAREJAMIENTO DE REGISTROS MANUAL"
+
+#: views/admin/import/options.php:107
+msgid "Your unique key must be UNIQUE for each record in your feed. Make sure you get it right - you can't change it later. You'll have to re-create your import."
+msgstr "Tu clave única debe ser ÚNICA para cada entrada de tu feed. Asegúrate de que todo está correcto - no se puede cambiar más adelante. Tendrás que volver a crear tu importación."
+
+#: views/admin/import/options.php:103
+msgid "Automatic Record Matching allows WP All Import to update records that were imported or updated during the last run of this same import."
+msgstr "El emparejamiento de registros automático permite a WP All Import actualizar los registros importados o actualizados durante la última ejecución de esta misma importación."
+
+#: views/admin/import/options.php:100
+msgid "AUTOMATIC RECORD MATCHING"
+msgstr "EMPAREJAMIENTO DE REGISTROS AUTOMÁTICO"
+
+#: views/admin/import/options.php:95
+msgid "Record Matching is most commonly used to tell WP All Import how to match up records in your file with posts WP All Import has already created on your site, so that if your file is updated with new data, WP All Import can update your posts accordingly."
+msgstr "El emparejamiento de registros se usa principalmente para decir a WP All Import cómo asociar los registros de tu archivo con entradas que WP All Import ya ha creado en tu sitio, para que, si tu archivo se actualiza con nuevos datos, WP All Import pueda actualizar tus entradas correctamente."
+
+#: views/admin/import/options.php:91
+msgid "Record Matching is how WP All Import matches records in your file with posts that already exist WordPress."
+msgstr "El emparejamiento de registros es como WP All Import asocia registros de tu archivo con las entradas que ya existen en WordPress."
+
+#: views/admin/import/options/_settings_template.php:122
+msgid "Friendly Name"
+msgstr "Nombre amigable"
+
+#: views/admin/import/options/_settings_template.php:117
+msgid "Automatically process all links present in body of created post or page with <b>%s</b> plugin"
+msgstr "Procesar automáticamente todos los enlaces presentes en el cuerpo de la entrada o página con el plugin <b>%s</b>"
+
+#: views/admin/import/options/_settings_template.php:117
+msgid "Auto-Cloak Links"
+msgstr "Camuflar enlaces automáticamente"
+
+#: views/admin/import/options/_settings_template.php:110
+msgid "This setting takes effect only when script has access rights to perform the action, e.g. file is not deleted when pulled via HTTP or delete permission is not granted to the user that script is executed under."
+msgstr "Este ajuste tiene efecto solo cuando el script tiene los permisos de acceso necesarios para realizar la acción, por ejemplo, un archivo no se elimina cuando se ha obtenido a través de HTTP o el permiso de eliminación no se ha concedido al usuario bajo el cual se ejecuta el script."
+
+#: views/admin/import/options/_settings_template.php:110
+msgid "Delete source XML file after importing"
+msgstr "Eliminar el archivo XML origen después de la importación"
+
+#: views/admin/import/options/_settings_template.php:99
+msgid "Enter records or record ranges separated by commas, e.g. <b>1,5,7-10</b> would import the first, the fifth, and the seventh to tenth."
+msgstr "Entrar registro o registro rangos separados por comas, por ejemplo <b>1,5,7-10</b> importa el primero, el quinto y el séptimo a décimo."
+
+#: views/admin/import/options/_settings_template.php:99
+msgid "Import only specified records"
+msgstr "Importar sólo los registros especificados"
+
+#: views/admin/import/options/_settings_template.php:95
+#: views/admin/import/template/_featured_template.php:57
+msgid "Other"
+msgstr "Otros"
+
+#: views/admin/import/options/_settings_template.php:89
+msgid "Editing this can break your entire import. You will have to re-create it from scratch."
+msgstr "Esta edición puede romper su importación todo. Usted tendrá que volver a crearla desde cero."
+
+#: views/admin/import/options/_settings_template.php:43
+msgid "Editing this will change the post type of the posts processed by this import. Re-run the import for the changes to take effect."
+msgstr "Esta edición va a cambiar el tipo de entrada de mensajes procesados por esta importación. Vuelva a ejecutar la importación para que los cambios surtan efecto."
+
+#: views/admin/import/options/_settings_template.php:42
+msgid "Post Type"
+msgstr "Tipo de contenido"
+
+#: views/admin/import/options/_settings_template.php:38
+msgid "This option is for advanced users with knowledge of WordPress development. Your theme or plugins may require these calls when posts are created. Next action will be disabled: 'transition_post_status', 'save_post', 'pre_post_update', 'add_attachment', 'edit_attachment', 'edit_post', 'post_updated', 'wp_insert_post'. Verify your created posts work properly if you check this box."
+msgstr "Esta opción es para usuarios avanzados con conocimientos de desarrollo de WordPress. Tu tema o plugins pueden requerir estas llamadas cuando se crean entradas. Se desactivarán las siguientes acciones: 'transition_post_status', 'save_post', 'pre_post_update', 'add_attachment', 'edit_attachment', 'edit_post', 'post_updated', 'wp_insert_post'. Comprueba que las entradas que creas funcionan correctamente si marcas esta casilla."
+
+#: views/admin/import/options/_settings_template.php:37
+msgid "Increase speed by disabling do_action calls in wp_insert_post during import."
+msgstr "Aumentar la velocidad desactivando las llamadas do_action en wp_insert_post durante la importación."
+
+#: views/admin/import/options/_settings_template.php:30
+msgid "This option will decrease the amount of slowdown experienced at the end of large imports. The slowdown is partially caused by the need for WP All Import to read deeper and deeper into the file on each successive iteration. Splitting the file into pieces means that, for example, instead of having to read 19000 records into a 20000 record file when importing the last 1000 records, WP All Import will just split it into 20 chunks, and then read the last chunk from the beginning."
+msgstr "Esta opción disminuirá la lentitud experimentada al final de grandes importaciones. La lentitud está causada parcialmente por la necesidad de WP All Import de leer de forma más profunda dentro del archivo en cada iteración sucesiva. Dividir el archivo en trozos implica que, por ejemplo, en lugar de tener que leer 19000 registros en un archivo de 20000 registros al importar los últimos 1000 registros, WP All Import lo dividirá en 20 trozos y luego leerá el último trozo desde el principio."
+
+#: views/admin/import/options/_settings_template.php:24
+msgid "WP All Import must be able to process this many records in less than your server's timeout settings. If your import fails before completion, to troubleshoot you should lower this number. If you are importing images, especially high resolution images, high numbers here are probably a bad idea, since downloading the images can take lots of time - for example, 20 posts with 5 images each = 100 images. At 500Kb per image that's 50Mb that needs to be downloaded. Can your server download that before timing out? If not, the import will fail."
+msgstr "WP All Import debe poder procesar muchos registros en menos del tiempo establecido en la configuración de tiempo de espera de tu servidor. Si tu importación falla antes de que se complete, para solucionarlo debes reducir este número. Si estás importando imágenes, especialmente imágenes de alta resolución, los números altos probablemente sean una mala idea, ya que la descarga de imágenes puede llevar mucho tiempo; por ejemplo, 20 entradas con 5 imágenes cada una = 100 imágenes. A 500 Kb por imagen, esto son 50 MB que deben descargarse. ¿Tu servidor puede descargar esto antes de que se agote el tiempo de espera? Si no, la importación fallará."
+
+#: views/admin/import/options/_settings_template.php:23
+#: views/admin/import/process.php:31
+msgid "records"
+msgstr "registros"
+
+#: views/admin/import/options/_settings_template.php:23
+msgid "In each iteration, process"
+msgstr "En cada iteración, procesar"
+
+#: views/admin/import/options/_settings_template.php:19
+msgid "Iterative, Piece-by-Piece Processing"
+msgstr "Proceso iterativo, por partes"
+
+#: views/admin/import/options/_settings_template.php:15
+msgid "If the import takes longer than your server's timeout settings (max_execution_time, mod_fcgid read data timeout, etc.) it will fail."
+msgstr "Si la importación tarda más que el valor de tiempo de espera especificado en la configuración del servidor (max_execution_time, mod_fcgid read data timeout, etc.) se producirá un error."
+
+#: views/admin/import/options/_settings_template.php:15
+msgid "High Speed Small File Processing"
+msgstr "Procesamiento de archivos pequeños de alta velocidad"
+
+#: views/admin/import/options/_settings_template.php:11
+msgid "Import Speed Optimization"
+msgstr "Optimización de la velocidad de importación"
+
+#: views/admin/import/options/_settings_template.php:4
+msgid "Configure Advanced Settings"
+msgstr "Configurar ajustes avanzados"
+
+#: views/admin/import/options/_reimport_template.php:115
+msgid "Post ID"
+msgstr "ID de la entrada"
+
+#: views/admin/import/options/_reimport_template.php:105
+msgid "Custom field"
+msgstr "Campo personalizado"
+
+#: views/admin/import/options/_reimport_template.php:96
+msgid "Records in your file will be matched with %ss on your site based on..."
+msgstr "Los registros de tu archivo se emparejarán con %ss en tu sitio en base a..."
+
+#: views/admin/import/options/_reimport_template.php:86
+msgid "WP All Import will merge data into existing %s."
+msgstr "WP All Import fusionará datos en %s existentes."
+
+#: views/admin/import/options/_reimport_template.php:68
+msgid "If you run this import again with an updated file, the Unique Identifier allows WP All Import to correctly link the records in your updated file with the %s it will create right now. If multiple records in this file have the same Unique Identifier, only the first will be created. The others will be detected as duplicates."
+msgstr "Si ejecutas esta importación otra vez con un archivo actualizado, el identificador único permite a WP All Import enlazar correctamente los registros en tu archivo actualizado con la %s que va a crear ahora mismo. Si varios registros de este archivo tienen el mismo identificador único, solo el primero se creará. Los demás se identificarán como duplicados."
+
+#: views/admin/import/options/_reimport_template.php:67
+msgid "Drag an element, or combo of elements, to the box above. The Unique Identifier should be unique for each record in your file, and should stay the same even if your file is updated. Things like product IDs, titles, and SKUs are good Unique Identifiers because they probably won't change. Don't use a description or price, since that might be changed."
+msgstr "Arrastra un elemento o combinación de elementos, a la sección de arriba. El identificador único debe ser único para cada registro en tu archivo y debe permanecer igual aunque el archivo se actualice. Elementos como los IDs de producto, títulos y SKUs son buenos identificadores únicos ya que probablemente no cambiarán. No uses una descripción o un precio, ya que podrían cambiar."
+
+#: views/admin/import/options/_reimport_template.php:57
+msgid "You really should just re-create your import, and pick the right unique identifier to start with."
+msgstr "Solo deberías volver a crear tu importación y elegir el identificador único correcto para empezar."
+
+#: views/admin/import/options/_reimport_template.php:56
+msgid "Editing the unique identifier will dissociate all existing %s linked to this import. Future runs of the import will result in duplicates, as WP All Import will no longer be able to update these %s."
+msgstr "Al editar el identificador único se eliminarán las asociaciones de todas las %s vinculadas a esta importación. Futuras ejecuciones de la importación producirán duplicados, ya que WP All Import ya no será capaz de actualizar estos %s."
+
+#: views/admin/import/options/_reimport_template.php:55
+msgid "It is recommended you delete all %s associated with this import before editing the unique identifier."
+msgstr "Se recomienda eliminar todos los %s asociados con esta importación antes de editar el identificador único."
+
+#: views/admin/import/options/_reimport_template.php:54
+msgid "Warning: Are you sure you want to edit the Unique Identifier?"
+msgstr "Advertencia: ¿Estás seguro de que quieres editar el identificador único?"
+
+#: views/admin/import/options/_reimport_template.php:53
+#: views/admin/manage/index.php:317
+msgid "Edit"
+msgstr "Editar"
+
+#: views/admin/import/options/_reimport_template.php:50
+#: views/admin/import/options/_reimport_template.php:61
+msgid "Auto-detect"
+msgstr "Detección automática"
+
+#: views/admin/import/options/_reimport_template.php:44
+msgid "Unique Identifier"
+msgstr "Identificador único"
+
+#: views/admin/import/options/_reimport_template.php:41
+msgid "WP All Import will associate records in your file with %s it has already created from previous runs of this import based on the Unique Identifier."
+msgstr "WP All Import asociará registros de tu archivo con %s que ya ha creado de ejecuciones previas de esta importación en base al identificador único."
+
+#: views/admin/import/options/_reimport_template.php:28
+msgid "WP All Import will create new %s for each unique record in your file."
+msgstr "WP All Import creará nuevos %s para cada registro único de tu archivo."
+
+#: views/admin/import/options/_reimport_template.php:22
+msgid "Choose how exported data will be re-imported."
+msgstr "Elige cómo los datos exportados se podrán volver a importar."
+
+#: views/admin/import/options/_reimport_template.php:14
+#: views/admin/import/options/_reimport_template.php:84
+#: views/admin/import/options.php:88
+msgid "Record Matching"
+msgstr "Emparejamiento de registros"
+
+#: views/admin/import/options/_reimport_options.php:219
+msgid "Only add new"
+msgstr "Solo añadir nuevas"
+
+#: views/admin/import/options/_reimport_options.php:215
+msgid "Remove existing taxonomies, add new taxonomies"
+msgstr "Eliminar taxonomías existentes, añadir nuevas taxonomías"
+
+#: views/admin/import/options/_reimport_options.php:207
+msgid "Update only these taxonomies, leave the rest alone"
+msgstr "Actualizar solo estas taxonomías, no tocar el resto"
+
+#: views/admin/import/options/_reimport_options.php:199
+msgid "Leave these taxonomies alone, update all others"
+msgstr "No tocar estas taxonomías, actualizar todas las demás"
+
+#: views/admin/import/options/_reimport_options.php:185
+msgid "Taxonomies (incl. Categories and Tags)"
+msgstr "Taxonomías (incl. categorías y etiquetas)"
+
+#: views/admin/import/options/_reimport_options.php:173
+msgid "Leave these fields alone, update all other Custom Fields"
+msgstr "No tocar estos campos, actualizar todos los demás campos personalizados"
+
+#: views/admin/import/options/_reimport_options.php:165
+msgid "Update only these Custom Fields, leave the rest alone"
+msgstr "Actualizar solo estos campos personalizados, no tocar el resto"
+
+#: views/admin/import/options/_reimport_options.php:161
+msgid "Update all Custom Fields"
+msgstr "Actualizar todos los campos personalizados"
+
+#: views/admin/import/options/_reimport_options.php:157
+msgid "If Keep Custom Fields box is checked, it will keep all Custom Fields, and add any new Custom Fields specified in Custom Fields section, as long as they do not overwrite existing fields. If 'Only keep this Custom Fields' is specified, it will only keep the specified fields."
+msgstr "Si se marca la casilla Mantener campos personalizados, se mantendrán todos los campos personalizados y se añadirá cualquier nuevo campo personalizado especificado en la sección Campos personalizados, siempre y cuando no sobrescriban los campos existentes. Si se especifica 'Solo mantener este campo personalizado', se mantendrán solo los campos especificados."
+
+#: views/admin/import/options/_reimport_options.php:156
+#: views/admin/import/template/_custom_fields_template.php:5
+msgid "Custom Fields"
+msgstr "Campos personalizados"
+
+#: views/admin/import/options/_reimport_options.php:147
+msgid "Don't touch existing images, append new images"
+msgstr "No tocar las imágenes existentes, añadir nuevas imágenes"
+
+#: views/admin/import/options/_reimport_options.php:139
+msgid "Do not remove images from media gallery"
+msgstr "No eliminar imágenes de la galería de medios"
+
+#: views/admin/import/options/_reimport_options.php:134
+msgid "Update all images"
+msgstr "Actualizar todas las imágenes"
+
+#: views/admin/import/options/_reimport_options.php:130
+msgid "This will keep the featured image if it exists, so you could modify the post image manually, and then do a reimport, and it would not overwrite the manually modified post image."
+msgstr "Esto mantendrá la imagen recomendada si existe, así que usted podría modificar manualmente la imagen del post y luego hacer una reimportación y no sobrescribir la imagen post modificado manualmente."
+
+#: views/admin/import/options/_reimport_options.php:116
+msgid "Attachments"
+msgstr "Adjuntos"
+
+#: views/admin/import/options/_reimport_options.php:111
+msgid "Comment status"
+msgstr "Estado del comentario"
+
+#: views/admin/import/options/_reimport_options.php:106
+msgid "Parent post"
+msgstr "Entrada padre"
+
+#: views/admin/import/options/_reimport_options.php:101
+msgid "Menu order"
+msgstr "Orden del menú"
+
+#: views/admin/import/options/_reimport_options.php:96
+msgid "Dates"
+msgstr "Fechas"
+
+#: views/admin/import/options/_reimport_options.php:91
+msgid "Excerpt/Short Description"
+msgstr "Extracto del corto Descripción"
+
+#: views/admin/import/options/_reimport_options.php:86
+#: views/admin/import/options/_reimport_template.php:102
+msgid "Content"
+msgstr "Contenido"
+
+#: views/admin/import/options/_reimport_options.php:81
+#: views/admin/import/template/_other_template.php:279
+msgid "Slug"
+msgstr "Slug"
+
+#: views/admin/import/options/_reimport_options.php:76
+msgid "Author"
+msgstr "Autor"
+
+#: views/admin/import/options/_reimport_options.php:71
+#: views/admin/import/options/_reimport_template.php:100
+msgid "Title"
+msgstr "Título"
+
+#: views/admin/import/options/_reimport_options.php:66
+msgid "Hint: uncheck this box to keep trashed posts in the trash."
+msgstr "Consejo: desactiva esta casilla para mantener las entradas de la papelera."
+
+#: views/admin/import/options/_reimport_options.php:65
+msgid "Post status"
+msgstr "Estado de la entrada"
+
+#: views/admin/import/options/_reimport_options.php:60
+msgid "Choose which data to update"
+msgstr "Elige los datos a actualizar"
+
+#: views/admin/import/options/_reimport_options.php:57
+msgid "Update all data"
+msgstr "Actualizar todos los datos"
+
+#: views/admin/import/options/_reimport_options.php:53
+msgid "Update existing posts with changed data in your file"
+msgstr "Actualización de posts existentes con datos modificados en el archivo"
+
+#: views/admin/import/options/_reimport_options.php:45
+msgid "Instead of deletion, change post status to Draft"
+msgstr "En lugar de eliminarla, cambiar el estado de la entrada a borrador"
+
+#: views/admin/import/options/_reimport_options.php:35
+#: views/admin/import/options/_reimport_template.php:107
+#: views/admin/import/template/_custom_fields_template.php:42
+msgid "Name"
+msgstr "Nom"
+
+#: views/admin/import/options/_reimport_options.php:32
+msgid "Instead of deletion, set Custom Field"
+msgstr "En lugar de eliminación, establecer el campo personalizado"
+
+#: views/admin/import/options/_reimport_options.php:27
+msgid "Do not remove images"
+msgstr "No eliminar las imágenes"
+
+#: views/admin/import/options/_reimport_options.php:22
+msgid "Do not remove attachments"
+msgstr "No eliminar los adjuntos"
+
+#: views/admin/import/options/_reimport_options.php:16
+msgid "Check this option if you want to delete posts from the previous import operation which are not found among newly imported set."
+msgstr "Marca esta opción si quieres eliminar las entradas de la operación de importación anterior que no se encuentran en el conjunto recién importado."
+
+#: views/admin/import/options/_reimport_options.php:15
+msgid "Delete posts that are no longer present in your file"
+msgstr "Eliminar entradas que ya no están presentes en el archivo"
+
+#: views/admin/import/options/_reimport_options.php:7
+msgid "New posts will only be created when ID column is present and value in ID column is unique."
+msgstr "Sólo se creará nuevos puestos cuando columna ID y valor en la columna ID es único."
+
+#: views/admin/import/options/_reimport_options.php:5
+msgid "Create new posts from records newly present in your file"
+msgstr "Crear nuevas entradas a partir de registros nuevos presentes en el archivo"
+
+#: views/admin/import/options/_reimport_options.php:1
+msgid "When WP All Import finds new or changed data..."
+msgstr "Cuando WP All Import encuentra datos nuevos o cambiados..."
+
+#: views/admin/import/options/_import_file.php:43
+msgid "Specify the location of the file to use for future runs of this import."
+msgstr "Especificar la ubicación del archivo a usar en futuras ejecuciones de esta importación."
+
+#: views/admin/import/options/_import_file.php:34
+msgid "Import File"
+msgstr "Importar archivo"
+
+#: views/admin/import/options/_buttons_template.php:22
+msgid "Save Import Configuration"
+msgstr "Guardar configuración de importación"
+
+#: views/admin/import/options/_buttons_template.php:21
+#: views/admin/import/template.php:215
+msgid "Back to Manage Imports"
+msgstr "Volver a gestionar importaciones"
+
+#: views/admin/import/options/_buttons_template.php:18
+msgid "Continue"
+msgstr "Continuar"
+
+#: views/admin/import/options/_buttons_template.php:15
+msgid "Save Only"
+msgstr "Guardar solo"
+
+#: views/admin/import/options/_buttons_template.php:11
+msgid "Back to Step 3"
+msgstr "Volver al paso 3"
+
+#: views/admin/import/options/_buttons_template.php:2
+msgid "To run the import, click Run Import on the Manage Imports page."
+msgstr "Para ejecutar la importación, haz clic en Ejecutar importación en la página Gestionar importaciones."
+
+#: views/admin/import/index.php:233
+msgid "Continue to Step 2"
+msgstr "Continuar con el paso 2"
+
+#: views/admin/import/index.php:232
+msgid "Skip to Step 4"
+msgstr "Saltar al paso 4"
+
+#: views/admin/import/index.php:218
+msgid "The Existing Items option is commonly used to update existing products with new stock quantities while leaving all their other data alone, update properties on your site with new pricing, etc."
+msgstr "La opción de elementos existentes se usa habitualmente para actualizar productos existentes con nuevas existencias sin tocar los demás datos, actualizar las propiedades de tu sitio con nuevos precios, etc."
+
+#: views/admin/import/index.php:217
+msgid "In Step 4, you will map the records in your file to the existing items on your site and specify which data points will be updated and which will be left alone."
+msgstr "En el paso 4, se asignar los registros en el archivo para los elementos existentes en su sitio y especificar que los puntos de datos se actualizará y que se quedarán solos."
+
+#: views/admin/import/index.php:188
+msgid "and update some or all of their data."
+msgstr "y actualiza algunos o todos sus datos."
+
+#: views/admin/import/index.php:187
+msgid "for each record in my data file."
+msgstr "para cada registro de mi archivo de datos."
+
+#: views/admin/import/index.php:184
+msgid "Import to existing"
+msgstr "Importar a existente"
+
+#: views/admin/import/index.php:183
+msgid "Create new"
+msgstr "Crear nuevo"
+
+#: views/admin/import/index.php:161
+msgid "Existing Items"
+msgstr "Elementos existentes"
+
+#: views/admin/import/index.php:157
+msgid "New Items"
+msgstr "Elementos nuevos"
+
+#: views/admin/import/index.php:153
+msgid "Import data from this file into..."
+msgstr "Importar datos desde este archivo en..."
+
+#: views/admin/import/index.php:136
+#: views/admin/import/options/_import_file.php:101
+msgid "Upload files to <strong>%s</strong> and they will appear in this list"
+msgstr "Sube archivos a <strong>%s</strong> y aparecerán en esta lista"
+
+#: views/admin/import/index.php:127
+#: views/admin/import/options/_import_file.php:92
+msgid "Select a previously uploaded file"
+msgstr "Seleccionar un archivo previamente subido"
+
+#: views/admin/import/index.php:114 views/admin/import/index.php:138
+#: views/admin/import/options/_import_file.php:79
+#: views/admin/import/options/_import_file.php:104
+msgid "Upgrade to the professional edition of WP All Import to use this feature."
+msgstr "Actualizar a la edición profesional de WP All Import para usar esta característica."
+
+#: views/admin/import/index.php:112
+msgid "<strong>Hint:</strong> After you create this import, you can schedule it to run automatically, on a pre-defined schedule, with cron jobs. If anything in your file has changed, WP All Import can update your site with the changed data automatically."
+msgstr "<strong>Sugerencia:</strong> Después de crear esta importación, puedes programarla para que ejecute automáticamente, en un horario predefinido, mediante tareas cron. Si ha cambiado algo en tu archivo, WP All Import puede actualizar tu sitio con los datos cambiados automáticamente."
+
+#: views/admin/import/index.php:94
+#: views/admin/import/options/_import_file.php:64
+msgid "Click here to select file from your computer..."
+msgstr "Haz clic aquí para seleccionar un archivo de tu ordenador..."
+
+#: views/admin/import/index.php:84
+#: views/admin/import/options/_import_file.php:54
+msgid "Use existing file"
+msgstr "Usar archivo existente"
+
+#: views/admin/import/index.php:80
+#: views/admin/import/options/_import_file.php:50
+msgid "Download from URL"
+msgstr "Descargar desde URL"
+
+#: views/admin/import/index.php:76
+#: views/admin/import/options/_import_file.php:46
+msgid "Upload a file"
+msgstr "Subir un archivo"
+
+#: views/admin/import/index.php:72
+msgid "The data in this file can be modified, but the structure of the file (column/element names) should not change."
+msgstr "Los datos en este archivo se pueden modificar, pero no debe cambiar la estructura del archivo (nombres de columna/elemento)."
+
+#: views/admin/import/index.php:71
+msgid "First, specify previously exported file"
+msgstr "En primer lugar, especifica el archivo previamente exportado"
+
+#: views/admin/import/index.php:69
+msgid "First, specify how you want to import your data"
+msgstr "En primer lugar, especifica cómo quieres importar los datos"
+
+#: views/admin/import/evaluate_variations.php:14
+msgid "#<strong>%s</strong> out of <strong>%s</strong>"
+msgstr "#<strong>%s</strong> de <strong>%s</strong>"
+
+#: views/admin/import/evaluate_variations.php:3
+msgid "Current selection matches <span class=\"matches_count\">%s</span> %s."
+msgstr "La selección actual coincide con <span class=\"matches_count\">%s</span> %s."
+
+#: views/admin/import/evaluate.php:9
+#: views/admin/import/evaluate_variations.php:5
+msgid "<strong>Note</strong>: Highlighting is turned off since can be very slow on large sets of elements."
+msgstr "<strong>Nota</strong>: El resaltado está desactivado ya que puede ser muy lento en conjuntos de elementos grandes."
+
+#: views/admin/import/evaluate.php:7
+msgid "Click an element to select it, or scroll down to add filtering options."
+msgstr "Haz clic en un elemento para seleccionarlo, o desplázate hacia abajo para añadir opciones de filtrado."
+
+#: views/admin/import/evaluate.php:5
+msgid "<span class=\"matches_count\">%s</span> <strong>%s</strong> %s will be imported"
+msgstr "<span class=\"matches_count\">%s</span> se podrá importar el <strong>%s</strong> %s"
+
+#: views/admin/import/evaluate.php:3
+msgid "row"
+msgid_plural "rows"
+msgstr[0] "fila"
+msgstr[1] "filas"
+
+#: views/admin/import/evaluate.php:3
+msgid "<span class=\"matches_count\">%s</span> <strong>%s</strong> will be imported"
+msgstr "<span class=\"matches_count\">%s</span> se podrá importar el <strong>%s</strong>"
+
+#: views/admin/import/element.php:206
+msgid "Back to Step 1"
+msgstr "Volver al paso 1"
+
+#: views/admin/import/element.php:197
+msgid "Apply Filters To XPath"
+msgstr "Aplicar filtros a XPath"
+
+#: views/admin/import/element.php:192
+msgid "No filtering options. Add filtering options to only import records matching some specified criteria."
+msgstr "Sin opciones de filtrado. Añade opciones de filtrado para importar solo los registros que coincidan con algunos criterios especificados."
+
+#: views/admin/import/element.php:187
+msgid "Condition"
+msgstr "Condición"
+
+#: views/admin/import/element.php:172
+#: views/admin/import/options/_settings_template.php:88
+msgid "XPath"
+msgstr "XPath"
+
+#: views/admin/import/element.php:163
+msgid "Add Rule"
+msgstr "Añadir regla"
+
+#: views/admin/import/element.php:156
+msgid "is not empty"
+msgstr "no está vacío"
+
+#: views/admin/import/element.php:155
+msgid "is empty"
+msgstr "está vacío"
+
+#: views/admin/import/element.php:154
+msgid "not contains"
+msgstr "no contiene"
+
+#: views/admin/import/element.php:153
+msgid "contains"
+msgstr "contiene"
+
+#: views/admin/import/element.php:152
+msgid "equals or less than"
+msgstr "iguales o menores que"
+
+#: views/admin/import/element.php:151
+msgid "less than"
+msgstr "menor que"
+
+#: views/admin/import/element.php:150
+msgid "equals or greater than"
+msgstr "iguales o mayores que"
+
+#: views/admin/import/element.php:149
+msgid "greater than"
+msgstr "mayor que"
+
+#: views/admin/import/element.php:148
+msgid "not equals"
+msgstr "no es igual a"
+
+#: views/admin/import/element.php:147
+msgid "equals"
+msgstr "es igual a"
+
+#: views/admin/import/element.php:146
+msgid "Select Rule"
+msgstr "Selecciona regla"
+
+#: views/admin/import/element.php:140
+msgid "Select Element"
+msgstr "Selecciona elemento"
+
+#: views/admin/import/element.php:134 views/admin/import/element.php:186
+#: views/admin/import/options/_reimport_options.php:37
+#: views/admin/import/options/_reimport_template.php:109
+#: views/admin/import/template/_custom_fields_template.php:43
+#: views/admin/import/template/_custom_fields_template.php:77
+#: views/admin/import/template/_custom_fields_template.php:286
+#: views/admin/import/template/_custom_fields_template.php:420
+msgid "Value"
+msgstr "Valor"
+
+#: views/admin/import/element.php:133 views/admin/import/element.php:185
+msgid "Rule"
+msgstr "Regla"
+
+#: views/admin/import/element.php:132 views/admin/import/element.php:184
+msgid "Element"
+msgstr "Elemento"
+
+#: views/admin/import/element.php:125
+msgid "Add Filtering Options"
+msgstr "Añadir opciones de filtrado"
+
+#: views/admin/import/element.php:113
+msgid "This doesn't look right, try manually selecting a different root element on the left."
+msgstr "Esto no tiene buena pinta, intenta seleccionar manualmente un elemento raíz diferente de la izquierda."
+
+#: views/admin/import/element.php:108
+msgid "Data in <span>&lt;<span class=\"root_element\">%s</span>&gt;</span> elements will be imported to <span>%s</span>"
+msgstr "Se importarán los datos en los elementos <span>&lt;<span class=\"root_element\">%s</span>&gt;</span> para <span>%s</span>"
+
+#: views/admin/import/element.php:104
+msgid "Each <span>&lt;<span class=\"root_element\">%s</span>&gt;</span> element will be imported into a <span>New %s</span>"
+msgstr "Cada elemento <span>&lt;<span class=\"root_element\">%s</span>&gt;</span> se importará en un <span>nuevo %s</span>"
+
+#: views/admin/import/element.php:83
+msgid "Set delimiter for CSV fields:"
+msgstr "Establecer el delimitador de campos CSV:"
+
+#: views/admin/import/element.php:65
+msgid "of <span class=\"wpallimport-elements-count-info\">%s</span>"
+msgstr "de <span class=\"wpallimport-elements-count-info\">%s</span>"
+
+#: views/admin/import/element.php:36
+msgid "What element are you looking for?"
+msgstr "¿Qué elemento estás buscando?"
+
+#: views/admin/import/element.php:23 views/admin/import/element.php:210
+msgid "Continue to Step 3"
+msgstr "Continuar con el paso 3"
+
+#: views/admin/import/confirm.php:312
+msgid "or go back to Manage Imports"
+msgstr "o volver a gestionar importaciones"
+
+#: views/admin/import/confirm.php:310
+msgid "or go back to Step 4"
+msgstr "o volver al paso 4"
+
+#: views/admin/import/confirm.php:291
+msgid "do_action calls will be disabled in wp_insert_post and wp_insert_attachment during the import."
+msgstr "Las llamadas do_action se desactivarán en wp_insert_post y wp_insert_attachment durante la importación."
+
+#: views/admin/import/confirm.php:287
+msgid "Your file will be split into %s records chunks before processing."
+msgstr "El archivo se dividirá en %s fragmentos de registros antes de empezar el proceso."
+
+#: views/admin/import/confirm.php:283
+msgid "Piece By Piece Processing enabled. %s records will be processed each iteration. If it takes longer than your server's max_execution_time to process %s records, your import will fail."
+msgstr "Procesamiento por partes activado. Se procesarán %s registros en cada iteración. Si tarda más que el valor de la variable max_execution_time de tu servidor para procesar %s registros, la importación fallará."
+
+#: views/admin/import/confirm.php:281
+msgid "High-Speed, Small File Processing enabled. Your import will fail if it takes longer than your server's max_execution_time."
+msgstr "Procesamiento de archivos pequeños de alta velocidad activado. Tu importación fallará si dura más que el valor de la variable max_execution_time de tu servidor."
+
+#: views/admin/import/confirm.php:275
+msgid "New %ss will be created from records that don't match the above criteria."
+msgstr "Se crearán nuevos %ss a partir de registros que no coinciden con los criterios anteriores."
+
+#: views/admin/import/confirm.php:266
+msgid "leave these taxonomies: %s alone, update all others"
+msgstr "estas taxonomías: no tocar %s, actualizar todas los demás"
+
+#: views/admin/import/confirm.php:263
+msgid "update only these taxonomies: %s , leave the rest alone"
+msgstr "actualizar solo estas taxonomías: %s, dejar el resto"
+
+#: views/admin/import/confirm.php:260
+msgid "only add new"
+msgstr "solo añadir nuevos"
+
+#: views/admin/import/confirm.php:257
+msgid "remove existing taxonomies, add new taxonomies"
+msgstr "eliminar taxonomías existentes, añadir nuevas taxonomías"
+
+#: views/admin/import/confirm.php:247
+msgid "all cusom fields except these: %s"
+msgstr "todos los campos personalizados excepto estos: %s"
+
+#: views/admin/import/confirm.php:244
+msgid "only these custom fields : %s"
+msgstr "solo estos campos personalizados: %s"
+
+#: views/admin/import/confirm.php:241
+msgid "all custom fields"
+msgstr "todos los campos personalizados"
+
+#: views/admin/import/confirm.php:231
+msgid "only new images will be added"
+msgstr "solo se añadirán nuevas imágenes"
+
+#: views/admin/import/confirm.php:228
+msgid "old images will be updated with new"
+msgstr "las imágenes antiguas se actualizarán con nuevas"
+
+#: views/admin/import/confirm.php:218
+msgid "all ACF except these: %s"
+msgstr "todos los campos ACF excepto estos: %s"
+
+#: views/admin/import/confirm.php:215
+msgid "only these ACF : %s"
+msgstr "solo estos campos ACF: %s"
+
+#: views/admin/import/confirm.php:212
+msgid "only ACF presented in import options"
+msgstr "solo campos ACF presentados en opciones de importación"
+
+#: views/admin/import/confirm.php:209
+msgid "all advanced custom fields"
+msgstr "todos los campos personalizados avanzados"
+
+#: views/admin/import/confirm.php:202
+msgid "attachments"
+msgstr "adjuntos"
+
+#: views/admin/import/confirm.php:199
+msgid "parent post"
+msgstr "entrada padre"
+
+#: views/admin/import/confirm.php:196
+msgid "menu order"
+msgstr "orden del menú"
+
+#: views/admin/import/confirm.php:193
+msgid "dates"
+msgstr "fechas"
+
+#: views/admin/import/confirm.php:190
+msgid "excerpt"
+msgstr "extracto"
+
+#: views/admin/import/confirm.php:187
+msgid "content"
+msgstr "contenido"
+
+#: views/admin/import/confirm.php:184
+msgid "slug"
+msgstr "slug"
+
+#: views/admin/import/confirm.php:181
+msgid "title"
+msgstr "título"
+
+#: views/admin/import/confirm.php:178
+msgid "status"
+msgstr "estado"
+
+#: views/admin/import/confirm.php:175
+msgid "Next %s data will be updated, <strong>all other data will be left alone</strong>"
+msgstr "Se actualizarán los datos del siguiente %s, <strong>los demás datos no se tocarán</strong>"
+
+#: views/admin/import/confirm.php:172
+msgid "Existing data will be updated with the data specified in this import."
+msgstr "Los datos existentes se actualizarán con los datos especificados en este import."
+
+#: views/admin/import/confirm.php:169
+msgid "WP All Import will merge data into existing %ss, matching the following criteria: %s"
+msgstr "WP All Import fusionará datos en %ss existentes, en base al siguiente criterio: %s"
+
+#: views/admin/import/confirm.php:155
+msgid "Records with unique keys that don't match any unique keys from %ss created by previous runs of this import (ID: %s) will be created."
+msgstr "Registros con claves únicas que no coinciden con ninguna tecla única de %ss creado por carreras anteriores de esta importación (ID: %s) se creará."
+
+#: views/admin/import/confirm.php:151
+msgid "%ss previously imported by this import (ID: %s) that aren't present for this run of the import will be set to draft."
+msgstr "%ss previamente importados en esta importación (ID: %s) que no están presentes en esta ejecución de la importación se cambiarán a borrador."
+
+#: views/admin/import/confirm.php:147
+msgid "%ss previously imported by this import (ID: %s) that aren't present for this run of the import will be deleted."
+msgstr "%ss previamente importados en esta importación (ID: %s) que no están presentes en esta ejecución de la importación se eliminarán."
+
+#: views/admin/import/confirm.php:144
+msgid "%ss previously imported by this import (ID: %s) with the same unique key will be updated."
+msgstr "%ss previamente importados en esta importación (ID: %s) con la misma clave única se actualizarán."
+
+#: views/admin/import/confirm.php:140
+msgid "Your unique key is <span style=\"color:#000; font-weight:bold;\">%s</span>"
+msgstr "Tu clave única es <span style=\"color:#000; font-weight:bold;\">%s</span>"
+
+#: views/admin/import/confirm.php:132
+msgid "WP All Import will process only specified records: %s"
+msgstr "WP All Import procesará solo registros específicos: %s"
+
+#: views/admin/import/confirm.php:128
+msgid "WP All Import will process all %s <span style=\"color:#46ba69; font-weight:bold;\">&lt;%s&gt;</span> records in your file"
+msgstr "WP All Import procesará todos los %s <span style=\"color:#46ba69; font-weight:bold;\">&lt;%s&gt;</span> registros de tu archivo"
+
+#: views/admin/import/confirm.php:126
+msgid "WP All Import will process <span style=\"color:#46ba69; font-weight:bold;\">%s</span> rows in your file"
+msgstr "WP All Import procesará <span style=\"color:#46ba69; font-weight:bold;\">%s</span> filas de tu archivo"
+
+#: views/admin/import/confirm.php:124
+msgid "WP All Import will process the records matching the XPath expression: <span style=\"color:#46ba69; font-weight:bold;\">%s</span>"
+msgstr "WP All Import procesará los registros que coinciden con la expresión XPath: <span style=\"color:#46ba69; font-weight:bold;\">%s</span>"
+
+#: views/admin/import/confirm.php:121
+msgid "undefined"
+msgstr "no definido"
+
+#: views/admin/import/confirm.php:121
+msgid "WP All Import will import the file <span style=\"color:#40acad;\">%s</span>, which is <span style=\"color:#000; font-weight:bold;\">%s</span>"
+msgstr "WP All Import importará el archivo <span style=\"color:#40acad;\">%s</span>, que es <span style=\"color:#000; font-weight:bold;\">%s</span>"
+
+#: views/admin/import/confirm.php:100
+msgid "Your max_execution_time is %s seconds"
+msgstr "La variable max_execution_time es de %s segundos"
+
+#: views/admin/import/confirm.php:94
+msgid "Import Summary"
+msgstr "Resúmen de la importación"
+
+#: views/admin/import/confirm.php:75
+msgid "Run entire import from the beginning"
+msgstr "Ejecutar importación completa desde el principio"
+
+#: views/admin/import/confirm.php:73
+msgid "Continue Import"
+msgstr "Continuar la importación"
+
+#: views/admin/import/confirm.php:70
+msgid "Run from the beginning"
+msgstr "Ejecutar desde el principio"
+
+#: views/admin/import/confirm.php:66
+msgid "Continue from the last run"
+msgstr "Continuar desde la última ejecución"
+
+#: views/admin/import/confirm.php:56 views/admin/import/confirm.php:307
+msgid "Confirm & Run Import"
+msgstr "Confirmar y iniciar la importación"
+
+#: views/admin/import/confirm.php:48
+msgid "You can attempt to continue where it left off."
+msgstr "Puedes intentar continuar desde donde el proceso se dejó."
+
+#: views/admin/import/confirm.php:46
+msgid "Check the settings below, then click the green button to run the import."
+msgstr "Comprueba los siguientes ajustes y haz clic en el botón verde para ejecutar la importación."
+
+#: views/admin/import/confirm.php:42
+msgid "This import did not finish successfuly last time it was run."
+msgstr "Esta importación no acabó correctamente la última vez que se ejecutó."
+
+#: views/admin/import/confirm.php:40
+msgid "Your file is all set up!"
+msgstr "¡El archivo está listo!"
+
+#: views/admin/import/confirm.php:15 views/admin/import/element.php:12
+#: views/admin/import/index.php:47 views/admin/import/options.php:22
+#: views/admin/import/process.php:12 views/admin/import/template.php:13
+msgid "Documentation"
+msgstr "Documentación"
+
+#: views/admin/import/confirm.php:12 views/admin/import/element.php:9
+#: views/admin/import/index.php:44 views/admin/import/options.php:19
+#: views/admin/import/process.php:9 views/admin/import/template.php:10
+msgid "Import XML / CSV"
+msgstr "Importar XML / CSV"
+
+#: views/admin/history/index.php:239 views/admin/import/confirm.php:318
+#: views/admin/import/element.php:213 views/admin/import/index.php:238
+#: views/admin/import/options.php:73 views/admin/import/process.php:70
+#: views/admin/import/template.php:222 views/admin/manage/index.php:377
+#: views/admin/manage/scheduling.php:62 views/admin/settings/index.php:155
+msgid "Created by"
+msgstr "Creado por"
+
+#: views/admin/history/index.php:232 views/admin/manage/index.php:354
+msgid "Delete Permanently"
+msgstr "Borrar permanentemente"
+
+#: views/admin/history/index.php:231 views/admin/manage/index.php:353
+msgid "Restore"
+msgstr "Restaurar"
+
+#: views/admin/history/index.php:194
+msgid "Log Unavailable"
+msgstr "Registro de carácter"
+
+#: views/admin/history/index.php:190
+msgid "Download Log"
+msgstr "Registro de descarga"
+
+#: views/admin/history/index.php:170
+msgid "triggered by cron"
+msgstr "activado por cron"
+
+#: views/admin/history/index.php:167
+msgid "cron processing"
+msgstr "procesamiento de cron"
+
+#: views/admin/history/index.php:164
+msgid "continue run"
+msgstr "continuar la ejecución"
+
+#: views/admin/history/index.php:161
+msgid "manual run"
+msgstr "manual de funcionamiento"
+
+#: views/admin/history/index.php:136
+msgid "Y/m/d g:i a"
+msgstr "Y/m/d g:i a"
+
+#: views/admin/history/index.php:108
+msgid "No previous history found."
+msgstr "Sin antecedentes encontrados."
+
+#: views/admin/history/index.php:61 views/admin/manage/index.php:53
+msgid "Displaying %s&#8211;%s of %s"
+msgstr "Mostrando %s&#8211;%s de %s"
+
+#: views/admin/history/index.php:55 views/admin/history/index.php:235
+#: views/admin/import/element.php:86 views/admin/manage/index.php:47
+#: views/admin/manage/index.php:357
+msgid "Apply"
+msgstr "Aplicar"
+
+#: views/admin/history/index.php:53 views/admin/history/index.php:229
+#: views/admin/manage/index.php:45 views/admin/manage/index.php:191
+#: views/admin/manage/index.php:351
+msgid "Delete"
+msgstr "Borrar"
+
+#: views/admin/history/index.php:52 views/admin/history/index.php:227
+#: views/admin/manage/index.php:44 views/admin/manage/index.php:349
+msgid "Bulk Actions"
+msgstr "Acciones en masa"
+
+#: views/admin/history/index.php:42
+msgid "and processing"
+msgstr "en proceso"
+
+#: views/admin/history/index.php:42
+msgid "triggered"
+msgstr "activado"
+
+#: views/admin/history/index.php:42
+msgid "Scheduling Status"
+msgstr "Estado de programación"
+
+#: views/admin/history/index.php:36 views/admin/manage/index.php:30
+msgid "Summary"
+msgstr "Resumen"
+
+#: views/admin/history/index.php:35
+msgid "Type"
+msgstr "Tipo"
+
+#: views/admin/history/index.php:34
+msgid "Run Time"
+msgstr "Tiempo de ejecución"
+
+#: views/admin/history/index.php:32 views/admin/manage/index.php:27
+msgid "ID"
+msgstr "ID"
+
+#: views/admin/history/index.php:16 views/admin/history/index.php:18
+#: views/admin/history/index.php:20
+msgid "%s - Import History"
+msgstr "%s - Historial de importación"
+
+#: views/admin/help/index.php:15
+msgid "For premium support, please upgrade to the professional edition of WP All Import."
+msgstr "Para obtener soporte premium, actualiza a la edición profesional de WP All Import."
+
+#: views/admin/help/index.php:13
+msgid "We do not provide technical support in the WordPress.org community forums. But we are usually more than happy to help out free version users via e-mail - just e-mail us at the address above or submit a ticket through the support form."
+msgstr "No proporcionamos soporte técnico en los foros de la comunidad de WordPress.org. Pero por lo general no tenemos ningún problema en ayudar a los usuarios de la versión gratuita a través del correo electrónico - sólo tienes que enviarnos un correo electrónico a la dirección de arriba o abrir una incidencia a través del formulario de soporte."
+
+#: views/admin/help/index.php:11
+msgid "Thanks for installing the free version of WP All Import."
+msgstr "Gracias por instalar la versión gratuita de WP All Import."
+
+#: views/admin/help/index.php:8
+msgid "Support Form"
+msgstr "Foro de soporte"
+
+#: views/admin/help/index.php:1
+msgid "WP All Import Support"
+msgstr "Soporte de WP All Import"
+
+#: views/admin/addons/index.php:63
+msgid "Paid Version Installed"
+msgstr "Versión de pago instalada"
+
+#: views/admin/addons/index.php:49
+msgid "Free Add-ons"
+msgstr "Extensiones gratuitas"
+
+#: views/admin/addons/index.php:41
+msgid "Purchase & Install"
+msgstr "Compra e instala"
+
+#: views/admin/addons/index.php:36 views/admin/addons/index.php:77
+#: views/admin/addons/index.php:82 views/admin/import/index.php:108
+msgid "Download"
+msgstr "Descarga"
+
+#: views/admin/addons/index.php:29 views/admin/addons/index.php:70
+msgid " required"
+msgstr " obligatorio"
+
+#: views/admin/addons/index.php:22
+msgid "Free Version Installed"
+msgstr "Versión gratuita instalada"
+
+#: views/admin/addons/index.php:20 views/admin/addons/index.php:61
+msgid "Installed"
+msgstr "Instalado"
+
+#: views/admin/addons/index.php:8
+msgid "Premium Add-ons"
+msgstr "Extensiones premium"
+
+#: views/admin/addons/index.php:3
+msgid "WP All Import Add-ons"
+msgstr "Extensiones de WP All Import"
+
+#: plugin.php:924
+msgid "<b>%s Plugin</b>: Current sql user %s doesn't have ALTER privileges"
+msgstr "<b>Plugin %s</b>: el usuario sql actual %s no tiene privilegios ALTER"
+
+#: plugin.php:812 plugin.php:816
+msgid "Uploads folder %s must be writable"
+msgstr "La carpeta de carga%s debe poder escribirse"
+
+#: plugin.php:299
+msgid "Pro Version"
+msgstr "Versión Pro"
+
+#: plugin.php:299
+msgid "WP All Import Pro Version"
+msgstr "WP All Import version Pro"
+
+#: models/import/record.php:2290
+msgid "<b>ERROR</b> Could not insert term relationship into the database"
+msgstr "<b>ERROR</b> No se ha podido insertar la relación entre términos en la base de datos"
+
+#: models/import/record.php:2183 models/import/record.php:2191
+msgid "<b>WARNING</b>: Unable to remove %s"
+msgstr "<b>ADVERTENCIA</b>: No se ha podido eliminar %s"
+
+#: models/import/record.php:2177
+msgid "Deleting chunks files..."
+msgstr "Eliminar archivos de trozos..."
+
+#: models/import/record.php:2173
+msgid "Deleting source XML file..."
+msgstr "Eliminando el archivo XML origen..."
+
+#: models/import/record.php:2167
+msgid "Cleaning temporary data..."
+msgstr "Limpiando datos temporales..."
+
+#: models/import/record.php:2145
+msgid "Update stock status previously imported posts which are no longer actual..."
+msgstr "Actualizar mensajes de condición de la población previamente importado que no son reales..."
+
+#: models/import/record.php:2091
+msgid "Instead of deletion, change post with ID `%s` status to Draft"
+msgstr "En lugar de eliminarla, cambiar el estado de la entrada con el ID '%s' a borrador"
+
+#: models/import/record.php:2084
+msgid "Instead of deletion post with ID `%s`, set Custom Field `%s` to value `%s`"
+msgstr "En lugar de borrar post con identificador '%s', set Custom campo '%s' al valor '%s'"
+
+#: models/import/record.php:2068
+msgid "Deleting posts from database"
+msgstr "Eliminando entradas de la base de datos"
+
+#: models/import/record.php:2066
+msgid "<b>ACTION</b>: pmxi_delete_post"
+msgstr "<b>ACCIÓN</b>: pmxi_delete_post"
+
+#: models/import/record.php:2047
+msgid "Removing previously imported posts which are no longer actual..."
+msgstr "Retirar previamente importados puestos que no son reales..."
+
+#: models/import/record.php:2020
+msgid "<b>ACTION</b>: pmxi_after_post_import"
+msgstr "<b>ACCIÓN</b>: pmxi_after_post_import"
+
+#: models/import/record.php:2016
+msgid "<span class=\"processing_info\"><span class=\"created_count\">%s</span><span class=\"updated_count\">%s</span><span class=\"percents_count\">%s</span></span>"
+msgstr "<span class=\"processing_info\"><span class=\"created_count\">%s</span> <span class=\"updated_count\">%s</span> <span class=\"percents_count\">%s</span></span>"
+
+#: models/import/record.php:2009
+msgid "<b>ACTION</b>: pmxi_saved_post"
+msgstr "<b>ACCIÓN</b>: pmxi_saved_post"
+
+#: models/import/record.php:1968
+msgid "<b>UPDATED</b> `%s` `%s` (ID: %s)"
+msgstr "<b>ACTUALIZADO</b> ' %s' '%s' (ID: %s)"
+
+#: models/import/record.php:1966
+msgid "<b>CREATED</b> `%s` `%s` (ID: %s)"
+msgstr "<b>CREADO</b> ' %s' '%s' (ID: %s)"
+
+#: models/import/record.php:1947
+msgid "- %s %s `%s` has been skipped attempted to `Do not update Taxonomies (incl. Categories and Tags)`..."
+msgstr "-%s %s '%s' ha sido saltado intento para 'No se actualizan las taxonomías (incl. categorías y etiquetas)'..."
+
+#: models/import/record.php:1932
+msgid "- Attempted to create child %s %s `%s`, duplicate detected. Importing %s to existing `%s` %s, ID %d, slug `%s` ..."
+msgstr "- Se ha intentado crear hijo %s %s '%s', se ha detectado un duplicado. Importando %s a '%s' %s, ID %d, slug '%s'..."
+
+#: models/import/record.php:1929
+msgid "- Attempted to create parent %s %s `%s`, duplicate detected. Importing %s to existing `%s` %s, ID %d, slug `%s` ..."
+msgstr "- Se ha intentado crear padre %s %s '%s', se ha detectado un duplicado. Importando %s a '%s' %s, ID %d, slug '%s'..."
+
+#: models/import/record.php:1908
+msgid "- <b>WARNING</b>: `%s`"
+msgstr "- <b>ADVERTENCIA</b>: '%s'"
+
+#: models/import/record.php:1901
+msgid "- Creating child %s %s for %s named `%s` ..."
+msgstr "- Creando hijo %s %s para %s denominado '%s'..."
+
+#: models/import/record.php:1898
+msgid "- Creating parent %s %s `%s` ..."
+msgstr "- Creando padre %s %s `%s` ..."
+
+#: models/import/record.php:1861
+msgid "- %s %s `%s` has been skipped attempted to `Update only these taxonomies, leave the rest alone`..."
+msgstr "-%s %s '%s' ha sido saltado intentó 'Actualizar sólo estas taxonomías, deje el resto solo'..."
+
+#: models/import/record.php:1856
+msgid "- %s %s `%s` has been skipped attempted to `Leave these taxonomies alone, update all others`..."
+msgstr "-%s %s '%s' ha sido saltado intentó 'Dejar estas taxonomías, actualizar todos los demás'..."
+
+#: models/import/record.php:1850
+msgid "- Auto-nest enabled with separator `%s` ..."
+msgstr "- Anidamiento automático activado con el separador `%s` ..."
+
+#: models/import/record.php:1847
+msgid "- Importing taxonomy `%s` ..."
+msgstr "- Importando taxonomía `%s` ..."
+
+#: models/import/record.php:1838
+msgid "<b>TAXONOMIES:</b>"
+msgstr "<b>TAXONOMÍAS:</b>"
+
+#: models/import/record.php:1819 models/import/record.php:1825
+msgid "- <b>ACTION</b>: pmxi_attachment_uploaded"
+msgstr "- <b>ACCIÓN</b>: pmxi_attachment_uploaded"
+
+#: models/import/record.php:1818
+msgid "- Attachment has been successfully created for post `%s`"
+msgstr "- El adjunto de la entrada '%s' se ha creado con éxito"
+
+#: models/import/record.php:1802
+msgid "- File %s has been successfully downloaded"
+msgstr "- El archivo %s se ha descargado con éxito"
+
+#: models/import/record.php:1788
+msgid "- <b>WP Error</b>: %s"
+msgstr "- <b>Error de WP</b>: %s"
+
+#: models/import/record.php:1787
+msgid "- <b>WARNING</b>: Attachment file %s cannot be saved locally as %s"
+msgstr "- <b>ADVERTENCIA</b>: El archivo adjunto %s no puede guardarse localmente como %s"
+
+#: models/import/record.php:1782
+msgid "- Filename for attachment was generated as %s"
+msgstr "- El nombre de archivo para el adjunto se ha generado como %s"
+
+#: models/import/record.php:1750
+msgid "- Importing attachments for `%s` ..."
+msgstr "- Importando adjuntos para `%s` ..."
+
+#: models/import/record.php:1741
+msgid "- <b>ERROR</b>: Target directory %s is not writable"
+msgstr "- <b>ERROR</b>: El directorio destino %s no tiene acceso de escritura"
+
+#: models/import/record.php:1738
+msgid "<b>ATTACHMENTS:</b>"
+msgstr "<b>ADJUNTOS:</b>"
+
+#: models/import/record.php:1694
+msgid "Post `%s` saved as Draft, because no images are downloaded successfully"
+msgstr "Entrada `%s` guardada como borrador, porque ninguna imagen se ha descargado correctamente"
+
+#: models/import/record.php:1686
+msgid "- Post `%s` saved as Draft, because no images are downloaded successfully"
+msgstr "- Entrada `%s` guardada como borrador, porque ninguna imagen se han descargado correctamente"
+
+#: models/import/record.php:1426
+msgid "- found base64_encoded image"
+msgstr "- se ha encontrado una imagen codificada mediante base64"
+
+#: models/import/record.php:1412
+msgid "- Importing image `%s` for `%s` ..."
+msgstr "- Importando imagen `%s` para `%s` ..."
+
+#: models/import/record.php:1329
+msgid "- Keep existing and add newest images ..."
+msgstr "- Mantener imágenes existentes y añadir las nuevas ..."
+
+#: models/import/record.php:1310
+msgid "<b>ERROR</b>: Target directory %s is not writable"
+msgstr "<b>ERROR</b>: El directorio destino %s no tiene acceso de escritura"
+
+#: models/import/record.php:1306
+msgid "<b>IMAGES:</b>"
+msgstr "<b>IMÁGENES:</b>"
+
+#: models/import/record.php:1237
+msgid "Associate post `%s` with post format %s ..."
+msgstr "Asociar la entrada `%s` con el formato de entrada %s ..."
+
+#: models/import/record.php:1231
+msgid "Associate post `%s` with current import ..."
+msgstr "Asociar la entrada `%s` con la importación actual ..."
+
+#: models/import/record.php:1215 models/import/record.php:2163
+msgid "<b>ERROR</b>"
+msgstr "<b>ERROR</b>"
+
+#: models/import/record.php:1205
+msgid "<b>UPDATING</b> `%s` `%s`"
+msgstr "<b>ACTUALIZANDO</b> `%s` `%s`"
+
+#: models/import/record.php:1202
+msgid "<b>CREATING</b> `%s` `%s`"
+msgstr "<b>CREANDO</b> `%s` `%s`"
+
+#: models/import/record.php:1180
+msgid "<b>WARNING</b>: Unable to create cloaked link for %s"
+msgstr "<b>ADVERTENCIA</b>: No se ha podido crear un enlace camuflado para %s"
+
+#: models/import/record.php:1108
+msgid "<b>SKIPPED</b>: by do not create new posts option."
+msgstr "<b>SALTADO</b>: por no crear nueva opción de mensajes."
+
+#: models/import/record.php:1090
+msgid "Deleting images for `%s`"
+msgstr "Eliminando imágenes de `%s`"
+
+#: models/import/record.php:1085
+msgid "Deleting attachments for `%s`"
+msgstr "Eliminando archivos adjuntos de `%s`"
+
+#: models/import/record.php:1077
+msgid "Applying filter `pmxi_article_data` for `%s`"
+msgstr "Aplicando el filtro `pmxi_article_data` a`%s`"
+
+#: models/import/record.php:1059
+msgid "Preserve post author of already existing article for `%s`"
+msgstr "Conservar el autor del artículo ya existente para `%s`"
+
+#: models/import/record.php:1055
+msgid "Preserve comment status of already existing article for `%s`"
+msgstr "Conservar el estado de comentarios del artículo ya existente para `%s`"
+
+#: models/import/record.php:1051
+msgid "Preserve post parent of already existing article for `%s`"
+msgstr "Conservar la entrada padre del artículo ya existente para `%s`"
+
+#: models/import/record.php:1047
+msgid "Preserve menu order of already existing article for `%s`"
+msgstr "Conservar el orden de menú del artículo ya existente para `%s`"
+
+#: models/import/record.php:1043
+msgid "Preserve excerpt of already existing article for `%s`"
+msgstr "Conservar el extracto del artículo ya existente para `%s`"
+
+#: models/import/record.php:1035
+msgid "Preserve slug of already existing article for `%s`"
+msgstr "Conservar el slug del artículo ya existente para `%s`"
+
+#: models/import/record.php:1031
+msgid "Preserve title of already existing article for `%s`"
+msgstr "Conservar el título del artículo ya existente para `%s`"
+
+#: models/import/record.php:1027
+msgid "Preserve content of already existing article for `%s`"
+msgstr "Conservar el contenido del artículo ya existente para `%s`"
+
+#: models/import/record.php:1023
+msgid "Preserve status of already existing article for `%s`"
+msgstr "Conservar el estado del artículo ya existente para `%s`"
+
+#: models/import/record.php:1019
+msgid "Preserve date of already existing article for `%s`"
+msgstr "Conservar la fecha del artículo ya existente para `%s`"
+
+#: models/import/record.php:1002
+msgid "<b>WARNING</b>: Unable to get current taxonomies for article #%d, updating with those read from XML file"
+msgstr "<b>ADVERTENCIA</b>: No se han podido obtener las taxonomías actuales para el artículo #%d, actualizando con las que se han leído del archivo XML"
+
+#: models/import/record.php:997
+msgid "Preserve taxonomies of already existing article for `%s`"
+msgstr "Conservar las taxonomías del artículo ya existente para `%s`"
+
+#: models/import/record.php:982
+msgid "<b>SKIPPED</b>: Previously imported record found for `%s`"
+msgstr "<b>SALTADO</b>: Registro previamente importado encontrado para `%s`"
+
+#: models/import/record.php:965
+msgid "<b>SKIPPED</b>: By filter wp_all_import_is_post_to_update `%s`"
+msgstr "<b>SALTADO</b>: Por el filtro wp_all_import_is_post_to_update `%s`"
+
+#: models/import/record.php:944
+msgid "<b>SKIPPED</b>: by specified records option"
+msgstr "<b>SALTADO</b>: por la opción de registros especificados"
+
+#: models/import/record.php:933
+msgid "Duplicate post wasn'n found for post `%s`..."
+msgstr "No se ha encontrado una entrada duplicada para la entrada `%s`..."
+
+#: models/import/record.php:924
+msgid "Duplicate post was found for post `%s`..."
+msgstr "Se ha encontrado una entrada duplicada de la entrada %s..."
+
+#: models/import/record.php:911
+msgid "Find corresponding article among database for post `%s`..."
+msgstr "Encuentra correspondiente artículo entre la base de datos para post `%s`..."
+
+#: models/import/record.php:897
+msgid "Duplicate post wasn't found with unique key `%s`..."
+msgstr "No se ha encontrado una entrada duplicada con la clave única `%s`..."
+
+#: models/import/record.php:888
+msgid "Duplicate post was found for post %s with unique key `%s`..."
+msgstr "Se ha encontrado una entrada duplicada de la entrada %s con la clave única `%s`..."
+
+#: models/import/record.php:880
+msgid "Find corresponding article among previously imported for post `%s`..."
+msgstr "Encuentra correspondiente artículo entre importada previamente para post `%s`..."
+
+#: models/import/record.php:870
+msgid "Combine all data for post `%s`..."
+msgstr "Combinar todos los datos para la entrada `%s`..."
+
+#: models/import/record.php:852
+msgid "Combine all data for user %s..."
+msgstr "Combinar todos los datos para el usuario %s..."
+
+#: models/import/record.php:832
+msgid "<b>WARNING</b>: title is empty."
+msgstr "<b>ADVERTENCIA</b>: el título está vacío."
+
+#: models/import/record.php:824
+msgid "<b>ACTION</b>: pmxi_before_post_import ..."
+msgstr "<b>ACCIÓN</b>: pmxi_before_post_import ..."
+
+#: models/import/record.php:820
+msgid "Record #%s"
+msgstr "Registro #%s"
+
+#: models/import/record.php:819
+msgid "---"
+msgstr "---"
+
+#: models/import/record.php:798
+msgid "Calculate specified records to import..."
+msgstr "Calcular registros especificados para importar..."
+
+#: models/import/record.php:759
+msgid "Data parsing via add-ons..."
+msgstr "Análisis de datos mediante extensiones..."
+
+#: models/import/record.php:753
+msgid "Processing posts..."
+msgstr "Procesando entradas..."
+
+#: models/import/record.php:745
+msgid "Composing unique keys..."
+msgstr "Componiendo claves únicas..."
+
+#: models/import/record.php:716
+msgid "Composing URLs for attachments files..."
+msgstr "Componiendo URLs de los adjuntos..."
+
+#: models/import/record.php:713
+msgid "<b>WARNING</b>: No attachments will be created"
+msgstr "<b>ADVERTENCIA</b>: No se crearán adjuntos"
+
+#: models/import/record.php:602
+msgid "<b>WARNING</b>: No featured images will be created. Uploads folder is not found."
+msgstr "<b>ADVERTENCIA</b>: No se crearán imágenes destacadas. No se ha encontrado la carpeta de subidas."
+
+#: models/import/record.php:601 models/import/record.php:712
+msgid "<b>WARNING</b>"
+msgstr "<b> ADVERTENCIA</b>"
+
+#: models/import/record.php:380
+msgid "Composing terms for `%s` taxonomy..."
+msgstr "Componiendo términos de la taxonomía `%s`..."
+
+#: models/import/record.php:345 models/import/record.php:358
+#: models/import/record.php:364
+msgid "<b>WARNING</b>: unrecognized date format `%s`, assigning current date"
+msgstr "<b>ADVERTENCIA</b>: formato de fecha `%s` no reconocido, asignando la fecha actual"
+
+#: models/import/record.php:337
+msgid "Composing dates..."
+msgstr "Componiendo fechas..."
+
+#: models/import/record.php:324
+msgid "Composing contents..."
+msgstr "Componiendo contenidos..."
+
+#: models/import/record.php:315
+msgid "Composing menu order..."
+msgstr "Componiendo el orden del menú..."
+
+#: models/import/record.php:306
+msgid "Composing slugs..."
+msgstr "Componiendo slugs..."
+
+#: models/import/record.php:265
+msgid "Composing authors..."
+msgstr "Componiendo autores..."
+
+#: models/import/record.php:205
+msgid "Composing page parent..."
+msgstr "Componiendo el padre de la página..."
+
+#: models/import/record.php:191
+msgid "Composing post types..."
+msgstr "Componiendo tipos de contenido..."
+
+#: models/import/record.php:180
+msgid "Composing page templates..."
+msgstr "Componiendo plantillas de página..."
+
+#: models/import/record.php:169
+msgid "Composing post formats..."
+msgstr "Componiendo formatos de entrada..."
+
+#: models/import/record.php:158
+msgid "Composing ping statuses..."
+msgstr "Componiendo estados de ping..."
+
+#: models/import/record.php:147
+msgid "Composing comment statuses..."
+msgstr "Componiendo estados de comentario..."
+
+#: models/import/record.php:136
+msgid "Composing statuses..."
+msgstr "Componiendo estados..."
+
+#: models/import/record.php:126
+msgid "Composing excerpts..."
+msgstr "Componiendo extractos..."
+
+#: models/import/record.php:118
+msgid "Composing titles..."
+msgstr "Componiendo títulos..."
+
+#: models/import/record.php:68
+msgid "WP All Import requires the SimpleXML PHP module to be installed. This is a standard feature of PHP, and is necessary for WP All Import to read the files you are trying to import.<br/>Please contact your web hosting provider and ask them to install and activate the SimpleXML PHP module."
+msgstr "WP All Import requiere el módulo de PHP SimpleXML. Esta es una característica estándar de PHP y es necesaria para que WP All Import pueda leer los archivos que estás intentando importar.<br/>Por favor, ponte en contacto con tu proveedor de alojamiento web y pídeles que instalen y activen el módulo de PHP SimpleXML."
+
+#: models/import/record.php:67
+msgid "Required PHP components are missing."
+msgstr "Faltan componentes necesarios de PHP."
+
+#: models/import/record.php:56
+msgid "Code"
+msgstr "Código"
+
+#: models/import/record.php:55
+msgid "Column"
+msgstr "Columna"
+
+#: models/import/record.php:54
+msgid "Line"
+msgstr "Línea"
+
+#: models/import/record.php:51
+msgid "Invalid XML"
+msgstr "XML no válido"
+
+#: models/import/record.php:39
+msgid "WP All Import can't read your file.<br/><br/>Probably, you are trying to import an invalid XML feed. Try opening the XML feed in a web browser (Google Chrome is recommended for opening XML files) to see if there is an error message.<br/>Alternatively, run the feed through a validator: http://validator.w3.org/<br/>99% of the time, the reason for this error is because your XML feed isn't valid.<br/>If you are 100% sure you are importing a valid XML feed, please contact WP All Import support."
+msgstr "WP All Import no ha podido leer tu archivo.<br/><br/>Lo más probable es que estés intentando importar un feed XML no válido. Intenta abrir el feed XML en otro navegador (se recomienda Google Chrome para abrir los archivos XML) para ver si hay un mensaje de error.<br/>Como alternativa, ejecuta el feed en un validador: http://validator.w3.org/<br/>El 99 % de las veces, el motivo de este error es porque tu feed XML no es válido.<br/>Si estás 100 % seguro de que estás importando un feed XML válido, por favor, contacta con el soporte de WP All Import."
+
+#: helpers/wp_all_import_template_notifications.php:93
+msgid "<strong>Warning:</strong>"
+msgstr "<strong>Advertencia:</strong>"
+
+#: helpers/wp_all_import_template_notifications.php:81
+msgid "The import template you are using requires an Add-On for WP All Import. If you continue without using this Add-On your data may import incorrectly."
+msgstr "La plantilla de importación que estás usando requiere una extensión de WP All Import. Si continúas sin usar esta extensión tus datos puede que se importen incorrectamente."
+
+#: helpers/wp_all_import_template_notifications.php:76
+msgid "The import template you are using requires the Yoast SEO Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/yoast-seo-settings-xml-csv-import/\" target=\"_blank\">Download the Yoast SEO Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de Yoast SEO. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/yoast-seo-settings-xml-csv-import/\" target=\"_blank\">Descargar la extensión de Yoast SEO</a>."
+
+#: helpers/wp_all_import_template_notifications.php:70
+msgid "The import template you are using requires the WP Job Manager Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/wp-job-manager-xml-csv-listings-import/\" target=\"_blank\">Download the WP Job Manager Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de WP Job Manager. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/wp-job-manager-xml-csv-listings-import/\" target=\"_blank\">Descargar la extensión de WP Job Manager</a>."
+
+#: helpers/wp_all_import_template_notifications.php:64
+msgid "The import template you are using requires the Reales WP Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/reales-wp-xml-csv-property-listings-import/\" target=\"_blank\">Download the Reales WP Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de WP Reales. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/reales-wp-xml-csv-property-listings-import/\" target=\"_blank\">Descargar la extensión de WP Reales</a>."
+
+#: helpers/wp_all_import_template_notifications.php:58
+msgid "The import template you are using requires the Listify Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/listify-xml-csv-listings-import/\" target=\"_blank\">Download the Listify Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de Listify. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/listify-xml-csv-listings-import/\" target=\"_blank\">Descargar la extensión de Listify</a>."
+
+#: helpers/wp_all_import_template_notifications.php:52
+msgid "The import template you are using requires the Jobify Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/jobify-xml-csv-listings-import/\" target=\"_blank\">Download the Jobify Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de Jobify. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/jobify-xml-csv-listings-import/\" target=\"_blank\">Descargar la extensión de Jobify</a>."
+
+#: helpers/wp_all_import_template_notifications.php:46
+msgid "The import template you are using requires the RealHomes Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/realhomes-xml-csv-property-listings-import/\" target=\"_blank\">Download the RealHomes Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de RealHomes. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/realhomes-xml-csv-property-listings-import/\" target=\"_blank\">Descargar la extensión de RealHomes</a>."
+
+#: helpers/wp_all_import_template_notifications.php:39
+msgid "The import template you are using requires the WP Residence Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/wp-residence-add-on-for-wp-all-import/\" target=\"_blank\">Download the WP Residence Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de WP Residence. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/wp-residence-add-on-for-wp-all-import/\" target=\"_blank\">Descargar la extensión de WP Residence</a>."
+
+#: helpers/wp_all_import_template_notifications.php:32
+msgid "The import template you are using requires the Realia Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"https://wordpress.org/plugins/realia-xml-csv-property-listings-import/\" target=\"_blank\">Download the Realia Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de Realia. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"https://wordpress.org/plugins/realia-xml-csv-property-listings-import/\" target=\"_blank\">Descargar la extensión de Realia</a>."
+
+#: helpers/wp_all_import_template_notifications.php:27
+msgid "The import template you are using requires the WooCommerce Import Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"http://www.wpallimport.com/woocommerce-product-import/\" target=\"_blank\">Purchase the WooCommerce Import Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de WooCommerce Import. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"http://www.wpallimport.com/woocommerce-product-import/\" target=\"_blank\">Comprar la extensión WooCommerce Import</a>."
+
+#: helpers/wp_all_import_template_notifications.php:23
+msgid "The import template you are using requires the User Import Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href=\"http://www.wpallimport.com/add-ons/user-import/?utm_source=wordpress.org&utm_medium=wpai-import-template&utm_campaign=free+wp+all+export+plugin\" target=\"_blank\">Purchase the User Import Add-On</a>."
+msgstr "La plantilla de importación que estás usando requiere la extensión de importación de usuarios. Si continúas sin usarla tus datos puede que se importen incorrectamente.<br/><br/><a href=\"http://www.wpallimport.com/add-ons/user-import/?utm_source=wordpress.org&utm_medium=wpai-import-template&utm_campaign=free+wp+all+export+plugin\" target=\"_blank\">Comprar la extensión de importación de usuarios</a>."
+
+#: helpers/wp_all_import_is_json.php:27
+msgid "Unknown json error"
+msgstr "Error json desconocido"
+
+#: helpers/wp_all_import_is_json.php:24
+msgid "Malformed UTF-8 characters, possibly incorrectly encoded"
+msgstr "Caracteres de UTF-8 con formato incorrecto, posiblemente incorrectamente codificados"
+
+#: helpers/wp_all_import_is_json.php:21
+msgid "Syntax error, malformed JSON"
+msgstr "Error de sintaxis, el archivo JSON no está bien creado"
+
+#: helpers/wp_all_import_is_json.php:18
+msgid "Unexpected control character found"
+msgstr "Carácter de control inesperado encontrado"
+
+#: helpers/wp_all_import_is_json.php:15
+msgid "Underflow or the modes mismatch"
+msgstr "Underflow o los modos no coinciden"
+
+#: helpers/wp_all_import_is_json.php:12
+msgid "Maximum stack depth exceeded"
+msgstr "Profundidad máxima de stack excedida"
+
+#: helpers/wp_all_import_addon_notifications.php:124
+msgid "Make imports easier with the <strong>free %s Add-On</strong> for WP All Import: <a href=\"%s\" target=\"_blank\">Get Add-On</a>"
+msgstr "Haz que las importaciones sean más sencillas con la <strong>extensión gratuita %s</strong> para WP All Import: <a href=\"%s\" target=\"_blank\">Obtener extensión</a>"
+
+#: helpers/wp_all_import_addon_notifications.php:108
+msgid "Make imports easier with the <strong>Advanced Custom Fields Add-On</strong> for WP All Import: <a href=\"%s\" target=\"_blank\">Read More</a>"
+msgstr "Haz que las importaciones sean más sencillas con la <strong>extensión de Advanced Custom Fields</strong> para WP All Import: <a href=\"%s\" target=\"_blank\">Más información</a>"
+
+#: helpers/reverse_taxonomies_html.php:18
+#: views/admin/import/template/_taxonomies_template.php:41
+#: views/admin/import/template/_taxonomies_template.php:63
+#: views/admin/import/template/_taxonomies_template.php:97
+#: views/admin/import/template/_taxonomies_template.php:107
+#: views/admin/import/template/_taxonomies_template.php:116
+#: views/admin/import/template/_taxonomies_template.php:164
+#: views/admin/import/template/_taxonomies_template.php:183
+msgid "Assign post to the taxonomy."
+msgstr "Asignar la entrada a la taxonomía."
+
+#: helpers/import_custom_meta_box.php:25
+msgid "Custom fields can be used to add extra metadata to a post that you can <a href=\"http://codex.wordpress.org/Using_Custom_Fields\" target=\"_blank\">use in your theme</a>."
+msgstr "Se pueden usar campos personalizados para añadir metadatos adicionales a una entrada que puedes <a href=\"http://codex.wordpress.org/Using_Custom_Fields\" target=\"_blank\">usar en tu tema</a>."
+
+#: controllers/admin/settings.php:527
+msgid "Failed to move uploaded file."
+msgstr "No se ha podido mover el fichero subido."
+
+#: controllers/admin/settings.php:523 controllers/admin/settings.php:548
+msgid "Failed to open output stream."
+msgstr "No se ha podido abrir el flujo de salida."
+
+#: controllers/admin/settings.php:516 controllers/admin/settings.php:541
+msgid "Failed to open input stream."
+msgstr "No se ha podido abrir el flujo de entrada."
+
+#: controllers/admin/settings.php:491
+msgid "Failed to open temp directory."
+msgstr "No se ha podido abrir el directorio temporal."
+
+#: controllers/admin/settings.php:434
+msgid "Uploads folder is not writable."
+msgstr "La carpeta de subidas no tiene acceso de escritura."
+
+#: controllers/admin/settings.php:276
+msgid "Clean Up has been successfully completed."
+msgstr "La limpieza se ha completado con éxito."
+
+#: controllers/admin/settings.php:268
+msgid "Files not found"
+msgstr "No se han encontrado los archivos"
+
+#: controllers/admin/settings.php:140
+msgid "%d template deleted"
+msgid_plural "%d templates deleted"
+msgstr[0] "%d plantilla borrada"
+msgstr[1] "%d plantillas borradas"
+
+#: controllers/admin/settings.php:131
+msgid "Templates must be selected"
+msgstr "Debes seleccionar las plantillas"
+
+#: controllers/admin/settings.php:125
+msgid "Please select file."
+msgstr "Por favor, selecciona un archivo."
+
+#: controllers/admin/settings.php:123
+msgid "Undefined entry!"
+msgstr "¡Entrada no definida!"
+
+#: controllers/admin/settings.php:120
+msgid "File is empty or doesn't exests"
+msgstr "El archivo está vacío o no existe"
+
+#: controllers/admin/settings.php:118
+msgid "Wrong imported data format"
+msgstr "Formato de datos importados incorrecto"
+
+#: controllers/admin/settings.php:116
+msgid "%d template imported"
+msgid_plural "%d templates imported"
+msgstr[0] "%d plantilla importada"
+msgstr[1] "%d plantillas importadas"
+
+#: controllers/admin/settings.php:103
+msgid "Unknown File extension. Only txt files are permitted"
+msgstr "Extensión de archivo desconocido. Solo se permiten archivos txt"
+
+#: controllers/admin/settings.php:72
+msgid "Settings saved"
+msgstr "Ajustes guardados"
+
+#: controllers/admin/settings.php:52
+msgid "History Age must be a non-negative integer"
+msgstr "Edad de la historia debe ser un entero no negativo"
+
+#: controllers/admin/settings.php:49
+msgid "History File Count must be a non-negative integer"
+msgstr "El contador de ficheros del historial tiene que ser un entero no-negativo"
+
+#: controllers/admin/manage.php:427 views/admin/manage/bulk.php:10
+msgid "import"
+msgid_plural "imports"
+msgstr[0] "importación"
+msgstr[1] "importaciones"
+
+#: controllers/admin/manage.php:399
+msgid "Import deleted"
+msgstr "Importación borrada"
+
+#: controllers/admin/manage.php:375
+msgid "File does not exists."
+msgstr "El archivo no existe."
+
+#: controllers/admin/manage.php:281
+msgid "No matching elements found for Root element and XPath expression specified"
+msgstr "No se han encontrado elementos coincidentes para el elemento raíz y la expresión XPath especificados"
+
+#: controllers/admin/manage.php:163 views/admin/manage/index.php:271
+msgid "Import canceled"
+msgstr "Importación cancelada"
+
+#: controllers/admin/import.php:2542
+msgid "Complete"
+msgstr "Completo"
+
+#: controllers/admin/import.php:2542
+msgid "Canceled"
+msgstr "Cancelado"
+
+#: controllers/admin/import.php:2171 controllers/admin/import.php:2454
+#: controllers/admin/import.php:2535
+msgid "%d %ss created %d updated %d deleted %d skipped"
+msgstr "%d %ss creado %d actualiado %d borrado %d saltado"
+
+#: controllers/admin/import.php:1999
+msgid "Configuration updated"
+msgstr "Ajustes actualizados"
+
+#: controllers/admin/import.php:1927
+msgid "Import created"
+msgstr "Importación creada"
+
+#: controllers/admin/import.php:1927
+msgid "Import updated"
+msgstr "Importación actualizada"
+
+#: controllers/admin/import.php:1875
+msgid "Root element not found for uploaded feed."
+msgstr "No se ha encontrado el elemento raíz del feed subido."
+
+#: controllers/admin/import.php:1830
+msgid "<strong>Warning:</strong> this file does not have the same structure as the last file associated with this import. WP All Import won't be able to import this file with your current settings. Probably you'll need to adjust your XPath in the \"Configure Advanced Settings\" box below, and reconfigure your import by clicking \"Edit\" on the Manage Imports page."
+msgstr "<strong>Advertencia:</strong> este archivo no tiene la misma estructura que el último archivo asociado a esta importación. WP All Import no podrá importar este archivo con los ajustes actuales. Probablemente tendrás que ajustar tu XPath en la sección \"Configurar ajustes avanzados\" de abajo y reconfigurar tu importación haciendo clic en \"Editar\" en la página Gestionar importaciones."
+
+#: controllers/admin/import.php:1786
+msgid "WP All Import doesn't support this import type."
+msgstr "WP All Import no es compatible con este tipo de importación."
+
+#: controllers/admin/import.php:1749
+msgid "Post ID must be specified."
+msgstr "Se debe especificar el ID de la entrada."
+
+#: controllers/admin/import.php:1745
+msgid "Custom field value must be specified."
+msgstr "Se debe especificar el valor del campo personalizado."
+
+#: controllers/admin/import.php:1743
+msgid "Custom field name must be specified."
+msgstr "Se debe especificar el nombre del campo personalizado."
+
+#: controllers/admin/import.php:1739
+msgid "Post Unique Key"
+msgstr "Clave única de la entrada"
+
+#: controllers/admin/import.php:1737
+msgid "Expression for `Post Unique Key` must be set, use the same expression as specified for post title if you are not sure what to put there"
+msgstr "La expresión para la `Clave única de la entrada` debe configurarse, usa la misma expresión que la especificada para el título de la entrada si no estás seguro de qué poner ahí"
+
+#: controllers/admin/import.php:1730
+msgid "One of the numbers in `Import only specified records` value exceeds record quantity in XML file"
+msgstr "Un valor de los números en `Importar solo registros especificados' supera la cantidad registro de archivo XML"
+
+#: controllers/admin/import.php:1727
+msgid "Wrong format of `Import only specified records` value"
+msgstr "Formato incorrecto del valor `Importar solo registros específicos'"
+
+#: controllers/admin/import.php:1722
+msgid "Records to import must be specified or uncheck `Import only specified records` option to process all records"
+msgstr "Los registros a importar tienen que especificarse o desmarca la opción `Importar solo registros específicos` para procesar todos los registros"
+
+#: controllers/admin/import.php:1619
+msgid "%s template is invalid: %s"
+msgstr "la plantilla %s no es válida: %s"
+
+#: controllers/admin/import.php:1537
+msgid "Template updated"
+msgstr "Plantilla actualizada"
+
+#: controllers/admin/import.php:1502 controllers/admin/import.php:1503
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#: controllers/admin/import.php:1500 views/admin/history/index.php:33
+msgid "Date"
+msgstr "Fecha"
+
+#: controllers/admin/import.php:1497
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: controllers/admin/import.php:1486
+msgid "Attribute Field Value"
+msgstr "Valor del campo del atributo"
+
+#: controllers/admin/import.php:1483
+msgid "Attribute Field Name"
+msgstr "Nombre del campo del atributo"
+
+#: controllers/admin/import.php:1480
+msgid "Both name and value must be set for all woocommerce attributes"
+msgstr "El nombre y el valor se deben establecer para todos los atributos de WooCommerce"
+
+#: controllers/admin/import.php:1467
+msgid "Custom Field Value"
+msgstr "Valor del campo personalizado"
+
+#: controllers/admin/import.php:1463
+msgid "Custom Field Name"
+msgstr "Nombre de campo personalizado"
+
+#: controllers/admin/import.php:1460
+msgid "Both name and value must be set for all custom parameters"
+msgstr "El nombre y el valor se deben establecer para todos los parámetros personalizados"
+
+#: controllers/admin/import.php:1438 controllers/admin/import.php:1442
+#: models/import/record.php:595
+#: views/admin/import/options/_reimport_options.php:129
+#: views/admin/import/template.php:112
+msgid "Images"
+msgstr "Imágenes"
+
+#: controllers/admin/import.php:1434 views/admin/import/template.php:67
+msgid "Excerpt"
+msgstr "Extracto"
+
+#: controllers/admin/import.php:1202 controllers/admin/import.php:1329
+msgid "There is no data to preview"
+msgstr "No hay datos que previsualizar"
+
+#: controllers/admin/import.php:1161 controllers/admin/import.php:1311
+msgid "Error parsing: String could not be parsed as XML"
+msgstr "Error de análisis: La cadena no se ha podido analizar como XML"
+
+#: controllers/admin/import.php:1050 controllers/admin/import.php:1205
+#: controllers/admin/import.php:1332
+msgid "Error parsing: %s"
+msgstr "Error de análisis: %s"
+
+#: controllers/admin/import.php:933
+msgid "Error parsing content: %s"
+msgstr "Error al analizar el contenido: %s"
+
+#: controllers/admin/import.php:928
+msgid "<strong>Warning</strong>: resulting post content is empty"
+msgstr "<strong>Advertencia</strong>: resultante de contenido posterior está vacía"
+
+#: controllers/admin/import.php:923
+msgid "<strong>Warning</strong>: your content is blank."
+msgstr "<strong>Advertencia</strong>: tu contenido está en blanco."
+
+#: controllers/admin/import.php:917
+msgid "Error parsing title: %s"
+msgstr "Error al analizar el título: %s"
+
+#: controllers/admin/import.php:912
+msgid "<strong>Warning</strong>: resulting post title is empty"
+msgstr "<strong>Advertencia</strong>: el título de la entrada resultante está vacío"
+
+#: controllers/admin/import.php:907
+msgid "<strong>Warning</strong>: your title is blank."
+msgstr "<strong>Advertencia</strong>: tu título está en blanco."
+
+#: controllers/admin/import.php:905 controllers/admin/import.php:921
+#: controllers/admin/import.php:1043
+msgid "WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your web host's end.<br/>If you can't do an import without seeing this error, change your session settings on the All Import -> Settings page."
+msgstr "WP All Import ha perdido tu pista.<br/><br/>Quizás has eliminado las cookies o se trata solo de una incidencia temporal en el lado del servidor.<br/>Si no puedes hacer una importación sin ver este error, cambia los ajustes de sesión en la página All Import -> Ajustes."
+
+#: controllers/admin/import.php:664
+msgid "No matching variations found for XPath specified"
+msgstr "No se han encontrado variaciones coincidentes para el XPath especificado"
+
+#: controllers/admin/import.php:512 controllers/admin/import.php:655
+msgid "Your XPath is empty.<br/><br/>Please enter an XPath expression, or click \"get default XPath\" to get the default XPath."
+msgstr "Tu XPath está vacío.<br/><br/>Por favor, introduce una expresión XPath, o haz clic en \"get default XPath\" para obtener el XPath predeterminado."
+
+#: controllers/admin/import.php:470
+msgid "Warning: No matching elements found for XPath expression from the import being updated. It probably means that new XML file has different format. Though you can update XPath, procceed only if you sure about update operation being valid."
+msgstr "Advertencia: No se han encontrado elementos que coincidan con la expresión XPath de la importación en proceso de actualización. Probablemente quiere decir que el nuevo archivo XML tiene un formato diferente. Aunque puedes actualizar XPath, continúa solo si estás seguro de que la operación de actualización es válida."
+
+#: controllers/admin/import.php:440 controllers/admin/import.php:668
+msgid "XPath must match only elements"
+msgstr "XPath debe emparejar solo elementos"
+
+#: controllers/admin/import.php:436 controllers/admin/import.php:662
+msgid "Your XPath is not valid.<br/><br/>Click \"get default XPath\" to get the default XPath."
+msgstr "Tu XPath no es válido.<br/><br/>Haz clic en \"get default XPath\" para obtener el XPath predeterminado."
+
+#: controllers/admin/import.php:431
+msgid "No elements selected"
+msgstr "No hay elementos seleccionados"
+
+#: controllers/admin/import.php:400
+msgid "WP All Import unable to detect file type.<br/><br/>WP All Import not able to determine what type of file you are importing. Make sure your file extension is correct for the file type you are importing.<br/> Please choose the correct file type from the dropdown below, or try adding &type=xml or &type=csv to the end of the URL, for example http://example.com/export-products.php?&type=xml"
+msgstr "WP All Import no puede detectar el tipo de archivo.<br/><br/>WP All Import no es capaz de determinar qué tipo de archivo estás importando. Asegúrate de que la extensión del archivo es correcta para el tipo de archivo que estás importando.<br/>Por favor, elige el tipo de archivo correcto en el menú desplegable que hay a continuación, o intenta añadir &type=xml o &type=csv al final de la URL, por ejemplo http://example.com/export-products.php?&type=xml"
+
+#: controllers/admin/import.php:384 controllers/admin/import.php:403
+#: controllers/admin/settings.php:629
+msgid "Please confirm you are importing a valid feed.<br/> Often, feed providers distribute feeds with invalid data, improperly wrapped HTML, line breaks where they should not be, faulty character encodings, syntax errors in the XML, and other issues.<br/><br/>WP All Import has checks in place to automatically fix some of the most common problems, but we can’t catch every single one.<br/><br/>It is also possible that there is a bug in WP All Import, and the problem is not with the feed.<br/><br/>If you need assistance, please contact support – <a href=\"mailto:support@wpallimport.com\">support@wpallimport.com</a> – with your XML/CSV file. We will identify the problem and release a bug fix if necessary."
+msgstr "Por favor, confirma que estás importando un feed válido.<br/>A menudo, los proveedores de feeds distribuyen feeds con datos no válidos, HTML mal ajustado, saltos de línea donde no deberían estar, codificaciones de caracteres defectuosas, errores de sintaxis en el XML y otros problemas.<br/><br/>WP All Import ha implementado controles para corregir automáticamente algunos de los problemas más comunes, pero no podemos detectarlos todos.<br/><br/> También es posible que haya un error en WP All Import, y el problema no está en el feed. <br/><br/>Si necesitas ayuda, ponte en contacto con el soporte técnico - <a href=\"mailto:support@wpallimport.com\">support@wpallimport.com</a> - con tu archivo XML/CSV. Identificaremos el problema y lo corregiremos si es necesario."
+
+#: controllers/admin/import.php:309
+msgid "Unable to download feed resource."
+msgstr "No se puede descargar el feed."
+
+#: controllers/admin/import.php:246
+msgid "The import template you are using requires User Import Add-On.<br/><a href=\"http://www.wpallimport.com/add-ons/user-import/?utm_source=wordpress.org&utm_medium=wpai-import-template&utm_campaign=free+wp+all+export+plugin\" target=\"_blank\">Purchase the User Import Add-On</a>"
+msgstr "La plantilla de importación que estás usando requiere la extensión de importación de usuarios.<br/><a href=\"http://www.wpallimport.com/add-ons/user-import/?utm_source=wordpress.org&utm_medium=wpai-import-template&utm_campaign=free+wp+all+export+plugin\" target=\"_blank\">Compra la extensión de importación de usuarios</a>"
+
+#: controllers/admin/import.php:243 controllers/admin/import.php:274
+msgid "Certain columns are required to be present in your file to enable it to be re-imported with WP All Import. These columns are missing. Re-export your file using WP All Export, and don't delete any of the columns when editing it. Then, re-import will work correctly."
+msgstr "Ciertas columnas deben estar presentes en el archivo para que se pueda volver a importar con WP All Import. Estas columnas no están presentes. Vuelve a exportar el archivo mediante WP All Export y no elimines ninguna de las columnas al editarlo. Entonces, la nueva importación funcionará correctamente."
+
+#: controllers/admin/import.php:240
+msgid "File is no longer in the correct format"
+msgstr "El archivo no está en el formato correcto"
+
+#: controllers/admin/import.php:197
+msgid "Previous import for update must be selected to proceed with a new one"
+msgstr "La importación previa para actualizar debe seleccionarse para continuar con una nueva"
+
+#: controllers/admin/import.php:193
+msgid "Select an item type to import the data"
+msgstr "Seleccionar un tipo de elemento para importar los datos"
+
+#: controllers/admin/import.php:167
+msgid "Required PHP components are missing.<br/><br/>WP All Import requires DOMDocument, XMLReader, and XMLWriter PHP modules to be installed.<br/>These are standard features of PHP, and are necessary for WP All Import to read the files you are trying to import.<br/>Please contact your web hosting provider and ask them to install and activate the DOMDocument, XMLReader, and XMLWriter PHP modules."
+msgstr "Faltan algunos componentes de PHP necesarios.<br/><br/>WP All Import requiere que los módulos de PHP DOMDocument, XMLReader y XMLWriter estén instalados.<br/>Estas son características estándar de PHP y son necesarias para que WP All Import pueda leer los archivos que estás intentando importar.<br/>Ponte en contacto con tu proveedor de alojamiento web y pide que instalen y activen los módulos de PHP DOMDocument, XMLReader y XMLWriter."
+
+#: controllers/admin/import.php:155
+msgid "This import has been deleted."
+msgstr "Esta importación se ha eliminado."
+
+#: controllers/admin/import.php:150
+msgid "Please re-run your export by clicking Run Export on the All Export -> Manage Exports page. Then try your import again."
+msgstr "Por favor, vuelve a ejecutar tu exportación haciendo clic en Ejecutar exportación en la página All Export -> Gestionar exportaciones. A continuación, vuelve a intentar tu importación."
+
+#: controllers/admin/import.php:150
+msgid "The import associated with this export has been deleted."
+msgstr "Se ha eliminado la importación asociada a esta exportación."
+
+#: controllers/admin/import.php:92 controllers/admin/import.php:601
+msgid "There are no elements to import based on your XPath.<br/><br/>If you are in Step 2, you probably specified filtering options that don’t match any elements present in your file.<br/>If you are seeing this error elsewhere, it means that while the XPath expression for your initial import matched some elements in your file previously, there are now zero elements in the file that match this expression.<br/>You can edit the XPath for your import by going to the Manage Imports -> Import Settings page."
+msgstr "No hay elementos a importar en base a tu XPath.<br/><br/>Si estás en el paso 2, probablemente has especificado opciones de filtrado que no coinciden con los elementos presentes en tu archivo.<br/>Si estás viendo este error en otra parte, quiere decir que mientras que la expresión XPath de tu importación inicial coincide con algunos elementos de tu archivo anteriormente, ahora no hay ningún elemento en el archivo que coincida con esta expresión.<br/>Puedes editar el XPath de tu importación yendo a la página Gestionar importaciones ->Ajustes de importación."
+
+#: controllers/admin/import.php:75
+msgid "WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your or your web host's end.<br/>If you can't do an import without seeing this error, change your session settings on the All Import -> Settings page."
+msgstr "WP All Import ha perdido tu pista.<br/><br/>Quizás has eliminado las cookies o se trata solo de una incidencia temporal en tu lado o en el del servidor.<br/>Si no puedes hacer una importación sin ver este error, cambia los ajustes de sesión en la página All Import -> Ajustes."
+
+#: controllers/admin/history.php:139
+msgid "history"
+msgid_plural "histories"
+msgstr[0] "historial"
+msgstr[1] "historiales"
+
+#: controllers/admin/history.php:139 controllers/admin/manage.php:427
+msgid "%d %s deleted"
+msgstr "%d %s eliminado(s)"
+
+#: controllers/admin/history.php:112
+msgid "History deleted"
+msgstr "Historial borrado"
+
+#: controllers/admin/history.php:92
+msgid "Log file does not exists."
+msgstr "El archivo de registro no existe."
+
+#: controllers/admin/history.php:58 controllers/admin/manage.php:61
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: controllers/admin/history.php:57 controllers/admin/manage.php:60
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: controllers/admin/history.php:31
+msgid "Import is not specified."
+msgstr "La importación no se ha especificado."
+
+#: controllers/admin/addons.php:85
+msgid "Import data to WooCommerce tabs"
+msgstr "Importar datos a WooCommerce tabs"
+
+#: controllers/admin/addons.php:84
+msgid "WooCommerce Tabs Addon"
+msgstr "Extensión WooCommerce Tabs"
+
+#: controllers/admin/addons.php:75
+msgid "WooCommerce Addon - free edition"
+msgstr "Extensión de WooCommerce - edición gratuita"
+
+#: controllers/admin/addons.php:66
+msgid "Affiliate link cloaking"
+msgstr "Camuflaje de enlaces afiliados"
+
+#: controllers/admin/addons.php:65
+msgid "Link cloaking Addon"
+msgstr "Extensión de camuflaje de enlaces"
+
+#: controllers/admin/addons.php:55
+msgid "Import Users"
+msgstr "Importar usuarios"
+
+#: controllers/admin/addons.php:54
+msgid "User Addon"
+msgstr "Extensión de usuario"
+
+#: controllers/admin/addons.php:44
+msgid "Import to WPML"
+msgstr "Importar a WPML"
+
+#: controllers/admin/addons.php:43
+msgid "WPML Addon"
+msgstr "Extensión de WPML"
+
+#: controllers/admin/addons.php:33
+msgid "Import to advanced custom fields"
+msgstr "Importar a Advanced Custom Fields"
+
+#: controllers/admin/addons.php:32
+msgid "ACF Addon"
+msgstr "Extensión de ACF"
+
+#: controllers/admin/addons.php:22 controllers/admin/addons.php:76
+msgid "Import Products from any XML or CSV to WooCommerce"
+msgstr "Importa los productos desde cualquier archivo XML o CSV a WooCommerce"
+
+#: controllers/admin/addons.php:21
+msgid "WooCommerce Addon"
+msgstr "Extensión de WooCommerce"
+
+#: classes/upload.php:124 classes/upload.php:225
+msgid "Can not import this file. JSON to XML convertation failed."
+msgstr "No se puede importar este archivo. La conversión de JSON a XML ha fallado."
+
+#: classes/upload.php:67 classes/upload.php:101 classes/upload.php:158
+msgid "WP All Import can't access your WordPress uploads folder."
+msgstr "WP All Import no puede acceder a la carpeta de subidas de WordPress."
+
+#: classes/upload.php:46 classes/upload.php:87
+msgid "WP All Import couldn't find a file to import inside your ZIP.<br/><br/>Either the .ZIP file is broken, or doesn't contain a file with an extension of  XML, CSV, PSV, DAT, or TXT. <br/>Please attempt to unzip your .ZIP file on your computer to ensure it is a valid .ZIP file which can actually be unzipped, and that it contains a file which WP All Import can import."
+msgstr "WP All Import no ha podido encontrar un archivo a importar dentro del ZIP.<br/><br/>O el archivo .ZIP está roto o no contiene nigún archivo con extensión XML, CSV, PSV, DAT o TXT.<br/>Por favor, intenta descomprimir tu archivo .ZIP en tu ordenador para asegurarte de que se trata de un archivo .ZIP válido que se puede descomprimir, y que contiene un archivo que WP All Import puede importar."
+
+#: classes/upload.php:39 controllers/admin/settings.php:455
+msgid "Uploaded file must be XML, CSV, ZIP, GZIP, GZ, JSON, SQL, TXT, DAT or PSV"
+msgstr "El archivo subido tiene que ser XML, CSV, ZIP, GZIP, GZ, JSON, SQL, TXT, DAT o PSV"
+
+#: classes/upload.php:37
+msgid "Uploaded file is empty"
+msgstr "El archivo subido está vacío"
+
+#: classes/upload.php:35
+msgid "Please specify a file to import.<br/><br/>If you are uploading the file from your computer, please wait for it to finish uploading (progress bar at 100%), before trying to continue."
+msgstr "Por favor, especifica un archivo a importar.<br/><br/>Si estás subiendo el archivo desde tu ordenador, por favor, espera a que se complete la carga (barra de progreso al 100%) antes de continuar."
+
+#: classes/render.php:94 classes/render.php:189
+msgid "more"
+msgstr "más"
+
+#: classes/render.php:68 classes/render.php:88 classes/render.php:163
+#: classes/render.php:183 views/admin/import/evaluate.php:5
+#: views/admin/import/evaluate_variations.php:3
+msgid "element"
+msgid_plural "elements"
+msgstr[0] "elemento"
+msgstr[1] "elementos"
+
+#: classes/render.php:68 classes/render.php:88 classes/render.php:163
+#: classes/render.php:183
+msgid "<strong>%s</strong> %s more"
+msgstr "<strong>%s</strong> %s más"
+
+#: classes/api.php:521 models/import/record.php:1674
+msgid "- Attachment has been successfully created for image `%s`"
+msgstr "- El adjunto de la imagen '%s' se ha creado con éxito"
+
+#: classes/api.php:514 models/import/record.php:1631
+#: models/import/record.php:1814
+msgid "- <b>WARNING</b>"
+msgstr "- <b>ATENCIÓN</b>"
+
+#: classes/api.php:495
+msgid "- Creating an attachment for file `%s`"
+msgstr "- Creando un adjunto del archivo '%s'"
+
+#: classes/api.php:492 models/import/record.php:1612
+msgid "- Creating an attachment for image `%s`"
+msgstr "- Creando un adjunto de la imagen '%s'"
+
+#: classes/api.php:462 models/import/record.php:1570
+msgid "- <b>WARNING</b>: File %s cannot be saved locally as %s"
+msgstr "- <b>ADVERTENCIA</b>: El archivo %s no se puede guardar localmente como %s"
+
+#: classes/api.php:450 models/import/record.php:1557
+msgid "- File `%s` has been successfully downloaded"
+msgstr "- El archivo `%s` se ha descargado con éxito"
+
+#: classes/api.php:444 classes/api.php:472 models/import/record.php:1551
+#: models/import/record.php:1582
+msgid "- Image `%s` has been successfully downloaded"
+msgstr "- La imagen `%s` se ha descargado con éxito"
+
+#: classes/api.php:432
+msgid "- Downloading file from `%s`"
+msgstr "- Descargando archivo de '%s'"
+
+#: classes/api.php:429 models/import/record.php:1540
+msgid "- Downloading image from `%s`"
+msgstr "- Descargando imagen de `%s`"
+
+#: classes/api.php:419 models/import/record.php:1533
+msgid "- Image `%s` has been successfully found"
+msgstr "- La imagen `%s` se ha encontrado con éxito"
+
+#: classes/api.php:416 classes/api.php:468 models/import/record.php:1432
+#: models/import/record.php:1528 models/import/record.php:1577
+msgid "- <b>WARNING</b>: File %s is not a valid image and cannot be set as featured one"
+msgstr "- <b>ADVERTENCIA</b>: El archivo %s no es una imagen válida y no se puede establecer como destacada"
+
+#: classes/api.php:410 classes/api.php:482 models/import/record.php:1522
+#: models/import/record.php:1593
+msgid "- File `%s` has been successfully found"
+msgstr "- El archivo `%s` se ha encontrado con éxito"
+
+#: classes/api.php:404 classes/api.php:477 models/import/record.php:1516
+#: models/import/record.php:1587 models/import/record.php:1792
+msgid "- <b>WARNING</b>: Can't detect attachment file type %s"
+msgstr "- <b>ADVERTENCIA</b>: No se puede detectar el tipo de archivo del adjunto %s"
+
+#: classes/api.php:397 models/import/record.php:1509
+msgid "- Searching for existing image `%s` in `%s` folder"
+msgstr "- Buscando la imagen existente `%s` en la carpeta `%s`"
+
+#: classes/api.php:284
+msgid "Use file(s) currently uploaded in %s"
+msgstr "Usar archivo(s) subido(s) actualmente en %s"
+
+#: classes/api.php:278
+msgid "Download file hosted elsewhere"
+msgstr "Descargar archivo alojado en otra parte"
+
+#: classes/api.php:264 views/admin/import/template/_featured_template.php:32
+msgid "Use image(s) currently uploaded in %s"
+msgstr "Usar imagen(es) subida(s) actualmente en %s"
+
+#: classes/api.php:259 classes/api.php:279
+#: views/admin/import/template/_featured_template.php:22
+msgid "http:// or https://"
+msgstr "http:// o https://"
+
+#: classes/api.php:258
+msgid "Download image hosted elsewhere"
+msgstr "Descargar imagen alojada en otra parte"
+
+#: classes/api.php:227
+#: views/admin/import/template/_custom_fields_template.php:242
+#: views/admin/import/template/_custom_fields_template.php:377
+#: views/admin/import/template/_custom_fields_template.php:511
+msgid "Save Rules"
+msgstr "Guardar reglas"
+
+#: classes/api.php:221
+#: views/admin/import/template/_custom_fields_template.php:147
+#: views/admin/import/template/_custom_fields_template.php:236
+#: views/admin/import/template/_custom_fields_template.php:315
+#: views/admin/import/template/_custom_fields_template.php:371
+#: views/admin/import/template/_custom_fields_template.php:449
+#: views/admin/import/template/_custom_fields_template.php:505
+#: views/admin/import/template/_taxonomies_template.php:197
+#: views/admin/import/template/_taxonomies_template.php:278
+msgid "Add Another"
+msgstr "Añadir otro"
+
+#: classes/api.php:142
+#: views/admin/import/template/_custom_fields_template.php:174
+#: views/admin/import/template/_custom_fields_template.php:342
+#: views/admin/import/template/_custom_fields_template.php:476
+#: views/admin/import/template/_taxonomies_template.php:216
+msgid "Translated To"
+msgstr "Traducido a"
+
+#: classes/api.php:141
+#: views/admin/import/template/_custom_fields_template.php:173
+#: views/admin/import/template/_custom_fields_template.php:341
+#: views/admin/import/template/_custom_fields_template.php:475
+#: views/admin/import/template/_taxonomies_template.php:215
+msgid "In Your File"
+msgstr "En tu archivo"
+
+#: classes/api.php:132
+#: views/admin/import/template/_custom_fields_template.php:66
+#: views/admin/import/template/_custom_fields_template.php:275
+#: views/admin/import/template/_custom_fields_template.php:409
+msgid "Mapping"
+msgstr "Mapeo"
+
+#: classes/api.php:129
+#: views/admin/import/template/_custom_fields_template.php:60
+#: views/admin/import/template/_custom_fields_template.php:269
+#: views/admin/import/template/_custom_fields_template.php:403
+msgid "Field Options..."
+msgstr "Opciones de campo..."
+
+#: classes/api.php:113 views/admin/import/template/_other_template.php:28
+#: views/admin/import/template/_other_template.php:77
+#: views/admin/import/template/_other_template.php:100
+#: views/admin/import/template/_other_template.php:167
+#: views/admin/import/template/_other_template.php:197
+#: views/admin/import/template/_other_template.php:225
+#: views/admin/import/template/_other_template.php:251
+msgid "Set with XPath"
+msgstr "Establecer con XPath"
+
+#: actions/wp_ajax_test_images.php:98
+msgid "%d images were successfully downloaded in %s seconds"
+msgstr "%d imágenes descargadas correctamente en %s segundos"
+
+#: actions/wp_ajax_test_images.php:96
+msgid "%d image was successfully downloaded in %s seconds"
+msgstr "%d imagen descargada correctamente en %s segundos"
+
+#: actions/wp_ajax_test_images.php:86
+msgid "File `%s` is not a valid image."
+msgstr "El archivo `%s` no es una imagen válida."
+
+#: actions/wp_ajax_test_images.php:84
+msgid "File `%s` cannot be saved locally"
+msgstr "El archivo `%s` no se puede guardar localmente"
+
+#: actions/wp_ajax_test_images.php:72
+msgid "URL `%s` is not valid."
+msgstr "La URL `%s` no es válida."
+
+#: actions/wp_ajax_test_images.php:62
+msgid "%d images were successfully retrieved from `%s`"
+msgstr "%d imágenes obtenidas correctamente de `%s`"
+
+#: actions/wp_ajax_test_images.php:60
+msgid "%d image was successfully retrieved from `%s`"
+msgstr "%d imagen obtenida correctamente de `%s`"
+
+#: actions/wp_ajax_test_images.php:55
+msgid "File `%s` doesn't exist"
+msgstr "El archivo `%s` no existe"
+
+#: actions/wp_ajax_test_images.php:51
+msgid "File `%s` isn't readable"
+msgstr "El archivo `%s` no se puede leer"
+
+#: actions/wp_ajax_test_images.php:43
+msgid "Use image name instead of URL `%s`."
+msgstr "Usar el nombre de la imagen en lugar de la URL '%s'."
+
+#: actions/wp_ajax_test_images.php:32
+msgid "Uploads folder `%s` is not writable."
+msgstr "La carpeta de subidas `%s` no tiene acceso de escritura."
+
+#: actions/wp_ajax_auto_detect_cf.php:61
+msgid "%s fields were automatically detected."
+msgstr "%s campos detectados automáticamente."
+
+#: actions/wp_ajax_auto_detect_cf.php:59
+msgid "%s field was automatically detected."
+msgstr "%s campo detectado automáticamente."
+
+#: actions/wp_ajax_auto_detect_cf.php:56
+msgid "No Custom Fields are present in your database for %s"
+msgstr "Ningún campo personalizado está presente en tu base de datos para %s"
+
+#: actions/wp_ajax_auto_detect_cf.php:5 actions/wp_ajax_auto_detect_cf.php:9
+#: actions/wp_ajax_auto_detect_sf.php:5 actions/wp_ajax_auto_detect_sf.php:9
+#: actions/wp_ajax_dismiss_notifications.php:5
+#: actions/wp_ajax_dismiss_notifications.php:9
+#: actions/wp_ajax_import_failed.php:5 actions/wp_ajax_import_failed.php:9
+#: actions/wp_ajax_test_images.php:6 actions/wp_ajax_test_images.php:10
+#: controllers/admin/history.php:74 controllers/admin/import.php:509
+#: controllers/admin/import.php:814 controllers/admin/import.php:952
+#: controllers/admin/import.php:1070 controllers/admin/import.php:1225
+#: controllers/admin/import.php:2312 controllers/admin/manage.php:144
+#: controllers/admin/manage.php:347 controllers/admin/settings.php:416
+msgid "Security check"
+msgstr "Comprobación de seguridad"
+
+#: actions/admin_notices.php:128
+msgid "<strong>Warning:</strong> You must <a href=\"http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=custom-fields\" target=\"_blank\">upgrade to the professional edition of WP All Import</a> to import data to Custom Fields. The settings you configured in the Custom Fields section will be ignored."
+msgstr "<strong>Advertencia:</strong> Tienes que <a href=\"http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=custom-fields\" target=\"_blank\">actualizar a la edición profesional de WP All Import</a> para importar datos a campos personalizados. Se ignorarán los ajustes que has configurado en la sección Campos personalizados."
+
+#: actions/admin_notices.php:125
+msgid "<strong>Warning:</strong> You must <a href=\"http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=images\" target=\"_blank\">upgrade to the professional edition of WP All Import</a> to import images. The settings you configured in the images section will be ignored."
+msgstr "<strong>Advertencia:</strong> Tienes que <a href=\"http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=images\" target=\"_blank\">actualizar a la edición profesional de WP All Import</a> para importar imágenes. Se ignorarán los ajustes que has configurado en la sección de imágenes."
+
+#: actions/admin_notices.php:122 controllers/admin/import.php:1425
+#: controllers/admin/import.php:1642 controllers/admin/import.php:2075
+msgid "<strong>Warning:</strong> your content is blank."
+msgstr "<strong>Advertencia:</strong> tu contenido está vacío."
+
+#: actions/admin_notices.php:119 controllers/admin/import.php:1418
+#: controllers/admin/import.php:1640 controllers/admin/import.php:2073
+msgid "<strong>Warning:</strong> your title is blank."
+msgstr "<strong>Advertencia:</strong> tu título está vacío."
+
+#: actions/admin_notices.php:90
+msgid "<b>%s Plugin</b>: Please update your WP All Import WPML add-on to the latest version"
+msgstr "<b>Plugin %s</b>: Actualiza tu extensión WP All Import WPML a la versión más reciente"
+
+#: actions/admin_notices.php:73
+msgid "<b>%s Plugin</b>: Please update your WP All Import User add-on to the latest version"
+msgstr "<b>Plugin %s</b>: Actualiza tu extensión WP All Import User a la versión más reciente"
+
+#: actions/admin_notices.php:56
+msgid "<b>%s Plugin</b>: Please update your WP All Import Linkcloak add-on to the latest version"
+msgstr "<b>Plugin %s</b>: Actualiza tu extensión WP All Import Linkcloak a la versión más reciente"
+
+#: actions/admin_notices.php:39
+msgid "<b>%s Plugin</b>: Please update your WP All Import ACF add-on to the latest version"
+msgstr "<b>Plugin %s</b>: Actualiza tu extensión WP All Import ACF a la versión más reciente"
+
+#: actions/admin_notices.php:12
+msgid "<b>%s Plugin</b>: Please update your WP All Import WooCommerce add-on to the latest version"
+msgstr "<b>Plugin %s</b>: Actualiza tu extensión WP All Import WooCommerce a la versión más reciente"
+
+#: actions/admin_menu.php:21
+msgid "All Import"
+msgstr "All Import"
+
+#. #-#-#-#-#  tmp-wp-all-import.pot (WP All Import 3.3.3)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: actions/admin_menu.php:21 views/admin/import/confirm.php:11
+#: views/admin/import/element.php:8 views/admin/import/index.php:43
+#: views/admin/import/options.php:18 views/admin/import/process.php:8
+#: views/admin/import/template.php:9 views/admin/manage/index.php:4
+#: views/admin/settings/index.php:6
+msgid "WP All Import"
+msgstr "WP All Import"
+
+#: actions/admin_menu.php:16
+msgid "History"
+msgstr "Historial"
+
+#: actions/admin_menu.php:15 views/admin/import/confirm.php:15
+#: views/admin/import/element.php:12 views/admin/import/index.php:47
+#: views/admin/import/options.php:22 views/admin/import/process.php:12
+#: views/admin/import/template.php:13
+msgid "Support"
+msgstr "Soporte"
+
+#: actions/admin_menu.php:14 views/admin/settings/index.php:7
+msgid "Settings"
+msgstr "Ajustes"
+
+#: actions/admin_menu.php:13 views/admin/import/process.php:54
+#: views/admin/manage/index.php:5
+msgid "Manage Imports"
+msgstr "Gestionar importaciones"
+
+#: actions/admin_menu.php:12
+msgid "New Import"
+msgstr "Nueva importación"
