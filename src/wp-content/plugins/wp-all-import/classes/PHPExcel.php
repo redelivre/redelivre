@@ -901,9 +901,7 @@ class PHPExcel
      */
     public function getCellXfByIndex($pIndex = 0)
     {
-        if ( array_key_exists( $pIndex, $this->cellXfCollection ) ) {
-            return $this->cellXfCollection[$pIndex];
-        }
+        return $this->cellXfCollection[$pIndex];
     }
 
     /**

@@ -77,16 +77,15 @@ final class XmlImportTemplateScanner
       {
         case XmlImportTemplateScanner::STATE_TEXT:
 
-          if ($ch == '[' && PMXI_Plugin::$is_php_allowed)
-          {
+          if ($ch == '[')
+          {                        
             $this->previous_ch = '[';
             $this->currentState = XmlImportTemplateScanner::STATE_LANG;
             $this->isLangBegin = true;
             //omit [
             $input->read();
           }
-          else
-              if ($ch == '{')
+          elseif ($ch == '{')
           {
             $this->currentState = XmlImportTemplateScanner::STATE_XPATH;
             //omit {

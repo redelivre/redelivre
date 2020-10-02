@@ -1,8 +1,8 @@
 === Import any XML or CSV File to WordPress ===
 Contributors: soflyy, wpallimport 
 Requires at least: 4.1
-Tested up to: 5.5
-Stable tag: 3.5.4
+Tested up to: 5.3
+Stable tag: 3.5.2
 Tags: wordpress csv import, wordpress xml import, xml, csv, datafeed, import, migrate, import csv to wordpress, import xml to wordpress, advanced xml import, advanced csv import, bulk csv import, bulk xml import, bulk data import, xml to custom post type, csv to custom post type, woocommerce csv import, woocommerce xml import, csv import, import csv, xml import, import xml, csv importer
 
 WP All Import is an extremely powerful importer that makes it easy to import any XML or CSV file to WordPress.
@@ -75,7 +75,7 @@ A [developer API](http://www.wpallimport.com/documentation/developers/action-ref
 == Premium Support ==
 Support for the free version of WP All Import is handled through the WordPress.org community forums.
 
-Support is not guaranteed and is based on ability. For premium support over email, [purchase WP All Import.](https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707176&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=readme&utm_campaign=premium-support)
+Support is not guaranteed and is based on ability. For premium support over email, [purchase WP All Import.](https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=1748&edd_options%5Bprice_id%5D=0&utm_source=import-plugin-free&utm_medium=readme&utm_campaign=premium-support)
 
 == Import To WooCommerce ==
 
@@ -104,17 +104,6 @@ Does it work with special character encoding like Hebrew, Arabic, Chinese, etc?
 4. Manage imports.
 
 == Changelog ==
-
-= 3.5.4 =
-* improvement: compatibility with WordPress 5.5
-* API: added helper function wp_all_import_get_import_id()
-* API: added helper function wp_all_import_get_import_post_type($import_id)
-
-= 3.5.3 =
-* bug fix: switch to CodeMirror implementation shipped in WordPress core
-* bug fix: unable to double click to insert XPath in some cases
-* bug fix: unable to apply pmxi_is_images_to_update filter to featured images
-* bug fix: unable to match existing images when suffix is added to file name during import
 
 = 3.5.2 =
 * improvement: match existing images by filename with underscores

@@ -443,13 +443,15 @@
 .wpallimport-plugin .add-new-key{ 
 	background: url("../img/ui_4.0/add.png") no-repeat 0px 5px;
 	font-size: 12px;
-	width: 115px;
-	height: 25px;
+	width:100px;
+	height:25px;
 	padding-left: 20px;
-	color: #21759B;
+	color:#21759B;
+	/*font-family: "Open Sans",​sans-serif;*/
 	padding-top: 2px;
 	text-decoration: underline;
 	display: block;
+	/*margin: 0 auto;	*/
 }
 
 .wpallimport-plugin .remove-ico{
@@ -727,13 +729,7 @@ p.upgrade_link {
 	-khtml-border-radius: 14px;
 	-webkit-border-radius: 14px;	
 }
-.wpallimport-plugin .rad30{
-	border-radius: 30px;
-	-moz-border-radius: 30px;
-	-khtml-border-radius: 30px;
-	-webkit-border-radius: 30px;
-}
-.wpallimport-plugin .pl17{ padding-left: 17px; }
+.wpallimport-plugin .pl17{ padding-left: 17px; }	
 .wpallimport-plugin .no-margin{ margin: 0px; }
 .wpallimport-plugin .hidden{ display: none; }
 .wpallimport-plugin .fs11 { font-size: 11px; }
@@ -1011,25 +1007,6 @@ p.upgrade_link {
 	padding-bottom: 15px;
 }
 
-.wpallimport-plugin .wpallimport-content-section.wpallimport-complete-statistics {
-	text-align: left;
-	padding: 20px;
-}
-
-.wpallimport-plugin .wpallimport-content-section.wpallimport-complete-statistics p {
-	font-size: 21px !important;
-	color: #777;
-	background: url("../img/s-check.png") no-repeat;
-	background-size: 30px;
-	padding-left: 50px;
-}
-.wpallimport-plugin .wpallimport-skipped-notice{
-	display: none;
-}
-
-.wpallimport-skipped-notice a {
-	margin-left: 0px !important;
-}
 
 .wpallimport-plugin table.form-table {
 	clear: none;
@@ -1540,18 +1517,6 @@ p.upgrade_link {
 .wpallimport-plugin #custom_type_selector .dd-selected .dashicon-import_users:before{
 	font-family: "dashicons";
 	content: "\f110";
-	color: #555;
-}
-.wpallimport-plugin #custom_type_selector .dd-option .dashicon-comments:before,
-.wpallimport-plugin #custom_type_selector .dd-selected .dashicon-comments:before{
-	font-family: "dashicons";
-	content: "\f101";
-	color: #555;
-}
-.wpallimport-plugin #custom_type_selector .dd-option .dashicon-reviews:before,
-.wpallimport-plugin #custom_type_selector .dd-selected .dashicon-reviews:before{
-	font-family: "dashicons";
-	content: "\f155";
 	color: #555;
 }
 .wpallimport-plugin #custom_type_selector .dd-option .dashicon-taxonomies:before,
@@ -2692,7 +2657,7 @@ p.upgrade_link {
 .wpallimport-plugin #processbar{	
 	text-align: center;
 	visibility: hidden;
-	height: 70px;
+	height: 30px;
 	margin-top: 18px;
 	margin-bottom: 20px;		
 	background: #fff;
@@ -2701,37 +2666,24 @@ p.upgrade_link {
 }
 	.wpallimport-plugin #processbar div{
 		background: #76d771;
-		height: 70px;
+		height: 30px;
 		width: 0%;
 		position: absolute;		
 		top:0;
 	}
-.wpallimport-plugin .progress_processed {
-	margin-bottom: 20px;
-	text-align: right;
-}
-.wpallimport-plugin .progress_details {
-	text-align: right;
-}
-.wpallimport-plugin .progress_details .progress_details_item {
-	margin-left: 10px;
-}
 .wpallimport-plugin #import_progress{
 	color: #000000;
 	font-size: 21px;
 	/*font-weight: bold;*/
 	display: block;
 	width: 100%;
-	height: 70px;
 	text-align: center;
 	opacity: 1;
 	position: relative;
 	padding-top: 10px;
 }
-	.wpallimport-plugin #center_progress{
-		position: relative;
-		top: 25px;
-		color: #326C3B;
+	.wpallimport-plugin #import_progress #center_progress{
+		color:#46ba69;
 		font-size: 60px;
 	}
 .wpallimport-plugin #right_progress{ 
@@ -2739,7 +2691,7 @@ p.upgrade_link {
 	right: 0;
 	color:#777;
 }
-	.wpallimport-plugin #right_progress span span {
+	.wpallimport-plugin #right_progress span{
 		color:#000;
 	}
 .wpallimport-plugin #left_progress{ 
@@ -2869,6 +2821,7 @@ p.upgrade_link {
 	padding: 10px 10px 10px 40px;
 	color: #777;
 }
+
 .wpallimport-plugin .new_element_ico{
 	padding: 10px 10px 10px 40px;
 	color: #777;

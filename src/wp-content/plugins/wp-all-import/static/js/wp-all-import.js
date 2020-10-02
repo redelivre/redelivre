@@ -28,7 +28,7 @@
 		
 	});
 
-	$('.wpallimport-dismissible').find('button.notice-dismiss').on('click', (function(e){
+	$('.wpallimport-dismissible').find('button.notice-dismiss').live('click', (function(e){
 
     	var request = {
 			action: 'dismiss_notifications',		

@@ -27,13 +27,7 @@ function pmxi_wp_ajax_auto_detect_sf(){
                     WHERE usermeta.meta_key='".$fieldName."'
                 ", ARRAY_A);
                 break;
-            case 'taxonomies':
-                $values = $wpdb->get_results("
-                    SELECT DISTINCT termmeta.meta_value
-                    FROM ".$wpdb->termmeta." as termmeta
-                    WHERE termmeta.meta_key='".$fieldName."'
-                ", ARRAY_A);
-                break;
+
             default:
                 $values = $wpdb->get_results("
                     SELECT DISTINCT postmeta.meta_value

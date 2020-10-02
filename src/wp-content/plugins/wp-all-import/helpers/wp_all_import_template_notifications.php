@@ -20,18 +20,18 @@ if ( ! function_exists('wp_all_import_template_notifications') )
 
 			if ( $post['custom_type'] == 'import_users' && ! class_exists('PMUI_Plugin') )
 			{
-				$notifications[] = __('The import template you are using requires the User Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707221&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users-template" target="_blank">Purchase the User Add-On</a>.', 'wp_all_import_plugin');						
+				$notifications[] = __('The import template you are using requires the User Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href="https://www.wpallimport.com/checkout/?edd_action=purchase_collection&taxonomy=download_category&terms=40&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users-template" target="_blank">Purchase the User Add-On</a>.', 'wp_all_import_plugin');						
 			}
 
 			if ( $post['custom_type'] == 'shop_customer' && ! class_exists('PMUI_Plugin') )
 			{
-				$notifications[] = __('The import template you are using requires the User Add-On. If you continue without having this add-on active, your data may import incorrectly.<br/><br/><a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707221&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users-template" target="_blank">Purchase the User Add-On</a>.', 'wp_all_import_plugin');
+				$notifications[] = __('The import template you are using requires the User Add-On. If you continue without having this add-on active, your data may import incorrectly.<br/><br/><a href="https://www.wpallimport.com/checkout/?edd_action=purchase_collection&taxonomy=download_category&terms=40&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users-template" target="_blank">Purchase the User Add-On</a>.', 'wp_all_import_plugin');
 			}
 
 
 			elseif ( $post['custom_type'] == 'product' && ! class_exists('PMWI_Plugin') && class_exists( 'Woocommerce' ))
 			{
-				$notifications[] = __('The import template you are using requires the WooCommerce Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707227&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-wooco-template" target="_blank">Purchase the WooCommerce Add-On</a>.', 'wp_all_import_plugin');				
+				$notifications[] = __('The import template you are using requires the WooCommerce Add-On. If you continue without it your data may import incorrectly.<br/><br/><a href="https://www.wpallimport.com/checkout/?edd_action=purchase_collection&taxonomy=download_category&terms=14&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-wooco-template" target="_blank">Purchase the WooCommerce Add-On</a>.', 'wp_all_import_plugin');				
 			}			
 			// Realia Add-On
 			elseif ( ! empty($post['realia_addon']) and ! is_plugin_active('realia-xml-csv-property-listings-import/realia-add-on.php') )

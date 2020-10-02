@@ -24,7 +24,7 @@ class PMXI_Admin_Addons extends PMXI_Controller_Admin {
             'active' => (class_exists('PMWI_Plugin') and defined('PMWI_EDITION') and PMWI_EDITION == 'paid'),
             'free_installed' => (class_exists('PMWI_Plugin') and defined('PMWI_EDITION') and PMWI_EDITION == 'free'),
             'required_plugins' => false,
-            'url' => 'http://www.wpallimport.com/woocommerce-product-import'
+            'url' => 'http://www.wpallimport.com/woocommerce-product-import/'
         );
 
         // ACF add-on

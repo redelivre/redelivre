@@ -5,6 +5,8 @@
  */
 function wp_delete_attachments($parent_id, $unlink = true, $type = 'images') {	
 
+	if ( $type == 'images' and has_post_thumbnail($parent_id) ) delete_post_thumbnail($parent_id);
+
 	$ids = array();
 
 	$attachments = get_posts(array('post_parent' => $parent_id, 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null));

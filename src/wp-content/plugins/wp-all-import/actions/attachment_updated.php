@@ -17,12 +17,9 @@ function pmxi_attachment_updated($post_ID, $post_after, $post_before){
         ));
         if (!$imageRecord->isEmpty()){
             $image_name = basename(wp_get_attachment_url( $post_ID ));
-            // Do not update filename for scaled images.
-            if (strpos($image_name, '-scaled.') === FALSE) {
-                $imageRecord->set(array(
-                    'image_filename' =>  $image_name
-                ))->update();
-            }
+            $imageRecord->set(array(
+                'image_filename' =>  $image_name
+            ))->update();
         }
     }
 }

@@ -1,12 +1,10 @@
 <?php
 	
-function pmxi_pmxi_custom_types($custom_types) {
-    if ( class_exists('WooCommerce') ) {
-        $custom_types['reviews'] = new stdClass();
-        $custom_types['reviews']->labels = new stdClass();
-        $custom_types['reviews']->labels->name = __('WooCommerce Reviews', PMXI_Plugin::LANGUAGE_DOMAIN);
-    }
-	if ( class_exists('WooCommerce') && ! class_exists('PMWI_Plugin') ) {
+function pmxi_pmxi_custom_types($custom_types)
+{
+
+	if ( class_exists('WooCommerce') && ! class_exists('PMWI_Plugin') )
+	{
 		if ( ! empty($custom_types['product']) ) $custom_types['product']->labels->name = __('WooCommerce Products','wp_all_import_plugin');
 		if ( ! empty($custom_types['shop_order']) ) $custom_types['shop_order']->labels->name = __('WooCommerce Orders','wp_all_import_plugin');
 		if ( ! empty($custom_types['shop_coupon'])) $custom_types['shop_coupon']->labels->name = __('WooCommerce Coupons','wp_all_import_plugin');
@@ -17,17 +15,23 @@ function pmxi_pmxi_custom_types($custom_types) {
 
 		$ordered_custom_types = array();
 
-		foreach ($order as $type) {
+		foreach ($order as $type) 
+		{			
 			if (isset($ordered_custom_types[$type])) continue;
 
-			foreach ($custom_types as $key => $custom_type) {
+			foreach ($custom_types as $key => $custom_type) 
+			{
 				if (isset($ordered_custom_types[$key])) continue;
 
-				if (in_array($key, $order)) {
-					if ($key == $type) {
+				if (in_array($key, $order))
+				{
+					if ($key == $type)
+					{
 						$ordered_custom_types[$key] = $custom_type;
 					}
-				} else {
+				}
+				else
+				{
 					$ordered_custom_types[$key] = $custom_type;
 				}
 			}			

@@ -224,7 +224,7 @@ class PMXI_Chunk {
       $parser = new Parser\UniqueNode($parseroptions);
       $this->reader = new XmlStringStreamer($parser, $streamProvider);
     }
-  }
+  }  
 
   function get_file_path()
   {
@@ -285,7 +285,7 @@ class PMXI_Chunk {
 
                     if ($this->loop < $this->options['pointer']){
                       $this->loop++;                              
-                      continue(2);
+                      continue;
                     }                
                     
                     $xml = @$this->reader->readOuterXML();                  
@@ -324,9 +324,9 @@ class PMXI_Chunk {
       }
     }
 
-    return ( ! empty($xml) ) ? self::removeColonsFromRSS(preg_replace('%xmlns\s*=\s*([\'"]).*\1%sU', '', $xml)) : false;
+    return ( ! empty($xml) ) ? self::removeColonsFromRSS(preg_replace('%xmlns.*=\s*([\'"&quot;]).*\1%sU', '', $xml)) : false;
 
-  }
+  }  
 
   public static function removeColonsFromRSS($feed) {
         

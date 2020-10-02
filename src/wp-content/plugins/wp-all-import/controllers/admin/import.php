@@ -10,7 +10,11 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 	protected $isTemplateEdit = false; // indicates whether controlled is deligated by manage imports controller	
 
 	protected function init() {
-		parent::init();
+		parent::init();							
+		
+		error_reporting(0);
+		
+		//PMXI_Plugin::$session = PMXI_Session::get_instance();			
 
 		if ('PMXI_Admin_Manage' == PMXI_Plugin::getInstance()->getAdminCurrentScreen()->base) { // prereqisites are not checked when flow control is deligated
 			$id = $this->input->get('id');
@@ -49,7 +53,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 	 */
 	protected function _step_ready($action) {		
 		// step #1: xml selction - has no prerequisites
-		if ('index' == $action) return true;
+		if ('index' == $action) return true;		
 		
 		// step #2: element selection
 		$this->data['dom'] = $dom = new DOMDocument('1.0', PMXI_Plugin::$session->encoding);
@@ -68,7 +72,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			or ! @$dom->loadXML($xml)// FIX: libxml xpath doesn't handle default namespace properly, so remove it upon XML load			
 		) {					
 			if ( ! PMXI_Plugin::is_ajax() ){
-				$this->errors->add('form-validation', __('WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your or your web host\'s end.', 'wp_all_import_plugin'));
+				$this->errors->add('form-validation', __('WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your or your web host\'s end.<br/>If you can\'t do an import without seeing this error, change your session settings on the All Import -> Settings page.', 'wp_all_import_plugin')); 
 				wp_redirect_or_javascript($this->baseUrl); die();
 			}
 		}
@@ -138,22 +142,32 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			$DefaultOptions['custom_type'] = $parent_import_record->options['custom_type'];
 		}
 
-		if ( $id ) { // update requested but corresponding import is not found
-			if ( $import->getById($id)->isEmpty() ) {
-				if ( ! empty($_GET['deligate']) and $_GET['deligate'] == 'wpallexport' ) {
+		if ($id) { // update requested but corresponding import is not found
+			if ($import->getById($id)->isEmpty()){				
+
+				if (!empty($_GET['deligate']) and $_GET['deligate'] == 'wpallexport'){
+				
 					wp_redirect(add_query_arg('pmxi_nt', array('error' => urlencode(__('The import associated with this export has been deleted.', 'wp_all_import_plugin')), 'updated' => urlencode(__('Please re-run your export by clicking Run Export on the All Export -> Manage Exports page. Then try your import again.', 'wp_all_import_plugin'))), remove_query_arg('id', $this->baseUrl))); die();
-				} else {
+
+				}
+				else{
+
 					wp_redirect(add_query_arg('pmxi_nt', array('error' => urlencode(__('This import has been deleted.', 'wp_all_import_plugin'))), remove_query_arg('id', $this->baseUrl))); die();
 				}
-			} else {
+
+			}
+			else{
 				$DefaultOptions['custom_type'] = $import->options['custom_type'];	
 			}
 		}			
 
-		if ( ! in_array($action, array('index'))) {
+		if ( ! in_array($action, array('index')))
+		{
 			PMXI_Plugin::$session->clean_session();				
-		} else {
-			$DefaultOptions = (PMXI_Plugin::$session->has_session() && !empty(PMXI_Plugin::$session->first_step) ? PMXI_Plugin::$session->first_step : array()) + $DefaultOptions;
+		}		 
+		else
+		{			
+			$DefaultOptions = (PMXI_Plugin::$session->has_session() ? PMXI_Plugin::$session->first_step : array()) + $DefaultOptions;											
 		}
 		
 		$this->data['post'] = $post = $this->input->post( $DefaultOptions );					
@@ -240,10 +254,10 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 						$this->errors->add('form-validation', __('Certain columns are required to be present in your file to enable it to be re-imported with WP All Import. These columns are missing. Re-export your file using WP All Export, and don\'t delete any of the columns when editing it. Then, re-import will work correctly.', 'wp_all_import_plugin'));
 					}
 					elseif($importRecord->options['custom_type'] == 'import_users' && ! class_exists('PMUI_Plugin')){
-						$this->errors->add('form-validation', __('<p>The import template you are using requires the User Add-On.</p><a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707221&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users" target="_blank">Purchase the User Add-On</a>', 'wp_all_import_plugin'));
+						$this->errors->add('form-validation', __('<p>The import template you are using requires the User Add-On.</p><a href="https://www.wpallimport.com/checkout/?edd_action=purchase_collection&taxonomy=download_category&terms=40&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users" target="_blank">Purchase the User Add-On</a>', 'wp_all_import_plugin'));
 					}
                     elseif($importRecord->options['custom_type'] == 'shop_customer' && ! class_exists('PMUI_Plugin')){
-                        $this->errors->add('form-validation', __('<p>The import template you are using requires the User Add-On.</p><a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707221&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users" target="_blank">Purchase the User Add-On</a>', 'wp_all_import_plugin'));
+                        $this->errors->add('form-validation', __('<p>The import template you are using requires the User Add-On.</p><a href="https://www.wpallimport.com/checkout/?edd_action=purchase_collection&taxonomy=download_category&terms=40&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=import-users" target="_blank">Purchase the User Add-On</a>', 'wp_all_import_plugin'));
                     }
 					
 					break;
@@ -925,12 +939,12 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			// validate
 			try {
 				if (empty($xml)){
-					$this->errors->add('form-validation', __('WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your web host\'s end.', 'wp_all_import_plugin'));
+					$this->errors->add('form-validation', __('WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your web host\'s end.<br/>If you can\'t do an import without seeing this error, change your session settings on the All Import -> Settings page.', 'wp_all_import_plugin'));
 				} elseif (empty($post['title'])) {				
 					$this->errors->add('form-validation', __('<strong>Warning</strong>: your title is blank.', 'wp_all_import_plugin'));
 					$this->data['title'] = "";
 				} else {				
-					list($this->data['title']) = XmlImportParser::factory($xml, $xpath, $post['title'], $file)->parse(); unlink($file);
+					list($this->data['title']) = XmlImportParser::factory($xml, $xpath, $post['title'], $file)->parse(); unlink($file);				
 					if ( ! isset($this->data['title']) or '' == strval(trim(strip_tags($this->data['title'], '<img><input><textarea><iframe><object><embed>')))) {
 						$this->errors->add('xml-parsing', __('<strong>Warning</strong>: resulting post title is empty', 'wp_all_import_plugin'));
 					}
@@ -941,7 +955,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			}
 			try {	
 				if (empty($xml)){
-					$this->errors->add('form-validation', __('WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your web host\'s end.', 'wp_all_import_plugin'));
+					$this->errors->add('form-validation', __('WP All Import lost track of where you are.<br/><br/>Maybe you cleared your cookies or maybe it is just a temporary issue on your web host\'s end.<br/>If you can\'t do an import without seeing this error, change your session settings on the All Import -> Settings page.', 'wp_all_import_plugin'));
 				} elseif (empty($post['content'])) {
 					$this->errors->add('form-validation', __('<strong>Warning</strong>: your content is blank.', 'wp_all_import_plugin'));
 					$this->data['content'] = "";				
@@ -2176,16 +2190,18 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 	/**
 	 * Import processing step (status console)
 	 */
-	public function process($save_history = true) {
+	public function process($save_history = true)
+	{
 
-		$wp_uploads = wp_upload_dir();
-		$import = $this->data['update_previous'];
-		$history_log = new PMXI_History_Record();
+		$wp_uploads = wp_upload_dir();		
+													
+		$import = $this->data['update_previous'];		
+		
+		$history_log = new PMXI_History_Record();	
+
 		$input  = new PMXI_Input();					
 
-		if ( ! empty(PMXI_Plugin::$session->history_id) ) {
-            $history_log->getById(PMXI_Plugin::$session->history_id);
-        }
+		if ( ! empty(PMXI_Plugin::$session->history_id) ) $history_log->getById(PMXI_Plugin::$session->history_id);
 
 		$log_storage = (int) PMXI_Plugin::getInstance()->getOption('log_storage');				
 
@@ -2195,7 +2211,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 				(empty(PMXI_Plugin::$session->source) ? array() : PMXI_Plugin::$session->source)
 				+ array(
 					'xpath' => PMXI_Plugin::$session->xpath,					
-					'options' => ($this->data['update_previous']->isEmpty()) ? PMXI_Plugin::$session->options : $import->options + PMXI_Plugin::$session->options,
+					'options' => PMXI_Plugin::$session->options,									
 					'count' => PMXI_Plugin::$session->count,
 					'friendly_name' => wp_all_import_clear_xss(PMXI_Plugin::$session->options['friendly_name']),
 					'feed_type' => PMXI_Plugin::$session->feed_type,
@@ -2222,7 +2238,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			// add history log
 			$custom_type = get_post_type_object( $import->options['custom_type'] );					
 
-			// Unlink previous logs.
+			// unlink previous logs
 			$by = array();
 			$by[] = array(array('import_id' => $import->id), 'AND');
 			$historyLogs = new PMXI_History_List();
@@ -2236,8 +2252,8 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 					if ($i == $logsToRemove)
 						break;
 				}
-			}
-
+			}			
+			
 			$history_log->set(array(
 				'import_id' => $import->id,
 				'date' => date('Y-m-d H:i:s'),
@@ -2286,6 +2302,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 					'name' => $import->name,
 					'import_id' => $import->id,
 					'path' => wp_all_import_get_relative_path(PMXI_Plugin::$session->filePath),
+					//'contents' => $this->get_xml(),
 					'registered_on' => date('Y-m-d H:i:s')
 				))->save();
 			}																	
@@ -2301,7 +2318,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 
 				$chunk_files = array();
 
-				if ( ! empty(PMXI_Plugin::$session->local_paths)) {
+				if ( ! empty(PMXI_Plugin::$session->local_paths)){
 
 					$records_count = 0;
 					$chunk_records_count = 0;
@@ -2310,11 +2327,13 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 
 					foreach (PMXI_Plugin::$session->local_paths as $key => $path) {
 
-						$file = new PMXI_Chunk($path, array('element' => $import->root_element, 'encoding' => $import->options['encoding']));
-					    // Loop through the file until all lines are read.
+						$file = new PMXI_Chunk($path, array('element' => $import->root_element, 'encoding' => $import->options['encoding']));												
+
+					    // loop through the file until all lines are read				    				    			   			   	    			    			    
 					    while ($xml = $file->read()) {				    	
 
-					    	if ( ! empty($xml) )  {
+					    	if ( ! empty($xml) )
+					      	{
 					      		//PMXI_Import_Record::preprocessXml($xml);
 					      		$chunk = "<?xml version=\"1.0\" encoding=\"". $import->options['encoding'] ."\"?>"  . "\n" . $xml;					      		
 						      					      		
@@ -2350,9 +2369,10 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			if ( $log_storage ){
 				$log_file = wp_all_import_secure_file( $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $history_log->id ) . DIRECTORY_SEPARATOR . $history_log->id . '.html'; 
 				if ( PMXI_Plugin::$session->action != 'continue'){
-					if (file_exists($log_file)) {
-                        wp_all_import_remove_source($log_file, false);
-                    }
+					if (file_exists($log_file)) 
+						wp_all_import_remove_source($log_file, false);	
+
+					//@file_put_contents($log_file, sprintf(__('<p>Source path `%s`</p>', 'wp_all_import_plugin'), $import->path));					
 				}				
 			}			
 			
@@ -2365,10 +2385,12 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			$import_id = $input->get('id', 0);
 
 			if ( "ajax" == $import->options['import_processing'] and ! $import_id){ 				
-				PMXI_Plugin::$session->convertData($import->id);
+				PMXI_Plugin::$session->convertData($import->id);							
+				//die();
 			}
 		}		
-		elseif (empty($import->id)) {
+		elseif (empty($import->id))
+		{						
 			$import = new PMXI_Import_Record();			
 			$import_id = $input->get('id', PMXI_Plugin::$session->update_previous);
 			$import->getById($import_id);
@@ -2380,10 +2402,12 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			exit( __('Security check', 'wp_all_import_plugin') );
 		}
 
-		if ($ajax_processing) {
+		if ($ajax_processing)
+		{			
 			$logger = function($m) {echo "<div class='progress-msg'>[". date("H:i:s") ."] $m</div>\n";flush();};
 		}
-		else {
+		else
+		{
             $logger = function($m) {echo "<div class='progress-msg'>$m</div>\n"; if ( "" != strip_tags(wp_all_import_strip_tags_content($m))) { PMXI_Plugin::$session->log .= "<p>".strip_tags(wp_all_import_strip_tags_content($m))."</p>"; flush(); }};
 		}
 
@@ -2391,7 +2415,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 
         $is_reset_cache = apply_filters('wp_all_import_reset_cache_before_import', false, $import->id);
 
-		if ($is_reset_cache) {
+        if ($is_reset_cache){
             wp_cache_flush();
         }
 
@@ -2401,10 +2425,9 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 		if ( PMXI_Plugin::is_ajax() or ! $ajax_processing ) {						
 
 			$iteration_start_time = time();			
-
-			if ( $log_storage ) {
-                $log_file = wp_all_import_secure_file( $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $history_log->id ) . DIRECTORY_SEPARATOR . $history_log->id . '.html';
-            }
+			
+			if ( $log_storage )
+				$log_file = wp_all_import_secure_file( $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $history_log->id ) . DIRECTORY_SEPARATOR . $history_log->id . '.html';
 
 			if ( $ajax_processing ) {
 				// HTTP headers for no cache etc
@@ -2419,8 +2442,8 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			$pointer = 0;			
 			$records = array();
 
-			if ($import->options['is_import_specified']) {
-                $import_specified_option = apply_filters('wp_all_import_specified_records', $import->options['import_specified'], $import->id, false);
+			if ($import->options['is_import_specified']) {						
+				$import_specified_option = apply_filters('wp_all_import_specified_records', $import->options['import_specified'], $import->id, false);		
 				foreach (preg_split('% *, *%', $import_specified_option, -1, PREG_SPLIT_NO_EMPTY) as $chank) {
 					if (preg_match('%^(\d+)-(\d+)$%', $chank, $mtch)) {
 						$records = array_merge($records, range(intval($mtch[1]), intval($mtch[2])));
@@ -2428,46 +2451,52 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 						$records = array_merge($records, array(intval($chank)));
 					}
 				}
-			}
+			}												
 
 			$records_to_import = (empty($records) || $import->options['is_delete_missing']) ? $import->count : $records[count($records) -1];
 			
 			$failures = $input->get('failures', 0);
 
-			// Auto decrease records per iteration option.
-            if ($failures) {
-                $options = $import->options;
-                $options['records_per_request'] = (ceil($options['records_per_request']/2)) ? ceil($options['records_per_request']/2) : 1;
-                $import->set(array('options' => $options))->update();
-            }
+			// auto decrease records per iteration option
+			if ( $failures ){
+				$options = $import->options;
+				$options['records_per_request'] = (ceil($options['records_per_request']/2)) ? ceil($options['records_per_request']/2) : 1;
+				$import->set(array('options' => $options))->update();
+			}
 
-            $records_per_request = ( ! $ajax_processing and $import->options['records_per_request'] < 50 ) ? 50 : $import->options['records_per_request'];
+			$records_per_request = ( ! $ajax_processing and $import->options['records_per_request'] < 50 ) ? 50 : $import->options['records_per_request'];
 
-			if (!empty(PMXI_Plugin::$session->local_paths)) {
+			if ( ! empty(PMXI_Plugin::$session->local_paths) ) {
 
-                if (!empty($records) && $import->queue_chunk_number < $records[0] && strpos($import->xpath, "[") === false && ! $import->options['is_delete_missing']) {
+				if (!empty($records) && $import->queue_chunk_number < $records[0] && strpos($import->xpath, "[") === false && ! $import->options['is_delete_missing']) {
                     $pointer = $records[0];
                 }
+
                 $chunk_records_count = PMXI_Plugin::getInstance()->getOption('large_feed_limit');
+
 				$feed = "<?xml version=\"1.0\" encoding=\"". $import->options['encoding'] ."\"?>"  . "\n" . "<pmxi_records>";
 
 				foreach (PMXI_Plugin::$session->local_paths as $key => $path) {
+
 					$import_done = ($import->imported + $import->skipped == $records_to_import ) ? true : false;
-			    	if ($import_done) {
-                        foreach (PMXI_Plugin::$session->local_paths as $chunk_file) {
+
+			    	if ( $import_done ) {
+                        foreach (PMXI_Plugin::$session->local_paths as $chunk_file){
                             if (strpos($chunk_file, "pmxi_chunk_") !== false and @file_exists($chunk_file)) wp_all_import_remove_source($chunk_file, false);
                         }
                         PMXI_Plugin::$session->set('local_paths', array());
 				    	PMXI_Plugin::$session->save_data();
 				    	break;
 				    }
-				    // Set XMLReader pointer to first value of specified records option.
-                    if ( ! empty($records) && $import->queue_chunk_number < $records[0] && strpos($import->xpath, "[") === false && ! $import->options['is_delete_missing']) {
-                        if ($import->options['chuncking'] && $pointer > $chunk_records_count) {
+
+				    // set XMLReader pointer to first value of specified records option
+                    if ( ! empty($records) && $import->queue_chunk_number < $records[0] && strpos($import->xpath, "[") === false && ! $import->options['is_delete_missing']){
+
+                        if ($import->options['chuncking'] && $pointer > $chunk_records_count)
+                        {
                             $pointer -= $chunk_records_count;
-                            if (strpos($path, "pmxi_chunk_") !== false and @file_exists($path)) {
-                                @unlink($path);
-                            }
+
+                            if (strpos($path, "pmxi_chunk_") !== false and @file_exists($path)) @unlink($path);
                             PMXI_Plugin::$session->set('chunk_number', $import->queue_chunk_number + $chunk_records_count);
                             $lp = PMXI_Plugin::$session->local_paths;
                             array_shift($lp);
@@ -2480,47 +2509,74 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
                             ))->save();
                             continue;
                         }
+
                         PMXI_Plugin::$session->set('chunk_number', $import->queue_chunk_number + $pointer);
                         PMXI_Plugin::$session->set('pointer', $pointer);
                         PMXI_Plugin::$session->save_data();
+
                         $import->set(array(
                             'skipped' => $import->skipped + $pointer - 1,
                             'queue_chunk_number' => $import->queue_chunk_number + $pointer
                         ))->save();
+
                         $pointer = 0;
-                    }
+                    }							    
+
 					$file = new PMXI_Chunk($path, array(
 						'element' => $import->root_element, 
 						'encoding' => $import->options['encoding'], 
 						'pointer' => PMXI_Plugin::$session->pointer,
-						'filter' => true
-					));
-				    // Loop through the file until all lines are read.
+						'filter' => true //$import->options['chuncking'] ? false : true
+					));					
+
+				    // loop through the file until all lines are read				    				    			   			   	    			    			    
 				    while ($xml = $file->read() and empty($import->canceled) ) {
-				    	if (!empty($xml)) {
-				      		$chunk = "<?xml version=\"1.0\" encoding=\"". $import->options['encoding'] ."\"?>"  . "\n" . $xml;
+
+				    	if ( ! empty($xml) )
+				      	{
+				      		// if ( ! $import->options['chuncking'] ) 
+				      		// 	PMXI_Import_Record::preprocessXml($xml);
+
+				      		$chunk = "<?xml version=\"1.0\" encoding=\"". $import->options['encoding'] ."\"?>"  . "\n" . $xml;				      		
+					      					      		
 					      	$dom = new DOMDocument('1.0', $import->options['encoding']);
 							$old = libxml_use_internal_errors(true);							
 							$dom->loadXML($chunk); // FIX: libxml xpath doesn't handle default namespace properly, so remove it upon XML load	
 							libxml_use_internal_errors($old);
 							$xpath = new DOMXPath($dom);
+
 							$pointer++;
-							if (($this->data['elements'] = $elements = @$xpath->query($import->xpath)) and $elements->length) {
-								// Continue action.
+
+							if (($this->data['elements'] = $elements = @$xpath->query($import->xpath)) and $elements->length){
+								
+								/* Merge nested XML/CSV files */
+								/*$nested_files = json_decode($import->options['nested_files'], true);
+								if ( ! empty($nested_files) and is_array($nested_files)){										
+									$merger = new PMXI_Nested($dom, $nested_files, $xml, $import->xpath, $elements);
+									$merger->merge();
+									$xml = $merger->get_xml();
+									unset($merger);
+								}	*/							
+
+								// continue action
 								if ( $import->imported + $import->skipped >= PMXI_Plugin::$session->chunk_number + $elements->length - 1 ){
 									PMXI_Plugin::$session->set('chunk_number', PMXI_Plugin::$session->chunk_number + $elements->length);
 									PMXI_Plugin::$session->save_data();
 									continue;
-								}
-                                if ( ! $loop and $ajax_processing ) {
-                                    ob_start();
-                                }
-                                $feed .= $xml; $loop += $elements->length;
+								}																
+
+								if ( ! $loop and $ajax_processing ) ob_start();								
+
+								$feed .= $xml; $loop += $elements->length;
+
 								$processed_records = $import->imported + $import->skipped;
+
 								if ( $loop == $records_per_request or $processed_records + $loop == $records_to_import or $processed_records == $records_to_import) {
+
 									$feed .= "</pmxi_records>";												
 									$import->process($feed, $logger, PMXI_Plugin::$session->chunk_number, false, '/pmxi_records', $loop);																											
-									unset($dom, $xpath);
+									unset($dom, $xpath);																													
+
 									if ( ! $ajax_processing ){										
 										$feed = "<?xml version=\"1.0\" encoding=\"". $import->options['encoding'] ."\"?>"  . "\n" . "<pmxi_records>";
 										$loop = 0;	
@@ -2530,28 +2586,30 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 											$custom_type = get_post_type_object( $import->options['custom_type'] );			
 											$history_log->set(array(					
 												'time_run' => time() - strtotime($history_log->date),
-												'summary' => sprintf(__("%d %s created %d updated %d deleted %d skipped", "wp_all_import_plugin"), $import->created, ( ($import->created == 1) ? $custom_type->labels->singular_name : $custom_type->labels->name ), $import->updated, $import->deleted, $import->skipped)
+												'summary' => sprintf(__("%d %ss created %d updated %d deleted %d skipped", "pmxi_plugin"), $import->created, $custom_type->labels->singular_name, $import->updated, $import->deleted, $import->skipped)
 											))->update();
 										}
+
 										unset($file);
 										PMXI_Plugin::$session->set('pointer', PMXI_Plugin::$session->pointer + $pointer);
 										PMXI_Plugin::$session->save_data();
 
 										$log_data = ob_get_clean();
-										if ($log_storage) {
+
+										if ( $log_storage ){
 											$log = @fopen($log_file, 'a+');				
 											@fwrite($log, $log_data);
 											@fclose($log);						
 										}
-										$iteration_execution_time = time() - $iteration_start_time;
+
+										$iteration_execution_time = time() - $iteration_start_time;										
+
 										wp_send_json(array(
 											'imported' => $import->imported,
 											'created' => $import->created,
 											'updated' => $import->updated,			
-											'skipped' => $import->skipped,
-											'skipped_by_hash' => PMXI_Plugin::$session->skipped,
-                                            'deleted' => $import->deleted,
-                                            'percentage' => ceil(($processed_records/$import->count) * 100),
+											'skipped' => $import->skipped,							
+											'percentage' => ceil(($processed_records/$import->count) * 100),
 											'warnings' => PMXI_Plugin::$session->warnings,
 											'errors' => PMXI_Plugin::$session->errors,
 											'log' => $log_data,
@@ -2563,12 +2621,13 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 								}								
 							}
 					    }
-					}
-					// Move to the next file, set pointer to first element.
+					}						
+
+					// Move to the next file, set pointer to first element
 					if ( $ajax_processing ) {
-						if (strpos($path, "pmxi_chunk_") !== false and @file_exists($path)) {
-                            @unlink($path);
-                        }
+						
+						if (strpos($path, "pmxi_chunk_") !== false and @file_exists($path)) @unlink($path);
+
 						PMXI_Plugin::$session->set('pointer', 1);
 						$pointer = 0;
 						$lp = PMXI_Plugin::$session->local_paths;
@@ -2581,25 +2640,31 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			}									
 		}	
 
-		// Delete missing records.
-		if ( ( PMXI_Plugin::is_ajax() and empty(PMXI_Plugin::$session->local_paths) ) or ! $ajax_processing ) {
-			ob_start();
+		// delete missing records
+		if ( ( PMXI_Plugin::is_ajax() and empty(PMXI_Plugin::$session->local_paths) ) or ! $ajax_processing )
+		{			
+
+			ob_start();			
+
 			$is_all_records_deleted = $import->delete_missing_records($logger, $import->iteration);
+
 			$log_data = ob_get_clean();
-			if ($log_storage) {
+
+			if ( $log_storage ){
 				$log = @fopen($log_file, 'a+');				
 				@fwrite($log, $log_data);
 				@fclose($log);						
 			}
-			$iteration_execution_time = time() - $iteration_start_time;
+
+			$iteration_execution_time = time() - $iteration_start_time;										
+
 			if ( $ajax_processing and ! $is_all_records_deleted ) {
 				wp_send_json(array(
 					'imported' => $import->imported,
 					'created' => $import->created,
 					'updated' => $import->updated,		
 					'skipped' => $import->skipped,
-                    'skipped_by_hash' => PMXI_Plugin::$session->skipped,
-					'deleted' => $import->deleted,
+					'deleted' => $import->deleted,								
 					'percentage' => 99,
 					'warnings' => PMXI_Plugin::$session->warnings,
 					'errors' => PMXI_Plugin::$session->errors,
@@ -2612,6 +2677,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 		}		
 		
 		if ( ( PMXI_Plugin::is_ajax() and empty(PMXI_Plugin::$session->local_paths) ) or ! $ajax_processing or ! empty($import->canceled) ) {
+						
 			$import->set(array(
 				'processing' => 0, // unlock cron requests	
 				'triggered' => 0,
@@ -2631,7 +2697,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 					@fclose($log);
 				}
 			}
-
+			
 			foreach ( get_taxonomies() as $tax ) {				
 				delete_option( "{$tax}_children" );
 				_get_term_hierarchy( $tax );
@@ -2649,7 +2715,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			$custom_type = get_post_type_object( $import->options['custom_type'] );			
 			$history_log->set(array(					
 				'time_run' => time() - strtotime($history_log->date),
-				'summary' => sprintf(__("%d %s created %d updated %d deleted %d skipped", "pmxi_plugin"), $import->created, ( ($import->created == 1) ? $custom_type->labels->singular_name : $custom_type->labels->name ), $import->updated, $import->deleted, $import->skipped)
+				'summary' => sprintf(__("%d %ss created %d updated %d deleted %d skipped", "pmxi_plugin"), $import->created, $custom_type->labels->singular_name, $import->updated, $import->deleted, $import->skipped)
 			))->update();
 
 			// clear import session
@@ -2683,10 +2749,8 @@ COMPLETE;
 					'imported' => $import->imported,
 					'created' => $import->created,
 					'updated' => $import->updated,	
-					'skipped' => $import->skipped,
-                    'skipped_by_hash' => PMXI_Plugin::$session->skipped,
-                    'deleted' => $import->deleted,
-                    'percentage' => 100,
+					'skipped' => $import->skipped,			
+					'percentage' => 100,
 					'warnings' => PMXI_Plugin::$session->warnings,
 					'errors' => PMXI_Plugin::$session->errors,
 					'log' => ob_get_clean(),					
@@ -2695,7 +2759,7 @@ COMPLETE;
 				));			
 
 			}
-		}
+		}			
 	}				
 	
 	protected $_unique_key = array();
