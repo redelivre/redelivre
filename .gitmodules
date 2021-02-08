@@ -249,3 +249,7 @@
 	path = src/wp-content/plugins/mapsvg
 	url = git@gitlab.com:redelivre/mapsvg.git
 	branch = master
+[submodule "src/wp-content/plugins/rl-private-redirect"]
+	path = src/wp-content/plugins/rl-private-redirect
+	url = https://github.com/redelivre/rl-private-redirect
+	branch = main
